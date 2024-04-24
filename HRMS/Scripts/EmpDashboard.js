@@ -1,4 +1,4 @@
-﻿function HighlightActiveLink(element) {
+﻿function HighlightEmpActiveLink(element) {
     $('#empdash-menu li a.active').removeClass('active');
     $(element).addClass('active');
 }
@@ -6,7 +6,7 @@
 //Self service link js
 $('.emp-selfservice').click(function (event) {
     event.preventDefault();
-    HighlightActiveLink($(this));
+    HighlightEmpActiveLink($(this));
     $.ajax({
         url: '/employeedashboard/selfservice',
         type: 'GET',
@@ -35,7 +35,7 @@ $('.emp-selfservice').click(function (event) {
 //Dashboard link js
 $('.emp-dashboard').click(function (event) {
     event.preventDefault();
-    HighlightActiveLink($(this));
+    HighlightEmpActiveLink($(this));
   
     $('.emp-dashboard-data').show();
     $('.selfservice-dashboard-data').hide();
@@ -49,7 +49,7 @@ $('.emp-dashboard').click(function (event) {
 //Attedence link js
 $('.emp-attendence').click(function (event) {
     event.preventDefault();
-    HighlightActiveLink($(this));
+    HighlightEmpActiveLink($(this));
 
     $('.attedance-dashboard-data').show();
     $('.emp-dashboard-data').hide();
@@ -63,7 +63,7 @@ $('.emp-attendence').click(function (event) {
 //Leave Tracker
 $('.emp-leavetracker').click(function (event) {
     event.preventDefault();
-    HighlightActiveLink($(this));
+    HighlightEmpActiveLink($(this));
 
     $('.leave-dashboard-data').show();
     $('.attedance-dashboard-data').hide();
@@ -78,7 +78,7 @@ $('.emp-leavetracker').click(function (event) {
 //My Request link
 $('.emp-myrequest').click(function (event) {
     event.preventDefault();
-    HighlightActiveLink($(this));
+    HighlightEmpActiveLink($(this));
 
     $('.myrequest-dashboard-data').show();
     $('.leave-dashboard-data').hide();

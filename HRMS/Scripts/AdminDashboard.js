@@ -1,4 +1,4 @@
-﻿function HighlightActiveLink(element) {
+﻿function HighlightAdminActiveLink(element) {
     $('#admindash-menu li a.active').removeClass('active');
     $(element).addClass('active');
 }
@@ -6,7 +6,7 @@
 //Self service link js
 $('.admin-dashboard').click(function (event) {
     event.preventDefault();
-    HighlightActiveLink($(this));
+    HighlightAdminActiveLink($(this));
 
     $('.admin-dashboard-container').show();
     $('.admin-empmanagement-container').hide();
@@ -21,7 +21,7 @@ $('.admin-dashboard').click(function (event) {
 //Dashboard link js
 $('.admin-empmanagement').click(function (event) {
     event.preventDefault();
-    HighlightActiveLink($(this));
+    HighlightAdminActiveLink($(this));
 
     $('.admin-empmanagement-container').show();
     $('.admin-dashboard-container').hide();   
@@ -35,7 +35,7 @@ $('.admin-empmanagement').click(function (event) {
 //Attedence link js
 $('.admin-attendance').click(function (event) {
     event.preventDefault();
-    HighlightActiveLink($(this));
+    HighlightAdminActiveLink($(this));
 
     $('.admin-attendance-container').show();
     $('.admin-empmanagement-container').hide();
@@ -49,7 +49,7 @@ $('.admin-attendance').click(function (event) {
 //Leave Tracker
 $('.admin-leave').click(function (event) {
     event.preventDefault();
-    HighlightActiveLink($(this));
+    HighlightAdminActiveLink($(this));
 
     $('.admin-leave-container').show();
     $('.admin-attendance-container').hide();

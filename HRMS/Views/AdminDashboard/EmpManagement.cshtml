@@ -1,0 +1,107 @@
+﻿<div class="container-fluid">
+    <div class="row navbar">
+        <div class="col-lg-7 topic">
+            <p class="header">Employee Directory</p>
+            <button class="btn btn-primary">Export</button>
+        </div>
+        <div class="col-lg-5 navbarl">
+            <div class="container-fluid">
+                <div class="row"></div>
+                <div class="search-container col-3">
+                    <input type="text" placeholder="Search...">
+                    <button type="submit"><i class="fas fa-search"></i></button>
+                </div>
+
+                <div class="features col-4">
+                    <p class="advancetitle">Advanced Features</p>
+                    <div class="toggle-button">
+                        <button type="button" class="btn btn-info collapsedropdown" data-toggle="collapse" data-target="#demo">
+                            <i class="fa-solid fa-angle-down"></i>
+                        </button>
+                    </div>
+                </div>
+                <div class="addingemployee col-4">
+                    <select name="addemployee" class="addemployee" id="addemployee">
+                        <option value="" disabled selected hidden>Add Employee</option>
+                        <option value="Addmanually">+ Add Manually</option>
+                        <option value="importuser">+ Import User</option>
+                    </select>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="row">
+    <div class="col-7"></div>
+    <div class="col-5">
+        <div id="demo" class="collapse">
+            <div class="collapse-topic">
+                Filter By
+                <select class="dropdown" name="department" id="department-dropdown">
+                    <option value="" disabled selected hidden>Department</option>
+                    <option value="option1">Option 1</option>
+                    <option value="option2">Option 2</option>
+                    <option value="option3">Option 3</option>
+                </select>
+                <select class="dropdown" name="Location" id="Location-dropdown">
+                    <option value="" disabled selected hidden>Location</option>
+                    <option value="option1">Option 1</option>
+                    <option value="option2">Option 2</option>
+                    <option value="option3">Option 3</option>
+                </select>
+                <select class="dropdown" name="status" id="status-dropdown">
+                    <option value="" disabled selected hidden>Status</option>
+                    <option value="option1">Option 1</option>
+                    <option value="option2">Option 2</option>
+                    <option value="option3">Option 3</option>
+                </select>
+                <a href="#">clear</a>
+            </div>
+        </div>
+    </div>
+</div>
+<table id="admin-emptable" class="display compact" style="width:100%">
+    <thead>
+        <tr>
+            <th><input type="checkbox"></th>
+            <th>Emp ID</th>
+            <th>Name</th>
+            <th>Designation</th>
+            <th>Department</th>
+            <th>Type</th>
+            <th>Location</th>
+            <th>Status</th>
+            <th>
+                <div class="dropdown">
+                    <button class="dropbtn"><i class="fa-solid fa-list"></i></button>
+                </div>
+            </th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr class="table-row">
+            <td><input type="checkbox"></td>
+            <td>1220</td>
+            <td class="profile-details">
+                <div class="profile-img">
+                    <img src="./images/image (3).png" alt="profile" class="emp-profile" style="width:50px;">
+                </div>
+                <div class="profile-name">
+                    <p class="emp-name">Deepa Mohan</p>
+                    <p class="email">deepa@ambconline.com</p>
+                </div>
+            </td>
+            <td>Research Analyst</td>
+            <td>Digital Marketing</td>
+            <td>Full Time</td>
+            <td>Madurai</td>
+            <td>Active</td>
+            <td class="hover-icons">
+                <div class="icons">
+                    <i class="fa-solid fa-pen"></i>
+                    <i class="fa-solid fa-trash"></i>
+                </div>
+            </td>
+        </tr>
+    </tbody>
+</table>
