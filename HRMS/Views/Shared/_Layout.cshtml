@@ -11,11 +11,12 @@
     <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons" media="all" crossorigin="anonymous">
     <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
     @Styles.Render("~/Content/css")
-    <link href="~/Content/account.css" rel="stylesheet" />
-    <link href="~/Content/loader.css" rel="stylesheet" />
-    <link href="~/Content/common.css" rel="stylesheet" />
-    <link href="~/Content/sidebar.css" rel="stylesheet" />
-    <link href="~/Content/selfservice.css" rel="stylesheet" />
+    <link href="~/Content/z-account.css" rel="stylesheet" />
+    <link href="~/Content/z-loader.css" rel="stylesheet" />
+    <link href="~/Content/z-common.css" rel="stylesheet" />
+    <link href="~/Content/z-sidebar.css" rel="stylesheet" />
+    <link href="~/Content/z-selfservice.css" rel="stylesheet" />
+    @*<link href="~/Content/z-adminempmanagement.css" rel="stylesheet" />*@
     @Scripts.Render("~/bundles/modernizr")
 </head>
 <body>
@@ -23,8 +24,8 @@
     @Scripts.Render("~/bundles/jquery")
     @Scripts.Render("~/bundles/bootstrap")
     @RenderSection("scripts", required: false)
-    <script src="~/Scripts/account.js"></script>
-    <script src="~/Scripts/EmpDashboard.js"></script>
-    <script src="~/Scripts/AdminDashboard.js"></script>
+    <script src="~/Scripts/z-account.js"></script>
+    <script src="~/Scripts/z-EmpDashboard.js"></script>
+    <script src="~/Scripts/z-AdminDashboard.js"></script>
 </body>
 </html>
