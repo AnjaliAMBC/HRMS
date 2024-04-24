@@ -1,0 +1,102 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin Dashboard</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+        }
+
+        .sidebar {
+            height: 100%;
+            width: 250px;
+            position: fixed;
+            top: 0;
+            left: 0;
+            background-color: #111;
+            padding-top: 20px;
+        }
+
+            .sidebar h2 {
+                color: #fff;
+                text-align: center;
+                margin-bottom: 30px;
+            }
+
+            .sidebar ul {
+                list-style-type: none;
+                padding: 0;
+                margin: 0;
+            }
+
+                .sidebar ul li {
+                    padding: 15px;
+                }
+
+                    .sidebar ul li a {
+                        display: block;
+                        color: white;
+                        text-decoration: none;
+                    }
+
+                        .sidebar ul li a:hover {
+                            background-color: #555;
+                        }
+
+        .active {
+            background-color: #4CAF50;
+        }
+    </style>
+</head>
+<body>
+
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+        <div class="container-fluid">
+            <a class="navbar-brand" href="#">Admin Dashboard</a>
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+
+            <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                <ul class="navbar-nav ml-auto">
+                    <li class="nav-item">
+                        <a class="nav-link" href="#">Logout</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-md-3">
+                <div class="sidebar">
+                    <h2>Admin Panel</h2>
+                    <ul>
+                        <li><a href="#" class="active">Dashboard</a></li>
+                        <li><a href="#">Employee Management</a></li>
+                        <li><a href="#">Attendance Management</a></li>
+                        <li><a href="#">Leave Management</a></li>
+                        <li><a href="#">Ticketing</a></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="col-md-9">
+                <div class="content">
+                    <!-- Your page content goes here -->
+                    <h1>Welcome to Admin Dashboard!</h1>
+                    <p>This is where you manage everything.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Bootstrap scripts -->
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.4/dist/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+</body>
+</html>

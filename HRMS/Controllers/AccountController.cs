@@ -74,7 +74,7 @@ namespace Testhrms.Controllers
             if (!string.IsNullOrWhiteSpace(loginModel.EmployeeID))
             {
                 string hostName = Dns.GetHostName();
-                var isEmpExists = _dbContext.Emplogins.Where(emp => emp.EmployeeID == loginModel.EmployeeID && emp.EmployeePassword == loginModel.Password).FirstOrDefault();
+                var isEmpExists = _dbContext.emplogin1.Where(emp => emp.EmployeeID == loginModel.EmployeeID && emp.Password == loginModel.Password).FirstOrDefault();
                 if (isEmpExists != null)
                 {
                     FormsAuthentication.SetAuthCookie(isEmpExists.EmployeeID.ToString(), loginModel.StaySignedIn);
@@ -110,7 +110,7 @@ namespace Testhrms.Controllers
 
         public ActionResult ForgotPassword(ForgotPasswordModel forgotModel)
         {
-            var forgotPwdEmployee = _dbContext.Empinfoes.Where(emp => emp.OfficalEmailID == forgotModel.ForgotEmailID).FirstOrDefault();
+            var forgotPwdEmployee = _dbContext.emplogin1.Where(emp => emp.EmployeeEmail == forgotModel.ForgotEmailID).FirstOrDefault();
             if (forgotPwdEmployee != null)
             {
                 ForgotPasswordEmail(forgotPwdEmployee);
@@ -119,14 +119,14 @@ namespace Testhrms.Controllers
             return Json(forgotModel, JsonRequestBehavior.AllowGet);
         }
 
-        public JsonResult ForgotPasswordEmail(Empinfo empInfoModel)
+        public JsonResult ForgotPasswordEmail(emplogin1 empInfoModel)
         {
             var emailBody = "";
             var emailSubject = "Password Reset Request";
 
             emailBody = RenderPartialToString(this, "_ForgotPasswordEmail", empInfoModel, ViewData, TempData);
 
-            using (MailMessage mm = new MailMessage(ConfigurationManager.AppSettings["SMTPUserName"], empInfoModel.OfficalEmailID))
+            using (MailMessage mm = new MailMessage(ConfigurationManager.AppSettings["SMTPUserName"], empInfoModel.EmployeeEmail))
             {
                 mm.Subject = emailSubject;
                 mm.Body = emailBody;
@@ -152,10 +152,10 @@ namespace Testhrms.Controllers
             var model = new ResetPasswordModel();
             if (!string.IsNullOrWhiteSpace(employeeID))
             {
-                var resetPasswordEmp = _dbContext.Empinfoes.Where(emp => emp.EmployeeID == employeeID).FirstOrDefault();
+                var resetPasswordEmp = _dbContext.emplogin1.Where(emp => emp.EmployeeID == employeeID).FirstOrDefault();
                 if (resetPasswordEmp != null)
                 {
-                    model.EmpInfo = resetPasswordEmp;
+                   model.EmpInfo = resetPasswordEmp;
                 }
             }
             return View("~/Views/Account/ResetPassword.cshtml", model);
@@ -165,10 +165,10 @@ namespace Testhrms.Controllers
         {
             try
             {
-                var resetPasswordEmp = _dbContext.Emplogins.Where(emp => emp.EmployeeID == updatePwdmodel.Empid).FirstOrDefault();
+                var resetPasswordEmp = _dbContext.emplogin1.Where(emp => emp.EmployeeID == updatePwdmodel.Empid).FirstOrDefault();
                 if (resetPasswordEmp != null)
                 {
-                    resetPasswordEmp.EmployeePassword = updatePwdmodel.Password;
+                    resetPasswordEmp.Password = updatePwdmodel.Password;
                     _dbContext.SaveChanges();
                     updatePwdmodel.IsPasswordReset = true;
                     updatePwdmodel.ResponseMessage = "Password reset successful!";

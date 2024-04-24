@@ -130,11 +130,13 @@
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="Controllers\AccountController.cs" />
-    <Compile Include="Controllers\DashboardController.cs" />
-    <Compile Include="Empinfo.cs">
+    <Compile Include="Controllers\AdminDashboardController.cs" />
+    <Compile Include="Controllers\AdminEmpDirectoryController.cs" />
+    <Compile Include="Controllers\EmployeeDashboardController.cs" />
+    <Compile Include="emplogin1.cs">
       <DependentUpon>HRMS.tt</DependentUpon>
     </Compile>
-    <Compile Include="Emplogin.cs">
+    <Compile Include="emp_info2.cs">
       <DependentUpon>HRMS.tt</DependentUpon>
     </Compile>
     <Compile Include="Global.asax.cs">
@@ -214,12 +216,14 @@
     <Content Include="Views\Shared\Error.cshtml" />
     <Content Include="Views\Shared\_Layout.cshtml" />
     <Content Include="Views\Account\Login.cshtml" />
-    <Content Include="Views\DashBoard\Dashboard.cshtml" />
     <Content Include="Views\Account\ResetPassword.cshtml" />
     <Content Include="Views\Account\_ForgotPasswordEmail.cshtml" />
+    <Content Include="Views\AdminDashboard\AdminDashboard.cshtml" />
+    <Content Include="Views\EmployeeDashboard\EmpDashboard.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
+    <Folder Include="Views\AdminEmpDirectory\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="fonts\glyphicons-halflings-regular.woff2" />

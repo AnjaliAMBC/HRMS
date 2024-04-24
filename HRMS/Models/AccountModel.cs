@@ -24,7 +24,7 @@ namespace HRMS.Models
 
     public class ResetPasswordModel
     {
-        public Empinfo EmpInfo { get; set; }
+        public emplogin1 EmpInfo { get; set; }
     }
 
     public class UpdatePasswordModel

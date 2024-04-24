@@ -12,16 +12,16 @@ namespace HRMS
     using System;
     using System.Collections.Generic;
     
-    public partial class Emplogin
+    public partial class emplogin1
     {
         public string EmployeeID { get; set; }
         public string EmployeeName { get; set; }
-        public string EmployeePassword { get; set; }
+        public string Password { get; set; }
         public string EmployeeEmail { get; set; }
+        public string EmployeeStatus { get; set; }
         public string EmployeeMobile { get; set; }
         public string EmployeeRole { get; set; }
-        public bool EmployeeStatus { get; set; }
-        public string EmployeeSysHostname { get; set; }
-        public string EmployeeLogInfo { get; set; }
+        public string EmloyeeSysHostname { get; set; }
+        public string EmployeeLogininfo { get; set; }
     }
 }

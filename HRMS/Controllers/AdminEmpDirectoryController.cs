@@ -6,9 +6,9 @@ using System.Web.Mvc;
 
 namespace HRMS.Controllers
 {
-    public class DashboardController : Controller
+    public class AdminEmpDirectoryController : Controller
     {
-        // GET: DashBoard
+        // GET: AdminEmpDirectory
         public ActionResult Index()
         {
             return View();

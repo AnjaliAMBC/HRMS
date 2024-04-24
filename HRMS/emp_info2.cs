@@ -12,8 +12,9 @@ namespace HRMS
     using System;
     using System.Collections.Generic;
     
-    public partial class Empinfo
+    public partial class emp_info2
     {
+        public int Sno { get; set; }
         public string EmployeeID { get; set; }
         public string EmployeeName { get; set; }
         public string FatherName { get; set; }
@@ -26,6 +27,7 @@ namespace HRMS
         public string MaritalStatus { get; set; }
         public string Designation { get; set; }
         public string Department { get; set; }
+        public Nullable<System.TimeSpan> ShiftTiming { get; set; }
         public string Client { get; set; }
         public string EmployeeType { get; set; }
         public string Location { get; set; }

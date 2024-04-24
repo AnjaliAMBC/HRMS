@@ -25,7 +25,7 @@ namespace HRMS
             throw new UnintentionalCodeFirstException();
         }
     
-        public virtual DbSet<Empinfo> Empinfoes { get; set; }
-        public virtual DbSet<Emplogin> Emplogins { get; set; }
+        public virtual DbSet<emplogin1> emplogin1 { get; set; }
+        public virtual DbSet<emp_info2> emp_info2 { get; set; }
     }
 }
