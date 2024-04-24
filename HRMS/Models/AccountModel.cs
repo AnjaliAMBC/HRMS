@@ -14,17 +14,20 @@ namespace HRMS.Models
         public string InvalidLoginMessage { get; set; }
         public bool IsValidUser { get; set; }
         public string GCaptcha { get; set; }
+        public bool IsAdmin { get; set; }
+        public bool IsUser { get; set; }
     }
 
     public class ForgotPasswordModel
     {
         public string ForgotEmailID { get; set; }
         public bool IsEmailSent { get; set; } = false;
+        public JsonResponse JsonResponse { get; set; }
     }
 
     public class ResetPasswordModel
     {
-        public emplogin1 EmpInfo { get; set; }
+        public emplogin EmpInfo { get; set; }
     }
 
     public class UpdatePasswordModel

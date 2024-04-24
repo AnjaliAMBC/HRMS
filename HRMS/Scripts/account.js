@@ -11,13 +11,6 @@ function ResetLoginFields() {
     $("#EmailID").val("");
     $("#Password").val("");
     $('.error-message').html("");
-    if (grecaptcha != undefined) {
-        grecaptcha.ready(function () {
-            if (grecaptcha != undefined) {
-                grecaptcha.reset();              
-            }
-        });
-    }
     $(".text-danger").text("");
 }
 
@@ -51,19 +44,8 @@ $(".emp-login").on("click", function (event) {
 
 $(document).ready(function () {
     $('.login-continue').click(function (event) {
-
-        grecaptcha.ready(function () {
-            grecaptcha.execute('6LfVc7wpAAAAAOjHUeyjy_FGS6-gyCmfS_TXDdvk', { action: 'submit' }).then(function (token) {
-                // Add the reCAPTCHA response token to a hidden input field
-                document.getElementById("g-recaptcha-response").value = token;
-            });
-            grecaptcha.reset();
-        });
-
-
         // Reset error messages
         $(".text-danger").text("");
-
         var isValid = true;
 
         // Fetch input values
@@ -94,25 +76,28 @@ $(document).ready(function () {
                 EmailID: $('#EmailID').val(),
                 Password: $('#Password').val(),
                 StaySignedIn: $('#StaySignedIn').is(':checked'),
-                GCaptcha: document.getElementById("g-recaptcha-response").value
             };
             $.ajax({
                 type: 'POST',
                 url: '/account/login',
-                data: data,               
+                data: data,
                 success: function (data) {
                     $('.error-message').html("");
-                    /* $window.grecaptcha.reset();*/
+                    if (data.IsValidUser == true) {
+                        if (data.IsAdmin == true) {
+                            $('.error-message').hide();
+                            window.location.href = "/admindashboard/dashboard";
+                            return;
+                        }
 
-                    if (data.IsValidUser != "") {
-                        $('.error-message').hide();
-                        window.location.href = "/EmployeeAdmin/index";;
+                        if (data.IsUser == true) {
+                            $('.error-message').hide();
+                            window.location.href = "/employeeDashboard/dashboard";
+                        }
                     }
                     else {
                         $('.error-message').show();
                         $('.error-message').html(data.InvalidLoginMessage);
-                        document.getElementById('g-recaptcha-response').value = '';
-                        grecaptcha.reset();
                     }
                 },
                 error: function (xhr, status, error) {
@@ -157,16 +142,29 @@ $('.forgot-continue').click(function (event) {
         };
         $.ajax({
             type: 'POST',
-            url: '/account/ForgotPassword',
+            url: '/account/forgotpassword',
             data: data,
+            beforeSend: function () {
+                $(this).prop('disabled', true);
+                $('#ajax-overlay').show();
+            },
+            complete: function () {
+                // This function will be called when the AJAX request completes (success, error, or complete)
+                $(this).prop('disabled', false);
+                $('#ajax-overlay').hide();
+            },
             success: function (data) {
                 if (data.IsEmailSent == true) {
                     $(this).prop('disabled', false);
                     $('#ajax-overlay').hide();
                     $('.response-message').show();
+                    $('.response-message-innermessage').css('color', '#2E8B57');
+                    $('.response-message-innermessage').html(data.JsonResponse.Message);
                 }
                 else {
-                    $('.response-message').hide();
+                    $('.response-message-innermessage').html(data.JsonResponse.Message);
+                    $('.response-message').show();
+                    $('.response-message-innermessage').css('color', 'red');
                 }
             },
             error: function (xhr, status, error) {
@@ -242,6 +240,6 @@ $('.confirmPassword-continue').click(function (event) {
 
 
 $('.backtologin-btn').click(function (event) {
-    window.location.href = "/login";
+    window.location.href = "/account/login";
 });
     //end forgot password

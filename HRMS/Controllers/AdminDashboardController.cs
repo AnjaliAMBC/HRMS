@@ -12,7 +12,7 @@ namespace HRMS.Controllers
         public ActionResult Dashboard()
         {
             ViewBag.ActivePage = "Dashboard";
-            return View();
+            return View("~/Views/AdminDashboard/Dashboard.cshtml");
         }
 
         public ActionResult EmployeeManagement()

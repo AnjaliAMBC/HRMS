@@ -31,9 +31,7 @@
                     <input type="checkbox" id="StaySignedIn" class="form-check-input">
                     <label for="StaySignedIn" class="form-check-label stay-signed-in">Stay Signed In</label>
                 </div>
-                <div class="g-recaptcha" data-sitekey="6LfVc7wpAAAAAOjHUeyjy_FGS6-gyCmfS_TXDdvk" id="recaptchaid"></div>
                 <button type="button" class="btn login-continue">Continue</button>
-
                 <div class="error-message" style="color: red; display: none">
                     Invalid Login Details!
                 </div>
@@ -44,10 +42,7 @@
             <a href="#" class="text-secondary admin-login">Sign in as Admin</a>
         </div>
     </div>
-
-
-
-    <style>
+     <style>
         .forgot-container {
             width: 40%;
             margin: 0 auto;
@@ -74,31 +69,31 @@
         .empemail-field input {
             max-width: 358px;
         }
-        </style>
+    </style>
 
-        <div class="forgot-container" style="display: none" >
-        <h2 class="mb-4 forgot-heading" > Forgot Password</h2 >
-        <form id="forgotpassword" >
-        <div class="login-form" >
-        <div class="form-group empemail-field" >
-        <label for="ForgotEmailID" class="form-label" > Employee Email ID</label >
-        <input type="email" id="ForgotEmailID" class="form-control input-lg" placeholder="Enter email" >
-        <span class="text-danger" id="forgotemailError" > </span >
-        </div >
-        <button type="button" class="btn forgot-continue"> Continue </button >
+    <div class="forgot-container" style="display: none">
+        <h2 class="mb-4 forgot-heading"> Forgot Password</h2>
+        <form id="forgotpassword">
+            <div class="login-form">
+                <div class="form-group empemail-field">
+                    <label for="ForgotEmailID" class="form-label"> Employee Email ID</label>
+                    <input type="email" id="ForgotEmailID" class="form-control input-lg" placeholder="Enter email">
+                    <span class="text-danger" id="forgotemailError"> </span>
+                </div>
+                <button type="button" class="btn forgot-continue"> Continue </button>
 
-        <div id="ajax-overlay" >
-        <div class="cv-spinner" >
-        <span class="spinner" > </span >
-        </div >
-        </div >
-        <div class="response-message" style="color: #2E8B57; display: none" >
-        <b > Reset password link sent to email!</b >
-        </div >
-        </div >
-        </form >
-        </div >
-        </div >
+                <div id="ajax-overlay">
+                    <div class="cv-spinner">
+                        <span class="spinner"> </span>
+                    </div>
+                </div>
+                <div class="response-message" style="color: #2E8B57; display: none">
+                    <b class="response-message-innermessage"> Reset password link sent to email!</b>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>
 
 
 

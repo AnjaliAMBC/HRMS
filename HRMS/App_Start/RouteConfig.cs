@@ -19,9 +19,14 @@ namespace HRMS
                 defaults: new { controller = "Account", action = "Login", id = UrlParameter.Optional }
             );
             routes.MapRoute(
-                name: "Dashboard",
+                name: "AdminDashboard",
                 url: "{controller}/{action}/{id}",
-                defaults: new { controller = "Dashboard", action = "Index", id = UrlParameter.Optional }
+                defaults: new { controller = "AdminDashboard", action = "Dashboard", id = UrlParameter.Optional }
+            );
+            routes.MapRoute(
+                name: "EmployeeDashboard",
+                url: "{controller}/{action}/{id}",
+                defaults: new { controller = "EmployeeDashboard", action = "Dashboard", id = UrlParameter.Optional }
             );
         }
     }

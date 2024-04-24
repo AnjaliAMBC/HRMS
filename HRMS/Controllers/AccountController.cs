@@ -22,12 +22,12 @@ namespace Testhrms.Controllers
     {
 
         // Database context
-        private readonly HRMS_Entities _dbContext;
+        private readonly HRMS_EntityFramework _dbContext;
 
         // Constructor to initialize database context
         public AccountController()
         {
-            _dbContext = new HRMS_Entities(); // Replace YourDbContext with your actual DbContext class
+            _dbContext = new HRMS_EntityFramework(); // Replace YourDbContext with your actual DbContext class
         }
 
         [HttpGet]
@@ -36,30 +36,15 @@ namespace Testhrms.Controllers
             return View("~/Views/Account/Login.cshtml");
         }
         [HttpPost]
-        public async Task<ActionResult> Login(AccountModel loginModel)
+        public ActionResult Login(AccountModel loginModel)
         {
-            // Validate reCAPTCHA
-            var captchaResponse = loginModel.GCaptcha;
-            var secretKey = "6LfVc7wpAAAAAPeeILyWCpmT8OAgM89K7SDLuQzG"; // Replace with your actual secret key
-            var client = new HttpClient();
-            var response = await client.GetAsync($"https://www.google.com/recaptcha/api/siteverify?secret={secretKey}&response={captchaResponse}");
-            var jsonString = await response.Content.ReadAsStringAsync();
-            var result = JsonConvert.DeserializeObject<dynamic>(jsonString);
-
-            if (result.success != "true")
-            {
-                loginModel.InvalidLoginMessage = "reCAPTCHA validation failed.";
-                loginModel.IsValidUser = false;
-                return Json(loginModel, JsonRequestBehavior.AllowGet);
-            }
-
             // Check the username and password against your authentication system
             if (IsValidUser(loginModel))
             {
                 loginModel.IsValidUser = true;
-                // Authentication successful, redirect to the home page
-                return Redirect("/EmployeeAdmin/Index");
+                return Json(loginModel, JsonRequestBehavior.AllowGet);
             }
+
             else
             {
                 loginModel.InvalidLoginMessage = "Invalid username or password";
@@ -73,10 +58,21 @@ namespace Testhrms.Controllers
         {
             if (!string.IsNullOrWhiteSpace(loginModel.EmployeeID))
             {
-                string hostName = Dns.GetHostName();
-                var isEmpExists = _dbContext.emplogin1.Where(emp => emp.EmployeeID == loginModel.EmployeeID && emp.Password == loginModel.Password).FirstOrDefault();
+                var isEmpExists = _dbContext.emplogins.Where(emp => emp.EmployeeID == loginModel.EmployeeID && emp.Password == loginModel.Password).FirstOrDefault();
                 if (isEmpExists != null)
                 {
+                    loginModel.IsUser = true;
+                    FormsAuthentication.SetAuthCookie(isEmpExists.EmployeeID.ToString(), loginModel.StaySignedIn);
+                    return true;
+                }
+            }
+
+            if (!string.IsNullOrWhiteSpace(loginModel.EmailID))
+            {
+                var isEmpExists = _dbContext.emplogins.Where(emp => emp.EmployeeEmail == loginModel.EmailID && emp.Password == loginModel.Password && emp.EmployeeRole == "HR Admin").FirstOrDefault();
+                if (isEmpExists != null)
+                {
+                    loginModel.IsAdmin = true;
                     FormsAuthentication.SetAuthCookie(isEmpExists.EmployeeID.ToString(), loginModel.StaySignedIn);
                     return true;
                 }
@@ -110,52 +106,78 @@ namespace Testhrms.Controllers
 
         public ActionResult ForgotPassword(ForgotPasswordModel forgotModel)
         {
-            var forgotPwdEmployee = _dbContext.emplogin1.Where(emp => emp.EmployeeEmail == forgotModel.ForgotEmailID).FirstOrDefault();
-            if (forgotPwdEmployee != null)
+            try
             {
-                ForgotPasswordEmail(forgotPwdEmployee);
-                forgotModel.IsEmailSent = true;
+                if (forgotModel == null)
+                    return null;
+                forgotModel.JsonResponse = new JsonResponse();
+                var forgotPwdEmployee = _dbContext.emplogins.Where(emp => emp.EmployeeEmail == forgotModel.ForgotEmailID).FirstOrDefault();
+                if (forgotPwdEmployee != null)
+                {
+                    ForgotPasswordEmail(forgotPwdEmployee, forgotModel);
+                    forgotModel.IsEmailSent = true;
+                    forgotModel.JsonResponse.Message = "Reset password link sent to email!";
+                    forgotModel.JsonResponse.StatusCode = 200;
+                }
+                else
+                {
+                    forgotModel.IsEmailSent = false;
+                    forgotModel.JsonResponse.Message = "Email not sent. Looks like Email id is incorrect!";
+                    forgotModel.JsonResponse.StatusCode = 404;
+                }
+                return Json(forgotModel, JsonRequestBehavior.AllowGet);
             }
-            return Json(forgotModel, JsonRequestBehavior.AllowGet);
+            catch (Exception ex)
+            {
+                return Json(forgotModel, JsonRequestBehavior.AllowGet);
+            }
         }
 
-        public JsonResult ForgotPasswordEmail(emplogin1 empInfoModel)
+        public JsonResult ForgotPasswordEmail(emplogin empInfoModel, ForgotPasswordModel forgotModel)
         {
-            var emailBody = "";
-            var emailSubject = "Password Reset Request";
-
-            emailBody = RenderPartialToString(this, "_ForgotPasswordEmail", empInfoModel, ViewData, TempData);
-
-            using (MailMessage mm = new MailMessage(ConfigurationManager.AppSettings["SMTPUserName"], empInfoModel.EmployeeEmail))
+            try
             {
-                mm.Subject = emailSubject;
-                mm.Body = emailBody;
+                var emailBody = "";
+                var emailSubject = "Password Reset Request";
+                emailBody = RenderPartialToString(this, "_ForgotPasswordEmail", empInfoModel, ViewData, TempData);
 
-                mm.IsBodyHtml = true;
-                SmtpClient smtp = new SmtpClient();
-                smtp.Host = ConfigurationManager.AppSettings["SMTPHost"];
-                smtp.EnableSsl = true;
-                NetworkCredential credentials = new NetworkCredential();
-                credentials.UserName = ConfigurationManager.AppSettings["SMTPUserName"];
-                credentials.Password = ConfigurationManager.AppSettings["SMTPPassword"];
-                smtp.UseDefaultCredentials = true;
-                smtp.Credentials = credentials;
-                smtp.Port = System.Convert.ToInt32(ConfigurationManager.AppSettings["SMTPPort"]);
-                smtp.Send(mm);
+                using (MailMessage mm = new MailMessage(ConfigurationManager.AppSettings["SMTPUserName"], empInfoModel.EmployeeEmail))
+                {
+                    mm.Subject = emailSubject;
+                    mm.Body = emailBody;
+                    mm.IsBodyHtml = true;
+                    SmtpClient smtp = new SmtpClient();
+                    smtp.Host = ConfigurationManager.AppSettings["SMTPHost"];
+                    smtp.EnableSsl = true;
+                    NetworkCredential credentials = new NetworkCredential();
+                    credentials.UserName = ConfigurationManager.AppSettings["SMTPUserName"];
+                    credentials.Password = ConfigurationManager.AppSettings["SMTPPassword"];
+                    smtp.UseDefaultCredentials = true;
+                    smtp.Credentials = credentials;
+                    smtp.Port = System.Convert.ToInt32(ConfigurationManager.AppSettings["SMTPPort"]);
+                    smtp.Send(mm);
+                }
+                return Json(null);
             }
-            return Json(null);
+            catch (Exception ex)
+            {
+                forgotModel.JsonResponse.Message = ex.Message;
+                forgotModel.JsonResponse.StatusCode = 500;
+                forgotModel.IsEmailSent = false;
+                return Json(forgotModel, JsonRequestBehavior.AllowGet);
+            }
         }
 
         [HttpGet]
-        public ActionResult ResetPassword(string employeeID)
+        public ActionResult ResetPassword(string empid)
         {
             var model = new ResetPasswordModel();
-            if (!string.IsNullOrWhiteSpace(employeeID))
+            if (!string.IsNullOrWhiteSpace(empid))
             {
-                var resetPasswordEmp = _dbContext.emplogin1.Where(emp => emp.EmployeeID == employeeID).FirstOrDefault();
+                var resetPasswordEmp = _dbContext.emplogins.Where(emp => emp.EmployeeID == empid).FirstOrDefault();
                 if (resetPasswordEmp != null)
                 {
-                   model.EmpInfo = resetPasswordEmp;
+                    model.EmpInfo = resetPasswordEmp;
                 }
             }
             return View("~/Views/Account/ResetPassword.cshtml", model);
@@ -165,7 +187,7 @@ namespace Testhrms.Controllers
         {
             try
             {
-                var resetPasswordEmp = _dbContext.emplogin1.Where(emp => emp.EmployeeID == updatePwdmodel.Empid).FirstOrDefault();
+                var resetPasswordEmp = _dbContext.emplogins.Where(emp => emp.EmployeeID == updatePwdmodel.Empid).FirstOrDefault();
                 if (resetPasswordEmp != null)
                 {
                     resetPasswordEmp.Password = updatePwdmodel.Password;

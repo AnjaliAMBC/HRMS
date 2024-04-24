@@ -133,10 +133,32 @@
     <Compile Include="Controllers\AdminDashboardController.cs" />
     <Compile Include="Controllers\AdminEmpDirectoryController.cs" />
     <Compile Include="Controllers\EmployeeDashboardController.cs" />
+    <Compile Include="emplogin.cs">
+      <DependentUpon>HRMS.tt</DependentUpon>
+    </Compile>
+    <Compile Include="emp_info.cs">
+      <DependentUpon>HRMS.tt</DependentUpon>
+    </Compile>
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
+    <Compile Include="HRMS.Context.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>HRMS.Context.tt</DependentUpon>
+    </Compile>
+    <Compile Include="HRMS.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>HRMS.tt</DependentUpon>
+    </Compile>
+    <Compile Include="HRMS.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>HRMS.edmx</DependentUpon>
+    </Compile>
     <Compile Include="Models\AccountModel.cs" />
+    <Compile Include="Models\JsonResponse.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -152,9 +174,26 @@
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Global.asax" />
     <Content Include="Content\Site.css" />
+    <Content Include="HRMS.Context.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <DependentUpon>HRMS.edmx</DependentUpon>
+      <LastGenOutput>HRMS.Context.cs</LastGenOutput>
+    </Content>
+    <Content Include="HRMS.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <DependentUpon>HRMS.edmx</DependentUpon>
+      <LastGenOutput>HRMS.cs</LastGenOutput>
+    </Content>
     <Content Include="Scripts\account.js" />
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />
+    <EntityDeploy Include="HRMS.edmx">
+      <Generator>EntityModelCodeGenerator</Generator>
+      <LastGenOutput>HRMS.Designer.cs</LastGenOutput>
+    </EntityDeploy>
+    <Content Include="HRMS.edmx.diagram">
+      <DependentUpon>HRMS.edmx</DependentUpon>
+    </Content>
     <None Include="Scripts\jquery-3.4.1.intellisense.js" />
     <Content Include="Scripts\jquery-3.4.1.js" />
     <Content Include="Scripts\jquery-3.4.1.min.js" />
@@ -180,8 +219,8 @@
     <Content Include="Views\Account\Login.cshtml" />
     <Content Include="Views\Account\ResetPassword.cshtml" />
     <Content Include="Views\Account\_ForgotPasswordEmail.cshtml" />
-    <Content Include="Views\AdminDashboard\AdminDashboard.cshtml" />
-    <Content Include="Views\EmployeeDashboard\EmpDashboard.cshtml" />
+    <Content Include="Views\AdminDashboard\Dashboard.cshtml" />
+    <Content Include="Views\EmployeeDashboard\Dashboard.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

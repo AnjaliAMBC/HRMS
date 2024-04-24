@@ -9,9 +9,9 @@ namespace HRMS.Controllers
     public class EmployeeDashboardController : Controller
     {
         // GET: EmployeeDashboard
-        public ActionResult Index()
+        public ActionResult Dashboard()
         {
-            return View();
+            return View("~/Views/EmployeeDashboard/Dashboard.cshtml");
         }
     }
 }
