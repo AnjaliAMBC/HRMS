@@ -1,6 +1,4 @@
-﻿@model Testhrms.Models.LoginModel
-
-<img src="~/Assets/AMBC_Logo.png" alt="Logo" class="logo">
+﻿<img src="~/Assets/AMBC_Logo.png" alt="Logo" class="logo">
 <div class="container">
     <div class="login-container">
         <h2 class="mb-4 login-heading">Login</h2>
@@ -30,6 +28,7 @@
                     <input type="checkbox" id="StaySignedIn" class="form-check-input">
                     <label for="StaySignedIn" class="form-check-label stay-signed-in">Stay Signed In</label>
                 </div>
+                <div class="g-recaptcha" data-sitekey="6LfVc7wpAAAAAOjHUeyjy_FGS6-gyCmfS_TXDdvk" id="recaptchaid"></div>
                 <button type="button" class="btn btn-primary login-continue">Continue</button>
 
                 <div class="error-message" style="color: red; display: none">
@@ -45,33 +44,7 @@
 
 
     <style>
-        .forgot-container {
-            width: 40%;
-            margin: 0 auto;
-            padding: 20px;
-            background-color: rgba(255, 255, 255, 1);
-            border-radius: 10px;
-            box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
-            margin-top: 100px;
-            position: relative;
-        }
-
-        .forgot-continue {
-            background-color: #286090;
-            width: 93%;
-            padding: 3%;
-            margin-bottom: 11%;
-        }
-
-        .forgot-heading {
-            font-size: 25px;
-            margin-bottom: 23px;
-            margin-left: 30px;
-        }
-
-        .empemail-field input {
-            max-width: 358px;
-        }
+       
     </style>
 
     <div class="forgot-container" style="display: none">
@@ -83,9 +56,18 @@
                     <input type="email" id="ForgotEmailID" class="form-control input-lg" placeholder="Enter email">
                     <span class="text-danger" id="forgotemailError"></span>
                 </div>
-                <button type="button" class="btn btn-primary forgot-continue">Continue</button>
-                <div class="response-message" style="color: red; display: none">
-                    Reset password link sent to email!
+                <button type="button" class="btn forgot-continue">
+
+                    Continue
+                </button>
+
+                <div id="ajax-overlay">
+                    <div class="cv-spinner">
+                        <span class="spinner"></span>
+                    </div>
+                </div>
+                <div class="response-message" style="color: #2E8B57; display: none">
+                    <b>Reset password link sent to email!</b>
                 </div>
             </div>
         </form>
