@@ -66,19 +66,48 @@
         <div class="col-md-3">
             <div class="sidebar">
                 <h2>Admin Panel</h2>
-                <ul>
-                    <li><a href="#" class="active">Dashboard</a></li>
-                    <li><a href="#">Employee Management</a></li>
-                    <li><a href="#">Attendance Management</a></li>
-                    <li><a href="#">Leave Management</a></li>
-                    <li><a href="#">Ticketing</a></li>
+                <ul id="admindash-menu">
+                    <li><a href="#" class="active admin-dashboard">Dashboard</a></li>
+                    <li><a href="#" class="admin-empmanagement">Employee Management</a></li>
+                    <li><a href="#" class="admin-attendance">Attendance Management</a></li>
+                    <li><a href="#" class="admin-leave">Leave Management</a></li>
+                    <li><a href="#" class="admin-ticketing">Ticketing</a></li>
                 </ul>
             </div>
         </div>
         <div class="col-md-9">
-            <div class="content">
+            <div class="content admin-dashboard-container">
+                <div class="hiddenadmindashboard"></div>
                 <!-- Your page content goes here -->
                 <h1>Welcome to Admin Dashboard!</h1>
+                <p>This is where you manage everything.</p>
+            </div>
+
+            <div class="content admin-empmanagement-container" style="display: none">
+                <div class="hiddenempmanagement"></div>
+                <!-- Your page content goes here -->
+                <h1>Welcome to Emp Managent!</h1>
+                <p>This is where you manage everything.</p>
+            </div>
+
+            <div class="content admin-attendance-container" style="display: none">
+                <div class="hiddenadminattendance"></div>
+                <!-- Your page content goes here -->
+                <h1>Welcome to Admin Attedence Managent!</h1>
+                <p>This is where you manage everything.</p>
+            </div>
+
+            <div class="content admin-leave-container" style="display: none">
+                <div class="hiddenadminleave"></div>
+                <!-- Your page content goes here -->
+                <h1>Welcome to Admin Leave Managent!</h1>
+                <p>This is where you manage everything.</p>
+            </div>
+
+            <div class="content admin-ticketing-container" style="display: none">
+                <div class="hiddenadminticketing"></div>
+                <!-- Your page content goes here -->
+                <h1>Welcome to Admin Ticketing Managent!</h1>
                 <p>This is where you manage everything.</p>
             </div>
         </div>
