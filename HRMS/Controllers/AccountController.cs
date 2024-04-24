@@ -33,6 +33,7 @@ namespace Testhrms.Controllers
         [HttpGet]
         public ActionResult Login()
         {
+            Session["SiteContext"] = null;
             return View("~/Views/Account/Login.cshtml");
         }
         [HttpPost]
@@ -56,12 +57,18 @@ namespace Testhrms.Controllers
 
         private bool IsValidUser(AccountModel loginModel)
         {
+            var SiteContext = new SiteContext();
             if (!string.IsNullOrWhiteSpace(loginModel.EmployeeID))
             {
                 var isEmpExists = _dbContext.emplogins.Where(emp => emp.EmployeeID == loginModel.EmployeeID && emp.Password == loginModel.Password).FirstOrDefault();
                 if (isEmpExists != null)
                 {
                     loginModel.IsUser = true;
+                    var currentEmployee = _dbContext.emp_info.Where(emp => emp.EmployeeID == loginModel.EmployeeID).FirstOrDefault();
+                    SiteContext.LoginInfo = isEmpExists;
+                    SiteContext.EmpInfo = currentEmployee;
+
+                    Session["SiteContext"] = SiteContext;
                     FormsAuthentication.SetAuthCookie(isEmpExists.EmployeeID.ToString(), loginModel.StaySignedIn);
                     return true;
                 }

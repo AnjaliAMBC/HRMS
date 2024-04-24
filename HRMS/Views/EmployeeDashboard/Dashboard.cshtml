@@ -1,47 +1,4 @@
 ﻿<style>
-    body {
-        font-family: Arial, sans-serif;
-    }
-
-    .sidebar {
-        height: 100%;
-        width: 250px;
-        position: fixed;
-        top: 0;
-        left: 0;
-        background-color: #111;
-        padding-top: 20px;
-    }
-
-        .sidebar h2 {
-            color: #fff;
-            text-align: center;
-            margin-bottom: 30px;
-        }
-
-        .sidebar ul {
-            list-style-type: none;
-            padding: 0;
-            margin: 0;
-        }
-
-            .sidebar ul li {
-                padding: 15px;
-            }
-
-                .sidebar ul li a {
-                    display: block;
-                    color: white;
-                    text-decoration: none;
-                }
-
-                    .sidebar ul li a:hover {
-                        background-color: #555;
-                    }
-
-    .active {
-        background-color: #4CAF50;
-    }
 </style>
 
 
@@ -67,20 +24,44 @@
         <div class="col-md-3">
             <div class="sidebar">
                 <h2>Employee Panel</h2>
-                <ul>
-                    <li><a href="#" class="active">Dashboard</a></li>
-                    <li><a href="#">Self Service</a></li>
-                    <li><a href="#">Attendance</a></li>
-                    <li><a href="#">Leave Tracker</a></li>
-                    <li><a href="#">My Requests</a></li>
+                <ul id="empdash-menu">
+                    <li><a href="#" class="active emp-dashboard">Dashboard</a></li>
+                    <li><a href="#" class="emp-selfservice">Self Service</a></li>
+                    <li><a href="#" class="emp-attendence">Attendance</a></li>
+                    <li><a href="#" class="emp-leavetracker">Leave Tracker</a></li>
+                    <li><a href="#" class="emp-myrequest">My Requests</a></li>
                 </ul>
             </div>
         </div>
         <div class="col-md-9">
-            <div class="content">
+            <div class="content emp-dashboard-data">
+                <div class="hiddendashboard"></div>
                 <!-- Your page content goes here -->
                 <h1>Welcome to Employee Dashboard!</h1>
                 <p>This is where you can access various employee services.</p>
+            </div>
+
+            <div class="content selfservice-dashboard-data" style="display: none">
+                <div class="hiddenselfservice"></div>
+            </div>
+
+            <div class="content attedance-dashboard-data" style="display: none">
+                <div class="hiddenattendance"></div>
+                <!-- Your page content goes here -->
+                <h1>Welcome Attedence page!</h1>
+                <p>Coming soon!.</p>
+            </div>
+
+            <div class="content leave-dashboard-data" style="display: none">
+                <div class="hiddenleave"></div>
+                <h1>Welcome Leave page!</h1>
+                <p>Coming soon!.</p>
+            </div>
+
+            <div class="content myrequest-dashboard-data" style="display: none">
+                <div class="hiddenmyrequest"></div>
+                <h1>Welcome My Request page!</h1>
+                <p>Coming soon!.</p>
             </div>
         </div>
     </div>

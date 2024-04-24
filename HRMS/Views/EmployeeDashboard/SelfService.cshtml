@@ -1,0 +1,344 @@
+﻿@model HRMS.Models.Employee.SelfServiceViewModel
+
+<style>
+    .employee-table {
+        border: 1px solid #ccc; /* Add border */
+        border-collapse: collapse; /* Collapse the borders */
+        width: 100%;
+        height: 100%;
+    }
+
+        .employee-table td {
+            border: none; /* Remove cell borders */
+            padding: 8px; /* Add some padding */
+        }
+
+    .table-heading {
+        font-weight: bold;
+        background-color: #f0f0f0; /* Example background color */
+    }
+
+    .table-row {
+        margin-bottom: 14px;
+        width: 113%;
+    }
+</style>
+
+
+<div class="selfservice-container">
+    <div class="row">
+        <div class="col-md-12">
+            <h2>Employee Information</h2>
+            <hr>
+            <div class="row">
+                <div class="col-md-4">
+                    <img src="" alt="Employee Image" class="img-fluid">
+                    <h4>@Model.EmpInfo.EmployeeID - @Model.EmpInfo.EmployeeName</h4>
+                    <p>@Model.EmpInfo.Designation</p>
+                </div>
+                <div class="col-md-4">
+                    <p>Email ID: @Model.EmpInfo.OfficalEmailid</p>
+                    <p>Mobile No: @Model.EmpInfo.MobileNumber</p>
+                </div>
+            </div>
+
+            <!-- Tables Row 1 -->
+            <div class="row table-row">
+                <div class="col-md-4">
+                    <table class="table employee-table">
+                        <tr>
+                            <td colspan="2" class="table-heading">Employee Information</td>
+                        </tr>
+                        <tr>
+                            <td>Employee ID</td>
+                            <td>@Model.EmpInfo.EmployeeID</td>
+                        </tr>
+                        <tr>
+                            <td>Employee Name</td>
+                            <td>@Model.EmpInfo.EmployeeName</td>
+                        </tr>
+                        <tr>
+                            <td>Official Mail</td>
+                            <td>@Model.EmpInfo.OfficalEmailid</td>
+                        </tr>
+                        <tr>
+                            <td>Designation</td>
+                            <td>@Model.EmpInfo.OfficalEmailid</td>
+                        </tr>
+                        <tr>
+                            <td>Department</td>
+                            <td>@Model.EmpInfo.Department</td>
+                        </tr>
+                        <tr>
+                            <td>Shift Timing</td>
+                            <td>Shift timing</td>
+                        </tr>
+                        <tr>
+                            <td>Location</td>
+                            <td>@Model.EmpInfo.Location</td>
+                        </tr>
+                        <tr>
+                            <td>Employee Type</td>
+                            <td>@Model.EmpInfo.EmployeeType</td>
+                        </tr>
+                    </table>
+                </div>
+                <div class="col-md-4">
+                    <!-- Table 2 -->
+                    <table class="table employee-table">
+                        <tr>
+                            <td colspan="2" class="table-heading">Reporting Information</td>
+                        </tr>
+                        <tr>
+                            <td>Reporting-Manager</td>
+                            <td>@Model.EmpInfo.ReportingManager</td>
+                        </tr>
+                        <tr>
+                            <td>Date of Joining</td>
+                            <td>@Model.EmpInfo.DOJ</td>
+                        </tr>
+                        <tr>
+                            <td>Employee Status</td>
+                            <td>@Model.EmpInfo.EmployeeStatus</td>
+                        </tr>
+                        <tr>
+                            <td>Client</td>
+                            <td>@Model.EmpInfo.Client</td>
+                        </tr>
+                        <tr>
+                            <td>Leave RM</td>
+                            <td>@Model.EmpInfo.LeavereportingManager</td>
+                        </tr>
+                        <tr>
+                            <td>Present Address</td>
+                            <td>@Model.EmpInfo.PresentAddress</td>
+                        </tr>
+                    </table>
+
+                </div>
+                <div class="col-md-4">
+                    <!-- Table 3 -->
+                    <!-- Table 3 -->
+                    <table class="table employee-table">
+                        <tr>
+                            <td colspan="2" class="table-heading">General Information</td>
+                        </tr>
+                        <tr>
+                            <td>Father Name</td>
+                            <td>@Model.EmpInfo.FatherName</td>
+                        </tr>
+                        <tr>
+                            <td>Date of Birth</td>
+                            <td>@Model.EmpInfo.DOB</td>
+                        </tr>
+                        <tr>
+                            <td>Age</td>
+                            <td>@Model.EmpInfo.Age</td>
+                        </tr>
+                        <tr>
+                            <td>Blood Group</td>
+                            <td>@Model.EmpInfo.BloodGroup</td>
+                        </tr>
+                        <tr>
+                            <td>Gender</td>
+                            <td>@Model.EmpInfo.Gender</td>
+                        </tr>
+                        <tr>
+                            <td>Marital Status</td>
+                            <td>@Model.EmpInfo.MaritalStatus</td>
+                        </tr>
+                        <tr>
+                            <td>Mobile Number</td>
+                            <td>@Model.EmpInfo.MobileNumber</td>
+                        </tr>
+                        <tr>
+                            <td>Alt. Mobile Number</td>
+                            <td>@Model.EmpInfo.MobileNumber</td>
+                        </tr>
+                    </table>
+
+                </div>
+            </div>
+
+            <!-- Tables Row 2 -->
+            <div class="row table-row">
+                <div class="col-md-4">
+                    <!-- Table 4 -->
+                    <table class="table employee-table">
+                        <tr>
+                            <td colspan="2" class="table-heading">Bank Details</td>
+                        </tr>
+                        <tr>
+                            <td>Bank Name</td>
+                            <td>@Model.EmpInfo.BankName</td>
+                        </tr>
+                        <tr>
+                            <td>Account Number</td>
+                            <td>@Model.EmpInfo.AccountNumber</td>
+                        </tr>
+                        <tr>
+                            <td>Branch</td>
+                            <td>@Model.EmpInfo.BankName</td>
+                        </tr>
+                        <tr>
+                            <td>Type of Account</td>
+                            <td>@Model.EmpInfo.TypeofAccount</td>
+                        </tr>
+                        <tr>
+                            <td>IFSC Code</td>
+                            <td>@Model.EmpInfo.IFSCcode</td>
+                        </tr>
+                    </table>
+
+                </div>
+                <div class="col-md-4">
+                    <!-- Table 5 -->
+                    <!-- Table 5 -->
+                    <table class="table employee-table">
+                        <tr>
+                            <td colspan="2" class="table-heading">Identity Proof Details</td>
+                        </tr>
+                        <tr>
+                            <td>PAN Number</td>
+                            <td>@Model.EmpInfo.PANnumber</td>
+                        </tr>
+                        <tr>
+                            <td>Aadhar Number</td>
+                            <td>@Model.EmpInfo.AadharNumber</td>
+                        </tr>
+                        <tr>
+                            <td>Passport Number</td>
+                            <td>@Model.EmpInfo.Passport</td>
+                        </tr>
+                        <tr>
+                            <td>DOE of Passport</td>
+                            <td>@Model.EmpInfo.DOEofPassport</td>
+                        </tr>
+                    </table>
+
+                </div>
+                <div class="col-md-4">
+                    <!-- Table 6 -->
+                    <!-- Table 6 -->
+                    <table class="table employee-table">
+                        <tr>
+                            <td colspan="2" class="table-heading">Statutory Details</td>
+                        </tr>
+                        <tr>
+                            <td>UAN Number</td>
+                            <td>@Model.EmpInfo.UANNumber</td>
+                        </tr>
+                        <tr>
+                            <td>PF Number</td>
+                            <td>@Model.EmpInfo.PFNumber</td>
+                        </tr>
+                        <tr>
+                            <td>ECIS Number</td>
+                            <td>@Model.EmpInfo.ESICNumber</td>
+                        </tr>
+                    </table>
+
+                </div>
+            </div>
+
+            <!-- Tables Row 3 -->
+            <div class="row table-row">
+                <div class="col-md-4">
+                    <!-- Table 7 -->
+                    <!-- Table 7 -->
+                    <table class="table employee-table">
+                        <tr>
+                            <td colspan="2" class="table-heading">Dependent Details</td>
+                        </tr>
+                        <tr>
+                            <td>Name</td>
+                            <td>@Model.EmpInfo.Department</td>
+                        </tr>
+                        <tr>
+                            <td>Relationship</td>
+                            <td>@Model.EmpInfo.Department</td>
+                        </tr>
+                        <tr>
+                            <td>Contact Details</td>
+                            <td></td>
+                        </tr>
+                    </table>
+
+                </div>
+                <div class="col-md-4">
+                    <!-- Table 8 -->
+                    <!-- Table 8 -->
+                    <table class="table employee-table">
+                        <tr>
+                            <td colspan="2" class="table-heading">Educational Details</td>
+                        </tr>
+                        <tr>
+                            <td>Latest Degree</td>
+                            <td>@Model.EmpInfo.LatestDegree</td>
+                        </tr>
+                        <tr>
+                            <td>College Name</td>
+                            <td>@Model.EmpInfo.College_Name</td>
+                        </tr>
+                        <tr>
+                            <td>Specialization</td>
+                            <td>@Model.EmpInfo.Specialization</td>
+                        </tr>
+                    </table>
+
+                </div>
+                <div class="col-md-4">
+                    <!-- Table 9 -->
+                    <table class="table employee-table">
+                        <tr>
+                            <td colspan="2" class="table-heading">Previous Employer Details</td>
+                        </tr>
+                        <tr>
+                            <td>Previous Employer Name</td>
+                            @*<td>@Model.EmpInfo.PreviousEmployerName</td>*@
+                        </tr>
+                        <tr>
+                            <td>Job Title</td>
+                            @*<td>@Model.EmpInfo.PreviousJobTitle</td>*@
+                        </tr>
+                        <tr>
+                            <td>From Date</td>
+                            @*<td>@Model.EmpInfo.PreviousFromDate</td>*@
+                        </tr>
+                        <tr>
+                            <td>To Date</td>
+                            @*<td>@Model.EmpInfo.PreviousToDate</td>*@
+                        </tr>
+                        <tr>
+                            <td>Reason of Relieving</td>
+                            @*<td>@Model.EmpInfo.ReasonOfRelieving</td>*@
+                        </tr>
+                    </table>
+
+                </div>
+            </div>
+
+            <!-- Tables Row 4 -->
+            <div class="row table-row">
+                <div class="col-md-4">
+
+                    <!-- Table 10 -->
+                    <table class="table employee-table">
+                        <tr>
+                            <td colspan="2" class="table-heading">Separation Information</td>
+                        </tr>
+                        <tr>
+                            <td>Date of Exit</td>
+                            @*<td>@Model.EmpInfo.DateOfExit</td>*@
+                        </tr>
+                        <tr>
+                            <td>Reason</td>
+                            @*<td>@Model.EmpInfo.ReasonOfRelieving</td>*@
+                        </tr>
+                    </table>
+
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

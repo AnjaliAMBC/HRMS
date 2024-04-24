@@ -3,7 +3,7 @@
 <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>AMBC - HRMS</title>   
+    <title>AMBC - HRMS</title>
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Nunito Sans:SemiBold&amp;display=swap" crossorigin="anonymous">
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Nunito Sans:Bold&amp;display=swap" crossorigin="anonymous">
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Nunito Sans:Regular&amp;display=swap" crossorigin="anonymous">
@@ -14,6 +14,8 @@
     <link href="~/Content/account.css" rel="stylesheet" />
     <link href="~/Content/loader.css" rel="stylesheet" />
     <link href="~/Content/common.css" rel="stylesheet" />
+    <link href="~/Content/sidebar.css" rel="stylesheet" />
+    <link href="~/Content/selfservice.css" rel="stylesheet" />
     @Scripts.Render("~/bundles/modernizr")
 </head>
 <body>
@@ -22,5 +24,6 @@
     @Scripts.Render("~/bundles/bootstrap")
     @RenderSection("scripts", required: false)
     <script src="~/Scripts/account.js"></script>
+    <script src="~/Scripts/EmpDashboard.js"></script>
 </body>
 </html>
