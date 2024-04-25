@@ -129,6 +129,8 @@
     <Compile Include="App_Start\BundleConfig.cs" />
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
+    <Content Include="Assets\EMBackground.png" />
+    <Content Include="Assets\EmpProfile.png" />
     <Content Include="Content\z-adminempmanagement.css" />
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\AdminDashboardController.cs" />
@@ -142,6 +144,7 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
+    <Compile Include="Helpers\SiteContext.cs" />
     <Compile Include="HRMS.Context.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
@@ -158,9 +161,10 @@
       <DependentUpon>HRMS.edmx</DependentUpon>
     </Compile>
     <Compile Include="Models\AccountModel.cs" />
+    <Compile Include="Models\CustomAuthorizeAttribute.cs" />
     <Compile Include="Models\Employee\SelfServiceModel.cs" />
     <Compile Include="Models\JsonResponse.cs" />
-    <Compile Include="Models\SiteContext.cs" />
+    <Compile Include="Models\SiteContextModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -229,6 +233,7 @@
     <Content Include="Views\EmployeeDashboard\Dashboard.cshtml" />
     <Content Include="Views\EmployeeDashboard\SelfService.cshtml" />
     <Content Include="Views\AdminDashboard\EmpManagement.cshtml" />
+    <Content Include="Views\Shared\AccessDenied.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

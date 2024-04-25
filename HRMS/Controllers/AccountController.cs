@@ -16,11 +16,12 @@ using System.Threading.Tasks;
 using Newtonsoft.Json;
 using System.Web.Security;
 
-namespace Testhrms.Controllers
+namespace HRMS.Controllers
 {
+    //using HRMS.Helpers;
+
     public class AccountController : Controller
     {
-
         // Database context
         private readonly HRMS_EntityFramework _dbContext;
 
@@ -29,6 +30,18 @@ namespace Testhrms.Controllers
         {
             _dbContext = new HRMS_EntityFramework(); // Replace YourDbContext with your actual DbContext class
         }
+
+        //// Database context
+        //private readonly HRMS_EntityFramework _dbContext;
+        //private readonly SiteContext _siteCotext;
+        //private readonly HttpSessionStateBase _session;
+
+        //// Constructor to initialize database context
+        //public AccountController()
+        //{
+        //    _dbContext = new HRMS_EntityFramework();           
+        //    _siteCotext = new SiteContext(_dbContext, _session);// Replace YourDbContext with your actual DbContext class 
+        //}
 
         [HttpGet]
         public ActionResult Login()
@@ -42,6 +55,7 @@ namespace Testhrms.Controllers
             // Check the username and password against your authentication system
             if (IsValidUser(loginModel))
             {
+                FormsAuthentication.SetAuthCookie(loginModel.EmailID, false);
                 loginModel.IsValidUser = true;
                 return Json(loginModel, JsonRequestBehavior.AllowGet);
             }
@@ -56,19 +70,21 @@ namespace Testhrms.Controllers
 
 
         private bool IsValidUser(AccountModel loginModel)
-        {
-            var SiteContext = new SiteContext();
+        {            
+            var SiteContext = new SiteContextModel();
             if (!string.IsNullOrWhiteSpace(loginModel.EmployeeID))
             {
                 var isEmpExists = _dbContext.emplogins.Where(emp => emp.EmployeeID == loginModel.EmployeeID && emp.Password == loginModel.Password).FirstOrDefault();
                 if (isEmpExists != null)
                 {
                     loginModel.IsUser = true;
+                    //_siteCotext.SetSiteContext(loginModel.EmployeeID, isEmpExists);
+
                     var currentEmployee = _dbContext.emp_info.Where(emp => emp.EmployeeID == loginModel.EmployeeID).FirstOrDefault();
                     SiteContext.LoginInfo = isEmpExists;
                     SiteContext.EmpInfo = currentEmployee;
-
                     Session["SiteContext"] = SiteContext;
+
                     FormsAuthentication.SetAuthCookie(isEmpExists.EmployeeID.ToString(), loginModel.StaySignedIn);
                     return true;
                 }
@@ -80,6 +96,12 @@ namespace Testhrms.Controllers
                 if (isEmpExists != null)
                 {
                     loginModel.IsAdmin = true;
+                    //_siteCotext.SetSiteContext(loginModel.EmployeeID, isEmpExists);
+                    var currentEmployee = _dbContext.emp_info.Where(emp => emp.OfficalEmailid == loginModel.EmailID).FirstOrDefault();
+                    SiteContext.LoginInfo = isEmpExists;
+                    SiteContext.EmpInfo = currentEmployee;
+                    Session["SiteContext"] = SiteContext;
+
                     FormsAuthentication.SetAuthCookie(isEmpExists.EmployeeID.ToString(), loginModel.StaySignedIn);
                     return true;
                 }

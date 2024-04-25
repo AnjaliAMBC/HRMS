@@ -12,9 +12,11 @@ $('.admin-dashboard').click(function (event) {
     $('.admin-empmanagement-container').hide();
     $('.admin-attendance-container').hide();
     $('.admin-leave-container').hide();
-    $('.admin-ticketing-container').hide(); 
+    $('.admin-ticketing-container').hide();
 
     $(".hiddenadmindashboard").html("");
+
+    
 });
 
 
@@ -23,13 +25,26 @@ $('.admin-empmanagement').click(function (event) {
     event.preventDefault();
     HighlightAdminActiveLink($(this));
 
-    $('.admin-empmanagement-container').show();
-    $('.admin-dashboard-container').hide();   
-    $('.admin-attendance-container').hide();
-    $('.admin-leave-container').hide();
-    $('.admin-ticketing-container').hide();
+    $.ajax({
+        url: '/admindashboard/employeemanagement',
+        type: 'GET',
+        dataType: 'html',
+        success: function (response) {
+            $(".hiddenempmanagement").html(response);
+            var formContent = $(".hiddenempmanagement").find(".admin-empmanagement-view").html();
+            $(".admin-empmanagement-container").html(formContent);
 
-    $(".hiddenempmanagement").html("");
+            $('.admin-empmanagement-container').show();
+            $('.admin-dashboard-container').hide();
+            $('.admin-attendance-container').hide();
+            $('.admin-leave-container').hide();
+            $('.admin-ticketing-container').hide();
+            $(".hiddenempmanagement").html("");
+        },
+        error: function (xhr, status, error) {
+            var err = eval("(" + xhr.responseText + ")");
+        }
+    });
 });
 
 //Attedence link js

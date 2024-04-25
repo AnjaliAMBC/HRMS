@@ -28,7 +28,7 @@ namespace HRMS.Controllers
             var model = new SelfServiceViewModel();
             if (Session["SiteContext"] != null)
             {
-                var siteContext = Session["SiteContext"] as SiteContext;
+                var siteContext = Session["SiteContext"] as SiteContextModel;
                 model.EmpInfo = siteContext.EmpInfo;
                 model.LoginInfo = siteContext.LoginInfo;
                 return View("~/Views/EmployeeDashboard/SelfService.cshtml", model);

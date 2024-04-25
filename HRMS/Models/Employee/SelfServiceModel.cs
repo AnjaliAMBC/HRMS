@@ -1,6 +1,6 @@
 ﻿namespace HRMS.Models.Employee
 {
-    public class SelfServiceViewModel : SiteContext
+    public class SelfServiceViewModel : SiteContextModel
     {
     }
 }

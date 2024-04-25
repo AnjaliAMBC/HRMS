@@ -1,34 +1,13 @@
 ﻿@model HRMS.Models.Employee.SelfServiceViewModel
 
-<style>
-    .employee-table {
-        border: 1px solid #ccc; /* Add border */
-        border-collapse: collapse; /* Collapse the borders */
-        width: 100%;
-        height: 100%;
-    }
-
-        .employee-table td {
-            border: none; /* Remove cell borders */
-            padding: 8px; /* Add some padding */
-        }
-
-    .table-heading {
-        font-weight: bold;
-        background-color: #f0f0f0; /* Example background color */
-    }
-
-    .table-row {
-        margin-bottom: 14px;
-        width: 113%;
-    }
-</style>
-
 
 <div class="selfservice-container">
     <div class="row">
         <div class="col-md-12">
-            <h2>Employee Information</h2>
+            <!--<div class="profileimages">-->
+                @*<img src="~/Assets/EMBackground.png" alt="backgroundimage" class="background" style="height:150px">*@
+                <!--<img src="~/Assets/EmpProfile.png" alt="Employee Image" class="profile img-fluid">
+            </div>-->
             <hr>
             <div class="row">
                 <div class="col-md-4">
@@ -45,9 +24,9 @@
             <!-- Tables Row 1 -->
             <div class="row table-row">
                 <div class="col-md-4">
-                    <table class="table employee-table">
+                    <table class="table selfservice-table">
                         <tr>
-                            <td colspan="2" class="table-heading">Employee Information</td>
+                            <td colspan="2" class="td-heading">Employee Information</td>
                         </tr>
                         <tr>
                             <td>Employee ID</td>
