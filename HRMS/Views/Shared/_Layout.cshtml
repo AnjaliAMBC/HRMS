@@ -4,28 +4,50 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>AMBC - HRMS</title>
-    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Nunito Sans:SemiBold&amp;display=swap" crossorigin="anonymous">
-    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Nunito Sans:Bold&amp;display=swap" crossorigin="anonymous">
-    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Nunito Sans:Regular&amp;display=swap" crossorigin="anonymous">
-    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Nunito:600,700,regular&amp;subset=latin,latin-ext" media="all">
+    <link href="https://fonts.googleapis.com/css2?family=Open+Sans&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons" media="all" crossorigin="anonymous">
     <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
-    @Styles.Render("~/Content/css")
+
+
+
+
+
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" crossorigin="anonymous">
+    <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.11.5/css/jquery.dataTables.css">
+    <script type="text/javascript" charset="utf8" src="https://cdn.datatables.net/1.11.5/js/jquery.dataTables.js"></script>
+
     <link href="~/Content/z-account.css" rel="stylesheet" />
+    <link href="~/Content/z-adminempmanagement.css" rel="stylesheet" />
     <link href="~/Content/z-loader.css" rel="stylesheet" />
     <link href="~/Content/z-common.css" rel="stylesheet" />
     <link href="~/Content/z-sidebar.css" rel="stylesheet" />
     <link href="~/Content/z-selfservice.css" rel="stylesheet" />
-    @*<link href="~/Content/z-adminempmanagement.css" rel="stylesheet" />*@
-    @Scripts.Render("~/bundles/modernizr")
+    <link href="~/Content/z-adminemptabs.css" rel="stylesheet" />
+
+
+    <style>
+        .material-icons {
+            font-family: 'Material Icons';
+            vertical-align: middle;
+            font-size: 20px; /* Adjust the font size as needed */
+            /* Add any additional styling here */
+        }
+    </style>
+
 </head>
 <body>
     @RenderBody()
-    @Scripts.Render("~/bundles/jquery")
-    @Scripts.Render("~/bundles/bootstrap")
-    @RenderSection("scripts", required: false)
     <script src="~/Scripts/z-account.js"></script>
     <script src="~/Scripts/z-EmpDashboard.js"></script>
     <script src="~/Scripts/z-AdminDashboard.js"></script>
+    <script src="~/Scripts/z-Adminemp.js"></script>
+
+    @{
+        var abc = "@popperjs";
+    }
+    <script src="https://cdn.jsdelivr.net/npm/@abc/core@2.9.3/dist/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+
 </body>
 </html>

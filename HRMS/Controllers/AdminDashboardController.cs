@@ -10,7 +10,7 @@ namespace HRMS.Controllers
     public class AdminDashboardController : Controller
     {
         // GET: AdminDashboard
-        [CustomAuthorize(Roles = "HR Admin")]
+        //[CustomAuthorize(Roles = "HR Admin")]
         public ActionResult Dashboard()
         {
             //if (Session["SiteContext"] != null)
@@ -30,28 +30,28 @@ namespace HRMS.Controllers
 
         }
 
-        [CustomAuthorize(Roles = "HR Admin")]
+        //[CustomAuthorize(Roles = "HR Admin")]
         public ActionResult EmployeeManagement()
         {
-            ViewBag.ActivePage = "EmployeeManagement";
-            return View("~/Views/AdminDashboard/EmpManagement.cshtml");
+            //ViewBag.ActivePage = "EmployeeManagement";
+            return PartialView("~/Views/AdminDashboard/EmpManagement.cshtml");
         }
 
-        [CustomAuthorize(Roles = "HR Admin")]
+        //[CustomAuthorize(Roles = "HR Admin")]
         public ActionResult AttendanceManagement()
         {
-            ViewBag.ActivePage = "AttendanceManagement";
-            return View();
+            //ViewBag.ActivePage = "AttendanceManagement";
+            return PartialView("~/Views/AdminDashboard/AddEmpTabs.cshtml");
         }
 
-        [CustomAuthorize(Roles = "HR Admin")]
+        //[CustomAuthorize(Roles = "HR Admin")]
         public ActionResult LeaveManagement()
         {
             ViewBag.ActivePage = "LeaveManagement";
             return View();
         }
 
-        [CustomAuthorize(Roles = "HR Admin")]
+        //[CustomAuthorize(Roles = "HR Admin")]
         public ActionResult Ticketing()
         {
             ViewBag.ActivePage = "Ticketing";

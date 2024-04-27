@@ -1,6 +1,6 @@
 ﻿.container-fluid {
     padding: 0px;
-    overflow: hidden !important;
+    /* overflow: hidden !important;*/
     width: 100%;
     height: 65px;
 }
@@ -10,29 +10,30 @@
     position: relative;
     align-items: center;
     height: 35px;
-    width: 100px;
     border: 1px solid #ccc;
     border-radius: 25px;
     padding: 5px;
     margin-left: 20px;
+    overflow: hidden;
 }
 
     .search-container input[type="text"] {
         flex: 1;
         border: none;
         outline: none;
+        margin-left: 20px;
+        border-left: 1px solid #7d8da1;
+        padding-left: 10px;
     }
 
     .search-container button {
         position: absolute;
-        background-color: #007bff;
-        color: #fff;
+        background-color: transparent;
+        color: #7d8da1;
         border: none;
-        border-radius: 50%;
-        padding: 5px 8px;
         cursor: pointer;
-        margin-left: 15px;
-        right: 0px;
+        padding-top: 5px;
+        left: 0px;
     }
 
 .material-icons-sharp {
@@ -74,12 +75,12 @@
     display: flex;
     border: 1px solid black;
     border-radius: 20px;
-    padding: 10px 20px;
+    padding: 5px 5px;
 }
 
 .employeeadd {
     margin: 10px;
-    padding-left: 20px;
+    padding-left: 10px;
     font-size: 18px;
 }
 
@@ -91,60 +92,19 @@
     display: flex;
 }
 
-.emp-name {
-    margin: 0px;
-}
-
-.email {
-    padding-bottom: 0px;
-    color: #007bff;
-    font-size: 12px;
-}
-
-tr th {
-    align-items: center;
-    background-color: #f0f6fc;
-}
-
-tr td {
-    margin-bottom: 10px;
-}
-
-.topic-name {
-    padding-left: 70px;
-}
-
-.profile-img {
-    margin-right: 20px;
-}
-
-.toggle-button {
-    display: table-row;
-}
-
 .dropdown {
-    padding: 5px 10px;
+    padding: 2px 5px;
     margin: 0px 10px;
     border-radius: 15px;
 }
 
 .collapsedropdown {
-    margin-top: 10px;
+    margin-top: 12px;
+    margin-left: 10px;
     border-radius: 50%;
     background-color: #fff;
     border: 1px solid black;
-}
-
-.btn-info:hover, .btn-info:focus {
-    background-color: #fff;
-    border: 1px solid black;
-}
-
-.dropbtn {
-    color: white;
-    padding: 5px;
-    font-size: 15px;
-    border: none;
+    padding: 5px 10px 0px 10px !important;
 }
 
 .fa-solid {
@@ -165,26 +125,13 @@ tr td {
     padding: 0px;
 }
 
-.dropdown:hover .dropdown-content {
-    display: block;
-}
-
 .icons {
     width: 50px;
     text-align: center;
     display: flex;
 }
 
-    .icons .fa-solid {
-        color: grey;
-        padding: 0px 0px;
-    }
-
-.hover-icons .icons {
-    display: none;
-}
-
-.hover-icons:hover .icons {
+ver-icons:hover .icons {
     display: block;
 }
 
@@ -201,8 +148,166 @@ tr td {
     display: flex;
 }
 
-.btn-primary {
-    margin-left: 30px;
-    margin-top: 10px;
-    height: 35px;
+#action {
+    height: 30px;
+    margin-left: 20px;
+    margin-top: 15px;
+    padding: 0px 10px;
+    border-radius: 15px;
+    background-color: #007bff;
+    color: white;
+    border: 1px solid #007bff;
+    font-size: 18px;
 }
+
+label {
+    margin-bottom: 0px;
+}
+
+@media screen and (max-width:768px) {
+    .top {
+        width: auto;
+        height: 120px;
+    }
+}
+
+@media screen and (max-width:425px) {
+    .top {
+        width: auto;
+        height: 160px;
+    }
+}
+
+.dataTables_wrapper {
+    padding: 20px;
+}
+
+.dataTables_length, .dataTables_filter {
+    margin-bottom: 20px;
+}
+
+.dataTables_info, .dataTables_paginate {
+    margin-top: 20px;
+}
+
+table.dataTable thead th, table.dataTable tbody td {
+    border: 1px solid #ddd;
+    padding: 8px;
+}
+
+    table.dataTable tbody td input[type="checkbox"] {
+        margin: 0;
+    }
+
+.edit-btn, .delete-btn {
+    cursor: pointer;
+    margin-right: 5px;
+}
+
+.advancefilter {
+    margin-left: 10%;
+    margin-top: 2%;
+}
+
+
+
+#adminempmanagementtable.dataTable thead th, #adminempmanagementtable.dataTable thead td {
+    padding: 6px 10px;
+  
+}
+
+.custom-table {
+    border: none;
+}
+
+
+.dataTables_wrapper {
+    padding: 20px;
+}
+
+.dataTables_length, .dataTables_filter {
+    margin-bottom: 20px;
+}
+
+.dataTables_info, .dataTables_paginate {
+    margin-top: 20px;
+}
+
+table.dataTable {
+    border-collapse: collapse;
+    width: 100%;
+}
+
+    table.dataTable th, table.dataTable td {
+        border: none;
+        padding: 8px;
+    }
+
+.edit-btn, .delete-btn {
+    cursor: pointer;
+    margin-right: 5px;
+}
+
+.profile-img {
+    display: flex;
+    align-items: center;
+}
+
+    .profile-img img {
+        width: 50px;
+        height: 50px;
+        border-radius: 50%;
+        margin-right: 10px;
+    }
+
+.dropdown-menu {
+    display: none;
+    position: absolute;
+    background-color: #f9f9f9;
+    min-width: 160px;
+    box-shadow: 0 8px 16px 0 rgba(0,0,0,0.2);
+    z-index: 1;
+}
+
+    .dropdown-menu a {
+        color: black;
+        padding: 12px 16px;
+        text-decoration: none;
+        display: block;
+    }
+
+        .dropdown-menu a:hover {
+            background-color: #f1f1f1;
+        }
+
+.dropdown:hover .dropdown-menu {
+    display: block;
+}
+
+.dropdownmenu:hover #dropdownmenu {
+    display: block;
+}
+
+.dropdown:hover .dropdown-menu {
+    display: block;
+}
+
+
+#adminempmanagementtable.dataTable thead th {
+    border: none;
+}
+
+#adminempmanagementtable.dataTable tfoot th {
+    border: none;
+}
+
+#adminempmanagementtable tbody tr {
+    border: none;
+}
+
+#adminempmanagementtable.no-footer tfoot th,
+#adminempmanagementtable.no-footer tfoot td,
+#adminempmanagementtable tr{
+    border: none;
+}
+

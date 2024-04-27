@@ -1,22 +1,26 @@
-﻿<div class="admin-empmanagement-view">
-    <div class="container-fluid">
+﻿
+<div class="admin-empmanagement-view">
+    <div class="container-fluid top">
         <div class="row navbar">
-            <div class="col-lg-7 topic">
+            <div class="col-lg-5 topic">
                 <p class="header">Employee Directory</p>
-                <button class="btn btn-primary">Export</button>
+                <select name="action" id="action" style="display: none">
+                    <option value="" disabled selected hidden>Action</option>
+                    <option value="delete">Delete</option>
+                    <option value="export">Export</option>
+                </select>
             </div>
-            <div class="col-lg-5 navbarl">
+            <div class="col-lg-7 navbarl">
                 <div class="container-fluid">
-                    <div class="row"></div>
                     <div class="search-container col-3">
-                        <input type="text" placeholder="Search...">
+                        <input type="text" placeholder="Search">
                         <button type="submit"><i class="fas fa-search"></i></button>
                     </div>
 
                     <div class="features col-4">
                         <p class="advancetitle">Advanced Features</p>
                         <div class="toggle-button">
-                            <button type="button" class="btn btn-info collapsedropdown" data-toggle="collapse" data-target="#demo">
+                            <button class="collapsedropdown" type="button" data-toggle="collapse" data-target="#demo" aria-expanded="false" aria-controls="demo">
                                 <i class="fa-solid fa-angle-down"></i>
                             </button>
                         </div>
@@ -33,9 +37,9 @@
         </div>
     </div>
     <div class="row">
-        <div class="col-7"></div>
-        <div class="col-5">
-            <div id="demo" class="collapse">
+        <div class="col-6"></div>
+        <div class="col-6">
+            <div id="demo" class="collapse advancefilter">
                 <div class="collapse-topic">
                     Filter By
                     <select class="dropdown" name="department" id="department-dropdown">
@@ -61,10 +65,11 @@
             </div>
         </div>
     </div>
-    <table id="admin-emptable" class="display compact" style="width:100%">
-        <thead>
+
+    <table id="adminempmanagementtable" class="display" style="width: 100%;" >
+        <thead style="background-color: #F2F6FF">
             <tr>
-                <th><input type="checkbox"></th>
+                <th><input type="checkbox" id="selectAll"></th>
                 <th>Emp ID</th>
                 <th>Name</th>
                 <th>Designation</th>
@@ -73,39 +78,55 @@
                 <th>Location</th>
                 <th>Status</th>
                 <th>
+                    Actions
                     <div class="dropdown">
-                        <button class="dropbtn"><i class="fa-solid fa-list"></i></button>
+                        <span class="menu-icon" id="dropdownMenu"><i class="fa-solid fa-list"></i></span>
+                        <div class="dropdown-menu" id="dropdownMenuContent">
+                            <a href="#" class="empid"><input type="checkbox"> Emp ID</a>
+                            <a href="#" class="name"><input type="checkbox"> Name</a>
+                            <a href="#" class="Designation"><input type="checkbox"> Designation</a>
+                            <a href="#" class="Department"><input type="checkbox"> Department</a>
+                            <a href="#" class="Type"><input type="checkbox"> Type</a>
+                            <a href="#" class="Location"><input type="checkbox"> Location</a>
+                            <a href="#" class="Status"><input type="checkbox"> Status</a>
+                        </div>
                     </div>
                 </th>
+
             </tr>
         </thead>
         <tbody>
-            <tr class="table-row">
-                <td><input type="checkbox"></td>
-                <td>1220</td>
-                <td class="profile-details">
-                    <div class="profile-img">
-                        <img src="./images/image (3).png" alt="profile" class="emp-profile" style="width:50px;">
-                    </div>
-                    <div class="profile-name">
-                        <p class="emp-name">Deepa Mohan</p>
-                        <p class="email">deepa@ambconline.com</p>
-                    </div>
-                </td>
-                <td>Research Analyst</td>
-                <td>Digital Marketing</td>
+
+            <tr>
+                <td><input type="checkbox" class="empmgmt-check"></td>
+                <td>1311</td>
+                <td>Anjali</td>
+                <td>Software Engineer</td>
+                <td>Engineering</td>
                 <td>Full Time</td>
-                <td>Madurai</td>
+                <td>Hyderabad</td>
                 <td>Active</td>
-                <td class="hover-icons">
-                    <div class="icons">
-                        <i class="fa-solid fa-pen"></i>
-                        <i class="fa-solid fa-trash"></i>
-                    </div>
+                <td>
+                    <span class="edit-btn" title="Edit"><i class="fas fa-pencil-alt"></i></span>
+                    <span class="delete-btn" title="Delete"><i class="fas fa-trash-alt"></i></span>
                 </td>
+
+            </tr>
+            <tr>
+                <td><input type="checkbox" class="empmgmt-check"></td>
+                <td>1234</td>
+                <td>Jane Smith</td>
+                <td>Product Manager</td>
+                <td>Product Development</td>
+                <td>Part Time</td>
+                <td>Los Angeles</td>
+                <td>Inactive</td>
+                <td>
+                    <span class="edit-btn" title="Edit"><i class="fas fa-pencil-alt"></i></span>
+                    <span class="delete-btn" title="Delete"><i class="fas fa-trash-alt"></i></span>
+                </td>
+
             </tr>
         </tbody>
     </table>
-
 </div>
-
