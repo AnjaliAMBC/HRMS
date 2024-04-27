@@ -4,55 +4,55 @@
   <edmx:Runtime>
     <!-- SSDL content -->
     <edmx:StorageModels>
-      <Schema Namespace="HRMS_EntityModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+    <Schema Namespace="HRMS_EntityModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
         <EntityType Name="emp_info">
           <Key>
             <PropertyRef Name="Sno" />
           </Key>
-          <Property Name="Sno" Type="tinyint" Nullable="false" />
-          <Property Name="EmployeeID" Type="varchar" MaxLength="50" Nullable="false" />
-          <Property Name="EmployeeStatus" Type="varchar" MaxLength="255" Nullable="false" />
+          <Property Name="Sno" Type="int" Nullable="false" />
+          <Property Name="EmployeeID" Type="varchar" MaxLength="100" Nullable="false" />
+          <Property Name="EmployeeStatus" Type="varchar" MaxLength="100" Nullable="false" />
           <Property Name="EmployeeName" Type="varchar" MaxLength="255" Nullable="false" />
           <Property Name="FatherName" Type="varchar" MaxLength="255" Nullable="false" />
           <Property Name="Gender" Type="varchar" MaxLength="50" Nullable="false" />
-          <Property Name="BloodGroup" Type="varchar" MaxLength="50" />
+          <Property Name="BloodGroup" Type="varchar" MaxLength="50" Nullable="false" />
           <Property Name="DOB" Type="date" Nullable="false" />
           <Property Name="DOJ" Type="date" Nullable="false" />
-          <Property Name="Age" Type="tinyint" Nullable="false" />
-          <Property Name="MaritalStatus" Type="varchar" MaxLength="50" />
+          <Property Name="Age" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="MaritalStatus" Type="varchar" MaxLength="100" />
           <Property Name="Designation" Type="varchar" MaxLength="255" />
-          <Property Name="ShiftTimings" Type="varchar" MaxLength="255" />
+          <Property Name="ShiftTimings" Type="varchar" MaxLength="100" />
           <Property Name="Department" Type="varchar" MaxLength="255" />
-          <Property Name="Client" Type="varchar" MaxLength="50" />
-          <Property Name="EmployeeType" Type="varchar" MaxLength="50" Nullable="false" />
-          <Property Name="Location" Type="varchar" MaxLength="255" Nullable="false" />
-          <Property Name="ReportingManager" Type="varchar" MaxLength="255" Nullable="false" />
-          <Property Name="LeavereportingManager" Type="varchar" MaxLength="255" Nullable="false" />
-          <Property Name="MobileNumber" Type="bigint" Nullable="false" />
-          <Property Name="Personal_Emailid" Type="varchar" MaxLength="50" Nullable="false" />
-          <Property Name="OfficalEmailid" Type="varchar" MaxLength="50" Nullable="false" />
-          <Property Name="PresentAddress" Type="varchar" MaxLength="1000" Nullable="false" />
-          <Property Name="Permanent_Address" Type="varchar" MaxLength="1000" Nullable="false" />
-          <Property Name="BankName" Type="varchar" MaxLength="50" Nullable="false" />
-          <Property Name="AccountNumber" Type="varchar" MaxLength="50" Nullable="false" />
-          <Property Name="Branch" Type="varchar" MaxLength="255" Nullable="false" />
-          <Property Name="TypeofAccount" Type="varchar" MaxLength="50" Nullable="false" />
-          <Property Name="IFSCcode" Type="varchar" MaxLength="50" Nullable="false" />
-          <Property Name="PANnumber" Type="varchar" MaxLength="50" />
-          <Property Name="AadharNumber" Type="varchar" MaxLength="50" Nullable="false" />
-          <Property Name="Passport" Type="varchar" MaxLength="50" />
+          <Property Name="Client" Type="varchar" MaxLength="255" />
+          <Property Name="EmployeeType" Type="varchar" MaxLength="255" />
+          <Property Name="Location" Type="varchar" MaxLength="100" Nullable="false" />
+          <Property Name="ReportingManager" Type="varchar" MaxLength="255" />
+          <Property Name="LeavereportingManager" Type="varchar" MaxLength="255" />
+          <Property Name="MobileNumber" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="Personal_Emailid" Type="varchar" MaxLength="100" />
+          <Property Name="OfficalEmailid" Type="varchar" MaxLength="100" Nullable="false" />
+          <Property Name="PresentAddress" Type="varchar" MaxLength="1000" />
+          <Property Name="Permanent_Address" Type="varchar" MaxLength="1000" />
+          <Property Name="BankName" Type="varchar" MaxLength="100" />
+          <Property Name="AccountNumber" Type="varchar" MaxLength="50" />
+          <Property Name="Branch" Type="varchar" MaxLength="255" />
+          <Property Name="TypeofAccount" Type="varchar" MaxLength="100" />
+          <Property Name="IFSCcode" Type="varchar" MaxLength="100" />
+          <Property Name="PANnumber" Type="varchar" MaxLength="100" />
+          <Property Name="AadharNumber" Type="varchar" MaxLength="100" />
+          <Property Name="Passport" Type="varchar" MaxLength="100" />
           <Property Name="DOEofPassport" Type="date" />
-          <Property Name="UANNumber" Type="varchar" MaxLength="50" />
-          <Property Name="PFNumber" Type="varchar" MaxLength="50" />
-          <Property Name="ESICNumber" Type="varchar" MaxLength="50" />
+          <Property Name="UANNumber" Type="varchar" MaxLength="100" />
+          <Property Name="PFNumber" Type="varchar" MaxLength="100" />
+          <Property Name="ESICNumber" Type="varchar" MaxLength="100" />
           <Property Name="LatestDegree" Type="varchar" MaxLength="255" />
-          <Property Name="College_Name" Type="varchar" MaxLength="255" Nullable="false" />
-          <Property Name="Specialization" Type="varchar" MaxLength="50" />
-          <Property Name="YearofCompletion" Type="smallint" />
-          <Property Name="Employer_name" Type="varchar" MaxLength="255" Nullable="false" />
-          <Property Name="JobTitle" Type="varchar" MaxLength="255" Nullable="false" />
-          <Property Name="From_date" Type="varchar" MaxLength="50" />
-          <Property Name="To_date" Type="varchar" MaxLength="50" />
+          <Property Name="College_Name" Type="varchar" MaxLength="255" />
+          <Property Name="Specialization" Type="varchar" MaxLength="255" />
+          <Property Name="YearofCompletion" Type="int" />
+          <Property Name="Employer_name" Type="varchar" MaxLength="255" />
+          <Property Name="JobTitle" Type="varchar" MaxLength="255" />
+          <Property Name="From_date" Type="date" />
+          <Property Name="To_date" Type="date" />
           <Property Name="ReasonforRelieving" Type="varchar(max)" />
           <Property Name="DateofExit" Type="date" />
           <Property Name="Reason" Type="varchar(max)" />
@@ -76,64 +76,10 @@
           <EntitySet Name="emp_info" EntityType="Self.emp_info" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="emplogin" EntityType="Self.emplogin" Schema="dbo" store:Type="Tables" />
         </EntityContainer>
-      </Schema>
-    </edmx:StorageModels>
+      </Schema></edmx:StorageModels>
     <!-- CSDL content -->
     <edmx:ConceptualModels>
       <Schema Namespace="HRMS_EntityModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
-        <EntityType Name="emp_info">
-          <Key>
-            <PropertyRef Name="Sno" />
-          </Key>
-          <Property Name="Sno" Type="Byte" Nullable="false" />
-          <Property Name="EmployeeID" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
-          <Property Name="EmployeeStatus" Type="String" MaxLength="255" FixedLength="false" Unicode="false" Nullable="false" />
-          <Property Name="EmployeeName" Type="String" MaxLength="255" FixedLength="false" Unicode="false" Nullable="false" />
-          <Property Name="FatherName" Type="String" MaxLength="255" FixedLength="false" Unicode="false" Nullable="false" />
-          <Property Name="Gender" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
-          <Property Name="BloodGroup" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
-          <Property Name="DOB" Type="DateTime" Nullable="false" Precision="0" />
-          <Property Name="DOJ" Type="DateTime" Nullable="false" Precision="0" />
-          <Property Name="Age" Type="Byte" Nullable="false" />
-          <Property Name="MaritalStatus" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
-          <Property Name="Designation" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
-          <Property Name="ShiftTimings" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
-          <Property Name="Department" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
-          <Property Name="Client" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
-          <Property Name="EmployeeType" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
-          <Property Name="Location" Type="String" MaxLength="255" FixedLength="false" Unicode="false" Nullable="false" />
-          <Property Name="ReportingManager" Type="String" MaxLength="255" FixedLength="false" Unicode="false" Nullable="false" />
-          <Property Name="LeavereportingManager" Type="String" MaxLength="255" FixedLength="false" Unicode="false" Nullable="false" />
-          <Property Name="MobileNumber" Type="Int64" Nullable="false" />
-          <Property Name="Personal_Emailid" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
-          <Property Name="OfficalEmailid" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
-          <Property Name="PresentAddress" Type="String" MaxLength="1000" FixedLength="false" Unicode="false" Nullable="false" />
-          <Property Name="Permanent_Address" Type="String" MaxLength="1000" FixedLength="false" Unicode="false" Nullable="false" />
-          <Property Name="BankName" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
-          <Property Name="AccountNumber" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
-          <Property Name="Branch" Type="String" MaxLength="255" FixedLength="false" Unicode="false" Nullable="false" />
-          <Property Name="TypeofAccount" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
-          <Property Name="IFSCcode" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
-          <Property Name="PANnumber" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
-          <Property Name="AadharNumber" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
-          <Property Name="Passport" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
-          <Property Name="DOEofPassport" Type="DateTime" Precision="0" />
-          <Property Name="UANNumber" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
-          <Property Name="PFNumber" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
-          <Property Name="ESICNumber" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
-          <Property Name="LatestDegree" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
-          <Property Name="College_Name" Type="String" MaxLength="255" FixedLength="false" Unicode="false" Nullable="false" />
-          <Property Name="Specialization" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
-          <Property Name="YearofCompletion" Type="Int16" />
-          <Property Name="Employer_name" Type="String" MaxLength="255" FixedLength="false" Unicode="false" Nullable="false" />
-          <Property Name="JobTitle" Type="String" MaxLength="255" FixedLength="false" Unicode="false" Nullable="false" />
-          <Property Name="From_date" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
-          <Property Name="To_date" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
-          <Property Name="ReasonforRelieving" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
-          <Property Name="DateofExit" Type="DateTime" Precision="0" />
-          <Property Name="Reason" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
-          <Property Name="EligibleforRehire" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
-        </EntityType>
         <EntityType Name="emplogin">
           <Key>
             <PropertyRef Name="EmployeeID" />
@@ -149,69 +95,68 @@
           <Property Name="EmployeeLogininfo" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
         </EntityType>
         <EntityContainer Name="HRMS_EntityFramework" annotation:LazyLoadingEnabled="true">
-          <EntitySet Name="emp_info" EntityType="Self.emp_info" />
           <EntitySet Name="emplogins" EntityType="Self.emplogin" />
+          <EntitySet Name="emp_info" EntityType="HRMS_EntityModel.emp_info" />
         </EntityContainer>
+        <EntityType Name="emp_info">
+          <Key>
+            <PropertyRef Name="Sno" />
+          </Key>
+          <Property Name="Sno" Type="Int32" Nullable="false" />
+          <Property Name="EmployeeID" Type="String" Nullable="false" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="EmployeeStatus" Type="String" Nullable="false" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="EmployeeName" Type="String" Nullable="false" MaxLength="255" FixedLength="false" Unicode="false" />
+          <Property Name="FatherName" Type="String" Nullable="false" MaxLength="255" FixedLength="false" Unicode="false" />
+          <Property Name="Gender" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="BloodGroup" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="DOB" Type="DateTime" Nullable="false" Precision="0" />
+          <Property Name="DOJ" Type="DateTime" Nullable="false" Precision="0" />
+          <Property Name="Age" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="MaritalStatus" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="Designation" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+          <Property Name="ShiftTimings" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="Department" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+          <Property Name="Client" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+          <Property Name="EmployeeType" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+          <Property Name="Location" Type="String" Nullable="false" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="ReportingManager" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+          <Property Name="LeavereportingManager" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+          <Property Name="MobileNumber" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="Personal_Emailid" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="OfficalEmailid" Type="String" Nullable="false" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="PresentAddress" Type="String" MaxLength="1000" FixedLength="false" Unicode="false" />
+          <Property Name="Permanent_Address" Type="String" MaxLength="1000" FixedLength="false" Unicode="false" />
+          <Property Name="BankName" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="AccountNumber" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="Branch" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+          <Property Name="TypeofAccount" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="IFSCcode" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="PANnumber" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="AadharNumber" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="Passport" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="DOEofPassport" Type="DateTime" Precision="0" />
+          <Property Name="UANNumber" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="PFNumber" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="ESICNumber" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="LatestDegree" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+          <Property Name="College_Name" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+          <Property Name="Specialization" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+          <Property Name="YearofCompletion" Type="Int32" />
+          <Property Name="Employer_name" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+          <Property Name="JobTitle" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+          <Property Name="From_date" Type="DateTime" Precision="0" />
+          <Property Name="To_date" Type="DateTime" Precision="0" />
+          <Property Name="ReasonforRelieving" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="DateofExit" Type="DateTime" Precision="0" />
+          <Property Name="Reason" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="EligibleforRehire" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+        </EntityType>
       </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
     <edmx:Mappings>
       <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
         <EntityContainerMapping StorageEntityContainer="HRMS_EntityModelStoreContainer" CdmEntityContainer="HRMS_EntityFramework">
-          <EntitySetMapping Name="emp_info">
-            <EntityTypeMapping TypeName="HRMS_EntityModel.emp_info">
-              <MappingFragment StoreEntitySet="emp_info">
-                <ScalarProperty Name="Sno" ColumnName="Sno" />
-                <ScalarProperty Name="EmployeeID" ColumnName="EmployeeID" />
-                <ScalarProperty Name="EmployeeStatus" ColumnName="EmployeeStatus" />
-                <ScalarProperty Name="EmployeeName" ColumnName="EmployeeName" />
-                <ScalarProperty Name="FatherName" ColumnName="FatherName" />
-                <ScalarProperty Name="Gender" ColumnName="Gender" />
-                <ScalarProperty Name="BloodGroup" ColumnName="BloodGroup" />
-                <ScalarProperty Name="DOB" ColumnName="DOB" />
-                <ScalarProperty Name="DOJ" ColumnName="DOJ" />
-                <ScalarProperty Name="Age" ColumnName="Age" />
-                <ScalarProperty Name="MaritalStatus" ColumnName="MaritalStatus" />
-                <ScalarProperty Name="Designation" ColumnName="Designation" />
-                <ScalarProperty Name="ShiftTimings" ColumnName="ShiftTimings" />
-                <ScalarProperty Name="Department" ColumnName="Department" />
-                <ScalarProperty Name="Client" ColumnName="Client" />
-                <ScalarProperty Name="EmployeeType" ColumnName="EmployeeType" />
-                <ScalarProperty Name="Location" ColumnName="Location" />
-                <ScalarProperty Name="ReportingManager" ColumnName="ReportingManager" />
-                <ScalarProperty Name="LeavereportingManager" ColumnName="LeavereportingManager" />
-                <ScalarProperty Name="MobileNumber" ColumnName="MobileNumber" />
-                <ScalarProperty Name="Personal_Emailid" ColumnName="Personal_Emailid" />
-                <ScalarProperty Name="OfficalEmailid" ColumnName="OfficalEmailid" />
-                <ScalarProperty Name="PresentAddress" ColumnName="PresentAddress" />
-                <ScalarProperty Name="Permanent_Address" ColumnName="Permanent_Address" />
-                <ScalarProperty Name="BankName" ColumnName="BankName" />
-                <ScalarProperty Name="AccountNumber" ColumnName="AccountNumber" />
-                <ScalarProperty Name="Branch" ColumnName="Branch" />
-                <ScalarProperty Name="TypeofAccount" ColumnName="TypeofAccount" />
-                <ScalarProperty Name="IFSCcode" ColumnName="IFSCcode" />
-                <ScalarProperty Name="PANnumber" ColumnName="PANnumber" />
-                <ScalarProperty Name="AadharNumber" ColumnName="AadharNumber" />
-                <ScalarProperty Name="Passport" ColumnName="Passport" />
-                <ScalarProperty Name="DOEofPassport" ColumnName="DOEofPassport" />
-                <ScalarProperty Name="UANNumber" ColumnName="UANNumber" />
-                <ScalarProperty Name="PFNumber" ColumnName="PFNumber" />
-                <ScalarProperty Name="ESICNumber" ColumnName="ESICNumber" />
-                <ScalarProperty Name="LatestDegree" ColumnName="LatestDegree" />
-                <ScalarProperty Name="College_Name" ColumnName="College_Name" />
-                <ScalarProperty Name="Specialization" ColumnName="Specialization" />
-                <ScalarProperty Name="YearofCompletion" ColumnName="YearofCompletion" />
-                <ScalarProperty Name="Employer_name" ColumnName="Employer_name" />
-                <ScalarProperty Name="JobTitle" ColumnName="JobTitle" />
-                <ScalarProperty Name="From_date" ColumnName="From_date" />
-                <ScalarProperty Name="To_date" ColumnName="To_date" />
-                <ScalarProperty Name="ReasonforRelieving" ColumnName="ReasonforRelieving" />
-                <ScalarProperty Name="DateofExit" ColumnName="DateofExit" />
-                <ScalarProperty Name="Reason" ColumnName="Reason" />
-                <ScalarProperty Name="EligibleforRehire" ColumnName="EligibleforRehire" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
           <EntitySetMapping Name="emplogins">
             <EntityTypeMapping TypeName="HRMS_EntityModel.emplogin">
               <MappingFragment StoreEntitySet="emplogin">
@@ -224,6 +169,60 @@
                 <ScalarProperty Name="EmployeeRole" ColumnName="EmployeeRole" />
                 <ScalarProperty Name="EmloyeeSysHostname" ColumnName="EmloyeeSysHostname" />
                 <ScalarProperty Name="EmployeeLogininfo" ColumnName="EmployeeLogininfo" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="emp_info">
+            <EntityTypeMapping TypeName="HRMS_EntityModel.emp_info">
+              <MappingFragment StoreEntitySet="emp_info">
+                <ScalarProperty Name="EligibleforRehire" ColumnName="EligibleforRehire" />
+                <ScalarProperty Name="Reason" ColumnName="Reason" />
+                <ScalarProperty Name="DateofExit" ColumnName="DateofExit" />
+                <ScalarProperty Name="ReasonforRelieving" ColumnName="ReasonforRelieving" />
+                <ScalarProperty Name="To_date" ColumnName="To_date" />
+                <ScalarProperty Name="From_date" ColumnName="From_date" />
+                <ScalarProperty Name="JobTitle" ColumnName="JobTitle" />
+                <ScalarProperty Name="Employer_name" ColumnName="Employer_name" />
+                <ScalarProperty Name="YearofCompletion" ColumnName="YearofCompletion" />
+                <ScalarProperty Name="Specialization" ColumnName="Specialization" />
+                <ScalarProperty Name="College_Name" ColumnName="College_Name" />
+                <ScalarProperty Name="LatestDegree" ColumnName="LatestDegree" />
+                <ScalarProperty Name="ESICNumber" ColumnName="ESICNumber" />
+                <ScalarProperty Name="PFNumber" ColumnName="PFNumber" />
+                <ScalarProperty Name="UANNumber" ColumnName="UANNumber" />
+                <ScalarProperty Name="DOEofPassport" ColumnName="DOEofPassport" />
+                <ScalarProperty Name="Passport" ColumnName="Passport" />
+                <ScalarProperty Name="AadharNumber" ColumnName="AadharNumber" />
+                <ScalarProperty Name="PANnumber" ColumnName="PANnumber" />
+                <ScalarProperty Name="IFSCcode" ColumnName="IFSCcode" />
+                <ScalarProperty Name="TypeofAccount" ColumnName="TypeofAccount" />
+                <ScalarProperty Name="Branch" ColumnName="Branch" />
+                <ScalarProperty Name="AccountNumber" ColumnName="AccountNumber" />
+                <ScalarProperty Name="BankName" ColumnName="BankName" />
+                <ScalarProperty Name="Permanent_Address" ColumnName="Permanent_Address" />
+                <ScalarProperty Name="PresentAddress" ColumnName="PresentAddress" />
+                <ScalarProperty Name="OfficalEmailid" ColumnName="OfficalEmailid" />
+                <ScalarProperty Name="Personal_Emailid" ColumnName="Personal_Emailid" />
+                <ScalarProperty Name="MobileNumber" ColumnName="MobileNumber" />
+                <ScalarProperty Name="LeavereportingManager" ColumnName="LeavereportingManager" />
+                <ScalarProperty Name="ReportingManager" ColumnName="ReportingManager" />
+                <ScalarProperty Name="Location" ColumnName="Location" />
+                <ScalarProperty Name="EmployeeType" ColumnName="EmployeeType" />
+                <ScalarProperty Name="Client" ColumnName="Client" />
+                <ScalarProperty Name="Department" ColumnName="Department" />
+                <ScalarProperty Name="ShiftTimings" ColumnName="ShiftTimings" />
+                <ScalarProperty Name="Designation" ColumnName="Designation" />
+                <ScalarProperty Name="MaritalStatus" ColumnName="MaritalStatus" />
+                <ScalarProperty Name="Age" ColumnName="Age" />
+                <ScalarProperty Name="DOJ" ColumnName="DOJ" />
+                <ScalarProperty Name="DOB" ColumnName="DOB" />
+                <ScalarProperty Name="BloodGroup" ColumnName="BloodGroup" />
+                <ScalarProperty Name="Gender" ColumnName="Gender" />
+                <ScalarProperty Name="FatherName" ColumnName="FatherName" />
+                <ScalarProperty Name="EmployeeName" ColumnName="EmployeeName" />
+                <ScalarProperty Name="EmployeeStatus" ColumnName="EmployeeStatus" />
+                <ScalarProperty Name="EmployeeID" ColumnName="EmployeeID" />
+                <ScalarProperty Name="Sno" ColumnName="Sno" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

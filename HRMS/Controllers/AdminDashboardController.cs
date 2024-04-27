@@ -6,6 +6,8 @@ using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 using HRMS.Helpers;
+using Newtonsoft.Json;
+
 namespace HRMS.Controllers
 {
     public class AdminDashboardController : Controller
@@ -40,6 +42,9 @@ namespace HRMS.Controllers
 
             var employeesList = _dbContext.emp_info.ToList();
             model.EmpList = employeesList;
+
+            var json = JsonConvert.SerializeObject(model.EmpList);
+            model.EmpListJson = json;
 
             return PartialView("~/Views/AdminDashboard/EmpManagement.cshtml", model);
         }

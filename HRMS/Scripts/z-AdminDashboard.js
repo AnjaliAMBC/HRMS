@@ -27,7 +27,7 @@ $('.admin-dashboard').click(function (event) {
 $('.admin-empmanagement').click(function (event) {
     $('#adminempmanagementtable').DataTable().destroy();
 
-  
+
 
     event.preventDefault();
     HighlightAdminActiveLink($(this));
@@ -50,19 +50,60 @@ $('.admin-empmanagement').click(function (event) {
             $('.admin-attendance-container').hide();
             $('.admin-leave-container').hide();
             $('.admin-ticketing-container').hide();
+
+            var emData = $(".hiddenadmindashboard").find(".emplsthidden").html();
+            $(".emplsthidden").html("");
+
+            var json = $.parseJSON(emData);
+            var data = json.map(data => {
+                console.log(data);
+                return ["", data.EmployeeID, data.EmployeeName, data.Designation, data.Department, data.EmployeeType, data.Location, data.EmployeeStatus, ""];
+            });
+
             $(".hiddenadmindashboard").html("");
-
-
             var table = $('#adminempmanagementtable').DataTable({
+                data: data,
                 "paging": true,
-                "searching": false,
+                "searching": true,
                 "info": true,
                 "order": [],
-                /*   "lengthChange": false,*/
-                "lengthMenu": [[1, 2, 5, -1], [1, 2, 5, "All"]],
+                "lengthMenu": [[10, 25, 50, -1], [10, 25, 50, "All"]],
                 "columnDefs": [
-                    { "orderable": false, "targets": [0, -1] }
-                ]
+                    {
+                        "targets": 0,
+                        "render": function (data, type, full, meta) {
+                            return '<input type="checkbox" class="empmgmt-check" />'
+                        }
+                    },
+                    {
+                        "targets": 1,
+                    },
+                    {
+                        "targets": 2,
+                    },
+                    {
+                        "targets": 3,
+                    },
+                    {
+                        "targets": 4,
+                    },
+                    {
+                        "targets": 5,
+                    },
+                    {
+                        "targets": 6,
+                    },
+                    {
+                        "targets": 7,
+                    },
+                    {
+                        "targets": 8,
+                        "render": function (data, type, full, meta) {
+                            return '<span class="edit-btn" title="Edit"><i class="fas fa-pencil-alt"></i></span><span class="delete-btn" title="Delete"><i class="fas fa-trash-alt"></i></span>'
+                        }
+                    },
+                ],
+
             });
 
             $('#adminempmanagementtable thead th:first-child').html('<input type="checkbox" id="selectAll">');
@@ -74,9 +115,9 @@ $('.admin-empmanagement').click(function (event) {
                 }
                 else {
                     $('td input[type="checkbox"]').prop('checked', false);
-                    $('#action').hide();                  
+                    $('#action').hide();
                 }
-                
+
             });
 
             $('#menuIcon').on('click', function () {
@@ -95,7 +136,6 @@ $('.admin-empmanagement').click(function (event) {
 
             $('#dropdownMenuContent input[type="checkbox"]').prop('checked', true);
 
-
             $(document).on('change', '.empmgmt-check', function () {
                 var isChecked = $(this).prop('checked');
                 if (isChecked) {
@@ -106,11 +146,51 @@ $('.admin-empmanagement').click(function (event) {
                     if ($(".empmgmt-check:checked").length <= 0) {
                         $('#action').hide();
                         $('#selectAll').prop('checked', false);
-                    }                    
+                    }
+                }
+            });
+
+            $(document).on('change', '#department-dropdown', function () {
+                var value = $(this).val();
+                var columnIndex = 4;
+                if (value === 'All') {
+                    table.column(columnIndex).search('').draw(); // Clear search and redraw table
+                } else {
+                    table.column(columnIndex).search(value).draw();
+                }
+            });
+
+            $(document).on('change', '#Location-dropdown', function () {
+                var value = $(this).val();
+                var columnIndex = 6;
+                if (value === 'All') {
+                    table.column(columnIndex).search('').draw(); // Clear search and redraw table
+                } else {
+                    table.column(columnIndex).search(value).draw();
+                }
+            });
+
+            $(document).on('change', '#status-dropdown', function () {
+                var value = $(this).val();
+                var columnIndex = 7;
+                if (value === 'All') {
+                    table.column(columnIndex).search('').draw(); // Clear search and redraw table
+                } else {
+                    table.column(columnIndex).search(value).draw();
                 }
             });
 
 
+            $(document).on('click', '.clearfilter', function () {
+                $('#department-dropdown').val($('#department-dropdown option:first').val());
+                $('#Location-dropdown').val($('#Location-dropdown option:first').val());
+                $('#status-dropdown').val($('#status-dropdown option:first').val());
+                table.search('').columns().search('').draw();
+            });
+
+            $(document).on('keyup', '.advancesearch', function () {
+                table.search(this.value).draw(); // Search value across all columns and redraw table
+            });
         },
         error: function (xhr, status, error) {
             var err = eval("(" + xhr.responseText + ")");
@@ -118,14 +198,11 @@ $('.admin-empmanagement').click(function (event) {
     });
 });
 
-
-
-
 //Attedence link js
 $('.admin-attendance').click(function (event) {
     event.preventDefault();
     HighlightAdminActiveLink($(this));
-    
+
     $.ajax({
         url: '/admindashboard/attendancemanagement',
         type: 'GET',

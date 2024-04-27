@@ -14,7 +14,7 @@ namespace HRMS
     
     public partial class emp_info
     {
-        public byte Sno { get; set; }
+        public int Sno { get; set; }
         public string EmployeeID { get; set; }
         public string EmployeeStatus { get; set; }
         public string EmployeeName { get; set; }
@@ -23,7 +23,7 @@ namespace HRMS
         public string BloodGroup { get; set; }
         public System.DateTime DOB { get; set; }
         public System.DateTime DOJ { get; set; }
-        public byte Age { get; set; }
+        public string Age { get; set; }
         public string MaritalStatus { get; set; }
         public string Designation { get; set; }
         public string ShiftTimings { get; set; }
@@ -33,7 +33,7 @@ namespace HRMS
         public string Location { get; set; }
         public string ReportingManager { get; set; }
         public string LeavereportingManager { get; set; }
-        public long MobileNumber { get; set; }
+        public string MobileNumber { get; set; }
         public string Personal_Emailid { get; set; }
         public string OfficalEmailid { get; set; }
         public string PresentAddress { get; set; }
@@ -53,11 +53,11 @@ namespace HRMS
         public string LatestDegree { get; set; }
         public string College_Name { get; set; }
         public string Specialization { get; set; }
-        public Nullable<short> YearofCompletion { get; set; }
+        public Nullable<int> YearofCompletion { get; set; }
         public string Employer_name { get; set; }
         public string JobTitle { get; set; }
-        public string From_date { get; set; }
-        public string To_date { get; set; }
+        public Nullable<System.DateTime> From_date { get; set; }
+        public Nullable<System.DateTime> To_date { get; set; }
         public string ReasonforRelieving { get; set; }
         public Nullable<System.DateTime> DateofExit { get; set; }
         public string Reason { get; set; }

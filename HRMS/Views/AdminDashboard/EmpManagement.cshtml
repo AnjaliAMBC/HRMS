@@ -14,7 +14,7 @@
             <div class="col-lg-7 navbarl">
                 <div class="container-fluid">
                     <div class="search-container col-3">
-                        <input type="text" placeholder="Search">
+                        <input type="text" placeholder="Search" class="advancesearch">
                         <button type="submit"><i class="fas fa-search"></i></button>
                     </div>
 
@@ -44,22 +44,25 @@
                 <div class="collapse-topic">
                     Filter By
                     <select class="dropdown" name="department" id="department-dropdown">
-                        <option value="" disabled selected hidden>Department</option>
+                        <option value="" disabled selected>Department</option>
                         <option value="HR">HR</option>
-                        <option value="IT">IT</option>
-                        <option value="option3">Option 3</option>
+                        <option value="DGM - Design">DGM - Design</option>
+                        <option value="DGM - Web">DGM - Web</option>
+                        <option value="All">All</option>
                     </select>
                     <select class="dropdown" name="Location" id="Location-dropdown">
-                        <option value="" disabled selected hidden>Location</option>
+                        <option value="" disabled selected>Location</option>
                         <option value="Madhurai">Madhurai</option>
                         <option value="Hyderabad">Hyderabad</option>
+                        <option value="All">All</option>
                     </select>
                     <select class="dropdown" name="status" id="status-dropdown">
-                        <option value="" disabled selected hidden>Status</option>
+                        <option value="" disabled selected>Status</option>
                         <option value="Active">Active</option>
                         <option value="In Active">In Active</option>
+                        <option value="All">All</option>
                     </select>
-                    <a href="#">clear</a>
+                    <a href="#" class="clearfilter">clear</a>
                 </div>
             </div>
         </div>
@@ -95,25 +98,8 @@
             </tr>
         </thead>
         <tbody>
-
-            @foreach (var emp in Model.EmpList)
-            {
-                <tr>
-                    <td><input type="checkbox" class="empmgmt-check"></td>
-                    <td>@emp.EmployeeID</td>
-                    <td>@emp.EmployeeName</td>
-                    <td>@emp.Designation</td>
-                    <td>@emp.Department</td>
-                    <td>@emp.EmployeeType</td>
-                    <td>@emp.Location</td>
-                    <td>@emp.EmployeeStatus</td>
-                    <td>
-                        <span class="edit-btn" title="Edit"><i class="fas fa-pencil-alt"></i></span>
-                        <span class="delete-btn" title="Delete"><i class="fas fa-trash-alt"></i></span>
-                    </td>
-
-                </tr>
-            }           
         </tbody>
     </table>
+
+    <div class="emplsthidden" style="display: none">@Model.EmpListJson</div>
 </div>
