@@ -43,6 +43,17 @@ namespace HRMS.Helpers
         //    return _session[key] as SiteContextModel;
         //}
 
+        public static SiteContextModel GetCurrentUserContext()
+        {
+            var contextModel = new SiteContextModel();
+            if (HttpContext.Current.Session["SiteContext"] != null)
+            {
+                var siteContext = HttpContext.Current.Session["SiteContext"] as SiteContextModel;
+                contextModel.EmpInfo = siteContext.EmpInfo;
+                contextModel.LoginInfo = siteContext.LoginInfo;
+            }
 
+            return contextModel;
+        }
     }
 }

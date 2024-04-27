@@ -1,4 +1,5 @@
-﻿
+﻿@model HRMS.Models.Admin.EmployeeManagementViewModel
+
 <div class="admin-empmanagement-view">
     <div class="container-fluid top">
         <div class="row navbar">
@@ -44,21 +45,19 @@
                     Filter By
                     <select class="dropdown" name="department" id="department-dropdown">
                         <option value="" disabled selected hidden>Department</option>
-                        <option value="option1">Option 1</option>
-                        <option value="option2">Option 2</option>
+                        <option value="HR">HR</option>
+                        <option value="IT">IT</option>
                         <option value="option3">Option 3</option>
                     </select>
                     <select class="dropdown" name="Location" id="Location-dropdown">
                         <option value="" disabled selected hidden>Location</option>
-                        <option value="option1">Option 1</option>
-                        <option value="option2">Option 2</option>
-                        <option value="option3">Option 3</option>
+                        <option value="Madhurai">Madhurai</option>
+                        <option value="Hyderabad">Hyderabad</option>
                     </select>
                     <select class="dropdown" name="status" id="status-dropdown">
                         <option value="" disabled selected hidden>Status</option>
-                        <option value="option1">Option 1</option>
-                        <option value="option2">Option 2</option>
-                        <option value="option3">Option 3</option>
+                        <option value="Active">Active</option>
+                        <option value="In Active">In Active</option>
                     </select>
                     <a href="#">clear</a>
                 </div>
@@ -66,7 +65,7 @@
         </div>
     </div>
 
-    <table id="adminempmanagementtable" class="display" style="width: 100%;" >
+    <table id="adminempmanagementtable" class="display" style="width: 100%;">
         <thead style="background-color: #F2F6FF">
             <tr>
                 <th><input type="checkbox" id="selectAll"></th>
@@ -97,36 +96,24 @@
         </thead>
         <tbody>
 
-            <tr>
-                <td><input type="checkbox" class="empmgmt-check"></td>
-                <td>1311</td>
-                <td>Anjali</td>
-                <td>Software Engineer</td>
-                <td>Engineering</td>
-                <td>Full Time</td>
-                <td>Hyderabad</td>
-                <td>Active</td>
-                <td>
-                    <span class="edit-btn" title="Edit"><i class="fas fa-pencil-alt"></i></span>
-                    <span class="delete-btn" title="Delete"><i class="fas fa-trash-alt"></i></span>
-                </td>
+            @foreach (var emp in Model.EmpList)
+            {
+                <tr>
+                    <td><input type="checkbox" class="empmgmt-check"></td>
+                    <td>@emp.EmployeeID</td>
+                    <td>@emp.EmployeeName</td>
+                    <td>@emp.Designation</td>
+                    <td>@emp.Department</td>
+                    <td>@emp.EmployeeType</td>
+                    <td>@emp.Location</td>
+                    <td>@emp.EmployeeStatus</td>
+                    <td>
+                        <span class="edit-btn" title="Edit"><i class="fas fa-pencil-alt"></i></span>
+                        <span class="delete-btn" title="Delete"><i class="fas fa-trash-alt"></i></span>
+                    </td>
 
-            </tr>
-            <tr>
-                <td><input type="checkbox" class="empmgmt-check"></td>
-                <td>1234</td>
-                <td>Jane Smith</td>
-                <td>Product Manager</td>
-                <td>Product Development</td>
-                <td>Part Time</td>
-                <td>Los Angeles</td>
-                <td>Inactive</td>
-                <td>
-                    <span class="edit-btn" title="Edit"><i class="fas fa-pencil-alt"></i></span>
-                    <span class="delete-btn" title="Delete"><i class="fas fa-trash-alt"></i></span>
-                </td>
-
-            </tr>
+                </tr>
+            }           
         </tbody>
     </table>
 </div>

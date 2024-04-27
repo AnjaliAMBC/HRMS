@@ -1,40 +1,47 @@
 ﻿using HRMS.Models;
+using HRMS.Models.Admin;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
-
+using HRMS.Helpers;
 namespace HRMS.Controllers
 {
     public class AdminDashboardController : Controller
     {
+        // Database context
+        private readonly HRMS_EntityFramework _dbContext;
+
+        // Constructor to initialize database context
+        public AdminDashboardController()
+        {
+            _dbContext = new HRMS_EntityFramework(); // Replace YourDbContext with your actual DbContext class
+        }
+
         // GET: AdminDashboard
         //[CustomAuthorize(Roles = "HR Admin")]
         public ActionResult Dashboard()
         {
-            //if (Session["SiteContext"] != null)
-            //{
-            //    var siteContext = Session["SiteContext"] as SiteContext;
-            //    //model.EmpInfo = siteContext.EmpInfo;
-            //    //model.LoginInfo = siteContext.LoginInfo;
-            //    if(siteContext.LoginInfo.EmployeeRole == "HR Admin")
-            //    {
-            ViewBag.ActivePage = "Dashboard";
-            return View("~/Views/AdminDashboard/Dashboard.cshtml");
-            //}
-            //else
-            //{
-            //    return View("~/Views/Shared/Error.cshtml");
-            //}
-
+            var model = new DashboardViewModel();
+            var cuserContext = SiteContext.GetCurrentUserContext();
+            model.EmpInfo = cuserContext.EmpInfo;
+            model.LoginInfo = cuserContext.LoginInfo;
+            return View("~/Views/AdminDashboard/Dashboard.cshtml", model);
         }
 
         //[CustomAuthorize(Roles = "HR Admin")]
         public ActionResult EmployeeManagement()
         {
-            //ViewBag.ActivePage = "EmployeeManagement";
-            return PartialView("~/Views/AdminDashboard/EmpManagement.cshtml");
+            var model = new EmployeeManagementViewModel();
+            var cuserContext = SiteContext.GetCurrentUserContext();
+            model.EmpInfo = cuserContext.EmpInfo;
+            model.LoginInfo = cuserContext.LoginInfo;
+
+            var employeesList = _dbContext.emp_info.ToList();
+            model.EmpList = employeesList;
+
+            return PartialView("~/Views/AdminDashboard/EmpManagement.cshtml", model);
         }
 
         //[CustomAuthorize(Roles = "HR Admin")]
