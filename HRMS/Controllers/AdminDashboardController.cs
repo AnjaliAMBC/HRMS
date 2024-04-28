@@ -82,19 +82,39 @@ namespace HRMS.Controllers
             }
             catch (Exception ex)
             {
-                if(ex.InnerException != null)
-                {
-                    model.JsonResponse.Message = ex.InnerException.Message;
-                }
-                else
-                {
-                    model.JsonResponse.Message = ex.Message;
-                }
-               
-                model.JsonResponse.StatusCode = 500;
+                model.JsonResponse = ErrorHelper.CaptureError(ex);
             }
             return Json(model, JsonRequestBehavior.AllowGet);
         }
+
+        public JsonResult DeleteEmp(DeleteEmployeeViewModel deletEmpInfo)
+        {
+            var deleteModel = new DeleteEmployeeViewModel();
+            try
+            {
+                deleteModel.empID = deletEmpInfo.empID;
+                var employee = _dbContext.emp_info.Where(emp => emp.EmployeeID == deletEmpInfo.empID).FirstOrDefault();
+
+                if (employee == null)
+                {
+                    deleteModel.JsonResponse.Message = "Employee deleted successfully!";
+                    deleteModel.JsonResponse.StatusCode = 200;
+                    return Json(deleteModel, JsonRequestBehavior.AllowGet);
+                }
+
+                _dbContext.emp_info.Remove(employee);
+                _dbContext.SaveChanges();
+
+                deleteModel.JsonResponse.Message = deletEmpInfo.empName + " Employee deleted successfully!";
+                deleteModel.JsonResponse.StatusCode = 200;
+            }
+            catch (Exception ex)
+            {
+                deleteModel.JsonResponse = ErrorHelper.CaptureError(ex);
+            }
+            return Json(deleteModel, JsonRequestBehavior.AllowGet);
+        }
+
 
         //[CustomAuthorize(Roles = "HR Admin")]
         public ActionResult AttendanceManagement()

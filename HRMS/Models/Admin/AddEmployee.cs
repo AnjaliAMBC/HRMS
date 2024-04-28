@@ -67,4 +67,11 @@ namespace HRMS.Models.Admin
         public emp_info EmpInfo { get; set; }
         public JsonResponse JsonResponse { get; set; } = new JsonResponse();
     }
+
+    public class DeleteEmployeeViewModel
+    {
+        public string empID { get; set; }
+        public string empName { get; set; }
+        public JsonResponse JsonResponse { get; set; } = new JsonResponse();
+    }
 }

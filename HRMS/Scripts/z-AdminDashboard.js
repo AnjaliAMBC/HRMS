@@ -70,9 +70,11 @@ $('.admin-empmanagement').click(function (event) {
                     },
                     {
                         "targets": 1,
+                        "class": "tdempid"
                     },
                     {
                         "targets": 2,
+                        "class": "tdempname"
                     },
                     {
                         "targets": 3,
@@ -92,7 +94,7 @@ $('.admin-empmanagement').click(function (event) {
                     {
                         "targets": 8,
                         "render": function (data, type, full, meta) {
-                            return '<span class="edit-btn" title="Edit"><i class="fas fa-pencil-alt"></i></span><span class="delete-btn" title="Delete"><i class="fas fa-trash-alt"></i></span>'
+                            return '<span class="edit-btn" title="Edit"><i class="fas fa-pencil-alt"></i></span><span class="delete-btn" data-toggle="modal" title="Delete"><i class="fas fa-trash-alt"></i></span>'
                         }
                     },
                 ],
@@ -184,6 +186,64 @@ $('.admin-empmanagement').click(function (event) {
             $(document).on('keyup', '.advancesearch', function () {
                 table.search(this.value).draw(); // Search value across all columns and redraw table
             });
+
+            $(document).on('click', '.delete-btn', function () {
+                $('.delete-employee').removeAttr('disabled');
+                $('.delete-message').html("");
+                $('#deleteConfirmationModal').modal("show");
+                var $row = $(this).closest("tr");
+                var deleteEmpID = $row.find(".tdempid").text();
+                var deleteEmpName = $row.find(".tdempname").text();
+                $('.delete-message').css("color", "black");
+                $('.delete-message').html('Are you sure you want to delete <span class="deleteempnameval" style="font-weight: bold; font-style: italic; color:red"></span> ?');
+                $('.deleteempid').html(deleteEmpID.trim());
+                $('.deleteempnameval').text(deleteEmpName.trim());
+            });
+
+            $(document).on('click', '.delete-employee', function (event) {
+                event.preventDefault();
+                event.stopPropagation();
+
+                $('.delete-employee').prop('disabled', true);
+                var deleteEmpID = $('.deleteempid').html();
+                var deleteEmpName = $('.deleteempnameval').text();
+
+                var deletEmpInfo = {
+                    empID: deleteEmpID,
+                    empName: deleteEmpName
+                }
+
+                $.ajax({
+                    url: '/admindashboard/deleteemp',
+                    type: 'POST',
+                    data: deletEmpInfo,
+                    dataType: "json",
+                    success: function (result) {
+                        if (result.JsonResponse.StatusCode == 200) {
+                            $('.delete-message').html("You have deleted employee " + deleteEmpName + " successfully ");
+                            $('.delete-message').css("color", "blue");
+                            $('.delete-employee').prop('disabled', true);
+                        } else {
+                            $('.delete-message').html(result.JsonResponse.Message);
+                            $('.delete-message').css("color", "red");
+                            $('.delete-employee').prop('disabled', false);
+                        }                    
+                    },
+                    error: function (xhr, status, error) {                     
+                        console.error("Error deleting employee:", error);
+                    },
+                    complete: function () {
+                        $('.delete-employee').prop('disabled', true);
+                    }
+                });
+            });
+
+            $(document).on('click', '.refresh-emptablist', function () {
+                $('.admin-empmanagement').click();
+                $('#deleteConfirmationModal').modal("hide");
+                $('.modal-backdrop').remove();
+            });
+
         },
         error: function (xhr, status, error) {
             var err = eval("(" + xhr.responseText + ")");
@@ -327,7 +387,7 @@ $(document).on('click', '.addemp-submit-btn', function () {
                 $(".addemp-message").css("color", "green");
                 $(".addemp-message").text("The employee has been added successfully.");
 
-                var forms = $('.tabs-view');             
+                var forms = $('.tabs-view');
                 clearFormDataAndSelectFirstIndex(forms);
             }
             else {
@@ -377,3 +437,5 @@ $(document).on('click', '#saveLeaveRMBtn', function () {
 function toggleDropdown() {
     document.getElementById("myDropdown").classList.toggle("show");
 }
+
+
