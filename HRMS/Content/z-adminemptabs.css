@@ -159,9 +159,12 @@ select {
 
 .admin-add-emptab {
     border: 1px solid gray;
-    
 }
 
     .admin-add-emptab.active {
         border-bottom-color: #ffff;
     }
+
+.form-control.is-valid, .was-validated .form-control:valid {
+    background-image: none !important;
+}

@@ -29,8 +29,8 @@ $('#copyPresentAddress').change(function () {
 
 
 function calculateAge() {
-    var dobInput = document.getElementById("dateOfBirth");
-    var ageInput = document.getElementById("age");
+    var dobInput = document.getElementById("DOB");
+    var ageInput = document.getElementById("Age");
     var dob = new Date(dobInput.value);
     var today = new Date();
 

@@ -3,82 +3,82 @@
     margin-left: 58px;">
         Add Employee
     </h2>
-    <nav class="navbar navbar-expand-xl navbar-light" style="margin-right: 229px;">
-        <div class="container-fluid">
-            <ul class="navbar-nav">
-                <li class="nav-item">
-                    <a id="tab1-link" class="nav-link admin-add-emptab active" href="#tab1" data-toggle="tab">General information</a>
-                </li>
-                <li class="nav-item">
-                    <a id="tab2-link" class="nav-link admin-add-emptab" href="#tab2" data-toggle="tab">Bank details</a>
-                </li>
-                <li class="nav-item">
-                    <a id="tab3-link" class="nav-link admin-add-emptab" href="#tab3" data-toggle="tab">ID proof details</a>
-                </li>
-                <li class="nav-item">
-                    <a id="tab4-link" class="nav-link admin-add-emptab" href="#tab4" data-toggle="tab">Statutory details</a>
-                </li>
-                <li class="nav-item">
-                    <a id="tab5-link" class="nav-link admin-add-emptab" href="#tab5" data-toggle="tab"> Education details</a>
-                </li>
-                <li class="nav-item">
-                    <a id="tab6-link" class="nav-link admin-add-emptab" href="#tab6" data-toggle="tab"> Previous employer details</a>
-                </li>
-                <li class="nav-item">
-                    <a id="tab7-link" class="nav-link admin-add-emptab" href="#tab7" data-toggle="tab"> Seperation information</a>
-                </li>
-            </ul>
-        </div>
-    </nav>
+    <ul class="nav nav-tabs" id="myTab" role="tablist">
+        <li class="nav-item" role="presentation">
+            <a class="nav-link active" id="tab1-link" data-toggle="tab" href="#tab1" role="tab" aria-controls="tab1" aria-selected="true">General Information</a>
+        </li>
+        <li class="nav-item" role="presentation">
+            <a class="nav-link" id="tab2-link" data-toggle="tab" href="#tab2" role="tab" aria-controls="tab2" aria-selected="false">Bank details</a>
+        </li>
+        <li class="nav-item" role="presentation">
+            <a class="nav-link" id="tab3-link" data-toggle="tab" href="#tab3" role="tab" aria-controls="tab3" aria-selected="false">ID proof details</a>
+        </li>
 
-    <div class="tab-content">
-        <div id="tab1" class="tab-pane active">
-            <form id="tab1-form" class="tabs-view">
+        <li class="nav-item" role="presentation">
+            <a class="nav-link" id="tab4-link" data-toggle="tab" href="#tab4" role="tab" aria-controls="tab4" aria-selected="false">Statutory details</a>
+        </li>
+        <li class="nav-item" role="presentation">
+            <a class="nav-link" id="tab5-link" data-toggle="tab" href="#tab5" role="tab" aria-controls="tab5" aria-selected="false">Education details</a>
+        </li>
+
+        <li class="nav-item" role="presentation">
+            <a class="nav-link" id="tab6-link" data-toggle="tab" href="#tab6" role="tab" aria-controls="tab6" aria-selected="false">Previous employer details</a>
+        </li>
+        <li class="nav-item" role="presentation">
+            <a class="nav-link" id="tab7-link" data-toggle="tab" href="#tab7" role="tab" aria-controls="tab7" aria-selected="false">Seperation information</a>
+        </li>
+    </ul>
+    <div class="tab-content" id="myTabContent">
+        <div class="tab-pane fade show active" id="tab1" role="tabpanel" aria-labelledby="tab1-link">
+            <form id="tab1-form" class="tabs-view needs-validation" novalidate>
                 <div class="container tab-container" style="margin-left: 5px">
                     <div class="row">
                         <div class="col-md-3">
                             <div class="form-group">
-                                <label for="employeeID">Employee ID</label>
-                                <input type="text" class="form-control" id="employeeID">
+                                <label for="EmployeeID">Employee ID</label>
+                                <input type="text" class="form-control" id="EmployeeID" required>
+                                <div class="invalid-feedback">Please provide Employee ID.</div>
                             </div>
                         </div>
                         <div class="col-md-3">
                             <div class="form-group">
-                                <label for="employeeName">Employee Name</label>
-                                <input type="text" class="form-control" id="employeeName">
+                                <label for="EmployeeName">Employee Name</label>
+                                <input type="text" class="form-control" id="EmployeeName" required>
+                                <div class="invalid-feedback">Please provide Employee Name.</div>
                             </div>
                         </div>
                         <div class="col-md-3">
                             <div class="form-group">
-                                <label for="fatherName">Father's Name</label>
-                                <input type="text" class="form-control" id="fatherName">
+                                <label for="FatherName">Father's Name</label>
+                                <input type="text" class="form-control" id="FatherName">
                             </div>
                         </div>
                         <div class="col-md-3">
                             <div class="form-group">
-                                <label for="dateOfJoining">Date of Joining</label>
-                                <input type="date" class="form-control" id="dateOfJoining">
+                                <label for="DOJ">Date of Joining</label>
+                                <input type="date" class="form-control" id="DOJ">
                             </div>
                         </div>
                     </div>
                     <div class="row">
                         <div class="col-md-3">
                             <div class="form-group">
-                                <label for="dateOfBirth">Date of Birth</label>
-                                <input type="date" class="form-control" id="dateOfBirth" onchange="calculateAge()">
+                                <label for="DOB">Date of Birth</label>
+                                <input type="date" class="form-control" id="DOB" onchange="calculateAge()">
                             </div>
                         </div>
+
                         <div class="col-md-3">
                             <div class="form-group">
-                                <label for="age">Age</label>
-                                <input type="number" class="form-control" id="age" readonly="">
+                                <label for="Age">Age</label>
+                                <input type="number" class="form-control" id="Age" readonly="">
                             </div>
                         </div>
                         <div class="col-md-3">
                             <div class="form-group drop-menu">
-                                <label for="bloodGroup">Blood Group</label>
-                                <select class="form-control" id="bloodGroup">
-                                    <option value="" disabled="" selected="" hidden=""></option>
+                                <label for="BloodGroup">Blood Group</label>
+                                <select class="form-control" id="BloodGroup">
+                                    <option value="" disabled selected>Blood Group</option>
                                     <option value="A+">A+</option>
                                     <option value="A-">A-</option>
                                     <option value="B+">B+</option>
@@ -92,60 +92,33 @@
                         </div>
                         <div class="col-md-3">
                             <div class="form-group drop-menu">
-                                <label for="employeeStatus">Employee Status</label>
-                                <select class="form-control" id="employeeStatus">
-                                    <option value="" disabled="" selected="" hidden=""></option>
+                                <label for="EmployeeStatus">Employee Status</label>
+                                <select class="form-control" id="EmployeeStatus">
+                                    <option value="" disabled selected>Status</option>
                                     <option value="active">Active</option>
                                     <option value="inactive">Inactive</option>
                                 </select>
                             </div>
                         </div>
                     </div>
-                    <!-- Add more rows with columns as needed for additional form fields -->
-
-                    <div class="row">
-                        <div class="col-md-3">
-                            <div class="form-group">
-                                <label for="employeeID">Employee ID</label>
-                                <input type="text" class="form-control" id="employeeID">
-                            </div>
-                        </div>
-                        <div class="col-md-3">
-                            <div class="form-group">
-                                <label for="employeeName">Employee Name</label>
-                                <input type="text" class="form-control" id="employeeName">
-                            </div>
-                        </div>
-                        <div class="col-md-3">
-                            <div class="form-group">
-                                <label for="fatherName">Father's Name</label>
-                                <input type="text" class="form-control" id="fatherName">
-                            </div>
-                        </div>
-                        <div class="col-md-3">
-                            <div class="form-group">
-                                <label for="dateOfJoining">Date of Joining</label>
-                                <input type="date" class="form-control" id="dateOfJoining">
-                            </div>
-                        </div>
-                    </div>
                     <div class="row">
                         <div class="col-md-3">
                             <div class="form-group drop-menu">
-                                <label for="gender">Gender</label>
-                                <select class="form-control" id="gender">
-                                    <option value="" disabled selected hidden></option>
+                                <label for="Gender">Gender</label>
+                                <select class="form-control" id="Gender" required>
+                                    <option value="" disabled selected>Gender</option>
                                     <option value="male">Male</option>
                                     <option value="female">Female</option>
                                     <option value="other">Other</option>
                                 </select>
+                                <div class="invalid-feedback">Please select Gender.</div>
                             </div>
                         </div>
                         <div class="col-md-3">
                             <div class="form-group drop-menu">
-                                <label for="maritalStatus">Marital Status</label>
-                                <select class="form-control" id="maritalStatus">
-                                    <option value="" disabled selected hidden></option>
+                                <label for="MaritalStatus">Marital Status</label>
+                                <select class="form-control" id="MaritalStatus">
+                                    <option value="" disabled selected>Marital Status</option>
                                     <option value="single">Single</option>
                                     <option value="married">Married</option>
                                     <option value="divorced">Divorced</option>
@@ -154,47 +127,68 @@
                             </div>
                         </div>
                         <div class="col-md-3">
-                            <div class="form-group drop-menu">
-                                <label for="designation">Designation:</label>
-                                <select class="form-control" id="designation">
-                                    <option value="" disabled selected hidden></option>
-                                    <option value="manager">Manager</option>
-                                    <option value="engineer">Engineer</option>
-                                    <option value="analyst">Analyst</option>
-                                    <option value="developer">Developer</option>
-                                </select>
+                            <div class="form-group">
+                                <label for="Designation">Designation:</label>
+                                <div class="input-group">
+                                    <select class="form-control" id="Designation">
+                                        <option value="" disabled selected>Designation</option>
+                                        <option value="manager">Manager</option>
+                                        <option value="engineer">Engineer</option>
+                                        <option value="analyst">Analyst</option>
+                                        <option value="developer">Developer</option>
+                                    </select>
+                                    <div class="input-group-append">
+                                        <button class="btn btn-secondary btn-sm" type="button" data-toggle="modal" data-target="#addDesignationModel">
+                                            <i class="fas fa-plus fa-xs"></i>
+                                        </button>
+                                    </div>
+                                </div>
                             </div>
                         </div>
                         <div class="col-md-3">
-                            <div class="form-group drop-menu">
-                                <label for="department">Department</label>
-                                <select class="form-control" id="departmentSelect">
-                                    <option value="" disabled selected hidden></option>
-                                    <option value="1">Department 1</option>
-                                    <option value="2">Department 2</option>
-                                    <option value="3">Department 3</option>
-                                </select>
+                            <div class="form-group">
+                                <label for="Department">Department</label>
+                                <div class="input-group">
+                                    <select class="form-control" id="Department">
+                                        <option value="" disabled selected>Department</option>
+                                        <option value="1">Department 1</option>
+                                        <option value="2">Department 2</option>
+                                        <option value="3">Department 3</option>
+                                    </select>
+                                    <div class="input-group-append">
+                                        <button class="btn btn-secondary btn-sm" type="button" data-toggle="modal" data-target="#addDepartmentModel">
+                                            <i class="fas fa-plus fa-xs"></i>
+                                        </button>
+                                    </div>
+                                </div>
                             </div>
                         </div>
                     </div>
                     <div class="row">
                         <div class="col-md-3">
                             <div class="form-group drop-menu">
-                                <label for="client">Client</label>
-                                <select class="form-control" id="client" onchange="handleClientChange(this.value)">
-                                    <option value="" disabled selected hidden></option>
-                                    <option value="client1">Client 1</option>
-                                    <option value="client2">Client 2</option>
-                                    <option value="client3">Client 3</option>
-                                    <option value="add">Add New Client</option>
-                                </select>
+                                <label for="Client">Client</label>
+                                <div class="input-group">
+                                    <select class="form-control" id="Client" onchange="handleClientChange(this.value)">
+                                        <option value="" disabled selected>Client</option>
+                                        <option value="client1">Client 1</option>
+                                        <option value="client2">Client 2</option>
+                                        <option value="client3">Client 3</option>
+                                    </select>
+                                    <div class="input-group-append">
+                                        <button class="btn btn-secondary btn-sm" type="button" data-toggle="modal" data-target="#addClientModal">
+                                            <i class="fas fa-plus fa-xs"></i>
+                                        </button>
+                                    </div>
+                                </div>
                             </div>
                         </div>
+
                         <div class="col-md-3">
                             <div class="form-group drop-menu">
-                                <label for="employeeType">Employee Type</label>
-                                <select class="form-control" id="employeeType">
-                                    <option value="" disabled selected hidden></option>
+                                <label for="EmployeeType">Employee Type</label>
+                                <select class="form-control" id="EmployeeType">
+                                    <option value="" disabled selected>Employee Type</option>
                                     <option value="full_time">Full-Time</option>
                                     <option value="part_time">Part-Time</option>
                                     <option value="contract">Contract</option>
@@ -204,8 +198,8 @@
                         </div>
                         <div class="col-md-3">
                             <div class="form-group drop-menu">
-                                <label for="location">Location</label>
-                                <select class="form-control" id="location">
+                                <label for="Location">Location</label>
+                                <select class="form-control" id="Location">
                                     <option value="" disabled selected hidden></option>
                                     <option value="hyderabad">Hyderabad</option>
                                     <option value="madurai">Madurai</option>
@@ -214,60 +208,78 @@
                         </div>
                         <div class="col-md-3">
                             <div class="form-group drop-menu">
-                                <label for="reportingManager">Reporting Manager</label>
-                                <select class="form-control" id="reportingManager">
-                                    <option value="" disabled selected hidden></option>
-                                    <option value="manager1">Manager 1</option>
-                                    <option value="manager2">Manager 2</option>
-                                    <option value="manager3">Manager 3</option>
-                                </select>
+                                <label for="ReportingManager">Reporting Manager</label>
+                                <div class="input-group">
+                                    <select class="form-control" id="ReportingManager">
+                                        <option value="" disabled selected>Reporting Manager</option>
+                                        <option value="manager1">Manager 1</option>
+                                        <option value="manager2">Manager 2</option>
+                                        <option value="manager3">Manager 3</option>
+                                    </select>
+                                    <div class="input-group-append">
+                                        <button class="btn btn-secondary btn-sm" type="button" data-toggle="modal" data-target="#addReportingManagerModal">
+                                            <i class="fas fa-plus fa-xs"></i>
+                                        </button>
+                                    </div>
+                                </div>
                             </div>
+
                         </div>
                     </div>
                     <div class="row">
                         <div class="col-md-3">
                             <div class="form-group drop-menu">
-                                <label for="leaveRM">Leave Reporting Manager</label>
-                                <select class="form-control" id="leaveRM">
-                                    <option value="" disabled selected hidden></option>
-                                    <option value="manager1">Manager 1</option>
-                                    <option value="manager2">Manager 2</option>
-                                    <option value="manager3">Manager 3</option>
-                                </select>
+                                <label for="LeavereportingManager">Leave Reporting Manager</label>
+                                <div class="input-group">
+                                    <select class="form-control" id="LeavereportingManager">
+                                        <option value="" disabled selected hidden></option>
+                                        <option value="manager1">Manager 1</option>
+                                        <option value="manager2">Manager 2</option>
+                                        <option value="manager3">Manager 3</option>
+                                    </select>
+                                    <div class="input-group-append">
+                                        <button class="btn btn-secondary btn-sm" type="button" data-toggle="modal" data-target="#addLeaveRMModal">
+                                            <i class="fas fa-plus fa-xs"></i>
+                                        </button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="col-md-3">
+                            <div class="form-group">
+                                <label for="MobileNumber">Mobile Number</label>
+                                <input type="text" class="form-control" id="MobileNumber">
                             </div>
                         </div>
                         <div class="col-md-3">
                             <div class="form-group">
-                                <label for="mobileNumber">Mobile Number</label>
-                                <input type="text" class="form-control" id="mobileNumber">
+                                <label for="Personal_Emailid">Personal Email</label>
+                                <input type="email" class="form-control" id="Personal_Emailid">
                             </div>
                         </div>
                         <div class="col-md-3">
                             <div class="form-group">
-                                <label for="email">Email</label>
-                                <input type="email" class="form-control" id="email">
-                            </div>
-                        </div>
-                        <div class="col-md-3">
-                            <div class="form-group">
-                                <label for="officialEmail">Official Email</label>
-                                <input type="email" class="form-control" id="officialEmail">
+                                <label for="OfficalEmailid">Official Email</label>
+                                <input type="email" class="form-control" id="OfficalEmailid">
                             </div>
                         </div>
                     </div>
                     <div class="row">
-                        <div class="col-md-3">
+                        <div class="col-md-6">
                             <div class="form-group present-address">
-                                <label for="presentAddress">Present Address</label>
-                                <textarea class="form-control" id="presentAddress"></textarea>
+                                <label for="PresentAddress">Present Address</label>
+                                <textarea class="form-control" id="PresentAddress"></textarea>
                             </div>
                         </div>
-                        <div class="col-md-3">
+                        <div class="col-md-6">
                             <div class="form-group permanent-address">
-                                <label for="permanentAddress">Permanent Address</label>
-                                <input type="checkbox" id="copyPresentAddress">
-                                <label for="copyPresentAddress">Same as Present Address</label>
-                                <textarea class="form-control" id="permanentAddress"></textarea>
+                                <label for="Permanent_Address">
+                                    Permanent Address &nbsp;&nbsp;&nbsp;
+                                    <input type="checkbox" id="copyPresentAddress">
+                                    <label for="copyPresentAddress">Same as Present Address</label>
+                                </label>
+                                <textarea class="form-control" id="Permanent_Address"></textarea>
                             </div>
                         </div>
                     </div>
@@ -275,265 +287,388 @@
                     <div class="row">
                         <div class="col-md-3">
                             <div class="form-group">
-                                <label for="name">Name</label>
-                                <input type="text" class="form-control" id="name">
+                                <label for="emergencyContactName">Name</label>
+                                <input type="text" class="form-control" id="emergencyContactName">
                             </div>
                         </div>
                         <div class="col-md-3">
                             <div class="form-group">
-                                <label for="relationship">Relationship</label>
-                                <input type="text" class="form-control" id="relationship">
+                                <label for="emergencyContactRelationship">Relationship</label>
+                                <input type="text" class="form-control" id="emergencyContactRelationship">
                             </div>
                         </div>
                         <div class="col-md-3">
                             <div class="form-group">
-                                <label for="famMobileNumber">Family Mobile Number</label>
-                                <input type="text" class="form-control" id="famMobileNumber">
+                                <label for="emergencyContactMobileNumber">Family Mobile Number</label>
+                                <input type="text" class="form-control" id="emergencyContactMobileNumber">
                             </div>
                         </div>
                     </div>
-                    <button type="submit" class="btn btn-primary">Save and Next</button>
+                    <button type="button" class="btn btn-primary save-and-next">Save and Next</button>
                 </div>
             </form>
         </div>
-
-        <div id="tab2" class="tab-pane">
-            <form id="tab2-form" class="tabs-view">
+        <div class="tab-pane fade" id="tab2" role="tabpanel" aria-labelledby="tab2-link">
+            <form id="tab2-form" class="tabs-view needs-validation" novalidate>
                 <div class="container tab-container">
                     <div class="row">
                         <div class="col-md-3">
                             <div class="form-group">
-                                <label for="bankName">Bank Name</label>
-                                <input type="text" class="form-control" id="bankName">
+                                <label for="BankName">Bank Name</label>
+                                <input type="text" class="form-control" id="BankName" required>
+                                <div class="invalid-feedback">Please enter Bank Name.</div>
                             </div>
                         </div>
                         <div class="col-md-3">
                             <div class="form-group">
-                                <label for="accountNumber">Account Number</label>
-                                <input type="text" class="form-control" id="accountNumber">
+                                <label for="AccountNumber">Account Number</label>
+                                <input type="text" class="form-control" id="AccountNumber">
                             </div>
                         </div>
                         <div class="col-md-3">
                             <div class="form-group">
-                                <label for="branch">Branch</label>
-                                <input type="text" class="form-control" id="branch">
+                                <label for="Branch">Branch</label>
+                                <input type="text" class="form-control" id="Branch">
                             </div>
                         </div>
                         <div class="col-md-3">
                             <div class="form-group">
-                                <label for="typeOfAccount">Type of Account</label>
-                                <input type="text" class="form-control" id="typeOfAccount">
+                                <label for="TypeofAccount">Type of Account</label>
+                                <input type="text" class="form-control" id="TypeofAccount">
                             </div>
                         </div>
                     </div>
                     <div class="row">
                         <div class="col-md-6">
                             <div class="form-group">
-                                <label for="ifscCode">IFSC Code</label>
-                                <input type="text" class="form-control" id="ifscCode">
+                                <label for="IFSCcode">IFSC Code</label>
+                                <input type="text" class="form-control" id="IFSCcode">
                             </div>
                         </div>
                     </div>
                     <div class="row">
                         <div class="col-md-12">
-                            <button type="submit" class="btn btn-primary">Save and Next</button>
+                            <button type="button" class="btn btn-primary save-and-next">Save and Next</button>
                         </div>
                     </div>
                 </div>
             </form>
-
         </div>
-
-        <div id="tab3" class="tab-pane">
-            <form id="tab3-form" class="tabs-view" style="display: none;">
+        <div class="tab-pane fade" id="tab3" role="tabpanel" aria-labelledby="tab3-link">
+            <form id="tab3-form" class="tabs-view">
                 <div class="container tab-container">
                     <div class="row">
                         <div class="col-md-3">
                             <div class="form-group">
-                                <label for="panNumber">PAN Number</label>
-                                <input type="text" class="form-control" id="panNumber">
+                                <label for="PANnumber">PAN Number</label>
+                                <input type="text" class="form-control" id="PANnumber">
                             </div>
                         </div>
                         <div class="col-md-3">
                             <div class="form-group">
-                                <label for="aadharNumber">Aadhar Number</label>
-                                <input type="text" class="form-control" id="aadharNumber">
+                                <label for="AadharNumber">Aadhar Number</label>
+                                <input type="text" class="form-control" id="AadharNumber">
                             </div>
                         </div>
                         <div class="col-md-3">
                             <div class="form-group">
-                                <label for="passportNumber">Passport Number</label>
-                                <input type="text" class="form-control" id="passportNumber">
+                                <label for="Passport">Passport Number</label>
+                                <input type="text" class="form-control" id="Passport">
                             </div>
                         </div>
                         <div class="col-md-3">
                             <div class="form-group">
-                                <label for="passportDOE">Passport Date of Expiry</label>
-                                <input type="text" class="form-control" id="passportDOE">
+                                <label for="DOEofPassport">Passport Date of Expiry</label>
+                                <input type="date" class="form-control" id="DOEofPassport">
                             </div>
                         </div>
                     </div>
                     <div class="row">
                         <div class="col-md-12">
-                            <button type="submit" class="btn btn-primary">Save and Next</button>
+                            <button type="button" class="btn btn-primary save-and-next">Save and Next</button>
                         </div>
                     </div>
                 </div>
             </form>
-
-
         </div>
-        <div id="tab4" class="tab-pane">
-            <form id="tab4-form" class="tabs-view" style="display: none;">
+
+
+        <div class="tab-pane fade" id="tab4" role="tabpanel" aria-labelledby="tab4-link">
+            <form id="tab4-form" class="tabs-view">
                 <div class="container tab-container">
                     <div class="row">
                         <div class="col-md-4">
                             <div class="form-group">
-                                <label for="uanNumber">UAN Number</label>
-                                <input type="text" class="form-control" id="uanNumber">
+                                <label for="UANNumber">UAN Number</label>
+                                <input type="text" class="form-control" id="UANNumber">
                             </div>
                         </div>
                         <div class="col-md-4">
                             <div class="form-group">
-                                <label for="pfNumber">PF Number</label>
-                                <input type="text" class="form-control" id="pfNumber">
+                                <label for="PFNumber">PF Number</label>
+                                <input type="text" class="form-control" id="PFNumber">
                             </div>
                         </div>
                         <div class="col-md-4">
                             <div class="form-group">
-                                <label for="esicNumber">ESIC Number</label>
-                                <input type="text" class="form-control" id="esicNumber">
+                                <label for="ESICNumber">ESIC Number</label>
+                                <input type="text" class="form-control" id="ESICNumber">
                             </div>
                         </div>
                     </div>
                     <div class="row">
                         <div class="col-md-12">
-                            <button type="submit" class="btn btn-primary">Save and Next</button>
+                            <button type="button" class="btn btn-primary save-and-next">Save and Next</button>
                         </div>
                     </div>
                 </div>
             </form>
-
-
         </div>
-        <div id="tab5" class="tab-pane">
-
-            <form id="tab5-form" class="tabs-view" style="display: none;">
+        <div class="tab-pane fade" id="tab5" role="tabpanel" aria-labelledby="tab5-link">
+            <form id="tab5-form" class="tabs-view">
                 <div class="container tab-container">
                     <div class="row">
                         <div class="col-md-3">
                             <div class="form-group">
-                                <label for="latestDegree">Latest Degree</label>
-                                <input type="text" class="form-control" id="latestDegree">
+                                <label for="LatestDegree">Latest Degree</label>
+                                <input type="text" class="form-control" id="LatestDegree">
                             </div>
                         </div>
                         <div class="col-md-3">
                             <div class="form-group">
-                                <label for="collegeName">College Name</label>
-                                <input type="text" class="form-control" id="collegeName">
+                                <label for="College_Name">College Name</label>
+                                <input type="text" class="form-control" id="College_Name">
                             </div>
                         </div>
                         <div class="col-md-3">
                             <div class="form-group">
-                                <label for="specialization">Specialization</label>
-                                <input type="text" class="form-control" id="specialization">
+                                <label for="Specialization">Specialization</label>
+                                <input type="text" class="form-control" id="Specialization">
                             </div>
                         </div>
                         <div class="col-md-3">
                             <div class="form-group">
-                                <label for="yearOfCompletion">Year of Completion</label>
-                                <input type="text" class="form-control" id="yearOfCompletion">
+                                <label for="YearofCompletion">Year of Completion</label>
+                                <input type="number" class="form-control" id="YearofCompletion">
                             </div>
                         </div>
                     </div>
                     <div class="row">
                         <div class="col-md-12">
-                            <button type="submit" class="btn btn-primary">Save and Next</button>
+                            <button type="button" class="btn btn-primary save-and-next">Save and Next</button>
                         </div>
                     </div>
                 </div>
             </form>
-
         </div>
-        <div id="tab6" class="tab-pane">
-            <form id="tab6-form" class="tabs-view" style="display: none;">
+
+
+        <div class="tab-pane fade" id="tab6" role="tabpanel" aria-labelledby="tab6-link">
+            <form id="tab6-form" class="tabs-view">
                 <div class="container tab-container">
                     <div class="row">
-                        <!-- Previous Employer Details fields -->
+
                         <div class="col-md-3">
                             <div class="form-group">
-                                <label for="employerName">Employer Name</label>
-                                <input type="text" class="form-control" id="employerName">
+                                <label for="Employer_name">Employer Name</label>
+                                <input type="text" class="form-control" id="Employer_name">
                             </div>
                         </div>
                         <div class="col-md-3">
                             <div class="form-group">
-                                <label for="jobTitle">Job Title</label>
-                                <input type="text" class="form-control" id="jobTitle">
+                                <label for="JobTitle">Job Title</label>
+                                <input type="text" class="form-control" id="JobTitle">
                             </div>
                         </div>
                         <div class="col-md-3">
                             <div class="form-group">
-                                <label for="fromDate">From Date</label>
-                                <input type="date" class="form-control" id="fromDate">
+                                <label for="From_date">From Date</label>
+                                <input type="date" class="form-control" id="From_date">
                             </div>
                         </div>
                         <div class="col-md-3">
                             <div class="form-group">
-                                <label for="toDate">To Date</label>
-                                <input type="date" class="form-control" id="toDate">
+                                <label for="To_date">To Date</label>
+                                <input type="date" class="form-control" id="To_date">
                             </div>
                         </div>
                     </div>
                     <div class="row">
                         <div class="col-md-12">
                             <div class="form-group">
-                                <label for="reasonOfRelieving">Reason of Relieving:</label>
-                                <input type="text" class="form-control" id="reasonOfRelieving">
+                                <label for="ReasonforRelieving">Reason of Relieving:</label>
+                                <input type="text" class="form-control" id="ReasonforRelieving">
                             </div>
                         </div>
                     </div>
                     <div class="row">
                         <div class="col-md-12">
-                            <button type="submit" class="btn btn-primary">Save and Next</button>
+                            <button type="button" class="btn btn-primary save-and-next">Save and Next</button>
                         </div>
                     </div>
                 </div>
             </form>
-
         </div>
-        <div id="tab7" class="tab-pane">
-            <form id="tab7-form" class="tabs-view" style="display: none;">
+        <div class="tab-pane fade" id="tab7" role="tabpanel" aria-labelledby="tab7-link">
+            <form id="tab7-form" class="tabs-view">
                 <div class="container tab-container">
                     <div class="row">
-                        <!-- Separation Information fields -->
+
                         <div class="col-md-4">
                             <div class="form-group">
-                                <label for="dateOfExit">Date of Exit:</label>
-                                <input type="date" class="form-control" id="dateOfExit">
+                                <label for="DateofExit">Date of Exit:</label>
+                                <input type="date" class="form-control" id="DateofExit">
                             </div>
                         </div>
                         <div class="col-md-4">
                             <div class="form-group">
-                                <label for="reason">Reason</label>
-                                <input type="text" class="form-control" id="reason">
+                                <label for="Reason">Reason</label>
+                                <input type="text" class="form-control" id="Reason">
                             </div>
                         </div>
                         <div class="col-md-4">
                             <div class="form-group">
-                                <label for="eligibleForRehire">Eligible for Rehire</label>
-                                <input type="text" class="form-control" id="eligibleForRehire">
+                                <label for="EligibleforRehire">Eligible for Rehire</label>
+                                <input type="text" class="form-control" id="EligibleforRehire">
                             </div>
                         </div>
                     </div>
                     <div class="row">
                         <div class="col-md-12">
-                            <button type="submit" class="btn btn-primary">Submit</button>
+                            <button type="button" class="btn btn-primary addemp-submit-btn">Submit</button>
                         </div>
                     </div>
                 </div>
             </form>
+        </div>
+    </div>
 
+    <div class="modal fade" id="addDesignationModel" tabindex="-1" role="dialog" aria-labelledby="addDesignationModalLabel" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="addDesignationModalLabel">Add New Designation</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <!-- Your form for adding a new option goes here -->
+                    <form id="addOptionForm">
+                        <div class="form-group">
+                            <label for="newDesignation">New Designation:</label>
+                            <input type="text" class="form-control" id="newDesignation">
+                        </div>
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                    <button type="button" class="btn btn-primary" id="saveNewDesignation">Save</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+    <!-- Modal -->
+    <div class="modal fade" id="addDepartmentModel" tabindex="-1" aria-labelledby="addDepartmentModelLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="addDepartmentModelLabel">Add Department</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <!-- Add your form or content for adding a new department here -->
+                    <form id="addDepartmentForm">
+                        <div class="form-group">
+                            <label for="departmentName">Department Name:</label>
+                            <input type="text" class="form-control" id="departmentName">
+                        </div>
+                        <!-- Add more form fields if needed -->
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                    <button type="button" class="btn btn-primary" id="saveDepartment">Save changes</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal -->
+    <div class="modal fade" id="addClientModal" tabindex="-1" role="dialog" aria-labelledby="addClientModalLabel" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="addClientModalLabel">Add New Client</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <form id="addClientForm">
+                        <div class="form-group">
+                            <label for="newClientName">Client Name:</label>
+                            <input type="text" class="form-control" id="newClientName" required>
+                        </div>
+                        <!-- Add more form fields if needed -->
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                    <button type="button" class="btn btn-primary" id="saveClient">Save changes</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+    <!-- Modal -->
+    <div class="modal fade" id="addReportingManagerModal" tabindex="-1" aria-labelledby="addReportingManagerModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="addReportingManagerModalLabel">Add New Reporting Manager</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <!-- Form to add new reporting manager -->
+                    <form id="addReportingManagerForm">
+                        <div class="form-group">
+                            <label for="newReportingManager">Name:</label>
+                            <input type="text" class="form-control" id="newReportingManager" required>
+                        </div>
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                    <button type="button" class="btn btn-primary" id="saveReportingManagerBtn">Save</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="modal fade" id="EmpsuccessModal" tabindex="-1" role="dialog" aria-labelledby="successModalLabel" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="successModalLabel">Add Employee</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <p class="addemp-message"></p>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                </div>
+            </div>
         </div>
     </div>
 </div>

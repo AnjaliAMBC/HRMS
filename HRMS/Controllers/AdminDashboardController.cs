@@ -49,6 +49,7 @@ namespace HRMS.Controllers
             return PartialView("~/Views/AdminDashboard/EmpManagement.cshtml", model);
         }
 
+        [HttpGet]
         public ActionResult AddEmployee()
         {
             var model = new EmployeeManagementViewModel();
@@ -63,6 +64,36 @@ namespace HRMS.Controllers
             model.EmpListJson = json;
 
             return PartialView("~/Views/AdminDashboard/AddEmpTabs.cshtml", model);
+        }
+
+        [HttpPost]
+        public ActionResult AddEmployee(emp_info formData)
+        {
+            var model = new AddEmployeeViewModel();
+            try
+            {
+                model.EmpInfo = formData;
+
+                _dbContext.emp_info.Add(formData);
+                _dbContext.SaveChanges();
+
+                model.JsonResponse.Message = "Employee details added successfully!";
+                model.JsonResponse.StatusCode = 200;
+            }
+            catch (Exception ex)
+            {
+                if(ex.InnerException != null)
+                {
+                    model.JsonResponse.Message = ex.InnerException.Message;
+                }
+                else
+                {
+                    model.JsonResponse.Message = ex.Message;
+                }
+               
+                model.JsonResponse.StatusCode = 500;
+            }
+            return Json(model, JsonRequestBehavior.AllowGet);
         }
 
         //[CustomAuthorize(Roles = "HR Admin")]

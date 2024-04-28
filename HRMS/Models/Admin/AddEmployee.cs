@@ -4,75 +4,67 @@ namespace HRMS.Models.Admin
 {
     public class AddEmployee
     {
-        public string EmployeeID { get; set; }
-        public string EmployeeName { get; set; }
-        public string FatherName { get; set; }
-        public DateTime DateOfJoining { get; set; }
-        public DateTime DateOfBirth { get; set; }
-        public int Age { get; set; }
-        public string BloodGroup { get; set; }
-        public string EmployeeStatus { get; set; }
-        public string Gender { get; set; }
-        public string MaritalStatus { get; set; }
-        public string Designation { get; set; }
-        public string Department { get; set; }
-        public string Client { get; set; }
-        public string EmployeeType { get; set; }
-        public string Location { get; set; }
-        public string ReportingManager { get; set; }
-        public string LeaveRM { get; set; }
-        public string MobileNumber { get; set; }
-        public string Email { get; set; }
-        public string OfficialEmail { get; set; }
-        public string PresentAddress { get; set; }
-        public string PermanentAddress { get; set; }
-        public string EmergencyContactName { get; set; }
-        public string EmergencyContactRelationship { get; set; }
-        public string EmergencyContactMobileNumber { get; set; }
+        public string employeeID { get; set; }
+        public string employeeName { get; set; }
+        public string fatherName { get; set; }
+        public DateTime dateOfJoining { get; set; }
+        public DateTime dateOfBirth { get; set; }
+        public int age { get; set; }
+        public string bloodGroup { get; set; }
+        public string employeeStatus { get; set; }
+        public string gender { get; set; }
+        public string maritalStatus { get; set; }
+        public string designation { get; set; }
+        public string departmentSelect { get; set; }
+        public string client { get; set; }
+        public string employeeType { get; set; }
+        public string location { get; set; }
+        public string reportingManager { get; set; }
+        public string leaveRM { get; set; }
+        public string mobileNumber { get; set; }
+        public string email { get; set; }
+        public string officialEmail { get; set; }
+        public string presentAddress { get; set; }
+        public string permanentAddress { get; set; }
+        public string emergencyContactName { get; set; }
+        public string emergencyContactRelationship { get; set; }
+        public string emergencyContactMobileNumber { get; set; }
 
-        public string BankName { get; set; }
-        public string AccountNumber { get; set; }
-        public string Branch { get; set; }
-        public string TypeOfAccount { get; set; }
-        public string IFSCCode { get; set; }
+        public string bankName { get; set; }
+        public string accountNumber { get; set; }
+        public string branch { get; set; }
+        public string typeOfAccount { get; set; }
+        public string ifscCode { get; set; }
 
-        public string LatestDegree { get; set; }
-        public string CollegeName { get; set; }
-        public string Specialization { get; set; }
-        public int YearOfCompletion { get; set; }
+        public string panNumber { get; set; }
+        public string aadharNumber { get; set; }
+        public string passportNumber { get; set; }
+        public DateTime passportDOE { get; set; }
 
-        public string EmployerName { get; set; }
-        public string JobTitle { get; set; }
-        public DateTime FromDate { get; set; }
-        public DateTime ToDate { get; set; }
-        public string ReasonOfRelieving { get; set; }
+        public string uanNumber { get; set; }
+        public string pfNumber { get; set; }
+        public DateTime esicNumber { get; set; }
 
-        public DateTime DateOfExit { get; set; }
-        public string Reason { get; set; }
-        public string EligibleForRehire { get; set; }
+
+        public string latestDegree { get; set; }
+        public string collegeName { get; set; }
+        public string specialization { get; set; }
+        public int yearOfCompletion { get; set; }
+
+        public string employerName { get; set; }
+        public string jobTitle { get; set; }
+        public DateTime fromDate { get; set; }
+        public DateTime toDate { get; set; }
+        public string reasonOfRelieving { get; set; }
+
+        public DateTime dateOfExit { get; set; }
+        public string reason { get; set; }
+        public string eligibleForRehire { get; set; }
     }
 
-    public class GeneralInformationModel
+    public class AddEmployeeViewModel
     {
-
-    }
-
-    public class BankDetailsModel
-    {
-
-    }
-
-    public class EducationDetailsModel
-    {
-
-    }
-
-    public class PreviousEmployerDetailsModel
-    {
-
-    }
-    public class SeparationInformationModel
-    {
-
+        public emp_info EmpInfo { get; set; }
+        public JsonResponse JsonResponse { get; set; } = new JsonResponse();
     }
 }
