@@ -1,0 +1,37 @@
+﻿
+<div class="admin-empadd-view">
+    <div class="container">
+        <!-- Headline: Import Employee -->
+        <h1>Import Employee</h1>
+
+        <!-- Description with bullet points -->
+        <div class="description">
+            <p>Here's how to import employees:</p>
+            <ul>
+                <li>Prepare your employee data in a CSV format.</li>
+                <li>Make sure the CSV file follows the correct format.</li>
+                <li>Use the template provided for best results.</li>
+            </ul>
+        </div>
+
+        <!-- Download button -->
+        <div>
+            <button class="btn btn-primary download-btn" onclick="downloadTemplate()">Download Template</button>
+        </div>
+
+        <!-- File upload drag and drop area -->
+        <div class="file-upload" id="file-upload-area" onclick="$('#file-upload-input').click()">
+            <label for="file-upload-input" id="file-upload-label">
+                <i class="fas fa-cloud-upload-alt fa-3x mb-3"></i><br>
+                Drag and drop files or Browse<br>
+                Supported formats: CSV
+            </label>
+            <input type="file" id="file-upload-input" accept=".csv">
+        </div>
+
+        <!-- Submit button -->
+        <div class="submit-button">
+            <button class="btn btn-success" onclick="submitFile()">Submit</button>
+        </div>
+    </div>
+</div>

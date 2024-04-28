@@ -195,10 +195,12 @@ $('.confirmPassword-continue').click(function (event) {
         $('#resetrepasswordError').text("Please re-enter password");
         isValid = false;
     }
-
+    if (password == null) {
+        $("#resetpasswordError").text("Passwords enter password");
+    }
     // Check if passwords match
     if (password !== confirmPassword) {
-        $("#resetpasswordError").text("Passwords do not match");
+        $("#resetpasswordError1").text("Passwords do not match");
         isValid = false;
     }
 

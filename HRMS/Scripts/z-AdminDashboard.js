@@ -316,33 +316,66 @@ $('.admin-ticketing').click(function (event) {
 $(document).on('change', '#addemployee', function () {
     event.preventDefault();
 
-    $.ajax({
-        url: '/admindashboard/addEmployee',
-        type: 'GET',
-        dataType: 'html',
-        success: function (response) {
-            //Clear old date and bind again
-            $(".hiddenadmindashboard").html("");
-            $(".admin-emppadd-container").html("");
-            $('.admin-empmanagement-container').html("");
+    if ($(this).val() == "Addmanually") {
 
-            $(".hiddenadmindashboard").html(response);
-            var formContent = $(".hiddenadmindashboard").find(".admin-empadd-view").html();
-            $(".admin-emppadd-container").html(formContent);
+        $.ajax({
+            url: '/admindashboard/addEmployee',
+            type: 'GET',
+            dataType: 'html',
+            success: function (response) {
+                //Clear old date and bind again
+                $(".hiddenadmindashboard").html("");
+                $(".admin-emppadd-container").html("");
+                $('.admin-empmanagement-container').html("");
 
-            $('.admin-emppadd-container').show();
-            $('.admin-empmanagement-container').hide();
-            $('.admin-dashboard-container').hide();
-            $('.admin-attendance-container').hide();
-            $('.admin-leave-container').hide();
-            $('.admin-ticketing-container').hide();
-            $(".hiddenadmindashboard").html("");
+                $(".hiddenadmindashboard").html(response);
+                var formContent = $(".hiddenadmindashboard").find(".admin-empadd-view").html();
+                $(".admin-emppadd-container").html(formContent);
 
-        },
-        error: function (xhr, status, error) {
-            var err = eval("(" + xhr.responseText + ")");
-        }
-    });
+                $('.admin-emppadd-container').show();
+                $('.admin-empmanagement-container').hide();
+                $('.admin-dashboard-container').hide();
+                $('.admin-attendance-container').hide();
+                $('.admin-leave-container').hide();
+                $('.admin-ticketing-container').hide();
+                $(".hiddenadmindashboard").html("");
+
+            },
+            error: function (xhr, status, error) {
+                var err = eval("(" + xhr.responseText + ")");
+            }
+        });
+    }
+    else {
+        $.ajax({
+            url: '/admindashboard/importuser',
+            type: 'GET',
+            dataType: 'html',
+            success: function (response) {
+                //Clear old date and bind again
+                $(".hiddenadmindashboard").html("");
+                $(".admin-emppadd-container").html("");
+                $('.admin-empmanagement-container').html("");
+
+                $(".hiddenadmindashboard").html(response);
+                var formContent = $(".hiddenadmindashboard").find(".admin-empadd-view").html();
+                $(".admin-emppadd-container").html(formContent);
+
+                $('.admin-emppadd-container').show();
+                $('.admin-empmanagement-container').hide();
+                $('.admin-dashboard-container').hide();
+                $('.admin-attendance-container').hide();
+                $('.admin-leave-container').hide();
+                $('.admin-ticketing-container').hide();
+                $(".hiddenadmindashboard").html("");
+
+            },
+            error: function (xhr, status, error) {
+                var err = eval("(" + xhr.responseText + ")");
+            }
+        });
+    }
+
 });
 
 $(document).on('click', '.save-and-next', function () {

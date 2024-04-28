@@ -87,6 +87,24 @@ namespace HRMS.Controllers
             return Json(model, JsonRequestBehavior.AllowGet);
         }
 
+
+        [HttpGet]
+        public ActionResult ImportUser()
+        {
+            var model = new EmployeeManagementViewModel();
+            var cuserContext = SiteContext.GetCurrentUserContext();
+            model.EmpInfo = cuserContext.EmpInfo;
+            model.LoginInfo = cuserContext.LoginInfo;
+
+            var employeesList = _dbContext.emp_info.ToList();
+            model.EmpList = employeesList;
+
+            var json = JsonConvert.SerializeObject(model.EmpList);
+            model.EmpListJson = json;
+
+            return PartialView("~/Views/AdminDashboard/ImportUser.cshtml", model);
+        }
+
         public JsonResult DeleteEmp(DeleteEmployeeViewModel deletEmpInfo)
         {
             var deleteModel = new DeleteEmployeeViewModel();
