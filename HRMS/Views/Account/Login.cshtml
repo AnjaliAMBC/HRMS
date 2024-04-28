@@ -1,104 +1,76 @@
 ﻿<style>
     body {
-        background-color: #F2F6FF;       
+        background-color: #F2F6FF;
     }
+
+  
 </style>
-<img src="~/Assets/AMBC_Logo.png" alt="Logo" class="logo">
+
 <div class="container">
+    <img src="~/Assets/AMBC_Logo.png" alt="Logo" class="logo">
     <div class="login-container">
-        <h2 class="mb-4 login-heading">Login</h2>
-        <form id="loginForm">
+        <h2 class="mb-4 login-heading" style="margin-left: 10%">Login</h2>
+        <form id="loginForm" style="margin-left: 10%">
             <div class="login-form">
                 <div class="form-group empid-field">
                     <label for="EmployeeID" class="form-label">Employee ID</label>
-                    <input type="text" id="EmployeeID" class="form-control input-lg" placeholder="Enter your Emp ID">
+                    <input type="text" id="EmployeeID" class="form-control input-lg logininput" placeholder="Enter your Emp ID">
                     <span class="text-danger" id="empIDError"></span>
                 </div>
                 <div class="form-group empemail-field" style="display: none">
                     <label for="EmailID" class="form-label">Email ID</label>
-                    <input type="email" id="EmailID" class="form-control input-lg" placeholder="Enter Admin Email">
+                    <input type="email" id="EmailID" class="form-control input-lg logininput" placeholder="Enter Admin Email">
                     <span class="text-danger" id="emailError"></span>
                 </div>
                 <div class="form-group">
                     <div class="password-label">
-                        <label for="Password" class="form-label d-flex justify-content-between align-items-center">
+                        <label for="Password" class="form-label d-flex align-items-center">
                             Password
+                            <a href="#" class="forgot-password" style="margin-left: 38%; text-decoration: none">Forgot password?</a>
                         </label>
-                        <div class="forgot-password">
-                            <a href="#" class="forgot-password">Forgot password?</a>
-                        </div>
                     </div>
-                    <input type="password" id="Password" class="form-control input-lg" placeholder="Enter your password">
+                    <input type="password" id="Password" class="form-control input-lg logininput" placeholder="Enter your password">
                     <span class="text-danger" id="passwordError"></span>
                 </div>
-                <div class="form-group form-check staysign-check">
-                    <input type="checkbox" id="StaySignedIn" class="form-check-input">
+                <div class="form-group form-check" style="margin-left: 0%">
+                    <input type="checkbox" id="StaySignedIn" class="form-check-input" style="margin-top: 7px">
                     <label for="StaySignedIn" class="form-check-label stay-signed-in">Stay Signed In</label>
                 </div>
-                <button type="button" class="btn login-continue btn-primary">Continue</button>
+                <button type="button" class="btn btn-primary btn-block btn-md login-continue " style="width: 90%">Continue</button>
                 <div class="error-message" style="color: red; display: none">
                     Invalid Login Details!
                 </div>
             </div>
         </form>
-        <div class="mt-5 signin-as">
-            <a href="#" class="text-secondary emp-login" style="display: none">Sign in as Employee</a>
-            <a href="#" class="text-secondary admin-login">Sign in as Admin</a>
+        <div class="mt-5 signin-as" style="margin-left: 36%; margin-top: 4% !important;">
+            <a href="#" class="text-primary emp-login" style="display: none; text-decoration: none"><b>Sign in as Employee</b></a>
+            <a href="#" class="text-primary admin-login" style="text-decoration: none"><b>Sign in as Admin</b></a>
         </div>
     </div>
-     <style>
-        .forgot-container {
-            width: 40%;
-            margin: 0 auto;
-            padding: 20px;
-            background-color: rgba(255, 255, 255, 1);
-            border-radius: 10px;
-            box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
-            margin-top: 129px;
-            position: relative;
-        }
 
-         .forgot-continue {
-             width: 95%;
-             padding: 2.5%;
-             margin-top: 10px;
-             margin-bottom: 5%;
-         }
 
-        .forgot-heading {
-            font-size: 25px;
-            margin-bottom: 23px;
-            margin-left: 30px;
-        }
-
-        .empemail-field input {
-            max-width: 358px;
-        }
-    </style>
-
-    <div class="forgot-container" style="display: none">
-        <h2 class="mb-4 forgot-heading"> Forgot Password</h2>
-        <form id="forgotpassword">
+    <div class="forgot-container" style="display: none; background-color: white; border-radius: 10px; padding: 20px; box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1); width: 40%; margin: 0 auto; margin-top: 2%;">
+        <h2 class="mb-4 login-heading " style="margin-left: 7%">Forgot Password</h2>
+        <form id="forgotpassword" style="margin-left: 7%">
             <div class="login-form">
                 <div class="form-group empemail-field">
-                    <label for="ForgotEmailID" class="form-label"> Employee Email ID</label>
-                    <input type="email" id="ForgotEmailID" class="form-control input-lg" placeholder="Enter email">
-                    <span class="text-danger" id="forgotemailError"> </span>
+                    <label for="ForgotEmailID" class="form-label">Employee Email ID</label>
+                    <input type="email" id="ForgotEmailID" class="form-control input-lg mb-3" placeholder="Enter email">
+                    <span class="text-danger" id="forgotemailError"></span>
                 </div>
-                <button type="button" class="btn forgot-continue btn-primary"> Continue </button>
-
+                <button type="button" class="btn btn-primary btn-block btn-md forgot-continue" style="width: 95%; margin-top: 15px; margin-bottom: 15px">Continue</button>
                 <div id="ajax-overlay">
                     <div class="cv-spinner">
-                        <span class="spinner"> </span>
+                        <span class="spinner"></span>
                     </div>
                 </div>
                 <div class="response-message" style="color: #2E8B57; display: none">
-                    <b class="response-message-innermessage"> Reset password link sent to email!</b>
+                    <b class="response-message-innermessage">Reset password link sent to email!</b>
                 </div>
             </div>
         </form>
     </div>
-</div>
 
+</div>
 
 
