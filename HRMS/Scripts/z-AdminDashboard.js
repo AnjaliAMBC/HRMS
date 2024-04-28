@@ -9,11 +9,12 @@ $('.admin-dashboard').click(function (event) {
     HighlightAdminActiveLink($(this));
 
     $(".hiddenadmindashboard").html("");
-    $(".admin-dashboard-container").html("");
+    //$(".admin-dashboard-container").html("");
 
 
     $('.admin-dashboard-container').show();
     $('.admin-empmanagement-container').hide();
+    $('.admin-emppadd-container').hide();
     $('.admin-attendance-container').hide();
     $('.admin-leave-container').hide();
     $('.admin-ticketing-container').hide();
@@ -26,9 +27,6 @@ $('.admin-dashboard').click(function (event) {
 //Dashboard link js
 $('.admin-empmanagement').click(function (event) {
     $('#adminempmanagementtable').DataTable().destroy();
-
-
-
     event.preventDefault();
     HighlightAdminActiveLink($(this));
 
@@ -47,6 +45,7 @@ $('.admin-empmanagement').click(function (event) {
 
             $('.admin-empmanagement-container').show();
             $('.admin-dashboard-container').hide();
+            $('.admin-emppadd-container').hide();
             $('.admin-attendance-container').hide();
             $('.admin-leave-container').hide();
             $('.admin-ticketing-container').hide();
@@ -210,7 +209,7 @@ $('.admin-attendance').click(function (event) {
         success: function (response) {
             //clear old data and bind again
             $(".hiddenadmindashboard").html("");
-            $(".admin-attendance-container").html("");
+            //$(".admin-attendance-container").html("");
 
             $(".hiddenadmindashboard").html(response);
             var formContent = $(".hiddenadmindashboard").find(".admin-attendancemgmt-view").html();
@@ -218,6 +217,7 @@ $('.admin-attendance').click(function (event) {
 
             $('.admin-attendance-container').show();
             $('.admin-empmanagement-container').hide();
+            $('.admin-emppadd-container').hide();
             $('.admin-dashboard-container').hide();
             $('.admin-leave-container').hide();
             $('.admin-ticketing-container').hide();
@@ -241,25 +241,60 @@ $('.admin-leave').click(function (event) {
     $('.admin-leave-container').show();
     $('.admin-attendance-container').hide();
     $('.admin-empmanagement-container').hide();
+    $('.admin-emppadd-container').hide();
     $('.admin-dashboard-container').hide();
     $('.admin-ticketing-container').hide();
 
     $(".hiddenadmindashboard").html("");
 });
 
-
 //My Request link
 $('.admin-ticketing').click(function (event) {
     event.preventDefault();
-    HighlightActiveLink($(this));
+    HighlightAdminActiveLink($(this));
 
     $('.admin-ticketing-container').show();
     $('.admin-leave-container').hide();
     $('.admin-attendance-container').hide();
     $('.admin-empmanagement-container').hide();
+    $('.admin-emppadd-container').hide();
     $('.admin-dashboard-container').hide();
 
     $(".hiddenadmindashboard").html("");
+});
+
+$(document).on('change', '#addemployee', function () {   
+    event.preventDefault();
+
+    $.ajax({
+        url: '/admindashboard/addEmployee',
+        type: 'GET',
+        dataType: 'html',
+        success: function (response) {
+            //Clear old date and bind again
+            $(".hiddenadmindashboard").html("");
+            $(".admin-emppadd-container").html("");
+            $('.admin-empmanagement-container').html("");
+
+            $(".hiddenadmindashboard").html(response);
+            var formContent = $(".hiddenadmindashboard").find(".admin-empadd-view").html();
+            $(".admin-emppadd-container").html(formContent);
+
+            $('.admin-emppadd-container').show();
+            $('.admin-empmanagement-container').hide();            
+            $('.admin-dashboard-container').hide();
+            $('.admin-attendance-container').hide();
+            $('.admin-leave-container').hide();
+            $('.admin-ticketing-container').hide();
+
+            $(".hiddenadmindashboard").html("");
+
+        },
+        error: function (xhr, status, error) {
+            var err = eval("(" + xhr.responseText + ")");
+        }
+    });
+
 });
 
 

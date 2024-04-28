@@ -1,480 +1,542 @@
-﻿<div class="admin-attendancemgmt-view">
-    <div class="admin-empmanagement-view">
+﻿<div class="admin-empadd-view">
+    <h2 style="margin-bottom: 73px;
+    margin-left: 58px;">
+        Add Employee
+    </h2>
+    <nav class="navbar navbar-expand-xl navbar-light" style="margin-right: 229px;">
         <div class="container-fluid">
-            <div class="title">
-                <p>Add Employee</p>
-            </div>
-            <div class="mytabs">
-                <input type="radio" id="General" name="mytabs" checked="checked">
-                <label for="General" class="label">General information</label>
-                <div class="tab">
-                    <form id="registrationForm" onsubmit="if(validateForm1()) switchToNextTab(); return false;">
+            <ul class="navbar-nav">
+                <li class="nav-item">
+                    <a id="tab1-link" class="nav-link admin-add-emptab active" href="#tab1" data-toggle="tab">General information</a>
+                </li>
+                <li class="nav-item">
+                    <a id="tab2-link" class="nav-link admin-add-emptab" href="#tab2" data-toggle="tab">Bank details</a>
+                </li>
+                <li class="nav-item">
+                    <a id="tab3-link" class="nav-link admin-add-emptab" href="#tab3" data-toggle="tab">ID proof details</a>
+                </li>
+                <li class="nav-item">
+                    <a id="tab4-link" class="nav-link admin-add-emptab" href="#tab4" data-toggle="tab">Statutory details</a>
+                </li>
+                <li class="nav-item">
+                    <a id="tab5-link" class="nav-link admin-add-emptab" href="#tab5" data-toggle="tab"> Education details</a>
+                </li>
+                <li class="nav-item">
+                    <a id="tab6-link" class="nav-link admin-add-emptab" href="#tab6" data-toggle="tab"> Previous employer details</a>
+                </li>
+                <li class="nav-item">
+                    <a id="tab7-link" class="nav-link admin-add-emptab" href="#tab7" data-toggle="tab"> Seperation information</a>
+                </li>
+            </ul>
+        </div>
+    </nav>
 
-                        <div class="container-fluid">
-                            <div class="row">
-                                <div class="col-3">
-                                    <label for="employeeID">Employee ID<span class="imp">*</span></label><br>
-                                    <input type="text" id="employeeID" name="employeeID" placeholder="0000"> <br>
-                                    <span id="empid-error" class="error"></span>
-                                    <small class="text-muted" id="id-preview">Last Emp Id:1234</small>
-
-                                </div>
-                                <div class="col-3">
-                                    <label for="employeeName">Employee Name<span class="imp">*</span></label> <br>
-                                    <input type="text" id="employeeName" name="employeeName" placeholder="Enter Employee Name"><br>
-                                    <span id="emp-name" class="error"></span><br>
-                                </div>
-                                <div class="col-3">
-                                    <label for="fatherName">Father Name<span class="imp">*</span></label> <br>
-                                    <input type="text" id="fatherName" name="fatherName" placeholder="Enter Father Name"><br>
-                                    <span id="fathername-error" class="error"></span>
-                                </div>
-                                <div class="col-3">
-                                    <label for="joining">Date of Joining<span class="imp">*</span></label> <br>
-                                    <input type="date" id="joining" name="joining">
-                                </div>
-                            </div>
-                            <div class="row">
-                                <div class="col-3">
-                                    <label for="DOB">Date Of Birth<span class="imp">*</span></label> <br>
-                                    <input type="date" id="DOB" name="DOB">
-                                </div>
-                                <div class="col-3">
-                                    <label for="age">Age<span class="imp">*</span></label> <br>
-                                    <input type="text" id="age" name="age">
-                                </div>
-
-                                <div class="col-3">
-                                    <label for="bgroup">Blood Group<span class="imp">*</span></label> <br>
-                                    <select id="bgroup" class="select">
-                                        <option value="" disabled selected hidden class="initial">Select your Blood Group</option>
-                                        <option value="A+">A+</option>
-                                        <option value="A-">A-</option>
-                                        <option value="B+">B+</option>
-                                        <option value="B-">B-</option>
-                                        <option value="O+">O+</option>
-                                        <option value="O-">O-</option>
-                                        <option value="AB+">AB+</option>
-                                        <option value="AB-">AB-</option>
-                                    </select><br><span class="error" id="bloodgroup-error"></span>
-                                </div>
-                                <div class="col-3">
-                                    <label for="status">Employee Status<span class="imp">*</span></label> <br>
-                                    <select id="status" class="select">
-                                        <option value="" disabled selected hidden> Select Employe Status</option>
-                                        <option value="option1">option1</option>
-                                        <option value="option2">option2</option>
-                                        <option value="option3">option3</option>
-                                    </select><button type="button" onclick="addOption()" class="add" id="status-add">+</button><span class="error" id="status-error"></span>
-                                </div>
-                            </div>
-                            <div class="row">
-                                <div class="col-3">
-                                    <label for="gendar">Gendar<span class="imp">*</span></label> <br>
-                                    <select id="gendar" class="select">
-                                        <option value="" disabled selected hidden>Select Gendar</option>
-                                        <option value="option1">option1</option>
-                                        <option value="option2">option2</option>
-                                        <option value="option3">option3</option>
-                                    </select><span class="error" id="gendar-error"></span>
-                                </div>
-                                <div class="col-3">
-                                    <label for="marital">Marital Status<span class="imp">*</span></label> <br>
-                                    <select id="marital" class="select">
-                                        <option value="" disabled selected hidden>Select Marital Status</option>
-                                        <option value="option1">option1</option>
-                                        <option value="option2">option2</option>
-                                        <option value="option3">option3</option>
-                                    </select><span class="error" id="marital-error"></span>
-                                </div>
-                                <div class="col-3">
-                                    <label for="designation">Designation<span class="imp">*</span></label> <br>
-                                    <select id="designation" class="select">
-                                        <option value="" disabled selected hidden>Select Designation</option>
-                                        <option value="option1">option1</option>
-                                        <option value="option2">option2</option>
-                                        <option value="option3">option3</option>
-                                    </select><button type="button" onclick="" class="add" id="status-add">+</button><span class="error" id="designation-error"></span>
-                                </div>
-                                <div class="col-3">
-                                    <label for="department">Department<span class="imp">*</span></label> <br>
-                                    <select id="department" class="select">
-                                        <option value="" disabled selected hidden>Select Department</option>
-                                        <option value="option1">option1</option>
-                                        <option value="option2">option2</option>
-                                        <option value="option3">option3</option>
-                                    </select><button type="button" onclick="" class="add" id="status-add">+</button><span class="error" id="department-error"></span>
-                                </div>
-                            </div>
-                            <div class="row">
-                                <div class="col-3">
-                                    <label for="client">Client<span class="imp">*</span></label> <br>
-                                    <select id="client" class="select">
-                                        <option value="" disabled selected hidden>Select Client</option>
-                                        <option value="option1">option1</option>
-                                        <option value="option2">option2</option>
-                                        <option value="option3">option3</option>
-                                    </select><button type="button" onclick="" class="add" id="status-add">+</button><span class="error" id="client-error"></span>
-                                </div>
-                                <div class="col-3">
-                                    <label for="employeetype">Employee Type<span class="imp">*</span></label> <br>
-                                    <select id="employeetype" class="select">
-                                        <option value="" disabled selected hidden>Select Employee Type</option>
-                                        <option value="option1">option1</option>
-                                        <option value="option2">option2</option>
-                                        <option value="option3">option3</option>
-                                    </select><span class="error" id="employeetype-error"></span>
-                                </div>
-                                <div class="col-3">
-                                    <label for="location">Location<span class="imp">*</span></label> <br>
-                                    <select id="location" class="select">
-                                        <option value="" disabled selected hidden>Select Location</option>
-                                        <option value="option1">option1</option>
-                                        <option value="option2">option2</option>
-                                        <option value="option3">option3</option>
-                                    </select><span class="error" id="location-error"></span>
-
-                                </div>
-                                <div class="col-3">
-                                    <label for="manager">Reporting Manager<span class="imp">*</span></label> <br>
-                                    <select id="manager" class="select">
-                                        <option value="" disabled selected hidden>Select Reporting Manger</option>
-                                        <option value="option1">option1</option>
-                                        <option value="option2">option2</option>
-                                        <option value="option3">option3</option>
-                                    </select><button type="button" onclick="" class="add" id="status-add">+</button><span class="error" id="manager-error"></span>
-                                </div>
-                            </div>
-                            <div class="row">
-                                <div class="col-3">
-                                    <label for="leave">Leave RM<span class="imp">*</span></label> <br>
-                                    <select id="leave" class="select">
-                                        <option value="" disabled selected hidden>Select Leave RM</option>
-                                        <option value="option1">option1</option>
-                                        <option value="option2">option2</option>
-                                        <option value="option3">option3</option>
-                                    </select><button type="button" onclick="" class="add" id="status-add">+</button><span class="error" id="leave-error"></span>
-                                </div>
-                                <div class="col-3">
-                                    <label for="number">Mobile Number<span class="imp">*</span></label>  <br>
-                                    <input type="text" id="number" name="number" placeholder="Enter Mobile Number">
-                                    <span class="error" id="number-error"></span>
-                                </div>
-                                <div class="col-3">
-                                    <label for="email">Email ID<span class="imp">*</span></label> <br>
-                                    <input type="email" id="email" name="email" placeholder="Enter Email ID">
-                                    <span class="error" id="email-error"></span>
-                                </div>
-                                <div class="col-3">
-                                    <label for="off-email">Official Email Id<span class="imp">*</span></label> <br>
-                                    <input type="email" id="offemail" name="offemail" placeholder="Enter Official Mail ID">
-                                    <span class="error" id="offemail-error"></span>
-                                </div>
-                            </div>
-                            <div class="row">
-                                <div class="col-6">
-                                    <label for="present">Present<span class="imp">*</span></label> <br>
-                                    <input type="text" id="present" name="present">
-                                    <span class="error" id="present-error"></span>
-                                </div>
-                                <div class="col-6">
-                                    <div class="fill"><label for="permanent">Permanent Address</label><span class="imp">*</span><input type="checkbox" id="Checkbox" name="Checkbox" value="isChecked" style="width: 15px;height:13px;margin-top:7px;"></div>
-                                    <input type="text" id="permanent" name="permanent"><span class="error" id="permanent-error"></span>
-                                </div>
-                            </div>
-                            <div class="row" id="personal-heading">
-                                <p> <b> Emergency Contact Details</b></p>
-                            </div>
-                            <div class="row">
-                                <div class="col-3">
-                                    <label for="dependent-name">Name<span class="imp">*</span></label> <br>
-                                    <input type="text" id="dependentname" name="dependent-name" placeholder="Enter Dependent Name">
-                                    <span class="error" id="dependentname-error"></span>
-                                </div>
-                                <div class="col-3">
-                                    <label for="dependent-relation">Relationship<span class="imp">*</span></label>
-                                    <input type="text" id="dependentrelation" name="dependent-relation" placeholder="Enter Relationship">
-                                    <span class="error" id="dependentrelation-error"></span>
-                                </div>
-                                <div class="col-3">
-                                    <label for="dependent-number">Contact Number<span class="imp">*</span></label>
-                                    <input type="text" id="dependentnumber" name="dependent-number" placeholder="Enter Mobile Number">
-                                    <span class="error" id="dependentnumber-error"></span>
-                                </div>
-                                <div class="col-3"></div>
-                            </div>
-                            <div class="row">
-                                <div class="col-3"></div>
-                                <div class="col-3"></div>
-                                <div class="col-3"></div>
-                                <div class="col-3" id="general-button">
-                                    <button type="submit" class="general-button">Save and Next</button>
-                                </div>
+    <div class="tab-content">
+        <div id="tab1" class="tab-pane active">
+            <form id="tab1-form" class="tabs-view">
+                <div class="container tab-container" style="margin-left: 5px">
+                    <div class="row">
+                        <div class="col-md-3">
+                            <div class="form-group">
+                                <label for="employeeID">Employee ID</label>
+                                <input type="text" class="form-control" id="employeeID">
                             </div>
                         </div>
-                    </form>
-
-                </div>
-
-                <input type="radio" id="Bank" name="mytabs">
-                <label for="Bank" class="label">Bank details</label>
-                <div class="tab">
-                    <form id="BankForm" onsubmit="return validateForm2()">
-                        <div class="container-fluid">
-                            <div class="row">
-                                <div class="col-3">
-                                    <label for="bank-name">Bank Name<span class="imp">*</span></label> <br>
-                                    <input type="text" id="bankname" name="bankname" placeholder="Enter Bank Name">
-                                    <span class="error" id="bankname-error"></span>
-                                </div>
-                                <div class="col-3">
-                                    <label for="acc-num">Account Number<span class="imp">*</span></label> <br>
-                                    <input type="text" id="accnum" name="accnum" placeholder="Enter Account Number">
-                                    <span class="error" id="accnum-error"></span>
-                                </div>
-                                <div class="col-3">
-                                    <label for="branch">Branch<span class="imp">*</span></label> <br>
-                                    <input type="text" id="branch" name="branch" placeholder="Enter Branch Name">
-                                    <span class="error" id="branch-error"></span>
-                                </div>
-                                <div class="col-3">
-                                    <label for="type-acc">Type of Account<span class="imp">*</span></label> <br>
-                                    <select id="typeofacc" class="select">
-                                        <option value="" disabled selected hidden>Select Type of Account</option>
-                                        <option value="option1">option1</option>
-                                        <option value="option2">option2</option>
-                                        <option value="option3">option3</option>
-                                    </select>
-                                    <span class="error" id="typeofacc-error"></span>
-                                </div>
-                            </div>
-                            <div class="row">
-                                <div class="col-3">
-                                    <label for="ifsc">IFSC Code<span class="imp">*</span></label> <br>
-                                    <input type="text" id="ifsc" name="ifsc" placeholder="Enter IFSC code">
-                                    <span class="error" id="ifsc-error"></span>
-                                </div>
-                                <div class="col-9"></div>
-                            </div>
-                            <div class="row">
-                                <div class="col-9"></div>
-                                <div class="col-3" id="bank-button">
-                                    <button type="submit" class="bank-button">Save and Next</button>
-                                </div>
+                        <div class="col-md-3">
+                            <div class="form-group">
+                                <label for="employeeName">Employee Name</label>
+                                <input type="text" class="form-control" id="employeeName">
                             </div>
                         </div>
-                    </form>
-                </div>
-
-                <input type="radio" id="ID" name="mytabs">
-                <label for="ID" class="label">ID proof details</label>
-                <div class="tab">
-                    <form id="IDproofForm" onsubmit="return validateForm3()">
-                        <div class="container-fluid">
-                            <div class="row">
-                                <div class="col-3">
-                                    <label for="pan">PAN Number<span class="imp">*</span></label> <br>
-                                    <input type="text" id="pan" name="pan" placeholder="Enter PAN number">
-                                    <span class="error" id="pan-error"></span>
-                                </div>
-                                <div class="col-3">
-                                    <label for="aadhar">Aadhar Number<span class="imp">*</span></label> <br>
-                                    <input type="text" id="aadhar" name="aadhar" placeholder="Enter Aadhar Number">
-                                    <span class="error" id="aadhar-error"></span>
-                                </div>
-                                <div class="col-3">
-                                    <label for="passport">Passport Number</label> <br>
-                                    <input type="text" id="passport" name="passport" placeholder="Enter Passport Number">
-                                </div>
-                                <div class="col-3">
-                                    <label for="doe">DOE Of Passport</label> <br>
-                                    <input type="text" id="doe" name="doe" placeholder="Enter DOE of Passport">
-                                </div>
-                            </div>
-                            <div class="row">
-                            </div>
-                            <div class="row">
-                                <div class="col-9"></div>
-                                <div class="col-3" id="ID-button">
-                                    <button type="submit" class="ID-button">Save and Next</button>
-                                </div>
+                        <div class="col-md-3">
+                            <div class="form-group">
+                                <label for="fatherName">Father's Name</label>
+                                <input type="text" class="form-control" id="fatherName">
                             </div>
                         </div>
-                    </form>
-                </div>
-
-                <input type="radio" id="statutory" name="mytabs">
-                <label for="statutory" class="label">Statutory details</label>
-                <div class="tab">
-                    <form id="StatutoryForm" onsubmit="return validateForm4()">
-                        <div class="container-fluid">
-                            <div class="row">
-                                <div class="col-3">
-                                    <label for="uan">UAN Number<span class="imp">*</span></label> <br>
-                                    <input type="text" id="uan" name="uan" placeholder="Enter UAN number">
-                                    <span class="error" id="uan-error"></span>
-                                </div>
-                                <div class="col-3">
-                                    <label for="pf">PF Number<span class="imp">*</span></label> <br>
-                                    <input type="text" id="pf" name="pf" placeholder="Enter PF details">
-                                    <span class="error" id="pf-error"></span>
-                                </div>
-                                <div class="col-3">
-                                    <label for="esic">ESIC Number<span class="imp">*</span></label> <br>
-                                    <input type="text" id="esic" name="esic" placeholder="Enter ESIC number">
-                                    <span class="error" id="esic-error"></span>
-                                </div>
-                                <div class="col-3"></div>
-                            </div>
-                            <div class="row">
-                            </div>
-                            <div class="row">
-                                <div class="col-9"></div>
-                                <div class="col-3" id="statutory-button">
-                                    <button type="submit" class="statutory-button">Save and Next</button>
-                                </div>
-                            </div>
-                        </div>
-                    </form>
-                </div>
-
-                <input type="radio" id="education" name="mytabs">
-                <label for="education" class="label">Education details</label>
-                <div class="tab">
-                    <form id="education-form" onsubmit="return validateForm5()">
-                        <div class="container-fluid">
-                            <div class="row">
-                                <div class="col-3">
-                                    <label for="degree">Latest Degree<span class="imp">*</span></label> <br>
-                                    <input type="text" id="degree" name="degree" placeholder="Enter degree">
-                                    <span class="error" id="degree-error"></span>
-                                </div>
-                                <div class="col-3">
-                                    <label for="college-name">College Name<span class="imp">*</span></label> <br>
-                                    <input type="text" id="college" name="college-name" placeholder="Enter College Name">
-                                    <span class="error" id="college-error"></span>
-                                </div>
-                                <div class="col-3">
-                                    <label for="specialization">Specialization<span class="imp">*</span></label> <br>
-                                    <input type="text" id="specialization" name="specialization" placeholder="Enter Specialization">
-                                    <span class="error" id="specialization-error"></span>
-                                </div>
-                                <div class="col-3">
-                                    <label for="year-completion">Year Of Completion<span class="imp">*</span></label> <br>
-                                    <input type="text" id="yearofcompletion" name="year-completion" placeholder="Enter Year of completion">
-                                    <span class="error" id="yearofcompletion-error"></span>
-                                </div>
-                            </div>
-                            <div class="row">
-                            </div>
-                            <div class="row">
-                                <div class="col-9"></div>
-                                <div class="col-3" id="Education-button">
-                                    <button type="submit" class="Education-button">Save and Next</button>
-                                </div>
-                            </div>
-                        </div>
-                    </form>
-                </div>
-
-                <input type="radio" id="dependent-details" name="mytabs">
-                <label for="dependent-details" class="label">Previous employer details</label>
-
-                <div class="tab">
-                    <form id="dependent-form" onsubmit="return validateForm6()"></form>
-                    <div class="container-fluid">
-                        <div class="row">
-                            <div class="col-3">
-                                <label for="Pre-name">Employer Name<span class="imp">*</span></label> <br>
-                                <input type="text" id="prename" name="Pre-name" placeholder="Enter Previous Employer Name">
-                                <span class="error" id="prename-error"></span>
-                            </div>
-                            <div class="col-3">
-                                <label for="title">Job Title<span class="imp">*</span></label> <br>
-                                <input type="text" id="title" name="title" placeholder="Enter Title">
-                                <span class="error" id="title-error"></span>
-                            </div>
-                            <div class="col-3">
-                                <label for="from-date">From date <span class="imp">*</span> </label> <br>
-                                <input type="date" class="from-date" id="from-date">
-                                <span class="error" id="from-error"></span>
-                            </div>
-                            <div class="col-3">
-                                <label for="to-date">To date <span class="imp">*</span> </label> <br>
-                                <input type="date" class="to-date" id="to-date">
-                                <span class="error" id="to-error"></span>
-                            </div>
-                        </div>
-                        <div class="row">
-                            <div class="col-3">
-                                <label for="reliving">Reason of Relieving<span class="imp">*</span></label> <br>
-                                <input type="text" id="reliving" name="reliving" placeholder="Enter Reason for Reliving">
-                                <span class="error" id="reliving-error"></span>
-                            </div>
-                            <div class="col-3"></div>
-                            <div class="col-3"></div>
-                            <div class="col-3"></div>
-                        </div>
-                        <div class="row">
-                            <div class="col-3"></div>
-                            <div class="col-3"></div>
-                            <div class="col-3"></div>
-                            <div class="col-3" id="previous-button">
-                                <button type="submit" class="previous-button">Save and Next</button>
+                        <div class="col-md-3">
+                            <div class="form-group">
+                                <label for="dateOfJoining">Date of Joining</label>
+                                <input type="date" class="form-control" id="dateOfJoining">
                             </div>
                         </div>
                     </div>
-                    </form>
-                </div>
-
-
-                <input type="radio" id="seperation-information" name="mytabs">
-                <label for="seperation-information" class="label">Seperation information</label>
-
-                <div class="tab">
-                    <form id="seperation-form" onsubmit="return validateForm7()">
-                        <div class="container-fluid">
-                            <div class="row">
-                                <div class="col-3">
-                                    <label for="exit-date">Date of Exit</label> <br>
-                                    <input type="date" id="exit-date" name="exit-date">
-                                </div>
-                                <div class="col-3">
-                                    <label for="reason">Reason</label> <br>
-                                    <select id="reason" class="select">
-                                        <option value="" disabled selected hidden>Select Reason</option>
-                                        <option value="option1">option1</option>
-                                        <option value="option2">option2</option>
-                                        <option value="option3">option3</option>
-                                    </select>
-                                </div>
-                                <div class="col-3">
-                                    <label for="eligibility">Eligible for Rehire</label> <br>
-                                    <select id="eligibility" class="eligibility">
-                                        <option value="" disabled selected hidden></option>
-                                        <option value="option1">option1</option>
-                                        <option value="option2">option2</option>
-                                        <option value="option3">option3</option>
-                                    </select>
-                                </div>
-                                <div class="col-3"></div>
-                            </div>
-                            <div class="row">
-                            </div>
-                            <div class="row">
-                                <div class="col-9"></div>
-                                <div class="col-3">
-                                    <button type="submit" class="seperation-button" id="seperation-button">Submit</button>
-                                </div>
+                    <div class="row">
+                        <div class="col-md-3">
+                            <div class="form-group">
+                                <label for="dateOfBirth">Date of Birth</label>
+                                <input type="date" class="form-control" id="dateOfBirth" onchange="calculateAge()">
                             </div>
                         </div>
-                    </form>
+                        <div class="col-md-3">
+                            <div class="form-group">
+                                <label for="age">Age</label>
+                                <input type="number" class="form-control" id="age" readonly="">
+                            </div>
+                        </div>
+                        <div class="col-md-3">
+                            <div class="form-group drop-menu">
+                                <label for="bloodGroup">Blood Group</label>
+                                <select class="form-control" id="bloodGroup">
+                                    <option value="" disabled="" selected="" hidden=""></option>
+                                    <option value="A+">A+</option>
+                                    <option value="A-">A-</option>
+                                    <option value="B+">B+</option>
+                                    <option value="B-">B-</option>
+                                    <option value="AB+">AB+</option>
+                                    <option value="AB-">AB-</option>
+                                    <option value="O+">O+</option>
+                                    <option value="O-">O-</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="col-md-3">
+                            <div class="form-group drop-menu">
+                                <label for="employeeStatus">Employee Status</label>
+                                <select class="form-control" id="employeeStatus">
+                                    <option value="" disabled="" selected="" hidden=""></option>
+                                    <option value="active">Active</option>
+                                    <option value="inactive">Inactive</option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- Add more rows with columns as needed for additional form fields -->
+
+                    <div class="row">
+                        <div class="col-md-3">
+                            <div class="form-group">
+                                <label for="employeeID">Employee ID</label>
+                                <input type="text" class="form-control" id="employeeID">
+                            </div>
+                        </div>
+                        <div class="col-md-3">
+                            <div class="form-group">
+                                <label for="employeeName">Employee Name</label>
+                                <input type="text" class="form-control" id="employeeName">
+                            </div>
+                        </div>
+                        <div class="col-md-3">
+                            <div class="form-group">
+                                <label for="fatherName">Father's Name</label>
+                                <input type="text" class="form-control" id="fatherName">
+                            </div>
+                        </div>
+                        <div class="col-md-3">
+                            <div class="form-group">
+                                <label for="dateOfJoining">Date of Joining</label>
+                                <input type="date" class="form-control" id="dateOfJoining">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-3">
+                            <div class="form-group drop-menu">
+                                <label for="gender">Gender</label>
+                                <select class="form-control" id="gender">
+                                    <option value="" disabled selected hidden></option>
+                                    <option value="male">Male</option>
+                                    <option value="female">Female</option>
+                                    <option value="other">Other</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="col-md-3">
+                            <div class="form-group drop-menu">
+                                <label for="maritalStatus">Marital Status</label>
+                                <select class="form-control" id="maritalStatus">
+                                    <option value="" disabled selected hidden></option>
+                                    <option value="single">Single</option>
+                                    <option value="married">Married</option>
+                                    <option value="divorced">Divorced</option>
+                                    <option value="widowed">Widowed</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="col-md-3">
+                            <div class="form-group drop-menu">
+                                <label for="designation">Designation:</label>
+                                <select class="form-control" id="designation">
+                                    <option value="" disabled selected hidden></option>
+                                    <option value="manager">Manager</option>
+                                    <option value="engineer">Engineer</option>
+                                    <option value="analyst">Analyst</option>
+                                    <option value="developer">Developer</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="col-md-3">
+                            <div class="form-group drop-menu">
+                                <label for="department">Department</label>
+                                <select class="form-control" id="departmentSelect">
+                                    <option value="" disabled selected hidden></option>
+                                    <option value="1">Department 1</option>
+                                    <option value="2">Department 2</option>
+                                    <option value="3">Department 3</option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-3">
+                            <div class="form-group drop-menu">
+                                <label for="client">Client</label>
+                                <select class="form-control" id="client" onchange="handleClientChange(this.value)">
+                                    <option value="" disabled selected hidden></option>
+                                    <option value="client1">Client 1</option>
+                                    <option value="client2">Client 2</option>
+                                    <option value="client3">Client 3</option>
+                                    <option value="add">Add New Client</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="col-md-3">
+                            <div class="form-group drop-menu">
+                                <label for="employeeType">Employee Type</label>
+                                <select class="form-control" id="employeeType">
+                                    <option value="" disabled selected hidden></option>
+                                    <option value="full_time">Full-Time</option>
+                                    <option value="part_time">Part-Time</option>
+                                    <option value="contract">Contract</option>
+                                    <option value="intern">Intern</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="col-md-3">
+                            <div class="form-group drop-menu">
+                                <label for="location">Location</label>
+                                <select class="form-control" id="location">
+                                    <option value="" disabled selected hidden></option>
+                                    <option value="hyderabad">Hyderabad</option>
+                                    <option value="madurai">Madurai</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="col-md-3">
+                            <div class="form-group drop-menu">
+                                <label for="reportingManager">Reporting Manager</label>
+                                <select class="form-control" id="reportingManager">
+                                    <option value="" disabled selected hidden></option>
+                                    <option value="manager1">Manager 1</option>
+                                    <option value="manager2">Manager 2</option>
+                                    <option value="manager3">Manager 3</option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-3">
+                            <div class="form-group drop-menu">
+                                <label for="leaveRM">Leave Reporting Manager</label>
+                                <select class="form-control" id="leaveRM">
+                                    <option value="" disabled selected hidden></option>
+                                    <option value="manager1">Manager 1</option>
+                                    <option value="manager2">Manager 2</option>
+                                    <option value="manager3">Manager 3</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="col-md-3">
+                            <div class="form-group">
+                                <label for="mobileNumber">Mobile Number</label>
+                                <input type="text" class="form-control" id="mobileNumber">
+                            </div>
+                        </div>
+                        <div class="col-md-3">
+                            <div class="form-group">
+                                <label for="email">Email</label>
+                                <input type="email" class="form-control" id="email">
+                            </div>
+                        </div>
+                        <div class="col-md-3">
+                            <div class="form-group">
+                                <label for="officialEmail">Official Email</label>
+                                <input type="email" class="form-control" id="officialEmail">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-3">
+                            <div class="form-group present-address">
+                                <label for="presentAddress">Present Address</label>
+                                <textarea class="form-control" id="presentAddress"></textarea>
+                            </div>
+                        </div>
+                        <div class="col-md-3">
+                            <div class="form-group permanent-address">
+                                <label for="permanentAddress">Permanent Address</label>
+                                <input type="checkbox" id="copyPresentAddress">
+                                <label for="copyPresentAddress">Same as Present Address</label>
+                                <textarea class="form-control" id="permanentAddress"></textarea>
+                            </div>
+                        </div>
+                    </div>
+                    <h4 class="emergency-det">Emergency Contact Details</h4>
+                    <div class="row">
+                        <div class="col-md-3">
+                            <div class="form-group">
+                                <label for="name">Name</label>
+                                <input type="text" class="form-control" id="name">
+                            </div>
+                        </div>
+                        <div class="col-md-3">
+                            <div class="form-group">
+                                <label for="relationship">Relationship</label>
+                                <input type="text" class="form-control" id="relationship">
+                            </div>
+                        </div>
+                        <div class="col-md-3">
+                            <div class="form-group">
+                                <label for="famMobileNumber">Family Mobile Number</label>
+                                <input type="text" class="form-control" id="famMobileNumber">
+                            </div>
+                        </div>
+                    </div>
+                    <button type="submit" class="btn btn-primary">Save and Next</button>
                 </div>
-
-
-            </div>
+            </form>
         </div>
 
-    </div>
+        <div id="tab2" class="tab-pane">
+            <form id="tab2-form" class="tabs-view">
+                <div class="container tab-container">
+                    <div class="row">
+                        <div class="col-md-3">
+                            <div class="form-group">
+                                <label for="bankName">Bank Name</label>
+                                <input type="text" class="form-control" id="bankName">
+                            </div>
+                        </div>
+                        <div class="col-md-3">
+                            <div class="form-group">
+                                <label for="accountNumber">Account Number</label>
+                                <input type="text" class="form-control" id="accountNumber">
+                            </div>
+                        </div>
+                        <div class="col-md-3">
+                            <div class="form-group">
+                                <label for="branch">Branch</label>
+                                <input type="text" class="form-control" id="branch">
+                            </div>
+                        </div>
+                        <div class="col-md-3">
+                            <div class="form-group">
+                                <label for="typeOfAccount">Type of Account</label>
+                                <input type="text" class="form-control" id="typeOfAccount">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label for="ifscCode">IFSC Code</label>
+                                <input type="text" class="form-control" id="ifscCode">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-12">
+                            <button type="submit" class="btn btn-primary">Save and Next</button>
+                        </div>
+                    </div>
+                </div>
+            </form>
 
+        </div>
+
+        <div id="tab3" class="tab-pane">
+            <form id="tab3-form" class="tabs-view" style="display: none;">
+                <div class="container tab-container">
+                    <div class="row">
+                        <div class="col-md-3">
+                            <div class="form-group">
+                                <label for="panNumber">PAN Number</label>
+                                <input type="text" class="form-control" id="panNumber">
+                            </div>
+                        </div>
+                        <div class="col-md-3">
+                            <div class="form-group">
+                                <label for="aadharNumber">Aadhar Number</label>
+                                <input type="text" class="form-control" id="aadharNumber">
+                            </div>
+                        </div>
+                        <div class="col-md-3">
+                            <div class="form-group">
+                                <label for="passportNumber">Passport Number</label>
+                                <input type="text" class="form-control" id="passportNumber">
+                            </div>
+                        </div>
+                        <div class="col-md-3">
+                            <div class="form-group">
+                                <label for="passportDOE">Passport Date of Expiry</label>
+                                <input type="text" class="form-control" id="passportDOE">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-12">
+                            <button type="submit" class="btn btn-primary">Save and Next</button>
+                        </div>
+                    </div>
+                </div>
+            </form>
+
+
+        </div>
+        <div id="tab4" class="tab-pane">
+            <form id="tab4-form" class="tabs-view" style="display: none;">
+                <div class="container tab-container">
+                    <div class="row">
+                        <div class="col-md-4">
+                            <div class="form-group">
+                                <label for="uanNumber">UAN Number</label>
+                                <input type="text" class="form-control" id="uanNumber">
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <div class="form-group">
+                                <label for="pfNumber">PF Number</label>
+                                <input type="text" class="form-control" id="pfNumber">
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <div class="form-group">
+                                <label for="esicNumber">ESIC Number</label>
+                                <input type="text" class="form-control" id="esicNumber">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-12">
+                            <button type="submit" class="btn btn-primary">Save and Next</button>
+                        </div>
+                    </div>
+                </div>
+            </form>
+
+
+        </div>
+        <div id="tab5" class="tab-pane">
+
+            <form id="tab5-form" class="tabs-view" style="display: none;">
+                <div class="container tab-container">
+                    <div class="row">
+                        <div class="col-md-3">
+                            <div class="form-group">
+                                <label for="latestDegree">Latest Degree</label>
+                                <input type="text" class="form-control" id="latestDegree">
+                            </div>
+                        </div>
+                        <div class="col-md-3">
+                            <div class="form-group">
+                                <label for="collegeName">College Name</label>
+                                <input type="text" class="form-control" id="collegeName">
+                            </div>
+                        </div>
+                        <div class="col-md-3">
+                            <div class="form-group">
+                                <label for="specialization">Specialization</label>
+                                <input type="text" class="form-control" id="specialization">
+                            </div>
+                        </div>
+                        <div class="col-md-3">
+                            <div class="form-group">
+                                <label for="yearOfCompletion">Year of Completion</label>
+                                <input type="text" class="form-control" id="yearOfCompletion">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-12">
+                            <button type="submit" class="btn btn-primary">Save and Next</button>
+                        </div>
+                    </div>
+                </div>
+            </form>
+
+        </div>
+        <div id="tab6" class="tab-pane">
+            <form id="tab6-form" class="tabs-view" style="display: none;">
+                <div class="container tab-container">
+                    <div class="row">
+                        <!-- Previous Employer Details fields -->
+                        <div class="col-md-3">
+                            <div class="form-group">
+                                <label for="employerName">Employer Name</label>
+                                <input type="text" class="form-control" id="employerName">
+                            </div>
+                        </div>
+                        <div class="col-md-3">
+                            <div class="form-group">
+                                <label for="jobTitle">Job Title</label>
+                                <input type="text" class="form-control" id="jobTitle">
+                            </div>
+                        </div>
+                        <div class="col-md-3">
+                            <div class="form-group">
+                                <label for="fromDate">From Date</label>
+                                <input type="date" class="form-control" id="fromDate">
+                            </div>
+                        </div>
+                        <div class="col-md-3">
+                            <div class="form-group">
+                                <label for="toDate">To Date</label>
+                                <input type="date" class="form-control" id="toDate">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div class="form-group">
+                                <label for="reasonOfRelieving">Reason of Relieving:</label>
+                                <input type="text" class="form-control" id="reasonOfRelieving">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-12">
+                            <button type="submit" class="btn btn-primary">Save and Next</button>
+                        </div>
+                    </div>
+                </div>
+            </form>
+
+        </div>
+        <div id="tab7" class="tab-pane">
+            <form id="tab7-form" class="tabs-view" style="display: none;">
+                <div class="container tab-container">
+                    <div class="row">
+                        <!-- Separation Information fields -->
+                        <div class="col-md-4">
+                            <div class="form-group">
+                                <label for="dateOfExit">Date of Exit:</label>
+                                <input type="date" class="form-control" id="dateOfExit">
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <div class="form-group">
+                                <label for="reason">Reason</label>
+                                <input type="text" class="form-control" id="reason">
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <div class="form-group">
+                                <label for="eligibleForRehire">Eligible for Rehire</label>
+                                <input type="text" class="form-control" id="eligibleForRehire">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-12">
+                            <button type="submit" class="btn btn-primary">Submit</button>
+                        </div>
+                    </div>
+                </div>
+            </form>
+
+        </div>
+    </div>
 </div>
+
+
+

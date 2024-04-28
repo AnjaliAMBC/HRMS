@@ -49,6 +49,22 @@ namespace HRMS.Controllers
             return PartialView("~/Views/AdminDashboard/EmpManagement.cshtml", model);
         }
 
+        public ActionResult AddEmployee()
+        {
+            var model = new EmployeeManagementViewModel();
+            var cuserContext = SiteContext.GetCurrentUserContext();
+            model.EmpInfo = cuserContext.EmpInfo;
+            model.LoginInfo = cuserContext.LoginInfo;
+
+            var employeesList = _dbContext.emp_info.ToList();
+            model.EmpList = employeesList;
+
+            var json = JsonConvert.SerializeObject(model.EmpList);
+            model.EmpListJson = json;
+
+            return PartialView("~/Views/AdminDashboard/AddEmpTabs.cshtml", model);
+        }
+
         //[CustomAuthorize(Roles = "HR Admin")]
         public ActionResult AttendanceManagement()
         {

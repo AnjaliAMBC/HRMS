@@ -2,15 +2,15 @@
     $('#tab1-link').click(); // Simulate click on tab1-link when the page loads
 });
 
-$(document).on("click", ".nav-link", function () {
+$(document).on("click", ".admin-add-emptab", function () {
     var tabId = $(this).attr('href');
     $('.tab-pane').hide();
     $(tabId).show();
     $('#' + tabId.slice(1) + '-form').show().siblings().hide();
 });
 
-$(document).on("click", ".nav-link", function () {
-    $('.nav-link').removeClass('active-border');
+$(document).on("click", ".admin-add-emptab", function () {
+    $('.admin-add-emptab').removeClass('active-border');
     $(this).addClass('active-border').siblings().removeClass('active-border');
 });
 
