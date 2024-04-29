@@ -1,5 +1,6 @@
 ﻿@model HRMS.Models.Admin.EmployeeManagementViewModel
 
+
 <div class="admin-empmanagement-view">
     <div class="container-fluid top">
         <div class="row navbar">
@@ -72,7 +73,7 @@
         <thead style="background-color: #F2F6FF">
             <tr>
                 <th><input type="checkbox" id="selectAll"></th>
-                <th>Emp ID</th>
+                <th>Emp ID</th>             
                 <th>Name</th>
                 <th>Designation</th>
                 <th>Department</th>
@@ -81,7 +82,7 @@
                 <th>Status</th>
                 <th>
                     Actions
-                    
+
                 </th>
                 <th>
                     <div class="dropdown">
@@ -96,13 +97,13 @@
                             <a href="#" class="Status"><input type="checkbox"> Status</a>
                         </div>
                     </div>
-                </th>
-
+                </th> 
             </tr>
         </thead>
         <tbody>
         </tbody>
     </table>
+
 
     <div class="emplsthidden" style="display: none">@Model.EmpListJson</div>
 

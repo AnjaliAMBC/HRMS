@@ -317,3 +317,21 @@ table.dataTable {
 }
 
 
+#adminempmanagementtable, #adminempmanagementtable th, #adminempmanagementtable td {
+    border: none;
+}
+
+table.dataTable.display tbody tr.odd {
+    background-color: white !important;
+}
+/* Initially hide the edit and delete icons */
+.edit-btn,
+.delete-btn {
+    display: none;
+}
+
+/* Show the edit and delete icons when the table row is hovered over */
+tr:hover .edit-btn,
+tr:hover .delete-btn {
+    display: inline-block;
+}

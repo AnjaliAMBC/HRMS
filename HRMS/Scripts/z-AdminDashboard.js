@@ -50,7 +50,16 @@ $('.admin-empmanagement').click(function (event) {
             var json = $.parseJSON(emData);
             var data = json.map(data => {
                 console.log(data);
-                return ["", data.EmployeeID, data.EmployeeName, data.Designation, data.Department, data.EmployeeType, data.Location, data.EmployeeStatus, "", ""];
+                return ["",
+                    data.EmployeeID,
+                    { name: data.EmployeeName, email: data.OfficalEmailid, image: "/Assets/EmpImages/" + data.EmployeeID + ".png" },
+                    data.Designation,
+                    data.Department,
+                    data.EmployeeType,
+                    data.Location,
+                    data.EmployeeStatus,
+                    "",
+                    ""];
             });
 
             $(".hiddenadmindashboard").html("");
@@ -74,8 +83,26 @@ $('.admin-empmanagement').click(function (event) {
                     },
                     {
                         "targets": 2,
-                        "class": "tdempname"
+                        "class": "tdempname",
+                        "render": function (data, type, full, meta) {
+                            // Accessing name, email, and image from the object
+                            var imageHtml = '';
+                            //if (data.image) {
+                            //    // Image path exists, display the image
+                            //    imageHtml = '<img src="' + data.image + '" alt="Profile Image" style="width: 50px; height: 50px; border-radius: 50%; margin-right: 10px;">';
+                            //} else {
+                                // Image path does not exist, display default image with first letters of first name and last name
+                                var firstNameInitial = data.name.charAt(0);
+                                var lastNameInitial = data.name.split(' ').slice(-1)[0].charAt(0);
+                                imageHtml = '<div class="default-image" style="width: 50px; height: 50px; border-radius: 50%; background-color: black; color: #fff; text-align: center; line-height: 50px; margin-right: 10px;">' + firstNameInitial + lastNameInitial + '</div>';
+                               // Return the HTML with image and name/email
+                            return imageHtml +
+                                '<span style="display: inline-block; vertical-align: top;">' + data.name + '<br>' + data.email + '</span>';
+                        }
                     },
+
+
+
                     {
                         "targets": 3,
                     },
@@ -94,9 +121,10 @@ $('.admin-empmanagement').click(function (event) {
                     {
                         "targets": 8,
                         "render": function (data, type, full, meta) {
-                            return '<span class="edit-btn" title="Edit"><i class="fas fa-pencil-alt"></i></span><span class="delete-btn" data-toggle="modal" title="Delete"><i class="fas fa-trash-alt"></i></span>'
+                            return '<span class="edit-btn" title="Edit"><i class="fas fa-pencil-alt"></i></span><span class="delete-btn" data-toggle="modal" title="Delete"><i class="fas fa-trash-alt"></i></span>';
                         }
-                    },
+                    }
+
                 ],
 
             });
@@ -227,9 +255,9 @@ $('.admin-empmanagement').click(function (event) {
                             $('.delete-message').html(result.JsonResponse.Message);
                             $('.delete-message').css("color", "red");
                             $('.delete-employee').prop('disabled', false);
-                        }                    
+                        }
                     },
-                    error: function (xhr, status, error) {                     
+                    error: function (xhr, status, error) {
                         console.error("Error deleting employee:", error);
                     },
                     complete: function () {
@@ -478,7 +506,7 @@ function downloadTemplate() {
 }
 
 function downloadTemplate() {
-    var link = document.createElement('a');   
+    var link = document.createElement('a');
     link.href = '/assets/templates/importusertemplate.csv'; // Replace this URL with the actual URL of your sample CSV file
     link.download = 'ImportUserTemplate.csv';
     document.body.appendChild(link);

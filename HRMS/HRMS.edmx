@@ -9,7 +9,7 @@
           <Key>
             <PropertyRef Name="Sno" />
           </Key>
-          <Property Name="Sno" Type="int" Nullable="false" />
+          <Property Name="Sno" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="EmployeeID" Type="varchar" MaxLength="100" Nullable="false" />
           <Property Name="EmployeeStatus" Type="varchar" MaxLength="100" Nullable="false" />
           <Property Name="EmployeeName" Type="varchar" MaxLength="255" Nullable="false" />
@@ -33,6 +33,9 @@
           <Property Name="OfficalEmailid" Type="varchar" MaxLength="100" Nullable="false" />
           <Property Name="PresentAddress" Type="varchar" MaxLength="1000" />
           <Property Name="Permanent_Address" Type="varchar" MaxLength="1000" />
+          <Property Name="RelationName" Type="varchar" MaxLength="255" />
+          <Property Name="Relationship" Type="varchar" MaxLength="255" />
+          <Property Name="FamilyMobileNumber" Type="varchar" MaxLength="255" />
           <Property Name="BankName" Type="varchar" MaxLength="100" />
           <Property Name="AccountNumber" Type="varchar" MaxLength="50" />
           <Property Name="Branch" Type="varchar" MaxLength="255" />
@@ -102,7 +105,7 @@
           <Key>
             <PropertyRef Name="Sno" />
           </Key>
-          <Property Name="Sno" Type="Int32" Nullable="false" />
+          <Property Name="Sno" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="EmployeeID" Type="String" Nullable="false" MaxLength="100" FixedLength="false" Unicode="false" />
           <Property Name="EmployeeStatus" Type="String" Nullable="false" MaxLength="100" FixedLength="false" Unicode="false" />
           <Property Name="EmployeeName" Type="String" Nullable="false" MaxLength="255" FixedLength="false" Unicode="false" />
@@ -126,6 +129,9 @@
           <Property Name="OfficalEmailid" Type="String" Nullable="false" MaxLength="100" FixedLength="false" Unicode="false" />
           <Property Name="PresentAddress" Type="String" MaxLength="1000" FixedLength="false" Unicode="false" />
           <Property Name="Permanent_Address" Type="String" MaxLength="1000" FixedLength="false" Unicode="false" />
+          <Property Name="RelationName" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+          <Property Name="Relationship" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+          <Property Name="FamilyMobileNumber" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
           <Property Name="BankName" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
           <Property Name="AccountNumber" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
           <Property Name="Branch" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
@@ -199,6 +205,9 @@
                 <ScalarProperty Name="Branch" ColumnName="Branch" />
                 <ScalarProperty Name="AccountNumber" ColumnName="AccountNumber" />
                 <ScalarProperty Name="BankName" ColumnName="BankName" />
+                <ScalarProperty Name="FamilyMobileNumber" ColumnName="FamilyMobileNumber" />
+                <ScalarProperty Name="Relationship" ColumnName="Relationship" />
+                <ScalarProperty Name="RelationName" ColumnName="RelationName" />
                 <ScalarProperty Name="Permanent_Address" ColumnName="Permanent_Address" />
                 <ScalarProperty Name="PresentAddress" ColumnName="PresentAddress" />
                 <ScalarProperty Name="OfficalEmailid" ColumnName="OfficalEmailid" />

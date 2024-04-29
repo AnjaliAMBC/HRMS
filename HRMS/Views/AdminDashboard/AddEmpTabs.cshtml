@@ -50,13 +50,15 @@
                         <div class="col-md-3">
                             <div class="form-group">
                                 <label for="FatherName">Father's Name</label>
-                                <input type="text" class="form-control" id="FatherName">
+                                <input type="text" class="form-control" id="FatherName" required>
+                                <div class="invalid-feedback">Please provide Father Name.</div>
                             </div>
                         </div>
                         <div class="col-md-3">
                             <div class="form-group">
                                 <label for="DOJ">Date of Joining</label>
-                                <input type="date" class="form-control" id="DOJ">
+                                <input type="date" class="form-control" id="DOJ" required>
+                                <div class="invalid-feedback">Please provide Employee ID.</div>
                             </div>
                         </div>
                     </div>
@@ -64,7 +66,8 @@
                         <div class="col-md-3">
                             <div class="form-group">
                                 <label for="DOB">Date of Birth</label>
-                                <input type="date" class="form-control" id="DOB" onchange="calculateAge()">
+                                <input type="date" class="form-control" id="DOB" onchange="calculateAge()" required>
+                                <div class="invalid-feedback">Please provide Date of Birth.</div>
                             </div>
                         </div>
 
@@ -93,11 +96,12 @@
                         <div class="col-md-3">
                             <div class="form-group drop-menu">
                                 <label for="EmployeeStatus">Employee Status</label>
-                                <select class="form-control" id="EmployeeStatus">
+                                <select class="form-control" id="EmployeeStatus" required>
                                     <option value="" disabled selected>Status</option>
                                     <option value="active">Active</option>
                                     <option value="inactive">Inactive</option>
                                 </select>
+                                <div class="invalid-feedback">Please select Employee Status.</div>
                             </div>
                         </div>
                     </div>
@@ -117,13 +121,14 @@
                         <div class="col-md-3">
                             <div class="form-group drop-menu">
                                 <label for="MaritalStatus">Marital Status</label>
-                                <select class="form-control" id="MaritalStatus">
+                                <select class="form-control" id="MaritalStatus" required>
                                     <option value="" disabled selected>Marital Status</option>
                                     <option value="single">Single</option>
                                     <option value="married">Married</option>
                                     <option value="divorced">Divorced</option>
                                     <option value="widowed">Widowed</option>
                                 </select>
+                                <div class="invalid-feedback">Please select Marital Status.</div>
                             </div>
                         </div>
                         <div class="col-md-3">
@@ -169,12 +174,13 @@
                             <div class="form-group drop-menu">
                                 <label for="Client">Client</label>
                                 <div class="input-group">
-                                    <select class="form-control" id="Client" onchange="handleClientChange(this.value)">
+                                    <select class="form-control" id="Client" onchange="handleClientChange(this.value)" required>
                                         <option value="" disabled selected>Client</option>
                                         <option value="client1">Client 1</option>
                                         <option value="client2">Client 2</option>
                                         <option value="client3">Client 3</option>
                                     </select>
+                                    <div class="invalid-feedback">Please select Client Name.</div>
                                     <div class="input-group-append">
                                         <button class="btn btn-secondary btn-sm" type="button" data-toggle="modal" data-target="#addClientModal">
                                             <i class="fas fa-plus fa-xs"></i>
@@ -187,35 +193,36 @@
                         <div class="col-md-3">
                             <div class="form-group drop-menu">
                                 <label for="EmployeeType">Employee Type</label>
-                                <select class="form-control" id="EmployeeType">
+                                <select class="form-control" id="EmployeeType" required>
                                     <option value="" disabled selected>Employee Type</option>
                                     <option value="full_time">Full-Time</option>
-                                    <option value="part_time">Part-Time</option>
-                                    <option value="contract">Contract</option>
-                                    <option value="intern">Intern</option>
+                                    <option value="part_time">Probation</option>
                                 </select>
+                                <div class="invalid-feedback">Please select Employee Type.</div>
                             </div>
                         </div>
                         <div class="col-md-3">
                             <div class="form-group drop-menu">
                                 <label for="Location">Location</label>
-                                <select class="form-control" id="Location">
+                                <select class="form-control" id="Location" required>
                                     <option value="" disabled selected hidden></option>
                                     <option value="hyderabad">Hyderabad</option>
                                     <option value="madurai">Madurai</option>
                                 </select>
+                                <div class="invalid-feedback">Please select Location.</div>
                             </div>
                         </div>
                         <div class="col-md-3">
                             <div class="form-group drop-menu">
                                 <label for="ReportingManager">Reporting Manager</label>
                                 <div class="input-group">
-                                    <select class="form-control" id="ReportingManager">
+                                    <select class="form-control" id="ReportingManager" required>
                                         <option value="" disabled selected>Reporting Manager</option>
                                         <option value="manager1">Manager 1</option>
                                         <option value="manager2">Manager 2</option>
                                         <option value="manager3">Manager 3</option>
                                     </select>
+                                    <div class="invalid-feedback">Please select Reporting Manager.</div>
                                     <div class="input-group-append">
                                         <button class="btn btn-secondary btn-sm" type="button" data-toggle="modal" data-target="#addReportingManagerModal">
                                             <i class="fas fa-plus fa-xs"></i>
@@ -231,12 +238,13 @@
                             <div class="form-group drop-menu">
                                 <label for="LeavereportingManager">Leave Reporting Manager</label>
                                 <div class="input-group">
-                                    <select class="form-control" id="LeavereportingManager">
+                                    <select class="form-control" id="LeavereportingManager" required>
                                         <option value="" disabled selected hidden></option>
                                         <option value="manager1">Manager 1</option>
                                         <option value="manager2">Manager 2</option>
                                         <option value="manager3">Manager 3</option>
                                     </select>
+                                    <div class="invalid-feedback">Please select Leave RM.</div>
                                     <div class="input-group-append">
                                         <button class="btn btn-secondary btn-sm" type="button" data-toggle="modal" data-target="#addLeaveRMModal">
                                             <i class="fas fa-plus fa-xs"></i>
@@ -249,7 +257,8 @@
                         <div class="col-md-3">
                             <div class="form-group">
                                 <label for="MobileNumber">Mobile Number</label>
-                                <input type="text" class="form-control" id="MobileNumber">
+                                <input type="text" class="form-control" id="MobileNumber" required>
+                                <div class="invalid-feedback">Please enter Mobile Number</div>
                             </div>
                         </div>
                         <div class="col-md-3">
@@ -261,7 +270,8 @@
                         <div class="col-md-3">
                             <div class="form-group">
                                 <label for="OfficalEmailid">Official Email</label>
-                                <input type="email" class="form-control" id="OfficalEmailid">
+                                <input type="email" class="form-control" id="OfficalEmailid" required>
+                                <div class="invalid-feedback">Please enter Official Emial ID.</div>
                             </div>
                         </div>
                     </div>
@@ -288,19 +298,23 @@
                         <div class="col-md-3">
                             <div class="form-group">
                                 <label for="emergencyContactName">Name</label>
-                                <input type="text" class="form-control" id="emergencyContactName">
+                                <input type="text" class="form-control" id="emergencyContactName" required>
+                                <div class="invalid-feedback">Please enter Name.</div>
                             </div>
                         </div>
                         <div class="col-md-3">
                             <div class="form-group">
                                 <label for="emergencyContactRelationship">Relationship</label>
-                                <input type="text" class="form-control" id="emergencyContactRelationship">
+                                <input type="text" class="form-control" id="emergencyContactRelationship" required>
+                                <div class="invalid-feedback">Please enter Relationship.</div>
                             </div>
                         </div>
                         <div class="col-md-3">
                             <div class="form-group">
                                 <label for="emergencyContactMobileNumber">Family Mobile Number</label>
-                                <input type="text" class="form-control" id="emergencyContactMobileNumber">
+                                <input type="text" class="form-control" id="emergencyContactMobileNumber" required>
+                                <div class="invalid-feedback">Please enter Family Mobile Number.</div>
+                                <div class="invalid-feedback">Please enter Family Mobile Number.</div>
                             </div>
                         </div>
                     </div>

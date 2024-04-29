@@ -38,6 +38,9 @@ namespace HRMS
         public string OfficalEmailid { get; set; }
         public string PresentAddress { get; set; }
         public string Permanent_Address { get; set; }
+        public string RelationName { get; set; }
+        public string Relationship { get; set; }
+        public string FamilyMobileNumber { get; set; }
         public string BankName { get; set; }
         public string AccountNumber { get; set; }
         public string Branch { get; set; }
