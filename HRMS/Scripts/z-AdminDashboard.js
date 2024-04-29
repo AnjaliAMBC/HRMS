@@ -52,7 +52,7 @@ $('.admin-empmanagement').click(function (event) {
                 console.log(data);
                 return ["",
                     data.EmployeeID,
-                    { name: data.EmployeeName, email: data.OfficalEmailid, image: "/Assets/EmpImages/" + data.EmployeeID + ".png" },
+                    { name: data.EmployeeName, email: data.OfficalEmailid, image: data.Reason },
                     data.Designation,
                     data.Department,
                     data.EmployeeType,
@@ -85,23 +85,20 @@ $('.admin-empmanagement').click(function (event) {
                         "targets": 2,
                         "class": "tdempname",
                         "render": function (data, type, full, meta) {
-                            // Accessing name, email, and image from the object
                             var imageHtml = '';
-                            //if (data.image) {
-                            //    // Image path exists, display the image
-                            //    imageHtml = '<img src="' + data.image + '" alt="Profile Image" style="width: 50px; height: 50px; border-radius: 50%; margin-right: 10px;">';
-                            //} else {
-                                // Image path does not exist, display default image with first letters of first name and last name
+                            if (data.image) {
+                                var imageURl = "/Assets/EmpImages/" + data.image;
+                                imageHtml = '<img src="' + imageURl + '" alt="Profile Image" style="width: 50px; height: 50px; border-radius: 50%; margin-right: 10px;">';
+                            } else {
                                 var firstNameInitial = data.name.charAt(0);
                                 var lastNameInitial = data.name.split(' ').slice(-1)[0].charAt(0);
-                                imageHtml = '<div class="default-image" style="width: 50px; height: 50px; border-radius: 50%; background-color: black; color: #fff; text-align: center; line-height: 50px; margin-right: 10px;">' + firstNameInitial + lastNameInitial + '</div>';
-                               // Return the HTML with image and name/email
+                                var shortName = firstNameInitial + lastNameInitial;
+                                return imageHtml = '<div class="default-image" style="width: 50px; height: 50px; border-radius: 50%; background-color: black; color: #fff; text-align: center; line-height: 50px; margin-right: 10px;">' + shortName + '</div><span style="display: inline-block; vertical-align: top;">' + data.name + '<br>' + data.email + '</span>'
+                            }
                             return imageHtml +
                                 '<span style="display: inline-block; vertical-align: top;">' + data.name + '<br>' + data.email + '</span>';
                         }
                     },
-
-
 
                     {
                         "targets": 3,

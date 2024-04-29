@@ -21,7 +21,7 @@ $('.emp-selfservice').click(function (event) {
             $('.attedance-dashboard-data').hide();
             $('.leave-dashboard-data').hide();
             $('.myrequest-dashboard-data').hide();
-            
+
             $(".hiddenselfservice").html("");
 
         },
@@ -36,7 +36,7 @@ $('.emp-selfservice').click(function (event) {
 $('.emp-dashboard').click(function (event) {
     event.preventDefault();
     HighlightEmpActiveLink($(this));
-  
+
     $('.emp-dashboard-data').show();
     $('.selfservice-dashboard-data').hide();
     $('.attedance-dashboard-data').hide();
@@ -53,7 +53,7 @@ $('.emp-attendence').click(function (event) {
 
     $('.attedance-dashboard-data').show();
     $('.emp-dashboard-data').hide();
-    $('.selfservice-dashboard-data').hide(); 
+    $('.selfservice-dashboard-data').hide();
     $('.leave-dashboard-data').hide();
     $('.myrequest-dashboard-data').hide();
 
@@ -68,7 +68,7 @@ $('.emp-leavetracker').click(function (event) {
     $('.leave-dashboard-data').show();
     $('.attedance-dashboard-data').hide();
     $('.emp-dashboard-data').hide();
-    $('.selfservice-dashboard-data').hide();   
+    $('.selfservice-dashboard-data').hide();
     $('.myrequest-dashboard-data').hide();
 
     $(".hiddenleave").html("");
@@ -82,9 +82,56 @@ $('.emp-myrequest').click(function (event) {
 
     $('.myrequest-dashboard-data').show();
     $('.leave-dashboard-data').hide();
-    $('.attedance-dashboard-data').hide();
+    //$('.attedance-dashboard-data').hide();
     $('.emp-dashboard-data').hide();
-    $('.selfservice-dashboard-data').hide();   
+    $('.selfservice-dashboard-data').hide();
 
     $(".hiddenmyrequest").html("");
 });
+
+
+var isSubmitting = false;
+
+$(document).off('click', '.emp-imgs').on('click', '.emp-imgs', function (event) {  
+    if (isSubmitting) {
+        return;
+    }
+    isSubmitting = true;
+    $('#imageInput').click();
+});
+
+
+$(document).off('change', '#imageInput').on('change', '#imageInput', function (event) {
+    event.preventDefault();  
+    var file = this.files[0];
+    var formData = new FormData();
+    formData.append('file', file);
+    
+    $.ajax({
+        url: '/employeedashboard/uploadimage', 
+        type: 'POST',
+        data: formData,
+        processData: false,
+        contentType: false,
+        dataType: 'json',
+        success: function (response) {           
+            if (response.JsonResponse.StatusCode == 200) {
+                var newImageUrl = response.ImageURl;
+                $('.emp-imageurl').attr('src', newImageUrl);
+            } else {
+                console.error('Error uploading file:', error);
+            }
+        },
+        error: function (xhr, status, error) {           
+            console.error('Error uploading file:', error);
+        },
+        complete: function () {            
+            isSubmitting = false;
+        }
+    });
+});
+
+
+
+
+

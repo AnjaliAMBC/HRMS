@@ -1,13 +1,18 @@
-﻿using HRMS.Models;
+﻿using HRMS.Helpers;
+using HRMS.Models;
 using HRMS.Models.Employee;
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 
 namespace HRMS.Controllers
 {
+    using Helpers;
+    using System.Configuration;
+
     public class EmployeeDashboardController : Controller
     {
         // Database context
@@ -33,7 +38,55 @@ namespace HRMS.Controllers
                 model.LoginInfo = siteContext.LoginInfo;
                 return View("~/Views/EmployeeDashboard/SelfService.cshtml", model);
             }
-            return null;           
+            return null;
+        }
+
+        [HttpPost]
+        public JsonResult UploadImage(HttpPostedFileBase file)
+        {
+            var model = new SelfServiceEmpImageModel();
+            try
+            {
+                var cuserContext = SiteContext.GetCurrentUserContext();
+
+                if (file != null && file.ContentLength > 0)
+                {
+                    var uploadsFolderPath = ConfigurationManager.AppSettings["WebRootFolder"] + ConfigurationManager.AppSettings["EmpImagesFolder"];
+
+                    if (!Directory.Exists(uploadsFolderPath))
+                        Directory.CreateDirectory(uploadsFolderPath);
+
+                    var deleteExistignImage = ImageHelper.DoesImageExistForEmployee(cuserContext.LoginInfo.EmployeeID, uploadsFolderPath);
+
+                    var fileName = Path.GetFileName(file.FileName);
+                    var fileExtension = file.ContentType.Split('/')[1];
+                    var updatedFileName = cuserContext.LoginInfo.EmployeeID + "." + fileExtension;
+                    var filePath = Path.Combine(uploadsFolderPath, updatedFileName);
+
+                    file.SaveAs(filePath);
+
+                    var employee = _dbContext.emp_info.FirstOrDefault(e => e.EmployeeID == cuserContext.LoginInfo.EmployeeID);
+
+                    if (employee != null)
+                    {
+                        // Update the properties of the retrieved employee entity
+                        employee.Reason = updatedFileName;
+                        _dbContext.SaveChanges();
+                        model.ImageURl = ConfigurationManager.AppSettings["EmpImagesFolder"] + "/" + updatedFileName;
+                        model.JsonResponse.Message = "Image Uploaded successfully!";
+                        model.JsonResponse.StatusCode = 200;
+
+                        //Update the image in session object as well
+                        cuserContext.EmpInfo.Reason = updatedFileName;
+                    }
+                }
+                return Json(model, JsonRequestBehavior.AllowGet);
+            }
+            catch (Exception ex)
+            {
+                model.JsonResponse = ErrorHelper.CaptureError(ex);
+                return Json(model, JsonRequestBehavior.AllowGet);
+            }
         }
     }
 }

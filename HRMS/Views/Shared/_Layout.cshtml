@@ -20,6 +20,8 @@
     <link href="~/Content/z-adminemptabs.css" rel="stylesheet" />
 </head>
 <body>
+    <div class="imagefolderpath">@System.Configuration.ConfigurationManager.AppSettings["EmpImagesFolder"]</div>
+
     @RenderBody()
     @{
         var abc = "@popperjs";

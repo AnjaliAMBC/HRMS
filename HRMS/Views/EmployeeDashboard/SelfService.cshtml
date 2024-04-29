@@ -8,7 +8,46 @@
     <div class="row">
         <div class="col-md-12 emp-data">
             <div class="emp-imgs">
-                <img src="~/Assets/EmpProfile.png" alt="Employee Image" class="profile img-fluid">
+
+                @if (!string.IsNullOrWhiteSpace(Model.EmpInfo.Reason))
+                {
+
+                    var empImageURl = System.Configuration.ConfigurationManager.AppSettings["EmpImagesFolder"] + "/" + Model.EmpInfo.Reason;
+                    <img src="@empImageURl" alt="Employee Image" class="profile img-fluid emp-imageurl">
+                }
+                else
+                {
+                    // Split the full name into first name and last name
+                    string[] names = Model.EmpInfo.EmployeeName.Split(new char[] { ' ' }, StringSplitOptions.RemoveEmptyEntries);
+
+                    // Ensure we have at least one name
+                    if (names.Length > 0)
+                    {
+                        // Get the first name
+                        string firstName = names[0];
+
+                        // Get the last name if available
+                        string lastName = names.Length > 1 ? names[names.Length - 1] : string.Empty;
+
+                        // Extract the first letters
+                        char firstLetterOfFirstName = firstName[0];
+                        char firstLetterOfLastName = !string.IsNullOrEmpty(lastName) ? lastName[0] : '\0';
+
+                        // Convert to uppercase if needed
+                        firstLetterOfFirstName = char.ToUpper(firstLetterOfFirstName);
+                        firstLetterOfLastName = char.ToUpper(firstLetterOfLastName);
+
+                        // Output the first letters
+                        Console.WriteLine($"First letter of first name: {firstLetterOfFirstName}");
+                        Console.WriteLine($"First letter of last name: {firstLetterOfLastName}");
+
+                        <div class="default-image" style="width: 50px; height: 50px; border-radius: 50%; background-color: black; color: #fff; text-align: center; line-height: 50px; margin-right: 10px;">@firstLetterOfFirstName @firstLetterOfLastName</div>
+
+                    }
+                }
+
+                <input type="file" id="imageInput" style="display: none;">
+
             </div>
             <hr>
             <div class="row">
