@@ -50,7 +50,7 @@ $('.admin-empmanagement').click(function (event) {
             var json = $.parseJSON(emData);
             var data = json.map(data => {
                 console.log(data);
-                return ["", data.EmployeeID, data.EmployeeName, data.Designation, data.Department, data.EmployeeType, data.Location, data.EmployeeStatus, ""];
+                return ["", data.EmployeeID, data.EmployeeName, data.Designation, data.Department, data.EmployeeType, data.Location, data.EmployeeStatus, "", ""];
             });
 
             $(".hiddenadmindashboard").html("");
@@ -469,6 +469,21 @@ $(document).on('click', '#saveLeaveRMBtn', function () {
 
 function toggleDropdown() {
     document.getElementById("myDropdown").classList.toggle("show");
+}
+
+function downloadTemplate() {
+    // Replace this URL with the actual URL of your sample CSV file
+    var sampleFileUrl = 'C:\inetpub\wwwroot\HRMS\SampleTemplate.xlsx';
+    document.getElementById('download-link').setAttribute('href', sampleFileUrl);
+}
+
+function downloadTemplate() {
+    var link = document.createElement('a');   
+    link.href = '/assets/templates/importusertemplate.csv'; // Replace this URL with the actual URL of your sample CSV file
+    link.download = 'ImportUserTemplate.csv';
+    document.body.appendChild(link);
+    link.click();
+    document.body.removeChild(link);
 }
 
 
