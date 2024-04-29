@@ -403,6 +403,38 @@ $(document).on('change', '#addemployee', function () {
 
 });
 
+var formData = new FormData();
+
+$(document).off('change', '#file-upload-input').on('change', '#file-upload-input', function (event) {
+    event.preventDefault();
+    var file = this.files[0];
+    formData = new FormData();
+    formData.append('file', file);
+});
+
+
+$(document).on('click', '.btn-importuser-submit', function () {
+    event.preventDefault();
+    $.ajax({
+        url: '/admindashboard/importusers',
+        type: 'POST',
+        data: formData,
+        processData: false,
+        contentType: false,
+        dataType: 'json',
+        success: function (response) {
+            $('#importSuccessModal').modal('show');
+            $('.success-message').text(response.JsonResponse.Message);
+        },
+        error: function (xhr, status, error) {
+            console.error('Error uploading file:', error);
+        },
+        complete: function () {
+            isSubmitting = false;
+        }
+    });
+});
+
 $(document).on('click', '.save-and-next', function () {
     event.preventDefault();
     var currentTab = $('.nav-link.active');

@@ -74,4 +74,9 @@ namespace HRMS.Models.Admin
         public string empName { get; set; }
         public JsonResponse JsonResponse { get; set; } = new JsonResponse();
     }
+
+    public class ImportEmployeeViewModel
+    {
+        public JsonResponse JsonResponse { get; set; } = new JsonResponse();
+    }
 }

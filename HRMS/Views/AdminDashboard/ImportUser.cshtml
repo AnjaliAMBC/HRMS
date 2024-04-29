@@ -1,8 +1,7 @@
-﻿
-<div class="admin-empadd-view">
+﻿<div class="admin-empadd-view">
     <div class="container">
         <!-- Headline: Import Employee -->
-        <h1>Import Employee</h1>
+        <h1 class="import-user-head">Import Employee</h1>
 
         <!-- Description with bullet points -->
         <div class="description">
@@ -16,12 +15,12 @@
 
         <!-- Download button -->
         <!-- Download button -->
-        <div style="margin-bottom: 20px">
+        <div style="margin-bottom: 65px">
             <button class="btn btn-primary download-btn" onclick="downloadTemplate()">Download Template</button>
         </div>
-
+        <p>Sample excel template</p>
         <!-- File upload drag and drop area -->
-        <div class="file-upload" id="file-upload-area" onclick="$('#file-upload-input').click()">
+        <div class="file-upload" id="file-upload-area">
             <label for="file-upload-input" id="file-upload-label">
                 <i class="fas fa-cloud-upload-alt fa-3x mb-3"></i><br>
                 Drag and drop files or Browse<br>
@@ -32,7 +31,29 @@
 
         <!-- Submit button -->
         <div class="submit-button">
-            <button class="btn btn-success" onclick="submitFile()">Submit</button>
+            <button class="btn btn-success btn-importuser-submit">Submit</button>
         </div>
     </div>
+
+
+    <div class="modal fade" id="importSuccessModal" tabindex="-1" role="dialog" aria-labelledby="importSuccessModalLabel" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="importSuccessModalLabel">Import Success</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <p class="success-message">Users imported successfully!</p>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
 </div>
