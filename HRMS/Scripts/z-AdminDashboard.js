@@ -266,6 +266,7 @@ $('.admin-empmanagement').click(function (event) {
             $(document).on('click', '.refresh-emptablist', function () {
                 $('.admin-empmanagement').click();
                 $('#deleteConfirmationModal').modal("hide");
+                $('#importSuccessModal').modal("hide");
                 $('.modal-backdrop').remove();
             });
 

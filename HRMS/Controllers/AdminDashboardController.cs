@@ -184,20 +184,20 @@ namespace HRMS.Controllers
                             emp.PANnumber = dataRow["PANnumber"].ToString();
                             emp.AadharNumber = dataRow["AadharNumber"].ToString();
                             emp.Passport = dataRow["Passport"].ToString();
-                            emp.DOEofPassport = Convert.ToDateTime(dataRow["DOEofPassport"]);
+                            emp.DOEofPassport = !string.IsNullOrWhiteSpace(dataRow["DOEofPassport"].ToString()) ? Convert.ToDateTime(dataRow["DOEofPassport"]) : System.DateTime.MinValue;
                             emp.UANNumber = dataRow["UANNumber"].ToString();
                             emp.PFNumber = dataRow["PFNumber"].ToString();
                             emp.ESICNumber = dataRow["ESICNumber"].ToString();
                             emp.LatestDegree = dataRow["LatestDegree"].ToString();
                             emp.College_Name = dataRow["College_Name"].ToString();
                             emp.Specialization = dataRow["Specialization"].ToString();
-                            emp.YearofCompletion = Convert.ToInt32(dataRow["YearofCompletion"]);
+                            emp.YearofCompletion = !string.IsNullOrWhiteSpace(dataRow["YearofCompletion"].ToString()) ? Convert.ToInt32(dataRow["YearofCompletion"]) : 0;
                             emp.Employer_name = dataRow["Employer_name"].ToString();
                             emp.JobTitle = dataRow["JobTitle"].ToString();
-                            emp.From_date = Convert.ToDateTime(dataRow["From_date"]);
-                            emp.To_date = Convert.ToDateTime(dataRow["To_date"]);
+                            emp.From_date = !string.IsNullOrWhiteSpace(dataRow["From_date"].ToString()) ?  Convert.ToDateTime(dataRow["From_date"]) : System.DateTime.MinValue;
+                            emp.To_date = !string.IsNullOrWhiteSpace(dataRow["To_date"].ToString()) ? Convert.ToDateTime(dataRow["To_date"]) : System.DateTime.MinValue;
                             emp.ReasonforRelieving = dataRow["ReasonforRelieving"].ToString();
-                            emp.DateofExit = Convert.ToDateTime(dataRow["DateofExit"]);
+                            emp.DateofExit = !string.IsNullOrWhiteSpace(dataRow["DateofExit"].ToString()) ? Convert.ToDateTime(dataRow["DateofExit"]) : System.DateTime.MinValue;
                             emp.Reason = dataRow["Reason"].ToString();
                             emp.EligibleforRehire = dataRow["EligibleforRehire"].ToString();
 
