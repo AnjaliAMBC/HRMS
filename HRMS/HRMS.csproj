@@ -142,6 +142,8 @@
     </Compile>
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\AdminDashboardController.cs" />
+    <Compile Include="Controllers\AdminAttendanceController.cs" />
+    <Compile Include="Controllers\EmpAttendanceController.cs" />
     <Compile Include="Controllers\EmployeeDashboardController.cs" />
     <Compile Include="Department.cs">
       <DependentUpon>HRMS.tt</DependentUpon>
@@ -259,10 +261,11 @@
     <Content Include="Views\Shared\AccessDenied.cshtml" />
     <Content Include="Views\AdminDashboard\AddEmpTabs.cshtml" />
     <Content Include="Views\AdminDashboard\ImportUser.cshtml" />
+    <Content Include="Views\AdminDashboard\AdminAttendance.cshtml" />
+    <Content Include="Views\EmployeeDashboard\EmpAttendance.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
-    <Folder Include="Views\AdminEmpDirectory\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="fonts\glyphicons-halflings-regular.woff2" />

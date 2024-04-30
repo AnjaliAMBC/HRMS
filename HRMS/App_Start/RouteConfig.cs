@@ -28,6 +28,11 @@ namespace HRMS
                 url: "{controller}/{action}/{id}",
                 defaults: new { controller = "EmployeeDashboard", action = "Dashboard", id = UrlParameter.Optional }
             );
+            routes.MapRoute(
+                name: "EmpAttendance",
+                url: "{controller}/{action}/{id}",
+                defaults: new { controller = "EmpAttendance", action = "Index", id = UrlParameter.Optional }
+            );
         }
     }
 }
