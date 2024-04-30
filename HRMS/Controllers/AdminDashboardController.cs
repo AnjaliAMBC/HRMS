@@ -227,6 +227,81 @@ namespace HRMS.Controllers
         }
 
 
+        [HttpPost]
+        public ActionResult ExportToExcel(List<string> selectedEmployeeIds)
+        {
+            // Retrieve selected employee data from the database
+            var selectedEmployees = _dbContext.emp_info.Where(e => selectedEmployeeIds.Contains(e.EmployeeID)).ToList();
+
+            // Create Excel package
+            using (ExcelPackage excelPackage = new ExcelPackage())
+            {
+                ExcelWorksheet worksheet = excelPackage.Workbook.Worksheets.Add("EmployeeInfo");
+
+                // Write column headers
+                var properties = typeof(emp_info).GetProperties();
+                for (int i = 0; i < properties.Length; i++)
+                {
+                    worksheet.Cells[1, i + 1].Value = properties[i].Name;
+                }
+
+                // Write data to Excel
+                int row = 2;
+                foreach (var employee in selectedEmployees)
+                {
+                    for (int i = 0; i < properties.Length; i++)
+                    {
+                        worksheet.Cells[row, i + 1].Value = properties[i].GetValue(employee);
+                    }
+                    row++;
+                }
+
+                // Save Excel package to a memory stream
+                using (MemoryStream memoryStream = new MemoryStream())
+                {
+                    excelPackage.SaveAs(memoryStream);
+                    byte[] fileContents = memoryStream.ToArray();
+                    return Json(Convert.ToBase64String(fileContents));
+                }
+            }
+        }
+
+
+        //public ActionResult ExportToExcel()
+        //{
+        //    // Retrieve employee data from the database
+        //    var employees = _dbContext.emp_info.ToList();
+
+        //    // Create Excel package
+        //    using (ExcelPackage excelPackage = new ExcelPackage())
+        //    {
+        //        ExcelWorksheet worksheet = excelPackage.Workbook.Worksheets.Add("EmployeeInfo");
+
+        //        // Write column headers
+        //        var properties = typeof(emp_info).GetProperties();
+        //        for (int i = 0; i < properties.Length; i++)
+        //        {
+        //            worksheet.Cells[1, i + 1].Value = properties[i].Name;
+        //        }
+
+        //        // Write data to Excel
+        //        int row = 2;
+        //        foreach (var employee in employees)
+        //        {
+        //            for (int i = 0; i < properties.Length; i++)
+        //            {
+        //                worksheet.Cells[row, i + 1].Value = properties[i].GetValue(employee);
+        //            }
+        //            row++;
+        //        }
+
+        //        // Save Excel package
+        //        byte[] fileContents = excelPackage.GetAsByteArray();
+        //        return File(fileContents, "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet", "EmployeeInfo.xlsx");
+            
+        //    }
+        //}
+
         public JsonResult DeleteEmp(DeleteEmployeeViewModel deletEmpInfo)
         {
             var deleteModel = new DeleteEmployeeViewModel();

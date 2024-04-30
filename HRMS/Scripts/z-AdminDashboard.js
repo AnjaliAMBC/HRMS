@@ -277,6 +277,42 @@ $('.admin-empmanagement').click(function (event) {
     });
 });
 
+$(document).on('change', '#action', function () {
+    if ($(this).val() == "export") {
+        var selectedEmployeeIds = [];
+        $(".empmgmt-check:checked").each(function () {
+            var trElement = $(this).closest("tr");
+            var empId = trElement.find(".tdempid").text();
+            selectedEmployeeIds.push(empId);
+        });
+
+        if (selectedEmployeeIds.length === 0) {
+            alert("Please select at least one employee.");
+            return;
+        }
+
+        $.ajax({
+            type: "POST",
+            url: '/admindashboard/ExportToExcel',
+            data: JSON.stringify({ selectedEmployeeIds: selectedEmployeeIds }),
+            contentType: "application/json; charset=utf-8",
+            dataType: "json",
+            success: function (response) {
+                var downloadLink = document.createElement("a");
+                downloadLink.href = "data:application/vnd.openxmlformats-officedocument.spreadsheetml.sheet;base64," + response;
+                downloadLink.download = "EmployeeInfo.xlsx";
+                document.body.appendChild(downloadLink);
+                downloadLink.click();
+                document.body.removeChild(downloadLink);
+            },
+            error: function (xhr, status, error) {
+                alert("Error occurred while exporting data: " + error);
+            }
+        });
+    }   
+});
+
+
 //Attedence link js
 $('.admin-attendance').click(function (event) {
     event.preventDefault();
