@@ -53,18 +53,29 @@ namespace HRMS.Controllers
         }
 
         [HttpGet]
-        public ActionResult AddEmployee()
+        public ActionResult AddEmployee(string empid)
         {
-            var model = new EmployeeManagementViewModel();
+            var model = new AddEmployeeViewModel();
             var cuserContext = SiteContext.GetCurrentUserContext();
             model.EmpInfo = cuserContext.EmpInfo;
             model.LoginInfo = cuserContext.LoginInfo;
 
-            var employeesList = _dbContext.emp_info.ToList();
-            model.EmpList = employeesList;
+            model.HeadLine = "Add Employee";
+            if(!string.IsNullOrEmpty(empid))
+            {
+                model.HeadLine = "Edit Employee";
+                var ediatbleEmp = _dbContext.emp_info.Where(x => x.EmployeeID == empid).FirstOrDefault();
+                if (ediatbleEmp != null)
+                {
+                    model.EditableEmpInfo = ediatbleEmp;
+                }
+            }
 
-            var json = JsonConvert.SerializeObject(model.EmpList);
-            model.EmpListJson = json;
+            //var employeesList = _dbContext.emp_info.ToList();
+            //model.EmpList = employeesList;
+
+            //var json = JsonConvert.SerializeObject(model.EmpList);
+            //model.EmpListJson = json;
 
             return PartialView("~/Views/AdminDashboard/AddEmpTabs.cshtml", model);
         }

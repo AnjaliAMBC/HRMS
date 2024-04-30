@@ -9,5 +9,6 @@ namespace HRMS.Models.Admin
     {
         public List<emp_info> EmpList { get; set; } = new List<emp_info>();
         public string EmpListJson { get; set; }
+        public emp_info EditableEmpInfo { get; set; } = new emp_info();
     }
 }

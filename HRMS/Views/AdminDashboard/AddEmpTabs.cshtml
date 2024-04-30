@@ -1,7 +1,9 @@
-﻿<div class="admin-empadd-view">
+﻿@model HRMS.Models.Admin.AddEmployeeViewModel
+
+<div class="admin-empadd-view">
     <h2 style="margin-bottom: 73px;
-    margin-left: 58px;">
-        Add Employee
+    margin-left: 58px;" class="addempheadline">
+        @Model.HeadLine
     </h2>
     <ul class="nav nav-tabs" id="myTab" role="tablist">
         <li class="nav-item" role="presentation">
@@ -36,28 +38,36 @@
                         <div class="col-md-3">
                             <div class="form-group">
                                 <label for="EmployeeID">Employee ID</label>
-                                <input type="text" class="form-control" id="EmployeeID" required>
+                                <input type="text" class="form-control" id="EmployeeID" value="@Model.EditableEmpInfo.EmployeeID" required>
                                 <div class="invalid-feedback">Please provide Employee ID.</div>
                             </div>
                         </div>
                         <div class="col-md-3">
                             <div class="form-group">
                                 <label for="EmployeeName">Employee Name</label>
-                                <input type="text" class="form-control" id="EmployeeName" required>
+                                <input type="text" class="form-control" id="EmployeeName" value="@Model.EditableEmpInfo.EmployeeName" required>
                                 <div class="invalid-feedback">Please provide Employee Name.</div>
                             </div>
                         </div>
                         <div class="col-md-3">
                             <div class="form-group">
                                 <label for="FatherName">Father's Name</label>
-                                <input type="text" class="form-control" id="FatherName" required>
+                                <input type="text" class="form-control" id="FatherName" value="@Model.EditableEmpInfo.FatherName" required>
                                 <div class="invalid-feedback">Please provide Father Name.</div>
                             </div>
                         </div>
                         <div class="col-md-3">
                             <div class="form-group">
                                 <label for="DOJ">Date of Joining</label>
-                                <input type="date" class="form-control" id="DOJ" required>
+                                @if (Model.EditableEmpInfo.DOJ != DateTime.MinValue)
+                                {
+                                    @Html.TextBoxFor(m => m.EditableEmpInfo.DOJ, "{0:yyyy-MM-dd}", new { @type = "date", @class = "form-control", @id = "DOJ" })
+                                }
+                                else
+                                {
+                                    <input type="date" class="form-control" id="DOJ" value="@Model.EditableEmpInfo.DOJ" required>
+                                }
+
                                 <div class="invalid-feedback">Please provide Employee ID.</div>
                             </div>
                         </div>
@@ -66,7 +76,7 @@
                         <div class="col-md-3">
                             <div class="form-group">
                                 <label for="DOB">Date of Birth</label>
-                                <input type="date" class="form-control" id="DOB" onchange="calculateAge()" required>
+                                <input type="date" class="form-control" id="DOB" value="@Model.EditableEmpInfo.DOB" onchange="calculateAge()" required>
                                 <div class="invalid-feedback">Please provide Date of Birth.</div>
                             </div>
                         </div>
@@ -685,7 +695,7 @@
                 </div>
             </div>
         </div>
-    </div>    
+    </div>
 </div>
 
 

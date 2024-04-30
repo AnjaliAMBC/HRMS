@@ -270,6 +270,16 @@ $('.admin-empmanagement').click(function (event) {
                 $('.modal-backdrop').remove();
             });
 
+            $(document).off('click', '.edit-btn').on('click', '.edit-btn', function (event) {
+                event.preventDefault();
+
+                var $row = $(this).closest("tr");
+                var editEmpID = $row.find(".tdempid").text();
+                AddUpdateEmployee(editEmpID);
+                $('.addempheadline').text("Edit Employee");
+                return;
+            });
+
         },
         error: function (xhr, status, error) {
             var err = eval("(" + xhr.responseText + ")");
@@ -309,7 +319,7 @@ $(document).on('change', '#action', function () {
                 alert("Error occurred while exporting data: " + error);
             }
         });
-    }   
+    }
 });
 
 
@@ -375,38 +385,43 @@ $('.admin-ticketing').click(function (event) {
     $(".hiddenadmindashboard").html("");
 });
 
+function AddUpdateEmployee(empID) {
+    $.ajax({
+        url: '/admindashboard/addEmployee',
+        type: 'GET',
+        data: { empid: empID },
+        dataType: 'html',
+        success: function (response) {
+            //Clear old date and bind again
+            $(".hiddenadmindashboard").html("");
+            $(".admin-emppadd-container").html("");
+            $('.admin-empmanagement-container').html("");
+
+            $(".hiddenadmindashboard").html(response);
+            var formContent = $(".hiddenadmindashboard").find(".admin-empadd-view").html();
+            $(".admin-emppadd-container").html(formContent);
+
+            $('.admin-emppadd-container').show();
+            $('.admin-empmanagement-container').hide();
+            $('.admin-dashboard-container').hide();
+            $('.admin-attendance-container').hide();
+            $('.admin-leave-container').hide();
+            $('.admin-ticketing-container').hide();
+            $(".hiddenadmindashboard").html("");
+
+        },
+        error: function (xhr, status, error) {
+            var err = eval("(" + xhr.responseText + ")");
+        }
+    });
+}
+
 $(document).on('change', '#addemployee', function () {
     event.preventDefault();
 
-    if ($(this).val() == "Addmanually") {
-
-        $.ajax({
-            url: '/admindashboard/addEmployee',
-            type: 'GET',
-            dataType: 'html',
-            success: function (response) {
-                //Clear old date and bind again
-                $(".hiddenadmindashboard").html("");
-                $(".admin-emppadd-container").html("");
-                $('.admin-empmanagement-container').html("");
-
-                $(".hiddenadmindashboard").html(response);
-                var formContent = $(".hiddenadmindashboard").find(".admin-empadd-view").html();
-                $(".admin-emppadd-container").html(formContent);
-
-                $('.admin-emppadd-container').show();
-                $('.admin-empmanagement-container').hide();
-                $('.admin-dashboard-container').hide();
-                $('.admin-attendance-container').hide();
-                $('.admin-leave-container').hide();
-                $('.admin-ticketing-container').hide();
-                $(".hiddenadmindashboard").html("");
-
-            },
-            error: function (xhr, status, error) {
-                var err = eval("(" + xhr.responseText + ")");
-            }
-        });
+    if ($(this).val() == "Addmanually") { 
+        AddUpdateEmployee("");
+        $('.addempheadline').text("Add Employee");
     }
     else {
         $.ajax({
@@ -448,7 +463,6 @@ $(document).off('change', '#file-upload-input').on('change', '#file-upload-input
     formData = new FormData();
     formData.append('file', file);
 });
-
 
 $(document).on('click', '.btn-importuser-submit', function () {
     event.preventDefault();

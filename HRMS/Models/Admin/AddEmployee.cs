@@ -62,20 +62,21 @@ namespace HRMS.Models.Admin
         public string eligibleForRehire { get; set; }
     }
 
-    public class AddEmployeeViewModel
+    public class AddEmployeeViewModel : SiteContextModel
     {
-        public emp_info EmpInfo { get; set; }
+        public emp_info EditableEmpInfo { get; set; } = new emp_info();
         public JsonResponse JsonResponse { get; set; } = new JsonResponse();
+        public string HeadLine { get; set; }
     }
 
-    public class DeleteEmployeeViewModel
+    public class DeleteEmployeeViewModel : SiteContextModel
     {
         public string empID { get; set; }
         public string empName { get; set; }
         public JsonResponse JsonResponse { get; set; } = new JsonResponse();
     }
 
-    public class ImportEmployeeViewModel
+    public class ImportEmployeeViewModel : SiteContextModel
     {
         public JsonResponse JsonResponse { get; set; } = new JsonResponse();
     }
