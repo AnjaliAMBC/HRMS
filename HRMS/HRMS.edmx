@@ -5,6 +5,27 @@
     <!-- SSDL content -->
     <edmx:StorageModels>
     <Schema Namespace="HRMS_EntityModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="Client">
+          <Key>
+            <PropertyRef Name="Sno" />
+          </Key>
+          <Property Name="Sno" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="ClientName" Type="varchar" MaxLength="255" />
+        </EntityType>
+        <EntityType Name="Department">
+          <Key>
+            <PropertyRef Name="Sno" />
+          </Key>
+          <Property Name="Sno" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="DepartmentName" Type="varchar" MaxLength="255" />
+        </EntityType>
+        <EntityType Name="Designation">
+          <Key>
+            <PropertyRef Name="Sno" />
+          </Key>
+          <Property Name="Sno" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Designation" Type="varchar" MaxLength="255" />
+        </EntityType>
         <EntityType Name="emp_info">
           <Key>
             <PropertyRef Name="Sno" />
@@ -60,6 +81,11 @@
           <Property Name="DateofExit" Type="date" />
           <Property Name="Reason" Type="varchar(max)" />
           <Property Name="EligibleforRehire" Type="varchar" MaxLength="255" />
+          <Property Name="CreatedBy" Type="varchar" MaxLength="255" />
+          <Property Name="CreatedDate" Type="date" />
+          <Property Name="UpdatedBy" Type="varchar" MaxLength="255" />
+          <Property Name="UpdatedDate" Type="date" />
+          <Property Name="imagepath" Type="varchar" MaxLength="1000" />
         </EntityType>
         <EntityType Name="emplogin">
           <Key>
@@ -74,8 +100,17 @@
           <Property Name="EmployeeRole" Type="varchar" MaxLength="50" Nullable="false" />
           <Property Name="EmloyeeSysHostname" Type="varchar" MaxLength="255" />
           <Property Name="EmployeeLogininfo" Type="varchar" MaxLength="255" />
+          <Property Name="updatedDate" Type="date" />
+          <Property Name="UpdatedBy" Type="varchar" MaxLength="255" />
+          <Property Name="CreatedBy" Type="varchar" MaxLength="255" />
+          <Property Name="CreatedDate" Type="date" />
+          <Property Name="IsLeaveRM" Type="bit" />
+          <Property Name="IsReportingM" Type="bit" />
         </EntityType>
         <EntityContainer Name="HRMS_EntityModelStoreContainer">
+          <EntitySet Name="Client" EntityType="Self.Client" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Department" EntityType="Self.Department" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Designation" EntityType="Self.Designation" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="emp_info" EntityType="Self.emp_info" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="emplogin" EntityType="Self.emplogin" Schema="dbo" store:Type="Tables" />
         </EntityContainer>
@@ -96,11 +131,41 @@
           <Property Name="EmployeeRole" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
           <Property Name="EmloyeeSysHostname" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
           <Property Name="EmployeeLogininfo" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+          <Property Name="updatedDate" Type="DateTime" Precision="0" />
+          <Property Name="UpdatedBy" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+          <Property Name="CreatedBy" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+          <Property Name="CreatedDate" Type="DateTime" Precision="0" />
+          <Property Name="IsLeaveRM" Type="Boolean" />
+          <Property Name="IsReportingM" Type="Boolean" />
         </EntityType>
         <EntityContainer Name="HRMS_EntityFramework" annotation:LazyLoadingEnabled="true">
           <EntitySet Name="emplogins" EntityType="Self.emplogin" />
+          <EntitySet Name="Clients" EntityType="HRMS_EntityModel.Client" />
+          <EntitySet Name="Departments" EntityType="HRMS_EntityModel.Department" />
+          <EntitySet Name="Designations" EntityType="HRMS_EntityModel.Designation" />
           <EntitySet Name="emp_info" EntityType="HRMS_EntityModel.emp_info" />
         </EntityContainer>
+        <EntityType Name="Client">
+          <Key>
+            <PropertyRef Name="Sno" />
+          </Key>
+          <Property Name="Sno" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="ClientName" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+        </EntityType>
+        <EntityType Name="Department">
+          <Key>
+            <PropertyRef Name="Sno" />
+          </Key>
+          <Property Name="Sno" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="DepartmentName" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+        </EntityType>
+        <EntityType Name="Designation">
+          <Key>
+            <PropertyRef Name="Sno" />
+          </Key>
+          <Property Name="Sno" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Designation1" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+        </EntityType>
         <EntityType Name="emp_info">
           <Key>
             <PropertyRef Name="Sno" />
@@ -156,6 +221,11 @@
           <Property Name="DateofExit" Type="DateTime" Precision="0" />
           <Property Name="Reason" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
           <Property Name="EligibleforRehire" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+          <Property Name="CreatedBy" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+          <Property Name="CreatedDate" Type="DateTime" Precision="0" />
+          <Property Name="UpdatedBy" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+          <Property Name="UpdatedDate" Type="DateTime" Precision="0" />
+          <Property Name="imagepath" Type="String" MaxLength="1000" FixedLength="false" Unicode="false" />
         </EntityType>
       </Schema>
     </edmx:ConceptualModels>
@@ -166,6 +236,12 @@
           <EntitySetMapping Name="emplogins">
             <EntityTypeMapping TypeName="HRMS_EntityModel.emplogin">
               <MappingFragment StoreEntitySet="emplogin">
+                <ScalarProperty Name="IsReportingM" ColumnName="IsReportingM" />
+                <ScalarProperty Name="IsLeaveRM" ColumnName="IsLeaveRM" />
+                <ScalarProperty Name="CreatedDate" ColumnName="CreatedDate" />
+                <ScalarProperty Name="CreatedBy" ColumnName="CreatedBy" />
+                <ScalarProperty Name="UpdatedBy" ColumnName="UpdatedBy" />
+                <ScalarProperty Name="updatedDate" ColumnName="updatedDate" />
                 <ScalarProperty Name="EmployeeID" ColumnName="EmployeeID" />
                 <ScalarProperty Name="EmployeeName" ColumnName="EmployeeName" />
                 <ScalarProperty Name="Password" ColumnName="Password" />
@@ -178,9 +254,38 @@
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
+          <EntitySetMapping Name="Clients">
+            <EntityTypeMapping TypeName="HRMS_EntityModel.Client">
+              <MappingFragment StoreEntitySet="Client">
+                <ScalarProperty Name="ClientName" ColumnName="ClientName" />
+                <ScalarProperty Name="Sno" ColumnName="Sno" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Departments">
+            <EntityTypeMapping TypeName="HRMS_EntityModel.Department">
+              <MappingFragment StoreEntitySet="Department">
+                <ScalarProperty Name="DepartmentName" ColumnName="DepartmentName" />
+                <ScalarProperty Name="Sno" ColumnName="Sno" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Designations">
+            <EntityTypeMapping TypeName="HRMS_EntityModel.Designation">
+              <MappingFragment StoreEntitySet="Designation">
+                <ScalarProperty Name="Designation1" ColumnName="Designation" />
+                <ScalarProperty Name="Sno" ColumnName="Sno" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
           <EntitySetMapping Name="emp_info">
             <EntityTypeMapping TypeName="HRMS_EntityModel.emp_info">
               <MappingFragment StoreEntitySet="emp_info">
+                <ScalarProperty Name="imagepath" ColumnName="imagepath" />
+                <ScalarProperty Name="UpdatedDate" ColumnName="UpdatedDate" />
+                <ScalarProperty Name="UpdatedBy" ColumnName="UpdatedBy" />
+                <ScalarProperty Name="CreatedDate" ColumnName="CreatedDate" />
+                <ScalarProperty Name="CreatedBy" ColumnName="CreatedBy" />
                 <ScalarProperty Name="EligibleforRehire" ColumnName="EligibleforRehire" />
                 <ScalarProperty Name="Reason" ColumnName="Reason" />
                 <ScalarProperty Name="DateofExit" ColumnName="DateofExit" />

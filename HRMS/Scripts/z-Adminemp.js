@@ -43,6 +43,24 @@ function calculateAge() {
     // Display the calculated age
     ageInput.value = age;
 }
+$(document).ready(function () {
+    // Add click event listener to the "Select All" checkbox
+    $('#selectAll').on('click', function () {
+        // Get the state of the "Select All" checkbox
+        var isChecked = this.checked;
+
+        // Apply highlighting to all rows based on the state of "Select All"
+        $('#adminempmanagementtable tbody tr').each(function () {
+            $(this).toggleClass('selected', isChecked);
+        });
+    });
+
+    // Add click event listener to checkboxes in each row
+    $('#adminempmanagementtable tbody').on('click', 'input[type="checkbox"]', function () {
+        // Toggle highlighting for the row containing the clicked checkbox
+        $(this).closest('tr').toggleClass('selected', this.checked);
+    });
+});
 
 
 // Function to add a new client

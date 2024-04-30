@@ -41,15 +41,14 @@
                         Console.WriteLine($"First letter of first name: {firstLetterOfFirstName}");
                         Console.WriteLine($"First letter of last name: {firstLetterOfLastName}");
 
-                        <div class="default-image" style="width: 50px; height: 50px; border-radius: 50%; background-color: black; color: #fff; text-align: center; line-height: 50px; margin-right: 10px;">@firstLetterOfFirstName @firstLetterOfLastName</div>
+                        <div class="default-image">@firstLetterOfFirstName @firstLetterOfLastName</div>
 
                     }
                 }
 
                 <input type="file" id="imageInput" style="display: none;">
 
-            </div>
-            <hr>
+            </div>         
             <div class="row">
                 <div class="col-md-4">
                     <h4>@Model.EmpInfo.EmployeeID - @Model.EmpInfo.EmployeeName</h4>
@@ -140,7 +139,7 @@
                     <!-- Table 3 -->
                     <table class="table selfservice-table">
                         <tr>
-                            <td colspan="2" class="table-heading">General Information</td>
+                            <td colspan="2" class="td-heading">General Information</td>
                         </tr>
                         <tr>
                             <td>Father Name</td>
@@ -185,7 +184,7 @@
                     <!-- Table 4 -->
                     <table class="table selfservice-table">
                         <tr>
-                            <td colspan="2" class="table-heading">Bank Details</td>
+                            <td colspan="2" class="td-heading">Bank Details</td>
                         </tr>
                         <tr>
                             <td>Bank Name</td>
@@ -215,7 +214,7 @@
                     <!-- Table 5 -->
                     <table class="table selfservice-table">
                         <tr>
-                            <td colspan="2" class="table-heading">Identity Proof Details</td>
+                            <td colspan="2" class="td-heading">Identity Proof Details</td>
                         </tr>
                         <tr>
                             <td>PAN Number</td>
@@ -241,7 +240,7 @@
                     <!-- Table 6 -->
                     <table class="table selfservice-table">
                         <tr>
-                            <td colspan="2" class="table-heading">Statutory Details</td>
+                            <td colspan="2" class="td-heading">Statutory Details</td>
                         </tr>
                         <tr>
                             <td>UAN Number</td>
@@ -267,7 +266,7 @@
                     <!-- Table 7 -->
                     <table class="table selfservice-table">
                         <tr>
-                            <td colspan="2" class="table-heading">Dependent Details</td>
+                            <td colspan="2" class="td-heading">Dependent Details</td>
                         </tr>
                         <tr>
                             <td>Name</td>
@@ -289,7 +288,7 @@
                     <!-- Table 8 -->
                     <table class="table selfservice-table">
                         <tr>
-                            <td colspan="2" class="table-heading">Educational Details</td>
+                            <td colspan="2" class="td-heading">Educational Details</td>
                         </tr>
                         <tr>
                             <td>Latest Degree</td>
@@ -310,7 +309,7 @@
                     <!-- Table 9 -->
                     <table class="table selfservice-table">
                         <tr>
-                            <td colspan="2" class="table-heading">Previous Employer Details</td>
+                            <td colspan="2" class="td-heading">Previous Employer Details</td>
                         </tr>
                         <tr>
                             <td>Previous Employer Name</td>
@@ -344,7 +343,7 @@
                     <!-- Table 10 -->
                     <table class="table selfservice-table">
                         <tr>
-                            <td colspan="2" class="table-heading">Separation Information</td>
+                            <td colspan="2" class="td-heading">Separation Information</td>
                         </tr>
                         <tr>
                             <td>Date of Exit</td>

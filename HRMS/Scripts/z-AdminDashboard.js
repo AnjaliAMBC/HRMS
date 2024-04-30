@@ -73,6 +73,7 @@ $('.admin-empmanagement').click(function (event) {
                 "columnDefs": [
                     {
                         "targets": 0,
+                        "orderable": false,
                         "render": function (data, type, full, meta) {
                             return '<input type="checkbox" class="empmgmt-check" />'
                         }
@@ -96,7 +97,7 @@ $('.admin-empmanagement').click(function (event) {
                                 return imageHtml = '<div class="default-image" style="width: 50px; height: 50px; border-radius: 50%; background-color: black; color: #fff; text-align: center; line-height: 50px; margin-right: 10px;">' + shortName + '</div><span style="display: inline-block; vertical-align: top;">' + data.name + '<br>' + data.email + '</span>'
                             }
                             return imageHtml +
-                                '<span style="display: inline-block; vertical-align: top;">' + data.name + '<br>' + data.email + '</span>';
+                                '<span style="display: inline-block;">' + data.name + '<br>' + data.email + '</span>';
                         }
                     },
 
@@ -117,10 +118,15 @@ $('.admin-empmanagement').click(function (event) {
                     },
                     {
                         "targets": 8,
+                        "orderable": false,
                         "render": function (data, type, full, meta) {
                             return '<span class="edit-btn" title="Edit"><i class="fas fa-pencil-alt"></i></span><span class="delete-btn" data-toggle="modal" title="Delete"><i class="fas fa-trash-alt"></i></span>';
                         }
-                    }
+                    },
+                    {
+                        "targets": 9,
+                        "orderable": false,
+                    },
 
                 ],
 
@@ -138,9 +144,8 @@ $('.admin-empmanagement').click(function (event) {
                     $('td input[type="checkbox"]').prop('checked', false);
                     $('#action').hide();
                 }
-
             });
-
+            
             $('#menuIcon').on('click', function () {
                 // Your menu icon click handler code here
             });
@@ -594,4 +599,20 @@ function downloadTemplate() {
     document.body.removeChild(link);
 }
 
+$(document).ready(function() {
+    // Toggle dropdown menu visibility on click of the icon
+    $(document).on('click', '#dropdownMenu', function () {
+        $('#dropdownMenuContent').toggle();
+    });
 
+    // Close dropdown menu when clicking outside of it
+    $(document).on('click', function (event) {
+        // Check if the clicked element is not within the dropdown menu or the icon
+        if (!$(event.target).closest('.dropdown-columns').length && !$(event.target).is('#dropdownMenu')) {
+            $('#dropdownMenuContent').hide();
+        }
+    });
+});
+
+    // If you need to close the dropdown when clicking outside
+   

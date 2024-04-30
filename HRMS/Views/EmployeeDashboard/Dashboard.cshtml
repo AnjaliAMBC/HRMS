@@ -1,19 +1,32 @@
-﻿<style>
-</style>
-
-
-<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+﻿
+<nav class="navbar navbar-expand-lg navbar-light bg-light empdash-navbar" >
     <div class="container-fluid">
-        <a class="navbar-brand" href="#">Employee Dashboard</a>
+        <a class="navbar-brand" href="#">
+            <img src="~/Assets/AMBC_Logo.png" alt="logo" class="logo-img" />
+        </a>
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
         </button>
 
         <div class="collapse navbar-collapse" id="navbarSupportedContent">
-            <ul class="navbar-nav ml-auto">
+            <ul class="nav ml-auto">
                 <li class="nav-item">
-                    <a class="nav-link" href="#">Logout</a>
+                    <select id="help-nav" name="help">
+                        <option value="" disabled selected hidden>Help</option>
+                        <option value="option1">option1</option>
+                        <option value="option2">option2</option>
+                    </select>
                 </li>
+                <li class="nav-item" id="navbar-profile">
+                    <img src="~/Assets/EmpProfile.png" alt="profile" class="nav-profile" />
+                    <p class="nav-name">Admin_HRMS</p>
+                    <select id="profile-nav" name="profile">
+                        <option value="" disabled selected hidden></option>
+                        <option value="option1">option1</option>
+                        <option value="option2">option2</option>
+                    </select>
+                </li>
+
             </ul>
         </div>
     </div>
@@ -23,17 +36,36 @@
     <div class="row">
         <div class="col-md-3">
             <div class="sidebar">
-                <h2>Employee Panel</h2>
-                <ul id="empdash-menu">
-                    <li><a href="#" class="active emp-dashboard">Dashboard</a></li>
-                    <li><a href="#" class="emp-selfservice">Self Service</a></li>
-                    <li><a href="#" class="emp-attendence">Attendance</a></li>
-                    <li><a href="#" class="emp-leavetracker">Leave Tracker</a></li>
-                    <li><a href="#" class="emp-myrequest">My Requests</a></li>
+                <ul id="empdash-menu" style="list-style-type: none;">
+                    <li>
+                        <a href="#" class="active emp-dashboard">
+                            <span class="material-icons">dashboard</span>Dashboard
+                        </a>
+                    </li>
+                    <li>
+                        <a href="#" class="emp-selfservice">
+                            <span class="material-icons">groups</span>Self Service
+                        </a>
+                    </li>
+                    <li>
+                        <a href="#" class="emp-attendence">
+                            <span class="material-icons">calendar_month</span>Attendance
+                        </a>
+                    </li>
+                    <li>
+                        <a href="#" class="emp-leavetracker">
+                            <span class="material-icons">logout</span>Leave Tracker
+                        </a>
+                    </li>
+                    <li>
+                        <a href="#" class="emp-myrequest">
+                            <span class="material-icons">laptop_chromebook</span>Ticketing
+                        </a>
+                    </li>
                 </ul>
             </div>
         </div>
-        <div class="col-md-9">
+        <div class="col-md-9 dashboard-content">
             <div class="content emp-dashboard-data">
                 <div class="hiddendashboard"></div>
                 <!-- Your page content goes here -->

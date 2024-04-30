@@ -65,5 +65,10 @@ namespace HRMS
         public Nullable<System.DateTime> DateofExit { get; set; }
         public string Reason { get; set; }
         public string EligibleforRehire { get; set; }
+        public string CreatedBy { get; set; }
+        public Nullable<System.DateTime> CreatedDate { get; set; }
+        public string UpdatedBy { get; set; }
+        public Nullable<System.DateTime> UpdatedDate { get; set; }
+        public string imagepath { get; set; }
     }
 }

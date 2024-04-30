@@ -137,9 +137,18 @@
     <Content Include="Assets\EmpImages\1311.png" />
     <Content Include="Assets\EmpProfile.png" />
     <Content Include="Content\z-adminempmanagement.css" />
+    <Compile Include="Client.cs">
+      <DependentUpon>HRMS.tt</DependentUpon>
+    </Compile>
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\AdminDashboardController.cs" />
     <Compile Include="Controllers\EmployeeDashboardController.cs" />
+    <Compile Include="Department.cs">
+      <DependentUpon>HRMS.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Designation.cs">
+      <DependentUpon>HRMS.tt</DependentUpon>
+    </Compile>
     <Compile Include="emplogin.cs">
       <DependentUpon>HRMS.tt</DependentUpon>
     </Compile>

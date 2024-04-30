@@ -23,5 +23,11 @@ namespace HRMS
         public string EmployeeRole { get; set; }
         public string EmloyeeSysHostname { get; set; }
         public string EmployeeLogininfo { get; set; }
+        public Nullable<System.DateTime> updatedDate { get; set; }
+        public string UpdatedBy { get; set; }
+        public string CreatedBy { get; set; }
+        public Nullable<System.DateTime> CreatedDate { get; set; }
+        public Nullable<bool> IsLeaveRM { get; set; }
+        public Nullable<bool> IsReportingM { get; set; }
     }
 }

@@ -1,36 +1,45 @@
-﻿<style>
-    .sidebar ul li a.active {
-        background-color: #4CAF50;
-    }
-</style>
-
-<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+﻿<nav class="navbar navbar-expand-lg navbar-light bg-light empdash-navbar">
     <div class="container-fluid">
-        <a class="navbar-brand" href="#">Admin Dashboard</a>
+        <a class="navbar-brand" href="#">
+            <img src="~/Assets/AMBC_Logo.png" alt="logo" class="logo-img" />
+        </a>
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
         </button>
 
         <div class="collapse navbar-collapse" id="navbarSupportedContent">
-            <ul class="navbar-nav ml-auto">
+            <ul class="nav ml-auto">
                 <li class="nav-item">
-                    <a class="nav-link" href="#">Logout</a>
+                    <select id="help-nav" name="help">
+                        <option value="" disabled selected hidden>Help</option>
+                        <option value="option1">option1</option>
+                        <option value="option2">option2</option>
+                    </select>
                 </li>
+                <li class="nav-item" id="navbar-profile">
+                    <img src="~/Assets/EmpProfile.png" alt="profile" class="nav-profile" />
+                    <p class="nav-name">Admin_HRMS</p>
+                    <select id="profile-nav" name="profile">
+                        <option value="" disabled selected hidden></option>
+                        <option value="option1">option1</option>
+                        <option value="option2">option2</option>
+                    </select>
+                </li>
+
             </ul>
         </div>
     </div>
 </nav>
 
 <div class="container-fluid">
-    <div class="row">
+    <div class="row" style="margin-left: -29px; ">
         <div class="col-md-2">
             <div class="sidebar">
-                <h2>Admin Panel</h2>
                 <ul id="admindash-menu">
                     <li><a href="#" class="active admin-dashboard">Dashboard</a></li>
-                    <li><a href="#" class="admin-empmanagement">Employee Management</a></li>
-                    <li><a href="#" class="admin-attendance">Attendance Management</a></li>
-                    <li><a href="#" class="admin-leave">Leave Management</a></li>
+                    <li><a href="#" class="admin-empmanagement">Employee</a></li>
+                    <li><a href="#" class="admin-attendance">Attendance</a></li>
+                    <li><a href="#" class="admin-leave">Leave</a></li>
                     <li><a href="#" class="admin-ticketing">Ticketing</a></li>
                 </ul>
             </div>

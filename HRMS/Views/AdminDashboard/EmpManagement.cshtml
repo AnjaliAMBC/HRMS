@@ -2,8 +2,8 @@
 
 
 <div class="admin-empmanagement-view">
-    <div class="container-fluid top">
-        <div class="row navbar">
+    <div class="container-fluid top admin-empview">
+        <div class="row navbar admin-empnav">
             <div class="col-lg-5 topic">
                 <p class="header">Employee Directory</p>
                 <select name="action" id="action" style="display: none">
@@ -84,9 +84,9 @@
 
                 </th>
                 <th>
-                    <div class="dropdown">
-                        <span class="menu-icon" id="dropdownMenu"><i class="fa-solid fa-list"></i></span>
-                        <div class="dropdown-menu" id="dropdownMenuContent">
+                    <div class="dropdown dropdown-columns">
+                        <span class="menu-icon dropdown-th" id="dropdownMenu" ><i class="fa-solid fa-list"></i></span>
+                        <div class="action-menu" id="dropdownMenuContent" style="display: none; background-color:white; border-radius:5px;">
                             <a href="#" class="empid"><input type="checkbox"> Emp ID</a>
                             <a href="#" class="name"><input type="checkbox"> Name</a>
                             <a href="#" class="Designation"><input type="checkbox"> Designation</a>
