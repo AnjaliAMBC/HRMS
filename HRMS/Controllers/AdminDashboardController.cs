@@ -156,11 +156,11 @@ namespace HRMS.Controllers
                             {
                                 dataRow[col - 1] = worksheet.Cells[row, col].Value;
                             }
-                            dt.Rows.Add(dataRow);                           
+                            dt.Rows.Add(dataRow);
 
                             // Create an emp_info object and populate its properties from DataRow
                             emp_info emp = new emp_info();
-                          
+
                             emp.EmployeeID = dataRow["EmployeeID"].ToString();
                             emp.EmployeeStatus = dataRow["EmployeeStatus"].ToString();
                             emp.EmployeeName = dataRow["EmployeeName"].ToString();
@@ -205,7 +205,7 @@ namespace HRMS.Controllers
                             emp.YearofCompletion = !string.IsNullOrWhiteSpace(dataRow["YearofCompletion"].ToString()) ? Convert.ToInt32(dataRow["YearofCompletion"]) : 0;
                             emp.Employer_name = dataRow["Employer_name"].ToString();
                             emp.JobTitle = dataRow["JobTitle"].ToString();
-                            emp.From_date = !string.IsNullOrWhiteSpace(dataRow["From_date"].ToString()) ?  Convert.ToDateTime(dataRow["From_date"]) : System.DateTime.MinValue;
+                            emp.From_date = !string.IsNullOrWhiteSpace(dataRow["From_date"].ToString()) ? Convert.ToDateTime(dataRow["From_date"]) : System.DateTime.MinValue;
                             emp.To_date = !string.IsNullOrWhiteSpace(dataRow["To_date"].ToString()) ? Convert.ToDateTime(dataRow["To_date"]) : System.DateTime.MinValue;
                             emp.ReasonforRelieving = dataRow["ReasonforRelieving"].ToString();
                             emp.DateofExit = !string.IsNullOrWhiteSpace(dataRow["DateofExit"].ToString()) ? Convert.ToDateTime(dataRow["DateofExit"]) : System.DateTime.MinValue;
@@ -234,7 +234,7 @@ namespace HRMS.Controllers
             {
                 model.JsonResponse = ErrorHelper.CaptureError(ex);
                 return Json(model, JsonRequestBehavior.AllowGet);
-            }            
+            }
         }
 
 
@@ -309,7 +309,7 @@ namespace HRMS.Controllers
         //        // Save Excel package
         //        byte[] fileContents = excelPackage.GetAsByteArray();
         //        return File(fileContents, "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet", "EmployeeInfo.xlsx");
-            
+
         //    }
         //}
 
@@ -362,5 +362,40 @@ namespace HRMS.Controllers
             ViewBag.ActivePage = "Ticketing";
             return View();
         }
+
+
+
+        //// POST: Designation/Add
+        //[HttpPost]
+        //public ActionResult DesignationAdd(string newDesignation)
+        //{
+
+        //    if (!string.IsNullOrEmpty(newDesignation))
+        //    {
+        //        try
+        //        {
+        //            // Create a new Designation object
+        //            var designation = new Designation { Name = newDesignation };
+
+        //            // Add the new designation to the context and save changes
+        //            _dbContext.Designations.Add(designation);
+        //            _dbContext.SaveChanges();
+
+        //            // Return a success message
+        //            return Json(new { success = true });
+        //        }
+        //        catch (Exception ex)
+        //        {
+        //            // Log the error
+        //            Console.WriteLine($"Error adding new designation: {ex.Message}");
+
+        //            // Return an error message
+        //            return Json(new { error = "An error occurred while adding the designation." });
+        //        }
+        //    }
+
+        //    // Return a bad request if the input is empty
+        //    return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+        //}
     }
 }

@@ -67,6 +67,9 @@ namespace HRMS.Models.Admin
         public emp_info EditableEmpInfo { get; set; } = new emp_info();
         public JsonResponse JsonResponse { get; set; } = new JsonResponse();
         public string HeadLine { get; set; }
+        public Department Departments { get; set; } = new Department();
+        public Designation Designations { get; set; } = new Designation();
+        public Client Clients { get; set; } = new Client();
     }
 
     public class DeleteEmployeeViewModel : SiteContextModel
