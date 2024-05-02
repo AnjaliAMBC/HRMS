@@ -61,7 +61,7 @@ namespace HRMS.Controllers
             model.LoginInfo = cuserContext.LoginInfo;
 
             model.HeadLine = "Add Employee";
-            if(!string.IsNullOrEmpty(empid))
+            if (!string.IsNullOrEmpty(empid) && !model.IsAddAction)
             {
                 model.HeadLine = "Edit Employee";
                 var ediatbleEmp = _dbContext.emp_info.Where(x => x.EmployeeID == empid).FirstOrDefault();
@@ -70,13 +70,14 @@ namespace HRMS.Controllers
                     model.EditableEmpInfo = ediatbleEmp;
                 }
             }
+            else
+            {
+                model.IsAddAction = true;
+            }
 
-            //var employeesList = _dbContext.emp_info.ToList();
-            //model.EmpList = employeesList;
-
-            //var json = JsonConvert.SerializeObject(model.EmpList);
-            //model.EmpListJson = json;
-
+            model.Clients = new EmployeeHelper(_dbContext).GetClients();
+            model.Designations = new EmployeeHelper(_dbContext).GetDesignations();
+            model.Departments = new EmployeeHelper(_dbContext).GetDepartments();
             return PartialView("~/Views/AdminDashboard/AddEmpTabs.cshtml", model);
         }
 
@@ -93,6 +94,85 @@ namespace HRMS.Controllers
 
                 model.JsonResponse.Message = "Employee details added successfully!";
                 model.JsonResponse.StatusCode = 200;
+            }
+            catch (Exception ex)
+            {
+                model.JsonResponse = ErrorHelper.CaptureError(ex);
+            }
+            return Json(model, JsonRequestBehavior.AllowGet);
+        }
+
+        [HttpPost]
+        public ActionResult UpdateEmployee(emp_info formData)
+        {
+            var model = new AddEmployeeViewModel();
+            try
+            {
+                model.EmpInfo = formData;
+                var existingEmployee = _dbContext.emp_info.Where(emp => emp.EmployeeID == formData.EmployeeID).FirstOrDefault();
+                if (existingEmployee != null)
+                {
+                    // Update all properties of the existing entity
+                    existingEmployee.EmployeeStatus = model.EmpInfo.EmployeeStatus;
+                    existingEmployee.EmployeeName = model.EmpInfo.EmployeeName;
+                    existingEmployee.FatherName = model.EmpInfo.FatherName;
+                    existingEmployee.Gender = model.EmpInfo.Gender;
+                    existingEmployee.BloodGroup = model.EmpInfo.BloodGroup;
+                    existingEmployee.DOB = model.EmpInfo.DOB;
+                    existingEmployee.DOJ = model.EmpInfo.DOJ;
+                    existingEmployee.Age = model.EmpInfo.Age;
+                    existingEmployee.MaritalStatus = model.EmpInfo.MaritalStatus;
+                    existingEmployee.Designation = model.EmpInfo.Designation;
+                    existingEmployee.ShiftTimings = model.EmpInfo.ShiftTimings;
+                    existingEmployee.Department = model.EmpInfo.Department;
+                    existingEmployee.Client = model.EmpInfo.Client;
+                    existingEmployee.EmployeeType = model.EmpInfo.EmployeeType;
+                    existingEmployee.Location = model.EmpInfo.Location;
+                    existingEmployee.ReportingManager = model.EmpInfo.ReportingManager;
+                    existingEmployee.LeavereportingManager = model.EmpInfo.LeavereportingManager;
+                    existingEmployee.MobileNumber = model.EmpInfo.MobileNumber;
+                    existingEmployee.Personal_Emailid = model.EmpInfo.Personal_Emailid;
+                    existingEmployee.OfficalEmailid = model.EmpInfo.OfficalEmailid;
+                    existingEmployee.PresentAddress = model.EmpInfo.PresentAddress;
+                    existingEmployee.Permanent_Address = model.EmpInfo.Permanent_Address;
+                    existingEmployee.RelationName = model.EmpInfo.RelationName;
+                    existingEmployee.Relationship = model.EmpInfo.Relationship;
+                    existingEmployee.FamilyMobileNumber = model.EmpInfo.FamilyMobileNumber;
+                    existingEmployee.BankName = model.EmpInfo.BankName;
+                    existingEmployee.AccountNumber = model.EmpInfo.AccountNumber;
+                    existingEmployee.Branch = model.EmpInfo.Branch;
+                    existingEmployee.TypeofAccount = model.EmpInfo.TypeofAccount;
+                    existingEmployee.IFSCcode = model.EmpInfo.IFSCcode;
+                    existingEmployee.PANnumber = model.EmpInfo.PANnumber;
+                    existingEmployee.AadharNumber = model.EmpInfo.AadharNumber;
+                    existingEmployee.Passport = model.EmpInfo.Passport;
+                    existingEmployee.DOEofPassport = model.EmpInfo.DOEofPassport;
+                    existingEmployee.UANNumber = model.EmpInfo.UANNumber;
+                    existingEmployee.PFNumber = model.EmpInfo.PFNumber;
+                    existingEmployee.ESICNumber = model.EmpInfo.ESICNumber;
+                    existingEmployee.LatestDegree = model.EmpInfo.LatestDegree;
+                    existingEmployee.College_Name = model.EmpInfo.College_Name;
+                    existingEmployee.Specialization = model.EmpInfo.Specialization;
+                    existingEmployee.YearofCompletion = model.EmpInfo.YearofCompletion;
+                    existingEmployee.Employer_name = model.EmpInfo.Employer_name;
+                    existingEmployee.JobTitle = model.EmpInfo.JobTitle;
+                    existingEmployee.From_date = model.EmpInfo.From_date;
+                    existingEmployee.To_date = model.EmpInfo.To_date;
+                    existingEmployee.ReasonforRelieving = model.EmpInfo.ReasonforRelieving;
+                    existingEmployee.DateofExit = model.EmpInfo.DateofExit;
+                    existingEmployee.Reason = model.EmpInfo.Reason;
+                    existingEmployee.EligibleforRehire = model.EmpInfo.EligibleforRehire;
+                    existingEmployee.CreatedBy = model.EmpInfo.CreatedBy;
+                    existingEmployee.CreatedDate = model.EmpInfo.CreatedDate;
+                    existingEmployee.UpdatedBy = "Admin";
+                    existingEmployee.UpdatedDate = DateTime.Now;
+
+                    // Save changes back to the database
+                    _dbContext.SaveChanges();
+
+                    model.JsonResponse.Message = "Employee details updated successfully!";
+                    model.JsonResponse.StatusCode = 200;
+                }
             }
             catch (Exception ex)
             {
@@ -128,26 +208,19 @@ namespace HRMS.Controllers
                 // Check if a file is uploaded
                 if (file != null && file.ContentLength > 0)
                 {
-                    // Create a list to hold emp_info objects
                     List<emp_info> empList = new List<emp_info>();
 
-                    // Load the Excel package
                     using (ExcelPackage package = new ExcelPackage(file.InputStream))
                     {
-                        // Get the first worksheet in the workbook
                         ExcelWorksheet worksheet = package.Workbook.Worksheets[1];
-
-                        // Create a DataTable to hold the data
                         DataTable dt = new DataTable();
 
-                        // Read the header row
                         int colCount = worksheet.Dimension.End.Column;
                         for (int col = 1; col <= colCount; col++)
                         {
                             dt.Columns.Add(worksheet.Cells[1, col].Value.ToString());
                         }
 
-                        // Read the data rows
                         int rowCount = worksheet.Dimension.End.Row;
                         for (int row = 2; row <= rowCount; row++)
                         {
@@ -157,8 +230,6 @@ namespace HRMS.Controllers
                                 dataRow[col - 1] = worksheet.Cells[row, col].Value;
                             }
                             dt.Rows.Add(dataRow);
-
-                            // Create an emp_info object and populate its properties from DataRow
                             emp_info emp = new emp_info();
 
                             emp.EmployeeID = dataRow["EmployeeID"].ToString();
@@ -211,13 +282,10 @@ namespace HRMS.Controllers
                             emp.DateofExit = !string.IsNullOrWhiteSpace(dataRow["DateofExit"].ToString()) ? Convert.ToDateTime(dataRow["DateofExit"]) : System.DateTime.MinValue;
                             emp.Reason = dataRow["Reason"].ToString();
                             emp.EligibleforRehire = dataRow["EligibleforRehire"].ToString();
-
-                            // Add the emp_info object to the list
                             empList.Add(emp);
                         }
                     }
 
-                    // Save the data to the database
                     if (empList.Count > 0)
                     {
                         _dbContext.emp_info.AddRange(empList);
@@ -241,22 +309,18 @@ namespace HRMS.Controllers
         [HttpPost]
         public ActionResult ExportToExcel(List<string> selectedEmployeeIds)
         {
-            // Retrieve selected employee data from the database
             var selectedEmployees = _dbContext.emp_info.Where(e => selectedEmployeeIds.Contains(e.EmployeeID)).ToList();
 
-            // Create Excel package
             using (ExcelPackage excelPackage = new ExcelPackage())
             {
                 ExcelWorksheet worksheet = excelPackage.Workbook.Worksheets.Add("EmployeeInfo");
 
-                // Write column headers
                 var properties = typeof(emp_info).GetProperties();
                 for (int i = 0; i < properties.Length; i++)
                 {
                     worksheet.Cells[1, i + 1].Value = properties[i].Name;
                 }
 
-                // Write data to Excel
                 int row = 2;
                 foreach (var employee in selectedEmployees)
                 {
@@ -267,7 +331,6 @@ namespace HRMS.Controllers
                     row++;
                 }
 
-                // Save Excel package to a memory stream
                 using (MemoryStream memoryStream = new MemoryStream())
                 {
                     excelPackage.SaveAs(memoryStream);
@@ -276,42 +339,6 @@ namespace HRMS.Controllers
                 }
             }
         }
-
-
-        //public ActionResult ExportToExcel()
-        //{
-        //    // Retrieve employee data from the database
-        //    var employees = _dbContext.emp_info.ToList();
-
-        //    // Create Excel package
-        //    using (ExcelPackage excelPackage = new ExcelPackage())
-        //    {
-        //        ExcelWorksheet worksheet = excelPackage.Workbook.Worksheets.Add("EmployeeInfo");
-
-        //        // Write column headers
-        //        var properties = typeof(emp_info).GetProperties();
-        //        for (int i = 0; i < properties.Length; i++)
-        //        {
-        //            worksheet.Cells[1, i + 1].Value = properties[i].Name;
-        //        }
-
-        //        // Write data to Excel
-        //        int row = 2;
-        //        foreach (var employee in employees)
-        //        {
-        //            for (int i = 0; i < properties.Length; i++)
-        //            {
-        //                worksheet.Cells[row, i + 1].Value = properties[i].GetValue(employee);
-        //            }
-        //            row++;
-        //        }
-
-        //        // Save Excel package
-        //        byte[] fileContents = excelPackage.GetAsByteArray();
-        //        return File(fileContents, "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet", "EmployeeInfo.xlsx");
-
-        //    }
-        //}
 
         public JsonResult DeleteEmp(DeleteEmployeeViewModel deletEmpInfo)
         {
@@ -364,38 +391,96 @@ namespace HRMS.Controllers
         }
 
 
+        [HttpPost]
+        public ActionResult DesignationAdd(string newDesignation)
+        {
+            var model = new JsonResponse();
+            if (!string.IsNullOrEmpty(newDesignation))
+            {
+                try
+                {
+                    // Create a new Designation object
+                    var designation = new Designation { Designation1 = newDesignation };
 
-        //// POST: Designation/Add
-        //[HttpPost]
-        //public ActionResult DesignationAdd(string newDesignation)
-        //{
+                    // Add the new designation to the context and save changes
+                    _dbContext.Designations.Add(designation);
+                    _dbContext.SaveChanges();
 
-        //    if (!string.IsNullOrEmpty(newDesignation))
-        //    {
-        //        try
-        //        {
-        //            // Create a new Designation object
-        //            var designation = new Designation { Name = newDesignation };
+                    model.Message = "Designation added successfully!";
+                    model.StatusCode = 200;
 
-        //            // Add the new designation to the context and save changes
-        //            _dbContext.Designations.Add(designation);
-        //            _dbContext.SaveChanges();
+                    // Return a success message
+                    return Json(model, JsonRequestBehavior.AllowGet);
+                }
+                catch (Exception ex)
+                {
+                    model = ErrorHelper.CaptureError(ex);
+                    return Json(model, JsonRequestBehavior.AllowGet);
+                }
+            }
+            return Json(model, JsonRequestBehavior.AllowGet);
+        }
 
-        //            // Return a success message
-        //            return Json(new { success = true });
-        //        }
-        //        catch (Exception ex)
-        //        {
-        //            // Log the error
-        //            Console.WriteLine($"Error adding new designation: {ex.Message}");
+        [HttpPost]
+        public ActionResult DepartmentAdd(string newDepartment)
+        {
+            var model = new JsonResponse();
+            if (!string.IsNullOrEmpty(newDepartment))
+            {
+                try
+                {
+                    var department = new Department { DepartmentName = newDepartment };
+                    _dbContext.Departments.Add(department);
+                    _dbContext.SaveChanges();
 
-        //            // Return an error message
-        //            return Json(new { error = "An error occurred while adding the designation." });
-        //        }
-        //    }
+                    model.Message = "Department added successfully!";
+                    model.StatusCode = 200;
 
-        //    // Return a bad request if the input is empty
-        //    return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-        //}
+                    // Return a success message
+                    return Json(model, JsonRequestBehavior.AllowGet);
+                }
+                catch (Exception ex)
+                {
+                    model = ErrorHelper.CaptureError(ex);
+                    return Json(model, JsonRequestBehavior.AllowGet);
+                }
+            }
+            return Json(model, JsonRequestBehavior.AllowGet);
+        }
+
+
+        [HttpPost]
+        public ActionResult ClientAdd(string newClient)
+        {
+            var model = new JsonResponse();
+            if (!string.IsNullOrEmpty(newClient))
+            {
+                try
+                {
+                    // Create a new Designation object
+                    var client = new Client { ClientName = newClient };
+
+                    // Add the new designation to the context and save changes
+                    _dbContext.Clients.Add(client);
+                    _dbContext.SaveChanges();
+
+                    model.Message = "Client added successfully!";
+                    model.StatusCode = 200;
+
+                    // Return a success message
+                    return Json(model, JsonRequestBehavior.AllowGet);
+                }
+                catch (Exception ex)
+                {
+                    model = ErrorHelper.CaptureError(ex);
+
+                    // Return a success message
+                    return Json(model, JsonRequestBehavior.AllowGet);
+                }
+            }
+
+            // Return a bad request if the input is empty
+            return Json(model, JsonRequestBehavior.AllowGet);
+        }
     }
 }

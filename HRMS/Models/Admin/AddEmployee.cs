@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 
 namespace HRMS.Models.Admin
 {
@@ -67,9 +68,10 @@ namespace HRMS.Models.Admin
         public emp_info EditableEmpInfo { get; set; } = new emp_info();
         public JsonResponse JsonResponse { get; set; } = new JsonResponse();
         public string HeadLine { get; set; }
-        public Department Departments { get; set; } = new Department();
-        public Designation Designations { get; set; } = new Designation();
-        public Client Clients { get; set; } = new Client();
+        public List<DropdownItem> Departments { get; set; } = new List<DropdownItem>();
+        public List<DropdownItem> Designations { get; set; } = new List<DropdownItem>();
+        public List<DropdownItem> Clients { get; set; } = new List<DropdownItem>();
+        public bool IsAddAction { get; set; } = false;
     }
 
     public class DeleteEmployeeViewModel : SiteContextModel

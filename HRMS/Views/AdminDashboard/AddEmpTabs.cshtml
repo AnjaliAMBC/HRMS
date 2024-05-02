@@ -84,22 +84,40 @@
                         <div class="col-md-3">
                             <div class="form-group">
                                 <label for="Age">Age</label>
-                                <input type="number" class="form-control" id="Age" readonly="">
+                                <input type="number" class="form-control" id="Age" value="@Model.EditableEmpInfo.Age" readonly="">
                             </div>
                         </div>
                         <div class="col-md-3">
                             <div class="form-group drop-menu">
                                 <label for="BloodGroup">Blood Group</label>
                                 <select class="form-control" id="BloodGroup">
-                                    <option value="" disabled selected>Blood Group</option>
-                                    <option value="A+">A+</option>
-                                    <option value="A-">A-</option>
-                                    <option value="B+">B+</option>
-                                    <option value="B-">B-</option>
-                                    <option value="AB+">AB+</option>
-                                    <option value="AB-">AB-</option>
-                                    <option value="O+">O+</option>
-                                    <option value="O-">O-</option>
+
+                                    @{
+                                        var selectedBloodGroupItem = !string.IsNullOrEmpty(Model.EditableEmpInfo.BloodGroup) ? "selected" : "";
+                                    }
+                                    <option value="" @selectedBloodGroupItem>Select Blood Group</option>
+
+                                    @{
+                                        var bloodGroupList = new List<string>();
+                                        bloodGroupList.Add("A+");
+                                        bloodGroupList.Add("A-");
+
+                                        bloodGroupList.Add("B+");
+                                        bloodGroupList.Add("B-");
+
+                                        bloodGroupList.Add("AB+");
+                                        bloodGroupList.Add("AB-");
+
+                                        bloodGroupList.Add("O+");
+                                        bloodGroupList.Add("O-");
+                                    }
+
+                                    @foreach (var item in bloodGroupList)
+                                    {
+                                        selectedBloodGroupItem = !string.IsNullOrEmpty(Model.EditableEmpInfo.BloodGroup) && (Model.EditableEmpInfo.BloodGroup == item) ? "selected" : "";
+                                        <option value="@item" @selectedBloodGroupItem>@item</option>
+                                    }
+
                                 </select>
                             </div>
                         </div>
@@ -107,9 +125,23 @@
                             <div class="form-group drop-menu">
                                 <label for="EmployeeStatus">Employee Status</label>
                                 <select class="form-control" id="EmployeeStatus" required>
-                                    <option value="" disabled selected>Status</option>
-                                    <option value="active">Active</option>
-                                    <option value="inactive">Inactive</option>
+
+                                    @{
+                                        var selectedEmpStatusItem = !string.IsNullOrEmpty(Model.EditableEmpInfo.EmployeeStatus) ? "selected" : "";
+                                    }
+                                    <option value="" @selectedEmpStatusItem>Select Employee Status</option>
+
+                                    @{
+                                        var empStatusList = new List<string>();
+                                        empStatusList.Add("Active");
+                                        empStatusList.Add("Inactive");
+                                    }
+
+                                    @foreach (var item in empStatusList)
+                                    {
+                                        selectedEmpStatusItem = !string.IsNullOrEmpty(Model.EditableEmpInfo.EmployeeStatus) && (Model.EditableEmpInfo.EmployeeStatus == item) ? "selected" : "";
+                                        <option value="@item" @selectedEmpStatusItem>@item</option>
+                                    }
                                 </select>
                                 <div class="invalid-feedback">Please select Employee Status.</div>
                             </div>
@@ -120,10 +152,23 @@
                             <div class="form-group drop-menu">
                                 <label for="Gender">Gender</label>
                                 <select class="form-control" id="Gender" required>
-                                    <option value="" disabled selected>Gender</option>
-                                    <option value="male">Male</option>
-                                    <option value="female">Female</option>
-                                    <option value="other">Other</option>
+
+                                    @{
+                                        var selectedGenederItem = !string.IsNullOrEmpty(Model.EditableEmpInfo.Gender) ? "selected" : "";
+                                    }
+                                    <option value="" @selectedGenederItem>Select Gender</option>
+
+                                    @{
+                                        var genderList = new List<string>();
+                                        genderList.Add("Male");
+                                        genderList.Add("Female");
+                                        genderList.Add("Other");
+                                    }
+                                    @foreach (var item in genderList)
+                                    {
+                                        selectedGenederItem = !string.IsNullOrEmpty(Model.EditableEmpInfo.Gender) && (Model.EditableEmpInfo.Gender == item) ? "selected" : "";
+                                        <option value="@item" @selectedGenederItem>@item</option>
+                                    }
                                 </select>
                                 <div class="invalid-feedback">Please select Gender.</div>
                             </div>
@@ -132,11 +177,23 @@
                             <div class="form-group drop-menu">
                                 <label for="MaritalStatus">Marital Status</label>
                                 <select class="form-control" id="MaritalStatus" required>
-                                    <option value="" disabled selected>Marital Status</option>
-                                    <option value="single">Single</option>
-                                    <option value="married">Married</option>
-                                    <option value="divorced">Divorced</option>
-                                    <option value="widowed">Widowed</option>
+                                    @{
+                                        var selectedMarrialStatusItem = !string.IsNullOrEmpty(Model.EditableEmpInfo.MaritalStatus) ? "selected" : "";
+                                    }
+                                    <option value="" @selectedMarrialStatusItem>Select Marital Status</option>
+
+                                    @{
+                                        var maritalStatusList = new List<string>();
+                                        maritalStatusList.Add("Single");
+                                        maritalStatusList.Add("Married");
+                                        maritalStatusList.Add("Divorced");
+                                        maritalStatusList.Add("Widowed");
+                                    }
+                                    @foreach (var item in maritalStatusList)
+                                    {
+                                        selectedMarrialStatusItem = !string.IsNullOrEmpty(Model.EditableEmpInfo.MaritalStatus) && (Model.EditableEmpInfo.MaritalStatus == item) ? "selected" : "";
+                                        <option value="@item" @selectedMarrialStatusItem>@item</option>
+                                    }
                                 </select>
                                 <div class="invalid-feedback">Please select Marital Status.</div>
                             </div>
@@ -146,11 +203,15 @@
                                 <label for="Designation">Designation:</label>
                                 <div class="input-group">
                                     <select class="form-control" id="Designation">
-                                        <option value="" disabled selected>Designation</option>
-                                        <option value="manager">Manager</option>
-                                        <option value="engineer">Engineer</option>
-                                        <option value="analyst">Analyst</option>
-                                        <option value="developer">Developer</option>
+                                        @{
+                                            var selectedDesignationItem = !string.IsNullOrEmpty(Model.EditableEmpInfo.Designation) ? "selected" : "";
+                                        }
+                                        <option value="" @selectedDesignationItem>Select Designation</option>
+                                        @foreach (var item in Model.Designations)
+                                        {
+                                            selectedDesignationItem = !string.IsNullOrEmpty(Model.EditableEmpInfo.Designation) && (Model.EditableEmpInfo.Designation == item.Name) ? "selected" : "";
+                                            <option value="@item.Id" @selectedDesignationItem>@item.Name</option>
+                                        }
                                     </select>
                                     <div class="input-group-append">
                                         <button class="btn btn-secondary btn-sm" type="button" data-toggle="modal" data-target="#addDesignationModel">
@@ -165,10 +226,15 @@
                                 <label for="Department">Department</label>
                                 <div class="input-group">
                                     <select class="form-control" id="Department">
-                                        <option value="" disabled selected>Department</option>
-                                        <option value="1">Department 1</option>
-                                        <option value="2">Department 2</option>
-                                        <option value="3">Department 3</option>
+                                        @{
+                                            var selectedDepartmentItem = !string.IsNullOrEmpty(Model.EditableEmpInfo.Department) ? "selected" : "";
+                                        }
+                                        <option value="" @selectedDepartmentItem>Select Department</option>
+                                        @foreach (var item in Model.Departments)
+                                        {
+                                            selectedDepartmentItem = !string.IsNullOrEmpty(Model.EditableEmpInfo.Department) && (Model.EditableEmpInfo.Department == item.Name) ? "selected" : "";
+                                            <option value="@item.Id" @selectedDepartmentItem>@item.Name</option>
+                                        }
                                     </select>
                                     <div class="input-group-append">
                                         <button class="btn btn-secondary btn-sm" type="button" data-toggle="modal" data-target="#addDepartmentModel">
@@ -185,10 +251,15 @@
                                 <label for="Client">Client</label>
                                 <div class="input-group">
                                     <select class="form-control" id="Client" onchange="handleClientChange(this.value)" required>
-                                        <option value="" disabled selected>Client</option>
-                                        <option value="client1">Client 1</option>
-                                        <option value="client2">Client 2</option>
-                                        <option value="client3">Client 3</option>
+                                        @{
+                                            var selectedClientItem = !string.IsNullOrEmpty(Model.EditableEmpInfo.Client) ? "selected" : "";
+                                        }
+                                        <option value="" @selectedClientItem>Select Client</option>
+                                        @foreach (var item in Model.Clients)
+                                        {
+                                            selectedClientItem = !string.IsNullOrEmpty(Model.EditableEmpInfo.Client) && (Model.EditableEmpInfo.Client == item.Name) ? "selected" : "";
+                                            <option value="@item.Id" @selectedClientItem>@item.Name</option>
+                                        }
                                     </select>
                                     <div class="invalid-feedback">Please select Client Name.</div>
                                     <div class="input-group-append">
@@ -202,11 +273,26 @@
 
                         <div class="col-md-3">
                             <div class="form-group drop-menu">
-                                <label for="EmployeeType">Employee Type</label>
+                                <label for="EmployeeType">Employement Type</label>
                                 <select class="form-control" id="EmployeeType" required>
-                                    <option value="" disabled selected>Employee Type</option>
-                                    <option value="full_time">Full-Time</option>
-                                    <option value="part_time">Probation</option>
+
+                                    @{
+                                        var selectedemploymentTypeItem = !string.IsNullOrEmpty(Model.EditableEmpInfo.EmployeeType) ? "selected" : "";
+                                    }
+                                    <option value="" @selectedemploymentTypeItem>Select Employee Type</option>
+
+                                    @{
+                                        var empTypeList = new List<string>();
+                                        empTypeList.Add("Full-Time");
+                                        empTypeList.Add("Probation");
+                                    }
+
+                                    @foreach (var item in empTypeList)
+                                    {
+                                        selectedemploymentTypeItem = !string.IsNullOrEmpty(Model.EditableEmpInfo.EmployeeType) && (Model.EditableEmpInfo.EmployeeType == item) ? "selected" : "";
+                                        <option value="@item" @selectedemploymentTypeItem>@item</option>
+                                    }
+
                                 </select>
                                 <div class="invalid-feedback">Please select Employee Type.</div>
                             </div>
@@ -215,9 +301,22 @@
                             <div class="form-group drop-menu">
                                 <label for="Location">Location</label>
                                 <select class="form-control" id="Location" required>
-                                    <option value="" disabled selected hidden></option>
-                                    <option value="hyderabad">Hyderabad</option>
-                                    <option value="madurai">Madurai</option>
+
+                                    @{
+                                        var selectedLocationItem = !string.IsNullOrEmpty(Model.EditableEmpInfo.Location) ? "selected" : "";
+                                    }
+                                    <option value="" @selectedLocationItem>Select Employee Type</option>
+
+                                    @{
+                                        var locationList = new List<string>();
+                                        locationList.Add("Hyderabad");
+                                        locationList.Add("Madurai");
+                                    }
+                                    @foreach (var item in locationList)
+                                    {
+                                        selectedLocationItem = !string.IsNullOrEmpty(Model.EditableEmpInfo.Location) && (Model.EditableEmpInfo.Location == item) ? "selected" : "";
+                                        <option value="@item" @selectedLocationItem>@item</option>
+                                    }
                                 </select>
                                 <div class="invalid-feedback">Please select Location.</div>
                             </div>
@@ -267,29 +366,29 @@
                         <div class="col-md-3">
                             <div class="form-group">
                                 <label for="MobileNumber">Mobile Number</label>
-                                <input type="text" class="form-control" id="MobileNumber" required>
+                                <input type="text" class="form-control" id="MobileNumber" value="@Model.EditableEmpInfo.MobileNumber" required>
                                 <div class="invalid-feedback">Please enter Mobile Number</div>
                             </div>
                         </div>
                         <div class="col-md-3">
                             <div class="form-group">
                                 <label for="Personal_Emailid">Personal Email</label>
-                                <input type="email" class="form-control" id="Personal_Emailid">
+                                <input type="email" class="form-control" id="Personal_Emailid" value="@Model.EditableEmpInfo.Personal_Emailid">
                             </div>
                         </div>
                         <div class="col-md-3">
                             <div class="form-group">
                                 <label for="OfficalEmailid">Official Email</label>
-                                <input type="email" class="form-control" id="OfficalEmailid" required>
+                                <input type="email" class="form-control" id="OfficalEmailid" value="@Model.EditableEmpInfo.OfficalEmailid" required>
                                 <div class="invalid-feedback">Please enter Official Emial ID.</div>
                             </div>
                         </div>
                     </div>
                     <div class="row">
                         <div class="col-md-6">
-                            <div class="form-group present-address">
+                            <div class="form-group present-address" style=" margin-top: 6px;">
                                 <label for="PresentAddress">Present Address</label>
-                                <textarea class="form-control" id="PresentAddress"></textarea>
+                                <textarea class="form-control" id="PresentAddress" value="@Model.EditableEmpInfo.PresentAddress"></textarea>
                             </div>
                         </div>
                         <div class="col-md-6">
@@ -299,7 +398,7 @@
                                     <input type="checkbox" id="copyPresentAddress">
                                     <label for="copyPresentAddress">Same as Present Address</label>
                                 </label>
-                                <textarea class="form-control" id="Permanent_Address"></textarea>
+                                <textarea class="form-control" id="Permanent_Address" value="@Model.EditableEmpInfo.Permanent_Address"></textarea>
                             </div>
                         </div>
                     </div>
@@ -307,24 +406,24 @@
                     <div class="row">
                         <div class="col-md-3">
                             <div class="form-group">
-                                <label for="emergencyContactName">Name</label>
-                                <input type="text" class="form-control" id="emergencyContactName" required>
+                                <label for="RelationName">Name</label>
+                                <input type="text" class="form-control" id="RelationName" required value="@Model.EditableEmpInfo.RelationName">
                                 <div class="invalid-feedback">Please enter Name.</div>
                             </div>
                         </div>
                         <div class="col-md-3">
                             <div class="form-group">
-                                <label for="emergencyContactRelationship">Relationship</label>
-                                <input type="text" class="form-control" id="emergencyContactRelationship" required>
+                                <label for="Relationship">Relationship</label>
+                                <input type="text" class="form-control" id="Relationship" value="@Model.EditableEmpInfo.Relationship" required>
                                 <div class="invalid-feedback">Please enter Relationship.</div>
                             </div>
                         </div>
                         <div class="col-md-3">
                             <div class="form-group">
-                                <label for="emergencyContactMobileNumber">Family Mobile Number</label>
-                                <input type="text" class="form-control" id="emergencyContactMobileNumber" required>
+                                <label for="FamilyMobileNumber">Family Mobile Number</label>
+                                <input type="text" class="form-control" id="FamilyMobileNumber" value="@Model.EditableEmpInfo.FamilyMobileNumber" required>
                                 <div class="invalid-feedback">Please enter Family Mobile Number.</div>
-                                <div class="invalid-feedback">Please enter Family Mobile Number.</div>
+
                             </div>
                         </div>
                     </div>
@@ -339,34 +438,33 @@
                         <div class="col-md-3">
                             <div class="form-group">
                                 <label for="BankName">Bank Name</label>
-                                <input type="text" class="form-control" id="BankName" required>
-                                <div class="invalid-feedback">Please enter Bank Name.</div>
+                                <input type="text" class="form-control" id="BankName" value="@Model.EditableEmpInfo.BankName">
                             </div>
                         </div>
                         <div class="col-md-3">
                             <div class="form-group">
                                 <label for="AccountNumber">Account Number</label>
-                                <input type="text" class="form-control" id="AccountNumber">
+                                <input type="text" class="form-control" id="AccountNumber" value="@Model.EditableEmpInfo.AccountNumber">
                             </div>
                         </div>
                         <div class="col-md-3">
                             <div class="form-group">
                                 <label for="Branch">Branch</label>
-                                <input type="text" class="form-control" id="Branch">
+                                <input type="text" class="form-control" id="Branch" value="@Model.EditableEmpInfo.Branch">
                             </div>
                         </div>
                         <div class="col-md-3">
                             <div class="form-group">
                                 <label for="TypeofAccount">Type of Account</label>
-                                <input type="text" class="form-control" id="TypeofAccount">
+                                <input type="text" class="form-control" id="TypeofAccount" value="@Model.EditableEmpInfo.TypeofAccount">
                             </div>
                         </div>
                     </div>
                     <div class="row">
-                        <div class="col-md-6">
+                        <div class="col-md-3">
                             <div class="form-group">
                                 <label for="IFSCcode">IFSC Code</label>
-                                <input type="text" class="form-control" id="IFSCcode">
+                                <input type="text" class="form-control" id="IFSCcode" value="@Model.EditableEmpInfo.IFSCcode">
                             </div>
                         </div>
                     </div>
@@ -385,25 +483,25 @@
                         <div class="col-md-3">
                             <div class="form-group">
                                 <label for="PANnumber">PAN Number</label>
-                                <input type="text" class="form-control" id="PANnumber">
+                                <input type="text" class="form-control" id="PANnumber" value="@Model.EditableEmpInfo.PANnumber">
                             </div>
                         </div>
                         <div class="col-md-3">
                             <div class="form-group">
                                 <label for="AadharNumber">Aadhar Number</label>
-                                <input type="text" class="form-control" id="AadharNumber">
+                                <input type="text" class="form-control" id="AadharNumber" value="@Model.EditableEmpInfo.AadharNumber">
                             </div>
                         </div>
                         <div class="col-md-3">
                             <div class="form-group">
                                 <label for="Passport">Passport Number</label>
-                                <input type="text" class="form-control" id="Passport">
+                                <input type="text" class="form-control" id="Passport" value="@Model.EditableEmpInfo.Passport">
                             </div>
                         </div>
                         <div class="col-md-3">
                             <div class="form-group">
                                 <label for="DOEofPassport">Passport Date of Expiry</label>
-                                <input type="date" class="form-control" id="DOEofPassport">
+                                <input type="date" class="form-control" id="DOEofPassport" value="@Model.EditableEmpInfo.DOEofPassport">
                             </div>
                         </div>
                     </div>
@@ -424,19 +522,19 @@
                         <div class="col-md-4">
                             <div class="form-group">
                                 <label for="UANNumber">UAN Number</label>
-                                <input type="text" class="form-control" id="UANNumber">
+                                <input type="text" class="form-control" id="UANNumber" value="@Model.EditableEmpInfo.UANNumber">
                             </div>
                         </div>
                         <div class="col-md-4">
                             <div class="form-group">
                                 <label for="PFNumber">PF Number</label>
-                                <input type="text" class="form-control" id="PFNumber">
+                                <input type="text" class="form-control" id="PFNumber" value="@Model.EditableEmpInfo.PFNumber">
                             </div>
                         </div>
                         <div class="col-md-4">
                             <div class="form-group">
                                 <label for="ESICNumber">ESIC Number</label>
-                                <input type="text" class="form-control" id="ESICNumber">
+                                <input type="text" class="form-control" id="ESICNumber" value="@Model.EditableEmpInfo.ESICNumber">
                             </div>
                         </div>
                     </div>
@@ -455,25 +553,25 @@
                         <div class="col-md-3">
                             <div class="form-group">
                                 <label for="LatestDegree">Latest Degree</label>
-                                <input type="text" class="form-control" id="LatestDegree">
+                                <input type="text" class="form-control" id="LatestDegree" value="value=" @Model.EditableEmpInfo.LatestDegree "">
                             </div>
                         </div>
                         <div class="col-md-3">
                             <div class="form-group">
                                 <label for="College_Name">College Name</label>
-                                <input type="text" class="form-control" id="College_Name">
+                                <input type="text" class="form-control" id="College_Name" value="@Model.EditableEmpInfo.College_Name">
                             </div>
                         </div>
                         <div class="col-md-3">
                             <div class="form-group">
                                 <label for="Specialization">Specialization</label>
-                                <input type="text" class="form-control" id="Specialization">
+                                <input type="text" class="form-control" id="Specialization" value="@Model.EditableEmpInfo.Specialization">
                             </div>
                         </div>
                         <div class="col-md-3">
                             <div class="form-group">
                                 <label for="YearofCompletion">Year of Completion</label>
-                                <input type="number" class="form-control" id="YearofCompletion">
+                                <input type="number" class="form-control" id="YearofCompletion" value="@Model.EditableEmpInfo.YearofCompletion">
                             </div>
                         </div>
                     </div>
@@ -486,7 +584,6 @@
             </form>
         </div>
 
-
         <div class="tab-pane fade" id="tab6" role="tabpanel" aria-labelledby="tab6-link">
             <form id="tab6-form" class="tabs-view">
                 <div class="container tab-container">
@@ -495,33 +592,33 @@
                         <div class="col-md-3">
                             <div class="form-group">
                                 <label for="Employer_name">Employer Name</label>
-                                <input type="text" class="form-control" id="Employer_name">
+                                <input type="text" class="form-control" id="Employer_name" value="@Model.EditableEmpInfo.EmployeeName">
                             </div>
                         </div>
                         <div class="col-md-3">
                             <div class="form-group">
                                 <label for="JobTitle">Job Title</label>
-                                <input type="text" class="form-control" id="JobTitle">
+                                <input type="text" class="form-control" id="JobTitle" value="@Model.EditableEmpInfo.JobTitle">
                             </div>
                         </div>
                         <div class="col-md-3">
                             <div class="form-group">
                                 <label for="From_date">From Date</label>
-                                <input type="date" class="form-control" id="From_date">
+                                <input type="date" class="form-control" id="From_date" value="@Model.EditableEmpInfo.From_date">
                             </div>
                         </div>
                         <div class="col-md-3">
                             <div class="form-group">
                                 <label for="To_date">To Date</label>
-                                <input type="date" class="form-control" id="To_date">
+                                <input type="date" class="form-control" id="To_date" value="@Model.EditableEmpInfo.To_date">
                             </div>
                         </div>
                     </div>
                     <div class="row">
-                        <div class="col-md-12">
+                        <div class="col-md-3">
                             <div class="form-group">
                                 <label for="ReasonforRelieving">Reason of Relieving:</label>
-                                <input type="text" class="form-control" id="ReasonforRelieving">
+                                <input type="text" class="form-control" id="ReasonforRelieving" value="@Model.EditableEmpInfo.ReasonforRelieving">
                             </div>
                         </div>
                     </div>
@@ -541,19 +638,19 @@
                         <div class="col-md-4">
                             <div class="form-group">
                                 <label for="DateofExit">Date of Exit:</label>
-                                <input type="date" class="form-control" id="DateofExit">
+                                <input type="date" class="form-control" id="DateofExit" value="@Model.EditableEmpInfo.DateofExit">
                             </div>
                         </div>
                         <div class="col-md-4">
                             <div class="form-group">
                                 <label for="Reason">Reason</label>
-                                <input type="text" class="form-control" id="Reason">
+                                <input type="text" class="form-control" id="Reason" value="@Model.EditableEmpInfo.Reason">
                             </div>
                         </div>
                         <div class="col-md-4">
                             <div class="form-group">
                                 <label for="EligibleforRehire">Eligible for Rehire</label>
-                                <input type="text" class="form-control" id="EligibleforRehire">
+                                <input type="text" class="form-control" id="EligibleforRehire" value="@Model.EditableEmpInfo.EligibleforRehire">
                             </div>
                         </div>
                     </div>
@@ -566,6 +663,8 @@
             </form>
         </div>
     </div>
+
+    <div class="isaddaction" style="display: none">@Model.IsAddAction</div>
 
     <div class="modal fade" id="addDesignationModel" tabindex="-1" role="dialog" aria-labelledby="addDesignationModalLabel" aria-hidden="true">
         <div class="modal-dialog" role="document">

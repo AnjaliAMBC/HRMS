@@ -1,1 +1,235 @@
-﻿
+﻿<style>
+    .empattendance {
+        width: 100%;
+        border: none;
+        box-shadow: none;
+        margin-top: 1%;
+    }
+
+    #search {
+        padding-right: 5%;
+    }
+
+    .attendance_collpase {
+        display: flex;
+    }
+
+    .left_attendance {
+        margin-right: 10px;
+        display: flex !important;
+    }
+
+    #status-nav, #location-nav, #export-nav {
+        border: 1px solid transparent;
+        padding-left: 2%;
+        margin-top: .25rem;
+    }
+
+    #export-nav {
+        margin-right: 1%;
+    }
+
+    .right_nav {
+        display: flex;
+    }
+
+    .status, .location, .export {
+        margin-left: 5%;
+        margin-top: 5px;
+    }
+
+    .add_shift {
+        margin-left: 5px;
+        width: 180% !important;
+        color: white;
+        background-color: Highlight;
+        border: 1px solid Highlight;
+        padding: 10px;
+    }
+
+    /*----Calendar row-----*/
+    .calendar {
+        width: 150%;
+        display: flex;
+        flex-wrap: wrap;
+        align-items: center; /* Align buttons vertically */
+        margin-left: 20px;
+        margin-top: 3%;
+    }
+
+        .calendar .day {
+            width: calc(100% / 30);
+            padding: 10px;
+        }
+
+    #prevBtn, #nextBtn, #calendarBtn {
+        background-color: transparent;
+        border: none;
+        cursor: pointer;
+        font-size: 20px;
+        padding: 5px 10px;
+    }
+
+    #prevBtn {
+        margin-right: 1%;
+    }
+
+    #nextBtn {
+        margin-left: 1%;
+    }
+
+    #calendarBtn {
+        color: white;
+        background-color: darkturquoise;
+        margin-right: 2%;
+        align-items: center;
+        text-align: center;
+        display: flex;
+        font-size: 18px;
+        border-radius: 10px;
+    }
+
+    .calendar_icon {
+        margin-top: 2px;
+        margin-left: 1%;
+        margin-right: 8px !important;
+        font-size: 20px;
+    }
+</style>
+<div class="content admin-attendance-view" style="display: none">
+    <div class="container-fluid empattendance">
+        <div class="row">
+            <div class="col-3">
+                <h1 class="header">Attendance</h1>
+            </div>
+            <div class="col-1"></div>
+            <div class="col-2 search-container">
+                <input type="text" placeholder="Search" class="empsearch">
+                <button type="submit"><i class="fas fa-search"></i></button>
+            </div>
+            <div class="col-2"></div>
+            <div class="right_nav col-3" style="text-align:right;">
+                <div class="status">
+                    <select id="status-nav" name="status">
+                        <option value="" disabled selected hidden>Status</option>
+                        <option value="option1">option1</option>
+                        <option value="option2">option2</option>
+                    </select>
+                </div>
+                <div class="location">
+                    <select id="location-nav" name="location">
+                        <option value="" disabled selected hidden>Location</option>
+                        <option value="option1">option1</option>
+                        <option value="option2">option2</option>
+                    </select>
+                </div>
+                <div class="export">
+                    <select id="export-nav" name="export">
+                        <option value="" disabled selected hidden>Export </option>
+                        <option value="option1">option1</option>
+                        <option value="option2">option2</option>
+                    </select>
+                </div>
+                <div class="shift" style="text-align:right;">
+                    <button class="add_shift">Add Shift</button>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="calendar">
+                <button id="calendarBtn"><i class="material-icons calendar_icon">calendar_month</i><span id="monthName"></span> </button>
+                <button id="prevBtn">&lt;</button>
+                <div class="row">
+                    <!-- Dates will be generated dynamically here -->
+                </div>
+                <button id="nextBtn">&gt;</button>
+            </div>
+
+        </div>
+        <div class="row attendance_table">
+            <table id="attendancetable" class="display" style="width: 120%;margin:20px;">
+                <thead style="background-color: #F2F6FF">
+                    <tr>
+                        <th>Employee Name</th>
+                        <th>Location</th>
+                        <th>Date</th>
+                        <th>Check-In</th>
+                        <th>Check-Out</th>
+                        <th>Hours</th>
+                        <th>Status</th>
+                    </tr>
+                </thead>
+                <tbody>
+                </tbody>
+            </table>
+        </div>
+
+    </div>
+</div>
+    <script>
+    // Get the container element
+        var calendarContainer = document.querySelector('.calendar .row');
+        var monthName = document.getElementById('monthName');
+
+        // Get the buttons
+        var prevBtn = document.getElementById('prevBtn');
+        var nextBtn = document.getElementById('nextBtn');
+        var calendarBtn = document.getElementById('calendarBtn');
+
+        // Get the current date
+        var currentDate = new Date();
+
+        // Calculate the start date (today)
+        var startDate = new Date(currentDate);
+
+        // Function to generate dates
+        function generateDates() {
+            // Clear the calendar container
+            calendarContainer.innerHTML = '';
+
+            // Loop to generate dates
+            for (var i = 0; i < 30; i++) {
+                // Create a new date by adding 'i' days to the start date
+                var date = new Date(startDate);
+                date.setDate(date.getDate() + i);
+
+                // Format the date to two digits
+                var formattedDate = date.getDate().toLocaleString('en-US', { minimumIntegerDigits: 2 });
+
+                // Create a new div element for each date
+                var dayElement = document.createElement('div');
+                dayElement.classList.add('day');
+                dayElement.textContent = formattedDate;
+
+                // Append the day element to the calendar container
+                calendarContainer.appendChild(dayElement);
+            }
+        }
+
+        // Initial generation of dates
+        generateDates();
+
+        // Event listener for previous button
+        prevBtn.addEventListener('click', function () {
+            startDate.setDate(startDate.getDate() - 1); // Move back by 1 day
+            updateCalendarButton();
+            generateDates();
+        });
+
+        // Event listener for next button
+        nextBtn.addEventListener('click', function () {
+            startDate.setDate(startDate.getDate() + 1); // Move forward by 1 day
+            updateCalendarButton();
+            generateDates();
+        });
+
+        // Set initial text for calendar button
+        updateCalendarButton();
+
+        // Function to update the text of the calendar button with the current month
+        function updateCalendarButton() {
+            var months = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'];
+            var currentMonth = months[startDate.getMonth()];
+            monthName.textContent = currentMonth;
+        }
+    </script>

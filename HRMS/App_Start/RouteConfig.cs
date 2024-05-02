@@ -33,6 +33,12 @@ namespace HRMS
                 url: "{controller}/{action}/{id}",
                 defaults: new { controller = "EmpAttendance", action = "Index", id = UrlParameter.Optional }
             );
+            routes.MapRoute(
+                name: "adnAttendance",
+                url: "{controller}/{action}/{id}",
+                defaults: new { controller = "AdminAttendance", action = "Index", id = UrlParameter.Optional }
+            );
+
         }
     }
 }

@@ -11,7 +11,7 @@ namespace HRMS.Controllers
         // GET: Attendance
         public ActionResult Index()
         {
-            return View();
+            return View("~/Views/AdminDashboard/AdminAttendance.cshtml");
         }
     }
 }

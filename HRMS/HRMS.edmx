@@ -142,8 +142,8 @@
           <EntitySet Name="emplogins" EntityType="Self.emplogin" />
           <EntitySet Name="Clients" EntityType="HRMS_EntityModel.Client" />
           <EntitySet Name="Departments" EntityType="HRMS_EntityModel.Department" />
-          <EntitySet Name="Designations" EntityType="HRMS_EntityModel.Designation" />
           <EntitySet Name="emp_info" EntityType="HRMS_EntityModel.emp_info" />
+          <EntitySet Name="Designations" EntityType="HRMS_EntityModel.Designation" />
         </EntityContainer>
         <EntityType Name="Client">
           <Key>
@@ -158,13 +158,6 @@
           </Key>
           <Property Name="Sno" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="DepartmentName" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
-        </EntityType>
-        <EntityType Name="Designation">
-          <Key>
-            <PropertyRef Name="Sno" />
-          </Key>
-          <Property Name="Sno" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="Designation1" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
         </EntityType>
         <EntityType Name="emp_info">
           <Key>
@@ -227,6 +220,13 @@
           <Property Name="UpdatedDate" Type="DateTime" Precision="0" />
           <Property Name="imagepath" Type="String" MaxLength="1000" FixedLength="false" Unicode="false" />
         </EntityType>
+        <EntityType Name="Designation">
+          <Key>
+            <PropertyRef Name="Sno" />
+          </Key>
+          <Property Name="Sno" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Designation1" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+        </EntityType>
       </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -266,14 +266,6 @@
             <EntityTypeMapping TypeName="HRMS_EntityModel.Department">
               <MappingFragment StoreEntitySet="Department">
                 <ScalarProperty Name="DepartmentName" ColumnName="DepartmentName" />
-                <ScalarProperty Name="Sno" ColumnName="Sno" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="Designations">
-            <EntityTypeMapping TypeName="HRMS_EntityModel.Designation">
-              <MappingFragment StoreEntitySet="Designation">
-                <ScalarProperty Name="Designation1" ColumnName="Designation" />
                 <ScalarProperty Name="Sno" ColumnName="Sno" />
               </MappingFragment>
             </EntityTypeMapping>
@@ -336,6 +328,14 @@
                 <ScalarProperty Name="EmployeeName" ColumnName="EmployeeName" />
                 <ScalarProperty Name="EmployeeStatus" ColumnName="EmployeeStatus" />
                 <ScalarProperty Name="EmployeeID" ColumnName="EmployeeID" />
+                <ScalarProperty Name="Sno" ColumnName="Sno" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Designations">
+            <EntityTypeMapping TypeName="HRMS_EntityModel.Designation">
+              <MappingFragment StoreEntitySet="Designation">
+                <ScalarProperty Name="Designation1" ColumnName="Designation" />
                 <ScalarProperty Name="Sno" ColumnName="Sno" />
               </MappingFragment>
             </EntityTypeMapping>

@@ -11,19 +11,19 @@
     align-items: center;
     height: 35px;
     border: 1px solid #ccc;
-    border-radius: 25px;
+    border-radius: 13px;
     padding: 5px;
-    margin-left: 20px;
     overflow: hidden;
+    margin-left:35px;
 }
 
     .search-container input[type="text"] {
         flex: 1;
         border: none;
         outline: none;
-        margin-left: 20px;
+        margin-left: 38px;
         border-left: 1px solid #7d8da1;
-        padding-left: 10px;
+        padding-left: 13px;
     }
 
     .search-container button {
@@ -33,7 +33,7 @@
         border: none;
         cursor: pointer;
         padding-top: 5px;
-        left: 0px;
+        left: 10px;
     }
 
 .material-icons-sharp {
@@ -44,7 +44,7 @@
     display: flex;
     width: 50px !important;
     padding: 0px;
-    margin-left: 20px;
+    margin-left: 43px;
 }
 
 #dropdownButton {
@@ -73,9 +73,10 @@
 
 .addemployee {
     display: flex;
-    border: 1px solid black;
-    border-radius: 20px;
+    border: 1px solid #ccc;
+    border-radius: 13px;
     padding: 5px 5px;
+    margin-left: -80px;
 }
 
 .employeeadd {
@@ -208,12 +209,12 @@ table.dataTable thead th, table.dataTable tbody td {
     margin-left: 10%;
     margin-top: 2%;
 }
-
-
+ {
+    text-align: end;
+}
 
 #adminempmanagementtable.dataTable thead th, #adminempmanagementtable.dataTable thead td {
-    padding: 6px 10px;
-  
+    padding: 8px 8px;
 }
 
 .custom-table {
@@ -264,7 +265,7 @@ table.dataTable {
    
     position: absolute;
     background-color: #f9f9f9;
-    min-width: 160px;
+    min-width: 185px;
     box-shadow: 0 8px 16px 0 rgba(0,0,0,0.2);
     z-index: 1;
 }
@@ -338,6 +339,9 @@ tr:hover .edit-btn,
 tr:hover .delete-btn {
     display: inline-block;
 }
+.tdempname {
+    width: 270.4px;
+}
 
 .tdempname div.default-image,
 .tdempname span {
@@ -364,16 +368,20 @@ tr:hover .delete-btn {
 
 .admin-empnav {
     margin-top: -22px;
-    margin-left: -29px;
+    margin-left: -13px;
+    width: 125%;
 }
+
 #adminempmanagementtable {
-    width: 93% !important;
+    width: 102% !important;
     margin-left: 0px;
+    font-size:15px;
 }
 
 #dropdownMenuContent {
     overflow-y: auto;
     height:177px;
+    right:18%;
 }
 
 /* width */
@@ -421,4 +429,8 @@ table.dataTable.display tbody tr > .sorting_1,
 table.dataTable.display tbody tr > .sorting_2,
 table.dataTable.display tbody tr > .sorting_3 {
     background-color: transparent !important;
+}
+#adminempmanagementtable thead {
+    border-top-left-radius: 10px;
+    border-top-right-radius: 10px;
 }

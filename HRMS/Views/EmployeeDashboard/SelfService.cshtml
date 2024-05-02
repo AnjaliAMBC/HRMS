@@ -2,16 +2,15 @@
 
 
 <div class="selfservice-container">
-    <div class="backgroundimg">
+    <div class="backgroundimg" style="margin-left:-8px;">
         <img src="~/Assets/EMBackground.png" alt="backgroundimage" class="emp-backgroundimg">
     </div>
     <div class="row">
         <div class="col-md-12 emp-data">
             <div class="emp-imgs">
 
-                @if (!string.IsNullOrWhiteSpace(Model.EmpInfo.Reason))
+                @if (!string.IsNullOrWhiteSpace(Model.EmpInfo.imagepath))
                 {
-
                     var empImageURl = System.Configuration.ConfigurationManager.AppSettings["EmpImagesFolder"] + "/" + Model.EmpInfo.Reason;
                     <img src="@empImageURl" alt="Employee Image" class="profile img-fluid emp-imageurl">
                 }
@@ -55,8 +54,8 @@
                     <p>@Model.EmpInfo.Designation</p>
                 </div>
                 <div class="col-md-4">
-                    <p>Email ID: @Model.EmpInfo.OfficalEmailid</p>
-                    <p>Mobile No: @Model.EmpInfo.MobileNumber</p>
+                    <p> <i class="material-icons">email</i> @Model.EmpInfo.OfficalEmailid</p>
+                    <p><i class="material-icons">phone</i>+91 @Model.EmpInfo.MobileNumber</p>
                 </div>
             </div>
 

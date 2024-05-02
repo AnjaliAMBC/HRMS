@@ -1,6 +1,5 @@
 ﻿<nav class="navbar navbar-expand-lg navbar-light bg-light empdash-navbar">
-    <div class="container-fluid">
-        <a class="navbar-brand" href="#">
+        <a class="dash-logo" href="#">
             <img src="~/Assets/AMBC_Logo.png" alt="logo" class="logo-img" />
         </a>
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
@@ -28,7 +27,7 @@
 
             </ul>
         </div>
-    </div>
+   
 </nav>
 
 <div class="container-fluid">
@@ -36,46 +35,47 @@
         <div class="col-md-2">
             <div class="sidebar">
                 <ul id="admindash-menu">
-                    <li><a href="#" class="active admin-dashboard">Dashboard</a></li>
-                    <li><a href="#" class="admin-empmanagement">Employee</a></li>
-                    <li><a href="#" class="admin-attendance">Attendance</a></li>
-                    <li><a href="#" class="admin-leave">Leave</a></li>
-                    <li><a href="#" class="admin-ticketing">Ticketing</a></li>
+                    <li><a href="#" class="active admin-dashboard"><span class="material-icons">dashboard</span>Dashboard</a></li>
+                    <li><a href="#" class="admin-empmanagement"><span class="material-icons">groups</span>Employee</a></li>
+                    <li><a href="#" class="admin-attendance"><span class="material-icons">calendar_month</span>Attendance</a></li>
+                    <li><a href="#" class="admin-leave"><span class="material-icons">logout</span>Leave</a></li>
+                    <li><a href="#" class="admin-ticketing"><span class="material-icons">laptop_chromebook</span>Ticketing</a></li>
                 </ul>
             </div>
         </div>
-        <div class="col-md-10" style="margin-top: 6%">
-            <div class="hiddenadmindashboard"></div>
-            <div class="content admin-dashboard-container">
-                <!-- Your page content goes here -->
-                <h1>Welcome to Admin Dashboard!</h1>
-                <p>This is where you manage everything.</p>
-            </div>
+    </div>
 
-            <div class="content admin-empmanagement-container" style="display: none">
-            </div>
 
-            <div class="content admin-emppadd-container" style="display: none">
-            </div>
 
-            <div class="content admin-attendance-container" style="display: none">
-                <!-- Your page content goes here -->
-                <h1>Welcome to Admin Attedence Managent!</h1>
-                <p>This is where you manage everything.</p>
-            </div>
+    <div class="col-md-10" style="margin-top: 6%;  margin-left: 15%;">
+        <div class="hiddenadmindashboard"></div>
+        <div class="content admin-dashboard-container">
+            <!-- Your page content goes here -->
+            <h1>Welcome to Admin Dashboard!</h1>
+            <p>This is where you manage everything.</p>
+        </div>
 
-            <div class="content admin-leave-container" style="display: none">
-                <!-- Your page content goes here -->
-                <h1>Welcome to Admin Leave Managent!</h1>
-                <p>This is where you manage everything.</p>
-            </div>
+        <div class="content admin-empmanagement-container" style="display: none; margin-left: -47px; ">
+        </div>
 
-            <div class="content admin-ticketing-container" style="display: none">
-                <!-- Your page content goes here -->
-                <h1>Welcome to Admin Ticketing Managent!</h1>
-                <p>This is where you manage everything.</p>
-            </div>
+        <div class="content admin-emppadd-container" style="display: none">
+        </div>
+
+        <div class="content admin-attendance-container" style="display: none">
+            <!-- Your page content goes here -->
+            
+        </div>
+
+        <div class="content admin-leave-container" style="display: none">
+            <!-- Your page content goes here -->
+            <h1>Welcome to Admin Leave Managent!</h1>
+            <p>This is where you manage everything.</p>
+        </div>
+
+        <div class="content admin-ticketing-container" style="display: none">
+            <!-- Your page content goes here -->
+            <h1>Welcome to Admin Ticketing Managent!</h1>
+            <p>This is where you manage everything.</p>
         </div>
     </div>
 </div>
-

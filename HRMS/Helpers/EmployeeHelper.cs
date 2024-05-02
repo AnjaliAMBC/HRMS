@@ -38,26 +38,47 @@ namespace HRMS.Helpers
             return model;
         }
 
-        //public List<DropdownItem> GetDesignations()
-        //{
-        //    var model = new List<DropdownItem>();
-        //    try
-        //    {
-        //        var departments = _dbContext.Designations.ToList();
-        //        model = departments.Select(x => new DropdownItem
-        //        {
-        //            Id = x.DepartmentName,
-        //            Name = x.DepartmentName
-        //        }).ToList();
+        public List<DropdownItem> GetDesignations()
+        {
+            var model = new List<DropdownItem>();
+            try
+            {
+                var departments = _dbContext.Designations.ToList();
+                model = departments.Select(x => new DropdownItem
+                {
+                    Id = x.Designation1,
+                    Name = x.Designation1
+                }).ToList();
 
-        //    }
+            }
 
-        //    catch (Exception ex)
-        //    {
-        //        ErrorHelper.CaptureError(ex);
-        //    }
-        //    return model;
-        //}
+            catch (Exception ex)
+            {
+                ErrorHelper.CaptureError(ex);
+            }
+            return model;
+        }
+
+        public List<DropdownItem> GetClients()
+        {
+            var model = new List<DropdownItem>();
+            try
+            {
+                var departments = _dbContext.Clients.ToList();
+                model = departments.Select(x => new DropdownItem
+                {
+                    Id = x.ClientName,
+                    Name = x.ClientName
+                }).ToList();
+
+            }
+
+            catch (Exception ex)
+            {
+                ErrorHelper.CaptureError(ex);
+            }
+            return model;
+        }
 
     }
 }

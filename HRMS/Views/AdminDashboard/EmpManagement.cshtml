@@ -4,22 +4,22 @@
 <div class="admin-empmanagement-view">
     <div class="container-fluid top admin-empview">
         <div class="row navbar admin-empnav">
-            <div class="col-lg-5 topic">
-                <p class="header">Employee Directory</p>
+            <div class="col-lg-3 topic">
+                <p class="header">Employee </p>
                 <select name="action" id="action" style="display: none">
                     <option value="" selected>Action</option>                 
                     <option value="export">Export</option>
                 </select>
             </div>
-            <div class="col-lg-7 navbarl">
+            <div class="col-lg-8 navbarl">
                 <div class="container-fluid">
                     <div class="search-container col-3">
-                        <input type="text" placeholder="Search" class="advancesearch">
+                        <input type="text" placeholder="Search By Keyword" class="advancesearch">
                         <button type="submit"><i class="fas fa-search"></i></button>
                     </div>
 
                     <div class="features col-4">
-                        <p class="advancetitle">Advanced Features</p>
+                        <p class="advancetitle">Advanced Filters</p>
                         <div class="toggle-button">
                             <button class="collapsedropdown" type="button" data-toggle="collapse" data-target="#demo" aria-expanded="false" aria-controls="demo">
                                 <i class="fa-solid fa-angle-down"></i>
@@ -69,8 +69,7 @@
     </div>
 
     <table id="adminempmanagementtable" class="display" style="width: 100%;">
-        <thead style="background-color: #F2F6FF">
-
+        <thead style="background-color: #EEF4FF; border-radius: 10px;">
             <tr>
                 <th><input type="checkbox" id="selectAll"></th>
                 <th>Emp ID</th>             

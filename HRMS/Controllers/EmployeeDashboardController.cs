@@ -70,7 +70,7 @@ namespace HRMS.Controllers
                     if (employee != null)
                     {
                         // Update the properties of the retrieved employee entity
-                        employee.Reason = updatedFileName;
+                        employee.imagepath = updatedFileName;
                         _dbContext.SaveChanges();
                         model.ImageURl = ConfigurationManager.AppSettings["EmpImagesFolder"] + "/" + updatedFileName;
                         model.JsonResponse.Message = "Image Uploaded successfully!";

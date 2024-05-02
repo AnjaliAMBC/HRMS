@@ -28,7 +28,7 @@ namespace HRMS
         public virtual DbSet<emplogin> emplogins { get; set; }
         public virtual DbSet<Client> Clients { get; set; }
         public virtual DbSet<Department> Departments { get; set; }
-        public virtual DbSet<Designation> Designations { get; set; }
         public virtual DbSet<emp_info> emp_info { get; set; }
+        public virtual DbSet<Designation> Designations { get; set; }
     }
 }

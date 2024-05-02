@@ -16,6 +16,5 @@ namespace HRMS
     {
         public int Sno { get; set; }
         public string Designation1 { get; set; }
-        public string Name { get; internal set; }
     }
 }

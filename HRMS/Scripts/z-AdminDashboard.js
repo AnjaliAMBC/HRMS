@@ -52,7 +52,7 @@ $('.admin-empmanagement').click(function (event) {
                 console.log(data);
                 return ["",
                     data.EmployeeID,
-                    { name: data.EmployeeName, email: data.OfficalEmailid, image: data.Reason },
+                    { name: data.EmployeeName, email: data.OfficalEmailid, image: data.imagepath },
                     data.Designation,
                     data.Department,
                     data.EmployeeType,
@@ -67,15 +67,16 @@ $('.admin-empmanagement').click(function (event) {
                 data: data,
                 "paging": true,
                 "searching": true,
+                "pageLength": 8, // Set the default number of rows to display
+                "lengthChange": false,
                 "info": true,
                 "order": [],
-                "lengthMenu": [[10, 25, 50, -1], [10, 25, 50, "All"]],
                 "columnDefs": [
                     {
                         "targets": 0,
                         "orderable": false,
                         "render": function (data, type, full, meta) {
-                            return '<input type="checkbox" class="empmgmt-check" />'
+                            return '<input type="checkbox" class="empmgmt-check"/>'
                         }
                     },
                     {
@@ -94,7 +95,7 @@ $('.admin-empmanagement').click(function (event) {
                                 var firstNameInitial = data.name.charAt(0);
                                 var lastNameInitial = data.name.split(' ').slice(-1)[0].charAt(0);
                                 var shortName = firstNameInitial + lastNameInitial;
-                                return imageHtml = '<div class="default-image" style="width: 50px; height: 50px; border-radius: 50%; background-color: black; color: #fff; text-align: center; line-height: 50px; margin-right: 10px;">' + shortName + '</div><span style="display: inline-block; vertical-align: top;">' + data.name + '<br>' + data.email + '</span>'
+                                return imageHtml = '<div class="default-image" style="width: 45px; height: 45px; border-radius: 50%; background-color: #ccc; color: black; text-align: center; line-height: 50px; margin-right: 10px; margin-bottom: 7px;">' + shortName + '</div><span style="display: inline-block; vertical-align: top;">' + data.name + '<br><span style="color: blue;">' + data.email + '</span></span>'
                             }
                             return imageHtml +
                                 '<span style="display: inline-block;">' + data.name + '<br>' + data.email + '</span>';
@@ -145,7 +146,7 @@ $('.admin-empmanagement').click(function (event) {
                     $('#action').hide();
                 }
             });
-            
+
             $('#menuIcon').on('click', function () {
                 // Your menu icon click handler code here
             });
@@ -424,7 +425,7 @@ function AddUpdateEmployee(empID) {
 $(document).on('change', '#addemployee', function () {
     event.preventDefault();
 
-    if ($(this).val() == "Addmanually") { 
+    if ($(this).val() == "Addmanually") {
         AddUpdateEmployee("");
         $('.addempheadline').text("Add Employee");
     }
@@ -522,50 +523,131 @@ $(document).on('click', '.addemp-submit-btn', function () {
         });
     });
 
-    $.ajax({
-        url: '/admindashboard/addemployee',
-        type: 'POST',
-        data: formData,
-        success: function (response) {
-            console.log('Data saved successfully:', response);
+    if ($('.isaddaction').html() == "True") {
+        $.ajax({
+            url: '/admindashboard/addemployee',
+            type: 'POST',
+            data: formData,
+            success: function (response) {
+                console.log('Data saved successfully:', response);
 
-            if (response.JsonResponse.StatusCode == 200) {
-                $(".addemp-message").css("color", "green");
-                $(".addemp-message").text("The employee has been added successfully.");
+                if (response.JsonResponse.StatusCode == 200) {
+                    $(".addemp-message").css("color", "green");
+                    $(".addemp-message").text("The employee has been added successfully.");
 
-                var forms = $('.tabs-view');
-                clearFormDataAndSelectFirstIndex(forms);
+                    var forms = $('.tabs-view');
+                    clearFormDataAndSelectFirstIndex(forms);
+                }
+                else {
+                    $(".addemp-message").css("color", "red");
+                    $(".addemp-message").text(response.JsonResponse.Message);
+                }
+                $('#EmpsuccessModal').modal('show');
+            },
+            error: function (xhr, status, error) {
+                console.error('Error occurred:', error);
             }
-            else {
-                $(".addemp-message").css("color", "red");
-                $(".addemp-message").text(response.JsonResponse.Message);
+        });
+    }
+    else {
+        $.ajax({
+            url: '/admindashboard/updateemployee',
+            type: 'POST',
+            data: formData,
+            success: function (response) {
+                console.log('Data saved successfully:', response);
+
+                if (response.JsonResponse.StatusCode == 200) {
+                    $(".addemp-message").css("color", "green");
+                    $(".addemp-message").text("The employee has been updated successfully.");
+
+                    var forms = $('.tabs-view');
+                    clearFormDataAndSelectFirstIndex(forms);
+                }
+                else {
+                    $(".addemp-message").css("color", "red");
+                    $(".addemp-message").text(response.JsonResponse.Message);
+                }
+                $('#EmpsuccessModal').modal('show');
+            },
+            error: function (xhr, status, error) {
+                console.error('Error occurred:', error);
             }
-            $('#EmpsuccessModal').modal('show');
-        },
-        error: function (xhr, status, error) {
-            console.error('Error occurred:', error);
-        }
-    });
+        });
+    }
+
 });
 
-$(document).on('click', '#saveNewDesignation', function () {
+$(document).on('click', '#saveNewDesignation', function (event) {
+    event.preventDefault();
     var newDesignation = $('#newDesignation').val();
     if (newDesignation.trim() !== '') {
-        $('#Designation').append('<option value="' + newDesignation + '">' + newDesignation + '</option>');
-        $('#addDesignationModel').modal('hide');
+        $.ajax({
+            url: '/admindashboard/designationadd',
+            method: 'POST',
+            data: { newDesignation: newDesignation },
+            success: function (response) {
+                if (response.StatusCode == 200) {
+                    console.log("Added Designation to DB");
+                    $('#Designation').append('<option value="' + newDesignation + '">' + newDesignation + '</option>');
+                    $('#addDesignationModel').modal('hide');
+                } else {
+                    console.log("Error while adding Designation to DB");
+                }
+            },
+            error: function (xhr, status, error) {
+                console.log("Errow while adding Destination to DB")
+            }
+        });
     }
 });
 
-$(document).on('click', '#saveDepartment', function () {
+$(document).on('click', '#saveDepartment', function (event) {
+    event.preventDefault();
     var departmentName = $('#departmentName').val();
-    $('#Department').append('<option value="' + departmentName + '">' + departmentName + '</option>');
-    $('#addDepartmentModel').modal('hide');
+    if (departmentName.trim() !== '') {
+        $.ajax({
+            url: '/admindashboard/departmentadd',
+            method: 'POST',
+            data: { newDepartment: departmentName },
+            success: function (response) {
+                if (response.StatusCode == 200) {
+                    console.log("Added department to DB");
+                    $('#Department').append('<option value="' + departmentName + '">' + departmentName + '</option>');
+                    $('#addDepartmentModel').modal('hide');
+                } else {
+                    console.log("Error while adding department to DB");
+                }
+            },
+            error: function (xhr, status, error) {
+                console.log("Errow while adding Department to DB")
+            }
+        });
+    }
 });
 
-$(document).on('click', '#saveClient', function () {
+$(document).on('click', '#saveClient', function (event) {
+    event.preventDefault();
     var newClientName = $('#newClientName').val();
-    $('#Client').append('<option value="' + newClientName + '">' + newClientName + '</option>');
-    $('#addClientModal').modal('hide');
+    if (newClientName.trim() !== '') {
+        $.ajax({
+            url: '/admindashboard/clientadd',
+            method: 'POST',
+            data: { newClient: newClientName },
+            success: function (response) {
+                if (response.StatusCode == 200) {
+                    console.log("Added client to DB");
+                    $('#Client').append('<option value="' + newClientName + '">' + newClientName + '</option>');
+                    $('#addClientModal').modal('hide');
+                } else {
+                    console.log("Error while adding client to DB");
+                }
+            },
+            error: function (xhr, status, error) {
+                console.log("Errow while adding client to DB")
+            }
+        });
+    }
 });
 
 $(document).on('click', '#saveReportingManagerBtn', function () {
@@ -585,34 +667,27 @@ function toggleDropdown() {
 }
 
 function downloadTemplate() {
-    // Replace this URL with the actual URL of your sample CSV file
     var sampleFileUrl = 'C:\inetpub\wwwroot\HRMS\SampleTemplate.xlsx';
     document.getElementById('download-link').setAttribute('href', sampleFileUrl);
 }
 
 function downloadTemplate() {
     var link = document.createElement('a');
-    link.href = '/assets/templates/importusertemplate.csv'; // Replace this URL with the actual URL of your sample CSV file
+    link.href = '/assets/templates/importusertemplate.csv';
     link.download = 'ImportUserTemplate.csv';
     document.body.appendChild(link);
     link.click();
     document.body.removeChild(link);
 }
 
-$(document).ready(function() {
-    // Toggle dropdown menu visibility on click of the icon
+$(document).ready(function () {
     $(document).on('click', '#dropdownMenu', function () {
         $('#dropdownMenuContent').toggle();
     });
 
-    // Close dropdown menu when clicking outside of it
     $(document).on('click', function (event) {
-        // Check if the clicked element is not within the dropdown menu or the icon
         if (!$(event.target).closest('.dropdown-columns').length && !$(event.target).is('#dropdownMenu')) {
             $('#dropdownMenuContent').hide();
         }
     });
 });
-
-    // If you need to close the dropdown when clicking outside
-   
