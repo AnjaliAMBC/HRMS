@@ -20,8 +20,7 @@ $(document).on("change", "#copyPresentAddress", function () {
     }
 });
 
-
-function calculateAge() {
+$(document).on("change", ".emp-dob", function () {
     var dobInput = document.getElementById("DOB");
     var ageInput = document.getElementById("Age");
     var dob = new Date(dobInput.value);
@@ -35,8 +34,7 @@ function calculateAge() {
 
     // Display the calculated age
     ageInput.value = age;
-}
-
+});
 
 //$(document).ready(function () {
 //    $('#saveNewDesignation').click(function () {

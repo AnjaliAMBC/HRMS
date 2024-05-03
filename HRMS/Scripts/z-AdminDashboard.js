@@ -90,12 +90,12 @@ $('.admin-empmanagement').click(function (event) {
                             var imageHtml = '';
                             if (data.image) {
                                 var imageURl = "/Assets/EmpImages/" + data.image;
-                                imageHtml = '<img src="' + imageURl + '" alt="Profile Image" style="width: 50px; height: 50px; border-radius: 50%; margin-right: 10px;">';
+                                imageHtml = '<img src="' + imageURl + '" alt="Profile Image" style="width: 45px; height: 45px; border-radius: 50%; margin-right: 10px;">';
                             } else {
                                 var firstNameInitial = data.name.charAt(0);
                                 var lastNameInitial = data.name.split(' ').slice(-1)[0].charAt(0);
                                 var shortName = firstNameInitial + lastNameInitial;
-                                return imageHtml = '<div class="default-image" style="width: 45px; height: 45px; border-radius: 50%; background-color: #ccc; color: black; text-align: center; line-height: 45px; margin-right: 10px; margin-bottom: 7px;">' + shortName + '</div><span style="display: inline-block; vertical-align: top;  margin-top: 13px;">' + data.name + '<br><span style="color: #3E78CF;">' + data.email + '</span></span>'
+                                return imageHtml = '<div class="list-image" style="width: 45px; height: 45px; border-radius: 50%; margin-right: 10px;">' + shortName + '</div><span style="display: inline-block; vertical-align: top;  margin-top: 13px;">' + data.name + '<br><span style="color: #3E78CF;">' + data.email + '</span></span>'
                             }
                             return imageHtml +
                                 '<span style="display: inline-block; margin-top: 0px;">' + data.name + '<br><span style="color: #3E78CF;">' + data.email + '</span></span>';
@@ -514,68 +514,90 @@ $(document).on('click', '.save-and-next', function () {
 
 $(document).on('click', '.addemp-submit-btn', function () {
     event.preventDefault();
-    var formData = {};
-    $('.tabs-view').each(function () {
-        $(this).find('input, select, textarea').each(function () {
-            var fieldName = $(this).attr('id');
-            var fieldValue = $(this).val();
-            formData[fieldName] = fieldValue;
-        });
-    });
 
-    if ($('.isaddaction').html() == "True") {
-        $.ajax({
-            url: '/admindashboard/addemployee',
-            type: 'POST',
-            data: formData,
-            success: function (response) {
-                console.log('Data saved successfully:', response);
+    var firstFrom = $('#tab1-form');
+    console.log("Current Form:", firstFrom);
 
-                if (response.JsonResponse.StatusCode == 200) {
-                    $(".addemp-message").css("color", "green");
-                    $(".addemp-message").text("The employee has been added successfully.");
+    var formValidated = true;
 
-                    var forms = $('.tabs-view');
-                    clearFormDataAndSelectFirstIndex(forms);
-                }
-                else {
-                    $(".addemp-message").css("color", "red");
-                    $(".addemp-message").text(response.JsonResponse.Message);
-                }
-                $('#EmpsuccessModal').modal('show');
-            },
-            error: function (xhr, status, error) {
-                console.error('Error occurred:', error);
-            }
-        });
-    }
-    else {
-        $.ajax({
-            url: '/admindashboard/updateemployee',
-            type: 'POST',
-            data: formData,
-            success: function (response) {
-                console.log('Data saved successfully:', response);
+    if (firstFrom[0].checkValidity() === false) {
+        event.stopPropagation();
+        firstFrom.addClass('was-validated');
+        console.log("Form is invalid");
+        formValidated = false;
+        $("#tab1-link").addClass("active");
+        // Add 'show active' classes to the tab pane
+        $("#tab1").addClass("show active");
 
-                if (response.JsonResponse.StatusCode == 200) {
-                    $(".addemp-message").css("color", "green");
-                    $(".addemp-message").text("The employee has been updated successfully.");
-
-                    var forms = $('.tabs-view');
-                    clearFormDataAndSelectFirstIndex(forms);
-                }
-                else {
-                    $(".addemp-message").css("color", "red");
-                    $(".addemp-message").text(response.JsonResponse.Message);
-                }
-                $('#EmpsuccessModal').modal('show');
-            },
-            error: function (xhr, status, error) {
-                console.error('Error occurred:', error);
-            }
-        });
+        $("#tab7-link").removeClass("active");
+        // Add 'show active' classes to the tab pane
+        $("#tab7").removeClass("show");
+        $("#tab7").removeClass("show");
     }
 
+    if (formValidated) {
+        var formData = {};
+        $('.tabs-view').each(function () {
+            $(this).find('input, select, textarea').each(function () {
+                var fieldName = $(this).attr('id');
+                var fieldValue = $(this).val();
+                formData[fieldName] = fieldValue;
+            });
+        });
+
+        if ($('.isaddaction').html() == "True") {
+            $.ajax({
+                url: '/admindashboard/addemployee',
+                type: 'POST',
+                data: formData,
+                success: function (response) {
+                    console.log('Data saved successfully:', response);
+
+                    if (response.JsonResponse.StatusCode == 200) {
+                        $(".addemp-message").css("color", "green");
+                        $(".addemp-message").text("The employee has been added successfully.");
+
+                        var forms = $('.tabs-view');
+                        clearFormDataAndSelectFirstIndex(forms);
+                    }
+                    else {
+                        $(".addemp-message").css("color", "red");
+                        $(".addemp-message").text(response.JsonResponse.Message);
+                    }
+                    $('#EmpsuccessModal').modal('show');
+                },
+                error: function (xhr, status, error) {
+                    console.error('Error occurred:', error);
+                }
+            });
+        }
+        else {
+            $.ajax({
+                url: '/admindashboard/updateemployee',
+                type: 'POST',
+                data: formData,
+                success: function (response) {
+                    console.log('Data saved successfully:', response);
+
+                    if (response.JsonResponse.StatusCode == 200) {
+                        $(".addemp-message").css("color", "green");
+                        $(".addemp-message").text("The employee has been updated successfully.");
+
+                        var forms = $('.tabs-view');
+                        clearFormDataAndSelectFirstIndex(forms);
+                    }
+                    else {
+                        $(".addemp-message").css("color", "red");
+                        $(".addemp-message").text(response.JsonResponse.Message);
+                    }
+                    $('#EmpsuccessModal').modal('show');
+                },
+                error: function (xhr, status, error) {
+                    console.error('Error occurred:', error);
+                }
+            });
+        }
+    }
 });
 
 $(document).on('click', '#saveNewDesignation', function (event) {

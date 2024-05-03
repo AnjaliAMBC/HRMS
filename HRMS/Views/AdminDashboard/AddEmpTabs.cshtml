@@ -76,7 +76,14 @@
                         <div class="col-md-3">
                             <div class="form-group tabs-inputs">
                                 <label for="DOB">Date of Birth</label>
-                                <input type="date" class="form-control" style="color: lightgray" id="DOB" value="@Model.EditableEmpInfo.DOB" onchange="calculateAge()" required>
+                                @if (Model.EditableEmpInfo.DOB != DateTime.MinValue)
+                                {
+                                    @Html.TextBoxFor(m => m.EditableEmpInfo.DOB, "{0:yyyy-MM-dd}", new { @type = "date", @class = "form-control emp-dob", @id = "DOB" })
+                                }
+                                else
+                                {
+                                    <input type="date" class="form-control" id="DOB" style="color: lightgray" value="@Model.EditableEmpInfo.DOB" required>
+                                }
                                 <div class="invalid-feedback">Please provide Date of Birth.</div>
                             </div>
                         </div>
@@ -90,12 +97,12 @@
                         <div class="col-md-3">
                             <div class="form-group tabs-inputs drop-menu">
                                 <label for="BloodGroup">Blood Group</label>
-                                <select class="form-control" id="BloodGroup">
+                                <select class="form-control" id="BloodGroup" required>
 
                                     @{
                                         var selectedBloodGroupItem = !string.IsNullOrEmpty(Model.EditableEmpInfo.BloodGroup) ? "selected" : "";
                                     }
-                                    <option value="@selectedBloodGroupItem" class="default-option" >Select Blood Group</option>
+                                    <option value="" @selectedBloodGroupItem style="background-color: #f0f0f0;" class="default-option">Select Blood Group</option>
 
                                     @{
                                         var bloodGroupList = new List<string>();
@@ -129,7 +136,7 @@
                                     @{
                                         var selectedEmpStatusItem = !string.IsNullOrEmpty(Model.EditableEmpInfo.EmployeeStatus) ? "selected" : "";
                                     }
-                                    <option value="@selectedEmpStatusItem">Select Employee Status</option>
+                                    <option value="" @selectedEmpStatusItem>Select Employee Status</option>
 
                                     @{
                                         var empStatusList = new List<string>();
@@ -156,7 +163,7 @@
                                     @{
                                         var selectedGenederItem = !string.IsNullOrEmpty(Model.EditableEmpInfo.Gender) ? "selected" : "";
                                     }
-                                    <option value="@selectedGenederItem"  style="color:lightgray;">Select Gender</option>
+                                    <option value="" @selectedGenederItem style="color:lightgray;">Select Gender</option>
 
                                     @{
                                         var genderList = new List<string>();
@@ -180,7 +187,7 @@
                                     @{
                                         var selectedMarrialStatusItem = !string.IsNullOrEmpty(Model.EditableEmpInfo.MaritalStatus) ? "selected" : "";
                                     }
-                                    <option value="@selectedMarrialStatusItem" style="color:lightgray;">Select Marital Status</option>
+                                    <option value="" @selectedMarrialStatusItem style="color:lightgray;">Select Marital Status</option>
 
                                     @{
                                         var maritalStatusList = new List<string>();
@@ -202,11 +209,11 @@
                             <div class="form-group tabs-inputs">
                                 <label for="Designation">Designation:</label>
                                 <div class="input-group">
-                                    <select class="form-control" id="Designation">
+                                    <select class="form-control" id="Designation" required>
                                         @{
                                             var selectedDesignationItem = !string.IsNullOrEmpty(Model.EditableEmpInfo.Designation) ? "selected" : "";
                                         }
-                                        <option value="@selectedDesignationItem"  style="color:lightgray;">Select Designation</option>
+                                        <option value="" @selectedDesignationItem style="color:lightgray;">Select Designation</option>
                                         @foreach (var item in Model.Designations)
                                         {
                                             selectedDesignationItem = !string.IsNullOrEmpty(Model.EditableEmpInfo.Designation) && (Model.EditableEmpInfo.Designation == item.Name) ? "selected" : "";
@@ -225,11 +232,11 @@
                             <div class="form-group tabs-inputs">
                                 <label for="Department">Department</label>
                                 <div class="input-group">
-                                    <select class="form-control" id="Department">
+                                    <select class="form-control" id="Department" required>
                                         @{
                                             var selectedDepartmentItem = !string.IsNullOrEmpty(Model.EditableEmpInfo.Department) ? "selected" : "";
                                         }
-                                        <option value="@selectedDepartmentItem"  style="color:lightgray;">Select Department</option>
+                                        <option value="" @selectedDepartmentItem style="color:lightgray;">Select Department</option>
                                         @foreach (var item in Model.Departments)
                                         {
                                             selectedDepartmentItem = !string.IsNullOrEmpty(Model.EditableEmpInfo.Department) && (Model.EditableEmpInfo.Department == item.Name) ? "selected" : "";
@@ -254,19 +261,20 @@
                                         @{
                                             var selectedClientItem = !string.IsNullOrEmpty(Model.EditableEmpInfo.Client) ? "selected" : "";
                                         }
-                                        <option value="@selectedClientItem"  style="color:lightgray;">Select Client</option>
+                                        <option value="" @selectedClientItem style="color:lightgray;">Select Client</option>
                                         @foreach (var item in Model.Clients)
                                         {
                                             selectedClientItem = !string.IsNullOrEmpty(Model.EditableEmpInfo.Client) && (Model.EditableEmpInfo.Client == item.Name) ? "selected" : "";
                                             <option value="@item.Id" @selectedClientItem>@item.Name</option>
                                         }
                                     </select>
-                                    <div class="invalid-feedback">Please select Client Name.</div>
+
                                     <div class="input-group-append">
                                         <button class="btn btn-secondary btn-sm" type="button" data-toggle="modal" data-target="#addClientModal">
                                             <i class="fas fa-plus fa-xs"></i>
                                         </button>
                                     </div>
+                                    <div class="invalid-feedback">Please select Client Name.</div>
                                 </div>
                             </div>
                         </div>
@@ -279,7 +287,7 @@
                                     @{
                                         var selectedemploymentTypeItem = !string.IsNullOrEmpty(Model.EditableEmpInfo.EmployeeType) ? "selected" : "";
                                     }
-                                    <option value="@selectedemploymentTypeItem" style="color:lightgray;">Select Employee Type</option>
+                                    <option value="" @selectedemploymentTypeItem style="color:lightgray;">Select Employee Type</option>
 
                                     @{
                                         var empTypeList = new List<string>();
@@ -305,7 +313,7 @@
                                     @{
                                         var selectedLocationItem = !string.IsNullOrEmpty(Model.EditableEmpInfo.Location) ? "selected" : "";
                                     }
-                                    <option value="@selectedLocationItem" style="color:lightgray;">Select Location</option>
+                                    <option value="" @selectedLocationItem style="color:lightgray;">Select Location</option>
 
                                     @{
                                         var locationList = new List<string>();
@@ -324,13 +332,13 @@
                         <div class="col-md-3">
                             <div class="form-group tabs-inputs drop-menu">
                                 <label for="ReportingManager">Reporting Manager</label>
-                                <div class="input-group reportingm">
+                                <div class="input-group dropdownplacehodercolor">
                                     <select class="form-control" id="ReportingManager" required>
 
                                         @{
                                             var selectedReportingManager = !string.IsNullOrEmpty(Model.EditableEmpInfo.ReportingManager) ? "selected" : "";
                                         }
-                                        <option value="@selectedReportingManager" style="color:lightgray;">Select RM</option>
+                                        <option value="" @selectedReportingManager style="color:lightgray;">Select RM</option>
                                         @foreach (var item in Model.ReportingManagers)
                                         {
                                             selectedClientItem = !string.IsNullOrEmpty(Model.EditableEmpInfo.ReportingManager) && (Model.EditableEmpInfo.ReportingManager == item.Name) ? "selected" : "";
@@ -338,12 +346,12 @@
                                         }
 
                                     </select>
-                                    <div class="invalid-feedback">Please select Reporting Manager.</div>
                                     <div class="input-group-append">
                                         <button class="btn btn-secondary btn-sm" type="button" data-toggle="modal" data-target="#addReportingManagerModal">
                                             <i class="fas fa-plus fa-xs"></i>
                                         </button>
                                     </div>
+                                    <div class="invalid-feedback">Please select Reporting Manager.</div>
                                 </div>
                             </div>
 
@@ -359,7 +367,7 @@
                                         @{
                                             var selectedLeaveManager = !string.IsNullOrEmpty(Model.EditableEmpInfo.LeavereportingManager) ? "selected" : "";
                                         }
-                                        <option value="@selectedLeaveManager"  style="color:lightgray;">Select LM</option>
+                                        <option value="" @selectedLeaveManager style="color:lightgray;">Select LM</option>
                                         @foreach (var item in Model.LeaveManagers)
                                         {
                                             selectedLeaveManager = !string.IsNullOrEmpty(Model.EditableEmpInfo.LeavereportingManager) && (Model.EditableEmpInfo.LeavereportingManager == item.Name) ? "selected" : "";
@@ -367,12 +375,12 @@
                                         }
 
                                     </select>
-                                    <div class="invalid-feedback">Please select Leave RM.</div>
                                     <div class="input-group-append">
                                         <button class="btn btn-secondary btn-sm" type="button" data-toggle="modal" data-target="#addLeaveManagerModal">
                                             <i class="fas fa-plus fa-xs"></i>
                                         </button>
                                     </div>
+                                    <div class="invalid-feedback">Please select Leave RM.</div>
                                 </div>
                             </div>
                         </div>
@@ -442,7 +450,7 @@
                         </div>
                         <button type="button" class="btn btn-primary save-and-next">Save and Next</button>
                     </div>
-                    
+
                 </div>
             </form>
         </div>
@@ -485,10 +493,10 @@
                         <button type="button" class="btn btn-primary save-and-next" style="margin-left: 62%;">Save and Next</button>
                     </div>
                     @*<div class="row">
-                        <div class="col-md-12">
-                            
-                        </div>
-                    </div>*@
+                            <div class="col-md-12">
+
+                            </div>
+                        </div>*@
                 </div>
             </form>
         </div>
@@ -556,8 +564,8 @@
                         <div class="col-md-3">
                             <button type="button" class="btn btn-primary save-and-next">Save and Next</button>
                         </div>
-                        </div>
                     </div>
+                </div>
             </form>
         </div>
         <div class="tab-pane fade" id="tab5" role="tabpanel" aria-labelledby="tab5-link">
@@ -669,7 +677,7 @@
                             <button type="button" class="btn btn-primary addemp-submit-btn" style=" margin-top: 29px; width: 60%;">Submit</button>
                         </div>
                     </div>
-                    
+
                 </div>
             </form>
         </div>
