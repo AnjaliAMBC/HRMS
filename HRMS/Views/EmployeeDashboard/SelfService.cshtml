@@ -3,15 +3,15 @@
 
 <div class="selfservice-container">
     <div class="backgroundimg" style="margin-left:-8px;">
-        <img src="~/Assets/EMBackground.png" alt="backgroundimage" class="emp-backgroundimg">
+        <img src="~/Assets/EMBackground.png" alt="backgroundimage" class="emp-backgroundimg" style="width: 104%">
     </div>
-    <div class="row">
+    <div class="row" style="margin-left: 2%">
         <div class="col-md-12 emp-data">
             <div class="emp-imgs">
 
                 @if (!string.IsNullOrWhiteSpace(Model.EmpInfo.imagepath))
                 {
-                    var empImageURl = System.Configuration.ConfigurationManager.AppSettings["EmpImagesFolder"] + "/" + Model.EmpInfo.Reason;
+                    var empImageURl = System.Configuration.ConfigurationManager.AppSettings["EmpImagesFolder"] + "/" + Model.EmpInfo.imagepath;
                     <img src="@empImageURl" alt="Employee Image" class="profile img-fluid emp-imageurl">
                 }
                 else
@@ -47,11 +47,11 @@
 
                 <input type="file" id="imageInput" style="display: none;">
 
-            </div>         
-            <div class="row">
-                <div class="col-md-4">
+            </div>
+            <div class="row mb-3">
+                <div class="col-md-4" style="margin-left: -16px">
                     <h4>@Model.EmpInfo.EmployeeID - @Model.EmpInfo.EmployeeName</h4>
-                    <p>@Model.EmpInfo.Designation</p>
+                    <p style=" margin-left: 3px; font-weight: 600;">@Model.EmpInfo.Designation</p>
                 </div>
                 <div class="col-md-4">
                     <p> <i class="material-icons">email</i> @Model.EmpInfo.OfficalEmailid</p>
@@ -59,303 +59,444 @@
                 </div>
             </div>
 
-            <!-- Tables Row 1 -->
-            <div class="row table-row">
-                <div class="col-md-4">
-                    <table class="table selfservice-table">
-                        <tr>
-                            <td colspan="2" class="td-heading">Employee Information</td>
-                        </tr>
-                        <tr>
-                            <td>Employee ID</td>
-                            <td>@Model.EmpInfo.EmployeeID</td>
-                        </tr>
-                        <tr>
-                            <td>Employee Name</td>
-                            <td>@Model.EmpInfo.EmployeeName</td>
-                        </tr>
-                        <tr>
-                            <td>Official Mail</td>
-                            <td>@Model.EmpInfo.OfficalEmailid</td>
-                        </tr>
-                        <tr>
-                            <td>Designation</td>
-                            <td>@Model.EmpInfo.OfficalEmailid</td>
-                        </tr>
-                        <tr>
-                            <td>Department</td>
-                            <td>@Model.EmpInfo.Department</td>
-                        </tr>
-                        <tr>
-                            <td>Shift Timing</td>
-                            <td>Shift timing</td>
-                        </tr>
-                        <tr>
-                            <td>Location</td>
-                            <td>@Model.EmpInfo.Location</td>
-                        </tr>
-                        <tr>
-                            <td>Employee Type</td>
-                            <td>@Model.EmpInfo.EmployeeType</td>
-                        </tr>
-                    </table>
-                </div>
-                <div class="col-md-4">
-                    <!-- Table 2 -->
-                    <table class="table selfservice-table">
-                        <tr>
-                            <td colspan="2" class="td-heading">Reporting Information</td>
-                        </tr>
-                        <tr>
-                            <td>Reporting-Manager</td>
-                            <td>@Model.EmpInfo.ReportingManager</td>
-                        </tr>
-                        <tr>
-                            <td>Date of Joining</td>
-                            <td>@Model.EmpInfo.DOJ</td>
-                        </tr>
-                        <tr>
-                            <td>Employee Status</td>
-                            <td>@Model.EmpInfo.EmployeeStatus</td>
-                        </tr>
-                        <tr>
-                            <td>Client</td>
-                            <td>@Model.EmpInfo.Client</td>
-                        </tr>
-                        <tr>
-                            <td>Leave RM</td>
-                            <td>@Model.EmpInfo.LeavereportingManager</td>
-                        </tr>
-                        <tr>
-                            <td>Present Address</td>
-                            <td>@Model.EmpInfo.PresentAddress</td>
-                        </tr>
-                    </table>
+            <div class="row empviewrow mb-3" style="font-size: 14px">
+                <div class="col-md-offset-5 border mr-4" style="width: 32%">
+                    <div class="form-group" style=" background-color: lightblue;">
+                        <div class="form-group row">
+                            <h6 style="margin-left: 24px; margin-top: 10px;"><b>Employee Information</b></h6>
+                        </div>
+                    </div>
+                    <div class="form-group" style="line-height: normal">
+                        <div class="form-group row">
+                            <label for="employeeId" class="col-md-4" style="margin-left: 10px;margin-top: 10px;">Employee ID</label>
+                            <div class="col-md-7" style="margin-left: 10px; margin-top: 10px; word-wrap: break-word; ">
+                                @Model.EmpInfo.EmployeeID
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="form-group" style="line-height: normal">
+                        <div class="form-group row">
+                            <label for="employeeName" class="col-md-4" style="margin-left: 10px;">Employee Name</label>
+                            <div class="col-md-7" style="margin-left: 10px; word-wrap: break-word; ">
+                                @Model.EmpInfo.EmployeeName
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="form-group" style="line-height: normal">
+                        <div class="form-group row">
+                            <label for="officialMail" class="col-md-4" style="margin-left: 10px;">Official Mail</label>
+                            <div class="col-md-7" style="margin-left: 10px; word-wrap: break-word; ">
+                                @Model.EmpInfo.OfficalEmailid
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="form-group" style="line-height: normal">
+                        <div class="form-group row">
+                            <label for="designation" class="col-md-4" style="margin-left: 10px;">Designation</label>
+                            <div class="col-md-7" style="margin-left: 10px; word-wrap: break-word; ">
+                                @Model.EmpInfo.Designation
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="form-group" style="line-height: normal">
+                        <div class="form-group row">
+                            <label for="department" class="col-md-4" style="margin-left: 10px;">Department</label>
+                            <div class="col-md-7" style="margin-left: 10px; word-wrap: break-word; ">
+                                @Model.EmpInfo.Department
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="form-group" style="line-height: normal">
+                        <div class="form-group row">
+                            <label for="shiftTiming" class="col-md-4" style="margin-left: 10px;">Shift Timing</label>
+                            <div class="col-md-7" style="margin-left: 10px; word-wrap: break-word; ">
+                                @Model.EmpInfo.ShiftTimings
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="form-group" style="line-height: normal">
+                        <div class="form-group row">
+                            <label for="location" class="col-md-4" style="margin-left: 10px;">Location</label>
+                            <div class="col-md-7" style="margin-left: 10px; word-wrap: break-word; ">
+                                @Model.EmpInfo.Location
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="form-group" style="line-height: normal">
+                        <div class="form-group row">
+                            <label for="employeeType" class="col-md-4" style="margin-left: 10px;">Employee Type</label>
+                            <div class="col-md-7" style="margin-left: 10px; word-wrap: break-word; ">
+                                @Model.EmpInfo.EmployeeType
+                            </div>
+                        </div>
+                    </div>
 
                 </div>
-                <div class="col-md-4">
-                    <!-- Table 3 -->
-                    <!-- Table 3 -->
-                    <table class="table selfservice-table">
-                        <tr>
-                            <td colspan="2" class="td-heading">General Information</td>
-                        </tr>
-                        <tr>
-                            <td>Father Name</td>
-                            <td>@Model.EmpInfo.FatherName</td>
-                        </tr>
-                        <tr>
-                            <td>Date of Birth</td>
-                            <td>@Model.EmpInfo.DOB</td>
-                        </tr>
-                        <tr>
-                            <td>Age</td>
-                            <td>@Model.EmpInfo.Age</td>
-                        </tr>
-                        <tr>
-                            <td>Blood Group</td>
-                            <td>@Model.EmpInfo.BloodGroup</td>
-                        </tr>
-                        <tr>
-                            <td>Gender</td>
-                            <td>@Model.EmpInfo.Gender</td>
-                        </tr>
-                        <tr>
-                            <td>Marital Status</td>
-                            <td>@Model.EmpInfo.MaritalStatus</td>
-                        </tr>
-                        <tr>
-                            <td>Mobile Number</td>
-                            <td>@Model.EmpInfo.MobileNumber</td>
-                        </tr>
-                        <tr>
-                            <td>Alt. Mobile Number</td>
-                            <td>@Model.EmpInfo.MobileNumber</td>
-                        </tr>
-                    </table>
 
+
+
+                <div class="col-md-offset-5 border mr-4" style="width: 32%;">
+                    <div class="form-group" style="background-color: lightblue;">
+                        <div class="form-group row">
+                            <h6 style="margin-left: 24px; margin-top: 10px;"><b>Reporting Information</b></h6>
+                        </div>
+                    </div>
+                    <div class="form-group" style="line-height: normal;">
+                        <div class="form-group row">
+                            <label for="reportingManager" class="col-md-5" style="margin-left: 10px; margin-top: 10px;">Reporting Manager</label>
+                            <div class="col-md-6" style="margin-left: 10px; margin-top: 10px; word-wrap: break-word;">@Model.EmpInfo.ReportingManager</div>
+                        </div>
+                    </div>
+                    <div class="form-group" style="line-height: normal;">
+                        <div class="form-group row">
+                            <label for="doj" class="col-md-5" style="margin-left: 10px;">Date of Joining</label>
+                            <div class="col-md-6" style="margin-left: 10px; word-wrap: break-word;">@Model.EmpInfo.DOJ</div>
+                        </div>
+                    </div>
+                    <div class="form-group" style="line-height: normal;">
+                        <div class="form-group row">
+                            <label for="employeeStatus" class="col-md-5" style="margin-left: 10px;">Employee Status</label>
+                            <div class="col-md-6" style="margin-left: 10px; word-wrap: break-word;">@Model.EmpInfo.EmployeeStatus</div>
+                        </div>
+                    </div>
+                    <div class="form-group" style="line-height: normal;">
+                        <div class="form-group row">
+                            <label for="client" class="col-md-5" style="margin-left: 10px;">Client</label>
+                            <div class="col-md-6" style="margin-left: 10px; word-wrap: break-word;">@Model.EmpInfo.Client</div>
+                        </div>
+                    </div>
+                    <div class="form-group" style="line-height: normal;">
+                        <div class="form-group row">
+                            <label for="leaveRm" class="col-md-5" style="margin-left: 10px;">Leave RM</label>
+                            <div class="col-md-6" style="margin-left: 10px; word-wrap: break-word;">@Model.EmpInfo.LeavereportingManager</div>
+                        </div>
+                    </div>
+                    <div class="form-group" style="line-height: normal;">
+                        <div class="form-group row">
+                            <label for="presentAddress" class="col-md-5" style="margin-left: 10px;">Present Address</label>
+                            <div class="col-md-6" style="margin-left: 10px; word-wrap: break-word;">@Model.EmpInfo.PresentAddress</div>
+                        </div>
+                    </div>
                 </div>
+
+
+                <div class="col-md-offset-5 border" style="width: 32%;">
+                    <div class="form-group" style="background-color: lightblue;">
+                        <div class="form-group row">
+                            <h6 style="margin-left: 24px; margin-top: 10px;"><b>General Information</b></h6>
+                        </div>
+                    </div>
+                    <div class="form-group" style="line-height: normal;">
+                        <div class="form-group row">
+                            <label for="fatherName" class="col-md-5" style="margin-left: 10px; margin-top: 10px;">Father Name</label>
+                            <div class="col-md-6" style="margin-left: 10px; margin-top: 10px; word-wrap: break-word;">@Model.EmpInfo.FatherName</div>
+                        </div>
+                    </div>
+                    <div class="form-group" style="line-height: normal;">
+                        <div class="form-group row">
+                            <label for="dob" class="col-md-5" style="margin-left: 10px;">Date of Birth</label>
+                            <div class="col-md-6" style="margin-left: 10px; word-wrap: break-word;">@Model.EmpInfo.DOB</div>
+                        </div>
+                    </div>
+                    <div class="form-group" style="line-height: normal;">
+                        <div class="form-group row">
+                            <label for="age" class="col-md-5" style="margin-left: 10px;">Age</label>
+                            <div class="col-md-6" style="margin-left: 10px; word-wrap: break-word;">@Model.EmpInfo.Age</div>
+                        </div>
+                    </div>
+                    <div class="form-group" style="line-height: normal;">
+                        <div class="form-group row">
+                            <label for="bloodGroup" class="col-md-5" style="margin-left: 10px;">Blood Group</label>
+                            <div class="col-md-6" style="margin-left: 10px; word-wrap: break-word;">@Model.EmpInfo.BloodGroup</div>
+                        </div>
+                    </div>
+                    <div class="form-group" style="line-height: normal;">
+                        <div class="form-group row">
+                            <label for="gender" class="col-md-5" style="margin-left: 10px;">Gender</label>
+                            <div class="col-md-6" style="margin-left: 10px; word-wrap: break-word;">@Model.EmpInfo.Gender</div>
+                        </div>
+                    </div>
+                    <div class="form-group" style="line-height: normal;">
+                        <div class="form-group row">
+                            <label for="maritalStatus" class="col-md-5" style="margin-left: 10px;">Marital Status</label>
+                            <div class="col-md-6" style="margin-left: 10px; word-wrap: break-word;">@Model.EmpInfo.MaritalStatus</div>
+                        </div>
+                    </div>
+                    <div class="form-group" style="line-height: normal;">
+                        <div class="form-group row">
+                            <label for="mobileNumber" class="col-md-5" style="margin-left: 10px;">Mobile Number</label>
+                            <div class="col-md-6" style="margin-left: 10px; word-wrap: break-word;">@Model.EmpInfo.MobileNumber</div>
+                        </div>
+                    </div>
+                    <div class="form-group" style="line-height: normal;">
+                        <div class="form-group row">
+                            <label for="altMobileNumber" class="col-md-5" style="margin-left: 10px;">Alt. Mobile Number</label>
+                            <div class="col-md-6" style="margin-left: 10px; word-wrap: break-word;">@Model.EmpInfo.MobileNumber</div>
+                        </div>
+                    </div>
+                </div>
+
+
             </div>
 
-            <!-- Tables Row 2 -->
-            <div class="row table-row">
-                <div class="col-md-4">
-                    <!-- Table 4 -->
-                    <table class="table selfservice-table">
-                        <tr>
-                            <td colspan="2" class="td-heading">Bank Details</td>
-                        </tr>
-                        <tr>
-                            <td>Bank Name</td>
-                            <td>@Model.EmpInfo.BankName</td>
-                        </tr>
-                        <tr>
-                            <td>Account Number</td>
-                            <td>@Model.EmpInfo.AccountNumber</td>
-                        </tr>
-                        <tr>
-                            <td>Branch</td>
-                            <td>@Model.EmpInfo.BankName</td>
-                        </tr>
-                        <tr>
-                            <td>Type of Account</td>
-                            <td>@Model.EmpInfo.TypeofAccount</td>
-                        </tr>
-                        <tr>
-                            <td>IFSC Code</td>
-                            <td>@Model.EmpInfo.IFSCcode</td>
-                        </tr>
-                    </table>
+
+            <div class="row empviewrow mb-3" style="font-size: 15px">
+                <div class="col-md-offset-5 border mr-4" style="width: 32%;">
+                    <div class="form-group" style="background-color: lightblue;">
+                        <div class="form-group row">
+                            <h6 style="margin-left: 24px; margin-top: 10px;"><b>Bank Details</b></h6>
+                        </div>
+                    </div>
+                    <div class="form-group" style="line-height: normal;">
+                        <div class="form-group row">
+                            <label for="bankName" class="col-md-5" style="margin-left: 10px; margin-top: 10px;">Bank Name</label>
+                            <div class="col-md-6" style="margin-left: 10px; margin-top: 10px; word-wrap: break-word;">@Model.EmpInfo.BankName</div>
+                        </div>
+                    </div>
+                    <div class="form-group" style="line-height: normal;">
+                        <div class="form-group row">
+                            <label for="accountNumber" class="col-md-5" style="margin-left: 10px;">Account Number</label>
+                            <div class="col-md-6" style="margin-left: 10px; word-wrap: break-word;">@Model.EmpInfo.AccountNumber</div>
+                        </div>
+                    </div>
+                    <div class="form-group" style="line-height: normal;">
+                        <div class="form-group row">
+                            <label for="branch" class="col-md-5" style="margin-left: 10px;">Branch</label>
+                            <div class="col-md-6" style="margin-left: 10px; word-wrap: break-word;">@Model.EmpInfo.Branch</div>
+                        </div>
+                    </div>
+                    <div class="form-group" style="line-height: normal;">
+                        <div class="form-group row">
+                            <label for="typeOfAccount" class="col-md-5" style="margin-left: 10px;">Type of Account</label>
+                            <div class="col-md-6" style="margin-left: 10px; word-wrap: break-word;">@Model.EmpInfo.TypeofAccount</div>
+                        </div>
+                    </div>
+                    <div class="form-group" style="line-height: normal;">
+                        <div class="form-group row">
+                            <label for="ifscCode" class="col-md-5" style="margin-left: 10px;">IFSC Code</label>
+                            <div class="col-md-6" style="margin-left: 10px; word-wrap: break-word;">@Model.EmpInfo.IFSCcode</div>
+                        </div>
+                    </div>
+                </div>
+
+
+                <div class="col-md-offset-5 border mr-4" style="width: 32%;">
+                    <div class="form-group" style="background-color: lightblue;">
+                        <div class="form-group row">
+                            <h6 style="margin-left: 24px; margin-top: 10px;"><b>Identity Proof Details</b></h6>
+                        </div>
+                    </div>
+                    <div class="form-group" style="line-height: normal;">
+                        <div class="form-group row">
+                            <label for="panNumber" class="col-md-5" style="margin-left: 10px; margin-top: 10px;">PAN Number</label>
+                            <div class="col-md-6" style="margin-left: 10px; margin-top: 10px; word-wrap: break-word;">@Model.EmpInfo.PANnumber</div>
+                        </div>
+                    </div>
+                    <div class="form-group" style="line-height: normal;">
+                        <div class="form-group row">
+                            <label for="aadharNumber" class="col-md-5" style="margin-left: 10px;">Aadhar Number</label>
+                            <div class="col-md-6" style="margin-left: 10px; word-wrap: break-word;">@Model.EmpInfo.AadharNumber</div>
+                        </div>
+                    </div>
+                    <div class="form-group" style="line-height: normal;">
+                        <div class="form-group row">
+                            <label for="passportNumber" class="col-md-5" style="margin-left: 10px;">Passport Number</label>
+                            <div class="col-md-6" style="margin-left: 10px; word-wrap: break-word;">@Model.EmpInfo.Passport</div>
+                        </div>
+                    </div>
+                    <div class="form-group" style="line-height: normal;">
+                        <div class="form-group row">
+                            <label for="passportDOE" class="col-md-5" style="margin-left: 10px;">DOE of Passport</label>
+                            <div class="col-md-6" style="margin-left: 10px; word-wrap: break-word;">@Model.EmpInfo.DOEofPassport</div>
+                        </div>
+                    </div>
+                </div>
+
+
+                <div class="col-md-offset-5 border" style="width: 32%;">
+                    <div class="form-group" style="background-color: lightblue;">
+                        <div class="form-group row">
+                            <h6 style="margin-left: 24px; margin-top: 10px;"><b>Statutory Details</b></h6>
+                        </div>
+                    </div>
+                    <div class="form-group" style="line-height: normal;">
+                        <div class="form-group row">
+                            <label for="uanNumber" class="col-md-5" style="margin-left: 10px; margin-top: 10px;">UAN Number</label>
+                            <div class="col-md-6" style="margin-left: 10px; margin-top: 10px; word-wrap: break-word;">@Model.EmpInfo.UANNumber</div>
+                        </div>
+                    </div>
+                    <div class="form-group" style="line-height: normal;">
+                        <div class="form-group row">
+                            <label for="pfNumber" class="col-md-5" style="margin-left: 10px;">PF Number</label>
+                            <div class="col-md-6" style="margin-left: 10px; word-wrap: break-word;">@Model.EmpInfo.PFNumber</div>
+                        </div>
+                    </div>
+                    <div class="form-group" style="line-height: normal;">
+                        <div class="form-group row">
+                            <label for="ecisNumber" class="col-md-5" style="margin-left: 10px;">ECIS Number</label>
+                            <div class="col-md-6" style="margin-left: 10px; word-wrap: break-word;">@Model.EmpInfo.ESICNumber</div>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+            <div class="row empviewrow mb-3" style="font-size: 15px">
+                <div class="col-md-offset-5 border mr-4" style="width: 32%;">
+                    <div class="form-group" style="background-color: lightblue;">
+                        <div class="form-group row">
+                            <h6 style="margin-left: 24px; margin-top: 10px;"><b>Dependent Details</b></h6>
+                        </div>
+                    </div>
+                    <div class="form-group" style="line-height: normal;">
+                        <div class="form-group row">
+                            <label for="departmentname" class="col-md-5" style="margin-left: 10px; margin-top: 10px;">Name</label>
+                            <div class="col-md-6" style="margin-left: 10px; margin-top: 10px; word-wrap: break-word;">@Model.EmpInfo.Department</div>
+                        </div>
+                    </div>
+                    <div class="form-group" style="line-height: normal;">
+                        <div class="form-group row">
+                            <label for="relationship" class="col-md-5" style="margin-left: 10px;">Relationship</label>
+                            <div class="col-md-6" style="margin-left: 10px; word-wrap: break-word;">@Model.EmpInfo.Department</div>
+                        </div>
+                    </div>
+                    <div class="form-group" style="line-height: normal;">
+                        <div class="form-group row">
+                            <label for="contactdetails" class="col-md-5" style="margin-left: 10px;">Contact Details</label>
+                            <div class="col-md-6" style="margin-left: 10px; word-wrap: break-word;"></div>
+                        </div>
+                    </div>
 
                 </div>
-                <div class="col-md-4">
-                    <!-- Table 5 -->
-                    <!-- Table 5 -->
-                    <table class="table selfservice-table">
-                        <tr>
-                            <td colspan="2" class="td-heading">Identity Proof Details</td>
-                        </tr>
-                        <tr>
-                            <td>PAN Number</td>
-                            <td>@Model.EmpInfo.PANnumber</td>
-                        </tr>
-                        <tr>
-                            <td>Aadhar Number</td>
-                            <td>@Model.EmpInfo.AadharNumber</td>
-                        </tr>
-                        <tr>
-                            <td>Passport Number</td>
-                            <td>@Model.EmpInfo.Passport</td>
-                        </tr>
-                        <tr>
-                            <td>DOE of Passport</td>
-                            <td>@Model.EmpInfo.DOEofPassport</td>
-                        </tr>
-                    </table>
 
+                <div class="col-md-offset-5 border mr-4" style="width: 32%;">
+                    <div class="form-group" style="background-color: lightblue;">
+                        <div class="form-group row">
+                            <h6 style="margin-left: 24px; margin-top: 10px;"><b>Educational Details</b></h6>
+                        </div>
+                    </div>
+                    <div class="form-group" style="line-height: normal;">
+                        <div class="form-group row">
+                            <label for="latestdegree" class="col-md-5" style="margin-left: 10px; margin-top: 10px;">Latest Degree</label>
+                            <div class="col-md-6" style="margin-left: 10px; margin-top: 10px; word-wrap: break-word;">@Model.EmpInfo.LatestDegree</div>
+                        </div>
+                    </div>
+                    <div class="form-group" style="line-height: normal;">
+                        <div class="form-group row">
+                            <label for="collegename" class="col-md-5" style="margin-left: 10px;">College Name</label>
+                            <div class="col-md-6" style="margin-left: 10px; word-wrap: break-word;">@Model.EmpInfo.College_Name</div>
+                        </div>
+                    </div>
+                    <div class="form-group" style="line-height: normal;">
+                        <div class="form-group row">
+                            <label for="contactdetails" class="col-md-5" style="margin-left: 10px;">Specialization</label>
+                            <div class="col-md-6" style="margin-left: 10px; word-wrap: break-word;">@Model.EmpInfo.Specialization</div>
+                        </div>
+                    </div>
                 </div>
-                <div class="col-md-4">
-                    <!-- Table 6 -->
-                    <!-- Table 6 -->
-                    <table class="table selfservice-table">
-                        <tr>
-                            <td colspan="2" class="td-heading">Statutory Details</td>
-                        </tr>
-                        <tr>
-                            <td>UAN Number</td>
-                            <td>@Model.EmpInfo.UANNumber</td>
-                        </tr>
-                        <tr>
-                            <td>PF Number</td>
-                            <td>@Model.EmpInfo.PFNumber</td>
-                        </tr>
-                        <tr>
-                            <td>ECIS Number</td>
-                            <td>@Model.EmpInfo.ESICNumber</td>
-                        </tr>
-                    </table>
 
+                <div class="col-md-offset-5 border" style="width: 32%;">
+                    <div class="form-group" style="background-color: lightblue;">
+                        <div class="form-group row">
+                            <h6 style="margin-left: 24px; margin-top: 10px;"><b>Previous Employer Details</b></h6>
+                        </div>
+                    </div>
+                    <div class="form-group" style="line-height: normal;">
+                        <div class="form-group row">
+                            <label for="previuosemployername" class="col-md-5" style="margin-left: 10px; margin-top: 10px;">Employer Name</label>
+                            <div class="col-md-6" style="margin-left: 10px; margin-top: 10px; word-wrap: break-word;">@*@Model.EmpInfo.PreviousEmployerName*@</div>
+                        </div>
+                    </div>
+                    <div class="form-group" style="line-height: normal;">
+                        <div class="form-group row">
+                            <label for="jobtitle" class="col-md-5" style="margin-left: 10px;">Job Title</label>
+                            <div class="col-md-6" style="margin-left: 10px; word-wrap: break-word;">@*@Model.EmpInfo.College_Name*@</div>
+                        </div>
+                    </div>
+                    <div class="form-group" style="line-height: normal;">
+                        <div class="form-group row">
+                            <label for="fromdate" class="col-md-5" style="margin-left: 10px;">From Date</label>
+                            <div class="col-md-6" style="margin-left: 10px; word-wrap: break-word;">@*@Model.EmpInfo.Specialization*@</div>
+                        </div>
+                    </div>
+
+                    <div class="form-group" style="line-height: normal;">
+                        <div class="form-group row">
+                            <label for="todate" class="col-md-5" style="margin-left: 10px;">To Date</label>
+                            <div class="col-md-6" style="margin-left: 10px; word-wrap: break-word;">@*@Model.EmpInfo.Specialization*@</div>
+                        </div>
+                    </div>
+
+                    <div class="form-group" style="line-height: normal;">
+                        <div class="form-group row">
+                            <label for="reasonforleaving" class="col-md-5" style="margin-left: 10px;">Reason of Relieving</label>
+                            <div class="col-md-6" style="margin-left: 10px; word-wrap: break-word;">@*@Model.EmpInfo.Specialization*@</div>
+                        </div>
+                    </div>
                 </div>
+
             </div>
 
-            <!-- Tables Row 3 -->
-            <div class="row table-row">
-                <div class="col-md-4">
-                    <!-- Table 7 -->
-                    <!-- Table 7 -->
-                    <table class="table selfservice-table">
-                        <tr>
-                            <td colspan="2" class="td-heading">Dependent Details</td>
-                        </tr>
-                        <tr>
-                            <td>Name</td>
-                            <td>@Model.EmpInfo.Department</td>
-                        </tr>
-                        <tr>
-                            <td>Relationship</td>
-                            <td>@Model.EmpInfo.Department</td>
-                        </tr>
-                        <tr>
-                            <td>Contact Details</td>
-                            <td></td>
-                        </tr>
-                    </table>
+            <div class="row empviewrow mb-3" style="font-size: 15px">
+                <div class="col-md-offset-5 border mr-4" style="width: 32%;">
+                    <div class="form-group" style="background-color: lightblue;">
+                        <div class="form-group row">
+                            <h6 style="margin-left: 24px; margin-top: 10px;"><b>Separation Information</b></h6>
+                        </div>
+                    </div>
+                    <div class="form-group" style="line-height: normal;">
+                        <div class="form-group row">
+                            <label for="dateofexit" class="col-md-5" style="margin-left: 10px; margin-top: 10px;">Date of Exit</label>
+                            <div class="col-md-6" style="margin-left: 10px; margin-top: 10px; word-wrap: break-word;">@*@Model.EmpInfo.Department*@</div>
+                        </div>
+                    </div>
+                    <div class="form-group" style="line-height: normal;">
+                        <div class="form-group row">
+                            <label for="Reason" class="col-md-5" style="margin-left: 10px;">Reason</label>
+                            <div class="col-md-6" style="margin-left: 10px; word-wrap: break-word;">@*@Model.EmpInfo.Department*@</div>
+                        </div>
+                    </div>
+                   
 
                 </div>
-                <div class="col-md-4">
-                    <!-- Table 8 -->
-                    <!-- Table 8 -->
-                    <table class="table selfservice-table">
-                        <tr>
-                            <td colspan="2" class="td-heading">Educational Details</td>
-                        </tr>
-                        <tr>
-                            <td>Latest Degree</td>
-                            <td>@Model.EmpInfo.LatestDegree</td>
-                        </tr>
-                        <tr>
-                            <td>College Name</td>
-                            <td>@Model.EmpInfo.College_Name</td>
-                        </tr>
-                        <tr>
-                            <td>Specialization</td>
-                            <td>@Model.EmpInfo.Specialization</td>
-                        </tr>
-                    </table>
 
+                <div class="col-md-offset-5 border mr-4" style="width: 32%;">
+                    <div class="form-group" style="background-color: lightblue;">
+                        <div class="form-group row">
+                            <h6 style="margin-left: 24px; margin-top: 10px;"><b>Educational Details</b></h6>
+                        </div>
+                    </div>
+                    <div class="form-group" style="line-height: normal;">
+                        <div class="form-group row">
+                            <label for="latestdegree" class="col-md-5" style="margin-left: 10px; margin-top: 10px;">Latest Degree</label>
+                            <div class="col-md-6" style="margin-left: 10px; margin-top: 10px; word-wrap: break-word;">@Model.EmpInfo.LatestDegree</div>
+                        </div>
+                    </div>
+                    <div class="form-group" style="line-height: normal;">
+                        <div class="form-group row">
+                            <label for="collegename" class="col-md-5" style="margin-left: 10px;">College Name</label>
+                            <div class="col-md-6" style="margin-left: 10px; word-wrap: break-word;">@Model.EmpInfo.College_Name</div>
+                        </div>
+                    </div>
+                    <div class="form-group" style="line-height: normal;">
+                        <div class="form-group row">
+                            <label for="contactdetails" class="col-md-5" style="margin-left: 10px;">Specialization</label>
+                            <div class="col-md-6" style="margin-left: 10px; word-wrap: break-word;">@Model.EmpInfo.Specialization</div>
+                        </div>
+                    </div>
                 </div>
-                <div class="col-md-4">
-                    <!-- Table 9 -->
-                    <table class="table selfservice-table">
-                        <tr>
-                            <td colspan="2" class="td-heading">Previous Employer Details</td>
-                        </tr>
-                        <tr>
-                            <td>Previous Employer Name</td>
-                            @*<td>@Model.EmpInfo.PreviousEmployerName</td>*@
-                        </tr>
-                        <tr>
-                            <td>Job Title</td>
-                            @*<td>@Model.EmpInfo.PreviousJobTitle</td>*@
-                        </tr>
-                        <tr>
-                            <td>From Date</td>
-                            @*<td>@Model.EmpInfo.PreviousFromDate</td>*@
-                        </tr>
-                        <tr>
-                            <td>To Date</td>
-                            @*<td>@Model.EmpInfo.PreviousToDate</td>*@
-                        </tr>
-                        <tr>
-                            <td>Reason of Relieving</td>
-                            @*<td>@Model.EmpInfo.ReasonOfRelieving</td>*@
-                        </tr>
-                    </table>
 
-                </div>
-            </div>
+               
 
-            <!-- Tables Row 4 -->
-            <div class="row table-row">
-                <div class="col-md-4">
-
-                    <!-- Table 10 -->
-                    <table class="table selfservice-table">
-                        <tr>
-                            <td colspan="2" class="td-heading">Separation Information</td>
-                        </tr>
-                        <tr>
-                            <td>Date of Exit</td>
-                            @*<td>@Model.EmpInfo.DateOfExit</td>*@
-                        </tr>
-                        <tr>
-                            <td>Reason</td>
-                            @*<td>@Model.EmpInfo.ReasonOfRelieving</td>*@
-                        </tr>
-                    </table>
-
-                </div>
             </div>
         </div>
     </div>
 </div>
+
+

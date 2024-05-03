@@ -36,28 +36,28 @@
                 <div class="container tab-container" style="margin-left: 5px">
                     <div class="row">
                         <div class="col-md-3">
-                            <div class="form-group">
+                            <div class="form-group tabs-inputs">
                                 <label for="EmployeeID">Employee ID</label>
                                 <input type="text" class="form-control" id="EmployeeID" value="@Model.EditableEmpInfo.EmployeeID" required>
                                 <div class="invalid-feedback">Please provide Employee ID.</div>
                             </div>
                         </div>
                         <div class="col-md-3">
-                            <div class="form-group">
+                            <div class="form-group tabs-inputs">
                                 <label for="EmployeeName">Employee Name</label>
                                 <input type="text" class="form-control" id="EmployeeName" value="@Model.EditableEmpInfo.EmployeeName" required>
                                 <div class="invalid-feedback">Please provide Employee Name.</div>
                             </div>
                         </div>
                         <div class="col-md-3">
-                            <div class="form-group">
+                            <div class="form-group tabs-inputs">
                                 <label for="FatherName">Father's Name</label>
                                 <input type="text" class="form-control" id="FatherName" value="@Model.EditableEmpInfo.FatherName" required>
                                 <div class="invalid-feedback">Please provide Father Name.</div>
                             </div>
                         </div>
                         <div class="col-md-3">
-                            <div class="form-group">
+                            <div class="form-group tabs-inputs">
                                 <label for="DOJ">Date of Joining</label>
                                 @if (Model.EditableEmpInfo.DOJ != DateTime.MinValue)
                                 {
@@ -65,7 +65,7 @@
                                 }
                                 else
                                 {
-                                    <input type="date" class="form-control" id="DOJ" value="@Model.EditableEmpInfo.DOJ" required>
+                                    <input type="date" class="form-control" id="DOJ" style="color: lightgray" value="@Model.EditableEmpInfo.DOJ" required>
                                 }
 
                                 <div class="invalid-feedback">Please provide Employee ID.</div>
@@ -74,28 +74,28 @@
                     </div>
                     <div class="row">
                         <div class="col-md-3">
-                            <div class="form-group">
+                            <div class="form-group tabs-inputs">
                                 <label for="DOB">Date of Birth</label>
-                                <input type="date" class="form-control" id="DOB" value="@Model.EditableEmpInfo.DOB" onchange="calculateAge()" required>
+                                <input type="date" class="form-control" style="color: lightgray" id="DOB" value="@Model.EditableEmpInfo.DOB" onchange="calculateAge()" required>
                                 <div class="invalid-feedback">Please provide Date of Birth.</div>
                             </div>
                         </div>
 
                         <div class="col-md-3">
-                            <div class="form-group">
+                            <div class="form-group tabs-inputs">
                                 <label for="Age">Age</label>
                                 <input type="number" class="form-control" id="Age" value="@Model.EditableEmpInfo.Age" readonly="">
                             </div>
                         </div>
                         <div class="col-md-3">
-                            <div class="form-group drop-menu">
+                            <div class="form-group tabs-inputs drop-menu">
                                 <label for="BloodGroup">Blood Group</label>
                                 <select class="form-control" id="BloodGroup">
 
                                     @{
                                         var selectedBloodGroupItem = !string.IsNullOrEmpty(Model.EditableEmpInfo.BloodGroup) ? "selected" : "";
                                     }
-                                    <option value="" @selectedBloodGroupItem>Select Blood Group</option>
+                                    <option value="@selectedBloodGroupItem" class="default-option" >Select Blood Group</option>
 
                                     @{
                                         var bloodGroupList = new List<string>();
@@ -122,14 +122,14 @@
                             </div>
                         </div>
                         <div class="col-md-3">
-                            <div class="form-group drop-menu">
+                            <div class="form-group tabs-inputs drop-menu">
                                 <label for="EmployeeStatus">Employee Status</label>
                                 <select class="form-control" id="EmployeeStatus" required>
 
                                     @{
                                         var selectedEmpStatusItem = !string.IsNullOrEmpty(Model.EditableEmpInfo.EmployeeStatus) ? "selected" : "";
                                     }
-                                    <option value="" @selectedEmpStatusItem>Select Employee Status</option>
+                                    <option value="@selectedEmpStatusItem">Select Employee Status</option>
 
                                     @{
                                         var empStatusList = new List<string>();
@@ -149,14 +149,14 @@
                     </div>
                     <div class="row">
                         <div class="col-md-3">
-                            <div class="form-group drop-menu">
+                            <div class="form-group tabs-inputs drop-menu">
                                 <label for="Gender">Gender</label>
                                 <select class="form-control" id="Gender" required>
 
                                     @{
                                         var selectedGenederItem = !string.IsNullOrEmpty(Model.EditableEmpInfo.Gender) ? "selected" : "";
                                     }
-                                    <option value="" @selectedGenederItem>Select Gender</option>
+                                    <option value="@selectedGenederItem"  style="color:lightgray;">Select Gender</option>
 
                                     @{
                                         var genderList = new List<string>();
@@ -174,13 +174,13 @@
                             </div>
                         </div>
                         <div class="col-md-3">
-                            <div class="form-group drop-menu">
+                            <div class="form-group tabs-inputs drop-menu">
                                 <label for="MaritalStatus">Marital Status</label>
                                 <select class="form-control" id="MaritalStatus" required>
                                     @{
                                         var selectedMarrialStatusItem = !string.IsNullOrEmpty(Model.EditableEmpInfo.MaritalStatus) ? "selected" : "";
                                     }
-                                    <option value="" @selectedMarrialStatusItem>Select Marital Status</option>
+                                    <option value="@selectedMarrialStatusItem" style="color:lightgray;">Select Marital Status</option>
 
                                     @{
                                         var maritalStatusList = new List<string>();
@@ -199,14 +199,14 @@
                             </div>
                         </div>
                         <div class="col-md-3">
-                            <div class="form-group">
+                            <div class="form-group tabs-inputs">
                                 <label for="Designation">Designation:</label>
                                 <div class="input-group">
                                     <select class="form-control" id="Designation">
                                         @{
                                             var selectedDesignationItem = !string.IsNullOrEmpty(Model.EditableEmpInfo.Designation) ? "selected" : "";
                                         }
-                                        <option value="" @selectedDesignationItem>Select Designation</option>
+                                        <option value="@selectedDesignationItem"  style="color:lightgray;">Select Designation</option>
                                         @foreach (var item in Model.Designations)
                                         {
                                             selectedDesignationItem = !string.IsNullOrEmpty(Model.EditableEmpInfo.Designation) && (Model.EditableEmpInfo.Designation == item.Name) ? "selected" : "";
@@ -222,14 +222,14 @@
                             </div>
                         </div>
                         <div class="col-md-3">
-                            <div class="form-group">
+                            <div class="form-group tabs-inputs">
                                 <label for="Department">Department</label>
                                 <div class="input-group">
                                     <select class="form-control" id="Department">
                                         @{
                                             var selectedDepartmentItem = !string.IsNullOrEmpty(Model.EditableEmpInfo.Department) ? "selected" : "";
                                         }
-                                        <option value="" @selectedDepartmentItem>Select Department</option>
+                                        <option value="@selectedDepartmentItem"  style="color:lightgray;">Select Department</option>
                                         @foreach (var item in Model.Departments)
                                         {
                                             selectedDepartmentItem = !string.IsNullOrEmpty(Model.EditableEmpInfo.Department) && (Model.EditableEmpInfo.Department == item.Name) ? "selected" : "";
@@ -247,14 +247,14 @@
                     </div>
                     <div class="row">
                         <div class="col-md-3">
-                            <div class="form-group drop-menu">
+                            <div class="form-group drop-menu tabs-inputs">
                                 <label for="Client">Client</label>
                                 <div class="input-group">
                                     <select class="form-control" id="Client" onchange="handleClientChange(this.value)" required>
                                         @{
                                             var selectedClientItem = !string.IsNullOrEmpty(Model.EditableEmpInfo.Client) ? "selected" : "";
                                         }
-                                        <option value="" @selectedClientItem>Select Client</option>
+                                        <option value="@selectedClientItem"  style="color:lightgray;">Select Client</option>
                                         @foreach (var item in Model.Clients)
                                         {
                                             selectedClientItem = !string.IsNullOrEmpty(Model.EditableEmpInfo.Client) && (Model.EditableEmpInfo.Client == item.Name) ? "selected" : "";
@@ -272,14 +272,14 @@
                         </div>
 
                         <div class="col-md-3">
-                            <div class="form-group drop-menu">
+                            <div class="form-group drop-menu tabs-inputs">
                                 <label for="EmployeeType">Employement Type</label>
                                 <select class="form-control" id="EmployeeType" required>
 
                                     @{
                                         var selectedemploymentTypeItem = !string.IsNullOrEmpty(Model.EditableEmpInfo.EmployeeType) ? "selected" : "";
                                     }
-                                    <option value="" @selectedemploymentTypeItem>Select Employee Type</option>
+                                    <option value="@selectedemploymentTypeItem" style="color:lightgray;">Select Employee Type</option>
 
                                     @{
                                         var empTypeList = new List<string>();
@@ -298,14 +298,14 @@
                             </div>
                         </div>
                         <div class="col-md-3">
-                            <div class="form-group drop-menu">
+                            <div class="form-group tabs-inputs drop-menu">
                                 <label for="Location">Location</label>
                                 <select class="form-control" id="Location" required>
 
                                     @{
                                         var selectedLocationItem = !string.IsNullOrEmpty(Model.EditableEmpInfo.Location) ? "selected" : "";
                                     }
-                                    <option value="" @selectedLocationItem>Select Employee Type</option>
+                                    <option value="@selectedLocationItem" style="color:lightgray;">Select Location</option>
 
                                     @{
                                         var locationList = new List<string>();
@@ -322,14 +322,21 @@
                             </div>
                         </div>
                         <div class="col-md-3">
-                            <div class="form-group drop-menu">
+                            <div class="form-group tabs-inputs drop-menu">
                                 <label for="ReportingManager">Reporting Manager</label>
-                                <div class="input-group">
+                                <div class="input-group reportingm">
                                     <select class="form-control" id="ReportingManager" required>
-                                        <option value="" disabled selected>Reporting Manager</option>
-                                        <option value="manager1">Manager 1</option>
-                                        <option value="manager2">Manager 2</option>
-                                        <option value="manager3">Manager 3</option>
+
+                                        @{
+                                            var selectedReportingManager = !string.IsNullOrEmpty(Model.EditableEmpInfo.ReportingManager) ? "selected" : "";
+                                        }
+                                        <option value="@selectedReportingManager" style="color:lightgray;">Select RM</option>
+                                        @foreach (var item in Model.ReportingManagers)
+                                        {
+                                            selectedClientItem = !string.IsNullOrEmpty(Model.EditableEmpInfo.ReportingManager) && (Model.EditableEmpInfo.ReportingManager == item.Name) ? "selected" : "";
+                                            <option value="@item.Id" @selectedReportingManager>@item.Name</option>
+                                        }
+
                                     </select>
                                     <div class="invalid-feedback">Please select Reporting Manager.</div>
                                     <div class="input-group-append">
@@ -344,18 +351,25 @@
                     </div>
                     <div class="row">
                         <div class="col-md-3">
-                            <div class="form-group drop-menu">
+                            <div class="form-group tabs-inputs drop-menu">
                                 <label for="LeavereportingManager">Leave Reporting Manager</label>
                                 <div class="input-group">
                                     <select class="form-control" id="LeavereportingManager" required>
-                                        <option value="" disabled selected hidden></option>
-                                        <option value="manager1">Manager 1</option>
-                                        <option value="manager2">Manager 2</option>
-                                        <option value="manager3">Manager 3</option>
+
+                                        @{
+                                            var selectedLeaveManager = !string.IsNullOrEmpty(Model.EditableEmpInfo.LeavereportingManager) ? "selected" : "";
+                                        }
+                                        <option value="@selectedLeaveManager"  style="color:lightgray;">Select LM</option>
+                                        @foreach (var item in Model.LeaveManagers)
+                                        {
+                                            selectedLeaveManager = !string.IsNullOrEmpty(Model.EditableEmpInfo.LeavereportingManager) && (Model.EditableEmpInfo.LeavereportingManager == item.Name) ? "selected" : "";
+                                            <option value="@item.Id" @selectedLeaveManager>@item.Name</option>
+                                        }
+
                                     </select>
                                     <div class="invalid-feedback">Please select Leave RM.</div>
                                     <div class="input-group-append">
-                                        <button class="btn btn-secondary btn-sm" type="button" data-toggle="modal" data-target="#addLeaveRMModal">
+                                        <button class="btn btn-secondary btn-sm" type="button" data-toggle="modal" data-target="#addLeaveManagerModal">
                                             <i class="fas fa-plus fa-xs"></i>
                                         </button>
                                     </div>
@@ -364,20 +378,20 @@
                         </div>
 
                         <div class="col-md-3">
-                            <div class="form-group">
+                            <div class="form-group tabs-inputs">
                                 <label for="MobileNumber">Mobile Number</label>
                                 <input type="text" class="form-control" id="MobileNumber" value="@Model.EditableEmpInfo.MobileNumber" required>
                                 <div class="invalid-feedback">Please enter Mobile Number</div>
                             </div>
                         </div>
                         <div class="col-md-3">
-                            <div class="form-group">
+                            <div class="form-group tabs-inputs">
                                 <label for="Personal_Emailid">Personal Email</label>
                                 <input type="email" class="form-control" id="Personal_Emailid" value="@Model.EditableEmpInfo.Personal_Emailid">
                             </div>
                         </div>
                         <div class="col-md-3">
-                            <div class="form-group">
+                            <div class="form-group tabs-inputs">
                                 <label for="OfficalEmailid">Official Email</label>
                                 <input type="email" class="form-control" id="OfficalEmailid" value="@Model.EditableEmpInfo.OfficalEmailid" required>
                                 <div class="invalid-feedback">Please enter Official Emial ID.</div>
@@ -386,13 +400,13 @@
                     </div>
                     <div class="row">
                         <div class="col-md-6">
-                            <div class="form-group present-address" style=" margin-top: 6px;">
+                            <div class="form-group tabs-inputs present-address" style=" margin-top: 6px;">
                                 <label for="PresentAddress">Present Address</label>
                                 <textarea class="form-control" id="PresentAddress" value="@Model.EditableEmpInfo.PresentAddress"></textarea>
                             </div>
                         </div>
                         <div class="col-md-6">
-                            <div class="form-group permanent-address">
+                            <div class="form-group tabs-inputs permanent-address">
                                 <label for="Permanent_Address">
                                     Permanent Address &nbsp;&nbsp;&nbsp;
                                     <input type="checkbox" id="copyPresentAddress">
@@ -402,32 +416,33 @@
                             </div>
                         </div>
                     </div>
-                    <h4 class="emergency-det">Emergency Contact Details</h4>
+                    <h3 class="emergency-det">Emergency Contact Details</h3>
                     <div class="row">
                         <div class="col-md-3">
-                            <div class="form-group">
+                            <div class="form-group tabs-inputs">
                                 <label for="RelationName">Name</label>
                                 <input type="text" class="form-control" id="RelationName" required value="@Model.EditableEmpInfo.RelationName">
                                 <div class="invalid-feedback">Please enter Name.</div>
                             </div>
                         </div>
                         <div class="col-md-3">
-                            <div class="form-group">
+                            <div class="form-group tabs-inputs">
                                 <label for="Relationship">Relationship</label>
                                 <input type="text" class="form-control" id="Relationship" value="@Model.EditableEmpInfo.Relationship" required>
                                 <div class="invalid-feedback">Please enter Relationship.</div>
                             </div>
                         </div>
                         <div class="col-md-3">
-                            <div class="form-group">
+                            <div class="form-group tabs-inputs">
                                 <label for="FamilyMobileNumber">Family Mobile Number</label>
                                 <input type="text" class="form-control" id="FamilyMobileNumber" value="@Model.EditableEmpInfo.FamilyMobileNumber" required>
                                 <div class="invalid-feedback">Please enter Family Mobile Number.</div>
 
                             </div>
                         </div>
+                        <button type="button" class="btn btn-primary save-and-next">Save and Next</button>
                     </div>
-                    <button type="button" class="btn btn-primary save-and-next">Save and Next</button>
+                    
                 </div>
             </form>
         </div>
@@ -467,12 +482,13 @@
                                 <input type="text" class="form-control" id="IFSCcode" value="@Model.EditableEmpInfo.IFSCcode">
                             </div>
                         </div>
+                        <button type="button" class="btn btn-primary save-and-next" style="margin-left: 62%;">Save and Next</button>
                     </div>
-                    <div class="row">
+                    @*<div class="row">
                         <div class="col-md-12">
-                            <button type="button" class="btn btn-primary save-and-next">Save and Next</button>
+                            
                         </div>
-                    </div>
+                    </div>*@
                 </div>
             </form>
         </div>
@@ -507,7 +523,7 @@
                     </div>
                     <div class="row">
                         <div class="col-md-12">
-                            <button type="button" class="btn btn-primary save-and-next">Save and Next</button>
+                            <button type="button" class="btn btn-primary save-and-next" style=" margin-left: 88%;">Save and Next</button>
                         </div>
                     </div>
                 </div>
@@ -519,31 +535,29 @@
             <form id="tab4-form" class="tabs-view">
                 <div class="container tab-container">
                     <div class="row">
-                        <div class="col-md-4">
+                        <div class="col-md-3">
                             <div class="form-group">
                                 <label for="UANNumber">UAN Number</label>
                                 <input type="text" class="form-control" id="UANNumber" value="@Model.EditableEmpInfo.UANNumber">
                             </div>
                         </div>
-                        <div class="col-md-4">
+                        <div class="col-md-3">
                             <div class="form-group">
                                 <label for="PFNumber">PF Number</label>
                                 <input type="text" class="form-control" id="PFNumber" value="@Model.EditableEmpInfo.PFNumber">
                             </div>
                         </div>
-                        <div class="col-md-4">
+                        <div class="col-md-3">
                             <div class="form-group">
                                 <label for="ESICNumber">ESIC Number</label>
                                 <input type="text" class="form-control" id="ESICNumber" value="@Model.EditableEmpInfo.ESICNumber">
                             </div>
                         </div>
-                    </div>
-                    <div class="row">
-                        <div class="col-md-12">
+                        <div class="col-md-3">
                             <button type="button" class="btn btn-primary save-and-next">Save and Next</button>
                         </div>
+                        </div>
                     </div>
-                </div>
             </form>
         </div>
         <div class="tab-pane fade" id="tab5" role="tabpanel" aria-labelledby="tab5-link">
@@ -577,7 +591,7 @@
                     </div>
                     <div class="row">
                         <div class="col-md-12">
-                            <button type="button" class="btn btn-primary save-and-next">Save and Next</button>
+                            <button type="button" class="btn btn-primary save-and-next" style="margin-left: 88%;">Save and Next</button>
                         </div>
                     </div>
                 </div>
@@ -621,10 +635,8 @@
                                 <input type="text" class="form-control" id="ReasonforRelieving" value="@Model.EditableEmpInfo.ReasonforRelieving">
                             </div>
                         </div>
-                    </div>
-                    <div class="row">
-                        <div class="col-md-12">
-                            <button type="button" class="btn btn-primary save-and-next">Save and Next</button>
+                        <div class="col-md-3">
+                            <button type="button" class="btn btn-primary save-and-next" style="margin-left: 271%;">Save and Next</button>
                         </div>
                     </div>
                 </div>
@@ -635,30 +647,29 @@
                 <div class="container tab-container">
                     <div class="row">
 
-                        <div class="col-md-4">
+                        <div class="col-md-3">
                             <div class="form-group">
                                 <label for="DateofExit">Date of Exit:</label>
                                 <input type="date" class="form-control" id="DateofExit" value="@Model.EditableEmpInfo.DateofExit">
                             </div>
                         </div>
-                        <div class="col-md-4">
+                        <div class="col-md-3">
                             <div class="form-group">
                                 <label for="Reason">Reason</label>
                                 <input type="text" class="form-control" id="Reason" value="@Model.EditableEmpInfo.Reason">
                             </div>
                         </div>
-                        <div class="col-md-4">
+                        <div class="col-md-3">
                             <div class="form-group">
                                 <label for="EligibleforRehire">Eligible for Rehire</label>
                                 <input type="text" class="form-control" id="EligibleforRehire" value="@Model.EditableEmpInfo.EligibleforRehire">
                             </div>
                         </div>
-                    </div>
-                    <div class="row">
-                        <div class="col-md-12">
-                            <button type="button" class="btn btn-primary addemp-submit-btn">Submit</button>
+                        <div class="col-md-3">
+                            <button type="button" class="btn btn-primary addemp-submit-btn" style=" margin-top: 29px; width: 60%;">Submit</button>
                         </div>
                     </div>
+                    
                 </div>
             </form>
         </div>
@@ -775,6 +786,33 @@
             </div>
         </div>
     </div>
+
+    <div class="modal fade" id="addLeaveManagerModal" tabindex="-1" aria-labelledby="addLeaveManagerModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="addLeaveManagerModalLabel">Add New Leave Manager</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <!-- Form to add new leave manager -->
+                    <form id="addLeaveManagerForm">
+                        <div class="form-group">
+                            <label for="newLeaveManager">Name:</label>
+                            <input type="text" class="form-control" id="newLeaveManager" required>
+                        </div>
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                    <button type="button" class="btn btn-primary" id="saveLeaveManagerBtn">Save</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
 
     <div class="modal fade" id="EmpsuccessModal" tabindex="-1" role="dialog" aria-labelledby="successModalLabel" aria-hidden="true">
         <div class="modal-dialog" role="document">

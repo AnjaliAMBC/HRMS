@@ -78,6 +78,9 @@ namespace HRMS.Controllers
             model.Clients = new EmployeeHelper(_dbContext).GetClients();
             model.Designations = new EmployeeHelper(_dbContext).GetDesignations();
             model.Departments = new EmployeeHelper(_dbContext).GetDepartments();
+            model.LeaveManagers = new EmployeeHelper(_dbContext).GetLeaveManagers();
+            model.ReportingManagers = new EmployeeHelper(_dbContext).GetReportingManagers();
+
             return PartialView("~/Views/AdminDashboard/AddEmpTabs.cshtml", model);
         }
 
@@ -224,11 +227,27 @@ namespace HRMS.Controllers
                         int rowCount = worksheet.Dimension.End.Row;
                         for (int row = 2; row <= rowCount; row++)
                         {
+                            bool isEmptyRow = true; 
+                            for (int col = 1; col <= colCount; col++)
+                            {
+                                if (worksheet.Cells[row, col].Value != null)
+                                {
+                                    isEmptyRow = false; 
+                                    break;
+                                }
+                            }
+                           
+                            if (isEmptyRow)
+                            {
+                                continue;
+                            }
+
                             DataRow dataRow = dt.NewRow();
                             for (int col = 1; col <= colCount; col++)
                             {
                                 dataRow[col - 1] = worksheet.Cells[row, col].Value;
                             }
+
                             dt.Rows.Add(dataRow);
                             emp_info emp = new emp_info();
 
@@ -480,6 +499,78 @@ namespace HRMS.Controllers
             }
 
             // Return a bad request if the input is empty
+            return Json(model, JsonRequestBehavior.AllowGet);
+        }
+
+
+
+        [HttpPost]
+        public ActionResult RMadd(string newRM)
+        {
+            var model = new JsonResponse();
+            if (!string.IsNullOrEmpty(newRM))
+            {
+                try
+                {
+                    var newReportingManager = _dbContext.emplogins.Where(emp => emp.EmployeeEmail == newRM).FirstOrDefault();
+                    if (newReportingManager != null)
+                    {
+                        var client = new emplogin { IsReportingM = true };
+                        newReportingManager.IsReportingM = true;
+                        _dbContext.SaveChanges();
+
+                        model.Message = "Reporting Manager added successfully!";
+                        model.StatusCode = 200;
+                        return Json(model, JsonRequestBehavior.AllowGet);
+                    }
+                    else
+                    {
+                        model.Message = "Reporting Manager not added!";
+                        model.StatusCode = 400;
+                        return Json(model, JsonRequestBehavior.AllowGet);
+                    }
+                }
+                catch (Exception ex)
+                {
+                    model = ErrorHelper.CaptureError(ex);
+                    return Json(model, JsonRequestBehavior.AllowGet);
+                }
+            }
+            return Json(model, JsonRequestBehavior.AllowGet);
+        }
+
+        [HttpPost]
+        public ActionResult LMadd(string newLM)
+        {
+            var model = new JsonResponse();
+            if (!string.IsNullOrEmpty(newLM))
+            {
+                try
+                {
+                    var newLeaveManager = _dbContext.emplogins.Where(emp => emp.EmployeeEmail == newLM).FirstOrDefault();
+                    if (newLeaveManager != null)
+                    {
+                        var client = new emplogin { IsReportingM = true };
+                        newLeaveManager.IsLeaveRM = true;
+                        _dbContext.SaveChanges();
+
+                        model.Message = "Leave Manager added successfully!";
+                        model.StatusCode = 200;
+                        return Json(model, JsonRequestBehavior.AllowGet);
+                    }
+                    else
+                    {
+                        model.Message = "Leave Manager not added!";
+                        model.StatusCode = 400;
+                        return Json(model, JsonRequestBehavior.AllowGet);
+                    }
+                }
+                catch (Exception ex)
+                {
+                    model = ErrorHelper.CaptureError(ex);
+                    return Json(model, JsonRequestBehavior.AllowGet);
+                }
+            }
             return Json(model, JsonRequestBehavior.AllowGet);
         }
     }

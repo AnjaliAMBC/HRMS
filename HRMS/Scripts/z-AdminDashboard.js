@@ -95,10 +95,10 @@ $('.admin-empmanagement').click(function (event) {
                                 var firstNameInitial = data.name.charAt(0);
                                 var lastNameInitial = data.name.split(' ').slice(-1)[0].charAt(0);
                                 var shortName = firstNameInitial + lastNameInitial;
-                                return imageHtml = '<div class="default-image" style="width: 45px; height: 45px; border-radius: 50%; background-color: #ccc; color: black; text-align: center; line-height: 50px; margin-right: 10px; margin-bottom: 7px;">' + shortName + '</div><span style="display: inline-block; vertical-align: top;">' + data.name + '<br><span style="color: blue;">' + data.email + '</span></span>'
+                                return imageHtml = '<div class="default-image" style="width: 45px; height: 45px; border-radius: 50%; background-color: #ccc; color: black; text-align: center; line-height: 45px; margin-right: 10px; margin-bottom: 7px;">' + shortName + '</div><span style="display: inline-block; vertical-align: top;  margin-top: 13px;">' + data.name + '<br><span style="color: #3E78CF;">' + data.email + '</span></span>'
                             }
                             return imageHtml +
-                                '<span style="display: inline-block;">' + data.name + '<br>' + data.email + '</span>';
+                                '<span style="display: inline-block; margin-top: 0px;">' + data.name + '<br><span style="color: #3E78CF;">' + data.email + '</span></span>';
                         }
                     },
 
@@ -228,7 +228,7 @@ $('.admin-empmanagement').click(function (event) {
                 $('.delete-message').css("color", "black");
                 $('.delete-message').html('Are you sure you want to delete <span class="deleteempnameval" style="font-weight: bold; font-style: italic; color:red"></span> ?');
                 $('.deleteempid').html(deleteEmpID.trim());
-                $('.deleteempnameval').text(deleteEmpName.trim());
+                $('.deleteempnameval').text(deleteEmpID.trim());
             });
 
             $(document).on('click', '.delete-employee', function (event) {
@@ -251,7 +251,7 @@ $('.admin-empmanagement').click(function (event) {
                     dataType: "json",
                     success: function (result) {
                         if (result.JsonResponse.StatusCode == 200) {
-                            $('.delete-message').html("You have deleted employee " + deleteEmpName + " successfully ");
+                            $('.delete-message').html("You have deleted employee " + deleteEmpID + " successfully ");
                             $('.delete-message').css("color", "blue");
                             $('.delete-employee').prop('disabled', true);
                         } else {

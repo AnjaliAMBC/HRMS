@@ -16,7 +16,7 @@ $(document).on("click", ".admin-add-emptab", function () {
 
 $(document).on("change", "#copyPresentAddress", function () {
     if (this.checked) {
-        $('#permanentAddress').val($('#presentAddress').val());
+        $('#Permanent_Address').val($('#PresentAddress').val());
     }
 });
 

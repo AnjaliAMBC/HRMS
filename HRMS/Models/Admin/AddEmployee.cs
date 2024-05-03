@@ -71,6 +71,8 @@ namespace HRMS.Models.Admin
         public List<DropdownItem> Departments { get; set; } = new List<DropdownItem>();
         public List<DropdownItem> Designations { get; set; } = new List<DropdownItem>();
         public List<DropdownItem> Clients { get; set; } = new List<DropdownItem>();
+        public List<DropdownItem> LeaveManagers { get; set; } = new List<DropdownItem>();
+        public List<DropdownItem> ReportingManagers { get; set; } = new List<DropdownItem>();
         public bool IsAddAction { get; set; } = false;
     }
 

@@ -80,5 +80,45 @@ namespace HRMS.Helpers
             return model;
         }
 
+        public List<DropdownItem> GetLeaveManagers()
+        {
+            var model = new List<DropdownItem>();
+            try
+            {
+                var leaveManagers = _dbContext.emplogins.Where(emp => emp.IsLeaveRM == true).ToList();
+                model = leaveManagers.Select(x => new DropdownItem
+                {
+                    Id = x.EmployeeEmail,
+                    Name = x.EmployeeEmail,
+                }).ToList();
+            }
+
+            catch (Exception ex)
+            {
+                ErrorHelper.CaptureError(ex);
+            }
+            return model;
+        }
+
+        public List<DropdownItem> GetReportingManagers()
+        {
+            var model = new List<DropdownItem>();
+            try
+            {
+                var reportingManagers = _dbContext.emplogins.Where(emp => emp.IsReportingM == true).ToList();
+                model = reportingManagers.Select(x => new DropdownItem
+                {
+                    Id = x.EmployeeEmail,
+                    Name = x.EmployeeEmail,
+                }).ToList();
+            }
+
+            catch (Exception ex)
+            {
+                ErrorHelper.CaptureError(ex);
+            }
+            return model;
+        }
+
     }
 }
