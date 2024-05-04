@@ -1,9 +1,8 @@
 ﻿@model HRMS.Models.Admin.AddEmployeeViewModel
 
 <div class="admin-empadd-view">
-    <h2 style="margin-bottom: 73px;
-    margin-left: 58px;" class="addempheadline">
-        @*@Model.HeadLine*@
+    <h2 style="margin-bottom: 35px; margin-left: -5px; " class="addempheadline">
+        @Model.HeadLine
     </h2>
     <ul class="nav nav-tabs" id="myTab" role="tablist">
         <li class="nav-item" role="presentation">
@@ -36,28 +35,28 @@
                 <div class="container tab-container" style="margin-left: 5px">
                     <div class="row">
                         <div class="col-md-3">
-                            <div class="form-group tabs-inputs">
+                            <div class="form-group tabs-general">
                                 <label for="EmployeeID">Employee ID</label>
                                 <input type="text" class="form-control" id="EmployeeID" value="@Model.EditableEmpInfo.EmployeeID" required>
                                 <div class="invalid-feedback">Please provide Employee ID.</div>
                             </div>
                         </div>
                         <div class="col-md-3">
-                            <div class="form-group tabs-inputs">
+                            <div class="form-group tabs-general">
                                 <label for="EmployeeName">Employee Name</label>
                                 <input type="text" class="form-control" id="EmployeeName" value="@Model.EditableEmpInfo.EmployeeName" required>
                                 <div class="invalid-feedback">Please provide Employee Name.</div>
                             </div>
                         </div>
                         <div class="col-md-3">
-                            <div class="form-group tabs-inputs">
+                            <div class="form-group tabs-general">
                                 <label for="FatherName">Father's Name</label>
                                 <input type="text" class="form-control" id="FatherName" value="@Model.EditableEmpInfo.FatherName" required>
                                 <div class="invalid-feedback">Please provide Father Name.</div>
                             </div>
                         </div>
                         <div class="col-md-3">
-                            <div class="form-group tabs-inputs">
+                            <div class="form-group tabs-general">
                                 <label for="DOJ">Date of Joining</label>
                                 @if (Model.EditableEmpInfo.DOJ != DateTime.MinValue)
                                 {
@@ -65,7 +64,7 @@
                                 }
                                 else
                                 {
-                                    <input type="date" class="form-control" id="DOJ" style="color: lightgray" value="@Model.EditableEmpInfo.DOJ" required>
+                                    <input type="date" class="form-control" id="DOJ" value="@Model.EditableEmpInfo.DOJ" required>
                                 }
 
                                 <div class="invalid-feedback">Please provide Employee ID.</div>
@@ -74,7 +73,7 @@
                     </div>
                     <div class="row">
                         <div class="col-md-3">
-                            <div class="form-group tabs-inputs">
+                            <div class="form-group tabs-general">
                                 <label for="DOB">Date of Birth</label>
                                 @if (Model.EditableEmpInfo.DOB != DateTime.MinValue)
                                 {
@@ -82,22 +81,22 @@
                                 }
                                 else
                                 {
-                                    <input type="date" class="form-control" id="DOB" style="color: lightgray" value="@Model.EditableEmpInfo.DOB" required>
+                                    <input type="date" class="form-control" id="DOB" value="@Model.EditableEmpInfo.DOB" required>
                                 }
                                 <div class="invalid-feedback">Please provide Date of Birth.</div>
                             </div>
                         </div>
 
                         <div class="col-md-3">
-                            <div class="form-group tabs-inputs">
+                            <div class="form-group tabs-general">
                                 <label for="Age">Age</label>
                                 <input type="number" class="form-control" id="Age" value="@Model.EditableEmpInfo.Age" readonly="">
                             </div>
                         </div>
                         <div class="col-md-3">
-                            <div class="form-group tabs-inputs drop-menu">
+                            <div class="form-group tabs-general drop-menu">
                                 <label for="BloodGroup">Blood Group</label>
-                                <select class="form-control" id="BloodGroup" required>
+                                <select class="form-control" id="BloodGroup">
 
                                     @{
                                         var selectedBloodGroupItem = !string.IsNullOrEmpty(Model.EditableEmpInfo.BloodGroup) ? "selected" : "";
@@ -129,7 +128,7 @@
                             </div>
                         </div>
                         <div class="col-md-3">
-                            <div class="form-group tabs-inputs drop-menu">
+                            <div class="form-group tabs-general drop-menu">
                                 <label for="EmployeeStatus">Employee Status</label>
                                 <select class="form-control" id="EmployeeStatus" required>
 
@@ -156,7 +155,7 @@
                     </div>
                     <div class="row">
                         <div class="col-md-3">
-                            <div class="form-group tabs-inputs drop-menu">
+                            <div class="form-group tabs-general drop-menu">
                                 <label for="Gender">Gender</label>
                                 <select class="form-control" id="Gender" required>
 
@@ -181,7 +180,7 @@
                             </div>
                         </div>
                         <div class="col-md-3">
-                            <div class="form-group tabs-inputs drop-menu">
+                            <div class="form-group tabs-general drop-menu">
                                 <label for="MaritalStatus">Marital Status</label>
                                 <select class="form-control" id="MaritalStatus" required>
                                     @{
@@ -206,7 +205,7 @@
                             </div>
                         </div>
                         <div class="col-md-3">
-                            <div class="form-group tabs-inputs">
+                            <div class="form-group tabs-general">
                                 <label for="Designation">Designation:</label>
                                 <div class="input-group">
                                     <select class="form-control" id="Designation" required>
@@ -229,7 +228,7 @@
                             </div>
                         </div>
                         <div class="col-md-3">
-                            <div class="form-group tabs-inputs">
+                            <div class="form-group tabs-general">
                                 <label for="Department">Department</label>
                                 <div class="input-group">
                                     <select class="form-control" id="Department" required>
@@ -254,7 +253,7 @@
                     </div>
                     <div class="row">
                         <div class="col-md-3">
-                            <div class="form-group drop-menu tabs-inputs">
+                            <div class="form-group drop-menu tabs-general">
                                 <label for="Client">Client</label>
                                 <div class="input-group">
                                     <select class="form-control" id="Client" onchange="handleClientChange(this.value)" required>
@@ -268,7 +267,6 @@
                                             <option value="@item.Id" @selectedClientItem>@item.Name</option>
                                         }
                                     </select>
-
                                     <div class="input-group-append">
                                         <button class="btn btn-secondary btn-sm" type="button" data-toggle="modal" data-target="#addClientModal">
                                             <i class="fas fa-plus fa-xs"></i>
@@ -280,7 +278,7 @@
                         </div>
 
                         <div class="col-md-3">
-                            <div class="form-group drop-menu tabs-inputs">
+                            <div class="form-group drop-menu tabs-general">
                                 <label for="EmployeeType">Employement Type</label>
                                 <select class="form-control" id="EmployeeType" required>
 
@@ -306,7 +304,7 @@
                             </div>
                         </div>
                         <div class="col-md-3">
-                            <div class="form-group tabs-inputs drop-menu">
+                            <div class="form-group tabs-general drop-menu">
                                 <label for="Location">Location</label>
                                 <select class="form-control" id="Location" required>
 
@@ -330,7 +328,7 @@
                             </div>
                         </div>
                         <div class="col-md-3">
-                            <div class="form-group tabs-inputs drop-menu">
+                            <div class="form-group tabs-general drop-menu">
                                 <label for="ReportingManager">Reporting Manager</label>
                                 <div class="input-group dropdownplacehodercolor">
                                     <select class="form-control" id="ReportingManager" required>
@@ -359,7 +357,7 @@
                     </div>
                     <div class="row">
                         <div class="col-md-3">
-                            <div class="form-group tabs-inputs drop-menu">
+                            <div class="form-group tabs-general drop-menu">
                                 <label for="LeavereportingManager">Leave Reporting Manager</label>
                                 <div class="input-group">
                                     <select class="form-control" id="LeavereportingManager" required>
@@ -386,20 +384,20 @@
                         </div>
 
                         <div class="col-md-3">
-                            <div class="form-group tabs-inputs">
+                            <div class="form-group tabs-general">
                                 <label for="MobileNumber">Mobile Number</label>
                                 <input type="text" class="form-control" id="MobileNumber" value="@Model.EditableEmpInfo.MobileNumber" required>
                                 <div class="invalid-feedback">Please enter Mobile Number</div>
                             </div>
                         </div>
                         <div class="col-md-3">
-                            <div class="form-group tabs-inputs">
+                            <div class="form-group tabs-general">
                                 <label for="Personal_Emailid">Personal Email</label>
                                 <input type="email" class="form-control" id="Personal_Emailid" value="@Model.EditableEmpInfo.Personal_Emailid">
                             </div>
                         </div>
                         <div class="col-md-3">
-                            <div class="form-group tabs-inputs">
+                            <div class="form-group tabs-general">
                                 <label for="OfficalEmailid">Official Email</label>
                                 <input type="email" class="form-control" id="OfficalEmailid" value="@Model.EditableEmpInfo.OfficalEmailid" required>
                                 <div class="invalid-feedback">Please enter Official Emial ID.</div>
@@ -408,13 +406,13 @@
                     </div>
                     <div class="row">
                         <div class="col-md-6">
-                            <div class="form-group tabs-inputs present-address" style=" margin-top: 6px;">
+                            <div class="form-group tabs-general present-address" style=" margin-top: 6px;">
                                 <label for="PresentAddress">Present Address</label>
                                 <textarea class="form-control" id="PresentAddress" value="@Model.EditableEmpInfo.PresentAddress"></textarea>
                             </div>
                         </div>
                         <div class="col-md-6">
-                            <div class="form-group tabs-inputs permanent-address">
+                            <div class="form-group tabs-general permanent-address">
                                 <label for="Permanent_Address">
                                     Permanent Address &nbsp;&nbsp;&nbsp;
                                     <input type="checkbox" id="copyPresentAddress">
@@ -427,21 +425,21 @@
                     <h3 class="emergency-det">Emergency Contact Details</h3>
                     <div class="row">
                         <div class="col-md-3">
-                            <div class="form-group tabs-inputs">
+                            <div class="form-group tabs-general">
                                 <label for="RelationName">Name</label>
                                 <input type="text" class="form-control" id="RelationName" required value="@Model.EditableEmpInfo.RelationName">
                                 <div class="invalid-feedback">Please enter Name.</div>
                             </div>
                         </div>
                         <div class="col-md-3">
-                            <div class="form-group tabs-inputs">
+                            <div class="form-group tabs-general">
                                 <label for="Relationship">Relationship</label>
                                 <input type="text" class="form-control" id="Relationship" value="@Model.EditableEmpInfo.Relationship" required>
                                 <div class="invalid-feedback">Please enter Relationship.</div>
                             </div>
                         </div>
                         <div class="col-md-3">
-                            <div class="form-group tabs-inputs">
+                            <div class="form-group tabs-general">
                                 <label for="FamilyMobileNumber">Family Mobile Number</label>
                                 <input type="text" class="form-control" id="FamilyMobileNumber" value="@Model.EditableEmpInfo.FamilyMobileNumber" required>
                                 <div class="invalid-feedback">Please enter Family Mobile Number.</div>
@@ -459,25 +457,25 @@
                 <div class="container tab-container">
                     <div class="row">
                         <div class="col-md-3">
-                            <div class="form-group">
+                            <div class="form-group tabs-other">
                                 <label for="BankName">Bank Name</label>
                                 <input type="text" class="form-control" id="BankName" value="@Model.EditableEmpInfo.BankName">
                             </div>
                         </div>
                         <div class="col-md-3">
-                            <div class="form-group">
+                            <div class="form-group tabs-other">
                                 <label for="AccountNumber">Account Number</label>
                                 <input type="text" class="form-control" id="AccountNumber" value="@Model.EditableEmpInfo.AccountNumber">
                             </div>
                         </div>
                         <div class="col-md-3">
-                            <div class="form-group">
+                            <div class="form-group tabs-other">
                                 <label for="Branch">Branch</label>
                                 <input type="text" class="form-control" id="Branch" value="@Model.EditableEmpInfo.Branch">
                             </div>
                         </div>
                         <div class="col-md-3">
-                            <div class="form-group">
+                            <div class="form-group tabs-other">
                                 <label for="TypeofAccount">Type of Account</label>
                                 <input type="text" class="form-control" id="TypeofAccount" value="@Model.EditableEmpInfo.TypeofAccount">
                             </div>
@@ -485,18 +483,13 @@
                     </div>
                     <div class="row">
                         <div class="col-md-3">
-                            <div class="form-group">
+                            <div class="form-group tabs-other">
                                 <label for="IFSCcode">IFSC Code</label>
                                 <input type="text" class="form-control" id="IFSCcode" value="@Model.EditableEmpInfo.IFSCcode">
                             </div>
                         </div>
                         <button type="button" class="btn btn-primary save-and-next" style="margin-left: 62%;">Save and Next</button>
                     </div>
-                    @*<div class="row">
-                            <div class="col-md-12">
-
-                            </div>
-                        </div>*@
                 </div>
             </form>
         </div>
@@ -505,25 +498,25 @@
                 <div class="container tab-container">
                     <div class="row">
                         <div class="col-md-3">
-                            <div class="form-group">
+                            <div class="form-group tabs-other">
                                 <label for="PANnumber">PAN Number</label>
                                 <input type="text" class="form-control" id="PANnumber" value="@Model.EditableEmpInfo.PANnumber">
                             </div>
                         </div>
                         <div class="col-md-3">
-                            <div class="form-group">
+                            <div class="form-group tabs-other">
                                 <label for="AadharNumber">Aadhar Number</label>
                                 <input type="text" class="form-control" id="AadharNumber" value="@Model.EditableEmpInfo.AadharNumber">
                             </div>
                         </div>
                         <div class="col-md-3">
-                            <div class="form-group">
+                            <div class="form-group tabs-other">
                                 <label for="Passport">Passport Number</label>
                                 <input type="text" class="form-control" id="Passport" value="@Model.EditableEmpInfo.Passport">
                             </div>
                         </div>
                         <div class="col-md-3">
-                            <div class="form-group">
+                            <div class="form-group tabs-other">
                                 <label for="DOEofPassport">Passport Date of Expiry</label>
                                 <input type="date" class="form-control" id="DOEofPassport" value="@Model.EditableEmpInfo.DOEofPassport">
                             </div>
@@ -544,19 +537,19 @@
                 <div class="container tab-container">
                     <div class="row">
                         <div class="col-md-3">
-                            <div class="form-group">
+                            <div class="form-group tabs-other">
                                 <label for="UANNumber">UAN Number</label>
                                 <input type="text" class="form-control" id="UANNumber" value="@Model.EditableEmpInfo.UANNumber">
                             </div>
                         </div>
                         <div class="col-md-3">
-                            <div class="form-group">
+                            <div class="form-group tabs-other">
                                 <label for="PFNumber">PF Number</label>
                                 <input type="text" class="form-control" id="PFNumber" value="@Model.EditableEmpInfo.PFNumber">
                             </div>
                         </div>
                         <div class="col-md-3">
-                            <div class="form-group">
+                            <div class="form-group tabs-other">
                                 <label for="ESICNumber">ESIC Number</label>
                                 <input type="text" class="form-control" id="ESICNumber" value="@Model.EditableEmpInfo.ESICNumber">
                             </div>
@@ -573,25 +566,25 @@
                 <div class="container tab-container">
                     <div class="row">
                         <div class="col-md-3">
-                            <div class="form-group">
+                            <div class="form-group tabs-other">
                                 <label for="LatestDegree">Latest Degree</label>
                                 <input type="text" class="form-control" id="LatestDegree" value="value=" @Model.EditableEmpInfo.LatestDegree "">
                             </div>
                         </div>
                         <div class="col-md-3">
-                            <div class="form-group">
+                            <div class="form-group tabs-other">
                                 <label for="College_Name">College Name</label>
                                 <input type="text" class="form-control" id="College_Name" value="@Model.EditableEmpInfo.College_Name">
                             </div>
                         </div>
                         <div class="col-md-3">
-                            <div class="form-group">
+                            <div class="form-group tabs-other">
                                 <label for="Specialization">Specialization</label>
                                 <input type="text" class="form-control" id="Specialization" value="@Model.EditableEmpInfo.Specialization">
                             </div>
                         </div>
                         <div class="col-md-3">
-                            <div class="form-group">
+                            <div class="form-group tabs-other">
                                 <label for="YearofCompletion">Year of Completion</label>
                                 <input type="number" class="form-control" id="YearofCompletion" value="@Model.EditableEmpInfo.YearofCompletion">
                             </div>
@@ -612,25 +605,25 @@
                     <div class="row">
 
                         <div class="col-md-3">
-                            <div class="form-group">
+                            <div class="form-group tabs-other">
                                 <label for="Employer_name">Employer Name</label>
                                 <input type="text" class="form-control" id="Employer_name" value="@Model.EditableEmpInfo.EmployeeName">
                             </div>
                         </div>
                         <div class="col-md-3">
-                            <div class="form-group">
+                            <div class="form-group tabs-other">
                                 <label for="JobTitle">Job Title</label>
                                 <input type="text" class="form-control" id="JobTitle" value="@Model.EditableEmpInfo.JobTitle">
                             </div>
                         </div>
                         <div class="col-md-3">
-                            <div class="form-group">
+                            <div class="form-group tabs-other">
                                 <label for="From_date">From Date</label>
                                 <input type="date" class="form-control" id="From_date" value="@Model.EditableEmpInfo.From_date">
                             </div>
                         </div>
                         <div class="col-md-3">
-                            <div class="form-group">
+                            <div class="form-group tabs-other">
                                 <label for="To_date">To Date</label>
                                 <input type="date" class="form-control" id="To_date" value="@Model.EditableEmpInfo.To_date">
                             </div>
@@ -638,7 +631,7 @@
                     </div>
                     <div class="row">
                         <div class="col-md-3">
-                            <div class="form-group">
+                            <div class="form-group tabs-other">
                                 <label for="ReasonforRelieving">Reason of Relieving:</label>
                                 <input type="text" class="form-control" id="ReasonforRelieving" value="@Model.EditableEmpInfo.ReasonforRelieving">
                             </div>
@@ -656,19 +649,19 @@
                     <div class="row">
 
                         <div class="col-md-3">
-                            <div class="form-group">
+                            <div class="form-group tabs-other">
                                 <label for="DateofExit">Date of Exit:</label>
                                 <input type="date" class="form-control" id="DateofExit" value="@Model.EditableEmpInfo.DateofExit">
                             </div>
                         </div>
                         <div class="col-md-3">
-                            <div class="form-group">
+                            <div class="form-group tabs-other">
                                 <label for="Reason">Reason</label>
                                 <input type="text" class="form-control" id="Reason" value="@Model.EditableEmpInfo.Reason">
                             </div>
                         </div>
                         <div class="col-md-3">
-                            <div class="form-group">
+                            <div class="form-group tabs-other">
                                 <label for="EligibleforRehire">Eligible for Rehire</label>
                                 <input type="text" class="form-control" id="EligibleforRehire" value="@Model.EditableEmpInfo.EligibleforRehire">
                             </div>
@@ -697,7 +690,7 @@
                 <div class="modal-body">
                     <!-- Your form for adding a new option goes here -->
                     <form id="addOptionForm">
-                        <div class="form-group">
+                        <div class="form-group tabs-other">
                             <label for="newDesignation">New Designation:</label>
                             <input type="text" class="form-control" id="newDesignation">
                         </div>
@@ -725,7 +718,7 @@
                 <div class="modal-body">
                     <!-- Add your form or content for adding a new department here -->
                     <form id="addDepartmentForm">
-                        <div class="form-group">
+                        <div class="form-group tabs-other">
                             <label for="departmentName">Department Name:</label>
                             <input type="text" class="form-control" id="departmentName">
                         </div>
@@ -752,7 +745,7 @@
                 </div>
                 <div class="modal-body">
                     <form id="addClientForm">
-                        <div class="form-group">
+                        <div class="form-group tabs-other">
                             <label for="newClientName">Client Name:</label>
                             <input type="text" class="form-control" id="newClientName" required>
                         </div>
@@ -781,7 +774,7 @@
                 <div class="modal-body">
                     <!-- Form to add new reporting manager -->
                     <form id="addReportingManagerForm">
-                        <div class="form-group">
+                        <div class="form-group tabs-other">
                             <label for="newReportingManager">Name:</label>
                             <input type="text" class="form-control" id="newReportingManager" required>
                         </div>
@@ -807,7 +800,7 @@
                 <div class="modal-body">
                     <!-- Form to add new leave manager -->
                     <form id="addLeaveManagerForm">
-                        <div class="form-group">
+                        <div class="form-group tabs-other">
                             <label for="newLeaveManager">Name:</label>
                             <input type="text" class="form-control" id="newLeaveManager" required>
                         </div>

@@ -20,7 +20,7 @@ $(document).on("change", "#copyPresentAddress", function () {
     }
 });
 
-$(document).on("change", ".emp-dob", function () {
+$(document).on("change", "#DOB", function () {
     var dobInput = document.getElementById("DOB");
     var ageInput = document.getElementById("Age");
     var dob = new Date(dobInput.value);
@@ -37,6 +37,14 @@ $(document).on("change", ".emp-dob", function () {
 });
 
 
+function handleFileUpload(input) {
+    var uploadedFile = input.files[0];
+    var uploadedFileName = uploadedFile.name;
+
+    // Display the uploaded file name
+    document.getElementById('uploaded-file-text').textContent = 'File Uploaded: ' + uploadedFileName;
+    document.getElementById('uploaded-file-info').style.display = 'block';
+}
 
 
 //$(document).ready(function () {

@@ -255,7 +255,7 @@ $('.admin-empmanagement').click(function (event) {
                     dataType: "json",
                     success: function (result) {
                         if (result.JsonResponse.StatusCode == 200) {
-                            $('.delete-message').html("You have deleted employee " + deleteEmpID + " successfully ");
+                            $('.delete-message').html("You have deleted employee <span style='color: red;'>" + deleteEmpID + " </span> successfully ");
                             $('.delete-message').css("color", "blue");
                             $('.delete-employee').prop('disabled', true);
                         } else {
@@ -693,14 +693,9 @@ function toggleDropdown() {
 }
 
 function downloadTemplate() {
-    var sampleFileUrl = 'C:\inetpub\wwwroot\HRMS\SampleTemplate.xlsx';
-    document.getElementById('download-link').setAttribute('href', sampleFileUrl);
-}
-
-function downloadTemplate() {
     var link = document.createElement('a');
-    link.href = '/assets/templates/importusertemplate.csv';
-    link.download = 'ImportUserTemplate.csv';
+    link.href = '/assets/templates/importusertemplate.xlsx';
+    link.download = 'ImportUserTemplate.xlsx';
     document.body.appendChild(link);
     link.click();
     document.body.removeChild(link);
