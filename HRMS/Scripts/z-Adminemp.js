@@ -36,6 +36,9 @@ $(document).on("change", ".emp-dob", function () {
     ageInput.value = age;
 });
 
+
+
+
 //$(document).ready(function () {
 //    $('#saveNewDesignation').click(function () {
 //        var newDesignation = $('#newDesignation').val();

@@ -11,7 +11,7 @@ namespace HRMS.Controllers
         // GET: EmpAttendance
         public ActionResult Index()
         {
-            return View("~/Views/EmployeeDashboard/EmpAttendance.cshtml");
+            return PartialView("~/Views/EmployeeDashboard/EmpAttendance.cshtml");
         }
     }
 }

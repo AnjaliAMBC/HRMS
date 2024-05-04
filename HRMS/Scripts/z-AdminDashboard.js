@@ -95,11 +95,15 @@ $('.admin-empmanagement').click(function (event) {
                                 var firstNameInitial = data.name.charAt(0);
                                 var lastNameInitial = data.name.split(' ').slice(-1)[0].charAt(0);
                                 var shortName = firstNameInitial + lastNameInitial;
-                                return imageHtml = '<div class="list-image" style="width: 45px; height: 45px; border-radius: 50%; margin-right: 10px;">' + shortName + '</div><span style="display: inline-block; vertical-align: top;  margin-top: 13px;">' + data.name + '<br><span style="color: #3E78CF;">' + data.email + '</span></span>'
+                                imageHtml = '<div class="list-image" style="width: 45px; height: 45px; border-radius: 50%; margin-right: 10px; background-color: #C4C4C4; color: white; display: flex; justify-content: center; align-items: center;">' + shortName + '</div>';
                             }
-                            return imageHtml +
-                                '<span style="display: inline-block; margin-top: 0px;">' + data.name + '<br><span style="color: #3E78CF;">' + data.email + '</span></span>';
+                            return '<div style="display: flex; align-items: center;">' +
+                                imageHtml +
+                                '<span style="margin-top: 0px; margin-right: 10px;">' + data.name + '<br><span style="color: #3E78CF;">' + data.email + '</span></span>' +
+                                '</div>';
                         }
+
+
                     },
 
                     {
@@ -335,7 +339,7 @@ $('.admin-attendance').click(function (event) {
     HighlightAdminActiveLink($(this));
 
     $.ajax({
-        url: '/admindashboard/attendancemanagement',
+        url: '/adminattendance/index',
         type: 'GET',
         dataType: 'html',
         success: function (response) {
