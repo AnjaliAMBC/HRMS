@@ -101,23 +101,31 @@ $(document).off('click', '.emp-imgs').on('click', '.emp-imgs', function (event) 
 });
 
 
-$(document).off('change', '#imageInput').on('change', '#imageInput', function (event) {
-    event.preventDefault();  
+$(document).on('change', '#imageInput', function (event) {
+    event.preventDefault();
     var file = this.files[0];
     var formData = new FormData();
     formData.append('file', file);
-    
+
     $.ajax({
-        url: '/employeedashboard/uploadimage', 
+        url: '/employeedashboard/uploadimage',
         type: 'POST',
         data: formData,
         processData: false,
         contentType: false,
         dataType: 'json',
-        success: function (response) {           
+        success: function (response) {
             if (response.JsonResponse.StatusCode == 200) {
                 var newImageUrl = response.ImageURl;
+                //Slef service page image update
                 $('.emp-imageurl').attr('src', newImageUrl);
+                $('.emp-imageurl').show();
+                $('.default-image').hide();
+
+
+                $('.nav-image-profile').show();
+                $('.nav-image-profile').attr('src', newImageUrl);
+                $('.default-image-navbar').hide();
             } else {
                 console.error('Error uploading file:', error);
             }
@@ -126,7 +134,7 @@ $(document).off('change', '#imageInput').on('change', '#imageInput', function (e
             console.error('Error uploading file:', error);
         },
         complete: function () {            
-            isSubmitting = false;
+            isSubmitting = false;     
         }
     });
 });
