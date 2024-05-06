@@ -339,7 +339,7 @@
                                         <option value="" @selectedReportingManager style="color:lightgray;">Select RM</option>
                                         @foreach (var item in Model.ReportingManagers)
                                         {
-                                            selectedClientItem = !string.IsNullOrEmpty(Model.EditableEmpInfo.ReportingManager) && (Model.EditableEmpInfo.ReportingManager == item.Name) ? "selected" : "";
+                                            selectedReportingManager = !string.IsNullOrEmpty(Model.EditableEmpInfo.ReportingManager) && (Model.EditableEmpInfo.ReportingManager == item.Name) ? "selected" : "";
                                             <option value="@item.Id" @selectedReportingManager>@item.Name</option>
                                         }
 
