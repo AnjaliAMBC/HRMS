@@ -46,9 +46,10 @@
                     <div class="dropdown-row" style="display: flex;">
                         <select class="dropdown form-control form-select-sm me-2" name="department" id="department-dropdown" style="width: 131px; height: 35px">
                             <option value="" disabled selected>Department</option>
-                            <option value="HR">HR</option>
-                            <option value="DGM - Design">DGM - Design</option>
-                            <option value="DGM - Web">DGM - Web</option>
+                            @foreach (var item in Model.Departments)
+                            {
+                                <option value="@item.Id">@item.Name</option>
+                            }
                             <option value="All">All</option>
                         </select>
                         <select class="dropdown form-control form-select-sm me-2" name="Location" id="Location-dropdown" style="width: 131px; height: 35px">

@@ -518,7 +518,17 @@
                         <div class="col-md-3">
                             <div class="form-group tabs-other">
                                 <label for="DOEofPassport">Passport Date of Expiry</label>
-                                <input type="date" class="form-control" id="DOEofPassport" value="@Model.EditableEmpInfo.DOEofPassport">
+                                @*<input type="date" class="form-control" id="DOEofPassport" value="@Model.EditableEmpInfo.DOEofPassport">*@
+
+                                @if (Model.EditableEmpInfo.DOEofPassport != DateTime.MinValue)
+                                {
+                                    @Html.TextBoxFor(m => m.EditableEmpInfo.DOEofPassport, "{0:yyyy-MM-dd}", new { @type = "date", @class = "form-control", @id = "DOEofPassport" })
+                                }
+                                else
+                                {
+                                    <input type="date" class="form-control" id="DOEofPassport" value="@Model.EditableEmpInfo.DOEofPassport">
+                                }
+
                             </div>
                         </div>
                     </div>
@@ -568,7 +578,7 @@
                         <div class="col-md-3">
                             <div class="form-group tabs-other">
                                 <label for="LatestDegree">Latest Degree</label>
-                                <input type="text" class="form-control" id="LatestDegree" value="value=" @Model.EditableEmpInfo.LatestDegree "">
+                                <input type="text" class="form-control" id="LatestDegree" value="@Model.EditableEmpInfo.LatestDegree ">
                             </div>
                         </div>
                         <div class="col-md-3">
@@ -619,13 +629,32 @@
                         <div class="col-md-3">
                             <div class="form-group tabs-other">
                                 <label for="From_date">From Date</label>
-                                <input type="date" class="form-control" id="From_date" value="@Model.EditableEmpInfo.From_date">
+                                @*<input type="date" class="form-control" id="From_date" value="@Model.EditableEmpInfo.From_date">*@
+
+                                @if (Model.EditableEmpInfo.From_date != DateTime.MinValue)
+                                {
+                                    @Html.TextBoxFor(m => m.EditableEmpInfo.From_date, "{0:yyyy-MM-dd}", new { @type = "date", @class = "form-control", @id = "From_date" })
+                                }
+                                else
+                                {
+                                    <input type="date" class="form-control" id="From_date" value="@Model.EditableEmpInfo.From_date">
+                                }
+
                             </div>
                         </div>
                         <div class="col-md-3">
                             <div class="form-group tabs-other">
                                 <label for="To_date">To Date</label>
-                                <input type="date" class="form-control" id="To_date" value="@Model.EditableEmpInfo.To_date">
+                                @*<input type="date" class="form-control" id="To_date" value="@Model.EditableEmpInfo.To_date">*@
+                                @if (Model.EditableEmpInfo.To_date != DateTime.MinValue)
+                                {
+                                    @Html.TextBoxFor(m => m.EditableEmpInfo.To_date, "{0:yyyy-MM-dd}", new { @type = "date", @class = "form-control", @id = "To_date" })
+                                }
+                                else
+                                {
+                                    <input type="date" class="form-control" id="To_date" value="@Model.EditableEmpInfo.To_date">
+                                }
+
                             </div>
                         </div>
                     </div>
@@ -651,7 +680,17 @@
                         <div class="col-md-3">
                             <div class="form-group tabs-other">
                                 <label for="DateofExit">Date of Exit:</label>
-                                <input type="date" class="form-control" id="DateofExit" value="@Model.EditableEmpInfo.DateofExit">
+                                @*<input type="date" class="form-control" id="DateofExit" value="@Model.EditableEmpInfo.DateofExit">*@
+
+                                @if (Model.EditableEmpInfo.DateofExit != DateTime.MinValue)
+                                {
+                                    @Html.TextBoxFor(m => m.EditableEmpInfo.DateofExit, "{0:yyyy-MM-dd}", new { @type = "date", @class = "form-control", @id = "DateofExit" })
+                                }
+                                else
+                                {
+                                    <input type="date" class="form-control" id="DateofExit" value="@Model.EditableEmpInfo.DateofExit">
+                                }
+
                             </div>
                         </div>
                         <div class="col-md-3">

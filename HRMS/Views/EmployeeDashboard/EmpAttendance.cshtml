@@ -1,4 +1,4 @@
-﻿<style>
+﻿@*<style>
     .employee {
         margin-bottom: 20px;
     }
@@ -9,18 +9,138 @@
         margin-bottom: 5px;
     }
 </style>
-<div class="employee">
-    <h3>Employee 1</h3>
-    <div class="bar" style="width: 80%;"></div>
-    <p>8 hours</p>
-</div>
-<div class="employee">
-    <h3>Employee 2</h3>
-    <div class="bar" style="width: 60%;"></div>
-    <p>6 hours</p>
-</div>
-<div class="employee">
-    <h3>Employee 3</h3>
-    <div class="bar" style="width: 90%;"></div>
-    <p>9 hours</p>
-</div>
+<div class="attendence">
+
+    <div class="att-nav">
+
+        <div class="flex1">
+            <span class="para1">Attendance</span>
+            <p style="display: inline-block;" class="para2"><i class="bi bi-chevron-left left-btn"></i><span>01 April 2024 </span>- <span>08 April 2024</span><i class="bi bi-chevron-right right-btn"></i></p>
+        </div>
+
+        <div class="flex2">
+
+            <div class="div1">
+                <span>From</span> <input type="date" name="" id="">
+                &nbsp; &nbsp;<span>To</span> <input type="date" name="" id="">
+            </div>
+
+            <div class="apply">
+                <button class="app-btn">Apply</button>
+            </div>
+
+        </div>
+
+    </div>
+
+
+
+    <div class="att-table">
+
+        <table class="table table-attendence ">
+            <thead class="attendence-bg">
+                <tr>
+                    <th scope="col">Date</th>
+                    <th scope="col" style="text-align: center;">Checkin-Check-Out</th>
+                    <th scope="col">Hours</th>
+                    <th scope="col">Status</th>
+                </tr>
+            </thead>
+            <tbody>
+
+                <tr>
+                    <th scope="row">01 April 2024 <br><span class="fntblur">Mon</span></th>
+                    <td class="bar-wi bar-wd">
+                        <div class="progress bg-clr bar">
+                            <div class="progress-bar bar-width-green" role="progressbar" aria-valuenow="75" aria-valuemin="10" aria-valuemax="10"></div><span class="bar-text">09:35 AM- 06:55 PM</span>
+                        </div>
+                    </td>
+                    <td class="bar-wd">09h:10m</td>
+                    <td><button class="present-btn">Present</button></td>
+                </tr>
+
+                <tr>
+                    <th scope="row">02 April 2024 <br><span class="fntblur">Tue</span></th>
+                    <td class="bar-wi bar-wd">
+                        <div class="progress bg-clr bar">
+                            <div class="progress-bar bar-width-green" role="progressbar" aria-valuenow="75" aria-valuemin="10" aria-valuemax="10"></div>
+                            <span class="bar-text">09:30 AM- 06:30 PM</span>
+                        </div>
+                    </td>
+                    <td class="bar-wd">09h:00m</td>
+                    <td><button class="present-btn">Present</button></td>
+                </tr>
+
+                <tr>
+                    <th scope="row">03 April 2024 <br><span class="fntblur">Wed</span></th>
+                    <td class="bar-wi bar-wd">
+                        <div class="progress bg-clr bar">
+                            <div class="progress-bar bar-width-red" role="progressbar" aria-valuenow="75" aria-valuemin="10" aria-valuemax="10"></div>
+                            <span class="bar-text">Emergency Leave</span>
+                        </div>
+                    </td>
+                    <td class="bar-wd">00h:00m</td>
+                    <td><button class="leave-btn">Leave</button></td>
+                </tr>
+
+                <tr>
+                    <th scope="row">04 April 2024 <br><span class="fntblur">Thu</span></th>
+                    <td class="bar-wi bar-wd">
+                        <div class="progress bg-clr bar">
+                            <div class="progress-bar bar-width-yellow" role="progressbar" aria-valuenow="75" aria-valuemin="10" aria-valuemax="10"></div>
+                            <span class="bar-text">09:30 AM- 04:30 PM</span>
+                        </div>
+                    </td>
+                    <td class="bar-wd">07h:00m</td>
+                    <td><button class="yellow-btn">Permission</button></td>
+                </tr>
+
+                <tr>
+                    <th scope="row">05 April 2024 <br><span class="fntblur">Fri</span></th>
+                    <td class="bar-wi bar-wd">
+                        <div class="progress bg-clr bar">
+                            <div class="progress-bar bar-width-green" role="progressbar" aria-valuenow="75" aria-valuemin="10" aria-valuemax="10"></div>
+                            <span class="bar-text">09:35 AM- 06:55 PM</span>
+                        </div>
+                    </td>
+                    <td class="bar-wd">09h:10m</td>
+                    <td><button class="present-btn">Present</button></td>
+                </tr>
+
+                <tr>
+                    <th scope="row">06 April 2024 <br><span class="fntblur">Sat</span></th>
+                    <td class="bar-wi bar-wd">
+                        <div class="progress bg-clr bar">
+                            <div class="progress-bar bar-width-gray" role="progressbar" aria-valuenow="75" aria-valuemin="10" aria-valuemax="10"></div>
+                            <span class="bar-text">Weekend</span>
+                        </div>
+                    </td>
+                    <td class="bar-wd">00h:00m</td>
+                    <td><button class="gray-btn">Weekend</button></td>
+                </tr>
+
+                <tr>
+                    <th scope="row">07 April 2024 <br><span class="fntblur">Sun</span></th>
+                    <td class="bar-wi bar-wd">
+                        <div class="progress bg-clr bar">
+                            <div class="progress-bar bar-width-gray" role="progressbar" aria-valuenow="75" aria-valuemin="10" aria-valuemax="10"></div>
+                            <span class="bar-text">Weekend</span>
+                        </div>
+                    </td>
+                    <td class="bar-wd">00h:00m</td>
+                    <td><button class="gray-btn">Weekend</button></td>
+                </tr>
+
+
+
+
+
+
+
+            </tbody>
+        </table>
+
+    </div>
+
+
+</div>*@

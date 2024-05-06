@@ -49,6 +49,8 @@ namespace HRMS.Controllers
             var json = JsonConvert.SerializeObject(model.EmpList);
             model.EmpListJson = json;
 
+            model.Departments = new EmployeeHelper(_dbContext).GetDepartments();
+
             return PartialView("~/Views/AdminDashboard/EmpManagement.cshtml", model);
         }
 
