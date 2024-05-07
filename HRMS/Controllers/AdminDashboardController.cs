@@ -466,6 +466,13 @@ namespace HRMS.Controllers
                 _dbContext.emp_info.Remove(employee);
                 _dbContext.SaveChanges();
 
+                var loginEmployee = _dbContext.emplogins.Where(emp => emp.EmployeeID == deletEmpInfo.empID).FirstOrDefault();
+                if (loginEmployee != null)
+                {
+                    _dbContext.emplogins.Remove(loginEmployee);
+                    _dbContext.SaveChanges();
+                }
+
                 deleteModel.JsonResponse.Message = deletEmpInfo.empName + " Employee deleted successfully!";
                 deleteModel.JsonResponse.StatusCode = 200;
             }

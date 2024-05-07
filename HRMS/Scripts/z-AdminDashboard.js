@@ -20,8 +20,7 @@ $('.admin-dashboard').click(function (event) {
     $(".hiddenadmindashboard").html("");
 });
 
-//Dashboard link js
-$('.admin-empmanagement').click(function (event) {
+$(document).on('click', '.admin-empmanagement', function (event) {
     $('#adminempmanagementtable').DataTable().destroy();
     event.preventDefault();
     HighlightAdminActiveLink($(this));
@@ -237,7 +236,6 @@ $('.admin-empmanagement').click(function (event) {
 
             $(document).on('click', '.delete-employee', function (event) {
                 event.preventDefault();
-                event.stopPropagation();
 
                 $('.delete-employee').prop('disabled', true);
                 var deleteEmpID = $('.deleteempid').html();
@@ -266,17 +264,15 @@ $('.admin-empmanagement').click(function (event) {
                     },
                     error: function (xhr, status, error) {
                         console.error("Error deleting employee:", error);
-                    },
-                    complete: function () {
-                        $('.delete-employee').prop('disabled', true);
                     }
                 });
             });
 
             $(document).on('click', '.refresh-emptablist', function () {
-                $('.admin-empmanagement').click();
                 $('#deleteConfirmationModal').modal("hide");
                 $('#importSuccessModal').modal("hide");
+                $('#EmpsuccessModal').modal("hide");
+                $('.admin-empmanagement').click();
                 $('.modal-backdrop').remove();
             });
 
@@ -697,7 +693,7 @@ $(document).on('click', '#saveReportingManagerBtn', function () {
                 console.log("Errow while adding RM to DB")
             }
         });
-    }  
+    }
 });
 
 $(document).on('click', '#saveLeaveManagerBtn', function () {
@@ -722,7 +718,7 @@ $(document).on('click', '#saveLeaveManagerBtn', function () {
                 console.log("Errow while adding LM to DB")
             }
         });
-    }    
+    }
 });
 
 function toggleDropdown() {
