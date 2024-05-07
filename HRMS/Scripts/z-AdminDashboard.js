@@ -690,6 +690,7 @@ $(document).on('click', '#saveReportingManagerBtn', function () {
                     $('#addReportingManagerModal').modal('hide');
                 } else {
                     console.log("Error while adding RM to DB");
+                    $('#addReportingManagerModal').modal('hide');
                 }
             },
             error: function (xhr, status, error) {
@@ -699,8 +700,8 @@ $(document).on('click', '#saveReportingManagerBtn', function () {
     }  
 });
 
-$(document).on('click', '#saveLeaveRMBtn', function () {
-    var newLeaveRM = $('#newLeaveRM').val().trim();
+$(document).on('click', '#saveLeaveManagerBtn', function () {
+    var newLeaveRM = $('#newLeaveManager').val().trim();
 
     if (newLeaveRM.trim() !== '') {
         $.ajax({
@@ -711,9 +712,10 @@ $(document).on('click', '#saveLeaveRMBtn', function () {
                 if (response.StatusCode == 200) {
                     console.log("Added LM to DB");
                     $('#LeavereportingManager').append('<option value="' + newLeaveRM + '">' + newLeaveRM + '</option>');
-                    $('#addLeaveRMModal').modal('hide');
+                    $('#addLeaveManagerModal').modal('hide');
                 } else {
                     console.log("Error while adding LM to DB");
+                    $('#addLeaveManagerModal').modal('hide');
                 }
             },
             error: function (xhr, status, error) {

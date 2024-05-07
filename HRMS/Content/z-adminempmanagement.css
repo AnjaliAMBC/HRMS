@@ -1,40 +1,7 @@
 ﻿.admin-empview {
-    padding: 0px;
-    /* overflow: hidden !important;*/
     width: 100%;
     height: 65px;
 }
-
-.search-container {
-    display: flex;
-    position: relative;
-    align-items: center;
-    height: 35px;
-    border: 1px solid #ccc;
-    border-radius: 13px;
-    padding: 5px;
-    overflow: hidden;
-    margin-left:35px;
-}
-
-    .search-container input[type="text"] {
-        flex: 1;
-        border: none;
-        outline: none;
-        margin-left: 38px;
-        border-left: 1px solid #7d8da1;
-        padding-left: 13px;
-    }
-
-    .search-container button {
-        position: absolute;
-        background-color: transparent;
-        color: #7d8da1;
-        border: none;
-        cursor: pointer;
-        padding-top: 5px;
-        left: 10px;
-    }
 
 .material-icons-sharp {
     color: #7d8da1;
@@ -43,8 +10,8 @@
 .features {
     display: flex;
     width: 50px !important;
-    margin-left: 43px;
 }
+   
 
 #dropdownButton {
     width: 30px;
@@ -60,9 +27,6 @@
     width: 5px;
 }
 
-.advancetitle {
-    padding-top: 15px;
-}
 
 #buttonforadd {
     border: 1px solid transparent;
@@ -71,11 +35,9 @@
 }
 
 .addemployee {
-    display: flex;
-    border: 1px solid #ccc;
+    width: 197px;
     border-radius: 13px;
-    padding: 5px 5px;
-    margin-left: -83px;
+    height: 35px;
 }
 
 .employeeadd {
@@ -92,15 +54,11 @@
     display: flex;
 }
 
-.dropdown {
+.filter-dropdown {
     padding: 2px 5px;
     margin: 0px 10px;
-    border-radius: 15px;
 }
-
 .collapsedropdown {
-    margin-top: 12px;
-    margin-left: 10px;
     border-radius: 50%;
     background-color: #fff;
     border: 1px solid black;
@@ -144,10 +102,6 @@ ver-icons:hover .icons {
     margin-left: 30px;
 }
 
-.topic {
-    display: flex;
-}
-
 #action {
     height: 30px;
     margin-left: 20px;
@@ -165,21 +119,21 @@ label {
     margin-bottom: 6px;
 }
 
-    @media screen and (max-width:768px) {
-        .top {
-            width: auto;
-            height: 120px;
-        }
+@media screen and (max-width:768px) {
+    .top {
+        width: auto;
+        height: 120px;
     }
+}
 
-    @media screen and (max-width:425px) {
-        .top {
-            width: auto;
-            height: 160px;
-        }
+@media screen and (max-width:425px) {
+    .top {
+        width: auto;
+        height: 160px;
     }
+}
 
-    .dataTables_wrapper {
+.dataTables_wrapper {
     padding: 20px;
 }
 
@@ -205,13 +159,11 @@ table.dataTable thead th, table.dataTable tbody td {
     margin-right: 5px;
 }
 
-.advancefilter {
+/*.advancefilter {
     margin-left: 10%;
     margin-top: 2%;
-}
- {
-    text-align: end;
-}
+}*/
+
 
 #adminempmanagementtable.dataTable thead th, #adminempmanagementtable.dataTable thead td {
     padding: 8px 8px;
@@ -262,7 +214,6 @@ table.dataTable {
     }
 
 .action-menu {
-   
     position: absolute;
     background-color: #f9f9f9;
     min-width: 185px;
@@ -308,12 +259,12 @@ table.dataTable {
 
 #adminempmanagementtable.no-footer tfoot th,
 #adminempmanagementtable.no-footer tfoot td,
-#adminempmanagementtable tr{
+#adminempmanagementtable tr {
     border: none;
 }
 
 /*//Hiding jquery default search box*/
-#adminempmanagementtable_filter{
+#adminempmanagementtable_filter {
     display: none;
 }
 
@@ -325,6 +276,7 @@ table.dataTable {
 table.dataTable.display tbody tr.odd {
     background-color: white !important;
 }
+
 table.dataTable.display tbody tr.even {
     background-color: white !important;
 }
@@ -339,15 +291,16 @@ tr:hover .edit-btn,
 tr:hover .delete-btn {
     display: inline-block;
 }
+
 .tdempname {
     width: 270.4px;
 }
 
-.tdempname div.default-image,
-.tdempname span {
-    display: inline-block;
-    vertical-align: middle;
-}
+    .tdempname div.default-image,
+    .tdempname span {
+        display: inline-block;
+        vertical-align: middle;
+    }
 /* Remove hover background color */
 .table.dataTable.hover tbody tr:hover {
     background-color: transparent !important;
@@ -366,22 +319,22 @@ tr:hover .delete-btn {
     background-color: transparent !important;
 }
 
-.admin-empnav {
+/*.admin-empnav {
     margin-top: -22px;
     margin-left: -13px;
     width: 125%;
-}
+}*/
 
-#adminempmanagementtable {
+/*#adminempmanagementtable {
     width: 102% !important;
     margin-left: 0px;
-    font-size:15px;
-}
+    font-size: 15px;
+}*/
 
 #dropdownMenuContent {
     overflow-y: auto;
-    height:177px;
-    right:18%;
+    height: 177px;
+    right: 18%;
 }
 
 /* width */
@@ -405,19 +358,22 @@ tr:hover .delete-btn {
     ::-webkit-scrollbar-thumb:hover {
         background: lightblue;
     }
+
 .highlighted {
     background-color: #f0f8ff; /* Change the background color as needed */
 }
+
 table.dataTable.display tbody tr:first-child td,
 table.dataTable.display tbody tr:first-child td,
 table.dataTable.display tbody tr:hover > .sorting_1,
 table.dataTable.display tbody tr.odd > .sorting_1 {
-    background-color:transparent;
+    background-color: transparent;
 }
 
 .dataTables_wrapper .odd:hover {
     background-color: transparent !important;
 }
+
 table.dataTable.display tbody tr:hover > .sorting_1,
 table.dataTable.order-column.hover tbody tr:hover > .sorting_1
 table.dataTable.display tbody tr.even > .sorting_1,
@@ -430,6 +386,7 @@ table.dataTable.display tbody tr > .sorting_2,
 table.dataTable.display tbody tr > .sorting_3 {
     background-color: transparent !important;
 }
+
 #adminempmanagementtable thead {
     border-top-left-radius: 10px;
     border-top-right-radius: 10px;

@@ -10,7 +10,7 @@ using Newtonsoft.Json;
 using System.Data;
 using System.IO;
 using OfficeOpenXml;
-using HRMS.Helpers;
+
 using System.Net.Mail;
 using System.Configuration;
 using System.Net;
@@ -47,7 +47,7 @@ namespace HRMS.Controllers
             model.EmpInfo = cuserContext.EmpInfo;
             model.LoginInfo = cuserContext.LoginInfo;
 
-            var employeesList = _dbContext.emp_info.ToList();
+            var employeesList = _dbContext.emp_info.OrderByDescending(emp => emp.EmployeeID).ToList();
             model.EmpList = employeesList;
 
             var json = JsonConvert.SerializeObject(model.EmpList);
@@ -87,6 +87,13 @@ namespace HRMS.Controllers
             model.LeaveManagers = new EmployeeHelper(_dbContext).GetLeaveManagers();
             model.ReportingManagers = new EmployeeHelper(_dbContext).GetReportingManagers();
 
+            var lastEmpInfo = _dbContext.emp_info.OrderByDescending(e => e.EmployeeID).FirstOrDefault();
+            if (lastEmpInfo != null)
+            {
+                model.LastCreatedEmpID = lastEmpInfo.EmployeeID;
+            }
+
+
             return PartialView("~/Views/AdminDashboard/AddEmpTabs.cshtml", model);
         }
 
@@ -120,7 +127,7 @@ namespace HRMS.Controllers
                 _dbContext.emplogins.Add(empLoginInfo);
                 _dbContext.SaveChanges();
 
-                NewAccountCreateEmail(empLoginInfo, model);
+                NewAccountCreateEmail(empLoginInfo);
             }
             catch (Exception ex)
             {
@@ -129,7 +136,7 @@ namespace HRMS.Controllers
             return Json(model, JsonRequestBehavior.AllowGet);
         }
 
-        public JsonResult NewAccountCreateEmail(emplogin empInfoModel, AddEmployeeViewModel model)
+        public JsonResult NewAccountCreateEmail(emplogin empInfoModel)
         {
             try
             {
@@ -157,9 +164,8 @@ namespace HRMS.Controllers
             }
             catch (Exception ex)
             {
-                model.NewLoginEmailResponse.Message = ex.Message;
-                model.NewLoginEmailResponse.StatusCode = 500;
-                return Json(model, JsonRequestBehavior.AllowGet);
+                ErrorHelper.CaptureError(ex);
+                return Json("Error occured while sending new emp login info email: ", JsonRequestBehavior.AllowGet);
             }
         }
 
@@ -225,7 +231,7 @@ namespace HRMS.Controllers
                     existingEmployee.EligibleforRehire = model.EmpInfo.EligibleforRehire;
                     existingEmployee.CreatedBy = model.EmpInfo.CreatedBy;
                     existingEmployee.CreatedDate = model.EmpInfo.CreatedDate;
-                    existingEmployee.UpdatedBy = "Admin";
+                    existingEmployee.UpdatedBy = model.EmpInfo.UpdatedBy;
                     existingEmployee.UpdatedDate = DateTime.Now;
 
                     // Save changes back to the database
@@ -264,6 +270,8 @@ namespace HRMS.Controllers
         public ActionResult ImportUsers(HttpPostedFileBase file)
         {
             var model = new ImportEmployeeViewModel();
+            var cuserContext = SiteContext.GetCurrentUserContext();
+
             try
             {
                 // Check if a file is uploaded
@@ -359,6 +367,8 @@ namespace HRMS.Controllers
                             emp.DateofExit = !string.IsNullOrWhiteSpace(dataRow["DateofExit"].ToString()) ? Convert.ToDateTime(dataRow["DateofExit"]) : System.DateTime.MinValue;
                             emp.Reason = dataRow["Reason"].ToString();
                             emp.EligibleforRehire = dataRow["EligibleforRehire"].ToString();
+                            emp.CreatedBy = cuserContext.LoginInfo.EmployeeName;
+                            emp.CreatedDate = DateTime.Now;
                             empList.Add(emp);
                         }
                     }
@@ -370,6 +380,27 @@ namespace HRMS.Controllers
 
                         model.JsonResponse.Message = "Users Imported successfully";
                         model.JsonResponse.StatusCode = 200;
+
+                        foreach (var importEmp in empList)
+                        {
+                            var empLoginInfo = new emplogin();
+                            empLoginInfo.EmployeeID = importEmp.EmployeeID;
+                            empLoginInfo.EmployeeName = importEmp.EmployeeName;
+                            empLoginInfo.EmployeeMobile = importEmp.MobileNumber;
+                            empLoginInfo.Password = PasswordHelper.GenerateRandomPassword(10);
+                            empLoginInfo.IsLeaveRM = false;
+                            empLoginInfo.IsReportingM = false;
+                            empLoginInfo.EmployeeStatus = "Active";
+                            empLoginInfo.EmployeeRole = "Team Member";
+                            empLoginInfo.EmployeeEmail = importEmp.OfficalEmailid;
+                            empLoginInfo.CreatedBy = importEmp.CreatedBy;
+                            empLoginInfo.CreatedDate = DateTime.Now;
+
+                            _dbContext.emplogins.Add(empLoginInfo);
+                            _dbContext.SaveChanges();
+
+                            NewAccountCreateEmail(empLoginInfo);
+                        }
                     }
                 }
 
@@ -570,11 +601,11 @@ namespace HRMS.Controllers
             {
                 try
                 {
-                    var newReportingManager = _dbContext.emplogins.Where(emp => emp.EmployeeName == newRM).FirstOrDefault();
-                    if (newReportingManager != null)
+                    var newReportingManager = _dbContext.LeaveRMs.Where(emp => emp.Name == newRM).FirstOrDefault();
+                    if (newReportingManager == null)
                     {
-                        var client = new emplogin { IsReportingM = true };
-                        newReportingManager.IsReportingM = true;
+                        var newReprotingM = new LeaveRM { Name = newRM, IsReporingM = true };
+                        _dbContext.LeaveRMs.Add(newReprotingM);
                         _dbContext.SaveChanges();
 
                         model.Message = "Reporting Manager added successfully!";
@@ -605,11 +636,11 @@ namespace HRMS.Controllers
             {
                 try
                 {
-                    var newLeaveManager = _dbContext.emplogins.Where(emp => emp.EmployeeName == newLM).FirstOrDefault();
-                    if (newLeaveManager != null)
+                    var newLeaveManager = _dbContext.LeaveRMs.Where(emp => emp.Name == newLM).FirstOrDefault();
+                    if (newLeaveManager == null)
                     {
-                        var client = new emplogin { IsReportingM = true };
-                        newLeaveManager.IsLeaveRM = true;
+                        var newReprotingM = new LeaveRM { Name = newLM, IsLeaveRM = true };
+                        _dbContext.LeaveRMs.Add(newReprotingM);
                         _dbContext.SaveChanges();
 
                         model.Message = "Leave Manager added successfully!";
