@@ -107,12 +107,22 @@
           <Property Name="IsLeaveRM" Type="bit" />
           <Property Name="IsReportingM" Type="bit" />
         </EntityType>
+        <EntityType Name="LeaveRM">
+          <Key>
+            <PropertyRef Name="Sno" />
+          </Key>
+          <Property Name="Sno" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Name" Type="varchar" MaxLength="255" />
+          <Property Name="IsLeaveRM" Type="bit" />
+          <Property Name="IsReporingM" Type="bit" />
+        </EntityType>
         <EntityContainer Name="HRMS_EntityModelStoreContainer">
           <EntitySet Name="Client" EntityType="Self.Client" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Department" EntityType="Self.Department" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Designation" EntityType="Self.Designation" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="emp_info" EntityType="Self.emp_info" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="emplogin" EntityType="Self.emplogin" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="LeaveRM" EntityType="Self.LeaveRM" Schema="dbo" store:Type="Tables" />
         </EntityContainer>
       </Schema></edmx:StorageModels>
     <!-- CSDL content -->
@@ -144,6 +154,7 @@
           <EntitySet Name="Departments" EntityType="HRMS_EntityModel.Department" />
           <EntitySet Name="Designations" EntityType="HRMS_EntityModel.Designation" />
           <EntitySet Name="emp_info" EntityType="HRMS_EntityModel.emp_info" />
+          <EntitySet Name="LeaveRMs" EntityType="HRMS_EntityModel.LeaveRM" />
         </EntityContainer>
         <EntityType Name="Client">
           <Key>
@@ -226,6 +237,15 @@
           <Property Name="UpdatedBy" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
           <Property Name="UpdatedDate" Type="DateTime" Precision="0" />
           <Property Name="imagepath" Type="String" MaxLength="1000" FixedLength="false" Unicode="false" />
+        </EntityType>
+        <EntityType Name="LeaveRM">
+          <Key>
+            <PropertyRef Name="Sno" />
+          </Key>
+          <Property Name="Sno" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Name" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+          <Property Name="IsLeaveRM" Type="Boolean" />
+          <Property Name="IsReporingM" Type="Boolean" />
         </EntityType>
       </Schema>
     </edmx:ConceptualModels>
@@ -336,6 +356,16 @@
                 <ScalarProperty Name="EmployeeName" ColumnName="EmployeeName" />
                 <ScalarProperty Name="EmployeeStatus" ColumnName="EmployeeStatus" />
                 <ScalarProperty Name="EmployeeID" ColumnName="EmployeeID" />
+                <ScalarProperty Name="Sno" ColumnName="Sno" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="LeaveRMs">
+            <EntityTypeMapping TypeName="HRMS_EntityModel.LeaveRM">
+              <MappingFragment StoreEntitySet="LeaveRM">
+                <ScalarProperty Name="IsReporingM" ColumnName="IsReporingM" />
+                <ScalarProperty Name="IsLeaveRM" ColumnName="IsLeaveRM" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
                 <ScalarProperty Name="Sno" ColumnName="Sno" />
               </MappingFragment>
             </EntityTypeMapping>

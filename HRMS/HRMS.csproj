@@ -135,7 +135,6 @@
     <Compile Include="App_Start\RouteConfig.cs" />
     <Content Include="Assets\EMBackground.png" />
     <Content Include="Assets\empdashboard.png" />
-    <Content Include="Assets\EmpImages\1311.png" />
     <Content Include="Assets\EmpProfile.png" />
     <Content Include="Content\AdminAttendance.css" />
     <Content Include="Content\zempattendace.css" />
@@ -183,6 +182,9 @@
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
       <DependentUpon>HRMS.edmx</DependentUpon>
+    </Compile>
+    <Compile Include="LeaveRM.cs">
+      <DependentUpon>HRMS.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\AccountModel.cs" />
     <Compile Include="Models\Admin\AddEmployee.cs" />
@@ -275,6 +277,7 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
+    <Folder Include="Assets\EmpImages\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="fonts\glyphicons-halflings-regular.woff2" />

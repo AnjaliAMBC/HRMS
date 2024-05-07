@@ -30,5 +30,6 @@ namespace HRMS
         public virtual DbSet<Department> Departments { get; set; }
         public virtual DbSet<Designation> Designations { get; set; }
         public virtual DbSet<emp_info> emp_info { get; set; }
+        public virtual DbSet<LeaveRM> LeaveRMs { get; set; }
     }
 }
