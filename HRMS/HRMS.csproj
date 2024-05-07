@@ -138,7 +138,7 @@
     <Content Include="Assets\EmpImages\1311.png" />
     <Content Include="Assets\EmpProfile.png" />
     <Content Include="Content\AdminAttendance.css" />
-    <Content Include="Content\EmpAttendace.css" />
+    <Content Include="Content\zempattendace.css" />
     <Content Include="Content\z-adminempmanagement.css" />
     <Compile Include="Client.cs">
       <DependentUpon>HRMS.tt</DependentUpon>
@@ -166,6 +166,8 @@
     <Compile Include="Helpers\EmployeeHelper.cs" />
     <Compile Include="Helpers\ErrorHelper.cs" />
     <Compile Include="Helpers\ImageHelper.cs" />
+    <Compile Include="Helpers\PartialViewHelper.cs" />
+    <Compile Include="Helpers\PasswordHelper.cs" />
     <Compile Include="Helpers\SiteContext.cs" />
     <Compile Include="HRMS.Context.cs">
       <AutoGen>True</AutoGen>
@@ -269,6 +271,7 @@
     <Content Include="Views\AdminDashboard\AdminAttendance.cshtml" />
     <Content Include="Views\EmployeeDashboard\EmpAttendance.cshtml" />
     <Content Include="Views\Shared\_NavBar.cshtml" />
+    <Content Include="Views\AdminDashboard\_newLoginpassword.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

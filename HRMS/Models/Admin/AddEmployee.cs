@@ -67,6 +67,8 @@ namespace HRMS.Models.Admin
     {
         public emp_info EditableEmpInfo { get; set; } = new emp_info();
         public JsonResponse JsonResponse { get; set; } = new JsonResponse();
+
+        public JsonResponse NewLoginEmailResponse { get; set; } = new JsonResponse();
         public string HeadLine { get; set; }
         public List<DropdownItem> Departments { get; set; } = new List<DropdownItem>();
         public List<DropdownItem> Designations { get; set; } = new List<DropdownItem>();

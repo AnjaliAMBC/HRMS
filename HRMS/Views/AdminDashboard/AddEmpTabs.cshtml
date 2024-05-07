@@ -4,7 +4,7 @@
     <h2 style="margin-bottom: 35px; margin-left: -5px; " class="addempheadline">
         @Model.HeadLine
     </h2>
-    <ul class="nav nav-tabs" id="myTab" role="tablist" style="background-color: aliceblue">
+    <ul class="nav nav-tabs" id="myTab" role="tablist" style="background-color: #EEF4FF">
         <li class="nav-item" role="presentation">
             <a class="nav-link active" id="tab1-link" data-toggle="tab" href="#tab1" role="tab" aria-controls="tab1" aria-selected="true"><b>General Information</b></a>
         </li>
@@ -206,7 +206,7 @@
                         </div>
                         <div class="col-md-3">
                             <div class="form-group tabs-general">
-                                <label for="Designation">Designation:</label>
+                                <label for="Designation">Designation</label>
                                 <div class="input-group">
                                     <select class="form-control" id="Designation" required>
                                         @{
@@ -333,14 +333,36 @@
                                 <div class="input-group dropdownplacehodercolor">
                                     <select class="form-control" id="ReportingManager" required>
 
+                                        @*@{
+                                                var selectedReportingManager = !string.IsNullOrEmpty(Model.EditableEmpInfo.ReportingManager) ? "selected" : "";
+                                            }
+                                            <option value="" @selectedReportingManager style="color:lightgray;">Select RM</option>
+                                            @foreach (var item in Model.ReportingManagers)
+                                            {
+                                                selectedReportingManager = !string.IsNullOrEmpty(Model.EditableEmpInfo.ReportingManager) && (Model.EditableEmpInfo.ReportingManager == item.Name) ? "selected" : "";
+                                                <option value="@item.Id" @selectedReportingManager>@item.Name</option>
+                                            }*@
+
                                         @{
                                             var selectedReportingManager = !string.IsNullOrEmpty(Model.EditableEmpInfo.ReportingManager) ? "selected" : "";
                                         }
                                         <option value="" @selectedReportingManager style="color:lightgray;">Select RM</option>
+                                        @{
+                                            var RMList = new List<string>();
+                                            RMList.Add("Shanta M Balakumar");
+                                            RMList.Add("Seema Ashok");
+                                            RMList.Add("Mithun Sivaprakasam");
+                                        }
+
                                         @foreach (var item in Model.ReportingManagers)
                                         {
-                                            selectedReportingManager = !string.IsNullOrEmpty(Model.EditableEmpInfo.ReportingManager) && (Model.EditableEmpInfo.ReportingManager == item.Name) ? "selected" : "";
-                                            <option value="@item.Id" @selectedReportingManager>@item.Name</option>
+                                            RMList.Add(item.Name);
+                                        }
+
+                                        @foreach (var item in RMList)
+                                        {
+                                            selectedemploymentTypeItem = !string.IsNullOrEmpty(Model.EditableEmpInfo.ReportingManager) && (Model.EditableEmpInfo.ReportingManager == item) ? "selected" : "";
+                                            <option value="@item" @selectedReportingManager>@item</option>
                                         }
 
                                     </select>
@@ -362,14 +384,36 @@
                                 <div class="input-group">
                                     <select class="form-control" id="LeavereportingManager" required>
 
+                                        @*@{
+                                                var selectedLeaveManager = !string.IsNullOrEmpty(Model.EditableEmpInfo.LeavereportingManager) ? "selected" : "";
+                                            }
+                                            <option value="" @selectedLeaveManager style="color:lightgray;">Select LM</option>
+                                            @foreach (var item in Model.LeaveManagers)
+                                            {
+                                                selectedLeaveManager = !string.IsNullOrEmpty(Model.EditableEmpInfo.LeavereportingManager) && (Model.EditableEmpInfo.LeavereportingManager == item.Name) ? "selected" : "";
+                                                <option value="@item.Id" @selectedLeaveManager>@item.Name</option>
+                                            }*@
+
                                         @{
                                             var selectedLeaveManager = !string.IsNullOrEmpty(Model.EditableEmpInfo.LeavereportingManager) ? "selected" : "";
                                         }
                                         <option value="" @selectedLeaveManager style="color:lightgray;">Select LM</option>
+                                        @{
+                                            var LMList = new List<string>();
+                                            LMList.Add("Shanta M Balakumar");
+                                            LMList.Add("Seema Ashok");
+                                            LMList.Add("Mithun Sivaprakasam");
+                                        }
+
                                         @foreach (var item in Model.LeaveManagers)
                                         {
-                                            selectedLeaveManager = !string.IsNullOrEmpty(Model.EditableEmpInfo.LeavereportingManager) && (Model.EditableEmpInfo.LeavereportingManager == item.Name) ? "selected" : "";
-                                            <option value="@item.Id" @selectedLeaveManager>@item.Name</option>
+                                            LMList.Add(item.Name);
+                                        }
+
+                                        @foreach (var item in LMList)
+                                        {
+                                            selectedLeaveManager = !string.IsNullOrEmpty(Model.EditableEmpInfo.LeavereportingManager) && (Model.EditableEmpInfo.LeavereportingManager == item) ? "selected" : "";
+                                            <option value="@item" @selectedLeaveManager>@item</option>
                                         }
 
                                     </select>
@@ -450,6 +494,9 @@
                     </div>
 
                 </div>
+
+                @*Current loggedin User name*@
+                <input type="text" class="form-control" id="CreatedBy" value="@Model.EmpInfo.CreatedBy" style="display: none">
             </form>
         </div>
         <div class="tab-pane fade" id="tab2" role="tabpanel" aria-labelledby="tab2-link">
@@ -717,6 +764,7 @@
 
     <div class="isaddaction" style="display: none">@Model.IsAddAction</div>
 
+
     <div class="modal fade" id="addDesignationModel" tabindex="-1" role="dialog" aria-labelledby="addDesignationModalLabel" aria-hidden="true">
         <div class="modal-dialog" role="document">
             <div class="modal-content">
@@ -730,7 +778,7 @@
                     <!-- Your form for adding a new option goes here -->
                     <form id="addOptionForm">
                         <div class="form-group tabs-other">
-                            <label for="newDesignation">New Designation:</label>
+                            <label for="newDesignation">New Designation</label>
                             <input type="text" class="form-control" id="newDesignation">
                         </div>
                     </form>

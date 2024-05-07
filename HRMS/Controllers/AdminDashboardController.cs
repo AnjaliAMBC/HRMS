@@ -10,6 +10,10 @@ using Newtonsoft.Json;
 using System.Data;
 using System.IO;
 using OfficeOpenXml;
+using HRMS.Helpers;
+using System.Net.Mail;
+using System.Configuration;
+using System.Net;
 
 namespace HRMS.Controllers
 {
@@ -99,12 +103,64 @@ namespace HRMS.Controllers
 
                 model.JsonResponse.Message = "Employee details added successfully!";
                 model.JsonResponse.StatusCode = 200;
+
+                var empLoginInfo = new emplogin();
+                empLoginInfo.EmployeeID = formData.EmployeeID;
+                empLoginInfo.EmployeeName = formData.EmployeeName;
+                empLoginInfo.EmployeeMobile = formData.MobileNumber;
+                empLoginInfo.Password = PasswordHelper.GenerateRandomPassword(10);
+                empLoginInfo.IsLeaveRM = false;
+                empLoginInfo.IsReportingM = false;
+                empLoginInfo.EmployeeStatus = "Active";
+                empLoginInfo.EmployeeRole = "Team Member";
+                empLoginInfo.EmployeeEmail = formData.OfficalEmailid;
+                empLoginInfo.CreatedBy = formData.CreatedBy;
+                empLoginInfo.CreatedDate = DateTime.Now;
+
+                _dbContext.emplogins.Add(empLoginInfo);
+                _dbContext.SaveChanges();
+
+                NewAccountCreateEmail(empLoginInfo, model);
             }
             catch (Exception ex)
             {
                 model.JsonResponse = ErrorHelper.CaptureError(ex);
             }
             return Json(model, JsonRequestBehavior.AllowGet);
+        }
+
+        public JsonResult NewAccountCreateEmail(emplogin empInfoModel, AddEmployeeViewModel model)
+        {
+            try
+            {
+                var emailBody = "";
+                var emailSubject = "AMBC HRMS Login created";
+                emailBody = PartialViewHelper.RenderPartialToString(this, "_newLoginpassword", empInfoModel, ViewData, TempData);
+
+                using (MailMessage mm = new MailMessage(ConfigurationManager.AppSettings["SMTPUserName"], empInfoModel.EmployeeEmail))
+                {
+                    mm.Subject = emailSubject;
+                    mm.Body = emailBody;
+                    mm.IsBodyHtml = true;
+                    SmtpClient smtp = new SmtpClient();
+                    smtp.Host = ConfigurationManager.AppSettings["SMTPHost"];
+                    smtp.EnableSsl = true;
+                    NetworkCredential credentials = new NetworkCredential();
+                    credentials.UserName = ConfigurationManager.AppSettings["SMTPUserName"];
+                    credentials.Password = ConfigurationManager.AppSettings["SMTPPassword"];
+                    smtp.UseDefaultCredentials = true;
+                    smtp.Credentials = credentials;
+                    smtp.Port = Convert.ToInt32(ConfigurationManager.AppSettings["SMTPPort"]);
+                    smtp.Send(mm);
+                }
+                return Json(null);
+            }
+            catch (Exception ex)
+            {
+                model.NewLoginEmailResponse.Message = ex.Message;
+                model.NewLoginEmailResponse.StatusCode = 500;
+                return Json(model, JsonRequestBehavior.AllowGet);
+            }
         }
 
         [HttpPost]
@@ -229,16 +285,16 @@ namespace HRMS.Controllers
                         int rowCount = worksheet.Dimension.End.Row;
                         for (int row = 2; row <= rowCount; row++)
                         {
-                            bool isEmptyRow = true; 
+                            bool isEmptyRow = true;
                             for (int col = 1; col <= colCount; col++)
                             {
                                 if (worksheet.Cells[row, col].Value != null)
                                 {
-                                    isEmptyRow = false; 
+                                    isEmptyRow = false;
                                     break;
                                 }
                             }
-                           
+
                             if (isEmptyRow)
                             {
                                 continue;
@@ -514,7 +570,7 @@ namespace HRMS.Controllers
             {
                 try
                 {
-                    var newReportingManager = _dbContext.emplogins.Where(emp => emp.EmployeeEmail == newRM).FirstOrDefault();
+                    var newReportingManager = _dbContext.emplogins.Where(emp => emp.EmployeeName == newRM).FirstOrDefault();
                     if (newReportingManager != null)
                     {
                         var client = new emplogin { IsReportingM = true };
@@ -549,7 +605,7 @@ namespace HRMS.Controllers
             {
                 try
                 {
-                    var newLeaveManager = _dbContext.emplogins.Where(emp => emp.EmployeeEmail == newLM).FirstOrDefault();
+                    var newLeaveManager = _dbContext.emplogins.Where(emp => emp.EmployeeName == newLM).FirstOrDefault();
                     if (newLeaveManager != null)
                     {
                         var client = new emplogin { IsReportingM = true };

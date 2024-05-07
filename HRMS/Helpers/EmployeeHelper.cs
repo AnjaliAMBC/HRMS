@@ -88,8 +88,8 @@ namespace HRMS.Helpers
                 var leaveManagers = _dbContext.emplogins.Where(emp => emp.IsLeaveRM == true).ToList();
                 model = leaveManagers.Select(x => new DropdownItem
                 {
-                    Id = x.EmployeeEmail,
-                    Name = x.EmployeeEmail,
+                    Id = x.EmployeeName,
+                    Name = x.EmployeeName,
                 }).ToList();
             }
 
@@ -108,8 +108,8 @@ namespace HRMS.Helpers
                 var reportingManagers = _dbContext.emplogins.Where(emp => emp.IsReportingM == true).ToList();
                 model = reportingManagers.Select(x => new DropdownItem
                 {
-                    Id = x.EmployeeEmail,
-                    Name = x.EmployeeEmail,
+                    Id = x.EmployeeName,
+                    Name = x.EmployeeName,
                 }).ToList();
             }
 

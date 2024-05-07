@@ -677,15 +677,50 @@ $(document).on('click', '#saveClient', function (event) {
 });
 
 $(document).on('click', '#saveReportingManagerBtn', function () {
-    var newReportingManager = $('#newReportingManager').val();
-    $('#ReportingManager').append('<option value="' + newReportingManager + '">' + newReportingManager + '</option>');
-    $('#addReportingManagerModal').modal('hide');
+    var newReportingManager = $('#newReportingManager').val().trim();
+    if (newReportingManager.trim() !== '') {
+        $.ajax({
+            url: '/admindashboard/rmadd',
+            method: 'POST',
+            data: { newRM: newReportingManager },
+            success: function (response) {
+                if (response.StatusCode == 200) {
+                    console.log("Added RM to DB");
+                    $('#ReportingManager').append('<option value="' + newReportingManager + '">' + newReportingManager + '</option>');
+                    $('#addReportingManagerModal').modal('hide');
+                } else {
+                    console.log("Error while adding RM to DB");
+                }
+            },
+            error: function (xhr, status, error) {
+                console.log("Errow while adding RM to DB")
+            }
+        });
+    }  
 });
 
 $(document).on('click', '#saveLeaveRMBtn', function () {
-    var newLeaveRM = $('#newLeaveRM').val();
-    $('#LeavereportingManager').append('<option value="' + newLeaveRM + '">' + newLeaveRM + '</option>');
-    $('#addLeaveRMModal').modal('hide');
+    var newLeaveRM = $('#newLeaveRM').val().trim();
+
+    if (newLeaveRM.trim() !== '') {
+        $.ajax({
+            url: '/admindashboard/lmadd',
+            method: 'POST',
+            data: { newLM: newLeaveRM },
+            success: function (response) {
+                if (response.StatusCode == 200) {
+                    console.log("Added LM to DB");
+                    $('#LeavereportingManager').append('<option value="' + newLeaveRM + '">' + newLeaveRM + '</option>');
+                    $('#addLeaveRMModal').modal('hide');
+                } else {
+                    console.log("Error while adding LM to DB");
+                }
+            },
+            error: function (xhr, status, error) {
+                console.log("Errow while adding LM to DB")
+            }
+        });
+    }    
 });
 
 function toggleDropdown() {

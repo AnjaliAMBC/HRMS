@@ -47,10 +47,18 @@ $('.emp-dashboard').click(function (event) {
 });
 
 //Attedence link js
+
 $('.emp-attendence').click(function (event) {
     event.preventDefault();
     HighlightEmpActiveLink($(this));
-
+    $.ajax({
+        url: '/EmpAttendance/Index',
+        type: 'POST',
+        dataType: 'html',
+        success: function (response) {
+            $(".hiddenselfservice").html(response);
+            var formContent = $(".hiddenselfservice").find(".empattendence-container").html();
+            $(".attedance-dashboard-data").html(formContent);
     $('.attedance-dashboard-data').show();
     $('.emp-dashboard-data').hide();
     $('.selfservice-dashboard-data').hide();
@@ -58,8 +66,12 @@ $('.emp-attendence').click(function (event) {
     $('.myrequest-dashboard-data').hide();
 
     $(".hiddenattendance").html("");
+        },
+        error: function (xhr, status, error) {
+            var err = eval("(" + xhr.responseText + ")");
+        }
+    });
 });
-
 //Leave Tracker
 $('.emp-leavetracker').click(function (event) {
     event.preventDefault();
