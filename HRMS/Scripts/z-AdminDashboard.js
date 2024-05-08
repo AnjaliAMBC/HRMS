@@ -88,7 +88,7 @@ $(document).on('click', '.admin-empmanagement', function (event) {
                         "render": function (data, type, full, meta) {
                             var imageHtml = '';
                             if (data.image) {
-                                var imageURl = "/Assets/EmpImages/" + data.image;
+                                var imageURl = "/assets/empImages/" + data.image;
                                 imageHtml = '<img src="' + imageURl + '" alt="Profile Image" style="width: 45px; height: 45px; border-radius: 50%; margin-right: 10px;">';
                             } else {
                                 var firstNameInitial = data.name.charAt(0);
