@@ -1,76 +1,73 @@
-﻿<div style="overflow-x: hidden;">
-    <nav class="navbar navbar-expand-lg navbar-light bg-light empdash-navbar">
-        <a class="dash-logo" href="#">
-            <img src="~/Assets/AMBC_Logo.png" alt="logo" class="logo-img" />
-        </a>
-        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-            <span class="navbar-toggler-icon"></span>
-        </button>
+﻿
 
-        <div class="collapse navbar-collapse" id="navbarSupportedContent">
-            <ul class="nav ml-auto">
-                @*<li class="nav-item">
-                        <select id="help-nav" name="help" class="form-control">
-                            <option value="" disabled selected hidden>Help</option>
-                            <option value="option1">option1</option>
-                            <option value="option2">option2</option>
-                        </select>
-                    </li>*@
-                <li class="nav-item" id="navbar-profile">
-                    @*<img src="~/Assets/EmpProfile.png" alt="profile" class="nav-profile" />*@
-
-                    @{
-                        var currentContext = HRMS.Helpers.SiteContext.GetCurrentUserContext();
-                    }
-
-                    @if (!string.IsNullOrWhiteSpace(currentContext.EmpInfo.imagepath))
-                    {
-                        var empImageURl = System.Configuration.ConfigurationManager.AppSettings["EmpImagesFolder"] + "/" + currentContext.EmpInfo.imagepath;
-                        <img src="@empImageURl" alt="Employee Image" class="profile img-fluid nav-profile nav-image-profile" style=" width: 70px; height: 55px; border-radius: 50%; /* background-color: black; */ /* margin-bottom: 20px; */ /* margin-top: -50px; */ color: white; /* margin-left: -18px;">
-                    }
-                    else
-                    {
-                        <img src="" alt="Employee Image" class="profile img-fluid nav-profile nav-image-profile" style=" width: 70px; height: 55px; border-radius: 50%;  color: white; display: none">
-
-                        // Split the full name into first name and last name
-                        string[] names = currentContext.EmpInfo.EmployeeName.Split(new char[] { ' ' }, StringSplitOptions.RemoveEmptyEntries);
-
-                        // Ensure we have at least one name
-                        if (names.Length > 0)
-                        {
-                            // Get the first name
-                            string firstName = names[0];
-
-                            // Get the last name if available
-                            string lastName = names.Length > 1 ? names[names.Length - 1] : string.Empty;
-
-                            // Extract the first letters
-                            char firstLetterOfFirstName = firstName[0];
-                            char firstLetterOfLastName = !string.IsNullOrEmpty(lastName) ? lastName[0] : '\0';
-
-                            // Convert to uppercase if needed
-                            firstLetterOfFirstName = char.ToUpper(firstLetterOfFirstName);
-                            firstLetterOfLastName = char.ToUpper(firstLetterOfLastName);
-
-                            // Output the first letters
-                            Console.WriteLine($"First letter of first name: {firstLetterOfFirstName}");
-                            Console.WriteLine($"First letter of last name: {firstLetterOfLastName}");
-
-                            <div class="default-image-navbar">@firstLetterOfFirstName @firstLetterOfLastName</div>
-
-                        }
-                    }
-
-                    <p class="navbar-name">@currentContext.LoginInfo.EmployeeRole</p>
-                    <select id="profile-nav" name="profile" class="form-control">
-                        <option value="" disabled selected hidden></option>
+<nav class="navbar navbar-expand-md navbar-light bg-light fixed-top" style=" box-shadow: 0 0 10px 2px rgba(0, 0, 0, .3); height: 55px">
+    <a class="navbar-brand" href="#"><img src="~/Assets/AMBC_Logo.png" alt="logo" class="logo-img" /></a>
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarNav">
+        <ul class="navbar-nav ml-auto">
+            @*<li class="nav-item active">
+                    <select id="help-nav" name="help" class="form-control">
+                        <option value="" disabled selected hidden>Help</option>
                         <option value="option1">option1</option>
                         <option value="option2">option2</option>
                     </select>
-                </li>
+                </li>*@
 
-            </ul>
-        </div>
+            <li class="nav-item" id="navbar-profile">
+                @{
 
-    </nav>
-</div>
+                    var currentContext = HRMS.Helpers.SiteContext.GetCurrentUserContext();
+                }
+
+                @if (!string.IsNullOrWhiteSpace(currentContext.EmpInfo.imagepath))
+                {
+                    var empImageURl = System.Configuration.ConfigurationManager.AppSettings["EmpImagesFolder"] + "/" + currentContext.EmpInfo.imagepath;
+                    <img src="@empImageURl" alt="Employee Image" class="profile img-fluid nav-profile nav-image-profile" style=" width: 70px; height: 55px; border-radius: 50%; /* background-color: black; */ /* margin-bottom: 20px; */ /* margin-top: -50px; */ color: white; /* margin-left: -18px;">
+                }
+                else
+                {
+                    <img src="" alt="Employee Image" class="profile img-fluid nav-profile nav-image-profile" style=" width: 70px; height: 55px; border-radius: 50%;  color: white; display: none">
+
+                    // Split the full name into first name and last name
+                    string[] names = currentContext.EmpInfo.EmployeeName.Split(new char[] { ' ' }, StringSplitOptions.RemoveEmptyEntries);
+
+                    // Ensure we have at least one name
+                    if (names.Length > 0)
+                    {
+                        // Get the first name
+                        string firstName = names[0];
+
+                        // Get the last name if available
+                        string lastName = names.Length > 1 ? names[names.Length - 1] : string.Empty;
+
+                        // Extract the first letters
+                        char firstLetterOfFirstName = firstName[0];
+                        char firstLetterOfLastName = !string.IsNullOrEmpty(lastName) ? lastName[0] : '\0';
+
+                        // Convert to uppercase if needed
+                        firstLetterOfFirstName = char.ToUpper(firstLetterOfFirstName);
+                        firstLetterOfLastName = char.ToUpper(firstLetterOfLastName);
+
+                        // Output the first letters
+                        Console.WriteLine($"First letter of first name: {firstLetterOfFirstName}");
+                        Console.WriteLine($"First letter of last name: {firstLetterOfLastName}");
+
+                        <div class="default-image-navbar">@firstLetterOfFirstName @firstLetterOfLastName</div>
+
+                    }
+                }
+
+                <p class="navbar-name">@currentContext.LoginInfo.EmployeeRole</p>
+                <select id="profile-nav" name="profile" class="form-control">
+                    <option value="" disabled selected hidden></option>
+                    <option value="option1">option1</option>
+                    <option value="option2">option2</option>
+                </select>
+            </li>
+
+
+        </ul>
+    </div>
+</nav>

@@ -1,66 +1,68 @@
 ﻿@Html.Partial("_NavBar")
 
-<div class="row" style="overflow-x: hidden;">
-    <div class="col-md-2">
-        <div class="sidebar">
-            <ul id="empdash-menu" style="list-style-type: none;">
-                <li>
-                    <a href="#" class="active emp-dashboard">
-                        <span class="material-icons">dashboard</span>Dashboard
-                    </a>
-                </li>
-                <li>
-                    <a href="#" class="emp-selfservice">
-                        <span class="material-icons">groups</span>Self Service
-                    </a>
-                </li>
-                <li>
-                    <a href="#" class="emp-attendence">
-                        <span class="material-icons">calendar_month</span>Attendance
-                    </a>
-                </li>
-                <li>
-                    <a href="#" class="emp-leavetracker">
-                        <span class="material-icons">logout</span>Leave Tracker
-                    </a>
-                </li>
-                <li>
-                    <a href="#" class="emp-myrequest">
-                        <span class="material-icons">laptop_chromebook</span>Ticketing
-                    </a>
-                </li>
-            </ul>
-        </div>
+<div class="sidebar" style="top: 56px !important">
+    <ul id="empdash-menu" style="list-style-type: none;">
+        <li>
+            <a href="#" class="active emp-dashboard">
+                <span class="material-icons">dashboard</span>Dashboard
+            </a>
+        </li>
+        <li>
+            <a href="#" class="emp-selfservice">
+                <span class="material-icons">groups</span>Self Service
+            </a>
+        </li>
+        <li>
+            <a href="#" class="emp-attendence">
+                <span class="material-icons">calendar_month</span>Attendance
+            </a>
+        </li>
+        <li>
+            <a href="#" class="emp-leavetracker">
+                <span class="material-icons">logout</span>Leave Tracker
+            </a>
+        </li>
+        <li>
+            <a href="#" class="emp-myrequest">
+                <span class="material-icons">laptop_chromebook</span>Ticketing
+            </a>
+        </li>
+    </ul>
+</div>
+
+<div class="main-content container-fluid" style="width: 84%">
+
+
+
+    <div class="content emp-dashboard-data" style="margin-top: 3%">
+        <div class="hiddendashboard"></div>
+        <img src="~/Assets/empdashboard.png" style=" width: 100%; margin-top: -20px;" />
     </div>
-    <div class="col-md-10" style="margin-top: 3%; margin-left: 13.25%;">
-        <div class="content emp-dashboard-data">
-            <div class="hiddendashboard"></div>
-            <img src="~/Assets/empdashboard.png" style=" width: 100%; margin-top: -20px;" />
-        </div>
 
-        <div class="content selfservice-dashboard-data" style="display: none">
-            <div class="hiddenselfservice"></div>
-        </div>
-
-        <div class="content attedance-dashboard-data" style="display: none">
-            <div class="hiddenattendance"></div>
-            <!-- Your page content goes here -->
-          
-        </div>
-
-        <div class="content leave-dashboard-data" style="display: none">
-            <div class="hiddenleave"></div>
-            <h1>Welcome Leave page!</h1>
-            <p>Coming soon!.</p>
-        </div>
-
-        <div class="content myrequest-dashboard-data" style="display: none">
-            <div class="hiddenmyrequest"></div>
-            <h1>Welcome My Request page!</h1>
-            <p>Coming soon!.</p>
-        </div>
+    <div class="content selfservice-dashboard-data" style="display: none">
+        <div class="hiddenselfservice"></div>
     </div>
- </div>
+
+    <div class="content attedance-dashboard-data" style="display: none; margin-top: 3%; margin-left: 2%">
+        <div class="hiddenattendance"></div>
+        <!-- Your page content goes here -->
+
+    </div>
+
+    <div class="content leave-dashboard-data" style="display: none; margin-top: 3%; margin-left: 2% ">
+        <div class="hiddenleave"></div>
+        <h1>Welcome Leave page!</h1>
+        <p>Coming soon!.</p>
+    </div>
+
+    <div class="content myrequest-dashboard-data" style="display: none; margin-top: 3%; margin-left: 2% ">
+        <div class="hiddenmyrequest"></div>
+        <h1>Welcome My Request page!</h1>
+        <p>Coming soon!.</p>
+    </div>
+
+</div>
+
 
 
 

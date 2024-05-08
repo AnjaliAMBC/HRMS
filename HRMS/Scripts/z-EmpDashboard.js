@@ -56,16 +56,16 @@ $('.emp-attendence').click(function (event) {
         type: 'POST',
         dataType: 'html',
         success: function (response) {
-            $(".hiddenselfservice").html(response);
-            var formContent = $(".hiddenselfservice").find(".empattendence-container").html();
+            $(".hiddenattendance").html(response);
+            var formContent = $(".hiddenattendance").find(".empattendence-container").html();
             $(".attedance-dashboard-data").html(formContent);
-    $('.attedance-dashboard-data').show();
-    $('.emp-dashboard-data').hide();
-    $('.selfservice-dashboard-data').hide();
-    $('.leave-dashboard-data').hide();
-    $('.myrequest-dashboard-data').hide();
+            $('.attedance-dashboard-data').show();
+            $('.emp-dashboard-data').hide();
+            $('.selfservice-dashboard-data').hide();
+            $('.leave-dashboard-data').hide();
+            $('.myrequest-dashboard-data').hide();
 
-    $(".hiddenattendance").html("");
+            $(".hiddenattendance").html("");
         },
         error: function (xhr, status, error) {
             var err = eval("(" + xhr.responseText + ")");
@@ -104,7 +104,7 @@ $('.emp-myrequest').click(function (event) {
 
 var isSubmitting = false;
 
-$(document).off('click', '.emp-imgs').on('click', '.emp-imgs', function (event) {  
+$(document).off('click', '.emp-imgs').on('click', '.emp-imgs', function (event) {
     if (isSubmitting) {
         return;
     }
@@ -142,11 +142,11 @@ $(document).on('change', '#imageInput', function (event) {
                 console.error('Error uploading file:', error);
             }
         },
-        error: function (xhr, status, error) {           
+        error: function (xhr, status, error) {
             console.error('Error uploading file:', error);
         },
-        complete: function () {            
-            isSubmitting = false;     
+        complete: function () {
+            isSubmitting = false;
         }
     });
 });

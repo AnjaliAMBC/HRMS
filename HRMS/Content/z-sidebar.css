@@ -9,15 +9,15 @@
 }
 
 .logo-img {
-    width: 125px; 
+    width: 125px;
 }
 
-/*.dash-logo {
+.dash-logo {
     align-items: center;
     text-align: center;
     padding-bottom: 70px;
     margin: 0px;
-}*/
+}
 
 #help-nav {
     font-size: 18px;
@@ -53,10 +53,10 @@
 
 .sidebar ul li a {
     color: black;
-    text-decoration:none;
+    text-decoration: none;
 }
 
-.sidebar {
+/*.sidebar {
     background-color: #F2F6FF;
     border-right: 1px solid gainsboro;
     width: 14%;
@@ -69,22 +69,21 @@
     position: fixed;
     margin-left: -1%;
     line-height: 4;
-}
+}*/
 
 .dashboard-content {
-    margin-top: 5%;
     margin-left: 23%;
 }
 
 #empdash-menu {
-   
     margin-top: 17px;
     margin-left: -30px;
 }
+
 #admindash-menu {
-    margin-top: 17px;
     margin-left: -30px;
 }
+
 .sidebar li {
     display: flex;
     align-items: center;
@@ -92,13 +91,57 @@
 
     .sidebar li .material-icons {
         margin-right: 8px;
-        vertical-align: middle; /* Align icon vertically in the middle */
+        vertical-align: middle;
     }
 
     .sidebar li .menu-text {
         flex-grow: 1;
-        vertical-align: middle; /* Align text vertically in the middle */
+        vertical-align: middle;
     }
+
 .empdash-navbar {
-    height: 60px; /* Adjust this value as needed */
+    height: 60px;
+}
+
+/* Custom CSS for sidebar and main content */
+.sidebar {
+    background-color: #F2F6FF;
+    color: #fff;
+    height: 100%;
+    line-height: 4;
+}
+
+    .sidebar a {
+        color: #fff;
+    }
+
+.main-content {
+    padding-top: 56px; /* Height of navbar */
+}
+
+@media (min-width: 768px) {
+    .sidebar {
+        position: fixed;
+        top: 0;
+        bottom: 0; /* Fill the entire height */
+        left: 0;
+        width: 200px; /* Adjust as needed */
+        z-index: 1; /* Ensure sidebar is above the main content */
+        overflow-y: auto; /* Enable scrolling if content exceeds sidebar height */
+    }
+
+    .main-content {
+        margin-left: 200px; /* Width of sidebar */
+    }
+}
+
+/* Image bar with full width */
+.backgroundimg {
+    margin-left: -16px;
+    overflow-x: hidden; /* Prevent horizontal scrolling */
+}
+
+.emp-backgroundimg {
+    width: 100vw; /* Full width of the viewport */
+    height: 90px;
 }
