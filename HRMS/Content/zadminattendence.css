@@ -1,0 +1,93 @@
+﻿.custom-dropdown-toggle {
+    border: none;
+    background-color: transparent;
+}
+
+    .custom-dropdown-toggle::after {
+        content: none; /* Remove default dropdown arrow */
+    }
+
+
+
+.dropdowns-container {
+    display: flex;
+    align-items: center;
+}
+
+.dropdown-menu {
+    border: none; /* Remove border around the dropdown */
+    box-shadow: none; /* Remove box-shadow around the dropdown */
+}
+
+.dropdown {
+    margin-right: 15px;
+}
+
+.dropdown-menu .dropdown-item {
+    color: inherit;
+    background-color: transparent !important; /* Remove default hover and active color */
+}
+
+    .dropdown-menu .dropdown-item:hover,
+    .dropdown-menu .dropdown-item:focus,
+    .dropdown-menu .dropdown-item.active,
+    .dropdown-menu .dropdown-item:active {
+        background-color: transparent !important; /* Remove active color on hover and click */
+    }
+
+.btn-light:focus {
+    background-color: transparent !important;
+    border-color: transparent !important;
+}
+
+.btn-light:hover {
+    color: #212529;
+    background-color: transparent !important;
+    border-color: transparent !important;
+}
+
+.custom-dropdown-toggle {
+    border: none;
+    background-color: transparent;
+}
+
+    .custom-dropdown-toggle::after {
+        content: none; /* Remove default dropdown arrow */
+    }
+
+.advancesearch {
+    padding-left: 9px;
+}
+
+.dropdowns-container {
+    display: flex;
+    align-items: center;
+}
+
+.month-dropdown {
+    margin-right: 10px;
+}
+
+.days-container {
+    display: flex;
+    flex-wrap: nowrap;
+}
+
+.day {
+    text-align: center;
+    border-radius: 25%;
+    cursor: pointer;
+    margin: 5px;
+    width: 24px;
+    height: 24px;
+    line-height: 25px;
+    background-color: #fff;
+    color: black;
+  
+}
+
+
+    .day.active {
+        background-color: #007bff; /* Active color */
+        color: black; /* Text color */
+    }

@@ -1,1 +1,84 @@
-﻿
+﻿<div class="admin-attendancemgmt-view">
+    <div class="row mb-2 align-items-center">
+        <div class="col-4">
+            <h3>Attendance</h3>
+        </div>
+
+        <div class="col-8">
+            <div class="dropdowns-container d-flex justify-content-end align-items-center">
+                <div class="search-container mr-2">
+                    <div class="input-group">
+                        <div class="input-group-prepend">
+                            <span class="input-group-text" style="background-color: transparent; border-right: none; border-radius: 10px 0 0 10px; height: 35px;"><i class="fas fa-search"></i></span>
+                        </div>
+                        <input type="text" placeholder="Search By Keyword" class="advancesearch form-control" aria-label="Search By Keyword" style="border-radius: 0 10px 10px 0; height: 35px; font-size: 14px;">
+                    </div>
+                </div>
+
+                <div class="form-group mr-2" style="margin-top: 10px;">
+                    <select class="form-control" id="exampleSelect1" style="border: none;">
+                        <option>Option 1</option>
+                        <option>Option 2</option>
+                        <option>Option 3</option>
+                    </select>
+                </div>
+
+                <div class="form-group mr-2" style="margin-top: 10px;">
+                    <select class="form-control" id="exampleSelect2" style="border: none;">
+                        <option>Option 1</option>
+                        <option>Option 2</option>
+                        <option>Option 3</option>
+                    </select>
+                </div>
+
+                <div class="form-group mr-2" style="margin-top: 10px;">
+                    <select class="form-control" id="exampleSelect3" style="border: none;">
+                        <option>Option 1</option>
+                        <option>Option 2</option>
+                        <option>Option 3</option>
+                    </select>
+                </div>
+
+                <div class="mb-2">
+                    <button type="button" class="btn btn-sm btn-primary" onclick="loadAddShift()">Add Shift</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+
+    <div class="row mb-3">
+        <div class="col">
+            <div class="dropdowns-container">
+                <div class="dropdown month-dropdown mr-2">
+                    <input type="month" id="myMonth" value="" class="form-control">
+                </div>
+                <div class="days-container" id="daysContainer">
+                    <!-- Dates will be added dynamically here -->
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="table-container" style="border-radius: 10px; overflow: hidden;">
+        <table id="adminaddendancetable" class="display" style="width: 100%;">
+            <thead style="background-color: #EEF4FF; text-align: center; height: 35px;">
+                <tr>
+                    <th>Employee Name</th>
+                    <th>Location</th>
+                    <th>Date</th>
+                    <th>Check-in</th>
+                    <th>Check-out</th>
+                    <th>Hours</th>
+                    <th>Status</th>
+                </tr>
+            </thead>
+            <tbody>
+            </tbody>
+        </table>
+    </div>
+
+
+
+</div>

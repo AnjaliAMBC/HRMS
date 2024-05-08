@@ -329,37 +329,7 @@ $(document).on('change', '#action', function () {
 });
 
 
-//Attedence link js
-$('.admin-attendance').click(function (event) {
-    event.preventDefault();
-    HighlightAdminActiveLink($(this));
 
-    $.ajax({
-        url: '/adminattendance/index',
-        type: 'GET',
-        dataType: 'html',
-        success: function (response) {
-            //clear old data and bind again
-            $(".hiddenadmindashboard").html("");
-            //$(".admin-attendance-container").html("");
-
-            $(".hiddenadmindashboard").html(response);
-            var formContent = $(".hiddenadmindashboard").find(".admin-attendancemgmt-view").html();
-            $(".admin-attendance-container").html(formContent);
-
-            $('.admin-attendance-container').show();
-            $('.admin-empmanagement-container').hide();
-            $('.admin-emppadd-container').hide();
-            $('.admin-dashboard-container').hide();
-            $('.admin-leave-container').hide();
-            $('.admin-ticketing-container').hide();
-            $(".hiddenadmindashboard").html("");
-        },
-        error: function (xhr, status, error) {
-            var err = eval("(" + xhr.responseText + ")");
-        }
-    });
-});
 
 //Leave Tracker
 $('.admin-leave').click(function (event) {
