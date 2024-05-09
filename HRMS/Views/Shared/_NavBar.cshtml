@@ -1,20 +1,35 @@
-﻿
+﻿<style>
+    .navbar-nav .nav-item {
+        position: relative;
+    }
 
-<nav class="navbar navbar-expand-md navbar-light bg-light fixed-top" style=" box-shadow: 0 0 10px 2px rgba(0, 0, 0, .3); height: 55px">
+    .profile-image-container {
+        width: 55px; /* Adjust the width of the circular container */
+        height: 55px; /* Adjust the height of the circular container */
+        border-radius: 50%;
+        overflow: hidden;
+        margin-right: 10px; /* Add some spacing between image and text */
+    }
+
+        .profile-image-container img {
+            width: 100%; /* Make sure the image fills the circular container */
+            height: auto; /* Maintain aspect ratio */
+            border-radius: 50%;
+        }
+
+    .navbar-name {
+        /* Add necessary styles for navbar name */
+    }
+
+</style>
+
+<nav class="navbar navbar-expand-md navbar-light bg-light fixed-top" style="box-shadow: 0 0 10px 2px rgba(0, 0, 0, .3); height: 55px;">
     <a class="navbar-brand" href="#"><img src="~/Assets/AMBC_Logo.png" alt="logo" class="logo-img" /></a>
     <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
         <span class="navbar-toggler-icon"></span>
     </button>
     <div class="collapse navbar-collapse" id="navbarNav">
         <ul class="navbar-nav ml-auto">
-            @*<li class="nav-item active">
-                    <select id="help-nav" name="help" class="form-control">
-                        <option value="" disabled selected hidden>Help</option>
-                        <option value="option1">option1</option>
-                        <option value="option2">option2</option>
-                    </select>
-                </li>*@
-
             <li class="nav-item" id="navbar-profile">
                 @{
 
@@ -24,11 +39,11 @@
                 @if (!string.IsNullOrWhiteSpace(currentContext.EmpInfo.imagepath))
                 {
                     var empImageURl = System.Configuration.ConfigurationManager.AppSettings["EmpImagesFolder"] + "/" + currentContext.EmpInfo.imagepath;
-                    <img src="@empImageURl" alt="Employee Image" class="profile img-fluid nav-profile nav-image-profile" style=" width: 70px; height: 55px; border-radius: 50%; /* background-color: black; */ /* margin-bottom: 20px; */ /* margin-top: -50px; */ color: white; /* margin-left: -18px;">
+                    <img src="@empImageURl" alt="Employee Image" class="profile img-fluid nav-image-profile" style=" width: 40px; height: 40px; border-radius: 50%;">
                 }
                 else
                 {
-                    <img src="" alt="Employee Image" class="profile img-fluid nav-profile nav-image-profile" style=" width: 70px; height: 55px; border-radius: 50%;  color: white; display: none">
+                    <img src="" alt="Employee Image" class="profile img-fluid nav-profile nav-image-profile" style=" width: 40px; height: 40px; border-radius: 50%; display: none">
 
                     // Split the full name into first name and last name
                     string[] names = currentContext.EmpInfo.EmployeeName.Split(new char[] { ' ' }, StringSplitOptions.RemoveEmptyEntries);
