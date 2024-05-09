@@ -13,5 +13,10 @@ namespace HRMS.Controllers
         {
             return View("~/Views/AdminDashboard/AdminAttendance.cshtml");
         }
+
+        public ActionResult AddShift()
+        {
+            return View("~/Views/AdminDashboard/AddShift.cshtml");
+        }
     }
 }

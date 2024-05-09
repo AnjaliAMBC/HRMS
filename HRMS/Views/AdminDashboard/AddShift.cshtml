@@ -1,0 +1,75 @@
+﻿<div class="admin-addshift-view">
+    <div class="container">
+        <h1 class="mt-5">Shift Details</h1>
+        <div class="form-group">
+            <div class="form-row">
+                <div class="col-md-4">
+                    <input class="form-check-input" type="radio" name="option" id="departmentOption" checked>
+                    <label class="form-check-label" for="departmentOption">Department</label>
+                    <div id="departmentDropdown" class="dropdown shiftdropdown-checkboxes">
+                        <button class="btn btn-secondary shiftdropdown-toggle" type="button" id="departmentDropdownButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                            Select Department
+                        </button>
+                        <div class="dropdown-menu" aria-labelledby="departmentDropdownButton">
+                            <div class="dropdown-item">
+                                <input type="checkbox" id="dept1Checkbox">
+                                <label for="dept1Checkbox">Department 1</label>
+                            </div>
+                            <div class="dropdown-item">
+                                <input type="checkbox" id="dept2Checkbox">
+                                <label for="dept2Checkbox">Department 2</label>
+                            </div>
+                            <!-- Add more options as needed -->
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <input class="form-check-input" type="radio" name="option" id="employeeOption">
+                    <label class="form-check-label" for="employeeOption">Employees</label>
+                    <div id="employeeDropdown" class="dropdown shiftdropdown-checkboxes" style="display: none;">
+                        <button class="btn btn-secondary shiftdropdown-toggle" type="button" id="employeeDropdownButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                            Select Employees
+                        </button>
+                        <div class="dropdown-menu" aria-labelledby="employeeDropdownButton">
+                            <div class="dropdown-item">
+                                <input type="checkbox" id="emp1Checkbox">
+                                <label for="emp1Checkbox">Employee 1</label>
+                            </div>
+                            <div class="dropdown-item">
+                                <input type="checkbox" id="emp2Checkbox">
+                                <label for="emp2Checkbox">Employee 2</label>
+                            </div>
+                            <!-- Add more options as needed -->
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="form-row">
+            <div class="col-md-2">
+                <div class="form-group">
+                    <label for="startTime">Start Time:</label>
+                    <input type="time" id="startTime" class="form-control form-control-sm">
+                </div>
+            </div>
+            <div class="col-md-2">
+                <div class="form-group">
+                    <label for="endTime">End Time:</label>
+                    <input type="time" id="endTime" class="form-control form-control-sm">
+                </div>
+            </div>
+        </div>
+
+        <div class="form-group">
+            <div class="form-check">
+                <input type="checkbox" id="notification" class="form-check-input">
+                <label class="form-check-label" for="notification">Send notifications before and after time</label>
+            </div>
+        </div>
+
+        <button id="saveButton" class="btn btn-primary mt-3">Save</button>
+    </div>
+
+
+</div>

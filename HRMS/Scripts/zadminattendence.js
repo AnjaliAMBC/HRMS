@@ -153,7 +153,3 @@ var table = $('#adminaddendancetable').DataTable({
 
 });
 
-
-function loadAddShift() {
-    window.location.href = "admincalender.html";
-}

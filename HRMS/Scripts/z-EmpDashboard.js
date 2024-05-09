@@ -1,6 +1,8 @@
 ﻿function HighlightEmpActiveLink(element) {
+    $('#empdash-menu li').removeClass('sidebaractive');
     $('#empdash-menu li a.active').removeClass('active');
     $(element).addClass('active');
+    $(element).parent().addClass('sidebaractive');
 }
 
 //Self service link js

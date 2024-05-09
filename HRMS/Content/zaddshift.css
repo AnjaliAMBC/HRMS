@@ -1,0 +1,36 @@
+﻿/* Adjust input field width */
+input[type="time"] {
+    width: 150px;
+}
+
+/* Custom dropdown with checkboxes */
+.shiftdropdown-checkboxes {
+    position: relative;
+}
+
+    .shiftdropdown-checkboxes .dropdown-menu {
+        padding: 0;
+        border: none;
+        min-width: 200px; /* Adjust width as needed */
+        max-height: 200px; /* Adjust height as needed */
+        overflow-y: auto;
+        background-color: #ffffff; /* Change background color to white */
+        border-radius: 5px; /* Add border radius */
+        box-shadow: 0 0 5px rgba(0, 0, 0, 0.1); /* Add slight shadow effect */
+    }
+
+    .shiftdropdown-checkboxes .dropdown-item {
+        display: flex;
+        align-items: center;
+        padding: 5px 10px;
+        cursor: pointer;
+    }
+
+        .shiftdropdown-checkboxes .dropdown-item input[type="checkbox"] {
+            margin-right: 5px;
+        }
+
+/* Increase dropdown toggle size */
+.shiftdropdown-toggle {
+    padding: 10px 20px; /* Adjust padding as needed */
+}

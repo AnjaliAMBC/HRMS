@@ -1,6 +1,4 @@
 ﻿@model HRMS.Models.Admin.EmployeeManagementViewModel
-
-
 <div class="admin-empmanagement-view">
     <div class="container-fluid top admin-empview">
         <div class="row navbar align-items-center">
@@ -18,7 +16,7 @@
                 <div class="search-container" style=" margin-left: 32px; ">
                     <div class="input-group" style="border-radius: 20px;">
                         <div class="input-group-prepend">
-                            <span class="input-group-text" style="background-color: transparent; border-right: none; border-radius: 20px 0 0 20px; height: 35px;"><i class="fas fa-search"></i></span>
+                            <span class="input-group-text" style="background-color: transparent; border-right: none; border-radius: 20px 0 0 20px; height: 35px;"><i class="fas fa-search" style="color: #369479"></i></span>
                         </div>
                         <input type="text" placeholder="Search By Keyword" class="advancesearch form-control" aria-label="Search By Keyword" style="border-radius: 0 20px 20px 0; height: 35px; font-size: 14px;">
                     </div>
@@ -30,8 +28,8 @@
             <div class="col-lg-2 navbarl">
                 <div class="advanced-filtertab d-flex justify-content-between align-items-center">
                     <p class="advancetitle mb-0">Advanced Filters</p>
-                    <div class="toggle-button ml-2">
-                        <button class="collapsedropdown collapsed btn btn-primary" type="button" data-toggle="collapse" data-target="#demo" aria-expanded="false" aria-controls="demo">
+                    <div class="toggle-button advance-button ml-2">
+                        <button class="collapsedropdown collapsed btn" type="button" data-toggle="collapse" data-target="#demo" aria-expanded="false" aria-controls="demo">
                             <i class="fa-solid fa-angle-down"></i>
                         </button>
                     </div>
@@ -48,6 +46,10 @@
                     </select>
                 </div>
             </div>
+
+
+
+
         </div>
     </div>
 

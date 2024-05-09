@@ -1,6 +1,8 @@
 ﻿function HighlightAdminActiveLink(element) {
+    $('#admindash-menu li').removeClass('sidebaractive');
     $('#admindash-menu li a.active').removeClass('active');
-    $(element).addClass('active');
+    $(element).addClass('active ');
+    $(element).parent().addClass('sidebaractive');
 }
 
 //Self service link js
