@@ -136,7 +136,6 @@
     <Content Include="Assets\EMBackground.png" />
     <Content Include="Assets\empdashboard.png" />
     <Content Include="Assets\EmpProfile.png" />
-    <Content Include="Content\AdminAttendance.css" />
     <Content Include="Content\zaddshift.css" />
     <Content Include="Content\zadminattendence.css" />
     <Content Include="Content\zempattendace.css" />
@@ -147,7 +146,9 @@
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\AdminDashboardController.cs" />
     <Compile Include="Controllers\AdminAttendanceController.cs" />
+    <Compile Include="Controllers\AdminDashController.cs" />
     <Compile Include="Controllers\EmpAttendanceController.cs" />
+    <Compile Include="Controllers\EmpDashController.cs" />
     <Compile Include="Controllers\EmployeeDashboardController.cs" />
     <Compile Include="Department.cs">
       <DependentUpon>HRMS.tt</DependentUpon>
@@ -279,6 +280,8 @@
     <Content Include="Views\Shared\_NavBar.cshtml" />
     <Content Include="Views\AdminDashboard\_newLoginpassword.cshtml" />
     <Content Include="Views\AdminDashboard\AddShift.cshtml" />
+    <Content Include="Views\AdminDashboard\AdminDash.cshtml" />
+    <Content Include="Views\AdminDashboard\EmpDash.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

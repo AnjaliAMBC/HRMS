@@ -1,4 +1,8 @@
-﻿//Attedence link js
+﻿
+
+
+
+//Attedence link js
 $('.admin-attendance').click(function (event) {
     event.preventDefault();
     HighlightAdminActiveLink($(this));
@@ -71,85 +75,100 @@ function highlightDate(element) {
 
 
 //Data table 
-var table = $('#adminaddendancetable').DataTable({
-    data: data,
-    "paging": true,
-    "searching": true,
-    "pageLength": 8, // Set the default number of rows to display
-    "lengthChange": false,
-    "info": true,
-    "order": [],
-    "columnDefs": [
-        {
-            "targets": 0,
-            "orderable": false,
-            "class": "tdempid"
+//var table = $('#adminaddendancetable').DataTable({
+//    data: data,
+//    "paging": true,
+//    "searching": true,
+//    "pageLength": 8, // Set the default number of rows to display
+//    "lengthChange": false,
+//    "info": true,
+//    "order": [],
+//    "columnDefs": [
+//        {
+//            "targets": 0,
+//            "orderable": false,
+//            "class": "tdempid"
 
-        },
-        {
-            "targets": 1,
-            "orderable": false,
-            "class": "tdempname",
-            "render": function (data, type, full, meta) {
-                var imageHtml = '';
-                if (data.image) {
-                    var imageURl = "/assets/empImages/" + data.image;
-                    imageHtml = '<img src="' + imageURl + '" alt="Profile Image" style="width: 45px; height: 45px; border-radius: 50%; margin-right: 10px;">';
-                } else {
-                    var firstNameInitial = data.name.charAt(0);
-                    var lastNameInitial = data.name.split(' ').slice(-1)[0].charAt(0);
-                    var shortName = firstNameInitial + lastNameInitial;
-                    imageHtml = '<div class="list-image" style="width: 45px; height: 45px; border-radius: 50%; margin-right: 10px; background-color: #C4C4C4; color: white; display: flex; justify-content: center; align-items: center;">' + shortName + '</div>';
-                }
-                return '<div style="display: flex; align-items: center;">' + imageHtml +
-                    '<span style="margin-top: 0px; margin-right: 10px;">' + data.name + '<br><span style="color: #3E78CF;">' + data.email + '</span></span>' + '</div>';
-            }
+//        },
+//        {
+//            "targets": 1,
+//            "orderable": false,
+//            "class": "tdempname",
+//            "render": function (data, type, full, meta) {
+//                var imageHtml = '';
+//                if (data.image) {
+//                    var imageURl = "/assets/empImages/" + data.image;
+//                    imageHtml = '<img src="' + imageURl + '" alt="Profile Image" style="width: 45px; height: 45px; border-radius: 50%; margin-right: 10px;">';
+//                } else {
+//                    var firstNameInitial = data.name.charAt(0);
+//                    var lastNameInitial = data.name.split(' ').slice(-1)[0].charAt(0);
+//                    var shortName = firstNameInitial + lastNameInitial;
+//                    imageHtml = '<div class="list-image" style="width: 45px; height: 45px; border-radius: 50%; margin-right: 10px; background-color: #C4C4C4; color: white; display: flex; justify-content: center; align-items: center;">' + shortName + '</div>';
+//                }
+//                return '<div style="display: flex; align-items: center;">' + imageHtml +
+//                    '<span style="margin-top: 0px; margin-right: 10px;">' + data.name + '<br><span style="color: #3E78CF;">' + data.email + '</span></span>' + '</div>';
+//            }
 
-        },
-        {
-            "targets": 2,
-            "orderable": false,
-            "class": "tdemplocation",
-        },
+//        },
+//        {
+//            "targets": 2,
+//            "orderable": false,
+//            "class": "tdemplocation",
+//        },
 
-        {
-            "targets": 3,
-            "orderable": false,
-            "class": "tdempdate",
+//        {
+//            "targets": 3,
+//            "orderable": false,
+//            "class": "tdempdate",
 
-        },
-        {
-            "targets": 4,
-            "orderable": false,
-            "class": "tdempcheckin",
-        },
-        {
-            "targets": 5,
-            "orderable": false,
-            "class": "tdempcheckout",
-        },
-        {
-            "targets": 6,
-            "orderable": false,
-            "class": "tdemphours",
-        },
-        {
-            "targets": 7,
-            "orderable": false,
-            "class": "tdempstatus",
-            "render": function (data, type, full, meta) {
-                return '<button type="button" class="btn btn-primary edit-btn" title="status">Status</button>';
-            }
+//        },
+//        {
+//            "targets": 4,
+//            "orderable": false,
+//            "class": "tdempcheckin",
+//        },
+//        {
+//            "targets": 5,
+//            "orderable": false,
+//            "class": "tdempcheckout",
+//        },
+//        {
+//            "targets": 6,
+//            "orderable": false,
+//            "class": "tdemphours",
+//        },
+//        {
+//            "targets": 7,
+//            "orderable": false,
+//            "class": "tdempstatus",
+//            "render": function (data, type, full, meta) {
+//                return '<button type="button" class="btn btn-primary edit-btn" title="status">Status</button>';
+//            }
 
-        },
-        {
-            "targets": 8,
-            "orderable": false,
-            "render": function (data, type, full, meta) {
-                return '<span class="edit-btn" title="Edit"><i class="fas fa-pencil-alt"></i></span>';
-            }
-        },
-    ],
+//        },
+//        {
+//            "targets": 8,
+//            "orderable": false,
+//            "render": function (data, type, full, meta) {
+//                return '<span class="edit-btn" title="Edit"><i class="fas fa-pencil-alt"></i></span>';
+//            }
+//        },
+//    ],
 
-});
+//});
 
+//function submitDateRange() {
+//    var fromDate = $('#fromDate').val();
+//    var toDate = $('#toDate').val();
+//    if (fromDate && toDate) {
+//        alert('From Date: ' + fromDate + '\nTo Date: ' + toDate);
+//    } else {
+//        alert('Please select both dates.');
+//    }
+//}
+
+//$(document).ready(function () {
+//    $('#exportIcon').click(function () {
+//        $('.dropdown-menu1').toggleClass();
+//    });
+//});

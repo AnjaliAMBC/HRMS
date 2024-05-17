@@ -33,17 +33,17 @@ $(document).on('click', '.btn-addshift', function () {
 
 
 
-document.getElementById("departmentOption").onchange = function () {
-    document.getElementById("departmentDropdown").style.display = "block";
-    document.getElementById("employeeDropdown").style.display = "none";
-};
+//document.getElementById("departmentOption").onchange = function () {
+//    document.getElementById("departmentDropdown").style.display = "block";
+//    document.getElementById("employeeDropdown").style.display = "none";
+//};
 
 
-document.getElementById("employeeOption").onchange = function () {
-    document.getElementById("departmentDropdown").style.display = "none";
-    document.getElementById("employeeDropdown").style.display = "block";
-};
+//document.getElementById("employeeOption").onchange = function () {
+//    document.getElementById("departmentDropdown").style.display = "none";
+//    document.getElementById("employeeDropdown").style.display = "block";
+//};
 
 
-document.getElementById("saveButton").onclick = function () {
-};
+//document.getElementById("saveButton").onclick = function () {
+//};
