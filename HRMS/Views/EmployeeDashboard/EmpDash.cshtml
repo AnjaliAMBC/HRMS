@@ -1,0 +1,94 @@
+﻿@model HRMS.Models.Employee.EmpDashBoardModel
+
+
+@{
+    var loginID = 0;
+    var buttonText = "Check-In";
+    DateTime checkInTime = DateTime.MinValue;
+    DateTime? checkOutTime = DateTime.MinValue;
+
+    if (Model.CheckInInfo != null && Model.CheckInInfo.login_id != 0)
+    {
+        loginID = Model.CheckInInfo.login_id;
+        buttonText = "Check-Out";
+        checkInTime = Model.CheckInInfo.Signin_Time;
+        checkOutTime = Model.CheckInInfo.Signout_Time;
+    }
+}
+
+
+<div class="container-fluid mt-4 ml-4 employeedash">
+    <h3>Dashboard</h3>
+    <div class="row mb-4">
+        <div class="col-md-3 column-container mr-md-2">
+            <div class="form-group check-title">
+                <b class="ml-2">Check-In/Check-Out Time</b>
+            </div>
+            <div class="day-date-time ml-2 mt-3">
+                <h4 id="day"></h4> <!-- Display day here -->
+                <div id="currentDate" class="time-input"></div> <!-- Replace input with div -->
+                <div id="currentTime" class="current-time"></div> <!-- Replace input with div -->
+
+            </div>
+
+            <div class="in-out mr-4">
+                <span class="label mb-2">Check In:</span>
+                <div id="checkInTime" class="time-input" style="color: blue">@checkInTime</div> <!-- Replace input with div -->
+                <span class="label">Check Out:</span>
+                <div id="checkOutTime" class="time-input">@checkOutTime</div> <!-- Replace input with div -->
+            </div>
+
+
+            <div class="button-container">
+                <button class="btn btn-primary btn-checkin" data-checkinid="@loginID">@buttonText</button>
+            </div>
+        </div>
+
+        <div class="col-md-3 column-container mr-md-2">
+            <div class="form-group check-title">
+                <b>Job Profile</b>
+            </div>
+
+        </div>
+        <div class="col-md-3 column-container">
+            <div class="form-group">
+
+                <div class="card-header calendar-header">
+                    <div>
+                        <i class="fas fa-chevron-left chevron-icon ml-2" onclick="prevMonth()"></i>
+                    </div>
+                    <div>
+                        <h5 id="monthYear"></h5>
+                    </div>
+                    <div>
+                        <i class="fas fa-chevron-right chevron-icon mr-2" onclick="nextMonth()"></i>
+                    </div>
+                </div>
+                <div class="card-body calendar-body">
+                    <table class="table">
+                        <thead>
+                            <tr>
+                                <th scope="col">Mon</th>
+                                <th scope="col">Tue</th>
+                                <th scope="col">Wed</th>
+                                <th scope="col">Thu</th>
+                                <th scope="col">Fri</th>
+                                <th scope="col">Sat</th>
+                                <th scope="col">Sun</th>
+                            </tr>
+                        </thead>
+                        <tbody id="calendarBody"></tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+
+    </div>
+    <div class="row">
+        <div class="col-md-6 column-container">
+            <div class="form-group check-title">
+                <b>Leaves</b>
+            </div>
+        </div>
+    </div>
+</div>

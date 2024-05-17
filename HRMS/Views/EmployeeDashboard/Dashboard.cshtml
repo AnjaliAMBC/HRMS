@@ -1,4 +1,6 @@
-﻿@Html.Partial("_NavBar")
+﻿@model HRMS.Models.Employee.EmpDashBoardModel
+
+@Html.Partial("_NavBar")
 
 <div class="container-fluid">
     <div class="row" style="margin-left: -29px; ">
@@ -35,36 +37,27 @@
         </div>
     </div>
 
-            <div class="main-content container-fluid" style="width: 84%">
-                <div class="content emp-dashboard-data" style="margin-top: 3%">
-                    <div class="hiddendashboard"></div>
-                    <img src="~/Assets/empdashboard.png" style=" width: 100%; margin-top: -20px;" />
-                </div>
+    <div class="main-content container-fluid" style="width: 84%">
+        <div class="hiddenempdashboard"></div>
+        <div class="content emp-dashboard-data" style="margin-top: 3%">
 
-                <div class="content selfservice-dashboard-data" style="display: none">
-                    <div class="hiddenselfservice"></div>
-                </div>
+            @Html.Partial("~/Views/EmployeeDashboard/EmpDash.cshtml", Model)
+        </div>
 
-                <div class="content attedance-dashboard-data" style="display: none; margin-top: 3%; margin-left: 2%">
-                    <div class="hiddenattendance"></div>
-                    <!-- Your page content goes here -->
+        <div class="content selfservice-dashboard-data" style="display: none">
 
-                </div>
+        </div>
 
-                <div class="content leave-dashboard-data" style="display: none; margin-top: 3%; margin-left: 2% ">
-                    <div class="hiddenleave"></div>
-                    <h1>Welcome Leave page!</h1>
-                    <p>Coming soon!.</p>
-                </div>
+        <div class="content attedance-dashboard-data" style="display: none; margin-top: 3%; margin-left: 2%">
 
-                <div class="content myrequest-dashboard-data" style="display: none; margin-top: 3%; margin-left: 2% ">
-                    <div class="hiddenmyrequest"></div>
-                    <h1>Welcome My Request page!</h1>
-                    <p>Coming soon!.</p>
-                </div>
+        </div>
 
-            </div>
+        <div class="content leave-dashboard-data" style="display: none; margin-top: 3%; margin-left: 2% ">
 
+        </div>
+
+        <div class="content myrequest-dashboard-data" style="display: none; margin-top: 3%; margin-left: 2% ">
+
+        </div>
     </div>
-
-
+</div>

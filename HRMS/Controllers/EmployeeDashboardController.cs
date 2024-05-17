@@ -25,7 +25,13 @@ namespace HRMS.Controllers
         }
         public ActionResult Dashboard()
         {
-            return View("~/Views/EmployeeDashboard/Dashboard.cshtml");
+            var model = new EmpDashBoardModel();
+            var cuserContext = SiteContext.GetCurrentUserContext();
+            model.EmpInfo = cuserContext.EmpInfo;
+            model.LoginInfo = cuserContext.LoginInfo;
+            model.CheckInInfo = cuserContext.CheckInInfo;
+
+            return View("~/Views/EmployeeDashboard/Dashboard.cshtml", model);
         }
 
         public ActionResult SelfService()
@@ -36,7 +42,7 @@ namespace HRMS.Controllers
                 var siteContext = Session["SiteContext"] as SiteContextModel;
                 model.EmpInfo = siteContext.EmpInfo;
                 model.LoginInfo = siteContext.LoginInfo;
-                return View("~/Views/EmployeeDashboard/SelfService.cshtml", model);
+                return PartialView("~/Views/EmployeeDashboard/SelfService.cshtml", model);
             }
             return null;
         }

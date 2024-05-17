@@ -34,6 +34,8 @@ $(document).on('click', '.admin-empmanagement', function (event) {
         success: function (response) {
             $(".hiddenadmindashboard").html("");
             $(".admin-empmanagement-container").html("");
+            $('.admin-attendance-container').html("");
+            $('.admin-emppadd-container').html("");
             $(".hiddenadmindashboard").html(response);
             var formContent = $(".hiddenadmindashboard").find(".admin-empmanagement-view").html();
             $(".admin-empmanagement-container").html(formContent);
@@ -374,6 +376,7 @@ function AddUpdateEmployee(empID) {
             $(".hiddenadmindashboard").html("");
             $(".admin-emppadd-container").html("");
             $('.admin-empmanagement-container').html("");
+            $('.admin-attendance-container').html();
 
             $(".hiddenadmindashboard").html(response);
             var formContent = $(".hiddenadmindashboard").find(".admin-empadd-view").html();

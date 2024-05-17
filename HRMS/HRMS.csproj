@@ -133,9 +133,19 @@
     <Compile Include="App_Start\BundleConfig.cs" />
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
+    <Compile Include="EmployeeCheckin.cs">
+      <DependentUpon>HRMS.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Employee\CheckInModel.cs" />
+    <Compile Include="Models\Employee\EmpAttedenceModel.cs" />
+    <Compile Include="Models\Employee\EmpDashBoardModel.cs" />
+    <Compile Include="tbld_ambclogininformation.cs">
+      <DependentUpon>HRMS.tt</DependentUpon>
+    </Compile>
     <Content Include="Assets\EMBackground.png" />
     <Content Include="Assets\empdashboard.png" />
     <Content Include="Assets\EmpProfile.png" />
+    <Content Include="Content\z-empDash.css" />
     <Content Include="Content\zaddshift.css" />
     <Content Include="Content\zadminattendence.css" />
     <Content Include="Content\zempattendace.css" />
@@ -229,6 +239,7 @@
     <Content Include="Scripts\z-Adminemp.js" />
     <Content Include="Scripts\z-AdminDashboard.js" />
     <Content Include="Scripts\z-common.js" />
+    <Content Include="Scripts\z-EmpDash.js" />
     <Content Include="Scripts\z-EmpDashboard.js" />
     <Content Include="Scripts\z-account.js" />
     <Content Include="Scripts\bootstrap.js" />
@@ -281,7 +292,7 @@
     <Content Include="Views\AdminDashboard\_newLoginpassword.cshtml" />
     <Content Include="Views\AdminDashboard\AddShift.cshtml" />
     <Content Include="Views\AdminDashboard\AdminDash.cshtml" />
-    <Content Include="Views\AdminDashboard\EmpDash.cshtml" />
+    <Content Include="Views\EmployeeDashboard\EmpDash.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

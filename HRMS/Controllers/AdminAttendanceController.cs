@@ -9,14 +9,14 @@ namespace HRMS.Controllers
     public class AdminAttendanceController : Controller
     {
         // GET: Attendance
-        public ActionResult Index()
+        public ActionResult Attendance()
         {
-            return View("~/Views/AdminDashboard/AdminAttendance.cshtml");
+            return PartialView("~/Views/AdminDashboard/AdminAttendance.cshtml");
         }
 
         public ActionResult AddShift()
         {
-            return View("~/Views/AdminDashboard/AddShift.cshtml");
+            return PartialView("~/Views/AdminDashboard/AddShift.cshtml");
         }
     }
 }

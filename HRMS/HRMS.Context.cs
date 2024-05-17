@@ -31,5 +31,7 @@ namespace HRMS
         public virtual DbSet<Designation> Designations { get; set; }
         public virtual DbSet<emp_info> emp_info { get; set; }
         public virtual DbSet<LeaveRM> LeaveRMs { get; set; }
+        public virtual DbSet<tbld_ambclogininformation> tbld_ambclogininformation { get; set; }
+        public virtual DbSet<EmployeeCheckin> EmployeeCheckins { get; set; }
     }
 }

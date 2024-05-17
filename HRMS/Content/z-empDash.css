@@ -1,0 +1,137 @@
+﻿/*input[type="text"] {
+    border: none;
+    background: none;
+    width: 100%;
+}*/
+
+.column-container {
+    border: 1px solid #ccc; /* Add border */
+    padding: 0px;
+    margin-bottom: 20px; /* Add space between columns */
+}
+
+.check-title {
+    background-color: #D3E3FD;
+    padding: 2px;
+    margin-bottom: 10px;
+}
+
+.time-input {
+    font-size: 20px;
+    height: 40px; /* Default height */
+}
+
+.current-time {
+    font-size: 30px;
+    height: 40px;
+}
+
+.in-out {
+    text-align: right; /* Align input fields to the right */
+}
+
+.day-date-time {
+    float: left; /* Align day-date-time section to the left */
+    margin-bottom: 10px; /* Add space below */
+}
+
+.button-container {
+    text-align: center; /* Center align button */
+}
+
+.calendar {
+    max-width: 400px;
+    margin: 0 auto;
+}
+
+.highlight-festival {
+    background-color: #8a2be2; /* Purple background color */
+    color: white; /* Text color */
+}
+
+.highlight-current {
+    background-color: #8a2be2; /* Purple background color */
+    color: white; /* Text color */
+    font-weight: bold;
+    font-size: 14px; /* Adjust size */
+    padding: 6px; /* Adjust padding */
+    border-radius: 3px; /* Adjust border radius */
+}
+
+.calendar-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background-color: aliceblue;
+    padding: 0;
+    border-bottom: none !important;
+}
+
+.calendar-body th,
+.calendar-body td {
+    padding: 0;
+    text-align: center;
+    border: none;
+    line-height: 2; /* Adjust the line height as needed */
+    position: relative;
+}
+
+    .calendar-body td:hover .festival-tooltip {
+        visibility: visible;
+    }
+
+        .calendar-body td:hover .festival-tooltip:before {
+            content: attr(data-festival);
+            position: absolute;
+            bottom: calc(100% + 5px);
+            left: 50%;
+            transform: translateX(-50%);
+            background-color: #ff69b4; /* Pink background color */
+            color: white;
+            padding: 3px 5px; /* Adjust size */
+            border-radius: 3px; /* Adjust border radius */
+            visibility: visible;
+            z-index: 999;
+        }
+
+.calendar-body .festival-tooltip {
+    visibility: hidden;
+    position: absolute;
+    top: 100%;
+    left: 50%;
+    transform: translateX(-50%);
+    background-color: #ff69b4; /* Pink background color */
+    color: white;
+    padding: 3px 5px; /* Adjust size */
+    border-radius: 3px; /* Adjust border radius */
+    z-index: 999;
+}
+
+    .calendar-body .festival-tooltip:before {
+        content: '';
+        position: absolute;
+        border-width: 5px;
+        border-style: solid;
+        border-color: #ff69b4 transparent transparent transparent; /* Pink border color */
+        top: -5px;
+        left: 50%;
+        transform: translateX(-50%);
+    }
+
+.calendar-body tr {
+    border: none;
+    margin-bottom: 10px;
+}
+
+.calendar-body th:nth-child(6), /* Saturday */
+.calendar-body th:nth-child(7), /* Sunday */
+.calendar-body td:nth-child(6), /* Saturday */
+.calendar-body td:nth-child(7) { /* Sunday */
+    color: red;
+}
+
+.chevron-icon {
+    font-size: 1.0rem;
+    color: #007bff;
+    cursor: pointer;
+}

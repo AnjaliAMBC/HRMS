@@ -6,6 +6,7 @@
 }
 
 //Self service link js
+
 $('.emp-selfservice').click(function (event) {
     event.preventDefault();
     HighlightEmpActiveLink($(this));
@@ -14,8 +15,16 @@ $('.emp-selfservice').click(function (event) {
         type: 'GET',
         dataType: 'html',
         success: function (response) {
-            $(".hiddenselfservice").html(response);
-            var formContent = $(".hiddenselfservice").find(".selfservice-container").html();
+            $(".hiddenempdashboard").html("");
+            $(".emp-dashboard-data").html("");
+            $(".selfservice-dashboard-data").html("");
+            $(".attedance-dashboard-data").html("");
+            $(".leave-dashboard-data").html("");
+            $(".myrequest-dashboard-data").html("");
+
+
+            $(".hiddenempdashboard").html(response);
+            var formContent = $(".hiddenempdashboard").find(".selfservice-container").html();
             $(".selfservice-dashboard-data").html(formContent);
 
             $('.selfservice-dashboard-data').show();
@@ -24,7 +33,7 @@ $('.emp-selfservice').click(function (event) {
             $('.leave-dashboard-data').hide();
             $('.myrequest-dashboard-data').hide();
 
-            $(".hiddenselfservice").html("");
+            $(".hiddenempdashboard").html("");
 
         },
         error: function (xhr, status, error) {
@@ -38,16 +47,36 @@ $('.emp-selfservice').click(function (event) {
 $('.emp-dashboard').click(function (event) {
     event.preventDefault();
     HighlightEmpActiveLink($(this));
+    $.ajax({
+        url: '/empdash/index',
+        type: 'GET',
+        dataType: 'html',
+        success: function (response) {
+            $(".hiddenempdashboard").html("");
+            $(".emp-dashboard-data").html("");
+            $(".selfservice-dashboard-data").html("");
+            $(".attedance-dashboard-data").html("");
+            $(".leave-dashboard-data").html("");
+            $(".myrequest-dashboard-data").html("");
 
-    $('.emp-dashboard-data').show();
-    $('.selfservice-dashboard-data').hide();
-    $('.attedance-dashboard-data').hide();
-    $('.leave-dashboard-data').hide();
-    $('.myrequest-dashboard-data').hide();
 
-    $(".hiddendashboard").html("");
+            $(".hiddenempdashboard").html(response);
+            var formContent = $(".hiddenempdashboard").find(".employeedash").html();
+            $(".emp-dashboard-data").html(formContent);
+
+            $('.emp-dashboard-data').show();
+            $('.selfservice-dashboard-data').hide();
+            $('.attedance-dashboard-data').hide();
+            $('.leave-dashboard-data').hide();
+            $('.myrequest-dashboard-data').hide();
+
+            $(".hiddenempdashboard").html("");
+        },
+        error: function (xhr, status, error) {
+            var err = eval("(" + xhr.responseText + ")");
+        }
+    });
 });
-
 //Attedence link js
 
 $('.emp-attendence').click(function (event) {
@@ -58,8 +87,16 @@ $('.emp-attendence').click(function (event) {
         type: 'POST',
         dataType: 'html',
         success: function (response) {
-            $(".hiddenattendance").html(response);
-            var formContent = $(".hiddenattendance").find(".empattendence-container").html();
+            $(".hiddenempdashboard").html("");
+            $(".emp-dashboard-data").html("");
+            $(".selfservice-dashboard-data").html("");
+            $(".attedance-dashboard-data").html("");
+            $(".leave-dashboard-data").html("");
+            $(".myrequest-dashboard-data").html("");
+
+
+            $(".hiddenempdashboard").html(response);
+            var formContent = $(".hiddenempdashboard").find(".empattendence-container").html();
             $(".attedance-dashboard-data").html(formContent);
             $('.attedance-dashboard-data').show();
             $('.emp-dashboard-data').hide();
@@ -67,7 +104,7 @@ $('.emp-attendence').click(function (event) {
             $('.leave-dashboard-data').hide();
             $('.myrequest-dashboard-data').hide();
 
-            $(".hiddenattendance").html("");
+            $(".hiddenempdashboard").html("");
         },
         error: function (xhr, status, error) {
             var err = eval("(" + xhr.responseText + ")");
