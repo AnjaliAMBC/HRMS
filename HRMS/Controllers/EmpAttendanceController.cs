@@ -6,8 +6,10 @@ using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 
+
 namespace HRMS.Controllers
 {
+    using Helpers;
     public class EmpAttendanceController : Controller
     {
         // Database context
@@ -45,6 +47,10 @@ namespace HRMS.Controllers
             {
                 model.AttedenceList = selectedWeekAttendence;
             }
+
+            // Get all dates between start and end date
+            List<DateTime> allDates = DateHelper.GetAllDates(model.startWeek, model.EndWeek);
+            model.AllDates = allDates;
 
             return PartialView("~/Views/EmployeeDashboard/EmpAttendance.cshtml", model);
         }

@@ -12,5 +12,7 @@ namespace HRMS.Models.Employee
         public DateTime startWeek { get; set; }
 
         public DateTime EndWeek { get; set; }
+
+        public List<DateTime> AllDates { get; set; } = new List<DateTime>();
     }
 }

@@ -49,6 +49,49 @@ $(document).on('click', '.btn-checkin', function (event) {
 
 });
 
+// Function to format date as "Date MonthName Year"
+function formatDate(date) {
+    return date.toLocaleDateString('en-GB', { day: '2-digit', month: 'long', year: 'numeric' });
+}
+
+
+function GetAttendenceInfo(startDate, endDate) {
+    $.ajax({
+        url: "/empattendance/index",
+        type: 'POST',
+        dataType: 'html',
+        data: {
+            startDate: startDate,
+            endDate: endDate
+        },
+        success: function (response) {
+            $(".hiddenempdashboard").html("");
+            $(".emp-dashboard-data").html("");
+            $(".selfservice-dashboard-data").html("");
+            $(".attedance-dashboard-data").html("");
+            $(".leave-dashboard-data").html("");
+            $(".myrequest-dashboard-data").html("");
+
+
+            $(".hiddenempdashboard").html(response);
+            var formContent = $(".hiddenempdashboard").find(".empattendence-container").html();
+            $(".attedance-dashboard-data").html(formContent);
+            $('.attedance-dashboard-data').show();
+            $('.emp-dashboard-data').hide();
+            $('.selfservice-dashboard-data').hide();
+            $('.leave-dashboard-data').hide();
+            $('.myrequest-dashboard-data').hide();
+
+            $(".hiddenempdashboard").html("");
+        },
+        error: function (xhr, status, error) {
+            console.error('Error uploading file:', error);
+        },
+        complete: function () {
+        }
+    });
+}
+
 
 $(function () {
     // Initial dates
@@ -89,57 +132,33 @@ $(function () {
     function updateWeekDates(start, end) {
         $("#week-start").text(formatDate(start));
         $("#week-end").text(formatDate(end));
-        //$(".attedance-dashboard-data").html("");
-
+       
         var startDate = $("#week-start").text();
         var endDate = $("#week-end").text();
-        var url = "/empattendance/index?startdate=" + startDate + "&endDate=" + endDate;
-        console.log("URL:", url);
-
-
-        $.ajax({
-            url: "/empattendance/index",
-            type: 'POST',
-            dataType: 'html',
-            data: {
-                startDate: startDate,
-                endDate: endDate
-            },
-            success: function (response) {
-                $(".hiddenempdashboard").html("");
-                $(".emp-dashboard-data").html("");
-                $(".selfservice-dashboard-data").html("");
-                $(".attedance-dashboard-data").html("");
-                $(".leave-dashboard-data").html("");
-                $(".myrequest-dashboard-data").html("");
-
-
-                $(".hiddenempdashboard").html(response);
-                var formContent = $(".hiddenempdashboard").find(".empattendence-container").html();
-                $(".attedance-dashboard-data").html(formContent);
-                $('.attedance-dashboard-data').show();
-                $('.emp-dashboard-data').hide();
-                $('.selfservice-dashboard-data').hide();
-                $('.leave-dashboard-data').hide();
-                $('.myrequest-dashboard-data').hide();
-
-                $(".hiddenempdashboard").html("");
-            },
-            error: function (xhr, status, error) {
-                console.error('Error uploading file:', error);
-            },
-            complete: function () {
-            }
-        });
+     
+        GetAttendenceInfo(startDate, endDate);
 
     }
+});
 
-    // Function to format date as "Date MonthName Year"
-    function formatDate(date) {
-        return date.toLocaleDateString('en-GB', { day: '2-digit', month: 'long', year: 'numeric' });
-    }
+// Function to format date as "Date MonthName Year"
+function formatDateenUS(inputDate) {
+    // Convert input string to Date object
+    var date = new Date(inputDate);
+    return date.toLocaleDateString('en-GB', { day: '2-digit', month: 'long', year: 'numeric' });
+}
 
+$(document).on('click', '.attendance-find', function (event) {
+    event.preventDefault();
+    // Read values from 'from' and 'to' date inputs
+    var fromDate = $("#attendancefrom").val();
+    var toDate = $("#attendanceto").val();
 
+    // Format dates as "dd MMMM yyyy"
+    var formattedFromDate = formatDateenUS(fromDate);
+    var formattedToDate = formatDateenUS(toDate);
+
+    GetAttendenceInfo(formattedFromDate, formattedToDate);
 });
 
 

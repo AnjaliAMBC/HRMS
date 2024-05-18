@@ -72,7 +72,7 @@ $(document).on('click', '.admin-empmanagement', function (event) {
                 "searching": true,
                 "pageLength": 8, // Set the default number of rows to display
                 "lengthChange": false,
-                "info": true,
+                "info": true,             
                 "order": [],
                 "columnDefs": [
                     {
