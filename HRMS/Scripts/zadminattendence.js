@@ -60,10 +60,14 @@ function AdminAttendenceDataMap(DateSelected) {
         dataType: 'html',
         data: { selectedDate: DateSelected },
         success: function (response) {
+
             $(".hiddenadmindashboard").html("");
-            $(".admin-empmanagement-container").html("");
+            $('.admin-dashboard-container').html("");
+            $(".admin-emppadd-container").html("");
+            $('.admin-empmanagement-container').html("");
             $('.admin-attendance-container').html("");
-            $('.admin-emppadd-container').html("");
+            $('.admin-leave-container').html("");
+
             $(".hiddenadmindashboard").html(response);
             var formContent = $(".hiddenadmindashboard").find(".admin-attendancemgmt-view").html();
             $(".admin-attendance-container").html(formContent);
@@ -169,9 +173,12 @@ function AdminEmpIndividualAttendence(employeeStartDate, employeeEndDate, employ
         data: { selectedStartDate: employeeStartDate, selectedEndDate: employeeEndDate, selectedEmpID: employeeId },
         success: function (response) {
             $(".hiddenadmindashboard").html("");
-            $(".admin-empmanagement-container").html("");
+            $('.admin-dashboard-container').html("");
+            $(".admin-emppadd-container").html("");
+            $('.admin-empmanagement-container').html("");
             $('.admin-attendance-container').html("");
-            $('.admin-emppadd-container').html("");
+            $('.admin-leave-container').html("");
+
             $(".hiddenadmindashboard").html(response);
             var formContent = $(".hiddenadmindashboard").find(".admin-attendancemgmt-view").html();
             $(".admin-attendance-container").html(formContent);
@@ -201,9 +208,12 @@ $(document).on('click', '.employee-info', function (event) {
         data: { selectedDate: employeeSignInDate, selectedEmpID: employeeId },
         success: function (response) {
             $(".hiddenadmindashboard").html("");
-            $(".admin-empmanagement-container").html("");
+            $('.admin-dashboard-container').html("");
+            $(".admin-emppadd-container").html("");
+            $('.admin-empmanagement-container').html("");
             $('.admin-attendance-container').html("");
-            $('.admin-emppadd-container').html("");
+            $('.admin-leave-container').html("");
+
             $(".hiddenadmindashboard").html(response);
             var formContent = $(".hiddenadmindashboard").find(".admin-attendancemgmt-view").html();
             $(".admin-attendance-container").html(formContent);

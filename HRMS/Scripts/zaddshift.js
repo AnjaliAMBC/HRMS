@@ -7,10 +7,14 @@ $(document).on('click', '.btn-addshift', function () {
         url: '/adminattendance/addshift',
         type: 'GET',
         dataType: 'html',
-        success: function (response) {
+        success: function (response) {         
 
             $(".hiddenadmindashboard").html("");
-            $(".admin-attendance-container").html("");
+            $('.admin-dashboard-container').html("");
+            $(".admin-emppadd-container").html("");
+            $('.admin-empmanagement-container').html("");
+            $('.admin-attendance-container').html("");
+            $('.admin-leave-container').html("");
 
             $(".hiddenadmindashboard").html(response);
             var formContent = $(".hiddenadmindashboard").find(".admin-addshift-view").html();

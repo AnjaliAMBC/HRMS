@@ -116,6 +116,14 @@ $('.emp-leavetracker').click(function (event) {
     event.preventDefault();
     HighlightEmpActiveLink($(this));
 
+    $(".hiddenempdashboard").html("");
+    $(".emp-dashboard-data").html("");
+    $(".selfservice-dashboard-data").html("");
+    $(".attedance-dashboard-data").html("");
+    $(".leave-dashboard-data").html("");
+    $(".myrequest-dashboard-data").html("");
+
+
     $('.leave-dashboard-data').show();
     $('.attedance-dashboard-data').hide();
     $('.emp-dashboard-data').hide();
@@ -130,6 +138,13 @@ $('.emp-leavetracker').click(function (event) {
 $('.emp-myrequest').click(function (event) {
     event.preventDefault();
     HighlightEmpActiveLink($(this));
+
+    $(".hiddenempdashboard").html("");
+    $(".emp-dashboard-data").html("");
+    $(".selfservice-dashboard-data").html("");
+    $(".attedance-dashboard-data").html("");
+    $(".leave-dashboard-data").html("");
+    $(".myrequest-dashboard-data").html("");
 
     $('.myrequest-dashboard-data').show();
     $('.leave-dashboard-data').hide();

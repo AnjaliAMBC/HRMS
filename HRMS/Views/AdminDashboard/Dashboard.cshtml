@@ -1,4 +1,6 @@
-﻿@Html.Partial("_NavBar")
+﻿@model HRMS.Models.Admin.DashboardViewModel
+
+@Html.Partial("_NavBar")
 
 
 <div class="container-fluid">
@@ -19,7 +21,7 @@
     <div class="main-content container-fluid" style="width: 84%">
         <div class="hiddenadmindashboard"></div>
         <div class="content admin-dashboard-container" style="margin-top: 3% ">
-            <img src="~/Assets/empdashboard.png" style=" width: 100%; margin-top: -20px;" />
+            @Html.Partial("~/Views/AdminDashboard/AdminDash.cshtml", Model)
         </div>
 
         <div class="content admin-empmanagement-container" style="display: none; margin-left: -5px; margin-top: 2% ">

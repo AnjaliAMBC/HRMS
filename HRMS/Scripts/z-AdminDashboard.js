@@ -5,21 +5,41 @@
     $(element).parent().addClass('sidebaractive');
 }
 
-//Self service link js
+
 $('.admin-dashboard').click(function (event) {
     event.preventDefault();
     HighlightAdminActiveLink($(this));
 
-    $(".hiddenadmindashboard").html("");
-    //$(".admin-dashboard-container").html("");
-    $('.admin-dashboard-container').show();
-    $('.admin-empmanagement-container').hide();
-    $('.admin-emppadd-container').hide();
-    $('.admin-attendance-container').hide();
-    $('.admin-leave-container').hide();
-    $('.admin-ticketing-container').hide();
+    $.ajax({
+        url: '/admindash/index',
+        type: 'GET',   
+        dataType: 'html',
+        success: function (response) {
+            //Clear old date and bind again
+            $(".hiddenadmindashboard").html("");
+            $('.admin-dashboard-container').html("");
+            $(".admin-emppadd-container").html("");
+            $('.admin-empmanagement-container').html("");
+            $('.admin-attendance-container').html("");
+            $('.admin-leave-container').html("");
 
-    $(".hiddenadmindashboard").html("");
+            $(".hiddenadmindashboard").html(response);
+            var formContent = $(".hiddenadmindashboard").find(".admin-dashboard-view").html();
+            $(".admin-dashboard-container").html(formContent);
+
+            $('.admin-emppadd-container').hide();
+            $('.admin-empmanagement-container').hide();
+            $('.admin-dashboard-container').show();
+            $('.admin-attendance-container').hide();
+            $('.admin-leave-container').hide();
+            $('.admin-ticketing-container').hide();
+            $(".hiddenadmindashboard").html("");
+
+        },
+        error: function (xhr, status, error) {
+            var err = eval("(" + xhr.responseText + ")");
+        }
+    });
 });
 
 $(document).on('click', '.admin-empmanagement', function (event) {
@@ -33,9 +53,12 @@ $(document).on('click', '.admin-empmanagement', function (event) {
         dataType: 'html',
         success: function (response) {
             $(".hiddenadmindashboard").html("");
-            $(".admin-empmanagement-container").html("");
+            $('.admin-dashboard-container').html("");
+            $(".admin-emppadd-container").html("");
+            $('.admin-empmanagement-container').html("");
             $('.admin-attendance-container').html("");
-            $('.admin-emppadd-container').html("");
+            $('.admin-leave-container').html("");
+
             $(".hiddenadmindashboard").html(response);
             var formContent = $(".hiddenadmindashboard").find(".admin-empmanagement-view").html();
             $(".admin-empmanagement-container").html(formContent);
@@ -72,7 +95,7 @@ $(document).on('click', '.admin-empmanagement', function (event) {
                 "searching": true,
                 "pageLength": 8, // Set the default number of rows to display
                 "lengthChange": false,
-                "info": true,             
+                "info": true,
                 "order": [],
                 "columnDefs": [
                     {
@@ -340,6 +363,13 @@ $('.admin-leave').click(function (event) {
     event.preventDefault();
     HighlightAdminActiveLink($(this));
 
+    $(".hiddenadmindashboard").html("");
+    $('.admin-dashboard-container').html("");
+    $(".admin-emppadd-container").html("");
+    $('.admin-empmanagement-container').html("");
+    $('.admin-attendance-container').html("");
+    $('.admin-leave-container').html("");
+
     $('.admin-leave-container').show();
     $('.admin-attendance-container').hide();
     $('.admin-empmanagement-container').hide();
@@ -354,6 +384,13 @@ $('.admin-leave').click(function (event) {
 $('.admin-ticketing').click(function (event) {
     event.preventDefault();
     HighlightAdminActiveLink($(this));
+
+    $(".hiddenadmindashboard").html("");
+    $('.admin-dashboard-container').html("");
+    $(".admin-emppadd-container").html("");
+    $('.admin-empmanagement-container').html("");
+    $('.admin-attendance-container').html("");
+    $('.admin-leave-container').html("");
 
     $('.admin-ticketing-container').show();
     $('.admin-leave-container').hide();
@@ -374,9 +411,11 @@ function AddUpdateEmployee(empID) {
         success: function (response) {
             //Clear old date and bind again
             $(".hiddenadmindashboard").html("");
+            $('.admin-dashboard-container').html("");
             $(".admin-emppadd-container").html("");
             $('.admin-empmanagement-container').html("");
-            $('.admin-attendance-container').html();
+            $('.admin-attendance-container').html("");
+            $('.admin-leave-container').html("");
 
             $(".hiddenadmindashboard").html(response);
             var formContent = $(".hiddenadmindashboard").find(".admin-empadd-view").html();
@@ -412,8 +451,11 @@ $(document).on('change', '#addemployee', function () {
             success: function (response) {
                 //Clear old date and bind again
                 $(".hiddenadmindashboard").html("");
+                $('.admin-dashboard-container').html("");
                 $(".admin-emppadd-container").html("");
                 $('.admin-empmanagement-container').html("");
+                $('.admin-attendance-container').html("");
+                $('.admin-leave-container').html("");
 
                 $(".hiddenadmindashboard").html(response);
                 var formContent = $(".hiddenadmindashboard").find(".admin-empadd-view").html();
