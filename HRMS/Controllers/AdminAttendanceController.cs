@@ -14,6 +14,8 @@ using System.IO;
 using System.Linq;
 using System.Reflection;
 using System.Collections.Generic;
+using System.Drawing;
+using OfficeOpenXml.Style;
 
 namespace HRMS.Controllers
 {
@@ -110,17 +112,29 @@ namespace HRMS.Controllers
             {
                 endDate = DateTime.Parse(toDate).Date;
             }
-            var selectedEmployees = new List<EmployeeCheckin>();
+            var selectedEmployeeCheckins = new List<EmployeeCheckin>();
+
+            var allSelectedDates = DateHelper.GetAllDates(DateTime.Parse(fromDate).Date, DateTime.Parse(toDate).Date);
+
+            var requiredEmployeeList = new List<emp_info>();
 
             if (!string.IsNullOrWhiteSpace(empID))
             {
-                selectedEmployees = _dbContext.EmployeeCheckins.Where(e => e.Login_date >= startDate && e.Login_date <= endDate && e.EmployeeID == empID).ToList();
+                var selectedEmp = _dbContext.emp_info.Where(x => x.EmployeeID == empID).FirstOrDefault();
+                requiredEmployeeList.Add(selectedEmp);
+                selectedEmployeeCheckins = _dbContext.EmployeeCheckins.Where(e => e.Login_date >= startDate && e.Login_date <= endDate && e.EmployeeID == empID).ToList();
             }
             else
             {
-                selectedEmployees = _dbContext.EmployeeCheckins.Where(e => e.Login_date >= startDate && e.Login_date <= endDate).ToList();
+                var selectedEmps = _dbContext.emp_info.Where(x => x.EmployeeStatus == "Active").ToList();
+                requiredEmployeeList.AddRange(selectedEmps);
+                selectedEmployeeCheckins = _dbContext.EmployeeCheckins.Where(e => e.Login_date >= startDate && e.Login_date <= endDate).ToList();
             }
 
+            // Define your color constants
+            var headerBackgroundColor = Color.LightBlue;
+            var headerFontColor = Color.DarkBlue;
+            var headerFontSize = 12; //
 
             using (ExcelPackage excelPackage = new ExcelPackage())
             {
@@ -134,82 +148,183 @@ namespace HRMS.Controllers
                 {
                     if (properties[i].Name != "imagepath")
                     {
-                        worksheet.Cells[1, columnIndex].Value = properties[i].Name;
+                        var cell = worksheet.Cells[1, columnIndex];
+
+                        // Set background color
+                        cell.Style.Fill.PatternType = ExcelFillStyle.Solid;
+                        cell.Style.Fill.BackgroundColor.SetColor(headerBackgroundColor);
+
+                        // Set font color
+                        cell.Style.Font.Color.SetColor(headerFontColor);
+
+                        // Set font size
+                        cell.Style.Font.Size = headerFontSize;
+
+
+                        // Set cell value
+                        cell.Value = properties[i].Name;
+
                         columnIndex++;
                     }
                 }
 
                 int row = 2;
 
-                // Add data rows
-                foreach (var employee in selectedEmployees)
+                foreach (DateTime allSelectedDate in allSelectedDates)
                 {
-                    DateTime? signInTime = null;
-                    DateTime? signOutTime = null;
-
-                    columnIndex = 1;
-                    for (int i = 0; i < properties.Length; i++)
+                    foreach (emp_info emp in requiredEmployeeList)
                     {
-                        if (properties[i].Name != "imagepath")
+                        var IsEmpCheckedonSelectedDate = selectedEmployeeCheckins.Where(x => x.EmployeeID == emp.EmployeeID && x.Login_date == allSelectedDate).FirstOrDefault();
+
+                        if (IsEmpCheckedonSelectedDate != null)
                         {
-                            var value = properties[i].GetValue(employee);
+                            DateTime? signInTime = null;
+                            DateTime? signOutTime = null;
+                            string hours = "0";
+                            string minutes = "0";
 
-                            if (value is DateTime dateTimeValue)
+                            columnIndex = 1;
+                            for (int i = 0; i < properties.Length; i++)
                             {
-                                if (dateTimeValue.TimeOfDay != TimeSpan.Zero)
+                                if (properties[i].Name != "imagepath")
                                 {
-                                    worksheet.Cells[row, columnIndex].Value = dateTimeValue.ToString("h:mm tt");
+                                    var value = properties[i].GetValue(IsEmpCheckedonSelectedDate);
 
-                                    if (properties[i].Name == "Signin_Time")
+                                    if (value is DateTime dateTimeValue)
                                     {
-                                        signInTime = dateTimeValue;
+                                        if (dateTimeValue.TimeOfDay != TimeSpan.Zero)
+                                        {
+                                            worksheet.Cells[row, columnIndex].Value = dateTimeValue.ToString("h:mm tt");
+                                            if (properties[i].Name == "Signin_Time")
+                                            {
+                                                signInTime = dateTimeValue;
+                                            }
+                                            if (properties[i].Name == "Signout_Time")
+                                            {
+                                                signOutTime = dateTimeValue;
+                                            }
+                                        }
+                                        else
+                                        {
+                                            worksheet.Cells[row, columnIndex].Value = dateTimeValue.ToString("dd-MM-yyyy");
+                                        }
                                     }
 
-                                    if (properties[i].Name == "Signout_Time")
-                                    {
-                                        signOutTime = dateTimeValue;
-                                    }
-
-                                }
-                                else
-                                {
-                                    worksheet.Cells[row, columnIndex].Value = dateTimeValue.ToString("yyyy-MM-dd");
-                                }
-                            }
-
-                            else
-                            {
-                                if (properties[i].Name == "Working_Hours")
-                                {
-                                    TimeSpan? timeDifference = null;
-
-                                    if (signInTime.HasValue && signOutTime.HasValue)
-                                    {
-                                        timeDifference = signOutTime.Value - signInTime.Value;
-                                    }
-                                    if (timeDifference != null)
-                                    {
-                                        string hours = timeDifference.Value.Hours.ToString();
-                                        string minutes = timeDifference.Value.Minutes.ToString();
-                                        worksheet.Cells[row, columnIndex].Value = hours + "h:" + minutes + "m";
-                                    }
                                     else
                                     {
-                                        worksheet.Cells[row, columnIndex].Value = "";
+                                        if (properties[i].Name == "Working_Hours")
+                                        {
+                                            TimeSpan? timeDifference = null;
+
+                                            if (signInTime.HasValue && signOutTime.HasValue)
+                                            {
+                                                timeDifference = signOutTime.Value - signInTime.Value;
+                                            }
+                                            if (timeDifference != null)
+                                            {
+                                                hours = timeDifference.Value.Hours.ToString();
+                                                minutes = timeDifference.Value.Minutes.ToString();
+                                                worksheet.Cells[row, columnIndex].Value = hours + "h:" + minutes + "m";
+                                            }
+                                            else
+                                            {
+                                                worksheet.Cells[row, columnIndex].Value = "";
+                                            }
+
+                                        }
+                                        else if (properties[i].Name == "EmployeeStatus")
+                                        {
+                                            DateTime? signInTime1 = null;
+                                            DateTime? signOutTime1 = null;
+
+                                            var signInValue = properties[4].GetValue(IsEmpCheckedonSelectedDate);
+                                            if (signInValue is DateTime dateTimeValue1)
+                                            {
+                                                if (dateTimeValue1.TimeOfDay != TimeSpan.Zero)
+                                                {
+                                                    signInTime1 = dateTimeValue1;
+
+                                                }
+                                            }
+
+                                            var signOutValue = properties[5].GetValue(IsEmpCheckedonSelectedDate);
+                                            if (signOutValue is DateTime dateTimeValue2)
+                                            {
+                                                if (dateTimeValue2.TimeOfDay != TimeSpan.Zero)
+                                                {
+                                                    signOutTime1 = dateTimeValue2;
+                                                }
+                                            }
+
+                                            TimeSpan? timeDifference1 = null;
+
+                                            if (signInTime1.HasValue && signOutTime1.HasValue)
+                                            {
+                                                timeDifference1 = signOutTime1.Value - signInTime1.Value;
+                                            }
+                                            if (timeDifference1 != null)
+                                            {
+                                                hours = timeDifference1.Value.Hours.ToString();
+                                                minutes = timeDifference1.Value.Minutes.ToString();
+
+                                                if (System.Convert.ToInt16(hours) >= 9)
+                                                {
+                                                    worksheet.Cells[row, columnIndex].Value = "Present";
+                                                    var cell = worksheet.Cells[row, columnIndex];
+
+                                                    cell.Style.Fill.PatternType = ExcelFillStyle.Solid;
+                                                    cell.Style.Fill.BackgroundColor.SetColor(Color.GreenYellow);
+                                                }
+                                                else
+                                                {
+                                                    worksheet.Cells[row, columnIndex].Value = "Permission";
+                                                    var cell = worksheet.Cells[row, columnIndex];
+                                                    cell.Style.Fill.PatternType = ExcelFillStyle.Solid;
+                                                    cell.Style.Fill.BackgroundColor.SetColor(Color.MediumOrchid);
+                                                }
+                                            }
+                                            else
+                                            {
+                                                worksheet.Cells[row, columnIndex].Value = "Present";
+                                                var cell = worksheet.Cells[row, columnIndex];
+
+                                                cell.Style.Fill.PatternType = ExcelFillStyle.Solid;
+                                                cell.Style.Fill.BackgroundColor.SetColor(Color.GreenYellow);
+                                            }
+
+                                        }
+
+                                        else
+                                        {
+                                            worksheet.Cells[row, columnIndex].Value = value?.ToString() ?? string.Empty;
+                                        }
+
                                     }
-
+                                    columnIndex++;
                                 }
-                                else
-                                {
-                                    worksheet.Cells[row, columnIndex].Value = value?.ToString() ?? string.Empty;
-                                }
-
                             }
-                            columnIndex++;
+                            row++;
+                        }
+                        else
+                        {
+                            worksheet.Cells[row, 1].Value = emp.EmployeeID;
+                            worksheet.Cells[row, 2].Value = emp.EmployeeName;
+                            worksheet.Cells[row, 3].Value = "Leave";
+                            var cell = worksheet.Cells[row, 3];
+                            cell.Style.Fill.PatternType = ExcelFillStyle.Solid;
+                            cell.Style.Fill.BackgroundColor.SetColor(Color.OrangeRed);
+
+                            worksheet.Cells[row, 4].Value = emp.OfficalEmailid;
+                            worksheet.Cells[row, 5].Value = "";
+                            worksheet.Cells[row, 6].Value = "";
+                            worksheet.Cells[row, 7].Value = "";
+                            worksheet.Cells[row, 8].Value = emp.ShiftTimings;
+                            worksheet.Cells[row, 9].Value = allSelectedDate.ToString("dd-MM-yyyy");
+                            worksheet.Cells[row, 10].Value = emp.Location;
+                            row++;
                         }
                     }
-                    row++;
-                }
+                }             
 
                 using (MemoryStream memoryStream = new MemoryStream())
                 {
