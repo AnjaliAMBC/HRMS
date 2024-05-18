@@ -1,102 +1,238 @@
-﻿<div class="admin-attendancemgmt-view">
-    <div class="row mb-2 align-items-center">
-        <div class="col-4">
-            <h3>Attendance</h3>
-        </div>
+﻿@model HRMS.Models.Admin.AdminAttendanceModel
 
-        <div class="col-8">
-            <div class="dropdowns-container d-flex  align-items-center">
-                <div class="search-container mr-2">
-                    <div class="input-group">
-                        <div class="input-group-prepend">
-                            <span class="input-group-text" style="background-color: transparent; border-right: none; border-radius: 10px 0 0 10px; height: 35px;"><i class="fas fa-search"></i></span>
+<div class="admin-attendancemgmt-view">
+    <div style="margin-left: 2%">
+        <style>
+            .employee-image {
+                width: 40px;
+                height: 40px;
+                border-radius: 50%;
+            }
+
+            .initials-circle {
+                width: 40px;
+                height: 40px;
+                border-radius: 50%;
+                background-color: #007bff;
+                color: #fff;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                font-weight: bold;
+                margin-right: 10px;
+            }
+
+            .employee-info {
+                display: flex;
+                align-items: center;
+            }
+
+            .employee-details {
+                margin-left: 10px;
+            }
+
+            .employee-id {
+                margin-right: 10px;
+            }
+        </style>
+
+        <div class="row mb-2 align-items-center">
+            <div class="col-4">
+                <h3>Attendance</h3>
+            </div>
+
+            <div class="col-8">
+                <div class="dropdowns-container d-flex  align-items-center">
+                    <div class="search-container mr-2">
+                        <div class="input-group">
+                            <div class="input-group-prepend">
+                                <span class="input-group-text" style="background-color: transparent; border-right: none; border-radius: 10px 0 0 10px; height: 35px;"><i class="fas fa-search"></i></span>
+                            </div>
+                            <input type="text" placeholder="Search By Keyword" class="advancesearch form-control" aria-label="Search By Keyword" style="border-radius: 0 10px 10px 0; height: 35px; font-size: 14px;">
                         </div>
-                        <input type="text" placeholder="Search By Keyword" class="advancesearch form-control" aria-label="Search By Keyword" style="border-radius: 0 10px 10px 0; height: 35px; font-size: 14px;">
+                    </div>
+
+                    <div class="form-group mr-2 status-drop adminatt-dropdown" style="margin-top: 10px;">
+                        <select class="form-control form-select-sm" name="status" id="status-dropdown">
+                            <option value="" disabled selected>Status</option>
+                            <option value="Active">Active</option>
+                            <option value="In Active">Inactive</option>
+                        </select>
+                    </div>
+
+
+
+                    <div class="form-group mr-2 adminatt-dropdown" style="margin-top: 10px;">
+                        <select class="form-control form-select-sm" name="status" id="location-dropdown">
+                            <option value="" disabled selected>Location</option>
+                            <option value="Active">Hyderabad</option>
+                            <option value="In Active">Madurai</option>
+                        </select>
+                    </div>
+
+
+                    <!-- Dropdown for Export options -->
+                    <div class="form-group mr-2 adminatt-dropdown ml-2" style="margin-top: 17px;">
+                        <label class="export-label" for="exportLabel">Export</label>
+                        <i class="fas fa-chevron-down ml-3" id="exportIcon" style="cursor: pointer; font-size:13px;" data-toggle="collapse" data-target="#dateDropdown"></i>
+                    </div>
+
+
+
+                    <div class="mb-2 ml-4">
+                        <button type="button" class="btn btn-primary btn-addshift ml-4">Add Shift</button>
                     </div>
                 </div>
+            </div>
+        </div>
 
-                <div class="form-group mr-2 status-drop adminatt-dropdown" style="margin-top: 10px;">
-                    <select class="form-control form-select-sm" name="status" id="status-dropdown">
-                        <option value="" disabled selected>Status</option>
-                        <option value="Active">Active</option>
-                        <option value="In Active">Inactive</option>
-                    </select>
-                </div>
-
-              
-
-                <div class="form-group mr-2 adminatt-dropdown" style="margin-top: 10px;">
-                    <select class="form-control form-select-sm" name="status" id="location-dropdown">
-                        <option value="" disabled selected>Location</option>
-                        <option value="Active">Hyderabad</option>
-                        <option value="In Active">Madurai</option>
-                    </select>
-                </div>
-
-
-                <!-- Dropdown for Export options -->
-                <div class="form-group mr-2 adminatt-dropdown ml-2" style="margin-top: 17px;">
-                    <label class="export-label" for="exportLabel">Export</label>
-                    <i class="fas fa-chevron-down ml-3" id="exportIcon" style="cursor: pointer; font-size:13px;" data-toggle="collapse" data-target="#dateDropdown"></i>
-                </div>
-
-
-
-                <div class="mb-2 ml-4">
-                    <button type="button" class="btn btn-primary btn-addshift ml-4">Add Shift</button>
+        <div class="collapse" id="dateDropdown">
+            <div class="row mb-3 align-items-center">
+                <div class="col-4"></div> <!-- Empty column -->
+                <div class="col-8 d-flex justify-content-end">
+                    <div class="form-group d-flex mr-2">
+                        <label for="from" class="mr-2">From</label>
+                        <input type="date" class="form-control form-control-sm" id="from" style="width: 120px;">
+                    </div>
+                    <div class="form-group d-flex mr-2">
+                        <label for="to" class="mr-2">To</label>
+                        <input type="date" class="form-control form-control-sm" id="to" style="width: 120px;">
+                    </div>
+                    <div class="form-group">
+                        <button type="button" class="btn btn-sm btn-primary" onclick="submitDateRange()">Submit</button>
+                    </div>
                 </div>
             </div>
         </div>
-    </div>
 
-    <div class="collapse" id="dateDropdown">
-        <div class="row mb-3 align-items-center">
-            <div class="col-4"></div> <!-- Empty column -->
-            <div class="col-8 d-flex justify-content-end">
-                <div class="form-group d-flex mr-2">
-                    <label for="from" class="mr-2">From</label>
-                    <input type="date" class="form-control form-control-sm" id="from" style="width: 120px;">
-                </div>
-                <div class="form-group d-flex mr-2">
-                    <label for="to" class="mr-2">To</label>
-                    <input type="date" class="form-control form-control-sm" id="to" style="width: 120px;">
-                </div>
-                <div class="form-group">
-                    <button type="button" class="btn btn-sm btn-primary" onclick="submitDateRange()">Submit</button>
+
+        <div class="row mb-3">
+            <div class="col">
+                <div class="dropdowns-container">
+                    <div class="dropdown month-dropdown mr-2">
+                        <input type="month" id="attedencemonth" value="" class="form-control">
+                    </div>
+                    <div class="days-container" id="daysContainer">
+                        <!-- Dates will be added dynamically here -->
+                    </div>
                 </div>
             </div>
         </div>
-    </div>
+
+        <div class="table-container" style="border-radius: 10px; overflow: hidden;">
+            <table id="adminaddendancetable" class="display" style="width: 100%;">
+                <thead style="background-color: #EEF4FF; height: 35px;">
+                    <tr>
+                        <th style="padding-left: 15px">Employee Name</th>
+                        <th>Location</th>
+                        <th>Date</th>
+                        <th>Check-in</th>
+                        <th>Check-out</th>
+                        <th>Hours</th>
+                        <th>Status</th>
+                    </tr>
+                </thead>
+                <tbody>
+
+                    @foreach (emp_info employee in Model.AllEmployees)
+                    {
+                        var empCheckin = Model.EmpCheckInList.Where(x => x.EmployeeID == employee.EmployeeID).FirstOrDefault();
+
+                        var imagePath = "";
+                        string initials = string.Empty;
+                        if (!string.IsNullOrEmpty(employee.imagepath))
+                        {
+                            imagePath = "/assets/empImages/" + employee.imagepath;
+                        }
+                        else
+                        {
+                            var words = employee.EmployeeName.Split(' ');
+                            if (words.Length >= 2)
+                            {
+                                initials = $"{words[0][0]}{words[1][0]}";
+                            }
+                            else if (words.Length == 1)
+                            {
+                                initials = $"{words[0][0]}";
+                            }
+                        }
 
 
-    <div class="row mb-3">
-        <div class="col">
-            <div class="dropdowns-container">
-                <div class="dropdown month-dropdown mr-2">
-                    <input type="month" id="attedencemonth" value="" class="form-control">
-                </div>
-                <div class="days-container" id="daysContainer">
-                    <!-- Dates will be added dynamically here -->
-                </div>
-            </div>
+                        if (empCheckin != null)
+                        {
+                            <tr>
+                                <td class="employee-info" style="padding-left: 15px">
+                                    <span class="employee-id">@empCheckin.EmployeeID</span>
+                                    @if (!string.IsNullOrEmpty(employee.imagepath))
+                                    {
+                                        <img src="@imagePath" alt="@empCheckin.EmployeeID" class="employee-image">
+                                    }
+                                    else
+                                    {
+                                        <div class="initials-circle">@initials</div>
+                                    }
+
+                                    <div class="employee-details">
+                                        @empCheckin.EmployeeName<br>
+                                        <small>@empCheckin.OfficalEmailid</small>
+                                    </div>
+                                </td>
+                                <td>@empCheckin.Location</td>
+                                <td>@empCheckin.Login_date.ToString("dd MMMM yyyy")</td>
+
+                                @{
+                                    string starttimeWithAmPm = empCheckin.Signin_Time.ToString("hh:mm tt", System.Globalization.CultureInfo.InvariantCulture);
+                                    string endtimeWithAmPm = empCheckin.Signout_Time?.ToString("hh:mm tt", System.Globalization.CultureInfo.InvariantCulture);
+
+                                }
+
+                                <td>@starttimeWithAmPm</td>
+                                <td>@endtimeWithAmPm</td>
+                                <td>09h:10m</td>
+                                <td><button class="present-btn">Present</button></td>
+                            </tr>
+                        }
+                        else
+                        {
+                            <tr>
+
+                                <td class="employee-info" style="padding-left: 15px">
+                                    <span class="employee-id">@employee.EmployeeID</span>
+                                    @if (!string.IsNullOrEmpty(employee.imagepath))
+                                    {
+                                        <img src="@imagePath" alt="@employee.EmployeeID" class="employee-image">
+                                    }
+                                    else
+                                    {
+                                        <div class="initials-circle">@initials</div>
+                                    }
+                                    <div class="employee-details">
+                                        @employee.EmployeeName<br>
+                                        <small>@employee.OfficalEmailid</small>
+                                    </div>
+                                </td>
+                                <td>@employee.Location</td>
+                                <td>@Model.SelectedDate.ToString("dd MMMM yyyy")</td>
+
+                                <td>00:00 AM</td>
+                                <td>00:00 AM</td>
+                                <td>00h:00m</td>
+                                <td><button class="leave-btn">Leave</button></td>
+                            </tr>
+                        }
+                    }
+
+
+
+
+                </tbody>
+            </table>
         </div>
     </div>
 
-    <div class="table-container" style="border-radius: 10px; overflow: hidden;">
-        <table id="adminaddendancetable" class="display" style="width: 100%;">
-            <thead style="background-color: #EEF4FF; text-align: center; height: 35px;">
-                <tr>
-                    <th>Employee Name</th>
-                    <th>Location</th>
-                    <th>Date</th>
-                    <th>Check-in</th>
-                    <th>Check-out</th>
-                    <th>Hours</th>
-                    <th>Status</th>
-                </tr>
-            </thead>
-            <tbody>
-            </tbody>
-        </table>
-    </div>
+    <script>
+        $(document).ready(function () {
+            $('#adminaddendancetable').DataTable();
+        });
+    </script>
 </div>

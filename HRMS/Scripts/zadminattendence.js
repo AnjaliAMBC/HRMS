@@ -6,25 +6,24 @@ function HighlightAdminActiveLink(element) {
     $(element).parent().addClass('sidebaractive');
 }
 
-
-$(document).on('change', '#attedencemonth', function (event) {
-    updateDays();
-});
-
-
-function updateDays() {
+function updateDays(DateSelected) {
     var selectedMonth = new Date($('#attedencemonth').val());
     var daysInMonth = new Date(selectedMonth.getFullYear(), selectedMonth.getMonth() + 1, 0).getDate();
     var today = new Date().getDate();
 
-    $('#daysContainer').empty(); // Clear previous days
+    $('#daysContainer').empty();
 
     for (var i = 1; i <= daysInMonth; i++) {
         var dayNumber = i.toString().padStart(2, '0'); // Add leading zero if necessary
+        var fullDate = new Date(selectedMonth.getFullYear(), selectedMonth.getMonth(), i);
+        var formattedDate = fullDate.toLocaleDateString('en-GB', { day: '2-digit', month: 'long', year: 'numeric' });
         var activeClass = (i === today && selectedMonth.getMonth() === new Date().getMonth()) ? 'active' : '';
 
+        if (DateSelected != undefined) {
+            activeClass = "";
+        }
         $('#daysContainer').append(`
-            <div class="day ${activeClass}" onclick="highlightDate(this)">
+            <div class="day ${activeClass}" data-date="${formattedDate}" onclick="highlightDate(this)">
                 ${dayNumber}
             </div>
         `);
@@ -32,18 +31,19 @@ function updateDays() {
 }
 
 function highlightDate(element) {
-    $('.day.active').removeClass('active'); // Remove active class from all days
-    $(element).addClass('active'); // Add active class to the clicked day
+    $('.day.active').removeClass('active');
+    $(element).addClass('active');
+    var date = $(element).attr('data-date');
+
+    AdminAttendenceDataMap(date);
+
 }
-
-
-$(document).off('click', '.admin-attendance').on('click', '.admin-attendance', function (event) {
-    event.preventDefault();
-    HighlightAdminActiveLink($(this));
+function AdminAttendenceDataMap(DateSelected) {
     $.ajax({
         url: '/adminattendance/attendance',
         type: 'GET',
         dataType: 'html',
+        data: { selectedDate: DateSelected },
         success: function (response) {
             $(".hiddenadmindashboard").html("");
             $(".admin-empmanagement-container").html("");
@@ -59,21 +59,36 @@ $(document).off('click', '.admin-attendance').on('click', '.admin-attendance', f
             $('.admin-attendance-container').show();
             $('.admin-leave-container').hide();
             $('.admin-ticketing-container').hide();
-
             $(".hiddenadmindashboard").html("");
 
-            // Set the initial value of the input field to the current month
             var currentDate = new Date();
+            if (DateSelected != undefined) {
+                currentDate = new Date(DateSelected);
+            }
+
             var currentMonth = currentDate.getFullYear() + '-' + ('0' + (currentDate.getMonth() + 1)).slice(-2);
-            $('#attedencemonth').val(currentMonth).trigger('change'); // Trigger change event to ensure days are updated
+            $('#attedencemonth').val(currentMonth);
 
-            updateDays(); // Initially populate the days
+            updateDays(DateSelected);
 
+            $('.day').each(function () {
+
+                var date = $(this).data('date');
+                if (date === DateSelected) {
+                    $(this).addClass('active');
+                }
+            });
         },
         error: function (xhr, status, error) {
             var err = eval("(" + xhr.responseText + ")");
         }
     });
+}
+
+$(document).off('click', '.admin-attendance').on('click', '.admin-attendance', function (event) {
+    event.preventDefault();
+    HighlightAdminActiveLink($(this));
+    AdminAttendenceDataMap();
 });
 
 
