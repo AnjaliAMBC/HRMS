@@ -6,10 +6,14 @@ function HighlightAdminActiveLink(element) {
     $(element).parent().addClass('sidebaractive');
 }
 
+$(document).on('change', '#attedencemonth', function (event) {
+    updateDays();
+});
+
 function updateDays(DateSelected) {
     var selectedMonth = new Date($('#attedencemonth').val());
     var daysInMonth = new Date(selectedMonth.getFullYear(), selectedMonth.getMonth() + 1, 0).getDate();
-    var today = new Date().getDate();
+    var today = new Date();
 
     $('#daysContainer').empty();
 
@@ -17,18 +21,29 @@ function updateDays(DateSelected) {
         var dayNumber = i.toString().padStart(2, '0'); // Add leading zero if necessary
         var fullDate = new Date(selectedMonth.getFullYear(), selectedMonth.getMonth(), i);
         var formattedDate = fullDate.toLocaleDateString('en-GB', { day: '2-digit', month: 'long', year: 'numeric' });
-        var activeClass = (i === today && selectedMonth.getMonth() === new Date().getMonth()) ? 'active' : '';
+
+        var activeClass = (i === today.getDate() && selectedMonth.getMonth() === today.getMonth() && selectedMonth.getFullYear() === today.getFullYear()) ? 'active' : '';
 
         if (DateSelected != undefined) {
             activeClass = "";
         }
+
+        // Add future and weekend classes
+        var futureClass = (fullDate > today) ? 'future' : '';
+        var weekendClass = (fullDate.getDay() === 0 || fullDate.getDay() === 6) ? 'weekend' : '';
+
+        var clickevent = "#";
+        if (futureClass == "") {
+            clickevent = "highlightDate(this)";
+        }
         $('#daysContainer').append(`
-            <div class="day ${activeClass}" data-date="${formattedDate}" onclick="highlightDate(this)">
+            <div class="day ${activeClass} ${futureClass} ${weekendClass}" data-date="${formattedDate}" onclick="${clickevent}">
                 ${dayNumber}
             </div>
         `);
     }
 }
+
 
 function highlightDate(element) {
     $('.day.active').removeClass('active');
@@ -180,15 +195,41 @@ $(document).off('click', '.admin-attendance').on('click', '.admin-attendance', f
 
 //});
 
-//function submitDateRange() {
-//    var fromDate = $('#fromDate').val();
-//    var toDate = $('#toDate').val();
-//    if (fromDate && toDate) {
-//        alert('From Date: ' + fromDate + '\nTo Date: ' + toDate);
-//    } else {
-//        alert('Please select both dates.');
-//    }
-//}
+function submitDateRange() {
+    var fromDate = $('#fromDate').val();
+    var toDate = $('#toDate').val();
+
+    // Validate the dates
+    if (!fromDate || !toDate) {
+        alert('Please select both From and To dates.');
+        return;
+    }
+
+    if (new Date(fromDate) > new Date(toDate)) {
+        alert('The From date cannot be later than the To date.');
+        return;
+    }
+
+    // Make AJAX call to the server with the date range
+    $.ajax({
+        url: '/adminattendance/exportattendence',  // Replace with your actual endpoint
+        type: 'POST',
+        data: JSON.stringify({ fromDate: fromDate, toDate: toDate }),      
+        contentType: "application/json; charset=utf-8",
+        dataType: "json",
+        success: function (response) {
+            var downloadLink = document.createElement("a");
+            downloadLink.href = "data:application/vnd.openxmlformats-officedocument.spreadsheetml.sheet;base64," + response;
+            downloadLink.download = "EmployeeAttendence.xlsx";
+            document.body.appendChild(downloadLink);
+            downloadLink.click();
+            document.body.removeChild(downloadLink);
+        },
+        error: function (xhr, status, error) {
+            alert("Error occurred while exporting data: " + error);
+        }
+    });
+}
 
 //$(document).ready(function () {
 //    $('#exportIcon').click(function () {
