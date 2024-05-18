@@ -56,7 +56,7 @@ namespace HRMS.Controllers
             return PartialView("~/Views/AdminDashboard/AdminAttendance.cshtml", model);
         }
 
-        public ActionResult EmpAttendance(string selectedDate, string selectedEmpID)
+        public ActionResult EmpAttendance(string selectedStartDate, string selectedEndDate, string selectedEmpID)
         {
             var model = new AdminEmpIndividualAttendanceModel();
             var cuserContext = SiteContext.GetCurrentUserContext();
@@ -65,12 +65,19 @@ namespace HRMS.Controllers
 
             model.SelectedEndDate = DateTime.Today;
 
-            if (!string.IsNullOrWhiteSpace(selectedDate))
+            if (!string.IsNullOrWhiteSpace(selectedStartDate))
             {
-                model.SelectedEndDate = DateTime.ParseExact(selectedDate, "dd MMMM yyyy", CultureInfo.InvariantCulture);
+                model.SelectedStartDate = DateTime.Parse(selectedStartDate);
+            }
+            else
+            {
+                model.SelectedStartDate = model.SelectedEndDate.AddDays(-10);
             }
 
-            model.SelectedStartDate = model.SelectedEndDate.AddDays(-10);
+            if (!string.IsNullOrWhiteSpace(selectedEndDate))
+            {
+                model.SelectedEndDate = DateTime.Parse(selectedEndDate);
+            }
 
             var selectedDateAttendence = _dbContext.EmployeeCheckins.Where(x => x.Login_date >= model.SelectedStartDate && x.Login_date <= model.SelectedEndDate && x.EmployeeID == selectedEmpID).ToList();
 
@@ -83,13 +90,13 @@ namespace HRMS.Controllers
             List<DateTime> allDates = DateHelper.GetAllDates(model.SelectedStartDate, model.SelectedEndDate);
             model.AllDates = allDates;
 
-            var selectedEmployeeInfo = _dbContext.emp_info.Where(x => x.EmployeeID == selectedEmpID).FirstOrDefault();
+            model.SelectedEmployee = _dbContext.emp_info.Where(x => x.EmployeeID == selectedEmpID).FirstOrDefault();
 
             return PartialView("~/Views/AdminDashboard/AdminEmpIndividualAttendance.cshtml", model);
         }
 
         [HttpPost]
-        public ActionResult ExportAttendence(string fromDate, string toDate)
+        public ActionResult ExportAttendence(string fromDate, string toDate, string empID)
         {
             DateTime? startDate = null;
             DateTime? endDate = null;
@@ -103,9 +110,17 @@ namespace HRMS.Controllers
             {
                 endDate = DateTime.Parse(toDate).Date;
             }
+            var selectedEmployees = new List<EmployeeCheckin>();
 
+            if (!string.IsNullOrWhiteSpace(empID))
+            {
+                selectedEmployees = _dbContext.EmployeeCheckins.Where(e => e.Login_date >= startDate && e.Login_date <= endDate && e.EmployeeID == empID).ToList();
+            }
+            else
+            {
+                selectedEmployees = _dbContext.EmployeeCheckins.Where(e => e.Login_date >= startDate && e.Login_date <= endDate).ToList();
+            }
 
-            var selectedEmployees = _dbContext.EmployeeCheckins.Where(e => e.Login_date >= startDate && e.Login_date <= endDate).ToList();
 
             using (ExcelPackage excelPackage = new ExcelPackage())
             {

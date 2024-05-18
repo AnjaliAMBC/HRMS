@@ -120,10 +120,14 @@ function submitDateRange() {
         return;
     }
 
+    ExportEmpAttendence(fromDate, toDate, "");
+}
+
+function ExportEmpAttendence(fromDate, toDate, empID) {
     $.ajax({
-        url: '/adminattendance/exportattendence',  // Replace with your actual endpoint
+        url: '/adminattendance/exportattendence',
         type: 'POST',
-        data: JSON.stringify({ fromDate: fromDate, toDate: toDate }),
+        data: JSON.stringify({ fromDate: fromDate, toDate: toDate, empID: empID }),
         contentType: "application/json; charset=utf-8",
         dataType: "json",
         success: function (response) {
@@ -140,17 +144,55 @@ function submitDateRange() {
     });
 }
 
+$(document).on('click', '#downloademp-attedenceLink', function (event) {
+    var fromDate = $('#empfromDate').val();
+    var toDate = $('#emptoDate').val();
+
+    if (!fromDate || !toDate) {
+        alert('Please select both From and To dates.');
+        return;
+    }
+
+    if (new Date(fromDate) > new Date(toDate)) {
+        alert('The From date cannot be later than the To date.');
+        return;
+    }
+
+    ExportEmpAttendence(fromDate, toDate, $('.selectedEmpID').text().trim());
+});
+
+function AdminEmpIndividualAttendence(employeeStartDate, employeeEndDate, employeeId) {
+    $.ajax({
+        url: '/adminattendance/empattendance',
+        type: 'GET',
+        dataType: 'html',
+        data: { selectedStartDate: employeeStartDate, selectedEndDate: employeeEndDate, selectedEmpID: employeeId },
+        success: function (response) {
+            $(".hiddenadmindashboard").html("");
+            $(".admin-empmanagement-container").html("");
+            $('.admin-attendance-container').html("");
+            $('.admin-emppadd-container').html("");
+            $(".hiddenadmindashboard").html(response);
+            var formContent = $(".hiddenadmindashboard").find(".admin-attendancemgmt-view").html();
+            $(".admin-attendance-container").html(formContent);
+
+            $('.admin-empmanagement-container').hide();
+            $('.admin-dashboard-container').hide();
+            $('.admin-emppadd-container').hide();
+            $('.admin-attendance-container').show();
+            $('.admin-leave-container').hide();
+            $('.admin-ticketing-container').hide();
+            $(".hiddenadmindashboard").html("");
+        },
+        error: function (xhr, status, error) {
+            var err = eval("(" + xhr.responseText + ")");
+        }
+    });
+}
+
 $(document).on('click', '.employee-info', function (event) {
     var employeeId = $(this).find('.employee-id').text();
-    var employeeName = $(this).find('.employee-details').text().split('\n')[0];
-    var employeeEmail = $(this).find('.employee-details small').text();
     var employeeSignInDate = $(this).find('.emp-logindate').text();
-
-    // Example: Log employee details to console
-    console.log('Employee ID:', employeeId);
-    console.log('Employee Name:', employeeName);
-    console.log('Employee Email:', employeeEmail);
-
 
     $.ajax({
         url: '/adminattendance/empattendance',
@@ -178,6 +220,10 @@ $(document).on('click', '.employee-info', function (event) {
             var err = eval("(" + xhr.responseText + ")");
         }
     });
+});
 
-
+$(document).on('click', '#applyButton', function (event) {
+    var fromDate = $('#empfromDate').val();
+    var toDate = $('#emptoDate').val();
+    AdminEmpIndividualAttendence(fromDate, toDate, $('.selectedEmpID').text().trim());
 });
