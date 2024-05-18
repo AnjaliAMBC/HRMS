@@ -1,75 +1,92 @@
 ﻿<div class="admin-addshift-view">
-    <div class="container">
-        <h1 class="mt-5">Shift Details</h1>
-        <div class="form-group">
-            <div class="form-row">
-                <div class="col-md-4">
-                    <input class="form-check-input" type="radio" name="option" id="departmentOption" checked>
-                    <label class="form-check-label" for="departmentOption">Department</label>
-                    <div id="departmentDropdown" class="dropdown shiftdropdown-checkboxes">
-                        <button class="btn btn-secondary shiftdropdown-toggle" type="button" id="departmentDropdownButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                            Select Department
-                        </button>
-                        <div class="dropdown-menu" aria-labelledby="departmentDropdownButton">
-                            <div class="dropdown-item">
-                                <input type="checkbox" id="dept1Checkbox">
-                                <label for="dept1Checkbox">Department 1</label>
-                            </div>
-                            <div class="dropdown-item">
-                                <input type="checkbox" id="dept2Checkbox">
-                                <label for="dept2Checkbox">Department 2</label>
-                            </div>
-                            <!-- Add more options as needed -->
+
+    <style>
+        .bordered{
+            border: 1px solid lightgray;
+        }
+       
+    </style>
+    <main role="main" class="col-md-9 col-lg-10 px-md-4 content addshiftcontent">
+        <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
+            <h1 class="h2">Add Shift</h1>
+        </div>
+        <div class="card addshiftcard">
+            <div class="card-body">
+                <form>
+                    <div class="form-group">
+                        <div class="form-check form-check-inline">
+                            <input class="form-check-input" type="radio" name="shiftType" id="departmentRadio" value="department" checked>
+                            <label class="form-check-label" for="departmentRadio">Department</label>
+                        </div>
+                        <div class="form-check form-check-inline">
+                            <input class="form-check-input" type="radio" name="shiftType" id="employeesRadio" value="employees">
+                            <label class="form-check-label" for="employeesRadio">Employees</label>
                         </div>
                     </div>
-                </div>
-                <div class="col-md-4">
-                    <input class="form-check-input" type="radio" name="option" id="employeeOption">
-                    <label class="form-check-label" for="employeeOption">Employees</label>
-                    <div id="employeeDropdown" class="dropdown shiftdropdown-checkboxes" style="display: none;">
-                        <button class="btn btn-secondary shiftdropdown-toggle" type="button" id="employeeDropdownButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                            Select Employees
-                        </button>
-                        <div class="dropdown-menu" aria-labelledby="employeeDropdownButton">
-                            <div class="dropdown-item">
-                                <input type="checkbox" id="emp1Checkbox">
-                                <label for="emp1Checkbox">Employee 1</label>
-                            </div>
-                            <div class="dropdown-item">
-                                <input type="checkbox" id="emp2Checkbox">
-                                <label for="emp2Checkbox">Employee 2</label>
-                            </div>
-                            <!-- Add more options as needed -->
+                    <div class="form-row">
+                        <div class="form-group col-md-4" id="departmentDropdown">
+                            <label for="selectDepartments">Select Departments</label>
+                            <select class="form-control" id="selectDepartments" multiple="multiple">
+                                <option value="1">Department 1</option>
+                                <option value="2">Department 2</option>
+                                <option value="3">Department 3</option>
+                            </select>
+                        </div>
+                        <div class="form-group col-md-4 d-none" id="employeeDropdown">
+                            <label for="selectEmployees">Select Employees</label>
+                            <select class="form-control" id="selectEmployees" multiple="multiple">
+                                <option value="1">Employee 1</option>
+                                <option value="2">Employee 2</option>
+                                <option value="3">Employee 3</option>
+                            </select>
                         </div>
                     </div>
-                </div>
+                    <div class="form-row">
+                        <div class="form-group col-md-2">
+                            <label for="startTime">Start Time</label>
+                            <input type="time" class="form-control" id="startTime" value="09:30">
+                        </div>
+                        <div class="form-group col-md-2">
+                            <label for="endTime">End Time</label>
+                            <input type="time" class="form-control" id="endTime" value="06:30">
+                        </div>
+                    </div>
+                    <div class="form-check">
+                        <input type="checkbox" class="form-check-input" id="notification">
+                        <label class="form-check-label" for="notification">Send check-in checkout notification before 15 minutes</label>
+                    </div>
+                    <button type="submit" class="btn btn-primary mt-3">Save</button>
+                </form>
             </div>
         </div>
+    </main>
 
-        <div class="form-row">
-            <div class="col-md-2">
-                <div class="form-group">
-                    <label for="startTime">Start Time:</label>
-                    <input type="time" id="startTime" class="form-control form-control-sm">
-                </div>
-            </div>
-            <div class="col-md-2">
-                <div class="form-group">
-                    <label for="endTime">End Time:</label>
-                    <input type="time" id="endTime" class="form-control form-control-sm">
-                </div>
-            </div>
-        </div>
+    <script>
+        $(document).ready(function () {
+            initializeMultiselect('#selectDepartments', 'Select Departments');
+            initializeMultiselect('#selectEmployees', 'Select Employees');
 
-        <div class="form-group">
-            <div class="form-check">
-                <input type="checkbox" id="notification" class="form-check-input">
-                <label class="form-check-label" for="notification">Send notifications before and after time</label>
-            </div>
-        </div>
+            $('.multiselect').addClass('bordered');
 
-        <button id="saveButton" class="btn btn-primary mt-3">Save</button>
-    </div>
+        });
 
+        $(document).on('change', '#selectDepartments', function () {
+            $('.multiselect').addClass('bordered');
+            initializeMultiselect(this, 'Select Departments');
+        });
 
+        $(document).on('change', '#selectEmployees', function () {
+            $('.multiselect').addClass('bordered');
+            initializeMultiselect(this, 'Select Employees');
+        });
+
+        function initializeMultiselect(selector, nonSelectedText) {
+            $(selector).multiselect('destroy').multiselect({
+                includeSelectAllOption: true,
+                enableFiltering: true,
+                buttonWidth: '100%',
+                nonSelectedText: nonSelectedText
+            });
+        }
+    </script>
 </div>

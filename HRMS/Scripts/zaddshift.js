@@ -1,5 +1,4 @@
-﻿
-$(document).on('click', '.btn-addshift', function () {
+﻿$(document).on('click', '.btn-addshift', function () {
     event.preventDefault();
     HighlightAdminActiveLink($(this));
 
@@ -7,7 +6,7 @@ $(document).on('click', '.btn-addshift', function () {
         url: '/adminattendance/addshift',
         type: 'GET',
         dataType: 'html',
-        success: function (response) {         
+        success: function (response) {
 
             $(".hiddenadmindashboard").html("");
             $('.admin-dashboard-container').html("");
@@ -34,20 +33,12 @@ $(document).on('click', '.btn-addshift', function () {
     });
 });
 
-
-
-
-//document.getElementById("departmentOption").onchange = function () {
-//    document.getElementById("departmentDropdown").style.display = "block";
-//    document.getElementById("employeeDropdown").style.display = "none";
-//};
-
-
-//document.getElementById("employeeOption").onchange = function () {
-//    document.getElementById("departmentDropdown").style.display = "none";
-//    document.getElementById("employeeDropdown").style.display = "block";
-//};
-
-
-//document.getElementById("saveButton").onclick = function () {
-//};
+$(document).on('change', 'input[name="shiftType"]', function () {
+    if ($('#departmentRadio').is(':checked')) {
+        $('#departmentDropdown').removeClass('d-none');
+        $('#employeeDropdown').addClass('d-none');
+    } else if ($('#employeesRadio').is(':checked')) {
+        $('#employeeDropdown').removeClass('d-none');
+        $('#departmentDropdown').addClass('d-none');
+    }
+});
