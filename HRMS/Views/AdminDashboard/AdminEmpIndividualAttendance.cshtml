@@ -1,0 +1,174 @@
+﻿@model HRMS.Models.Admin.AdminEmpIndividualAttendanceModel
+
+<div class="admin-attendancemgmt-view">
+    <style>
+        #adminaddendancetable_length {
+            display: none;
+        }
+
+        #adminaddendancetable_filter {
+            display: none;
+        }
+    </style>
+    <div class="container-fluid mt-5" style="width:98%;">
+        <div class="row align-items-center">
+            <div class="col">
+                <h3>@Model.EmpInfo.EmployeeName</h3>
+            </div>
+            <div class="col d-flex justify-content-end">
+                <form class="form-inline">
+                    <label for="fromDate" class="mr-2">From</label>
+
+                    @if (@Model.SelectedStartDate != DateTime.MinValue)
+                    {
+                        @Html.TextBoxFor(m => m.SelectedStartDate, "{0:yyyy-MM-dd}", new { @type = "date", @class = "form-control", @id = "empfromDate" })
+                    }
+                    else
+                    {
+                        <input type="date" class="form-control mr-2" id="empfromDate" value="@Model.SelectedStartDate" style="font-size: 12px;">
+                    }
+
+                    <label for="toDate" class="mr-2">To</label>
+
+                    @if (@Model.SelectedEndDate != DateTime.MinValue)
+                    {
+                        @Html.TextBoxFor(m => m.SelectedEndDate, "{0:yyyy-MM-dd}", new { @type = "date", @class = "form-control", @id = "emptoDate" })
+                    }
+                    else
+                    {
+                        <input type="date" class="form-control mr-2" id="emptoDate" value="@Model.SelectedEndDate" style="font-size: 12px;">
+                    }
+
+
+                    <button type="button" class="btn btn-primary mr-2" id="applyButton">Apply</button>
+                    <a href="#" id="downloadLink"><i class="fa-solid fa-arrow-up-from-bracket" style="font-size:25px"></i></a>
+                </form>
+            </div>
+        </div>
+    </div>
+    <div class="table-container mt-4" style="border-radius: 10px; overflow: hidden;">
+        <table id="adminaddendancetable" class="display ml-4">
+            <thead style="background-color: #EEF4FF; ">
+                <tr>
+                    <th>Date</th>
+                    <th>Shift</th>
+                    <th>Check-in</th>
+                    <th>Check-out</th>
+                    <th>Hours</th>
+                    <th>Status</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (System.DateTime date in Model.AllDates)
+                {
+                    var isWeekendDate = date.DayOfWeek == DayOfWeek.Saturday || date.DayOfWeek == DayOfWeek.Sunday;
+                    var weekendtext = "";
+                    if (isWeekendDate)
+                    {
+                        weekendtext = "weekend";
+                    }
+
+                    var isCheckInExists = Model.EmpCheckInList.Where(x => x.Login_date == date).FirstOrDefault();
+
+
+                    if (isCheckInExists != null)
+                    {
+                        string starttimeWithAmPm = isCheckInExists.Signin_Time.ToString("hh:mm tt", System.Globalization.CultureInfo.InvariantCulture);
+                        string endtimeWithAmPm = isCheckInExists.Signout_Time?.ToString("hh:mm tt", System.Globalization.CultureInfo.InvariantCulture);
+
+                        string statusType = "bar-width-green";
+                        string buttonColor = "present-btn";
+                        string attedenceType = "Present";
+                        int hours = 00;
+                        int minutes = 00;
+
+                        if (endtimeWithAmPm != null)
+                        {
+                            // Initialize endTime as null
+                            DateTime? endTime = null;
+                            endTime = isCheckInExists.Signout_Time;
+
+
+                            // Calculate time difference
+                            TimeSpan? timeDifference = endTime - isCheckInExists.Signin_Time;
+
+                            // Convert time difference to hours and minutes
+                            hours = (int)timeDifference?.TotalHours;
+                            minutes = (int)timeDifference?.Minutes;
+
+                            if (hours < 9)
+                            {
+                                statusType = "bar-width-yellow";
+                                buttonColor = "yellow-btn";
+                                attedenceType = "Permission";
+                            }
+                        }
+                        else
+                        {
+                            if (isCheckInExists.Login_date == DateTime.Today)
+                            {
+                                // Calculate time difference
+                                TimeSpan? timeDifference = DateTime.Now - isCheckInExists.Signin_Time;
+
+                                // Convert time difference to hours and minutes
+                                hours = (int)timeDifference?.TotalHours;
+                                minutes = (int)timeDifference?.Minutes;
+                            }
+                        }
+
+                        <tr>
+                            <th scope="row">@isCheckInExists.Login_date.ToString("dd MMMM yyyy") <br><span class="fntblur">@isCheckInExists.Login_date.ToString("ddd", System.Globalization.CultureInfo.InvariantCulture)</span></th>
+                            <td class="">@Model.SelectedEmployee.ShiftTimings</td>
+                            <td class="">@starttimeWithAmPm</td>
+                            <td class="">@endtimeWithAmPm</td>
+                            <td class="bar-wd">@hours.ToString("00").Trim()h:@minutes.ToString("00").Trim()m</td>
+                            <td><button class="@buttonColor">@attedenceType</button></td>
+                        </tr>
+                    }
+                    else
+                    {
+                        string statusType = "bar-width-gray";
+                        string buttonColor = "gray-btn";
+                        string attedenceType = "Weekend";
+                        if (!isWeekendDate)
+                        {
+                            statusType = "bar-width-red";
+                            buttonColor = "leave-btn";
+                            attedenceType = "Leave";
+                        }
+
+                        <tr>
+                            <th scope="row">@date.ToString("dd MMMM yyyy") <br><span class="fntblur">@date.ToString("ddd", System.Globalization.CultureInfo.InvariantCulture)</span></th>
+                            <td class="">@Model.SelectedEmployee.ShiftTimings</td>
+                            <td class="">00:00 AM</td>
+                            <td class="">00:00 AM</td>
+                            <td class="bar-wd">00h:00m</td>
+                            <td><button class="@buttonColor">@attedenceType</button></td>
+                        </tr>
+                    }
+                }
+            </tbody>
+        </table>
+    </div>
+
+    <script>
+
+        $(document).ready(function () {
+            if (!$.fn.DataTable.isDataTable('#adminaddendancetable')) {
+                $('#adminaddendancetable').DataTable({
+                    "paging": true,
+                    "searching": true,
+                    "ordering": false,
+                    "info": true,
+                    "autoWidth": false,
+                    "lengthMenu": [[7, 14, 21, -1], [7, 14, 21, "All"]],
+                    "columnDefs": [
+                        { "orderable": false, "targets": 1 }, // Disable ordering on the Checkin-Check-Out column
+                        { "orderable": false, "targets": 3 }  // Disable ordering on the Status column
+                    ]
+                });
+            }
+        });
+
+    </script>
+</div>

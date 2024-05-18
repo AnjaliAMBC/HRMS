@@ -56,6 +56,38 @@ namespace HRMS.Controllers
             return PartialView("~/Views/AdminDashboard/AdminAttendance.cshtml", model);
         }
 
+        public ActionResult EmpAttendance(string selectedDate, string selectedEmpID)
+        {
+            var model = new AdminEmpIndividualAttendanceModel();
+            var cuserContext = SiteContext.GetCurrentUserContext();
+            model.EmpInfo = cuserContext.EmpInfo;
+            model.LoginInfo = cuserContext.LoginInfo;
+
+            model.SelectedEndDate = DateTime.Today;
+
+            if (!string.IsNullOrWhiteSpace(selectedDate))
+            {
+                model.SelectedEndDate = DateTime.ParseExact(selectedDate, "dd MMMM yyyy", CultureInfo.InvariantCulture);
+            }
+
+            model.SelectedStartDate = model.SelectedEndDate.AddDays(-10);
+
+            var selectedDateAttendence = _dbContext.EmployeeCheckins.Where(x => x.Login_date >= model.SelectedStartDate && x.Login_date <= model.SelectedEndDate && x.EmployeeID == selectedEmpID).ToList();
+
+            if (selectedDateAttendence != null && selectedDateAttendence.Any())
+            {
+                model.EmpCheckInList = selectedDateAttendence;
+            }
+
+            // Get all dates between start and end date
+            List<DateTime> allDates = DateHelper.GetAllDates(model.SelectedStartDate, model.SelectedEndDate);
+            model.AllDates = allDates;
+
+            var selectedEmployeeInfo = _dbContext.emp_info.Where(x => x.EmployeeID == selectedEmpID).FirstOrDefault();
+
+            return PartialView("~/Views/AdminDashboard/AdminEmpIndividualAttendance.cshtml", model);
+        }
+
         [HttpPost]
         public ActionResult ExportAttendence(string fromDate, string toDate)
         {

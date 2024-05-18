@@ -42,6 +42,7 @@
             #adminaddendancetable_length {
                 display: none;
             }
+
             .future {
                 color: blue; /* Example color for future dates */
             }
@@ -69,7 +70,6 @@
                 .day:hover {
                     background-color: #f0f0f0;
                 }
-
         </style>
 
         <div class="row mb-2 align-items-center">
@@ -215,6 +215,8 @@
                                         @empCheckin.EmployeeName<br>
                                         <small>@empCheckin.OfficalEmailid</small>
                                     </div>
+
+                                    <span class="emp-logindate" style="display: none">@empCheckin.Login_date.ToString("dd MMMM yyyy")</span>
                                 </td>
                                 <td>@empCheckin.Location</td>
                                 <td>@empCheckin.Login_date.ToString("dd MMMM yyyy")</td>
@@ -289,6 +291,7 @@
                                         @employee.EmployeeName<br>
                                         <small>@employee.OfficalEmailid</small>
                                     </div>
+                                    <span class="emp-logindate" style="display: none">@Model.SelectedDate.ToString("dd MMMM yyyy")</span>
                                 </td>
                                 <td>@employee.Location</td>
                                 <td>@Model.SelectedDate.ToString("dd MMMM yyyy")</td>
