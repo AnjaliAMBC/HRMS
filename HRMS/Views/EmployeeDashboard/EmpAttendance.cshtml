@@ -22,6 +22,14 @@
         span {
             font-weight: bold;
         }
+
+        #attendanceTable_length {
+            display: none;
+        }
+
+        #attendanceTable_filter {
+            display: none;
+        }
     </style>
 
     @{
@@ -36,8 +44,6 @@
         <div class="att-div">
             <div>
                 <span class="attendence-title">Attendance</span>
-                @*<p style="display: inline-block;" class="left-right-icon"><i class="bi bi-chevron-left left-btn"></i><span>01 April 2024 </span>- <span>08 April 2024</span><i class="bi bi-chevron-right right-btn"></i></p>*@
-
                 <div id="week-slider" class="left-right-icon">
                     <i class="bi bi-chevron-left left-btn"></i>
                     <span id="week-start">@startDateFormatted</span> - <span id="week-end">@endDateFormatted</span>
@@ -46,14 +52,20 @@
             </div>
 
             <div class="att-calender">
-                <div class="from-to-calen">
-                    <span>From</span> <input type="date" name="attendancefrom" id="attendancefrom">
-                    &nbsp; &nbsp;<span>To</span> <input type="date" name="attendanceto" id="attendanceto">
+                <div class="form-row from-to-calen">
+                    <div class="col">
+                        From <input type="date" class="form-control" id="attendancefrom" name="attendancefrom">
+                    </div>
+                    <div class="col">
+                        To <input type="date" class="form-control" id="attendanceto" name="attendanceto">
+                    </div>
                 </div>
                 <div class="apply-div">
-                    <button class="apply-filter attendance-find">Apply</button>
+                    <button class="btn btn-primary apply-filter attendance-find">Apply</button>
                 </div>
             </div>
+
+
 
         </div>
         <div class="att-table">
@@ -81,46 +93,85 @@
                         var isCheckInExists = Model.AttedenceList.Where(x => x.Login_date == date).FirstOrDefault();
                         if (isCheckInExists != null)
                         {
+                            string starttimeWithAmPm = isCheckInExists.Signin_Time.ToString("hh:mm tt", System.Globalization.CultureInfo.InvariantCulture);
+                            string endtimeWithAmPm = isCheckInExists.Signout_Time?.ToString("hh:mm tt", System.Globalization.CultureInfo.InvariantCulture);
+
+                            string statusType = "bar-width-green";
+                            string buttonColor = "present-btn";
+                            string attedenceType = "Present";
+                            int hours = 00;
+                            int minutes = 00;
+
+                            if (endtimeWithAmPm != null)
+                            {
+                                // Initialize endTime as null
+                                DateTime? endTime = null;
+                                endTime = isCheckInExists.Signout_Time;
+
+
+                                // Calculate time difference
+                                TimeSpan? timeDifference = endTime - isCheckInExists.Signin_Time;
+
+                                // Convert time difference to hours and minutes
+                                hours = (int)timeDifference?.TotalHours;
+                                minutes = (int)timeDifference?.Minutes;
+
+                                if (hours < 9)
+                                {
+                                    statusType = "bar-width-yellow";
+                                    buttonColor = "yellow-btn";
+                                    attedenceType = "Permission";
+                                }
+                            }
+                            else
+                            {
+                                if (isCheckInExists.Login_date == DateTime.Today)
+                                {
+                                    // Calculate time difference
+                                    TimeSpan? timeDifference = DateTime.Now - isCheckInExists.Signin_Time;
+
+                                    // Convert time difference to hours and minutes
+                                    hours = (int)timeDifference?.TotalHours;
+                                    minutes = (int)timeDifference?.Minutes;
+                                }
+                            }
+
                             <tr>
                                 <th scope="row">@isCheckInExists.Login_date.ToString("dd MMMM yyyy") <br><span class="fntblur">@isCheckInExists.Login_date.ToString("ddd", System.Globalization.CultureInfo.InvariantCulture)</span></th>
 
-                                @{
-                                    string starttimeWithAmPm = isCheckInExists.Signin_Time.ToString("hh:mm tt", System.Globalization.CultureInfo.InvariantCulture);
-                                    string endtimeWithAmPm = isCheckInExists.Signout_Time?.ToString("hh:mm tt", System.Globalization.CultureInfo.InvariantCulture);
-
-                                }
                                 <td class="bar-wi bar-wd">
                                     <div class="progress attendance-bar bar">
-                                        <div class="progress-bar bar-width-green" role="progressbar" aria-valuenow="75" aria-valuemin="10" aria-valuemax="10"></div>
+                                        <div class="progress-bar @statusType" role="progressbar" aria-valuenow="75" aria-valuemin="10" aria-valuemax="10"></div>
                                         <span class="bar-time">@starttimeWithAmPm - @endtimeWithAmPm</span>
                                     </div>
                                 </td>
-                                <td class="bar-wd">09h:10m</td>
-                                <td><button class="present-btn">Present</button></td>
+                                <td class="bar-wd">@hours.ToString("00").Trim()h:@minutes.ToString("00").Trim()m</td>
+                                <td><button class="@buttonColor">@attedenceType</button></td>
                             </tr>
                         }
                         else
                         {
+                            string statusType = "bar-width-gray";
+                            string buttonColor = "gray-btn";
+                            string attedenceType = "Weekend";
+                            if (!isWeekendDate)
+                            {
+                                statusType = "bar-width-red";
+                                buttonColor = "leave-btn";
+                                attedenceType = "Leave";
+                            }
+
                             <tr>
                                 <th scope="row">@date.ToString("dd MMMM yyyy") <br><span class="fntblur">@date.ToString("ddd", System.Globalization.CultureInfo.InvariantCulture)</span></th>
-
                                 <td class="bar-wi bar-wd">
                                     <div class="progress attendance-bar bar">
-                                        <div class="progress-bar bar-width-gray" role="progressbar" aria-valuenow="75" aria-valuemin="10" aria-valuemax="10"></div>
-                                        <span class="bar-time">@weekendtext</span>
+                                        <div class="progress-bar @statusType" role="progressbar" aria-valuenow="75" aria-valuemin="10" aria-valuemax="10"></div>
+                                        <span class="bar-time">@attedenceType</span>
                                     </div>
                                 </td>
 
                                 <td class="bar-wd">00h:00m</td>
-
-                                @if (!isWeekendDate)
-                                {
-                                    <td><button class="gray-btn">Absent</button></td>
-                                }
-                                else
-                                {
-                                    <td><button class="gray-btn">Weekend</button></td>
-                                }
+                                <td><button class="@buttonColor">@attedenceType</button></td>
 
                             </tr>
                         }
@@ -212,7 +263,7 @@
                 $('#attendanceTable').DataTable({
                     "paging": true,
                     "searching": true,
-                    "ordering": true,
+                    "ordering": false,
                     "info": true,
                     "autoWidth": false,
                     "lengthMenu": [[7, 14, 21, -1], [7, 14, 21, "All"]],

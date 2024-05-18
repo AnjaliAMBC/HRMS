@@ -7,12 +7,19 @@
     DateTime checkInTime = DateTime.MinValue;
     DateTime? checkOutTime = DateTime.MinValue;
 
+    string starttimeWithAmPm = "";
+    string endtimeWithAmPm = "";
+
     if (Model.CheckInInfo != null && Model.CheckInInfo.login_id != 0)
     {
         loginID = Model.CheckInInfo.login_id;
         buttonText = "Check-Out";
         checkInTime = Model.CheckInInfo.Signin_Time;
         checkOutTime = Model.CheckInInfo.Signout_Time;
+
+        starttimeWithAmPm = checkInTime.ToString("hh:mm tt", System.Globalization.CultureInfo.InvariantCulture);
+        endtimeWithAmPm = checkOutTime?.ToString("hh:mm tt", System.Globalization.CultureInfo.InvariantCulture);
+
     }
 }
 
@@ -33,9 +40,9 @@
 
             <div class="in-out mr-4">
                 <span class="label mb-2">Check In:</span>
-                <div id="checkInTime" class="time-input" style="color: blue">@checkInTime</div> <!-- Replace input with div -->
+                <div id="checkInTime" class="time-input" style="color: blue">@starttimeWithAmPm</div> <!-- Replace input with div -->
                 <span class="label">Check Out:</span>
-                <div id="checkOutTime" class="time-input">@checkOutTime</div> <!-- Replace input with div -->
+                <div id="checkOutTime" class="time-input">@endtimeWithAmPm</div> <!-- Replace input with div -->
             </div>
 
 
@@ -91,4 +98,26 @@
             </div>
         </div>
     </div>
+
+    <script>
+        function updateRunningTime() {
+            var currentDate = new Date();
+            var hours = currentDate.getHours();
+            var minutes = currentDate.getMinutes().toString().padStart(2, '0');
+            var seconds = currentDate.getSeconds().toString().padStart(2, '0');
+
+            var ampm = hours >= 12 ? 'PM' : 'AM';
+            hours = hours % 12;
+            hours = hours ? hours : 12; // Handle midnight (0 hours)
+
+            var currentTime = hours.toString().padStart(2, '0') + ":" + minutes + ":" + seconds;
+
+            document.getElementById("currentDate").textContent = currentDate.toLocaleDateString('en-IN', { timeZone: 'Asia/Kolkata', year: 'numeric', month: 'long', day: 'numeric' });
+            document.getElementById("currentTime").textContent = currentTime;
+            document.getElementById("day").textContent = currentDate.toLocaleDateString('en-IN', { timeZone: 'Asia/Kolkata', weekday: 'long' }).toUpperCase() + ",";
+
+        }
+        setInterval(updateRunningTime, 1000);
+
+    </script>
 </div>

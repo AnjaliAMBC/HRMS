@@ -56,6 +56,9 @@ namespace HRMS.Controllers
                     var newCheckInItem = _dbContext.tbld_ambclogininformation.Add(checkInModel);
                     _dbContext.SaveChanges();
 
+                    cuserContext.CheckInInfo = newCheckInItem;
+                    Session["SiteContext"] = cuserContext;
+
                     model.CheckInInfo = newCheckInItem;
                     model.JsonResponse.Message = "Check in Successful";
                     model.JsonResponse.StatusCode = 200;
