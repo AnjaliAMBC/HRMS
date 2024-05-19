@@ -5,13 +5,14 @@
     <style>
         .attendence-title {
             display: inline-block;
-            vertical-align: middle; /* Align vertically with the slider */
+            vertical-align: middle;
+          /* Align vertically with the slider */
         }
 
         .left-right-icon {
             display: inline-block;
             vertical-align: middle; /* Align vertically with the label */
-            font-size: 20px;
+            font-size: 15px;
         }
 
         .left-btn,
@@ -19,9 +20,7 @@
             cursor: pointer;
         }
 
-        span {
-            font-weight: bold;
-        }
+       
 
         #attendanceTable_length {
             display: none;
@@ -30,6 +29,12 @@
         #attendanceTable_filter {
             display: none;
         }
+        .empatt-body{
+            font-size:13px;
+            font-weight:300;
+        }
+       
+
     </style>
 
     @{
@@ -43,7 +48,7 @@
 
         <div class="att-div">
             <div>
-                <span class="attendence-title">Attendance</span>
+                <h3 class="attendence-title">Attendance</h3>
                 <div id="week-slider" class="left-right-icon">
                     <i class="bi bi-chevron-left left-btn"></i>
                     <span id="week-start">@startDateFormatted</span> - <span id="week-end">@endDateFormatted</span>
@@ -51,19 +56,21 @@
                 </div>
             </div>
 
-            <div class="att-calender">
+            <div class="att-calender" >
                 <div class="form-row from-to-calen">
-                    <div class="col">
-                        From <input type="date" class="form-control" id="attendancefrom" name="attendancefrom">
+                    <div class="col d-flex" style="align-items: center; font-size:14px;">
+                        From <input type="date" class="form-control ml-2" id="attendancefrom" name="attendancefrom" style="font-size:13px;">
                     </div>
-                    <div class="col">
-                        To <input type="date" class="form-control" id="attendanceto" name="attendanceto">
+                    <div class="col d-flex" style="align-items: center; font-size: 14px;">
+                        To <input type="date" class="form-control ml-2" id="attendanceto" name="attendanceto" style="font-size:13px;">
                     </div>
                 </div>
                 <div class="apply-div">
-                    <button class="btn btn-primary apply-filter attendance-find">Apply</button>
+                    <button class="btn btn-primary apply-filter attendance-find ml-3">Apply</button>
                 </div>
             </div>
+
+
 
 
 
@@ -79,7 +86,7 @@
                         <th scope="col">Status</th>
                     </tr>
                 </thead>
-                <tbody>
+                <tbody class="empatt-body">
                     @foreach (DateTime date in Model.AllDates)
                     {
                         var isWeekendDate = date.DayOfWeek == DayOfWeek.Saturday || date.DayOfWeek == DayOfWeek.Sunday;
@@ -201,18 +208,6 @@
                 });
             }
 
-            //$('#attendanceTable').DataTable({
-            //    "paging": true,
-            //    "searching": true,
-            //    "ordering": true,
-            //    "info": true,
-            //    "pageLength": 3,
-            //    "autoWidth": false,
-            //    "columnDefs": [
-            //        { "orderable": false, "targets": 1 }, // Disable ordering on the Checkin-Check-Out column
-            //        { "orderable": false, "targets": 3 }  // Disable ordering on the Status column
-            //    ]
-            //});
         });
 
     </script>
