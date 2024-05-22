@@ -21,9 +21,10 @@ namespace HRMS
         public System.DateTime Signin_Time { get; set; }
         public Nullable<System.DateTime> Signout_Time { get; set; }
         public Nullable<int> Working_Hours { get; set; }
-        public string Employee_Shift { get; set; }
         public System.DateTime Login_date { get; set; }
         public string imagepath { get; set; }
         public string Location { get; set; }
+        public int Sno { get; set; }
+        public string ShiftTimings { get; set; }
     }
 }

@@ -43,6 +43,11 @@ namespace HRMS
                 url: "{controller}/{action}/{id}",
                 defaults: new { controller = "EmpDash", action = "Index", id = UrlParameter.Optional }
             );
+            routes.MapRoute(
+                name: "AdminDash",
+                url: "{controller}/{action}/{id}",
+                defaults: new { controller = "AdminDash", action = "Index", id = UrlParameter.Optional }
+            );
 
         }
     }

@@ -29,11 +29,17 @@
         #attendanceTable_filter {
             display: none;
         }
-        .empatt-body{
-            font-size:13px;
-            font-weight:300;
+        .empatt-body {
+            font-size: 13px;
+            font-weight: 300;
+            
         }
-       
+        .attendance-find {
+            background-color: #007bff;
+        }
+        .att-table{
+            margin-top:15px;
+        }
 
     </style>
 
@@ -48,7 +54,7 @@
 
         <div class="att-div">
             <div>
-                <h3 class="attendence-title">Attendance</h3>
+                <h4 class="attendence-title ml-1">Attendance</h4>
                 <div id="week-slider" class="left-right-icon">
                     <i class="bi bi-chevron-left left-btn"></i>
                     <span id="week-start">@startDateFormatted</span> - <span id="week-end">@endDateFormatted</span>
@@ -66,7 +72,7 @@
                     </div>
                 </div>
                 <div class="apply-div">
-                    <button class="btn btn-primary apply-filter attendance-find ml-3">Apply</button>
+                    <button class="btn apply-filter attendance-find ml-3">Apply</button>
                 </div>
             </div>
 

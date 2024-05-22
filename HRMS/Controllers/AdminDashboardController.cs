@@ -32,7 +32,7 @@ namespace HRMS.Controllers
         //[CustomAuthorize(Roles = "HR Admin")]
         public ActionResult Dashboard()
         {
-            var model = new DashboardViewModel();
+            var model = new AdminDashView();
             var cuserContext = SiteContext.GetCurrentUserContext();
             model.EmpInfo = cuserContext.EmpInfo;
             model.LoginInfo = cuserContext.LoginInfo;

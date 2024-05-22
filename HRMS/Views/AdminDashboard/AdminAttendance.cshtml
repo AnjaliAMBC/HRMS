@@ -70,6 +70,57 @@
                 .day:hover {
                     background-color: #f0f0f0;
                 }
+            table.dataTable.display tbody td,
+            table.dataTable thead th{
+                border:none;
+            }
+            .leaveupdate_view {
+                width: 25%;
+                border: 1px solid transparent;
+                background-color: white;
+                border-radius: 10px;
+                position: fixed;
+                top: 50%;
+                left: 50%;
+                transform: translate(-50%, -50%);
+                z-index: 9999; /* Ensure the popup view appears above other elements */
+                display: none; /* Hide the popup initially */
+            }
+
+                .leaveupdate_view input,
+                .leaveupdate_view select {
+                    border: 1px solid #BFBFBF;
+                    height: 30px;
+                }
+
+                    .leaveupdate_view input[readonly],
+                    .leaveupdate_view select[readonly] {
+                        background-color: #f0f0f0;
+                    }
+
+                    .leaveupdate_view input::placeholder {
+                        color: #929292;
+                        font-size: 14px;
+                    }
+
+                    .leaveupdate_view input[type="date" i]::placeholder {
+                        color: #929292;
+                    }
+
+                .leaveupdate_view label {
+                    font-size: 13px;
+                    font-weight: 600;
+                    margin-bottom: 0px;
+                }
+
+            .leaveupdate_body {
+                display: flex;
+                justify-content: center;
+                align-items: center;
+                height: 100vh;
+                margin: 0;
+                background-color: #94949466;
+            }
         </style>
 
         <div class="row mb-2 align-items-center">
@@ -119,7 +170,7 @@
 
 
                     <div class="mb-2 ml-4">
-                        <button type="button" class="btn btn-primary btn-addshift ml-4">Add Shift</button>
+                        <button type="button" class="btn btn-primary btn-addshift ml-2">Add Shift</button>
                     </div>
                 </div>
             </div>
@@ -169,6 +220,7 @@
                         <th>Check-out</th>
                         <th>Hours</th>
                         <th>Status</th>
+                        <th></th>
                     </tr>
                 </thead>
                 <tbody>
@@ -199,7 +251,7 @@
 
                         if (empCheckin != null)
                         {
-                            <tr>
+                            <tr class="hoverable-row">
                                 <td class="employee-info" style="padding-left: 15px">
                                     <span class="employee-id">@empCheckin.EmployeeID</span>
                                     @if (!string.IsNullOrEmpty(employee.imagepath))
@@ -271,6 +323,7 @@
                                 <td>@endtimeWithAmPm</td>
                                 <td class="bar-wd">@hours.ToString("00").Trim()h:@minutes.ToString("00").Trim()m</td>
                                 <td><button class="@buttonColor">@attedenceType</button></td>
+                                <td><i class="fas fa-pencil-alt"></i></td>
                             </tr>
                         }
                         else
@@ -309,6 +362,36 @@
 
                 </tbody>
             </table>
+            <div class="container-fluid p-4 m-0 leaveupdate_view" style="display: none;">
+                <div class="row">
+                    <div class="col-12 d-flex flex-column pb-3">
+                        <label for="leaveupdate_name">Employee Name</label>
+                        <input type="text" class="leaveupdate_name" readonly>
+                    </div>
+                    <div class="col-12 d-flex flex-column pb-3">
+                        <label for="leaveupdate_date">Date</label>
+                        <input type="date" class="leaveupdate_date" readonly>
+                    </div>
+                    <div class="col-6 d-flex flex-column pb-3">
+                        <label for="leaveupdate_checkin">Check In</label>
+                        <input type="time" class="leaveupdate_checkin">
+                    </div>
+                    <div class="col-6 d-flex flex-column pb-3">
+                        <label for="leaveupdate_checkout">Check Out</label>
+                        <input type="time" class="leaveupdate_checkout">
+                    </div>
+                    <div class="col-12 d-flex flex-column pb-3">
+                        <label for="eleaveupdate_status">Status</label>
+                        <select name="eleaveupdate_status" id="eleaveupdate_status">
+                            <option value="present">Present</option>
+                            <option value="absent">Absent</option>
+                        </select>
+                    </div>
+                    <div class="col-3 ml-auto mr-4 mt-2">
+                        <button type="button" class="btn btn-primary leaveupdate_btn">Update</button>
+                    </div>
+                </div>
+            </div>
         </div>
     </div>
 

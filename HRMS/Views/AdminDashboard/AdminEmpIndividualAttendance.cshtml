@@ -9,19 +9,23 @@
         #adminaddendancetable_filter {
             display: none;
         }
+        table.dataTable.display tbody td, table.dataTable.display tbody th {
+            border: none;
+        }
     </style>
     <div class="container-fluid mt-5" style="width:98%;">
         <div class="row align-items-center">
             <div class="col">
-                <h3>@Model.EmpInfo.EmployeeName</h3>
+                <h5 class="ml-3">@Model.EmpInfo.EmployeeName</h5>
             </div>
-            <div class="col d-flex justify-content-end">
+            <div class="col" style="margin-left:12%">
                 <form class="form-inline">
                     <label for="fromDate" class="mr-2">From</label>
 
                     @if (@Model.SelectedStartDate != DateTime.MinValue)
                     {
-                        @Html.TextBoxFor(m => m.SelectedStartDate, "{0:yyyy-MM-dd}", new { @type = "date", @class = "form-control", @id = "empfromDate" })
+                        @Html.TextBoxFor(m => m.SelectedStartDate, "{0:yyyy-MM-dd}", new { @type = "date", @class = "form-control mr-2", @id = "empfromDate", @style = "font-size: 13px;" })
+
                     }
                     else
                     {
@@ -32,17 +36,18 @@
 
                     @if (@Model.SelectedEndDate != DateTime.MinValue)
                     {
-                        @Html.TextBoxFor(m => m.SelectedEndDate, "{0:yyyy-MM-dd}", new { @type = "date", @class = "form-control", @id = "emptoDate" })
+                        @Html.TextBoxFor(m => m.SelectedEndDate, "{0:yyyy-MM-dd}", new { @type = "date", @class = "form-control mr-4", @id = "emptoDate", @style = "font-size: 13px;" })
+
                     }
                     else
                     {
-                        <input type="date" class="form-control mr-2" id="emptoDate" value="@Model.SelectedEndDate" style="font-size: 12px;">
+                        <input type="date" class="form-control mr-4" id="emptoDate" value="@Model.SelectedEndDate" style="font-size: 12px;">
                     }
 
                     <span class="selectedEmpID" style="display: none">@Model.SelectedEmployee.EmployeeID</span>
 
-                    <button type="button" class="btn btn-primary mr-2" id="applyButton">Apply</button>
-                    <a href="#" id="downloademp-attedenceLink"><i class="fa-solid fa-arrow-up-from-bracket" style="font-size:25px"></i></a>
+                    <button type="button" class="btn btn-primary mr-4" id="applyButton" style="width: 17%; height: 34px; line-height: 1;">Apply</button>
+                    <a href="#" id="downloademp-attedenceLink"><i class="fa-solid fa-arrow-up-from-bracket" style="font-size:20px"></i></a>
                 </form>
             </div>
         </div>

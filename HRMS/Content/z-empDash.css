@@ -20,10 +20,13 @@
     font-size: 20px;
     height: 40px; /* Default height */
 }
-
-.current-time {
-    font-size: 30px;
-    height: 40px;
+.btn-checkin {
+    background-color: #3E78CF;
+    color:white;
+}
+#currentDate{
+    color:gray;
+    font-size:14px;
 }
 
 .in-out {
@@ -134,4 +137,267 @@
     font-size: 1.0rem;
     color: #007bff;
     cursor: pointer;
+}
+.card-header {
+    background-color: #EEF4FF;
+    padding: .25rem 0.50rem;
+    border-bottom: none;
+}
+
+
+
+
+.bg-primary {
+    background-color: #007bff !important;
+}
+
+.bg-info {
+    background-color: #17a2b8 !important;
+}
+
+.bg-success {
+    background-color: #28a745 !important;
+}
+
+.bg-warning {
+    background-color: #ffc107 !important;
+}
+
+.list-unstyled li {
+    margin-bottom: 5px;
+}
+
+.calendar {
+    max-width: 400px;
+    margin: 0 auto;
+}
+
+.highlight-festival {
+    background-color: #b39ddb; /* Purple background color */
+    color: white; /* Text color */
+}
+
+.time-input {
+    font-size: 20px;
+    height: 40px; /* Default height */
+}
+
+.current-time {
+    font-size: 28px;
+    color: #3E78CF;
+}
+
+.in-out {
+    text-align: right; /* Align input fields to the right */
+}
+
+.day-date-time {
+    float: left; /* Align day-date-time section to the left */
+    margin-bottom: 10px; /* Add space below */
+}
+
+.highlight-current {
+    background-color: #b39ddb; /* Purple background color */
+    color: white; /* Text color */
+    font-weight: bold;
+    font-size: 14px; /* Adjust size */
+    padding: 6px; /* Adjust padding */
+    border-radius: 3px; /* Adjust border radius */
+}
+
+.calendar-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background-color: #EEF4FF;
+    padding: 0;
+    border-bottom: none !important;
+}
+
+.calendar-body th,
+.calendar-body td {
+    padding: 3px 4px;    
+    text-align: center;
+    border: none;
+    line-height: 2; /* Adjust the line height as needed */
+    position: relative;
+}
+
+    .calendar-body td:hover .festival-tooltip  {
+        visibility: visible;
+    }
+
+.today-tooltip {
+    display: none;
+    position: absolute;
+    background-color: #333; /* Background color */
+    color: #fff; /* Text color */
+    padding: 5px;
+    border-radius: 5px;
+    font-size: 12px;
+    z-index: 10;
+    white-space: nowrap;
+}
+.calendar-body td:hover .today-tooltip {
+    display: block;
+}
+
+.calendar-body td:hover .festival-tooltip:before {
+    content: attr(data-festival);
+    position: absolute;
+    bottom: calc(100% + 5px);
+    left: 50%;
+    transform: translateX(-50%);
+    background-color: #ff69b4; /* Pink background color */
+    color: white;
+    padding: 3px 5px; /* Adjust size */
+    border-radius: 3px; /* Adjust border radius */
+    visibility: visible;
+    z-index: 999;
+}
+
+.calendar-body .festival-tooltip {
+    visibility: hidden;
+    position: absolute;
+    top: 100%;
+    left: 50%;
+    transform: translateX(-50%);
+    background-color: #ff69b4; /* Pink background color */
+    color: white;
+    padding: 3px 5px; /* Adjust size */
+    border-radius: 3px; /* Adjust border radius */
+    z-index: 999;
+}
+
+    .calendar-body .festival-tooltip:before {
+        content: '';
+        position: absolute;
+        border-width: 5px;
+        border-style: solid;
+        border-color: #ff69b4 transparent transparent transparent; /* Pink border color */
+        top: -5px;
+        left: 50%;
+        transform: translateX(-50%);
+    }
+
+.calendar-body tr {
+    border: none;
+    margin-bottom: 10px;
+}
+
+.calendar-body th:nth-child(6), /* Saturday */
+.calendar-body th:nth-child(7), /* Sunday */
+.calendar-body td:nth-child(6), /* Saturday */
+.calendar-body td:nth-child(7) { /* Sunday */
+    color: red;
+}
+
+.chevron-icon {
+    font-size: 1.0rem;
+    color: #007bff;
+    cursor: pointer;
+}
+/*leave css*/
+.leave-card {
+    text-align: center;
+    margin: 10px;
+    width: 150px;
+}
+
+.leave-icon {
+    width: 60px;
+    height: 60px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 5px;
+    margin: 0 auto 10px;
+    font-size: 1.5rem;
+    color: #fff;
+}
+
+.bg-bereavement {
+    background-color: #b39ddb;
+}
+
+.bg-compensatory {
+    background-color: #f8bbd0;
+}
+
+.bg-earned {
+    background-color: #80deea;
+}
+
+.bg-emergency {
+    background-color: #ffab91;
+}
+
+.bg-danger {
+    background-color: #f44336;
+}
+
+.bg-secondary {
+    background-color: #6c757d;
+}
+
+.bg-marriage {
+    background-color: #ffcc80;
+}
+
+.bg-paternity {
+    background-color: #b3e5fc;
+}
+
+.bg-maternity {
+    background-color: #ffab91;
+}
+
+.leave-title {
+    font-size: 1rem;
+    font-weight: bold;
+    margin-bottom: 0.5rem;
+}
+
+.leave-details {
+    font-size: 0.8rem;
+}
+
+.leave-row {
+    display: flex;
+    transition: transform 0.5s ease;
+    /* Set width to fit all cards */
+    width: calc(100% * 9); /* Adjust this to the total number of leave types */
+}
+
+/* Adjust leave-container width to fit exactly itemsToShow number of cards */
+.carousel-inner {
+    width: 100%; /* Occupy full width of col-md-12 */
+}
+
+.leave-container {
+    display: flex;
+    overflow: hidden;
+    max-width: calc(100% - 60px); /* Adjusted to fit the controls */
+
+    align-items: center;
+    position: relative;
+}
+
+.carousel-control-prev, .carousel-control-next {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 30px;
+    height: 30px;
+    cursor: pointer;
+    color: #007bff;
+    z-index: 1;
+}
+
+.carousel-control-prev {
+    left: 0;
+}
+
+.carousel-control-next {
+    right: 0;
 }

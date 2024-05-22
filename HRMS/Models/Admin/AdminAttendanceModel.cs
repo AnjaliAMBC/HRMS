@@ -21,6 +21,14 @@ namespace HRMS.Models.Admin
 
         public List<DateTime> AllDates { get; set; } = new List<DateTime>();
     }
-
+    public class EmployeeCheckInUpdateModel
+    {
+        public string EmpId { get; set; }
+        public string EmpName { get; set; }
+        public DateTime Date { get; set; }
+        public DateTime CheckIn { get; set; }
+        public DateTime CheckOut { get; set; }
+       
+    }
 
 }

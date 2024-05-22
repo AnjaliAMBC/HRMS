@@ -44,7 +44,7 @@ $('.emp-selfservice').click(function (event) {
 
 
 //Dashboard link js
-$('.emp-dashboard').click(function (event) {
+$(document).on('click', '.emp-dashboard', function (event) {
     event.preventDefault();
     HighlightEmpActiveLink($(this));
     $.ajax({
@@ -204,6 +204,95 @@ $(document).on('change', '#imageInput', function (event) {
         }
     });
 });
+
+
+function sendAnniversaryWishes() {
+    // Find the active carousel item
+    var activeItem = document.querySelector('.carousel-inner .carousel-item.active');
+
+    // Extract employee details from the active item
+    var employeeName = activeItem.querySelector('h5').textContent;
+    var employeeEmail = activeItem.querySelector('.email').textContent;
+    var yearsCompleted = activeItem.querySelector('.text-primary').textContent;
+
+    var currentEmpName = $('.currentempname').text();
+    var subject = "Happy Work Anniversary!";
+    var body = `Dear ${employeeName},\n\nWishing you a wonderful work anniversary. ${yearsCompleted}. Thank you for your hard work and dedication!\n\nBest Regards,\n${currentEmpName}`;
+
+    fetch('/empdash/sendanniversarywishes', {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({
+            ToEmail: employeeEmail,
+            Subject: subject,
+            Body: body,
+        })
+    })
+        .then(response => {
+            if (response.ok) {
+                alert('Email sent successfully!');
+            } else {
+                throw new Error('Error sending email');
+            }
+        })
+        .catch((error) => {
+            console.error('Error:', error);
+            alert('Error sending email: ' + error.message);
+        });
+}
+
+function sendWishes() {
+    // Find the selected radio button
+    var selectedEmployee = $('input[name="selectedEmployee"]:checked');
+    if (selectedEmployee.length > 0) {
+        // Get the employee email from the empemail class
+        var employeeEmail = selectedEmployee.closest('.media').find('.empemail').text().trim();
+
+        // Find the closest parent element with class 'media'
+        var mediaElement = selectedEmployee.closest('.media');
+        if (mediaElement.length > 0) {
+            // Find the element with class 'empname' within the 'media' element
+            var empNameElement = mediaElement.find('.empname');
+            if (empNameElement.length > 0) {
+                // Get the employee name from the 'textContent' property
+                var employeeName = empNameElement.text().trim();
+                var currentEmpName = $('.currentempname').text();
+
+                var subject = "Happy Birthday!";
+                var body = `Dear ${employeeName},\n\nWishing you a wonderful birthday! May your special day be filled with joy and happiness.\n\nBest Regards,\n${currentEmpName}`;
+
+                $.ajax({
+                    url: '/empdash/sendbirthdaywishes',
+                    type: 'POST',
+                    contentType: 'application/json',
+                    data: JSON.stringify({
+                        ToEmail: employeeEmail,
+                        Subject: subject,
+                        Body: body
+                    }),
+                    success: function (response) {
+                        alert('Email sent successfully!');
+                    },
+                    error: function (xhr, status, error) {
+                        console.error('Error:', error);
+                        alert('Error sending email: ' + error);
+                    }
+                });
+            } else {
+                console.error('Element with class "empname" not found within the "media" element.');
+                alert('Error: Employee name not found.');
+            }
+        } else {
+            console.error('Parent element with class "media" not found.');
+            alert('Error: Employee details not found.');
+        }
+    } else {
+        alert('Please select an employee to send wishes.');
+    }
+}
+
 
 
 

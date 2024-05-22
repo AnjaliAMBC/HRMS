@@ -1,4 +1,4 @@
-﻿@model HRMS.Models.Admin.DashboardViewModel
+﻿@model HRMS.Models.Admin.AdminDashView
 
 @Html.Partial("_NavBar")
 
@@ -21,7 +21,7 @@
     <div class="main-content container-fluid" style="width: 84%">
         <div class="hiddenadmindashboard"></div>
         <div class="content admin-dashboard-container" style="margin-top: 3% ">
-            @Html.Partial("~/Views/AdminDashboard/AdminDash.cshtml", Model)
+
         </div>
 
         <div class="content admin-empmanagement-container" style="display: none; margin-left: -5px; margin-top: 2% ">
@@ -41,4 +41,13 @@
 
     </div>
 </div>
+
+<script>
+    $(document).ready(function () {
+        // Trigger the click event on the element with class 'emp-dashboard'
+        $('.admin-dashboard').trigger('click');
+
+    });
+</script>
+
 

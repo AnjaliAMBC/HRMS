@@ -7,6 +7,6 @@ namespace HRMS.Models.Admin
 {
     public class DashboardViewModel : SiteContextModel
     {
-
+       
     }
 }

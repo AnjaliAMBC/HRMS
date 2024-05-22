@@ -137,16 +137,22 @@
       <DependentUpon>HRMS.tt</DependentUpon>
     </Compile>
     <Compile Include="Helpers\DateHelper.cs" />
+    <Compile Include="Helpers\EMailHelper.cs" />
     <Compile Include="Models\Admin\AdminAttendanceModel.cs" />
+    <Compile Include="Models\Admin\AdminDashView.cs" />
     <Compile Include="Models\Employee\CheckInModel.cs" />
     <Compile Include="Models\Employee\EmpAttedenceModel.cs" />
     <Compile Include="Models\Employee\EmpDashBoardModel.cs" />
+    <Compile Include="tblambcholiday.cs">
+      <DependentUpon>HRMS.tt</DependentUpon>
+    </Compile>
     <Compile Include="tbld_ambclogininformation.cs">
       <DependentUpon>HRMS.tt</DependentUpon>
     </Compile>
     <Content Include="Assets\EMBackground.png" />
     <Content Include="Assets\empdashboard.png" />
     <Content Include="Assets\EmpProfile.png" />
+    <Content Include="Content\z-admindash.css" />
     <Content Include="Content\z-empDash.css" />
     <Content Include="Content\zaddshift.css" />
     <Content Include="Content\zadminattendence.css" />
@@ -238,6 +244,7 @@
       <DependentUpon>HRMS.edmx</DependentUpon>
       <LastGenOutput>HRMS.cs</LastGenOutput>
     </Content>
+    <Content Include="Scripts\zEditAdminattendance.js" />
     <Content Include="Scripts\z-Adminemp.js" />
     <Content Include="Scripts\z-AdminDashboard.js" />
     <Content Include="Scripts\z-common.js" />

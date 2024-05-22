@@ -339,5 +339,30 @@ namespace HRMS.Controllers
         {
             return PartialView("~/Views/AdminDashboard/AddShift.cshtml");
         }
+
+        [HttpPost]
+        public ActionResult UpdateEmployeeCheckIn(EmployeeCheckInUpdateModel model)
+        {
+            if (ModelState.IsValid)
+            {
+                // Find the employee based on EmpId and Date
+                var existingCheckIn = _dbContext.tbld_ambclogininformation.FirstOrDefault(e => e.Employee_Code == model.EmpId && e.Login_date == model.Date);
+
+                if (existingCheckIn != null)
+                {
+                    // Update the check-in, check-out, and status fields
+                    existingCheckIn.Signin_Time = model.CheckIn;
+                    existingCheckIn.Signout_Time = model.CheckOut;
+                   
+                    _dbContext.SaveChanges();
+
+                    return Json(new { success = true, message = "Employee data updated successfully!" });
+                }
+
+                return Json(new { success = false, message = "Employee check-in data not found." });
+            }
+
+            return Json(new { success = false, message = "Invalid data." });
+        }
     }
 }

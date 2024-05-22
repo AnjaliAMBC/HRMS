@@ -3,21 +3,80 @@ using HRMS.Models.Admin;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Net;
 using System.Web;
 using System.Web.Mvc;
+
 
 namespace HRMS.Controllers
 {
     public class AdminDashController : Controller
     {
         // GET: AdminDash
+        private readonly HRMS_EntityFramework _dbContext;
+
+        // Constructor to initialize database context
+        public AdminDashController()
+        {
+            _dbContext = new HRMS_EntityFramework(); // Replace YourDbContext with your actual DbContext class
+        }
         public ActionResult Index()
         {
-            var model = new DashboardViewModel();
+            var model = new AdminDashView();
             var cuserContext = SiteContext.GetCurrentUserContext();
             model.EmpInfo = cuserContext.EmpInfo;
             model.LoginInfo = cuserContext.LoginInfo;
+            model.AnniversaryModel = Anniversary();
+            model.BirthModel = Birthday();
+           
             return PartialView("~/Views/AdminDashboard/AdminDash.cshtml", model);
         }
+        public List<AnniversaryModel> Anniversary()
+        {
+            var today = DateTime.Today;
+            var anniversaries = _dbContext.emp_info.Where(e => e.DOJ.Month == today.Month && e.DOJ.Day == today.Day).Select(e => new AnniversaryModel
+            {
+                EmpName = e.EmployeeName,
+                Designation = e.Designation,
+                imagePath = e.imagepath,
+                years = today.Year - e.DOJ.Year
+            }).ToList();
+
+            return anniversaries;
+        }
+        public List<BirthdayModel> Birthday()
+        {
+            var today = DateTime.Today;
+            var birthdays = _dbContext.emp_info.Where(e => e.DOB.Month == today.Month && e.DOB.Day == today.Day).Select(e => new BirthdayModel
+                {
+                    EmpName = e.EmployeeName,
+                    imagePath = e.imagepath,
+                    Designation = e.Designation
+                })
+                .ToList();
+
+            return birthdays;
+        }
+        public List<UpcomingHoliday> upcomingHolidays()
+        {
+            // Fetch the upcoming holidays from the database
+            var today = DateTime.Today;
+
+            // Fetch the upcoming holidays from the database
+            var upcomingHolidays = _dbContext.tblambcholidays
+                .Where(h => h.holiday_date >= today)
+                .OrderBy(h => h.holiday_date)
+                .Select(h => new UpcomingHoliday
+                {
+                    HolidayNo = h.holidayno,
+                    HolidayDate = (DateTime)h.holiday_date,
+                    HolidayName = h.holiday_name,
+                    Region = h.region
+                })
+                .ToList();
+
+            return upcomingHolidays;
+        }
+
     }
 }
