@@ -107,6 +107,7 @@ namespace HRMS.Controllers
                     var currentEmployee = _dbContext.emp_info.Where(emp => emp.OfficalEmailid == loginModel.EmailID).FirstOrDefault();
                     SiteContext.LoginInfo = isEmpExists;
                     SiteContext.EmpInfo = currentEmployee;
+                    SiteContext.IsAdmin = true;
 
                     var empCheckInInfo = _dbContext.tbld_ambclogininformation.Where(x => x.Login_date == DateTime.Today && x.Employee_Code == loginModel.EmployeeID).FirstOrDefault();
 

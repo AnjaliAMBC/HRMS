@@ -4,23 +4,47 @@
     }
 
     .profile-image-container {
-        width: 55px; /* Adjust the width of the circular container */
-        height: 55px; /* Adjust the height of the circular container */
+        width: 55px;
+        height: 55px;
         border-radius: 50%;
         overflow: hidden;
-        margin-right: 10px; /* Add some spacing between image and text */
+        margin-right: 10px;
+        cursor: pointer;
     }
 
         .profile-image-container img {
-            width: 100%; /* Make sure the image fills the circular container */
-            height: auto; /* Maintain aspect ratio */
+            width: 100%;
+            height: auto;
             border-radius: 50%;
         }
 
-    .navbar-name {
-        /* Add necessary styles for navbar name */
+    .profile-dropdown {
+        display: none;
+        position: absolute;
+        top: 60px;
+        right: 0;
+        width: 250px;
+        background-color: white;
+        box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        border-radius: 5px;
+        padding: 20px;
+        text-align: center;
+        z-index: 1000;
     }
 
+        .profile-dropdown h4 {
+            margin: 0 0 10px;
+        }
+
+        .profile-dropdown p {
+            margin: 5px 0;
+        }
+
+        .profile-dropdown .btn {
+            display: block;
+            width: 100%;
+            margin: 10px 0;
+        }
 </style>
 
 <nav class="navbar navbar-expand-md navbar-light bg-light fixed-top" style="box-shadow: 0 0 10px 2px rgba(0, 0, 0, .3); height: 55px;">
@@ -32,57 +56,76 @@
         <ul class="navbar-nav ml-auto">
             <li class="nav-item" id="navbar-profile">
                 @{
-
-                    var currentContext = HRMS.Helpers.SiteContext.GetCurrentUserContext();
+                    var currentContext = Session["SiteContext"] as HRMS.Models.SiteContextModel;
                 }
-
-                @if (!string.IsNullOrWhiteSpace(currentContext.EmpInfo.imagepath))
-                {
-                    var empImageURl = System.Configuration.ConfigurationManager.AppSettings["EmpImagesFolder"] + "/" + currentContext.EmpInfo.imagepath;
-                    <img src="@empImageURl" alt="Employee Image" class="profile img-fluid nav-image-profile" style=" width: 40px; height: 40px; border-radius: 50%;">
-                }
-                else
-                {
-                    <img src="" alt="Employee Image" class="profile img-fluid nav-profile nav-image-profile" style=" width: 40px; height: 40px; border-radius: 50%; display: none">
-
-                    // Split the full name into first name and last name
-                    string[] names = currentContext.EmpInfo.EmployeeName.Split(new char[] { ' ' }, StringSplitOptions.RemoveEmptyEntries);
-
-                    // Ensure we have at least one name
-                    if (names.Length > 0)
+                <div class="profile-image-container" onclick="toggleDropdown()">
+                    @if (!string.IsNullOrWhiteSpace(currentContext.EmpInfo.imagepath))
                     {
-                        // Get the first name
-                        string firstName = names[0];
-
-                        // Get the last name if available
-                        string lastName = names.Length > 1 ? names[names.Length - 1] : string.Empty;
-
-                        // Extract the first letters
-                        char firstLetterOfFirstName = firstName[0];
-                        char firstLetterOfLastName = !string.IsNullOrEmpty(lastName) ? lastName[0] : '\0';
-
-                        // Convert to uppercase if needed
-                        firstLetterOfFirstName = char.ToUpper(firstLetterOfFirstName);
-                        firstLetterOfLastName = char.ToUpper(firstLetterOfLastName);
-
-                        // Output the first letters
-                        Console.WriteLine($"First letter of first name: {firstLetterOfFirstName}");
-                        Console.WriteLine($"First letter of last name: {firstLetterOfLastName}");
-
-                        <div class="default-image-navbar">@firstLetterOfFirstName @firstLetterOfLastName</div>
-
+                        var empImageURl = System.Configuration.ConfigurationManager.AppSettings["EmpImagesFolder"] + "/" + currentContext.EmpInfo.imagepath;
+                        <img src="@empImageURl" alt="Employee Image" class="profile img-fluid nav-image-profile">
                     }
-                }
-
-                @*<p class="navbar-name">@currentContext.LoginInfo.EmployeeRole</p>
-                <select id="profile-nav" name="profile" class="form-control">
-                    <option value="" disabled selected hidden></option>
-                    <option value="option1">option1</option>
-                    <option value="option2">option2</option>
-                </select>*@
+                    else
+                    {
+                        string[] names = currentContext.EmpInfo.EmployeeName.Split(new char[] { ' ' }, StringSplitOptions.RemoveEmptyEntries);
+                        if (names.Length > 0)
+                        {
+                            string firstName = names[0];
+                            string lastName = names.Length > 1 ? names[names.Length - 1] : string.Empty;
+                            char firstLetterOfFirstName = char.ToUpper(firstName[0]);
+                            char firstLetterOfLastName = !string.IsNullOrEmpty(lastName) ? char.ToUpper(lastName[0]) : '\0';
+                            <div class="default-image-navbar">@firstLetterOfFirstName@firstLetterOfLastName</div>
+                        }
+                    }
+                </div>
             </li>
-
-
         </ul>
     </div>
+
+    <div id="profileDropdown" class="profile-dropdown">
+        <h4>@currentContext.EmpInfo.EmployeeName</h4>
+        <p>@currentContext.EmpInfo.OfficalEmailid</p>
+        <p>@currentContext.EmpInfo.Designation</p>
+
+        @if (!currentContext.IsAdmin)
+        {
+            <button class="btn btn-primary" onclick="viewProfile()">View Profile</button>
+        }
+
+        <button class="btn btn-danger" onclick="signOut()">Sign Out</button>
+        <form id="logoutForm" action="@Url.Action("Logout", "Profile")" method="post">
+            @Html.AntiForgeryToken()
+        </form>
+    </div>
 </nav>
+
+
+
+<script>
+    function toggleDropdown1() {
+        var dropdown = document.getElementById('profileDropdown');
+        dropdown.style.display = dropdown.style.display === 'block' ? 'none' : 'block';
+    }
+
+    function viewProfile() {
+        $('.emp-selfservice').click();
+    }
+
+    function signOut() {
+        document.getElementById('logoutForm').submit();
+    }
+
+    // Close the dropdown if clicked outside
+    window.onclick = function (event) {
+        if (!document.getElementById('navbar-profile').contains(event.target)) {
+            document.getElementById('profileDropdown').style.display = 'none';
+        }
+    }
+
+    // Using jQuery to handle the click event
+    $(document).ready(function () {
+        $('.profile-image-container').on('click', function () {
+            toggleDropdown1();
+        });
+    });
+</script>
+

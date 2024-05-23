@@ -537,6 +537,41 @@
             $('.isempdashboardloaded').text('true');
         }
 
+
+
+        //leave slider script
+        $(document).ready(function () {
+            $('#recipeCarousel').carousel({
+                interval: 10000
+            });
+
+            // Handle the clone of carousel items for smoother transition
+            $('.carousel .carousel-item').each(function () {
+                var minPerSlide = 4;
+                var next = $(this).next();
+
+                if (!next.length) {
+                    next = $(this).siblings(':first');
+                }
+
+                for (var i = 0; i < minPerSlide; i++) {
+                    if (!next.length) {
+                        next = $(this).siblings(':first');
+                    }
+
+                    next.children(':first-child').clone().appendTo($(this));
+                    next = next.next();
+                }
+            });
+            $('#recipeCarousel').on('slide.bs.carousel', function () {
+                $(this).find('.carousel-inner').css('transition', 'transform 0.5s ease-in-out');
+            });
+
+            // Reset transition after the slide event completes
+            $('#recipeCarousel').on('slid.bs.carousel', function () {
+                $(this).find('.carousel-inner').css('transition', '');
+            });
+        });
     </script>
 </div>
 

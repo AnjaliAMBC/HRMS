@@ -300,8 +300,10 @@
 /*leave css*/
 .leave-card {
     text-align: center;
-    margin: 10px;
-    width: 150px;
+    width: 180px; 
+    padding: 0px; 
+    border: 1px solid transparent;
+    
 }
 
 .leave-icon {
@@ -355,29 +357,55 @@
 .leave-title {
     font-size: 1rem;
     font-weight: bold;
-    margin-bottom: 0.5rem;
+    margin-bottom: 0px;
 }
 
 .leave-details {
     font-size: 0.8rem;
+    margin-bottom: 0px;
+}
+.leave_container {
+    width: 100%; 
+}
+.carousel-control-next, .carousel-control-prev /*updated*/ {
+    background-color: grey;
+    width: 30px;
+    height: 20px;
+    top: 50%;
 }
 
+.fa-chevron-right, .fa-chevron-left  {
+    color: black; 
+}
+
+.carousel-inner {
+    margin: 1rem; 
+}
+
+.box_body  {
+    padding: 0.25rem;
+    overflow-y: auto;
+}
+
+.box_topic  {
+    background-color: #EEF4FF;
+    font-size: 20px;
+}
 .leave-row {
     display: flex;
     transition: transform 0.5s ease;
-    /* Set width to fit all cards */
-    width: calc(100% * 9); /* Adjust this to the total number of leave types */
+   
+    width: calc(100% * 9); 
 }
 
-/* Adjust leave-container width to fit exactly itemsToShow number of cards */
 .carousel-inner {
-    width: 100%; /* Occupy full width of col-md-12 */
+    width: 100%; 
 }
 
 .leave-container {
     display: flex;
     overflow: hidden;
-    max-width: calc(100% - 60px); /* Adjusted to fit the controls */
+    max-width: calc(100% - 60px); 
 
     align-items: center;
     position: relative;
@@ -401,3 +429,38 @@
 .carousel-control-next {
     right: 0;
 }
+/*---This is for carousel----*/
+@media (max-width: 768px) {
+    .carousel-inner .carousel-item > div {
+        display: none;
+    }
+
+        .carousel-inner .carousel-item > div:first-child {
+            display: block;
+        }
+}
+
+.carousel-inner .carousel-item.active,
+.carousel-inner .carousel-item-next,
+.carousel-inner .carousel-item-prev {
+    display: flex;
+}
+
+@media (min-width: 768px) {
+
+    .carousel-inner .carousel-item-right.active,
+    .carousel-inner .carousel-item-next {
+        transform: translateX(25%);
+    }
+
+    .carousel-inner .carousel-item-left.active,
+    .carousel-inner .carousel-item-prev {
+        transform: translateX(-25%);
+    }
+}
+
+.carousel-inner .carousel-item-right,
+.carousel-inner .carousel-item-left {
+    transform: translateX(0);
+}
+/*----The carousel css end's here----*/
