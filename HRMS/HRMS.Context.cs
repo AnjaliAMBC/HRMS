@@ -32,7 +32,7 @@ namespace HRMS
         public virtual DbSet<emp_info> emp_info { get; set; }
         public virtual DbSet<LeaveRM> LeaveRMs { get; set; }
         public virtual DbSet<tbld_ambclogininformation> tbld_ambclogininformation { get; set; }
-        public virtual DbSet<EmployeeCheckin> EmployeeCheckins { get; set; }
         public virtual DbSet<tblambcholiday> tblambcholidays { get; set; }
+        public virtual DbSet<CheckInView> CheckInViews { get; set; }
     }
 }

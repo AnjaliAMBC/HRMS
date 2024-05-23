@@ -323,7 +323,7 @@
                                 <td>@endtimeWithAmPm</td>
                                 <td class="bar-wd">@hours.ToString("00").Trim()h:@minutes.ToString("00").Trim()m</td>
                                 <td><button class="@buttonColor">@attedenceType</button></td>
-                                <td><i class="fas fa-pencil-alt"></i></td>
+                                <td><i class="fas fa-pencil-alt" data-toggle="modal" data-target="#leaveUpdateModal"></i></td>
                             </tr>
                         }
                         else
@@ -362,33 +362,47 @@
 
                 </tbody>
             </table>
-            <div class="container-fluid p-4 m-0 leaveupdate_view" style="display: none;">
-                <div class="row">
-                    <div class="col-12 d-flex flex-column pb-3">
-                        <label for="leaveupdate_name">Employee Name</label>
-                        <input type="text" class="leaveupdate_name" readonly>
-                    </div>
-                    <div class="col-12 d-flex flex-column pb-3">
-                        <label for="leaveupdate_date">Date</label>
-                        <input type="date" class="leaveupdate_date" readonly>
-                    </div>
-                    <div class="col-6 d-flex flex-column pb-3">
-                        <label for="leaveupdate_checkin">Check In</label>
-                        <input type="time" class="leaveupdate_checkin">
-                    </div>
-                    <div class="col-6 d-flex flex-column pb-3">
-                        <label for="leaveupdate_checkout">Check Out</label>
-                        <input type="time" class="leaveupdate_checkout">
-                    </div>
-                    <div class="col-12 d-flex flex-column pb-3">
-                        <label for="eleaveupdate_status">Status</label>
-                        <select name="eleaveupdate_status" id="eleaveupdate_status">
-                            <option value="present">Present</option>
-                            <option value="absent">Absent</option>
-                        </select>
-                    </div>
-                    <div class="col-3 ml-auto mr-4 mt-2">
-                        <button type="button" class="btn btn-primary leaveupdate_btn">Update</button>
+            <div class="modal fade" id="leaveUpdateModal" tabindex="-1" role="dialog" aria-labelledby="leaveUpdateModalLabel" aria-hidden="true">
+                <div class="modal-dialog" role="document">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h5 class="modal-title" id="leaveUpdateModalLabel">Leave Update</h5>
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                            </button>
+                        </div>
+                        <div class="modal-body">
+                            <div class="container-fluid p-4 m-0 leaveupdate_view">
+                                <div class="row">
+                                    <div class="col-12 d-flex flex-column pb-3">
+                                        <label for="leaveupdate_name">Employee Name</label>
+                                        <input type="text" class="form-control leaveupdate_name" readonly>
+                                    </div>
+                                    <div class="col-12 d-flex flex-column pb-3">
+                                        <label for="leaveupdate_date">Date</label>
+                                        <input type="date" class="form-control leaveupdate_date" readonly>
+                                    </div>
+                                    <div class="col-6 d-flex flex-column pb-3">
+                                        <label for="leaveupdate_checkin">Check In</label>
+                                        <input type="time" class="form-control leaveupdate_checkin">
+                                    </div>
+                                    <div class="col-6 d-flex flex-column pb-3">
+                                        <label for="leaveupdate_checkout">Check Out</label>
+                                        <input type="time" class="form-control leaveupdate_checkout">
+                                    </div>
+                                    <div class="col-12 d-flex flex-column pb-3">
+                                        <label for="eleaveupdate_status">Status</label>
+                                        <select name="eleaveupdate_status" id="eleaveupdate_status" class="form-control">
+                                            <option value="present">Present</option>
+                                            <option value="absent">Absent</option>
+                                        </select>
+                                    </div>
+                                    <div class="col-3 ml-auto mr-4 mt-2">
+                                        <button type="button" class="btn btn-primary leaveupdate_btn">Update</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>

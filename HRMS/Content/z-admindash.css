@@ -1,13 +1,12 @@
 ﻿
 
-<style >
+/*<style >
 .page_header {
     font-size: 25px;
 }
 
 .box_body {
     padding: 0.25rem;
-    height: 22rem;
     overflow-y: auto;
 }
 
@@ -143,3 +142,115 @@
 }
 
 </style >
+*/
+
+
+.card {
+    margin-bottom: 20px;
+}
+
+.leave-requests {
+    max-height: 410px;
+    overflow-y: auto;
+}
+
+    .leave-requests .list-group-item {
+        display: flex;
+        flex-direction: column;
+        padding: 5px 15px;
+        border: none;
+        
+    }
+
+        .leave-requests .list-group-item:last-child {
+            border-bottom: none;
+        }
+
+        .leave-requests .list-group-item .leave-info {
+            display: flex;
+            align-items: center;
+        }
+
+        .leave-requests .list-group-item img {
+            width: 40px;
+            height: 40px;
+            margin-right: 10px;
+        }
+
+        .leave-requests .list-group-item .leave-text {
+            flex-grow: 1;
+        }
+
+            .leave-requests .list-group-item .leave-text small {
+                display: block;
+                color: gray;
+            }
+
+        .leave-requests .list-group-item .btn-group {
+            display: flex;
+            justify-content: flex-end;
+            margin-top: 10px;
+        }
+
+.btn_approve, .btn_reject {
+    padding: 5px 10px;
+    border: none;
+    cursor: pointer;
+    border-radius: 5px;
+}
+
+.btn_approve {
+    background-color: #28a745;
+    color: white;
+}
+
+.btn_reject {
+    background-color: #dc3545;
+    color: white;
+    margin-left: 10px;
+}
+
+/* .box_approvel_row {
+            margin-top: 10px;
+            display: flex;
+            justify-content: flex-end;
+        }*/
+.dashboard {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 20px;
+}
+
+.card {
+    margin-bottom: 20px;
+}
+
+.card-header {
+    background-color: #EEF4FF;
+    padding: .25rem 0.50rem;
+    border-bottom: none;
+}
+
+.leave-requests {
+    max-height: 300px;
+    overflow-y: auto;
+}
+
+    .leave-requests .list-group-item {
+        display: flex;
+        justify-content: space-between;
+    }
+
+.btn_approve, .btn_reject {
+    border: none;
+    background-color: white;
+    font-size: 13px;
+}
+
+.btn_approve {
+    color: #FFA77E;
+}
+
+.btn_reject {
+    color: #FA6B83;
+}

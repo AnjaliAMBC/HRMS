@@ -158,18 +158,6 @@ namespace HRMS.Controllers
                 .ToList();
 
             return upcomingHolidays;
-        }
-
-        //public ActionResult SendAnniversaryWishes(EmailRequest request)
-        //{
-        //    var emailModel = EMailHelper.SendEmail(request);
-        //    return Json(emailModel);
-        //}
-
-        //public ActionResult SendBirthDayWishes(EmailRequest request)
-        //{
-        //    var emailModel = EMailHelper.SendEmail(request);
-        //    return Json(emailModel);
-        //}
+        }       
     }
 }

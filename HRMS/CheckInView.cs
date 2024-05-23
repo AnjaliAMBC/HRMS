@@ -12,19 +12,19 @@ namespace HRMS
     using System;
     using System.Collections.Generic;
     
-    public partial class EmployeeCheckin
+    public partial class CheckInView
     {
+        public int Sno { get; set; }
         public string EmployeeID { get; set; }
         public string EmployeeName { get; set; }
         public string EmployeeStatus { get; set; }
-        public string OfficalEmailid { get; set; }
-        public System.DateTime Signin_Time { get; set; }
-        public Nullable<System.DateTime> Signout_Time { get; set; }
-        public Nullable<int> Working_Hours { get; set; }
-        public System.DateTime Login_date { get; set; }
-        public string imagepath { get; set; }
-        public string Location { get; set; }
-        public int Sno { get; set; }
         public string ShiftTimings { get; set; }
+        public string OfficalEmailid { get; set; }
+        public System.DateTime Login_date { get; set; }
+        public System.DateTime Signin_Time { get; set; }
+        public Nullable<int> Working_Hours { get; set; }
+        public string imagepath { get; set; }
+        public Nullable<System.DateTime> Signout_Time { get; set; }
+        public string Location { get; set; }
     }
 }

@@ -46,7 +46,7 @@ namespace HRMS.Controllers
                 model.SelectedDate = DateTime.ParseExact(selectedDate, "dd MMMM yyyy", CultureInfo.InvariantCulture);
             }
 
-            var selectedDateAttendence = _dbContext.EmployeeCheckins.Where(x => x.Login_date == model.SelectedDate).ToList();
+            var selectedDateAttendence = _dbContext.CheckInViews.Where(x => x.Login_date == model.SelectedDate).ToList();
 
             if (selectedDateAttendence != null && selectedDateAttendence.Any())
             {
@@ -81,7 +81,7 @@ namespace HRMS.Controllers
                 model.SelectedEndDate = DateTime.Parse(selectedEndDate);
             }
 
-            var selectedDateAttendence = _dbContext.EmployeeCheckins.Where(x => x.Login_date >= model.SelectedStartDate && x.Login_date <= model.SelectedEndDate && x.EmployeeID == selectedEmpID).ToList();
+            var selectedDateAttendence = _dbContext.CheckInViews.Where(x => x.Login_date >= model.SelectedStartDate && x.Login_date <= model.SelectedEndDate && x.EmployeeID == selectedEmpID).ToList();
 
             if (selectedDateAttendence != null && selectedDateAttendence.Any())
             {
@@ -112,7 +112,7 @@ namespace HRMS.Controllers
             {
                 endDate = DateTime.Parse(toDate).Date;
             }
-            var selectedEmployeeCheckins = new List<EmployeeCheckin>();
+            var selectedEmployeeCheckins = new List<CheckInView>();
 
             var allSelectedDates = DateHelper.GetAllDates(DateTime.Parse(fromDate).Date, DateTime.Parse(toDate).Date);
 
@@ -122,13 +122,13 @@ namespace HRMS.Controllers
             {
                 var selectedEmp = _dbContext.emp_info.Where(x => x.EmployeeID == empID).FirstOrDefault();
                 requiredEmployeeList.Add(selectedEmp);
-                selectedEmployeeCheckins = _dbContext.EmployeeCheckins.Where(e => e.Login_date >= startDate && e.Login_date <= endDate && e.EmployeeID == empID).ToList();
+                selectedEmployeeCheckins = _dbContext.CheckInViews.Where(e => e.Login_date >= startDate && e.Login_date <= endDate && e.EmployeeID == empID).ToList();
             }
             else
             {
                 var selectedEmps = _dbContext.emp_info.Where(x => x.EmployeeStatus == "Active").ToList();
                 requiredEmployeeList.AddRange(selectedEmps);
-                selectedEmployeeCheckins = _dbContext.EmployeeCheckins.Where(e => e.Login_date >= startDate && e.Login_date <= endDate).ToList();
+                selectedEmployeeCheckins = _dbContext.CheckInViews.Where(e => e.Login_date >= startDate && e.Login_date <= endDate).ToList();
             }
 
             // Define your color constants
@@ -140,7 +140,7 @@ namespace HRMS.Controllers
             {
                 ExcelWorksheet worksheet = excelPackage.Workbook.Worksheets.Add("EmployeeInfo");
 
-                var properties = typeof(EmployeeCheckin).GetProperties();
+                var properties = typeof(CheckInView).GetProperties();
                 int columnIndex = 1;
 
                 // Add header row

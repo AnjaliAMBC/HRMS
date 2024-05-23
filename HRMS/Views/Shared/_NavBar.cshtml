@@ -2,7 +2,9 @@
     .navbar-nav .nav-item {
         position: relative;
     }
-
+    .sign-out{
+        text-decoration:underline;
+    }
     .profile-image-container {
         width: 55px;
         height: 55px;
@@ -21,9 +23,10 @@
     .profile-dropdown {
         display: none;
         position: absolute;
-        top: 60px;
-        right: 0;
-        width: 250px;
+        top: 61px;
+        right: 25px;
+        width: 292px;
+        border: 1px solid rgb(83 108 135 / 50%);
         background-color: white;
         box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
         border-radius: 5px;
@@ -82,16 +85,16 @@
     </div>
 
     <div id="profileDropdown" class="profile-dropdown">
-        <h4>@currentContext.EmpInfo.EmployeeName</h4>
+        <h5>@currentContext.EmpInfo.EmployeeName</h5>
         <p>@currentContext.EmpInfo.OfficalEmailid</p>
         <p>@currentContext.EmpInfo.Designation</p>
 
         @if (!currentContext.IsAdmin)
         {
-            <button class="btn btn-primary" onclick="viewProfile()">View Profile</button>
+            <button class="btn btn-primary" onclick="viewProfile()" style="width:45px;">View Profile</button>
         }
 
-        <button class="btn btn-danger" onclick="signOut()">Sign Out</button>
+        <a href="#" class="sign-out" onclick="signOut()">Sign Out</a>
         <form id="logoutForm" action="@Url.Action("Logout", "Profile")" method="post">
             @Html.AntiForgeryToken()
         </form>

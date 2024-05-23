@@ -7,14 +7,14 @@ namespace HRMS.Models.Admin
 {
     public class AdminAttendanceModel : SiteContextModel
     {
-        public List<EmployeeCheckin> EmpCheckInList { get; set; } = new List<EmployeeCheckin>();
+        public List<CheckInView> EmpCheckInList { get; set; } = new List<CheckInView>();
         public DateTime SelectedDate { get; set; }
         public List<emp_info> AllEmployees { get; set; } = new List<emp_info>();
     }
 
     public class AdminEmpIndividualAttendanceModel : SiteContextModel
     {
-        public List<EmployeeCheckin> EmpCheckInList { get; set; } = new List<EmployeeCheckin>();
+        public List<CheckInView> EmpCheckInList { get; set; } = new List<CheckInView>();
         public DateTime SelectedStartDate { get; set; }
         public DateTime SelectedEndDate { get; set; }
         public emp_info SelectedEmployee { get; set; } = new emp_info();
