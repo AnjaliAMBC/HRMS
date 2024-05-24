@@ -26,57 +26,56 @@ namespace HRMS.Controllers
             var cuserContext = SiteContext.GetCurrentUserContext();
             model.EmpInfo = cuserContext.EmpInfo;
             model.LoginInfo = cuserContext.LoginInfo;
-            model.AnniversaryModel = Anniversary();
-            model.BirthModel = Birthday();
-           
+            model.AnniversaryModel = new EmployeeEventHelper().Anniversary();
+            model.BirthModel = new EmployeeEventHelper().Birthday();
+            model.UpcomingHolidays = new EmployeeEventHelper().GetUpcomingHolidays("");
+
             return PartialView("~/Views/AdminDashboard/AdminDash.cshtml", model);
         }
-        public List<AnniversaryModel> Anniversary()
-        {
-            var today = DateTime.Today;
-            var anniversaries = _dbContext.emp_info.Where(e => e.DOJ.Month == today.Month && e.DOJ.Day == today.Day).Select(e => new AnniversaryModel
-            {
-                EmpName = e.EmployeeName,
-                Designation = e.Designation,
-                imagePath = e.imagepath,
-                years = today.Year - e.DOJ.Year
-            }).ToList();
+        //public List<AnniversaryModel> Anniversary()
+        //{
+        //    var today = DateTime.Today;
+        //    var anniversaries = _dbContext.emp_info.Where(e => e.DOJ.Month == today.Month && e.DOJ.Day == today.Day).Select(e => new AnniversaryModel
+        //    {
+        //        EmpName = e.EmployeeName,
+        //        Designation = e.Designation,
+        //        imagePath = e.imagepath,
+        //        years = today.Year - e.DOJ.Year
+        //    }).ToList();
 
-            return anniversaries;
-        }
-        public List<BirthdayModel> Birthday()
-        {
-            var today = DateTime.Today;
-            var birthdays = _dbContext.emp_info.Where(e => e.DOB.Month == today.Month && e.DOB.Day == today.Day).Select(e => new BirthdayModel
-                {
-                    EmpName = e.EmployeeName,
-                    imagePath = e.imagepath,
-                    Designation = e.Designation
-                })
-                .ToList();
+        //    return anniversaries;
+        //}
+        //public List<BirthdayModel> Birthday()
+        //{
+        //    var today = DateTime.Today;
+        //    var birthdays = _dbContext.emp_info.Where(e => e.DOB.Month == today.Month && e.DOB.Day == today.Day).Select(e => new BirthdayModel
+        //        {
+        //            EmpName = e.EmployeeName,
+        //            imagePath = e.imagepath,
+        //            Designation = e.Designation
+        //        })
+        //        .ToList();
 
-            return birthdays;
-        }
-        public List<UpcomingHoliday> upcomingHolidays()
-        {
-            // Fetch the upcoming holidays from the database
-            var today = DateTime.Today;
+        //    return birthdays;
+        //}
+        //public List<UpcomingHoliday> upcomingHolidays()
+        //{
 
-            // Fetch the upcoming holidays from the database
-            var upcomingHolidays = _dbContext.tblambcholidays
-                .Where(h => h.holiday_date >= today)
-                .OrderBy(h => h.holiday_date)
-                .Select(h => new UpcomingHoliday
-                {
-                    HolidayNo = h.holidayno,
-                    HolidayDate = (DateTime)h.holiday_date,
-                    HolidayName = h.holiday_name,
-                    Region = h.region
-                })
-                .ToList();
+        //    var today = DateTime.Today;
+        //    var upcomingHolidays = _dbContext.tblambcholidays
+        //        .Where(h => h.holiday_date >= today)
+        //        .OrderBy(h => h.holiday_date)
+        //        .Select(h => new UpcomingHoliday
+        //        {
+        //            HolidayNo = h.holidayno,
+        //            HolidayDate = (DateTime)h.holiday_date,
+        //            HolidayName = h.holiday_name,
+        //            Region = h.region
+        //        })
+        //        .ToList();
 
-            return upcomingHolidays;
-        }
+        //    return upcomingHolidays;
+        //}
 
     }
 }

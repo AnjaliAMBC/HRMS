@@ -31,9 +31,9 @@ namespace HRMS.Controllers
             model.EmpInfo = cuserContext.EmpInfo;
             model.LoginInfo = cuserContext.LoginInfo;
             model.CheckInInfo = cuserContext.CheckInInfo;
-            model.AnniversaryModel = Anniversary();
-            model.BirthModel = Birthday();
-            model.UpcomingHolidays = upcomingHolidays();
+            model.AnniversaryModel = new EmployeeEventHelper().Anniversary();
+            model.Birthdays = new EmployeeEventHelper().Birthday();
+            model.UpcomingHolidays = new EmployeeEventHelper().GetUpcomingHolidays(model.EmpInfo.Location);
             return PartialView("~/Views/EmployeeDashboard/EmpDash.cshtml", model);
         }
 
@@ -110,54 +110,5 @@ namespace HRMS.Controllers
                 return Json(model, JsonRequestBehavior.AllowGet);
             }
         }
-        public List<AnniversaryModel> Anniversary()
-        {
-            var today = DateTime.Today;
-            var anniversaries = _dbContext.emp_info.Where(e => e.DOJ.Month == today.Month && e.DOJ.Day == today.Day).Select(e => new AnniversaryModel
-            {
-                EmpName = e.EmployeeName,
-                Designation = e.Designation,
-                imagePath = e.imagepath,
-                years = today.Year - e.DOJ.Year,
-                EmpEmail = e.OfficalEmailid,
-            }).ToList();
-
-            return anniversaries;
-        }
-        public List<BirthdayModel> Birthday()
-        {
-            var today = DateTime.Today;
-            var birthdays = _dbContext.emp_info.Where(e => e.DOB.Month == today.Month && e.DOB.Day == today.Day)
-                .Select(e => new BirthdayModel
-                {
-                    EmpName = e.EmployeeName,
-                    imagePath = e.imagepath,
-                    Designation = e.Designation,
-                    EmpEmail = e.OfficalEmailid,
-                })
-                .ToList();
-
-            return birthdays;
-        }
-        public List<UpcomingHoliday> upcomingHolidays()
-        {
-            // Fetch the upcoming holidays from the database
-            var today = DateTime.Today;
-
-            // Fetch the upcoming holidays from the database
-            var upcomingHolidays = _dbContext.tblambcholidays
-                .Where(h => h.holiday_date >= today)
-                .OrderBy(h => h.holiday_date)
-                .Select(h => new UpcomingHoliday
-                {
-                    HolidayNo = h.holidayno,
-                    HolidayDate = (DateTime)h.holiday_date,
-                    HolidayName = h.holiday_name,
-                    Region = h.region
-                })
-                .ToList();
-
-            return upcomingHolidays;
-        }       
     }
 }
