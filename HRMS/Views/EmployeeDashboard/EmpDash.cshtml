@@ -571,15 +571,45 @@
             });
         });
 
+        function parseCustomDate(dateString) {
+            // Split date and time
+            var parts = dateString.split(' ');
+            var datePart = parts[0].split('-');
+            var timePart = parts[1].split(':');
+
+            // Extract date and time components
+            var day = parseInt(datePart[0], 10);
+            var month = parseInt(datePart[1], 10) - 1; // Months are zero-based in JavaScript
+            var year = parseInt(datePart[2], 10);
+            var hours = parseInt(timePart[0], 10);
+            var minutes = parseInt(timePart[1], 10);
+            var seconds = parseInt(timePart[2], 10);
+
+            // Create and return new Date object
+            return new Date(year, month, day, hours, minutes, seconds);
+        }
+        
         function updateTimer1() {
-            $.ajax({
-                url: '/empdash/getcurrenttime',
-                type: 'GET',
-                data: { signedInDateTime: $('#checkinhoursminutes').attr('data-signedindatetime') },
-                success: function (data) {
-                    $('#checkinhoursminutes').text(data);
-                }
-            });
+            var signedInDateTimeStr = $('#checkinhoursminutes').attr('data-signedindatetime');
+            var signedInDateTime = parseCustomDate(signedInDateTimeStr);
+
+            if (signedInDateTime.toString() !== 'Invalid Date' && signedInDateTimeStr !== '01-01-0001 00:00:00') {
+                var currentTime = new Date();
+
+                var timeDifference = currentTime - signedInDateTime;
+                var totalSeconds = Math.floor(timeDifference / 1000);
+                var hours = Math.floor(totalSeconds / 3600);
+                var minutes = Math.floor((totalSeconds % 3600) / 60);
+                var seconds = totalSeconds % 60;
+
+                var formattedHours = hours < 10 ? "0" + hours : hours.toString();
+                var formattedMinutes = minutes < 10 ? "0" + minutes : minutes.toString();
+                var formattedSeconds = seconds < 10 ? "0" + seconds : seconds.toString();
+
+                var formattedTime = formattedHours + ":" + formattedMinutes + ":" + formattedSeconds;
+
+                $('#checkinhoursminutes').text(formattedTime);
+            }
         }
 
         setInterval(updateTimer1, 1000);
