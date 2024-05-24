@@ -355,8 +355,10 @@
                 generateCalendar(currentMonth, currentYear);
             }
 
-            function generateCalendar(month, year) {
+            function generateCalendar() {
                 const today = new Date();
+                month = today.getMonth();
+                year = today.getFullYear();
                 const firstDayOfMonth = new Date(year, month, 1);
                 const daysInMonth = new Date(year, month + 1, 0).getDate();
                 const startingDay = firstDayOfMonth.getDay() === 0 ? 6 : firstDayOfMonth.getDay() - 1;
@@ -511,6 +513,10 @@
 
             $('.isempdashboardloaded').text('true');
         }
+
+        //On link click generating the calender again
+        generateCalendar();
+
         $(document).ready(function () {
             $('#recipeCarousel').carousel({
                 interval: 10000
