@@ -51,7 +51,9 @@ namespace HRMS.Helpers
                 var siteContext = HttpContext.Current.Session["SiteContext"] as SiteContextModel;
                 contextModel.EmpInfo = siteContext.EmpInfo;
                 contextModel.LoginInfo = siteContext.LoginInfo;
-                contextModel.CheckInInfo = siteContext.CheckInInfo;
+                contextModel.IsAdmin = siteContext.IsAdmin;
+                //contextModel.CheckInInfo = siteContext.CheckInInfo;
+                //contextModel.empLastDayCheckInDetails = siteContext.empLastDayCheckInDetails;
             }
 
             return contextModel;

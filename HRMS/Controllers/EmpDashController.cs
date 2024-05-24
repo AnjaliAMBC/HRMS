@@ -12,6 +12,8 @@ using System.Web.Mvc;
 namespace HRMS.Controllers
 {
     using Helpers;
+    using HRMS.Models;
+
     public class EmpDashController : Controller
     {
         // Database context
@@ -30,7 +32,35 @@ namespace HRMS.Controllers
             var cuserContext = SiteContext.GetCurrentUserContext();
             model.EmpInfo = cuserContext.EmpInfo;
             model.LoginInfo = cuserContext.LoginInfo;
-            model.CheckInInfo = cuserContext.CheckInInfo;
+            //model.CheckInInfo = cuserContext.CheckInInfo;
+            //model.empLastDayCheckInDetails = cuserContext.empLastDayCheckInDetails;
+
+            var empSignInfo = _dbContext.tbld_ambclogininformation.Where(x => x.Employee_Code == model.EmpInfo.EmployeeID).ToList();
+
+            //Last Day
+            var empLastSignedInfo = empSignInfo.OrderByDescending(x => x.Login_date).ToList().FirstOrDefault();
+            if (empLastSignedInfo != null && empLastSignedInfo.Login_date != DateTime.Today)
+            {
+                model.empLastDayCheckInDetails.SignInTime = empLastSignedInfo.Signin_Time;
+                if (empLastSignedInfo.Signout_Time != null && empLastSignedInfo.Signout_Time != DateTime.MinValue)
+                {
+                    model.empLastDayCheckInDetails.SignOutTime = empLastSignedInfo.Signout_Time ?? DateTime.MinValue;
+                    model.empLastDayCheckInDetails.IsSignedOutOnLastCheckInDate = true;
+                }
+                else
+                {
+                    model.empLastDayCheckInDetails.LoginID = empLastSignedInfo.login_id;
+                }               
+            }
+
+            //Current Day
+            var empCheckInInfo = empSignInfo.Where(x => x.Login_date == DateTime.Today).FirstOrDefault();
+
+            if (empCheckInInfo != null)
+            {
+                model.todayCheckInInfo = empCheckInInfo;
+            }
+
             model.AnniversaryModel = new EmployeeEventHelper().Anniversary();
             model.Birthdays = new EmployeeEventHelper().Birthday();
             model.UpcomingHolidays = new EmployeeEventHelper().GetUpcomingHolidays(model.EmpInfo.Location);
@@ -59,10 +89,7 @@ namespace HRMS.Controllers
                     checkInModel.Employee_IP = "123.344";
 
                     var newCheckInItem = _dbContext.tbld_ambclogininformation.Add(checkInModel);
-                    _dbContext.SaveChanges();
-
-                    cuserContext.CheckInInfo = newCheckInItem;
-                    Session["SiteContext"] = cuserContext;
+                    _dbContext.SaveChanges();               
 
                     model.CheckInInfo = newCheckInItem;
                     model.JsonResponse.Message = "Check in Successful";
@@ -93,6 +120,8 @@ namespace HRMS.Controllers
                     {
                         checkInRecord.Signout_Time = DateTime.Now;
                         _dbContext.SaveChanges();
+
+                        var siteContext = Session["SiteContext"] as SiteContextModel;
 
                         model.CheckInInfo = checkInRecord;
                         model.JsonResponse.StatusCode = 200;

@@ -12,6 +12,8 @@ namespace HRMS.Models.Employee
         public List<AnniversaryModel> AnniversaryModel { get; set; } = new List<AnniversaryModel>();
         public List<BirthdayModel> Birthdays { get; set; } = new List<BirthdayModel>();
         public List<UpcomingHoliday> UpcomingHolidays { get; set; } = new List<UpcomingHoliday>();
+        public tbld_ambclogininformation todayCheckInInfo { get; set; } = new tbld_ambclogininformation();
+        public CheckInDetails empLastDayCheckInDetails { get; set; } = new CheckInDetails();
     }
 
 

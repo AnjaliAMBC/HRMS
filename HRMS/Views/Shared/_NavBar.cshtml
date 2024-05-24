@@ -85,16 +85,16 @@
     </div>
 
     <div id="profileDropdown" class="profile-dropdown">
-        <h5>@currentContext.EmpInfo.EmployeeName</h5>
-        <p>@currentContext.EmpInfo.OfficalEmailid</p>
+        <h6>@currentContext.EmpInfo.EmployeeName</h6>
+        <p style="color: #3E78CF; font-size:14px;">@currentContext.EmpInfo.OfficalEmailid</p>
         <p>@currentContext.EmpInfo.Designation</p>
 
         @if (!currentContext.IsAdmin)
         {
-            <button class="btn btn-primary" onclick="viewProfile()" style="width: 38%; margin-left: 74px; font-size: 12px;">View Profile</button>
+            <button class="btn" onclick="viewProfile()" style="width: 38%; background-color: #EEF4FF; margin-left: 74px; font-size: 12px; border: 1px solid #7E7E7E">View Profile</button>
         }
 
-        <a href="#" class="sign-out" onclick="signOut()">Sign Out</a>
+        <a href="#" class="sign-out" onclick="signOut()" style="color: #F8284A";>Sign Out</a>
         <form id="logoutForm" action="@Url.Action("Logout", "Profile")" method="post">
             @Html.AntiForgeryToken()
         </form>

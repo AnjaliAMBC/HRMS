@@ -25,6 +25,7 @@ namespace HRMS.Controllers
         public ActionResult Index(string startdate, string endDate)
         {
             var model = new EmpAttedenceModel();
+            var cuserContext = SiteContext.GetCurrentUserContext();
 
             DateTime currentDate = DateTime.Today;
             DayOfWeek currentDayOfWeek = currentDate.DayOfWeek;
@@ -41,7 +42,7 @@ namespace HRMS.Controllers
                 model.EndWeek = DateTime.ParseExact(endDate, "dd MMMM yyyy", CultureInfo.InvariantCulture);                
             }
 
-            var selectedWeekAttendence = _dbContext.tbld_ambclogininformation.Where(x => x.Login_date >= model.startWeek && x.Login_date <= model.EndWeek).ToList();
+            var selectedWeekAttendence = _dbContext.tbld_ambclogininformation.Where(x => x.Login_date >= model.startWeek && x.Login_date <= model.EndWeek && x.Employee_Code == cuserContext.EmpInfo.EmployeeID).ToList();
 
             if (selectedWeekAttendence != null && selectedWeekAttendence.Any())
             {

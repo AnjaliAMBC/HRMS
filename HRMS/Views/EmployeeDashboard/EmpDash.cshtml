@@ -10,16 +10,40 @@
     string starttimeWithAmPm = "";
     string endtimeWithAmPm = "";
 
-    if (Model.CheckInInfo != null && Model.CheckInInfo.login_id != 0)
+    string lastCheckinDate = "";
+    bool showCheckInButton = false;
+
+
+    if (Model.empLastDayCheckInDetails != null && !Model.empLastDayCheckInDetails.IsSignedOutOnLastCheckInDate && Model.empLastDayCheckInDetails.LoginID != 0)
     {
-        loginID = Model.CheckInInfo.login_id;
         buttonText = "Check-Out";
-        checkInTime = Model.CheckInInfo.Signin_Time;
-        checkOutTime = Model.CheckInInfo.Signout_Time;
+        loginID = Model.empLastDayCheckInDetails.LoginID;
+
+        checkInTime = Model.empLastDayCheckInDetails.SignInTime;
+        checkOutTime = Model.empLastDayCheckInDetails.SignOutTime;
+
+        lastCheckinDate = checkInTime.ToString("dd/MM/yyyy");
+        starttimeWithAmPm = checkInTime.ToString("hh:mm tt", System.Globalization.CultureInfo.InvariantCulture);
+        showCheckInButton = true;
+    }
+
+    var ButtonDisabled = "";
+
+    if (Model.todayCheckInInfo != null && Model.todayCheckInInfo.login_id != 0)
+    {
+        loginID = Model.todayCheckInInfo.login_id;
+        buttonText = "Check-Out";
+        checkInTime = Model.todayCheckInInfo.Signin_Time;
+        checkOutTime = Model.todayCheckInInfo.Signout_Time;
+
+        if (checkOutTime != null && checkOutTime != DateTime.MinValue)
+        {
+            buttonText = "Check-In";
+            ButtonDisabled = "disabled";
+        }
 
         starttimeWithAmPm = checkInTime.ToString("hh:mm tt", System.Globalization.CultureInfo.InvariantCulture);
         endtimeWithAmPm = checkOutTime?.ToString("hh:mm tt", System.Globalization.CultureInfo.InvariantCulture);
-
     }
 }
 <div class="container-fluid mt-4 ml-4 employeedash">
@@ -38,20 +62,20 @@
                     <div class="in-out mr-4 mt-3">
                         <div class="check-time">
                             <span class="check-label">Check In time:</span>
-                            <div id="checkInTime" class="time-input" style="color: blue">@starttimeWithAmPm</div> <!-- Replace input with div -->
+                            <div id="checkInTime" class="time-input" style="color: blue"><span style="font-size: small">@lastCheckinDate</span>@starttimeWithAmPm</div> <!-- Replace input with div -->
                         </div>
                         <div class="check-time mt-2">
                             <span class="check-label">Check Out time:</span>
-                            <div id="checkOutTime" class="time-input">@endtimeWithAmPm</div> <!-- Replace input with div -->
+                            <div id="checkOutTime" class="time-input" style="color: blue">@endtimeWithAmPm</div> <!-- Replace input with div -->
                         </div>
                     </div>
 
                     <div class="current-time-display text-center">
                         <div id="currentTime" class="current-time"></div>
                     </div>
-
+                    <span class="showcheckinbuttonpostcheckout" style="display: none">@showCheckInButton</span>
                     <div class="button-container text-left">
-                        <button class="btn btn-checkin" data-checkinid="@loginID">@buttonText</button>
+                        <button class="btn btn-checkin" data-checkinid="@loginID" @ButtonDisabled>@buttonText</button>
                     </div>
                 </div>
             </div>

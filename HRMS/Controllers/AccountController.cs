@@ -70,7 +70,7 @@ namespace HRMS.Controllers
 
 
         private bool IsValidUser(AccountModel loginModel)
-        {            
+        {
             var SiteContext = new SiteContextModel();
             if (!string.IsNullOrWhiteSpace(loginModel.EmployeeID))
             {
@@ -78,18 +78,9 @@ namespace HRMS.Controllers
                 if (isEmpExists != null)
                 {
                     loginModel.IsUser = true;
-                    //_siteCotext.SetSiteContext(loginModel.EmployeeID, isEmpExists);
-
                     var currentEmployee = _dbContext.emp_info.Where(emp => emp.EmployeeID == loginModel.EmployeeID).FirstOrDefault();
                     SiteContext.LoginInfo = isEmpExists;
-                    SiteContext.EmpInfo = currentEmployee;
-
-                    var empCheckInInfo = _dbContext.tbld_ambclogininformation.Where(x => x.Login_date == DateTime.Today && x.Employee_Code == loginModel.EmployeeID).FirstOrDefault();
-
-                    if(empCheckInInfo != null)
-                    {
-                        SiteContext.CheckInInfo = empCheckInInfo;
-                    }
+                    SiteContext.EmpInfo = currentEmployee; 
                     Session["SiteContext"] = SiteContext;
 
                     FormsAuthentication.SetAuthCookie(isEmpExists.EmployeeID.ToString(), loginModel.StaySignedIn);
@@ -108,14 +99,6 @@ namespace HRMS.Controllers
                     SiteContext.LoginInfo = isEmpExists;
                     SiteContext.EmpInfo = currentEmployee;
                     SiteContext.IsAdmin = true;
-
-                    var empCheckInInfo = _dbContext.tbld_ambclogininformation.Where(x => x.Login_date == DateTime.Today && x.Employee_Code == loginModel.EmployeeID).FirstOrDefault();
-
-                    if (empCheckInInfo != null)
-                    {
-                        SiteContext.CheckInInfo = empCheckInInfo;
-                    }
-
                     Session["SiteContext"] = SiteContext;
 
                     FormsAuthentication.SetAuthCookie(isEmpExists.EmployeeID.ToString(), loginModel.StaySignedIn);

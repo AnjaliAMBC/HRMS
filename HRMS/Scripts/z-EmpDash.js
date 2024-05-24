@@ -1,4 +1,19 @@
 ﻿
+function GetCurrentTime() {
+    var now = new Date(); // Get current date and time
+    var hours = now.getHours();
+    var minutes = now.getMinutes();
+    var ampm = hours >= 12 ? 'PM' : 'AM';
+
+    hours = hours % 12;
+    hours = hours ? hours : 12; // The hour '0' should be '12'
+    hours = hours < 10 ? '0' + hours : hours; // Add leading zero if hours is less than 10
+    minutes = minutes < 10 ? '0' + minutes : minutes;
+
+    var formattedTime = hours + ':' + minutes + ' ' + ampm;
+    return formattedTime;
+}
+
 $(document).on('click', '.btn-checkin', function (event) {
     event.preventDefault();
 
@@ -13,6 +28,8 @@ $(document).on('click', '.btn-checkin', function (event) {
                 if (response.JsonResponse.StatusCode == 200) {
                     $(".btn-checkin").text("Check Out");
                     $(".btn-checkin").attr("data-checkinid", response.CheckInInfo.login_id);
+                    var currentTime = GetCurrentTime();
+                    $('#checkInTime').html(currentTime);
 
                 } else {
                     console.error('Error While CheckIn', error);
@@ -35,17 +52,14 @@ $(document).on('click', '.btn-checkin', function (event) {
                 if (response.JsonResponse.StatusCode == 200) {
                     $('.btn-checkin').text("Check-In");
                     $('.btn-checkin').prop('disabled', true);
-                    var now = new Date(); // Get current date and time
-                    var hours = now.getHours();
-                    var minutes = now.getMinutes();
-                    var ampm = hours >= 12 ? 'PM' : 'AM';
+                    var currentTime = GetCurrentTime();
+                    $('#checkOutTime').html(currentTime);
 
-                    hours = hours % 12;
-                    hours = hours ? hours : 12; // The hour '0' should be '12'
-                    minutes = minutes < 10 ? '0' + minutes : minutes;
-
-                    var formattedTime = hours + ':' + minutes + ' ' + ampm;
-                    $('#checkOutTime').html(formattedTime);
+                    if ($('.showcheckinbuttonpostcheckout').text() == "True") {
+                        $('.btn-checkin').removeAttr('disabled');
+                        $('#checkOutTime').html("");
+                        $('#checkInTime').html("");
+                    }
 
                 } else {
                     console.error('Error While CheckIn', error);
