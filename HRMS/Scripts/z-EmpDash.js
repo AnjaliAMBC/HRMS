@@ -14,6 +14,17 @@ function GetCurrentTime() {
     return formattedTime;
 }
 
+function formatDateAndTime(date) {
+    var day = ("0" + date.getDate()).slice(-2);
+    var month = ("0" + (date.getMonth() + 1)).slice(-2); // Months are zero-based in JavaScript
+    var year = date.getFullYear();
+    var hours = ("0" + date.getHours()).slice(-2);
+    var minutes = ("0" + date.getMinutes()).slice(-2);
+    var seconds = ("0" + date.getSeconds()).slice(-2);
+
+    return day + "-" + month + "-" + year + " " + hours + ":" + minutes + ":" + seconds;
+}
+
 $(document).on('click', '.btn-checkin', function (event) {
     event.preventDefault();
 
@@ -28,6 +39,8 @@ $(document).on('click', '.btn-checkin', function (event) {
                 if (response.JsonResponse.StatusCode == 200) {
                     $(".btn-checkin").text("Check Out");
                     $(".btn-checkin").attr("data-checkinid", response.CheckInInfo.login_id);
+                    var checkinTime = formatDateAndTime(new Date());
+                    $('#checkinhoursminutes').attr('data-signedindatetime', checkinTime); 
                     var currentTime = GetCurrentTime();
                     $('#checkInTime').html(currentTime);
 
@@ -52,13 +65,23 @@ $(document).on('click', '.btn-checkin', function (event) {
                 if (response.JsonResponse.StatusCode == 200) {
                     $('.btn-checkin').text("Check-In");
                     $('.btn-checkin').prop('disabled', true);
+
+                    var checkinTime = formatDateAndTime(new Date());
+                    $('#checkinhoursminutes').attr('data-signedindatetime', checkinTime);
+
                     var currentTime = GetCurrentTime();
                     $('#checkOutTime').html(currentTime);
 
                     if ($('.showcheckinbuttonpostcheckout').text() == "True") {
                         $('.btn-checkin').removeAttr('disabled');
+                        $('#checkinhoursminutes').attr('data-signedindatetime', "");
+                        $('#checkinhoursminutes').html("");
                         $('#checkOutTime').html("");
                         $('#checkInTime').html("");
+                        $('.showcheckinbuttonpostcheckout').text('False');
+                    }
+                    else {
+                        $('#checkinhoursminutes').attr('data-signedindatetime', "");
                     }
 
                 } else {
@@ -158,10 +181,10 @@ $(function () {
     function updateWeekDates(start, end) {
         $("#week-start").text(formatDate(start));
         $("#week-end").text(formatDate(end));
-       
+
         var startDate = $("#week-start").text();
         var endDate = $("#week-end").text();
-     
+
         GetAttendenceInfo(startDate, endDate);
 
     }

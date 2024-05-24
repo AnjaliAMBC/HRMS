@@ -14,6 +14,9 @@ namespace HRMS.Models.Employee
         public List<UpcomingHoliday> UpcomingHolidays { get; set; } = new List<UpcomingHoliday>();
         public tbld_ambclogininformation todayCheckInInfo { get; set; } = new tbld_ambclogininformation();
         public CheckInDetails empLastDayCheckInDetails { get; set; } = new CheckInDetails();
+        public TimerModel timerModel { get; set; }
+
+        public string totalCheckedInTime { get; set; } = "";
     }
 
 

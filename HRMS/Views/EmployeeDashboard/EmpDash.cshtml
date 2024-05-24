@@ -60,9 +60,30 @@
                     </div>
 
                     <div class="in-out mr-4 mt-3">
+                        <div class="checkinhours">
+                            <span class="totalhours">Hours:</span>
+                            @{
+                                var totalCheckInhours = Model.totalCheckedInTime;
+                                var formattedCheckInTime = @checkInTime;
+                            }
+
+                            @if (!string.IsNullOrWhiteSpace(Model.totalCheckedInTime))
+                            {
+                                formattedCheckInTime = DateTime.MinValue;
+                            }
+                            @if (Model.totalCheckedInTime == "" && @Model.timerModel != null && @Model.timerModel.FormattedTime.ToString() != string.Empty)
+                            {
+                                totalCheckInhours = @Model.timerModel.FormattedTime.ToString();
+                            }
+                            <div id="checkinhoursminutes" data-signedindatetime="@formattedCheckInTime" style="color: blue">@totalCheckInhours</div>
+                        </div>
+
+                    </div>
+
+                    <div class="in-out mr-4 mt-3">
                         <div class="check-time">
                             <span class="check-label">Check In time:</span>
-                            <div id="checkInTime" class="time-input" style="color: blue"><span style="font-size: small">@lastCheckinDate</span>@starttimeWithAmPm</div> <!-- Replace input with div -->
+                            <div id="checkInTime" class="time-input" style="color: blue"><span style="font-size: small">@lastCheckinDate</span>@starttimeWithAmPm</div>
                         </div>
                         <div class="check-time mt-2">
                             <span class="check-label">Check Out time:</span>
@@ -549,6 +570,21 @@
                 $(this).find('.carousel-inner').css('transition', '');
             });
         });
+
+        function updateTimer1() {
+            $.ajax({
+                url: '/empdash/getcurrenttime',
+                type: 'GET',
+                data: { signedInDateTime: $('#checkinhoursminutes').attr('data-signedindatetime') },
+                success: function (data) {
+                    $('#checkinhoursminutes').text(data);
+                }
+            });
+        }
+
+        setInterval(updateTimer1, 1000);
+        updateTimer1();
+
     </script>
 </div>
 

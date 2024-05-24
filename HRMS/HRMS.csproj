@@ -136,16 +136,21 @@
     <Compile Include="CheckInView.cs">
       <DependentUpon>HRMS.tt</DependentUpon>
     </Compile>
+    <Compile Include="Controllers\AdminLeaveController.cs" />
+    <Compile Include="Controllers\EmpLeaveController.cs" />
     <Compile Include="Controllers\ProfileController.cs" />
     <Compile Include="Helpers\EmployeeEventHelper.cs" />
     <Compile Include="Helpers\DateHelper.cs" />
     <Compile Include="Helpers\EMailHelper.cs" />
     <Compile Include="Models\Admin\AdminAttendanceModel.cs" />
     <Compile Include="Models\Admin\AdminDashView.cs" />
+    <Compile Include="Models\Admin\AdminLeaveModel.cs" />
     <Compile Include="Models\EmployeeEvent.cs" />
     <Compile Include="Models\Employee\CheckInModel.cs" />
     <Compile Include="Models\Employee\EmpAttedenceModel.cs" />
     <Compile Include="Models\Employee\EmpDashBoardModel.cs" />
+    <Compile Include="Models\Employee\EmpLeaveModel.cs" />
+    <Compile Include="Models\TimerModel.cs" />
     <Compile Include="tblambcholiday.cs">
       <DependentUpon>HRMS.tt</DependentUpon>
     </Compile>
@@ -308,10 +313,14 @@
     <Content Include="Views\AdminDashboard\AdminDash.cshtml" />
     <Content Include="Views\EmployeeDashboard\EmpDash.cshtml" />
     <Content Include="Views\AdminDashboard\AdminEmpIndividualAttendance.cshtml" />
+    <Content Include="Views\EmployeeDashboard\EmpLeaveTracker.cshtml" />
+    <Content Include="Views\AdminDashboard\AdminLeaveTracker.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
     <Folder Include="Assets\EmpImages\" />
+    <Folder Include="Views\AdminLeave\" />
+    <Folder Include="Views\EmpLeave\" />
     <Folder Include="Views\Profile\" />
   </ItemGroup>
   <ItemGroup>

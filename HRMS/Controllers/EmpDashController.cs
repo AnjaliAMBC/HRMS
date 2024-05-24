@@ -13,6 +13,7 @@ namespace HRMS.Controllers
 {
     using Helpers;
     using HRMS.Models;
+    using System.Globalization;
 
     public class EmpDashController : Controller
     {
@@ -49,8 +50,9 @@ namespace HRMS.Controllers
                 }
                 else
                 {
+                    model.timerModel = new TimerModel(empLastSignedInfo.Signin_Time);
                     model.empLastDayCheckInDetails.LoginID = empLastSignedInfo.login_id;
-                }               
+                }                
             }
 
             //Current Day
@@ -59,6 +61,17 @@ namespace HRMS.Controllers
             if (empCheckInInfo != null)
             {
                 model.todayCheckInInfo = empCheckInInfo;
+
+                if(empCheckInInfo.Signin_Time != DateTime.MinValue && empCheckInInfo.Signout_Time.HasValue)
+                {
+                    TimeSpan difference = empCheckInInfo.Signout_Time.Value - empCheckInInfo.Signin_Time;
+                    int hours = difference.Hours;
+                    int minutes = difference.Minutes;
+                    int seconds = difference.Seconds;
+
+                    model.totalCheckedInTime = hours.ToString("D2") + ":" + minutes.ToString("D2") + ":" + seconds.ToString("D2");
+                }
+                model.timerModel = new TimerModel(empCheckInInfo.Signin_Time);
             }
 
             model.AnniversaryModel = new EmployeeEventHelper().Anniversary();
@@ -89,7 +102,7 @@ namespace HRMS.Controllers
                     checkInModel.Employee_IP = "123.344";
 
                     var newCheckInItem = _dbContext.tbld_ambclogininformation.Add(checkInModel);
-                    _dbContext.SaveChanges();               
+                    _dbContext.SaveChanges();
 
                     model.CheckInInfo = newCheckInItem;
                     model.JsonResponse.Message = "Check in Successful";
@@ -138,6 +151,22 @@ namespace HRMS.Controllers
                 model.JsonResponse.Message = "Error while Check-Out";
                 return Json(model, JsonRequestBehavior.AllowGet);
             }
+        }
+
+        public JsonResult GetCurrentTime(string signedInDateTime)
+        {
+            if (!string.IsNullOrWhiteSpace(signedInDateTime))
+            {
+                DateTime dateTime = DateTime.ParseExact(signedInDateTime, "dd-MM-yyyy HH:mm:ss", CultureInfo.InvariantCulture);
+                if(dateTime != DateTime.MinValue)
+                {
+                    var model = new TimerModel(dateTime);
+                    return Json(model.FormattedTime, JsonRequestBehavior.AllowGet);
+                }               
+            }
+
+            return Json(null, JsonRequestBehavior.AllowGet);
+
         }
     }
 }
