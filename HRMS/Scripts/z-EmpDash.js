@@ -40,7 +40,7 @@ $(document).on('click', '.btn-checkin', function (event) {
                     $(".btn-checkin").text("Check Out");
                     $(".btn-checkin").attr("data-checkinid", response.CheckInInfo.login_id);
                     var checkinTime = formatDateAndTime(new Date());
-                    $('#checkinhoursminutes').attr('data-signedindatetime', checkinTime); 
+                    $('#checkinhoursminutes').attr('data-signedindatetime', checkinTime);
                     var currentTime = GetCurrentTime();
                     $('#checkInTime').html(currentTime);
 
@@ -143,21 +143,14 @@ function GetAttendenceInfo(startDate, endDate) {
 
 
 $(function () {
-    // Initial dates
-    //var startDate = new Date("April 01, 2024");
-    //var endDate = new Date("April 08, 2024");
 
+    var currentDate1 = new Date();
 
-    // Get today's date
-    var currentDate = new Date();
+    var startDate = new Date(currentDate1);
+    startDate.setDate(currentDate1.getDate() - currentDate1.getDay() + 1);
 
-    // Calculate the start of the week (Sunday)
-    var startDate = new Date(currentDate);
-    startDate.setDate(currentDate.getDate() - currentDate.getDay() + 1);
-
-    // Calculate the end of the week (Saturday)
-    var endDate = new Date(currentDate);
-    endDate.setDate(currentDate.getDate() + (6 - currentDate.getDay() + 1));
+    var endDate = new Date(currentDate1);
+    endDate.setDate(currentDate1.getDate() + (6 - currentDate1.getDay() + 1));
 
     // Update UI
     $("#week-start").text(startDate.toDateString());
@@ -209,3 +202,251 @@ $(document).on('click', '.attendance-find', function (event) {
 
     GetAttendenceInfo(formattedFromDate, formattedToDate);
 });
+
+
+let currentDashCalenderMonth;
+let currentDashCalenderYear;
+
+// Define DashCalenderfestivals
+const DashCalenderfestivals = {
+    '1-1': 'New Year',
+    '12-25': 'Christmas',
+    '10-2': 'Gandhi Jayanti',
+};
+
+function updateCalendar() {
+    generateCalendar(currentDashCalenderMonth, currentDashCalenderYear);
+}
+
+function generateCalendar(month, year) {
+    const today = new Date();
+    const firstDayOfMonth = new Date(year, month, 1);
+    const daysInMonth = new Date(year, month + 1, 0).getDate();
+    const startingDay = firstDayOfMonth.getDay();  // getDay() returns 0 for Sunday
+
+    const calendarBody = document.getElementById("calendarBody");
+    if (!calendarBody) {
+        //console.error("No element found with id 'calendarBody'");
+        return;
+    }
+    calendarBody.innerHTML = "";
+
+    const monthYear = document.getElementById("monthYear");
+    if (!monthYear) {
+        //console.error("No element found with id 'monthYear'");
+        return;
+    }
+    monthYear.innerText = new Date(year, month).toLocaleDateString('default', { month: 'long', year: 'numeric' });
+
+    let date = 1;
+    for (let i = 0; i < 6; i++) {
+        const row = document.createElement("tr");
+
+        for (let j = 0; j < 7; j++) {
+            if (i === 0 && j < startingDay) {
+                const cell = document.createElement("td");
+                row.appendChild(cell);
+            } else if (date > daysInMonth) {
+                break;
+            } else {
+                const cell = document.createElement("td");
+                cell.textContent = date;
+                const festivalKey = `${month + 1}-${date}`;
+                if (date === today.getDate() && year === today.getFullYear() && month === today.getMonth()) {
+                    cell.classList.add("highlight-current");
+                    const todayTooltip = document.createElement("div");
+                    todayTooltip.classList.add("today-tooltip");
+                    todayTooltip.textContent = "Today";
+                    cell.appendChild(todayTooltip);
+                } else if (DashCalenderfestivals[festivalKey]) {
+                    cell.dataset.festival = DashCalenderfestivals[festivalKey];
+                    cell.classList.add("highlight-festival");
+                    const festivalTooltip = document.createElement("div");
+                    festivalTooltip.classList.add("festival-tooltip");
+                    festivalTooltip.textContent = DashCalenderfestivals[festivalKey];
+                    cell.appendChild(festivalTooltip);
+                }
+                row.appendChild(cell);
+                date++;
+            }
+        }
+        calendarBody.appendChild(row);
+    }
+}
+
+function prevMonth() {
+    currentDashCalenderMonth--;
+    if (currentDashCalenderMonth < 0) {
+        currentDashCalenderMonth = 11;
+        currentDashCalenderYear--;
+    }
+    updateCalendar();
+}
+
+function nextMonth() {
+    currentDashCalenderMonth++;
+    if (currentDashCalenderMonth > 11) {
+        currentDashCalenderMonth = 0;
+        currentDashCalenderYear++;
+    }
+    updateCalendar();
+}
+
+
+currentDashCalenderMonth = new Date().getMonth();
+currentDashCalenderYear = new Date().getFullYear();
+generateCalendar(currentDashCalenderMonth, currentDashCalenderYear);
+
+var lastAction = "checkIn";
+var lastDate = null;
+
+function toggleCheck() {
+    if (lastAction === "checkIn") {
+        // Perform check-in
+        var currentDate = new Date();
+        var hours = currentDate.getHours();
+        var minutes = currentDate.getMinutes().toString().padStart(2, '0');
+        var seconds = currentDate.getSeconds().toString().padStart(2, '0');
+
+        var ampm = hours >= 12 ? 'PM' : 'AM';
+        hours = hours % 12;
+        hours = hours ? hours : 12; // Handle midnight (0 hours)
+
+        var currentTime = hours.toString().padStart(2, '0') + ":" + minutes + ":" + seconds;
+        document.getElementById("checkInTime").textContent = currentTime;
+        lastAction = "checkOut";
+        document.querySelector("button").textContent = "Check-Out";
+    } else {
+        // Perform check-out
+        var currentDate = new Date();
+        var hours = currentDate.getHours();
+        var minutes = currentDate.getMinutes().toString().padStart(2, '0');
+        var seconds = currentDate.getSeconds().toString().padStart(2, '0');
+
+        var ampm = hours >= 12 ? 'PM' : 'AM';
+        hours = hours % 12;
+        hours = hours ? hours : 12; // Handle midnight (0 hours)
+
+        var currentTime = hours.toString().padStart(2, '0') + ":" + minutes + ":" + seconds;
+        document.getElementById("checkOutTime").textContent = currentTime;
+        lastAction = "checkIn";
+        document.querySelector("button").textContent = "Check-In";
+    }
+}
+
+
+function updateDashRunningTime() {
+    var dashcurrentDateElem = document.getElementById("dashcurrentDate");
+    if (dashcurrentDateElem) {
+        var currentDate = new Date();
+        var hours = currentDate.getHours();
+        var minutes = currentDate.getMinutes().toString().padStart(2, '0');
+        var seconds = currentDate.getSeconds().toString().padStart(2, '0');
+
+        var ampm = hours >= 12 ? 'PM' : 'AM';
+        hours = hours % 12;
+        hours = hours ? hours : 12;
+        var currentTime = hours.toString().padStart(2, '0') + ":" + minutes + ":" + seconds + " " + ampm;
+        document.getElementById("dashcurrentDate").textContent = currentDate.toLocaleDateString('en-IN', { timeZone: 'Asia/Kolkata', year: 'numeric', month: 'long', day: 'numeric' });
+        document.getElementById("dashcurrentTime").textContent = currentTime;
+        document.getElementById("dashday").textContent = currentDate.toLocaleDateString('en-IN', { timeZone: 'Asia/Kolkata', weekday: 'long' }).toUpperCase() + ",";
+    }
+}
+
+//Dash leaves scetion
+
+let currentLeavesIndex = 0;
+const itemsToShow = 4;
+const totalItems = $('.leave-card').length;
+const itemWidth = $('.leave-card').outerWidth(true);
+
+function updateLeavesCarousel() {
+    const offset = -currentLeavesIndex * itemWidth;
+    $('.leave-row').css('transform', `translateX(${offset}px)`);
+}
+
+$('.empdashleaves-carousel-next').click(function () {
+    if (currentLeavesIndex < totalItems - itemsToShow) {
+        currentLeavesIndex++;
+        updateLeavesCarousel();
+    }
+});
+
+$('.empdashleaves-carousel-prev').click(function () {
+    if (currentLeavesIndex > 0) {
+        currentLeavesIndex--;
+        updateLeavesCarousel();
+    }
+});
+
+updateLeavesCarousel();
+
+$('#recipeCarousel').carousel({
+    interval: 10000
+});
+$('.carousel .carousel-item').each(function () {
+    var minPerSlide = 4;
+    var next = $(this).next();
+
+    if (!next.length) {
+        next = $(this).siblings(':first');
+    }
+
+    for (var i = 0; i < minPerSlide; i++) {
+        if (!next.length) {
+            next = $(this).siblings(':first');
+        }
+
+        next.children(':first-child').clone().appendTo($(this));
+        next = next.next();
+    }
+});
+$('#recipeCarousel').on('slide.bs.carousel', function () {
+    $(this).find('.carousel-inner').css('transition', 'transform 0.5s ease-in-out');
+});
+
+$('#recipeCarousel').on('slid.bs.carousel', function () {
+    $(this).find('.carousel-inner').css('transition', '');
+});
+
+
+function parseCustomDate(dateString) {
+    var parts = dateString.split(' ');
+    var datePart = parts[0].split('-');
+    var timePart = parts[1].split(':');
+
+    var day = parseInt(datePart[0], 10);
+    var month = parseInt(datePart[1], 10) - 1;
+    var year = parseInt(datePart[2], 10);
+    var hours = parseInt(timePart[0], 10);
+    var minutes = parseInt(timePart[1], 10);
+    var seconds = parseInt(timePart[2], 10);
+
+    return new Date(year, month, day, hours, minutes, seconds);
+}
+
+function updateHoursTimer1() {
+
+    var dashhoursElementElem = document.getElementById("checkinhoursminutes");
+
+    if (dashhoursElementElem) {
+        var signedInDateTimeStr = $('#checkinhoursminutes').attr('data-signedindatetime');
+        var signedInDateTime = parseCustomDate(signedInDateTimeStr);
+
+        if (signedInDateTime.toString() !== 'Invalid Date' && signedInDateTimeStr !== '01-01-0001 00:00:00') {
+            var currentTime = new Date();
+
+            var timeDifference = currentTime - signedInDateTime;
+            var totalSeconds = Math.floor(timeDifference / 1000);
+            var hours = Math.floor(totalSeconds / 3600);
+            var minutes = Math.floor((totalSeconds % 3600) / 60);
+            var seconds = totalSeconds % 60;
+
+            var formattedHours = hours < 10 ? "0" + hours : hours.toString();
+            var formattedMinutes = minutes < 10 ? "0" + minutes : minutes.toString();
+            var formattedSeconds = seconds < 10 ? "0" + seconds : seconds.toString();
+            var formattedTime = formattedHours + ":" + formattedMinutes + ":" + formattedSeconds;
+            $('#checkinhoursminutes').text(formattedTime);
+        }
+    }
+}
