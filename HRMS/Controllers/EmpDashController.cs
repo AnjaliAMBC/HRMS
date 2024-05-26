@@ -99,7 +99,7 @@ namespace HRMS.Controllers
                     checkInModel.Employee_Hostname = Dns.GetHostName();
                     checkInModel.Concat_loginstring = cuserContext.EmpInfo.EmployeeID + "_" + System.DateTime.Today;
                     checkInModel.Employee_Shift = "General";
-                    checkInModel.Employee_IP = "123.344";
+                    checkInModel.Employee_IP = Dns.GetHostName();
 
                     var newCheckInItem = _dbContext.tbld_ambclogininformation.Add(checkInModel);
                     _dbContext.SaveChanges();

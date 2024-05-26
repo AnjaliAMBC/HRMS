@@ -237,3 +237,10 @@ $(document).on('click', '#applyButton', function (event) {
     var toDate = $('#emptoDate').val();
     AdminEmpIndividualAttendence(fromDate, toDate, $('.selectedEmpID').text().trim());
 });
+
+$(document).on('click', '.clearattendence-filter', function (event) {
+    event.preventDefault();
+    $('#fromDate').val('');
+    $('#toDate').val('');
+});
+

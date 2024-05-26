@@ -1,21 +1,15 @@
 ﻿using HRMS.Helpers;
 using HRMS.Models.Admin;
 using OfficeOpenXml;
+using OfficeOpenXml.Style;
 using System;
 using System.Collections.Generic;
+using System.Drawing;
 using System.Globalization;
 using System.IO;
 using System.Linq;
-using System.Web;
+using System.Net;
 using System.Web.Mvc;
-using OfficeOpenXml;
-using System;
-using System.IO;
-using System.Linq;
-using System.Reflection;
-using System.Collections.Generic;
-using System.Drawing;
-using OfficeOpenXml.Style;
 
 namespace HRMS.Controllers
 {
@@ -43,7 +37,10 @@ namespace HRMS.Controllers
 
             if (!string.IsNullOrWhiteSpace(selectedDate))
             {
-                model.SelectedDate = DateTime.ParseExact(selectedDate, "dd MMMM yyyy", CultureInfo.InvariantCulture);
+                if (!selectedDate.Contains('-'))
+                    model.SelectedDate = DateTime.ParseExact(selectedDate, "dd MMMM yyyy", CultureInfo.InvariantCulture);
+                else
+                    model.SelectedDate = DateTime.Parse(selectedDate);
             }
 
             var selectedDateAttendence = _dbContext.CheckInViews.Where(x => x.Login_date == model.SelectedDate).ToList();
@@ -324,7 +321,7 @@ namespace HRMS.Controllers
                             row++;
                         }
                     }
-                }             
+                }
 
                 using (MemoryStream memoryStream = new MemoryStream())
                 {
@@ -343,26 +340,44 @@ namespace HRMS.Controllers
         [HttpPost]
         public ActionResult UpdateEmployeeCheckIn(EmployeeCheckInUpdateModel model)
         {
-            if (ModelState.IsValid)
+            var existingCheckIn = _dbContext.tbld_ambclogininformation.FirstOrDefault(e => e.Employee_Code == model.EmpId && e.Login_date == model.Date);
+
+            var selectedCheckinDate = model.Date.ToString("dd-MM-yyyy");
+            var selectedSignInTime = model.CheckIn.ToString("HH:mm:ss");
+            var selectedChekoutTime = model.CheckOut.ToString("HH:mm:ss");
+
+            model.CheckIn = DateTime.ParseExact($"{selectedCheckinDate} {selectedSignInTime}", "dd-MM-yyyy HH:mm:ss", CultureInfo.InvariantCulture);
+            model.CheckOut = DateTime.ParseExact($"{selectedCheckinDate} {selectedChekoutTime}", "dd-MM-yyyy HH:mm:ss", CultureInfo.InvariantCulture);
+
+            if (existingCheckIn != null)
             {
-                // Find the employee based on EmpId and Date
-                var existingCheckIn = _dbContext.tbld_ambclogininformation.FirstOrDefault(e => e.Employee_Code == model.EmpId && e.Login_date == model.Date);
+                existingCheckIn.Signin_Time = model.CheckIn;
+                existingCheckIn.Signout_Time = model.CheckOut;
+                _dbContext.SaveChanges();
+                return Json(new { success = true, message = "Employee data updated successfully!" });
+            }
+            else
+            {
+                var checkInModel = new tbld_ambclogininformation();
+                checkInModel.Employee_Code = model.EmpId;
+                checkInModel.Employee_Designation = "";
+                checkInModel.Employee_LoginLocation = "";
+                checkInModel.Employee_Name = model.EmpName;
+                checkInModel.Login_date = model.CheckIn;
+                checkInModel.Signin_Time = model.CheckIn;
+                checkInModel.Signout_Time = model.CheckOut;
+                checkInModel.Employee_Hostname = Dns.GetHostName();
+                checkInModel.Concat_loginstring = model.EmpId + "_" + model.CheckIn.ToString("dd-MM-yyyy") + " 00:00:00";
+                checkInModel.Employee_Shift = "General";
+                checkInModel.Employee_IP = "";
 
-                if (existingCheckIn != null)
-                {
-                    // Update the check-in, check-out, and status fields
-                    existingCheckIn.Signin_Time = model.CheckIn;
-                    existingCheckIn.Signout_Time = model.CheckOut;
-                   
-                    _dbContext.SaveChanges();
-
-                    return Json(new { success = true, message = "Employee data updated successfully!" });
-                }
-
-                return Json(new { success = false, message = "Employee check-in data not found." });
+                var newCheckInItem = _dbContext.tbld_ambclogininformation.Add(checkInModel);
+                _dbContext.SaveChanges();
+                return Json(new { success = true, message = "Employee data updated successfully!" });
             }
 
-            return Json(new { success = false, message = "Invalid data." });
+            return Json(new { success = false, message = "Employee check-in data not found." });
+
         }
     }
 }

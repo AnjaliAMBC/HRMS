@@ -70,10 +70,12 @@
                 .day:hover {
                     background-color: #f0f0f0;
                 }
+
             table.dataTable.display tbody td,
-            table.dataTable thead th{
-                border:none;
+            table.dataTable thead th {
+                border: none;
             }
+
             .leaveupdate_view {
                 width: 25%;
                 border: 1px solid transparent;
@@ -83,8 +85,7 @@
                 top: 50%;
                 left: 50%;
                 transform: translate(-50%, -50%);
-                z-index: 9999; /* Ensure the popup view appears above other elements */
-                display: none; /* Hide the popup initially */
+                z-index: 9999;
             }
 
                 .leaveupdate_view input,
@@ -121,6 +122,13 @@
                 margin: 0;
                 background-color: #94949466;
             }
+
+            .clearattendence-filter {
+                cursor: pointer;
+                color: #007bff;
+                text-decoration: underline;
+                margin-left: 10px; /* Add margin to create space between buttons */
+            }
         </style>
 
         <div class="row mb-2 align-items-center">
@@ -133,7 +141,7 @@
                     <div class="search-container mr-2">
                         <div class="input-group">
                             <div class="input-group-prepend">
-                                <span class="input-group-text" style="background-color: transparent; border-right: none; border-radius: 10px 0 0 10px; height: 35px;"><i class="fas fa-search"></i></span>
+                                <span class="input-group-text" style="background-color: transparent; border-right: none; border-radius: 10px 0 0 10px; height: 35px;"><i class="fas fa-search" style="color: #369479;"></i></span>
                             </div>
                             <input type="text" id="adminAttedencetableSearch" placeholder="Search By Keyword" class="advancesearch form-control" aria-label="Search By Keyword" style="border-radius: 0 10px 10px 0; height: 35px; font-size: 14px;">
                         </div>
@@ -179,7 +187,7 @@
         <div class="collapse" id="dateDropdown">
             <div class="row mb-3 align-items-center">
                 <div class="col-4"></div> <!-- Empty column -->
-                <div class="col-8 d-flex justify-content-end" style="margin-left: 33%">
+                <div class="col-8 d-flex justify-content-end" style="margin-left: 31%">
                     <div class="form-group d-flex mr-2">
                         <label for="from" class="mr-2">From</label>
                         <input type="date" class="form-control form-control-sm" id="fromDate" style="width: 120px;">
@@ -188,8 +196,9 @@
                         <label for="to" class="mr-2">To</label>
                         <input type="date" class="form-control form-control-sm" id="toDate" style="width: 120px;">
                     </div>
-                    <div class="form-group">
+                    <div class="form-group d-flex align-items-center">
                         <button type="button" class="btn btn-sm btn-primary" onclick="submitDateRange()">Submit</button>
+                        <a href="#" class="clearattendence-filter">Clear</a>
                     </div>
                 </div>
             </div>
@@ -323,7 +332,7 @@
                                 <td>@endtimeWithAmPm</td>
                                 <td class="bar-wd">@hours.ToString("00").Trim()h:@minutes.ToString("00").Trim()m</td>
                                 <td><button class="@buttonColor">@attedenceType</button></td>
-                                <td><i class="fas fa-pencil-alt" data-toggle="modal" data-target="#leaveUpdateModal"></i></td>
+                                <td><i class="fas fa-pencil-alt empattendence-edit" data-attendenceid="34" data-toggle="modal" data-target="#leaveUpdateModal"></i></td>
                             </tr>
                         }
                         else
@@ -352,7 +361,8 @@
                                 <td>00:00 AM</td>
                                 <td>00:00 AM</td>
                                 <td>00h:00m</td>
-                                <td><button class="leave-btn">Leave</button></td>
+                                <td><button class="leave-btn">Absent</button></td>
+                                <td><i class="fas fa-pencil-alt empattendence-edit" data-attendenceid="34" data-toggle="modal" data-target="#leaveUpdateModal"></i></td>
                             </tr>
                         }
                     }
@@ -372,11 +382,12 @@
                             </button>
                         </div>
                         <div class="modal-body">
-                            <div class="container-fluid p-4 m-0 leaveupdate_view">
+                            <div class="container-fluid p-4 m-0">
                                 <div class="row">
                                     <div class="col-12 d-flex flex-column pb-3">
                                         <label for="leaveupdate_name">Employee Name</label>
                                         <input type="text" class="form-control leaveupdate_name" readonly>
+                                        <input type="text" class="form-control leaveupdate_empid" readonly style="display: none">
                                     </div>
                                     <div class="col-12 d-flex flex-column pb-3">
                                         <label for="leaveupdate_date">Date</label>
@@ -390,15 +401,16 @@
                                         <label for="leaveupdate_checkout">Check Out</label>
                                         <input type="time" class="form-control leaveupdate_checkout">
                                     </div>
-                                    <div class="col-12 d-flex flex-column pb-3">
+                                    @*<div class="col-12 d-flex flex-column pb-3">
                                         <label for="eleaveupdate_status">Status</label>
                                         <select name="eleaveupdate_status" id="eleaveupdate_status" class="form-control">
-                                            <option value="present">Present</option>
-                                            <option value="absent">Absent</option>
+                                            <option value="Present">Present</option>
+                                            <option value="Absent">Absent</option>
+                                            <option value="Permission">Permission</option>
                                         </select>
-                                    </div>
+                                    </div>*@
                                     <div class="col-3 ml-auto mr-4 mt-2">
-                                        <button type="button" class="btn btn-primary leaveupdate_btn">Update</button>
+                                        <button type="button" data-updateid="" class="btn btn-primary leaveupdate_btn">Update</button>
                                     </div>
                                 </div>
                             </div>

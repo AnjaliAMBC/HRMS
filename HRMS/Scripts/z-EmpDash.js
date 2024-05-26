@@ -251,6 +251,12 @@ function generateCalendar(month, year) {
             } else {
                 const cell = document.createElement("td");
                 cell.textContent = date;
+
+                // Highlight Sunday (0) and Saturday (6) in red
+                if (j === 0 || j === 6) {
+                    cell.style.color = "red";
+                }
+
                 const festivalKey = `${month + 1}-${date}`;
                 if (date === today.getDate() && year === today.getFullYear() && month === today.getMonth()) {
                     cell.classList.add("highlight-current");

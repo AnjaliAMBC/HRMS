@@ -25,10 +25,12 @@ namespace HRMS.Models.Admin
     {
         public string EmpId { get; set; }
         public string EmpName { get; set; }
+        public string Status { get; set; }
         public DateTime Date { get; set; }
         public DateTime CheckIn { get; set; }
         public DateTime CheckOut { get; set; }
-       
+        public string loginID { get; set; }
+
     }
 
 }

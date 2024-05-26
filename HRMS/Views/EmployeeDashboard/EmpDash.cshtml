@@ -53,43 +53,21 @@
             <div class="card mb-3">
                 <div class="card-header text-dark">Check In / Check Out</div>
                 <div class="card-body chechin-body" style="padding: 1rem;">
-                    <div class="day-date-time ml-2 mt-3">
+                    <div class="day-date-time ml-2 mt-2">
                         <h5 id="dashday"></h5> <!-- Display day here -->
                         <div id="dashcurrentDate" class="time-input"></div> <!-- Replace input with div -->
                         <div id="dashcurrentTime" class="current-time mb-2"></div> <!-- Replace input with div -->
-                    </div>
-
-                    <div class="in-out mr-4 mt-3">
-                        <div class="checkinhours">
-                            <span class="totalhours">Hours:</span>
-                            @{
-                                var totalCheckInhours = Model.totalCheckedInTime;
-                                var formattedCheckInTime = @checkInTime;
-                            }
-
-                            @if (!string.IsNullOrWhiteSpace(Model.totalCheckedInTime))
-                            {
-                                formattedCheckInTime = DateTime.MinValue;
-                            }
-                            @if (Model.totalCheckedInTime == "" && @Model.timerModel != null && @Model.timerModel.FormattedTime.ToString() != string.Empty)
-                            {
-                                totalCheckInhours = @Model.timerModel.FormattedTime.ToString();
-                            }
-                            <div id="checkinhoursminutes" data-signedindatetime="@formattedCheckInTime" style="color: blue">@totalCheckInhours</div>
-                        </div>
-
-                    </div>
-
-                    <div class="in-out mr-4 mt-3">
+                    </div> 
+                 <div class="in-out mr-4 mt-2">
                         <div class="check-time">
-                            <span class="check-label">Check In time:</span>
+                            <span class="check-label mr-2">Check In time:</span>
                             <div id="checkInTime" class="time-input" style="color: blue"><span style="font-size: small">@lastCheckinDate</span>@starttimeWithAmPm</div>
                         </div>
                         <div class="check-time mt-2">
                             <span class="check-label">Check Out time:</span>
                             <div id="checkOutTime" class="time-input" style="color: blue">@endtimeWithAmPm</div> <!-- Replace input with div -->
                         </div>
-                    </div>
+                 </div>
 
                     <div class="current-time-display text-center">
                         <div id="currentTime" class="current-time"></div>
@@ -97,8 +75,27 @@
                     <span class="showcheckinbuttonpostcheckout" style="display: none">@showCheckInButton</span>
                     <div class="button-container text-left">
                         <button class="btn btn-checkin" data-checkinid="@loginID" @ButtonDisabled>@buttonText</button>
+                        
+                            <div class="checkinhours" style="margin-left: 37%;">
+                                <span class="totalhours">Hours:</span>
+                                @{
+                                    var totalCheckInhours = Model.totalCheckedInTime;
+                                    var formattedCheckInTime = @checkInTime;
+                                }
+
+                                @if (!string.IsNullOrWhiteSpace(Model.totalCheckedInTime))
+                                {
+                                    formattedCheckInTime = DateTime.MinValue;
+                                }
+                                @if (Model.totalCheckedInTime == "" && @Model.timerModel != null && @Model.timerModel.FormattedTime.ToString() != string.Empty)
+                                {
+                                    totalCheckInhours = @Model.timerModel.FormattedTime.ToString();
+                                }
+                                <div id="checkinhoursminutes" data-signedindatetime="@formattedCheckInTime" style="color: palevioletred">@totalCheckInhours</div>
+                            </div>
+                       
                     </div>
-                </div>
+            </div>
             </div>
             <div class="card mb-3">
                 <div class="card-header text-dark">Job Referral</div>
@@ -110,7 +107,7 @@
             </div>
             <div class="card mb-3">
                 <div class="card-header text-black">My Tickets</div>
-                <div class="card-body" style="padding: 1rem;">
+                <div class="card-body" style="max-height: 222px; overflow-y: auto; padding:1rem; height:221px;">
                     <p>System Not working <span class="badge badge-danger">High</span></p>
                     <p><small>Closed by Goutham Arunaigiri</small></p>
                 </div>
@@ -136,10 +133,10 @@
                             {
                                 var empImageURl = System.Configuration.ConfigurationManager.AppSettings["EmpImagesFolder"] + "/" + empBirthday.imagePath;
 
-                                <li class="media mb-3">
+                                <li class="media">
                                     <img src="@empImageURl" class="mr-3 rounded-circle" alt="Avatar" style="width: 50px; height: 50px;">
                                     <div class="media-body">
-                                        <h5 class="mt-0 mb-1 empname">@empBirthday.EmpName</h5>
+                                        <h6 class="mt-0 mb-1 empname">@empBirthday.EmpName</h6>
                                         <p><small>@empBirthday.Designation</small></p>
                                     </div>
                                     <small style="display: none" class="empemail">@empBirthday.EmpEmail</small>
@@ -168,10 +165,10 @@
                             {
                                 var birthdayEmpImageURL = System.Configuration.ConfigurationManager.AppSettings["EmpImagesFolder"] + "/" + anniversary.imagePath;
 
-                                <li class="media mb-3">
+                                <li class="media">
                                     <img src="@birthdayEmpImageURL" class="mr-3 rounded-circle" alt="Avatar" style="width: 50px; height: 50px;">
                                     <div class="media-body">
-                                        <h5 class="mt-0 mb-1 empname">@anniversary.EmpName</h5>
+                                        <h6 class="mt-0 mb-1 empname">@anniversary.EmpName</h6>
                                         <p><small>@anniversary.Designation</small></p>
                                     </div>
                                     <small style="display: none" class="empemail">@anniversary.EmpEmail</small>
@@ -184,7 +181,7 @@
             </div>
             <div class="card mb-3">
                 <div class="card-header text-dark">Employee Handbook</div>
-                <div class="card-body" style="padding:1rem;">
+                <div class="card-body" style="max-height: 222px; overflow-y: auto; padding:1rem; height:221px;">
                     <!-- Note-taking section -->
                     <div class="form-group">
                         <label for="employeeNotes">Your Notes:</label>
@@ -216,13 +213,13 @@
                     <table class="table">
                         <thead>
                             <tr>
+                                <th scope="col">Sun</th>
                                 <th scope="col">Mon</th>
                                 <th scope="col">Tue</th>
                                 <th scope="col">Wed</th>
                                 <th scope="col">Thu</th>
                                 <th scope="col">Fri</th>
                                 <th scope="col">Sat</th>
-                                <th scope="col">Sun</th>
                             </tr>
                         </thead>
                         <tbody id="calendarBody"></tbody>
