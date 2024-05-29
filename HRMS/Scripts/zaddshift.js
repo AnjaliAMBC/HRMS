@@ -42,3 +42,56 @@ $(document).on('change', 'input[name="shiftType"]', function () {
         $('#departmentDropdown').addClass('d-none');
     }
 });
+
+$(document).on('change', '#selectDepartments', function () {
+    $('.multiselect').addClass('bordered');
+    initializeMultiselect(this, 'Select Departments');
+});
+
+$(document).on('change', '#selectEmployees', function () {
+    $('.multiselect').addClass('bordered');
+    initializeMultiselect(this, 'Select Employees');
+});
+
+function initializeMultiselect(selector, nonSelectedText) {
+    $(selector).multiselect('destroy').multiselect({
+        includeSelectAllOption: true,
+        enableFiltering: true,
+        buttonWidth: '100%',
+        nonSelectedText: nonSelectedText
+    });
+}
+
+
+$(document).on('click', '.btn-addshift-submit', function (e) {
+    e.preventDefault();
+
+    var selectedIds = [];
+    if ($('#departmentRadio').is(':checked')) {
+        selectedIds = $('#selectDepartments').val();
+    } else if ($('#employeesRadio').is(':checked')) {
+        selectedIds = $('#selectEmployees').val();
+    }
+
+    var startTime = $('#startTime').val();
+    var endTime = $('#endTime').val();
+    var notification = $('#notification').is(':checked');
+
+    $.ajax({
+        url: '/YourController/YourAction',
+        method: 'POST',
+        data: {
+            selectedIds: selectedIds,
+            startTime: startTime,
+            endTime: endTime,
+            notification: notification
+        },
+        success: function (response) {
+            console.log(response);
+        },
+        error: function (xhr, status, error) {
+            // Handle error response from server
+            console.error(error);
+        }
+    });
+});

@@ -39,6 +39,7 @@ $(document).on('click', '.btn-checkin', function (event) {
                 if (response.JsonResponse.StatusCode == 200) {
                     $(".btn-checkin").text("Check Out");
                     $(".btn-checkin").attr("data-checkinid", response.CheckInInfo.login_id);
+                    $(".btn-checkin").css("background-color", "#F8284A")
                     var checkinTime = formatDateAndTime(new Date());
                     $('#checkinhoursminutes').attr('data-signedindatetime', checkinTime);
                     var currentTime = GetCurrentTime();
@@ -65,6 +66,7 @@ $(document).on('click', '.btn-checkin', function (event) {
                 if (response.JsonResponse.StatusCode == 200) {
                     $('.btn-checkin').text("Check-In");
                     $('.btn-checkin').prop('disabled', true);
+                    $('.btn-checkin').css("background-color", "#3E78CF");
 
                     var checkinTime = formatDateAndTime(new Date());
                     $('#checkinhoursminutes').attr('data-signedindatetime', checkinTime);
@@ -361,59 +363,59 @@ function updateDashRunningTime() {
 
 //Dash leaves scetion
 
-let currentLeavesIndex = 0;
-const itemsToShow = 4;
-const totalItems = $('.leave-card').length;
-const itemWidth = $('.leave-card').outerWidth(true);
+//let currentLeavesIndex = 0;
+//const itemsToShow = 4;
+//const totalItems = $('.leave-card').length;
+//const itemWidth = $('.leave-card').outerWidth(true);
 
-function updateLeavesCarousel() {
-    const offset = -currentLeavesIndex * itemWidth;
-    $('.leave-row').css('transform', `translateX(${offset}px)`);
-}
+//function updateLeavesCarousel() {
+//    const offset = -currentLeavesIndex * itemWidth;
+//    $('.leave-row').css('transform', `translateX(${offset}px)`);
+//}
 
-$('.empdashleaves-carousel-next').click(function () {
-    if (currentLeavesIndex < totalItems - itemsToShow) {
-        currentLeavesIndex++;
-        updateLeavesCarousel();
-    }
-});
+//$('.empdashleaves-carousel-next').click(function () {
+//    if (currentLeavesIndex < totalItems - itemsToShow) {
+//        currentLeavesIndex++;
+//        updateLeavesCarousel();
+//    }
+//});
 
-$('.empdashleaves-carousel-prev').click(function () {
-    if (currentLeavesIndex > 0) {
-        currentLeavesIndex--;
-        updateLeavesCarousel();
-    }
-});
+//$('.empdashleaves-carousel-prev').click(function () {
+//    if (currentLeavesIndex > 0) {
+//        currentLeavesIndex--;
+//        updateLeavesCarousel();
+//    }
+//});
 
-updateLeavesCarousel();
+//updateLeavesCarousel();
 
-$('#recipeCarousel').carousel({
-    interval: 10000
-});
-$('.carousel .carousel-item').each(function () {
-    var minPerSlide = 4;
-    var next = $(this).next();
+//$('#recipeCarousel').carousel({
+//    interval: 10000
+//});
+//$('.carousel .carousel-item').each(function () {
+//    var minPerSlide = 4;
+//    var next = $(this).next();
 
-    if (!next.length) {
-        next = $(this).siblings(':first');
-    }
+//    if (!next.length) {
+//        next = $(this).siblings(':first');
+//    }
 
-    for (var i = 0; i < minPerSlide; i++) {
-        if (!next.length) {
-            next = $(this).siblings(':first');
-        }
+//    for (var i = 0; i < minPerSlide; i++) {
+//        if (!next.length) {
+//            next = $(this).siblings(':first');
+//        }
 
-        next.children(':first-child').clone().appendTo($(this));
-        next = next.next();
-    }
-});
-$('#recipeCarousel').on('slide.bs.carousel', function () {
-    $(this).find('.carousel-inner').css('transition', 'transform 0.5s ease-in-out');
-});
+//        next.children(':first-child').clone().appendTo($(this));
+//        next = next.next();
+//    }
+//});
+//$('#recipeCarousel').on('slide.bs.carousel', function () {
+//    $(this).find('.carousel-inner').css('transition', 'transform 0.5s ease-in-out');
+//});
 
-$('#recipeCarousel').on('slid.bs.carousel', function () {
-    $(this).find('.carousel-inner').css('transition', '');
-});
+//$('#recipeCarousel').on('slid.bs.carousel', function () {
+//    $(this).find('.carousel-inner').css('transition', '');
+//});
 
 
 function parseCustomDate(dateString) {

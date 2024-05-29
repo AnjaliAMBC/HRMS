@@ -1,0 +1,202 @@
+﻿
+<div class="employeeleaveapply-view">
+        <style>
+        .leaveform_topic {
+            font-size: 30px;
+        }
+
+        .leave_applybtn {
+            border: 1px solid #3E78CF;
+            background-color: #3E78CF;
+            color: white;
+            padding: 5px 20px;
+        }
+
+        .leave_label {
+            font-size: 15px;
+            font-weight: 500;
+        }
+
+        .empname_leave {
+            display: block;
+            width: 100% !important;
+            height: calc(1.5em + .75rem + 2px);
+            padding: 1rem .75rem;
+            font-size: 1rem;
+            font-weight: 400;
+            line-height: 1.5;
+            color: #495057;
+            background-color: #fff;
+            background-clip: padding-box;
+            border: 1px solid #ced4da;
+            border-radius: .25rem;
+            transition: border-color .15s ease-in-out, box-shadow .15s ease-in-out;
+        }
+
+        .shift_type {
+            display: block;
+            width: 100% !important;
+            height: calc(1em + .5rem + 2px);
+            font-size: 1rem;
+            font-weight: 400;
+            line-height: 1.5;
+            color: #495057;
+            background-color: #fff;
+            background-clip: padding-box;
+            border: 1px solid #ced4da;
+            border-radius: .25rem;
+            transition: border-color .15s ease-in-out, box-shadow .15s ease-in-out;
+        }
+
+        .select2-container--default .select2-selection--single {
+            display: flex;
+            align-items: center;
+            height: calc(1.5em + .75rem + 2px);
+            padding: 1rem .75rem;
+            font-size: 1rem;
+            font-weight: 400;
+            line-height: 1.5;
+            color: #495057;
+            background-color: #fff;
+            border: 1px solid #ced4da;
+            border-radius: .25rem;
+            transition: border-color .15s ease-in-out, box-shadow .15s ease-in-out;
+        }
+
+            .select2-container--default .select2-selection--single .select2-selection__arrow {
+                height: calc(1.5em + .75rem + 2px);
+                padding: 0.5rem;
+                padding-right: 1rem;
+                font-size: 1rem;
+            }
+
+                .select2-container--default .select2-selection--single .select2-selection__arrow b {
+                    display: none;
+                }
+
+                .select2-container--default .select2-selection--single .select2-selection__arrow:after {
+                    content: "\f107"; /* Font Awesome's angle-down icon */
+                    font-family: "Font Awesome 5 Free";
+                    font-weight: 900;
+                    font-size: 0.875rem;
+                    color: #495057;
+                }
+
+        .select2-container--open .select2-dropdown--below {
+            overflow: auto;
+            height: 155px;
+        }
+
+        .hidden-row {
+            display: none;
+        }
+
+        .page-item.active .page-link {
+            color: blue;
+        }
+    </style>
+    <div class="container-fluid pl-0">
+        <div class="row ml-3">
+            <div class="col-12 col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12 mt-3">
+                <div class="leaveform_topic">Apply Leave</div>
+            </div>
+            <div class="col-12 col-sm-6 col-md-6 col-lg-6 col-xl-4 col-xxl-4">
+                <form action="">
+                    <div class="container-fluid">
+                        <div class="row leave_type mt-3">
+                            <div class="form-group">
+                                <label for="leave_type" class="leave_label">Leave Type*</label>
+                                <select class="form-control" id="leavetype-select">
+                                    <option selected disabled hidden></option>
+                                    <option value="1">Earned Leave</option>
+                                    <option value="2">Emergency Leave</option>
+                                    <option value="3">Sick Leave</option>
+                                    <option value="4">Bereavement Leave</option>
+                                    <option value="5">Hourly Permission</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="row date_selection mt-3">
+                            <div class="col-5 col-sm-5 col-md-5 col-lg-5 col-xl-5 col-xxl-5 p-0 ">
+                                <label for="date_from" class="leave_label">From Date*</label>
+                                <input type="date" class="form-control" id="from_date" onchange="updateToDateMin()">
+                            </div>
+                            <div class="col-5 col-sm-5 col-md-5 col-lg-5 col-xl-5 col-xxl-5 p-0 ml-auto">
+                                <label for="date_to" class="leave_label">To Date*</label>
+                                <input type="date" class="form-control" id="to_date">
+                            </div>
+                        </div>
+                        <div class="row hidden-row mt-3" id="extra-row">
+                            <label for="additional_info" class="leave_label">Day Type*</label>
+                            <div class="col-12 col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12 p-0 d-flex">
+                                <div class="container-fluid">
+                                    <div class="row date_fromupdate">
+                                        <div class="col-3 col-sm-3 col-md-3 col-lg-3 col-xl-3 col-xxl-3 p-0">
+                                            <label class="selected-date-label" id="selected_fromdate_label"></label>
+                                        </div>
+                                        <div class="col-3 col-sm-3 col-md-3 col-lg-3 col-xl-3 col-xxl-3 p-0">
+                                            <div class="form-check">
+                                                <input class="form-check-input" type="radio" name="fromradio" id="flexRadioDefault1">
+                                                <label class="form-check-label" for="flexRadioDefault1">
+                                                    Full Day
+                                                </label>
+                                            </div>
+                                        </div>
+                                        <div class="col-3 col-sm-3 col-md-3 col-lg-3 col-xl-3 col-xxl-3 p-0">
+                                            <div class="form-check">
+                                                <input class="form-check-input" type="radio" name="fromradio" id="flexRadioDefault2" checked>
+                                                <label class="form-check-label" for="flexRadioDefault2">
+                                                    Half Day
+                                                </label>
+                                            </div>
+                                        </div>
+                                        <div class="col-3 col-sm-3 col-md-3 col-lg-3 col-xl-3 col-xxl-3 p-0">
+                                            <select class="form-select shift_type">
+                                                <option value="1">First Half</option>
+                                                <option value="2">Second Half</option>
+                                            </select>
+                                        </div>
+                                    </div>
+
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row leave_email mt-3">
+                            <label for="email_leave" class="leave_label">Team Email</label>
+                            <input type="email" class="form-control" id="emailInput" placeholder="Enter email">
+                        </div>
+                        <div class="row leave_text mt-3">
+                            <label for="leave_textarea" class="leave_label">Reason</label>
+                            <textarea class="form-control" id="leave_textarea" rows="3"></textarea>
+                        </div>
+                        <div class="row leave_submit mt-3">
+                            <button type="submit" class="leave_apply ml-auto">Apply</button>
+                        </div>
+                    </div>
+                </form>
+            </div>
+            <div class="col-4 col-sm-4 col-md-4 col-lg-4 col-xl-4 col-xxl-4 mt-5 ml-5">
+                <div class="container-fluid">
+                    <div class="row">
+                        <div class="col-6 col-sm-6 col-md-6 col-lg-6 col-xl-6 col-xxl-6">
+                            Available Balance
+                        </div>
+                        <div class="col-6 col-sm-6 col-md-6 col-lg-6 col-xl-6 col-xxl-6">3</div>
+                    </div>
+                    <div class="row">
+                        <div class="col-6 col-sm-6 col-md-6 col-lg-6 col-xl-6 col-xxl-6">
+                            Currently Booked
+                        </div>
+                        <div class="col-6 col-sm-6 col-md-6 col-lg-6 col-xl-6 col-xxl-6">0.5</div>
+                    </div>
+                    <div class="row">
+                        <div class="col-6 col-sm-6 col-md-6 col-lg-6 col-xl-6 col-xxl-6">
+                            Balance
+                        </div>
+                        <div class="col-6 col-sm-6 col-md-6 col-lg-6 col-xl-6 col-xxl-6">2.5</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

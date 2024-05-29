@@ -77,7 +77,7 @@
                         <button class="btn btn-checkin" data-checkinid="@loginID" @ButtonDisabled>@buttonText</button>
                         
                             <div class="checkinhours" style="margin-left: 37%;">
-                                <span class="totalhours">Hours:</span>
+                                <span class="totalhours">Total Hours:</span>
                                 @{
                                     var totalCheckInhours = Model.totalCheckedInTime;
                                     var formattedCheckInTime = @checkInTime;
@@ -246,7 +246,7 @@
                 </div>
             </div>
         </div>
-        <div class="col-md-8">
+        @*<div class="col-md-8">
             <div class="card mb-3">
                 <div class="box_topic pl-3 py-2">
                     Leaves
@@ -361,7 +361,7 @@
                     </div>
                 </div>
             </div>
-        </div>
+        </div>*@
     </div>
     <span class="currentempname" style="display: none">@Model.EmpInfo.EmployeeName</span>
     <script>      

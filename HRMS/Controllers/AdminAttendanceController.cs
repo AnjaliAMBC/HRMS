@@ -13,6 +13,7 @@ using System.Web.Mvc;
 
 namespace HRMS.Controllers
 {
+    using Helpers;
     public class AdminAttendanceController : Controller
     {
         // Database context
@@ -140,29 +141,21 @@ namespace HRMS.Controllers
                 var properties = typeof(CheckInView).GetProperties();
                 int columnIndex = 1;
 
-                // Add header row
                 for (int i = 0; i < properties.Length; i++)
                 {
-                    if (properties[i].Name != "imagepath")
+                    if (properties[i].Name == "imagepath" || properties[i].Name == "login_id")
                     {
-                        var cell = worksheet.Cells[1, columnIndex];
-
-                        // Set background color
-                        cell.Style.Fill.PatternType = ExcelFillStyle.Solid;
-                        cell.Style.Fill.BackgroundColor.SetColor(headerBackgroundColor);
-
-                        // Set font color
-                        cell.Style.Font.Color.SetColor(headerFontColor);
-
-                        // Set font size
-                        cell.Style.Font.Size = headerFontSize;
-
-
-                        // Set cell value
-                        cell.Value = properties[i].Name;
-
-                        columnIndex++;
+                        continue;
                     }
+
+                    var cell = worksheet.Cells[1, columnIndex];
+                    cell.Style.Fill.PatternType = ExcelFillStyle.Solid;
+                    cell.Style.Fill.BackgroundColor.SetColor(headerBackgroundColor);
+                    cell.Style.Font.Color.SetColor(headerFontColor);
+                    cell.Style.Font.Size = headerFontSize;
+                    cell.Value = properties[i].Name;
+
+                    columnIndex++;
                 }
 
                 int row = 2;
@@ -183,6 +176,11 @@ namespace HRMS.Controllers
                             columnIndex = 1;
                             for (int i = 0; i < properties.Length; i++)
                             {
+                                if (properties[i].Name == "imagepath" || properties[i].Name == "login_id")
+                                {
+                                    continue;
+                                }
+
                                 if (properties[i].Name != "imagepath")
                                 {
                                     var value = properties[i].GetValue(IsEmpCheckedonSelectedDate);
@@ -305,18 +303,21 @@ namespace HRMS.Controllers
                         else
                         {
                             worksheet.Cells[row, 1].Value = emp.EmployeeID;
-                            worksheet.Cells[row, 2].Value = emp.EmployeeName;
-                            worksheet.Cells[row, 3].Value = "Leave";
-                            var cell = worksheet.Cells[row, 3];
+                            //worksheet.Cells[row, 2].Value = emp.EmployeeStatus;
+
+                            worksheet.Cells[row, 2].Value = "Leave";
+                            var cell = worksheet.Cells[row, 2];
                             cell.Style.Fill.PatternType = ExcelFillStyle.Solid;
                             cell.Style.Fill.BackgroundColor.SetColor(Color.OrangeRed);
 
-                            worksheet.Cells[row, 4].Value = emp.OfficalEmailid;
-                            worksheet.Cells[row, 5].Value = "";
+                            worksheet.Cells[row, 3].Value = emp.EmployeeName;
+                            worksheet.Cells[row, 4].Value = emp.ShiftTimings;
+                            worksheet.Cells[row, 5].Value = emp.OfficalEmailid;
                             worksheet.Cells[row, 6].Value = "";
                             worksheet.Cells[row, 7].Value = "";
-                            worksheet.Cells[row, 8].Value = emp.ShiftTimings;
-                            worksheet.Cells[row, 9].Value = allSelectedDate.ToString("dd-MM-yyyy");
+                            worksheet.Cells[row, 8].Value = "";
+
+                            worksheet.Cells[row, 9].Value = "";
                             worksheet.Cells[row, 10].Value = emp.Location;
                             row++;
                         }
@@ -334,7 +335,12 @@ namespace HRMS.Controllers
 
         public ActionResult AddShift()
         {
-            return PartialView("~/Views/AdminDashboard/AddShift.cshtml");
+            var model = new AddShiftModel();
+
+            model.Departments = new EmployeeHelper(_dbContext).GetDepartments();
+            model.Employees = _dbContext.emp_info.Where(x => x.EmployeeStatus == "Active").ToList();
+
+            return PartialView("~/Views/AdminDashboard/AddShift.cshtml", model);
         }
 
         [HttpPost]

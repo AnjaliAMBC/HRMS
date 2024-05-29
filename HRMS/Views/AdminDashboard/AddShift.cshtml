@@ -1,20 +1,27 @@
-﻿<div class="admin-addshift-view">
+﻿@model HRMS.Models.Admin.AddShiftModel
+
+
+<div class="admin-addshift-view">
 
     <style>
-        .bordered{
+        .bordered {
             border: 1px solid lightgray;
         }
-       .btn{
-            border:1px solid lightgray;
+
+        .btn {
+            border: 1px solid lightgray;
         }
-        .multiselect-clear-filter{
-            border:none;
+
+        .multiselect-clear-filter {
+            border: none;
         }
+
         .multiselect-container {
             width: -webkit-fill-available;
         }
+
         .multiselect {
-            text-align:left;
+            text-align: left;
         }
     </style>
     <main role="main" class="col-md-9 col-lg-10 px-md-4 content addshiftcontent">
@@ -38,21 +45,19 @@
                         <div class="form-group col-md-4" id="departmentDropdown">
                             <label for="selectDepartments">Select Departments</label>
                             <select class="form-control" id="selectDepartments" multiple="multiple">
-                                <option value="1">Department 1</option>
-                                <option value="2">Department 2</option>
-                                <option value="3">Department 3</option>
-                                <option value="2">Department 4</option>
-                                <option value="3">Department 5</option>
-                                <option value="2">Department 6</option>
-                                <option value="3">Department 7</option>
+                                @foreach (HRMS.Models.DropdownItem department in Model.Departments)
+                                {
+                                    <option value="@department.Name">@department.Name</option>
+                                }
                             </select>
                         </div>
                         <div class="form-group col-md-4 d-none" id="employeeDropdown">
                             <label for="selectEmployees">Select Employees</label>
                             <select class="form-control" id="selectEmployees" multiple="multiple">
-                                <option value="1">Employee 1</option>
-                                <option value="2">Employee 2</option>
-                                <option value="3">Employee 3</option>
+                                @foreach (emp_info selectedEmp in Model.Employees)
+                                {
+                                    <option value="@selectedEmp.EmployeeID">@selectedEmp.EmployeeName</option>
+                                }
                             </select>
                         </div>
                     </div>
@@ -70,7 +75,7 @@
                         <input type="checkbox" class="form-check-input" id="notification">
                         <label class="form-check-label" for="notification">Send check-in checkout notification before 15 minutes</label>
                     </div>
-                    <button type="submit" class="btn btn-primary mt-3">Save</button>
+                    <button type="submit" class="btn btn-primary mt-3 btn-addshift-submit">Save</button>
                 </form>
             </div>
         </div>
@@ -84,24 +89,6 @@
             $('.multiselect').addClass('bordered');
 
         });
-
-        $(document).on('change', '#selectDepartments', function () {
-            $('.multiselect').addClass('bordered');
-            initializeMultiselect(this, 'Select Departments');
-        });
-
-        $(document).on('change', '#selectEmployees', function () {
-            $('.multiselect').addClass('bordered');
-            initializeMultiselect(this, 'Select Employees');
-        });
-
-        function initializeMultiselect(selector, nonSelectedText) {
-            $(selector).multiselect('destroy').multiselect({
-                includeSelectAllOption: true,
-                enableFiltering: true,
-                buttonWidth: '100%',
-                nonSelectedText: nonSelectedText
-            });
-        }
+       
     </script>
 </div>

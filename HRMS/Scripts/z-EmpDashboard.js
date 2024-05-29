@@ -115,22 +115,31 @@ $('.emp-attendence').click(function (event) {
 $('.emp-leavetracker').click(function (event) {
     event.preventDefault();
     HighlightEmpActiveLink($(this));
-
+    $.ajax({
+        url: '/EmpLeave/Index',
+        type: 'POST',
+        dataType: 'html',
+        success: function (response) {
     $(".hiddenempdashboard").html("");
     $(".emp-dashboard-data").html("");
     $(".selfservice-dashboard-data").html("");
     $(".attedance-dashboard-data").html("");
     $(".leave-dashboard-data").html("");
     $(".myrequest-dashboard-data").html("");
-
-
+     $(".hiddenempdashboard").html(response);
+    var formContent = $(".hiddenempdashboard").find(".empleave-container").html();
+     $(".leave-dashboard-data").html(formContent);
     $('.leave-dashboard-data').show();
     $('.attedance-dashboard-data').hide();
     $('.emp-dashboard-data').hide();
     $('.selfservice-dashboard-data').hide();
     $('.myrequest-dashboard-data').hide();
-
-    $(".hiddenleave").html("");
+    $(".hiddenempdashboard").html("");
+        },
+        error: function (xhr, status, error) {
+            var err = eval("(" + xhr.responseText + ")");
+        }
+    });
 });
 
 

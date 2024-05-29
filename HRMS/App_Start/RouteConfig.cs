@@ -48,7 +48,16 @@ namespace HRMS
                 url: "{controller}/{action}/{id}",
                 defaults: new { controller = "AdminDash", action = "Index", id = UrlParameter.Optional }
             );
-
+            routes.MapRoute(
+               name: "EmpLeave",
+               url: "{controller}/{action}/{id}",
+               defaults: new { controller = "EmpLeave", action = "Index", id = UrlParameter.Optional }
+           );
+            routes.MapRoute(
+               name: "AdminLeave",
+               url: "{controller}/{action}/{id}",
+               defaults: new { controller = "AdminLeave", action = "Index", id = UrlParameter.Optional }
+           );
         }
     }
 }

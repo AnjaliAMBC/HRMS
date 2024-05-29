@@ -1,1 +1,44 @@
-﻿
+﻿<div class="admin-leave-view">
+    <div class="container mt-5">
+        <div class="d-flex justify-content-between align-items-center mb-4">
+            <h2>Leave Tracker</h2>
+            <div class="dropdown">
+                <button class="btn btn-primary dropdown-toggle" type="button" id="leaveSettingsDropdown" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                    Leave Settings
+                </button>
+                <div class="dropdown-menu" aria-labelledby="leaveSettingsDropdown" style="border:1px solid gray">                    
+                    <a class="dropdown-item" href="#">Action</a>
+                    <a class="dropdown-item" href="#">Another action</a>
+                    <a class="dropdown-item" href="#">Something else here</a>
+                </div>
+            </div>
+        </div>
+        <div class="card empleave-card mb-3">
+            <div class="card-header empleave-card-header empleave-calendar-header text-dark mt-4">
+                <i class="fas fa-chevron-left empleave-chevron-icon" onclick="prevLeaveMonth()"></i>
+                <h6 id="empleave-monthYear"></h6>
+                <i class="fas fa-chevron-right empleave-chevron-icon" onclick="nextLeaveMonth()"></i>
+            </div>
+            <div class="card-body empleave-calendar-body">
+                <table class="table empleave-calendar-table" style="width:80%">
+                    <thead>
+                        <tr>
+                            <th scope="col">Monday</th>
+                            <th scope="col">Tuesday</th>
+                            <th scope="col">Wednesday</th>
+                            <th scope="col">Thursday</th>
+                            <th scope="col">Friday</th>
+                            <th scope="col">Saturday</th>
+                            <th scope="col">Sunday</th>
+                        </tr>
+                    </thead>
+                    <tbody id="empleave-calendarBody"></tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        generateLeaveCalendar(new Date().getMonth(), new Date().getFullYear());      
+    </script>
+</div>

@@ -148,27 +148,27 @@
 warning 6002: The table/view 'HRMS_PortalDev1.dbo.CheckInView' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
         <EntityType Name="CheckInView">
           <Key>
-            <PropertyRef Name="Sno" />
+            <PropertyRef Name="login_id" />
             <PropertyRef Name="EmployeeID" />
-            <PropertyRef Name="EmployeeName" />
             <PropertyRef Name="EmployeeStatus" />
+            <PropertyRef Name="EmployeeName" />
             <PropertyRef Name="OfficalEmailid" />
             <PropertyRef Name="Login_date" />
             <PropertyRef Name="Signin_Time" />
             <PropertyRef Name="Location" />
           </Key>
-          <Property Name="Sno" Type="int" Nullable="false" />
+          <Property Name="login_id" Type="int" Nullable="false" />
           <Property Name="EmployeeID" Type="varchar" MaxLength="100" Nullable="false" />
-          <Property Name="EmployeeName" Type="varchar" MaxLength="255" Nullable="false" />
           <Property Name="EmployeeStatus" Type="varchar" MaxLength="100" Nullable="false" />
+          <Property Name="EmployeeName" Type="varchar" MaxLength="255" Nullable="false" />
           <Property Name="ShiftTimings" Type="varchar" MaxLength="100" />
           <Property Name="OfficalEmailid" Type="varchar" MaxLength="100" Nullable="false" />
           <Property Name="Login_date" Type="date" Nullable="false" />
           <Property Name="Signin_Time" Type="datetime" Nullable="false" />
-          <Property Name="Working_Hours" Type="int" />
-          <Property Name="imagepath" Type="varchar" MaxLength="1000" />
           <Property Name="Signout_Time" Type="datetime" />
+          <Property Name="Working_Hours" Type="int" />
           <Property Name="Location" Type="varchar" MaxLength="100" Nullable="false" />
+          <Property Name="imagepath" Type="varchar" MaxLength="1000" />
         </EntityType>
         <EntityContainer Name="HRMS_EntityModelStoreContainer">
           <EntitySet Name="Client" EntityType="Self.Client" Schema="dbo" store:Type="Tables" />
@@ -181,18 +181,18 @@ warning 6002: The table/view 'HRMS_PortalDev1.dbo.CheckInView' does not have a p
           <EntitySet Name="tbld_ambclogininformation" EntityType="Self.tbld_ambclogininformation" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="CheckInView" EntityType="Self.CheckInView" store:Type="Views" store:Schema="dbo">
             <DefiningQuery>SELECT 
-    [CheckInView].[Sno] AS [Sno], 
+    [CheckInView].[login_id] AS [login_id], 
     [CheckInView].[EmployeeID] AS [EmployeeID], 
-    [CheckInView].[EmployeeName] AS [EmployeeName], 
     [CheckInView].[EmployeeStatus] AS [EmployeeStatus], 
+    [CheckInView].[EmployeeName] AS [EmployeeName], 
     [CheckInView].[ShiftTimings] AS [ShiftTimings], 
     [CheckInView].[OfficalEmailid] AS [OfficalEmailid], 
     [CheckInView].[Login_date] AS [Login_date], 
     [CheckInView].[Signin_Time] AS [Signin_Time], 
-    [CheckInView].[Working_Hours] AS [Working_Hours], 
-    [CheckInView].[imagepath] AS [imagepath], 
     [CheckInView].[Signout_Time] AS [Signout_Time], 
-    [CheckInView].[Location] AS [Location]
+    [CheckInView].[Working_Hours] AS [Working_Hours], 
+    [CheckInView].[Location] AS [Location], 
+    [CheckInView].[imagepath] AS [imagepath]
     FROM [dbo].[CheckInView] AS [CheckInView]</DefiningQuery>
           </EntitySet>
         </EntityContainer>
@@ -352,27 +352,27 @@ warning 6002: The table/view 'HRMS_PortalDev1.dbo.CheckInView' does not have a p
         </EntityType>
         <EntityType Name="CheckInView">
           <Key>
-            <PropertyRef Name="Sno" />
+            <PropertyRef Name="login_id" />
             <PropertyRef Name="EmployeeID" />
-            <PropertyRef Name="EmployeeName" />
             <PropertyRef Name="EmployeeStatus" />
+            <PropertyRef Name="EmployeeName" />
             <PropertyRef Name="OfficalEmailid" />
             <PropertyRef Name="Login_date" />
             <PropertyRef Name="Signin_Time" />
             <PropertyRef Name="Location" />
           </Key>
-          <Property Name="Sno" Type="Int32" Nullable="false" />
+          <Property Name="login_id" Type="Int32" Nullable="false" />
           <Property Name="EmployeeID" Type="String" Nullable="false" MaxLength="100" FixedLength="false" Unicode="false" />
-          <Property Name="EmployeeName" Type="String" Nullable="false" MaxLength="255" FixedLength="false" Unicode="false" />
           <Property Name="EmployeeStatus" Type="String" Nullable="false" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="EmployeeName" Type="String" Nullable="false" MaxLength="255" FixedLength="false" Unicode="false" />
           <Property Name="ShiftTimings" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
           <Property Name="OfficalEmailid" Type="String" Nullable="false" MaxLength="100" FixedLength="false" Unicode="false" />
           <Property Name="Login_date" Type="DateTime" Nullable="false" Precision="0" />
           <Property Name="Signin_Time" Type="DateTime" Nullable="false" Precision="3" />
-          <Property Name="Working_Hours" Type="Int32" />
-          <Property Name="imagepath" Type="String" MaxLength="1000" FixedLength="false" Unicode="false" />
           <Property Name="Signout_Time" Type="DateTime" Precision="3" />
+          <Property Name="Working_Hours" Type="Int32" />
           <Property Name="Location" Type="String" Nullable="false" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="imagepath" Type="String" MaxLength="1000" FixedLength="false" Unicode="false" />
         </EntityType>
       </Schema>
     </edmx:ConceptualModels>
@@ -530,18 +530,18 @@ warning 6002: The table/view 'HRMS_PortalDev1.dbo.CheckInView' does not have a p
           <EntitySetMapping Name="CheckInViews">
             <EntityTypeMapping TypeName="HRMS_EntityModel.CheckInView">
               <MappingFragment StoreEntitySet="CheckInView">
-                <ScalarProperty Name="Location" ColumnName="Location" />
-                <ScalarProperty Name="Signout_Time" ColumnName="Signout_Time" />
                 <ScalarProperty Name="imagepath" ColumnName="imagepath" />
+                <ScalarProperty Name="Location" ColumnName="Location" />
                 <ScalarProperty Name="Working_Hours" ColumnName="Working_Hours" />
+                <ScalarProperty Name="Signout_Time" ColumnName="Signout_Time" />
                 <ScalarProperty Name="Signin_Time" ColumnName="Signin_Time" />
                 <ScalarProperty Name="Login_date" ColumnName="Login_date" />
                 <ScalarProperty Name="OfficalEmailid" ColumnName="OfficalEmailid" />
                 <ScalarProperty Name="ShiftTimings" ColumnName="ShiftTimings" />
-                <ScalarProperty Name="EmployeeStatus" ColumnName="EmployeeStatus" />
                 <ScalarProperty Name="EmployeeName" ColumnName="EmployeeName" />
+                <ScalarProperty Name="EmployeeStatus" ColumnName="EmployeeStatus" />
                 <ScalarProperty Name="EmployeeID" ColumnName="EmployeeID" />
-                <ScalarProperty Name="Sno" ColumnName="Sno" />
+                <ScalarProperty Name="login_id" ColumnName="login_id" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
