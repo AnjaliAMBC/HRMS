@@ -14,6 +14,10 @@ using System.Web.Mvc;
 namespace HRMS.Controllers
 {
     using Helpers;
+    using HRMS.Models.Employee;
+    using Microsoft.Ajax.Utilities;
+    using System.Data.Entity;
+
     public class AdminAttendanceController : Controller
     {
         // Database context
@@ -339,6 +343,62 @@ namespace HRMS.Controllers
 
             model.Departments = new EmployeeHelper(_dbContext).GetDepartments();
             model.Employees = _dbContext.emp_info.Where(x => x.EmployeeStatus == "Active").ToList();
+
+            return PartialView("~/Views/AdminDashboard/AddShift.cshtml", model);
+        }
+
+        public ActionResult AddShiftInfotoDB(AjaxShiftUpdateModel data)
+        {
+            var model = new AjaxShiftUpdateModel();
+            var selectedShift = data.startTime + "-" + data.endTime;
+            var associatedEmloyees = new List<emp_info>();
+            if (data.IsDepartmentBasedUpdate)
+            {
+                foreach (var department in data.selectedIds)
+                {
+                    var selectedDepartment = department;
+                    associatedEmloyees = _dbContext.emp_info.Where(x => x.Department == selectedDepartment).ToList();
+                    if (associatedEmloyees != null && associatedEmloyees.Any())
+                    {
+                        associatedEmloyees.ForEach(p =>
+                        {
+                            p.ShiftTimings = selectedShift;
+                            _dbContext.Entry(p).State = EntityState.Modified;
+                        });
+                    }
+
+                    _dbContext.SaveChanges();
+                }
+            }
+            else
+            {
+                foreach (var empID in data.selectedIds)
+                {
+                    associatedEmloyees = _dbContext.emp_info.Where(x => x.EmployeeID == empID).ToList();
+                    if (associatedEmloyees != null && associatedEmloyees.Any())
+                    {
+                        associatedEmloyees.ForEach(p =>
+                        {
+                            p.ShiftTimings = selectedShift;
+                            _dbContext.Entry(p).State = EntityState.Modified;
+                        });
+                    }
+
+                    _dbContext.SaveChanges();
+                }
+            }
+
+            foreach (var emp in associatedEmloyees)
+            {
+                var emailRequest = new EmailRequest()
+                {
+                    Body = $"Dear {emp.EmployeeName},\n\nYour shift has been changed. New shift details:\n{selectedShift}\n\nBest Regards,\nPRM AMBC",
+                    ToEmail = emp.OfficalEmailid,
+                    Subject = "TESt Shift Change Notification",
+                };
+                var sendNotification = EMailHelper.SendEmail(emailRequest);
+            }
+
 
             return PartialView("~/Views/AdminDashboard/AddShift.cshtml", model);
         }

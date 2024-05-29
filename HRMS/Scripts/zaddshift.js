@@ -66,8 +66,11 @@ function initializeMultiselect(selector, nonSelectedText) {
 $(document).on('click', '.btn-addshift-submit', function (e) {
     e.preventDefault();
 
+    var IsDepartmentBasedUpdate = false;
+
     var selectedIds = [];
     if ($('#departmentRadio').is(':checked')) {
+        IsDepartmentBasedUpdate = true;
         selectedIds = $('#selectDepartments').val();
     } else if ($('#employeesRadio').is(':checked')) {
         selectedIds = $('#selectEmployees').val();
@@ -78,13 +81,14 @@ $(document).on('click', '.btn-addshift-submit', function (e) {
     var notification = $('#notification').is(':checked');
 
     $.ajax({
-        url: '/YourController/YourAction',
+        url: '/adminattendance/addshiftinfotodb',
         method: 'POST',
         data: {
             selectedIds: selectedIds,
             startTime: startTime,
             endTime: endTime,
-            notification: notification
+            notification: notification,
+            IsDepartmentBasedUpdate: IsDepartmentBasedUpdate
         },
         success: function (response) {
             console.log(response);
