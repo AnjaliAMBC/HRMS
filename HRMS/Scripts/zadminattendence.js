@@ -6,8 +6,31 @@ function HighlightAdminActiveLink(element) {
     $(element).parent().addClass('sidebaractive');
 }
 
+function formatDateToCustomString(date) {
+    // Extract day, month, and year
+    var day = date.getDate();
+    var month = date.toLocaleString('default', { month: 'long' }); // Full month name
+    var year = date.getFullYear();
+
+    // Format the date as "DD Month YYYY"
+    var formattedDate = (day < 10 ? '0' : '') + day + ' ' + month + ' ' + year;
+
+    return formattedDate;
+}
+
+
 $(document).on('change', '#attedencemonth', function (event) {
     updateDays();
+
+    var selectedMonth = new Date($('#attedencemonth').val());
+    var startDate = new Date(selectedMonth.getFullYear(), selectedMonth.getMonth(), 1);
+    var endDate = new Date(selectedMonth.getFullYear(), selectedMonth.getMonth() + 1, 0);
+
+    var formattedStartDate = formatDateToCustomString(startDate);
+    var formattedEndDate = formatDateToCustomString(endDate);
+
+    AdminAttendenceDataMap(formattedStartDate, formattedEndDate);
+
 });
 
 function updateDays(DateSelected) {
@@ -50,15 +73,15 @@ function highlightDate(element) {
     $(element).addClass('active');
     var date = $(element).attr('data-date');
 
-    AdminAttendenceDataMap(date);
+    AdminAttendenceDataMap(date, "");
 
 }
-function AdminAttendenceDataMap(DateSelected) {
+function AdminAttendenceDataMap(DateSelected, EndDateSelected) {
     $.ajax({
         url: '/adminattendance/attendance',
         type: 'GET',
         dataType: 'html',
-        data: { selectedDate: DateSelected },
+        data: { selectedStartDate: DateSelected, SelectedendDate: EndDateSelected },
         success: function (response) {
 
             $(".hiddenadmindashboard").html("");

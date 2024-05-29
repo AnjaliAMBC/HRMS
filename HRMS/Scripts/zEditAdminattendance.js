@@ -1,4 +1,23 @@
 ﻿
+
+function formatAttedenceTime(timeStr) {
+    var [time, modifier] = timeStr.split(' ');
+    var [hours, minutes] = time.split(':');
+
+    // Convert hours to string if necessary
+    if (hours === '12') {
+        hours = '00';
+    }
+
+    if (modifier === 'PM' && hours !== '12') {
+        hours = (parseInt(hours, 10) + 12).toString();
+    } else if (modifier === 'AM' && hours === '12') {
+        hours = '00';
+    }
+
+    return `${hours.padStart(2, '0')}:${minutes}`;
+}
+
 $(document).on('click', '.empattendence-edit', function () {
     var row = $(this).closest('tr');
     var empId = row.find('.employee-id').text();
@@ -37,24 +56,14 @@ $(document).on('click', '.empattendence-edit', function () {
     $('#leaveUpdateModal').find('.leaveupdate_empid').val(empId);
     $('#leaveUpdateModal').find('.leaveupdate_name').val(employeeName);
     $('#leaveUpdateModal').find('.leaveupdate_date').val(isoDate);
-    $('#leaveUpdateModal').find('.leaveupdate_checkin').val(formatTime(checkIn));
-    $('#leaveUpdateModal').find('.leaveupdate_checkout').val(formatTime(checkOut));
+    $('#leaveUpdateModal').find('.leaveupdate_checkin').val(formatAttedenceTime(checkIn));
+    $('#leaveUpdateModal').find('.leaveupdate_checkout').val(formatAttedenceTime(checkOut));
     $('#leaveUpdateModal').find('#eleaveupdate_status').val(status);
     $('#leaveUpdateModal').find('.leaveupdate_btn').attr("data-updateid", loginID);
     $('#leaveUpdateModal').modal('show');
 });
 
-function formatTime(timeStr) {
-    var [time, modifier] = timeStr.split(' ');
-    var [hours, minutes] = time.split(':');
-    if (hours === '12') {
-        hours = '00';
-    }
-    if (modifier === 'PM') {
-        hours = parseInt(hours, 10) + 12;
-    }
-    return `${hours.padStart(2, '0')}:${minutes}`;
-}
+
 
 
 $(document).on('click', '.leaveupdate_btn', function () {

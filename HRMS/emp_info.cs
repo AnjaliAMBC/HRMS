@@ -70,5 +70,7 @@ namespace HRMS
         public string UpdatedBy { get; set; }
         public Nullable<System.DateTime> UpdatedDate { get; set; }
         public string imagepath { get; set; }
+        public Nullable<System.TimeSpan> ShiftStartTime { get; set; }
+        public Nullable<System.TimeSpan> ShiftEndTime { get; set; }
     }
 }

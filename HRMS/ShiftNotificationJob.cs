@@ -10,68 +10,96 @@ namespace HRMS
 {
     public class ShiftNotificationJob : IJob
     {
-
         private readonly HRMS_EntityFramework _dbContext;
 
-        // Constructor to initialize database context
         public ShiftNotificationJob()
         {
-            _dbContext = new HRMS_EntityFramework(); // Replace YourDbContext with your actual DbContext class
+            _dbContext = new HRMS_EntityFramework();
         }
-
 
         public Task Execute(IJobExecutionContext context)
         {
-            var now = DateTime.Now.TimeOfDay;
-            var checkinTime = now.Add(TimeSpan.FromMinutes(15));
-            var checkoutTime = now.Add(TimeSpan.FromMinutes(-15));
+            var now = DateTime.Now;
 
-            var checkinTimeRequired = checkinTime.Hours + ":" + checkinTime.Minutes;
-            var checkoutRequiredTime = checkoutTime.Hours + ":" + checkoutTime.Minutes;
-
-            var assicoiatedEmplyees = _dbContext.emp_info.Where(x => x.EmployeeStatus == "Active");
-            foreach (var emp in assicoiatedEmplyees)
+            var employeesToRemindCheckin = _dbContext.emp_info
+            .Where(emp => emp.EmployeeStatus == "Active")
+            .AsEnumerable()
+            .Where(emp =>
             {
+                if (emp.ShiftStartTime.HasValue && emp.ShiftEndTime.HasValue)
+                {
+                    var shiftStartTime = emp.ShiftStartTime.Value;
+                    var timeDifference = shiftStartTime - now.TimeOfDay;
+                    if (timeDifference.TotalMinutes <= 15 && timeDifference.TotalMinutes >= 0)
+                    {
+                        return true;
+                    }
+                }
+                return false;
+            });
 
-                var checkInSubject = "TEST Reminder: Your Shift Starts Soon at 10:30";
+            var employeesToRemindCheckout = _dbContext.emp_info
+            .Where(emp => emp.EmployeeStatus == "Active")
+            .AsEnumerable()
+            .Where(emp =>
+            {
+                if (emp.ShiftStartTime.HasValue && emp.ShiftEndTime.HasValue)
+                {
+                    var shiftEndTime = emp.ShiftEndTime.Value;
+                    var timeDifference = shiftEndTime - now.TimeOfDay;
+                    if (timeDifference.TotalMinutes <= 15 && timeDifference.TotalMinutes >= 0)
+                    {
+                        return true;
+                    }
+                }
+                return false;
+            });
+
+            //Checkin Remainder emails
+            foreach (var checkinEmp in employeesToRemindCheckin)
+            {
+                var shiftStartTime = checkinEmp.ShiftStartTime?.ToString("hh:mm tt");
+                var checkInSubject = "Reminder: Your Shift Starts Soon at " + shiftStartTime;
                 var checkInBody = $@"
-            Dear {emp.EmployeeName},
+                Dear {checkinEmp.EmployeeName},
 
-            This is a friendly reminder that your shift starts soon at 10:30. Please make sure to check in by 10:30.
+                This is a reminder to check-in.
 
-            Shift Details:
-            - Start Time: 10:30
-            - End Time: 20:30
+                Your shift begins at {shiftStartTime}. Ensure you have marked your attendance.
 
-            If you have any questions or need assistance, please contact your supervisor.
+                Best regards,
+                PRM AMBC.";
 
-            Best regards,
-            PRM AMBC.";
+                var emailRequest = new EmailRequest()
+                {
+                    Body = checkInBody,
+                    ToEmail = checkinEmp.OfficalEmailid,
+                    Subject = checkInSubject
+                };
+
+                var sendNotification = EMailHelper.SendEmail(emailRequest);
+            }
 
 
-                var checkOutSubject = "TEST Reminder: Your Shift Ends Soon at 20:30";
+            //Checkout remainder emails
+            foreach (var checkinEmp in employeesToRemindCheckout)
+            {
+                var shiftEndTime = checkinEmp.ShiftEndTime?.ToString("hh:mm tt");
+                var checkOutSubject = "Reminder: Your Shift Ends Soon at 20:30 " + shiftEndTime;
                 var checkOutBody = $@"
-            Dear {emp.EmployeeName},
-
-            This is a friendly reminder that your shift ends soon at 20:30. Please make sure to check out by 20:30.
-
-            Shift Details:
-            - Start Time: 10:30
-            - End Time: 20:30
-
-            If you have any questions or need assistance, please contact your supervisor.
-
-            Thank you for your hard work today.
-
-            Best regards,
-            PRM AMBC.";
+                Dear {checkinEmp.EmployeeName},
+                This is a reminder to check-out.
+                Your shift ends at {shiftEndTime}. Ensure you have checked out.
+                Best regards,
+                PRM AMBC.";
 
                 var emailRequest = new EmailRequest()
                 {
                     Body = checkOutBody,
-                    ToEmail = emp.OfficalEmailid,
+                    ToEmail = checkinEmp.OfficalEmailid,
                     Subject = checkOutSubject
                 };
+
                 var sendNotification = EMailHelper.SendEmail(emailRequest);
             }
             return Task.CompletedTask;

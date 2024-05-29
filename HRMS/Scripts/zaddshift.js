@@ -63,12 +63,14 @@ function initializeMultiselect(selector, nonSelectedText) {
 }
 
 
-$(document).on('click', '.btn-addshift-submit', function (e) {
+$(document).on('click', '.btn-addshift-submit', function (e) {  
     e.preventDefault();
+    $('.shift-message').hide();
 
     var IsDepartmentBasedUpdate = false;
-
     var selectedIds = [];
+
+    // Get the selected IDs based on the selected radio button
     if ($('#departmentRadio').is(':checked')) {
         IsDepartmentBasedUpdate = true;
         selectedIds = $('#selectDepartments').val();
@@ -79,6 +81,40 @@ $(document).on('click', '.btn-addshift-submit', function (e) {
     var startTime = $('#startTime').val();
     var endTime = $('#endTime').val();
     var notification = $('#notification').is(':checked');
+
+    // Remove previous validation error highlights
+    $('#selectDepartments, #selectEmployees, #startTime, #endTime').removeClass('is-invalid');
+    $('.validation-message').remove();
+
+    var hasError = false;
+
+    // Validate mandatory fields
+    if (!selectedIds || selectedIds.length === 0) {
+        hasError = true;
+        if ($('#departmentRadio').is(':checked')) {
+            $('#selectDepartments').addClass('is-invalid');
+        } else {
+            $('#selectEmployees').addClass('is-invalid');
+        }
+        $('<div class="validation-message text-danger">Please select at least one department or employee.</div>')
+            .insertAfter('#selectDepartments, #selectEmployees');
+    }
+    if (!startTime) {
+        hasError = true;
+        $('#startTime').addClass('is-invalid');
+        $('<div class="validation-message text-danger">Please enter the start time.</div>')
+            .insertAfter('#startTime');
+    }
+    if (!endTime) {
+        hasError = true;
+        $('#endTime').addClass('is-invalid');
+        $('<div class="validation-message text-danger">Please enter the end time.</div>')
+            .insertAfter('#endTime');
+    }
+
+    if (hasError) {
+        return;
+    }
 
     $.ajax({
         url: '/adminattendance/addshiftinfotodb',
@@ -92,6 +128,25 @@ $(document).on('click', '.btn-addshift-submit', function (e) {
         },
         success: function (response) {
             console.log(response);
+
+            // Clear the form values upon successful response
+            $('#selectDepartments').val('');
+            $('#selectEmployees').val('');
+            $('#startTime').val('');
+            $('#endTime').val('');
+            $('#notification').prop('checked', false);
+            $('#departmentRadio').prop('checked', false);
+            $('#employeesRadio').prop('checked', false);
+            $('.multiselect-selected-text').text("--Select--");
+
+            selectedIds = [];
+            $('.multiselect-container li').removeClass('active');
+
+            $('#selectDepartments').trigger('change');
+            $('#selectEmployees').trigger('change');
+
+            $('.shift-message').show();
+            $('.shift-message').html(response.JsonResponse.Message);
         },
         error: function (xhr, status, error) {
             // Handle error response from server

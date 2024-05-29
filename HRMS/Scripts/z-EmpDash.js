@@ -39,7 +39,6 @@ $(document).on('click', '.btn-checkin', function (event) {
                 if (response.JsonResponse.StatusCode == 200) {
                     $(".btn-checkin").text("Check Out");
                     $(".btn-checkin").attr("data-checkinid", response.CheckInInfo.login_id);
-                    $(".btn-checkin").css("background-color", "#F8284A")
                     var checkinTime = formatDateAndTime(new Date());
                     $('#checkinhoursminutes').attr('data-signedindatetime', checkinTime);
                     var currentTime = GetCurrentTime();
@@ -66,8 +65,7 @@ $(document).on('click', '.btn-checkin', function (event) {
                 if (response.JsonResponse.StatusCode == 200) {
                     $('.btn-checkin').text("Check-In");
                     $('.btn-checkin').prop('disabled', true);
-                    $('.btn-checkin').css("background-color", "#3E78CF");
-
+                    
                     var checkinTime = formatDateAndTime(new Date());
                     $('#checkinhoursminutes').attr('data-signedindatetime', checkinTime);
 
@@ -420,15 +418,23 @@ function updateDashRunningTime() {
 
 function parseCustomDate(dateString) {
     var parts = dateString.split(' ');
-    var datePart = parts[0].split('-');
+    var datePart = parts[0].split('/');
     var timePart = parts[1].split(':');
+    var meridian = parts[2];
 
-    var day = parseInt(datePart[0], 10);
-    var month = parseInt(datePart[1], 10) - 1;
+    var month = parseInt(datePart[0], 10) - 1;
+    var day = parseInt(datePart[1], 10);
     var year = parseInt(datePart[2], 10);
     var hours = parseInt(timePart[0], 10);
     var minutes = parseInt(timePart[1], 10);
     var seconds = parseInt(timePart[2], 10);
+
+    // Adjust hours based on AM/PM
+    if (meridian === 'PM' && hours < 12) {
+        hours += 12;
+    } else if (meridian === 'AM' && hours === 12) {
+        hours = 0;
+    }
 
     return new Date(year, month, day, hours, minutes, seconds);
 }

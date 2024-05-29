@@ -31,7 +31,7 @@ namespace HRMS.Controllers
 
 
         // GET: Attendance
-        public ActionResult Attendance(string selectedDate)
+        public ActionResult Attendance(string selectedStartDate, string SelectedendDate)
         {
             var model = new AdminAttendanceModel();
             var cuserContext = SiteContext.GetCurrentUserContext();
@@ -39,16 +39,28 @@ namespace HRMS.Controllers
             model.LoginInfo = cuserContext.LoginInfo;
 
             model.SelectedDate = DateTime.Today;
-
-            if (!string.IsNullOrWhiteSpace(selectedDate))
+            model.SelectedEndDate = DateTime.Today;
+            if (!string.IsNullOrWhiteSpace(selectedStartDate))
             {
-                if (!selectedDate.Contains('-'))
-                    model.SelectedDate = DateTime.ParseExact(selectedDate, "dd MMMM yyyy", CultureInfo.InvariantCulture);
+                if (!selectedStartDate.Contains('-'))
+                    model.SelectedDate = DateTime.ParseExact(selectedStartDate, "dd MMMM yyyy", CultureInfo.InvariantCulture);
                 else
-                    model.SelectedDate = DateTime.Parse(selectedDate);
+                    model.SelectedDate = DateTime.Parse(selectedStartDate);
             }
 
-            var selectedDateAttendence = _dbContext.CheckInViews.Where(x => x.Login_date == model.SelectedDate).ToList();
+            if (!string.IsNullOrWhiteSpace(SelectedendDate))
+            {
+                if (!selectedStartDate.Contains('-'))
+                    model.SelectedEndDate = DateTime.ParseExact(selectedStartDate, "dd MMMM yyyy", CultureInfo.InvariantCulture);
+                else
+                    model.SelectedEndDate = DateTime.Parse(selectedStartDate);
+            }
+            else
+            {
+                model.SelectedEndDate = model.SelectedDate;
+            }
+
+            var selectedDateAttendence = _dbContext.CheckInViews.Where(x => x.Login_date >= model.SelectedDate && x.Login_date <= model.SelectedEndDate).ToList();
 
             if (selectedDateAttendence != null && selectedDateAttendence.Any())
             {
@@ -350,57 +362,84 @@ namespace HRMS.Controllers
         public ActionResult AddShiftInfotoDB(AjaxShiftUpdateModel data)
         {
             var model = new AjaxShiftUpdateModel();
-            var selectedShift = data.startTime + "-" + data.endTime;
-            var associatedEmloyees = new List<emp_info>();
-            if (data.IsDepartmentBasedUpdate)
+            try
             {
-                foreach (var department in data.selectedIds)
+                var selectedShift = data.startTime + "-" + data.endTime;
+                TimeSpan shiftStartTimeSelected = TimeSpan.Parse(data.startTime);
+                TimeSpan shiftEndTimeSelected = TimeSpan.Parse(data.endTime);
+
+                var associatedEmloyees = new List<emp_info>();
+                if (data.IsDepartmentBasedUpdate)
                 {
-                    var selectedDepartment = department;
-                    associatedEmloyees = _dbContext.emp_info.Where(x => x.Department == selectedDepartment).ToList();
-                    if (associatedEmloyees != null && associatedEmloyees.Any())
+                    foreach (var department in data.selectedIds)
                     {
-                        associatedEmloyees.ForEach(p =>
+                        var selectedDepartment = department;
+                        associatedEmloyees = _dbContext.emp_info.Where(x => x.Department == selectedDepartment).ToList();
+                        if (associatedEmloyees != null && associatedEmloyees.Any())
                         {
-                            p.ShiftTimings = selectedShift;
-                            _dbContext.Entry(p).State = EntityState.Modified;
-                        });
+                            associatedEmloyees.ForEach(p =>
+                            {
+                                p.ShiftTimings = selectedShift;
+                                p.ShiftStartTime = shiftStartTimeSelected;
+                                p.ShiftEndTime = shiftEndTimeSelected;
+                                _dbContext.Entry(p).State = EntityState.Modified;
+                            });
+                        }
+
+                        _dbContext.SaveChanges();
+                    }
+                }
+                else
+                {
+                    foreach (var empID in data.selectedIds)
+                    {
+                        associatedEmloyees = _dbContext.emp_info.Where(x => x.EmployeeID == empID).ToList();
+                        if (associatedEmloyees != null && associatedEmloyees.Any())
+                        {
+                            associatedEmloyees.ForEach(p =>
+                            {
+                                p.ShiftTimings = selectedShift;
+                                p.ShiftStartTime = shiftStartTimeSelected;
+                                p.ShiftEndTime = shiftEndTimeSelected;
+                                _dbContext.Entry(p).State = EntityState.Modified;
+                            });
+                        }
+
+                        _dbContext.SaveChanges();
+                    }
+                }
+
+                if (data.notification == true)
+                {
+                    foreach (var emp in associatedEmloyees)
+                    {
+                        var emailRequest = new EmailRequest()
+                        {
+                            Body = $"Dear {emp.EmployeeName},\n\nYour shift has been changed. New shift details:\n{selectedShift}\n\nBest Regards,\nPRM AMBC",
+                            ToEmail = emp.OfficalEmailid,
+                            Subject = "TESt Shift Change Notification",
+                        };
+                        var sendNotification = EMailHelper.SendEmail(emailRequest);
                     }
 
-                    _dbContext.SaveChanges();
+                    model.JsonResponse.Message = "Shift timings updated and Email notification sent successfully!";
+                    model.JsonResponse.StatusCode = 200;
+
+                    return Json(model, JsonRequestBehavior.AllowGet);
+                }
+                else
+                {
+                    model.JsonResponse.Message = "Shift timings updated successfully!";
+                    model.JsonResponse.StatusCode = 200;
+                    return Json(model, JsonRequestBehavior.AllowGet);
                 }
             }
-            else
+            catch (Exception)
             {
-                foreach (var empID in data.selectedIds)
-                {
-                    associatedEmloyees = _dbContext.emp_info.Where(x => x.EmployeeID == empID).ToList();
-                    if (associatedEmloyees != null && associatedEmloyees.Any())
-                    {
-                        associatedEmloyees.ForEach(p =>
-                        {
-                            p.ShiftTimings = selectedShift;
-                            _dbContext.Entry(p).State = EntityState.Modified;
-                        });
-                    }
-
-                    _dbContext.SaveChanges();
-                }
+                model.JsonResponse.Message = "Error occured!";
+                model.JsonResponse.StatusCode = 500;
+                return Json(model, JsonRequestBehavior.AllowGet);
             }
-
-            foreach (var emp in associatedEmloyees)
-            {
-                var emailRequest = new EmailRequest()
-                {
-                    Body = $"Dear {emp.EmployeeName},\n\nYour shift has been changed. New shift details:\n{selectedShift}\n\nBest Regards,\nPRM AMBC",
-                    ToEmail = emp.OfficalEmailid,
-                    Subject = "TESt Shift Change Notification",
-                };
-                var sendNotification = EMailHelper.SendEmail(emailRequest);
-            }
-
-
-            return PartialView("~/Views/AdminDashboard/AddShift.cshtml", model);
         }
 
         [HttpPost]

@@ -16,7 +16,7 @@ namespace HRMS.Models.Admin
         public string endTime { get; set; }
         public bool notification { get; set; }
         public bool IsDepartmentBasedUpdate { get; set; } = false;
-
+        public JsonResponse JsonResponse { get; set; } = new JsonResponse();
     }
 
     public class Shift

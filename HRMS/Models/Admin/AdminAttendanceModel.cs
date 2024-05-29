@@ -9,6 +9,7 @@ namespace HRMS.Models.Admin
     {
         public List<CheckInView> EmpCheckInList { get; set; } = new List<CheckInView>();
         public DateTime SelectedDate { get; set; }
+        public DateTime SelectedEndDate { get; set; }
         public List<emp_info> AllEmployees { get; set; } = new List<emp_info>();
     }
 
