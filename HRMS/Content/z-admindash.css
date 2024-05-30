@@ -1,6 +1,4 @@
-﻿
-
-/*<style >
+﻿/*<style >
 .page_header {
     font-size: 25px;
 }
@@ -149,50 +147,54 @@
     margin-bottom: 20px;
 }
 
-.leave-requests {
-    max-height: 412px;
+.card_style {
+    height: 357px !important;
+    width: auto;
+}
+
+.scrollbar {
     overflow-y: auto;
 }
+
 .list-group-item {
     border: none !important;
 }
-    .leave-requests .list-group-item {
-        display: flex;
-        flex-direction: column;
-        padding: 5px 15px;
-        border: none;
-        
+
+.list-group-item {
+    display: flex;
+    flex-direction: column;
+    border: none;
+}
+
+    .list-group-item:last-child {
+        border-bottom: none;
     }
 
-        .leave-requests .list-group-item:last-child {
-            border-bottom: none;
+    .list-group-item .leave-info {
+        display: flex;
+        align-items: center;
+    }
+
+    .list-group-item img {
+        width: 40px;
+        height: 40px;
+        margin-right: 10px;
+    }
+
+    .list-group-item .leave-text {
+        flex-grow: 1;
+    }
+
+        .list-group-item .leave-text small {
+            display: block;
+            color: gray;
         }
 
-        .leave-requests .list-group-item .leave-info {
-            display: flex;
-            align-items: center;
-        }
-
-        .leave-requests .list-group-item img {
-            width: 40px;
-            height: 40px;
-            margin-right: 10px;
-        }
-
-        .leave-requests .list-group-item .leave-text {
-            flex-grow: 1;
-        }
-
-            .leave-requests .list-group-item .leave-text small {
-                display: block;
-                color: gray;
-            }
-
-        .leave-requests .list-group-item .btn-group {
-            display: flex;
-            justify-content: flex-end;
-            margin-top: 10px;
-        }
+    .list-group-item .btn-group {
+        display: flex;
+        justify-content: flex-end;
+        margin-top: 10px;
+    }
 
 .btn_approve, .btn_reject {
     padding: 5px 10px;
@@ -234,10 +236,6 @@
 }
 
 
-    .leave-requests .list-group-item {
-        display: flex;
-        justify-content: space-between;
-    }
 
 .btn_approve, .btn_reject {
     border: none;
@@ -252,6 +250,30 @@
 .btn_reject {
     color: #FA6B83;
 }
-.list-group-flush{
-    list-style:none;
+
+.form-group label {
+    font-size: 14px;
+    margin-bottom: 0px;
+}
+
+.form-group input::placeholder {
+    font-size: 15px;
+}
+
+.calendar-body th, .calendar-body td {
+    padding: 6px 5px;
+}
+
+.list-group-item {
+    padding: .50rem 1rem;
+}
+
+.holiday_details h6 {
+    font-size: 14px;
+    font-weight: 600;
+    margin-bottom: 0px;
+}
+
+.holiday_details {
+    margin-bottom: 1rem;
 }
