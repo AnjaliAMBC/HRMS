@@ -3,14 +3,14 @@
     <div class="container-fluid top admin-empview">
         <div class="row navbar align-items-center">
             <!-- Employee column -->
-            <div class="col-lg-1 topic d-flex">
+            <div class="col-lg-1 col-md-2 col-xl-1 col-sm-12 col-12 topic d-flex">
                 <p class="header mb-0 text-right">Employee</p>
                 <select class="form-control ml-2" name="action" id="action" style="display: none;">
                     <option value="" selected>Action</option>
                     <option value="export">Export</option>
                 </select>
             </div>
-            <div class="col-lg-4"></div>
+            <div class="col-lg-4 col-md-6 col-xl-4 col-sm-6 col-6"></div>
             <!-- Search box -->
             <div class="col-lg-3 navbarl">
                 <div class="search-container" style=" margin-left: 32px; ">
@@ -89,15 +89,15 @@
         </div>
     </div>
 
-    <table id="adminempmanagementtable" class="display" style="width: 100%;">
-        <thead style="background-color: #EEF4FF; border-radius: 10px;">
+    <table id="adminempmanagementtable" class="display">
+        <thead class="display_atttable">
             <tr>
                 <th><input type="checkbox" id="selectAll"></th>
                 <th>Emp ID</th>
                 <th>Name</th>
                 <th>Designation</th>
                 <th>Department</th>
-                <th>Type</th>
+                <th class="emptypetable">Type</th>
                 <th>Location</th>
                 <th>Status</th>
                 <th>
@@ -120,7 +120,7 @@
                 </th>
             </tr>
         </thead>
-        <tbody>
+        <tbody class="emp_tablebody">
         </tbody>
     </table>
 

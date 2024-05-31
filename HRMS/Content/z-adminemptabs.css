@@ -2,10 +2,12 @@
     margin-left: 5px;
     margin-top: 3%;
 }
+
 .myTabContent {
     font-size: 14px;
     font-family: 'Nunito', sans-serif;
 }
+
 .admin-add-emptab {
     border: 1px solid gray;
 }
@@ -17,6 +19,7 @@
 .form-control.is-valid, .was-validated .form-control:valid {
     background-image: none !important;
 }
+
 .save-and-next {
     height: 37px;
     width: 136px;
@@ -36,7 +39,7 @@
     text-align: center;
     border-radius: 10px;
     cursor: pointer;
-    width:45%;
+    width: 45%;
 }
 
 #file-upload-input {
@@ -63,14 +66,17 @@
     text-align: center;
     margin-right: 49%;
 }
+
 .import-user-head {
     margin-top: 0;
     margin-bottom: 5%;
 }
+
 .nav-tabs .nav-item.show .nav-link, .nav-tabs .nav-link.active {
     color: dodgerblue;
     font-weight: 500;
 }
+
 .nav-tabs .nav-link {
     color: black;
     font-weight: 500;
@@ -178,25 +184,54 @@
     margin-right: 8px !important;
     font-size: 20px;
 }
+
 .tabs-general label {
     font-size: 14px;
 }
+
 .tabs-general select {
     font-size: 14px;
-    
 }
+
     .tabs-general select option {
         font-size: 14px;
-        
     }
+
 .emergency-det {
     font-size: large;
     font-weight: 600;
     margin-bottom: 32px;
 }
-.tabs-other label{
-    font-size:14px;
+
+.tabs-other label {
+    font-size: 14px;
 }
+
 .addemp-submit-btn {
     background-color: #2693F8;
+}
+
+#myTab {
+    background-color: #EEF4FF;
+    font-size: 14px;
+    width: 100%;
+}
+
+
+@media (min-width:1256px ) and (max-width:1346px) {
+    #myTab {
+        font-size: 13px;
+    }
+}
+
+@media (min-width:1186px ) and (max-width:1276px) {
+    #myTab {
+        font-size: 12px;
+    }
+}
+
+@media (min-width:1417px) {
+    #myTab {
+        font-size: 15px
+    }
 }
