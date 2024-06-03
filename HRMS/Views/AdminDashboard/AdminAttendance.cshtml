@@ -229,7 +229,7 @@
                         <th>Check-out</th>
                         <th>Hours</th>
                         <th>Status</th>
-                        <th></th>
+                        <th class="hoverable-row"></th>
                     </tr>
                 </thead>
                 <tbody>
@@ -260,7 +260,7 @@
 
                         if (empCheckin != null)
                         {
-                            <tr class="hoverable-row">
+                            <tr>
                                 <td class="employee-info" style="padding-left: 15px">
                                     <span class="employee-id">@empCheckin.EmployeeID</span>
                                     @if (!string.IsNullOrEmpty(employee.imagepath))

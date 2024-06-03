@@ -155,6 +155,7 @@
     <Compile Include="Models\Employee\EmpAttedenceModel.cs" />
     <Compile Include="Models\Employee\EmpDashBoardModel.cs" />
     <Compile Include="Models\Employee\EmpLeaveModel.cs" />
+    <Compile Include="Models\Employee\LeaveRequestModel.cs" />
     <Compile Include="Models\TimerModel.cs" />
     <Compile Include="ShiftNotificationJob.cs" />
     <Compile Include="tblambcholiday.cs">
@@ -169,6 +170,7 @@
     <Content Include="Assets\EmpProfile.png" />
     <Content Include="Assets\WorkAnni.jpg" />
     <Content Include="Content\z-admindash.css" />
+    <Content Include="Content\Z-applyLeave.css" />
     <Content Include="Content\z-empDash.css" />
     <Content Include="Content\z-empleave.css" />
     <Content Include="Content\zaddshift.css" />
@@ -261,6 +263,9 @@
       <DependentUpon>HRMS.edmx</DependentUpon>
       <LastGenOutput>HRMS.cs</LastGenOutput>
     </Content>
+    <Content Include="Scripts\z-adminBalaceView.js" />
+    <Content Include="Scripts\z-adminLeave.js" />
+    <Content Include="Scripts\z-applyleave.js" />
     <Content Include="Scripts\z-empleave.js" />
     <Content Include="Scripts\zEditAdminattendance.js" />
     <Content Include="Scripts\z-Adminemp.js" />
@@ -324,13 +329,12 @@
     <Content Include="Views\EmployeeDashboard\EmpLeaveTracker.cshtml" />
     <Content Include="Views\AdminDashboard\AdminLeaveTracker.cshtml" />
     <Content Include="Views\EmployeeDashboard\EmpApplyleave.cshtml" />
+    <Content Include="Views\AdminDashboard\AdminEmpBalanceView.cshtml" />
     <Content Include="Views\AdminDashboard\AdminLeaveEmpManage.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
     <Folder Include="Assets\EmpImages\" />
-    <Folder Include="Views\AdminLeave\" />
-    <Folder Include="Views\EmpLeave\" />
     <Folder Include="Views\Profile\" />
   </ItemGroup>
   <ItemGroup>

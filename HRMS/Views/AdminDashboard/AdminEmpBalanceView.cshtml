@@ -1,0 +1,104 @@
+﻿<div class="admin-leaveBalance-view">
+   
+    <div class="container-fluid">
+        <div class="row mb-2 align-items-center">
+            <div class="col-md-3">
+                <h3>Leave</h3>
+            </div>
+            <div class="col-md-2 search-container mr-2">
+                <div class="input-group">
+                    <div class="input-group-prepend">
+                        <span class="input-group-text" style="background-color: transparent; border-right: none; border-radius: 10px 0 0 10px; height: 35px;"><i class="fas fa-search" style="color: #369479;"></i></span>
+                    </div>
+                    <input type="text" id="adminleavetableSearch" placeholder="Search By Keyword" class="advancesearch form-control" aria-label="Search By Keyword" style="border-radius: 0 10px 10px 0; height: 35px; font-size: 14px;">
+                </div>
+            </div>
+            <div class="col-md-6">
+                <div class="dropdowns-container d-flex  align-items-center" style=" justify-content: flex-end;">
+                    <div class="form-group mr-2 adminleave-dropdown ml-2" style="margin-top: 17px;">
+                        <label class="export-label" for="exportLeaveLabel">Export</label>
+                        <i class="fas fa-chevron-down ml-3" id="exportLeaveIcon" style="cursor: pointer; font-size:13px;" data-toggle="collapse" data-target="#LeaveDateDropdown"></i>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="collapse" id="LeaveDateDropdown">
+            <div class="col-md-4"></div>
+            <div class="col-md-6 d-flex justify-content-end" style="margin-left:43%">
+                <div class="form-group d-flex mr-2">
+                    <label for="from" class="mr-2">From</label>
+                    <input type="date" class="form-control form-control-sm" id="fromDate" style="width: 120px;">
+                </div>
+                <div class="form-group d-flex mr-2">
+                    <label for="to" class="mr-2">To</label>
+                    <input type="date" class="form-control form-control-sm" id="toDate" style="width: 120px;">
+                </div>
+                <div class="form-group d-flex align-items-center">
+                    <button type="button" class="btn btn-sm btn-primary" onclick="submitDateRange()">Submit</button>
+                    <a href="#" class="clearLeave-filter ml-2">Clear</a>
+                </div>
+            </div>
+        </div>
+
+        <table class="table table-attendence">
+            <thead>
+                <tr>
+                    <th>Emp-ID</th>
+                    <th>Employee Name</th>
+                    <th>Earned-Leave</th>
+                    <th>Emergency</th>
+                    <th>Sick</th>
+                    <th>Bereavement</th>
+                    <th>Marriage</th>
+                    <th>Maternity</th>
+                    <th>Paternity</th>
+                    <th>Hourly Permission</th>
+                    <th>Comp-Off</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr class="leave-IndiRow">
+                    <td class="fontSmall">1000</td>
+                    <td>
+                        <div class="IndiLeaveDetails">
+                            <img src="images/userIcon.png" class="userIcon" alt="user" />
+                            <div class="fontSmall">
+                                <p class="mb-0 fontWtMedium">John Doe</p>
+                                <a href="#">john.doe@example.com</a>
+                            </div>
+                        </div>
+                    </td>
+                    <td class="fontSmall dataMinWidth dateMaxWidth">
+                        <div class="earned-indi">Earned-Leave</div>
+                    </td>
+                    <td class="fontSmall dataMinWidth dateMaxWidth">
+                        <div class="earned-indi">Emergency</div>
+                    </td>
+                    <td class="fontSmall dataMinWidth dateMaxWidth">
+                        <div class="earned-indi">Sick</div>
+                    </td>
+                    <td class="fontSmall dataMinWidth dateMaxWidth">
+                        <div class="earned-indi">Bereavement</div>
+                    </td>
+                    <td class="fontSmall dataMinWidth dateMaxWidth">
+                        <div class="earned-indi">Marriage</div>
+                    </td>
+                    <td class="fontSmall dataMinWidth dateMaxWidth">
+                        <div class="earned-indi">Maternity</div>
+                    </td>
+                    <td class="fontSmall dataMinWidth dateMaxWidth">
+                        <div class="earned-indi">Paternity</div>
+                    </td>
+                    <td class="fontSmall dataMinWidth dateMaxWidth">
+                        <div class="earned-indi">Hourly Permission</div>
+                    </td>
+                    <td class="fontSmall dataMinWidth dateMaxWidth">
+                        <div class="earned-indi">Comp-Off</div>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+</div>
+  

@@ -60,13 +60,13 @@ function generateLeaveCalendar(month, year) {
     const startingDay = firstDayOfMonth.getDay() === 0 ? 6 : firstDayOfMonth.getDay() - 1;
 
     const calendarBody = document.getElementById("empleave-calendarBody");
-    if (!calendarBody) {       
+    if (!calendarBody) {
         return;
     }
     calendarBody.innerHTML = "";
 
     const monthYear = document.getElementById("empleave-monthYear");
-    if (!monthYear) {      
+    if (!monthYear) {
         return;
     }
     monthYear.innerText = new Date(year, month).toLocaleDateString('default', { month: 'long', year: 'numeric' });
@@ -84,6 +84,7 @@ function generateLeaveCalendar(month, year) {
             } else {
                 const cell = document.createElement("td");
                 cell.textContent = date;
+                cell.classList.add("btn-apply-leave1"); // Add a class for jQuery
 
                 const holidayKey = `${month + 1}-${date}`;
                 if (date === today.getDate() && year === today.getFullYear() && month === today.getMonth()) {
@@ -113,14 +114,28 @@ function generateLeaveCalendar(month, year) {
                     cell.appendChild(leaveDiv);
                 }
 
+                // Add weekend background color
+                if (j === 5 || j === 6) { // 5 is Saturday, 6 is Sunday
+                    cell.classList.add("weekend-background");
+                }
+
                 row.appendChild(cell);
                 date++;
             }
         }
 
         calendarBody.appendChild(row);
-    }
+    }  
 }
+
+// Add jQuery event listener for the click event
+//$(document).on('click', '.btn-apply-leave', function (event) {
+//    const date = $(this).text();
+//    window.location.href = `your_page_url?date=${year}-${month + 1}-${date}`;
+//});
+
+
+
 
 function prevLeaveMonth() {
     currentLeaveMonth--;

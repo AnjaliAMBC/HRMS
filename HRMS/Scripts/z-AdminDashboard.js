@@ -374,7 +374,7 @@ $('.admin-leave').click(function (event) {
     $('.admin-attendance-container').html("");
     $('.admin-leave-container').html("");
     $(".hiddenadmindashboard").html(response);
-    var formContent = $(".hiddenadmindashboard").find(".admin-leave-view").html();
+            var formContent = $(".hiddenadmindashboard").find(".admin-leavecalender-view").html();
     $(".admin-leave-container").html(formContent);
     $('.admin-leave-container').show();
     $('.admin-attendance-container').hide();

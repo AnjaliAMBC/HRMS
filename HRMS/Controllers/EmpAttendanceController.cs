@@ -24,6 +24,10 @@ namespace HRMS.Controllers
         // GET: EmpAttendance
         public ActionResult Index(string startdate, string endDate)
         {
+            if(startdate == "Invalid Date" ||  endDate == "Invalid Date")
+            {
+                return null;
+            }
             var model = new EmpAttedenceModel();
             var cuserContext = SiteContext.GetCurrentUserContext();
 
