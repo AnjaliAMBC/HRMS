@@ -31,63 +31,77 @@
         .validation-message {
             font-size: 0.875em;
         }
-
+        .form-check-inline
+        {
+            margin-right:0px;
+        }
+        
     </style>
     <main role="main" class="col-md-9 col-lg-10 px-md-4 content addshiftcontent">
-        <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
+        <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom col-md-6">
             <h1 class="h2">Add Shift</h1>
         </div>
-        <div class="card addshiftcard">
-            <div class="card-body">
-                <form>
-                    <div class="form-group">
-                        <div class="form-check form-check-inline">
-                            <input class="form-check-input" type="radio" name="shiftType" id="departmentRadio" value="department" checked>
-                            <label class="form-check-label" for="departmentRadio">Department</label>
+        <div class="container-fluid addshiftcard">
+            <div class="row">
+                <form class="col-6 col-sm-6 col-lg-6 col-md-6 col-xl-6 col-xxl-6">
+                    <div class="container-fluid">
+                        <div class="row form-group mb-3 mt-2">
+                                <div class=" col-6 form-check form-check-inline">
+                                    <input class="form-check-input" type="radio" name="shiftType" id="departmentRadio" value="department" checked>
+                                    <label class="form-check-label" for="departmentRadio">Department</label>
+                                </div>
+                                <div class=" col-6 form-check form-check-inline">
+                                    <input class="form-check-input" type="radio" name="shiftType" id="employeesRadio" value="employees">
+                                    <label class="form-check-label" for="employeesRadio">Employees</label>
+                                </div>
                         </div>
-                        <div class="form-check form-check-inline">
-                            <input class="form-check-input" type="radio" name="shiftType" id="employeesRadio" value="employees">
-                            <label class="form-check-label" for="employeesRadio">Employees</label>
+                        <div class="row">
+                            <div class="form-row">
+                                <div class="form-group" id="departmentDropdown">
+                                    <label for="selectDepartments">Select Departments</label>
+                                    <select class="form-control" id="selectDepartments" multiple="multiple">
+                                        @foreach (HRMS.Models.DropdownItem department in Model.Departments)
+                                        {
+                                            <option value="@department.Name">@department.Name</option>
+                                        }
+                                    </select>
+                                </div>
+                                <div class="form-group d-none" id="employeeDropdown">
+                                    <label for="selectEmployees">Select Employees</label>
+                                    <select class="form-control" id="selectEmployees" multiple="multiple">
+                                        @foreach (emp_info selectedEmp in Model.Employees)
+                                        {
+                                            <option value="@selectedEmp.EmployeeID">@selectedEmp.EmployeeName</option>
+                                        }
+                                    </select>
+                                </div>
+                            </div>
                         </div>
-                    </div>
-                    <div class="form-row">
-                        <div class="form-group col-md-4" id="departmentDropdown">
-                            <label for="selectDepartments">Select Departments</label>
-                            <select class="form-control" id="selectDepartments" multiple="multiple">
-                                @foreach (HRMS.Models.DropdownItem department in Model.Departments)
-                                {
-                                    <option value="@department.Name">@department.Name</option>
-                                }
-                            </select>
+                        <div class="row">
+                            <div class="form-row">
+                                <div class="form-group col-md-6 ">
+                                    <label for="startTime">Start Time</label>
+                                    <input type="time" class="form-control" id="startTime" value="09:30">
+                                </div>
+                                <div class="form-group col-md-6 ">
+                                    <label for="endTime">End Time</label>
+                                    <input type="time" class="form-control" id="endTime" value="06:30">
+                                </div>
+                            </div>
                         </div>
-                        <div class="form-group col-md-4 d-none" id="employeeDropdown">
-                            <label for="selectEmployees">Select Employees</label>
-                            <select class="form-control" id="selectEmployees" multiple="multiple">
-                                @foreach (emp_info selectedEmp in Model.Employees)
-                                {
-                                    <option value="@selectedEmp.EmployeeID">@selectedEmp.EmployeeName</option>
-                                }
-                            </select>
+                        <div class="row">
+                            <div class="form-check">
+                                <input type="checkbox" class="form-check-input" id="notification">
+                                <label class="form-check-label" for="notification">Send check-in checkout notification before 15 minutes</label>
+                            </div>
                         </div>
-                    </div>
-                    <div class="form-row">
-                        <div class="form-group col-md-2">
-                            <label for="startTime">Start Time</label>
-                            <input type="time" class="form-control" id="startTime" value="09:30">
+                        <div class="row mt-3">
+                            <button type="submit" class="btn btn-primary mt-3 btn-addshift-submit px-4">Save</button>
                         </div>
-                        <div class="form-group col-md-2">
-                            <label for="endTime">End Time</label>
-                            <input type="time" class="form-control" id="endTime" value="06:30">
+                        <div class="row">
+                            <div class="alert alert-success mt-3 shift-message" role="alert" style="display: none"></div>
                         </div>
-                    </div>
-                    <div class="form-check">
-                        <input type="checkbox" class="form-check-input" id="notification">
-                        <label class="form-check-label" for="notification">Send check-in checkout notification before 15 minutes</label>
-                    </div>
-                    <button type="submit" class="btn btn-primary mt-3 btn-addshift-submit">Save</button>
-
-                    <div class="alert alert-success mt-3 shift-message" role="alert" style="display: none"></div>
-                    
+                    </div>   
                 </form>
             </div>
         </div>

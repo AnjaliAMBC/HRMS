@@ -129,6 +129,19 @@
                 text-decoration: underline;
                 margin-left: 10px; /* Add margin to create space between buttons */
             }
+            #daysContainer
+            {
+                width:855px;
+            }
+            #status-dropdown
+            {
+                width:67px;
+            }
+            #location-dropdown
+            {
+                width:83px;
+            }
+            
         </style>
 
         <div class="row mb-2 align-items-center">
@@ -147,8 +160,8 @@
                         </div>
                     </div>
 
-                    <div class="form-group mr-2 status-drop adminatt-dropdown" style="margin-top: 10px;">
-                        <select class="form-control form-select-sm" name="status" id="status-dropdown">
+                    <div class="form-group mr-3 status-drop adminatt-dropdown mt-3">
+                        <select class="form-control form-select-sm p-0" name="status" id="status-dropdown">
                             <option value="" disabled selected>Status</option>
                             <option value="Present">Present</option>
                             <option value="Leave">Leave</option>
@@ -159,8 +172,8 @@
 
 
 
-                    <div class="form-group mr-2 adminatt-dropdown" style="margin-top: 10px;">
-                        <select class="form-control form-select-sm" name="status" id="location-dropdown">
+                    <div class="form-group mr-3 adminatt-dropdown mt-3">
+                        <select class="form-control form-select-sm p-0" name="status" id="location-dropdown">
                             <option value="" disabled selected>Location</option>
                             <option value="Hyderabad">Hyderabad</option>
                             <option value="Madurai">Madurai</option>
@@ -170,15 +183,15 @@
 
 
                     <!-- Dropdown for Export options -->
-                    <div class="form-group mr-2 adminatt-dropdown ml-2" style="margin-top: 17px;">
-                        <label class="export-label" for="exportLabel">Export</label>
-                        <i class="fas fa-chevron-down ml-3" id="exportIcon" style="cursor: pointer; font-size:13px;" data-toggle="collapse" data-target="#dateDropdown"></i>
+                    <div class="form-group  adminatt-dropdown  mt-3 mr-3">
+                        <label class="export-label mr-0" for="exportLabel">Export</label>
+                        <i class="fas fa-chevron-down" id="exportIcon" style="cursor: pointer; font-size:13px;" data-toggle="collapse" data-target="#dateDropdown"></i>
                     </div>
 
 
 
-                    <div class="mb-2 ml-4">
-                        <button type="button" class="btn btn-primary btn-addshift ml-2">Add Shift</button>
+                    <div class="mb-2">
+                        <button type="button" class="btn btn-primary btn-addshift ">Add Shift</button>
                     </div>
                 </div>
             </div>
@@ -187,13 +200,13 @@
         <div class="collapse" id="dateDropdown">
             <div class="row mb-3 align-items-center">
                 <div class="col-4"></div> <!-- Empty column -->
-                <div class="col-8 d-flex justify-content-end" style="margin-left: 31%">
+                <div class="col-8 d-flex justify-content-end ml-auto mr-5" >
                     <div class="form-group d-flex mr-2">
-                        <label for="from" class="mr-2">From</label>
+                        <label for="from" class="mr-2 mt-1">From</label>
                         <input type="date" class="form-control form-control-sm" id="fromDate" style="width: 120px;">
                     </div>
                     <div class="form-group d-flex mr-2">
-                        <label for="to" class="mr-2">To</label>
+                        <label for="to" class="mr-2 mt-1">To</label>
                         <input type="date" class="form-control form-control-sm" id="toDate" style="width: 120px;">
                     </div>
                     <div class="form-group d-flex align-items-center">

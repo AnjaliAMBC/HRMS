@@ -1,15 +1,18 @@
-﻿.highlight-currentleave {
+﻿.highlight-currentleave 
+{
     background-color: #ffeb3b;
 }
 
-.highlight-festival-leave {
+.highlight-festival-leave 
+{
     background-color: #f8d7da;
     color: #721c24;
     padding-left: 5px;
     position: relative;
 }
 
-.empleave-leave-request {
+.empleave-leave-request 
+{
     background-color: #e7f3fe;
     padding: 5px;
     border-radius: 5px;
@@ -18,18 +21,21 @@
     justify-content: space-between;
 }
 
-    .empleave-leave-request img {
+    .empleave-leave-request img 
+    {
         width: 24px;
         height: 24px;
         border-radius: 50%;
     }
 
-.empleave-calendar-body {
+.empleave-calendar-body 
+{
     padding: 1rem;
     background-color: #ffffff;
 }
 
-.empleave-calendar-header {
+.empleave-calendar-header 
+{
     display: flex;
     justify-content: center;
     align-items: center;
@@ -37,22 +43,26 @@
     margin-right: 21%;
 }
 
-    .empleave-calendar-header h6 {
+    .empleave-calendar-header h6 
+    {
         margin: 0 1rem;
     }
 
-.empleave-chevron-icon {
+.empleave-chevron-icon 
+{
     cursor: pointer;
     font-size: 1rem;
     color: #000;
     margin: 0 0.5rem;
 }
 
-    .empleave-chevron-icon:hover {
+    .empleave-chevron-icon:hover 
+    {
         color: #007bff;
     }
 
-.empleave-calendar-table th {
+.empleave-calendar-table th 
+{
     border: 1px solid #dee2e6;
     text-align: center;
     vertical-align: middle;
@@ -60,7 +70,8 @@
     width: 80px;
 }
 
-.empleave-calendar-table td {
+.empleave-calendar-table td 
+{
     border: 1px solid #dee2e6;
     text-align: center;
     vertical-align: middle;
@@ -68,118 +79,142 @@
     width: 100px;
 }
 
-.empleave-card {
+.empleave-card 
+{
     border: none;
 }
 
-.empleave-card-header {
+.empleave-card-header 
+{
     background-color: transparent;
     border: none;
 }
 
-.tracker_topic {
+.tracker_topic 
+{
     font-size: 25px;
 }
 /*---This is for carousel----*/
-@media (max-width: 768px) {
-    .carousel-inner .carousel-item > div {
+@media (max-width: 950px) 
+{
+    .carousel-inner .carousel-item > div 
+    {
         display: none;
     }
 
-        .carousel-inner .carousel-item > div:first-child {
+        .carousel-inner .carousel-item > div:first-child 
+        {
             display: block;
         }
 }
 
 .carousel-inner .carousel-item.active,
 .carousel-inner .carousel-item-next,
-.carousel-inner .carousel-item-prev {
+.carousel-inner .carousel-item-prev 
+{
     display: flex;
 }
 
-@media (min-width: 768px) {
+@media (min-width: 950px) {
     .carousel-inner .carousel-item-right.active,
-    .carousel-inner .carousel-item-next {
+    .carousel-inner .carousel-item-next 
+    {
         transform: translateX(16.5%);
     }
 
     .carousel-inner .carousel-item-left.active,
-    .carousel-inner .carousel-item-prev {
+    .carousel-inner .carousel-item-prev 
+    {
         transform: translateX(-16.5%);
     }
 }
 
 .carousel-inner .carousel-item-right,
-.carousel-inner .carousel-item-left {
+.carousel-inner .carousel-item-left 
+{
     transform: translateX(0);
 }
 
-.tracker-card {
+.tracker-card 
+{
     padding: 0px;
     border: 1px solid transparent;
 }
 
-.tracker-details {
+.tracker-details 
+{
     margin-bottom: 0px;
     font-size: 13px;
     color: #7E7E7E;
 }
 
-.tracker-100 {
+.tracker-100 
+{
     width: 115% !important;
 }
 
-.emr_border {
+.emr_border 
+{
     border-left: 4px solid #C4BEF4;
     padding-left: 10px;
 }
 
-.com_border {
+.com_border 
+{
     border-left: 4px solid #F8CADC;
     padding-left: 10px;
 }
 
-.ear_border {
+.ear_border 
+{
     border-left: 4px solid #A5E2E9;
     padding-left: 10px;
 }
 
-.bev_border {
+.bev_border 
+{
     border-left: 4px solid #FFC297;
     padding-left: 10px;
 }
 
-.sick_border {
+.sick_border 
+{
     border-left: 4px solid #ACFF97;
     padding-left: 10px;
 }
 
-.per_border {
+.per_border 
+{
     border-left: 4px solid #DAD9F8;
     padding-left: 10px;
 }
 
-.mar_border {
+.mar_border 
+{
     border-left: 4px solid #A8E4E2;
     padding-left: 10px;
 }
 
-.pat_border {
+.pat_border 
+{
     border-left: 4px solid #F4D8C0;
     padding-left: 10px;
 }
 
-.mat_border {
+.mat_border 
+{
     border-left: 4px solid #FEA8B5;
     padding-left: 10px;
 }
 
-.hou_border {
+.hou_border 
+{
     border-left: 4px solid #BBCDF3;
     padding-left: 10px;
 }
 
-.btn_nxtleave {
+.btn_nxtleave 
+{
     background-color: transparent;
     width: 30px;
     height: 30px;
@@ -188,22 +223,24 @@
     border: 1px solid black;
 }
 
-.fa-chevron-leave {
+.fa-chevron-leave 
+{
     color: black;
 }
 
-.leavehistory_btn {
+.leavehistory_btn 
+{
     color: #3E78CF !important;
 }
-.applyleave_btn {
-    margin-top: 19px;
-}
-.comment-message {
+
+.comment-message 
+{
     display: flex;
     align-items: center;
 }
 
-.leave-edit-history {
+.leave-edit-history 
+{
     border: 2px solid lightgray;
     font-size: smaller;
     height: 20px;
@@ -215,26 +252,34 @@
 }
 
 /* Remove all table borders */
-.leave-history-table.dataTable.no-border {
+.leave-history-table.dataTable.no-border 
+{
     border: none;
 }
-    .leave-history-table.dataTable thead th,{
+    .leave-history-table.dataTable thead th
+    {
         padding:0;
     }
+
     .leave-history-table.dataTable.no-border thead th,
-    .leave-history-table.dataTable.no-border tbody td {
+    .leave-history-table.dataTable.no-border tbody td 
+    {
         border: none;
     }
 
     /* Remove row background color and hover effects */
-    .leave-history-table.dataTable.no-border tbody tr {
+    .leave-history-table.dataTable.no-border tbody tr 
+    {
         background-color: transparent !important;
     }
 
-.leave-history-table.no-border tbody tr:hover {
+.leave-history-table.no-border tbody tr:hover 
+{
     background-color: transparent !important;
 }
-.emp-leaveoptions {
+
+.emp-leaveoptions 
+{
     display: none;
     position: absolute;
     background-color: white;
@@ -246,13 +291,55 @@
     width: 105px;
 }
 
-    .emp-leaveoptions a {
+    .emp-leaveoptions a 
+    {
         display: block;
         padding: 6px 13px;
         color: #333;
         text-decoration: none;
     }
 
-    .emp-leaveoptions a:hover {
+    .emp-leaveoptions a:hover 
+    {
         background-color: #f8f9fa;
     }
+
+
+
+@media (min-width:1200px) and (max-width:1332px)
+{
+    .tracker-title
+    {
+        font-size:15px;
+    }
+}
+.leavetracker_date{
+    line-height:1rem;
+}
+@media (max-width:950px)
+{
+    .tracker-card
+    {
+        width:160px;
+    }
+    .w-100
+    {
+        width:50% !important;
+    }
+    .applyleave_btn button
+    {
+        font-size:13px;
+    }
+    .fa-clock-rotate-left
+    {
+        font-size:12px;
+    }
+    .history_btn
+    {
+        font-size:13px;
+    }
+    .leavetracker_btntag
+    {
+        margin-left:-100px;
+    }
+}

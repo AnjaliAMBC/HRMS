@@ -3,7 +3,7 @@
 
 <div class="selfservice-container">
     <!-- Image bar with full width -->
-    <div class="backgroundimg" style="width: 108%">
+    <div class="backgroundimg" style="width: 107%">
         <img src="/Assets/EMBackground.png" alt="backgroundimage" class="emp-backgroundimg">
     </div>
     <div class="row" style="margin-left: 2%">
@@ -70,7 +70,7 @@
                     </div>
                     <div class="form-group" style="line-height: normal">
                         <div class="form-group row">
-                            <label for="employeeId" class="col-md-4" style="margin-left: 10px;margin-top: 10px;">Employee ID</label>
+                            <label for="employeeId" class="col-md-4" style="margin-left: 10px;margin-top: 10px;"><b>Employee ID</b></label>
                             <div class="col-md-7" style="margin-left: 10px; margin-top: 10px; word-wrap: break-word; ">
                                 @Model.EmpInfo.EmployeeID
                             </div>
@@ -79,7 +79,7 @@
 
                     <div class="form-group" style="line-height: normal">
                         <div class="form-group row">
-                            <label for="employeeName" class="col-md-4" style="margin-left: 10px;">Employee Name</label>
+                            <label for="employeeName" class="col-md-4" style="margin-left: 10px;"><b>Employee Name</b></label>
                             <div class="col-md-7" style="margin-left: 10px; word-wrap: break-word; ">
                                 @Model.EmpInfo.EmployeeName
                             </div>
@@ -88,7 +88,7 @@
 
                     <div class="form-group" style="line-height: normal">
                         <div class="form-group row">
-                            <label for="officialMail" class="col-md-4" style="margin-left: 10px;">Official Mail</label>
+                            <label for="officialMail" class="col-md-4" style="margin-left: 10px;"><b>Official Mail</b></label>
                             <div class="col-md-7" style="margin-left: 10px; word-wrap: break-word; ">
                                 @Model.EmpInfo.OfficalEmailid
                             </div>
@@ -97,7 +97,7 @@
 
                     <div class="form-group" style="line-height: normal">
                         <div class="form-group row">
-                            <label for="designation" class="col-md-4" style="margin-left: 10px;">Designation</label>
+                            <label for="designation" class="col-md-4" style="margin-left: 10px;"><b>Designation</b></label>
                             <div class="col-md-7" style="margin-left: 10px; word-wrap: break-word; ">
                                 @Model.EmpInfo.Designation
                             </div>
@@ -106,7 +106,7 @@
 
                     <div class="form-group" style="line-height: normal">
                         <div class="form-group row">
-                            <label for="department" class="col-md-4" style="margin-left: 10px;">Department</label>
+                            <label for="department" class="col-md-4" style="margin-left: 10px;"><b>Department</b></label>
                             <div class="col-md-7" style="margin-left: 10px; word-wrap: break-word; ">
                                 @Model.EmpInfo.Department
                             </div>
@@ -115,7 +115,7 @@
 
                     <div class="form-group" style="line-height: normal">
                         <div class="form-group row">
-                            <label for="shiftTiming" class="col-md-4" style="margin-left: 10px;">Shift Timing</label>
+                            <label for="shiftTiming" class="col-md-4" style="margin-left: 10px;"><b>Shift Timing</b></label>
                             <div class="col-md-7" style="margin-left: 10px; word-wrap: break-word; ">
                                 @Model.EmpInfo.ShiftTimings
                             </div>
@@ -124,7 +124,7 @@
 
                     <div class="form-group" style="line-height: normal">
                         <div class="form-group row">
-                            <label for="location" class="col-md-4" style="margin-left: 10px;">Location</label>
+                            <label for="location" class="col-md-4" style="margin-left: 10px;"><b>Location</b></label>
                             <div class="col-md-7" style="margin-left: 10px; word-wrap: break-word; ">
                                 @Model.EmpInfo.Location
                             </div>
@@ -133,7 +133,7 @@
 
                     <div class="form-group" style="line-height: normal">
                         <div class="form-group row">
-                            <label for="employeeType" class="col-md-4" style="margin-left: 10px;">Employee Type</label>
+                            <label for="employeeType" class="col-md-4" style="margin-left: 10px;"><b>Employee Type</b></label>
                             <div class="col-md-7" style="margin-left: 10px; word-wrap: break-word; ">
                                 @Model.EmpInfo.EmployeeType
                             </div>
@@ -152,13 +152,13 @@
                     </div>
                     <div class="form-group" style="line-height: normal;">
                         <div class="form-group row">
-                            <label for="reportingManager" class="col-md-5" style="margin-left: 10px; margin-top: 10px;">Reporting Manager</label>
+                            <label for="reportingManager" class="col-md-5" style="margin-left: 10px; margin-top: 10px;"><b>Reporting Manager</b></label>
                             <div class="col-md-6" style="margin-left: 10px; margin-top: 10px; word-wrap: break-word;">@Model.EmpInfo.ReportingManager</div>
                         </div>
                     </div>
                     <div class="form-group" style="line-height: normal;">
                         <div class="form-group row">
-                            <label for="doj" class="col-md-5" style="margin-left: 10px;">Date of Joining</label>
+                            <label for="doj" class="col-md-5" style="margin-left: 10px;"><b>Date of Joining</b></label>
                             <div class="col-md-6" style="margin-left: 10px; word-wrap: break-word;">
                                 @if (Model.EmpInfo.DOJ != null && Model.EmpInfo.DOJ != DateTime.MinValue)
                                 {
@@ -169,25 +169,25 @@
                     </div>
                     <div class="form-group" style="line-height: normal;">
                         <div class="form-group row">
-                            <label for="employeeStatus" class="col-md-5" style="margin-left: 10px;">Employee Status</label>
+                            <label for="employeeStatus" class="col-md-5" style="margin-left: 10px;"><b>Employee Status</b></label>
                             <div class="col-md-6" style="margin-left: 10px; word-wrap: break-word;">@Model.EmpInfo.EmployeeStatus</div>
                         </div>
                     </div>
                     <div class="form-group" style="line-height: normal;">
                         <div class="form-group row">
-                            <label for="client" class="col-md-5" style="margin-left: 10px;">Client</label>
+                            <label for="client" class="col-md-5" style="margin-left: 10px;"><b>Client</b></label>
                             <div class="col-md-6" style="margin-left: 10px; word-wrap: break-word;">@Model.EmpInfo.Client</div>
                         </div>
                     </div>
                     <div class="form-group" style="line-height: normal;">
                         <div class="form-group row">
-                            <label for="leaveRm" class="col-md-5" style="margin-left: 10px;">Leave RM</label>
+                            <label for="leaveRm" class="col-md-5" style="margin-left: 10px;"><b>Leave RM</b></label>
                             <div class="col-md-6" style="margin-left: 10px; word-wrap: break-word;">@Model.EmpInfo.LeavereportingManager</div>
                         </div>
                     </div>
                     <div class="form-group" style="line-height: normal;">
                         <div class="form-group row">
-                            <label for="presentAddress" class="col-md-5" style="margin-left: 10px;">Present Address</label>
+                            <label for="presentAddress" class="col-md-5" style="margin-left: 10px;"><b>Present Address</b></label>
                             <div class="col-md-6" style="margin-left: 10px; word-wrap: break-word;line-height: 1.5">@Model.EmpInfo.PresentAddress</div>
                         </div>
                     </div>
@@ -202,13 +202,13 @@
                     </div>
                     <div class="form-group" style="line-height: normal;">
                         <div class="form-group row">
-                            <label for="fatherName" class="col-md-5" style="margin-left: 10px; margin-top: 10px;">Father Name</label>
+                            <label for="fatherName" class="col-md-5" style="margin-left: 10px; margin-top: 10px;"><b>Father Name</b></label>
                             <div class="col-md-6" style="margin-left: 10px; margin-top: 10px; word-wrap: break-word;">@Model.EmpInfo.FatherName</div>
                         </div>
                     </div>
                     <div class="form-group" style="line-height: normal;">
                         <div class="form-group row">
-                            <label for="dob" class="col-md-5" style="margin-left: 10px;">Date of Birth</label>
+                            <label for="dob" class="col-md-5" style="margin-left: 10px;"><b>Date of Birth</b></label>
                             <div class="col-md-6" style="margin-left: 10px; word-wrap: break-word;">
 
                                 @if (Model.EmpInfo.DOB != null && Model.EmpInfo.DOB != DateTime.MinValue)
@@ -220,37 +220,37 @@
                     </div>
                     <div class="form-group" style="line-height: normal;">
                         <div class="form-group row">
-                            <label for="age" class="col-md-5" style="margin-left: 10px;">Age</label>
+                            <label for="age" class="col-md-5" style="margin-left: 10px;"><b>Age</b></label>
                             <div class="col-md-6" style="margin-left: 10px; word-wrap: break-word;">@Model.EmpInfo.Age</div>
                         </div>
                     </div>
                     <div class="form-group" style="line-height: normal;">
                         <div class="form-group row">
-                            <label for="bloodGroup" class="col-md-5" style="margin-left: 10px;">Blood Group</label>
+                            <label for="bloodGroup" class="col-md-5" style="margin-left: 10px;"><b>Blood Group</b></label>
                             <div class="col-md-6" style="margin-left: 10px; word-wrap: break-word;">@Model.EmpInfo.BloodGroup</div>
                         </div>
                     </div>
                     <div class="form-group" style="line-height: normal;">
                         <div class="form-group row">
-                            <label for="gender" class="col-md-5" style="margin-left: 10px;">Gender</label>
+                            <label for="gender" class="col-md-5" style="margin-left: 10px;"><b>Gender</b></label>
                             <div class="col-md-6" style="margin-left: 10px; word-wrap: break-word;">@Model.EmpInfo.Gender</div>
                         </div>
                     </div>
                     <div class="form-group" style="line-height: normal;">
                         <div class="form-group row">
-                            <label for="maritalStatus" class="col-md-5" style="margin-left: 10px;">Marital Status</label>
+                            <label for="maritalStatus" class="col-md-5" style="margin-left: 10px;"><b>Marital Status</b></label>
                             <div class="col-md-6" style="margin-left: 10px; word-wrap: break-word;">@Model.EmpInfo.MaritalStatus</div>
                         </div>
                     </div>
                     <div class="form-group" style="line-height: normal;">
                         <div class="form-group row">
-                            <label for="mobileNumber" class="col-md-5" style="margin-left: 10px;">Mobile Number</label>
+                            <label for="mobileNumber" class="col-md-5" style="margin-left: 10px;"><b>Mobile Number</b></label>
                             <div class="col-md-6" style="margin-left: 10px; word-wrap: break-word;">@Model.EmpInfo.MobileNumber</div>
                         </div>
                     </div>
                     <div class="form-group" style="line-height: normal;">
                         <div class="form-group row">
-                            <label for="altMobileNumber" class="col-md-5" style="margin-left: 10px;">Alt. Mobile Number</label>
+                            <label for="altMobileNumber" class="col-md-5" style="margin-left: 10px;"><b>Alt. Mobile Number</b></label>
                             <div class="col-md-6" style="margin-left: 10px; word-wrap: break-word;">@Model.EmpInfo.MobileNumber</div>
                         </div>
                     </div>
@@ -269,31 +269,31 @@
                     </div>
                     <div class="form-group" style="line-height: normal;">
                         <div class="form-group row">
-                            <label for="bankName" class="col-md-5" style="margin-left: 10px; margin-top: 10px;">Bank Name</label>
+                            <label for="bankName" class="col-md-5" style="margin-left: 10px; margin-top: 10px;"><b>Bank Name</b></label>
                             <div class="col-md-6" style="margin-left: 10px; margin-top: 10px; word-wrap: break-word;">@Model.EmpInfo.BankName</div>
                         </div>
                     </div>
                     <div class="form-group" style="line-height: normal;">
                         <div class="form-group row">
-                            <label for="accountNumber" class="col-md-5" style="margin-left: 10px;">Account Number</label>
+                            <label for="accountNumber" class="col-md-5" style="margin-left: 10px;"><b>Account Number</b></label>
                             <div class="col-md-6" style="margin-left: 10px; word-wrap: break-word;">@Model.EmpInfo.AccountNumber</div>
                         </div>
                     </div>
                     <div class="form-group" style="line-height: normal;">
                         <div class="form-group row">
-                            <label for="branch" class="col-md-5" style="margin-left: 10px;">Branch</label>
+                            <label for="branch" class="col-md-5" style="margin-left: 10px;"><b>Branch</b></label>
                             <div class="col-md-6" style="margin-left: 10px; word-wrap: break-word;">@Model.EmpInfo.Branch</div>
                         </div>
                     </div>
                     <div class="form-group" style="line-height: normal;">
                         <div class="form-group row">
-                            <label for="typeOfAccount" class="col-md-5" style="margin-left: 10px;">Type of Account</label>
+                            <label for="typeOfAccount" class="col-md-5" style="margin-left: 10px;"><b>Type of Account</b></label>
                             <div class="col-md-6" style="margin-left: 10px; word-wrap: break-word;">@Model.EmpInfo.TypeofAccount</div>
                         </div>
                     </div>
                     <div class="form-group" style="line-height: normal;">
                         <div class="form-group row">
-                            <label for="ifscCode" class="col-md-5" style="margin-left: 10px;">IFSC Code</label>
+                            <label for="ifscCode" class="col-md-5" style="margin-left: 10px;"><b>IFSC Code</b></label>
                             <div class="col-md-6" style="margin-left: 10px; word-wrap: break-word;">@Model.EmpInfo.IFSCcode</div>
                         </div>
                     </div>
@@ -308,25 +308,25 @@
                     </div>
                     <div class="form-group" style="line-height: normal;">
                         <div class="form-group row">
-                            <label for="panNumber" class="col-md-5" style="margin-left: 10px; margin-top: 10px;">PAN Number</label>
+                            <label for="panNumber" class="col-md-5" style="margin-left: 10px; margin-top: 10px;"><b>PAN Number</b></label>
                             <div class="col-md-6" style="margin-left: 10px; margin-top: 10px; word-wrap: break-word;">@Model.EmpInfo.PANnumber</div>
                         </div>
                     </div>
                     <div class="form-group" style="line-height: normal;">
                         <div class="form-group row">
-                            <label for="aadharNumber" class="col-md-5" style="margin-left: 10px;">Aadhar Number</label>
+                            <label for="aadharNumber" class="col-md-5" style="margin-left: 10px;"><b>Aadhar Number</b></label>
                             <div class="col-md-6" style="margin-left: 10px; word-wrap: break-word;">@Model.EmpInfo.AadharNumber</div>
                         </div>
                     </div>
                     <div class="form-group" style="line-height: normal;">
                         <div class="form-group row">
-                            <label for="passportNumber" class="col-md-5" style="margin-left: 10px;">Passport Number</label>
+                            <label for="passportNumber" class="col-md-5" style="margin-left: 10px;"><b>Passport Number</b></label>
                             <div class="col-md-6" style="margin-left: 10px; word-wrap: break-word;">@Model.EmpInfo.Passport</div>
                         </div>
                     </div>
                     <div class="form-group" style="line-height: normal;">
                         <div class="form-group row">
-                            <label for="passportDOE" class="col-md-5" style="margin-left: 10px;">DOE of Passport</label>
+                            <label for="passportDOE" class="col-md-5" style="margin-left: 10px;"><b>DOE of Passport</b></label>
                             <div class="col-md-6" style="margin-left: 10px; word-wrap: break-word;">
 
                                 @if (Model.EmpInfo.DOEofPassport != null && Model.EmpInfo.DOEofPassport != DateTime.MinValue)
@@ -350,19 +350,19 @@
                     </div>
                     <div class="form-group" style="line-height: normal;">
                         <div class="form-group row">
-                            <label for="uanNumber" class="col-md-5" style="margin-left: 10px; margin-top: 10px;">UAN Number</label>
+                            <label for="uanNumber" class="col-md-5" style="margin-left: 10px; margin-top: 10px;"><b>UAN Number</b></label>
                             <div class="col-md-6" style="margin-left: 10px; margin-top: 10px; word-wrap: break-word;">@Model.EmpInfo.UANNumber</div>
                         </div>
                     </div>
                     <div class="form-group" style="line-height: normal;">
                         <div class="form-group row">
-                            <label for="pfNumber" class="col-md-5" style="margin-left: 10px;">PF Number</label>
+                            <label for="pfNumber" class="col-md-5" style="margin-left: 10px;"><b>PF Number</b></label>
                             <div class="col-md-6" style="margin-left: 10px; word-wrap: break-word;">@Model.EmpInfo.PFNumber</div>
                         </div>
                     </div>
                     <div class="form-group" style="line-height: normal;">
                         <div class="form-group row">
-                            <label for="ecisNumber" class="col-md-5" style="margin-left: 10px;">ECIS Number</label>
+                            <label for="ecisNumber" class="col-md-5" style="margin-left: 10px;"><b>ECIS Number</b></label>
                             <div class="col-md-6" style="margin-left: 10px; word-wrap: break-word;">@Model.EmpInfo.ESICNumber</div>
                         </div>
                     </div>
@@ -378,19 +378,19 @@
                     </div>
                     <div class="form-group" style="line-height: normal;">
                         <div class="form-group row">
-                            <label for="departmentname" class="col-md-5" style="margin-left: 10px; margin-top: 10px;">Name</label>
+                            <label for="departmentname" class="col-md-5" style="margin-left: 10px; margin-top: 10px;"><b>Name</b></label>
                             <div class="col-md-6" style="margin-left: 10px; margin-top: 10px; word-wrap: break-word;">@Model.EmpInfo.RelationName</div>
                         </div>
                     </div>
                     <div class="form-group" style="line-height: normal;">
                         <div class="form-group row">
-                            <label for="relationship" class="col-md-5" style="margin-left: 10px;">Relationship</label>
+                            <label for="relationship" class="col-md-5" style="margin-left: 10px;"><b>Relationship</b></label>
                             <div class="col-md-6" style="margin-left: 10px; word-wrap: break-word;">@Model.EmpInfo.Relationship</div>
                         </div>
                     </div>
                     <div class="form-group" style="line-height: normal;">
                         <div class="form-group row">
-                            <label for="contactdetails" class="col-md-5" style="margin-left: 10px;">Contact Details</label>
+                            <label for="contactdetails" class="col-md-5" style="margin-left: 10px;"><b>Contact Details</b></label>
                             <div class="col-md-6" style="margin-left: 10px; word-wrap: break-word;">@Model.EmpInfo.FamilyMobileNumber</div>
                         </div>
                     </div>
@@ -405,26 +405,26 @@
                     </div>
                     <div class="form-group" style="line-height: normal;">
                         <div class="form-group row">
-                            <label for="latestdegree" class="col-md-5" style="margin-left: 10px; margin-top: 10px;">Latest Degree</label>
+                            <label for="latestdegree" class="col-md-5" style="margin-left: 10px; margin-top: 10px;"><b>Latest Degree</b></label>
                             <div class="col-md-6" style="margin-left: 10px; margin-top: 10px; word-wrap: break-word;">@Model.EmpInfo.LatestDegree</div>
                         </div>
                     </div>
                     <div class="form-group" style="line-height: normal;">
                         <div class="form-group row">
-                            <label for="collegename" class="col-md-5" style="margin-left: 10px;">College Name</label>
+                            <label for="collegename" class="col-md-5" style="margin-left: 10px;"><b>College Name</b></label>
                             <div class="col-md-6" style="margin-left: 10px; word-wrap: break-word;">@Model.EmpInfo.College_Name</div>
                         </div>
                     </div>
                     <div class="form-group" style="line-height: normal;">
                         <div class="form-group row">
-                            <label for="contactdetails" class="col-md-5" style="margin-left: 10px;">Specialization</label>
+                            <label for="contactdetails" class="col-md-5" style="margin-left: 10px;"><b>Specialization</b></label>
                             <div class="col-md-6" style="margin-left: 10px; word-wrap: break-word;">@Model.EmpInfo.Specialization</div>
                         </div>
                     </div>
 
                     <div class="form-group" style="line-height: normal;">
                         <div class="form-group row">
-                            <label for="contactdetails" class="col-md-5" style="margin-left: 10px;">Passout Year</label>
+                            <label for="contactdetails" class="col-md-5" style="margin-left: 10px;"><b>Passout Year</b></label>
                             <div class="col-md-6" style="margin-left: 10px; word-wrap: break-word;">@Model.EmpInfo.YearofCompletion</div>
                         </div>
                     </div>
@@ -438,19 +438,19 @@
                     </div>
                     <div class="form-group" style="line-height: normal;">
                         <div class="form-group row">
-                            <label for="previuosemployername" class="col-md-5" style="margin-left: 10px; margin-top: 10px;">Employer Name</label>
+                            <label for="previuosemployername" class="col-md-5" style="margin-left: 10px; margin-top: 10px;"><b>Employer Name</b></label>
                             <div class="col-md-6" style="margin-left: 10px; margin-top: 10px; word-wrap: break-word;">@Model.EmpInfo.Employer_name</div>
                         </div>
                     </div>
                     <div class="form-group" style="line-height: normal;">
                         <div class="form-group row">
-                            <label for="jobtitle" class="col-md-5" style="margin-left: 10px;">Job Title</label>
+                            <label for="jobtitle" class="col-md-5" style="margin-left: 10px;"><b>Job Title</b></label>
                             <div class="col-md-6" style="margin-left: 10px; word-wrap: break-word;">@Model.EmpInfo.JobTitle</div>
                         </div>
                     </div>
                     <div class="form-group" style="line-height: normal;">
                         <div class="form-group row">
-                            <label for="fromdate" class="col-md-5" style="margin-left: 10px;">From Date</label>
+                            <label for="fromdate" class="col-md-5" style="margin-left: 10px;"><b>From Date</b></label>
                             <div class="col-md-6" style="margin-left: 10px; word-wrap: break-word;">
                                 @if (Model.EmpInfo.From_date != null && Model.EmpInfo.From_date != DateTime.MinValue)
                                 {
@@ -465,7 +465,7 @@
 
                     <div class="form-group" style="line-height: normal;">
                         <div class="form-group row">
-                            <label for="todate" class="col-md-5" style="margin-left: 10px;">To Date</label>
+                            <label for="todate" class="col-md-5" style="margin-left: 10px;"><b>To Date</b></label>
                             <div class="col-md-6" style="margin-left: 10px; word-wrap: break-word;">
                                 @if (Model.EmpInfo.To_date != null && Model.EmpInfo.To_date != DateTime.MinValue)
                                 {
@@ -480,7 +480,7 @@
 
                     <div class="form-group" style="line-height: normal;">
                         <div class="form-group row">
-                            <label for="reasonforleaving" class="col-md-5" style="margin-left: 10px;">Reason of Relieving</label>
+                            <label for="reasonforleaving" class="col-md-5" style="margin-left: 10px;"><b>Reason of Relieving</b></label>
                             <div class="col-md-6" style="margin-left: 10px; word-wrap: break-word;">@Model.EmpInfo.ReasonforRelieving</div>
                         </div>
                     </div>
@@ -497,7 +497,7 @@
                     </div>
                     <div class="form-group" style="line-height: normal;">
                         <div class="form-group row">
-                            <label for="dateofexit" class="col-md-5" style="margin-left: 10px; margin-top: 10px;">Date of Exit</label>
+                            <label for="dateofexit" class="col-md-5" style="margin-left: 10px; margin-top: 10px;"><b>Date of Exit</b></label>
                             <div class="col-md-6" style="margin-left: 10px; margin-top: 10px; word-wrap: break-word;">
                                 @if (Model.EmpInfo.DateofExit != null && Model.EmpInfo.DateofExit != DateTime.MinValue)
                                 {
@@ -511,7 +511,7 @@
                     </div>
                     <div class="form-group" style="line-height: normal;">
                         <div class="form-group row">
-                            <label for="Reason" class="col-md-5" style="margin-left: 10px;">Reason</label>
+                            <label for="Reason" class="col-md-5" style="margin-left: 10px;"><b>Reason</b></label>
                             <div class="col-md-6" style="margin-left: 10px; word-wrap: break-word;">@Model.EmpInfo.Reason</div>
                         </div>
                     </div>
@@ -527,19 +527,19 @@
                     </div>
                     <div class="form-group" style="line-height: normal;">
                         <div class="form-group row">
-                            <label for="latestdegree" class="col-md-5" style="margin-left: 10px; margin-top: 10px;">Spouse Name</label>
+                            <label for="latestdegree" class="col-md-5" style="margin-left: 10px; margin-top: 10px;"><b>Spouse Name</b></label>
                             <div class="col-md-6" style="margin-left: 10px; margin-top: 10px; word-wrap: break-word;">@Model.EmpInfo.LatestDegree</div>
                         </div>
                     </div>
                     <div class="form-group" style="line-height: normal;">
                         <div class="form-group row">
-                            <label for="collegename" class="col-md-5" style="margin-left: 10px;">Spouse Contact</label>
+                            <label for="collegename" class="col-md-5" style="margin-left: 10px;"><b>Spouse Contact</b></label>
                             <div class="col-md-6" style="margin-left: 10px; word-wrap: break-word;">@Model.EmpInfo.College_Name</div>
                         </div>
                     </div>
                     <div class="form-group" style="line-height: normal;">
                         <div class="form-group row">
-                            <label for="contactdetails" class="col-md-5" style="margin-left: 10px;">Location</label>
+                            <label for="contactdetails" class="col-md-5" style="margin-left: 10px;"><b>Location</b></label>
                             <div class="col-md-6" style="margin-left: 10px; word-wrap: break-word;">@Model.EmpInfo.Specialization</div>
                         </div>
                     </div>
