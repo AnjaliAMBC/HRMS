@@ -58,7 +58,7 @@ namespace HRMS
             //Checkin Remainder emails
             foreach (var checkinEmp in employeesToRemindCheckin)
             {
-                var shiftStartTime = checkinEmp.ShiftStartTime?.ToString("hh:mm tt");
+                var shiftStartTime = checkinEmp.ShiftStartTime?.ToString("hh:mm:tt");
                 var checkInSubject = "Reminder: Your Shift Starts Soon at " + shiftStartTime;
                 var checkInBody = $@"
                 Dear {checkinEmp.EmployeeName},

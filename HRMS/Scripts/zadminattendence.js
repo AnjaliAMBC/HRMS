@@ -1,10 +1,10 @@
 ﻿
-function HighlightAdminActiveLink(element) {
-    $('#admindash-menu li').removeClass('sidebaractive');
-    $('#admindash-menu li a.active').removeClass('active');
-    $(element).addClass('active ');
-    $(element).parent().addClass('sidebaractive');
-}
+//function HighlightAdminActiveLink(element) {
+//    $('#admindash-menu li').removeClass('sidebaractive');
+//    $('#admindash-menu li a.active').removeClass('active');
+//    $(element).addClass('active ');
+//    $(element).parent().addClass('sidebaractive');
+//}
 
 function formatDateToCustomString(date) {
     // Extract day, month, and year
@@ -20,20 +20,30 @@ function formatDateToCustomString(date) {
 
 
 $(document).on('change', '#attedencemonth', function (event) {
-    updateDays();
+    //$(document).off('change', '#attedencemonth').on('change', '#attedencemonth', function (event) {
+    event.preventDefault();
+    //updateDays();
 
     var selectedMonth = new Date($('#attedencemonth').val());
     var startDate = new Date(selectedMonth.getFullYear(), selectedMonth.getMonth(), 1);
     var endDate = new Date(selectedMonth.getFullYear(), selectedMonth.getMonth() + 1, 0);
-
     var formattedStartDate = formatDateToCustomString(startDate);
     var formattedEndDate = formatDateToCustomString(endDate);
-
     AdminAttendenceDataMap(formattedStartDate, formattedEndDate);
 
 });
 
+updateDays();
+
 function updateDays(DateSelected) {
+    var currentDate = new Date();
+    if (DateSelected != undefined) {
+        currentDate = new Date(DateSelected);
+    }
+
+    var currentMonth = currentDate.getFullYear() + '-' + ('0' + (currentDate.getMonth() + 1)).slice(-2);
+    $('#attedencemonth').val(currentMonth);
+
     var selectedMonth = new Date($('#attedencemonth').val());
     var daysInMonth = new Date(selectedMonth.getFullYear(), selectedMonth.getMonth() + 1, 0).getDate();
     var today = new Date();
@@ -127,11 +137,11 @@ function AdminAttendenceDataMap(DateSelected, EndDateSelected) {
     });
 }
 
-$(document).off('click', '.admin-attendance').on('click', '.admin-attendance', function (event) {
-    event.preventDefault();
-    HighlightAdminActiveLink($(this));
-    AdminAttendenceDataMap();
-});
+//$(document).off('click', '.admin-attendance').on('click', '.admin-attendance', function (event) {
+//    event.preventDefault();
+//    HighlightAdminActiveLink($(this));
+//    AdminAttendenceDataMap();
+//});
 
 function submitDateRange() {
     var fromDate = $('#fromDate').val();

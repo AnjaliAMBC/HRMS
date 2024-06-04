@@ -30,7 +30,7 @@ namespace HRMS.Controllers
             model.BirthModel = new EmployeeEventHelper().Birthday();
             model.UpcomingHolidays = new EmployeeEventHelper().GetUpcomingHolidays("");
 
-            return PartialView("~/Views/AdminDashboard/AdminDash.cshtml", model);
+            return View("~/Views/AdminDashboard/AdminDash.cshtml", model);
         }
         //public List<AnniversaryModel> Anniversary()
         //{

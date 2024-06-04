@@ -1,152 +1,410 @@
 ﻿@model HRMS.Models.Admin.EmployeeManagementViewModel
-<div class="admin-empmanagement-view">
-    <div class="container-fluid top admin-empview">
-        <div class="row navbar align-items-center">
-            <!-- Employee column -->
-            <div class="col-lg-1 topic d-flex">
-                <p class="header mb-0 text-right">Employee</p>
-                <select class="form-control ml-2" name="action" id="action" style="display: none;">
-                    <option value="" selected>Action</option>
-                    <option value="export">Export</option>
-                </select>
-            </div>
-            <div class="col-lg-4"></div>
-            <!-- Search box -->
-            <div class="col-lg-3 navbarl">
-                <div class="search-container" style=" margin-left: 32px; ">
-                    <div class="input-group" style="border-radius: 20px;">
-                        <div class="input-group-prepend">
-                            <span class="input-group-text" style="background-color: transparent; border-right: none; border-radius: 20px 0 0 20px; height: 35px;"><i class="fas fa-search" style="color: #369479"></i></span>
+
+@Html.Partial("_NavBar")
+<div class="container-fluid">
+    @Html.Partial("_adminsidemenu")
+    <div class="main-content container-fluid" style="width: 84%">
+        <div class="content admin-empmanagement-container" style="margin-left: -5px; margin-top: 2% ">
+            <div class="admin-empmanagement-view">
+                <div class="container-fluid top admin-empview">
+                    <div class="row navbar align-items-center">
+                        <!-- Employee column -->
+                        <div class="col-lg-1 topic d-flex">
+                            <p class="header mb-0 text-right">Employee</p>
+                            <select class="form-control ml-2" name="action" id="action" style="display: none;">
+                                <option value="" selected>Action</option>
+                                <option value="export">Export</option>
+                            </select>
                         </div>
-                        <input type="text" placeholder="Search By Keyword" class="advancesearch form-control" aria-label="Search By Keyword" style="border-radius: 0 20px 20px 0; height: 35px; font-size: 14px;">
+                        <div class="col-lg-4"></div>
+                        <!-- Search box -->
+                        <div class="col-lg-3 navbarl">
+                            <div class="search-container" style=" margin-left: 32px; ">
+                                <div class="input-group" style="border-radius: 20px;">
+                                    <div class="input-group-prepend">
+                                        <span class="input-group-text" style="background-color: transparent; border-right: none; border-radius: 20px 0 0 20px; height: 35px;"><i class="fas fa-search" style="color: #369479"></i></span>
+                                    </div>
+                                    <input type="text" placeholder="Search By Keyword" class="advancesearch form-control" aria-label="Search By Keyword" style="border-radius: 0 20px 20px 0; height: 35px; font-size: 14px;">
+                                </div>
+                            </div>
+                        </div>
+
+
+                        <!-- Advanced Filters -->
+                        <div class="col-lg-2 navbarl">
+                            <div class="advanced-filtertab d-flex justify-content-between align-items-center">
+                                <p class="advancetitle mb-0">Advanced Filters</p>
+                                <div class="toggle-button advance-button ml-2">
+                                    <button class="collapsedropdown collapsed btn" type="button" data-toggle="collapse" data-target="#demo" aria-expanded="false" aria-controls="demo">
+                                        <i class="fa-solid fa-angle-down"></i>
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Add Employee dropdown -->
+                        <div class="col-lg-2 navbarl">
+                            <div class="addingemployee form-group">
+                                <select name="addemployee" class="addemployee form-control form-select" id="addemployee">
+                                    <option value="" disabled="" selected="" hidden="">Add Employee</option>
+                                    <option value="Addmanually">+ Add Manually</option>
+                                    <option value="importuser">+ Import User</option>
+                                </select>
+                            </div>
+                        </div>
+
+
+
+
                     </div>
                 </div>
-            </div>
 
-
-            <!-- Advanced Filters -->
-            <div class="col-lg-2 navbarl">
-                <div class="advanced-filtertab d-flex justify-content-between align-items-center">
-                    <p class="advancetitle mb-0">Advanced Filters</p>
-                    <div class="toggle-button advance-button ml-2">
-                        <button class="collapsedropdown collapsed btn" type="button" data-toggle="collapse" data-target="#demo" aria-expanded="false" aria-controls="demo">
-                            <i class="fa-solid fa-angle-down"></i>
-                        </button>
-                    </div>
-                </div>
-            </div>
-
-            <!-- Add Employee dropdown -->
-            <div class="col-lg-2 navbarl">
-                <div class="addingemployee form-group">
-                    <select name="addemployee" class="addemployee form-control form-select" id="addemployee">
-                        <option value="" disabled="" selected="" hidden="">Add Employee</option>
-                        <option value="Addmanually">+ Add Manually</option>
-                        <option value="importuser">+ Import User</option>
-                    </select>
-                </div>
-            </div>
-
-
-
-
-        </div>
-    </div>
-
-    <div class="row justify-content-end ml-2">
-        <div class="col-lg-6">
-            <div id="demo" class="collapse advancefilter">
-                <div class="collapse-topic d-flex align-items-center justify-content-end" style="margin-right: 24px;">
-                    <span class="mr-3">Filter By</span>
-                    <div class="dropdown mr-3" style="border-radius: 10px;">
-                        <select class="form-control form-select-sm" name="department" id="department-dropdown" style="border-radius: 15px; height: 35px; width: 131px;">
-                            <option value="" disabled selected>Department</option>
-                            <option value="HR">HR</option>
-                            <option value="DGM - Design">DGM - Design</option>
-                            <option value="DGM - Web">DGM - Web</option>
-                            <option value="All">All</option>
-                        </select>
-                    </div>
-                    <div class="dropdown mr-3">
-                        <select class="form-control form-select-sm" name="Location" id="Location-dropdown" style="border-radius: 15px; height: 35px; width: 131px;">
-                            <option value="" disabled selected>Location</option>
-                            <option value="Madurai">Madurai</option>
-                            <option value="Hyderabad">Hyderabad</option>
-                            <option value="All">All</option>
-                        </select>
-                    </div>
-                    <div class="dropdown">
-                        <select class="form-control form-select-sm" name="status" id="status-dropdown" style="border-radius: 15px; height: 35px; width: 131px;border: 1px solid lightgray">
-                            <option value="" disabled selected>Status</option>
-                            <option value="Active">Active</option>
-                            <option value="In Active">In Active</option>
-                            <option value="All">All</option>
-                        </select>
-                    </div>
-                    <a href="#" class="clearfilter ml-3">clear</a>
-                </div>
-            </div>
-        </div>
-    </div>
-
-    <table id="adminempmanagementtable" class="display" style="width: 100%;">
-        <thead style="background-color: #EEF4FF; border-radius: 10px;">
-            <tr>
-                <th><input type="checkbox" id="selectAll"></th>
-                <th>Emp ID</th>
-                <th>Name</th>
-                <th>Designation</th>
-                <th>Department</th>
-                <th>Type</th>
-                <th>Location</th>
-                <th>Status</th>
-                <th>
-                    Actions
-
-                </th>
-                <th>
-                    <div class="dropdown dropdown-columns">
-                        <span class="menu-icon dropdown-th" id="dropdownMenu"><i class="fa-solid fa-list"></i></span>
-                        <div class="action-menu" id="dropdownMenuContent" style="display: none; background-color:white; border-radius:5px;">
-                            <a href="#" class="empid"><input type="checkbox"> Emp ID</a>
-                            <a href="#" class="name"><input type="checkbox"> Name</a>
-                            <a href="#" class="Designation"><input type="checkbox"> Designation</a>
-                            <a href="#" class="Department"><input type="checkbox"> Department</a>
-                            <a href="#" class="Type"><input type="checkbox"> Type</a>
-                            <a href="#" class="Location"><input type="checkbox"> Location</a>
-                            <a href="#" class="Status"><input type="checkbox"> Status</a>
+                <div class="row justify-content-end ml-2">
+                    <div class="col-lg-6">
+                        <div id="demo" class="collapse advancefilter">
+                            <div class="collapse-topic d-flex align-items-center justify-content-end" style="margin-right: 24px;">
+                                <span class="mr-3">Filter By</span>
+                                <div class="dropdown mr-3" style="border-radius: 10px;">
+                                    <select class="form-control form-select-sm" name="department" id="department-dropdown" style="border-radius: 15px; height: 35px; width: 131px;">
+                                        <option value="" disabled selected>Department</option>
+                                        <option value="HR">HR</option>
+                                        <option value="DGM - Design">DGM - Design</option>
+                                        <option value="DGM - Web">DGM - Web</option>
+                                        <option value="All">All</option>
+                                    </select>
+                                </div>
+                                <div class="dropdown mr-3">
+                                    <select class="form-control form-select-sm" name="Location" id="Location-dropdown" style="border-radius: 15px; height: 35px; width: 131px;">
+                                        <option value="" disabled selected>Location</option>
+                                        <option value="Madurai">Madurai</option>
+                                        <option value="Hyderabad">Hyderabad</option>
+                                        <option value="All">All</option>
+                                    </select>
+                                </div>
+                                <div class="dropdown">
+                                    <select class="form-control form-select-sm" name="status" id="status-dropdown" style="border-radius: 15px; height: 35px; width: 131px;border: 1px solid lightgray">
+                                        <option value="" disabled selected>Status</option>
+                                        <option value="Active">Active</option>
+                                        <option value="In Active">In Active</option>
+                                        <option value="All">All</option>
+                                    </select>
+                                </div>
+                                <a href="#" class="clearfilter ml-3">clear</a>
+                            </div>
                         </div>
                     </div>
-                </th>
-            </tr>
-        </thead>
-        <tbody>
-        </tbody>
-    </table>
-
-
-    <div class="emplsthidden" style="display: none">@Model.EmpListJson</div>
-
-    <div class="modal fade" id="deleteConfirmationModal" tabindex="-1" role="dialog" aria-labelledby="deleteConfirmationModalLabel" aria-hidden="true">
-        <div class="modal-dialog" role="document">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title" id="deleteConfirmationModalLabel">Delete Employee</h5>
-                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                        <span aria-hidden="true">&times;</span>
-                    </button>
                 </div>
-                <div class="modal-body">
-                    <p class="delete-message">Are you sure you want to delete <span class="deleteempnameval" style="font-weight: bold; font-style: italic; color:red"></span> ?</p>
 
+                <table id="adminempmanagementtable" class="display" style="width: 100%;">
+                    <thead style="background-color: #EEF4FF; border-radius: 10px;">
+                        <tr>
+                            <th><input type="checkbox" id="selectAll"></th>
+                            <th>Emp ID</th>
+                            <th>Name</th>
+                            <th>Designation</th>
+                            <th>Department</th>
+                            <th>Type</th>
+                            <th>Location</th>
+                            <th>Status</th>
+                            <th>
+                                Actions
+
+                            </th>
+                            <th>
+                                <div class="dropdown dropdown-columns">
+                                    <span class="menu-icon dropdown-th" id="dropdownMenu"><i class="fa-solid fa-list"></i></span>
+                                    <div class="action-menu" id="dropdownMenuContent" style="display: none; background-color:white; border-radius:5px;">
+                                        <a href="#" class="empid"><input type="checkbox"> Emp ID</a>
+                                        <a href="#" class="name"><input type="checkbox"> Name</a>
+                                        <a href="#" class="Designation"><input type="checkbox"> Designation</a>
+                                        <a href="#" class="Department"><input type="checkbox"> Department</a>
+                                        <a href="#" class="Type"><input type="checkbox"> Type</a>
+                                        <a href="#" class="Location"><input type="checkbox"> Location</a>
+                                        <a href="#" class="Status"><input type="checkbox"> Status</a>
+                                    </div>
+                                </div>
+                            </th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                    </tbody>
+                </table>
+
+
+                <div class="emplsthidden" style="display: none">@Model.EmpListJson</div>
+
+                <div class="modal fade" id="deleteConfirmationModal" tabindex="-1" role="dialog" aria-labelledby="deleteConfirmationModalLabel" aria-hidden="true">
+                    <div class="modal-dialog" role="document">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <h5 class="modal-title" id="deleteConfirmationModalLabel">Delete Employee</h5>
+                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                    <span aria-hidden="true">&times;</span>
+                                </button>
+                            </div>
+                            <div class="modal-body">
+                                <p class="delete-message">Are you sure you want to delete <span class="deleteempnameval" style="font-weight: bold; font-style: italic; color:red"></span> ?</p>
+
+                            </div>
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-secondary refresh-emptablist" data-dismiss="modal">Close</button>
+                                <button type="button" class="btn btn-danger delete-employee">Delete</button>
+                            </div>
+                            <div class="deleteempid" style="display: none"></div>
+                            <div class="deleteempname" style="display: none"></div>
+                        </div>
+                    </div>
                 </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary refresh-emptablist" data-dismiss="modal">Close</button>
-                    <button type="button" class="btn btn-danger delete-employee">Delete</button>
-                </div>
-                <div class="deleteempid" style="display: none"></div>
-                <div class="deleteempname" style="display: none"></div>
             </div>
         </div>
     </div>
 </div>
+
+<script>
+
+    $('#adminempmanagementtable').DataTable().destroy();
+    /*  HighlightAdminActiveLink($(this));   */
+
+    var json = $.parseJSON($('.emplsthidden').text());
+    var data = json.map(data => {
+        console.log(data);
+        return ["",
+            data.EmployeeID,
+            { name: data.EmployeeName, email: data.OfficalEmailid, image: data.imagepath },
+            data.Designation,
+            data.Department,
+            data.EmployeeType,
+            data.Location,
+            data.EmployeeStatus,
+            "",
+            ""];
+    });
+
+
+    var table = $('#adminempmanagementtable').DataTable({
+        data: data,
+        "paging": true,
+        "searching": true,
+        "pageLength": 8, // Set the default number of rows to display
+        "lengthChange": false,
+        "info": true,
+        "order": [],
+        "columnDefs": [
+            {
+                "targets": 0,
+                "orderable": false,
+                "render": function (data, type, full, meta) {
+                    return '<input type="checkbox" class="empmgmt-check"/>'
+                }
+            },
+            {
+                "targets": 1,
+                "class": "tdempid"
+            },
+            {
+                "targets": 2,
+                "class": "tdempname",
+                "render": function (data, type, full, meta) {
+                    var imageHtml = '';
+                    if (data.image) {
+                        var imageURl = "/assets/empImages/" + data.image;
+                        imageHtml = '<img src="' + imageURl + '" alt="Profile Image" style="width: 45px; height: 45px; border-radius: 50%; margin-right: 10px;">';
+                    } else {
+                        var firstNameInitial = data.name.charAt(0);
+                        var lastNameInitial = data.name.split(' ').slice(-1)[0].charAt(0);
+                        var shortName = firstNameInitial + lastNameInitial;
+                        imageHtml = '<div class="list-image" style="width: 45px; height: 45px; border-radius: 50%; margin-right: 10px; background-color: #C4C4C4; color: white; display: flex; justify-content: center; align-items: center;">' + shortName + '</div>';
+                    }
+                    return '<div style="display: flex; align-items: center;">' +
+                        imageHtml +
+                        '<span style="margin-top: 0px; margin-right: 10px;">' + data.name + '<br><span style="color: #3E78CF;">' + data.email + '</span></span>' +
+                        '</div>';
+                }
+
+
+            },
+
+            {
+                "targets": 3,
+            },
+            {
+                "targets": 4,
+            },
+            {
+                "targets": 5,
+            },
+            {
+                "targets": 6,
+            },
+            {
+                "targets": 7,
+            },
+            {
+                "targets": 8,
+                "orderable": false,
+                "render": function (data, type, full, meta) {
+                    return '<span class="edit-btn" title="Edit"><i class="fas fa-pencil-alt"></i></span><span class="delete-btn" data-toggle="modal" title="Delete"><i class="fas fa-trash-alt"></i></span>';
+                }
+            },
+            {
+                "targets": 9,
+                "orderable": false,
+            },
+
+        ],
+
+    });
+
+    $('#adminempmanagementtable thead th:first-child').html('<input type="checkbox" id="selectAll">');
+
+    $('#selectAll').on('change', function () {
+        var isChecked = $(this).prop('checked');
+        if (isChecked) {
+            $('td input[type="checkbox"]').prop('checked', isChecked);
+            $('#action').show();
+        }
+        else {
+            $('td input[type="checkbox"]').prop('checked', false);
+            $('#action').hide();
+        }
+    });
+
+    $('#menuIcon').on('click', function () {
+        // Your menu icon click handler code here
+    });
+
+    $('#dropdownMenu').on('click', function () {
+        // Your dropdown menu click handler code here
+    });
+
+    $('#dropdownMenuContent input[type="checkbox"]').change(function () {
+        var columnIdx = $(this).closest('a').index() + 1;
+        var isChecked = $(this).prop('checked');
+        table.column(columnIdx).visible(isChecked);
+    });
+
+    $('#dropdownMenuContent input[type="checkbox"]').prop('checked', true);
+
+    $(document).on('change', '.empmgmt-check', function () {
+        var isChecked = $(this).prop('checked');
+        if (isChecked) {
+            $('#action').show();
+        }
+        else {
+            $(this).prop('checked', false);
+            if ($(".empmgmt-check:checked").length <= 0) {
+                $('#action').hide();
+                $('#selectAll').prop('checked', false);
+            }
+        }
+    });
+
+    $(document).on('change', '#department-dropdown', function () {
+        var value = $(this).val();
+        var columnIndex = 4;
+        if (value === 'All') {
+            table.column(columnIndex).search('').draw(); // Clear search and redraw table
+        } else {
+            table.column(columnIndex).search(value).draw();
+        }
+    });
+
+    $(document).on('change', '#Location-dropdown', function () {
+        var value = $(this).val();
+        var columnIndex = 6;
+        if (value === 'All') {
+            table.column(columnIndex).search('').draw(); // Clear search and redraw table
+        } else {
+            table.column(columnIndex).search(value).draw();
+        }
+    });
+
+    $(document).on('change', '#status-dropdown', function () {
+        var value = $(this).val();
+        var columnIndex = 7;
+        if (value === 'All') {
+            table.column(columnIndex).search('').draw(); // Clear search and redraw table
+        } else {
+            table.column(columnIndex).search(value).draw();
+        }
+    });
+
+    $(document).on('click', '.clearfilter', function () {
+        $('#department-dropdown').val($('#department-dropdown option:first').val());
+        $('#Location-dropdown').val($('#Location-dropdown option:first').val());
+        $('#status-dropdown').val($('#status-dropdown option:first').val());
+        table.search('').columns().search('').draw();
+    });
+
+    $(document).on('keyup', '.advancesearch', function () {
+        table.search(this.value).draw(); // Search value across all columns and redraw table
+    });
+
+    $(document).on('click', '.delete-btn', function () {
+        $('.delete-employee').removeAttr('disabled');
+        $('.delete-message').html("");
+        $('#deleteConfirmationModal').modal("show");
+        var $row = $(this).closest("tr");
+        var deleteEmpID = $row.find(".tdempid").text();
+        var deleteEmpName = $row.find(".tdempname").text();
+        $('.delete-message').css("color", "black");
+        $('.delete-message').html('Are you sure you want to delete <span class="deleteempnameval" style="font-weight: bold; font-style: italic; color:red"></span> ?');
+        $('.deleteempid').html(deleteEmpID.trim());
+        $('.deleteempnameval').text(deleteEmpID.trim());
+    });
+
+    $(document).on('click', '.delete-employee', function (event) {
+        event.preventDefault();
+
+        $('.delete-employee').prop('disabled', true);
+        var deleteEmpID = $('.deleteempid').html();
+        var deleteEmpName = $('.deleteempnameval').text();
+
+        var deletEmpInfo = {
+            empID: deleteEmpID,
+            empName: deleteEmpName
+        }
+
+        $.ajax({
+            url: '/admindashboard/deleteemp',
+            type: 'POST',
+            data: deletEmpInfo,
+            dataType: "json",
+            success: function (result) {
+                if (result.JsonResponse.StatusCode == 200) {
+                    $('.delete-message').html("You have deleted employee <span style='color: red;'>" + deleteEmpID + " </span> successfully ");
+                    $('.delete-message').css("color", "blue");
+                    $('.delete-employee').prop('disabled', true);
+                } else {
+                    $('.delete-message').html(result.JsonResponse.Message);
+                    $('.delete-message').css("color", "red");
+                    $('.delete-employee').prop('disabled', false);
+                }
+            },
+            error: function (xhr, status, error) {
+                console.error("Error deleting employee:", error);
+            }
+        });
+    });
+
+    $(document).on('click', '.refresh-emptablist', function () {
+        $('#deleteConfirmationModal').modal("hide");
+        $('#importSuccessModal').modal("hide");
+        $('#EmpsuccessModal').modal("hide");
+        $('.admin-empmanagement').click();
+        $('.modal-backdrop').remove();
+    });
+
+    $(document).off('click', '.edit-btn').on('click', '.edit-btn', function (event) {
+        event.preventDefault();
+
+        var $row = $(this).closest("tr");
+        var editEmpID = $row.find(".tdempid").text();
+        AddUpdateEmployee(editEmpID);
+        $('.addempheadline').text("Edit Employee");
+        return;
+    });
+
+
+
+</script>

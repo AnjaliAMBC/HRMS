@@ -1,5 +1,4 @@
-﻿
-function GetCurrentTime() {
+﻿function GetCurrentTime() {
     var now = new Date(); // Get current date and time
     var hours = now.getHours();
     var minutes = now.getMinutes();
@@ -65,7 +64,7 @@ $(document).on('click', '.btn-checkin', function (event) {
                 if (response.JsonResponse.StatusCode == 200) {
                     $('.btn-checkin').text("Check-In");
                     $('.btn-checkin').prop('disabled', true);
-                    
+
                     var checkinTime = formatDateAndTime(new Date());
                     $('#checkinhoursminutes').attr('data-signedindatetime', checkinTime);
 
@@ -457,3 +456,12 @@ function updateHoursTimer1() {
         }
     }
 }
+
+//On page load
+generateCalendar(new Date().getMonth(), new Date().getFullYear());
+
+updateDashRunningTime();
+setInterval(updateDashRunningTime, 1000);
+
+setInterval(updateHoursTimer1, 1000);
+updateHoursTimer1();

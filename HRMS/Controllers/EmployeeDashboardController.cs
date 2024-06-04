@@ -42,7 +42,7 @@ namespace HRMS.Controllers
                 var siteContext = Session["SiteContext"] as SiteContextModel;
                 model.EmpInfo = siteContext.EmpInfo;
                 model.LoginInfo = siteContext.LoginInfo;
-                return PartialView("~/Views/EmployeeDashboard/SelfService.cshtml", model);
+                return View("~/Views/EmployeeDashboard/SelfService.cshtml", model);
             }
             return null;
         }

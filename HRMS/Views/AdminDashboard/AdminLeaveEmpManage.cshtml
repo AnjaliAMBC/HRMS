@@ -1,6 +1,507 @@
 ﻿
 <div class="admin-leave-management-view">
-    <h2>AdminLeaveEmpManage</h2>
+    <style>
+        .custom-LeaveLocation-toggle {
+            border: none;
+            background-color: transparent;
+        }
+
+            .custom-LeaveLocation-toggle::after {
+                content: none; /* Remove default dropdown arrow */
+            }
+
+        .dropdowns-leave-container {
+            display: flex;
+            align-items: center;
+            justify-content: space-around;
+        }
+
+        .btn-light:focus {
+            background-color: transparent !important;
+            border-color: transparent !important;
+        }
+
+        .btn-light:hover {
+            color: #212529;
+            background-color: transparent !important;
+            border-color: transparent !important;
+        }
+
+        .Leave-days-container {
+            display: flex;
+            flex-wrap: nowrap;
+        }
+
+        .dayLeave {
+            text-align: center;
+            border-radius: 18%;
+            cursor: pointer;
+            margin: 6px;
+            width: 27px;
+            height: 27px;
+            line-height: 25px; /* Add border */
+        }
+
+            .dayLeave.active {
+                background-color: #007bff; /* Active color */
+                color: #fff; /* Text color */
+            }
+
+        .userLeaveDetails {
+            display: flex;
+            align-items: center;
+        }
+
+        .userIcon {
+            width: 42px;
+            height: 42px;
+            object-fit: cover;
+            border-radius: 50%;
+            margin-right: 10px;
+        }
+
+        .mutedText {
+            color: var(--muted-text);
+        }
+
+        .dFlex {
+            display: flex;
+        }
+
+        .statusBtnFlex {
+            display: flex;
+            justify-content: flex-end;
+        }
+
+        .statusBtn,
+        .statusBtn:hover,
+        .statusBtn:focus,
+        .statusBtn:active {
+            border-radius: 30px;
+            padding: 5px 17px;
+            outline: transparent;
+            font-size: 12px;
+            text-decoration: none;
+            font-weight: 500;
+        }
+
+        .acceptBtn,
+        .acceptBtn:hover,
+        .acceptBtn:active,
+        .acceptBtn:focus {
+            border: 1px solid #0FCD92;
+            color: #0FCD92 !important;
+            margin-right: 10px;
+        }
+
+        .rejectBtn,
+        .rejectBtn:hover,
+        .rejectBtn:focus,
+        .rejectBtn:active {
+            border: 1px solid #F8284A;
+            color: #F8284A !important;
+        }
+
+        .rowBorder {
+            border-bottom: 1px solid Black;
+        }
+
+        .chatIcon {
+            margin-right: 10px;
+            position: relative;
+            top: 9px;
+            color: lightsalmon;
+        }
+
+        .commentSec {
+            max-width: 290px;
+        }
+
+        .dataMinWidth {
+            min-width: 120px;
+        }
+
+        .dateMaxWidth {
+            max-width: 160px;
+        }
+
+        .dateSec {
+            margin: 15px 0;
+            display: flex;
+            align-items: center;
+        }
+
+        .days span {
+            margin: 3px;
+            padding: 3px 5px;
+            font-size: 12px;
+            font-weight: 500;
+        }
+
+        .activeDate {
+            border: 1px solid var(--blue);
+            background-color: var(--activeBg);
+            border-radius: 3px;
+        }
+
+        #myLeaveMonth {
+            width: 78%;
+            border-radius: 20px;
+            background-color: aliceblue;
+        }
+
+        #LeaveDateDropdown {
+            margin-left: 66%;
+        }
+    </style>
+  <div class="container-fluid">
+            <div class="row">
+                <div class="col-md-4">
+                    <h3>Leave</h3>
+                </div>
+
+                <div class="col-md-8">
+                    <div class="dropdowns-leave-container">
+                        <div class="search-container">
+                            <div class="input-group">
+                                <div class="input-group-prepend">
+                                    <span class="input-group-text" style="background-color: transparent; border-right: none; border-radius: 10px 0 0 10px; height: 35px;"><i class="fas fa-search"></i></span>
+                                </div>
+                                <input type="text" placeholder="Search By Keyword" class="advanceLeavesearch form-control" aria-label="Search By Keyword" style="border-radius: 0 10px 10px 0; height: 35px; font-size: 14px;">
+                            </div>
+                        </div>
+
+                        <div class="dropdown">
+                            <button class="btn btn-light dropdown-toggle custom-LeaveLocation-toggle" type="button"
+                                    id="Leavelocationdropdown" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                Location
+                                <i class="fas fa-angle-down"></i>
+                            </button>
+                            <div class="dropdown-menu" aria-labelledby="Leavelocationdropdown">
+                                <a class="dropdown-item" href="#">Hyderabad</a>
+                                <a class="dropdown-item" href="#">Madurai</a>
+                                <a class="dropdown-item" href="#">All</a>
+                            </div>
+                        </div>
+                        <div class="form-group adminleave-dropdown" style="margin-top: 17px;">
+                            <label class="export-label" for="exportLeaveLabel" style="margin:0;">Export</label>
+                            <i class="fas fa-chevron-down" id="exportLeaveIcon" style="cursor: pointer; font-size:13px;" data-toggle="collapse" data-target="#LeaveDateDropdown"></i>
+                        </div>
+                        <div class="dropdown">
+                            <button class="btn btn-primary dropdown-toggle" type="button" id="leaveSettingsDropdown" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                Leave Settings
+                            </button>
+                            <div class="dropdown-menu" aria-labelledby="leaveSettingsDropdown">
+                                <a class="dropdown-item" href="#">Leave Balance</a>
+                                <a class="dropdown-item" href="#">Apply Leave</a>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+
+            <div class="collapse" id="LeaveDateDropdown">
+
+                <div class="col-md-4"></div> <!-- Empty column -->
+                <div class="col-md-8 d-flex">
+                    <div class="form-group d-flex">
+                        <label for="from" class="mr-2">From</label>
+                        <input type="date" class="form-control form-control-sm mr-2" id="fromDate" style="width: 120px;">
+                    </div>
+                    <div class="form-group d-flex">
+                        <label for="to" class="mr-2">To</label>
+                        <input type="date" class="form-control form-control-sm mr-2" id="toDate" style="width: 120px;">
+                    </div>
+                    <div class="form-group d-flex align-items-center mr-2">
+                        <button type="button" class="btn btn-sm btn-primary leave-submit">Submit</button>
+                        <a href="#" class="clearLeave-filter ml-2">Clear</a>
+                    </div>
+
+                </div>
+            </div>
+
+
+
+            <div class="dropdowns-leave-container mb-4">
+                <div class="dropdown leavemonthmonth-dropdown">
+                    <input type="month" id="myLeaveMonth" value="" class="form-control">
+                </div>
+                <div class="Leave-days-container" id="daysLeaveContainer" style="margin-right:110px">
+                    <!-- Dates will be added dynamically here -->
+                </div>
+            </div>
+
+
+
+            <table id="leaveTable" class="table leave-table" style="width:96%;">
+                <thead class="thead-light">
+
+                </thead>
+                <tbody>
+                <tbody>
+                    <tr class="rowBorder">
+                        <td class="fontSmall">1000</td>
+                        <td>
+                            <div class="userLeaveDetails">
+                                <img src="images/userIcon.png"
+                                     class="userIcon"
+                                     alt="user" />
+                                <div class="fontSmall">
+                                    <p class="mb-0 fontWtMedium">John Doe</p>
+                                    <a href="#">john.doe@example.com</a>
+                                </div>
+                            </div>
+                        </td>
+                        <td class="fontSmall dataMinWidth dateMaxWidth">
+                            <div class="fontWtMedium">29 April 2024</div>
+                            <span class="mutedText">Mon</span>
+                        </td>
+                        <td class="fontSmall">
+                            <div class="mutedText">Day(s)</div>
+                            <span class="fontWtMedium">1</span>
+                        </td>
+                        <td class="fontSmall dataMinWidth">
+                            <div class="mutedText">Leave Type</div>
+                            <span class="fontWtbold">Emergency Leave</span>
+                        </td>
+                        <td class="fontSmall">
+                            <div class="mutedText">Location</div>
+                            <span class="fontWtbold">Madurai</span>
+                        </td>
+                        <td class="fontSmall commentSec">
+                            <div class="dFlex">
+                                <i class="fa-solid fa-message chatIcon"></i>
+                                <p>
+                                    I am writing to request a one-day sick leave as I am
+                                    suffering from mild fever and fatigue
+                                </p>
+                            </div>
+                            <div class="statusBtnFlex">
+                                <a href="" class="statusBtn acceptBtn">Approve</a>
+                                <a href="" class="statusBtn rejectBtn">Reject</a>
+                            </div>
+                        </td>
+                    </tr>
+                    <tr class="rowBorder">
+                        <td class="fontSmall">1000</td>
+                        <td>
+                            <div class="userLeaveDetails">
+                                <img src="images/userIcon.png"
+                                     class="userIcon"
+                                     alt="user" />
+                                <div class="fontSmall">
+                                    <p class="mb-0 fontWtMedium">Jane Smith</p>
+                                    <a href="#">john.doe@example.com</a>
+                                </div>
+                            </div>
+                        </td>
+                        <td class="fontSmall dataMinWidth dateMaxWidth">
+                            <div class="fontWtMedium ">29 April 2024 to 01 May 2024</div>
+                            <span class="mutedText">Mon</span>
+                        </td>
+                        <td class="fontSmall">
+                            <div class="mutedText">Day(s)</div>
+                            <span class="fontWtMedium">3</span>
+                        </td>
+                        <td class="fontSmall dataMinWidth">
+                            <div class="mutedText">Leave Type</div>
+                            <span class="fontWtbold">Emergency Leave</span>
+                        </td>
+                        <td class="fontSmall">
+                            <div class="mutedText">Location</div>
+                            <span class="fontWtbold">Madurai</span>
+                        </td>
+                        <td class="fontSmall commentSec">
+                            <div class="dFlex">
+                                <i class="fa-solid fa-message chatIcon"></i>
+                                <p>
+                                    I am writing to request a one-day sick leave as I am
+                                    suffering from mild fever and fatigue
+                                </p>
+                            </div>
+                            <div class="statusBtnFlex">
+                                <a href="" class="statusBtn acceptBtn">Approve</a>
+                                <a href="" class="statusBtn rejectBtn">Reject</a>
+                            </div>
+                        </td>
+                    </tr>
+                    <tr class="rowBorder">
+                        <td class="fontSmall">1000</td>
+                        <td>
+                            <div class="userLeaveDetails">
+                                <img src="images/userIcon.png"
+                                     class="userIcon"
+                                     alt="user" />
+                                <div class="fontSmall">
+                                    <p class="mb-0 fontWtMedium">John Doe</p>
+                                    <a href="#">john.doe@example.com</a>
+                                </div>
+                            </div>
+                        </td>
+                        <td class="fontSmall dataMinWidth dateMaxWidth">
+                            <div class="fontWtMedium">29 April 2024</div>
+                            <span class="mutedText">Mon</span>
+                        </td>
+                        <td class="fontSmall">
+                            <div class="mutedText">Day(s)</div>
+                            <span class="fontWtMedium">1</span>
+                        </td>
+                        <td class="fontSmall dataMinWidth">
+                            <div class="mutedText">Leave Type</div>
+                            <span class="fontWtbold">Emergency Leave</span>
+                        </td>
+                        <td class="fontSmall">
+                            <div class="mutedText">Location</div>
+                            <span class="fontWtbold">Madurai</span>
+                        </td>
+                        <td class="fontSmall commentSec">
+                            <div class="dFlex">
+                                <i class="fa-solid fa-message chatIcon"></i>
+                                <p>
+                                    I am writing to request a one-day sick leave as I am
+                                    suffering from mild fever and fatigue
+                                </p>
+                            </div>
+                            <div class="statusBtnFlex">
+                                <a href="" class="statusBtn acceptBtn">Approve</a>
+                                <a href="" class="statusBtn rejectBtn">Reject</a>
+                            </div>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+
+  </div>
+
+        <script>
+        $(document).ready(function () {
+            updateLeaveDays(); // Initially populate the days
+
+            $('input[type="month"]').change(function () {
+                updateLeaveDays();
+            });
+
+            // Set the initial value of the input field to the current month
+            var currentLeaveDate = new Date();
+            var currentLeaveMonth = currentLeaveDate.getFullYear() + '-' + ('0' + (currentLeaveDate.getMonth() + 1)).slice(-2);
+            $('#myLeaveMonth').val(currentLeaveMonth).trigger('change'); // Trigger change event to ensure days are updated
+        });
+
+        function updateLeaveDays() {
+            var selectedLeaveMonth = new Date($('#myLeaveMonth').val());
+            var daysInLeaveMonth = new Date(selectedLeaveMonth.getFullYear(), selectedLeaveMonth.getMonth() + 1, 0).getDate();
+            var today = new Date().getDate();
+
+            $('#daysLeaveContainer').empty(); // Clear previous days
+
+            for (var i = 1; i <= daysInLeaveMonth; i++) {
+                var activeClass = (i === today && selectedLeaveMonth.getMonth() === new Date().getMonth()) ? 'active' : '';
+
+                $('#daysLeaveContainer').append(`
+                        <div class="dayLeave ${activeClass}" onclick="highlightLeaveDate(this)">
+                            ${i}
+                        </div>
+                    `);
+            }
+        }
+
+        function highlightLeaveDate(element) {
+            $('.dayLeave.active').removeClass('active'); // Remove active class from all days
+            $(element).addClass('active'); // Add active class to the clicked day
+        }
+
+
+
+
+        //Data table
+    var table = $('#adminaddendancetable').DataTable({
+    data: data,
+    "paging": true,
+    "searching": true,
+    "pageLength": 8, // Set the default number of rows to display
+    "lengthChange": false,
+    "info": true,
+    "order": [],
+    ////"columnDefs": [
+    ////{
+    ////"targets": 0,
+    ////        "orderable": false,
+    ////        "class": "tdempid"
+
+    ////},
+    ////{
+    ////    "targets": 1,
+    ////    "orderable": false,
+    ////    "class": "tdempname",
+    ////    //"render": function (data, type, full, meta) {
+    ////    //    var imageHtml = '';
+    ////    //    if (data.image) {
+    ////    //        var imageURl = "/assets/empImages/" + data.image;
+    ////    //        imageHtml = '<img src="' + imageURl + '" alt="Profile Image" style="width: 45px; height: 45px; border-radius: 50%; margin-right: 10px;">';
+    ////    //    } else {
+    ////    //        var firstNameInitial = data.name.charAt(0);
+    ////    //        var lastNameInitial = data.name.split(' ').slice(-1)[0].charAt(0);
+    ////    //        var shortName = firstNameInitial + lastNameInitial;
+    ////    //        imageHtml = '<div class="list-image" style="width: 45px; height: 45px; border-radius: 50%; margin-right: 10px; background-color: #C4C4C4; color: white; display: flex; justify-content: center; align-items: center;">' + shortName + '</div>';
+    ////    //    }
+    ////    //    return '<div style="display: flex; align-items: center;">' + imageHtml +
+    ////    //        '<span style="margin-top: 0px; margin-right: 10px;">' + data.name + '<br><span style="color: #3E78CF;">' + data.email + '</span></span>' + '</div>';
+    ////    //}
+
+    ////},
+    ////{
+    ////    "targets": 2,
+    ////    "orderable": false,
+    ////    "class": "tdemplocation",
+    ////},
+
+    ////{
+    ////    "targets": 3,
+    ////    "orderable": false,
+    ////    "class": "tdempdate",
+
+    ////},
+    ////{
+    ////    "targets": 4,
+    ////    "orderable": false,
+    ////    "class": "tdempcheckin",
+    ////},
+    ////{
+    ////    "targets": 5,
+    ////    "orderable": false,
+    ////    "class": "tdempcheckout",
+    ////},
+    ////{
+    ////    "targets": 6,
+    ////    "orderable": false,
+    ////    "class": "tdemphours",
+    ////},
+    ////{
+    ////    "targets": 7,
+    ////    "orderable": false,
+    ////    "class": "tdempstatus",
+    ////    "render": function (data, type, full, meta) {
+    ////        return '<button type="button" class="btn btn-primary edit-btn" title="status">Status</button>';
+    ////    }
+
+    ////},
+    ////{
+    ////"targets": 8,
+    ////"orderable": false,
+    ////"render": function (data, type, full, meta) {
+    ////return '<span class="edit-btn" title="Edit"><i class="fas fa-pencil-alt"></i></span>';
+    ////     }
+    ////},
+    ////],
+
+    });
+
+
+        function loadAddShift() {
+            window.location.href = "admincalender.html";
+        }
+        </script>
 </div>
 
 

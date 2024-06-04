@@ -57,7 +57,7 @@ namespace HRMS.Controllers
             List<DateTime> allDates = DateHelper.GetAllDates(model.startWeek, model.EndWeek);
             model.AllDates = allDates;
 
-            return PartialView("~/Views/EmployeeDashboard/EmpAttendance.cshtml", model);
+            return View("~/Views/EmployeeDashboard/EmpAttendance.cshtml", model);
         }
     }
 }

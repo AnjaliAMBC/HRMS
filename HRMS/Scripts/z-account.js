@@ -86,13 +86,13 @@ $(document).ready(function () {
                     if (data.IsValidUser == true) {
                         if (data.IsAdmin == true) {
                             $('.error-message').hide();
-                            window.location.href = "/admindashboard/dashboard";
+                            window.location.href = "/admindash/index";
                             return;
                         }
 
                         if (data.IsUser == true) {
                             $('.error-message').hide();
-                            window.location.href = "/employeeDashboard/dashboard";
+                            window.location.href = "/empDash/index";
                         }
                     }
                     else {

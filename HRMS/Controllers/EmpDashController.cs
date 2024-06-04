@@ -77,7 +77,7 @@ namespace HRMS.Controllers
             model.AnniversaryModel = new EmployeeEventHelper().Anniversary();
             model.Birthdays = new EmployeeEventHelper().Birthday();
             model.UpcomingHolidays = new EmployeeEventHelper().GetUpcomingHolidays(model.EmpInfo.Location);
-            return PartialView("~/Views/EmployeeDashboard/EmpDash.cshtml", model);
+            return View("~/Views/EmployeeDashboard/EmpDash.cshtml", model);
         }
 
         public ActionResult CheckIn()

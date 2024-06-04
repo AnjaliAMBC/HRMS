@@ -55,7 +55,7 @@ namespace HRMS.Controllers
 
             model.Departments = new EmployeeHelper(_dbContext).GetDepartments();
 
-            return PartialView("~/Views/AdminDashboard/EmpManagement.cshtml", model);
+            return View("~/Views/AdminDashboard/EmpManagement.cshtml", model);
         }
 
         [HttpGet]

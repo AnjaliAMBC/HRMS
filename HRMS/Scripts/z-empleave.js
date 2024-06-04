@@ -52,6 +52,8 @@ function fetchLeaveHolidays() {
 function updateLeaveCalendar() {
     generateLeaveCalendar(currentLeaveMonth, currentLeaveYear);
 }
+//On Page load
+generateLeaveCalendar(new Date().getMonth(), new Date().getFullYear());
 
 function generateLeaveCalendar(month, year) {
     const today = new Date();
@@ -240,3 +242,7 @@ $(document).on('click', '.btn-apply-leave', function (event) {
         }
     });
 });
+
+//on page load
+generateLeaveCalendar(new Date().getMonth(), new Date().getFullYear());
+LeaveCarousel();

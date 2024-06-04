@@ -1,43 +1,55 @@
-﻿<div class="admin-leavecalender-view">
-    <div class="container mt-5">
-        <div class="d-flex justify-content-between align-items-center mb-4">
-            <h2>Leave Tracker</h2>
-            <div class="dropdown">
-                <button class="btn dropdown-toggle" type="button" id="leaveSettingsDropdown" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" style="background-color: #4b89dc;">
-                    Leave Settings
-                </button>
-                <div class="dropdown-menu" aria-labelledby="leaveSettingsDropdown" style="border:1px solid gray">                    
-                    <a class="dropdown-item adminleave-Balanve-link" href="adminleave-Balanve-link">Leave Balance</a>
-                    <a class="dropdown-item" href="#">Apply Leave</a>
+﻿@model HRMS.Models.Admin.AdminDashView
+@Html.Partial("_NavBar")
+
+<div class="container-fluid">
+    @Html.Partial("_adminsidemenu")
+    <div class="hiddenadmindashboard" style="display: none"></div>
+    <div class="main-content container-fluid" style="width: 84%">
+        <div class="content admin-leave-container" style="margin-top: 3%">
+
+            <div class="admin-leavecalender-view">
+                <div class="container mt-5">
+                    <div class="d-flex justify-content-between align-items-center mb-4">
+                        <h2>Leave Tracker</h2>
+                        <div class="dropdown">
+                            <button class="btn dropdown-toggle" type="button" id="adminleaveSettingsDropdown" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" style="background-color: #4b89dc;">
+                                Leave Settings
+                            </button>
+                            <div class="dropdown-menu" aria-labelledby="leaveSettingsDropdown" style="border:1px solid gray">
+                                <a class="dropdown-item adminleave-Balanve-link">Leave Balance</a>
+                                <a class="dropdown-item" href="#">Apply Leave</a>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="card empleave-card mb-3">
+                        <div class="card-header empleave-card-header empleave-calendar-header text-dark">
+                            <i class="fas fa-chevron-left empleave-chevron-icon" onclick="prevLeaveMonth()"></i>
+                            <h6 id="empleave-monthYear"></h6>
+                            <i class="fas fa-chevron-right empleave-chevron-icon" onclick="nextLeaveMonth()"></i>
+                        </div>
+                        <div class="card-body empleave-calendar-body">
+                            <table class="table empleave-calendar-table" style="width:80%">
+                                <thead>
+                                    <tr>
+                                        <th scope="col">Monday</th>
+                                        <th scope="col">Tuesday</th>
+                                        <th scope="col">Wednesday</th>
+                                        <th scope="col">Thursday</th>
+                                        <th scope="col">Friday</th>
+                                        <th scope="col">Saturday</th>
+                                        <th scope="col">Sunday</th>
+                                    </tr>
+                                </thead>
+                                <tbody id="empleave-calendarBody"></tbody>
+                            </table>
+                        </div>
+                    </div>
                 </div>
-            </div>
-        </div>
-        <div class="card empleave-card mb-3">
-            <div class="card-header empleave-card-header empleave-calendar-header text-dark">
-                <i class="fas fa-chevron-left empleave-chevron-icon" onclick="prevLeaveMonth()"></i>
-                <h6 id="empleave-monthYear"></h6>
-                <i class="fas fa-chevron-right empleave-chevron-icon" onclick="nextLeaveMonth()"></i>
-            </div>
-            <div class="card-body empleave-calendar-body">
-                <table class="table empleave-calendar-table" style="width:80%">
-                    <thead>
-                        <tr>
-                            <th scope="col">Monday</th>
-                            <th scope="col">Tuesday</th>
-                            <th scope="col">Wednesday</th>
-                            <th scope="col">Thursday</th>
-                            <th scope="col">Friday</th>
-                            <th scope="col">Saturday</th>
-                            <th scope="col">Sunday</th>
-                        </tr>
-                    </thead>
-                    <tbody id="empleave-calendarBody"></tbody>
-                </table>
+
+                <script>
+                    /* generateLeaveCalendar(new Date().getMonth(), new Date().getFullYear());*/
+                </script>
             </div>
         </div>
     </div>
-
-    <script>
-        generateLeaveCalendar(new Date().getMonth(), new Date().getFullYear());      
-    </script>
 </div>

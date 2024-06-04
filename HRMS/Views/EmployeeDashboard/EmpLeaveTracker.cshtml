@@ -1,215 +1,221 @@
-﻿<div class="empleave-container">
+﻿
 
-    <style>
-        .weekend-background {
-            /*background-color: #f0f0f0;*/ /* Light grey background for weekends */
-            color: orangered;
-        }
-    </style>
-    <div class="container-fluid">
-        <div class="row">
-            <div class="tracker_topic mt-3 ml-3">Leave Tracker</div>
-        </div>
-        <div class="row mt-3">
-            <div class="col-10 col-sm-10 col-md-10 col-lg-10 col-xl-10 col-xxl-10">
-                <!---Leave carousel top----->
-                <div class="row mx-auto my-auto">
-                    <div id="leaveCarousel" class="carousel slide w-100" data-ride="carousel">
-                        <div class="carousel-inner carousel-leave-inner w-100 tracker-100" role="listbox">
-                            <div class="carousel-item carousel-leave-item active">
-                                <div class="col-md-2 m-0">
-                                    <div class="card card-body tracker-card bev_border">
-                                        <h6 class="tracker-title">Bereavement Leave</h6>
-                                        <p class="tracker-details">Available: 2 Days</p>
-                                        <p class="tracker-details">Booked: 1 Days</p>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="carousel-item carousel-leave-item">
-                                <div class="col-md-2 m-0">
-                                    <div class="card card-body tracker-card com_border">
-                                        <h6 class="tracker-title">Compensatory Off</h6>
-                                        <p class="tracker-details">Available: 0 Days</p>
-                                        <p class="tracker-details">Booked: 0 Days</p>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="carousel-item carousel-leave-item">
-                                <div class="col-md-2 m-0">
-                                    <div class="card card-body tracker-card ear_border">
-                                        <h6 class="tracker-title">Earned Leave</h6>
-                                        <p class="tracker-details">Available: 14 Days</p>
-                                        <p class="tracker-details">Booked: 3 Days</p>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="carousel-item carousel-leave-item">
-                                <div class="col-md-2 m-0">
-                                    <div class="card card-body tracker-card emr_border">
-                                        <h6 class="tracker-title">Emergency Leave</h6>
-                                        <p class="tracker-details">Available: 3 Days</p>
-                                        <p class="tracker-details">Booked: 1 Days</p>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="carousel-item carousel-leave-item">
-                                <div class="col-md-2 m-0">
-                                    <div class="card card-body tracker-card sick_border">
-                                        <h6 class="tracker-title">Sick Leave</h6>
-                                        <p class="tracker-details">Available: 5 Days</p>
-                                        <p class="tracker-details">Booked: 2 Days</p>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="carousel-item carousel-leave-item">
-                                <div class="col-md-2 m-0">
-                                    <div class="card card-body tracker-card per_border">
-                                        <h6 class="tracker-title">Personal Leave</h6>
-                                        <p class="tracker-details">Available: 4 Days</p>
-                                        <p class="tracker-details">Booked: 1 Days</p>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="carousel-item carousel-leave-item">
-                                <div class="col-md-2 m-0">
-                                    <div class="card card-body tracker-card mar_border">
-                                        <h6 class="tracker-title">Marriage Leave</h6>
-                                        <p class="tracker-details">Available: 5 Days</p>
-                                        <p class="tracker-details">Booked: 1 Days</p>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="carousel-item carousel-leave-item">
-                                <div class="col-md-2 m-0">
-                                    <div class="card card-body tracker-card pat_border">
-                                        <h6 class="tracker-title">Paternity Leave</h6>
-                                        <p class="tracker-details">Available: 10 Days</p>
-                                        <p class="tracker-details">Booked: 2 Days</p>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="carousel-item carousel-leave-item">
-                                <div class="col-md-2 m-0">
-                                    <div class="card card-body tracker-card mat_border">
-                                        <h6 class="tracker-title">Maternity Leave</h6>
-                                        <p class="tracker-details">Available: 12 Days</p>
-                                        <p class="tracker-details">Booked: 4 Days</p>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="carousel-item carousel-leave-item">
-                                <div class="col-md-2 m-0">
-                                    <div class="card card-body tracker-card hou_border">
-                                        <h6 class="tracker-title">Hourly Permission</h6>
-                                        <p class="tracker-details">Available: 12 Days</p>
-                                        <p class="tracker-details">Booked: 4 Days</p>
-                                    </div>
-                                </div>
-                            </div>
+@Html.Partial("_NavBar")
+<div class="container-fluid">
+    @Html.Partial("_empsidemenu")
+    <div class="main-content container-fluid" style="width: 84%">
+        <div class="hiddenempdashboard" style="display: none"></div>
+        <div class="content leave-dashboard-data" style="margin-top: 3%; margin-left: 2% ">
+            <div class="empleave-container">
 
+                <style>
+                    .weekend-background {
+                        /*background-color: #f0f0f0;*/ /* Light grey background for weekends */
+                        color: orangered;
+                    }
+                </style>
+                <div class="container-fluid">
+                    <div class="row">
+                        <div class="tracker_topic mt-3 ml-3">Leave Tracker</div>
+                    </div>
+                    <div class="row mt-3">
+                        <div class="col-10 col-sm-10 col-md-10 col-lg-10 col-xl-10 col-xxl-10">
+                            <!---Leave carousel top----->
+                            <div class="row mx-auto my-auto">
+                                <div id="leaveCarousel" class="carousel slide w-100" data-ride="carousel">
+                                    <div class="carousel-inner carousel-leave-inner w-100 tracker-100" role="listbox">
+                                        <div class="carousel-item carousel-leave-item active">
+                                            <div class="col-md-2 m-0">
+                                                <div class="card card-body tracker-card bev_border">
+                                                    <h6 class="tracker-title">Bereavement Leave</h6>
+                                                    <p class="tracker-details">Available: 2 Days</p>
+                                                    <p class="tracker-details">Booked: 1 Days</p>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="carousel-item carousel-leave-item">
+                                            <div class="col-md-2 m-0">
+                                                <div class="card card-body tracker-card com_border">
+                                                    <h6 class="tracker-title">Compensatory Off</h6>
+                                                    <p class="tracker-details">Available: 0 Days</p>
+                                                    <p class="tracker-details">Booked: 0 Days</p>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="carousel-item carousel-leave-item">
+                                            <div class="col-md-2 m-0">
+                                                <div class="card card-body tracker-card ear_border">
+                                                    <h6 class="tracker-title">Earned Leave</h6>
+                                                    <p class="tracker-details">Available: 14 Days</p>
+                                                    <p class="tracker-details">Booked: 3 Days</p>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="carousel-item carousel-leave-item">
+                                            <div class="col-md-2 m-0">
+                                                <div class="card card-body tracker-card emr_border">
+                                                    <h6 class="tracker-title">Emergency Leave</h6>
+                                                    <p class="tracker-details">Available: 3 Days</p>
+                                                    <p class="tracker-details">Booked: 1 Days</p>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="carousel-item carousel-leave-item">
+                                            <div class="col-md-2 m-0">
+                                                <div class="card card-body tracker-card sick_border">
+                                                    <h6 class="tracker-title">Sick Leave</h6>
+                                                    <p class="tracker-details">Available: 5 Days</p>
+                                                    <p class="tracker-details">Booked: 2 Days</p>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="carousel-item carousel-leave-item">
+                                            <div class="col-md-2 m-0">
+                                                <div class="card card-body tracker-card per_border">
+                                                    <h6 class="tracker-title">Personal Leave</h6>
+                                                    <p class="tracker-details">Available: 4 Days</p>
+                                                    <p class="tracker-details">Booked: 1 Days</p>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="carousel-item carousel-leave-item">
+                                            <div class="col-md-2 m-0">
+                                                <div class="card card-body tracker-card mar_border">
+                                                    <h6 class="tracker-title">Marriage Leave</h6>
+                                                    <p class="tracker-details">Available: 5 Days</p>
+                                                    <p class="tracker-details">Booked: 1 Days</p>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="carousel-item carousel-leave-item">
+                                            <div class="col-md-2 m-0">
+                                                <div class="card card-body tracker-card pat_border">
+                                                    <h6 class="tracker-title">Paternity Leave</h6>
+                                                    <p class="tracker-details">Available: 10 Days</p>
+                                                    <p class="tracker-details">Booked: 2 Days</p>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="carousel-item carousel-leave-item">
+                                            <div class="col-md-2 m-0">
+                                                <div class="card card-body tracker-card mat_border">
+                                                    <h6 class="tracker-title">Maternity Leave</h6>
+                                                    <p class="tracker-details">Available: 12 Days</p>
+                                                    <p class="tracker-details">Booked: 4 Days</p>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="carousel-item carousel-leave-item">
+                                            <div class="col-md-2 m-0">
+                                                <div class="card card-body tracker-card hou_border">
+                                                    <h6 class="tracker-title">Hourly Permission</h6>
+                                                    <p class="tracker-details">Available: 12 Days</p>
+                                                    <p class="tracker-details">Booked: 4 Days</p>
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                    </div>
+
+                                    <a class="carousel-control-next btn_nxtleave" href="#leaveCarousel" role="button" data-slide="next">
+                                        <i class="fa-solid fa-chevron-right"></i>
+                                        <span class="sr-only">Next</span>
+                                    </a>
+                                </div>
+                            </div>
                         </div>
-
-                        <a class="carousel-control-next btn_nxtleave" href="#leaveCarousel" role="button" data-slide="next">
-                            <i class="fa-solid fa-chevron-right"></i>
-                            <span class="sr-only">Next</span>
-                        </a>
+                        <div class="col-2 col-sm-2 col-md-2 col-lg-2 col-xl-2 col-xxl-2 d-flex flex-column align-items-center">
+                            <div class="applyleave_btn">
+                                <button class="btn btn-primary btn-apply-leave">Apply Leave</button>
+                            </div>
+                            <div class="leavehistory_btn d-flex mt-2 mb-1">
+                                <i class="fa-solid fa-clock-rotate-left mt-1 mr-1"></i>
+                                <a href="#" class="history_btn" onclick="toggleLeaveView()">Leave History</a>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="card empleave-card mb-3">
+                        <div class="card-header empleave-card-header empleave-calendar-header text-dark mt-4">
+                            <i class="fas fa-chevron-left empleave-chevron-icon" onclick="prevLeaveMonth()"></i>
+                            <h6 id="empleave-monthYear"></h6>
+                            <i class="fas fa-chevron-right empleave-chevron-icon" onclick="nextLeaveMonth()"></i>
+                        </div>
+                        <div class="card-body empleave-calendar-body">
+                            <table class="table empleave-calendar-table" style="width: 80%; color: #23366f">
+                                <thead>
+                                    <tr>
+                                        <th scope="col">Monday</th>
+                                        <th scope="col">Tuesday</th>
+                                        <th scope="col">Wednesday</th>
+                                        <th scope="col">Thursday</th>
+                                        <th scope="col">Friday</th>
+                                        <th scope="col" style="color: orangered">Saturday</th>
+                                        <th scope="col" style="color: orangered">Sunday</th>
+                                    </tr>
+                                </thead>
+                                <tbody id="empleave-calendarBody"></tbody>
+                            </table>
+                        </div>
+                    </div>
+                    <div class="leave-history mt-4" style="display: none;">
+                        <h5>Leave History</h5>
+                        <table id="leaveHistoryTable" class="table leave-history-table">
+                            <thead>
+                                <tr>
+                                    <th>Date</th>
+                                    <th>Day(s)</th>
+                                    <th>Leave Type</th>
+                                    <th>Status</th>
+                                    <th>Reason</th>
+                                    <th></th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>29 April 2024 <br> Mon</td>
+                                    <td>1</td>
+                                    <td>Emergency Leave</td>
+                                    <td style="color:forestgreen">Approved</td>
+                                    <td class="comment-message">
+                                        <i class="fa-solid fa-message mb-3" style="color: #6b8dda; margin-bottom: 15%; "></i>
+                                        <p class="ml-3" style="margin:0;">I'm writing to request a one-day sick leave as I am suffering from fever and fatigue</p>
+                                    </td>
+                                    <td>
+                                        <i class="fas fa-ellipsis-h leave-edit-history" id="toggleOptions"></i>
+                                        <div class="emp-leaveoptions" id="emp-leaveoptions" style="display:none">
+                                            <a class="dropdown-item" href="#">Edit</a>
+                                            <a class="dropdown-item" href="#">Cancel</a>
+                                        </div>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>29 April 2024 <br> Mon</td>
+                                    <td>1</td>
+                                    <td>Sick Leave</td>
+                                    <td style="color:red">Pending</td>
+                                    <td class="comment-message">
+                                        <i class="fa-solid fa-message mb-3"></i>
+                                        <p class="ml-3" style="margin:0;">I'm writing to request a one-day sick leave as I am suffering from fever and fatigue</p>
+                                    </td>
+                                    <td><i class="fas fa-ellipsis-h leave-edit-history"></i></td>
+                                </tr>
+                                <tr>
+                                    <td>29 April 2024 <br> Mon</td>
+                                    <td>1</td>
+                                    <td>Emergency Leave</td>
+                                    <td style="color:forestgreen">Approved</td>
+                                    <td class="comment-message">
+                                        <i class="fa-solid fa-message mb-3"></i>
+                                        <p class="ml-3" style="margin:0;">I'm writing to request a one-day sick leave as I am suffering from fever and fatigue</p>
+                                    </td>
+                                    <td><i class="fas fa-ellipsis-h leave-edit-history"></i></td>
+                                </tr>
+                                <!-- Add more rows as needed -->
+                            </tbody>
+                        </table>
                     </div>
                 </div>
             </div>
-            <div class="col-2 col-sm-2 col-md-2 col-lg-2 col-xl-2 col-xxl-2 d-flex flex-column align-items-center">
-                <div class="applyleave_btn">
-                    <button class="btn btn-primary btn-apply-leave">Apply Leave</button>
-                </div>
-                <div class="leavehistory_btn d-flex mt-2 mb-1">
-                    <i class="fa-solid fa-clock-rotate-left mt-1 mr-1"></i>
-                    <a href="#"  class="history_btn" onclick="toggleLeaveView()">Leave History</a>
-                </div>
-            </div>
         </div>
-        <div class="card empleave-card mb-3">
-            <div class="card-header empleave-card-header empleave-calendar-header text-dark mt-4">
-                <i class="fas fa-chevron-left empleave-chevron-icon" onclick="prevLeaveMonth()"></i>
-                <h6 id="empleave-monthYear"></h6>
-                <i class="fas fa-chevron-right empleave-chevron-icon" onclick="nextLeaveMonth()"></i>
-            </div>
-            <div class="card-body empleave-calendar-body">
-                <table class="table empleave-calendar-table" style="width: 80%; color: #23366f">
-                    <thead>
-                        <tr>
-                            <th scope="col">Monday</th>
-                            <th scope="col">Tuesday</th>
-                            <th scope="col">Wednesday</th>
-                            <th scope="col">Thursday</th>
-                            <th scope="col">Friday</th>
-                            <th scope="col" style="color: orangered">Saturday</th>
-                            <th scope="col" style="color: orangered">Sunday</th>
-                        </tr>
-                    </thead>
-                    <tbody id="empleave-calendarBody"></tbody>
-                </table>
-            </div>
-        </div>
-        <div class="leave-history mt-4" style="display: none;">
-            <h5>Leave History</h5>
-            <table id="leaveHistoryTable" class="table leave-history-table">
-                <thead>
-                    <tr>
-                        <th>Date</th>
-                        <th>Day(s)</th>
-                        <th>Leave Type</th>
-                        <th>Status</th>
-                        <th>Reason</th>
-                        <th></th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <tr>
-                        <td>29 April 2024 <br> Mon</td>
-                        <td>1</td>
-                        <td>Emergency Leave</td>
-                        <td style="color:forestgreen">Approved</td>
-                        <td class="comment-message">
-                            <i class="fa-solid fa-message mb-3" style="color: #6b8dda; margin-bottom: 15%; "></i>
-                            <p class="ml-3" style="margin:0;">I'm writing to request a one-day sick leave as I am suffering from fever and fatigue</p>
-                        </td>
-                        <td>
-                            <i class="fas fa-ellipsis-h leave-edit-history" id="toggleOptions"></i>
-                            <div class="emp-leaveoptions" id="emp-leaveoptions" style="display:none">
-                                <a class="dropdown-item" href="#">Edit</a>
-                                <a class="dropdown-item" href="#">Cancel</a>
-                            </div>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>29 April 2024 <br> Mon</td>
-                        <td>1</td>
-                        <td>Sick Leave</td>
-                        <td style="color:red">Pending</td>
-                        <td class="comment-message">
-                            <i class="fa-solid fa-message mb-3"></i>
-                            <p class="ml-3" style="margin:0;">I'm writing to request a one-day sick leave as I am suffering from fever and fatigue</p>
-                        </td>
-                        <td><i class="fas fa-ellipsis-h leave-edit-history"></i></td>
-                    </tr>
-                    <tr>
-                        <td>29 April 2024 <br> Mon</td>
-                        <td>1</td>
-                        <td>Emergency Leave</td>
-                        <td style="color:forestgreen">Approved</td>
-                        <td class="comment-message">
-                            <i class="fa-solid fa-message mb-3"></i>
-                            <p class="ml-3" style="margin:0;">I'm writing to request a one-day sick leave as I am suffering from fever and fatigue</p>
-                        </td>
-                        <td><i class="fas fa-ellipsis-h leave-edit-history"></i></td>
-                    </tr>
-                    <!-- Add more rows as needed -->
-                </tbody>
-            </table>
-          </div>
     </div>
 </div>
-
-<script>
-    generateLeaveCalendar(new Date().getMonth(), new Date().getFullYear());
-    LeaveCarousel();
-</script>

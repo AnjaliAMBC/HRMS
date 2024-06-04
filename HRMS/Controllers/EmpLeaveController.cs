@@ -38,7 +38,7 @@ namespace HRMS.Controllers
         // GET: EmpLeave
         public ActionResult Index()
         {
-            return PartialView("~/Views/EmployeeDashboard/EmpLeaveTracker.cshtml");
+            return View("~/Views/EmployeeDashboard/EmpLeaveTracker.cshtml");
         }
         public ActionResult EmpApplyLeave()
         {

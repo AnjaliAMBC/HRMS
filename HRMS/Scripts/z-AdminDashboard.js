@@ -6,319 +6,320 @@
 }
 
 
-$('.admin-dashboard').click(function (event) {
-    event.preventDefault();
-    HighlightAdminActiveLink($(this));
+//$('.admin-dashboard').click(function (event) {
+//    event.preventDefault();
+//    HighlightAdminActiveLink($(this));
 
-    $.ajax({
-        url: '/admindash/index',
-        type: 'GET',   
-        dataType: 'html',
-        success: function (response) {
-            //Clear old date and bind again
-            $(".hiddenadmindashboard").html("");
-            $('.admin-dashboard-container').html("");
-            $(".admin-emppadd-container").html("");
-            $('.admin-empmanagement-container').html("");
-            $('.admin-attendance-container').html("");
-            $('.admin-leave-container').html("");
+//    $.ajax({
+//        url: '/admindash/index',
+//        type: 'GET',   
+//        dataType: 'html',
+//        success: function (response) {
+//            //Clear old date and bind again
+//            $(".hiddenadmindashboard").html("");
+//            $('.admin-dashboard-container').html("");
+//            $(".admin-emppadd-container").html("");
+//            $('.admin-empmanagement-container').html("");
+//            $('.admin-attendance-container').html("");
+//            $('.admin-leave-container').html("");
 
-            $(".hiddenadmindashboard").html(response);
-            var formContent = $(".hiddenadmindashboard").find(".admin-dashboard-view").html();
-            $(".admin-dashboard-container").html(formContent);
+//            $(".hiddenadmindashboard").html(response);
+//            var formContent = $(".hiddenadmindashboard").find(".admin-dashboard-view").html();
+//            $(".admin-dashboard-container").html(formContent);
 
-            $('.admin-emppadd-container').hide();
-            $('.admin-empmanagement-container').hide();
-            $('.admin-dashboard-container').show();
-            $('.admin-attendance-container').hide();
-            $('.admin-leave-container').hide();
-            $('.admin-ticketing-container').hide();
-            $(".hiddenadmindashboard").html("");
+//            $('.admin-emppadd-container').hide();
+//            $('.admin-empmanagement-container').hide();
+//            $('.admin-dashboard-container').show();
+//            $('.admin-attendance-container').hide();
+//            $('.admin-leave-container').hide();
+//            $('.admin-ticketing-container').hide();
+//            $(".hiddenadmindashboard").html("");
 
-        },
-        error: function (xhr, status, error) {
-            var err = eval("(" + xhr.responseText + ")");
-        }
-    });
-});
+//        },
+//        error: function (xhr, status, error) {
+//            var err = eval("(" + xhr.responseText + ")");
+//        }
+//    });
+//});
 
-$(document).on('click', '.admin-empmanagement', function (event) {
-    $('#adminempmanagementtable').DataTable().destroy();
-    event.preventDefault();
-    HighlightAdminActiveLink($(this));
+//$(document).on('click', '.admin-empmanagement', function (event) {
+//    $('#adminempmanagementtable').DataTable().destroy();
+//    event.preventDefault();
+//    HighlightAdminActiveLink($(this));
 
-    $.ajax({
-        url: '/admindashboard/employeemanagement',
-        type: 'GET',
-        dataType: 'html',
-        success: function (response) {
-            $(".hiddenadmindashboard").html("");
-            $('.admin-dashboard-container').html("");
-            $(".admin-emppadd-container").html("");
-            $('.admin-empmanagement-container').html("");
-            $('.admin-attendance-container').html("");
-            $('.admin-leave-container').html("");
+//    $.ajax({
+//        url: '/admindashboard/employeemanagement',
+//        type: 'GET',
+//        dataType: 'html',
+//        success: function (response) {
+//            history.pushState({ url: '/admindashboard/employeemanagement' }, '', '/admindashboard/employeemanagement');
+//            $(".hiddenadmindashboard").html("");
+//            $('.admin-dashboard-container').html("");
+//            $(".admin-emppadd-container").html("");
+//            $('.admin-empmanagement-container').html("");
+//            $('.admin-attendance-container').html("");
+//            $('.admin-leave-container').html("");
 
-            $(".hiddenadmindashboard").html(response);
-            var formContent = $(".hiddenadmindashboard").find(".admin-empmanagement-view").html();
-            $(".admin-empmanagement-container").html(formContent);
+//            $(".hiddenadmindashboard").html(response);
+//            var formContent = $(".hiddenadmindashboard").find(".admin-empmanagement-view").html();
+//            $(".admin-empmanagement-container").html(formContent);
 
-            $('.admin-empmanagement-container').show();
-            $('.admin-dashboard-container').hide();
-            $('.admin-emppadd-container').hide();
-            $('.admin-attendance-container').hide();
-            $('.admin-leave-container').hide();
-            $('.admin-ticketing-container').hide();
+//            $('.admin-empmanagement-container').show();
+//            $('.admin-dashboard-container').hide();
+//            $('.admin-emppadd-container').hide();
+//            $('.admin-attendance-container').hide();
+//            $('.admin-leave-container').hide();
+//            $('.admin-ticketing-container').hide();
 
-            var emData = $(".hiddenadmindashboard").find(".emplsthidden").html();
-            $(".emplsthidden").html("");
+//            var emData = $(".hiddenadmindashboard").find(".emplsthidden").html();
+//            $(".emplsthidden").html("");
 
-            var json = $.parseJSON(emData);
-            var data = json.map(data => {
-                console.log(data);
-                return ["",
-                    data.EmployeeID,
-                    { name: data.EmployeeName, email: data.OfficalEmailid, image: data.imagepath },
-                    data.Designation,
-                    data.Department,
-                    data.EmployeeType,
-                    data.Location,
-                    data.EmployeeStatus,
-                    "",
-                    ""];
-            });
+//            var json = $.parseJSON(emData);
+//            var data = json.map(data => {
+//                console.log(data);
+//                return ["",
+//                    data.EmployeeID,
+//                    { name: data.EmployeeName, email: data.OfficalEmailid, image: data.imagepath },
+//                    data.Designation,
+//                    data.Department,
+//                    data.EmployeeType,
+//                    data.Location,
+//                    data.EmployeeStatus,
+//                    "",
+//                    ""];
+//            });
 
-            $(".hiddenadmindashboard").html("");
-            var table = $('#adminempmanagementtable').DataTable({
-                data: data,
-                "paging": true,
-                "searching": true,
-                "pageLength": 8, // Set the default number of rows to display
-                "lengthChange": false,
-                "info": true,
-                "order": [],
-                "columnDefs": [
-                    {
-                        "targets": 0,
-                        "orderable": false,
-                        "render": function (data, type, full, meta) {
-                            return '<input type="checkbox" class="empmgmt-check"/>'
-                        }
-                    },
-                    {
-                        "targets": 1,
-                        "class": "tdempid"
-                    },
-                    {
-                        "targets": 2,
-                        "class": "tdempname",
-                        "render": function (data, type, full, meta) {
-                            var imageHtml = '';
-                            if (data.image) {
-                                var imageURl = "/assets/empImages/" + data.image;
-                                imageHtml = '<img src="' + imageURl + '" alt="Profile Image" style="width: 45px; height: 45px; border-radius: 50%; margin-right: 10px;">';
-                            } else {
-                                var firstNameInitial = data.name.charAt(0);
-                                var lastNameInitial = data.name.split(' ').slice(-1)[0].charAt(0);
-                                var shortName = firstNameInitial + lastNameInitial;
-                                imageHtml = '<div class="list-image" style="width: 45px; height: 45px; border-radius: 50%; margin-right: 10px; background-color: #C4C4C4; color: white; display: flex; justify-content: center; align-items: center;">' + shortName + '</div>';
-                            }
-                            return '<div style="display: flex; align-items: center;">' +
-                                imageHtml +
-                                '<span style="margin-top: 0px; margin-right: 10px;">' + data.name + '<br><span style="color: #3E78CF;">' + data.email + '</span></span>' +
-                                '</div>';
-                        }
+//            $(".hiddenadmindashboard").html("");
+//            var table = $('#adminempmanagementtable').DataTable({
+//                data: data,
+//                "paging": true,
+//                "searching": true,
+//                "pageLength": 8, // Set the default number of rows to display
+//                "lengthChange": false,
+//                "info": true,
+//                "order": [],
+//                "columnDefs": [
+//                    {
+//                        "targets": 0,
+//                        "orderable": false,
+//                        "render": function (data, type, full, meta) {
+//                            return '<input type="checkbox" class="empmgmt-check"/>'
+//                        }
+//                    },
+//                    {
+//                        "targets": 1,
+//                        "class": "tdempid"
+//                    },
+//                    {
+//                        "targets": 2,
+//                        "class": "tdempname",
+//                        "render": function (data, type, full, meta) {
+//                            var imageHtml = '';
+//                            if (data.image) {
+//                                var imageURl = "/assets/empImages/" + data.image;
+//                                imageHtml = '<img src="' + imageURl + '" alt="Profile Image" style="width: 45px; height: 45px; border-radius: 50%; margin-right: 10px;">';
+//                            } else {
+//                                var firstNameInitial = data.name.charAt(0);
+//                                var lastNameInitial = data.name.split(' ').slice(-1)[0].charAt(0);
+//                                var shortName = firstNameInitial + lastNameInitial;
+//                                imageHtml = '<div class="list-image" style="width: 45px; height: 45px; border-radius: 50%; margin-right: 10px; background-color: #C4C4C4; color: white; display: flex; justify-content: center; align-items: center;">' + shortName + '</div>';
+//                            }
+//                            return '<div style="display: flex; align-items: center;">' +
+//                                imageHtml +
+//                                '<span style="margin-top: 0px; margin-right: 10px;">' + data.name + '<br><span style="color: #3E78CF;">' + data.email + '</span></span>' +
+//                                '</div>';
+//                        }
 
 
-                    },
+//                    },
 
-                    {
-                        "targets": 3,
-                    },
-                    {
-                        "targets": 4,
-                    },
-                    {
-                        "targets": 5,
-                    },
-                    {
-                        "targets": 6,
-                    },
-                    {
-                        "targets": 7,
-                    },
-                    {
-                        "targets": 8,
-                        "orderable": false,
-                        "render": function (data, type, full, meta) {
-                            return '<span class="edit-btn" title="Edit"><i class="fas fa-pencil-alt"></i></span><span class="delete-btn" data-toggle="modal" title="Delete"><i class="fas fa-trash-alt"></i></span>';
-                        }
-                    },
-                    {
-                        "targets": 9,
-                        "orderable": false,
-                    },
+//                    {
+//                        "targets": 3,
+//                    },
+//                    {
+//                        "targets": 4,
+//                    },
+//                    {
+//                        "targets": 5,
+//                    },
+//                    {
+//                        "targets": 6,
+//                    },
+//                    {
+//                        "targets": 7,
+//                    },
+//                    {
+//                        "targets": 8,
+//                        "orderable": false,
+//                        "render": function (data, type, full, meta) {
+//                            return '<span class="edit-btn" title="Edit"><i class="fas fa-pencil-alt"></i></span><span class="delete-btn" data-toggle="modal" title="Delete"><i class="fas fa-trash-alt"></i></span>';
+//                        }
+//                    },
+//                    {
+//                        "targets": 9,
+//                        "orderable": false,
+//                    },
 
-                ],
+//                ],
 
-            });
+//            });
 
-            $('#adminempmanagementtable thead th:first-child').html('<input type="checkbox" id="selectAll">');
+//            $('#adminempmanagementtable thead th:first-child').html('<input type="checkbox" id="selectAll">');
 
-            $('#selectAll').on('change', function () {
-                var isChecked = $(this).prop('checked');
-                if (isChecked) {
-                    $('td input[type="checkbox"]').prop('checked', isChecked);
-                    $('#action').show();
-                }
-                else {
-                    $('td input[type="checkbox"]').prop('checked', false);
-                    $('#action').hide();
-                }
-            });
+//            $('#selectAll').on('change', function () {
+//                var isChecked = $(this).prop('checked');
+//                if (isChecked) {
+//                    $('td input[type="checkbox"]').prop('checked', isChecked);
+//                    $('#action').show();
+//                }
+//                else {
+//                    $('td input[type="checkbox"]').prop('checked', false);
+//                    $('#action').hide();
+//                }
+//            });
 
-            $('#menuIcon').on('click', function () {
-                // Your menu icon click handler code here
-            });
+//            $('#menuIcon').on('click', function () {
+//                // Your menu icon click handler code here
+//            });
 
-            $('#dropdownMenu').on('click', function () {
-                // Your dropdown menu click handler code here
-            });
+//            $('#dropdownMenu').on('click', function () {
+//                // Your dropdown menu click handler code here
+//            });
 
-            $('#dropdownMenuContent input[type="checkbox"]').change(function () {
-                var columnIdx = $(this).closest('a').index() + 1;
-                var isChecked = $(this).prop('checked');
-                table.column(columnIdx).visible(isChecked);
-            });
+//            $('#dropdownMenuContent input[type="checkbox"]').change(function () {
+//                var columnIdx = $(this).closest('a').index() + 1;
+//                var isChecked = $(this).prop('checked');
+//                table.column(columnIdx).visible(isChecked);
+//            });
 
-            $('#dropdownMenuContent input[type="checkbox"]').prop('checked', true);
+//            $('#dropdownMenuContent input[type="checkbox"]').prop('checked', true);
 
-            $(document).on('change', '.empmgmt-check', function () {
-                var isChecked = $(this).prop('checked');
-                if (isChecked) {
-                    $('#action').show();
-                }
-                else {
-                    $(this).prop('checked', false);
-                    if ($(".empmgmt-check:checked").length <= 0) {
-                        $('#action').hide();
-                        $('#selectAll').prop('checked', false);
-                    }
-                }
-            });
+//            $(document).on('change', '.empmgmt-check', function () {
+//                var isChecked = $(this).prop('checked');
+//                if (isChecked) {
+//                    $('#action').show();
+//                }
+//                else {
+//                    $(this).prop('checked', false);
+//                    if ($(".empmgmt-check:checked").length <= 0) {
+//                        $('#action').hide();
+//                        $('#selectAll').prop('checked', false);
+//                    }
+//                }
+//            });
 
-            $(document).on('change', '#department-dropdown', function () {
-                var value = $(this).val();
-                var columnIndex = 4;
-                if (value === 'All') {
-                    table.column(columnIndex).search('').draw(); // Clear search and redraw table
-                } else {
-                    table.column(columnIndex).search(value).draw();
-                }
-            });
+//            $(document).on('change', '#department-dropdown', function () {
+//                var value = $(this).val();
+//                var columnIndex = 4;
+//                if (value === 'All') {
+//                    table.column(columnIndex).search('').draw(); // Clear search and redraw table
+//                } else {
+//                    table.column(columnIndex).search(value).draw();
+//                }
+//            });
 
-            $(document).on('change', '#Location-dropdown', function () {
-                var value = $(this).val();
-                var columnIndex = 6;
-                if (value === 'All') {
-                    table.column(columnIndex).search('').draw(); // Clear search and redraw table
-                } else {
-                    table.column(columnIndex).search(value).draw();
-                }
-            });
+//            $(document).on('change', '#Location-dropdown', function () {
+//                var value = $(this).val();
+//                var columnIndex = 6;
+//                if (value === 'All') {
+//                    table.column(columnIndex).search('').draw(); // Clear search and redraw table
+//                } else {
+//                    table.column(columnIndex).search(value).draw();
+//                }
+//            });
 
-            $(document).on('change', '#status-dropdown', function () {
-                var value = $(this).val();
-                var columnIndex = 7;
-                if (value === 'All') {
-                    table.column(columnIndex).search('').draw(); // Clear search and redraw table
-                } else {
-                    table.column(columnIndex).search(value).draw();
-                }
-            });
+//            $(document).on('change', '#status-dropdown', function () {
+//                var value = $(this).val();
+//                var columnIndex = 7;
+//                if (value === 'All') {
+//                    table.column(columnIndex).search('').draw(); // Clear search and redraw table
+//                } else {
+//                    table.column(columnIndex).search(value).draw();
+//                }
+//            });
 
-            $(document).on('click', '.clearfilter', function () {
-                $('#department-dropdown').val($('#department-dropdown option:first').val());
-                $('#Location-dropdown').val($('#Location-dropdown option:first').val());
-                $('#status-dropdown').val($('#status-dropdown option:first').val());
-                table.search('').columns().search('').draw();
-            });
+//            $(document).on('click', '.clearfilter', function () {
+//                $('#department-dropdown').val($('#department-dropdown option:first').val());
+//                $('#Location-dropdown').val($('#Location-dropdown option:first').val());
+//                $('#status-dropdown').val($('#status-dropdown option:first').val());
+//                table.search('').columns().search('').draw();
+//            });
 
-            $(document).on('keyup', '.advancesearch', function () {
-                table.search(this.value).draw(); // Search value across all columns and redraw table
-            });
+//            $(document).on('keyup', '.advancesearch', function () {
+//                table.search(this.value).draw(); // Search value across all columns and redraw table
+//            });
 
-            $(document).on('click', '.delete-btn', function () {
-                $('.delete-employee').removeAttr('disabled');
-                $('.delete-message').html("");
-                $('#deleteConfirmationModal').modal("show");
-                var $row = $(this).closest("tr");
-                var deleteEmpID = $row.find(".tdempid").text();
-                var deleteEmpName = $row.find(".tdempname").text();
-                $('.delete-message').css("color", "black");
-                $('.delete-message').html('Are you sure you want to delete <span class="deleteempnameval" style="font-weight: bold; font-style: italic; color:red"></span> ?');
-                $('.deleteempid').html(deleteEmpID.trim());
-                $('.deleteempnameval').text(deleteEmpID.trim());
-            });
+//            $(document).on('click', '.delete-btn', function () {
+//                $('.delete-employee').removeAttr('disabled');
+//                $('.delete-message').html("");
+//                $('#deleteConfirmationModal').modal("show");
+//                var $row = $(this).closest("tr");
+//                var deleteEmpID = $row.find(".tdempid").text();
+//                var deleteEmpName = $row.find(".tdempname").text();
+//                $('.delete-message').css("color", "black");
+//                $('.delete-message').html('Are you sure you want to delete <span class="deleteempnameval" style="font-weight: bold; font-style: italic; color:red"></span> ?');
+//                $('.deleteempid').html(deleteEmpID.trim());
+//                $('.deleteempnameval').text(deleteEmpID.trim());
+//            });
 
-            $(document).on('click', '.delete-employee', function (event) {
-                event.preventDefault();
+//            $(document).on('click', '.delete-employee', function (event) {
+//                event.preventDefault();
 
-                $('.delete-employee').prop('disabled', true);
-                var deleteEmpID = $('.deleteempid').html();
-                var deleteEmpName = $('.deleteempnameval').text();
+//                $('.delete-employee').prop('disabled', true);
+//                var deleteEmpID = $('.deleteempid').html();
+//                var deleteEmpName = $('.deleteempnameval').text();
 
-                var deletEmpInfo = {
-                    empID: deleteEmpID,
-                    empName: deleteEmpName
-                }
+//                var deletEmpInfo = {
+//                    empID: deleteEmpID,
+//                    empName: deleteEmpName
+//                }
 
-                $.ajax({
-                    url: '/admindashboard/deleteemp',
-                    type: 'POST',
-                    data: deletEmpInfo,
-                    dataType: "json",
-                    success: function (result) {
-                        if (result.JsonResponse.StatusCode == 200) {
-                            $('.delete-message').html("You have deleted employee <span style='color: red;'>" + deleteEmpID + " </span> successfully ");
-                            $('.delete-message').css("color", "blue");
-                            $('.delete-employee').prop('disabled', true);
-                        } else {
-                            $('.delete-message').html(result.JsonResponse.Message);
-                            $('.delete-message').css("color", "red");
-                            $('.delete-employee').prop('disabled', false);
-                        }
-                    },
-                    error: function (xhr, status, error) {
-                        console.error("Error deleting employee:", error);
-                    }
-                });
-            });
+//                $.ajax({
+//                    url: '/admindashboard/deleteemp',
+//                    type: 'POST',
+//                    data: deletEmpInfo,
+//                    dataType: "json",
+//                    success: function (result) {
+//                        if (result.JsonResponse.StatusCode == 200) {
+//                            $('.delete-message').html("You have deleted employee <span style='color: red;'>" + deleteEmpID + " </span> successfully ");
+//                            $('.delete-message').css("color", "blue");
+//                            $('.delete-employee').prop('disabled', true);
+//                        } else {
+//                            $('.delete-message').html(result.JsonResponse.Message);
+//                            $('.delete-message').css("color", "red");
+//                            $('.delete-employee').prop('disabled', false);
+//                        }
+//                    },
+//                    error: function (xhr, status, error) {
+//                        console.error("Error deleting employee:", error);
+//                    }
+//                });
+//            });
 
-            $(document).on('click', '.refresh-emptablist', function () {
-                $('#deleteConfirmationModal').modal("hide");
-                $('#importSuccessModal').modal("hide");
-                $('#EmpsuccessModal').modal("hide");
-                $('.admin-empmanagement').click();
-                $('.modal-backdrop').remove();
-            });
+//            $(document).on('click', '.refresh-emptablist', function () {
+//                $('#deleteConfirmationModal').modal("hide");
+//                $('#importSuccessModal').modal("hide");
+//                $('#EmpsuccessModal').modal("hide");
+//                $('.admin-empmanagement').click();
+//                $('.modal-backdrop').remove();
+//            });
 
-            $(document).off('click', '.edit-btn').on('click', '.edit-btn', function (event) {
-                event.preventDefault();
+//            $(document).off('click', '.edit-btn').on('click', '.edit-btn', function (event) {
+//                event.preventDefault();
 
-                var $row = $(this).closest("tr");
-                var editEmpID = $row.find(".tdempid").text();
-                AddUpdateEmployee(editEmpID);
-                $('.addempheadline').text("Edit Employee");
-                return;
-            });
+//                var $row = $(this).closest("tr");
+//                var editEmpID = $row.find(".tdempid").text();
+//                AddUpdateEmployee(editEmpID);
+//                $('.addempheadline').text("Edit Employee");
+//                return;
+//            });
 
-        },
-        error: function (xhr, status, error) {
-            var err = eval("(" + xhr.responseText + ")");
-        }
-    });
-});
+//        },
+//        error: function (xhr, status, error) {
+//            var err = eval("(" + xhr.responseText + ")");
+//        }
+//    });
+//});
 
 $(document).on('change', '#action', function () {
     if ($(this).val() == "export") {
@@ -367,21 +368,21 @@ $('.admin-leave').click(function (event) {
         type: 'GET',
         dataType: 'html',
         success: function (response) {
-    $(".hiddenadmindashboard").html("");
-    $('.admin-dashboard-container').html("");
-    $(".admin-emppadd-container").html("");
-    $('.admin-empmanagement-container').html("");
-    $('.admin-attendance-container').html("");
-    $('.admin-leave-container').html("");
-    $(".hiddenadmindashboard").html(response);
+            $(".hiddenadmindashboard").html("");
+            $('.admin-dashboard-container').html("");
+            $(".admin-emppadd-container").html("");
+            $('.admin-empmanagement-container').html("");
+            $('.admin-attendance-container').html("");
+            $('.admin-leave-container').html("");
+            $(".hiddenadmindashboard").html(response);
             var formContent = $(".hiddenadmindashboard").find(".admin-leavecalender-view").html();
-    $(".admin-leave-container").html(formContent);
-    $('.admin-leave-container').show();
-    $('.admin-attendance-container').hide();
-    $('.admin-empmanagement-container').hide();
-    $('.admin-emppadd-container').hide();
-    $('.admin-dashboard-container').hide();
-    $('.admin-ticketing-container').hide();
+            $(".admin-leave-container").html(formContent);
+            $('.admin-leave-container').show();
+            $('.admin-attendance-container').hide();
+            $('.admin-empmanagement-container').hide();
+            $('.admin-emppadd-container').hide();
+            $('.admin-dashboard-container').hide();
+            $('.admin-ticketing-container').hide();
             $(".hiddenadmindashboard").html("");
         },
         error: function (xhr, status, error) {
@@ -419,25 +420,8 @@ function AddUpdateEmployee(empID) {
         data: { empid: empID },
         dataType: 'html',
         success: function (response) {
-            //Clear old date and bind again
-            $(".hiddenadmindashboard").html("");
-            $('.admin-dashboard-container').html("");
-            $(".admin-emppadd-container").html("");
-            $('.admin-empmanagement-container').html("");
-            $('.admin-attendance-container').html("");
-            $('.admin-leave-container').html("");
-
-            $(".hiddenadmindashboard").html(response);
-            var formContent = $(".hiddenadmindashboard").find(".admin-empadd-view").html();
-            $(".admin-emppadd-container").html(formContent);
-
-            $('.admin-emppadd-container').show();
-            $('.admin-empmanagement-container').hide();
-            $('.admin-dashboard-container').hide();
-            $('.admin-attendance-container').hide();
-            $('.admin-leave-container').hide();
-            $('.admin-ticketing-container').hide();
-            $(".hiddenadmindashboard").html("");
+            $('.admin-empmanagement-view').html("");
+            $('.admin-empmanagement-view').html(response);
 
         },
         error: function (xhr, status, error) {
@@ -459,26 +443,8 @@ $(document).on('change', '#addemployee', function () {
             type: 'GET',
             dataType: 'html',
             success: function (response) {
-                //Clear old date and bind again
-                $(".hiddenadmindashboard").html("");
-                $('.admin-dashboard-container').html("");
-                $(".admin-emppadd-container").html("");
-                $('.admin-empmanagement-container').html("");
-                $('.admin-attendance-container').html("");
-                $('.admin-leave-container').html("");
-
-                $(".hiddenadmindashboard").html(response);
-                var formContent = $(".hiddenadmindashboard").find(".admin-empadd-view").html();
-                $(".admin-emppadd-container").html(formContent);
-
-                $('.admin-emppadd-container').show();
-                $('.admin-empmanagement-container').hide();
-                $('.admin-dashboard-container').hide();
-                $('.admin-attendance-container').hide();
-                $('.admin-leave-container').hide();
-                $('.admin-ticketing-container').hide();
-                $(".hiddenadmindashboard").html("");
-
+                $('.admin-empmanagement-view').html("");
+                $('.admin-empmanagement-view').html(response);
             },
             error: function (xhr, status, error) {
                 var err = eval("(" + xhr.responseText + ")");

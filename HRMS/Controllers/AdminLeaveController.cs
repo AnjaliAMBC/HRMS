@@ -11,7 +11,7 @@ namespace HRMS.Controllers
         // GET: AdminLeave
         public ActionResult Index()
         {
-            return PartialView("~/Views/AdminDashboard/AdminLeaveTracker.cshtml");
+            return View("~/Views/AdminDashboard/AdminLeaveTracker.cshtml");
         }
         public ActionResult AdminLeaveBalance()
         {

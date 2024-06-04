@@ -68,8 +68,13 @@ namespace HRMS.Controllers
             }
 
             model.AllEmployees = _dbContext.emp_info.Where(x => x.EmployeeStatus == "Active").ToList();
+            if (!string.IsNullOrWhiteSpace(selectedStartDate) || !string.IsNullOrWhiteSpace(SelectedendDate))
+            {
+                return PartialView("~/Views/AdminDashboard/AdminAttendance.cshtml", model);
+            }
 
-            return PartialView("~/Views/AdminDashboard/AdminAttendance.cshtml", model);
+
+            return View("~/Views/AdminDashboard/AdminAttendance.cshtml", model);
         }
 
         public ActionResult EmpAttendance(string selectedStartDate, string selectedEndDate, string selectedEmpID)
