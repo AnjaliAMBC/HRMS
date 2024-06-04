@@ -1,0 +1,166 @@
+﻿<div class="admin-leave-apply">
+    <style>
+
+        .admin-half-day-select {
+            margin-top: 10px;
+            width: 150px;
+        }
+
+        .admin-apply-date-section {
+            display: flex;
+            justify-content: space-between;
+        }
+
+            .admin-apply-date-section .form-group {
+                flex: 1;
+                margin-right: 20px;
+            }
+
+                .admin-apply-date-section .form-group:last-child {
+                    margin-right: 0;
+                }
+
+        .admin-apply-date-label {
+            margin-bottom: 0.5rem;
+            font-weight: bold;
+        }
+
+        .admin-apply-leave-form {
+            display: flex;
+            align-items: center;
+            margin-bottom: 15px;
+            font-size: 15px;
+        }
+
+        .admin-vertical-line {
+            border-left: 1px solid #000;
+            height: 20px;
+            margin: 0 10px;
+        }
+
+        .admindayleave-type-container {
+            display: flex;
+            align-items: center;
+        }
+
+            .admindayleave-type-container .form-check {
+                margin-right: 20px;
+            }
+    </style>
+    <div class="container mt-5">
+        <div class="row">
+            <div class="col-md-5">
+                <form id="adminleaveForm">
+                    <div class="form-group">
+                        <h3 class="mb-4">Apply Leave</h3>
+                        <label for="leaveType" class="leave_label">Leave Type*</label>
+                        <select class="form-control" id="leaveType">
+                            <option selected disabled>Select Leave Type</option>
+                            <option value="1">Earned Leave</option>
+                            <option value="2">Emergency Leave</option>
+                            <option value="3">Sick Leave</option>
+                            <option value="4">Bereavement Leave</option>
+                            <option value="5">Hourly Permission</option>
+                        </select>
+                    </div>
+                    <div class="admin-apply-date-section">
+                        <div class="form-group">
+                            <label for="fromleaveDateadmin">From Date*</label>
+                            <input type="date" class="form-control" id="fromleaveDateadmin">
+                        </div>
+                        <div class="form-group">
+                            <label for="toleaveDateadmin">To Date*</label>
+                            <input type="date" class="form-control" id="toleaveDateadmin">
+                        </div>
+                    </div>
+                    <div class="form-group" id="admindayTypeLabel">
+                        <label>Day Type*</label>
+                    </div>
+                    <div id="admindayTypeContainer"></div>
+                    <div class="form-group">
+                        <label for="teamEmail">Team Email</label>
+                        <input type="text" class="form-control" id="teamEmail">
+                    </div>
+                    <div class="form-group">
+                        <label for="reason">Reason</label>
+                        <textarea class="form-control" id="reason"></textarea>
+                    </div>
+                    <button type="submit" class="btn btn-primary">Apply</button>
+                </form>
+            </div>
+            
+
+        </div>
+    </div>
+
+
+    <script>
+        $(document).ready(function () {
+            function generateDayTypeRows() {
+                var fromDate = $('#fromleaveDateadmin').val();
+                var toDate = $('#toleaveDateadmin').val();
+                var dayTypeLabel1 = $('#admindayTypeLabel');
+                var dayTypeContainer1 = $('#admindayTypeContainer');
+
+                // Clear previous entries
+                dayTypeContainer1.empty();
+
+                if (fromDate && toDate) {
+                    // Show the "Day Type" label
+                    dayTypeLabel1.show();
+
+                    var start = new Date(fromDate);
+                    var end = new Date(toDate);
+
+                    // Generate a row for each date in the range
+                    for (var d = new Date(start); d <= end; d.setDate(d.getDate() + 1)) {
+                        var dateStr = d.toISOString().split('T')[0];
+                        var dayTypeRow = `
+                                <div class="form-group-row admin-apply-leave-form">
+                                    <div class="admin-apply-date-label">${dateStr}</div>
+                                    <div class="admin-vertical-line"></div>
+                                    <div class="admindayleave-type-container">
+                                        <div class="form-check">
+                                            <input class="form-check-input" type="radio" name="dayType_${dateStr}" value="fullDay" checked>
+                                            <label class="form-check-label">Full Day</label>
+                                        </div>
+                                        <div class="form-check">
+                                            <input class="form-check-input" type="radio" name="dayType_${dateStr}" value="halfDay">
+                                            <label class="form-check-label">Half Day</label>
+                                        </div>
+                                        <select class="form-control admin-half-day-select" name="halfType_${dateStr}" disabled>
+                                            <option>First Half</option>
+                                            <option>Second Half</option>
+                                        </select>
+                                    </div>
+                                </div>`;
+                        dayTypeContainer1.append(dayTypeRow);
+                    }
+
+                    // Enable/disable half day selection
+                    $('input[name^="dayType_"]').change(function () {
+                        var halfTypeSelect = $(this).closest('.admin-apply-leave-form').find('select');
+                        if ($(this).val() === 'halfDay') {
+                            halfTypeSelect.prop('disabled', false);
+                        } else {
+                            halfTypeSelect.prop('disabled', true);
+                        }
+                    });
+                } else {
+                    // Hide the "Day Type" label if dates are not selected
+                    dayTypeLabel1.hide();
+                }
+            }
+
+            // Initially hide the "Day Type" label
+            $('#admindayTypeLabel').hide();
+
+            // Attach change event listeners to date fields
+            $('#fromleaveDateadmin, #toleaveDateadmin').change(generateDayTypeRows);
+     
+               });
+
+            
+    
+    </script>
+</div>

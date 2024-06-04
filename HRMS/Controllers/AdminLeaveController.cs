@@ -17,5 +17,10 @@ namespace HRMS.Controllers
         {
             return PartialView("~/Views/AdminDashboard/AdminEmpBalanceView.cshtml");
         }
+        public ActionResult AdminLeaveApply()
+        {
+            return PartialView("~/Views/AdminDashboard/AdminApplyLeave.cshtml");
+        }
+
     }
 }
