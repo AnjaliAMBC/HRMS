@@ -46,18 +46,19 @@ function updateAvailableBalance(leaveType) {
 }
 
 // Attach change event listener to the leave type dropdown
-$('#leaveType').change(function () {
+
+$(document).on('change', '#adminleaveType', function (event) {
     var selectedLeaveType = $(this).val();
-    updateAvailableBalance(selectedLeaveType);
+    generateBalanceSection(selectedLeaveType);
 });
 
 // Function to dynamically generate balance section HTML
 function generateBalanceSection() {
-    var leaveType = $('#leaveType').val();
+    var leaveType = $('#adminleaveType').val();
     var availableBalance = availableBalances[leaveType];
 
     var balanceSectionHTML = `
-            <div class="col-md-6 ml-4" style="margin-top:25px;">
+            <div class="ml-4" style="margin-top:25px;">
                 <div class="balance-section mt-4 ml-4">
                     <div class="row" style="line-height:2;">
                         <div class="col-md-4">

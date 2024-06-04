@@ -57,6 +57,7 @@ namespace HRMS.Controllers
             {                
                 return Json(leaveRequest, JsonRequestBehavior.AllowGet);
             }
+           
 
             foreach(var DayTypeEntrie in leaveRequest.DayTypeEntries)
             {

@@ -34,5 +34,6 @@ namespace HRMS
         public virtual DbSet<tbld_ambclogininformation> tbld_ambclogininformation { get; set; }
         public virtual DbSet<tblambcholiday> tblambcholidays { get; set; }
         public virtual DbSet<CheckInView> CheckInViews { get; set; }
+        public virtual DbSet<con_leaveupdate> con_leaveupdate { get; set; }
     }
 }

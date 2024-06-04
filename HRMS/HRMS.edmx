@@ -12,6 +12,20 @@
           <Property Name="Sno" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="ClientName" Type="varchar" MaxLength="255" />
         </EntityType>
+        <EntityType Name="con_leaveupdate">
+          <Key>
+            <PropertyRef Name="leaveuniqkey" />
+          </Key>
+          <Property Name="leaveno" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="leavedate" Type="date" />
+          <Property Name="employee_id" Type="varchar" MaxLength="50" />
+          <Property Name="leave_reason" Type="varchar" MaxLength="255" />
+          <Property Name="submittedby" Type="varchar" MaxLength="100" />
+          <Property Name="leavesource" Type="varchar" MaxLength="50" />
+          <Property Name="leaveuniqkey" Type="varchar" MaxLength="200" Nullable="false" />
+          <Property Name="leavecategory" Type="varchar" MaxLength="250" />
+          <Property Name="employee_name" Type="varchar" MaxLength="1500" />
+        </EntityType>
         <EntityType Name="Department">
           <Key>
             <PropertyRef Name="Sno" />
@@ -174,6 +188,7 @@ warning 6002: The table/view 'HRMS_PortalDev1.dbo.CheckInView' does not have a p
         </EntityType>
         <EntityContainer Name="HRMS_EntityModelStoreContainer">
           <EntitySet Name="Client" EntityType="Self.Client" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="con_leaveupdate" EntityType="Self.con_leaveupdate" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Department" EntityType="Self.Department" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Designation" EntityType="Self.Designation" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="emp_info" EntityType="Self.emp_info" Schema="dbo" store:Type="Tables" />
@@ -232,6 +247,7 @@ warning 6002: The table/view 'HRMS_PortalDev1.dbo.CheckInView' does not have a p
           <EntitySet Name="tbld_ambclogininformation" EntityType="HRMS_EntityModel.tbld_ambclogininformation" />
           <EntitySet Name="tblambcholidays" EntityType="HRMS_EntityModel.tblambcholiday" />
           <EntitySet Name="CheckInViews" EntityType="HRMS_EntityModel.CheckInView" />
+          <EntitySet Name="con_leaveupdate" EntityType="HRMS_EntityModel.con_leaveupdate" />
         </EntityContainer>
         <EntityType Name="Client">
           <Key>
@@ -377,6 +393,20 @@ warning 6002: The table/view 'HRMS_PortalDev1.dbo.CheckInView' does not have a p
           <Property Name="Working_Hours" Type="Int32" />
           <Property Name="Location" Type="String" Nullable="false" MaxLength="100" FixedLength="false" Unicode="false" />
           <Property Name="imagepath" Type="String" MaxLength="1000" FixedLength="false" Unicode="false" />
+        </EntityType>
+        <EntityType Name="con_leaveupdate">
+          <Key>
+            <PropertyRef Name="leaveuniqkey" />
+          </Key>
+          <Property Name="leaveno" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="leavedate" Type="DateTime" Precision="0" />
+          <Property Name="employee_id" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="leave_reason" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+          <Property Name="submittedby" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="leavesource" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="leaveuniqkey" Type="String" Nullable="false" MaxLength="200" FixedLength="false" Unicode="false" />
+          <Property Name="leavecategory" Type="String" MaxLength="250" FixedLength="false" Unicode="false" />
+          <Property Name="employee_name" Type="String" MaxLength="1500" FixedLength="false" Unicode="false" />
         </EntityType>
       </Schema>
     </edmx:ConceptualModels>
@@ -548,6 +578,21 @@ warning 6002: The table/view 'HRMS_PortalDev1.dbo.CheckInView' does not have a p
                 <ScalarProperty Name="EmployeeStatus" ColumnName="EmployeeStatus" />
                 <ScalarProperty Name="EmployeeID" ColumnName="EmployeeID" />
                 <ScalarProperty Name="login_id" ColumnName="login_id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="con_leaveupdate">
+            <EntityTypeMapping TypeName="HRMS_EntityModel.con_leaveupdate">
+              <MappingFragment StoreEntitySet="con_leaveupdate">
+                <ScalarProperty Name="employee_name" ColumnName="employee_name" />
+                <ScalarProperty Name="leavecategory" ColumnName="leavecategory" />
+                <ScalarProperty Name="leaveuniqkey" ColumnName="leaveuniqkey" />
+                <ScalarProperty Name="leavesource" ColumnName="leavesource" />
+                <ScalarProperty Name="submittedby" ColumnName="submittedby" />
+                <ScalarProperty Name="leave_reason" ColumnName="leave_reason" />
+                <ScalarProperty Name="employee_id" ColumnName="employee_id" />
+                <ScalarProperty Name="leavedate" ColumnName="leavedate" />
+                <ScalarProperty Name="leaveno" ColumnName="leaveno" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
