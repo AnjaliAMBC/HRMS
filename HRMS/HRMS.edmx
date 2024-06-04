@@ -20,11 +20,16 @@
           <Property Name="leavedate" Type="date" />
           <Property Name="employee_id" Type="varchar" MaxLength="50" />
           <Property Name="leave_reason" Type="varchar" MaxLength="255" />
+          <Property Name="DayType" Type="varchar" MaxLength="100" />
+          <Property Name="LeaveDays" Type="decimal" Precision="10" Scale="2" Nullable="false" />
+          <Property Name="HalfDayCategory" Type="varchar" MaxLength="100" />
           <Property Name="submittedby" Type="varchar" MaxLength="100" />
           <Property Name="leavesource" Type="varchar" MaxLength="50" />
           <Property Name="leaveuniqkey" Type="varchar" MaxLength="200" Nullable="false" />
           <Property Name="leavecategory" Type="varchar" MaxLength="250" />
           <Property Name="employee_name" Type="varchar" MaxLength="1500" />
+          <Property Name="BackupResource_Name" Type="varchar" MaxLength="255" />
+          <Property Name="EmergencyContact_no" Type="varchar" MaxLength="50" />
         </EntityType>
         <EntityType Name="Department">
           <Key>
@@ -407,6 +412,11 @@ warning 6002: The table/view 'HRMS_PortalDev1.dbo.CheckInView' does not have a p
           <Property Name="leaveuniqkey" Type="String" Nullable="false" MaxLength="200" FixedLength="false" Unicode="false" />
           <Property Name="leavecategory" Type="String" MaxLength="250" FixedLength="false" Unicode="false" />
           <Property Name="employee_name" Type="String" MaxLength="1500" FixedLength="false" Unicode="false" />
+          <Property Name="DayType" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="LeaveDays" Type="Decimal" Nullable="false" Precision="10" Scale="2" />
+          <Property Name="HalfDayCategory" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="BackupResource_Name" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+          <Property Name="EmergencyContact_no" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
         </EntityType>
       </Schema>
     </edmx:ConceptualModels>
@@ -584,6 +594,11 @@ warning 6002: The table/view 'HRMS_PortalDev1.dbo.CheckInView' does not have a p
           <EntitySetMapping Name="con_leaveupdate">
             <EntityTypeMapping TypeName="HRMS_EntityModel.con_leaveupdate">
               <MappingFragment StoreEntitySet="con_leaveupdate">
+                <ScalarProperty Name="EmergencyContact_no" ColumnName="EmergencyContact_no" />
+                <ScalarProperty Name="BackupResource_Name" ColumnName="BackupResource_Name" />
+                <ScalarProperty Name="HalfDayCategory" ColumnName="HalfDayCategory" />
+                <ScalarProperty Name="LeaveDays" ColumnName="LeaveDays" />
+                <ScalarProperty Name="DayType" ColumnName="DayType" />
                 <ScalarProperty Name="employee_name" ColumnName="employee_name" />
                 <ScalarProperty Name="leavecategory" ColumnName="leavecategory" />
                 <ScalarProperty Name="leaveuniqkey" ColumnName="leaveuniqkey" />

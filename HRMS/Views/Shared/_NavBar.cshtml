@@ -85,7 +85,9 @@
     </div>
 
     <div id="profileDropdown" class="profile-dropdown">
-        <h6>@currentContext.EmpInfo.EmployeeName</h6>
+        <h6 class="loggedinempname">@currentContext.EmpInfo.EmployeeName</h6>
+        <div class="loggedinempid">@currentContext.EmpInfo.EmployeeID</div>
+        <div class="loggedinempjoiningdate">@currentContext.EmpInfo.DOJ</div>
         <p style="color: #3E78CF; font-size:14px;">@currentContext.EmpInfo.OfficalEmailid</p>
         <p>@currentContext.EmpInfo.Designation</p>
 
@@ -94,7 +96,7 @@
             <button class="btn" onclick="viewProfile()" style="width: 38%; background-color: #EEF4FF; margin-left: 74px; font-size: 12px; border: 1px solid #7E7E7E">View Profile</button>
         }
 
-        <a href="#" class="sign-out" onclick="signOut()" style="color: #F8284A";>Sign Out</a>
+        <a href="#" class="sign-out" onclick="signOut()" style="color: #F8284A" ;>Sign Out</a>
         <form id="logoutForm" action="@Url.Action("Logout", "Profile")" method="post">
             @Html.AntiForgeryToken()
         </form>

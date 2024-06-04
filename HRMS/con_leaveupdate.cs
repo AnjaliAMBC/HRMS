@@ -23,5 +23,10 @@ namespace HRMS
         public string leaveuniqkey { get; set; }
         public string leavecategory { get; set; }
         public string employee_name { get; set; }
+        public string DayType { get; set; }
+        public decimal LeaveDays { get; set; }
+        public string HalfDayCategory { get; set; }
+        public string BackupResource_Name { get; set; }
+        public string EmergencyContact_no { get; set; }
     }
 }

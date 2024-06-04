@@ -1,6 +1,6 @@
 ﻿
 <div class="employeeleaveapply-view">
-    <div class="container mt-5">
+    <div class="container">
         <div class="row">
             <div class="col-md-5">
                 <form id="leaveForm">
@@ -9,11 +9,15 @@
                         <label for="leaveType" class="leave_label">Leave Type*</label>
                         <select class="form-control" id="leaveType">
                             <option selected disabled>Select Leave Type</option>
-                            <option value="1">Earned Leave</option>
-                            <option value="2">Emergency Leave</option>
-                            <option value="3">Sick Leave</option>
-                            <option value="4">Bereavement Leave</option>
-                            <option value="5">Hourly Permission</option>
+                            <option value="Earned Leave">Earned Leave</option>
+                            <option value="Emergency Leave">Emergency Leave</option>
+                            <option value="Sick Leave">Sick Leave</option>
+                            <option value="Bereavement Leave">Bereavement Leave</option>
+                            <option value="Hourly Permission">Hourly Permission</option>
+                            <option value="Marriage Leave">Marriage Leave</option>
+                            <option value="Maternity Leave">Maternity Leave</option>
+                            <option value="Paternity Leave">Paternity Leave</option>
+                            <option value="Comp Off">Comp Off</option>
                         </select>
                     </div>
                     <div class="apply-date-section">
@@ -30,6 +34,7 @@
                         <label>Day Type*</label>
                     </div>
                     <div id="dayTypeContainer"></div>
+                    <div id="totalLeavesContainer" class="mb-4"></div>
                     <div class="form-group">
                         <label for="teamEmail">Team Email</label>
                         <input type="text" class="form-control" id="teamEmail">
@@ -38,34 +43,21 @@
                         <label for="reason">Reason</label>
                         <textarea class="form-control" id="reason"></textarea>
                     </div>
+                    <div class="form-group">
+                        <label for="BackupName">Backup Resource Name</label>
+                        <input type="text" class="form-control" id="BackupName">
+                    </div>
+                    <div class="form-group">
+                        <label for="BackupNo">Contact Number (In case of Emergency)</label>
+                        <input type="text" class="form-control" id="BackupNo">
+                    </div>
                     <button type="submit" class="btn btn-primary btn-apply-empleave">Apply</button>
                 </form>
             </div>
-            <div class="col-md-6 ml-4" style="margin-top:25px;">
-                <div class="balance-section mt-4 ml-4">
-                    <div class="row" style="line-height:2;">
-                        <div class="col-md-4">
-                            <span>Available Balance</span>
-                        </div>
-                        <div class="col-md-6">
-                            <div>3</div>
-                        </div>
-                        <div class="col-md-4">
-                            <span>Currently Booked</span>
-                        </div>
-                        <div class="col-md-6">
-                            <div>3</div>
-                        </div>
-                        <div class="col-md-4">
-                            <span>Balance</span>
-                        </div>
-                        <div class="col-md-6">
-                            <div>3</div>
-                        </div>
-                    </div>
+            <div class="col-md-6">
+                <div class="balance-section-wrapper">
                 </div>
             </div>
-
         </div>
     </div>
 

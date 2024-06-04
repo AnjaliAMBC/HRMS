@@ -47,20 +47,31 @@
                 margin-right: 20px;
             }
     </style>
-    <div class="container mt-5">
+    <div class="container">
         <div class="row">
             <div class="col-md-5">
                 <form id="adminleaveForm">
+                    <h3 class="mb-4">Apply Leave</h3>
                     <div class="form-group">
-                        <h3 class="mb-4">Apply Leave</h3>
+                        <label for="adminEmpNameleave" class="leave_label">Employee Name*</label>
+                        <select class="form-control" id="adminEmpNameleave">
+                            <option selected disabled>Select Employee Name</option>
+                            <option value="Earned Leave">Employee Name</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
                         <label for="adminleaveType" class="leave_label">Leave Type*</label>
                         <select class="form-control" id="adminleaveType">
                             <option selected disabled>Select Leave Type</option>
-                            <option value="1">Earned Leave</option>
-                            <option value="2">Emergency Leave</option>
-                            <option value="3">Sick Leave</option>
-                            <option value="4">Bereavement Leave</option>
-                            <option value="5">Hourly Permission</option>
+                            <option value="Earned Leave">Earned Leave</option>
+                            <option value="Emergency Leave">Emergency Leave</option>
+                            <option value="Sick Leave">Sick Leave</option>
+                            <option value="Bereavement Leave">Bereavement Leave</option>
+                            <option value="Hourly Permission">Hourly Permission</option>
+                            <option value="Emergency Leave">Marriage Leave</option>
+                            <option value="Sick Leave">Maternity Leave</option>
+                            <option value="Bereavement Leave">Paternity Leave</option>
+                            <option value="Hourly Permission">Comp Off</option>
                         </select>
                     </div>
                     <div class="admin-apply-date-section">
@@ -85,86 +96,94 @@
                         <label for="reason">Reason</label>
                         <textarea class="form-control" id="reason"></textarea>
                     </div>
+                    <div class="form-group">
+                        <label for="BackupName">Backup Resource Name</label>
+                        <input type="text" class="form-control" id="BackupName">
+                    </div>
+                    <div class="form-group">
+                        <label for="BackupNo">Contact Number (In case of Emergency)</label>
+                        <input type="text" class="form-control" id="BackupNo">
+                    </div>
                     <button type="submit" class="btn btn-primary">Apply</button>
                 </form>
             </div>
 
             <div class="col-md-6">
                 <div class="balance-section-wrapper">
-                    
+
                 </div>
-            </div>
+            </div>        
         </div>
     </div>
 
 
     <script>
-        $(document).ready(function () {
-            function generateDayTypeRows() {
-                var fromDate = $('#fromleaveDateadmin').val();
-                var toDate = $('#toleaveDateadmin').val();
-                var dayTypeLabel1 = $('#admindayTypeLabel');
-                var dayTypeContainer1 = $('#admindayTypeContainer');
+        //$(document).ready(function () {
+        //    function generateDayTypeRows() {
+        //        var fromDate = $('#fromleaveDateadmin').val();
+        //        var toDate = $('#toleaveDateadmin').val();
+        //        var dayTypeLabel1 = $('#admindayTypeLabel');
+        //        var dayTypeContainer1 = $('#admindayTypeContainer');
 
-                // Clear previous entries
-                dayTypeContainer1.empty();
+        //        // Clear previous entries
+        //        dayTypeContainer1.empty();
 
-                if (fromDate && toDate) {
-                    // Show the "Day Type" label
-                    dayTypeLabel1.show();
+        //        if (fromDate && toDate) {
+        //            // Show the "Day Type" label
+        //            dayTypeLabel1.show();
 
-                    var start = new Date(fromDate);
-                    var end = new Date(toDate);
+        //            var start = new Date(fromDate);
+        //            var end = new Date(toDate);
 
-                    // Generate a row for each date in the range
-                    for (var d = new Date(start); d <= end; d.setDate(d.getDate() + 1)) {
-                        var dateStr = d.toISOString().split('T')[0];
-                        var dayTypeRow = `
-                                <div class="form-group-row admin-apply-leave-form">
-                                    <div class="admin-apply-date-label">${dateStr}</div>
-                                    <div class="admin-vertical-line"></div>
-                                    <div class="admindayleave-type-container">
-                                        <div class="form-check">
-                                            <input class="form-check-input" type="radio" name="dayType_${dateStr}" value="fullDay" checked>
-                                            <label class="form-check-label">Full Day</label>
-                                        </div>
-                                        <div class="form-check">
-                                            <input class="form-check-input" type="radio" name="dayType_${dateStr}" value="halfDay">
-                                            <label class="form-check-label">Half Day</label>
-                                        </div>
-                                        <select class="form-control admin-half-day-select" name="halfType_${dateStr}" disabled>
-                                            <option>First Half</option>
-                                            <option>Second Half</option>
-                                        </select>
-                                    </div>
-                                </div>`;
-                        dayTypeContainer1.append(dayTypeRow);
-                    }
+        //            // Generate a row for each date in the range
+        //            for (var d = new Date(start); d <= end; d.setDate(d.getDate() + 1)) {
+        //                var dateStr = d.toISOString().split('T')[0];
+        //                var dayTypeRow = `
+        //                            <div class="form-group-row admin-apply-leave-form">
+        //                                <div class="admin-apply-date-label">${dateStr}</div>
+        //                                <div class="admin-vertical-line"></div>
+        //                                <div class="admindayleave-type-container">
+        //                                    <div class="form-check">
+        //                                        <input class="form-check-input" type="radio" name="dayType_${dateStr}" value="fullDay" checked>
+        //                                        <label class="form-check-label">Full Day</label>
+        //                                    </div>
+        //                                    <div class="form-check">
+        //                                        <input class="form-check-input" type="radio" name="dayType_${dateStr}" value="halfDay">
+        //                                        <label class="form-check-label">Half Day</label>
+        //                                    </div>
+        //                                    <select class="form-control admin-half-day-select" name="halfType_${dateStr}" disabled>
+        //                                        <option>First Half</option>
+        //                                        <option>Second Half</option>
+        //                                    </select>
+        //                                </div>
+        //                            </div>`;
+        //                dayTypeContainer1.append(dayTypeRow);
+        //            }
 
-                    // Enable/disable half day selection
-                    $('input[name^="dayType_"]').change(function () {
-                        var halfTypeSelect = $(this).closest('.admin-apply-leave-form').find('select');
-                        if ($(this).val() === 'halfDay') {
-                            halfTypeSelect.prop('disabled', false);
-                        } else {
-                            halfTypeSelect.prop('disabled', true);
-                        }
-                    });
-                } else {
-                    // Hide the "Day Type" label if dates are not selected
-                    dayTypeLabel1.hide();
-                }
-            }
+        //            // Enable/disable half day selection
+        //            $('input[name^="dayType_"]').change(function () {
+        //                var halfTypeSelect = $(this).closest('.admin-apply-leave-form').find('select');
+        //                if ($(this).val() === 'halfDay') {
+        //                    halfTypeSelect.prop('disabled', false);
+        //                } else {
+        //                    halfTypeSelect.prop('disabled', true);
+        //                }
+        //            });
+        //        } else {
+        //            // Hide the "Day Type" label if dates are not selected
+        //            dayTypeLabel1.hide();
+        //        }
+        //    }
 
-            // Initially hide the "Day Type" label
-            $('#admindayTypeLabel').hide();
+        //    // Initially hide the "Day Type" label
+        //    $('#admindayTypeLabel').hide();
 
-            // Attach change event listeners to date fields
-            $('#fromleaveDateadmin, #toleaveDateadmin').change(generateDayTypeRows);
-     
-               });
+        //    // Attach change event listeners to date fields
+        //    $('#fromleaveDateadmin, #toleaveDateadmin').change(generateDayTypeRows);
 
-            
-    
+        //});
+
+
+
     </script>
 </div>
