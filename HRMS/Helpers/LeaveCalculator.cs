@@ -121,7 +121,17 @@ namespace HRMS.Helpers
                 endDate = startDate.AddMonths(1).AddDays(-1);
             }
 
-            int monthDifference = (endDate.Year - startDate.Year) * 12 + endDate.Month - startDate.Month + (endDate.Day >= startDate.Day ? 1 : 0);
+            var startMonthNumber = startDate.Month;
+            var endMonthNumber = endDate.Month;
+
+            if(startMonthNumber == 1)
+            {
+                startMonthNumber = 0;
+            }
+
+            int monthDifference = endMonthNumber - startMonthNumber;
+
+            //int monthDifference = (endDate.Year - startDate.Year) * 12 + endDate.Month - startDate.Month + (endDate.Day >= startDate.Day ? 1 : 0);
             decimal earnedLeavesPerMonth = monthDifference * 1;
             decimal totalSickLeaves = (decimal)monthDifference * (decimal)0.5;
             decimal totalEmergencyLeaves = (int)(monthDifference / 3) + ((monthDifference % 3 > 0) ? 1 : 0);
