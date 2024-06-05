@@ -1,4 +1,5 @@
-﻿
+﻿@model HRMS.Models.Employee.ApplyLeaveViewModel
+
 <div class="employeeleaveapply-view">
     <div class="container">
         <div class="row">
@@ -6,6 +7,16 @@
                 <form id="leaveForm">
                     <div class="form-group">
                         <h4 class="mb-4">Apply Leave</h4>
+                        <div class="form-group div-leave-empname">
+                            <label for="leaveempname" class="leave_label">Employee Name*</label>
+                            <select class="form-control" id="leaveempname">
+                                <option selected disabled>Select Employee Name</option>
+                                @foreach (var emp in Model.employees)
+                                {
+                                    <option value="@emp.EmployeeID">@emp.EmployeeName</option>
+                                }
+                            </select>
+                        </div>
                         <label for="leaveType" class="leave_label">Leave Type*</label>
                         <select class="form-control" id="leaveType">
                             <option selected disabled>Select Leave Type</option>
@@ -60,6 +71,4 @@
             </div>
         </div>
     </div>
-
-
 </div>

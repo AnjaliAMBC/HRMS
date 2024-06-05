@@ -19,7 +19,7 @@ namespace HRMS.Controllers
         }
         public ActionResult AdminLeaveApply()
         {
-            return PartialView("~/Views/AdminDashboard/AdminApplyLeave.cshtml");
+            return PartialView("~/Views/EmployeeDashboard/EmpApplyleave.cshtml");
         }
 
     }

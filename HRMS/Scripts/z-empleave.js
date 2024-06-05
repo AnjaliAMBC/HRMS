@@ -236,6 +236,7 @@ $(document).on('click', '.btn-apply-leave', function (event) {
             $('.selfservice-dashboard-data').hide();
             $('.myrequest-dashboard-data').hide();
             $(".hiddenempdashboard").html("");
+            $('.div-leave-empname').hide();
         },
         error: function (xhr, status, error) {
             var err = eval("(" + xhr.responseText + ")");

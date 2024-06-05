@@ -30,4 +30,9 @@ namespace HRMS.Models.Employee
         public string DayType { get; set; }
         public string HalfType { get; set; }
     }
+
+    public class ApplyLeaveViewModel
+    {
+        public List<emp_info> employees { get; set; } = new List<emp_info>();
+    }
 }

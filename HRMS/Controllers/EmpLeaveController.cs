@@ -43,7 +43,11 @@ namespace HRMS.Controllers
         }
         public ActionResult EmpApplyLeave()
         {
-            return PartialView("~/Views/EmployeeDashboard/EmpApplyleave.cshtml");
+            var applyleaveModel = new ApplyLeaveViewModel();
+
+            var employees = _dbContext.emp_info.Where(x => x.EmployeeStatus == "Active").ToList();
+            applyleaveModel.employees = employees;
+            return PartialView("~/Views/EmployeeDashboard/EmpApplyleave.cshtml", applyleaveModel);
         }
 
         public ActionResult AjaxApplyLeave(LeaveRequestModel leaveRequest)
