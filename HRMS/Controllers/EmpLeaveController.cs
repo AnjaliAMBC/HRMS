@@ -109,7 +109,7 @@ namespace HRMS.Controllers
                 .ToList();
 
 
-            var availableLeaves = LeaveCalculator.CalculateAvailableLeaves(employee, leaves, leaveType);
+            var availableLeaves = new LeaveCalculator().CalculateAvailableLeaves(employee, leaves, leaveType);
 
             // Return available leaves as JSON
             return Json(availableLeaves, JsonRequestBehavior.AllowGet);
