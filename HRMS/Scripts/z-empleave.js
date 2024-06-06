@@ -52,10 +52,19 @@ function fetchLeaveHolidays() {
 function updateLeaveCalendar() {
     generateLeaveCalendar(currentLeaveMonth, currentLeaveYear);
 }
+
 //On Page load
 generateLeaveCalendar(new Date().getMonth(), new Date().getFullYear());
 
 function generateLeaveCalendar(month, year) {
+    var isAdminLeavePage = false;
+    var linktoleavecalender = "btn-apply-leave1";
+
+    if ($('div.admin-leave-container').length) {
+        isAdminLeavePage = true;
+        linktoleavecalender = "btn-admin-apply-leave1";
+    }
+
     const today = new Date();
     const firstDayOfMonth = new Date(year, month, 1);
     const daysInMonth = new Date(year, month + 1, 0).getDate();
@@ -86,7 +95,7 @@ function generateLeaveCalendar(month, year) {
             } else {
                 const cell = document.createElement("td");
                 cell.textContent = date;
-                cell.classList.add("btn-apply-leave1"); // Add a class for jQuery
+                cell.classList.add(linktoleavecalender);
 
                 const holidayKey = `${month + 1}-${date}`;
                 if (date === today.getDate() && year === today.getFullYear() && month === today.getMonth()) {
@@ -245,7 +254,7 @@ function toggleLeaveView() {
         icon.classList.add("fa-calendar-alt");
         cardDiv.style.display = 'none';
         leaveHistory.style.display = 'block';
-        GetEmpLeaveHistory();       
+        GetEmpLeaveHistory();
 
     } else {
         historyBtn.textContent = "Leave History";
@@ -271,7 +280,7 @@ $(document).on('click', '.emp-leave-cancel', function (event) {
             }
             else {
                 showMessageModal(response.Message, false);
-            }           
+            }
         },
         error: function (xhr, status, error) {
             var err = eval("(" + xhr.responseText + ")");
@@ -279,12 +288,7 @@ $(document).on('click', '.emp-leave-cancel', function (event) {
     });
 });
 
-//$(document).on('click', '.leave-edit-history', function (event) {
-//    $('#emp-leaveoptions').toggle();
-//});
-
 $('#leaveHistoryTable').on('click', '.leave-edit-history', function () {
-    //// Toggle the visibility of the emp-leaveoptions div within the same tr
     $(this).siblings('.emp-leaveoptions').toggle();
 });
 
@@ -328,4 +332,4 @@ $(document).on('click', '.btn-apply-leave', function (event) {
 
 //on page load
 generateLeaveCalendar(new Date().getMonth(), new Date().getFullYear());
-LeaveCarousel();
+//LeaveCarousel();

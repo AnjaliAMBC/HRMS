@@ -24,7 +24,7 @@
                             <div class="row mx-auto my-auto">
                                 <div id="leaveCarousel" class="carousel slide w-100" data-ride="carousel">
                                     <div class="carousel-inner carousel-leave-inner w-100 tracker-100" role="listbox">
-                                        <div class="carousel-item carousel-leave-item active">
+                                        @*<div class="carousel-item carousel-leave-item active">
                                             <div class="col-md-2 m-0">
                                                 <div class="card card-body tracker-card bev_border">
                                                     <h6 class="tracker-title">Bereavement Leave</h6>
@@ -113,7 +113,7 @@
                                                     <p class="tracker-details">Booked: 4 Days</p>
                                                 </div>
                                             </div>
-                                        </div>
+                                        </div>*@
 
                                     </div>
 
@@ -222,3 +222,23 @@
 
 
 @Html.Partial("CommonModalPopups")
+
+<script>
+    function FillEmpBasedLeavesAvailability() {
+        $.ajax({
+            url: '/empleave/employeeleavesbytype',
+            method: 'POST',
+            dataType: 'html',
+            data: { empId: $('.loggedinempid').text() },
+            success: function (response) {
+                $('.carousel-leave-inner').append(response);
+                LeaveCarousel();
+            },
+            error: function (error) {
+                console.error('Error fetching data', error);
+            }
+        });
+    }
+
+    FillEmpBasedLeavesAvailability();
+</script>

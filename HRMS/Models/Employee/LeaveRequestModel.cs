@@ -37,4 +37,34 @@ namespace HRMS.Models.Employee
     {
         public List<emp_info> employees { get; set; } = new List<emp_info>();
     }
+
+
+    public class AvailableLeaves
+    {
+        public string Type { get; set; }
+        public decimal Available { get; set; }
+        public decimal Booked { get; set; }
+        public decimal Balance { get; set; }
+        public string ColorCode { get; set; }
+
+    }
+
+    public class LeaveEmployee
+    {
+        public emp_info empInfo { get; set; } = new emp_info();
+        public List<AvailableLeaves> AvailableLeaves { get; set; } = new List<AvailableLeaves>();
+    }
+
+    public class LeaveTypesBasedOnEmpViewModel
+    {
+        public List<LeaveEmployee> LeaveTypes { get; set; } = new List<LeaveEmployee>();
+
+    }
+
+    public class LeavesCategory
+    {
+        public string Type { get; set; }
+        public string Colrocode { get; set; }
+
+    }
 }

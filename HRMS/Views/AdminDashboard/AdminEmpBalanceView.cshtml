@@ -1,4 +1,7 @@
-﻿<div class="admin-leaveBalance-view">
+﻿@model HRMS.Models.Employee.LeaveTypesBasedOnEmpViewModel
+
+
+<div class="admin-leaveBalance-view">
     <style>
         #location-dropdown {
             border: none;
@@ -50,6 +53,10 @@
         table.dataTable thead th {
             border-top: 1px solid #dee2e6;
         }
+
+        #leaveBalanceTable_filter {
+            display: none;
+        }
     </style>
     <div class="container-fluid">
         <div class="row mb-2 align-items-center">
@@ -59,16 +66,20 @@
             <div class="col-md-3 search-container" style="margin-left:30%;">
                 <div class="input-group">
                     <div class="input-group-prepend">
-                        <span class="input-group-text" style="background-color: transparent; border-right: none; border-radius: 10px 0 0 10px; height: 35px;"><i class="fas fa-search" style="color: #369479;"></i></span>
+                        <span class="input-group-text" style="background-color: transparent; border-right: none; border-radius: 10px 0 0 10px; height: 35px;">
+                            <i class="fas fa-search" style="color: #369479;"></i>
+                        </span>
                     </div>
                     <input type="text" id="adminleavetableSearch" placeholder="Search By Keyword" class="advancesearch form-control" aria-label="Search By Keyword" style="border-radius: 0 10px 10px 0; height: 35px; font-size: 14px;">
                 </div>
             </div>
             <div class="col-md-3">
-                <div class="dropdowns-container d-flex  align-items-center" style=" justify-content: flex-end;">
+                <div class="dropdowns-container d-flex align-items-center" style="justify-content: flex-end;">
                     <div class="form-group adminleave-dropdown" style="margin-top: 17px;">
                         <label class="export-label" for="exportLeaveLabel">Export</label>
-                        <i class="fas fa-chevron-down ml-3" id="exportLeaveIcon" style="cursor: pointer; font-size:13px;" data-toggle="collapse" data-target="#LeaveDateDropdown"></i>
+                        <button type="button" class="btn btn-link" id="exportLeaveButton" style="padding: 0; margin-left: 10px; font-size: 13px;" data-toggle="collapse" data-target="#LeaveDateDropdown">
+                            <i class="fas fa-chevron-down" style="cursor: pointer;"></i>
+                        </button>
                     </div>
                 </div>
             </div>
@@ -97,73 +108,91 @@
                 <tr>
                     <th>Emp-ID</th>
                     <th>Employee Name</th>
-                    <th>Earned-Leave</th>
+                    <th>Earned</th>
                     <th>Emergency</th>
                     <th>Sick</th>
                     <th>Bereavement</th>
+                    <th>Hourly Permission</th>
                     <th>Marriage</th>
                     <th>Maternity</th>
                     <th>Paternity</th>
-                    <th>Hourly Permission</th>
-                    <th>Comp-Off</th>
+                    <th>Comp Off</th>
                 </tr>
             </thead>
             <tbody>
-                <tr class="leave-IndiRow">
-                    <td class="fontSmall">1000</td>
-                    <td>
-                        <div class="IndiLeaveDetails">
-                            <img src="images/userIcon.png" class="userIcon" alt="user" />
-                            <div class="fontSmall">
-                                <p class="mb-0 fontWtMedium">John Doe</p>
-                                <a href="#">john.doe@example.com</a>
+
+                @foreach (HRMS.Models.Employee.LeaveEmployee emp in Model.LeaveTypes)
+                {
+                    <tr class="leave-IndiRow">
+                        <td class="fontSmall">@emp.empInfo.EmployeeID</td>
+                        <td>
+                            <div class="IndiLeaveDetails">
+
+                                @if (!string.IsNullOrWhiteSpace(@emp.empInfo.imagepath))
+                                {
+                                    var empImageURl = System.Configuration.ConfigurationManager.AppSettings["EmpImagesFolder"] + "/" + emp.empInfo.imagepath;
+                                    <img src="@empImageURl" alt="Employee Image" class="userIcon">
+                                }
+                                else
+                                {
+                                    // Check if emp, empInfo, and EmployeeName are not null
+                                    if (emp != null && emp.empInfo != null && !string.IsNullOrEmpty(emp.empInfo.EmployeeName))
+                                    {
+                                        string[] names = emp.empInfo.EmployeeName.Split(new char[] { ' ' }, StringSplitOptions.RemoveEmptyEntries);
+
+                                        if (names.Length > 0)
+                                        {
+                                            string firstName = names[0];
+                                            string lastName = names.Length > 1 ? names[names.Length - 1] : string.Empty;
+                                            char firstLetterOfFirstName = char.ToUpper(firstName[0]);
+                                            char firstLetterOfLastName = !string.IsNullOrEmpty(lastName) ? char.ToUpper(lastName[0]) : '\0';
+                                            <div class="default-image-navbar">@firstLetterOfFirstName @firstLetterOfLastName</div>
+                                        }
+
+                                    }
+                                }
+
+                                @*<img src="images/userIcon.png" class="userIcon" alt="user" />*@
+                                <div class="fontSmall">
+                                    <p class="mb-0 fontWtMedium">@emp.empInfo.EmployeeName</p>
+                                    <a href="#">@emp.empInfo.OfficalEmailid</a>
+                                </div>
                             </div>
-                        </div>
-                    </td>
-                    <td class="fontSmall dataMinWidth dateMaxWidth">
-                        <div class="earned-indi">Earned-Leave</div>
-                    </td>
-                    <td class="fontSmall dataMinWidth dateMaxWidth">
-                        <div class="earned-indi">Emergency</div>
-                    </td>
-                    <td class="fontSmall dataMinWidth dateMaxWidth">
-                        <div class="earned-indi">Sick</div>
-                    </td>
-                    <td class="fontSmall dataMinWidth dateMaxWidth">
-                        <div class="earned-indi">Bereavement</div>
-                    </td>
-                    <td class="fontSmall dataMinWidth dateMaxWidth">
-                        <div class="earned-indi">Marriage</div>
-                    </td>
-                    <td class="fontSmall dataMinWidth dateMaxWidth">
-                        <div class="earned-indi">Maternity</div>
-                    </td>
-                    <td class="fontSmall dataMinWidth dateMaxWidth">
-                        <div class="earned-indi">Paternity</div>
-                    </td>
-                    <td class="fontSmall dataMinWidth dateMaxWidth">
-                        <div class="earned-indi">Hourly Permission</div>
-                    </td>
-                    <td class="fontSmall dataMinWidth dateMaxWidth">
-                        <div class="earned-indi">Comp-Off</div>
-                    </td>
-                </tr>
+                        </td>
+                        @foreach (HRMS.Models.Employee.AvailableLeaves availabilty in emp.AvailableLeaves)
+                        {
+                            <td class="fontSmall dataMinWidth dateMaxWidth">
+                                <div class="earned-indi">@availabilty.Balance.ToString().Replace(".00", "").Replace(".0", "")</div>
+                            </td>
+                        }
+                    </tr>
+                }
+
             </tbody>
         </table>
     </div>
-</div>
-<script>
-    $(document).ready(function () {
-        $('#leaveBalanceTable').DataTable({
-            "paging": true,
-            "info": false,
-            "searching": false,
-            "ordering": false,
-            "lengthChange": false,
-            "pageLength": 8,
-            "stripeClasses": ['odd', 'even']
-            
+
+    <script>
+        $(document).ready(function () {
+
+            if (!$.fn.DataTable.isDataTable('#leaveBalanceTable')) {
+                var table = $('#leaveBalanceTable').DataTable({
+                    "paging": true,
+                    "info": false,
+                    "searching": true,  // Disable the built-in search
+                    "ordering": false,
+                    "lengthChange": false,
+                    "pageLength": 8,
+                    "stripeClasses": ['odd', 'even']
+                });
+
+
+                $(document).on('keyup', '#adminleavetableSearch', function () {
+                    table.search(this.value).draw();
+                });
+            }
         });
-    });
-    
-</script>
+
+
+    </script>
+</div>

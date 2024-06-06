@@ -139,12 +139,10 @@ namespace HRMS.Controllers
                 return Json(new { error = "Employee not found" }, JsonRequestBehavior.AllowGet);
             }
 
-            var leaves = _dbContext.con_leaveupdate
-                .Where(x => x.employee_id == empId && x.leavedate >= january1st && x.leavedate <= december31st && x.leavesource == leaveType)
-                .ToList();
+            var leaveTypeCategory = new LeavesCategory();
+            leaveTypeCategory.Type = leaveType;
 
-
-            var availableLeaves = new LeaveCalculator().CalculateAvailableLeaves(employee, leaves, leaveType);
+            var availableLeaves = new LeaveCalculator().CalculateAvailableLeaves(employee, leaveTypeCategory);
 
             // Return available leaves as JSON
             return Json(availableLeaves, JsonRequestBehavior.AllowGet);
@@ -194,5 +192,12 @@ namespace HRMS.Controllers
                 return Json(jsonResponse, JsonRequestBehavior.AllowGet);
             }
         }
+
+        public ActionResult EmployeeLeavesByType(string empId)
+        {
+            LeaveTypesBasedOnEmpViewModel empLeaveTypes = new LeaveCalculator().GetLeavesByEmp(empId);
+            return PartialView("~/Views/EmployeeDashboard/LeaveTypesAvailability.cshtml", empLeaveTypes);
+        }
+
     }
 }

@@ -1,4 +1,5 @@
-﻿using System;
+﻿using HRMS.Models.Employee;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
@@ -27,25 +28,17 @@ namespace HRMS.Helpers
             public int LeaveDays { get; set; }
         }
 
-        public class AvailableLeaves
-        {
-            public decimal Available { get; set; }
-            public decimal Booked { get; set; }
-            public decimal Balance { get; set; }
-
-        }
-
-        public AvailableLeaves CalculateAvailableLeaves(emp_info employee, List<con_leaveupdate> leaves, string leaveType)
+        public AvailableLeaves CalculateAvailableLeaves(emp_info employee, LeavesCategory leaveType)
         {
             var availableLeaves = new AvailableLeaves();
 
             if (IsProbationaryEmployee(employee))
             {
-                availableLeaves = CalculateProbationaryLeaves(employee, leaves, leaveType);
+                availableLeaves = CalculateProbationaryLeaves(employee, leaveType);
             }
             else
             {
-                availableLeaves = CalculatePermanentLeaves(employee, leaves, leaveType);
+                availableLeaves = CalculatePermanentLeaves(employee, leaveType);
             }
 
             return availableLeaves;
@@ -57,11 +50,11 @@ namespace HRMS.Helpers
             return lastDayOfProbatation >= DateTime.Today ? true : false;
         }
 
-        private AvailableLeaves CalculateProbationaryLeaves(emp_info employee, List<con_leaveupdate> leaves, string leaveType)
+        private AvailableLeaves CalculateProbationaryLeaves(emp_info employee, LeavesCategory leaveType)
         {
             var availableLeaves = new AvailableLeaves();
 
-            if (leaveType == "Sick Leave" || leaveType == "Emergency Leave" || leaveType == "Bereavement Leave")
+            if (leaveType.Type == "Sick Leave" || leaveType.Type == "Emergency Leave" || leaveType.Type == "Bereavement Leave")
             {
                 Decimal totalSickLeaves = 3;
 
@@ -74,30 +67,32 @@ namespace HRMS.Helpers
 
                 totalEmergencyLeaves = (int)(monthDifference / 3) + ((monthDifference % 3 > 0) ? 1 : 0);
 
-                var selectedLeaveTypeTaken = _dbContext.con_leaveupdate.Where(l => l.employee_id == employee.EmployeeID && l.leavesource == leaveType && l.leavedate >= employee.DOJ && l.leavedate <= probationEndDate && (l.LeaveStatus != "Cancelled" && l.LeaveStatus != "Rejected")).ToList();
+                var selectedLeaveTypeTaken = _dbContext.con_leaveupdate.Where(l => l.employee_id == employee.EmployeeID && l.leavesource == leaveType.Type && l.leavedate >= employee.DOJ && l.leavedate <= probationEndDate && (l.LeaveStatus != "Cancelled" && l.LeaveStatus != "Rejected")).ToList();
                 decimal totalLeaveDays = selectedLeaveTypeTaken.Sum(l => l.LeaveDays);
 
-                if (leaveType == "Sick Leave")
+                if (leaveType.Type == "Sick Leave")
                 {
                     availableLeaves.Available = totalSickLeaves;
                 }
 
-                if (leaveType == "Emergency Leave")
+                if (leaveType.Type == "Emergency Leave")
                 {
                     availableLeaves.Available = totalEmergencyLeaves;
                 }
 
-                if (leaveType == "Bereavement Leave")
+                if (leaveType.Type == "Bereavement Leave")
                 {
                     availableLeaves.Available = totalBereavementLeaves;
                 }
                 availableLeaves.Booked = totalLeaveDays;
                 availableLeaves.Balance = availableLeaves.Available - availableLeaves.Booked;
+                availableLeaves.Type = leaveType.Type;
+                availableLeaves.ColorCode = leaveType.Colrocode;
             }
             return availableLeaves;
         }
 
-        private AvailableLeaves CalculatePermanentLeaves(emp_info employee, List<con_leaveupdate> leaves, string leaveType)
+        private AvailableLeaves CalculatePermanentLeaves(emp_info employee, LeavesCategory leaveType)
         {
             var availableLeaves = new AvailableLeaves();
 
@@ -106,7 +101,7 @@ namespace HRMS.Helpers
             DateTime startDate = new DateTime(DateTime.Today.Year, 01, 01);
             DateTime endDate = new DateTime(DateTime.Today.Year, 12, 31);
 
-            if (leaveType != "Bereavement Leave" && leaveType != "Emergency Leave")
+            if (leaveType.Type != "Bereavement Leave" && leaveType.Type != "Emergency Leave")
             {
                 if (isEmployeeProbationInThisCurrentYear.Year == DateTime.Today.Year)
                 {
@@ -114,7 +109,7 @@ namespace HRMS.Helpers
                 }
             }
 
-            if (leaveType == "Hourly Permission")
+            if (leaveType.Type == "Hourly Permission")
             {
                 DateTime currentDate = DateTime.Now;
                 startDate = new DateTime(currentDate.Year, currentDate.Month, 1);
@@ -124,7 +119,7 @@ namespace HRMS.Helpers
             var startMonthNumber = startDate.Month;
             var endMonthNumber = endDate.Month;
 
-            if(startMonthNumber == 1)
+            if (startMonthNumber == 1)
             {
                 startMonthNumber = 0;
             }
@@ -136,50 +131,53 @@ namespace HRMS.Helpers
             decimal totalSickLeaves = (decimal)monthDifference * (decimal)0.5;
             decimal totalEmergencyLeaves = (int)(monthDifference / 3) + ((monthDifference % 3 > 0) ? 1 : 0);
 
-            var selectedLeaveTypeTaken = _dbContext.con_leaveupdate.Where(l => l.employee_id == employee.EmployeeID && l.leavesource == leaveType && l.leavedate >= startDate && l.leavedate <= endDate && (l.LeaveStatus != "Cancelled" && l.LeaveStatus != "Rejected")).ToList();
+            var selectedLeaveTypeTaken = _dbContext.con_leaveupdate.Where(l => l.employee_id == employee.EmployeeID && l.leavesource == leaveType.Type && l.leavedate >= startDate && l.leavedate <= endDate && (l.LeaveStatus != "Cancelled" && l.LeaveStatus != "Rejected")).ToList();
             decimal totalLeaveDays = selectedLeaveTypeTaken.Sum(l => l.LeaveDays);
 
-            if (leaveType == "Sick Leave")
+            availableLeaves.Type = leaveType.Type;
+            availableLeaves.ColorCode = leaveType.Colrocode;
+
+            if (leaveType.Type == "Sick Leave")
             {
                 availableLeaves.Available = totalSickLeaves;
             }
 
-            if (leaveType == "Emergency Leave")
+            if (leaveType.Type == "Emergency Leave")
             {
                 availableLeaves.Available = totalEmergencyLeaves;
             }
 
-            if (leaveType == "Bereavement Leave")
+            if (leaveType.Type == "Bereavement Leave")
             {
                 availableLeaves.Available = 3;
             }
 
-            if (leaveType == "Earned Leave")
+            if (leaveType.Type == "Earned Leave")
             {
                 availableLeaves.Available = earnedLeavesPerMonth;
             }
 
-            if (leaveType == "Marriage Leave")
+            if (leaveType.Type == "Marriage Leave")
             {
                 availableLeaves.Available = employee.MaritalStatus == "Single" ? 10 : 0;
             }
 
-            if (leaveType == "Maternity Leave")
+            if (leaveType.Type == "Maternity Leave")
             {
                 availableLeaves.Available = (employee.Gender == "Female" && employee.MaritalStatus == "Married") ? 180 : 0;
             }
 
-            if (leaveType == "Paternity Leave")
+            if (leaveType.Type == "Paternity Leave")
             {
                 availableLeaves.Available = (employee.Gender == "Male" && employee.MaritalStatus == "Married") ? 5 : 0;
             }
 
-            if (leaveType == "Comp Off")
+            if (leaveType.Type == "Comp Off")
             {
                 availableLeaves.Available = 5;
             }
 
-            if (leaveType == "Hourly Permission")
+            if (leaveType.Type == "Hourly Permission")
             {
                 availableLeaves.Available = 2;
                 if (selectedLeaveTypeTaken != null && selectedLeaveTypeTaken.Count() > 0)
@@ -198,6 +196,47 @@ namespace HRMS.Helpers
             availableLeaves.Booked = totalLeaveDays;
             availableLeaves.Balance = availableLeaves.Available - availableLeaves.Booked;
             return availableLeaves;
+        }
+
+
+        public LeaveTypesBasedOnEmpViewModel GetLeavesByEmp(string empId)
+        {
+            var employess = new List<emp_info>();
+
+            var empLeaveTypes = new LeaveTypesBasedOnEmpViewModel();
+
+            if (!string.IsNullOrWhiteSpace(empId))
+            {
+                employess = _dbContext.emp_info.Where(x => x.EmployeeID == empId).ToList();
+            }
+            else
+            {
+                employess = _dbContext.emp_info.ToList();
+            }
+
+            var leaveTypes = new List<LeavesCategory>();
+            leaveTypes.Add(new LeavesCategory() { Type = "Earned Leave", Colrocode = "ear_border" });
+            leaveTypes.Add(new LeavesCategory() { Type = "Emergency Leave", Colrocode = "emr_border" });
+            leaveTypes.Add(new LeavesCategory() { Type = "Sick Leave", Colrocode = "sick_border" });
+            leaveTypes.Add(new LeavesCategory() { Type = "Bereavement Leave", Colrocode = "bev_border" });
+            leaveTypes.Add(new LeavesCategory() { Type = "Hourly Permission", Colrocode = "hou_border" });
+            leaveTypes.Add(new LeavesCategory() { Type = "Marriage Leave", Colrocode = "mar_border" });
+            leaveTypes.Add(new LeavesCategory() { Type = "Maternity Leave", Colrocode = "mat_border" });
+            leaveTypes.Add(new LeavesCategory() { Type = "Paternity Leave", Colrocode = "pat_border" });
+            leaveTypes.Add(new LeavesCategory() { Type = "Comp Off", Colrocode = "com_border" });
+
+            foreach (var emp in employess)
+            {
+                var employee = new LeaveEmployee();
+                employee.empInfo = emp;
+                foreach (var leaveType in leaveTypes)
+                {
+                    employee.AvailableLeaves.Add(new LeaveCalculator().CalculateAvailableLeaves(emp, leaveType));
+                }
+                empLeaveTypes.LeaveTypes.Add(employee);
+            }
+
+            return empLeaveTypes;
         }
     }
 }
