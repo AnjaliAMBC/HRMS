@@ -74,7 +74,7 @@ namespace HRMS.Helpers
 
                 totalEmergencyLeaves = (int)(monthDifference / 3) + ((monthDifference % 3 > 0) ? 1 : 0);
 
-                var selectedLeaveTypeTaken = _dbContext.con_leaveupdate.Where(l => l.employee_id == employee.EmployeeID && l.leavesource == leaveType && l.leavedate >= employee.DOJ && l.leavedate <= probationEndDate).ToList();
+                var selectedLeaveTypeTaken = _dbContext.con_leaveupdate.Where(l => l.employee_id == employee.EmployeeID && l.leavesource == leaveType && l.leavedate >= employee.DOJ && l.leavedate <= probationEndDate && (l.LeaveStatus != "Cancelled" && l.LeaveStatus != "Rejected")).ToList();
                 decimal totalLeaveDays = selectedLeaveTypeTaken.Sum(l => l.LeaveDays);
 
                 if (leaveType == "Sick Leave")
@@ -136,7 +136,7 @@ namespace HRMS.Helpers
             decimal totalSickLeaves = (decimal)monthDifference * (decimal)0.5;
             decimal totalEmergencyLeaves = (int)(monthDifference / 3) + ((monthDifference % 3 > 0) ? 1 : 0);
 
-            var selectedLeaveTypeTaken = _dbContext.con_leaveupdate.Where(l => l.employee_id == employee.EmployeeID && l.leavesource == leaveType && l.leavedate >= startDate && l.leavedate <= endDate).ToList();
+            var selectedLeaveTypeTaken = _dbContext.con_leaveupdate.Where(l => l.employee_id == employee.EmployeeID && l.leavesource == leaveType && l.leavedate >= startDate && l.leavedate <= endDate && (l.LeaveStatus != "Cancelled" && l.LeaveStatus != "Rejected")).ToList();
             decimal totalLeaveDays = selectedLeaveTypeTaken.Sum(l => l.LeaveDays);
 
             if (leaveType == "Sick Leave")

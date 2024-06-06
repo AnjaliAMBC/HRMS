@@ -83,7 +83,8 @@ namespace HRMS.Controllers
                             HalfDayCategory = DayTypeEntrie.HalfType,
                             BackupResource_Name = leaveRequest.BackupResource_Name,
                             EmergencyContact_no = leaveRequest.EmergencyContact_no,
-                            LeaveDays = DayTypeEntrie.DayType == "fullDay" ? (decimal)1 : (decimal)0.5
+                            LeaveDays = DayTypeEntrie.DayType == "fullDay" ? (decimal)1 : (decimal)0.5,
+                            LeaveStatus = "Awaiting Approval"
                         });
                     }
                 }
@@ -103,7 +104,8 @@ namespace HRMS.Controllers
                         HalfDayCategory = "",
                         BackupResource_Name = leaveRequest.BackupResource_Name,
                         EmergencyContact_no = leaveRequest.EmergencyContact_no,
-                        LeaveDays = System.Convert.ToDecimal(leaveRequest.hourPermission)
+                        LeaveDays = System.Convert.ToDecimal(leaveRequest.hourPermission),
+                        LeaveStatus = "Awaiting Approval"
                     });
                 }
 
@@ -146,6 +148,51 @@ namespace HRMS.Controllers
 
             // Return available leaves as JSON
             return Json(availableLeaves, JsonRequestBehavior.AllowGet);
+        }
+
+
+        public ActionResult EmpLeaveHistory(string empId, int year)
+        {
+            int currentYear = year == 0 ? DateTime.Now.Year : year;
+            string january1stString = $"{currentYear}-01-01";
+            string december31stString = $"{currentYear}-12-31";
+
+            DateTime january1st = DateTime.ParseExact(january1stString, "yyyy-MM-dd", null);
+            DateTime december31st = DateTime.ParseExact(december31stString, "yyyy-MM-dd", null);
+
+            var leaves = _dbContext.con_leaveupdate
+                .Where(x => x.employee_id == empId && x.leavedate >= january1st && x.leavedate <= december31st)
+                .ToList().OrderByDescending(x => x.leavedate);
+
+            return Json(leaves, JsonRequestBehavior.AllowGet);
+        }
+
+        public ActionResult EmpLeaveCancel(int leavenumber)
+        {
+            var jsonResponse = new JsonResponse();
+
+            try
+            {
+                var canLeaveItem = _dbContext.con_leaveupdate
+                       .Where(x => x.leaveno == leavenumber).FirstOrDefault();
+
+                if (canLeaveItem != null)
+                {
+                    canLeaveItem.LeaveStatus = "Cancelled";
+                    canLeaveItem.leaveuniqkey = "";
+                    _dbContext.SaveChanges();
+
+                    jsonResponse.Message = "Leave cancelled successfully.";
+                    jsonResponse.StatusCode = 200;
+                }
+
+                return Json(jsonResponse, JsonRequestBehavior.AllowGet);
+            }
+            catch (Exception ex)
+            {
+                jsonResponse = ErrorHelper.CaptureError(ex);
+                return Json(jsonResponse, JsonRequestBehavior.AllowGet);
+            }
         }
     }
 }

@@ -14,3 +14,16 @@ function clearFormDataAndSelectFirstIndex(forms) {
         });
     });
 }
+
+
+function showMessageModal(message, isSuccess) {  
+    $('#modalMessage').text(message);   
+    if (isSuccess) {
+        $('#messageModalLabel').text('Success');
+        $('#modalMessage').css('color', 'green');
+    } else {
+        $('#messageModalLabel').text('Failure');
+        $('#modalMessage').css('color', 'red');
+    }    
+    $('#messageModal').modal('show');
+}
