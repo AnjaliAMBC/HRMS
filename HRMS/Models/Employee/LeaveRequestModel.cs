@@ -21,6 +21,8 @@ namespace HRMS.Models.Employee
         public string HalfDayCategory { get; set; }
         public string BackupResource_Name { get; set; }
         public string EmergencyContact_no { get; set; }
+        public string hourPermission { get; set; }
+        public JsonResponse jsonResponse { get; set; } = new JsonResponse();
 
     }
 

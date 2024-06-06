@@ -184,8 +184,8 @@ namespace HRMS.Helpers
                 availableLeaves.Available = 2;
                 if (selectedLeaveTypeTaken != null && selectedLeaveTypeTaken.Count() > 0)
                 {
-                    availableLeaves.Booked = 2;
-                    availableLeaves.Balance = 0;
+                    availableLeaves.Booked = totalLeaveDays;
+                    availableLeaves.Balance = availableLeaves.Available - availableLeaves.Booked;
                 }
                 else
                 {

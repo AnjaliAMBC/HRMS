@@ -52,45 +52,74 @@ namespace HRMS.Controllers
 
         public ActionResult AjaxApplyLeave(LeaveRequestModel leaveRequest)
         {
-            if (leaveRequest == null ||
-               string.IsNullOrEmpty(leaveRequest.LeaveType) ||
-                string.IsNullOrEmpty(leaveRequest.FromDate) ||
-                string.IsNullOrEmpty(leaveRequest.ToDate) ||
-                string.IsNullOrEmpty(leaveRequest.TeamEmail) ||
-                leaveRequest.DayTypeEntries == null ||
-                leaveRequest.DayTypeEntries.Count == 0)
+            try
             {
+                if (leaveRequest == null ||
+                      string.IsNullOrEmpty(leaveRequest.LeaveType) ||
+                       string.IsNullOrEmpty(leaveRequest.FromDate) ||
+                       string.IsNullOrEmpty(leaveRequest.TeamEmail) ||
+                       (leaveRequest.DayTypeEntries == null && string.IsNullOrEmpty(leaveRequest.hourPermission)))
+                {
+                    return Json(leaveRequest, JsonRequestBehavior.AllowGet);
+                }
+
+                var leaves = new List<con_leaveupdate>();
+
+                if (leaveRequest.DayTypeEntries != null && leaveRequest.DayTypeEntries.Count() > 0)
+                {
+                    foreach (var DayTypeEntrie in leaveRequest.DayTypeEntries)
+                    {
+                        leaves.Add(new con_leaveupdate()
+                        {
+                            employee_id = leaveRequest.EmpID,
+                            employee_name = leaveRequest.EmpName,
+                            leavecategory = leaveRequest.LeaveType + " " + DayTypeEntrie.DayType.Replace("fullDay", "Full day").Replace("halfDay", DayTypeEntrie.HalfType),
+                            leavedate = Convert.ToDateTime(DayTypeEntrie.Date),
+                            leavesource = leaveRequest.LeaveType,
+                            leaveuniqkey = leaveRequest.EmpID + "_" + DayTypeEntrie.Date,
+                            leave_reason = leaveRequest.Reason,
+                            submittedby = leaveRequest.SubmittedBy,
+                            DayType = DayTypeEntrie.DayType,
+                            HalfDayCategory = DayTypeEntrie.HalfType,
+                            BackupResource_Name = leaveRequest.BackupResource_Name,
+                            EmergencyContact_no = leaveRequest.EmergencyContact_no,
+                            LeaveDays = DayTypeEntrie.DayType == "fullDay" ? (decimal)1 : (decimal)0.5
+                        });
+                    }
+                }
+                else
+                {
+                    leaves.Add(new con_leaveupdate()
+                    {
+                        employee_id = leaveRequest.EmpID,
+                        employee_name = leaveRequest.EmpName,
+                        leavecategory = leaveRequest.LeaveType,
+                        leavedate = Convert.ToDateTime(leaveRequest.FromDate),
+                        leavesource = leaveRequest.LeaveType,
+                        leaveuniqkey = leaveRequest.EmpID + "_" + leaveRequest.FromDate,
+                        leave_reason = leaveRequest.Reason,
+                        submittedby = leaveRequest.SubmittedBy,
+                        DayType = "",
+                        HalfDayCategory = "",
+                        BackupResource_Name = leaveRequest.BackupResource_Name,
+                        EmergencyContact_no = leaveRequest.EmergencyContact_no,
+                        LeaveDays = System.Convert.ToDecimal(leaveRequest.hourPermission)
+                    });
+                }
+
+                _dbContext.con_leaveupdate.AddRange(leaves);
+                _dbContext.SaveChanges();
+
+                leaveRequest.jsonResponse.Message = "Leave request submitted successfully.";
+                leaveRequest.jsonResponse.StatusCode = 200;
                 return Json(leaveRequest, JsonRequestBehavior.AllowGet);
             }
-
-            var leaves = new List<con_leaveupdate>();
-
-            foreach (var DayTypeEntrie in leaveRequest.DayTypeEntries)
+            catch (Exception ex)
             {
-                leaves.Add(new con_leaveupdate()
-                {
-                    employee_id = leaveRequest.EmpID,
-                    employee_name = leaveRequest.EmpName,
-                    leavecategory = leaveRequest.LeaveType + " " + DayTypeEntrie.DayType.Replace("fullDay", "Full day").Replace("halfDay", DayTypeEntrie.HalfType),
-                    leavedate = Convert.ToDateTime(DayTypeEntrie.Date),
-                    leavesource = leaveRequest.LeaveType,
-                    leaveuniqkey = leaveRequest.EmpID + "_" + DayTypeEntrie.Date,
-                    leave_reason = leaveRequest.Reason,
-                    submittedby = leaveRequest.SubmittedBy,
-                    DayType = DayTypeEntrie.DayType,
-                    HalfDayCategory = DayTypeEntrie.HalfType,
-                    BackupResource_Name = leaveRequest.BackupResource_Name,
-                    EmergencyContact_no = leaveRequest.EmergencyContact_no,
-                    LeaveDays = DayTypeEntrie.DayType == "fullDay" ? (decimal)1 : (decimal)0.5
-                });
+                leaveRequest.jsonResponse = ErrorHelper.CaptureError(ex);
+                return Json(leaveRequest, JsonRequestBehavior.AllowGet);
             }
-
-            _dbContext.con_leaveupdate.AddRange(leaves);
-            _dbContext.SaveChanges();
-
-            return Json(leaveRequest, JsonRequestBehavior.AllowGet);
         }
-
 
         public ActionResult GetAvailableLeaves(string empId, string leaveType)
         {

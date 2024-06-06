@@ -13,7 +13,7 @@ namespace HRMS.Helpers
             var jsonResponse = new JsonResponse();
             if (ex.InnerException != null)
             {
-                jsonResponse.Message = ex.InnerException.Message;
+                jsonResponse.Message = ex.InnerException.InnerException != null ? ex.InnerException.InnerException.Message : ex.InnerException.Message;
             }
             else
             {

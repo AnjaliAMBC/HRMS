@@ -50,24 +50,25 @@
                             <input type="date" class="form-control" id="toleaveDate">
                         </div>
                     </div>
-                    <div class="form-group time-section">
+                    <div class="form-group time-section" style="display: none">
                         <label for="HourPermission" class="hour_label">Hour Permission*</label>
                         <select class="form-control" id="HourPermission">
                             <option selected disabled>Select Hours</option>
-                            <option value="0.5">30 Mins</option>
+                            <option value="0.5">0.5 Hours</option>
                             <option value="1">1 Hour</option>
-                            <option value="1.5">1.5 Hour</option>
+                            <option value="1.5">1.5 Hours</option>
                             <option value="2">2 Hours</option>
                         </select>
                     </div>
                     <div class="form-group" id="dayTypeLabel" style="display: none">
                         <label>Day Type*</label>
                     </div>
-                    <div id="dayTypeContainer"></div>
+                    <div id="dayTypeContainer" style="display: none"></div>
                     <div id="totalLeavesContainer" class="mb-4"></div>
                     <div class="form-group">
                         <label for="teamEmail">Team Email</label>
                         <input type="text" value="@leaveDefaultEmails" class="form-control" id="teamEmail">
+                        <div style="display: none" id="defaultteamEmail">@leaveDefaultEmails</div>
                     </div>
                     <div class="form-group">
                         <label for="reason">Reason</label>
