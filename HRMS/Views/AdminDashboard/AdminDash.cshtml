@@ -4,257 +4,272 @@
 <div class="container-fluid">
     @Html.Partial("_adminsidemenu")
     <div class="main-content container-fluid" style="width: 84%">
-        <div class="content admin-empmanagement-container" style="margin-left: -5px; margin-top: 2% ">
+        <div class="content admin-empmanagement-container pt-3" >
 
             <div class="admin-dashboard-view">
-                <div class="container">
-                    <h4 class="mb-4">Dashboard</h4>
+                <div class="container-fluid">
+                    <h4 class="mb-3">Dashboard</h4>
                     <div class="dashboard">
-                        <!-- Leave Request Section -->
-                        <div class="card leave-requests">
-                            <div class="card-header">
-                                Leave Request (5)
-                            </div>
-                            <!--<ul class="list-group list-group-flush">
-                                <li class="list-group-item">
-                                    <div class="leave-info">
-                                        <img src="https://via.placeholder.com/40" alt="Rajesh Kumar" class="rounded-circle">
-                                        <div class="leave-text">
-                                            <span>Rajesh Kumar</span>
-                                            <small>Emergency Leave | 29-04-2024</small>
-                                        </div>
+                        <div class="row">
+                            <div class="col-12 col-sm-6 col-md-6 col-lg-4 col-xl-4 p-0">
+                                <!-- Leave Request Section -->
+                                <div class="card leave-requests mx-2">
+                                    <div class="card-header">
+                                        Leave Request (5)
                                     </div>
-                                    <div class="btn-group">
-                                        <button type="submit" class="btn_approve">✔ Approve</button>
-                                        <button type="submit" class="btn_reject">✖ Reject</button>
-                                    </div>
-                                </li>
-                                <li class="list-group-item">
-                                    <div class="leave-info">
-                                        <img src="https://via.placeholder.com/40" alt="Sriram Vivekanandan" class="rounded-circle">
-                                        <div class="leave-text">
-                                            <span>Sriram Vivekanandan</span>
-                                            <small>Earned Leave | 29-04-2024 - 01-05-2024</small>
-                                        </div>
-                                    </div>
-                                    <div class="btn-group">
-                                        <button type="submit" class="btn_approve">✔ Approve</button>
-                                        <button type="submit" class="btn_reject">✖ Reject</button>
-                                    </div>
-                                </li>
-                                <li class="list-group-item">
-                                    <div class="leave-info">
-                                        <img src="https://via.placeholder.com/40" alt="Linkeshwaran" class="rounded-circle">
-                                        <div class="leave-text">
-                                            <span>Linkeshwaran</span>
-                                            <small>Sick Leave | 29-04-2024</small>
-                                        </div>
-                                    </div>
-                                    <div class="btn-group">
-                                        <button type="submit" class="btn_approve">✔ Approve</button>
-                                        <button type="submit" class="btn_reject">✖ Reject</button>
-                                    </div>
-                                </li>
-                                <li class="list-group-item">
-                                    <div class="leave-info">
-                                        <img src="https://via.placeholder.com/40" alt="Saravanan Maoharan" class="rounded-circle">
-                                        <div class="leave-text">
-                                            <span>Saravanan Maoharan</span>
-                                            <small>Emergency Leave | 29-04-2024</small>
-                                        </div>
-                                    </div>
-                                    <div class="btn-group">
-                                        <button type="submit" class="btn_approve">✔ Approve</button>
-                                        <button type="submit" class="btn_reject">✖ Reject</button>
-                                    </div>
-                                </li>-->
-                                <!-- Additional leave requests -->
-                                <!--<li class="list-group-item">
-                                    <div class="leave-info">
-                                        <img src="https://via.placeholder.com/40" alt="John Doe" class="rounded-circle">
-                                        <div class="leave-text">
-                                            <span>John Doe</span>
-                                            <small>Personal Leave | 30-04-2024</small>
-                                        </div>
-                                    </div>
-                                    <div class="btn-group">
-                                        <button type="submit" class="btn_approve">✔ Approve</button>
-                                        <button type="submit" class="btn_reject">✖ Reject</button>
-                                    </div>
-                                </li>
-                                <li class="list-group-item">
-                                    <div class="leave-info">
-                                        <img src="https://via.placeholder.com/40" alt="Jane Smith" class="rounded-circle">
-                                        <div class="leave-text">
-                                            <span>Jane Smith</span>
-                                            <small>Vacation | 01-05-2024 - 05-05-2024</small>
-                                        </div>
-                                    </div>
-                                    <div class="btn-group">
-                                        <button type="submit" class="btn_approve">✔ Approve</button>
-                                        <button type="submit" class="btn_reject">✖ Reject</button>
-                                    </div>
-                                </li>
-                            </ul>-->
-                        </div>
-
-                        <!-- Announcements Section -->
-                        <div class="card">
-                            <div class="card-header">
-                                Announcements
-                            </div>
-                            <div class="card-body">
-                                <form>
-                                    <div class="form-group">
-                                        <label for="subject">Subject</label>
-                                        <input type="text" class="form-control" id="subject" placeholder="Enter subject">
-                                    </div>
-                                    <div class="form-group">
-                                        <label for="description">Description</label>
-                                        <textarea class="form-control" id="description" rows="3" placeholder="Describe the announcement in few words."></textarea>
-                                    </div>
-                                    <div class="form-group">
-                                        <label for="to">To</label>
-                                        <input type="text" class="form-control" id="to" placeholder="Enter recipients">
-                                    </div>
-                                    <button type="submit" class="btn btn-primary">Send</button>
-                                </form>
-                            </div>
-                        </div>
-
-                        <!-- Calendar Section -->
-                        <div class="card">
-                            <!--<div class="card-header">
-                                January 2024
-                            </div>
-                            <div class="card-body">-->
-                            <!-- Calendar placeholder -->
-                            <!--<div id="calendar"></div>
-                            </div>-->
-
-                            <div class="card-header calendar-header text-dark">
-                                <div>
-                                    <i class="fas fa-chevron-left chevron-icon ml-4" onclick="prevMonth()"></i>
-                                </div>
-                                <div>
-                                    <h6 id="monthYear" class="mt-1"></h6>
-                                </div>
-                                <div>
-                                    <i class="fas fa-chevron-right chevron-icon mr-4" onclick="nextMonth()"></i>
-                                </div>
-                            </div>
-                            <div class="card-body calendar-body" style="padding: 1rem;">
-                                <table class="table">
-                                    <thead>
-                                        <tr>
-                                            <th scope="col">Sun</th>
-                                            <th scope="col">Mon</th>
-                                            <th scope="col">Tue</th>
-                                            <th scope="col">Wed</th>
-                                            <th scope="col">Thu</th>
-                                            <th scope="col">Fri</th>
-                                            <th scope="col">Sat</th>
-                                        </tr>
-                                    </thead>
-                                    <tbody id="calendarBody"></tbody>
-                                </table>
-                            </div>
-                        </div>
-
-                        <!-- Birthdays Section -->
-                        <div class="card">
-                            <div class="card-header">
-                                Birthdays
-                            </div>
-                            <div class="card-body" style="max-height: 300px; overflow-y: auto;">
-                                @if (!Model.BirthModel?.Any() ?? true)
-                                {
-                                    <div class="d-flex flex-column align-items-center justify-content-center">
-                                        <img src="~/Assets/Birthday.png" alt="No Birthdays" class="img-fluid mb-3" style="max-width: 133px;">
-                                        <p class="text-muted">No birthdays today</p>
-                                    </div>
-                                }
-                                else
-                                {
-
-                                    <ul class="list-group list-group-flush">
-
-                                        @foreach (var empBirthday in Model.BirthModel)
-                                        {
-                                            var empImageURl = System.Configuration.ConfigurationManager.AppSettings["EmpImagesFolder"] + "/" + empBirthday.imagePath;
-
-                                            <li class="list-group-item">
-                                                <div class="d-flex align-items-center">
-                                                    <img src="@empImageURl" class="mr-3 rounded-circle" alt="Avatar" style="width: 50px; height: 50px;">
-                                                    <div class="birthdayinfo ml-2">
-                                                        <span>@empBirthday.EmpName</span><br>
-                                                        <small>@empBirthday.Designation</small>
+                                    <div class="card-body admindash_card scrollbar p-2">
+                                        <!--<ul class="list-group list-group-flush">
+                                            <li class="list-group-item p-0">
+                                                <div class="leave-info">
+                                                    <img src="https://via.placeholder.com/40" alt="Rajesh Kumar" class="rounded-circle">
+                                                    <div class="leave-text mt-2">
+                                                        <span>Rajesh Kumar</span>
+                                                        <small>Emergency Leave | 29-04-2024</small>
                                                     </div>
                                                 </div>
+                                                <div class="btn-group">
+                                                    <button type="submit" class="btn_approve p-0">✔ Approve</button>
+                                                    <button type="submit" class="btn_reject ml-0">✖ Reject</button>
+                                                </div>
                                             </li>
-                                        }
-                                    </ul>
-                                }
-
-                            </div>
-                        </div>
-                        <!-- Anniversaries Section -->
-                        <div class="card">
-                            <div class="card-header">
-                                Anniversaries
-                            </div>
-                            <div class="card-body" style="max-height: 300px; overflow-y: auto;">
-                                @if (!Model.AnniversaryModel?.Any() ?? true)
-                                {
-                                    <div class="d-flex flex-column align-items-center justify-content-center">
-                                        <img src="~/Assets/WorkAnni.jpg" alt="No Birthdays" class="img-fluid mb-3" style="max-width: 135px;">
-                                        <p class="text-muted">No anniversaries today.</p>
+                                            <li class="list-group-item p-0">
+                                                <div class="leave-info">
+                                                    <img src="https://via.placeholder.com/40" alt="Sriram Vivekanandan" class="rounded-circle">
+                                                    <div class="leave-text mt-2">
+                                                        <span>Sriram Vivekanandan</span>
+                                                        <small>Earned Leave | 29-04-2024 - 01-05-2024</small>
+                                                    </div>
+                                                </div>
+                                                <div class="btn-group">
+                                                    <button type="submit" class="btn_approve p-0">✔ Approve</button>
+                                                    <button type="submit" class="btn_reject ml-0">✖ Reject</button>
+                                                </div>
+                                            </li>
+                                            <li class="list-group-item p-0">
+                                                <div class="leave-info">
+                                                    <img src="https://via.placeholder.com/40" alt="Linkeshwaran" class="rounded-circle">
+                                                    <div class="leave-text mt-2">
+                                                        <span>Linkeshwaran</span>
+                                                        <small>Sick Leave | 29-04-2024</small>
+                                                    </div>
+                                                </div>
+                                                <div class="btn-group">
+                                                    <button type="submit" class="btn_approve p-0">✔ Approve</button>
+                                                    <button type="submit" class="btn_reject ml-0">✖ Reject</button>
+                                                </div>
+                                            </li>
+                                            <li class="list-group-item p-0">
+                                                <div class="leave-info">
+                                                    <img src="https://via.placeholder.com/40" alt="Saravanan Maoharan" class="rounded-circle">
+                                                    <div class="leave-text mt-2">
+                                                        <span>Saravanan Maoharan</span>
+                                                        <small>Emergency Leave | 29-04-2024</small>
+                                                    </div>
+                                                </div>
+                                                <div class="btn-group">
+                                                    <button type="submit" class="btn_approve p-0">✔ Approve</button>
+                                                    <button type="submit" class="btn_reject ml-0">✖ Reject</button>
+                                                </div>
+                                            </li>-->
+                                                            <!-- Additional leave requests -->
+                                                            <!--<li class="list-group-item p-0">
+                                                <div class="leave-info">
+                                                    <img src="https://via.placeholder.com/40" alt="John Doe" class="rounded-circle">
+                                                    <div class="leave-text mt-2">
+                                                        <span>John Doe</span>
+                                                        <small>Personal Leave | 30-04-2024</small>
+                                                    </div>
+                                                </div>
+                                                <div class="btn-group">
+                                                    <button type="submit" class="btn_approve p-0">✔ Approve</button>
+                                                    <button type="submit" class="btn_reject ml-0">✖ Reject</button>
+                                                </div>
+                                            </li>
+                                            <li class="list-group-item p-0">
+                                                <div class="leave-info">
+                                                    <img src="https://via.placeholder.com/40" alt="Jane Smith" class="rounded-circle">
+                                                    <div class="leave-text mt-2">
+                                                        <span>Jane Smith</span>
+                                                        <small>Vacation | 01-05-2024 - 05-05-2024</small>
+                                                    </div>
+                                                </div>
+                                                <div class="btn-group">
+                                                    <button type="submit" class="btn_approve p-0">✔ Approve</button>
+                                                    <button type="submit" class="btn_reject ml-0">✖ Reject</button>
+                                                </div>
+                                            </li>
+                                        </ul>-->
                                     </div>
-                                }
-                                else
-                                {
-                                    foreach (var employeeAnniversary in Model.AnniversaryModel)
-                                    {
-                                        var empAnniversaryImageURl = System.Configuration.ConfigurationManager.AppSettings["EmpImagesFolder"] + "/" + @employeeAnniversary.imagePath;
+                                </div>
+                            </div>
+                            <div class="col-12 col-sm-6 col-md-6 col-lg-4 col-xl-4 p-0">
+                                <!-- Announcements Section -->
+                                <div class="card mx-2">
+                                    <div class="card-header">
+                                        Announcements
+                                    </div>
+                                    <div class="card-body admindash_card scrollbar px-4 py-1 announcement_card">
+                                        <form>
+                                            <div class="form-group mb-2">
+                                                <label for="subject" class="m-0">Subject</label>
+                                                <input type="text" class="form-control" id="subject" placeholder="Enter subject">
+                                            </div>
+                                            <div class="form-group mb-2">
+                                                <label for="description" class="m-0">Description</label>
+                                                <textarea class="form-control" id="description" rows="3" placeholder="Describe the announcement in few words."></textarea>
+                                            </div>
+                                            <div class="form-group mb-2">
+                                                <label for="to" class="m-0">To</label>
+                                                <input type="text" class="form-control" id="to" placeholder="Enter recipients">
+                                            </div>
+                                            <button type="submit" class="btn btn-primary d-flex ml-auto px-4 py-1">Send</button>
+                                        </form>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-12 col-sm-6 col-md-6 col-lg-4 col-xl-4 p-0">
+                                <!-- Calendar Section -->
+                                <div class="card mx-2">
+                                    <!--<div class="card-header">
+                                        January 2024
+                                    </div>
+                                    <div class="card-body">-->
+                                                        <!-- Calendar placeholder -->
+                                                        <!--<div id="calendar"></div>
+                                    </div>-->
 
+                                    <div class="card-header calendar-header text-dark">
+                                        <div>
+                                            <i class="fas fa-chevron-left chevron-icon ml-4" onclick="prevMonth()"></i>
+                                        </div>
+                                        <div>
+                                            <h6 id="monthYear" class="mt-1"></h6>
+                                        </div>
+                                        <div>
+                                            <i class="fas fa-chevron-right chevron-icon mr-4" onclick="nextMonth()"></i>
+                                        </div>
+                                    </div>
+                                    <div class="card-body calendar-body p-1 admindash_card">
+                                        <table class="table">
+                                            <thead>
+                                                <tr>
+                                                    <th scope="col">Sun</th>
+                                                    <th scope="col">Mon</th>
+                                                    <th scope="col">Tue</th>
+                                                    <th scope="col">Wed</th>
+                                                    <th scope="col">Thu</th>
+                                                    <th scope="col">Fri</th>
+                                                    <th scope="col">Sat</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody id="calendarBody"></tbody>
+                                        </table>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-12 col-sm-6 col-md-6 col-lg-4 col-xl-4 p-0">
+                                <!-- Birthdays Section -->
+                                <div class="card mx-2">
+                                    <div class="card-header">
+                                        Birthdays
+                                    </div>
+                                    <div class="card-body admindash_card scrollbar p-2">
+                                        @if (!Model.BirthModel?.Any() ?? true)
+                                        {
+                                            <div class="d-flex flex-column align-items-center justify-content-center">
+                                                <img src="~/Assets/Birthday.png" alt="No Birthdays" class="img-fluid mb-3" style="max-width: 133px;">
+                                                <p class="text-muted">No birthdays today</p>
+                                            </div>
+                                        }
+                                        else
+                                        {
+
+                                            <ul class="list-group list-group-flush">
+
+                                                @foreach (var empBirthday in Model.BirthModel)
+                                                {
+                                                    var empImageURl = System.Configuration.ConfigurationManager.AppSettings["EmpImagesFolder"] + "/" + empBirthday.imagePath;
+
+                                                    <li class="list-group-item p-0">
+                                                        <div class="d-flex align-items-center mb-3">
+                                                            <img src="@empImageURl" class="mr-3 rounded-circle employee_img" alt="Avatar">
+                                                            <div class="birthdayinfo mt-2">
+                                                                <span>@empBirthday.EmpName</span><br>
+                                                                <p class="smalltext mb-0">@empBirthday.Designation</p>
+                                                            </div>
+                                                        </div>
+                                                    </li>
+                                                }
+                                            </ul>
+                                        }
+
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-12 col-sm-6 col-md-6 col-lg-4 col-xl-4 p-0">
+                                <!-- Anniversaries Section -->
+                                <div class="card mx-2">
+                                    <div class="card-header">
+                                        Anniversaries
+                                    </div>
+                                    <div class="card-body admindash_card scrollbar p-2">
+                                        @if (!Model.AnniversaryModel?.Any() ?? true)
+                                        {
+                                            <div class="d-flex flex-column align-items-center justify-content-center">
+                                                <img src="~/Assets/WorkAnni.jpg" alt="No Birthdays" class="img-fluid mb-3" style="max-width: 135px;">
+                                                <p class="text-muted">No anniversaries today.</p>
+                                            </div>
+                                        }
+                                        else
+                                        {
+                                            foreach (var employeeAnniversary in Model.AnniversaryModel)
+                                            {
+                                                var empAnniversaryImageURl = System.Configuration.ConfigurationManager.AppSettings["EmpImagesFolder"] + "/" + @employeeAnniversary.imagePath;
+
+                                                <ul class="list-group list-group-flush">
+                                                    <li class="list-group-item p-0">
+                                                        <div class="d-flex align-items-center mb-3">
+                                                            <img src="@empAnniversaryImageURl" class="mr-3 rounded-circle employee_img" alt="Avatar">
+                                                            <div class="birthdayinfo mt-2">
+                                                                <span>@employeeAnniversary.EmpName</span><br>
+                                                                <p class="smalltext mb-0">@employeeAnniversary.Designation</p>
+                                                            </div>
+                                                        </div>
+                                                    </li>
+                                                </ul>
+                                            }
+                                        }
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-12 col-sm-6 col-md-6 col-lg-4 col-xl-4 p-0">
+                                <!-- Upcoming Holidays Section -->
+                                <div class="card mx-2">
+                                    <div class="card-header">
+                                        Upcoming Holidays
+                                    </div>
+                                    <div class="card-body scrollbar admindash_card p-2">
                                         <ul class="list-group list-group-flush">
-                                            <li class="list-group-item">
-                                                <div class="d-flex align-items-center" style="margin-bottom: 10px;">
-                                                    <img src="@empAnniversaryImageURl" class="mr-3 rounded-circle" alt="Avatar" style="width: 50px; height: 50px;">
-                                                    <div class="birthdayinfo" style="margin-left: 10px;">
-                                                        <span>@employeeAnniversary.EmpName</span><br>
-                                                        <small style="font-size:12px;">@employeeAnniversary.Designation</small>
-                                                    </div>
-                                                </div>
-                                            </li>
+                                            @foreach (HRMS.Models.EmployeeEvent.UpcomingHoliday holiday in Model.UpcomingHolidays)
+                                            {
+                                                if (@holiday.HolidayDate != DateTime.MinValue)
+                                                {
+                                                    <li class="admindash_holiday">
+                                                        <h6 class="mb-0">@holiday.HolidayName</h6>
+                                                        <div class="leave_data d-flex">
+                                                            <p class="smalltext mb-0">@holiday.HolidayDate.ToString("dd MMMM dddd")</p>
+                                                            <p class="smalltext ml-auto mb-0 ">@holiday.Region</p>
+                                                        </div>
+                                                    </li>
+                                                }
+                                            }
                                         </ul>
-                                    }
-                                }
-                            </div>
-                        </div>
-                        <!-- Upcoming Holidays Section -->
-                        <div class="card">
-                            <div class="card-header">
-                                Upcoming Holidays
-                            </div>
-                            <div class="card-body" style="max-height: 300px; overflow-y: auto;">
-                                <ul class="list-group list-group-flush">
-                                    @foreach (HRMS.Models.EmployeeEvent.UpcomingHoliday holiday in Model.UpcomingHolidays)
-                                    {
-                                        if (@holiday.HolidayDate != DateTime.MinValue)
-                                        {
-                                            <li style="padding-bottom: 10px;">
-                                                <h6 style="margin-bottom: 0; font-size: 16px;">@holiday.HolidayName</h6>
-                                                <small>@holiday.HolidayDate.ToString("dd MMMM dddd")</small>
-                                                <small>@holiday.Region</small>
-                                            </li>
-                                        }
-                                    }
-                                </ul>
+                                    </div>
+                                </div>
                             </div>
                         </div>
                     </div>
-                </div>
+                        </div>
 
                 <script>
                     generateCalendar(new Date().getMonth(), new Date().getFullYear());
