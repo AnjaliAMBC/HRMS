@@ -22,22 +22,35 @@
 }
 .btn-checkin {
     color: white;
-    height: 39px;
-    width: 34%;
     background-color: #3E78CF;
 }
 #currentDate{
     color:gray;
     font-size:14px;
 }
-
-.in-out {
-    text-align: right; /* Align input fields to the right */
+.dashholiday_body
+{
+    height:300px;
 }
+.checkinhours, .dashjob_description, .dashticket_description, .dashbirthday_description, .dashhoiday_description {
+    line-height: 1rem;
+}
+    .dashhoiday_description p
+    {
+        font-size:12px
+    }
+        .dashhoiday_description h6{
+            font-size:15px;
+        }
+
+        .in-out {
+            text-align: right; /* Align input fields to the right */
+        }
 
 .day-date-time {
     float: left; /* Align day-date-time section to the left */
     margin-bottom: 10px; /* Add space below */
+    line-height:1rem;
 }
 
 .button-container {
@@ -69,7 +82,7 @@
     padding: 0;
     text-align: center;
     border: none;
-    line-height: 2; /* Adjust the line height as needed */
+    line-height: 1.5 !important; /* Adjust the line height as needed */
     position: relative;
 }
 
@@ -77,19 +90,19 @@
         visibility: visible;
     }
 
-        .calendar-body td:hover .festival-tooltip:before {
-            content: attr(data-festival);
-            position: absolute;
-            bottom: calc(100% + 5px);
-            left: 50%;
-            transform: translateX(-50%);
-            background-color: #ff69b4; /* Pink background color */
-            color: white;
-            padding: 3px 5px; /* Adjust size */
-            border-radius: 3px; /* Adjust border radius */
-            visibility: visible;
-            z-index: 999;
-        }
+    .calendar-body td:hover .festival-tooltip:before {
+        content: attr(data-festival);
+        position: absolute;
+        bottom: calc(100% + 5px);
+        left: 50%;
+        transform: translateX(-50%);
+        background-color: #ff69b4; /* Pink background color */
+        color: white;
+        padding: 3px 5px; /* Adjust size */
+        border-radius: 3px; /* Adjust border radius */
+        visibility: visible;
+        z-index: 999;
+    }
 
 
 
@@ -162,13 +175,18 @@
 }
 
 .time-input {
-    font-size: 20px;
+    font-size: 15px;
+    color:blue;
     height: 40px; /* Default height */
 }
 
 .current-time {
     font-size: 28px;
     color: #3E78CF;
+}
+.check-time
+{
+    line-height:1rem;
 }
 
 .in-out {
@@ -269,13 +287,54 @@
     cursor: pointer;
 }
 /*leave css*/
-.leave-card {
-    text-align: center;
-    width: 180px; 
-    padding: 0px; 
-    border: 1px solid transparent;
-    
+
+
+
+.dashcard_style
+{
+    height:250px;
+    width:auto;
 }
+.scrollbar
+{
+    overflow-y:auto;
+}
+::-webkit-scrollbar 
+{
+    width: 2px;
+}
+.smalltext {
+    color: #BDBDBD;
+    font-size: 14px;
+}
+#dashday
+{
+    font-size:16px;
+    color:#000000;
+}
+.leaveslider-container {
+    position: relative;
+    width: 100%;
+    overflow: hidden;
+}
+
+.leaveslider-wrapper {
+    display: flex;
+    transition: transform 0.5s ease-in-out;
+}
+
+.leaveslider-item {
+    min-width: 25%;
+    box-sizing: border-box;
+    padding: 0.5rem;
+}
+
+    .leaveslider-item .card {
+        text-align: center;
+        width: 100%;
+        padding: 0px;
+        border: 1px solid transparent;
+    }
 
 .leave-icon {
     width: 60px;
@@ -335,104 +394,63 @@
     font-size: 0.8rem;
     margin-bottom: 0px;
 }
-.leave_container {
-    width: 100%; 
-}
-.carousel-control-next, .carousel-control-prev /*updated*/ {
-    background-color: grey;
-    width: 30px;
-    height: 20px;
+
+.leaveslider-control {
+    position: absolute;
     top: 50%;
+    transform: translateY(-50%);
+    background-color: #80808038;
+    width: 30px;
+    height: 30px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
 }
 
-.fa-chevron-right, .fa-chevron-left  {
-    color: black; 
+    .leaveslider-control.left {
+        left: 0px;
+    }
+
+    .leaveslider-control.right {
+        right: 0px;
+    }
+
+.fa-chevron-right, .fa-chevron-left {
+    color: black;
 }
 
-.carousel-inner {
-    margin: 1rem; 
-}
-
-.box_body  {
+.box_body {
     padding: 0.25rem;
     overflow-y: auto;
 }
 
-.box_topic  {
+.box_topic {
     background-color: #EEF4FF;
     font-size: 20px;
+    padding: 1rem;
 }
-.leave-row {
-    display: flex;
-    transition: transform 0.5s ease;
-   
-    width: calc(100% * 9); 
-}
-
-.carousel-inner {
-    width: 100%; 
-}
-
-.leave-container {
-    display: flex;
-    overflow: hidden;
-    max-width: calc(100% - 60px); 
-
-    align-items: center;
-    position: relative;
-}
-
-.carousel-control-prev, .carousel-control-next {
-    position: absolute;
-    top: 50%;
-    transform: translateY(-50%);
-    width: 30px;
-    height: 30px;
-    cursor: pointer;
-    color: #007bff;
-    z-index: 1;
-}
-
-.carousel-control-prev {
-    left: 0;
-}
-
-.carousel-control-next {
-    right: 0;
-}
-/*---This is for carousel----*/
-@media (max-width: 768px) {
-    .carousel-inner .carousel-item > div {
-        display: none;
+@media (min-width:1201px)  and (max-width:1307px)
+{
+    .check-label{
+        margin-left:-10px;
     }
-
-        .carousel-inner .carousel-item > div:first-child {
-            display: block;
-        }
-}
-
-.carousel-inner .carousel-item.active,
-.carousel-inner .carousel-item-next,
-.carousel-inner .carousel-item-prev {
-    display: flex;
-}
-
-@media (min-width: 768px) {
-
-    .carousel-inner .carousel-item-right.active,
-    .carousel-inner .carousel-item-next {
-        transform: translateX(25%);
-    }
-
-    .carousel-inner .carousel-item-left.active,
-    .carousel-inner .carousel-item-prev {
-        transform: translateX(-25%);
+    .time-input{
+        margin-left:-10px;
     }
 }
+@media (min-width:1147px) and (max-width:1200px) {
+    .check-label {
+        margin-left: -15px;
+    }
 
-.carousel-inner .carousel-item-right,
-.carousel-inner .carousel-item-left {
-    transform: translateX(0);
+    .in-out .time-input {
+        margin-left: -15px;
+    }
+    #dashcurrentTime
+    {
+        font-size:20px;
+    }
 }
 /*----The carousel css end's here----*/
 
