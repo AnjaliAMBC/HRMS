@@ -1,0 +1,22 @@
+﻿@model HRMS.Models.Employee.LeaveTypesBasedOnEmpViewModel
+
+@{
+    int index = 1;
+}
+@foreach (HRMS.Models.Employee.LeaveEmployee emp in Model.LeaveTypes)
+{
+    foreach (HRMS.Models.Employee.AvailableLeaves availabilty in emp.AvailableLeaves)
+    {
+        var activeClass = index == 1 ? "active" : "";
+        <div class="carousel-item carousel-leave-item @activeClass">
+            <div class="col-md-2 m-0">
+                <div class="card card-body tracker-card @availabilty.ColorCode">
+                    <h6 class="tracker-title">@availabilty.Type</h6>
+                    <p class="tracker-details">Available: @availabilty.Available.ToString().Replace(".0", "") Days</p>
+                    <p class="tracker-details">Booked: @availabilty.Booked Days</p>
+                </div>
+            </div>
+        </div>
+        index++;
+    }
+}

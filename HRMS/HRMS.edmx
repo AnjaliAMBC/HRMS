@@ -30,6 +30,7 @@
           <Property Name="employee_name" Type="varchar" MaxLength="1500" />
           <Property Name="BackupResource_Name" Type="varchar" MaxLength="255" />
           <Property Name="EmergencyContact_no" Type="varchar" MaxLength="50" />
+          <Property Name="LeaveStatus" Type="varchar" MaxLength="255" />
         </EntityType>
         <EntityType Name="Department">
           <Key>
@@ -417,6 +418,7 @@ warning 6002: The table/view 'HRMS_PortalDev1.dbo.CheckInView' does not have a p
           <Property Name="HalfDayCategory" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
           <Property Name="BackupResource_Name" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
           <Property Name="EmergencyContact_no" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="LeaveStatus" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
         </EntityType>
       </Schema>
     </edmx:ConceptualModels>
@@ -594,6 +596,7 @@ warning 6002: The table/view 'HRMS_PortalDev1.dbo.CheckInView' does not have a p
           <EntitySetMapping Name="con_leaveupdate">
             <EntityTypeMapping TypeName="HRMS_EntityModel.con_leaveupdate">
               <MappingFragment StoreEntitySet="con_leaveupdate">
+                <ScalarProperty Name="LeaveStatus" ColumnName="LeaveStatus" />
                 <ScalarProperty Name="EmergencyContact_no" ColumnName="EmergencyContact_no" />
                 <ScalarProperty Name="BackupResource_Name" ColumnName="BackupResource_Name" />
                 <ScalarProperty Name="HalfDayCategory" ColumnName="HalfDayCategory" />

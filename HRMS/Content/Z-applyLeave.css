@@ -1,6 +1,9 @@
 ﻿.half-day-select {
-    margin-top: 10px;
-    width: 150px;
+    margin-top: 9px;
+    width: 115px;
+    font-size: 15px;
+    height: 33px;
+    padding: 0;
 }
 
 .apply-date-section {
@@ -18,15 +21,15 @@
         }
 
 .apply-date-label {
-    margin-bottom: 0.5rem;
+    
     font-weight: bold;
 }
 
 .apply-leave-form {
     display: flex;
     align-items: center;
-    margin-bottom: 15px;
-    font-size: 15px;
+    margin-bottom: 12px;
+    font-size: 14px;
 }
 
 .vertical-line {
@@ -38,8 +41,16 @@
 .dayleave-type-container {
     display: flex;
     align-items: center;
+    
 }
-
-    .dayleave-type-container .form-check {
-        margin-right: 20px;
-    }
+#dayTypeContainer {
+    overflow-y: auto;
+    max-height: 200px;
+    border: 1px solid #ccc;
+    padding: 10px;
+    margin-bottom:15px;
+   
+}
+.dayleave-type-container .form-check {
+    margin-right: 20px;
+}

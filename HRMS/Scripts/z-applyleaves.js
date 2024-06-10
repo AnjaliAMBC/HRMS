@@ -10,14 +10,14 @@ function calculateTotalLeaves() {
         }
     });
     // Update the total leaves display
-    $('#totalLeaves').text(total + "Days");
+    $('#totalLeaves').text(total + " Days");
 }
 
 // Function to dynamically generate balance section HTML
 function generateBalanceSection() {
     var leaveType = $('#leaveType').val();
     var availableBalance = 0;
-    var empId = $('.loggedinempid').text();
+    var empId = $("#leaveempname option:selected").val();
     $.ajax({
         type: "POST",
         url: "/empleave/getavailableleaves",
@@ -79,9 +79,12 @@ function generateDayTypeRows() {
 
         // Generate a row for each date in the range
         for (var d = new Date(start); d <= end; d.setDate(d.getDate() + 1)) {
-            // Skip weekends (Saturday and Sunday)
-            if (d.getDay() === 0 || d.getDay() === 6) {
-                continue;
+
+            if ($('#leaveType').val() != "Maternity Leave") {
+                // Skip weekends (Saturday and Sunday)
+                if (d.getDay() === 0 || d.getDay() === 6) {
+                    continue;
+                }
             }
 
             var dateStr = d.toISOString().split('T')[0];
@@ -139,6 +142,8 @@ $(document).on('change', '#fromleaveDate', function (event) {
 
 
 $(document).on('change', '#toleaveDate', function (event) {
+    $('#dayTypeContainer').show();
+    $('#totalLeavesContainer').show();
     generateDayTypeRows();
 });
 
@@ -148,13 +153,14 @@ $(document).on('click', '.btn-apply-empleave', function (event) {
     let leaveType = $('#leaveType').val();
     let fromDate = $('#fromleaveDate').val();
     let toDate = $('#toleaveDate').val();
+    let hourPermission = $('#HourPermission').val();
     let teamEmail = $('#teamEmail').val();
     let reason = $('#reason').val();
-    let EmpID = $('.loggedinempid').text();
-    let EmpName = $('.loggedinempname').text();
+    let EmpID = $("#leaveempname option:selected").val();
+    let EmpName = $("#leaveempname option:selected").text();
     let SubmittedBy = $('.loggedinempname').text();
-    let BackupResource_Name = $('#BackupName').val();
-    let EmergencyContact_no = $('#BackupNo').val();
+    let backupName = $('#BackupName').val();
+    let backupNo = $('#BackupNo').val();
 
     let isValid = true;
     let errorMessage = '';
@@ -163,29 +169,57 @@ $(document).on('click', '.btn-apply-empleave', function (event) {
         isValid = false;
         errorMessage += 'Leave Type is required.\n';
     }
-    if (!fromDate) {
-        isValid = false;
-        errorMessage += 'From Date is required.\n';
+
+    if (leaveType === "Hourly Permission") {
+        if (!fromDate) {
+            isValid = false;
+            errorMessage += 'From Date is required.\n';
+        }
+        if (!hourPermission || hourPermission === "Select Hours") {
+            isValid = false;
+            errorMessage += 'Hour Permission is required for Hourly Permission leave.\n';
+        }
+
+    } else {
+        if (!fromDate) {
+            isValid = false;
+            errorMessage += 'From Date is required.\n';
+        }
+        if (!toDate) {
+            isValid = false;
+            errorMessage += 'To Date is required.\n';
+        }
+        if (fromDate && toDate && new Date(toDate) < new Date(fromDate)) {
+            isValid = false;
+            errorMessage += 'To Date should be greater than From Date.\n';
+        }
     }
-    if (!toDate) {
-        isValid = false;
-        errorMessage += 'To Date is required.\n';
-    }
+
     if (!teamEmail) {
         isValid = false;
         errorMessage += 'Team Email is required.\n';
     }
 
+    if (!backupName) {
+        isValid = false;
+        errorMessage += 'Backup Resource Name is required.\n';
+    }
+
+    if (!backupNo) {
+        isValid = false;
+        errorMessage += 'Contact Number (In case of Emergency) is required.\n';
+    }
+
     let dayTypeContainer = document.getElementById('dayTypeContainer');
-    let dayTypeEntries = [];
     let hasDayTypeSelection = false;
+    let dayTypeEntries = [];
 
     dayTypeContainer.querySelectorAll('.apply-leave-form').forEach(row => {
-        let date = row.querySelector('.apply-date-label').textContent;
         let dayType = row.querySelector('input[name^="dayType_"]:checked');
 
         if (dayType) {
             hasDayTypeSelection = true;
+            let date = row.querySelector('.apply-date-label').textContent;
             let dayTypeValue = dayType.value;
             let halfType = '';
 
@@ -200,13 +234,36 @@ $(document).on('click', '.btn-apply-empleave', function (event) {
             });
         } else {
             isValid = false;
-            errorMessage += `Day Type is required for ${date}.\n`;
+            errorMessage += `Day Type is required for ${row.querySelector('.apply-date-label').textContent}.\n`;
         }
     });
 
-    if (!hasDayTypeSelection) {
+    if (!hasDayTypeSelection && leaveType != "Hourly Permission") {
         isValid = false;
         errorMessage += 'At least one day type selection is required.\n';
+    }
+
+
+    if ($('.loginempisadmin').text() != "True") {
+        var leavesApplyied = $('#totalLeaves').text().split(' ');
+        var appliedLeaves = "";
+        if (leavesApplyied.length > 1) {
+            appliedLeaves = leavesApplyied[0];
+            var totalAvailableBalanceLeaves = $('.available-balance').text();
+
+            var decimalAppliedLeaves = parseFloat(appliedLeaves);
+            var decimaltotalAvailableBalanceLeaves = parseFloat(totalAvailableBalanceLeaves);
+
+            if (isNaN(decimalAppliedLeaves) || isNaN(decimaltotalAvailableBalanceLeaves)) {
+                isValid = false;
+                errorMessage += "Invalid input related to leave balance";
+            }
+
+            if (decimalAppliedLeaves > decimaltotalAvailableBalanceLeaves) {
+                isValid = false;
+                errorMessage += 'You are not allowed to apply the leaves more than the available balance. Please contact administrator.\n';
+            }
+        }
     }
 
     if (!isValid) {
@@ -214,6 +271,7 @@ $(document).on('click', '.btn-apply-empleave', function (event) {
         return;
     }
 
+    // If all validations passed, proceed with form submission
     let formData = {
         leaveType: leaveType,
         fromDate: fromDate,
@@ -224,8 +282,9 @@ $(document).on('click', '.btn-apply-empleave', function (event) {
         EmpID: EmpID,
         EmpName: EmpName,
         SubmittedBy: SubmittedBy,
-        BackupResource_Name: BackupResource_Name,
-        EmergencyContact_no: EmergencyContact_no
+        BackupResource_Name: backupName,
+        EmergencyContact_no: backupNo,
+        hourPermission: hourPermission,
     };
 
     $.ajax({
@@ -235,7 +294,27 @@ $(document).on('click', '.btn-apply-empleave', function (event) {
         data: JSON.stringify(formData),
         success: function (response) {
             console.log('Success:', response);
-            alert('Leave request submitted successfully.');
+            if (response.jsonResponse.StatusCode == 200) {
+                $('#leaveType').val($('#leaveType option:first').val());
+                $('#fromleaveDate').val('');
+                $('#toleaveDate').val('');
+                $('#HourPermission').val();
+                $('#teamEmail').val('');
+                $('#teamEmail').val($('#defaultteamEmail').text());
+                $('#reason').val('');
+                if ($('.loginempisadmin').text() == "True") {
+                    $('#leaveempname').val($('#leaveempname option:first').val());
+                }
+                $('#BackupName').val('');
+                $('#BackupNo').val('');
+                $('#dayTypeContainer').empty();
+                $('#dayTypeLabel').hide();
+                $('#totalLeavesContainer').empty();
+                $('#dayTypeContainer').hide();
+                $('.balance-section-wrapper').empty();
+                $('.time-section').hide();
+            }
+            alert(response.jsonResponse.Message);
         },
         error: function (error) {
             console.error('Error:', error);
@@ -245,7 +324,40 @@ $(document).on('click', '.btn-apply-empleave', function (event) {
 });
 
 
+
 $(document).on('change', '#leaveType', function (event) {
     var selectedLeaveType = $(this).val();
     generateBalanceSection(selectedLeaveType);
+
+    $('#HourPermission').val($('#HourPermission option:first').val());
+
+    if ($(this).val() === 'Hourly Permission') { // Hourly Permission
+        $('.to-date-group').hide();
+        $('#dayTypeLabel').hide();
+        $('#dayTypeContainer').hide();
+        $('#totalLeavesContainer').hide();
+        $('.time-section').show();
+    } else {
+        $('.to-date-group').show();
+        $('.time-section').hide();
+        generateDayTypeRows(); // Ensure that the day type rows are generated based on selected dates
+    }
+
+    $('#fromleaveDate').val('');
+    $('#toleaveDate').val('');
+    $('#dayTypeContainer').empty();
+    $('#dayTypeLabel').hide();
+    $('#totalLeavesContainer').empty();
+});
+
+
+$(document).on('change', '#leaveempname', function (event) {
+    $('#leaveType').val($('#leaveType option:first').val());
+    $('.balance-section-wrapper').empty();
+});
+
+$(document).on('change', '#HourPermission', function (event) {
+    $('#totalLeavesContainer').html('<div>Total time: <span id="totalLeaves">' + $("#HourPermission option:selected").text() + '</span></div>');
+    //$('#totalLeaves').text($(this).val());
+    $('#totalLeavesContainer').show();
 });

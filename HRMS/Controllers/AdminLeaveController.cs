@@ -1,4 +1,6 @@
-﻿using System;
+﻿using HRMS.Helpers;
+using HRMS.Models.Employee;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
@@ -15,12 +17,17 @@ namespace HRMS.Controllers
         }
         public ActionResult AdminLeaveBalance()
         {
-            return PartialView("~/Views/AdminDashboard/AdminEmpBalanceView.cshtml");
+            LeaveTypesBasedOnEmpViewModel empLeaveTypes = new LeaveCalculator().GetLeavesByEmp("");
+            return PartialView("~/Views/AdminDashboard/AdminEmpBalanceView.cshtml", empLeaveTypes);
         }
         public ActionResult AdminLeaveApply()
         {
-            return PartialView("~/Views/AdminDashboard/AdminApplyLeave.cshtml");
+            return PartialView("~/Views/EmployeeDashboard/EmpApplyleave.cshtml");
         }
 
+        public ActionResult AdminLeaveManagement()
+        {
+            return PartialView("~/Views/AdminDashboard/AdminLeaveEmpManage.cshtml");
+        }
     }
 }

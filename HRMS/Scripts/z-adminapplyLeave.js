@@ -2,7 +2,7 @@
     event.preventDefault();
     HighlightAdminActiveLink($(this));
     $.ajax({
-        url: '/adminleave/adminleaveapply',
+        url: '/empleave/empApplyLeave',
         type: 'GET',
         dataType: 'html',
         success: function (response) {
@@ -13,7 +13,7 @@
             $('.admin-attendance-container').html("");
             $('.admin-leave-container').html("");
             $(".hiddenadmindashboard").html(response);
-            var formContent = $(".hiddenadmindashboard").find(".admin-leave-apply").html();
+            var formContent = $(".hiddenadmindashboard").find(".employeeleaveapply-view").html();
             $(".admin-leave-container").html(formContent);
             $('.admin-leave-container').show();
             $('.admin-attendance-container').hide();
@@ -22,6 +22,7 @@
             $('.admin-dashboard-container').hide();
             $('.admin-ticketing-container').hide();
             $(".hiddenadmindashboard").html("");
+
         },
         error: function (xhr, status, error) {
             console.error("Error deleting employee:", error);
@@ -89,3 +90,6 @@ function generateBalanceSection() {
 
 // Initially generate balance section
 generateBalanceSection();
+
+
+ /*<span style="font-size: small">@lastCheckinDate</span> */
