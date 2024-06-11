@@ -25,8 +25,9 @@ namespace HRMS.Controllers
             return PartialView("~/Views/EmployeeDashboard/EmpApplyleave.cshtml");
         }
 
-        public ActionResult AdminLeaveManagement()
+        public ActionResult AdminLeaveManagement(string fromDate, string toDate)
         {
+
             return PartialView("~/Views/AdminDashboard/AdminLeaveEmpManage.cshtml");
         }
     }
