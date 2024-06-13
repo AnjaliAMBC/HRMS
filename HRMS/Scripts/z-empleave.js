@@ -288,15 +288,39 @@ $(document).on('click', '.emp-leave-cancel', function (event) {
     });
 });
 
-$('#leaveHistoryTable').on('click', '.leave-edit-history', function () {
-    $(this).siblings('.emp-leaveoptions').toggle();
+//$('#leaveHistoryTable').on('click', '.leave-edit-history', function () {
+//    $(this).siblings('.emp-leaveoptions').toggle();
+//});
+
+////$(document).on('click', function (event) {
+////    if (!$(event.target).closest('.leave-edit-history, #emp-leaveoptions').length) {
+////        $('#emp-leaveoptions').hide();
+////    }
+////});
+//$(document).on('click', function () {
+//    $('.emp-leaveoptions').hide();
+//});
+$(document).ready(function () {
+    $('#leaveHistoryTable').on('click', '.leave-edit-history', function (event) {
+        // Prevent the click event from propagating to the document
+        event.stopPropagation();
+        // Hide all other .emp-leaveoptions elements
+        $('.emp-leaveoptions').hide();
+        // Toggle the current .emp-leaveoptions element
+        $(this).siblings('.emp-leaveoptions').toggle();
+    });
+
+    // Hide .emp-leaveoptions when clicking anywhere else on the document
+    $(document).on('click', function () {
+        $('.emp-leaveoptions').hide();
+    });
+
+    // Prevent hiding when clicking inside .emp-leaveoptions
+    $('#leaveHistoryTable').on('click', '.emp-leaveoptions', function (event) {
+        event.stopPropagation();
+    });
 });
 
-$(document).on('click', function (event) {
-    if (!$(event.target).closest('.leave-edit-history, #emp-leaveoptions').length) {
-        $('#emp-leaveoptions').hide();
-    }
-});
 
 //Leave Tracker apply leave
 $(document).on('click', '.btn-apply-leave', function (event) {
