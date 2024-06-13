@@ -48,25 +48,25 @@
 }
 
 @Html.Partial("_NavBar")
-<div class="container-fluid">
+<div class="container-fluid emp-dashboard">
     @Html.Partial("_empsidemenu")
     <div class="main-content container-fluid" style="width: 84%">
         <div class="hiddenempdashboard"></div>
         <div class="container-fluid mt-2 pl-0 employeedash">
             <h4>Dashboard</h4>
             <div class="row mt-4">
-                <div class="col-md-4">
+                <div class="col-lg-4 col-md-6">
                     <div class="card mb-3 dashcard_style">
                         <div class="card-header text-dark">Check In / Check Out</div>
                         <div class="card-body chechin-body p-1 mt-3">
                             <div class="container-fluid ">
                                 <div class="row">
-                                    <div class="day-date-time p-0 pl-2 col-md-8 ">
+                                    <div class="day-date-time p-0 pl-2 col-md-8 col-sm-8">
                                         <h5 id="dashday" class="mb-0"></h5> <!-- Display day here -->
                                         <div id="dashcurrentDate" class="time-input smalltext"></div> <!-- Replace input with div -->
                                         <div id="dashcurrentTime" class="current-time mb-2"></div> <!-- Replace input with div -->
                                     </div>
-                                    <div class="in-out col-md-4 p-0 pr-1">
+                                    <div class="in-out col-md-4 p-0 pr-1 col-sm-4">
                                         <div class="check-time d-flex flex-column">
                                             <span class="check-label smalltext mr-auto">Check In time</span>
                                             <div id="checkInTime" class="time-input mr-auto"><span style="font-size: small">@lastCheckinDate</span>@starttimeWithAmPm</div>
@@ -78,16 +78,16 @@
                                     </div>
                                 </div>
                                 <div class="row">
-                                    <div class="col-md-8">
+                                    <div class="col-md-8 col-sm-8">
                                         <div class="current-time-display text-center ">
                                             <div id="currentTime" class="current-time"></div>
                                         </div>
                                         <span class="showcheckinbuttonpostcheckout" style="display: none">@showCheckInButton</span>
-                                        <div class="button-container text-left">
+                                        <div class="button-container text-left total-hours">
                                             <button class="btn btn-checkin" data-checkinid="@loginID" @ButtonDisabled>@buttonText</button>
                                         </div>
                                     </div>
-                                    <div class="col-md-4 p-0 pr-1">
+                                    <div class="col-md-4 p-0 pr-1 col-sm-4">
                                         <div class="checkinhours ">
                                             <span class="totalhours smalltext">Total Hours</span>
                                             @{
@@ -140,7 +140,7 @@
                     </div>
                 </div>
 
-                <div class="col-md-4">
+                <div class="col-lg-4 col-md-6">
 
                     <div class="card mb-3 dashcard_style">
                         <div class="card-header text-dark">Birthdays</div>
@@ -223,7 +223,7 @@
                     </div>
                 </div>
 
-                <div class="col-md-4">
+                <div class="col-lg-4 col-md-12">
                     <div class="card mb-3">
 
                         <div class="card-header calendar-header text-dark">
@@ -274,7 +274,7 @@
                         </div>
                     </div>
                 </div>
-                <div class="col-md-8">
+                <div class="col-lg-8 col-md-12">
                     <div class="card mb-3 dashleaveslider">
                         <div class="box_topic pl-3 py-2">
                             Leaves
