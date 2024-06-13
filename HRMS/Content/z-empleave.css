@@ -183,7 +183,7 @@
     background-color: transparent;
     width: 30px;
     height: 30px;
-    top: 42%;
+    top: 21%;
     border-radius: 50%;
     border: 1px solid black;
 }
@@ -196,7 +196,7 @@
     color: #3E78CF !important;
 }
 .applyleave_btn {
-    margin-top: 19px;
+    margin-top: 3px;
 }
 .comment-message {
     display: flex;
@@ -229,7 +229,6 @@
     }
 .emp-leaveoptions {
     display: none;
-    position: absolute;
     background-color: white;
     border: 1px solid #ddd;
     box-shadow: 0 2px 5px rgba(0, 0, 0, 0.15);
@@ -252,3 +251,43 @@
 #empleave-monthYear {
     color: #23366f;
 }
+.btn-apply-empleave {
+    background-color: #2693F8;
+}
+.leavehistory-year {
+    display: flex;
+    justify-content: space-between;
+}
+.year-dropdown {
+    position: relative;
+    display: inline-block;
+}
+
+.year-dropdown-select {
+    padding: 8px 16px;
+    font-size: 16px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    cursor: pointer;
+}
+
+.year-dropdown-options {
+    position: absolute;
+    background-color: #fff;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    width: 100%;
+    max-height: 200px;
+    overflow-y: auto;
+    z-index: 1000;
+    display: none;
+}
+
+.year-dropdown-option {
+    padding: 8px 16px;
+    cursor: pointer;
+}
+
+    .year-dropdown-option:hover {
+        background-color: #f0f0f0;
+    }
