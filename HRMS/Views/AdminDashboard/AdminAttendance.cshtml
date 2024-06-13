@@ -58,7 +58,13 @@
                         }
 
                         .day.active {
-                            font-weight: bold; /* Example style for active date */
+                            border: 2px solid #9FE2FA;
+                            color: grey;
+                            font-weight: 500;
+                            border-radius: 5px;
+                            padding: 0px 24px 28px 5px;
+                            padding-left: -1px !important;
+                            background-color: aliceblue;
                         }
 
                         /* Updated styles for the day divs without borders */
@@ -141,6 +147,17 @@
                             margin-left: 20px;
                             background-color: aliceblue;
                         }
+                        #daysContainer {
+                            width: 855px;
+                        }
+
+                        #status-dropdown {
+                            width: 67px;
+                        }
+
+                        #location-dropdown {
+                            width: 83px;
+                        }
                     </style>
 
                     <div class="row mb-2 align-items-center">
@@ -150,7 +167,7 @@
 
                         <div class="col-8">
                             <div class="dropdowns-container d-flex  align-items-center">
-                                <div class="search-container">
+                                <div class="search-container mr-2">
                                     <div class="input-group">
                                         <div class="input-group-prepend">
                                             <span class="input-group-text" style="background-color: transparent; border-right: none; border-radius: 10px 0 0 10px; height: 35px;"><i class="fas fa-search" style="color: #369479;"></i></span>
@@ -160,7 +177,7 @@
                                 </div>
 
                                 <div class="form-group mr-2 status-drop adminatt-dropdown" style="margin-top: 10px;">
-                                    <select class="form-control form-select-sm" name="status" id="status-dropdown">
+                                    <select class="form-control form-select-sm p-0 ml-5" name="status" id="status-dropdown">
                                         <option value="" disabled selected>Status</option>
                                         <option value="Present">Present</option>
                                         <option value="Leave">Leave</option>
@@ -172,7 +189,7 @@
 
 
                                 <div class="form-group mr-2 adminatt-dropdown" style="margin-top: 10px;">
-                                    <select class="form-control form-select-sm" name="status" id="location-dropdown">
+                                    <select class="form-control form-select-sm p-0 ml-2" name="status" id="location-dropdown">
                                         <option value="" disabled selected>Location</option>
                                         <option value="Hyderabad">Hyderabad</option>
                                         <option value="Madurai">Madurai</option>
@@ -182,34 +199,34 @@
 
 
                                 <!-- Dropdown for Export options -->
-                                <div class="form-group mr-2 adminatt-dropdown ml-2" style="margin-top: 17px;">
-                                    <label class="export-label" for="exportLabel">Export</label>
-                                    <i class="fas fa-chevron-down ml-3" id="exportIcon" style="cursor: pointer; font-size:13px;" data-toggle="collapse" data-target="#dateDropdown"></i>
+                                <div class="form-group adminatt-dropdown mt-3 mr-3" style="margin-top: 17px;">
+                                    <label class="export-label mr-0 ml-2" for="exportLabel">Export</label>
+                                    <i class="fas fa-chevron-down " id="exportIcon" style="cursor: pointer; font-size:13px;" data-toggle="collapse" data-target="#dateDropdown"></i>
                                 </div>
 
 
 
-                                <div class="mb-2 ml-4">
-                                    <button type="button" class="btn btn-primary btn-addshift ml-2">Add Shift</button>
+                                <div class="mb-2 ">
+                                    <button type="button" class="btn btn-addshift ">Add Shift</button>
                                 </div>
                             </div>
                         </div>
                     </div>
 
                     <div class="collapse" id="dateDropdown">
-                        <div class="row mb-3 align-items-center">
+                        <div class="row  align-items-center">
                             <div class="col-4"></div> <!-- Empty column -->
-                            <div class="col-8 d-flex justify-content-end" style="margin-left: 31%">
+                            <div class="col-12 d-flex justify-content-end pr-5">
                                 <div class="form-group d-flex mr-2">
-                                    <label for="from" class="mr-2">From</label>
+                                    <label for="from" class="mt-1 mb-0">From</label>
                                     <input type="date" class="form-control form-control-sm" id="fromDate" style="width: 120px;">
                                 </div>
                                 <div class="form-group d-flex mr-2">
-                                    <label for="to" class="mr-2">To</label>
+                                    <label for="to" class="mt-1 mb-0">To</label>
                                     <input type="date" class="form-control form-control-sm" id="toDate" style="width: 120px;">
                                 </div>
                                 <div class="form-group d-flex align-items-center">
-                                    <button type="button" class="btn btn-sm btn-primary" onclick="submitDateRange()">Submit</button>
+                                    <button type="button" class="btn btn-sm" onclick="submitDateRange()">Submit</button>
                                     <a href="#" class="clearattendence-filter">Clear</a>
                                 </div>
                             </div>
@@ -232,7 +249,7 @@
 
                     <div class="table-container" style="border-radius: 10px; overflow: hidden;">
                         <table id="adminaddendancetable" class="display" style="width: 100%;">
-                            <thead style="background-color: #EEF4FF; height: 35px;">
+                            <thead class="adminatt_thead" >
                                 <tr>
                                     <th style="padding-left: 15px">Employee Name</th>
                                     <th>Location</th>
@@ -244,7 +261,7 @@
                                     <th class="hoverable-row"></th>
                                 </tr>
                             </thead>
-                            <tbody>
+                            <tbody class="adminatt_tbody">
 
                                 @foreach (emp_info employee in Model.AllEmployees)
                                 {
@@ -273,18 +290,18 @@
                                     if (empCheckin != null)
                                     {
                                         <tr>
-                                            <td class="employee-info" style="padding-left: 15px">
-                                                <span class="employee-id">@empCheckin.EmployeeID</span>
+                                            <td class="employee-info p-2 ml-2">
+                                                <span class="employee-id mr-2">@empCheckin.EmployeeID</span>
                                                 @if (!string.IsNullOrEmpty(employee.imagepath))
                                                 {
-                                                    <img src="@imagePath" alt="@empCheckin.EmployeeID" class="employee-image">
+                                                    <img src="@imagePath" alt="@empCheckin.EmployeeID" class="attemployee-image mr-2 ml-2">
                                                 }
                                                 else
                                                 {
                                                     <div class="initials-circle">@initials</div>
                                                 }
 
-                                                <div class="employee-details">
+                                                <div class="employee-details mt-2 ml-2">
                                                     @empCheckin.EmployeeName<br>
                                                     <small>@empCheckin.OfficalEmailid</small>
                                                 </div>
@@ -351,17 +368,17 @@
                                     {
                                         <tr>
 
-                                            <td class="employee-info" style="padding-left: 15px">
-                                                <span class="employee-id">@employee.EmployeeID</span>
+                                            <td class="employee-info p-2 ml-2">
+                                                <span class="employee-id mr-2">@employee.EmployeeID</span>
                                                 @if (!string.IsNullOrEmpty(employee.imagepath))
                                                 {
-                                                    <img src="@imagePath" alt="@employee.EmployeeID" class="employee-image">
+                                                    <img src="@imagePath" alt="@employee.EmployeeID" class="attemployee-image mr-2 ml-2">
                                                 }
                                                 else
                                                 {
                                                     <div class="initials-circle">@initials</div>
                                                 }
-                                                <div class="employee-details">
+                                                <div class="employee-details mt-2 ml-2">
                                                     @employee.EmployeeName<br>
                                                     <small>@employee.OfficalEmailid</small>
                                                 </div>

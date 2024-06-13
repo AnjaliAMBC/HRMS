@@ -15,7 +15,7 @@
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>HRMS</RootNamespace>
     <AssemblyName>HRMS</AssemblyName>
-    <TargetFrameworkVersion>v4.8</TargetFrameworkVersion>
+    <TargetFrameworkVersion>v4.6.1</TargetFrameworkVersion>
     <MvcBuildViews>false</MvcBuildViews>
     <UseIISExpress>true</UseIISExpress>
     <Use64BitIISExpress />
@@ -26,6 +26,7 @@
     <UseGlobalApplicationHostFile />
     <NuGetPackageImportStamp>
     </NuGetPackageImportStamp>
+    <TargetFrameworkProfile />
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
@@ -70,11 +71,7 @@
     <Reference Include="System.Web.Entity" />
     <Reference Include="System.Web.ApplicationServices" />
     <Reference Include="System.ComponentModel.DataAnnotations" />
-    <Reference Include="System.Core" />
-    <Reference Include="System.Data.DataSetExtensions" />
-    <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Web" />
-    <Reference Include="System.Web.Extensions" />
     <Reference Include="System.Web.Abstractions" />
     <Reference Include="System.Web.Routing" />
     <Reference Include="System.Xml" />
@@ -191,6 +188,7 @@
     <Content Include="Content\bootstrap4.5.2.css" />
     <Content Include="Content\jquery-ui.css" />
     <Content Include="Content\jquery.dataTables.css" />
+    <Content Include="Content\z-responsive.css" />
     <Content Include="Scripts\4.5.2bootstrap.min.js" />
     <Content Include="Scripts\ajax.umdpopper.min.js" />
     <Content Include="Scripts\jquery.dataTables.js" />
@@ -297,6 +295,7 @@
     <Content Include="Scripts\z-adminBalaceView.js" />
     <Content Include="Scripts\z-adminLeave.js" />
     <Content Include="Scripts\z-applyleaves.js" />
+    <Content Include="Scripts\z-custom.js" />
     <Content Include="Scripts\z-empleave.js" />
     <Content Include="Scripts\zEditAdminattendance.js" />
     <Content Include="Scripts\z-Adminemp.js" />
