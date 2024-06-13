@@ -217,11 +217,7 @@
             display: flex;
             justify-content: flex-end;
         }*/
-.dashboard {
-    display: grid;
-    grid-template-columns: repeat(3, 1fr);
-    gap: 20px;
-}
+
 
 .card {
     margin-bottom: 20px;
@@ -254,4 +250,57 @@
 }
 .list-group-flush{
     list-style:none;
+}
+.scrollbar
+{
+    overflow-y:auto;
+}
+.admindash_card
+{
+    height:300px;
+}
+.announcement_card .form-group label
+{
+    font-size:15px;
+    font-weight:600;
+}
+.admindash_holiday
+{
+    line-height:1rem;
+    margin-bottom:10px;
+}
+.smalltext {
+    color: #BDBDBD;
+    font-size: 12px;
+}
+.employee_img
+{
+    height:40px;
+    width:40px;
+
+}
+.birthdayinfo {
+    line-height: 1rem;
+}
+.leave-text
+{
+    line-height:1rem;
+}
+.calendar-body
+{
+    overflow-x:auto;
+}
+@media (min-width:320px) and (max-width:425px) {
+    .main-content{
+        padding:0px;
+        margin:0px;
+        width:100% !important;
+    }
+}
+@media (min-width:426px) and (max-width:767px) {
+    .main-content {
+        padding: 0px;
+        margin: 0px;
+        width: 100% !important;
+    }
 }

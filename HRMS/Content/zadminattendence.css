@@ -89,10 +89,7 @@
 }
 
 
-    .day.active {
-        background-color: #007bff; /* Active color */
-        color: black; /* Text color */
-    }
+  
 #exampleSelect1:focus,
 #exampleSelect2:focus,
 #exampleSelect3:focus
@@ -100,9 +97,7 @@
     border-color: transparent !important;
     box-shadow: none !important;
 }
-.status-drop{
-    margin-left:8%;
-}
+
 
 
 .export-label {
@@ -136,4 +131,67 @@
 /* Show the pencil icon when hovering over the row */
 .hoverable-row:hover .fa-pencil-alt {
     display: inline;
+}
+@media (min-width:1257px) {
+    .btn-addshift {
+        margin-left: 30px
+    }
+}
+
+@media (min-width:1100px) and (max-width:1103px) {
+    .status-drop {
+        margin-left: 0%;
+    }
+}
+
+.employee-details {
+    line-height: 1rem;
+}
+
+    .employee-details small {
+        color: #3E78CF;
+        font-size: 13px;
+    }
+
+    .attemployee-image
+    {
+        height:35px;
+        width:35px;
+        border-radius:50%;
+    }
+.adminatt_tbody
+{
+    font-size:14px;
+    
+}
+.adminatt_thead {
+   background-color: #EEF4FF;
+   height: 35px;
+   font-size:13px;
+}
+#adminaddendancetable_wrapper
+{
+    padding-top:0px;
+}
+
+.btn-addshift, #dateDropdown .btn-sm {
+    background-color: #2693F8;
+    color: white;
+}
+@media (max-width:1305px)
+{
+    .btn-addshift
+    {
+        font-size:14px;
+    }
+    #status-dropdown, #location-dropdown, .export-label {
+        font-size: 14px;
+    }
+}
+@media (min-width:1305px)
+{
+    .btn-addshift
+    {
+        margin-left:30px;
+    }
 }
