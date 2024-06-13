@@ -1,0 +1,803 @@
+#left-side-menu {
+    display: none;
+}
+
+@media only screen and (min-width:0px) and (max-width:480px) {
+
+    .col-sm-auto {
+        -ms-flex: 0 0 auto;
+        flex: 0 0 auto;
+        width: auto;
+        max-width: 100%
+    }
+
+    .col-sm-1 {
+        -ms-flex: 0 0 8.333333%;
+        flex: 0 0 8.333333%;
+        max-width: 8.333333%
+    }
+
+    .col-sm-2 {
+        -ms-flex: 0 0 16.666667%;
+        flex: 0 0 16.666667%;
+        max-width: 16.666667%
+    }
+
+    .col-sm-3 {
+        -ms-flex: 0 0 25%;
+        flex: 0 0 25%;
+        max-width: 25%
+    }
+
+    .col-sm-4 {
+        -ms-flex: 0 0 33.333333%;
+        flex: 0 0 33.333333%;
+        max-width: 33.333333%
+    }
+
+    .col-sm-5 {
+        -ms-flex: 0 0 41.666667%;
+        flex: 0 0 41.666667%;
+        max-width: 41.666667%
+    }
+
+    .col-sm-6 {
+        -ms-flex: 0 0 50%;
+        flex: 0 0 50%;
+        max-width: 50%
+    }
+
+    .col-sm-7 {
+        -ms-flex: 0 0 58.333333%;
+        flex: 0 0 58.333333%;
+        max-width: 58.333333%
+    }
+
+    .col-sm-8 {
+        -ms-flex: 0 0 66.666667%;
+        flex: 0 0 66.666667%;
+        max-width: 66.666667%
+    }
+
+    .col-sm-9 {
+        -ms-flex: 0 0 75%;
+        flex: 0 0 75%;
+        max-width: 75%
+    }
+
+    .col-sm-10 {
+        -ms-flex: 0 0 83.333333%;
+        flex: 0 0 83.333333%;
+        max-width: 83.333333%
+    }
+
+    .col-sm-11 {
+        -ms-flex: 0 0 91.666667%;
+        flex: 0 0 91.666667%;
+        max-width: 91.666667%
+    }
+
+    .col-sm-12 {
+        -ms-flex: 0 0 100%;
+        flex: 0 0 100%;
+        max-width: 100%
+    }
+
+    .p-sm-0 {
+        padding: 0 !important;
+    }
+
+    /* header and side menu start*/
+    .navbar.navbar-expand-md .logo-img {
+        width: 80px;
+    }
+
+    #left-side-menu-normal {
+        display: none;
+    }
+
+    #left-side-menu.show {
+        display: block;
+    }
+
+    #left-side-menu .sidebar {
+        z-index: 9999;
+        position: fixed;
+        width: 70%;
+        top: 0px !important;
+    }
+
+    #left-side-menu .sidebar-header {
+        margin: 0px 10px 0px 10px;
+        border-bottom: 1px solid #ccc;
+        color: black;
+    }
+
+        #left-side-menu .sidebar-header .bl {
+            display: inline-flex;
+            width: 22%;
+            padding: 0px 0px 0px 0px;
+        }
+
+        #left-side-menu .sidebar-header .br {
+            display: inline-block;
+            width: 73%;
+            padding: 0px 0px 0px 0px;
+            float: inline-end;
+            margin-top: 2px;
+        }
+
+        #left-side-menu .sidebar-header .bl img {
+            //width: 45px;
+            border-radius: 40px;
+        }
+
+        #left-side-menu .sidebar-header .br div {
+            line-height: 1.5;
+            font-size: 12px;
+            width: 200px; /* Set your desired width */
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
+
+        #left-side-menu .sidebar-header a {
+            color: #007bff;
+        }
+
+        #left-side-menu .sidebar-header .name {
+        }
+
+    #logout_sidebar_button {
+        position: absolute;
+        display: inline-block;
+        bottom: 5px;
+        left: 0px;
+        width: 100%;
+        padding: 0;
+        box-shadow: 0px -6px 7px 0px #ccc;
+    }
+
+        #logout_sidebar_button li {
+            text-align: center;
+            display: block;
+        }
+
+    /* header and side menu end*/
+
+    /* emp dashboard start */
+
+    .mobile-view .leaveslider-item {
+        min-width: 100%;
+    }
+
+    .mobile-view .employeedash {
+        padding-right: 0;
+    }
+
+    .mobile-view .dashcard_style {
+        height: auto;
+    }
+
+    .mobile-view .day-date-time {
+        //width: 50%;
+    }
+
+    .mobile-view .in-out {
+        //width: 50%;
+    }
+
+    .mobile-view #dashcurrentTime {
+        font-size: 30px;
+    }
+
+    .mobile-view .total-hours {
+        display: inline-block;
+    }
+
+    .mobile-view .emp-dashboard .main-content.container-fluid {
+        width: 100% !important;
+        padding: 65px 0px;
+    }  
+
+    /* emp dashboard end */
+
+    /* self services start*/
+    .mobile-view .emp-self-service .main-content.container-fluid {
+        width: 100% !important;
+        padding: 55px 0;
+    }
+
+    .mobile-view .main-content.container-fluid .backgroundimg {
+        overflow-x: initial;
+        width: 100% !important;
+        margin-left: -15px;
+    }
+
+    .mobile-view .main-content.container-fluid .empviewrow .block-view {
+        width: 100% !important;
+        margin-bottom: 15px;
+    }
+    /* self services end*/
+
+    /* attendence start*/
+
+    .mobile-view .emp-attendance .main-content.container-fluid {
+        width: 100% !important;
+        padding: 65px 0px;
+    }  
+
+    .mobile-view .attendance-nav .att-div {
+        width: 100%;
+        display: inline-block;
+    }
+
+    .mobile-view .attendance-nav .att-calender {
+        width: 100%;
+        display: inline-block;
+    }
+
+    .mobile-view .attendance-nav .apply-div button {
+        margin-left: 0px !important;
+    }
+
+    .mobile-view #attendanceTable_wrapper {
+        padding: 0;
+    }
+
+    .mobile-view .att-table .attendence-thead th {
+        width: auto !important;
+    }
+
+    .mobile-view .att-calender .b-to {
+        margin-top: 10px;
+    }
+
+    /* attendence end*/
+
+    /* leave start*/
+    .mobile-view .emp-leave .main-content.container-fluid {
+        width: 100% !important;
+        padding: 65px 0px;
+    }
+
+    .mobile-view .emp-leave .tracker_topic {
+        margin: 0 !important;
+    }
+
+    .mobile-view .emp-leave .empleave-calendar-body {
+        padding: 15px 0px;
+    }
+
+    .mobile-view .emp-leave .empleave-calendar-header {
+        justify-content: flex-end;
+    }
+
+    .mobile-view .emp-leave #leaveHistoryTable_wrapper {
+        padding: 0 !important;
+    }
+
+    .mobile-view .emp-leave .leavehistory_btn {
+        margin-top: 20px !important;
+    }
+
+    .mobile-view .emp-leave .popup-form {
+        padding: 0 !important;
+    }
+
+    .mobile-view .emp-leave .apply-date-section {
+        display: block;
+    }
+
+    .mobile-view .emp-leave .apply-date-section .form-group {
+        margin-right: 0;
+    }
+
+    /* leave end*/
+
+    /* login start*/
+
+    .mobile-view .login-page .login-container {
+        max-width: 100%;
+        margin-top: 40px;
+        padding: 30px 0px;
+    }
+
+    .mobile-view .login-page .logo {
+        width: 40%;
+        margin-left: 26%;
+        margin-top: 20%;
+    }
+
+    .mobile-view .login-page .signin-as {
+        margin-left: 0% !important;
+        text-align: center;
+    }
+
+    .mobile-view .login-page .password-label {
+        width: 90%;
+    }
+
+    .mobile-view .login-page .forgot-password {
+        margin-right: 0% !important;
+        float: right;
+        width: 100%;
+        margin-left: 0px !important;
+        text-align: right;
+    }
+    /* login end*/
+
+    /* forgot password start*/
+
+    .mobile-view .login-page .forgot-container {
+        width: 100% !important;
+        margin-top: 40px !important;
+        padding: 20px 30px !important;
+    }
+
+    .mobile-view .login-page .forgot-container .login-heading {
+        margin-left: 0px !important;
+    }
+
+    .mobile-view .login-page #forgotpassword {
+        margin-left: 0px !important;
+    }
+
+    .mobile-view .login-page #forgotpassword button{
+        width: 100% !important;
+    }
+
+    /* forgot password start*/
+}
+
+/* Media Query for low resolution  Tablets, Ipads start */
+@media only screen and (min-width:481px) and (max-width:767px){
+    .col-md-auto {
+        -ms-flex: 0 0 auto;
+        flex: 0 0 auto;
+        width: auto;
+        max-width: 100%
+    }
+
+    .col-md-1 {
+        -ms-flex: 0 0 8.333333%;
+        flex: 0 0 8.333333%;
+        max-width: 8.333333%
+    }
+
+    .col-md-2 {
+        -ms-flex: 0 0 16.666667%;
+        flex: 0 0 16.666667%;
+        max-width: 16.666667%
+    }
+
+    .col-md-3 {
+        -ms-flex: 0 0 25%;
+        flex: 0 0 25%;
+        max-width: 25%
+    }
+
+    .col-md-4 {
+        -ms-flex: 0 0 33.333333%;
+        flex: 0 0 33.333333%;
+        max-width: 33.333333%
+    }
+
+    .col-md-5 {
+        -ms-flex: 0 0 41.666667%;
+        flex: 0 0 41.666667%;
+        max-width: 41.666667%
+    }
+
+    .col-md-6 {
+        -ms-flex: 0 0 50%;
+        flex: 0 0 50%;
+        max-width: 50%
+    }
+
+    .col-md-7 {
+        -ms-flex: 0 0 58.333333%;
+        flex: 0 0 58.333333%;
+        max-width: 58.333333%
+    }
+
+    .col-md-8 {
+        -ms-flex: 0 0 66.666667%;
+        flex: 0 0 66.666667%;
+        max-width: 66.666667%
+    }
+
+    .col-md-9 {
+        -ms-flex: 0 0 75%;
+        flex: 0 0 75%;
+        max-width: 75%
+    }
+
+    .col-md-10 {
+        -ms-flex: 0 0 83.333333%;
+        flex: 0 0 83.333333%;
+        max-width: 83.333333%
+    }
+
+    .col-md-11 {
+        -ms-flex: 0 0 91.666667%;
+        flex: 0 0 91.666667%;
+        max-width: 91.666667%
+    }
+
+    .col-md-12 {
+        -ms-flex: 0 0 100%;
+        flex: 0 0 100%;
+        max-width: 100%
+    }
+
+    .p-md-0 {
+        padding: 0 !important;
+    }
+
+    /* login start*/
+
+    .tablet-view .login-page .login-container {
+        max-width: 100%;
+        margin-top: 40px;
+        padding: 30px 0px;
+    }
+
+    .tablet-view .login-page .logo {
+        width: 40%;
+        margin-left: 26%;
+        margin-top: 20%;
+    }
+
+    .tablet-view .login-page .signin-as {
+        margin-left: 0% !important;
+        text-align: center;
+    }
+
+    .tablet-view .login-page .password-label {
+        width: 90%;
+    }
+
+    .tablet-view .login-page .forgot-password {
+        margin-right: 0% !important;
+        float: right;
+        width: 100%;
+        margin-left: 0px !important;
+        text-align: right;
+    }
+    .tablet-view .login-page .empemail-field input {
+        max-width: 100%;
+    }
+    /* login end*/
+
+    /* forgot password start*/
+
+    .tablet-view .login-page .forgot-container {
+        width: 100% !important;
+        margin-top: 40px !important;
+        padding: 20px 30px !important;
+    }
+
+    .tablet-view .login-page .forgot-container .login-heading {
+        margin-left: 0px !important;
+    }
+
+    .tablet-view .login-page #forgotpassword {
+        margin-left: 0px !important;
+    }
+
+    .tablet-view .login-page #forgotpassword button {
+        width: 100% !important;
+    }
+
+    .tablet-view .login-page #forgotpassword .empemail-field input {
+        max-width: 100%;
+    }
+
+    /* forgot password start*/
+
+    /* emp dashboard start */
+    .tablet-view .emp-dashboard .main-content {
+        width: 75% !important;
+    }
+
+    .tablet-view #dashcurrentTime {
+        font-size: 22px;
+    }
+
+    /* emp dashboard end */
+
+    /* self services start*/
+    .tablet-view .emp-self-service .main-content.container-fluid {
+        width: 73% !important;
+        padding: 55px 0;
+    }
+
+    .tablet-view .main-content.container-fluid .backgroundimg {
+        width: 112% !important;
+        margin-left: -15px;
+    }
+
+    .tablet-view .main-content.container-fluid .empviewrow .block-view {
+        width: 100% !important;
+        margin-bottom: 15px;
+    }
+    /* self services end*/
+}
+/* Media Query for low resolution  Tablets, Ipads end */
+
+/* Media Query for Tablets Ipads portrait mode start */
+@media only screen and (min-width:768px) and (max-width:1024px) {
+
+    .col-md-auto {
+        -ms-flex: 0 0 auto;
+        flex: 0 0 auto;
+        width: auto;
+        max-width: 100%
+    }
+
+    .col-md-1 {
+        -ms-flex: 0 0 8.333333%;
+        flex: 0 0 8.333333%;
+        max-width: 8.333333%
+    }
+
+    .col-md-2 {
+        -ms-flex: 0 0 16.666667%;
+        flex: 0 0 16.666667%;
+        max-width: 16.666667%
+    }
+
+    .col-md-3 {
+        -ms-flex: 0 0 25%;
+        flex: 0 0 25%;
+        max-width: 25%
+    }
+
+    .col-md-4 {
+        -ms-flex: 0 0 33.333333%;
+        flex: 0 0 33.333333%;
+        max-width: 33.333333%
+    }
+
+    .col-md-5 {
+        -ms-flex: 0 0 41.666667%;
+        flex: 0 0 41.666667%;
+        max-width: 41.666667%
+    }
+
+    .col-md-6 {
+        -ms-flex: 0 0 50%;
+        flex: 0 0 50%;
+        max-width: 50%
+    }
+
+    .col-md-7 {
+        -ms-flex: 0 0 58.333333%;
+        flex: 0 0 58.333333%;
+        max-width: 58.333333%
+    }
+
+    .col-md-8 {
+        -ms-flex: 0 0 66.666667%;
+        flex: 0 0 66.666667%;
+        max-width: 66.666667%
+    }
+
+    .col-md-9 {
+        -ms-flex: 0 0 75%;
+        flex: 0 0 75%;
+        max-width: 75%
+    }
+
+    .col-md-10 {
+        -ms-flex: 0 0 83.333333%;
+        flex: 0 0 83.333333%;
+        max-width: 83.333333%
+    }
+
+    .col-md-11 {
+        -ms-flex: 0 0 91.666667%;
+        flex: 0 0 91.666667%;
+        max-width: 91.666667%
+    }
+
+    .col-md-12 {
+        -ms-flex: 0 0 100%;
+        flex: 0 0 100%;
+        max-width: 100%
+    }
+
+    .p-md-0 {
+        padding: 0 !important;
+    }
+
+    /* login start*/
+
+    .tablet-view .login-page .login-container {
+        max-width: 100%;
+        margin-top: 40px;
+        padding: 30px 0px;
+    }
+
+    .tablet-view .login-page .logo {
+        width: 40%;
+        margin-left: 26%;
+        margin-top: 20%;
+    }
+
+    .tablet-view .login-page .signin-as {
+        margin-left: 0% !important;
+        text-align: center;
+    }
+
+    .tablet-view .login-page .password-label {
+        width: 90%;
+    }
+
+    .tablet-view .login-page .forgot-password {
+        margin-right: 0% !important;
+        float: right;
+        width: 100%;
+        margin-left: 0px !important;
+        text-align: right;
+    }
+
+    .tablet-view .login-page .empemail-field input {
+        max-width: 100%;
+    }
+    /* login end*/
+
+    /* forgot password start*/
+    .tablet-view .login-page .forgot-container {
+        width: 100% !important;
+        margin-top: 40px !important;
+        padding: 20px 30px !important;
+    }
+
+        .tablet-view .login-page .forgot-container .login-heading {
+            margin-left: 0px !important;
+        }
+
+    .tablet-view .login-page #forgotpassword {
+        margin-left: 0px !important;
+    }
+
+    .tablet-view .login-page #forgotpassword button {
+        width: 100% !important;
+    }
+
+    .tablet-view .login-page #forgotpassword .empemail-field input {
+        max-width: 100%;
+    }
+
+    /* forgot password start*/
+
+    /* emp dashboard start */
+    .tablet-view .emp-dashboard .main-content {
+        width: 75% !important;
+    }
+
+    .tablet-view #dashcurrentTime {
+        font-size: 22px;
+    }
+    /* emp dashboard end */
+
+    /* self services start*/
+    .tablet-view .emp-self-service .main-content.container-fluid {
+        width: 73% !important;
+        padding: 55px 0;
+    }
+
+    .tablet-view .main-content.container-fluid .backgroundimg {
+        width: 112% !important;
+        margin-left: -15px;
+    }
+
+    .tablet-view .main-content.container-fluid .empviewrow .block-view {
+        width: 100% !important;
+        margin-bottom: 15px;
+    }
+
+    .tablet-view .self-service-header-info h4 {
+        line-height: 1.5;
+        //width: 200px; /* Set your desired width */
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+    }
+
+    .tablet-view .self-service-header-info p {
+        line-height: 1.5;
+        //width: 200px; /* Set your desired width */
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+    }
+    /* self services end*/
+
+    /* attendence start*/
+
+    .tablet-view .emp-attendance .main-content.container-fluid {
+        width: 100% !important;
+        padding: 65px 0px;
+    }
+
+    .tablet-view .attendance-nav .att-div {
+        width: 100%;
+        display: inline-block;
+    }
+
+    .tablet-view .attendance-nav .att-calender {
+        width: 100%;
+        display: inline-block;
+    }
+
+    .tablet-view .attendance-nav .apply-div button {
+        margin-left: 0px !important;
+    }
+
+    .tablet-view #attendanceTable_wrapper {
+        padding: 0;
+    }
+
+    .tablet-view .att-table .attendence-thead th {
+        //width: auto !important;
+    }
+
+    .tablet-view .att-calender .b-to {
+        margin-top: 10px;
+    }
+
+    .tablet-view .att-table {
+        display: block;
+        width: 100%;
+        overflow-x: auto;
+        -webkit-overflow-scrolling: touch;
+    }
+
+    /* attendence end*/
+
+    /* leave start */
+
+    .tablet-view .emp-leave .main-content.container-fluid {
+        width: 100% !important;
+        padding: 65px 0px;
+    }
+
+    .tablet-view .emp-leave .tracker_topic {
+        margin: 0 !important;
+    }
+
+    .tablet-view .emp-leave .empleave-calendar-body {
+        padding: 15px 0px;
+    }
+
+    .tablet-view .emp-leave .empleave-calendar-header {
+        justify-content: flex-end;
+    }
+
+    .tablet-view .emp-leave #leaveHistoryTable_wrapper {
+        padding: 0 !important;
+    }
+
+    .tablet-view .emp-leave .leavehistory_btn {
+        margin-top: 20px !important;
+    }
+
+    .tablet-view .emp-leave .popup-form {
+        padding: 0 !important;
+    }
+
+    .tablet-view .emp-leave .apply-date-section {
+        display: block;
+    }
+
+    .tablet-view .emp-leave .apply-date-section .form-group {
+        margin-right: 0;
+    }
+
+    /* leave end*/
+}
+
+/* Media Query for Tablets Ipads portrait mode end */
