@@ -44,39 +44,39 @@ $('.emp-selfservice').click(function (event) {
 
 
 //Dashboard link js
-//$(document).on('click', '.emp-dashboard', function (event) {
-//    event.preventDefault();
-//    HighlightEmpActiveLink($(this));
-//    $.ajax({
-//        url: '/empdash/index',
-//        type: 'GET',
-//        dataType: 'html',
-//        success: function (response) {
-//            $(".hiddenempdashboard").html("");
-//            $(".emp-dashboard-data").html("");
-//            $(".selfservice-dashboard-data").html("");
-//            $(".attedance-dashboard-data").html("");
-//            $(".leave-dashboard-data").html("");
-//            $(".myrequest-dashboard-data").html("");
+$(document).on('click', '.emp-dashboard', function (event) {
+    event.preventDefault();
+    HighlightEmpActiveLink($(this));
+    $.ajax({
+        url: '/empdash/index',
+        type: 'GET',
+        dataType: 'html',
+        success: function (response) {
+            $(".hiddenempdashboard").html("");
+            $(".emp-dashboard-data").html("");
+            $(".selfservice-dashboard-data").html("");
+            $(".attedance-dashboard-data").html("");
+            $(".leave-dashboard-data").html("");
+            $(".myrequest-dashboard-data").html("");
 
 
-//            $(".hiddenempdashboard").html(response);
-//            var formContent = $(".hiddenempdashboard").find(".employeedash").html();
-//            $(".emp-dashboard-data").html(formContent);
+            $(".hiddenempdashboard").html(response);
+            var formContent = $(".hiddenempdashboard").find(".employeedash").html();
+            $(".emp-dashboard-data").html(formContent);
 
-//            $('.emp-dashboard-data').show();
-//            $('.selfservice-dashboard-data').hide();
-//            $('.attedance-dashboard-data').hide();
-//            $('.leave-dashboard-data').hide();
-//            $('.myrequest-dashboard-data').hide();
+            $('.emp-dashboard-data').show();
+            $('.selfservice-dashboard-data').hide();
+            $('.attedance-dashboard-data').hide();
+            $('.leave-dashboard-data').hide();
+            $('.myrequest-dashboard-data').hide();
 
-//            $(".hiddenempdashboard").html("");
-//        },
-//        error: function (xhr, status, error) {
-//            var err = eval("(" + xhr.responseText + ")");
-//        }
-//    });
-//});
+            $(".hiddenempdashboard").html("");
+        },
+        error: function (xhr, status, error) {
+            var err = eval("(" + xhr.responseText + ")");
+        }
+    });
+});
 //Attedence link js
 
 $('.emp-attendence').click(function (event) {
