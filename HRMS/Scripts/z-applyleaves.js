@@ -361,3 +361,9 @@ $(document).on('change', '#HourPermission', function (event) {
     //$('#totalLeaves').text($(this).val());
     $('#totalLeavesContainer').show();
 });
+
+
+$(document).on('click', '.dashhoiday_description', function (e) {
+        e.preventDefault();
+        $("#compOffModal").modal('show');
+    });
