@@ -163,6 +163,14 @@
         #LeaveDateDropdown {
             margin-left: 66%;
         }
+
+        #adminleaveTable-mgmt_length {
+            display: none;
+        }
+
+        #adminleaveTable-mgmt_filter {
+            display: none;
+        }
     </style>
     <div class="container-fluid">
         <div class="row">
@@ -180,19 +188,15 @@
                             <input type="text" placeholder="Search By Keyword" class="advanceLeavesearch form-control" aria-label="Search By Keyword" style="border-radius: 0 10px 10px 0; height: 35px; font-size: 14px;">
                         </div>
                     </div>
-
-                    <div class="dropdown">
-                        <button class="btn btn-light dropdown-toggle custom-LeaveLocation-toggle" type="button"
-                                id="Leavelocationdropdown" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                            Location
-                            <i class="fas fa-angle-down"></i>
-                        </button>
-                        <div class="dropdown-menu" aria-labelledby="Leavelocationdropdown" style="border:1px solid gray">
-                            <a class="dropdown-item" href="#">Hyderabad</a>
-                            <a class="dropdown-item" href="#">Madurai</a>
-                            <a class="dropdown-item" href="#">All</a>
-                        </div>
+                    <div class="form-group mr-2 adminleave-dropdown" style="margin-top: 10px;">
+                        <select class="form-control form-select-sm p-0 ml-2" name="status" id="leavelocation-dropdown">
+                            <option value="" disabled selected>Location</option>
+                            <option value="Hyderabad">Hyderabad</option>
+                            <option value="Madurai">Madurai</option>
+                            <option value="All">All</option>
+                        </select>
                     </div>
+
                     <div class="form-group adminleave-dropdown" style="margin-top: 17px;">
                         <label class="export-label" for="exportLeaveLabel" style="margin:0;">Export</label>
                         <i class="fas fa-chevron-down" id="exportLeaveIcon" style="cursor: pointer; font-size:13px;" data-toggle="collapse" data-target="#LeaveDateDropdown"></i>
@@ -243,6 +247,8 @@
             </div>
         </div>
 
+        <div class="leaveselecteddate" style="display: none">@Model.SelectedDate.ToString("dd MMMM yyyy")</div>
+
         <table id="adminleaveTable-mgmt" class="table leave-table" style="width:96%;">
             <thead class="thead-light">
             </thead>
@@ -264,8 +270,8 @@
                             </div>
                         </td>
                         <td class="fontSmall dataMinWidth dateMaxWidth">
-                            <div class="fontWtMedium">@(leaveemp.leavedate.HasValue ? leaveemp.leavedate.Value.ToString("dd MMMM yyyy") : "No leave date")</div>
-                            <span class="mutedText">Mon</span>
+                            <p class="mb-0 fontWtMedium">@leaveemp.leavedate.Value.ToString("dd MMM yyyy")</p>
+                            <span class="mutedText">@leaveemp.leavedate.Value.ToString("ddd")</span>
                         </td>
                         <td class="fontSmall">
                             <div class="mutedText">Day(s)</div>
@@ -298,35 +304,154 @@
         </table>
 
     </div>
+
     <script>
         $(document).ready(function () {
-            // Set the initial value for the input month
+            // Initialize the date input with the current month
             $('#myLeaveMonth').val(new Date().getFullYear() + '-' + ('0' + (new Date().getMonth() + 1)).slice(-2)).trigger('change');
 
-            // Initialize DataTable after dynamic content is loaded
-            if ($.fn.DataTable.isDataTable('#adminleaveTable-mgmt')) {
-                $('#adminleaveTable-mgmt').DataTable().clear().destroy();
+
+            if (!$.fn.DataTable.isDataTable('#adminleaveTable-mgmt')) {
+                $('#adminleaveTable-mgmt').DataTable({
+                    "responsive": true,
+                    "paging": true,
+                    "searching": true,
+                    "ordering": false,
+                    "info": true,
+                    "autoWidth": false,
+                    "lengthMenu": [[7, 14, 21, -1], [7, 14, 21, "All"]],
+                    "columnDefs": [
+                        { "orderable": false, "targets": 0 },
+                        { "orderable": false, "targets": 1 },
+                        { "orderable": false, "targets": 2 },
+                        { "orderable": false, "targets": 3 },
+                        { "orderable": false, "targets": 4 },
+                        { "orderable": false, "targets": 5 },
+                        { "orderable": false, "targets": 6 },
+                    ]
+                });
             }
 
-            $('#adminleaveTable-mgmt').DataTable({
-                "paging": true,
-                "searching": true,
-                "ordering": false,
-                "info": true,
-                "autoWidth": false,
-                "lengthMenu": [[7, 14, 21, -1], [7, 14, 21, "All"]],
-                "columnDefs": [
-                    { "orderable": false, "targets": 1 },
-                    { "orderable": false, "targets": 3 }
-                ]
+            $('.dayLeave').each(function () {
+                var date = $(this).data('date');
+                if (date === $('.leaveselecteddate').text()) {
+                    $(this).addClass('active');
+                }
             });
-        });
 
-        $(document).off('click', '.btn-admin-apply-leave1').on('click', '.btn-admin-apply-leave1', function (event) {
-            event.preventDefault();
-            AdminLeaveDataMap("", "");
+
+            // Apply search filter on DataTable based on input value
+            $(document).on('keyup', '.advanceLeavesearch', function (event) {
+                $('#adminleaveTable-mgmt').DataTable().search($(this).val()).draw();
+            });
+
+
+            $(document).on('change', '#leavelocation-dropdown', function (event) {
+                var location = $(this).val();
+                if (location == "All") {
+                    location = "";
+                }
+                $('#adminleaveTable-mgmt').DataTable().column(5).search(location).draw();
+            });
+
+            //// Check if DataTable is already initialized and destroy it
+            //if ($.fn.DataTable.isDataTable('#adminleaveTable-mgmt')) {
+            //    $('#adminleaveTable-mgmt').DataTable().clear().destroy();
+            //}
+
+            //if ($.fn.DataTable.isDataTable('#adminleaveTable-mgmt')) {
+            //    $('#adminleaveTable-mgmt').DataTable().clear().destroy();
+            //}
+
+            // if ($.fn.DataTable.isDataTable('#adminleaveTable-mgmt')) {
+            //     $('#adminleaveTable-mgmt').DataTable().destroy();
+            //}
+
+
+
+            //// Initialize DataTable with appropriate configuration
+            //$('#adminleaveTable-mgmt').DataTable({
+            //    "paging": true,
+            //    "searching": true,
+            //    "ordering": false,
+            //    "info": true,
+            //    "autoWidth": false,
+            //    "lengthMenu": [[7, 14, 21, -1], [7, 14, 21, "All"]],
+            //    "columns": [
+            //        { "data": "employee_id" },
+            //        {
+            //            "data": "employee_name",
+            //            "render": function (data, type, row) {
+            //                return `
+            //                <div class="userLeaveDetails">
+            //                    <img src="" class="userIcon" alt="user" />
+            //                    <div class="fontSmall">
+            //                        <p class="mb-0 fontWtMedium">${data}</p>
+            //                        <a href="#">john.doe@example.com</a>
+            //                    </div>
+            //                </div>`;
+            //            }
+            //        },
+            //        //{
+            //        //    "data": "leavedate",
+            //        //    "render": function (data, type, row) {
+            //        //        const date = new Date(data);
+            //        //        const options = { day: '2-digit', month: 'long', year: 'numeric' };
+            //        //        const formattedDate = date.toLocaleDateString('en-GB', options);
+            //        //        const day = date.toLocaleDateString('en-GB', { weekday: 'short' });
+            //        //        return `
+            //        //        <div class="fontWtMedium">${formattedDate}</div>
+            //        //        <span class="mutedText">${day}</span>`;
+            //        //    }
+            //        //},
+            //        //{
+            //        //    "data": null,
+            //        //    "render": function (data, type, row) {
+            //        //        return `
+            //        //        <div class="mutedText">Day(s)</div>
+            //        //        <span class="fontWtMedium">1</span>`;
+            //        //    }
+            //        //},
+            //        //{
+            //        //    "data": "leavesource",
+            //        //    "render": function (data, type, row) {
+            //        //        return `
+            //        //        <div class="mutedText">Leave Type</div>
+            //        //        <span class="fontWtbold">${data}</span>`;
+            //        //    }
+            //        //},
+            //        //{
+            //        //    "data": "location",
+            //        //    "render": function (data, type, row) {
+            //        //        return `
+            //        //        <div class="mutedText">Location</div>
+            //        //        <span class="fontWtbold">${data}</span>`;
+            //        //    }
+            //        //},
+            //        //{
+            //        //    "data": "leave_reason",
+            //        //    "render": function (data, type, row) {
+            //        //        return `
+            //        //        <div class="dFlex">
+            //        //            <i class="fa-solid fa-message chatIcon"></i>
+            //        //            <p>${data}</p>
+            //        //        </div>
+            //        //        <div class="statusBtnFlex">
+            //        //            <a href="" class="statusBtn acceptBtn">Approve</a>
+            //        //            <a href="" class="statusBtn rejectBtn">Reject</a>
+            //        //        </div>`;
+            //        //    }
+            //        //}
+            //    ]
+            //});
+
+            //$(document).off('click', '.btn-admin-apply-leave1').on('click', '.btn-admin-apply-leave1', function (event) {
+            //    event.preventDefault();
+            //    AdminLeaveDataMap("", "");
+            //});
         });
     </script>
+
 </div>
 
 

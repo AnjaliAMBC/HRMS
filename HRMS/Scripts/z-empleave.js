@@ -94,7 +94,11 @@ function generateLeaveCalendar(month, year) {
                 break;
             } else {
                 const cell = document.createElement("td");
+                const fullDate = new Date(year, month, date);
+                const formattedDate = fullDate.toLocaleDateString('en-GB', { day: '2-digit', month: 'long', year: 'numeric' });
+
                 cell.textContent = date;
+                cell.setAttribute("data-date", formattedDate); // Set the data-date attribute
                 cell.classList.add(linktoleavecalender);
 
                 const holidayKey = `${month + 1}-${date}`;
@@ -138,6 +142,7 @@ function generateLeaveCalendar(month, year) {
         calendarBody.appendChild(row);
     }
 }
+
 
 // Add jQuery event listener for the click event
 //$(document).on('click', '.btn-apply-leave', function (event) {
