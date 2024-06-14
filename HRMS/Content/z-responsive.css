@@ -113,40 +113,40 @@
         color: black;
     }
 
-        #left-side-menu .sidebar-header .bl {
-            display: inline-flex;
-            width: 22%;
-            padding: 0px 0px 0px 0px;
-        }
+    #left-side-menu .sidebar-header .bl {
+        display: inline-flex;
+        width: 22%;
+        padding: 0px 0px 0px 0px;
+    }
 
-        #left-side-menu .sidebar-header .br {
-            display: inline-block;
-            width: 73%;
-            padding: 0px 0px 0px 0px;
-            float: inline-end;
-            margin-top: 2px;
-        }
+    #left-side-menu .sidebar-header .br {
+        display: inline-block;
+        width: 73%;
+        padding: 0px 0px 0px 0px;
+        float: inline-end;
+        margin-top: 2px;
+    }
 
-        #left-side-menu .sidebar-header .bl img {
-            //width: 45px;
-            border-radius: 40px;
-        }
+    #left-side-menu .sidebar-header .bl img {
+        //width: 45px;
+        border-radius: 40px;
+    }
 
-        #left-side-menu .sidebar-header .br div {
-            line-height: 1.5;
-            font-size: 12px;
-            width: 200px; /* Set your desired width */
-            white-space: nowrap;
-            overflow: hidden;
-            text-overflow: ellipsis;
-        }
+    #left-side-menu .sidebar-header .br div {
+        line-height: 1.5;
+        font-size: 12px;
+        width: 200px; /* Set your desired width */
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+    }
 
-        #left-side-menu .sidebar-header a {
-            color: #007bff;
-        }
+    #left-side-menu .sidebar-header a {
+        color: #007bff;
+    }
 
-        #left-side-menu .sidebar-header .name {
-        }
+    #left-side-menu .sidebar-header .name {
+    }
 
     #logout_sidebar_button {
         position: absolute;
@@ -158,10 +158,10 @@
         box-shadow: 0px -6px 7px 0px #ccc;
     }
 
-        #logout_sidebar_button li {
-            text-align: center;
-            display: block;
-        }
+    #logout_sidebar_button li {
+        text-align: center;
+        display: block;
+    }
 
     /* header and side menu end*/
 
@@ -201,6 +201,43 @@
     }  
 
     /* emp dashboard end */
+
+    /* admin dashboard start */
+
+    .mobile-view .leaveslider-item {
+        min-width: 100%;
+    }
+
+    .mobile-view .res-admindash {
+        padding-right: 0;
+    }
+
+    .mobile-view .dashcard_style {
+        height: auto;
+    }
+
+    .mobile-view .day-date-time {
+        //width: 50%;
+    }
+
+    .mobile-view .in-out {
+        //width: 50%;
+    }
+
+    .mobile-view #dashcurrentTime {
+        font-size: 30px;
+    }
+
+    .mobile-view .total-hours {
+        display: inline-block;
+    }
+
+    .mobile-view .res-admin-dashboard .main-content.container-fluid {
+        width: 100% !important;
+        padding: 65px 0px;
+    }
+
+    /* admin dashboard end */
 
     /* self services start*/
     .mobile-view .emp-self-service .main-content.container-fluid {
@@ -251,6 +288,16 @@
 
     .mobile-view .att-calender .b-to {
         margin-top: 10px;
+    }
+
+    .mobile-view .att-calender .b-from span,
+    .mobile-view .att-calender .b-to span {
+        width: 35px;
+    }
+
+    .mobile-view .apply-div {
+        margin: 10px 0px 0px 0px;
+        padding: 0;
     }
 
     /* attendence end*/
@@ -348,6 +395,150 @@
     }
 
     /* forgot password start*/
+
+    /* admin employee management start */
+
+    .mobile-view .res-admin-employee-management .main-content.container-fluid {
+        width: 100% !important;
+        padding: 65px 0px;
+    }
+
+    .mobile-view .res-admin-employee-management .res-admin-empman-search .search-container {
+        width: 100%;
+        margin-left: 0 !important;
+    }
+
+    .mobile-view .res-admin-employee-management .res-admin-empman-filter {
+        margin: 15px 0%;
+    }
+
+    .mobile-view .res-admin-employee-management .res-admin-empman-filter .advanced-filtertab {
+        width: 100%;
+    }
+
+    .mobile-view .res-admin-employee-management .addingemployee,
+    .mobile-view .res-admin-employee-management .addingemployee select {
+        width: 100%;
+    }
+
+    .mobile-view .res-admin-employee-management .res-admin-empman-filter-show #demo.show{
+        position: fixed;
+        z-index: 9;
+        background: #fff;
+        padding: 20px;
+        box-shadow: 0 0 5px 0 #ccc;
+        border-radius: 14px;
+        width: 80%;
+    }
+
+    .mobile-view .res-admin-employee-management .res-admin-empman-filter-show .res-admin-filter-inside {
+        margin: 0;
+        justify-content: initial !important;
+        display: block !important;
+        margin-right: 0px !important;
+    }
+
+    .mobile-view .res-admin-employee-management .res-admin-empman-filter-show .res-admin-filter-inside div.dropdown {
+        margin: 10px 0px !important;
+    }
+
+    .mobile-view .res-admin-employee-management .res-admin-empman-filter-show .res-admin-filter-inside select{
+        width: 100% !important;
+    }
+
+    .mobile-view .res-admin-employee-management .res-admin-empman-filter-show .res-clear-btn {
+        background: #2693F8;
+        padding: 5px 20px;
+        border-radius: 5px;
+        color: #fff;
+        text-transform: capitalize;
+        margin-left: 0 !important;
+        display: inline-block;
+    }
+
+    .mobile-view .res-admin-employee-management .res-admin-emp-table {
+        margin-top: 25px;
+        width: 95%;
+    }
+
+    .mobile-view .admin-empview .res-admin-title {
+        margin: 0 0 10px 0px;
+        padding: 0;
+    }
+
+    .mobile-view .res-admin-employee-management .res-admin-empman-filter-show #demo.show span.res-close-btn {
+        display: none;
+    }
+
+    .mobile-view .res-admin-employee-management .res-admin-empman-filter-show #demo.show span.res-close-btn {
+        display: block !important;
+        color: red;
+        font-size: 14px;
+        text-align: center;
+        float: right;
+        border-radius: 15px;
+        border: 1px solid #ccc;
+        width: 25px;
+        padding: 1px;
+    }
+
+    .mobile-view .res-admin-employee-management .admin-empadd-view .file-upload {
+        width: 100%;
+    }
+
+    .mobile-view .res-admin-employee-management .admin-empadd-view .submit-button {
+        margin-top: 20px;
+        text-align: center;
+        margin-right: auto;
+    }
+
+    .mobile-view .res-admin-employee-management .admin-empadd-view #myTabContent .save-and-next,
+    .mobile-view .res-admin-employee-management .admin-empadd-view #myTabContent .addemp-submit-btn {
+        height: auto;
+        width: auto !important;
+        margin-top: auto !important;
+        margin-left: 15px !important;
+    }
+
+    .mobile-view .res-admin-employee-management .admin-empadd-view #myTabContent .res-save-btn {
+        padding: 0;
+    }
+
+    /* admin employee management end */
+
+    /* admin attendance start*/
+    .mobile-view .res-admin-attendance .main-content.container-fluid {
+        width: 100% !important;
+        padding: 65px 0px;
+    }
+
+    .mobile-view .res-admin-attendance .res-admin-attendance-header {
+        display: inline !important;
+        width: 94%;
+    }
+
+    .mobile-view .res-admin-attendance .res-admin-attendance-header .adminatt-dropdown {
+        width: 30%;
+        display: inline-block !important;
+    }
+
+    .mobile-view .res-admin-attendance .res-admin-attendance-header .adminatt-dropdown select {
+        width: 100% !important;
+        margin-left: 0px !important;
+    }
+
+        .mobile-view .res-admin-attendance .admin-attendancemgmt-view .days-container {
+            overflow-x: scroll;
+        }
+
+    .mobile-view .res-admin-attendance .res-admin-attendance-header .adminatt-dropdown label{
+        width: 65px;
+    }
+
+    .mobile-view .res-admin-attendance .table-responsive {
+        overflow-x: auto !important;
+    }
+    /* admin attendance end */
 }
 
 /* Media Query for low resolution  Tablets, Ipads start */
@@ -506,6 +697,17 @@
     }
 
     /* emp dashboard end */
+
+    /* admin dashboard start */
+    .tablet-view .res-admin-dashboard .main-content {
+        width: 75% !important;
+    }
+
+    .tablet-view .res-admin-dashboard .dashcard_style {
+        height: auto;
+    }
+
+    /* admin dashboard end */
 
     /* self services start*/
     .tablet-view .emp-self-service .main-content.container-fluid {
@@ -676,12 +878,24 @@
     /* emp dashboard start */
     .tablet-view .emp-dashboard .main-content {
         width: 75% !important;
+        margin-left: 190px;
     }
 
     .tablet-view #dashcurrentTime {
         font-size: 22px;
     }
     /* emp dashboard end */
+
+    /* admin dashboard start */
+    .tablet-view .res-admin-dashboard .main-content {
+        width: 75% !important;
+    }
+
+    .tablet-view .res-admin-dashboard .dashcard_style {
+        height: auto;
+    }
+
+    /* admin dashboard end */
 
     /* self services start*/
     .tablet-view .emp-self-service .main-content.container-fluid {
@@ -719,8 +933,9 @@
     /* attendence start*/
 
     .tablet-view .emp-attendance .main-content.container-fluid {
-        width: 100% !important;
-        padding: 65px 0px;
+        width: 74% !important;
+        padding: 64px 0px;
+        margin-right: 0;
     }
 
     .tablet-view .attendance-nav .att-div {
@@ -746,7 +961,7 @@
     }
 
     .tablet-view .att-calender .b-to {
-        margin-top: 10px;
+        margin-top: 0px;
     }
 
     .tablet-view .att-table {
@@ -754,6 +969,11 @@
         width: 100%;
         overflow-x: auto;
         -webkit-overflow-scrolling: touch;
+    }
+
+    .tablet-view .apply-div {
+        margin: 10px 0px 0px 0px;
+        padding: 0;
     }
 
     /* attendence end*/
@@ -797,7 +1017,7 @@
         margin-right: 0;
     }
 
-    /* leave end*/
+    /* leave end*/    
 }
 
 /* Media Query for Tablets Ipads portrait mode end */
