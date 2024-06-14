@@ -1,33 +1,35 @@
-﻿$(document).on('click', '.btn-admin-apply-leave1', function (event) {
+﻿$(document).off('click', '.btn-admin-apply-leave1').on('click', '.btn-admin-apply-leave1', function (event) {
     event.preventDefault();
 
-    $.ajax({
-        url: '/adminleave/adminleavemanagement',
-        type: 'GET',
-        dataType: 'html',
-        success: function (response) {
-            $(".hiddenadmindashboard").html("");
-            $('.admin-dashboard-container').html("");
-            $(".admin-emppadd-container").html("");
-            $('.admin-empmanagement-container').html("");
-            $('.admin-attendance-container').html("");
-            $('.admin-leave-container').html("");
-            $(".hiddenadmindashboard").html(response);
-            var formContent = $(".hiddenadmindashboard").find(".admin-leave-management-view").html();
-            $(".admin-leave-container").html(formContent);
-            $('.admin-leave-container').show();
-            $('.admin-attendance-container').hide();
-            $('.admin-empmanagement-container').hide();
-            $('.admin-emppadd-container').hide();
-            $('.admin-dashboard-container').hide();
-            $('.admin-ticketing-container').hide();
-            $(".hiddenadmindashboard").html("");
+    AdminLeaveDataMap("", "");
 
-        },
-        error: function (xhr, status, error) {
-            console.error("Error deleting employee:", error);
-        }
-    });
+    //$.ajax({
+    //    url: '/adminleave/adminleavemanagement',
+    //    type: 'GET',
+    //    dataType: 'html',
+    //    success: function (response) {
+    //        $(".hiddenadmindashboard").html("");
+    //        $('.admin-dashboard-container').html("");
+    //        $(".admin-emppadd-container").html("");
+    //        $('.admin-empmanagement-container').html("");
+    //        $('.admin-attendance-container').html("");
+    //        $('.admin-leave-container').html("");
+    //        $(".hiddenadmindashboard").html(response);
+    //        var formContent = $(".hiddenadmindashboard").find(".admin-leave-management-view").html();
+    //        $(".admin-leave-container").html(formContent);
+    //        $('.admin-leave-container').show();
+    //        $('.admin-attendance-container').hide();
+    //        $('.admin-empmanagement-container').hide();
+    //        $('.admin-emppadd-container').hide();
+    //        $('.admin-dashboard-container').hide();
+    //        $('.admin-ticketing-container').hide();
+    //        $(".hiddenadmindashboard").html("");
+
+    //    },
+    //    error: function (xhr, status, error) {
+    //        console.error("Error deleting employee:", error);
+    //    }
+    //});
 
 });
 
@@ -146,66 +148,127 @@ function updateLeaveDays(DateSelected) {
             </div>
         `);
     }
-} function updateLeaveDays(DateSelected) {
-    var currentDate = new Date();
-    var selectedDate = null;
-    if (DateSelected != undefined) {
-        selectedDate = new Date(DateSelected);
-        currentDate = selectedDate;
-    }
-
-    var selectedLeaveMonth = new Date($('#myLeaveMonth').val());
-    var daysInLeaveMonth = new Date(selectedLeaveMonth.getFullYear(), selectedLeaveMonth.getMonth() + 1, 0).getDate();
-    var today = new Date();
-
-    $('#daysLeaveContainer').empty();
-
-    for (var i = 1; i <= daysInLeaveMonth; i++) {
-        var dayNumber = i.toString().padStart(2, '0');
-        var fullDate = new Date(selectedLeaveMonth.getFullYear(), selectedLeaveMonth.getMonth(), i);
-        var formattedDate = fullDate.toLocaleDateString('en-GB', { day: '2-digit', month: 'long', year: 'numeric' });
-
-        var activeClass = '';
-
-        if (selectedDate && fullDate.getTime() === selectedDate.getTime()) {
-            activeClass = 'active';
-        } else if (!selectedDate && selectedLeaveMonth.getMonth() === today.getMonth() && selectedLeaveMonth.getFullYear() === today.getFullYear() && i === today.getDate()) {
-            // Highlight the current date if the selected month is the current month and no date is selected
-            activeClass = 'active';
-        } else if (!selectedDate && i === 1 && !(selectedLeaveMonth.getMonth() === today.getMonth() && selectedLeaveMonth.getFullYear() === today.getFullYear())) {
-            // Highlight the first day of the month if the selected month is not the current month and no date is selected
-            activeClass = 'active';
-        }
-
-        // Add future and weekend classes
-        var futureClass = (fullDate > today) ? 'future' : '';
-        var weekendClass = (fullDate.getDay() === 0 || fullDate.getDay() === 6) ? 'weekend' : '';
-
-        var clickevent = "#";
-        if (futureClass == "") {
-            clickevent = "highlightLeaveDate(this)";
-        }
-        $('#daysLeaveContainer').append(`
-            <div class="dayLeave ${activeClass} ${futureClass} ${weekendClass}" data-date="${formattedDate}" onclick="${clickevent}">
-                ${dayNumber}
-            </div>
-        `);
-    }
 }
+//function updateLeaveDays(DateSelected) {
+//    var currentDate = new Date();
+//    var selectedDate = null;
+//    if (DateSelected != undefined) {
+//        selectedDate = new Date(DateSelected);
+//        currentDate = selectedDate;
+//    }
+
+//    var selectedLeaveMonth = new Date($('#myLeaveMonth').val());
+//    var daysInLeaveMonth = new Date(selectedLeaveMonth.getFullYear(), selectedLeaveMonth.getMonth() + 1, 0).getDate();
+//    var today = new Date();
+
+//    $('#daysLeaveContainer').empty();
+
+//    for (var i = 1; i <= daysInLeaveMonth; i++) {
+//        var dayNumber = i.toString().padStart(2, '0');
+//        var fullDate = new Date(selectedLeaveMonth.getFullYear(), selectedLeaveMonth.getMonth(), i);
+//        var formattedDate = fullDate.toLocaleDateString('en-GB', { day: '2-digit', month: 'long', year: 'numeric' });
+
+//        var activeClass = '';
+
+//        if (selectedDate && fullDate.getTime() === selectedDate.getTime()) {
+//            activeClass = 'active';
+//        } else if (!selectedDate && selectedLeaveMonth.getMonth() === today.getMonth() && selectedLeaveMonth.getFullYear() === today.getFullYear() && i === today.getDate()) {
+//            // Highlight the current date if the selected month is the current month and no date is selected
+//            activeClass = 'active';
+//        } else if (!selectedDate && i === 1 && !(selectedLeaveMonth.getMonth() === today.getMonth() && selectedLeaveMonth.getFullYear() === today.getFullYear())) {
+//            // Highlight the first day of the month if the selected month is not the current month and no date is selected
+//            activeClass = 'active';
+//        }
+
+//        // Add future and weekend classes
+//        var futureClass = (fullDate > today) ? 'future' : '';
+//        var weekendClass = (fullDate.getDay() === 0 || fullDate.getDay() === 6) ? 'weekend' : '';
+
+//        var clickevent = "#";
+//        if (futureClass == "") {
+//            clickevent = "highlightLeaveDate(this)";
+//        }
+//        $('#daysLeaveContainer').append(`
+//            <div class="dayLeave ${activeClass} ${futureClass} ${weekendClass}" data-date="${formattedDate}" onclick="${clickevent}">
+//                ${dayNumber}
+//            </div>
+//        `);
+//    }
+//}
+
+function AdminLeaveDataMap(DateSelected, EndDateSelected) {
+    $.ajax({
+        url: '/adminleave/adminleavemanagement',
+        type: 'GET',
+        dataType: 'html',
+        data: { selectedStartDate: DateSelected, SelectedendDate: EndDateSelected },
+        success: function (response) {
+
+            $(".hiddenadmindashboard").html("");
+            $('.admin-dashboard-container').html("");
+            $(".admin-emppadd-container").html("");
+            $('.admin-empmanagement-container').html("");
+            $('.admin-attendance-container').html("");
+            $('.admin-leave-container').html("");
+            $('.admin-leave-management-view').html("");
+
+            $(".hiddenadmindashboard").html(response);
+            var formContent = $(".hiddenadmindashboard").find(".admin-leave-management-view").html();
+            $(".admin-leave-container").html(formContent);
+
+            $('.admin-empmanagement-container').hide();
+            $('.admin-dashboard-container').hide();
+            $('.admin-emppadd-container').hide();
+            $('.admin-attendance-container').hide();
+            $('.admin-leave-container').show();
+            $('.admin-ticketing-container').hide();
+            $(".hiddenadmindashboard").html("");
+
+            //var currentDate = new Date();
+            //if (DateSelected != undefined) {
+            //    currentDate = new Date(DateSelected);
+            //}
+
+            //var currentMonth = currentDate.getFullYear() + '-' + ('0' + (currentDate.getMonth() + 1)).slice(-2);
+            //$('#attedencemonth').val(currentMonth);
+
+            //updateDays(DateSelected);
+
+            //$('.day').each(function () {
+
+            //    var date = $(this).data('date');
+            //    if (date === DateSelected) {
+            //        $(this).addClass('active');
+            //    }
+            //});
+
+            // Check if DataTable is already initialized and destroy it if so
+
+            
+
+        },
+        error: function (xhr, status, error) {
+            var err = eval("(" + xhr.responseText + ")");
+        }
+    });
+}
+
 
 function highlightLeaveDate(element) {
     $('.dayLeave.active').removeClass('active');
     $(element).addClass('active');
+    var date = $(element).attr('data-date');
+    AdminLeaveDataMap(date, "");
 }
 
-$('#adminaddendancetable').DataTable({
-    "paging": true,
-    "searching": true,
-    "pageLength": 8,
-    "lengthChange": false,
-    "info": true,
-    "order": [],
-});
+//$('#adminaddendancetable').DataTable({
+//    "paging": true,
+//    "searching": true,
+//    "pageLength": 8,
+//    "lengthChange": false,
+//    "info": true,
+//    "order": [],
+//});
 
 $(document).on('change', '#myLeaveMonth', function (event) {
     event.preventDefault();
