@@ -71,7 +71,13 @@ namespace HRMS.Controllers
         }
         public ActionResult AdminLeaveBalanceUpdate()
         {
-            return PartialView("~/Views/AdminDashboard/AdminLeaveBalanceUpdate.cshtml");
+            var model = new AdminLeaveBalanceUpdateModel();
+            var cuserContext = SiteContext.GetCurrentUserContext();
+            model.EmpInfo = cuserContext.EmpInfo;
+            model.LoginInfo = cuserContext.LoginInfo;
+            model.Employees = _dbContext.emp_info.ToList();
+
+            return PartialView("~/Views/AdminDashboard/AdminLeaveBalanceUpdate.cshtml", model);
         }
     }
 }

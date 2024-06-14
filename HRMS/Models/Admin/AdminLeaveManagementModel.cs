@@ -11,4 +11,10 @@ namespace HRMS.Models.Admin
         public DateTime SelectedDate { get; set; }
         public DateTime SelectedEndDate { get; set; }
     }
+
+
+    public class AdminLeaveBalanceUpdateModel : SiteContextModel
+    {
+        public List<emp_info> Employees = new List<emp_info>();
+    }
 }
