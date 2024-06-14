@@ -1,7 +1,7 @@
 ﻿@model HRMS.Models.Admin.EmployeeManagementViewModel
 
 @Html.Partial("_NavBar")
-<div class="container-fluid">
+<div class="container-fluid res-admin-employee-management">
     @Html.Partial("_adminsidemenu")
     <div class="main-content container-fluid" style="width: 84%">
         <div class="content admin-empmanagement-container" style="margin-left: -5px; margin-top: 2% ">
@@ -9,7 +9,7 @@
                 <div class="container-fluid top admin-empview">
                     <div class="row navbar align-items-center">
                         <!-- Employee column -->
-                        <div class="col-lg-1 topic d-flex">
+                        <div class="col-lg-1 topic d-flex res-admin-title">
                             <p class="header mb-0 text-right">Employee</p>
                             <select class="form-control ml-2" name="action" id="action" style="display: none;">
                                 <option value="" selected>Action</option>
@@ -18,7 +18,7 @@
                         </div>
                         <div class="col-lg-4"></div>
                         <!-- Search box -->
-                        <div class="col-lg-3 navbarl">
+                        <div class="col-lg-3 navbarl col-sm-12 res-admin-empman-search">
                             <div class="search-container" style=" margin-left: 32px; ">
                                 <div class="input-group" style="border-radius: 20px;">
                                     <div class="input-group-prepend">
@@ -31,7 +31,7 @@
 
 
                         <!-- Advanced Filters -->
-                        <div class="col-lg-2 navbarl">
+                        <div class="col-lg-2 navbarl col-sm-12 res-admin-empman-filter">
                             <div class="advanced-filtertab d-flex justify-content-between align-items-center">
                                 <p class="advancetitle mb-0">Advanced Filters</p>
                                 <div class="toggle-button advance-button ml-2">
@@ -43,7 +43,7 @@
                         </div>
 
                         <!-- Add Employee dropdown -->
-                        <div class="col-lg-2 navbarl">
+                        <div class="col-lg-2 navbarl col-sm-12 res-admin-empman-add">
                             <div class="addingemployee form-group">
                                 <select name="addemployee" class="addemployee form-control form-select" id="addemployee">
                                     <option value="" disabled="" selected="" hidden="">Add Employee</option>
@@ -59,11 +59,11 @@
                     </div>
                 </div>
 
-                <div class="row justify-content-end ml-2">
-                    <div class="col-lg-6">
+                <div class="row justify-content-end ml-2 res-admin-empman-filter-show">
+                    <div class="col-lg-6 col-sm-12">
                         <div id="demo" class="collapse advancefilter">
-                            <div class="collapse-topic d-flex align-items-center justify-content-end" style="margin-right: 24px;">
-                                <span class="mr-3">Filter By</span>
+                            <div class="collapse-topic d-flex align-items-center justify-content-end res-admin-filter-inside" style="margin-right: 24px;">
+                                <span class="mr-3">Filter By<span class="res-close-btn" style="display:none;">X</span>
                                 <div class="dropdown mr-3" style="border-radius: 10px;">
                                     <select class="form-control form-select-sm" name="department" id="department-dropdown" style="border-radius: 15px; height: 35px; width: 131px;">
                                         <option value="" disabled selected>Department</option>
@@ -89,46 +89,48 @@
                                         <option value="All">All</option>
                                     </select>
                                 </div>
-                                <a href="#" class="clearfilter ml-3">clear</a>
+                                <a href="#" class="clearfilter ml-3 res-clear-btn">clear</a>
                             </div>
                         </div>
                     </div>
                 </div>
 
-                <table id="adminempmanagementtable" class="display" style="width: 100%;">
-                    <thead style="background-color: #EEF4FF; border-radius: 10px;">
-                        <tr>
-                            <th><input type="checkbox" id="selectAll"></th>
-                            <th>Emp ID</th>
-                            <th>Name</th>
-                            <th>Designation</th>
-                            <th>Department</th>
-                            <th>Type</th>
-                            <th>Location</th>
-                            <th>Status</th>
-                            <th>
-                                Actions
+                <div class="res-admin-emp-table table-responsive">
+                    <table id="adminempmanagementtable" class="display" style="width: 100%;">
+                        <thead style="background-color: #EEF4FF; border-radius: 10px;">
+                            <tr>
+                                <th><input type="checkbox" id="selectAll"></th>
+                                <th>Emp ID</th>
+                                <th>Name</th>
+                                <th>Designation</th>
+                                <th>Department</th>
+                                <th>Type</th>
+                                <th>Location</th>
+                                <th>Status</th>
+                                <th>
+                                    Actions
 
-                            </th>
-                            <th>
-                                <div class="dropdown dropdown-columns">
-                                    <span class="menu-icon dropdown-th" id="dropdownMenu"><i class="fa-solid fa-list"></i></span>
-                                    <div class="action-menu" id="dropdownMenuContent" style="display: none; background-color:white; border-radius:5px;">
-                                        <a href="#" class="empid"><input type="checkbox"> Emp ID</a>
-                                        <a href="#" class="name"><input type="checkbox"> Name</a>
-                                        <a href="#" class="Designation"><input type="checkbox"> Designation</a>
-                                        <a href="#" class="Department"><input type="checkbox"> Department</a>
-                                        <a href="#" class="Type"><input type="checkbox"> Type</a>
-                                        <a href="#" class="Location"><input type="checkbox"> Location</a>
-                                        <a href="#" class="Status"><input type="checkbox"> Status</a>
+                                </th>
+                                <th>
+                                    <div class="dropdown dropdown-columns">
+                                        <span class="menu-icon dropdown-th" id="dropdownMenu"><i class="fa-solid fa-list"></i></span>
+                                        <div class="action-menu" id="dropdownMenuContent" style="display: none; background-color:white; border-radius:5px;">
+                                            <a href="#" class="empid"><input type="checkbox"> Emp ID</a>
+                                            <a href="#" class="name"><input type="checkbox"> Name</a>
+                                            <a href="#" class="Designation"><input type="checkbox"> Designation</a>
+                                            <a href="#" class="Department"><input type="checkbox"> Department</a>
+                                            <a href="#" class="Type"><input type="checkbox"> Type</a>
+                                            <a href="#" class="Location"><input type="checkbox"> Location</a>
+                                            <a href="#" class="Status"><input type="checkbox"> Status</a>
+                                        </div>
                                     </div>
-                                </div>
-                            </th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                    </tbody>
-                </table>
+                                </th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                        </tbody>
+                    </table>
+                </div>
 
 
                 <div class="emplsthidden" style="display: none">@Model.EmpListJson</div>

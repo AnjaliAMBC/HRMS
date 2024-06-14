@@ -1,7 +1,7 @@
 ﻿@model HRMS.Models.Admin.AdminAttendanceModel
 
 @Html.Partial("_NavBar")
-<div class="container-fluid">
+<div class="container-fluid res-admin-attendance">
     <div class="hiddenadmindashboard" style="display: none"></div>
     @Html.Partial("_adminsidemenu")
     <div class="main-content container-fluid" style="width: 84%">
@@ -158,12 +158,12 @@
                     </style>
 
                     <div class="row mb-2 align-items-center">
-                        <div class="col-4">
+                        <div class="col-4 col-sm-12">
                             <h4 style="margin-left: 26px;">Attendance</h4>
                         </div>
 
-                        <div class="col-8 d-flex justify-content-end">
-                            <div class="dropdowns-container d-flex  align-items-center att_navbar">
+                        <div class="col-8 d-flex justify-content-end col-sm-12">
+                            <div class="dropdowns-container d-flex  align-items-center att_navbar res-admin-attendance-header">
                                 <div class="search-container mr-2">
                                     <div class="input-group">
                                         <div class="input-group-prepend">
@@ -244,7 +244,7 @@
                         </div>
                     </div>
 
-                    <div class="table-container" style="border-radius: 10px; overflow: hidden;">
+                    <div class="table-container table-responsive" style="border-radius: 10px; overflow: hidden;">
                         <table id="adminaddendancetable" class="display" style="width: 100%;">
                             <thead class="adminatt_thead" >
                                 <tr>
