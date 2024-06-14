@@ -1,4 +1,4 @@
-﻿$('.adminside-leaveapply').click(function (event) {
+﻿$(document).on('click', '.adminside-leaveapply', function (event) {
     event.preventDefault();
     HighlightAdminActiveLink($(this));
     $.ajax({
@@ -92,4 +92,4 @@ function generateBalanceSection() {
 generateBalanceSection();
 
 
- /*<span style="font-size: small">@lastCheckinDate</span> */
+/*<span style="font-size: small">@lastCheckinDate</span> */

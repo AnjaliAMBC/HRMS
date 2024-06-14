@@ -248,6 +248,7 @@
         </div>
 
         <div class="leaveselecteddate" style="display: none">@Model.SelectedDate.ToString("dd MMMM yyyy")</div>
+        <div class="leaveselectedmonth" style="display: none">@Model.SelectedDate.ToString("yyyy-MM")</div>
 
         <table id="adminleaveTable-mgmt" class="table leave-table" style="width:96%;">
             <thead class="thead-light">
@@ -307,8 +308,8 @@
 
     <script>
         $(document).ready(function () {
-            // Initialize the date input with the current month
-            $('#myLeaveMonth').val(new Date().getFullYear() + '-' + ('0' + (new Date().getMonth() + 1)).slice(-2)).trigger('change');
+
+            $('#myLeaveMonth').val(new Date($('.leaveselecteddate').text()).getFullYear() + '-' + ('0' + (new Date($('.leaveselecteddate').text()).getMonth() + 1)).slice(-2));
 
 
             if (!$.fn.DataTable.isDataTable('#adminleaveTable-mgmt')) {
@@ -331,6 +332,9 @@
                     ]
                 });
             }
+
+
+            updateLeaveDays($('#myLeaveMonth').val());
 
             $('.dayLeave').each(function () {
                 var date = $(this).data('date');

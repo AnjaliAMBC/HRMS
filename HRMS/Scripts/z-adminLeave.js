@@ -275,15 +275,6 @@ function AdminLeaveDataMap(DateSelected, EndDateSelected) {
             var currentMonth = currentDate.getFullYear() + '-' + ('0' + (currentDate.getMonth() + 1)).slice(-2);
             $('#myLeaveMonth').val(currentMonth);
 
-            //updateLeaveDays(DateSelected);
-
-            $('.dayLeave').each(function () {
-                var date = $(this).data('date');
-                if (date === DateSelected) {
-                    $(this).addClass('active');
-                }
-            });
-
         },
         error: function (xhr, status, error) {
             var err = eval("(" + xhr.responseText + ")");
@@ -308,15 +299,19 @@ function highlightLeaveDate(element) {
 //    "order": [],
 //});
 
-$(document).on('change', '#myLeaveMonth', function (event) {
+
+
+$(document).off('change', '#myLeaveMonth').on('change', '#myLeaveMonth', function (event) {
     event.preventDefault();
     var selectedMonth = new Date($('#myLeaveMonth').val());
     var startDate = new Date(selectedMonth.getFullYear(), selectedMonth.getMonth(), 1);
     var endDate = new Date(selectedMonth.getFullYear(), selectedMonth.getMonth() + 1, 0);
     var formattedStartDate = formatDateToCustomString(startDate);
     var formattedEndDate = formatDateToCustomString(endDate);
-    //AdminAttendenceDataMap(formattedStartDate, formattedEndDate);
-    updateLeaveDays(formattedStartDate);
+    AdminLeaveDataMap(formattedStartDate, "");
+    //updateLeaveDays(formattedStartDate);
 });
+
+
 
 
