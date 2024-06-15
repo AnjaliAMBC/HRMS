@@ -17,6 +17,8 @@ namespace HRMS.Models.Employee
         public TimerModel timerModel { get; set; }
 
         public string totalCheckedInTime { get; set; } = "";
+
+        public bool IsOnLeave { get; set; } = false;
     }
 
 

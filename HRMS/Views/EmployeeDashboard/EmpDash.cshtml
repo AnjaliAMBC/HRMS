@@ -36,7 +36,7 @@
         checkInTime = Model.todayCheckInInfo.Signin_Time;
         checkOutTime = Model.todayCheckInInfo.Signout_Time;
 
-        if (checkOutTime != null && checkOutTime != DateTime.MinValue)
+        if (checkOutTime != null && checkOutTime != DateTime.MinValue && Model.IsOnLeave == true)
         {
             buttonText = "Check-In";
             ButtonDisabled = "disabled";
@@ -44,6 +44,12 @@
 
         starttimeWithAmPm = checkInTime.ToString("hh:mm tt", System.Globalization.CultureInfo.InvariantCulture);
         endtimeWithAmPm = checkOutTime?.ToString("hh:mm tt", System.Globalization.CultureInfo.InvariantCulture);
+    }
+
+    if (Model.IsOnLeave == true)
+    {
+        buttonText = "Check-In";
+        ButtonDisabled = "disabled";
     }
 }
 
@@ -377,7 +383,7 @@
             <span class="currentempname" style="display: none">@Model.EmpInfo.EmployeeName</span>
         </div>
     </div>
-    @*//Comp off Model*@ 
+    @*//Comp off Model*@
     <div class="modal fade" id="compOffModal" tabindex="-1" aria-labelledby="compOffModalLabel" aria-hidden="true">
         <div class="modal-dialog">
             <div class="modal-content">

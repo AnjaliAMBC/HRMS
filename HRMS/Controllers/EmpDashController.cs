@@ -77,6 +77,13 @@ namespace HRMS.Controllers
             model.AnniversaryModel = new EmployeeEventHelper().Anniversary();
             model.Birthdays = new EmployeeEventHelper().Birthday();
             model.UpcomingHolidays = new EmployeeEventHelper().GetUpcomingHolidays(model.EmpInfo.Location);
+
+            var isEmployeeAPpliedLeaveToday = _dbContext.con_leaveupdate.Where(x => x.employee_id == model.EmpInfo.EmployeeID && x.leavedate == DateTime.Today).FirstOrDefault();
+
+            if(isEmployeeAPpliedLeaveToday != null)
+            {
+                model.IsOnLeave = true;
+            }
             return View("~/Views/EmployeeDashboard/EmpDash.cshtml", model);
         }
 
