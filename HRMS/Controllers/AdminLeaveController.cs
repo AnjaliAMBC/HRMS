@@ -26,7 +26,7 @@ namespace HRMS.Controllers
             DateTime endOfMonth = startOfMonth.AddMonths(1).AddDays(-1);
 
             var model = new AdminLeaveManagementModel();
-            GetLeavesInfoBasedonStartandEndDate(startOfMonth.ToString(), endOfMonth.ToString(), model);
+            GetLeavesInfoBasedonStartandEndDate(startOfMonth.ToString(), endOfMonth.ToString(), model, "");
             return View("~/Views/AdminDashboard/AdminLeaveTracker.cshtml", model);
         }
         public ActionResult AdminLeaveBalance()
@@ -39,13 +39,14 @@ namespace HRMS.Controllers
             return PartialView("~/Views/EmployeeDashboard/EmpApplyleave.cshtml");
         }
 
-        public ActionResult AdminCalenderLeaveManagement(int month, int year)
+        public ActionResult AdminCalenderLeaveManagement(int month, int year, string empID)
         {
             DateTime startDate, endDate;
+
             GetMonthStartAndEndDates(month, year, out startDate, out endDate);
 
             var model = new AdminLeaveManagementModel();
-            GetLeavesInfoBasedonStartandEndDate(startDate.ToString(), "", model);
+            GetLeavesInfoBasedonStartandEndDate(startDate.ToString(), "", model, empID);
             var json = JsonConvert.SerializeObject(model.LeavesInfo);
             return Json(json.Replace(";", ""), JsonRequestBehavior.AllowGet);
         }
@@ -53,10 +54,16 @@ namespace HRMS.Controllers
         public static void GetMonthStartAndEndDates(int month, int year, out DateTime startDate, out DateTime endDate)
         {
             // Get the first day of the month
+
+            if (month == 0)
+            {
+                month = 1;
+            }
             startDate = new DateTime(year, month, 1);
 
             // Get the last day of the month
             endDate = startDate.AddMonths(1).AddDays(-1);
+
         }
 
         public ActionResult AdminLeaveManagement(string selectedStartDate, string SelectedEndDate)
@@ -67,11 +74,11 @@ namespace HRMS.Controllers
             {
                 SelectedEndDate = selectedStartDate;
             }
-            GetLeavesInfoBasedonStartandEndDate(selectedStartDate, SelectedEndDate, model);
+            GetLeavesInfoBasedonStartandEndDate(selectedStartDate, SelectedEndDate, model, "");
             return PartialView("~/Views/AdminDashboard/AdminLeaveEmpManage.cshtml", model);
         }
 
-        private void GetLeavesInfoBasedonStartandEndDate(string selectedStartDate, string SelectedEndDate, AdminLeaveManagementModel model)
+        private void GetLeavesInfoBasedonStartandEndDate(string selectedStartDate, string SelectedEndDate, AdminLeaveManagementModel model, string empID)
         {
             var cuserContext = SiteContext.GetCurrentUserContext();
             model.EmpInfo = cuserContext.EmpInfo;
@@ -95,8 +102,18 @@ namespace HRMS.Controllers
                     model.SelectedEndDate = DateTime.Parse(SelectedEndDate);
             }
 
+            var selectedDateLeaves = new List<con_leaveupdate>();
 
-            var selectedDateLeaves = _dbContext.con_leaveupdate.Where(x => x.leavedate >= model.SelectedDate && x.leavedate <= model.SelectedEndDate).ToList();
+            if (string.IsNullOrWhiteSpace(empID))
+            {
+                selectedDateLeaves = _dbContext.con_leaveupdate.Where(x => x.leavedate >= model.SelectedDate && x.leavedate <= model.SelectedEndDate).ToList();
+            }
+            else
+            {
+                selectedDateLeaves = _dbContext.con_leaveupdate.Where(x => x.leavedate >= model.SelectedDate && x.leavedate <= model.SelectedEndDate && x.employee_id == empID).ToList();
+            }
+
+
             model.LeavesInfo = selectedDateLeaves.OrderBy(x => x.leavedate).ToList();
         }
 
@@ -109,6 +126,22 @@ namespace HRMS.Controllers
             model.Employees = _dbContext.emp_info.ToList();
 
             return PartialView("~/Views/AdminDashboard/AdminLeaveBalanceUpdate.cshtml", model);
+        }
+
+        public ActionResult GetHolidaysBasedonLocation(string empid, int month, int year)
+        {
+            var selectedEmp = _dbContext.emp_info.Where(x => x.EmployeeID == empid).FirstOrDefault();
+            DateTime yearstartDate, yearendDate;
+            GetMonthStartAndEndDates(month + 1, year, out yearstartDate, out yearendDate);
+            DateTime currentDate = DateTime.Today;
+            if (selectedEmp != null)
+            {
+                var holidayList = _dbContext.tblambcholidays.Where(x => x.region == selectedEmp.Location && x.holiday_date >= yearstartDate && x.holiday_date <= yearendDate);
+                var json = JsonConvert.SerializeObject(holidayList);
+                return Json(json.Replace(";", ""), JsonRequestBehavior.AllowGet);
+            }
+
+            return Json("", JsonRequestBehavior.AllowGet);
         }
     }
 }
