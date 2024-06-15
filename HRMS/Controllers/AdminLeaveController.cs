@@ -1,6 +1,7 @@
 ﻿using HRMS.Helpers;
 using HRMS.Models.Admin;
 using HRMS.Models.Employee;
+using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
 using System.Globalization;
@@ -38,18 +39,31 @@ namespace HRMS.Controllers
             return PartialView("~/Views/EmployeeDashboard/EmpApplyleave.cshtml");
         }
 
-        public ActionResult AdminCalenderLeaveManagement(string selectedStartDate)
+        public ActionResult AdminCalenderLeaveManagement(int month, int year)
         {
+            DateTime startDate, endDate;
+            GetMonthStartAndEndDates(month, year, out startDate, out endDate);
+
             var model = new AdminLeaveManagementModel();
-            GetLeavesInfoBasedonStartandEndDate(selectedStartDate, "", model);
-            return Json(model.LeavesInfo, JsonRequestBehavior.AllowGet);
+            GetLeavesInfoBasedonStartandEndDate(startDate.ToString(), "", model);
+            var json = JsonConvert.SerializeObject(model.LeavesInfo);
+            return Json(json.Replace(";", ""), JsonRequestBehavior.AllowGet);
+        }
+
+        public static void GetMonthStartAndEndDates(int month, int year, out DateTime startDate, out DateTime endDate)
+        {
+            // Get the first day of the month
+            startDate = new DateTime(year, month, 1);
+
+            // Get the last day of the month
+            endDate = startDate.AddMonths(1).AddDays(-1);
         }
 
         public ActionResult AdminLeaveManagement(string selectedStartDate, string SelectedEndDate)
         {
             var model = new AdminLeaveManagementModel();
 
-            if(string.IsNullOrWhiteSpace(SelectedEndDate))
+            if (string.IsNullOrWhiteSpace(SelectedEndDate))
             {
                 SelectedEndDate = selectedStartDate;
             }

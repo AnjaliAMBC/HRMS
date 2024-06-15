@@ -54,7 +54,7 @@ function updateLeaveCalendar() {
 }
 
 //On Page load
-generateLeaveCalendar(new Date().getMonth(), new Date().getFullYear());
+//generateLeaveCalendar(new Date().getMonth(), new Date().getFullYear());
 
 
 //function generateLeaveCalendar(month, year) {
@@ -172,119 +172,137 @@ generateLeaveCalendar(new Date().getMonth(), new Date().getFullYear());
 
 
 function generateLeaveCalendar(month, year) {
-    // Example leave data JSON
-    const leaveData = [
-        { "leaveno": 36, "leavedate": "2024-06-04T00:00:00", "employee_id": "1075", "leave_reason": null, "submittedby": "Subhashini Baskaran", "leavesource": "Emergency Leave", "leaveuniqkey": "1075_2024-06-04", "leavecategory": "Emergency Leave Full day", "employee_name": "Ravi Kumar Manthri", "DayType": "fullDay", "LeaveDays": 1.00, "HalfDayCategory": null, "BackupResource_Name": "bbbb", "EmergencyContact_no": "3453453", "LeaveStatus": "Awaiting Approval" },
-        { "leaveno": 37, "leavedate": "2024-06-05T00:00:00", "employee_id": "1075", "leave_reason": null, "submittedby": "Subhashini Baskaran", "leavesource": "Emergency Leave", "leaveuniqkey": "1075_2024-06-05", "leavecategory": "Emergency Leave First Half", "employee_name": "Ravi Kumar Manthri", "DayType": "halfDay", "LeaveDays": 0.50, "HalfDayCategory": "First Half", "BackupResource_Name": "bbbb", "EmergencyContact_no": "3453453", "LeaveStatus": "Awaiting Approval" },
 
-        { "leaveno": 36, "leavedate": "2024-06-04T00:00:00", "employee_id": "1311", "leave_reason": null, "submittedby": "Subhashini Baskaran", "leavesource": "Emergency Leave", "leaveuniqkey": "1075_2024-06-04", "leavecategory": "Emergency Leave Full day", "employee_name": "Ravi Kumar Manthri", "DayType": "fullDay", "LeaveDays": 1.00, "HalfDayCategory": null, "BackupResource_Name": "bbbb", "EmergencyContact_no": "3453453", "LeaveStatus": "Awaiting Approval" },
-        { "leaveno": 37, "leavedate": "2024-06-05T00:00:00", "employee_id": "1311", "leave_reason": null, "submittedby": "Subhashini Baskaran", "leavesource": "Emergency Leave", "leaveuniqkey": "1075_2024-06-05", "leavecategory": "Emergency Leave First Half", "employee_name": "Ravi Kumar Manthri", "DayType": "halfDay", "LeaveDays": 0.50, "HalfDayCategory": "First Half", "BackupResource_Name": "bbbb", "EmergencyContact_no": "3453453", "LeaveStatus": "Awaiting Approval" },
 
-        { "leaveno": 36, "leavedate": "2024-06-04T00:00:00", "employee_id": "1108", "leave_reason": null, "submittedby": "Subhashini Baskaran", "leavesource": "Emergency Leave", "leaveuniqkey": "1075_2024-06-04", "leavecategory": "Emergency Leave Full day", "employee_name": "Ravi Kumar Manthri", "DayType": "fullDay", "LeaveDays": 1.00, "HalfDayCategory": null, "BackupResource_Name": "bbbb", "EmergencyContact_no": "3453453", "LeaveStatus": "Awaiting Approval" },
-        { "leaveno": 37, "leavedate": "2024-06-05T00:00:00", "employee_id": "1108", "leave_reason": null, "submittedby": "Subhashini Baskaran", "leavesource": "Emergency Leave", "leaveuniqkey": "1075_2024-06-05", "leavecategory": "Emergency Leave First Half", "employee_name": "Ravi Kumar Manthri", "DayType": "halfDay", "LeaveDays": 0.50, "HalfDayCategory": "First Half", "BackupResource_Name": "bbbb", "EmergencyContact_no": "3453453", "LeaveStatus": "Awaiting Approval" },
+    $.ajax({
+        url: '/adminleave/admincalenderleavemanagement',
+        type: 'POST',
+        dataType: 'json',
+        data: { month: month, year: year },
+        success: function (response) {
+            //// Example leave data JSON
+            //const leaveData = [
+            //    { "leaveno": 36, "leavedate": "2024-06-04T00:00:00", "employee_id": "1075", "leave_reason": null, "submittedby": "Subhashini Baskaran", "leavesource": "Emergency Leave", "leaveuniqkey": "1075_2024-06-04", "leavecategory": "Emergency Leave Full day", "employee_name": "Ravi Kumar Manthri", "DayType": "fullDay", "LeaveDays": 1.00, "HalfDayCategory": null, "BackupResource_Name": "bbbb", "EmergencyContact_no": "3453453", "LeaveStatus": "Awaiting Approval" },
+            //    { "leaveno": 37, "leavedate": "2024-06-05T00:00:00", "employee_id": "1075", "leave_reason": null, "submittedby": "Subhashini Baskaran", "leavesource": "Emergency Leave", "leaveuniqkey": "1075_2024-06-05", "leavecategory": "Emergency Leave First Half", "employee_name": "Ravi Kumar Manthri", "DayType": "halfDay", "LeaveDays": 0.50, "HalfDayCategory": "First Half", "BackupResource_Name": "bbbb", "EmergencyContact_no": "3453453", "LeaveStatus": "Awaiting Approval" },
 
-    ];
+            //    { "leaveno": 36, "leavedate": "2024-06-04T00:00:00", "employee_id": "1311", "leave_reason": null, "submittedby": "Subhashini Baskaran", "leavesource": "Emergency Leave", "leaveuniqkey": "1075_2024-06-04", "leavecategory": "Emergency Leave Full day", "employee_name": "Ravi Kumar Manthri", "DayType": "fullDay", "LeaveDays": 1.00, "HalfDayCategory": null, "BackupResource_Name": "bbbb", "EmergencyContact_no": "3453453", "LeaveStatus": "Awaiting Approval" },
+            //    { "leaveno": 37, "leavedate": "2024-06-05T00:00:00", "employee_id": "1311", "leave_reason": null, "submittedby": "Subhashini Baskaran", "leavesource": "Emergency Leave", "leaveuniqkey": "1075_2024-06-05", "leavecategory": "Emergency Leave First Half", "employee_name": "Ravi Kumar Manthri", "DayType": "halfDay", "LeaveDays": 0.50, "HalfDayCategory": "First Half", "BackupResource_Name": "bbbb", "EmergencyContact_no": "3453453", "LeaveStatus": "Awaiting Approval" },
 
-    // Create a mapping from dates to leave entries
-    const leaveRequests = {};
-    leaveData.forEach(leave => {
-        const leaveDate = new Date(leave.leavedate).toISOString().split('T')[0]; // YYYY-MM-DD format
-        if (!leaveRequests[leaveDate]) {
-            leaveRequests[leaveDate] = [];
+            //    { "leaveno": 36, "leavedate": "2024-06-04T00:00:00", "employee_id": "1108", "leave_reason": null, "submittedby": "Subhashini Baskaran", "leavesource": "Emergency Leave", "leaveuniqkey": "1075_2024-06-04", "leavecategory": "Emergency Leave Full day", "employee_name": "Ravi Kumar Manthri", "DayType": "fullDay", "LeaveDays": 1.00, "HalfDayCategory": null, "BackupResource_Name": "bbbb", "EmergencyContact_no": "3453453", "LeaveStatus": "Awaiting Approval" },
+            //    { "leaveno": 37, "leavedate": "2024-06-05T00:00:00", "employee_id": "1108", "leave_reason": null, "submittedby": "Subhashini Baskaran", "leavesource": "Emergency Leave", "leaveuniqkey": "1075_2024-06-05", "leavecategory": "Emergency Leave First Half", "employee_name": "Ravi Kumar Manthri", "DayType": "halfDay", "LeaveDays": 0.50, "HalfDayCategory": "First Half", "BackupResource_Name": "bbbb", "EmergencyContact_no": "3453453", "LeaveStatus": "Awaiting Approval" },
+
+            //];
+
+            // Create a mapping from dates to leave entries
+            const leaveData = $.parseJSON(response);
+
+
+            const leaveRequests = {};
+            leaveData.forEach(leave => {
+                const leaveDate = new Date(leave.leavedate).toISOString().split('T')[0]; // YYYY-MM-DD format
+                if (!leaveRequests[leaveDate]) {
+                    leaveRequests[leaveDate] = [];
+                }
+                leaveRequests[leaveDate].push(leave);
+            });
+
+            var isAdminLeavePage = false;
+            var linktoleavecalender = "btn-apply-leave1";
+
+            if ($('div.admin-leave-container').length) {
+                isAdminLeavePage = true;
+                linktoleavecalender = "btn-admin-apply-leave1";
+            }
+
+            const today = new Date();
+            const firstDayOfMonth = new Date(year, month, 1);
+            const daysInMonth = new Date(year, month + 1, 0).getDate();
+            const startingDay = firstDayOfMonth.getDay() === 0 ? 6 : firstDayOfMonth.getDay() - 1;
+
+            const calendarBody = document.getElementById("empleave-calendarBody");
+            if (!calendarBody) {
+                return;
+            }
+            calendarBody.innerHTML = "";
+
+            const monthYear = document.getElementById("empleave-monthYear");
+            if (!monthYear) {
+                return;
+            }
+            monthYear.innerText = new Date(year, month).toLocaleDateString('default', { month: 'long', year: 'numeric' });
+
+            let date = 1;
+            for (let i = 0; i < 6; i++) {
+                const row = document.createElement("tr");
+
+                for (let j = 0; j < 7; j++) {
+                    if (i === 0 && j < startingDay) {
+                        const cell = document.createElement("td");
+                        row.appendChild(cell);
+                    } else if (date > daysInMonth) {
+                        break;
+                    } else {
+                        const cell = document.createElement("td");
+                        const fullDate = new Date(year, month, date);
+                        const formattedDate = fullDate.toISOString().split('T')[0]; // YYYY-MM-DD format
+
+                        const formattedMonthDate = fullDate.toLocaleDateString('en-GB', { day: '2-digit', month: 'long', year: 'numeric' });
+
+                        cell.textContent = date;
+                        cell.setAttribute("data-date", formattedMonthDate); // Set the data-date attribute
+                        cell.classList.add(linktoleavecalender);
+
+                        const holidayKey = `${month + 1} -${date} `;
+                        if (date === today.getDate() && year === today.getFullYear() && month === today.getMonth()) {
+                            cell.classList.add("highlight-currentleave");
+                        }
+
+                        if (leaveRequests[formattedDate]) {
+                            const leaveDiv = document.createElement("div");
+                            leaveDiv.classList.add("empleave-leave-request");
+                            leaveDiv.style.backgroundColor = "#e7f3fe"; // Add background color to leaveDiv
+
+                            leaveRequests[formattedDate].forEach((leave, index) => {
+                                if (index < 2) { // Show up to 2 images directly
+                                    const img = document.createElement("img");
+                                    img.src = `/Assets/EmpImages/${leave.employee_id}.jpeg`; // Adjust the image path as needed
+                                    img.alt = leave.employee_name;
+                                    img.title = leave.employee_name;
+                                    leaveDiv.appendChild(img);
+                                } else if (index === 2) { // Show the count of additional leave requests
+                                    const moreDiv = document.createElement("div");
+                                    moreDiv.classList.add("more-count");
+                                    moreDiv.textContent = `+ ${leaveRequests[formattedDate].length - 2}`;
+                                    leaveDiv.appendChild(moreDiv);
+                                }
+                            });
+
+                            cell.appendChild(leaveDiv);
+                            cell.classList.add("highlight-leave");
+                            cell.style.backgroundColor = "#e7f3fe"; // Add background color to parent td
+                        }
+
+
+
+                        // Add weekend background color
+                        if (j === 5 || j === 6) { // 5 is Saturday, 6 is Sunday
+                            cell.classList.add("weekend-background");
+                        }
+
+                        row.appendChild(cell);
+                        date++;
+                    }
+                }
+
+                calendarBody.appendChild(row);
+            }
+        },
+        error: function (xhr, status, error) {
+            var err = eval("(" + xhr.responseText + ")");
         }
-        leaveRequests[leaveDate].push(leave);
     });
 
-    var isAdminLeavePage = false;
-    var linktoleavecalender = "btn-apply-leave1";
 
-    if ($('div.admin-leave-container').length) {
-        isAdminLeavePage = true;
-        linktoleavecalender = "btn-admin-apply-leave1";
-    }
-
-    const today = new Date();
-    const firstDayOfMonth = new Date(year, month, 1);
-    const daysInMonth = new Date(year, month + 1, 0).getDate();
-    const startingDay = firstDayOfMonth.getDay() === 0 ? 6 : firstDayOfMonth.getDay() - 1;
-
-    const calendarBody = document.getElementById("empleave-calendarBody");
-    if (!calendarBody) {
-        return;
-    }
-    calendarBody.innerHTML = "";
-
-    const monthYear = document.getElementById("empleave-monthYear");
-    if (!monthYear) {
-        return;
-    }
-    monthYear.innerText = new Date(year, month).toLocaleDateString('default', { month: 'long', year: 'numeric' });
-
-    let date = 1;
-    for (let i = 0; i < 6; i++) {
-        const row = document.createElement("tr");
-
-        for (let j = 0; j < 7; j++) {
-            if (i === 0 && j < startingDay) {
-                const cell = document.createElement("td");
-                row.appendChild(cell);
-            } else if (date > daysInMonth) {
-                break;
-            } else {
-                const cell = document.createElement("td");
-                const fullDate = new Date(year, month, date);
-                const formattedDate = fullDate.toISOString().split('T')[0]; // YYYY-MM-DD format
-               
-                const formattedMonthDate = fullDate.toLocaleDateString('en-GB', { day: '2-digit', month: 'long', year: 'numeric' });
-
-                cell.textContent = date;
-                cell.setAttribute("data-date", formattedMonthDate); // Set the data-date attribute
-                cell.classList.add(linktoleavecalender);
-
-                const holidayKey = `${month + 1}-${date}`;
-                if (date === today.getDate() && year === today.getFullYear() && month === today.getMonth()) {
-                    cell.classList.add("highlight-currentleave");
-                }
-
-                if (leaveRequests[formattedDate]) {
-                    const leaveDiv = document.createElement("div");
-                    leaveDiv.classList.add("empleave-leave-request");
-                    leaveDiv.style.backgroundColor = "#e7f3fe"; // Add background color to leaveDiv
-
-                    leaveRequests[formattedDate].forEach((leave, index) => {
-                        if (index < 2) { // Show up to 2 images directly
-                            const img = document.createElement("img");
-                            img.src = `/Assets/EmpImages/${leave.employee_id}.jpeg`; // Adjust the image path as needed
-                            img.alt = leave.employee_name;
-                            img.title = leave.employee_name;
-                            leaveDiv.appendChild(img);
-                        } else if (index === 2) { // Show the count of additional leave requests
-                            const moreDiv = document.createElement("div");
-                            moreDiv.classList.add("more-count");
-                            moreDiv.textContent = `+${leaveRequests[formattedDate].length - 2}`;
-                            leaveDiv.appendChild(moreDiv);
-                        }
-                    });
-
-                    cell.appendChild(leaveDiv);
-                    cell.classList.add("highlight-leave");
-                    cell.style.backgroundColor = "#e7f3fe"; // Add background color to parent td
-                }
-
-
-
-                // Add weekend background color
-                if (j === 5 || j === 6) { // 5 is Saturday, 6 is Sunday
-                    cell.classList.add("weekend-background");
-                }
-
-                row.appendChild(cell);
-                date++;
-            }
-        }
-
-        calendarBody.appendChild(row);
-    }
 }
 
 
@@ -292,7 +310,7 @@ function generateLeaveCalendar(month, year) {
 // Add jQuery event listener for the click event
 //$(document).on('click', '.btn-apply-leave', function (event) {
 //    const date = $(this).text();
-//    window.location.href = `your_page_url?date=${year}-${month + 1}-${date}`;
+//    window.location.href = `your_page_url ? date = ${ year } - ${ month + 1} -${ date } `;
 //});
 
 
@@ -505,5 +523,7 @@ $(document).on('click', '.btn-apply-leave', function (event) {
 });
 
 //on page load
-generateLeaveCalendar(new Date().getMonth(), new Date().getFullYear());
+//if (document.querySelector('.admin-leave-container')) {
+//    generateLeaveCalendar(new Date().getMonth(), new Date().getFullYear());
+//}
 //LeaveCarousel();
