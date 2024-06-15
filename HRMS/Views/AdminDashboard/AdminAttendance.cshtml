@@ -141,15 +141,16 @@
                             text-decoration: underline;
                             margin-left: 10px; /* Add margin to create space between buttons */
                         }
+
                         #attedencemonth {
                             width: 75%;
-                            border-radius: 17px; 
+                            border-radius: 17px;
                             margin-left: 20px;
                             background-color: aliceblue;
                         }
 
                         #status-dropdown {
-                            width:104px;
+                            width: 104px;
                         }
 
                         #location-dropdown {
@@ -246,7 +247,7 @@
 
                     <div class="table-container table-responsive" style="border-radius: 10px; overflow: hidden;">
                         <table id="adminaddendancetable" class="display" style="width: 100%;">
-                            <thead class="adminatt_thead" >
+                            <thead class="adminatt_thead">
                                 <tr>
                                     <th style="padding-left: 15px">Employee Name</th>
                                     <th>Location</th>
@@ -263,6 +264,7 @@
                                 @foreach (emp_info employee in Model.AllEmployees)
                                 {
                                     var empCheckin = Model.EmpCheckInList.Where(x => x.EmployeeID == employee.EmployeeID).FirstOrDefault();
+                                    var empLeave = Model.Leaves.Where(x => x.employee_id == employee.EmployeeID).FirstOrDefault();
 
                                     var imagePath = "";
                                     string initials = string.Empty;
@@ -332,12 +334,20 @@
                                                     hours = (int)timeDifference?.TotalHours;
                                                     minutes = (int)timeDifference?.Minutes;
 
-                                                    if (hours < 9)
+                                                    //if (hours < 9)
+                                                    //{
+                                                    //    statusType = "bar-width-yellow";
+                                                    //    buttonColor = "yellow-btn";
+                                                    //    attedenceType = "Permission";
+                                                    //}
+
+                                                    if (empLeave != null)
                                                     {
                                                         statusType = "bar-width-yellow";
                                                         buttonColor = "yellow-btn";
-                                                        attedenceType = "Permission";
+                                                        attedenceType = empLeave.leavesource;
                                                     }
+
                                                 }
                                                 else
                                                 {
@@ -363,6 +373,11 @@
                                     }
                                     else
                                     {
+                                        var leaveType = "Absent";
+                                        if (empLeave != null)
+                                        {
+                                            leaveType = empLeave.leavecategory;
+                                        }
                                         <tr>
 
                                             <td class="employee-info p-2 ml-2">
@@ -387,7 +402,7 @@
                                             <td>00:00 AM</td>
                                             <td>00:00 AM</td>
                                             <td>00h:00m</td>
-                                            <td><button class="leave-btn">Absent</button></td>
+                                            <td><button class="leave-btn">@leaveType</button></td>
                                             <td><i class="fas fa-pencil-alt empattendence-edit" data-attendenceid="34" data-toggle="modal" data-target="#leaveUpdateModal"></i></td>
                                         </tr>
                                     }
@@ -490,6 +505,6 @@
         $('#adminaddendancetable').DataTable().search($(this).val()).draw();
     });
 
-    
+
 
 </script>

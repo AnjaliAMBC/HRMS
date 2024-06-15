@@ -67,6 +67,12 @@ namespace HRMS.Controllers
                 model.EmpCheckInList = selectedDateAttendence;
             }
 
+            var selectedDateLeaves = _dbContext.con_leaveupdate.Where(x => x.leavedate >= model.SelectedDate && x.leavedate <= model.SelectedEndDate).ToList();
+            if (selectedDateLeaves != null && selectedDateLeaves.Any())
+            {
+                model.Leaves = selectedDateLeaves;
+            }
+
             model.AllEmployees = _dbContext.emp_info.Where(x => x.EmployeeStatus == "Active").ToList();
             if (!string.IsNullOrWhiteSpace(selectedStartDate) || !string.IsNullOrWhiteSpace(SelectedendDate))
             {

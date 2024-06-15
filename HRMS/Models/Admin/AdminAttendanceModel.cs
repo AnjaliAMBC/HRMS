@@ -11,6 +11,8 @@ namespace HRMS.Models.Admin
         public DateTime SelectedDate { get; set; }
         public DateTime SelectedEndDate { get; set; }
         public List<emp_info> AllEmployees { get; set; } = new List<emp_info>();
+
+        public List<con_leaveupdate> Leaves { get; set; } = new List<con_leaveupdate>();
     }
 
     public class AdminEmpIndividualAttendanceModel : SiteContextModel
