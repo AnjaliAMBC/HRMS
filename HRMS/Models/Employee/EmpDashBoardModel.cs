@@ -19,6 +19,8 @@ namespace HRMS.Models.Employee
         public string totalCheckedInTime { get; set; } = "";
 
         public bool IsOnLeave { get; set; } = false;
+
+        public LeaveTypesBasedOnEmpViewModel LeavesTypeInfo { get; set; } = new LeaveTypesBasedOnEmpViewModel();
     }
 
 

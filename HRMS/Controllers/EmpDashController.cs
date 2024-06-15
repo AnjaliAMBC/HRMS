@@ -52,7 +52,7 @@ namespace HRMS.Controllers
                 {
                     model.timerModel = new TimerModel(empLastSignedInfo.Signin_Time);
                     model.empLastDayCheckInDetails.LoginID = empLastSignedInfo.login_id;
-                }                
+                }
             }
 
             //Current Day
@@ -62,7 +62,7 @@ namespace HRMS.Controllers
             {
                 model.todayCheckInInfo = empCheckInInfo;
 
-                if(empCheckInInfo.Signin_Time != DateTime.MinValue && empCheckInInfo.Signout_Time.HasValue)
+                if (empCheckInInfo.Signin_Time != DateTime.MinValue && empCheckInInfo.Signout_Time.HasValue)
                 {
                     TimeSpan difference = empCheckInInfo.Signout_Time.Value - empCheckInInfo.Signin_Time;
                     int hours = difference.Hours;
@@ -80,10 +80,14 @@ namespace HRMS.Controllers
 
             var isEmployeeAPpliedLeaveToday = _dbContext.con_leaveupdate.Where(x => x.employee_id == model.EmpInfo.EmployeeID && x.leavedate == DateTime.Today).FirstOrDefault();
 
-            if(isEmployeeAPpliedLeaveToday != null)
+            if (isEmployeeAPpliedLeaveToday != null)
             {
                 model.IsOnLeave = true;
             }
+
+            var leaveTypes = new LeaveCalculator().GetLeavesByEmp(model.EmpInfo.EmployeeID);
+            model.LeavesTypeInfo = leaveTypes;
+
             return View("~/Views/EmployeeDashboard/EmpDash.cshtml", model);
         }
 
@@ -165,11 +169,11 @@ namespace HRMS.Controllers
             if (!string.IsNullOrWhiteSpace(signedInDateTime))
             {
                 DateTime dateTime = DateTime.ParseExact(signedInDateTime, "dd-MM-yyyy HH:mm:ss", CultureInfo.InvariantCulture);
-                if(dateTime != DateTime.MinValue)
+                if (dateTime != DateTime.MinValue)
                 {
                     var model = new TimerModel(dateTime);
                     return Json(model.FormattedTime, JsonRequestBehavior.AllowGet);
-                }               
+                }
             }
 
             return Json(null, JsonRequestBehavior.AllowGet);

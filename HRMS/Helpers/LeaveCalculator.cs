@@ -88,6 +88,8 @@ namespace HRMS.Helpers
                 availableLeaves.Balance = availableLeaves.Available - availableLeaves.Booked;
                 availableLeaves.Type = leaveType.Type;
                 availableLeaves.ColorCode = leaveType.Colrocode;
+                availableLeaves.DashBoardColorCode = leaveType.DashBoardColorCode;
+                availableLeaves.ShortName = leaveType.ShortName;
             }
             return availableLeaves;
         }
@@ -195,6 +197,8 @@ namespace HRMS.Helpers
 
             availableLeaves.Booked = totalLeaveDays;
             availableLeaves.Balance = availableLeaves.Available - availableLeaves.Booked;
+            availableLeaves.DashBoardColorCode = leaveType.DashBoardColorCode;
+            availableLeaves.ShortName = leaveType.ShortName;
             return availableLeaves;
         }
 
@@ -215,15 +219,15 @@ namespace HRMS.Helpers
             }
 
             var leaveTypes = new List<LeavesCategory>();
-            leaveTypes.Add(new LeavesCategory() { Type = "Earned Leave", Colrocode = "ear_border" });
-            leaveTypes.Add(new LeavesCategory() { Type = "Emergency Leave", Colrocode = "emr_border" });
-            leaveTypes.Add(new LeavesCategory() { Type = "Sick Leave", Colrocode = "sick_border" });
-            leaveTypes.Add(new LeavesCategory() { Type = "Bereavement Leave", Colrocode = "bev_border" });
-            leaveTypes.Add(new LeavesCategory() { Type = "Hourly Permission", Colrocode = "hou_border" });
-            leaveTypes.Add(new LeavesCategory() { Type = "Marriage Leave", Colrocode = "mar_border" });
-            leaveTypes.Add(new LeavesCategory() { Type = "Maternity Leave", Colrocode = "mat_border" });
-            leaveTypes.Add(new LeavesCategory() { Type = "Paternity Leave", Colrocode = "pat_border" });
-            leaveTypes.Add(new LeavesCategory() { Type = "Comp Off", Colrocode = "com_border" });
+            leaveTypes.Add(new LeavesCategory() { Type = "Earned Leave", Colrocode = "ear_border", DashBoardColorCode  = "bg-earned", ShortName = "EL" });
+            leaveTypes.Add(new LeavesCategory() { Type = "Emergency Leave", Colrocode = "emr_border", DashBoardColorCode = "bg-emergency", ShortName = "EML" });
+            leaveTypes.Add(new LeavesCategory() { Type = "Sick Leave", Colrocode = "sick_border", DashBoardColorCode = "bg-danger", ShortName = "SL" });
+            leaveTypes.Add(new LeavesCategory() { Type = "Bereavement Leave", Colrocode = "bev_border", DashBoardColorCode = "bg-bereavement", ShortName = "BL" });
+            leaveTypes.Add(new LeavesCategory() { Type = "Hourly Permission", Colrocode = "hou_border", DashBoardColorCode = "bg-bereavement", ShortName = "HP" });
+            leaveTypes.Add(new LeavesCategory() { Type = "Marriage Leave", Colrocode = "mar_border", DashBoardColorCode = "bg-marriage", ShortName = "ML" });
+            leaveTypes.Add(new LeavesCategory() { Type = "Maternity Leave", Colrocode = "mat_border", DashBoardColorCode = "bg-maternity", ShortName = "MTL" });
+            leaveTypes.Add(new LeavesCategory() { Type = "Paternity Leave", Colrocode = "pat_border", DashBoardColorCode = "bg-paternity", ShortName = "PL" });
+            leaveTypes.Add(new LeavesCategory() { Type = "Comp Off", Colrocode = "com_border", DashBoardColorCode = "bg-compensatory", ShortName = "CO" });
 
             foreach (var emp in employess)
             {

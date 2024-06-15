@@ -47,6 +47,9 @@ namespace HRMS.Models.Employee
         public decimal Balance { get; set; }
         public string ColorCode { get; set; }
 
+        public string DashBoardColorCode { get; set; }
+        public string ShortName { get; set; }
+
     }
 
     public class LeaveEmployee
@@ -65,6 +68,8 @@ namespace HRMS.Models.Employee
     {
         public string Type { get; set; }
         public string Colrocode { get; set; }
+        public string DashBoardColorCode { get; set; }
+        public string ShortName { get; set; }
 
     }
 }
