@@ -30,6 +30,10 @@ namespace HRMS.Controllers
             model.BirthModel = new EmployeeEventHelper().Birthday();
             model.UpcomingHolidays = new EmployeeEventHelper().GetUpcomingHolidays("");
 
+            var AdminLeaveManagementModel = new AdminLeaveManagementModel();
+            var leavesAppliedToday = new LeaveCalculator().GetLeavesInfoBasedonStartandEndDate(DateTime.Today.ToString(), DateTime.Today.ToString(), AdminLeaveManagementModel, "");
+            model.LeavesInfo = leavesAppliedToday;
+
             return View("~/Views/AdminDashboard/AdminDash.cshtml", model);
         }
         //public List<AnniversaryModel> Anniversary()

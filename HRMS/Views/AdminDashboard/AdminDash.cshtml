@@ -1,10 +1,11 @@
 ﻿@model HRMS.Models.Admin.AdminDashView
+
 @Html.Partial("_NavBar")
 
 <div class="container-fluid res-admin-dashboard">
     @Html.Partial("_adminsidemenu")
     <div class="main-content container-fluid" style="width: 84%">
-        <div class="content admin-empmanagement-container pt-3" >
+        <div class="content admin-empmanagement-container pt-3">
 
             <div class="admin-dashboard-view">
                 <div class="container-fluid res-admindash">
@@ -15,64 +16,86 @@
                                 <!-- Leave Request Section -->
                                 <div class="card leave-requests mx-2">
                                     <div class="card-header">
-                                        Leave Request (5)
+                                        Leave Request (@Model.LeavesInfo.LeavesInfo.Count())
                                     </div>
                                     <div class="card-body admindash_card scrollbar p-2">
+                                        <ul class="list-group list-group-flush">
+                                            @foreach (var leave in Model.LeavesInfo.LeavesInfo)
+                                            {
+                                                <li class="list-group-item p-0">
+                                                    <div class="leave-info">
+                                                        @{
+                                                            var empImagePath = "/Assets/EmpImages/" + leave.employee_id + ".jpeg";
+                                                        }
+                                                        <img src="@empImagePath" alt="emp name" class="rounded-circle">
+                                                        <div class="leave-text mt-2">
+                                                            <span>@leave.employee_name</span>
+                                                            <small>@leave.leavesource | @leave.leavedate.Value.ToString("dd MMMM yyyy")</small>
+                                                        </div>
+                                                    </div>
+                                                    <div class="btn-group">
+                                                        <button type="submit" class="btn_approve p-0">✔ Approve</button>
+                                                        <button type="submit" class="btn_reject ml-0">✖ Reject</button>
+                                                    </div>
+                                                </li>
+                                            }
+
+                                        </ul>
                                         <!--<ul class="list-group list-group-flush">
-                                            <li class="list-group-item p-0">
-                                                <div class="leave-info">
-                                                    <img src="https://via.placeholder.com/40" alt="Rajesh Kumar" class="rounded-circle">
-                                                    <div class="leave-text mt-2">
-                                                        <span>Rajesh Kumar</span>
-                                                        <small>Emergency Leave | 29-04-2024</small>
-                                                    </div>
+                                        <li class="list-group-item p-0">
+                                            <div class="leave-info">
+                                                <img src="https://via.placeholder.com/40" alt="Rajesh Kumar" class="rounded-circle">
+                                                <div class="leave-text mt-2">
+                                                    <span>Rajesh Kumar</span>
+                                                    <small>Emergency Leave | 29-04-2024</small>
                                                 </div>
-                                                <div class="btn-group">
-                                                    <button type="submit" class="btn_approve p-0">✔ Approve</button>
-                                                    <button type="submit" class="btn_reject ml-0">✖ Reject</button>
+                                            </div>
+                                            <div class="btn-group">
+                                                <button type="submit" class="btn_approve p-0">✔ Approve</button>
+                                                <button type="submit" class="btn_reject ml-0">✖ Reject</button>
+                                            </div>
+                                        </li>
+                                        <li class="list-group-item p-0">
+                                            <div class="leave-info">
+                                                <img src="https://via.placeholder.com/40" alt="Sriram Vivekanandan" class="rounded-circle">
+                                                <div class="leave-text mt-2">
+                                                    <span>Sriram Vivekanandan</span>
+                                                    <small>Earned Leave | 29-04-2024 - 01-05-2024</small>
                                                 </div>
-                                            </li>
-                                            <li class="list-group-item p-0">
-                                                <div class="leave-info">
-                                                    <img src="https://via.placeholder.com/40" alt="Sriram Vivekanandan" class="rounded-circle">
-                                                    <div class="leave-text mt-2">
-                                                        <span>Sriram Vivekanandan</span>
-                                                        <small>Earned Leave | 29-04-2024 - 01-05-2024</small>
-                                                    </div>
+                                            </div>
+                                            <div class="btn-group">
+                                                <button type="submit" class="btn_approve p-0">✔ Approve</button>
+                                                <button type="submit" class="btn_reject ml-0">✖ Reject</button>
+                                            </div>
+                                        </li>
+                                        <li class="list-group-item p-0">
+                                            <div class="leave-info">
+                                                <img src="https://via.placeholder.com/40" alt="Linkeshwaran" class="rounded-circle">
+                                                <div class="leave-text mt-2">
+                                                    <span>Linkeshwaran</span>
+                                                    <small>Sick Leave | 29-04-2024</small>
                                                 </div>
-                                                <div class="btn-group">
-                                                    <button type="submit" class="btn_approve p-0">✔ Approve</button>
-                                                    <button type="submit" class="btn_reject ml-0">✖ Reject</button>
+                                            </div>
+                                            <div class="btn-group">
+                                                <button type="submit" class="btn_approve p-0">✔ Approve</button>
+                                                <button type="submit" class="btn_reject ml-0">✖ Reject</button>
+                                            </div>
+                                        </li>
+                                        <li class="list-group-item p-0">
+                                            <div class="leave-info">
+                                                <img src="https://via.placeholder.com/40" alt="Saravanan Maoharan" class="rounded-circle">
+                                                <div class="leave-text mt-2">
+                                                    <span>Saravanan Maoharan</span>
+                                                    <small>Emergency Leave | 29-04-2024</small>
                                                 </div>
-                                            </li>
-                                            <li class="list-group-item p-0">
-                                                <div class="leave-info">
-                                                    <img src="https://via.placeholder.com/40" alt="Linkeshwaran" class="rounded-circle">
-                                                    <div class="leave-text mt-2">
-                                                        <span>Linkeshwaran</span>
-                                                        <small>Sick Leave | 29-04-2024</small>
-                                                    </div>
-                                                </div>
-                                                <div class="btn-group">
-                                                    <button type="submit" class="btn_approve p-0">✔ Approve</button>
-                                                    <button type="submit" class="btn_reject ml-0">✖ Reject</button>
-                                                </div>
-                                            </li>
-                                            <li class="list-group-item p-0">
-                                                <div class="leave-info">
-                                                    <img src="https://via.placeholder.com/40" alt="Saravanan Maoharan" class="rounded-circle">
-                                                    <div class="leave-text mt-2">
-                                                        <span>Saravanan Maoharan</span>
-                                                        <small>Emergency Leave | 29-04-2024</small>
-                                                    </div>
-                                                </div>
-                                                <div class="btn-group">
-                                                    <button type="submit" class="btn_approve p-0">✔ Approve</button>
-                                                    <button type="submit" class="btn_reject ml-0">✖ Reject</button>
-                                                </div>
-                                            </li>-->
-                                                            <!-- Additional leave requests -->
-                                                            <!--<li class="list-group-item p-0">
+                                            </div>
+                                            <div class="btn-group">
+                                                <button type="submit" class="btn_approve p-0">✔ Approve</button>
+                                                <button type="submit" class="btn_reject ml-0">✖ Reject</button>
+                                            </div>
+                                        </li>-->
+                                        <!-- Additional leave requests -->
+                                        <!--<li class="list-group-item p-0">
                                                 <div class="leave-info">
                                                     <img src="https://via.placeholder.com/40" alt="John Doe" class="rounded-circle">
                                                     <div class="leave-text mt-2">
@@ -134,8 +157,8 @@
                                         January 2024
                                     </div>
                                     <div class="card-body">-->
-                                                        <!-- Calendar placeholder -->
-                                                        <!--<div id="calendar"></div>
+                                    <!-- Calendar placeholder -->
+                                    <!--<div id="calendar"></div>
                                     </div>-->
 
                                     <div class="card-header calendar-header text-dark">
@@ -269,7 +292,7 @@
                             </div>
                         </div>
                     </div>
-                        </div>
+                </div>
 
                 <script>
                     generateCalendar(new Date().getMonth(), new Date().getFullYear());

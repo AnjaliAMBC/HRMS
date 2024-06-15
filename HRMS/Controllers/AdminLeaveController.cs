@@ -26,7 +26,7 @@ namespace HRMS.Controllers
             DateTime endOfMonth = startOfMonth.AddMonths(1).AddDays(-1);
 
             var model = new AdminLeaveManagementModel();
-            GetLeavesInfoBasedonStartandEndDate(startOfMonth.ToString(), endOfMonth.ToString(), model, "");
+            new LeaveCalculator().GetLeavesInfoBasedonStartandEndDate(startOfMonth.ToString(), endOfMonth.ToString(), model, "");
             return View("~/Views/AdminDashboard/AdminLeaveTracker.cshtml", model);
         }
         public ActionResult AdminLeaveBalance()
@@ -46,7 +46,7 @@ namespace HRMS.Controllers
             GetMonthStartAndEndDates(month, year, out startDate, out endDate);
 
             var model = new AdminLeaveManagementModel();
-            GetLeavesInfoBasedonStartandEndDate(startDate.ToString(), "", model, empID);
+            new LeaveCalculator().GetLeavesInfoBasedonStartandEndDate(startDate.ToString(), "", model, empID);
             var json = JsonConvert.SerializeObject(model.LeavesInfo);
             return Json(json.Replace(";", ""), JsonRequestBehavior.AllowGet);
         }
@@ -74,48 +74,12 @@ namespace HRMS.Controllers
             {
                 SelectedEndDate = selectedStartDate;
             }
-            GetLeavesInfoBasedonStartandEndDate(selectedStartDate, SelectedEndDate, model, "");
+            new LeaveCalculator().GetLeavesInfoBasedonStartandEndDate(selectedStartDate, SelectedEndDate, model, "");
+
             return PartialView("~/Views/AdminDashboard/AdminLeaveEmpManage.cshtml", model);
         }
 
-        private void GetLeavesInfoBasedonStartandEndDate(string selectedStartDate, string SelectedEndDate, AdminLeaveManagementModel model, string empID)
-        {
-            var cuserContext = SiteContext.GetCurrentUserContext();
-            model.EmpInfo = cuserContext.EmpInfo;
-            model.LoginInfo = cuserContext.LoginInfo;
 
-            model.SelectedDate = DateTime.Today;
-            model.SelectedEndDate = DateTime.Today;
-            if (!string.IsNullOrWhiteSpace(selectedStartDate))
-            {
-                if (!selectedStartDate.Contains('-'))
-                    model.SelectedDate = DateTime.ParseExact(selectedStartDate, "dd MMMM yyyy", CultureInfo.InvariantCulture);
-                else
-                    model.SelectedDate = DateTime.Parse(selectedStartDate);
-            }
-
-            if (!string.IsNullOrWhiteSpace(SelectedEndDate))
-            {
-                if (!selectedStartDate.Contains('-'))
-                    model.SelectedEndDate = DateTime.ParseExact(SelectedEndDate, "dd MMMM yyyy", CultureInfo.InvariantCulture);
-                else
-                    model.SelectedEndDate = DateTime.Parse(SelectedEndDate);
-            }
-
-            var selectedDateLeaves = new List<con_leaveupdate>();
-
-            if (string.IsNullOrWhiteSpace(empID))
-            {
-                selectedDateLeaves = _dbContext.con_leaveupdate.Where(x => x.leavedate >= model.SelectedDate && x.leavedate <= model.SelectedEndDate).ToList();
-            }
-            else
-            {
-                selectedDateLeaves = _dbContext.con_leaveupdate.Where(x => x.leavedate >= model.SelectedDate && x.leavedate <= model.SelectedEndDate && x.employee_id == empID).ToList();
-            }
-
-
-            model.LeavesInfo = selectedDateLeaves.OrderBy(x => x.leavedate).ToList();
-        }
 
         public ActionResult AdminLeaveBalanceUpdate()
         {

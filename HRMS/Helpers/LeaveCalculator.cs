@@ -1,6 +1,8 @@
-﻿using HRMS.Models.Employee;
+﻿using HRMS.Models.Admin;
+using HRMS.Models.Employee;
 using System;
 using System.Collections.Generic;
+using System.Globalization;
 using System.Linq;
 using System.Web;
 
@@ -219,7 +221,7 @@ namespace HRMS.Helpers
             }
 
             var leaveTypes = new List<LeavesCategory>();
-            leaveTypes.Add(new LeavesCategory() { Type = "Earned Leave", Colrocode = "ear_border", DashBoardColorCode  = "bg-earned", ShortName = "EL" });
+            leaveTypes.Add(new LeavesCategory() { Type = "Earned Leave", Colrocode = "ear_border", DashBoardColorCode = "bg-earned", ShortName = "EL" });
             leaveTypes.Add(new LeavesCategory() { Type = "Emergency Leave", Colrocode = "emr_border", DashBoardColorCode = "bg-emergency", ShortName = "EML" });
             leaveTypes.Add(new LeavesCategory() { Type = "Sick Leave", Colrocode = "sick_border", DashBoardColorCode = "bg-danger", ShortName = "SL" });
             leaveTypes.Add(new LeavesCategory() { Type = "Bereavement Leave", Colrocode = "bev_border", DashBoardColorCode = "bg-bereavement", ShortName = "BL" });
@@ -241,6 +243,47 @@ namespace HRMS.Helpers
             }
 
             return empLeaveTypes;
+        }
+
+        public AdminLeaveManagementModel GetLeavesInfoBasedonStartandEndDate(string selectedStartDate, string SelectedEndDate, AdminLeaveManagementModel model, string empID)
+        {
+            var cuserContext = SiteContext.GetCurrentUserContext();
+            model.EmpInfo = cuserContext.EmpInfo;
+            model.LoginInfo = cuserContext.LoginInfo;
+
+            model.SelectedDate = DateTime.Today;
+            model.SelectedEndDate = DateTime.Today;
+            if (!string.IsNullOrWhiteSpace(selectedStartDate))
+            {
+                if (!selectedStartDate.Contains('-'))
+                    model.SelectedDate = DateTime.ParseExact(selectedStartDate, "dd MMMM yyyy", CultureInfo.InvariantCulture);
+                else
+                    model.SelectedDate = DateTime.Parse(selectedStartDate);
+            }
+
+            if (!string.IsNullOrWhiteSpace(SelectedEndDate))
+            {
+                if (!selectedStartDate.Contains('-'))
+                    model.SelectedEndDate = DateTime.ParseExact(SelectedEndDate, "dd MMMM yyyy", CultureInfo.InvariantCulture);
+                else
+                    model.SelectedEndDate = DateTime.Parse(SelectedEndDate);
+            }
+
+            var selectedDateLeaves = new List<con_leaveupdate>();
+
+            if (string.IsNullOrWhiteSpace(empID))
+            {
+                selectedDateLeaves = _dbContext.con_leaveupdate.Where(x => x.leavedate >= model.SelectedDate && x.leavedate <= model.SelectedEndDate).ToList();
+            }
+            else
+            {
+                selectedDateLeaves = _dbContext.con_leaveupdate.Where(x => x.leavedate >= model.SelectedDate && x.leavedate <= model.SelectedEndDate && x.employee_id == empID).ToList();
+            }
+
+
+            model.LeavesInfo = selectedDateLeaves.OrderBy(x => x.leavedate).ToList();
+
+            return model;
         }
     }
 }

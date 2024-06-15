@@ -10,6 +10,8 @@ namespace HRMS.Models.Admin
         public List<EmployeeEvent.AnniversaryModel> AnniversaryModel { get; set; } = new List<EmployeeEvent.AnniversaryModel>();
         public List<EmployeeEvent.BirthdayModel> BirthModel { get; set; } = new List<EmployeeEvent.BirthdayModel>();
         public List<EmployeeEvent.UpcomingHoliday> UpcomingHolidays { get; set; } = new List<EmployeeEvent.UpcomingHoliday>();
+
+        public AdminLeaveManagementModel LeavesInfo { get; set; } = new AdminLeaveManagementModel();
     }
     //public class AnniversaryModel
     //{
