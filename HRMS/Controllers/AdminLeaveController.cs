@@ -18,10 +18,15 @@ namespace HRMS.Controllers
             _dbContext = new HRMS_EntityFramework();
         }
 
-        // GET: AdminLeave
-        public ActionResult Index()
+        public ActionResult Index(string selectedStartDate, string selectedEndDate)
         {
-            return View("~/Views/AdminDashboard/AdminLeaveTracker.cshtml");
+            DateTime today = DateTime.Today;
+            DateTime startOfMonth = new DateTime(today.Year, today.Month, 1);
+            DateTime endOfMonth = startOfMonth.AddMonths(1).AddDays(-1);
+
+            var model = new AdminLeaveManagementModel();
+            GetLeavesInfoBasedonStartandEndDate(startOfMonth.ToString(), endOfMonth.ToString(), model);
+            return View("~/Views/AdminDashboard/AdminLeaveTracker.cshtml", model);
         }
         public ActionResult AdminLeaveBalance()
         {
@@ -33,10 +38,27 @@ namespace HRMS.Controllers
             return PartialView("~/Views/EmployeeDashboard/EmpApplyleave.cshtml");
         }
 
+        public ActionResult AdminCalenderLeaveManagement(string selectedStartDate)
+        {
+            var model = new AdminLeaveManagementModel();
+            GetLeavesInfoBasedonStartandEndDate(selectedStartDate, "", model);
+            return Json(model.LeavesInfo, JsonRequestBehavior.AllowGet);
+        }
+
         public ActionResult AdminLeaveManagement(string selectedStartDate, string SelectedEndDate)
         {
-
             var model = new AdminLeaveManagementModel();
+
+            if(string.IsNullOrWhiteSpace(SelectedEndDate))
+            {
+                SelectedEndDate = selectedStartDate;
+            }
+            GetLeavesInfoBasedonStartandEndDate(selectedStartDate, SelectedEndDate, model);
+            return PartialView("~/Views/AdminDashboard/AdminLeaveEmpManage.cshtml", model);
+        }
+
+        private void GetLeavesInfoBasedonStartandEndDate(string selectedStartDate, string SelectedEndDate, AdminLeaveManagementModel model)
+        {
             var cuserContext = SiteContext.GetCurrentUserContext();
             model.EmpInfo = cuserContext.EmpInfo;
             model.LoginInfo = cuserContext.LoginInfo;
@@ -54,21 +76,16 @@ namespace HRMS.Controllers
             if (!string.IsNullOrWhiteSpace(SelectedEndDate))
             {
                 if (!selectedStartDate.Contains('-'))
-                    model.SelectedEndDate = DateTime.ParseExact(selectedStartDate, "dd MMMM yyyy", CultureInfo.InvariantCulture);
+                    model.SelectedEndDate = DateTime.ParseExact(SelectedEndDate, "dd MMMM yyyy", CultureInfo.InvariantCulture);
                 else
-                    model.SelectedEndDate = DateTime.Parse(selectedStartDate);
+                    model.SelectedEndDate = DateTime.Parse(SelectedEndDate);
             }
-            else
-            {
-                model.SelectedEndDate = model.SelectedDate;
-            }
+
 
             var selectedDateLeaves = _dbContext.con_leaveupdate.Where(x => x.leavedate >= model.SelectedDate && x.leavedate <= model.SelectedEndDate).ToList();
-
-            model.LeavesInfo = selectedDateLeaves;
-
-            return PartialView("~/Views/AdminDashboard/AdminLeaveEmpManage.cshtml", model);
+            model.LeavesInfo = selectedDateLeaves.OrderBy(x => x.leavedate).ToList();
         }
+
         public ActionResult AdminLeaveBalanceUpdate()
         {
             var model = new AdminLeaveBalanceUpdateModel();
