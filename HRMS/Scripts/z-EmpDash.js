@@ -206,77 +206,85 @@ $(document).on('click', '.attendance-find', function (event) {
 let currentDashCalenderMonth;
 let currentDashCalenderYear;
 
-// Define DashCalenderfestivals
-const DashCalenderfestivals = {
-    '1-1': 'New Year',
-    '12-25': 'Christmas',
-    '10-2': 'Gandhi Jayanti',
-};
-
 function updateCalendar() {
     generateCalendar(currentDashCalenderMonth, currentDashCalenderYear);
 }
 
 function generateCalendar(month, year) {
-    const today = new Date();
-    const firstDayOfMonth = new Date(year, month, 1);
-    const daysInMonth = new Date(year, month + 1, 0).getDate();
-    const startingDay = firstDayOfMonth.getDay();  // getDay() returns 0 for Sunday
 
-    const calendarBody = document.getElementById("calendarBody");
-    if (!calendarBody) {
-        //console.error("No element found with id 'calendarBody'");
-        return;
-    }
-    calendarBody.innerHTML = "";
+    $.ajax({
+        url: '/adminleave/getholidaysbasedonlocation',
+        type: 'POST',
+        dataType: 'json',
+        data: { empid: $('.loggedinempid').text(), month: month, year: year },
+        success: function (holidayresponse) {
+            console.log(holidayresponse);
 
-    const monthYear = document.getElementById("monthYear");
-    if (!monthYear) {
-        //console.error("No element found with id 'monthYear'");
-        return;
-    }
-    monthYear.innerText = new Date(year, month).toLocaleDateString('default', { month: 'long', year: 'numeric' });
+            const holidays = $.parseJSON(holidayresponse);
+            const DashCalenderfestivals = generateLeaveHolidays(holidays);
 
-    let date = 1;
-    for (let i = 0; i < 6; i++) {
-        const row = document.createElement("tr");
+            const today = new Date();
+            const firstDayOfMonth = new Date(year, month, 1);
+            const daysInMonth = new Date(year, month + 1, 0).getDate();
+            const startingDay = firstDayOfMonth.getDay();  // getDay() returns 0 for Sunday
 
-        for (let j = 0; j < 7; j++) {
-            if (i === 0 && j < startingDay) {
-                const cell = document.createElement("td");
-                row.appendChild(cell);
-            } else if (date > daysInMonth) {
-                break;
-            } else {
-                const cell = document.createElement("td");
-                cell.textContent = date;
+            const calendarBody = document.getElementById("calendarBody");
+            if (!calendarBody) {
+                //console.error("No element found with id 'calendarBody'");
+                return;
+            }
+            calendarBody.innerHTML = "";
 
-                // Highlight Sunday (0) and Saturday (6) in red
-                if (j === 0 || j === 6) {
-                    cell.style.color = "red";
+            const monthYear = document.getElementById("monthYear");
+            if (!monthYear) {
+                //console.error("No element found with id 'monthYear'");
+                return;
+            }
+            monthYear.innerText = new Date(year, month).toLocaleDateString('default', { month: 'long', year: 'numeric' });
+
+            let date = 1;
+            for (let i = 0; i < 6; i++) {
+                const row = document.createElement("tr");
+
+                for (let j = 0; j < 7; j++) {
+                    if (i === 0 && j < startingDay) {
+                        const cell = document.createElement("td");
+                        row.appendChild(cell);
+                    } else if (date > daysInMonth) {
+                        break;
+                    } else {
+                        const cell = document.createElement("td");
+                        cell.textContent = date;
+
+                        // Highlight Sunday (0) and Saturday (6) in red
+                        if (j === 0 || j === 6) {
+                            cell.style.color = "red";
+                        }
+
+                        const festivalKey = `${month + 1}-${date}`;
+                        if (date === today.getDate() && year === today.getFullYear() && month === today.getMonth()) {
+                            cell.classList.add("highlight-current");
+                            const todayTooltip = document.createElement("div");
+                            todayTooltip.classList.add("today-tooltip");
+                            todayTooltip.textContent = "Today";
+                            cell.appendChild(todayTooltip);
+                        } else if (DashCalenderfestivals[festivalKey]) {
+                            cell.dataset.festival = DashCalenderfestivals[festivalKey];
+                            cell.classList.add("highlight-festival");
+                            const festivalTooltip = document.createElement("div");
+                            festivalTooltip.classList.add("festival-tooltip");
+                            festivalTooltip.textContent = DashCalenderfestivals[festivalKey];
+                            cell.appendChild(festivalTooltip);
+                        }
+                        row.appendChild(cell);
+                        date++;
+                    }
                 }
-
-                const festivalKey = `${month + 1}-${date}`;
-                if (date === today.getDate() && year === today.getFullYear() && month === today.getMonth()) {
-                    cell.classList.add("highlight-current");
-                    const todayTooltip = document.createElement("div");
-                    todayTooltip.classList.add("today-tooltip");
-                    todayTooltip.textContent = "Today";
-                    cell.appendChild(todayTooltip);
-                } else if (DashCalenderfestivals[festivalKey]) {
-                    cell.dataset.festival = DashCalenderfestivals[festivalKey];
-                    cell.classList.add("highlight-festival");
-                    const festivalTooltip = document.createElement("div");
-                    festivalTooltip.classList.add("festival-tooltip");
-                    festivalTooltip.textContent = DashCalenderfestivals[festivalKey];
-                    cell.appendChild(festivalTooltip);
-                }
-                row.appendChild(cell);
-                date++;
+                calendarBody.appendChild(row);
             }
         }
-        calendarBody.appendChild(row);
-    }
+    });
+
 }
 
 function prevMonth() {
