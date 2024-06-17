@@ -29,5 +29,10 @@ namespace HRMS
         public string BackupResource_Name { get; set; }
         public string EmergencyContact_no { get; set; }
         public string LeaveStatus { get; set; }
+        public string OfficalEmailid { get; set; }
+        public Nullable<System.DateTime> Fromdate { get; set; }
+        public Nullable<System.DateTime> Todate { get; set; }
+        public string LeaveRequestName { get; set; }
+        public string Location { get; set; }
     }
 }
