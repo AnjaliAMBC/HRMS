@@ -1,6 +1,7 @@
 ﻿//alert('ss');
 
-$(document).ready(function() {
+$(document).ready(function () {
+    
   // Function to check width and trigger action
   function checkWidth() {
     var width = $('body').width();
@@ -36,4 +37,15 @@ $(document).ready(function() {
   $(window).resize(function() {
     checkWidth();
   });
+
+    $(document).off('click', '.responsive-tabs i.fa').on('click', '.responsive-tabs i.fa', function (event) {
+        $(this).parent().toggleClass('open');
+    });
+
+    $(document).off('click', '.responsive-tabs > li a').on('click', '.responsive-tabs > li a', function (event) {
+        $('.responsive-tabs > li').removeClass('active');
+        $(this).parent().addClass('active');
+        $('.responsive-tabs').toggleClass('open');
+    });
+
 });

@@ -158,11 +158,11 @@
                     </style>
 
                     <div class="row mb-2 align-items-center">
-                        <div class="col-4 col-sm-12">
+                        <div class="col-4 col-sm-12 col-lg-4">
                             <h4 style="margin-left: 26px;">Attendance</h4>
                         </div>
 
-                        <div class="col-8 d-flex justify-content-end col-sm-12">
+                        <div class="col-8 d-flex justify-content-end col-sm-12 col-md-12 col-lg-8 res-admin-att-header-block">
                             <div class="dropdowns-container d-flex  align-items-center att_navbar res-admin-attendance-header">
                                 <div class="search-container mr-2">
                                     <div class="input-group">
@@ -203,7 +203,7 @@
 
 
 
-                                <div class="mb-2 ">
+                                <div class="mb-2 res-add-shift-btn">
                                     <button type="button" class="btn btn-addshift ">Add Shift</button>
                                 </div>
                             </div>
@@ -213,16 +213,16 @@
                     <div class="collapse" id="dateDropdown">
                         <div class="row  align-items-center">
                             <div class="col-4"></div> <!-- Empty column -->
-                            <div class="col-12 d-flex justify-content-end pr-5">
-                                <div class="form-group d-flex mr-2">
+                            <div class="col-12 d-flex justify-content-end pr-5 res-date-from-to">
+                                <div class="form-group d-flex mr-2 b-from">
                                     <label for="from" class="mt-1 mb-0">From</label>
                                     <input type="date" class="form-control form-control-sm" id="fromDate" style="width: 120px;">
                                 </div>
-                                <div class="form-group d-flex mr-2">
+                                <div class="form-group d-flex mr-2 b-to">
                                     <label for="to" class="mt-1 mb-0">To</label>
                                     <input type="date" class="form-control form-control-sm" id="toDate" style="width: 120px;">
                                 </div>
-                                <div class="form-group d-flex align-items-center">
+                                <div class="form-group d-flex align-items-center b-submit">
                                     <button type="button" class="btn btn-sm" onclick="submitDateRange()">Submit</button>
                                     <a href="#" class="clearattendence-filter">Clear</a>
                                 </div>
@@ -419,11 +419,11 @@
                                                     <label for="leaveupdate_date">Date</label>
                                                     <input type="date" class="form-control leaveupdate_date" readonly>
                                                 </div>
-                                                <div class="col-6 d-flex flex-column pb-3">
+                                                <div class="col-6 d-flex flex-column pb-3 col-sm-12 col-md-6">
                                                     <label for="leaveupdate_checkin">Check In</label>
                                                     <input type="time" class="form-control leaveupdate_checkin">
                                                 </div>
-                                                <div class="col-6 d-flex flex-column pb-3">
+                                                <div class="col-6 d-flex flex-column pb-3 col-sm-12 col-md-6">
                                                     <label for="leaveupdate_checkout">Check Out</label>
                                                     <input type="time" class="form-control leaveupdate_checkout">
                                                 </div>
@@ -435,7 +435,7 @@
                                                             <option value="Permission">Permission</option>
                                                         </select>
                                                     </div>*@
-                                                <div class="col-3 ml-auto mr-4 mt-2">
+                                                <div class="col-3 ml-auto mr-4 mt-2 res-submit-btn">
                                                     <button type="button" data-updateid="" class="btn btn-primary leaveupdate_btn">Update</button>
                                                 </div>
                                             </div>
