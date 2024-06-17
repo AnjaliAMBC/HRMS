@@ -198,12 +198,11 @@
     .mobile-view .emp-dashboard .main-content.container-fluid {
         width: 100% !important;
         padding: 65px 0px;
-    }  
-
+    }
+    
     /* emp dashboard end */
 
     /* admin dashboard start */
-
     .mobile-view .leaveslider-item {
         min-width: 100%;
     }
@@ -236,6 +235,11 @@
         width: 100% !important;
         padding: 65px 0px;
     }
+
+    .mobile-view .res-admindash .header-title {
+        margin-left: -5px;
+    }
+
 
     /* admin dashboard end */
 
@@ -504,6 +508,93 @@
         padding: 0;
     }
 
+    .mobile-view .res-admin-emp-tabs {
+        background-color: #EEF4FF;
+        font-size: 15px;
+        width: 92% !important;
+        display: inline-block;
+        min-width: 100%;
+        overflow-x: auto;
+        display: inline-block;
+        min-width: 98%;
+        margin-left: 5px;
+    }
+
+    .mobile-view .responsive-tabs.nav-tabs {
+        position: relative;
+        z-index: 10;
+        height: 42px;
+        overflow: visible;
+        border-bottom: none;
+    }
+
+    .responsive-tabs.nav-tabs i.fa {
+        position: absolute;
+        top: 14px;
+        right: 22px;
+    }
+
+    .responsive-tabs.nav-tabs i.fa.fa-caret-up {
+        display: none;
+    }
+
+    .responsive-tabs.nav-tabs > li {
+        display: none;
+        float: none;
+        text-align: center;
+    }
+
+    .responsive-tabs.nav-tabs > li:last-of-type > a {
+        margin-right: 0;
+    }
+
+    .responsive-tabs.nav-tabs > li > a {
+        margin-right: 0;
+        background: #fff;
+        border: 1px solid #DDDDDD;
+    }
+
+    .responsive-tabs.nav-tabs > li.active {
+        display: block;
+    }
+
+    .responsive-tabs.nav-tabs > li.active a {
+        border: 1px solid #DDDDDD;
+        border-radius: 2px;
+    }
+
+    .responsive-tabs.nav-tabs.open i.fa.fa-caret-up {
+        display: block;
+    }
+
+    .responsive-tabs.nav-tabs.open i.fa.fa-caret-down {
+        display: none;
+    }
+
+    .responsive-tabs.nav-tabs.open > li {
+        display: block;
+    }
+
+    .responsive-tabs.nav-tabs.open > li a {
+        border-radius: 0;
+    }
+
+    .responsive-tabs.nav-tabs.open > li:first-of-type a {
+        border-radius: 2px 2px 0 0;
+    }
+
+    .responsive-tabs.nav-tabs.open > li:last-of-type a {
+        border-radius: 0 0 2px 2px;
+    }
+
+    .mobile-view .res-admin-employee-management .addempheadline {
+        margin-left: 5px !important;
+    }
+
+    .mobile-view .res-admin-employee-management #myTabContent .tab-container {
+        padding: 0 5px 0 0px;
+    }
+
     /* admin employee management end */
 
     /* admin attendance start*/
@@ -527,9 +618,12 @@
         margin-left: 0px !important;
     }
 
-        .mobile-view .res-admin-attendance .admin-attendancemgmt-view .days-container {
-            overflow-x: scroll;
-        }
+    .mobile-view .res-admin-attendance .admin-attendancemgmt-view .days-container {
+        overflow-x: scroll;
+        display: inline-flex;
+        width: 88%;
+        margin: 10px 7%;
+    }
 
     .mobile-view .res-admin-attendance .res-admin-attendance-header .adminatt-dropdown label{
         width: 65px;
@@ -538,6 +632,95 @@
     .mobile-view .res-admin-attendance .table-responsive {
         overflow-x: auto !important;
     }
+
+    .mobile-view #dateDropdown {
+        margin-left: 22px;
+    }
+
+    .mobile-view #dateDropdown .res-date-from-to {
+        justify-content: initial !important;
+        width: 100%;
+        display: inline-block !important;
+        padding-right: 0 !important;
+    }
+
+    .mobile-view #dateDropdown .res-date-from-to .form-group.b-from,
+    .mobile-view #dateDropdown .res-date-from-to .form-group.b-to {
+        justify-content: initial !important;
+        width: 47%;
+        display: inline-flex !important;
+    }
+
+    .mobile-view #dateDropdown .res-date-from-to .form-group label {
+        margin-right: 10px;
+    }
+
+    .mobile-view #dateDropdown .res-date-from-to .form-group input {
+    }
+
+    .mobile-view .dropdowns-container {
+        display: inline-block;
+        width: 100%;
+    }
+
+    .mobile-view .dropdowns-container .month-dropdown {
+        width: 100%;
+        display: inline-block;
+    }
+
+    .mobile-view .dropdowns-container .month-dropdown input {
+        width: 92% !important;
+    }
+
+    .mobile-view #leaveUpdateModal .leaveupdate_checkin,
+    .mobile-view #leaveUpdateModal .leaveupdate_checkout {
+        width: 100%;
+    }
+
+    .mobile-view #leaveUpdateModal .res-submit-btn {
+        margin: 0 15px !important;
+        padding: 0;
+    }
+
+    .mobile-view #leaveUpdateModal .modal-content {
+        width: 100% !important;
+        margin-top: 75px;
+    }
+
+    .mobile-view .addshiftcontent {
+        padding: 0px 0px 0px 20px;
+    }
+
+    .mobile-view #startTime,
+    .mobile-view #endTime {
+        width: 100% !important;
+    }
+
+    .mobile-view .res-start-end-time {
+        display: block;
+    }
+
+    .mobile-view .res-admin-individual-attendance {
+        margin-top: 0px !important;
+    }
+
+    .mobile-view .res-admin-individual-attendance .res-admin-individual-att-from-to {
+        margin-left: 5% !important;
+    }
+
+    .mobile-view .res-admin-individual-attendance #emptoDate {
+        margin-right: 8px !important;
+        margin-bottom: 20px;
+    }
+
+    .mobile-view .res-admin-individual-attendance #empfromDate {
+        margin-bottom: 10px;
+    }
+
+    .mobile-view .res-admin-individual-attendance #applyButton {
+        width: auto !important;
+    }
+
     /* admin attendance end */
 }
 
@@ -1017,7 +1200,174 @@
         margin-right: 0;
     }
 
-    /* leave end*/    
+    /* leave end*/
+
+    /*admin emp management page start*/
+
+    .tablet-view .res-admin-employee-management .main-content {
+        width: 75% !important;
+    }
+
+    .tablet-view .admin-empview .res-admin-title {
+        margin: 0 0 10px 0px;
+        padding: 0;
+    }
+
+    .tablet-view .res-admin-employee-management .res-admin-empman-search .search-container {
+        width: 100%;
+        margin-left: 0 !important;
+    }
+
+    .tablet-view .res-admin-employee-management .res-admin-empman-add {
+        margin-top: 15px;
+    }
+
+    .tablet-view .res-admin-employee-management .res-admin-filter-inside {
+        display: inline-block !important;
+        margin-right: 0px !important;
+    }
+
+        .tablet-view .res-admin-employee-management .res-admin-filter-inside .dropdown {
+            display: inline-block;
+            width: 25%;
+        }
+
+    .tablet-view .res-admin-employee-management .admin-empview {
+        margin-bottom: 20px;
+    }
+
+    .tablet-view .res-admin-employee-management .res-admin-empman-filter-show {
+        display: inline;
+    }
+
+    .tablet-view .res-admin-employee-management .res-admin-emp-table {
+        margin-top: -15px;
+    }
+
+    .tablet-view .res-admin-employee-management .res-clear-btn {
+        background: #2693F8;
+        padding: 5px 20px;
+        border-radius: 5px;
+        color: #fff;
+        text-transform: capitalize;
+        margin-left: 0 !important;
+        margin-top: 10px;
+        display: inline-block;
+    }
+
+    .tablet-view .res-admin-employee-management .admin-empadd-view #myTabContent .save-and-next,
+    .tablet-view .res-admin-employee-management .admin-empadd-view #myTabContent .addemp-submit-btn {
+        height: auto;
+        width: 51% !important;
+        margin-top: auto !important;
+        margin-left: 0px !important;
+        float: left;
+        margin-bottom: 30px;
+    }
+
+    .tablet-view .res-admin-employee-management .admin-empadd-view .import-user-head {
+        margin-bottom: 10px;
+        margin-top: 20px;
+    }
+
+    .tablet-view .res-admin-employee-management .admin-empadd-view .file-upload {
+        width: 100%;
+    }
+
+    .tablet-view .res-admin-employee-management .admin-empadd-view .submit-button {
+        margin-top: 20px;
+        text-align: center;
+        margin-right: auto;
+    }
+
+    .tablet-view .res-admin-employee-management .res-save-btn {
+        max-width: 100% !important;
+        flex: auto;
+    }
+    
+    /*admin emp management page end*/
+
+    /* admin attendance start*/
+    .tablet-view .res-admin-attendance .main-content.container-fluid {
+        width: 71% !important;
+        padding: 65px 0px;
+    }
+    .tablet-view .res-admin-attendance .res-admin-attendance-header {
+        display: inline !important;
+        width: 94%;
+    }
+
+    .tablet-view .res-admin-attendance .res-admin-att-header-block {
+        padding: 0;
+    }
+
+    .tablet-view .dropdowns-container .month-dropdown {
+        width: 50%;
+        display: inline-block;
+    }
+
+    .tablet-view .dropdowns-container {
+        display: inline-block;
+        width: 100%;
+    }
+
+        .tablet-view .dropdowns-container .month-dropdown input {
+            width: 92% !important;
+        }
+
+    .tablet-view .res-admin-attendance .admin-attendancemgmt-view .days-container {
+        overflow-x: scroll;
+        display: inline-flex;
+        width: 95%;
+        margin: 10px 4%;
+    }
+
+    .tablet-view .res-admin-attendance .res-admin-attendance-header .adminatt-dropdown {
+        width: 25%;
+        display: inline-block !important;
+    }
+
+    .tablet-view .res-admin-attendance .res-admin-attendance-header .adminatt-dropdown select {
+        width: 100% !important;
+        margin-left: 0px !important;
+    }
+
+    .tablet-view .res-admin-attendance .res-admin-attendance-header .res-add-shift-btn {
+        width: 20%;
+        display: inline;
+    }
+
+    .tablet-view .res-admin-attendance .dropdowns-container .day {
+        padding: 0 4px;
+    }
+
+    .tablet-view .res-admin-attendance .table-responsive {
+        overflow-x: auto !important;
+    }
+
+    .tablet-view #leaveUpdateModal .leaveupdate_checkin, .tablet-view #leaveUpdateModal .leaveupdate_checkout {
+        width: 100%;
+    }
+
+    .tablet-view #leaveUpdateModal .res-submit-btn {
+        margin: 0 15px !important;
+        padding: 0;
+    }
+
+    .tablet-view .res-admin-individual-attendance {
+        margin-top: 0px !important;
+    }
+
+    .tablet-view .res-admin-individual-attendance .res-admin-individual-att-from-to {
+        margin-left: 5% !important;
+    }
+    /* admin attendance end*/
 }
 
 /* Media Query for Tablets Ipads portrait mode end */
+
+@media (min-width: 768px) {
+    .responsive-tabs.nav-tabs i.fa {
+        display: none;
+    }
+}
