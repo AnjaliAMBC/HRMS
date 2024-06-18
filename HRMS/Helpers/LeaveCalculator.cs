@@ -322,5 +322,89 @@ namespace HRMS.Helpers
 
             return model;
         }
+
+        public List<LeaveInfo> EmpLeaveInfo(string empId, int year)
+        {
+            int currentYear = year == 0 ? DateTime.Now.Year : year;
+            string january1stString = $"{currentYear}-01-01";
+            string december31stString = $"{currentYear}-12-31";
+
+            DateTime january1st = DateTime.ParseExact(january1stString, "yyyy-MM-dd", null);
+            DateTime december31st = DateTime.ParseExact(december31stString, "yyyy-MM-dd", null);
+
+            // Query leave data and group by LeaveRequestName
+            var leaves = _dbContext.con_leaveupdate
+                .Where(x => x.employee_id == empId && x.leavedate >= january1st && x.leavedate <= december31st)
+                .GroupBy(x => x.LeaveRequestName)
+                .Select(g => new LeaveInfo
+                {
+                    LeaveRequestName = g.Key,
+                    Fromdate = g.Min(x => x.Fromdate),
+                    Todate = g.Max(x => x.Todate),
+                    TotalLeaveDays = g.Sum(x => x.LeaveDays),
+                    LatestLeave = g.OrderByDescending(x => x.leavedate).FirstOrDefault()
+                })
+                .OrderByDescending(x => x.LatestLeave.leavedate)
+                .ToList();
+
+            // Query Comp Off data for the specified year
+            var compoffsApplied = _dbContext.Compoffs
+                .Where(x => x.EmployeeID == empId && x.CampOffDate.Year == year)
+                .ToList();
+
+            // Convert Comp Off data to LeaveInfo format and add to leaves list
+            foreach (var compoff in compoffsApplied)
+            {
+                var compOffLeave = new LeaveInfo
+                {
+                    LeaveRequestName = compoff.concatinatestring,
+                    Fromdate = compoff.CampOffDate,
+                    Todate = compoff.CampOffDate,
+                    TotalLeaveDays = 1, // Assuming each comp off is 1 day
+                    LatestLeave = new con_leaveupdate
+                    {
+                        leavedate = compoff.CampOffDate,
+                        LeaveRequestName = compoff.concatinatestring,
+                        LeaveStatus = compoff.addStatus,
+                        leavesource = "CompOff"
+                    }
+                };
+
+                leaves.Add(compOffLeave);
+            }
+
+            // If you need to return leaves list as a specific type, convert it accordingly
+            var result = leaves
+                .OrderByDescending(x => x.LatestLeave.leavedate)
+                .ToList();
+            return result;
+        }
+
+        public List<LeaveInfo> EmpLeaveInfoBasedonDate(string startdate, string enddate)
+        {
+
+            DateTime dateStart = DateTime.ParseExact(startdate, "dd-MM-yyyy", null);
+
+            // Query leave data and group by LeaveRequestName
+            var leaves = _dbContext.con_leaveupdate
+                .Where(x => x.createddate == dateStart)
+                .GroupBy(x => x.LeaveRequestName)
+                .Select(g => new LeaveInfo
+                {
+                    LeaveRequestName = g.Key,
+                    Fromdate = g.Min(x => x.Fromdate),
+                    Todate = g.Max(x => x.Todate),
+                    TotalLeaveDays = g.Sum(x => x.LeaveDays),
+                    LatestLeave = g.OrderByDescending(x => x.leavedate).FirstOrDefault()
+                })
+                .OrderByDescending(x => x.LatestLeave.leavedate)
+                .ToList();
+
+            // If you need to return leaves list as a specific type, convert it accordingly
+            var result = leaves
+                .OrderByDescending(x => x.LatestLeave.leavedate)
+                .ToList();
+            return result;
+        }
     }
 }

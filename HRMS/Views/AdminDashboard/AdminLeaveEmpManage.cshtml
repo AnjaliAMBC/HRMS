@@ -255,47 +255,60 @@
             </thead>
             <tbody>
 
-                @foreach (var leaveemp in Model.LeavesInfo)
+                @foreach (var leaveemp in Model.LeavesInfoBasedOnFromAndTodate)
                 {
                     <tr class="rowBorder">
-                        <td class="fontSmall">@leaveemp.employee_id</td>
+                        <td class="fontSmall">@leaveemp.LatestLeave.employee_id</td>
                         <td>
                             <div class="userLeaveDetails">
-                                <img src=""
+
+                                @{
+                                    var empImagePath = "/Assets/EmpImages/" + leaveemp.LatestLeave.employee_id + ".jpeg";
+                                }
+                                <img src="@empImagePath"
                                      class="userIcon"
                                      alt="user" />
                                 <div class="fontSmall">
-                                    <p class="mb-0 fontWtMedium">@leaveemp.employee_name</p>
-                                    <a href="#">john.doe@example.com</a>
+                                    <p class="mb-0 fontWtMedium">@leaveemp.LatestLeave.employee_name</p>
+                                    <a href="#">@leaveemp.LatestLeave.OfficalEmailid</a>
                                 </div>
                             </div>
                         </td>
                         <td class="fontSmall dataMinWidth dateMaxWidth">
-                            <p class="mb-0 fontWtMedium">@leaveemp.leavedate.Value.ToString("dd MMM yyyy")</p>
-                            <span class="mutedText">@leaveemp.leavedate.Value.ToString("ddd")</span>
+                            <p class="mb-0 fontWtMedium">@leaveemp.LatestLeave.leavedate.Value.ToString("dd MMM yyyy")</p>
+                            <span class="mutedText">@leaveemp.LatestLeave.leavedate.Value.ToString("ddd")</span>
                         </td>
                         <td class="fontSmall">
                             <div class="mutedText">Day(s)</div>
-                            <span class="fontWtMedium">1</span>
+                            <span class="fontWtMedium">@leaveemp.TotalLeaveDays</span>
                         </td>
                         <td class="fontSmall dataMinWidth">
                             <div class="mutedText">Leave Type</div>
-                            <span class="fontWtbold">@leaveemp.leavesource</span>
+                            <span class="fontWtbold">@leaveemp.LatestLeave.leavesource</span>
                         </td>
                         <td class="fontSmall">
                             <div class="mutedText">Location</div>
-                            <span class="fontWtbold">Madurai</span>
+                            <span class="fontWtbold">@leaveemp.LatestLeave.Location</span>
                         </td>
                         <td class="fontSmall commentSec">
                             <div class="dFlex">
                                 <i class="fa-solid fa-message chatIcon"></i>
                                 <p>
-                                    @leaveemp.leave_reason
+                                    @leaveemp.LatestLeave.leave_reason
                                 </p>
                             </div>
                             <div class="statusBtnFlex">
-                                <a href="" class="statusBtn acceptBtn">Approve</a>
-                                <a href="" class="statusBtn rejectBtn">Reject</a>
+
+                                @if (leaveemp.LatestLeave.LeaveStatus == "Pending")
+                                {
+                                    <a href="" class="statusBtn acceptBtn">Approve</a>
+                                    <a href="" class="statusBtn rejectBtn">Reject</a>
+                                }
+                                else
+                                {
+                                    <small>@leaveemp.LatestLeave.LeaveStatus</small>
+                                }
+
                             </div>
                         </td>
                     </tr>

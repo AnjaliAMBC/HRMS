@@ -4,8 +4,8 @@
     var currentUserSession = Session["SiteContext"] as HRMS.Models.SiteContextModel;
     var leaveDefaultEmails = System.Configuration.ConfigurationManager.AppSettings["LeaveEmails"];
 
-    var pageTitle = !string.IsNullOrWhiteSpace(Model.Leaves) ? "Edit Leave" : "Apply Leave";
-    var buttonText = !string.IsNullOrWhiteSpace(Model.Leaves) ? "Edit" : "Apply";
+    var pageTitle = !string.IsNullOrWhiteSpace(Model.Leaves) && Model.Leaves != "[]" ? "Edit Leave" : "Apply Leave";
+    var buttonText = !string.IsNullOrWhiteSpace(Model.Leaves) && Model.Leaves != "[]" ? "Edit" : "Apply";
 }
 
 <div class="employeeleaveapply-view">
@@ -14,7 +14,7 @@
             <div class="col-md-5 popup-form">
                 <form id="leaveForm">
                     <div class="form-group">
-                        <h4 class="mb-4">@pageTitle</h4>
+                        <h4 class="mb-4 leave-pagetitle">@pageTitle</h4>
                         <div class="form-group div-leave-empname">
                             <label for="leaveempname" class="leave_label">Employee Name*</label>
                             <select class="form-control" id="leaveempname">

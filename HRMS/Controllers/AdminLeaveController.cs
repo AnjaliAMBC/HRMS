@@ -41,13 +41,15 @@ namespace HRMS.Controllers
 
         public ActionResult AdminCalenderLeaveManagement(int month, int year, string empID)
         {
-            DateTime startDate, endDate;
+            //DateTime startDate, endDate;
 
-            GetMonthStartAndEndDates(month, year, out startDate, out endDate);
+            //GetMonthStartAndEndDates(month, year, out startDate, out endDate);
 
-            var model = new AdminLeaveManagementModel();
-            new LeaveCalculator().GetLeavesInfoBasedonStartandEndDate(startDate.ToString(), "", model, empID);
-            var json = JsonConvert.SerializeObject(model.LeavesInfo);
+            //var model = new AdminLeaveManagementModel();
+
+            var leaves = new LeaveCalculator().EmpLeaveInfoBasedonDate(DateTime.Today.ToString("dd-MM-yyyy"), DateTime.Today.ToString("dd-MM-yyyy"));
+            //new LeaveCalculator().GetLeavesInfoBasedonStartandEndDate(startDate.ToString(), "", model, empID);
+            var json = JsonConvert.SerializeObject(leaves);
             return Json(json.Replace(";", ""), JsonRequestBehavior.AllowGet);
         }
 
@@ -70,12 +72,19 @@ namespace HRMS.Controllers
         {
             var model = new AdminLeaveManagementModel();
 
-            if (string.IsNullOrWhiteSpace(SelectedEndDate))
+            model.SelectedDate = DateTime.Today;
+            model.SelectedEndDate = DateTime.Today;
+            if (!string.IsNullOrWhiteSpace(selectedStartDate))
             {
-                SelectedEndDate = selectedStartDate;
+                if (!selectedStartDate.Contains('-'))
+                    model.SelectedDate = DateTime.ParseExact(selectedStartDate, "dd MMMM yyyy", CultureInfo.InvariantCulture);
+                else
+                    model.SelectedDate = DateTime.Parse(selectedStartDate);
             }
-            new LeaveCalculator().GetLeavesInfoBasedonStartandEndDate(selectedStartDate, SelectedEndDate, model, "");
 
+
+            model.SelectedEndDate = model.SelectedDate;
+            model.LeavesInfoBasedOnFromAndTodate = new LeaveCalculator().EmpLeaveInfoBasedonDate(model.SelectedDate.ToString("dd-MM-yyyy"), model.SelectedEndDate.ToString("dd-MM-yyyy"));
             return PartialView("~/Views/AdminDashboard/AdminLeaveEmpManage.cshtml", model);
         }
 

@@ -73,7 +73,7 @@ function generateLeaveCalendar(month, year) {
             const leaveData = $.parseJSON(response);
             const leaveRequests = {};
             leaveData.forEach(leave => {
-                const leaveDate = new Date(leave.leavedate).toISOString().split('T')[0];
+                const leaveDate = new Date(leave.LatestLeave.createddate).toISOString().split('T')[0];
                 if (!leaveRequests[leaveDate]) {
                     leaveRequests[leaveDate] = [];
                 }
@@ -141,7 +141,7 @@ function generateLeaveCalendar(month, year) {
                                         leaveRequests[formattedDate].forEach((leave, index) => {
                                             if (index < 2) { // Show up to 2 images directly
                                                 const img = document.createElement("img");
-                                                img.src = `/Assets/EmpImages/${leave.employee_id}.jpeg`; // Adjust the image path as needed
+                                                img.src = `/Assets/EmpImages/${leave.LatestLeave.employee_id}.jpeg`; // Adjust the image path as needed
                                                 img.alt = leave.employee_name;
                                                 img.title = leave.employee_name;
                                                 leaveDiv.appendChild(img);

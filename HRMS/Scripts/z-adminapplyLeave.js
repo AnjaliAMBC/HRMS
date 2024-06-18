@@ -34,7 +34,10 @@
             $(".hiddenadmindashboard").html("");
             $(".hiddenempdashboard").html("");
 
-            $('#toleaveDate').trigger('change');
+            if (leaverequestname != undefined && leaverequestname != "") {
+                $('#toleaveDate').trigger('change');
+            }
+        
             generateBalanceSection();
 
         },
@@ -47,6 +50,9 @@
 $(document).on('click', '.adminside-leaveapply', function (event) {
     event.preventDefault();
     HighlightAdminActiveLink($(this));
+    $('.leave-pagetitle').text("Apply Leave");
+    $('.btn-apply-empleave').text("Apply Leave");
+    $('#dayTypeContainer').hide();
     AddEditLeaves("");
 });
 //avialable balance function
