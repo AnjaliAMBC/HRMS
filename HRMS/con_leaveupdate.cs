@@ -34,5 +34,9 @@ namespace HRMS
         public Nullable<System.DateTime> Todate { get; set; }
         public string LeaveRequestName { get; set; }
         public string Location { get; set; }
+        public string createdby { get; set; }
+        public Nullable<System.DateTime> createddate { get; set; }
+        public string updatedby { get; set; }
+        public Nullable<System.DateTime> updateddate { get; set; }
     }
 }

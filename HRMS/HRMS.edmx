@@ -22,6 +22,11 @@
           <Property Name="EmployeeName" Type="varchar" MaxLength="255" Nullable="false" />
           <Property Name="HolidayName" Type="varchar" MaxLength="255" Nullable="false" />
           <Property Name="concatinatestring" Type="varchar" MaxLength="255" Nullable="false" />
+          <Property Name="addStatus" Type="varchar" MaxLength="255" />
+          <Property Name="createdby" Type="varchar" MaxLength="255" />
+          <Property Name="createddate" Type="date" />
+          <Property Name="updatedby" Type="varchar" MaxLength="255" />
+          <Property Name="updateddate" Type="date" />
         </EntityType>
         <EntityType Name="con_leaveupdate">
           <Key>
@@ -47,6 +52,10 @@
           <Property Name="Todate" Type="date" />
           <Property Name="LeaveRequestName" Type="varchar" MaxLength="255" />
           <Property Name="Location" Type="varchar" MaxLength="255" />
+          <Property Name="createdby" Type="varchar" MaxLength="255" />
+          <Property Name="createddate" Type="date" />
+          <Property Name="updatedby" Type="varchar" MaxLength="255" />
+          <Property Name="updateddate" Type="date" />
         </EntityType>
         <EntityType Name="Department">
           <Key>
@@ -462,6 +471,10 @@ warning 6002: The table/view 'HRMS_PortalDev1.dbo.CheckInView' does not have a p
           <Property Name="Todate" Type="DateTime" Precision="0" />
           <Property Name="LeaveRequestName" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
           <Property Name="Location" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+          <Property Name="createdby" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+          <Property Name="createddate" Type="DateTime" Precision="0" />
+          <Property Name="updatedby" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+          <Property Name="updateddate" Type="DateTime" Precision="0" />
         </EntityType>
         <EntityType Name="Compoff">
           <Key>
@@ -473,6 +486,11 @@ warning 6002: The table/view 'HRMS_PortalDev1.dbo.CheckInView' does not have a p
           <Property Name="EmployeeName" Type="String" Nullable="false" MaxLength="255" FixedLength="false" Unicode="false" />
           <Property Name="HolidayName" Type="String" Nullable="false" MaxLength="255" FixedLength="false" Unicode="false" />
           <Property Name="concatinatestring" Type="String" Nullable="false" MaxLength="255" FixedLength="false" Unicode="false" />
+          <Property Name="addStatus" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+          <Property Name="createdby" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+          <Property Name="createddate" Type="DateTime" Precision="0" />
+          <Property Name="updatedby" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+          <Property Name="updateddate" Type="DateTime" Precision="0" />
         </EntityType>
         <EntityType Name="LeaveBalance">
           <Key>
@@ -668,6 +686,10 @@ warning 6002: The table/view 'HRMS_PortalDev1.dbo.CheckInView' does not have a p
           <EntitySetMapping Name="con_leaveupdate">
             <EntityTypeMapping TypeName="HRMS_EntityModel.con_leaveupdate">
               <MappingFragment StoreEntitySet="con_leaveupdate">
+                <ScalarProperty Name="updateddate" ColumnName="updateddate" />
+                <ScalarProperty Name="updatedby" ColumnName="updatedby" />
+                <ScalarProperty Name="createddate" ColumnName="createddate" />
+                <ScalarProperty Name="createdby" ColumnName="createdby" />
                 <ScalarProperty Name="Location" ColumnName="Location" />
                 <ScalarProperty Name="LeaveRequestName" ColumnName="LeaveRequestName" />
                 <ScalarProperty Name="Todate" ColumnName="Todate" />
@@ -694,6 +716,11 @@ warning 6002: The table/view 'HRMS_PortalDev1.dbo.CheckInView' does not have a p
           <EntitySetMapping Name="Compoffs">
             <EntityTypeMapping TypeName="HRMS_EntityModel.Compoff">
               <MappingFragment StoreEntitySet="Compoff">
+                <ScalarProperty Name="updateddate" ColumnName="updateddate" />
+                <ScalarProperty Name="updatedby" ColumnName="updatedby" />
+                <ScalarProperty Name="createddate" ColumnName="createddate" />
+                <ScalarProperty Name="createdby" ColumnName="createdby" />
+                <ScalarProperty Name="addStatus" ColumnName="addStatus" />
                 <ScalarProperty Name="concatinatestring" ColumnName="concatinatestring" />
                 <ScalarProperty Name="HolidayName" ColumnName="HolidayName" />
                 <ScalarProperty Name="EmployeeName" ColumnName="EmployeeName" />
