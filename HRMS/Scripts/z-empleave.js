@@ -336,8 +336,43 @@ function GetEmpLeaveHistory() {
     });
 }
 
+
+
 function empleaveedit(currentthis) {
-    alert(currentthis.attr("data-leavename"));
+    var leaveName = currentthis.attr("data-leavename");
+
+    AddEditLeaves(leaveName);
+
+    //$.ajax({
+    //    url: '/empLeave/empleaveedit',
+    //    type: 'POST',
+    //    dataType: 'json',
+    //    data: { leavenumber: leaveName },
+    //    success: function (data) {
+    //        $('#leaveempname').val(data.employee_id).change();
+    //        $('#leaveType').val(data.leavesource);
+    //        $('#fromleaveDate').val(formatDate1(data.Fromdate));
+    //        $('#toleaveDate').val(formatDate1(data.Todate));
+    //        $('#reason').val(data.leave_reason);
+    //        $('#BackupName').val(data.BackupResource_Name);
+    //        $('#BackupNo').val(data.EmergencyContact_no);
+
+    //        // Trigger date change event to generate day type rows
+    //        $('#fromleaveDate').trigger('change');
+    //        $('#toleaveDate').trigger('change');
+
+    //        // Pre-select day types if available
+    //        preselectDayTypes(data);
+
+    //        // Show the apply leave form
+    //        $('.employeeleaveapply-view').show();
+    //    },
+    //    error: function (xhr, status, error) {
+    //        console.error("Error occurred: " + error);
+    //    }
+    //});
+
+
 }
 
 function empleavecancel(currentthis) {

@@ -41,12 +41,34 @@ namespace HRMS.Controllers
         {
             return View("~/Views/EmployeeDashboard/EmpLeaveTracker.cshtml");
         }
-        public ActionResult EmpApplyLeave()
+        public ActionResult EmpApplyLeave(string leaveRequestName)
         {
             var applyleaveModel = new ApplyLeaveViewModel();
 
             var employees = _dbContext.emp_info.Where(x => x.EmployeeStatus == "Active").ToList();
             applyleaveModel.employees = employees;
+
+            var leaves = _dbContext.con_leaveupdate
+                    .Where(x => x.LeaveRequestName == leaveRequestName).ToList();
+
+            applyleaveModel.EditLeaveInfo = leaves.FirstOrDefault();
+            applyleaveModel.Leaves = JsonConvert.SerializeObject(leaves);
+
+            applyleaveModel.leaveTypes = new List<string>
+            {
+                "Earned Leave",
+                "Emergency Leave",
+                "Sick Leave",
+                "Bereavement Leave",
+                "Hourly Permission",
+                "Marriage Leave",
+                "Maternity Leave",
+                "Paternity Leave",
+                "Comp Off"
+            };
+
+
+
             return PartialView("~/Views/EmployeeDashboard/EmpApplyleave.cshtml", applyleaveModel);
         }
 
@@ -55,35 +77,50 @@ namespace HRMS.Controllers
             try
             {
                 if (leaveRequest == null ||
-                      string.IsNullOrEmpty(leaveRequest.LeaveType) ||
-                       string.IsNullOrEmpty(leaveRequest.FromDate) ||
-                       string.IsNullOrEmpty(leaveRequest.TeamEmail) ||
-                       (leaveRequest.DayTypeEntries == null && string.IsNullOrEmpty(leaveRequest.hourPermission)))
+                    string.IsNullOrEmpty(leaveRequest.LeaveType) ||
+                    string.IsNullOrEmpty(leaveRequest.FromDate) ||
+                    string.IsNullOrEmpty(leaveRequest.TeamEmail) ||
+                    (leaveRequest.DayTypeEntries == null && string.IsNullOrEmpty(leaveRequest.hourPermission)))
                 {
                     return Json(leaveRequest, JsonRequestBehavior.AllowGet);
+                }
+
+                // Check if ActionType is Edit
+                if (leaveRequest.ActionType == "Edit")
+                {
+                    // Remove existing leaves within the edited date range
+                    var existingLeaves = _dbContext.con_leaveupdate
+                        .Where(l => l.LeaveRequestName == leaveRequest.EditRequestName)
+                        .ToList();
+
+                    if (existingLeaves.Any())
+                    {
+                        _dbContext.con_leaveupdate.RemoveRange(existingLeaves);
+                        _dbContext.SaveChanges();
+                    }
                 }
 
                 var leaves = new List<con_leaveupdate>();
 
                 if (leaveRequest.DayTypeEntries != null && leaveRequest.DayTypeEntries.Count() > 0)
                 {
-                    foreach (var DayTypeEntrie in leaveRequest.DayTypeEntries)
+                    foreach (var DayTypeEntry in leaveRequest.DayTypeEntries)
                     {
                         leaves.Add(new con_leaveupdate()
                         {
                             employee_id = leaveRequest.EmpID,
                             employee_name = leaveRequest.EmpName,
-                            leavecategory = leaveRequest.LeaveType + " " + DayTypeEntrie.DayType.Replace("fullDay", "Full day").Replace("halfDay", DayTypeEntrie.HalfType),
-                            leavedate = Convert.ToDateTime(DayTypeEntrie.Date),
+                            leavecategory = leaveRequest.LeaveType + " " + DayTypeEntry.DayType.Replace("fullDay", "Full day").Replace("halfDay", DayTypeEntry.HalfType),
+                            leavedate = Convert.ToDateTime(DayTypeEntry.Date),
                             leavesource = leaveRequest.LeaveType,
-                            leaveuniqkey = leaveRequest.EmpID + "_" + DayTypeEntrie.Date,
+                            leaveuniqkey = leaveRequest.EmpID + "_" + DayTypeEntry.Date,
                             leave_reason = leaveRequest.Reason,
                             submittedby = leaveRequest.SubmittedBy,
-                            DayType = DayTypeEntrie.DayType,
-                            HalfDayCategory = DayTypeEntrie.HalfType,
+                            DayType = DayTypeEntry.DayType,
+                            HalfDayCategory = DayTypeEntry.HalfType,
                             BackupResource_Name = leaveRequest.BackupResource_Name,
                             EmergencyContact_no = leaveRequest.EmergencyContact_no,
-                            LeaveDays = DayTypeEntrie.DayType == "fullDay" ? (decimal)1 : (decimal)0.5,
+                            LeaveDays = DayTypeEntry.DayType == "fullDay" ? (decimal)1 : (decimal)0.5,
                             LeaveStatus = "Pending",
                             Fromdate = Convert.ToDateTime(leaveRequest.FromDate),
                             Todate = Convert.ToDateTime(leaveRequest.ToDate),
@@ -132,6 +169,7 @@ namespace HRMS.Controllers
                 return Json(leaveRequest, JsonRequestBehavior.AllowGet);
             }
         }
+
 
         public ActionResult GetAvailableLeaves(string empId, string leaveType)
         {
@@ -186,6 +224,25 @@ namespace HRMS.Controllers
         }
 
 
+        public ActionResult EmpLeaveEdit(string leavenumber)
+        {
+            var jsonResponse = new JsonResponse();
+
+            try
+            {
+                var editItems = _dbContext.con_leaveupdate
+                       .Where(x => x.LeaveRequestName == leavenumber).ToList();
+
+                return Json(editItems.FirstOrDefault(), JsonRequestBehavior.AllowGet);
+            }
+            catch (Exception ex)
+            {
+                jsonResponse = ErrorHelper.CaptureError(ex);
+                return Json(jsonResponse, JsonRequestBehavior.AllowGet);
+            }
+        }
+
+
         public ActionResult EmpLeaveCancel(string leavenumber)
         {
             var jsonResponse = new JsonResponse();
@@ -199,12 +256,8 @@ namespace HRMS.Controllers
                 {
                     foreach (var item in canLeaveItems)
                     {
-                        //item.LeaveStatus = "Cancelled";
-                        //item.leaveuniqkey = item.leaveuniqkey + DateTime.Now.ToString();
-
-                        _dbContext.con_leaveupdate.Remove(item);
+                        item.LeaveStatus = "Cancelled";                       
                     }
-                   
 
                     _dbContext.SaveChanges();
 

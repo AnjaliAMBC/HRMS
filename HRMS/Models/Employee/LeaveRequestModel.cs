@@ -25,6 +25,8 @@ namespace HRMS.Models.Employee
         public JsonResponse jsonResponse { get; set; } = new JsonResponse();
         public string Location { get; set; }
         public string OfficalEmailid { get; set; }
+        public string ActionType { get; set; }
+        public string EditRequestName { get; set; }
     }
 
     public class DayTypeEntry
@@ -37,6 +39,11 @@ namespace HRMS.Models.Employee
     public class ApplyLeaveViewModel
     {
         public List<emp_info> employees { get; set; } = new List<emp_info>();
+        public con_leaveupdate EditLeaveInfo { get; set; } = new con_leaveupdate();
+        public string Leaves { get; set; }
+
+        public List<string> leaveTypes = new List<string>();
+
     }
 
 
@@ -73,4 +80,6 @@ namespace HRMS.Models.Employee
         public string ShortName { get; set; }
 
     }
+
+
 }

@@ -77,6 +77,14 @@ function generateDayTypeRows() {
         var start = new Date(fromDate);
         var end = new Date(toDate);
 
+        // Parse the JSON data (assuming jsonData is your parsed JSON array)
+        var jsonData = [
+            { "leaveno": 133, "leavedate": "2024-06-17T00:00:00", "employee_id": "1311", "leave_reason": "reason", "submittedby": "Anjali Missewar", "leavesource": "Earned Leave", "leaveuniqkey": "1311_2024-06-17", "leavecategory": "Earned Leave Full day", "employee_name": "Anjali Missewar", "DayType": "fullDay", "LeaveDays": 1.00, "HalfDayCategory": null, "BackupResource_Name": "bakup", "EmergencyContact_no": "234234", "LeaveStatus": "Pending", "OfficalEmailid": "anjali@ambconline.com", "Fromdate": "2024-06-17T00:00:00", "Todate": "2024-06-20T00:00:00", "LeaveRequestName": "1311_2024-06-17_2024-06-20", "Location": "Hyderabad" },
+            { "leaveno": 134, "leavedate": "2024-06-18T00:00:00", "employee_id": "1311", "leave_reason": "reason", "submittedby": "Anjali Missewar", "leavesource": "Earned Leave", "leaveuniqkey": "1311_2024-06-18", "leavecategory": "Earned Leave First Half", "employee_name": "Anjali Missewar", "DayType": "halfDay", "LeaveDays": 0.50, "HalfDayCategory": "First Half", "BackupResource_Name": "bakup", "EmergencyContact_no": "234234", "LeaveStatus": "Pending", "OfficalEmailid": "anjali@ambconline.com", "Fromdate": "2024-06-17T00:00:00", "Todate": "2024-06-20T00:00:00", "LeaveRequestName": "1311_2024-06-17_2024-06-20", "Location": "Hyderabad" },
+            { "leaveno": 135, "leavedate": "2024-06-19T00:00:00", "employee_id": "1311", "leave_reason": "reason", "submittedby": "Anjali Missewar", "leavesource": "Earned Leave", "leaveuniqkey": "1311_2024-06-19", "leavecategory": "Earned Leave Second Half", "employee_name": "Anjali Missewar", "DayType": "halfDay", "LeaveDays": 0.50, "HalfDayCategory": "Second Half", "BackupResource_Name": "bakup", "EmergencyContact_no": "234234", "LeaveStatus": "Pending", "OfficalEmailid": "anjali@ambconline.com", "Fromdate": "2024-06-17T00:00:00", "Todate": "2024-06-20T00:00:00", "LeaveRequestName": "1311_2024-06-17_2024-06-20", "Location": "Hyderabad" },
+            { "leaveno": 136, "leavedate": "2024-06-20T00:00:00", "employee_id": "1311", "leave_reason": "reason", "submittedby": "Anjali Missewar", "leavesource": "Earned Leave", "leaveuniqkey": "1311_2024-06-20", "leavecategory": "Earned Leave Full day", "employee_name": "Anjali Missewar", "DayType": "fullDay", "LeaveDays": 1.00, "HalfDayCategory": null, "BackupResource_Name": "bakup", "EmergencyContact_no": "234234", "LeaveStatus": "Pending", "OfficalEmailid": "anjali@ambconline.com", "Fromdate": "2024-06-17T00:00:00", "Todate": "2024-06-20T00:00:00", "LeaveRequestName": "1311_2024-06-17_2024-06-20", "Location": "Hyderabad" }
+        ];
+
         // Generate a row for each date in the range
         for (var d = new Date(start); d <= end; d.setDate(d.getDate() + 1)) {
 
@@ -92,18 +100,39 @@ function generateDayTypeRows() {
                     <div class="form-group-row apply-leave-form">
                         <div class="apply-date-label">${dateStr}</div>
                         <div class="vertical-line"></div>
-                        <div class="dayleave-type-container">
+                        <div class="dayleave-type-container">`;
+
+            // Find matching leave request for the current date
+            var matchingLeave = jsonData.find(function (leave) {
+                return leave.leavedate.split('T')[0] === dateStr;
+            });
+
+            // Determine default values for radio buttons and half day selection
+            var fullDayChecked = 'checked';
+            var halfDayChecked = '';
+            var halfDaySelectDisabled = 'disabled';
+
+            if (matchingLeave) {
+                if (matchingLeave.DayType === 'fullDay') {
+                    fullDayChecked = 'checked';
+                } else if (matchingLeave.DayType === 'halfDay') {
+                    halfDayChecked = 'checked';
+                    halfDaySelectDisabled = '';
+                }
+            }
+
+            dayTypeRow += `
                             <div class="form-check">
-                                <input class="form-check-input" type="radio" name="dayType_${dateStr}" value="fullDay" checked>
+                                <input class="form-check-input" type="radio" name="dayType_${dateStr}" value="fullDay" ${fullDayChecked}>
                                 <label class="form-check-label">Full Day</label>
                             </div>
                             <div class="form-check">
-                                <input class="form-check-input" type="radio" name="dayType_${dateStr}" value="halfDay">
+                                <input class="form-check-input" type="radio" name="dayType_${dateStr}" value="halfDay" ${halfDayChecked}>
                                 <label class="form-check-label">Half Day</label>
                             </div>
-                            <select class="form-control half-day-select" name="halfType_${dateStr}" disabled>
-                                <option>First Half</option>
-                                <option>Second Half</option>
+                            <select class="form-control half-day-select" name="halfType_${dateStr}" ${halfDaySelectDisabled}>
+                                <option ${matchingLeave && matchingLeave.HalfDayCategory === 'First Half' ? 'selected' : ''}>First Half</option>
+                                <option ${matchingLeave && matchingLeave.HalfDayCategory === 'Second Half' ? 'selected' : ''}>Second Half</option>
                             </select>
                         </div>
                     </div>`;
@@ -134,6 +163,9 @@ function generateDayTypeRows() {
         totalLeavesContainer.empty();
     }
 }
+
+
+
 
 
 $(document).on('change', '#fromleaveDate', function (event) {
@@ -289,7 +321,9 @@ $(document).on('click', '.btn-apply-empleave', function (event) {
         EmergencyContact_no: backupNo,
         hourPermission: hourPermission,
         Location: location,
-        OfficalEmailid: officialEmail
+        OfficalEmailid: officialEmail,
+        ActionType: $('.btn-apply-empleave').text(),
+        EditRequestName: $('#editleaverequestname').text()
     };
 
     $.ajax({
