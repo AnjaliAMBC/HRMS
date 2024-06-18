@@ -23,7 +23,8 @@ namespace HRMS.Models.Employee
         public string EmergencyContact_no { get; set; }
         public string hourPermission { get; set; }
         public JsonResponse jsonResponse { get; set; } = new JsonResponse();
-
+        public string Location { get; set; }
+        public string OfficalEmailid { get; set; }
     }
 
     public class DayTypeEntry

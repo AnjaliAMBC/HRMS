@@ -161,6 +161,9 @@ $(document).on('click', '.btn-apply-empleave', function (event) {
     let SubmittedBy = $('.loggedinempname').text();
     let backupName = $('#BackupName').val();
     let backupNo = $('#BackupNo').val();
+    let location = $("#leaveempname option:selected").attr("data-emplocation");
+    let officialEmail = $("#leaveempname option:selected").attr("data-empemail");
+
 
     let isValid = true;
     let errorMessage = '';
@@ -285,6 +288,8 @@ $(document).on('click', '.btn-apply-empleave', function (event) {
         BackupResource_Name: backupName,
         EmergencyContact_no: backupNo,
         hourPermission: hourPermission,
+        Location: location,
+        OfficalEmailid: officialEmail
     };
 
     $.ajax({

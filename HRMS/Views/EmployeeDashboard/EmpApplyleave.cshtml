@@ -22,7 +22,7 @@
                                 @foreach (var emp in Model.employees)
                                 {
                                     var selected = !currentUserSession.IsAdmin && emp.EmployeeID == selectedempID ? "selected" : "";
-                                    <option @selected value="@emp.EmployeeID">@emp.EmployeeName</option>
+                                    <option @selected value="@emp.EmployeeID" data-emplocation="@emp.Location" data-empemail="@emp.OfficalEmailid">@emp.EmployeeName</option>
                                 }
                             </select>
                         </div>

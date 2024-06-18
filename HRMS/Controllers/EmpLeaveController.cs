@@ -84,7 +84,12 @@ namespace HRMS.Controllers
                             BackupResource_Name = leaveRequest.BackupResource_Name,
                             EmergencyContact_no = leaveRequest.EmergencyContact_no,
                             LeaveDays = DayTypeEntrie.DayType == "fullDay" ? (decimal)1 : (decimal)0.5,
-                            LeaveStatus = "Awaiting Approval"
+                            LeaveStatus = "Pending",
+                            Fromdate = Convert.ToDateTime(leaveRequest.FromDate),
+                            Todate = Convert.ToDateTime(leaveRequest.ToDate),
+                            LeaveRequestName = leaveRequest.EmpID + "_" + leaveRequest.FromDate + "_" + leaveRequest.ToDate,
+                            OfficalEmailid = leaveRequest.OfficalEmailid,
+                            Location = leaveRequest.Location
                         });
                     }
                 }
@@ -105,7 +110,12 @@ namespace HRMS.Controllers
                         BackupResource_Name = leaveRequest.BackupResource_Name,
                         EmergencyContact_no = leaveRequest.EmergencyContact_no,
                         LeaveDays = System.Convert.ToDecimal(leaveRequest.hourPermission),
-                        LeaveStatus = "Awaiting Approval"
+                        LeaveStatus = "Pending",
+                        Fromdate = Convert.ToDateTime(leaveRequest.FromDate),
+                        Todate = Convert.ToDateTime(leaveRequest.ToDate),
+                        LeaveRequestName = leaveRequest.EmpID + "_" + leaveRequest.FromDate + "_" + leaveRequest.ToDate,
+                        OfficalEmailid = leaveRequest.OfficalEmailid,
+                        Location = leaveRequest.Location
                     });
                 }
 
@@ -160,28 +170,51 @@ namespace HRMS.Controllers
 
             var leaves = _dbContext.con_leaveupdate
                 .Where(x => x.employee_id == empId && x.leavedate >= january1st && x.leavedate <= december31st)
-                .ToList().OrderByDescending(x => x.leavedate);
+                .GroupBy(x => x.LeaveRequestName)
+                .Select(g => new
+                {
+                    LeaveRequestName = g.Key,
+                    Fromdate = g.Min(x => x.Fromdate),
+                    Todate = g.Max(x => x.Todate),
+                    TotalLeaveDays = g.Sum(x => x.LeaveDays),
+                    LatestLeave = g.OrderByDescending(x => x.leavedate).FirstOrDefault()
+                })
+                .OrderByDescending(x => x.LatestLeave.leavedate)
+                .ToList();
 
             return Json(leaves, JsonRequestBehavior.AllowGet);
         }
 
-        public ActionResult EmpLeaveCancel(int leavenumber)
+
+        public ActionResult EmpLeaveCancel(string leavenumber)
         {
             var jsonResponse = new JsonResponse();
 
             try
             {
-                var canLeaveItem = _dbContext.con_leaveupdate
-                       .Where(x => x.leaveno == leavenumber).FirstOrDefault();
+                var canLeaveItems = _dbContext.con_leaveupdate
+                       .Where(x => x.LeaveRequestName == leavenumber).ToList();
 
-                if (canLeaveItem != null)
+                if (canLeaveItems != null && canLeaveItems.Any())
                 {
-                    canLeaveItem.LeaveStatus = "Cancelled";
-                    canLeaveItem.leaveuniqkey = "";
+                    foreach (var item in canLeaveItems)
+                    {
+                        //item.LeaveStatus = "Cancelled";
+                        //item.leaveuniqkey = item.leaveuniqkey + DateTime.Now.ToString();
+
+                        _dbContext.con_leaveupdate.Remove(item);
+                    }
+                   
+
                     _dbContext.SaveChanges();
 
                     jsonResponse.Message = "Leave cancelled successfully.";
                     jsonResponse.StatusCode = 200;
+                }
+                else
+                {
+                    jsonResponse.Message = "No leave records found to cancel.";
+                    jsonResponse.StatusCode = 404;
                 }
 
                 return Json(jsonResponse, JsonRequestBehavior.AllowGet);
@@ -192,6 +225,7 @@ namespace HRMS.Controllers
                 return Json(jsonResponse, JsonRequestBehavior.AllowGet);
             }
         }
+
 
         public ActionResult EmployeeLeavesByType(string empId)
         {
