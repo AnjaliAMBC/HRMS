@@ -12,6 +12,8 @@ namespace HRMS.Models.Admin
         public List<EmployeeEvent.UpcomingHoliday> UpcomingHolidays { get; set; } = new List<EmployeeEvent.UpcomingHoliday>();
 
         public AdminLeaveManagementModel LeavesInfo { get; set; } = new AdminLeaveManagementModel();
+
+        public List<emp_info> Employees { get; set; } = new List<emp_info>();
     }
     //public class AnniversaryModel
     //{

@@ -203,6 +203,7 @@
                                     </div>
                                 </div>
                             </div>
+
                             <div class="col-12 col-sm-11 col-md-6 col-lg-4 col-xl-4 p-0 dashcard_style">
                                 <!-- Upcoming Holidays Section -->
                                 <div class="card mx-2">
@@ -215,12 +216,19 @@
                                             {
                                                 if (@holiday.HolidayDate != DateTime.MinValue)
                                                 {
-                                                    <li class="admindash_holiday">
-                                                        <h6 class="mb-0">@holiday.HolidayName</h6>
-                                                        <div class="leave_data d-flex">
-                                                            <p class="smalltext mb-0">@holiday.HolidayDate.ToString("dd MMMM dddd")</p>
-                                                            <p class="smalltext ml-auto mb-0 ">@holiday.Region</p>
-                                                        </div>
+                                                    @*<li class="admindash_holiday">
+                                                            <h6 class="mb-0">@holiday.HolidayName</h6>
+                                                            <div class="leave_data d-flex">
+                                                                <p class="smalltext mb-0">@holiday.HolidayDate.ToString("dd MMMM dddd")</p>
+                                                                <p class="smalltext ml-auto mb-0 ">@holiday.Region</p>
+                                                            </div>
+                                                        </li>*@
+
+                                                    <li class="dashhoiday_description">
+                                                        <a>
+                                                            <h6 class="mb-0">@holiday.HolidayName</h6>
+                                                            <p class="smalltext">@holiday.HolidayDate.ToString("dd MMMM dddd")</p>
+                                                        </a>
                                                     </li>
                                                 }
                                             }
@@ -239,4 +247,6 @@
             </div>
         </div>
     </div>
+
+    @Html.Partial("_compoff", Model.Employees)
 </div>

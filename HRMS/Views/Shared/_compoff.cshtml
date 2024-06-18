@@ -18,20 +18,26 @@
                 <form>
                     <div class="form-group">
                         <label for="CompemployeeName">Employee Name</label>
-
-                        <select class="form-control" id="CompemployeeName" disabled>
-                            <option selected disabled>Select Employee Name</option>
-                            @{
-                                var selectedempID = currentUserSession.EmpInfo.EmployeeID; ;
+                        @{
+                            var isdiabled = "disabled";
+                            var selectedempID = "";
+                            if (currentUserSession.IsAdmin)
+                            {
+                                isdiabled = "";
                             }
+                            else
+                            {
+                                selectedempID = currentUserSession.EmpInfo.EmployeeID;
+                            }
+                        }
+                        <select class="form-control" id="CompemployeeName" @isdiabled>
+                            <option selected disabled>Select Employee Name</option>
                             @foreach (var emp in Model)
                             {
                                 var selected = !currentUserSession.IsAdmin && emp.EmployeeID == selectedempID ? "selected" : "";
                                 <option @selected value="@emp.EmployeeID" data-emplocation="@emp.Location" data-empemail="@emp.OfficalEmailid">@emp.EmployeeName</option>
                             }
                         </select>
-
-                        @*<input type="text" class="form-control" id="CompemployeeName" value="Sriram Vivekanandan" readonly>*@
                     </div>
                     <div class="form-group">
                         <label for="Compdate">Date</label>
