@@ -86,6 +86,24 @@ namespace HRMS.Helpers
                 {
                     availableLeaves.Available = totalBereavementLeaves;
                 }
+
+
+                if (leaveType.Type == "Comp Off")
+                {
+                    var employeeCompoffs = _dbContext.Compoffs
+                    .Where(x => x.EmployeeID == employee.EmployeeID && x.CampOffDate.Year == DateTime.Today.Year && x.addStatus == "Approved")
+                    .ToList();
+
+                    if (employeeCompoffs != null && employeeCompoffs.Count() > 0)
+                    {
+                        availableLeaves.Available = employeeCompoffs.Count();
+                    }
+                    else
+                    {
+                        availableLeaves.Available = 0;
+                    }
+                }
+
                 availableLeaves.Booked = totalLeaveDays;
                 availableLeaves.Balance = availableLeaves.Available - availableLeaves.Booked;
                 availableLeaves.Type = leaveType.Type;
@@ -178,7 +196,18 @@ namespace HRMS.Helpers
 
             if (leaveType.Type == "Comp Off")
             {
-                availableLeaves.Available = 5;
+                var employeeCompoffs = _dbContext.Compoffs
+                .Where(x => x.EmployeeID == employee.EmployeeID && x.CampOffDate.Year == DateTime.Today.Year && x.addStatus == "Approved")
+                .ToList();
+
+                if (employeeCompoffs != null && employeeCompoffs.Count() > 0)
+                {
+                    availableLeaves.Available = employeeCompoffs.Count();
+                }
+                else
+                {
+                    availableLeaves.Available = 0;
+                }
             }
 
             if (leaveType.Type == "Hourly Permission")
@@ -245,7 +274,7 @@ namespace HRMS.Helpers
             return empLeaveTypes;
         }
 
-        public AdminLeaveManagementModel GetLeavesInfoBasedonStartandEndDate(string selectedStartDate, string SelectedEndDate, AdminLeaveManagementModel model, string empID)
+        public AdminLeaveManagementModel GetLeavesInfoBasedonStartandEndDate(string selectedStartDate, string SelectedEndDate, AdminLeaveManagementModel model, string empID, bool fromDashboard = false)
         {
             var cuserContext = SiteContext.GetCurrentUserContext();
             model.EmpInfo = cuserContext.EmpInfo;
@@ -271,15 +300,23 @@ namespace HRMS.Helpers
 
             var selectedDateLeaves = new List<con_leaveupdate>();
 
+
+
             if (string.IsNullOrWhiteSpace(empID))
             {
                 selectedDateLeaves = _dbContext.con_leaveupdate.Where(x => x.leavedate >= model.SelectedDate && x.leavedate <= model.SelectedEndDate).ToList();
             }
             else
             {
-                selectedDateLeaves = _dbContext.con_leaveupdate.Where(x => x.leavedate >= model.SelectedDate && x.leavedate <= model.SelectedEndDate && x.employee_id == empID).ToList();
+                if (fromDashboard)
+                {
+                    selectedDateLeaves = _dbContext.con_leaveupdate.Where(x => x.createddate >= model.SelectedDate && x.createddate <= model.SelectedEndDate && x.employee_id == empID).ToList();
+                }
+                else
+                {
+                    selectedDateLeaves = _dbContext.con_leaveupdate.Where(x => x.leavedate >= model.SelectedDate && x.leavedate <= model.SelectedEndDate && x.employee_id == empID).ToList();
+                }
             }
-
 
             model.LeavesInfo = selectedDateLeaves.OrderBy(x => x.leavedate).ToList();
 

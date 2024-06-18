@@ -1,4 +1,6 @@
-﻿using System;
+﻿using HRMS.Helpers;
+using HRMS.Models;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
@@ -8,37 +10,46 @@ namespace HRMS.Controllers
 {
     public class CompoffController : Controller
     {
-      
-        private readonly HRMS_EntityFramework _dbContext;      
+
+        private readonly HRMS_EntityFramework _dbContext;
         public CompoffController()
         {
-            _dbContext = new HRMS_EntityFramework(); 
+            _dbContext = new HRMS_EntityFramework();
         }
 
-        public JsonResult SubmitCompOff(int employeeID, DateTime compOffDate, string reason)
+        public JsonResult SubmitCompOff(string employeeID, string empName, DateTime compOffDate, string reason, string submittedUser, string holidayname)
         {
+            var jsonResponse = new JsonResponse();
             try
             {
-                //// Logic to save the comp off information to the database
-                //using (var context = new YourDbContext())
-                //{
-                //    var compOff = new CompOff
-                //    {
-                //        EmployeeID = employeeID,
-                //        CampOffDate = compOffDate,
-                //        Reason = reason,
-                //        // Add other necessary fields
-                //    };
+                var compOff = new Compoff
+                {
+                    EmployeeID = employeeID,
+                    CampOffDate = compOffDate,
+                    addStatus = "Pending",
+                    createdby = submittedUser,
+                    updatedby = submittedUser,
+                    createddate = DateTime.Today,
+                    EmployeeName = empName,
+                    HolidayName = holidayname,
+                    updateddate = DateTime.Today,
+                    concatinatestring = employeeID + "_" + compOffDate.ToString()
+                    //Reason = reason,
 
-                //    context.CompOffs.Add(compOff);
-                //    context.SaveChanges();
-                //}
+                };
 
-                return Json(new { success = true, message = "Comp Off successfully submitted." });
+                _dbContext.Compoffs.Add(compOff);
+                _dbContext.SaveChanges();
+
+                jsonResponse.Message = "Comp Off successfully submitted.";
+                jsonResponse.StatusCode = 200;
+
+                return Json(jsonResponse, JsonRequestBehavior.AllowGet);
             }
             catch (Exception ex)
             {
-                return Json(new { success = false, message = "Error occurred while submitting Comp Off: " + ex.Message });
+                jsonResponse = ErrorHelper.CaptureError(ex);
+                return Json(jsonResponse, JsonRequestBehavior.AllowGet);
             }
         }
     }

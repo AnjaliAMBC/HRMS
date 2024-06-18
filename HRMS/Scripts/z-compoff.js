@@ -1,21 +1,29 @@
 ﻿$('.compoff-submit').click(function () {
-    var employeeID = $('#CompemployeeName').val();
+    var employeeID = $('#CompemployeeName').val();  
+    var empName = $("#CompemployeeName option:selected").text();
+
     var compOffDate = $('#Compdate').val();
     var reason = $('#Compreason').val();
-
+    var submittedUser = $('.loggedinempname').text();
+    var selectedholidayname = $('.selectedholidayname').text();
     $.ajax({
         type: "POST",
-        url: '@Url.Action("SubmitCompOff", "CompOff")', // Adjust the URL to match your controller and action
+        url: '/Compoff/submitcompOff', // Adjust the URL to match your controller and action
         data: {
             employeeID: employeeID,
+            empName: empName,
             compOffDate: compOffDate,
-            reason: reason
+            reason: reason,
+            submittedUser: submittedUser,
+            holidayname: selectedholidayname
+
         },
         success: function (response) {
-            if (response.success) {
-                $('#compOffMessage').removeClass('alert-danger').addClass('alert-success').text(response.message).show();
+            if (response.StatusCode == 200) {
+                $('#Compreason').val("");
+                $('#compOffMessage').removeClass('alert-danger').addClass('alert-success').html(response.Message).show();
             } else {
-                $('#compOffMessage').removeClass('alert-success').addClass('alert-danger').text(response.message).show();
+                $('#compOffMessage').removeClass('alert-success').addClass('alert-danger').html(response.Message).show();
             }
         },
         error: function () {

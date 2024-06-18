@@ -35,15 +35,20 @@
                     </div>
                     <div class="form-group">
                         <label for="Compdate">Date</label>
-                        <input type="text" class="form-control" id="Compdate" value="15 August 2024" readonly>
+                        <input type="text" class="form-control" id="Compdate" value="" readonly>
                     </div>
                     <div class="form-group">
                         <label for="Compreason">Reason</label>
                         <textarea class="form-control" id="Compreason" rows="3"></textarea>
                     </div>
+
+                    <div class="selectedholidayname" style="display: none"></div>
                 </form>
             </div>
             <div class="modal-footer">
+                <div id="compOffMessage" class="alert" style="display:none;"></div>
+                <br />
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
                 <button type="button" class="btn btn-primary compoff-submit">Submit</button>
             </div>
         </div>

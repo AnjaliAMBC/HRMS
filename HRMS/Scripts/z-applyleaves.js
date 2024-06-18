@@ -403,6 +403,11 @@ $(document).on('change', '#HourPermission', function (event) {
 
 
 $(document).on('click', '.dashhoiday_description', function (e) {
-        e.preventDefault();
-        $("#compOffModal").modal('show');
-    });
+    e.preventDefault();
+    $('#Compreason').val("");
+    var holidayName = $('.selectedholidayname').text($(this).find('h6').text());
+    var holidayDate = $('#Compdate').val($(this).find('p').text());
+    $('#compOffMessage').html("");
+    $('#compOffMessage').hide();
+    $("#compOffModal").modal('show');
+});

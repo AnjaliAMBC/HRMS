@@ -277,3 +277,36 @@ $(document).on('click', '.clearattendence-filter', function (event) {
     $('#toDate').val('');
 });
 
+$('.btn_approve').click(function () {
+    var leaveName = $(this).data('leavename');
+    $.ajax({
+        url: '/EmpLeave/ApproveLeave',
+        type: 'POST',
+        data: { leaveRequestName: leaveName },
+        success: function (response) {
+            if (response.success) {
+                $(this).parent().html('<small>Approved</small>');
+            } else {
+                alert('Failed to approve leave.');
+            }
+        }.bind(this)
+    });
+});
+
+$('.btn_reject').click(function () {
+    var leaveName = $(this).data('leavename');
+    $.ajax({
+        url: '/EmpLeave/RejectLeave',
+        type: 'POST',
+        data: { leaveRequestName: leaveName },
+        success: function (response) {
+            if (response.success) {
+                $(this).parent().html('<small>Rejected</small>');
+            } else {
+                alert('Failed to reject leave.');
+            }
+        }.bind(this)
+    });
+});
+
+

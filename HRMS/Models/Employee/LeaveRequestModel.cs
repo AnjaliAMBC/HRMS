@@ -81,5 +81,12 @@ namespace HRMS.Models.Employee
 
     }
 
-
+    public class LeaveInfo
+    {
+        public string LeaveRequestName { get; set; }
+        public DateTime? Fromdate { get; set; }
+        public DateTime? Todate { get; set; }
+        public decimal TotalLeaveDays { get; set; }
+        public con_leaveupdate LatestLeave { get; set; }
+    }
 }

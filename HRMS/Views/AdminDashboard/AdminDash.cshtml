@@ -30,98 +30,36 @@
                                                         <img src="@empImagePath" alt="emp name" class="rounded-circle">
                                                         <div class="leave-text mt-2">
                                                             <span>@leave.employee_name</span>
-                                                            <small>@leave.leavesource | @leave.leavedate.Value.ToString("dd MMMM yyyy")</small>
+                                                            @if (leave.Fromdate != leave.Todate)
+                                                            {
+                                                                <small>@leave.leavesource | @leave.Fromdate.Value.ToString("dd MMMM yyyy") to @leave.Todate.Value.ToString("dd MMMM yyyy")</small>
+                                                            }
+                                                            else
+                                                            {
+                                                                <small>@leave.leavesource | @leave.leavedate.Value.ToString("dd MMMM yyyy")</small>
+                                                            }
+
                                                         </div>
                                                     </div>
                                                     <div class="btn-group">
-                                                        <button type="submit" class="btn_approve p-0">✔ Approve</button>
-                                                        <button type="submit" class="btn_reject ml-0">✖ Reject</button>
+
+                                                        @if (leave.LeaveStatus == "Pending")
+                                                        {
+                                                            <button type="button" data-leavename="@leave.LeaveRequestName" class="btn_approve p-0">✔ Approve</button>
+                                                            <button type="button" data-leavename="@leave.LeaveRequestName" class="btn_reject ml-0">✖ Reject</button>
+                                                        }
+                                                        else
+                                                        {
+                                                            <small>
+                                                                @leave.LeaveStatus
+                                                            </small>
+                                                        }
+
                                                     </div>
                                                 </li>
                                             }
 
                                         </ul>
-                                        <!--<ul class="list-group list-group-flush">
-                                        <li class="list-group-item p-0">
-                                            <div class="leave-info">
-                                                <img src="https://via.placeholder.com/40" alt="Rajesh Kumar" class="rounded-circle">
-                                                <div class="leave-text mt-2">
-                                                    <span>Rajesh Kumar</span>
-                                                    <small>Emergency Leave | 29-04-2024</small>
-                                                </div>
-                                            </div>
-                                            <div class="btn-group">
-                                                <button type="submit" class="btn_approve p-0">✔ Approve</button>
-                                                <button type="submit" class="btn_reject ml-0">✖ Reject</button>
-                                            </div>
-                                        </li>
-                                        <li class="list-group-item p-0">
-                                            <div class="leave-info">
-                                                <img src="https://via.placeholder.com/40" alt="Sriram Vivekanandan" class="rounded-circle">
-                                                <div class="leave-text mt-2">
-                                                    <span>Sriram Vivekanandan</span>
-                                                    <small>Earned Leave | 29-04-2024 - 01-05-2024</small>
-                                                </div>
-                                            </div>
-                                            <div class="btn-group">
-                                                <button type="submit" class="btn_approve p-0">✔ Approve</button>
-                                                <button type="submit" class="btn_reject ml-0">✖ Reject</button>
-                                            </div>
-                                        </li>
-                                        <li class="list-group-item p-0">
-                                            <div class="leave-info">
-                                                <img src="https://via.placeholder.com/40" alt="Linkeshwaran" class="rounded-circle">
-                                                <div class="leave-text mt-2">
-                                                    <span>Linkeshwaran</span>
-                                                    <small>Sick Leave | 29-04-2024</small>
-                                                </div>
-                                            </div>
-                                            <div class="btn-group">
-                                                <button type="submit" class="btn_approve p-0">✔ Approve</button>
-                                                <button type="submit" class="btn_reject ml-0">✖ Reject</button>
-                                            </div>
-                                        </li>
-                                        <li class="list-group-item p-0">
-                                            <div class="leave-info">
-                                                <img src="https://via.placeholder.com/40" alt="Saravanan Maoharan" class="rounded-circle">
-                                                <div class="leave-text mt-2">
-                                                    <span>Saravanan Maoharan</span>
-                                                    <small>Emergency Leave | 29-04-2024</small>
-                                                </div>
-                                            </div>
-                                            <div class="btn-group">
-                                                <button type="submit" class="btn_approve p-0">✔ Approve</button>
-                                                <button type="submit" class="btn_reject ml-0">✖ Reject</button>
-                                            </div>
-                                        </li>-->
-                                        <!-- Additional leave requests -->
-                                        <!--<li class="list-group-item p-0">
-                                                <div class="leave-info">
-                                                    <img src="https://via.placeholder.com/40" alt="John Doe" class="rounded-circle">
-                                                    <div class="leave-text mt-2">
-                                                        <span>John Doe</span>
-                                                        <small>Personal Leave | 30-04-2024</small>
-                                                    </div>
-                                                </div>
-                                                <div class="btn-group">
-                                                    <button type="submit" class="btn_approve p-0">✔ Approve</button>
-                                                    <button type="submit" class="btn_reject ml-0">✖ Reject</button>
-                                                </div>
-                                            </li>
-                                            <li class="list-group-item p-0">
-                                                <div class="leave-info">
-                                                    <img src="https://via.placeholder.com/40" alt="Jane Smith" class="rounded-circle">
-                                                    <div class="leave-text mt-2">
-                                                        <span>Jane Smith</span>
-                                                        <small>Vacation | 01-05-2024 - 05-05-2024</small>
-                                                    </div>
-                                                </div>
-                                                <div class="btn-group">
-                                                    <button type="submit" class="btn_approve p-0">✔ Approve</button>
-                                                    <button type="submit" class="btn_reject ml-0">✖ Reject</button>
-                                                </div>
-                                            </li>
-                                        </ul>-->
                                     </div>
                                 </div>
                             </div>
