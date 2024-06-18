@@ -1,0 +1,51 @@
+﻿@model List<emp_info>
+
+@{
+    var currentUserSession = Session["SiteContext"] as HRMS.Models.SiteContextModel;
+
+}
+
+<div class="modal fade" id="compOffModal" tabindex="-1" aria-labelledby="compOffModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="compOffModalLabel">Avail Comp Off</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <form>
+                    <div class="form-group">
+                        <label for="CompemployeeName">Employee Name</label>
+
+                        <select class="form-control" id="CompemployeeName" disabled>
+                            <option selected disabled>Select Employee Name</option>
+                            @{
+                                var selectedempID = currentUserSession.EmpInfo.EmployeeID; ;
+                            }
+                            @foreach (var emp in Model)
+                            {
+                                var selected = !currentUserSession.IsAdmin && emp.EmployeeID == selectedempID ? "selected" : "";
+                                <option @selected value="@emp.EmployeeID" data-emplocation="@emp.Location" data-empemail="@emp.OfficalEmailid">@emp.EmployeeName</option>
+                            }
+                        </select>
+
+                        @*<input type="text" class="form-control" id="CompemployeeName" value="Sriram Vivekanandan" readonly>*@
+                    </div>
+                    <div class="form-group">
+                        <label for="Compdate">Date</label>
+                        <input type="text" class="form-control" id="Compdate" value="15 August 2024" readonly>
+                    </div>
+                    <div class="form-group">
+                        <label for="Compreason">Reason</label>
+                        <textarea class="form-control" id="Compreason" rows="3"></textarea>
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-primary compoff-submit">Submit</button>
+            </div>
+        </div>
+    </div>
+</div>

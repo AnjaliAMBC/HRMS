@@ -141,6 +141,7 @@
       <DependentUpon>HRMS.tt</DependentUpon>
     </Compile>
     <Compile Include="Controllers\AdminLeaveController.cs" />
+    <Compile Include="Controllers\CompoffController.cs" />
     <Compile Include="Controllers\EmpLeaveController.cs" />
     <Compile Include="Controllers\ProfileController.cs" />
     <Compile Include="con_leaveupdate.cs">
@@ -298,6 +299,7 @@
     <Content Include="Scripts\z-adminBalaceView.js" />
     <Content Include="Scripts\z-adminLeave.js" />
     <Content Include="Scripts\z-applyleaves.js" />
+    <Content Include="Scripts\z-compoff.js" />
     <Content Include="Scripts\z-custom.js" />
     <Content Include="Scripts\z-empleave.js" />
     <Content Include="Scripts\zEditAdminattendance.js" />
@@ -370,9 +372,11 @@
     <Content Include="Views\Shared\CommonModalPopups.cshtml" />
     <Content Include="Views\EmployeeDashboard\LeaveTypesAvailability.cshtml" />
     <Content Include="Views\AdminDashboard\AdminLeaveBalanceUpdate.cshtml" />
+    <Content Include="Views\Shared\_compoff.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
+    <Folder Include="Views\Compoff\" />
     <Folder Include="Views\Profile\" />
   </ItemGroup>
   <ItemGroup>

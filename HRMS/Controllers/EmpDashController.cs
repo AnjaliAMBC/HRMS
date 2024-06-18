@@ -88,6 +88,8 @@ namespace HRMS.Controllers
             var leaveTypes = new LeaveCalculator().GetLeavesByEmp(model.EmpInfo.EmployeeID);
             model.LeavesTypeInfo = leaveTypes;
 
+            model.Employees = _dbContext.emp_info.Where(x => x.EmployeeStatus == "Active").ToList();
+
             return View("~/Views/EmployeeDashboard/EmpDash.cshtml", model);
         }
 
