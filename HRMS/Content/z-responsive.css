@@ -317,14 +317,14 @@
 
     /* attendence end*/
 
-    /* leave start*/
+    /* emp leave start*/
     .mobile-view .emp-leave .main-content.container-fluid {
         width: 100% !important;
         padding: 65px 0px;
     }
 
     .mobile-view .emp-leave .tracker_topic {
-        margin: 0 !important;
+        margin: 10px 15px !important;
     }
 
     .mobile-view .emp-leave .empleave-calendar-body {
@@ -355,7 +355,21 @@
         margin-right: 0;
     }
 
-    /* leave end*/
+    .mobile-view .res-emp-carousel {
+        margin-left: 10px;
+    }
+
+    .mobile-view .res-emp-apply {
+        padding-left: 0px;
+    }
+
+    .mobile-view .empleave-calendar-body thead th {
+        padding: 15px 15px;
+        height: 26px;
+        font-size: 14px;
+    }
+
+    /* emp leave end*/
 
     /* login start*/
 
@@ -1568,7 +1582,7 @@
 
     /* emp dashboard start */
     .tablet-view .emp-dashboard .main-content {
-        width: 78% !important;
+        width: 72% !important;
         margin-left: 210px;
     }
 
@@ -1595,7 +1609,7 @@
     }
 
     .tablet-view .main-content.container-fluid .backgroundimg {
-        width: 112% !important;
+        width: 105% !important;
         margin-left: -15px;
     }
 
@@ -1674,11 +1688,12 @@
 
     /* attendence end*/
 
-    /* leave start */
+    /* emp leave start */
 
     .tablet-view .emp-leave .main-content.container-fluid {
-        width: 100% !important;
+        width: 70% !important;
         padding: 65px 0px;
+        margin-left: 220px;
     }
 
     .tablet-view .emp-leave .tracker_topic {
@@ -1690,7 +1705,9 @@
     }
 
     .tablet-view .emp-leave .empleave-calendar-header {
-        justify-content: flex-end;
+        //justify-content: flex-end;
+        width: 100%;
+        margin: 0;
     }
 
     .tablet-view .emp-leave #leaveHistoryTable_wrapper {
@@ -1713,11 +1730,48 @@
         margin-right: 0;
     }
 
-    /* leave end*/
+    .tablet-view .emp-leave .res-emp-carousel {
+        display: inline-block;
+        width: 100%;
+    }
 
-    /*admin emp management page start*/
+    .tablet-view .emp-leave #leaveCarousel .carousel-item.carousel-leave-item .col-md-2 {
+        padding: 0;
+        max-width: 140% !important;
+    }
 
-    .tablet-view .res-admin-employee-management .main-content {
+    .tablet-view .emp-leave .carousel-leave-item {
+        //display: inline-block;
+        width: 147% !important;
+    }
+
+    .tablet-view .emp-leave .res-emp-carousel-block {
+        display: inline-block !important;
+        max-width: 65%;
+    }
+
+    .tablet-view .emp-leave .res-emp-apply {
+        display: inline-block !important;
+        vertical-align: top;
+    }
+
+    .tablet-view .emp-leave .carousel-leave-item .tracker-card {
+        width: 160%;
+        display: inline-block !important;
+    }
+
+    .tablet-view .empleave-calendar-body thead th {
+        padding: 5px 8px;
+    }
+
+    .tablet-view .leave-dashboard-data .res-emp-leave-title {
+        display: block;
+        width: 74%;
+    }
+
+    /* emp leave end*/
+        /*admin emp management page start*/
+        .tablet-view .res-admin-employee-management .main-content {
         width: 75% !important;
     }
 
@@ -1873,6 +1927,7 @@
     }
 
     /*admin emp management page end*/
+
     /* admin attendance start*/
     .tablet-view .res-admin-attendance .main-content.container-fluid {
         width: 71% !important;
