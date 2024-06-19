@@ -301,12 +301,12 @@
 
                                 @if (leaveemp.LatestLeave.LeaveStatus == "Pending")
                                 {
-                                    <a href="" class="statusBtn acceptBtn">Approve</a>
-                                    <a href="" class="statusBtn rejectBtn">Reject</a>
+                                    <a href="" class="statusBtn acceptLeaveBtn" data-leavename="@leaveemp.LatestLeave.LeaveRequestName">Approve</a>
+                                    <a href="" class="statusBtn rejectLeaveBtn" data-leavename="@leaveemp.LatestLeave.LeaveRequestName">Reject</a>
                                 }
                                 else
                                 {
-                                    <small>@leaveemp.LatestLeave.LeaveStatus</small>
+                                    <small class="statusLabel">@leaveemp.LatestLeave.LeaveStatus</small>
                                 }
 
                             </div>

@@ -313,5 +313,97 @@ $(document).off('change', '#myLeaveMonth').on('change', '#myLeaveMonth', functio
 });
 
 
+function ApproveLeaveRequest(leaveName) {
+    $.ajax({
+        url: '/EmpLeave/ApproveLeave',
+        type: 'POST',
+        data: { leaveRequestName: leaveName },
+        success: function (response) {
+            if (response.success) {
+                $(this).parent().html('<small>Approved</small>');
+            } else {
+                alert('Failed to approve leave.');
+            }
+        }.bind(this)
+    });
+}
+
+$('.btn_approve').click(function () {
+    var leaveName = $(this).data('leavename');
+    ApproveLeaveRequest(leaveName)
+});
+
+function RejectLeaveRequest(leaveName) {
+    $.ajax({
+        url: '/EmpLeave/RejectLeave',
+        type: 'POST',
+        data: { leaveRequestName: leaveName },
+        success: function (response) {
+            if (response.success) {
+                $(this).parent().html('<small>Rejected</small>');
+            } else {
+                alert('Failed to reject leave.');
+            }
+        }.bind(this)
+    });
+}
+
+$('.btn_reject').click(function () {
+    var leaveName = $(this).data('leavename');
+    RejectLeaveRequest(leaveName);
+});
+
+
+$(document).off('click', '.acceptLeaveBtn').on('click', '.acceptLeaveBtn', function (event) {
+    event.preventDefault();
+    var leaveName = $(this).data('leavename');
+    var $statusBtnFlex = $(this).closest('.statusBtnFlex');
+    var $statusLabel = $statusBtnFlex.siblings('.statusLabel');
+
+    $.ajax({
+        url: '/EmpLeave/ApproveLeave',
+        type: 'POST',
+        data: { leaveRequestName: leaveName },
+        success: function (response) {
+            if (response.success == true) {
+                var $statusLabel = $('<small class="statusLabel">Approved</small>');
+                $statusBtnFlex.append($statusLabel);
+                $statusBtnFlex.find('.statusBtn').hide();
+            } else {
+                alert('Failed to update the status. Please try again.');
+            }
+        },
+        error: function () {
+            alert('An error occurred. Please try again.');
+        }
+    });
+});
+
+
+$(document).off('click', '.rejectLeaveBtn').on('click', '.rejectLeaveBtn', function (event) {
+    event.preventDefault();
+    var leaveName = $(this).data('leavename');
+    var $statusBtnFlex = $(this).closest('.statusBtnFlex');
+    var $statusLabel = $statusBtnFlex.siblings('.statusLabel');
+
+    $.ajax({
+        url: '/EmpLeave/ApproveLeave',
+        type: 'POST',
+        data: { leaveRequestName: leaveName },
+        success: function (response) {
+            if (response.success == true) {
+                var $statusLabel = $('<small class="statusLabel">Rejected</small>');
+                $statusBtnFlex.append($statusLabel);
+                $statusBtnFlex.find('.statusBtn').hide();
+            } else {
+                alert('Failed to update the status. Please try again.');
+            }
+        },
+        error: function () {
+            alert('An error occurred. Please try again.');
+        }
+    });
+});
+
 
 

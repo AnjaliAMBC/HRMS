@@ -26,7 +26,7 @@ namespace HRMS.Controllers
             DateTime endOfMonth = startOfMonth.AddMonths(1).AddDays(-1);
 
             var model = new AdminLeaveManagementModel();
-            new LeaveCalculator().GetLeavesInfoBasedonStartandEndDate(startOfMonth.ToString(), endOfMonth.ToString(), model, "");
+            new LeaveCalculator().GetLeavesInfoBasedonStartandEndDate(startOfMonth.ToString("dd MMMM yyyy"), endOfMonth.ToString("dd MMMM yyyy"), model, "");
             return View("~/Views/AdminDashboard/AdminLeaveTracker.cshtml", model);
         }
         public ActionResult AdminLeaveBalance()
