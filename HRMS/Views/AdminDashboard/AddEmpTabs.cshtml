@@ -4,7 +4,7 @@
     <h2 style="margin-bottom: 35px; margin-left: -5px; " class="addempheadline">
         @Model.HeadLine
     </h2>
-    <ul class="nav nav-tabs res-admin-emp-tabs responsive-tabs" id="myTab" role="tablist" style="background-color: #EEF4FF; font-size: 15px; width: 92%;">
+    <ul class="nav nav-tabs res-admin-emp-tabs responsive-tabs" id="myTab" role="tablist" style="background-color: #EEF4FF; font-size: 15px; width: 100%;">
         <li class="nav-item active" role="presentation">
             <a class="nav-link active" id="tab1-link" data-toggle="tab" href="#tab1" role="tab" aria-controls="tab1" aria-selected="true"><b>General Information</b></a>
         </li>
@@ -452,7 +452,10 @@
 
                             </div>
                         </div>
-                        <button type="button" class="btn btn-primary save-and-next">Save and Next</button>
+                        <div class="col-lg-12 col-md-12 res-save-btn">
+                            <button type="button" class="btn btn-primary save-and-next">Save and Next</button>
+                        </div>
+
                     </div>
 
                     @*Current loggedin User name*@
@@ -497,7 +500,9 @@
                                 <input type="text" class="form-control" id="IFSCcode" value="@Model.EditableEmpInfo.IFSCcode">
                             </div>
                         </div>
-                        <button type="button" class="btn btn-primary save-and-next" style="margin-left: 62%;">Save and Next</button>
+                        <div class="col-lg-12 col-md-12 res-save-btn">
+                            <button type="button" class="btn btn-primary save-and-next" style="margin-left: 62%;">Save and Next</button>
+                        </div>
                     </div>
                 </div>
             </form>
@@ -542,7 +547,7 @@
                         </div>
                     </div>
                     <div class="row">
-                        <div class="col-md-12 res-save-btn">
+                        <div class="col-lg-12 col-md-12 res-save-btn">
                             <button type="button" class="btn btn-primary save-and-next" style=" margin-left: 88%;">Save and Next</button>
                         </div>
                     </div>
@@ -572,7 +577,7 @@
                                 <input type="text" class="form-control" id="ESICNumber" value="@Model.EditableEmpInfo.ESICNumber">
                             </div>
                         </div>
-                        <div class="col-lg-3 col-md-6 res-save-btn">
+                        <div class="col-lg-12 col-md-6 res-save-btn">
                             <button type="button" class="btn btn-primary save-and-next">Save and Next</button>
                         </div>
                     </div>
@@ -609,7 +614,7 @@
                         </div>
                     </div>
                     <div class="row">
-                        <div class="col-md-12 res-save-btn">
+                        <div class="col-lg-12 col-md-12 res-save-btn">
                             <button type="button" class="btn btn-primary save-and-next" style="margin-left: 88%;">Save and Next</button>
                         </div>
                     </div>
@@ -673,7 +678,7 @@
                                 <input type="text" class="form-control" id="ReasonforRelieving" value="@Model.EditableEmpInfo.ReasonforRelieving">
                             </div>
                         </div>
-                        <div class="col-md-3 res-save-btn">
+                        <div class="col-lg-12 col-md-6 res-save-btn">
                             <button type="button" class="btn btn-primary save-and-next" style="margin-left: 271%;">Save and Next</button>
                         </div>
                     </div>
@@ -709,7 +714,7 @@
                                 <input type="text" class="form-control" id="EligibleforRehire" value="@Model.EditableEmpInfo.EligibleforRehire">
                             </div>
                         </div>
-                        <div class="col-md-3 res-save-btn">
+                        <div class="col-lg-12 col-md-3 res-save-btn">
                             <button type="button" class="btn btn-primary addemp-submit-btn" style=" margin-top: 29px; width: 60%;">Submit</button>
                         </div>
                     </div>

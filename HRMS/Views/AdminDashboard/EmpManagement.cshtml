@@ -60,10 +60,10 @@
                 </div>
 
                 <div class="row justify-content-end ml-2 col-md-12 res-admin-empman-filter-show">
-                    <div class="col-lg-6 col-sm-12 col-md-12">
+                    <div class="col-lg-8 col-sm-12 col-md-12">
                         <div id="demo" class="collapse advancefilter">
                             <div class="collapse-topic d-flex align-items-center justify-content-end res-admin-filter-inside" style="margin-right: 24px;">
-                                <span class="mr-3">Filter By<span class="res-close-btn" style="display:none;">X</span>
+                                <span class="mr-3 res-admin-filter">Filter By<span class="res-close-btn" style="display:none;">X</span>
                                 <div class="dropdown mr-3" style="border-radius: 10px;">
                                     <select class="form-control form-select-sm" name="department" id="department-dropdown" style="border-radius: 15px; height: 35px; width: 131px;">
                                         <option value="" disabled selected>Department</option>
@@ -192,7 +192,7 @@
         "info": true,
         "order": [],
         "columnDefs": [
-            {
+            {                
                 "targets": 0,
                 "orderable": false,
                 "render": function (data, type, full, meta) {
@@ -200,6 +200,7 @@
                 }
             },
             {
+                "width": '12%',
                 "targets": 1,
                 "class": "tdempid"
             },
@@ -227,12 +228,15 @@
             },
 
             {
+                "width": '20%',
                 "targets": 3,
             },
             {
+                "width": '20%',
                 "targets": 4,
             },
             {
+                "width": '18%',
                 "targets": 5,
             },
             {
