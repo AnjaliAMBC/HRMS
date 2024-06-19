@@ -15,8 +15,10 @@ namespace HRMS.Models.Employee
         public tbld_ambclogininformation todayCheckInInfo { get; set; } = new tbld_ambclogininformation();
         public CheckInDetails empLastDayCheckInDetails { get; set; } = new CheckInDetails();
         public TimerModel timerModel { get; set; }
-
         public string totalCheckedInTime { get; set; } = "";
+        public bool IsOnLeave { get; set; } = false;
+        public LeaveTypesBasedOnEmpViewModel LeavesTypeInfo { get; set; } = new LeaveTypesBasedOnEmpViewModel();
+        public List<emp_info> Employees { get; set; } = new List<emp_info>();
     }
 
 

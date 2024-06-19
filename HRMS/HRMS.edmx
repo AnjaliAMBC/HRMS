@@ -22,6 +22,11 @@
           <Property Name="EmployeeName" Type="varchar" MaxLength="255" Nullable="false" />
           <Property Name="HolidayName" Type="varchar" MaxLength="255" Nullable="false" />
           <Property Name="concatinatestring" Type="varchar" MaxLength="255" Nullable="false" />
+          <Property Name="addStatus" Type="varchar" MaxLength="255" />
+          <Property Name="createdby" Type="varchar" MaxLength="255" />
+          <Property Name="createddate" Type="date" />
+          <Property Name="updatedby" Type="varchar" MaxLength="255" />
+          <Property Name="updateddate" Type="date" />
         </EntityType>
         <EntityType Name="con_leaveupdate">
           <Key>
@@ -42,6 +47,15 @@
           <Property Name="BackupResource_Name" Type="varchar" MaxLength="255" />
           <Property Name="EmergencyContact_no" Type="varchar" MaxLength="50" />
           <Property Name="LeaveStatus" Type="varchar" MaxLength="255" />
+          <Property Name="OfficalEmailid" Type="varchar" MaxLength="255" />
+          <Property Name="Fromdate" Type="date" />
+          <Property Name="Todate" Type="date" />
+          <Property Name="LeaveRequestName" Type="varchar" MaxLength="255" />
+          <Property Name="Location" Type="varchar" MaxLength="255" />
+          <Property Name="createdby" Type="varchar" MaxLength="255" />
+          <Property Name="createddate" Type="date" />
+          <Property Name="updatedby" Type="varchar" MaxLength="255" />
+          <Property Name="updateddate" Type="date" />
         </EntityType>
         <EntityType Name="Department">
           <Key>
@@ -140,6 +154,24 @@
           <Property Name="IsLeaveRM" Type="bit" />
           <Property Name="IsReportingM" Type="bit" />
         </EntityType>
+        <EntityType Name="LeaveBalance">
+          <Key>
+            <PropertyRef Name="Sno" />
+          </Key>
+          <Property Name="Sno" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="EmpID" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="EmployeeName" Type="varchar" MaxLength="255" Nullable="false" />
+          <Property Name="Year" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="Earned" Type="decimal" Precision="5" Scale="2" />
+          <Property Name="Emergency" Type="decimal" Precision="5" Scale="2" />
+          <Property Name="Sick" Type="decimal" Precision="5" Scale="2" />
+          <Property Name="Bereavement" Type="decimal" Precision="5" Scale="2" />
+          <Property Name="HourlyPermission" Type="time" Precision="7" />
+          <Property Name="Marriage" Type="decimal" Precision="5" Scale="2" />
+          <Property Name="Maternity" Type="decimal" Precision="5" Scale="2" />
+          <Property Name="Paternity" Type="decimal" Precision="5" Scale="2" />
+          <Property Name="CompOff" Type="decimal" Precision="5" Scale="2" />
+        </EntityType>
         <EntityType Name="LeaveRM">
           <Key>
             <PropertyRef Name="Sno" />
@@ -211,6 +243,7 @@ warning 6002: The table/view 'HRMS_PortalDev1.dbo.CheckInView' does not have a p
           <EntitySet Name="Designation" EntityType="Self.Designation" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="emp_info" EntityType="Self.emp_info" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="emplogin" EntityType="Self.emplogin" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="LeaveBalance" EntityType="Self.LeaveBalance" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="LeaveRM" EntityType="Self.LeaveRM" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="tblambcholiday" EntityType="Self.tblambcholiday" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="tbld_ambclogininformation" EntityType="Self.tbld_ambclogininformation" Schema="dbo" store:Type="Tables" />
@@ -267,6 +300,7 @@ warning 6002: The table/view 'HRMS_PortalDev1.dbo.CheckInView' does not have a p
           <EntitySet Name="CheckInViews" EntityType="HRMS_EntityModel.CheckInView" />
           <EntitySet Name="con_leaveupdate" EntityType="HRMS_EntityModel.con_leaveupdate" />
           <EntitySet Name="Compoffs" EntityType="HRMS_EntityModel.Compoff" />
+          <EntitySet Name="LeaveBalances" EntityType="HRMS_EntityModel.LeaveBalance" />
         </EntityContainer>
         <EntityType Name="Client">
           <Key>
@@ -432,6 +466,15 @@ warning 6002: The table/view 'HRMS_PortalDev1.dbo.CheckInView' does not have a p
           <Property Name="BackupResource_Name" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
           <Property Name="EmergencyContact_no" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
           <Property Name="LeaveStatus" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+          <Property Name="OfficalEmailid" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+          <Property Name="Fromdate" Type="DateTime" Precision="0" />
+          <Property Name="Todate" Type="DateTime" Precision="0" />
+          <Property Name="LeaveRequestName" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+          <Property Name="Location" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+          <Property Name="createdby" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+          <Property Name="createddate" Type="DateTime" Precision="0" />
+          <Property Name="updatedby" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+          <Property Name="updateddate" Type="DateTime" Precision="0" />
         </EntityType>
         <EntityType Name="Compoff">
           <Key>
@@ -443,6 +486,29 @@ warning 6002: The table/view 'HRMS_PortalDev1.dbo.CheckInView' does not have a p
           <Property Name="EmployeeName" Type="String" Nullable="false" MaxLength="255" FixedLength="false" Unicode="false" />
           <Property Name="HolidayName" Type="String" Nullable="false" MaxLength="255" FixedLength="false" Unicode="false" />
           <Property Name="concatinatestring" Type="String" Nullable="false" MaxLength="255" FixedLength="false" Unicode="false" />
+          <Property Name="addStatus" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+          <Property Name="createdby" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+          <Property Name="createddate" Type="DateTime" Precision="0" />
+          <Property Name="updatedby" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+          <Property Name="updateddate" Type="DateTime" Precision="0" />
+        </EntityType>
+        <EntityType Name="LeaveBalance">
+          <Key>
+            <PropertyRef Name="Sno" />
+          </Key>
+          <Property Name="Sno" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="EmpID" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="EmployeeName" Type="String" Nullable="false" MaxLength="255" FixedLength="false" Unicode="false" />
+          <Property Name="Year" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="Earned" Type="Decimal" Precision="5" Scale="2" />
+          <Property Name="Emergency" Type="Decimal" Precision="5" Scale="2" />
+          <Property Name="Sick" Type="Decimal" Precision="5" Scale="2" />
+          <Property Name="Bereavement" Type="Decimal" Precision="5" Scale="2" />
+          <Property Name="HourlyPermission" Type="Time" Precision="7" />
+          <Property Name="Marriage" Type="Decimal" Precision="5" Scale="2" />
+          <Property Name="Maternity" Type="Decimal" Precision="5" Scale="2" />
+          <Property Name="Paternity" Type="Decimal" Precision="5" Scale="2" />
+          <Property Name="CompOff" Type="Decimal" Precision="5" Scale="2" />
         </EntityType>
       </Schema>
     </edmx:ConceptualModels>
@@ -620,6 +686,15 @@ warning 6002: The table/view 'HRMS_PortalDev1.dbo.CheckInView' does not have a p
           <EntitySetMapping Name="con_leaveupdate">
             <EntityTypeMapping TypeName="HRMS_EntityModel.con_leaveupdate">
               <MappingFragment StoreEntitySet="con_leaveupdate">
+                <ScalarProperty Name="updateddate" ColumnName="updateddate" />
+                <ScalarProperty Name="updatedby" ColumnName="updatedby" />
+                <ScalarProperty Name="createddate" ColumnName="createddate" />
+                <ScalarProperty Name="createdby" ColumnName="createdby" />
+                <ScalarProperty Name="Location" ColumnName="Location" />
+                <ScalarProperty Name="LeaveRequestName" ColumnName="LeaveRequestName" />
+                <ScalarProperty Name="Todate" ColumnName="Todate" />
+                <ScalarProperty Name="Fromdate" ColumnName="Fromdate" />
+                <ScalarProperty Name="OfficalEmailid" ColumnName="OfficalEmailid" />
                 <ScalarProperty Name="LeaveStatus" ColumnName="LeaveStatus" />
                 <ScalarProperty Name="EmergencyContact_no" ColumnName="EmergencyContact_no" />
                 <ScalarProperty Name="BackupResource_Name" ColumnName="BackupResource_Name" />
@@ -641,12 +716,36 @@ warning 6002: The table/view 'HRMS_PortalDev1.dbo.CheckInView' does not have a p
           <EntitySetMapping Name="Compoffs">
             <EntityTypeMapping TypeName="HRMS_EntityModel.Compoff">
               <MappingFragment StoreEntitySet="Compoff">
+                <ScalarProperty Name="updateddate" ColumnName="updateddate" />
+                <ScalarProperty Name="updatedby" ColumnName="updatedby" />
+                <ScalarProperty Name="createddate" ColumnName="createddate" />
+                <ScalarProperty Name="createdby" ColumnName="createdby" />
+                <ScalarProperty Name="addStatus" ColumnName="addStatus" />
                 <ScalarProperty Name="concatinatestring" ColumnName="concatinatestring" />
                 <ScalarProperty Name="HolidayName" ColumnName="HolidayName" />
                 <ScalarProperty Name="EmployeeName" ColumnName="EmployeeName" />
                 <ScalarProperty Name="CampOffDate" ColumnName="CampOffDate" />
                 <ScalarProperty Name="EmployeeID" ColumnName="EmployeeID" />
                 <ScalarProperty Name="Compoff_no" ColumnName="Compoff_no" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="LeaveBalances">
+            <EntityTypeMapping TypeName="HRMS_EntityModel.LeaveBalance">
+              <MappingFragment StoreEntitySet="LeaveBalance">
+                <ScalarProperty Name="CompOff" ColumnName="CompOff" />
+                <ScalarProperty Name="Paternity" ColumnName="Paternity" />
+                <ScalarProperty Name="Maternity" ColumnName="Maternity" />
+                <ScalarProperty Name="Marriage" ColumnName="Marriage" />
+                <ScalarProperty Name="HourlyPermission" ColumnName="HourlyPermission" />
+                <ScalarProperty Name="Bereavement" ColumnName="Bereavement" />
+                <ScalarProperty Name="Sick" ColumnName="Sick" />
+                <ScalarProperty Name="Emergency" ColumnName="Emergency" />
+                <ScalarProperty Name="Earned" ColumnName="Earned" />
+                <ScalarProperty Name="Year" ColumnName="Year" />
+                <ScalarProperty Name="EmployeeName" ColumnName="EmployeeName" />
+                <ScalarProperty Name="EmpID" ColumnName="EmpID" />
+                <ScalarProperty Name="Sno" ColumnName="Sno" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

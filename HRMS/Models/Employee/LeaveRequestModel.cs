@@ -23,7 +23,10 @@ namespace HRMS.Models.Employee
         public string EmergencyContact_no { get; set; }
         public string hourPermission { get; set; }
         public JsonResponse jsonResponse { get; set; } = new JsonResponse();
-
+        public string Location { get; set; }
+        public string OfficalEmailid { get; set; }
+        public string ActionType { get; set; }
+        public string EditRequestName { get; set; }
     }
 
     public class DayTypeEntry
@@ -36,6 +39,11 @@ namespace HRMS.Models.Employee
     public class ApplyLeaveViewModel
     {
         public List<emp_info> employees { get; set; } = new List<emp_info>();
+        public con_leaveupdate EditLeaveInfo { get; set; } = new con_leaveupdate();
+        public string Leaves { get; set; }
+
+        public List<string> leaveTypes = new List<string>();
+
     }
 
 
@@ -46,6 +54,9 @@ namespace HRMS.Models.Employee
         public decimal Booked { get; set; }
         public decimal Balance { get; set; }
         public string ColorCode { get; set; }
+
+        public string DashBoardColorCode { get; set; }
+        public string ShortName { get; set; }
 
     }
 
@@ -65,6 +76,17 @@ namespace HRMS.Models.Employee
     {
         public string Type { get; set; }
         public string Colrocode { get; set; }
+        public string DashBoardColorCode { get; set; }
+        public string ShortName { get; set; }
 
+    }
+
+    public class LeaveInfo
+    {
+        public string LeaveRequestName { get; set; }
+        public DateTime? Fromdate { get; set; }
+        public DateTime? Todate { get; set; }
+        public decimal TotalLeaveDays { get; set; }
+        public con_leaveupdate LatestLeave { get; set; }
     }
 }

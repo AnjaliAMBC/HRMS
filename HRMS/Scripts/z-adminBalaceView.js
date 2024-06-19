@@ -1,4 +1,4 @@
-﻿$('.adminleave-Balanve-link').click(function (event) {
+﻿$(document).on('click', '.adminleave-Balanve-link', function (event) {
     event.preventDefault();
     HighlightAdminActiveLink($(this));
     $.ajax({
@@ -32,8 +32,7 @@
 
 //leave balance update page 
 
-$('.employeeinfo-balance').click(function (event) {
-
+$(document).on('click', '.employeeinfo-balance', function (event) {
     event.preventDefault();
     HighlightAdminActiveLink($(this));
     var employeeId = $(this).find('.employee-id').text();
@@ -41,7 +40,7 @@ $('.employeeinfo-balance').click(function (event) {
         url: '/adminleave/adminleavebalanceupdate',
         type: 'GET',
         dataType: 'html',
-        data: {selectedEmpID: employeeId },
+        data: { selectedEmpID: employeeId },
         success: function (response) {
             $(".hiddenadmindashboard").html("");
             $('.admin-dashboard-container').html("");

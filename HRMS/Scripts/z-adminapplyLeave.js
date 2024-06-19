@@ -1,10 +1,9 @@
-﻿$('.adminside-leaveapply').click(function (event) {
-    event.preventDefault();
-    HighlightAdminActiveLink($(this));
+﻿function AddEditLeaves(leaverequestname) {
     $.ajax({
         url: '/empleave/empApplyLeave',
         type: 'GET',
         dataType: 'html',
+        data: { leaveRequestName: leaverequestname },
         success: function (response) {
             $(".hiddenadmindashboard").html("");
             $('.admin-dashboard-container').html("");
@@ -12,22 +11,49 @@
             $('.admin-empmanagement-container').html("");
             $('.admin-attendance-container').html("");
             $('.admin-leave-container').html("");
-            $(".hiddenadmindashboard").html(response);
+            $('.leave-dashboard-data').html("");
+
+            $(".hiddenempdashboard").html("");
+
+            $(".hiddenadmindashboard").html(response);    
             var formContent = $(".hiddenadmindashboard").find(".employeeleaveapply-view").html();
             $(".admin-leave-container").html(formContent);
             $('.admin-leave-container').show();
+
+            $(".hiddenempdashboard").html(response);
+            formContent = $(".hiddenempdashboard").find(".employeeleaveapply-view").html();
+            $(".leave-dashboard-data").html(formContent);
+            $('.leave-dashboard-data').show();          
+        
+
             $('.admin-attendance-container').hide();
             $('.admin-empmanagement-container').hide();
             $('.admin-emppadd-container').hide();
             $('.admin-dashboard-container').hide();
             $('.admin-ticketing-container').hide();
             $(".hiddenadmindashboard").html("");
+            $(".hiddenempdashboard").html("");
+
+            if (leaverequestname != undefined && leaverequestname != "") {
+                $('#toleaveDate').trigger('change');
+            }
+        
+            generateBalanceSection();
 
         },
         error: function (xhr, status, error) {
             console.error("Error deleting employee:", error);
         }
     });
+}
+
+$(document).on('click', '.adminside-leaveapply', function (event) {
+    event.preventDefault();
+    HighlightAdminActiveLink($(this));
+    $('.leave-pagetitle').text("Apply Leave");
+    $('.btn-apply-empleave').text("Apply Leave");
+    $('#dayTypeContainer').hide();
+    AddEditLeaves("");
 });
 //avialable balance function
 
@@ -92,4 +118,4 @@ function generateBalanceSection() {
 generateBalanceSection();
 
 
- /*<span style="font-size: small">@lastCheckinDate</span> */
+/*<span style="font-size: small">@lastCheckinDate</span> */

@@ -1,6 +1,8 @@
-﻿using HRMS.Models.Employee;
+﻿using HRMS.Models.Admin;
+using HRMS.Models.Employee;
 using System;
 using System.Collections.Generic;
+using System.Globalization;
 using System.Linq;
 using System.Web;
 
@@ -84,10 +86,30 @@ namespace HRMS.Helpers
                 {
                     availableLeaves.Available = totalBereavementLeaves;
                 }
+
+
+                if (leaveType.Type == "Comp Off")
+                {
+                    var employeeCompoffs = _dbContext.Compoffs
+                    .Where(x => x.EmployeeID == employee.EmployeeID && x.CampOffDate.Year == DateTime.Today.Year && x.addStatus == "Approved")
+                    .ToList();
+
+                    if (employeeCompoffs != null && employeeCompoffs.Count() > 0)
+                    {
+                        availableLeaves.Available = employeeCompoffs.Count();
+                    }
+                    else
+                    {
+                        availableLeaves.Available = 0;
+                    }
+                }
+
                 availableLeaves.Booked = totalLeaveDays;
                 availableLeaves.Balance = availableLeaves.Available - availableLeaves.Booked;
                 availableLeaves.Type = leaveType.Type;
                 availableLeaves.ColorCode = leaveType.Colrocode;
+                availableLeaves.DashBoardColorCode = leaveType.DashBoardColorCode;
+                availableLeaves.ShortName = leaveType.ShortName;
             }
             return availableLeaves;
         }
@@ -174,7 +196,18 @@ namespace HRMS.Helpers
 
             if (leaveType.Type == "Comp Off")
             {
-                availableLeaves.Available = 5;
+                var employeeCompoffs = _dbContext.Compoffs
+                .Where(x => x.EmployeeID == employee.EmployeeID && x.CampOffDate.Year == DateTime.Today.Year && x.addStatus == "Approved")
+                .ToList();
+
+                if (employeeCompoffs != null && employeeCompoffs.Count() > 0)
+                {
+                    availableLeaves.Available = employeeCompoffs.Count();
+                }
+                else
+                {
+                    availableLeaves.Available = 0;
+                }
             }
 
             if (leaveType.Type == "Hourly Permission")
@@ -195,6 +228,8 @@ namespace HRMS.Helpers
 
             availableLeaves.Booked = totalLeaveDays;
             availableLeaves.Balance = availableLeaves.Available - availableLeaves.Booked;
+            availableLeaves.DashBoardColorCode = leaveType.DashBoardColorCode;
+            availableLeaves.ShortName = leaveType.ShortName;
             return availableLeaves;
         }
 
@@ -215,15 +250,15 @@ namespace HRMS.Helpers
             }
 
             var leaveTypes = new List<LeavesCategory>();
-            leaveTypes.Add(new LeavesCategory() { Type = "Earned Leave", Colrocode = "ear_border" });
-            leaveTypes.Add(new LeavesCategory() { Type = "Emergency Leave", Colrocode = "emr_border" });
-            leaveTypes.Add(new LeavesCategory() { Type = "Sick Leave", Colrocode = "sick_border" });
-            leaveTypes.Add(new LeavesCategory() { Type = "Bereavement Leave", Colrocode = "bev_border" });
-            leaveTypes.Add(new LeavesCategory() { Type = "Hourly Permission", Colrocode = "hou_border" });
-            leaveTypes.Add(new LeavesCategory() { Type = "Marriage Leave", Colrocode = "mar_border" });
-            leaveTypes.Add(new LeavesCategory() { Type = "Maternity Leave", Colrocode = "mat_border" });
-            leaveTypes.Add(new LeavesCategory() { Type = "Paternity Leave", Colrocode = "pat_border" });
-            leaveTypes.Add(new LeavesCategory() { Type = "Comp Off", Colrocode = "com_border" });
+            leaveTypes.Add(new LeavesCategory() { Type = "Earned Leave", Colrocode = "ear_border", DashBoardColorCode = "bg-earned", ShortName = "EL" });
+            leaveTypes.Add(new LeavesCategory() { Type = "Emergency Leave", Colrocode = "emr_border", DashBoardColorCode = "bg-emergency", ShortName = "EML" });
+            leaveTypes.Add(new LeavesCategory() { Type = "Sick Leave", Colrocode = "sick_border", DashBoardColorCode = "bg-danger", ShortName = "SL" });
+            leaveTypes.Add(new LeavesCategory() { Type = "Bereavement Leave", Colrocode = "bev_border", DashBoardColorCode = "bg-bereavement", ShortName = "BL" });
+            leaveTypes.Add(new LeavesCategory() { Type = "Hourly Permission", Colrocode = "hou_border", DashBoardColorCode = "bg-bereavement", ShortName = "HP" });
+            leaveTypes.Add(new LeavesCategory() { Type = "Marriage Leave", Colrocode = "mar_border", DashBoardColorCode = "bg-marriage", ShortName = "ML" });
+            leaveTypes.Add(new LeavesCategory() { Type = "Maternity Leave", Colrocode = "mat_border", DashBoardColorCode = "bg-maternity", ShortName = "MTL" });
+            leaveTypes.Add(new LeavesCategory() { Type = "Paternity Leave", Colrocode = "pat_border", DashBoardColorCode = "bg-paternity", ShortName = "PL" });
+            leaveTypes.Add(new LeavesCategory() { Type = "Comp Off", Colrocode = "com_border", DashBoardColorCode = "bg-compensatory", ShortName = "CO" });
 
             foreach (var emp in employess)
             {
@@ -237,6 +272,139 @@ namespace HRMS.Helpers
             }
 
             return empLeaveTypes;
+        }
+
+        public AdminLeaveManagementModel GetLeavesInfoBasedonStartandEndDate(string selectedStartDate, string SelectedEndDate, AdminLeaveManagementModel model, string empID, bool fromDashboard = false)
+        {
+            var cuserContext = SiteContext.GetCurrentUserContext();
+            model.EmpInfo = cuserContext.EmpInfo;
+            model.LoginInfo = cuserContext.LoginInfo;
+
+            model.SelectedDate = DateTime.Today;
+            model.SelectedEndDate = DateTime.Today;
+            if (!string.IsNullOrWhiteSpace(selectedStartDate))
+            {
+                if (!selectedStartDate.Contains('-'))
+                    model.SelectedDate = DateTime.ParseExact(selectedStartDate, "dd MMMM yyyy", CultureInfo.InvariantCulture);
+                else
+                    model.SelectedDate = DateTime.Parse(selectedStartDate);
+            }
+
+            if (!string.IsNullOrWhiteSpace(SelectedEndDate))
+            {
+                if (!selectedStartDate.Contains('-'))
+                    model.SelectedEndDate = DateTime.ParseExact(SelectedEndDate, "dd MMMM yyyy", CultureInfo.InvariantCulture);
+                else
+                    model.SelectedEndDate = DateTime.Parse(SelectedEndDate);
+            }
+
+            var selectedDateLeaves = new List<con_leaveupdate>();
+
+
+
+            if (string.IsNullOrWhiteSpace(empID))
+            {
+                selectedDateLeaves = _dbContext.con_leaveupdate.Where(x => x.leavedate >= model.SelectedDate && x.leavedate <= model.SelectedEndDate).ToList();
+            }
+            else
+            {
+                if (fromDashboard)
+                {
+                    selectedDateLeaves = _dbContext.con_leaveupdate.Where(x => x.createddate >= model.SelectedDate && x.createddate <= model.SelectedEndDate && x.employee_id == empID).ToList();
+                }
+                else
+                {
+                    selectedDateLeaves = _dbContext.con_leaveupdate.Where(x => x.leavedate >= model.SelectedDate && x.leavedate <= model.SelectedEndDate && x.employee_id == empID).ToList();
+                }
+            }
+
+            model.LeavesInfo = selectedDateLeaves.OrderBy(x => x.leavedate).ToList();
+
+            return model;
+        }
+
+        public List<LeaveInfo> EmpLeaveInfo(string empId, int year)
+        {
+            int currentYear = year == 0 ? DateTime.Now.Year : year;
+            string january1stString = $"{currentYear}-01-01";
+            string december31stString = $"{currentYear}-12-31";
+
+            DateTime january1st = DateTime.ParseExact(january1stString, "yyyy-MM-dd", null);
+            DateTime december31st = DateTime.ParseExact(december31stString, "yyyy-MM-dd", null);
+
+            // Query leave data and group by LeaveRequestName
+            var leaves = _dbContext.con_leaveupdate
+                .Where(x => x.employee_id == empId && x.leavedate >= january1st && x.leavedate <= december31st)
+                .GroupBy(x => x.LeaveRequestName)
+                .Select(g => new LeaveInfo
+                {
+                    LeaveRequestName = g.Key,
+                    Fromdate = g.Min(x => x.Fromdate),
+                    Todate = g.Max(x => x.Todate),
+                    TotalLeaveDays = g.Sum(x => x.LeaveDays),
+                    LatestLeave = g.OrderByDescending(x => x.leavedate).FirstOrDefault()
+                })
+                .OrderByDescending(x => x.LatestLeave.leavedate)
+                .ToList();
+
+            // Query Comp Off data for the specified year
+            var compoffsApplied = _dbContext.Compoffs
+                .Where(x => x.EmployeeID == empId && x.CampOffDate.Year == year)
+                .ToList();
+
+            // Convert Comp Off data to LeaveInfo format and add to leaves list
+            foreach (var compoff in compoffsApplied)
+            {
+                var compOffLeave = new LeaveInfo
+                {
+                    LeaveRequestName = compoff.concatinatestring,
+                    Fromdate = compoff.CampOffDate,
+                    Todate = compoff.CampOffDate,
+                    TotalLeaveDays = 1, // Assuming each comp off is 1 day
+                    LatestLeave = new con_leaveupdate
+                    {
+                        leavedate = compoff.CampOffDate,
+                        LeaveRequestName = compoff.concatinatestring,
+                        LeaveStatus = compoff.addStatus,
+                        leavesource = "CompOff"
+                    }
+                };
+
+                leaves.Add(compOffLeave);
+            }
+
+            // If you need to return leaves list as a specific type, convert it accordingly
+            var result = leaves
+                .OrderByDescending(x => x.LatestLeave.leavedate)
+                .ToList();
+            return result;
+        }
+
+        public List<LeaveInfo> EmpLeaveInfoBasedonDate(string startdate, string enddate)
+        {
+
+            DateTime dateStart = DateTime.ParseExact(startdate, "dd-MM-yyyy", null);
+
+            // Query leave data and group by LeaveRequestName
+            var leaves = _dbContext.con_leaveupdate
+                .Where(x => x.createddate == dateStart)
+                .GroupBy(x => x.LeaveRequestName)
+                .Select(g => new LeaveInfo
+                {
+                    LeaveRequestName = g.Key,
+                    Fromdate = g.Min(x => x.Fromdate),
+                    Todate = g.Max(x => x.Todate),
+                    TotalLeaveDays = g.Sum(x => x.LeaveDays),
+                    LatestLeave = g.OrderByDescending(x => x.leavedate).FirstOrDefault()
+                })
+                .OrderByDescending(x => x.LatestLeave.leavedate)
+                .ToList();
+
+            // If you need to return leaves list as a specific type, convert it accordingly
+            var result = leaves
+                .OrderByDescending(x => x.LatestLeave.leavedate)
+                .ToList();
+            return result;
         }
     }
 }

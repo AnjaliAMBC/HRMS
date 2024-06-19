@@ -8,26 +8,26 @@
         dataType: 'html',
         success: function (response) {
 
-            //$(".hiddenadmindashboard").html("");
-            //$('.admin-dashboard-container').html("");
-            //$(".admin-emppadd-container").html("");
-            //$('.admin-empmanagement-container').html("");
-            //$('.admin-attendance-container').html("");
-            //$('.admin-leave-container').html("");
+            $(".hiddenadmindashboard").html("");
+            $('.admin-dashboard-container').html("");
+            $(".admin-emppadd-container").html("");
+            $('.admin-empmanagement-container').html("");
+            $('.admin-attendance-container').html("");
+            $('.admin-leave-container').html("");
 
-            //$(".hiddenadmindashboard").html(response);
-            //var formContent = $(".hiddenadmindashboard").find(".admin-addshift-view").html();
-            //$(".admin-attendance-container").html(formContent);
+            $(".hiddenadmindashboard").html(response);
+            var formContent = $(".hiddenadmindashboard").find(".admin-addshift-view").html();
+            $(".admin-attendance-container").html(formContent);
 
-            //$('.admin-attendance-container').show();
-            //$('.admin-empmanagement-container').hide();
-            //$('.admin-emppadd-container').hide();
-            //$('.admin-dashboard-container').hide();
-            //$('.admin-leave-container').hide();
-            //$('.admin-ticketing-container').hide();
-            //$(".hiddenadmindashboard").html("");
-            $(".admin-attendancemgmt-view").html("");
-            $(".admin-attendancemgmt-view").html(response)
+            $('.admin-attendance-container').show();
+            $('.admin-empmanagement-container').hide();
+            $('.admin-emppadd-container').hide();
+            $('.admin-dashboard-container').hide();
+            $('.admin-leave-container').hide();
+            $('.admin-ticketing-container').hide();
+            $(".hiddenadmindashboard").html("");
+            //$(".admin-attendancemgmt-view").html("");
+            //$(".admin-attendancemgmt-view").html(response)
         },
         error: function (xhr, status, error) {
             var err = eval("(" + xhr.responseText + ")");

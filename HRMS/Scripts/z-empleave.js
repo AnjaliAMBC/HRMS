@@ -29,21 +29,20 @@
     });
 }
 
-
 let currentLeaveMonth;
 let currentLeaveYear;
 
-const leaveholidays = {
-    '4-8': 'New Year',
-    '4-15': 'Pongal/Makar Sankranti',
-    '4-26': 'Republic Day',
-};
+function generateLeaveHolidays(holidays) {
+    const leaveholidays = {};
 
-const leaveRequests = {
-    '4-29': [
-        { name: 'John Doe', image: 'https://via.placeholder.com/24', more: 3 },
-    ]
-};
+    holidays.forEach(holiday => {
+        const date = new Date(holiday.holiday_date);
+        const key = `${date.getMonth() + 1}-${date.getDate()}`; // 'MM-DD' format
+        leaveholidays[key] = holiday.holiday_name;
+    });
+
+    return leaveholidays;
+}
 
 function fetchLeaveHolidays() {
     updateLeaveCalendar();
@@ -53,10 +52,8 @@ function updateLeaveCalendar() {
     generateLeaveCalendar(currentLeaveMonth, currentLeaveYear);
 }
 
-//On Page load
-generateLeaveCalendar(new Date().getMonth(), new Date().getFullYear());
-
 function generateLeaveCalendar(month, year) {
+
     var isAdminLeavePage = false;
     var linktoleavecalender = "btn-apply-leave1";
 
@@ -65,88 +62,126 @@ function generateLeaveCalendar(month, year) {
         linktoleavecalender = "btn-admin-apply-leave1";
     }
 
-    const today = new Date();
-    const firstDayOfMonth = new Date(year, month, 1);
-    const daysInMonth = new Date(year, month + 1, 0).getDate();
-    const startingDay = firstDayOfMonth.getDay() === 0 ? 6 : firstDayOfMonth.getDay() - 1;
+    var empID = isAdminLeavePage ? "" : $('.loggedinempid').text();
 
-    const calendarBody = document.getElementById("empleave-calendarBody");
-    if (!calendarBody) {
-        return;
-    }
-    calendarBody.innerHTML = "";
-
-    const monthYear = document.getElementById("empleave-monthYear");
-    if (!monthYear) {
-        return;
-    }
-    monthYear.innerText = new Date(year, month).toLocaleDateString('default', { month: 'long', year: 'numeric' });
-
-    let date = 1;
-    for (let i = 0; i < 6; i++) {
-        const row = document.createElement("tr");
-
-        for (let j = 0; j < 7; j++) {
-            if (i === 0 && j < startingDay) {
-                const cell = document.createElement("td");
-                row.appendChild(cell);
-            } else if (date > daysInMonth) {
-                break;
-            } else {
-                const cell = document.createElement("td");
-                cell.textContent = date;
-                cell.classList.add(linktoleavecalender);
-
-                const holidayKey = `${month + 1}-${date}`;
-                if (date === today.getDate() && year === today.getFullYear() && month === today.getMonth()) {
-                    cell.classList.add("highlight-currentleave");
-                } else if (leaveholidays[holidayKey]) {
-                    cell.classList.add("highlight-festival-leave");
-                    cell.innerHTML += `<div>${leaveholidays[holidayKey]}</div>`;
+    $.ajax({
+        url: '/adminleave/admincalenderleavemanagement',
+        type: 'POST',
+        dataType: 'json',
+        data: { month: month, year: year, empID: empID },
+        success: function (response) {
+            const leaveData = $.parseJSON(response);
+            const leaveRequests = {};
+            leaveData.forEach(leave => {
+                const leaveDate = new Date(leave.LatestLeave.createddate).toISOString().split('T')[0];
+                if (!leaveRequests[leaveDate]) {
+                    leaveRequests[leaveDate] = [];
                 }
+                leaveRequests[leaveDate].push(leave);
+            });
 
-                if (leaveRequests[holidayKey]) {
-                    const leaveDiv = document.createElement("div");
-                    leaveDiv.classList.add("empleave-leave-request");
+            $.ajax({
+                url: '/adminleave/getholidaysbasedonlocation',
+                type: 'POST',
+                dataType: 'json',
+                data: { empid: $('.loggedinempid').text(), month: month, year: year },
+                success: function (holidayresponse) {
+                    console.log(holidayresponse);
 
-                    leaveRequests[holidayKey].forEach((leave, index) => {
-                        const img = document.createElement("img");
-                        img.src = leave.image;
-                        img.alt = leave.name;
-                        leaveDiv.appendChild(img);
+                    const holidays = $.parseJSON(holidayresponse);
+                    const leaveholidays = generateLeaveHolidays(holidays);
 
-                        if (index === leaveRequests[holidayKey].length - 1 && leave.more) {
-                            const more = document.createElement("div");
-                            more.textContent = `+${leave.more}`;
-                            leaveDiv.appendChild(more);
+                    const today = new Date();
+                    const firstDayOfMonth = new Date(year, month, 1);
+                    const daysInMonth = new Date(year, month + 1, 0).getDate();
+                    const startingDay = firstDayOfMonth.getDay() === 0 ? 6 : firstDayOfMonth.getDay() - 1;
+
+                    const calendarBody = document.getElementById("empleave-calendarBody");
+                    if (!calendarBody) {
+                        return;
+                    }
+                    calendarBody.innerHTML = "";
+
+                    const monthYear = document.getElementById("empleave-monthYear");
+                    if (!monthYear) {
+                        return;
+                    }
+                    monthYear.innerText = new Date(year, month).toLocaleDateString('default', { month: 'long', year: 'numeric' });
+
+                    let date = 1;
+                    for (let i = 0; i < 6; i++) {
+                        const row = document.createElement("tr");
+
+                        for (let j = 0; j < 7; j++) {
+                            if (i === 0 && j < startingDay) {
+                                const cell = document.createElement("td");
+                                row.appendChild(cell);
+                            } else if (date > daysInMonth) {
+                                break;
+                            } else {
+                                const cell = document.createElement("td");
+                                const fullDate = new Date(year, month, date);
+                                const formattedDate = fullDate.toISOString().split('T')[0]; // YYYY-MM-DD format
+
+                                const formattedMonthDate = fullDate.toLocaleDateString('en-GB', { day: '2-digit', month: 'long', year: 'numeric' });
+
+                                cell.textContent = date;
+                                cell.setAttribute("data-date", formattedMonthDate); // Set the data-date attribute
+                                cell.classList.add(linktoleavecalender);
+
+                                const holidayKey = `${month + 1}-${date}`;
+                                if (date === today.getDate() && year === today.getFullYear() && month === today.getMonth()) {
+                                    cell.classList.add("highlight-currentleave");
+
+                                    if (leaveRequests[formattedDate]) {
+                                        const leaveDiv = document.createElement("div");
+                                        leaveDiv.classList.add("empleave-leave-request");
+                                        leaveDiv.style.backgroundColor = "#e7f3fe"; // Add background color to leaveDiv
+
+                                        leaveRequests[formattedDate].forEach((leave, index) => {
+                                            if (index < 2) { // Show up to 2 images directly
+                                                const img = document.createElement("img");
+                                                img.src = `/Assets/EmpImages/${leave.LatestLeave.employee_id}.jpeg`; // Adjust the image path as needed
+                                                img.alt = leave.employee_name;
+                                                img.title = leave.employee_name;
+                                                leaveDiv.appendChild(img);
+                                            } else if (index === 2) { // Show the count of additional leave requests
+                                                const moreDiv = document.createElement("div");
+                                                moreDiv.classList.add("more-count");
+                                                moreDiv.textContent = `+ ${leaveRequests[formattedDate].length - 2}`;
+                                                leaveDiv.appendChild(moreDiv);
+                                            }
+                                        });
+
+                                        cell.appendChild(leaveDiv);
+                                        cell.classList.add("highlight-leave");
+                                        cell.style.backgroundColor = "#e7f3fe"; // Add background color to parent td
+                                    }
+                                } else if (leaveholidays[holidayKey] != undefined && leaveholidays[holidayKey] != "") {
+                                    cell.classList.add("highlight-festival-leave");
+                                    cell.innerHTML += `<div>${leaveholidays[holidayKey]}</div>`;
+                                }
+
+                                // Add weekend background color
+                                if (j === 5 || j === 6) { // 5 is Saturday, 6 is Sunday
+                                    cell.classList.add("weekend-background");
+                                }
+
+                                row.appendChild(cell);
+                                date++;
+                            }
                         }
-                    });
 
-                    cell.appendChild(leaveDiv);
+                        calendarBody.appendChild(row);
+                    }
                 }
-
-                // Add weekend background color
-                if (j === 5 || j === 6) { // 5 is Saturday, 6 is Sunday
-                    cell.classList.add("weekend-background");
-                }
-
-                row.appendChild(cell);
-                date++;
-            }
+            });
+        },
+        error: function (xhr, status, error) {
+            var err = eval("(" + xhr.responseText + ")");
         }
-
-        calendarBody.appendChild(row);
-    }
+    });
 }
-
-// Add jQuery event listener for the click event
-//$(document).on('click', '.btn-apply-leave', function (event) {
-//    const date = $(this).text();
-//    window.location.href = `your_page_url?date=${year}-${month + 1}-${date}`;
-//});
-
-
-
 
 function prevLeaveMonth() {
     currentLeaveMonth--;
@@ -179,29 +214,89 @@ function formatJSONDate(jsonDate) {
     const dayOptions = { weekday: 'short' };
     const formattedDate = date.toLocaleDateString('en-GB', dateOptions);
     const day = date.toLocaleDateString('en-GB', dayOptions);
-    return `${formattedDate} <br> ${day}`;
+    return `${formattedDate} ${day}`;
 }
+
+//function GetEmpLeaveHistory() {
+//    $.ajax({
+//        url: '/empLeave/EmpLeaveHistory',
+//        type: 'POST',
+//        dataType: 'json',
+//        data: { empId: $('.loggedinempid').text(), year: 2024 },
+//        success: function (response) {
+//            const tableData = response.map(item => {
+//                return [
+//                    formatJSONDate(item.Fromdate) + ' - ' + formatJSONDate(item.Todate),
+//                    item.TotalLeaveDays,
+//                    item.LatestLeave.leavesource,
+//                    `<span style="color:forestgreen">${item.LatestLeave.LeaveStatus}</span>`,
+//                    `<i class="fa-solid fa-message mb-3" style="color: #6b8dda;"></i>
+//                             <p class="ml-3" style="margin:0;">${item.LatestLeave.leave_reason}</p>`,
+//                    `<i class="fas fa-ellipsis-h leave-edit-history" id="toggleOptions"></i>
+//                             <div class="emp-leaveoptions" id="emp-leaveoptions" style="display:none">
+//                                 <a class="dropdown-item emp-leave-edit" href="#" data-leavenum='${item.LatestLeave.leaveno}'>Edit</a>
+//                                 <a class="dropdown-item emp-leave-cancel" href="#" data-leavenum='${item.LatestLeave.leaveno}'>Cancel</a>
+//                             </div>`
+//                ];
+//            });
+
+//            if ($.fn.DataTable.isDataTable('#leaveHistoryTable')) {
+//                $('#leaveHistoryTable').DataTable().clear().destroy();
+//            }
+
+//            $('#leaveHistoryTable').DataTable({
+//                data: tableData,
+//                paging: true,
+//                pageLength: 8,
+//                searching: false,
+//                ordering: false,
+//                info: false,
+//                lengthChange: false,
+//                dom: 'rt<"bottom"p><"clear">',
+//                language: {
+//                    paginate: {
+//                        next: 'Next',
+//                        previous: 'Previous'
+//                    }
+//                },
+//                columns: [
+//                    { title: "Date", width: "15%" },
+//                    { title: "Day(s)", width: "5%" },
+//                    { title: "Leave Type", width: "15%" },
+//                    { title: "Status", width: "15%" },
+//                    { title: "Comment", width: "30%" },
+//                    { title: "Actions" }
+//                ]
+//            });
+
+//        },
+//        error: function (xhr, status, error) {
+//            console.error(error);
+//        }
+//    });
+//}
+
 
 function GetEmpLeaveHistory() {
     $.ajax({
-        url: '/empLeave/empleavehistory',
+        url: '/empLeave/EmpLeaveHistory',
         type: 'POST',
         dataType: 'json',
         data: { empId: $('.loggedinempid').text(), year: 2024 },
         success: function (response) {
             const tableData = response.map(item => {
                 return [
-                    formatJSONDate(item.leavedate), // Date
-                    item.LeaveDays, // Day(s)
-                    item.leavesource, // Leave Type
-                    `<span style="color:forestgreen">${item.LeaveStatus}</span>`, // Status
+                    formatJSONDate(item.Fromdate) + ' - ' + formatJSONDate(item.Todate), // Date Range
+                    item.TotalLeaveDays, // Total Leave Days
+                    item.LatestLeave.leavesource, // Leave Type
+                    `<span style="color:forestgreen">${item.LatestLeave.LeaveStatus}</span>`, // Status
                     `<i class="fa-solid fa-message mb-3" style="color: #6b8dda;"></i>
-                     <p class="ml-3" style="margin:0;">${item.leave_reason}</p>`, // Comment
+                         <p class="ml-3" style="margin:0;">${item.LatestLeave.leave_reason}</p>`, // Comment
                     `<i class="fas fa-ellipsis-h leave-edit-history" id="toggleOptions"></i>
-                     <div class="emp-leaveoptions" id="emp-leaveoptions" style="display:none">
-                         <a class="dropdown-item emp-leave-edit" href="#" data-leavenum='${item.leaveno}'>Edit</a>
-                         <a class="dropdown-item emp-leave-cancel" href="#" data-leavenum='${item.leaveno}'>Cancel</a>
-                     </div>` // Actions
+                         <div class="emp-leaveoptions" id="emp-leaveoptions" style="display:none">
+                             <a class="dropdown-item emp-leave-edit" onclick="empleaveedit($(this))" data-leavename='${item.LatestLeave.LeaveRequestName}'>Edit</a>
+                             <a class="dropdown-item emp-leave-cancel" onclick="empleavecancel($(this))" data-leavename='${item.LatestLeave.LeaveRequestName}'>Cancel</a>
+                         </div>` // Actions
                 ];
             });
 
@@ -218,7 +313,7 @@ function GetEmpLeaveHistory() {
                 ordering: false,
                 info: false,
                 lengthChange: false,
-                dom: 'rt<"bottom"p><"clear">',
+              /*  dom: 'rt<"bottom"p><"clear">',*/
                 language: {
                     paginate: {
                         next: 'Next',
@@ -226,8 +321,8 @@ function GetEmpLeaveHistory() {
                     }
                 },
                 columns: [
-                    { title: "Date", width: "12%" },
-                    { title: "Day(s)", width: "5%" },
+                    { title: "Date", width: "12%" }, // Date Range
+                    { title: "Day(s)", width: "5%" }, // Total Leave Days
                     { title: "Leave Type", width: "15%" },
                     { title: "Status", width: "15%" },
                     { title: "Comment", width: "30%" },
@@ -242,7 +337,86 @@ function GetEmpLeaveHistory() {
 }
 
 
-function toggleLeaveView() {
+
+function empleaveedit(currentthis) {
+    var leaveName = currentthis.attr("data-leavename");
+
+    AddEditLeaves(leaveName);
+
+    //$.ajax({
+    //    url: '/empLeave/empleaveedit',
+    //    type: 'POST',
+    //    dataType: 'json',
+    //    data: { leavenumber: leaveName },
+    //    success: function (data) {
+    //        $('#leaveempname').val(data.employee_id).change();
+    //        $('#leaveType').val(data.leavesource);
+    //        $('#fromleaveDate').val(formatDate1(data.Fromdate));
+    //        $('#toleaveDate').val(formatDate1(data.Todate));
+    //        $('#reason').val(data.leave_reason);
+    //        $('#BackupName').val(data.BackupResource_Name);
+    //        $('#BackupNo').val(data.EmergencyContact_no);
+
+    //        // Trigger date change event to generate day type rows
+    //        $('#fromleaveDate').trigger('change');
+    //        $('#toleaveDate').trigger('change');
+
+    //        // Pre-select day types if available
+    //        preselectDayTypes(data);
+
+    //        // Show the apply leave form
+    //        $('.employeeleaveapply-view').show();
+    //    },
+    //    error: function (xhr, status, error) {
+    //        console.error("Error occurred: " + error);
+    //    }
+    //});
+
+
+}
+
+function empleavecancel(currentthis) {
+    var leaveName = currentthis.attr("data-leavename");
+
+    $.ajax({
+        url: '/empLeave/EmpLeaveCancel',
+        type: 'POST',
+        dataType: 'json',
+        data: { leavenumber: leaveName },
+        success: function (response) {
+            GetEmpLeaveHistory();
+            if (response.StatusCode == 200) {
+                showMessageModal(response.Message, true);
+            } else {
+                showMessageModal(response.Message, false);
+            }
+        },
+        error: function (xhr, status, error) {
+            console.error("Error occurred: " + error);
+        }
+    });
+
+}
+
+// Cancel leave event
+$(document).on('click', '.emp-leave-cancel', function (event) {
+    event.preventDefault();
+
+   
+});
+
+// Edit leave event
+$(document).on('click', '.emp-leave-edit', function (event) {
+    event.preventDefault();
+    var leaveNum = $(this).attr("data-leavenum");
+    // Handle the edit functionality here
+    // You can either open a modal or redirect to an edit page
+    // For example:
+    window.location.href = '/empLeave/EditLeave?leavenumber=' + leaveNum;
+});
+
+$(document).on('click', '.history_btn', function (event) {
+    event.preventDefault();
     var historyBtn = document.querySelector('.history_btn');
     var leaveHistory = document.querySelector('.leave-history');
     var cardDiv = document.querySelector('.empleave-card');
@@ -263,59 +437,19 @@ function toggleLeaveView() {
         cardDiv.style.display = 'block';
         leaveHistory.style.display = 'none';
     }
-}
-
-$(document).on('click', '.emp-leave-cancel', function (event) {
-    event.preventDefault();
-    var leaveNum = $(this).attr("data-leavenum");
-    $.ajax({
-        url: '/empleave/empleavecancel',
-        type: 'POST',
-        dataType: 'json',
-        data: { leavenumber: leaveNum },
-        success: function (response) {
-            GetEmpLeaveHistory();
-            if (response.StatusCode == 200) {
-                showMessageModal(response.Message, true);
-            }
-            else {
-                showMessageModal(response.Message, false);
-            }
-        },
-        error: function (xhr, status, error) {
-            var err = eval("(" + xhr.responseText + ")");
-        }
-    });
 });
 
-//$('#leaveHistoryTable').on('click', '.leave-edit-history', function () {
-//    $(this).siblings('.emp-leaveoptions').toggle();
-//});
-
-////$(document).on('click', function (event) {
-////    if (!$(event.target).closest('.leave-edit-history, #emp-leaveoptions').length) {
-////        $('#emp-leaveoptions').hide();
-////    }
-////});
-//$(document).on('click', function () {
-//    $('.emp-leaveoptions').hide();
-//});
 $(document).ready(function () {
     $('#leaveHistoryTable').on('click', '.leave-edit-history', function (event) {
-        // Prevent the click event from propagating to the document
         event.stopPropagation();
-        // Hide all other .emp-leaveoptions elements
         $('.emp-leaveoptions').hide();
-        // Toggle the current .emp-leaveoptions element
         $(this).siblings('.emp-leaveoptions').toggle();
     });
 
-    // Hide .emp-leaveoptions when clicking anywhere else on the document
     $(document).on('click', function () {
         $('.emp-leaveoptions').hide();
     });
 
-    // Prevent hiding when clicking inside .emp-leaveoptions
     $('#leaveHistoryTable').on('click', '.emp-leaveoptions', function (event) {
         event.stopPropagation();
     });
@@ -353,7 +487,3 @@ $(document).on('click', '.btn-apply-leave', function (event) {
         }
     });
 });
-
-//on page load
-generateLeaveCalendar(new Date().getMonth(), new Date().getFullYear());
-//LeaveCarousel();

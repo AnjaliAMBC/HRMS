@@ -1,10 +1,11 @@
 ﻿@model HRMS.Models.Admin.AdminDashView
+
 @Html.Partial("_NavBar")
 
 <div class="container-fluid res-admin-dashboard">
     @Html.Partial("_adminsidemenu")
     <div class="main-content container-fluid" style="width: 84%">
-        <div class="content admin-empmanagement-container pt-3" >
+        <div class="content admin-empmanagement-container pt-3">
 
             <div class="admin-dashboard-view">
                 <div class="container-fluid res-admindash">
@@ -15,90 +16,50 @@
                                 <!-- Leave Request Section -->
                                 <div class="card leave-requests mx-2">
                                     <div class="card-header">
-                                        Leave Request (5)
+                                        Leave Request (@Model.LeavesInfo.LeavesInfo.Count())
                                     </div>
                                     <div class="card-body admindash_card scrollbar p-2">
-                                        <!--<ul class="list-group list-group-flush">
-                                            <li class="list-group-item p-0">
-                                                <div class="leave-info">
-                                                    <img src="https://via.placeholder.com/40" alt="Rajesh Kumar" class="rounded-circle">
-                                                    <div class="leave-text mt-2">
-                                                        <span>Rajesh Kumar</span>
-                                                        <small>Emergency Leave | 29-04-2024</small>
+                                        <ul class="list-group list-group-flush">
+                                            @foreach (var leave in Model.LeavesInfo.LeavesInfo)
+                                            {
+                                                <li class="list-group-item p-0">
+                                                    <div class="leave-info">
+                                                        @{
+                                                            var empImagePath = "/Assets/EmpImages/" + leave.employee_id + ".jpeg";
+                                                        }
+                                                        <img src="@empImagePath" alt="emp name" class="rounded-circle">
+                                                        <div class="leave-text mt-2">
+                                                            <span>@leave.employee_name</span>
+                                                            @if (leave.Fromdate != leave.Todate)
+                                                            {
+                                                                <small>@leave.leavesource | @leave.Fromdate.Value.ToString("dd MMMM yyyy") to @leave.Todate.Value.ToString("dd MMMM yyyy")</small>
+                                                            }
+                                                            else
+                                                            {
+                                                                <small>@leave.leavesource | @leave.leavedate.Value.ToString("dd MMMM yyyy")</small>
+                                                            }
+
+                                                        </div>
                                                     </div>
-                                                </div>
-                                                <div class="btn-group">
-                                                    <button type="submit" class="btn_approve p-0">✔ Approve</button>
-                                                    <button type="submit" class="btn_reject ml-0">✖ Reject</button>
-                                                </div>
-                                            </li>
-                                            <li class="list-group-item p-0">
-                                                <div class="leave-info">
-                                                    <img src="https://via.placeholder.com/40" alt="Sriram Vivekanandan" class="rounded-circle">
-                                                    <div class="leave-text mt-2">
-                                                        <span>Sriram Vivekanandan</span>
-                                                        <small>Earned Leave | 29-04-2024 - 01-05-2024</small>
+                                                    <div class="btn-group">
+
+                                                        @if (leave.LeaveStatus == "Pending")
+                                                        {
+                                                            <button type="button" data-leavename="@leave.LeaveRequestName" class="btn_approve p-0">✔ Approve</button>
+                                                            <button type="button" data-leavename="@leave.LeaveRequestName" class="btn_reject ml-0">✖ Reject</button>
+                                                        }
+                                                        else
+                                                        {
+                                                            <small>
+                                                                @leave.LeaveStatus
+                                                            </small>
+                                                        }
+
                                                     </div>
-                                                </div>
-                                                <div class="btn-group">
-                                                    <button type="submit" class="btn_approve p-0">✔ Approve</button>
-                                                    <button type="submit" class="btn_reject ml-0">✖ Reject</button>
-                                                </div>
-                                            </li>
-                                            <li class="list-group-item p-0">
-                                                <div class="leave-info">
-                                                    <img src="https://via.placeholder.com/40" alt="Linkeshwaran" class="rounded-circle">
-                                                    <div class="leave-text mt-2">
-                                                        <span>Linkeshwaran</span>
-                                                        <small>Sick Leave | 29-04-2024</small>
-                                                    </div>
-                                                </div>
-                                                <div class="btn-group">
-                                                    <button type="submit" class="btn_approve p-0">✔ Approve</button>
-                                                    <button type="submit" class="btn_reject ml-0">✖ Reject</button>
-                                                </div>
-                                            </li>
-                                            <li class="list-group-item p-0">
-                                                <div class="leave-info">
-                                                    <img src="https://via.placeholder.com/40" alt="Saravanan Maoharan" class="rounded-circle">
-                                                    <div class="leave-text mt-2">
-                                                        <span>Saravanan Maoharan</span>
-                                                        <small>Emergency Leave | 29-04-2024</small>
-                                                    </div>
-                                                </div>
-                                                <div class="btn-group">
-                                                    <button type="submit" class="btn_approve p-0">✔ Approve</button>
-                                                    <button type="submit" class="btn_reject ml-0">✖ Reject</button>
-                                                </div>
-                                            </li>-->
-                                                            <!-- Additional leave requests -->
-                                                            <!--<li class="list-group-item p-0">
-                                                <div class="leave-info">
-                                                    <img src="https://via.placeholder.com/40" alt="John Doe" class="rounded-circle">
-                                                    <div class="leave-text mt-2">
-                                                        <span>John Doe</span>
-                                                        <small>Personal Leave | 30-04-2024</small>
-                                                    </div>
-                                                </div>
-                                                <div class="btn-group">
-                                                    <button type="submit" class="btn_approve p-0">✔ Approve</button>
-                                                    <button type="submit" class="btn_reject ml-0">✖ Reject</button>
-                                                </div>
-                                            </li>
-                                            <li class="list-group-item p-0">
-                                                <div class="leave-info">
-                                                    <img src="https://via.placeholder.com/40" alt="Jane Smith" class="rounded-circle">
-                                                    <div class="leave-text mt-2">
-                                                        <span>Jane Smith</span>
-                                                        <small>Vacation | 01-05-2024 - 05-05-2024</small>
-                                                    </div>
-                                                </div>
-                                                <div class="btn-group">
-                                                    <button type="submit" class="btn_approve p-0">✔ Approve</button>
-                                                    <button type="submit" class="btn_reject ml-0">✖ Reject</button>
-                                                </div>
-                                            </li>
-                                        </ul>-->
+                                                </li>
+                                            }
+
+                                        </ul>
                                     </div>
                                 </div>
                             </div>
@@ -134,8 +95,8 @@
                                         January 2024
                                     </div>
                                     <div class="card-body">-->
-                                                        <!-- Calendar placeholder -->
-                                                        <!--<div id="calendar"></div>
+                                    <!-- Calendar placeholder -->
+                                    <!--<div id="calendar"></div>
                                     </div>-->
 
                                     <div class="card-header calendar-header text-dark">
@@ -242,6 +203,7 @@
                                     </div>
                                 </div>
                             </div>
+
                             <div class="col-12 col-sm-11 col-md-6 col-lg-4 col-xl-4 p-0 dashcard_style">
                                 <!-- Upcoming Holidays Section -->
                                 <div class="card mx-2">
@@ -254,12 +216,19 @@
                                             {
                                                 if (@holiday.HolidayDate != DateTime.MinValue)
                                                 {
-                                                    <li class="admindash_holiday">
-                                                        <h6 class="mb-0">@holiday.HolidayName</h6>
-                                                        <div class="leave_data d-flex">
-                                                            <p class="smalltext mb-0">@holiday.HolidayDate.ToString("dd MMMM dddd")</p>
-                                                            <p class="smalltext ml-auto mb-0 ">@holiday.Region</p>
-                                                        </div>
+                                                    @*<li class="admindash_holiday">
+                                                            <h6 class="mb-0">@holiday.HolidayName</h6>
+                                                            <div class="leave_data d-flex">
+                                                                <p class="smalltext mb-0">@holiday.HolidayDate.ToString("dd MMMM dddd")</p>
+                                                                <p class="smalltext ml-auto mb-0 ">@holiday.Region</p>
+                                                            </div>
+                                                        </li>*@
+
+                                                    <li class="dashhoiday_description">
+                                                        <a>
+                                                            <h6 class="mb-0">@holiday.HolidayName</h6>
+                                                            <p class="smalltext">@holiday.HolidayDate.ToString("dd MMMM dddd")</p>
+                                                        </a>
                                                     </li>
                                                 }
                                             }
@@ -269,7 +238,7 @@
                             </div>
                         </div>
                     </div>
-                        </div>
+                </div>
 
                 <script>
                     generateCalendar(new Date().getMonth(), new Date().getFullYear());
@@ -278,4 +247,6 @@
             </div>
         </div>
     </div>
+
+    @Html.Partial("_compoff", Model.Employees)
 </div>

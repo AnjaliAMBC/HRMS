@@ -1,4 +1,5 @@
-﻿@model HRMS.Models.Admin.AdminDashView
+﻿@model HRMS.Models.Admin.AdminLeaveManagementModel
+
 @Html.Partial("_NavBar")
 
 <div class="container-fluid">
@@ -45,6 +46,8 @@
                         </div>
                     </div>
                 </div>
+
+                <div class="empleavesbasedonmonthselected" style="display: none">@Newtonsoft.Json.JsonConvert.SerializeObject(Model.LeavesInfo);</div>
 
                 <script>
                     /* generateLeaveCalendar(new Date().getMonth(), new Date().getFullYear());*/

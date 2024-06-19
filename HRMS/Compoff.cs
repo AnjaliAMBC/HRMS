@@ -20,5 +20,10 @@ namespace HRMS
         public string EmployeeName { get; set; }
         public string HolidayName { get; set; }
         public string concatinatestring { get; set; }
+        public string addStatus { get; set; }
+        public string createdby { get; set; }
+        public Nullable<System.DateTime> createddate { get; set; }
+        public string updatedby { get; set; }
+        public Nullable<System.DateTime> updateddate { get; set; }
     }
 }

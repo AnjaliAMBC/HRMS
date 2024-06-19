@@ -36,7 +36,7 @@
         checkInTime = Model.todayCheckInInfo.Signin_Time;
         checkOutTime = Model.todayCheckInInfo.Signout_Time;
 
-        if (checkOutTime != null && checkOutTime != DateTime.MinValue)
+        if (checkOutTime != null && checkOutTime != DateTime.MinValue && Model.IsOnLeave == true)
         {
             buttonText = "Check-In";
             ButtonDisabled = "disabled";
@@ -45,6 +45,14 @@
         starttimeWithAmPm = checkInTime.ToString("hh:mm tt", System.Globalization.CultureInfo.InvariantCulture);
         endtimeWithAmPm = checkOutTime?.ToString("hh:mm tt", System.Globalization.CultureInfo.InvariantCulture);
     }
+
+    if (Model.IsOnLeave == true)
+    {
+        buttonText = "Check-In";
+        ButtonDisabled = "disabled";
+    }
+
+    var currentUserSession = Session["SiteContext"] as HRMS.Models.SiteContextModel;
 }
 
 @Html.Partial("_NavBar")
@@ -288,79 +296,23 @@
                             <div class="container text-center my-0 leave-container p-0">
                                 <div class="leaveslider-container">
                                     <div class="leaveslider-wrapper">
-                                        <!-- Card Items -->
-                                        <div class="leaveslider-item">
-                                            <div class="card">
-                                                <div class="leave-icon bg-bereavement">BL</div>
-                                                <h6 class="leave-title">Bereavement Leave</h6>
-                                                <p class="leave-details">Available: 2</p>
-                                                <p class="leave-details">Booked: 1</p>
-                                            </div>
-                                        </div>
-                                        <div class="leaveslider-item">
-                                            <div class="card">
-                                                <div class="leave-icon bg-compensatory">CL</div>
-                                                <h6 class="leave-title">Compensatory Off</h6>
-                                                <p class="leave-details">Available: 0</p>
-                                                <p class="leave-details">Booked: 0</p>
-                                            </div>
-                                        </div>
-                                        <div class="leaveslider-item">
-                                            <div class="card">
-                                                <div class="leave-icon bg-earned">EL</div>
-                                                <h6 class="leave-title">Earned Leave-Full Time</h6>
-                                                <p class="leave-details">Available: 14</p>
-                                                <p class="leave-details">Booked: 3</p>
-                                            </div>
-                                        </div>
-                                        <div class="leaveslider-item">
-                                            <div class="card">
-                                                <div class="leave-icon bg-emergency">EL</div>
-                                                <h6 class="leave-title">Emergency Leave</h6>
-                                                <p class="leave-details">Available: 3</p>
-                                                <p class="leave-details">Booked: 1</p>
-                                            </div>
-                                        </div>
-                                        <div class="leaveslider-item">
-                                            <div class="card">
-                                                <div class="leave-icon bg-danger">SL</div>
-                                                <h6 class="leave-title">Sick Leave</h6>
-                                                <p class="leave-details">Available: 5</p>
-                                                <p class="leave-details">Booked: 2</p>
-                                            </div>
-                                        </div>
-                                        <div class="leaveslider-item">
-                                            <div class="card">
-                                                <div class="leave-icon bg-secondary">PL</div>
-                                                <h6 class="leave-title">Personal Leave</h6>
-                                                <p class="leave-details">Available: 4</p>
-                                                <p class="leave-details">Booked: 1</p>
-                                            </div>
-                                        </div>
-                                        <div class="leaveslider-item">
-                                            <div class="card">
-                                                <div class="leave-icon bg-marriage">ML</div>
-                                                <h6 class="leave-title">Marriage Leave</h6>
-                                                <p class="leave-details">Available: 5</p>
-                                                <p class="leave-details">Booked: 1</p>
-                                            </div>
-                                        </div>
-                                        <div class="leaveslider-item">
-                                            <div class="card">
-                                                <div class="leave-icon bg-paternity">PL</div>
-                                                <h6 class="leave-title">Paternity Leave</h6>
-                                                <p class="leave-details">Available: 10</p>
-                                                <p class="leave-details">Booked: 2</p>
-                                            </div>
-                                        </div>
-                                        <div class="leaveslider-item">
-                                            <div class="card">
-                                                <div class="leave-icon bg-maternity">ML</div>
-                                                <h6 class="leave-title">Maternity Leave</h6>
-                                                <p class="leave-details">Available: 12</p>
-                                                <p class="leave-details">Booked: 4</p>
-                                            </div>
-                                        </div>
+
+                                        @foreach (var leaveType in Model.LeavesTypeInfo.LeaveTypes)
+                                        {
+
+                                            foreach (var leave in leaveType.AvailableLeaves)
+                                            {
+                                                <div class="leaveslider-item">
+                                                    <div class="card">
+                                                        <div class="leave-icon @leave.DashBoardColorCode">@leave.ShortName</div>
+                                                        <h6 class="leave-title">@leave.Type</h6>
+                                                        <p class="leave-details">Available: @leave.Available.ToString().Replace(".00", "").Replace(".0", "")</p>
+                                                        <p class="leave-details">Booked: @leave.Booked</p>
+                                                    </div>
+                                                </div>
+                                            }
+
+                                        }
                                     </div>
                                     <div class="leaveslider-control left" onclick="prevSlide()">
                                         <i class="fa-solid fa-chevron-left"></i>
@@ -377,38 +329,7 @@
             <span class="currentempname" style="display: none">@Model.EmpInfo.EmployeeName</span>
         </div>
     </div>
-    @*//Comp off Model*@ 
-    <div class="modal fade" id="compOffModal" tabindex="-1" aria-labelledby="compOffModalLabel" aria-hidden="true">
-        <div class="modal-dialog">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title" id="compOffModalLabel">Avail Comp Off</h5>
-                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                        <span aria-hidden="true">&times;</span>
-                    </button>
-                </div>
-                <div class="modal-body">
-                    <form>
-                        <div class="form-group">
-                            <label for="CompemployeeName">Employee Name</label>
-                            <input type="text" class="form-control" id="CompemployeeName" value="Sriram Vivekanandan" readonly>
-                        </div>
-                        <div class="form-group">
-                            <label for="Compdate">Date</label>
-                            <input type="text" class="form-control" id="Compdate" value="15 August 2024" readonly>
-                        </div>
-                        <div class="form-group">
-                            <label for="Compreason">Reason</label>
-                            <textarea class="form-control" id="Compreason" rows="3"></textarea>
-                        </div>
-                    </form>
-                </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-primary">Submit</button>
-                </div>
-            </div>
-        </div>
-    </div>
+    @Html.Partial("_compoff", Model.Employees)
 </div>
 <script>
     let currentIndex = 0;
