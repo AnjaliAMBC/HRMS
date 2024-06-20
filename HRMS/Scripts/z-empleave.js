@@ -290,7 +290,10 @@ function GetEmpLeaveHistory() {
         url: '/empLeave/EmpLeaveHistory',
         type: 'POST',
         dataType: 'json',
-        data: { empId: $('.loggedinempid').text(), year: 2024 },
+        data: {
+            empId: $('.loggedinempid').text(),
+            year: $('#leavehistoryyear').val()
+        },
         success: function (response) {
             let tableRows = response.map(item => {
                 const fromDate = formatJSONDate(item.Fromdate);
@@ -339,12 +342,42 @@ function GetEmpLeaveHistory() {
             }).join('');
 
             $('#leaveHistoryTable tbody').html(tableRows);
+
+            //// Initialize or reinitialize the DataTable
+            //if ($.fn.DataTable.isDataTable('#leaveHistoryTable')) {
+            //    // Clear existing data and destroy the table
+            //    $('#leaveHistoryTable').DataTable().clear().destroy();
+            //}
+
+            // Initialize the DataTable
+            //$('#leaveHistoryTable').DataTable({
+            //    "paging": true,
+            //    "ordering": true,
+            //    "info": true
+            //});
+
+            if (!$.fn.DataTable.isDataTable('#leaveHistoryTable')) {
+                $('#leaveHistoryTable').DataTable({
+                    "paging": true,
+                    "searching": true,
+                    "ordering": false,
+                    "info": true,
+                    "autoWidth": false,
+                    "lengthMenu": [[7, 14, 21, -1], [7, 14, 21, "All"]],
+                    "columnDefs": [
+                        { "orderable": false, "targets": 1 }, // Disable ordering on the Checkin-Check-Out column
+                        { "orderable": false, "targets": 3 }  // Disable ordering on the Status column
+                    ]
+                });
+            }
+
         },
         error: function (xhr, status, error) {
             console.error(error);
         }
     });
 }
+
 
 function toggleLeaveActionOptions(iconElement) {
     const optionsMenu = $(iconElement).next('.emp-leaveoptions');
@@ -502,4 +535,9 @@ $(document).on('click', '.btn-apply-leave', function (event) {
             var err = eval("(" + xhr.responseText + ")");
         }
     });
+});
+
+
+$(document).on('change', '#leavehistoryyear', function () {
+    GetEmpLeaveHistory();
 });
