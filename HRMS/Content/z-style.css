@@ -1,3 +1,7 @@
+body {
+    color: #212529;
+}
+
 .sidebar li .material-icons {
     width: 30px;
 }
@@ -15,7 +19,7 @@
 
 /* admin dashnoard end */
 
-/* adminm employee management start */
+/* admin employee management start */
 
 .res-admin-employee-management .res-admin-filter-inside {
     //display: inline-block !important;
@@ -76,7 +80,7 @@
     //width: inherit !important;
 }
 
-/* adminm employee management end */
+/* admin employee management end */
 
 /*admin attendance start*/
 
@@ -114,15 +118,83 @@
 
 /* admin leave start*/
 
+.res-admin-leave .main-content.container-fluid {
+    width: 87% !important;
+    margin-left: 175px;
+}
+
+.res-admin-leave #adminleaveSettingsDropdown {
+    background-color: #007bff;
+    color: #fff;
+}
+
+.res-admin-leave .empleave-calendar-header {
+    margin-right: 0;
+}
+
+.highlight-currentleave {
+    background-color: #e6f2ff;
+}
+
 /* admin leave end*/
 
-/* employee dashboard start*/
+/* admin leave balance start*/
 
+.res-admin-leave-balance {
+    margin-top: -25px;
+    margin-left: -1%;
+    width: 103%;
+}
+
+.res-admin-leave-balance .search-container {
+    margin-left: 20% !important;
+}
+
+.res-admin-leave-balance .res-admin-leave-balance-export {
+    margin-left: 10%;
+}
+
+.res-admin-leave-balance #leaveBalanceTable {
+    margin: 0px;
+    width: 100%;
+}
+
+.res-admin-leave-balance #leaveBalanceTable thead {
+    background-color: transparent;
+}
+
+.res-admin-leave-balance #leaveBalanceTable thead th {
+    color: #000;
+    border-top: 0px;
+    font-weight: normal;
+}
+
+.res-admin-leave-balance #leaveBalanceTable thead th:nth-child(1),
+.res-admin-leave-balance #leaveBalanceTable thead th:nth-child(2) {
+    visibility: hidden;
+}
+
+.res-admin-leave-balance #leaveBalanceTable tbody td {
+    text-align: center;
+}
+
+.res-admin-leave-balance #leaveBalanceTable tbody td:nth-child(1),
+.res-admin-leave-balance #leaveBalanceTable tbody td:nth-child(2) {
+    text-align: left;
+}
+
+#exportLeaveButton i {
+    color: #212529;
+}
+
+/* admin leave balance end*/
+
+/* employee dashboard start*/
 .emp-dashboard .main-content.container-fluid {
     padding: 75px 0px;
 }
 
-/* employee dashboard start*/
+/* employee dashboard end*/
 
 /* employee attendance start */
 
@@ -235,4 +307,9 @@ input[type=checkbox], input[type=radio] {
 .leave-dashboard-data .vertical-line {
     border-left: 1px solid #ccc;
 }
-    /* emp leave end*/
+
+#leaveForm #dayTypeContainer {
+    border: 0px solid #ccc;
+    padding: 0;
+}
+/* emp leave end*/
