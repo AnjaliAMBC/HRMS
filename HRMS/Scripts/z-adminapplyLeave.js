@@ -35,7 +35,11 @@
             $(".hiddenempdashboard").html("");
 
             if (leaverequestname != undefined && leaverequestname != "") {
-                $('#toleaveDate').trigger('change');
+                //$('#toleaveDate').trigger('change');
+
+                $('#dayTypeContainer').show();
+                $('#totalLeavesContainer').show();
+                generateDayTypeRows(leaverequestname);
             }
         
             generateBalanceSection();
