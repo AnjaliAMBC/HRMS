@@ -116,5 +116,10 @@ namespace HRMS.Controllers
 
             return Json("", JsonRequestBehavior.AllowGet);
         }
+        public ActionResult AdminLAlleaveHistory()
+        {
+            return View("~/Views/AdminDashboard/AdminLeaveHistory.cshtml");
+       
+        }
     }
 }
