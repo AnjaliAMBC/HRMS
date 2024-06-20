@@ -1,5 +1,36 @@
 ﻿
+<style>
+    .position-relative {
+        position: relative;
+    }
 
+    .emp-leaveoptions {
+        position: relative;
+        right: 0;
+        top: 100%;
+        background-color: white;
+        border: 1px solid #ccc;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        z-index: 1000;
+        display: none;
+    }
+
+    .leave-edit-history {
+        cursor: pointer;
+    }
+
+    /* Additional styling for the dropdown menu items */
+    .dropdown-item {
+        padding: 8px 16px;
+        display: block;
+        color: #333;
+        text-decoration: none;
+    }
+
+        .dropdown-item:hover {
+            background-color: #f0f0f0;
+        }
+</style>
 @Html.Partial("_NavBar")
 <div class="container-fluid emp-leave">
     @Html.Partial("_empsidemenu")
@@ -9,7 +40,7 @@
             <div class="empleave-container">
 
                 <style>
-                    .weekend-background {                      
+                    .weekend-background {
                         color: orangered;
                     }
                 </style>
@@ -22,7 +53,7 @@
                             <!---Leave carousel top----->
                             <div class="row mx-auto my-auto">
                                 <div id="leaveCarousel" class="carousel slide w-100" data-ride="carousel">
-                                    <div class="carousel-inner carousel-leave-inner w-100 tracker-100" role="listbox">                                     
+                                    <div class="carousel-inner carousel-leave-inner w-100 tracker-100" role="listbox">
 
                                     </div>
 
@@ -79,17 +110,17 @@
                         </div>
 
                         <table id="leaveHistoryTable" class="table leave-history-table">
-                            <thead>
-                                <tr>
-                                    <th>Date</th>
-                                    <th>Day(s)</th>
-                                    <th>Leave Type</th>
-                                    <th>Status</th>
-                                    <th>Reason</th>
-                                    <th></th>
-                                </tr>
-                            </thead>
-                            <tbody>                              
+                            @*<thead>
+                                    <tr>
+                                        <th>Date</th>
+                                        <th>Day(s)</th>
+                                        <th>Leave Type</th>
+                                        <th>Status</th>
+                                        <th>Reason</th>
+                                        <th></th>
+                                    </tr>
+                                </thead>*@
+                            <tbody>
                             </tbody>
                         </table>
                     </div>

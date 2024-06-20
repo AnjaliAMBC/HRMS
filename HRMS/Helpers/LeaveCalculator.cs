@@ -347,31 +347,31 @@ namespace HRMS.Helpers
                 .OrderByDescending(x => x.LatestLeave.leavedate)
                 .ToList();
 
-            // Query Comp Off data for the specified year
-            var compoffsApplied = _dbContext.Compoffs
-                .Where(x => x.EmployeeID == empId && x.CampOffDate.Year == year)
-                .ToList();
+            //// Query Comp Off data for the specified year
+            //var compoffsApplied = _dbContext.Compoffs
+            //    .Where(x => x.EmployeeID == empId && x.CampOffDate.Year == year)
+            //    .ToList();
 
-            // Convert Comp Off data to LeaveInfo format and add to leaves list
-            foreach (var compoff in compoffsApplied)
-            {
-                var compOffLeave = new LeaveInfo
-                {
-                    LeaveRequestName = compoff.concatinatestring,
-                    Fromdate = compoff.CampOffDate,
-                    Todate = compoff.CampOffDate,
-                    TotalLeaveDays = 1, // Assuming each comp off is 1 day
-                    LatestLeave = new con_leaveupdate
-                    {
-                        leavedate = compoff.CampOffDate,
-                        LeaveRequestName = compoff.concatinatestring,
-                        LeaveStatus = compoff.addStatus,
-                        leavesource = "CompOff"
-                    }
-                };
+            //// Convert Comp Off data to LeaveInfo format and add to leaves list
+            //foreach (var compoff in compoffsApplied)
+            //{
+            //    var compOffLeave = new LeaveInfo
+            //    {
+            //        LeaveRequestName = compoff.concatinatestring,
+            //        Fromdate = compoff.CampOffDate,
+            //        Todate = compoff.CampOffDate,
+            //        TotalLeaveDays = 1, // Assuming each comp off is 1 day
+            //        LatestLeave = new con_leaveupdate
+            //        {
+            //            leavedate = compoff.CampOffDate,
+            //            LeaveRequestName = compoff.concatinatestring,
+            //            LeaveStatus = compoff.addStatus,
+            //            leavesource = "CompOff"
+            //        }
+            //    };
 
-                leaves.Add(compOffLeave);
-            }
+            //    leaves.Add(compOffLeave);
+            //}
 
             // If you need to return leaves list as a specific type, convert it accordingly
             var result = leaves
