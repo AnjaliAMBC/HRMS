@@ -159,7 +159,7 @@ function generateLeaveCalendar(month, year) {
                                     }
                                 } else if (leaveholidays[holidayKey] != undefined && leaveholidays[holidayKey] != "") {
                                     cell.classList.add("highlight-festival-leave");
-                                    cell.innerHTML += `<div>${leaveholidays[holidayKey]}</div>`;
+                                    cell.innerHTML += `<div><i class="fa fa-circle"></i> ${leaveholidays[holidayKey]}</div>`;
                                 }
 
                                 // Add weekend background color
@@ -214,7 +214,15 @@ function formatJSONDate(jsonDate) {
     const dayOptions = { weekday: 'short' };
     const formattedDate = date.toLocaleDateString('en-GB', dateOptions);
     const day = date.toLocaleDateString('en-GB', dayOptions);
-    return `${formattedDate} ${day}`;
+    return `${formattedDate}`;
+}
+
+function formatJSONDateDay(jsonDate) {
+    const date = new Date(parseInt(jsonDate.replace(/\/Date\((.*?)\)\//, '$1')));
+    const dateOptions = { day: 'numeric', month: 'long', year: 'numeric' };
+    const dayOptions = { weekday: 'short' };
+    const day = date.toLocaleDateString('en-GB', dayOptions);
+    return `${day}`;
 }
 
 //function GetEmpLeaveHistory() {
@@ -284,56 +292,64 @@ function GetEmpLeaveHistory() {
         dataType: 'json',
         data: { empId: $('.loggedinempid').text(), year: 2024 },
         success: function (response) {
-            const tableData = response.map(item => {
-                return [
-                    formatJSONDate(item.Fromdate) + ' - ' + formatJSONDate(item.Todate), // Date Range
-                    item.TotalLeaveDays, // Total Leave Days
-                    item.LatestLeave.leavesource, // Leave Type
-                    `<span style="color:forestgreen">${item.LatestLeave.LeaveStatus}</span>`, // Status
-                    `<i class="fa-solid fa-message mb-3" style="color: #6b8dda;"></i>
-                         <p class="ml-3" style="margin:0;">${item.LatestLeave.leave_reason}</p>`, // Comment
-                    `<i class="fas fa-ellipsis-h leave-edit-history" id="toggleOptions"></i>
-                         <div class="emp-leaveoptions" id="emp-leaveoptions" style="display:none">
-                             <a class="dropdown-item emp-leave-edit" onclick="empleaveedit($(this))" data-leavename='${item.LatestLeave.LeaveRequestName}'>Edit</a>
-                             <a class="dropdown-item emp-leave-cancel" onclick="empleavecancel($(this))" data-leavename='${item.LatestLeave.LeaveRequestName}'>Cancel</a>
-                         </div>` // Actions
-                ];
-            });
+            let tableRows = response.map(item => {
+                const fromDate = formatJSONDate(item.Fromdate);
+                const toDate = formatJSONDate(item.Todate);
+                const fromDay = formatJSONDateDay(item.Fromdate);
+                const toDay = formatJSONDateDay(item.Todate);
+                const dateDisplay = fromDate === toDate
+                    ? `<p class="mb-0 fontWtMedium">${fromDate}</p><span class="mutedText">${fromDay}</span>`
+                    : `<p class="mb-0 fontWtMedium">${fromDate} - ${toDate}</p><span class="mutedText">${fromDay} - ${toDay}</span>`;
 
-            // Check if DataTable is already initialized and destroy it if so
-            if ($.fn.DataTable.isDataTable('#leaveHistoryTable')) {
-                $('#leaveHistoryTable').DataTable().clear().destroy();
-            }
+                const statusClass = item.LatestLeave.LeaveStatus.toLowerCase() === 'approved' ? 'status-approved' :
+                    item.LatestLeave.LeaveStatus.toLowerCase() === 'cancelled' ? 'status-cancelled' : '';
 
-            $('#leaveHistoryTable').DataTable({
-                data: tableData,
-                paging: true,
-                pageLength: 8,
-                searching: false,
-                ordering: false,
-                info: false,
-                lengthChange: false,
-              /*  dom: 'rt<"bottom"p><"clear">',*/
-                language: {
-                    paginate: {
-                        next: 'Next',
-                        previous: 'Previous'
-                    }
-                },
-                columns: [
-                    { title: "Date", width: "12%" }, // Date Range
-                    { title: "Day(s)", width: "5%" }, // Total Leave Days
-                    { title: "Leave Type", width: "15%" },
-                    { title: "Status", width: "15%" },
-                    { title: "Comment", width: "30%" },
-                    { title: "Actions" }
-                ]
-            });
+                return `
+                    <tr class="rowBorder">
+                        <td class="fontSmall dataMinWidth dateMaxWidth">
+                            ${dateDisplay}
+                        </td>
+                        <td class="fontSmall">
+                            <div class="mutedText">Day(s)</div>
+                            <span class="fontWtMedium">${item.TotalLeaveDays}</span>
+                        </td>
+                        <td class="fontSmall dataMinWidth">
+                            <div class="mutedText">Leave Type</div>
+                            <span class="fontWtbold">${item.LatestLeave.leavesource}</span>
+                        </td>
+                        <td class="fontSmall">
+                            <div class="mutedText">Status</div>
+                            <span class="fontWtMedium ${statusClass}">${item.LatestLeave.LeaveStatus}</span>
+                        </td>
+                        <td class="fontSmall commentSec">
+                            <div class="dFlex">
+                                <i class="fa-solid fa-message chatIcon"></i>
+                                <p>${item.LatestLeave.leave_reason}</p>
+                            </div>                            
+                        </td>
+                        <td class="fontSmall position-relative">
+                            <i class="fas fa-ellipsis-h leave-edit-history" onclick="toggleLeaveActionOptions(this)"></i>
+                            <div class="emp-leaveoptions" style="display:none">
+                                <a class="dropdown-item emp-leave-edit" onclick="empleaveedit($(this))" data-leavename='${item.LatestLeave.LeaveRequestName}'>Edit</a>
+                                <a class="dropdown-item emp-leave-cancel" onclick="empleavecancel($(this))" data-leavename='${item.LatestLeave.LeaveRequestName}'>Cancel</a>
+                            </div>
+                        </td>
+                    </tr>
+                `;
+            }).join('');
+
+            $('#leaveHistoryTable tbody').html(tableRows);
         },
         error: function (xhr, status, error) {
             console.error(error);
         }
     });
+}
+
+function toggleLeaveActionOptions(iconElement) {
+    const optionsMenu = $(iconElement).next('.emp-leaveoptions');
+    $('.emp-leaveoptions').not(optionsMenu).hide(); // Hide any other open menus
+    optionsMenu.toggle(); // Toggle visibility of the clicked menu
 }
 
 
@@ -402,7 +418,7 @@ function empleavecancel(currentthis) {
 $(document).on('click', '.emp-leave-cancel', function (event) {
     event.preventDefault();
 
-   
+
 });
 
 // Edit leave event

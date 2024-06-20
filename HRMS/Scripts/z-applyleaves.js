@@ -28,7 +28,7 @@ function generateBalanceSection() {
                 <div class="balance-section mt-4 ml-4">
                     <div class="row" style="line-height:2;">
                         <div class="col-md-4">
-                            <span>Available Balance</span>
+                            <span>Total Balance</span>
                         </div>
                         <div class="col-md-6">
                             <div class="available-total">${data.Available}</div>
@@ -40,7 +40,7 @@ function generateBalanceSection() {
                             <div class="booked-leaves">${data.Booked}</div>
                         </div>
                         <div class="col-md-4">
-                            <span>Balance</span>
+                            <span>Available Balance</span>
                         </div>
                         <div class="col-md-6">
                             <div class="available-balance">${data.Balance}</div>
