@@ -751,6 +751,104 @@
     }
 
     /* admin attendance end */
+
+    /* admin leave start*/
+
+    .mobile-view .res-admin-leave .main-content.container-fluid {
+        margin-left: 0;
+    }
+
+    .mobile-view .res-admin-leave {
+        margin-top: 65px;
+    }
+
+    .mobile-view .res-admin-leave-header {
+        display: inline-block !important;
+        width: 100%;
+    }
+
+    .mobile-view .res-admin-leave-header h2 {
+        display: inline-block !important;
+        width: 100%;
+        font-size: 25px;
+        margin: 10px 0px 15px 0px;
+    }
+
+    .mobile-view .res-admin-leave-header .dropdown {
+        display: inline-block !important;
+        width: 100%;
+        text-align: center;
+    }
+
+    .mobile-view .admin-leave-container .apply-date-section {
+        display: block;
+    }
+
+    .mobile-view .admin-leave-container .apply-date-section .form-group {
+        margin-right: 0;
+    }
+
+    .mobile-view .admin-leave-container #dayTypeContainer {
+        width: 100%;
+        overflow-x: auto;
+    }
+
+    .mobile-view .admin-leave-container #dayTypeContainer .dayleave-type-container .form-check {
+        width: 75px;
+    }
+
+    /* admin leave end*/
+
+    /* admin leave balance start*/
+
+    .mobile-view .res-admin-leave-balance {
+        margin-left: 0%;
+        display: inline;
+    }
+
+    .mobile-view .res-admin-leave .main-content.container-fluid {
+        width: 92% !important;
+    }
+
+    .mobile-view .res-admin-leave-balance .search-container {
+        margin-left: 7% !important;
+    }
+
+    .mobile-view .res-admin-leave-balance-export .dropdowns-container {
+        justify-content: center !important;
+    }
+
+    .mobile-view #LeaveDateDropdown {
+        width: 100%;
+        margin-left: 2%;
+    }
+
+    .mobile-view #LeaveDateDropdown .res-admin-leave-datedropdown {
+        margin-left: 0 !important;
+        justify-content: normal !important;
+        display: inline-block !important;
+        width: 105%;
+    }
+
+    .mobile-view #LeaveDateDropdown .res-admin-leave-datedropdown .form-group {
+        display: flex !important;
+        width: 100%;
+    }
+
+    .mobile-view #LeaveDateDropdown .res-admin-leave-datedropdown .form-group label {
+        width: 50px;
+    }
+
+    .mobile-view #LeaveDateDropdown .res-admin-leave-datedropdown .form-group input {
+        width: 100% !important;
+    }
+
+    .mobile-view .res-admin-leave-balance #leaveBalanceTable thead th:nth-child(1),
+    .mobile-view .res-admin-leave-balance #leaveBalanceTable thead th:nth-child(2) {
+        visibility: initial;
+    }
+
+    /* admin leave balance end*/
 }
 
 /* Media Query for low resolution  Tablets, Ipads start */
@@ -1430,6 +1528,104 @@
     }
 
     /* admin attendance end */
+
+    /* admin leave start*/
+
+    .tablet-view .res-admin-leave .main-content.container-fluid {
+        margin-left: 0;
+    }
+
+    .tablet-view .res-admin-leave {
+        margin-top: 65px;
+    }
+
+    .tablet-view .res-admin-leave-header {
+        display: inline-block !important;
+        width: 100%;
+    }
+
+        .tablet-view .res-admin-leave-header h2 {
+            display: inline-block !important;
+            width: 100%;
+            font-size: 25px;
+            margin: 10px 0px 15px 0px;
+        }
+
+        .tablet-view .res-admin-leave-header .dropdown {
+            display: inline-block !important;
+            width: 100%;
+            text-align: center;
+        }
+
+    .tablet-view .admin-leave-container .apply-date-section {
+        display: block;
+    }
+
+        .tablet-view .admin-leave-container .apply-date-section .form-group {
+            margin-right: 0;
+        }
+
+    .tablet-view .admin-leave-container #dayTypeContainer {
+        width: 100%;
+        overflow-x: auto;
+    }
+
+        .tablet-view .admin-leave-container #dayTypeContainer .dayleave-type-container .form-check {
+            width: 75px;
+        }
+
+    /* admin leave end*/
+
+    /* admin leave balance start*/
+
+    .tablet-view .res-admin-leave-balance {
+        margin-left: 0%;
+        display: inline;
+    }
+
+    .tablet-view .res-admin-leave .main-content.container-fluid {
+        width: 92% !important;
+    }
+
+    .tablet-view .res-admin-leave-balance .search-container {
+        margin-left: 7% !important;
+    }
+
+    .tablet-view .res-admin-leave-balance-export .dropdowns-container {
+        justify-content: center !important;
+    }
+
+    .tablet-view #LeaveDateDropdown {
+        width: 100%;
+        margin-left: 2%;
+    }
+
+        .tablet-view #LeaveDateDropdown .res-admin-leave-datedropdown {
+            margin-left: 0 !important;
+            justify-content: normal !important;
+            display: inline-block !important;
+            width: 105%;
+        }
+
+            .tablet-view #LeaveDateDropdown .res-admin-leave-datedropdown .form-group {
+                display: flex !important;
+                width: 100%;
+            }
+
+                .tablet-view #LeaveDateDropdown .res-admin-leave-datedropdown .form-group label {
+                    width: 50px;
+                }
+
+                .tablet-view #LeaveDateDropdown .res-admin-leave-datedropdown .form-group input {
+                    width: 100% !important;
+                }
+
+    .tablet-view .res-admin-leave-balance #leaveBalanceTable thead th:nth-child(1),
+    .tablet-view .res-admin-leave-balance #leaveBalanceTable thead th:nth-child(2) {
+        visibility: initial;
+    }
+
+    /* admin leave balance end*/
 }
 /* Media Query for low resolution  Tablets, Ipads end */
 
@@ -1769,9 +1965,14 @@
         width: 74%;
     }
 
+    .tablet-view .carousel-inner .carousel-item > div:first-child {
+        display: block !important;
+    }
+
     /* emp leave end*/
-        /*admin emp management page start*/
-        .tablet-view .res-admin-employee-management .main-content {
+
+    /*admin emp management page start*/
+    .tablet-view .res-admin-employee-management .main-content {
         width: 75% !important;
     }
 
@@ -2016,7 +2217,24 @@
         margin-right: 10px;
     }
     /* admin attendance end*/
-}
+
+    /* admin leave start*/
+
+    .tablet-view .res-admin-leave .main-content.container-fluid {
+        width: 78% !important;
+        margin-left: 170px;
+    }
+
+    .tablet-view .res-admin-leave-balance {
+        margin-top: 0px;
+    }
+
+    .tablet-view .res-admin-leave-balance .search-container {
+        margin-left: 10% !important;
+    }
+    /* admin leave end*/
+
+    }
 
 /* Media Query for Tablets Ipads portrait mode end */
 
