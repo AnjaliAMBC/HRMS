@@ -308,7 +308,7 @@ namespace HRMS.Controllers
             return Json(new { success = false });
         }
 
-        public ActionResult GetAllEmpLeavesInfoBasedonDate(string startdate, string enddate, string leaverequestname)
+        public ActionResult GetAllEmpLeavesInfoBasedonDate(string startdate, string enddate, string leaverequestname, string empID)
         {
             DateTime dateStart = DateTime.ParseExact(startdate, "yyyy-MM-dd", null);
             DateTime dateEnd = DateTime.ParseExact(enddate, "yyyy-MM-dd", null);
@@ -318,7 +318,7 @@ namespace HRMS.Controllers
             {
                 // Query leave data and group by LeaveRequestName
                 leaves = _dbContext.con_leaveupdate
-                   .Where(x => x.Fromdate >= dateStart && x.Todate <= dateEnd)
+                   .Where(x => x.Fromdate >= dateStart && x.Todate <= dateEnd && x.employee_id == empID)
                    .OrderByDescending(x => x.Fromdate)
                    .ToList();
             }
@@ -326,7 +326,7 @@ namespace HRMS.Controllers
             {
                 // Query leave data and group by LeaveRequestName
                 leaves = _dbContext.con_leaveupdate
-                   .Where(x => x.Fromdate >= dateStart && x.Todate <= dateEnd && x.LeaveRequestName == leaverequestname)
+                   .Where(x => x.Fromdate >= dateStart && x.Todate <= dateEnd && x.LeaveRequestName == leaverequestname && x.employee_id == empID)
                    .OrderByDescending(x => x.Fromdate)
                    .ToList();
             }

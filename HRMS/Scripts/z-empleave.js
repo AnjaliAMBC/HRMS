@@ -52,6 +52,14 @@ function updateLeaveCalendar() {
     generateLeaveCalendar(currentLeaveMonth, currentLeaveYear);
 }
 
+// Utility function to format date as YYYY-MM-DD
+function formatDateyyyyMMdd(date) {
+    var yyyy = date.getFullYear();
+    var mm = String(date.getMonth() + 1).padStart(2, '0'); // Months are zero-based
+    var dd = String(date.getDate()).padStart(2, '0');
+    return yyyy + '-' + mm + '-' + dd;
+}
+
 function generateLeaveCalendar(month, year) {
 
     var isAdminLeavePage = false;
@@ -64,123 +72,262 @@ function generateLeaveCalendar(month, year) {
 
     var empID = isAdminLeavePage ? "" : $('.loggedinempid').text();
 
-    $.ajax({
-        url: '/adminleave/admincalenderleavemanagement',
-        type: 'POST',
-        dataType: 'json',
-        data: { month: month, year: year, empID: empID },
-        success: function (response) {
-            const leaveData = $.parseJSON(response);
-            const leaveRequests = {};
-            leaveData.forEach(leave => {
-                const leaveDate = new Date(leave.LatestLeave.createddate).toISOString().split('T')[0];
-                if (!leaveRequests[leaveDate]) {
-                    leaveRequests[leaveDate] = [];
-                }
-                leaveRequests[leaveDate].push(leave);
-            });
-
-            $.ajax({
-                url: '/adminleave/getholidaysbasedonlocation',
-                type: 'POST',
-                dataType: 'json',
-                data: { empid: $('.loggedinempid').text(), month: month, year: year },
-                success: function (holidayresponse) {
-                    console.log(holidayresponse);
-
-                    const holidays = $.parseJSON(holidayresponse);
-                    const leaveholidays = generateLeaveHolidays(holidays);
-
-                    const today = new Date();
-                    const firstDayOfMonth = new Date(year, month, 1);
-                    const daysInMonth = new Date(year, month + 1, 0).getDate();
-                    const startingDay = firstDayOfMonth.getDay() === 0 ? 6 : firstDayOfMonth.getDay() - 1;
-
-                    const calendarBody = document.getElementById("empleave-calendarBody");
-                    if (!calendarBody) {
-                        return;
+    if (isAdminLeavePage == true) {
+        $.ajax({
+            url: '/adminleave/admincalenderleavemanagement',
+            type: 'POST',
+            dataType: 'json',
+            data: { month: month, year: year, empID: empID },
+            success: function (response) {
+                const leaveData = $.parseJSON(response);
+                const leaveRequests = {};
+                leaveData.forEach(leave => {
+                    const leaveDate = new Date(leave.LatestLeave.createddate).toISOString().split('T')[0];
+                    if (!leaveRequests[leaveDate]) {
+                        leaveRequests[leaveDate] = [];
                     }
-                    calendarBody.innerHTML = "";
+                    leaveRequests[leaveDate].push(leave);
+                });
 
-                    const monthYear = document.getElementById("empleave-monthYear");
-                    if (!monthYear) {
-                        return;
+                $.ajax({
+                    url: '/adminleave/getholidaysbasedonlocation',
+                    type: 'POST',
+                    dataType: 'json',
+                    data: { empid: $('.loggedinempid').text(), month: month, year: year },
+                    success: function (holidayresponse) {
+                        console.log(holidayresponse);
+
+                        const holidays = $.parseJSON(holidayresponse);
+                        const leaveholidays = generateLeaveHolidays(holidays);
+
+                        const today = new Date();
+                        const firstDayOfMonth = new Date(year, month, 1);
+                        const daysInMonth = new Date(year, month + 1, 0).getDate();
+                        const startingDay = firstDayOfMonth.getDay() === 0 ? 6 : firstDayOfMonth.getDay() - 1;
+
+                        const calendarBody = document.getElementById("empleave-calendarBody");
+                        if (!calendarBody) {
+                            return;
+                        }
+                        calendarBody.innerHTML = "";
+
+                        const monthYear = document.getElementById("empleave-monthYear");
+                        if (!monthYear) {
+                            return;
+                        }
+                        monthYear.innerText = new Date(year, month).toLocaleDateString('default', { month: 'long', year: 'numeric' });
+
+                        let date = 1;
+                        for (let i = 0; i < 6; i++) {
+                            const row = document.createElement("tr");
+
+                            for (let j = 0; j < 7; j++) {
+                                if (i === 0 && j < startingDay) {
+                                    const cell = document.createElement("td");
+                                    row.appendChild(cell);
+                                } else if (date > daysInMonth) {
+                                    break;
+                                } else {
+                                    const cell = document.createElement("td");
+                                    const fullDate = new Date(year, month, date);
+                                    const formattedDate = fullDate.toISOString().split('T')[0]; // YYYY-MM-DD format
+
+                                    const formattedMonthDate = fullDate.toLocaleDateString('en-GB', { day: '2-digit', month: 'long', year: 'numeric' });
+
+                                    cell.textContent = date;
+                                    cell.setAttribute("data-date", formattedMonthDate); // Set the data-date attribute
+                                    cell.classList.add(linktoleavecalender);
+
+                                    const holidayKey = `${month + 1}-${date}`;
+                                    if (date === today.getDate() && year === today.getFullYear() && month === today.getMonth()) {
+                                        cell.classList.add("highlight-currentleave");
+
+                                        if (leaveRequests[formattedDate]) {
+                                            const leaveDiv = document.createElement("div");
+                                            leaveDiv.classList.add("empleave-leave-request");
+                                            leaveDiv.style.backgroundColor = "#e7f3fe"; // Add background color to leaveDiv
+
+                                            leaveRequests[formattedDate].forEach((leave, index) => {
+                                                if (index < 2) { // Show up to 2 images directly
+                                                    const img = document.createElement("img");
+                                                    img.src = `/Assets/EmpImages/${leave.LatestLeave.employee_id}.jpeg`; // Adjust the image path as needed
+                                                    img.alt = leave.employee_name;
+                                                    img.title = leave.employee_name;
+                                                    leaveDiv.appendChild(img);
+                                                } else if (index === 2) { // Show the count of additional leave requests
+                                                    const moreDiv = document.createElement("div");
+                                                    moreDiv.classList.add("more-count");
+                                                    moreDiv.textContent = `+ ${leaveRequests[formattedDate].length - 2}`;
+                                                    leaveDiv.appendChild(moreDiv);
+                                                }
+                                            });
+
+                                            cell.appendChild(leaveDiv);
+                                            cell.classList.add("highlight-leave");
+                                            cell.style.backgroundColor = "#e7f3fe"; // Add background color to parent td
+                                        }
+                                    } else if (leaveholidays[holidayKey] != undefined && leaveholidays[holidayKey] != "") {
+                                        cell.classList.add("highlight-festival-leave");
+                                        cell.innerHTML += `<div><i class="fa fa-circle"></i> ${leaveholidays[holidayKey]}</div>`;
+                                    }
+
+                                    // Add weekend background color
+                                    if (j === 5 || j === 6) { // 5 is Saturday, 6 is Sunday
+                                        cell.classList.add("weekend-background");
+                                    }
+
+                                    row.appendChild(cell);
+                                    date++;
+                                }
+                            }
+
+                            calendarBody.appendChild(row);
+                        }
                     }
-                    monthYear.innerText = new Date(year, month).toLocaleDateString('default', { month: 'long', year: 'numeric' });
+                });
+            },
+            error: function (xhr, status, error) {
+                var err = eval("(" + xhr.responseText + ")");
+            }
+        });
+    }
+    else {
+        var currentDate = new Date();
 
-                    let date = 1;
-                    for (let i = 0; i < 6; i++) {
-                        const row = document.createElement("tr");
+        var firstDay = new Date(currentDate.getFullYear(), currentDate.getMonth(), 1);
+        var firstDayFormatted = formatDateyyyyMMdd(firstDay);
 
-                        for (let j = 0; j < 7; j++) {
-                            if (i === 0 && j < startingDay) {
-                                const cell = document.createElement("td");
-                                row.appendChild(cell);
-                            } else if (date > daysInMonth) {
-                                break;
-                            } else {
-                                const cell = document.createElement("td");
-                                const fullDate = new Date(year, month, date);
-                                const formattedDate = fullDate.toISOString().split('T')[0]; // YYYY-MM-DD format
+        var lastDay = new Date(currentDate.getFullYear(), currentDate.getMonth() + 1, 0);
+        var lastDayFormatted = formatDateyyyyMMdd(lastDay);
 
-                                const formattedMonthDate = fullDate.toLocaleDateString('en-GB', { day: '2-digit', month: 'long', year: 'numeric' });
+        const leaveTypeColors = {
+            "Earned Leave": "#FFD700", // Gold
+            "Emergency Leave": "#FF6347", // Tomato
+            "Sick Leave": "#ADFF2F", // GreenYellow
+            "Bereavement Leave": "#808080", // Gray
+            "Hourly Permission": "#20B2AA", // LightSeaGreen
+            "Marriage Leave": "#FF69B4", // HotPink
+            "Maternity Leave": "#FFB6C1", // LightPink
+            "Paternity Leave": "#87CEEB", // SkyBlue
+            "Comp Off": "#8A2BE2" // BlueViolet
+        };
 
-                                cell.textContent = date;
-                                cell.setAttribute("data-date", formattedMonthDate); // Set the data-date attribute
-                                cell.classList.add(linktoleavecalender);
+        $.ajax({
+            url: '/empleave/GetAllEmpLeavesInfoBasedonDate',
+            type: 'POST',
+            dataType: 'json',
+            data: { startdate: firstDayFormatted, enddate: lastDayFormatted, leaverequestname: "", empID: empID },
+            success: function (response) {
+                const leaveData = $.parseJSON(response);
+                const leaveRequests = {};
+                leaveData.forEach(leave => {
+                    const leaveDate = new Date(leave.leavedate).toISOString().split('T')[0];
+                    if (!leaveRequests[leaveDate]) {
+                        leaveRequests[leaveDate] = [];
+                    }
+                    leaveRequests[leaveDate].push(leave);
+                });
 
-                                const holidayKey = `${month + 1}-${date}`;
-                                if (date === today.getDate() && year === today.getFullYear() && month === today.getMonth()) {
-                                    cell.classList.add("highlight-currentleave");
+                $.ajax({
+                    url: '/adminleave/getholidaysbasedonlocation',
+                    type: 'POST',
+                    dataType: 'json',
+                    data: { empid: $('.loggedinempid').text(), month: month, year: year },
+                    success: function (holidayresponse) {
+                        console.log(holidayresponse);
+
+                        const holidays = $.parseJSON(holidayresponse);
+                        const leaveholidays = generateLeaveHolidays(holidays);
+
+                        const today = new Date();
+                        const firstDayOfMonth = new Date(year, month, 1);
+                        const daysInMonth = new Date(year, month + 1, 0).getDate();
+                        const startingDay = firstDayOfMonth.getDay() === 0 ? 6 : firstDayOfMonth.getDay() - 1;
+
+                        const calendarBody = document.getElementById("empleave-calendarBody");
+                        if (!calendarBody) {
+                            return;
+                        }
+                        calendarBody.innerHTML = "";
+
+                        const monthYear = document.getElementById("empleave-monthYear");
+                        if (!monthYear) {
+                            return;
+                        }
+                        monthYear.innerText = new Date(year, month).toLocaleDateString('default', { month: 'long', year: 'numeric' });
+
+                        let date = 1;
+                        for (let i = 0; i < 6; i++) {
+                            const row = document.createElement("tr");
+
+                            for (let j = 0; j < 7; j++) {
+                                if (i === 0 && j < startingDay) {
+                                    const cell = document.createElement("td");
+                                    row.appendChild(cell);
+                                } else if (date > daysInMonth) {
+                                    break;
+                                } else {
+                                    const cell = document.createElement("td");
+                                    const fullDate = new Date(year, month, date);
+                                    const formattedDate = fullDate.toISOString().split('T')[0]; // YYYY-MM-DD format
+
+                                    const formattedMonthDate = fullDate.toLocaleDateString('en-GB', { day: '2-digit', month: 'long', year: 'numeric' });
+
+                                    cell.textContent = date;
+                                    cell.setAttribute("data-date", formattedMonthDate); // Set the data-date attribute
+                                    cell.classList.add(linktoleavecalender);
+
+                                    const holidayKey = `${month + 1}-${date}`;
+                                    if (date === today.getDate() && year === today.getFullYear() && month === today.getMonth()) {
+                                        cell.classList.add("highlight-currentleave");
+                                    } else if (leaveholidays[holidayKey] != undefined && leaveholidays[holidayKey] != "") {
+                                        cell.classList.add("highlight-festival-leave");
+                                        cell.innerHTML += `<div>${leaveholidays[holidayKey]}</div>`;
+                                    }
 
                                     if (leaveRequests[formattedDate]) {
                                         const leaveDiv = document.createElement("div");
                                         leaveDiv.classList.add("empleave-leave-request");
-                                        leaveDiv.style.backgroundColor = "#e7f3fe"; // Add background color to leaveDiv
+                                        leaveDiv.style.display = "flex";
+                                        leaveDiv.style.gap = "2px";
+                                        leaveDiv.style.height = "100%"; // Ensure the leaveDiv fills the entire cell
+                                        leaveDiv.style.alignItems = "center"; // Center the text vertically
 
-                                        leaveRequests[formattedDate].forEach((leave, index) => {
-                                            if (index < 2) { // Show up to 2 images directly
-                                                const img = document.createElement("img");
-                                                img.src = `/Assets/EmpImages/${leave.LatestLeave.employee_id}.jpeg`; // Adjust the image path as needed
-                                                img.alt = leave.employee_name;
-                                                img.title = leave.employee_name;
-                                                leaveDiv.appendChild(img);
-                                            } else if (index === 2) { // Show the count of additional leave requests
-                                                const moreDiv = document.createElement("div");
-                                                moreDiv.classList.add("more-count");
-                                                moreDiv.textContent = `+ ${leaveRequests[formattedDate].length - 2}`;
-                                                leaveDiv.appendChild(moreDiv);
-                                            }
+                                        leaveRequests[formattedDate].forEach(leave => {
+                                            const leaveBar = document.createElement("div");
+                                            leaveBar.style.backgroundColor = leaveTypeColors[leave.leavesource] || "#e7f3fe"; // Use default color if type not found
+                                            leaveBar.style.height = "100%"; // Ensure the leaveBar fills the entire height of leaveDiv
+                                            leaveBar.style.flex = "1";
+                                            leaveBar.textContent = leave.leavesource; // Display leave type in the bar
+                                            leaveBar.style.color = "#000"; // Set text color
+                                            leaveBar.style.fontSize = "10px"; // Adjust text size
+                                            leaveBar.style.display = "flex";
+                                            leaveBar.style.alignItems = "center";
+                                            leaveBar.style.justifyContent = "center"; // Center the text horizontally
+                                            leaveDiv.appendChild(leaveBar);
                                         });
 
                                         cell.appendChild(leaveDiv);
                                         cell.classList.add("highlight-leave");
-                                        cell.style.backgroundColor = "#e7f3fe"; // Add background color to parent td
                                     }
-                                } else if (leaveholidays[holidayKey] != undefined && leaveholidays[holidayKey] != "") {
-                                    cell.classList.add("highlight-festival-leave");
-                                    cell.innerHTML += `<div><i class="fa fa-circle"></i> ${leaveholidays[holidayKey]}</div>`;
-                                }
 
-                                // Add weekend background color
-                                if (j === 5 || j === 6) { // 5 is Saturday, 6 is Sunday
-                                    cell.classList.add("weekend-background");
-                                }
+                                    // Add weekend background color
+                                    if (j === 5 || j === 6) { // 5 is Saturday, 6 is Sunday
+                                        cell.classList.add("weekend-background");
+                                    }
 
-                                row.appendChild(cell);
-                                date++;
+                                    row.appendChild(cell);
+                                    date++;
+                                }
                             }
-                        }
 
-                        calendarBody.appendChild(row);
+                            calendarBody.appendChild(row);
+                        }
                     }
-                }
-            });
-        },
-        error: function (xhr, status, error) {
-            var err = eval("(" + xhr.responseText + ")");
-        }
-    });
+                });
+            }
+        });
+    }
 }
 
 function prevLeaveMonth() {
