@@ -56,9 +56,13 @@
             <select class="custom-select w-50" id="userSelect">
                 <option selected>Select User</option>
 
+                @{
+                    var selectedempID = Model.EmpLeaveBalance.EmpID;
+                }
                 @foreach (var emp in Model.Employees)
                 {
-                    <option value="@emp.EmployeeID">@emp.EmployeeName</option>
+                    var selected = emp.EmployeeID == selectedempID ? "selected" : "";
+                    <option @selected value="@emp.EmployeeID">@emp.EmployeeName</option>
                 }
             </select>
             @*<button class="btn btn-primary" data-toggle="modal" data-target="#addLeaveModal">Add Leave</button>*@
@@ -73,36 +77,42 @@
                 </tr>
             </thead>
             <tbody>
-                <tr>
-                    <td class="leaveupdate-type"><span class="ELupdate">EL</span> Earned Leave</td>
-                    <td><input type="number" class="form-control" value="14"></td>
-                    <td><input type="number" class="form-control" value="3"></td>
-                    <td><input type="number" class="form-control" value="11"></td>
-                </tr>
-                <tr>
-                    <td class="leaveupdate-type"><span class="EMLupdate">EL</span> Emergency Leave</td>
-                    <td><input type="number" class="form-control" value="4"></td>
-                    <td><input type="number" class="form-control" value="2"></td>
-                    <td><input type="number" class="form-control" value="2"></td>
-                </tr>
-                <tr>
-                    <td class="leaveupdate-type"><span class="SLupdate">SL</span> Sick Leave</td>
-                    <td><input type="number" class="form-control" value="6"></td>
-                    <td><input type="number" class="form-control" value="1"></td>
-                    <td><input type="number" class="form-control" value="5"></td>
-                </tr>
-                <tr>
-                    <td class="leaveupdate-type"><span class="BLupdate">BL</span> Bereavement Leave</td>
-                    <td><input type="number" class="form-control" value="3"></td>
-                    <td><input type="number" class="form-control" value="1"></td>
-                    <td><input type="number" class="form-control" value="2"></td>
-                </tr>
-                <tr>
-                    <td class="leaveupdate-type"><span class="HPupdate">HP</span> Hourly Permission</td>
-                    <td><input type="number" class="form-control" value="2"></td>
-                    <td><input type="number" class="form-control" value="0"></td>
-                    <td><input type="number" class="form-control" value="2"></td>
-                </tr>
+
+                @foreach (var leave in Model.AvailableLeaves)
+                {
+                    <tr>
+                        <td class="leaveupdate-type"><span class="@leave.DashBoardColorCode">@leave.ShortName</span> @leave.Type</td>
+                        <td><input type="number" class="form-control" value="@leave.Available.ToString().Replace(".00","")"></td>
+                        <td><input type="number" class="form-control" value="@leave.Booked.ToString().Replace(".00","")"></td>
+                        <td><input type="number" class="form-control" value="@leave.Balance.ToString().Replace(".00","")"></td>
+                    </tr>
+                }
+
+                @*<tr>
+                        <td class="leaveupdate-type"><span class="EMLupdate">EL</span> Emergency Leave</td>
+                        <td><input type="number" class="form-control" value="4"></td>
+                        <td><input type="number" class="form-control" value="2"></td>
+                        <td><input type="number" class="form-control" value="2"></td>
+                    </tr>
+                    <tr>
+                        <td class="leaveupdate-type"><span class="SLupdate">SL</span> Sick Leave</td>
+                        <td><input type="number" class="form-control" value="6"></td>
+                        <td><input type="number" class="form-control" value="1"></td>
+                        <td><input type="number" class="form-control" value="5"></td>
+                    </tr>
+                    <tr>
+                        <td class="leaveupdate-type"><span class="BLupdate">BL</span> Bereavement Leave</td>
+                        <td><input type="number" class="form-control" value="3"></td>
+                        <td><input type="number" class="form-control" value="1"></td>
+                        <td><input type="number" class="form-control" value="2"></td>
+                    </tr>
+                    <tr>
+                        <td class="leaveupdate-type"><span class="HPupdate">HP</span> Hourly Permission</td>
+                        <td><input type="number" class="form-control" value="2"></td>
+                        <td><input type="number" class="form-control" value="0"></td>
+                        <td><input type="number" class="form-control" value="2"></td>
+                    </tr>*@
+
             </tbody>
         </table>
         <button class="btn btn-primary">Update</button>
@@ -136,13 +146,13 @@
 </div>
 
 <script>
-    function saveNewLeave() {
-        const leaveLabel = document.getElementById('leaveLabel').value;
-        if (leaveLabel) {
-            alert('New leave type added: ' + leaveLabel);
-            $('#addLeaveModal').modal('hide');
-        } else {
-            alert('Please enter a leave label.');
-        }
-    }
+    ////function saveNewLeave() {
+    ////    const leaveLabel = document.getElementById('leaveLabel').value;
+    ////    if (leaveLabel) {
+    ////        alert('New leave type added: ' + leaveLabel);
+    ////        $('#addLeaveModal').modal('hide');
+    ////    } else {
+    ////        alert('Please enter a leave label.');
+    ////    }
+    ////}
 </script>

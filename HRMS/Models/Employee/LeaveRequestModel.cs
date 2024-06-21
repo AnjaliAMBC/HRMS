@@ -50,11 +50,10 @@ namespace HRMS.Models.Employee
     public class AvailableLeaves
     {
         public string Type { get; set; }
-        public decimal Available { get; set; }
+        public decimal? Available { get; set; }
         public decimal Booked { get; set; }
-        public decimal Balance { get; set; }
+        public decimal? Balance { get; set; }
         public string ColorCode { get; set; }
-
         public string DashBoardColorCode { get; set; }
         public string ShortName { get; set; }
 
@@ -88,5 +87,11 @@ namespace HRMS.Models.Employee
         public DateTime? Todate { get; set; }
         public decimal TotalLeaveDays { get; set; }
         public con_leaveupdate LatestLeave { get; set; }
+    }
+
+    public class LeaveBalanceCheckDates
+    {
+        public DateTime StartDate { get; set; }
+        public DateTime EndDate { get; set; }
     }
 }
