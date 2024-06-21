@@ -34,8 +34,8 @@
 
 $(document).on('click', '.employeeinfo-balance', function (event) {
     event.preventDefault();
-    HighlightAdminActiveLink($(this));
-    var employeeId = $(this).find('.employee-id').text();
+    /* HighlightAdminActiveLink($(this));*/
+    var employeeId = $(this).attr("data-empid");
     $.ajax({
         url: '/adminleave/adminleavebalanceupdate',
         type: 'GET',

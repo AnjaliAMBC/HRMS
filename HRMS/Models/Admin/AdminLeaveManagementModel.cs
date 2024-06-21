@@ -19,5 +19,8 @@ namespace HRMS.Models.Admin
     public class AdminLeaveBalanceUpdateModel : SiteContextModel
     {
         public List<emp_info> Employees = new List<emp_info>();
+
+        public LeaveBalance EmpLeaveBalance = new LeaveBalance();
+        public List<AvailableLeaves> AvailableLeaves { get; set; } = new List<AvailableLeaves>();
     }
 }

@@ -90,7 +90,13 @@ namespace HRMS.Controllers
 
 
 
-        public ActionResult AdminLeaveBalanceUpdate()
+        public ActionResult AdminLeaveBalanceUpdate(string selectedEmpID)
+        {
+            AdminLeaveBalanceUpdateModel model = EmpBasedLeaveBalance(selectedEmpID);
+            return PartialView("~/Views/AdminDashboard/AdminLeaveBalanceUpdate.cshtml", model);
+        }
+
+        private AdminLeaveBalanceUpdateModel EmpBasedLeaveBalance(string selectedEmpID)
         {
             var model = new AdminLeaveBalanceUpdateModel();
             var cuserContext = SiteContext.GetCurrentUserContext();
@@ -98,7 +104,22 @@ namespace HRMS.Controllers
             model.LoginInfo = cuserContext.LoginInfo;
             model.Employees = _dbContext.emp_info.ToList();
 
-            return PartialView("~/Views/AdminDashboard/AdminLeaveBalanceUpdate.cshtml", model);
+            var currentYear = DateTime.Today.Year.ToString();
+            model.EmpLeaveBalance = _dbContext.LeaveBalances.Where(x => x.EmpID == selectedEmpID && x.Year == currentYear).FirstOrDefault();
+
+            var leaveTypes = new LeaveCalculator().LeaveCategories();
+            foreach (var leaveType in leaveTypes)
+            {
+                model.AvailableLeaves.Add(new LeaveCalculator().GetEmpBasedAvailableLeaves(model.EmpInfo, model.EmpLeaveBalance, leaveType));
+            }
+
+            return model;
+        }
+
+        public ActionResult AdminLeaveBalanceUpdatebyEmpID(string selectedEmpID)
+        {
+            AdminLeaveBalanceUpdateModel model = EmpBasedLeaveBalance(selectedEmpID);
+            return Json(model, JsonRequestBehavior.AllowGet);
         }
 
         public ActionResult GetHolidaysBasedonLocation(string empid, int month, int year)
@@ -119,7 +140,7 @@ namespace HRMS.Controllers
         public ActionResult AdminLAlleaveHistory()
         {
             return View("~/Views/AdminDashboard/AdminLeaveHistory.cshtml");
-       
+
         }
     }
 }

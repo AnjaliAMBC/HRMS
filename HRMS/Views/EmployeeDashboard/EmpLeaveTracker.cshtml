@@ -30,6 +30,14 @@
         .dropdown-item:hover {
             background-color: #f0f0f0;
         }
+
+    #leaveHistoryTable_length {
+        display: none;
+    }
+
+    #leaveHistoryTable_filter {
+        display: none;
+    }
 </style>
 @Html.Partial("_NavBar")
 <div class="container-fluid emp-leave">
@@ -101,25 +109,46 @@
                     <div class="leave-history mt-4" style="display: none;">
                         <div class="leavehistory-year">
                             <h5>Leave History</h5>
+
+                            @{
+                                int currentYear = DateTime.Now.Year;
+                                List<int> years = new List<int>();
+
+                                for (int i = 0; i <= 10; i++)
+                                {
+                                    years.Add(currentYear - i);
+                                }
+                            }
                             <div class="year-dropdown">
-                                <div class="year-dropdown-select" id="leaveYearSelected" onclick="toggleLeaveYearOptions()">Year</div>
-                                <div class="year-dropdown-options" id="leaveYearOptions">
-                                    <!-- Year options will be dynamically populated here -->
-                                </div>
+
+                                <select class="form-control" id="leavehistoryyear">
+
+                                    @foreach (var year in years)
+                                    {
+                                        <option value="@year">@year</option>
+                                    }
+                                </select>
                             </div>
+
+                            <!--<div class="year-dropdown">
+                                <div class="year-dropdown-select" id="leaveYearSelected" onclick="toggleLeaveYearOptions()">Year</div>
+                                <div class="year-dropdown-options" id="leaveYearOptions">-->
+                            <!-- Year options will be dynamically populated here -->
+                            <!--</div>
+                            </div>-->
                         </div>
 
                         <table id="leaveHistoryTable" class="table leave-history-table">
-                            @*<thead>
-                                    <tr>
-                                        <th>Date</th>
-                                        <th>Day(s)</th>
-                                        <th>Leave Type</th>
-                                        <th>Status</th>
-                                        <th>Reason</th>
-                                        <th></th>
-                                    </tr>
-                                </thead>*@
+                            <thead style="display: none">
+                                <tr>
+                                    <th>Date</th>
+                                    <th>Day(s)</th>
+                                    <th>Leave Type</th>
+                                    <th>Status</th>
+                                    <th>Reason</th>
+                                    <th></th>
+                                </tr>
+                            </thead>
                             <tbody>
                             </tbody>
                         </table>
@@ -156,32 +185,7 @@
     const selectedYear = document.getElementById('leaveYearSelected');
     const yearOptions = document.getElementById('leaveYearOptions');
 
-    // Function to populate year dropdown options
-    function populateYearDropdown() {
-        const currentYear = new Date().getFullYear();
-        for (let i = currentYear; i >= currentYear - 10; i--) {
-            const option = document.createElement('div');
-            option.classList.add('year-dropdown-option');
-            option.textContent = i;
-            option.onclick = function () {
-                selectedYear.textContent = i;
-                yearOptions.style.display = 'none';
-            };
-            yearOptions.appendChild(option);
-        }
-    }
-
-    // Function to toggle dropdown
-    function toggleLeaveYearOptions() {
-        if (yearOptions.style.display === 'block') {
-            yearOptions.style.display = 'none';
-        } else {
-            yearOptions.style.display = 'block';
-        }
-    }
-
-    // Call function to populate dropdown on page load
-    populateYearDropdown();
+   
 
     // Close dropdown when clicking outside of it
     document.onclick = function (e) {

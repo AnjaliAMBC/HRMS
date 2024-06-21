@@ -308,5 +308,32 @@ namespace HRMS.Controllers
             return Json(new { success = false });
         }
 
+        public ActionResult GetAllEmpLeavesInfoBasedonDate(string startdate, string enddate, string leaverequestname, string empID)
+        {
+            DateTime dateStart = DateTime.ParseExact(startdate, "yyyy-MM-dd", null);
+            DateTime dateEnd = DateTime.ParseExact(enddate, "yyyy-MM-dd", null);
+            var leaves = new List<con_leaveupdate>();
+
+            if (string.IsNullOrWhiteSpace(leaverequestname))
+            {
+                // Query leave data and group by LeaveRequestName
+                leaves = _dbContext.con_leaveupdate
+                   .Where(x => x.Fromdate >= dateStart && x.Todate <= dateEnd && x.employee_id == empID)
+                   .OrderByDescending(x => x.Fromdate)
+                   .ToList();
+            }
+            else
+            {
+                // Query leave data and group by LeaveRequestName
+                leaves = _dbContext.con_leaveupdate
+                   .Where(x => x.Fromdate >= dateStart && x.Todate <= dateEnd && x.LeaveRequestName == leaverequestname && x.employee_id == empID)
+                   .OrderByDescending(x => x.Fromdate)
+                   .ToList();
+            }
+            var json = JsonConvert.SerializeObject(leaves);
+
+            return Json(json, JsonRequestBehavior.AllowGet);
+        }
+
     }
 }
