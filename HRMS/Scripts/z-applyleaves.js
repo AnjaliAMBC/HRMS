@@ -376,6 +376,8 @@ $(document).on('click', '.btn-apply-empleave', function (event) {
 
 
 $(document).on('change', '#leaveType', function (event) {
+
+    $('.balance-section-wrapper').show();
     var selectedLeaveType = $(this).val();
     generateBalanceSection(selectedLeaveType);
 

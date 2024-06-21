@@ -142,5 +142,27 @@ namespace HRMS.Controllers
             return View("~/Views/AdminDashboard/AdminLeaveHistory.cshtml");
 
         }
+
+        public ActionResult UpdateLeaveBalanceBasedonEmpID(LeaveBalance leaveBalance)
+        {
+            var currentYear = DateTime.Today.Year.ToString();
+            var leaveBalanceInfo = _dbContext.LeaveBalances.Where(x => x.EmpID == leaveBalance.EmpID && x.Year == currentYear).FirstOrDefault();
+            if (leaveBalanceInfo != null)
+            {
+                leaveBalanceInfo.CompOff = leaveBalance.CompOff;
+                leaveBalanceInfo.Bereavement = leaveBalance.Bereavement;
+                leaveBalanceInfo.Earned = leaveBalance.Earned;
+                leaveBalanceInfo.Emergency = leaveBalance.Emergency;
+                leaveBalanceInfo.Marriage = leaveBalance.Marriage;
+                leaveBalanceInfo.Maternity = leaveBalance.Maternity;
+                leaveBalanceInfo.Sick = leaveBalance.Sick;
+                leaveBalanceInfo.Paternity = leaveBalance.Paternity;
+                //leaveBalanceInfo.HourlyPermission = 
+                _dbContext.SaveChanges();
+                return Json(new { success = true, message = "Leave balance updated successfully." });
+            }
+
+            return Json(new { success = false, message = "An error occurred: " });
+        }
     }
 }

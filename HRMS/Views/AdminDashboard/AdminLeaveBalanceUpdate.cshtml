@@ -76,46 +76,21 @@
                     <th scope="col">Available</th>
                 </tr>
             </thead>
-            <tbody>
+            <tbody id="leaveBalanceTableBody">
 
                 @foreach (var leave in Model.AvailableLeaves)
                 {
                     <tr>
                         <td class="leaveupdate-type"><span class="@leave.DashBoardColorCode">@leave.ShortName</span> @leave.Type</td>
-                        <td><input type="number" class="form-control" value="@leave.Available.ToString().Replace(".00","")"></td>
-                        <td><input type="number" class="form-control" value="@leave.Booked.ToString().Replace(".00","")"></td>
-                        <td><input type="number" class="form-control" value="@leave.Balance.ToString().Replace(".00","")"></td>
+                        <td><input type="number" class="form-control total-available-leave" value="@leave.Available.ToString().Replace(".00","")"></td>
+                        <td><input type="text" disabled class="form-control" value="@leave.Booked.ToString().Replace(".00","")"></td>
+                        <td><input type="text" disabled class="form-control" value="@leave.Balance.ToString().Replace(".00","")"></td>
                     </tr>
                 }
 
-                @*<tr>
-                        <td class="leaveupdate-type"><span class="EMLupdate">EL</span> Emergency Leave</td>
-                        <td><input type="number" class="form-control" value="4"></td>
-                        <td><input type="number" class="form-control" value="2"></td>
-                        <td><input type="number" class="form-control" value="2"></td>
-                    </tr>
-                    <tr>
-                        <td class="leaveupdate-type"><span class="SLupdate">SL</span> Sick Leave</td>
-                        <td><input type="number" class="form-control" value="6"></td>
-                        <td><input type="number" class="form-control" value="1"></td>
-                        <td><input type="number" class="form-control" value="5"></td>
-                    </tr>
-                    <tr>
-                        <td class="leaveupdate-type"><span class="BLupdate">BL</span> Bereavement Leave</td>
-                        <td><input type="number" class="form-control" value="3"></td>
-                        <td><input type="number" class="form-control" value="1"></td>
-                        <td><input type="number" class="form-control" value="2"></td>
-                    </tr>
-                    <tr>
-                        <td class="leaveupdate-type"><span class="HPupdate">HP</span> Hourly Permission</td>
-                        <td><input type="number" class="form-control" value="2"></td>
-                        <td><input type="number" class="form-control" value="0"></td>
-                        <td><input type="number" class="form-control" value="2"></td>
-                    </tr>*@
-
             </tbody>
         </table>
-        <button class="btn btn-primary">Update</button>
+        <button class="btn btn-primary" id="updateleavebalanceButton">Update</button>
     </div>
 
     <!-- Add Leave Modal -->
@@ -143,7 +118,11 @@
             </div>
         </div>
     </div>
+
+
+    @Html.Partial("CommonModalPopups")
 </div>
+
 
 <script>
     ////function saveNewLeave() {
