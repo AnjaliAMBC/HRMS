@@ -1,4 +1,163 @@
 ﻿
+<style>
+    /* Adjust options padding */
+    .multiselect-container label.radio {
+        padding-left: 20px !important;
+    }
+
+    /* Hide Down Arrow */
+    .multiselect.dropdown-toggle::after {
+        display: none;
+    }
+</style>
+
 <div class="admin-leaveHistory-view">
-    <p>Admin History Page</p>
- </div>
+    <div class="container-fluid res-admin-leave-history">
+        <div class="row mb-2 align-items-center">
+            <div class="col-lg-3 col-md-2">
+                <h3 class="ml-1">Leave History</h3>
+            </div>
+            <div class="col-lg-1 navbarl col-sm-12 col-md-12 res-admin-leave-balance-calender">
+                <i class="fa fa-calendar" aria-hidden="true"></i>
+            </div>
+        </div>
+    </div>
+
+    <div class="res-admin-leave-history-table table-responsive">
+        <table class="table table-admin-leave-history" id="adminleaveHistoryTable" style="font-size:14px;">
+            <thead style="background-color: #EEF4FF; border-radius: 10px;">
+                <tr>
+                    <th><input type="checkbox" id="selectAll"></th>
+                    <th>Emp-ID</th>
+                    <th>Name</th>
+                    <th>Leave Type</th>
+                    <th>From Date</th>
+                    <th>To Date</th>
+                    <th>Days/Hours</th>
+                    <th>Location</th>
+                    <th>Reason</th>
+                    <th>
+                        <div class="dropdown dropdown-columns">
+                            <span class="menu-icon dropdown-th" id="dropdownMenu"><i class="fa-solid fa-list"></i></span>
+                            <div class="action-menu" id="dropdownMenuContent" style="display: none; background-color:white; border-radius:5px;">
+                                <a href="#" class="empid"><input type="checkbox"> Emp ID</a>
+                                <a href="#" class="name"><input type="checkbox"> Name</a>
+                                <a href="#" class="LeaveType"><input type="checkbox"> Leave Type</a>
+                                <a href="#" class="FromDate"><input type="checkbox"> From Date</a>
+                                <a href="#" class="ToDate"><input type="checkbox"> To Date</a>
+                                <a href="#" class="DaysHours"><input type="checkbox"> Days/Hours</a>
+                                <a href="#" class="Location"><input type="checkbox"> Location</a>
+                                <a href="#" class="Reason"><input type="checkbox"> Reason</a>
+                            </div>
+                        </div>
+                    </th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td></td>
+                    <td>1</td>
+                    <td><div style="display: flex; align-items: center;"><img style="width: 40px;border-radius: 50%;" src="assets/images/dummy-profile.jpg"><span style="margin-top: 0px; margin-right: 10px;">TestName<br><span style="color: #3E78CF;">asas@klk.dd</span></span></div></td>
+                    <td>Sick Leave</td>
+                    <td class="res-admin-leave-from"><div class="res-leave-his-date">18 Jun 2024</div><div class="res-leave-his-day">Tue</divclass="res-leave-his-date"></td>
+                    <td class="res-admin-leave-to"><div class="res-leave-his-date">18 Jun 2024</div><div class="res-leave-his-day">Tue</divclass="res-leave-his-date"></td>
+                    <td>2</td>
+                    <td>Madurai</td>
+                    <td>Test</td>
+                    <td></td>
+                </tr>
+                <tr>
+                    <td></td>
+                    <td>2</td>
+                    <td><div style="display: flex; align-items: center;"><img style="width: 40px;border-radius: 50%;" src="assets/images/dummy-profile.jpg"><span style="margin-top: 0px; margin-right: 10px;">TestName<br><span style="color: #3E78CF;">asas@klk.dd</span></span></div></td>
+                    <td>Sick Leave</td>
+                    <td class="res-admin-leave-from"><div class="res-leave-his-date">18 Jun 2024</div><div class="res-leave-his-day">Tue</divclass="res-leave-his-date"></td>
+                    <td class="res-admin-leave-to"><div class="res-leave-his-date">18 Jun 2024</div><div class="res-leave-his-day">Tue</divclass="res-leave-his-date"></td>
+                    <td>2</td>
+                    <td>Madurai</td>
+                    <td>Test</td>
+                    <td></td>
+                </tr>
+                <tr>
+                    <td></td>
+                    <td>3</td>
+                    <td><div style="display: flex; align-items: center;"><img style="width: 40px;border-radius: 50%;" src="assets/images/dummy-profile.jpg"><span style="margin-top: 0px; margin-right: 10px;">TestName<br><span style="color: #3E78CF;">asas@klk.dd</span></span></div></td>
+                    <td>Sick Leave</td>
+                    <td class="res-admin-leave-from"><div class="res-leave-his-date">18 Jun 2024</div><div class="res-leave-his-day">Tue</divclass="res-leave-his-date"></td>
+                    <td class="res-admin-leave-to"><div class="res-leave-his-date">18 Jun 2024</div><div class="res-leave-his-day">Tue</divclass="res-leave-his-date"></td>
+                    <td>2</td>
+                    <td>Madurai</td>
+                    <td>Test</td>
+                    <td></td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+
+</div>
+
+<script>
+
+    var table = $('#adminleaveHistoryTable').DataTable({
+        "paging": true,
+        "searching": false,
+        "pageLength": 8, // Set the default number of rows to display
+        "lengthChange": false,
+        "info": true,
+        "order": [],
+        "autoWidth": false,
+        "columnDefs": [
+            {
+                "targets": 0,
+                "orderable": false,
+                "render": function (data, type, full, meta) {
+                    return '<input type="checkbox" class="adminleave-history-check"/>'
+                }
+            },
+        ]
+    });
+
+    $('#dropdownMenuContent input[type="checkbox"]').change(function () {
+        var columnIdx = $(this).closest('a').index() + 1;
+        var isChecked = $(this).prop('checked');
+        table.column(columnIdx).visible(isChecked);
+    });
+
+    $('#dropdownMenuContent input[type="checkbox"]').prop('checked', true);
+
+    $(document).ready(function () {
+        $(document).on('click', '#dropdownMenu', function () {
+            $('#dropdownMenuContent').toggle();
+        });
+
+        $(document).on('click', function (event) {
+            if (!$(event.target).closest('.dropdown-columns').length && !$(event.target).is('#dropdownMenu')) {
+                $('#dropdownMenuContent').hide();
+            }
+        });
+
+        initializeMultiselect1('#adminselectEmployee', 'Select Employees');
+        $('.multiselect').addClass('bordered');
+
+        $(document).on('change', '#adminselectEmployee', function () {
+            $('.multiselect').addClass('bordered');
+            initializeMultiselect1(this, 'Select Employees');
+        });
+
+        function initializeMultiselect1(selector, nonSelectedText) {
+            $(selector).multiselect('destroy').multiselect({
+                includeSelectAllOption: true,
+                enableFiltering: true,
+                buttonWidth: '100%',
+                nonSelectedText: nonSelectedText
+            });
+        }
+
+        $('#adminselectEmployee').on('show.bs.dropdown', function () {
+            // do something…
+            alert('sdsd');
+        })
+    });
+
+
+</script>

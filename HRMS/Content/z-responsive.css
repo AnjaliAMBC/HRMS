@@ -654,8 +654,8 @@
         margin: 10px 7%;
     }
 
-    .mobile-view .res-admin-attendance .res-admin-attendance-header .adminatt-dropdown label{
-        width: 65px;
+    .mobile-view .res-admin-attendance .res-admin-attendance-header .adminatt-dropdown label {
+        width: 55px;
     }
 
     .mobile-view .res-admin-attendance .table-responsive {
@@ -797,17 +797,59 @@
         width: 75px;
     }
 
+    .mobile-view .admin-leave-container .res-adminleave-header-right {
+        display: inline !important;
+        width: 94%;
+    }
+
+    .mobile-view .admin-leave-container .dropdowns-leave-container {
+        display: inline-block;
+        width: 95%;
+    }
+
+    .mobile-view .admin-leave-container .adminleave-dropdown {
+        width: 40%;
+        display: inline-block;
+        margin-right: 20px !important;
+        text-align: right;
+    }
+
+    .mobile-view .admin-leave-container .export-label {
+        margin-right: 40px !important;
+    }
+
+    .mobile-view .admin-leave-container .res-adminleave-date-align {
+        display: inline-block;
+        width: 100%;
+        margin-top: 20px;
+    }
+
+    .mobile-view .admin-leave-container .res-adminleave-date-align .leavemonthmonth-dropdown input {
+        width: 100% !important;
+    }
+
+    .mobile-view .admin-leave-container #daysLeaveContainer {
+        overflow-x: scroll;
+        display: inline-flex !important;
+        width: 100% !important;
+        margin: 10px 7%;
+        margin-left: 0px !important;
+    }
+
+    .res-admin-leave #daysLeaveContainer.Leave-days-container .dayLeave {
+        padding: 0 2px;
+    }
+
     /* admin leave end*/
 
     /* admin leave balance start*/
-
     .mobile-view .res-admin-leave-balance {
         margin-left: 0%;
         display: inline;
     }
 
     .mobile-view .res-admin-leave .main-content.container-fluid {
-        width: 92% !important;
+        width: 100% !important;
     }
 
     .mobile-view .res-admin-leave-balance .search-container {
@@ -818,34 +860,57 @@
         justify-content: center !important;
     }
 
-    .mobile-view #LeaveDateDropdown {
+    .mobile-view .admin-leave-container #LeaveDateDropdown {
         width: 100%;
-        margin-left: 2%;
+        margin-left: 0%;
+        margin-top: 20px;
     }
 
-    .mobile-view #LeaveDateDropdown .res-admin-leave-datedropdown {
+    .mobile-view .admin-leave-container #LeaveDateDropdown .res-admin-leave-datedropdown {
         margin-left: 0 !important;
         justify-content: normal !important;
         display: inline-block !important;
         width: 105%;
     }
 
-    .mobile-view #LeaveDateDropdown .res-admin-leave-datedropdown .form-group {
+    .mobile-view .admin-leave-container #LeaveDateDropdown .res-admin-leave-datedropdown .form-group {
         display: flex !important;
         width: 100%;
     }
 
-    .mobile-view #LeaveDateDropdown .res-admin-leave-datedropdown .form-group label {
+    .mobile-view .admin-leave-container #LeaveDateDropdown .res-admin-leave-datedropdown .form-group label {
         width: 50px;
     }
 
-    .mobile-view #LeaveDateDropdown .res-admin-leave-datedropdown .form-group input {
+    .mobile-view .admin-leave-container #LeaveDateDropdown .res-admin-leave-datedropdown .form-group input {
         width: 100% !important;
     }
 
     .mobile-view .res-admin-leave-balance #leaveBalanceTable thead th:nth-child(1),
     .mobile-view .res-admin-leave-balance #leaveBalanceTable thead th:nth-child(2) {
         visibility: initial;
+    }
+
+    .mobile-view .res-adminleave-emp-from-to {
+        display: inline-block !important;
+        width: 100%;
+        padding: 0;
+    }
+
+        .mobile-view .res-adminleave-emp-from-to .form-group {
+            width: 100%;
+            display: inline-block !important;
+            margin: 5px 0;
+        }
+
+    .mobile-view .res-adminleave-emp-from-to .form-group label {
+        display: inline-block;
+        width: 40px;
+    }
+
+    .mobile-view .res-adminleave-emp-from-to .form-group input {
+        display: inline-block;
+        width: 80% !important;
     }
 
     /* admin leave balance end*/
@@ -2232,6 +2297,40 @@
     .tablet-view .res-admin-leave-balance .search-container {
         margin-left: 10% !important;
     }
+
+    .tablet-view .res-adminleave-header-right .dropdowns-leave-container {
+        display: inline-block;
+        width: 100%;
+    }
+
+    .tablet-view .admin-leave-container .adminleave-dropdown {
+        width: 30%;
+        display: inline-block;
+        margin-right: 20px !important;
+        text-align: center;
+    }
+
+    .tablet-view .admin-leave-container .res-adminleave-drop {
+        display: inline-block;
+        text-align: right;
+    }
+
+    .tablet-view .admin-leave-container #LeaveDateDropdown {
+        margin-left: 0;
+    }
+
+    .tablet-view .admin-leave-container #daysLeaveContainer {
+        overflow-x: scroll;
+        display: inline-flex !important;
+        width: 100% !important;
+        margin: 10px 7%;
+        margin-left: 0px !important;
+    }
+
+    .tablet-view .res-admin-leave #daysLeaveContainer.Leave-days-container .dayLeave {
+        padding: 0 2px;
+    }
+
     /* admin leave end*/
 
     }
