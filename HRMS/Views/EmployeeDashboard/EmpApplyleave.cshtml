@@ -76,10 +76,22 @@
                         <label for="HourPermission" class="hour_label">Hour Permission*</label>
                         <select class="form-control" id="HourPermission">
                             <option selected disabled>Select Hours</option>
-                            <option value="0.5">0.5 Hours</option>
-                            <option value="1">1 Hour</option>
-                            <option value="1.5">1.5 Hours</option>
-                            <option value="2">2 Hours</option>
+
+                            @{
+                                decimal selectedHourPermission = Model.EditLeaveInfo != null && Model.EditLeaveInfo.leavesource == "Hourly Permission" ? Model.EditLeaveInfo.LeaveDays : 0;
+                            }
+                            @foreach (var hourPermission in Model.HourlyPermissions)
+                            {
+                                var permissionHourString = hourPermission.Split(' ')[0];
+                                decimal permissionHour = decimal.Parse(permissionHourString);
+                                var selected = permissionHour == selectedHourPermission ? "selected" : "";
+                                <option @selected value="@permissionHour">@hourPermission</option>
+                            }
+
+                            @*<option value="0.5">0.5 Hours</option>
+                                <option value="1">1 Hour</option>
+                                <option value="1.5">1.5 Hours</option>
+                                <option value="2">2 Hours</option>*@
                         </select>
                     </div>
                     <div class="form-group" id="dayTypeLabel" style="display: none">

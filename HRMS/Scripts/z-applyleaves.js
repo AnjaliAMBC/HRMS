@@ -392,6 +392,7 @@ $(document).on('change', '#leaveType', function (event) {
     } else {
         $('.to-date-group').show();
         $('.time-section').hide();
+        $('.apply-date-section').show();
         generateDayTypeRows(); // Ensure that the day type rows are generated based on selected dates
     }
 
