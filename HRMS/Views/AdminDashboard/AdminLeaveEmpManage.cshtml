@@ -174,11 +174,11 @@
     </style>
     <div class="container-fluid">
         <div class="row">
-            <div class="col-md-4">
+            <div class="col-sm-12 col-md-12 col-lg-4 res-adminleave-header-left">
                 <h3>Leave</h3>
             </div>
 
-            <div class="col-md-8">
+            <div class="col-sm-12 col-md-12 col-lg-8 res-adminleave-header-right">
                 <div class="dropdowns-leave-container">
                     <div class="search-container">
                         <div class="input-group">
@@ -197,11 +197,11 @@
                         </select>
                     </div>
 
-                    <div class="form-group adminleave-dropdown" style="margin-top: 17px;">
+                    <div class="form-group adminleave-dropdown" style="margin-top: 10px;">
                         <label class="export-label" for="exportLeaveLabel" style="margin:0;">Export</label>
                         <i class="fas fa-chevron-down" id="exportLeaveIcon" style="cursor: pointer; font-size:13px;" data-toggle="collapse" data-target="#LeaveDateDropdown"></i>
                     </div>
-                    <div class="dropdown">
+                    <div class="dropdown res-adminleave-drop">
                         <button class="btn btn-primary dropdown-toggle" type="button" id="leaveSettingsDropdown" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                             Leave Settings
                         </button>
@@ -219,7 +219,7 @@
         <div class="collapse" id="LeaveDateDropdown">
 
             <div class="col-md-4"></div> <!-- Empty column -->
-            <div class="col-md-8 d-flex">
+            <div class="col-md-8 d-flex res-adminleave-emp-from-to">
                 <div class="form-group d-flex">
                     <label for="from" class="mr-2">From</label>
                     <input type="date" class="form-control form-control-sm mr-2" id="fromDate" style="width: 120px;">
@@ -238,7 +238,7 @@
 
 
 
-        <div class="dropdowns-leave-container mb-4">
+        <div class="dropdowns-leave-container mb-4 res-adminleave-date-align">
             <div class="dropdown leavemonthmonth-dropdown">
                 <input type="month" id="myLeaveMonth" value="" class="form-control">
             </div>
@@ -250,72 +250,74 @@
         <div class="leaveselecteddate" style="display: none">@Model.SelectedDate.ToString("dd MMMM yyyy")</div>
         <div class="leaveselectedmonth" style="display: none">@Model.SelectedDate.ToString("yyyy-MM")</div>
 
-        <table id="adminleaveTable-mgmt" class="table leave-table" style="width:96%;">
-            <thead class="thead-light">
-            </thead>
-            <tbody>
+        <div class="res-adminleaveTable-mgmt table-responsive">
+            <table id="adminleaveTable-mgmt" class="table leave-table" style="width:96%;">
+                <thead class="thead-light" style="display:none;">
+                </thead>
+                <tbody>
 
-                @foreach (var leaveemp in Model.LeavesInfoBasedOnFromAndTodate)
-                {
-                    <tr class="rowBorder">
-                        <td class="fontSmall">@leaveemp.LatestLeave.employee_id</td>
-                        <td>
-                            <div class="userLeaveDetails">
+                    @foreach (var leaveemp in Model.LeavesInfoBasedOnFromAndTodate)
+                    {
+                        <tr class="rowBorder">
+                            <td class="fontSmall">@leaveemp.LatestLeave.employee_id</td>
+                            <td>
+                                <div class="userLeaveDetails">
 
-                                @{
-                                    var empImagePath = "/Assets/EmpImages/" + leaveemp.LatestLeave.employee_id + ".jpeg";
-                                }
-                                <img src="@empImagePath"
-                                     class="userIcon"
-                                     alt="user" />
-                                <div class="fontSmall">
-                                    <p class="mb-0 fontWtMedium">@leaveemp.LatestLeave.employee_name</p>
-                                    <a href="#">@leaveemp.LatestLeave.OfficalEmailid</a>
+                                    @{
+                                        var empImagePath = "/Assets/EmpImages/" + leaveemp.LatestLeave.employee_id + ".jpeg";
+                                    }
+                                    <img src="@empImagePath"
+                                         class="userIcon"
+                                         alt="user" />
+                                    <div class="fontSmall">
+                                        <p class="mb-0 fontWtMedium">@leaveemp.LatestLeave.employee_name</p>
+                                        <a href="#">@leaveemp.LatestLeave.OfficalEmailid</a>
+                                    </div>
                                 </div>
-                            </div>
-                        </td>
-                        <td class="fontSmall dataMinWidth dateMaxWidth">
-                            <p class="mb-0 fontWtMedium">@leaveemp.LatestLeave.leavedate.Value.ToString("dd MMM yyyy")</p>
-                            <span class="mutedText">@leaveemp.LatestLeave.leavedate.Value.ToString("ddd")</span>
-                        </td>
-                        <td class="fontSmall">
-                            <div class="mutedText">Day(s)</div>
-                            <span class="fontWtMedium">@leaveemp.TotalLeaveDays</span>
-                        </td>
-                        <td class="fontSmall dataMinWidth">
-                            <div class="mutedText">Leave Type</div>
-                            <span class="fontWtbold">@leaveemp.LatestLeave.leavesource</span>
-                        </td>
-                        <td class="fontSmall">
-                            <div class="mutedText">Location</div>
-                            <span class="fontWtbold">@leaveemp.LatestLeave.Location</span>
-                        </td>
-                        <td class="fontSmall commentSec">
-                            <div class="dFlex">
-                                <i class="fa-solid fa-message chatIcon"></i>
-                                <p>
-                                    @leaveemp.LatestLeave.leave_reason
-                                </p>
-                            </div>
-                            <div class="statusBtnFlex">
+                            </td>
+                            <td class="fontSmall dataMinWidth dateMaxWidth">
+                                <p class="mb-0 fontWtMedium">@leaveemp.LatestLeave.leavedate.Value.ToString("dd MMM yyyy")</p>
+                                <span class="mutedText">@leaveemp.LatestLeave.leavedate.Value.ToString("ddd")</span>
+                            </td>
+                            <td class="fontSmall">
+                                <div class="mutedText">Day(s)</div>
+                                <span class="fontWtMedium">@leaveemp.TotalLeaveDays</span>
+                            </td>
+                            <td class="fontSmall dataMinWidth">
+                                <div class="mutedText">Leave Type</div>
+                                <span class="fontWtbold">@leaveemp.LatestLeave.leavesource</span>
+                            </td>
+                            <td class="fontSmall">
+                                <div class="mutedText">Location</div>
+                                <span class="fontWtbold">@leaveemp.LatestLeave.Location</span>
+                            </td>
+                            <td class="fontSmall commentSec">
+                                <div class="dFlex">
+                                    <i class="fa-solid fa-message chatIcon"></i>
+                                    <p>
+                                        @leaveemp.LatestLeave.leave_reason
+                                    </p>
+                                </div>
+                                <div class="statusBtnFlex">
 
-                                @if (leaveemp.LatestLeave.LeaveStatus == "Pending")
-                                {
-                                    <a href="" class="statusBtn acceptLeaveBtn" data-leavename="@leaveemp.LatestLeave.LeaveRequestName">Approve</a>
-                                    <a href="" class="statusBtn rejectLeaveBtn" data-leavename="@leaveemp.LatestLeave.LeaveRequestName">Reject</a>
-                                }
-                                else
-                                {
-                                    <small class="statusLabel">@leaveemp.LatestLeave.LeaveStatus</small>
-                                }
+                                    @if (leaveemp.LatestLeave.LeaveStatus == "Pending")
+                                    {
+                                        <a href="" class="statusBtn acceptLeaveBtn" data-leavename="@leaveemp.LatestLeave.LeaveRequestName">Approve</a>
+                                        <a href="" class="statusBtn rejectLeaveBtn" data-leavename="@leaveemp.LatestLeave.LeaveRequestName">Reject</a>
+                                    }
+                                    else
+                                    {
+                                        <small class="statusLabel">@leaveemp.LatestLeave.LeaveStatus</small>
+                                    }
 
-                            </div>
-                        </td>
-                    </tr>
-                }
+                                </div>
+                            </td>
+                        </tr>
+                    }
 
-            </tbody>
-        </table>
+                </tbody>
+            </table>
+        </div>
 
     </div>
 
