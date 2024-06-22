@@ -82,6 +82,7 @@ namespace HRMS.Controllers
 
             if (isEmployeeAPpliedLeaveToday != null)
             {
+                model.empLeaveInfo = isEmployeeAPpliedLeaveToday;
                 model.IsOnLeave = true;
             }
 

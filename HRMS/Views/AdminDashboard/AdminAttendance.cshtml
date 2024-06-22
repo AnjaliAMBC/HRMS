@@ -314,7 +314,7 @@
                                                 string starttimeWithAmPm = empCheckin.Signin_Time.ToString("hh:mm tt", System.Globalization.CultureInfo.InvariantCulture);
                                                 string endtimeWithAmPm = empCheckin.Signout_Time?.ToString("hh:mm tt", System.Globalization.CultureInfo.InvariantCulture);
 
-                                                string statusType = "bar-width-green";
+
                                                 string buttonColor = "present-btn";
                                                 string attedenceType = "Present";
                                                 int hours = 00;
@@ -341,12 +341,12 @@
                                                     //    attedenceType = "Permission";
                                                     //}
 
-                                                    if (empLeave != null)
-                                                    {
-                                                        statusType = "bar-width-yellow";
-                                                        buttonColor = "yellow-btn";
-                                                        attedenceType = empLeave.leavesource;
-                                                    }
+                                                    //if (empLeave != null)
+                                                    //{
+                                                    //    statusType = "bar-width-yellow";
+                                                    //    buttonColor = "yellow-btn";
+                                                    //    attedenceType = empLeave.leavesource;
+                                                    //}
 
                                                 }
                                                 else
@@ -360,6 +360,27 @@
                                                         hours = (int)timeDifference?.TotalHours;
                                                         minutes = (int)timeDifference?.Minutes;
                                                     }
+
+                                                }
+
+                                                if (empLeave != null)
+                                                {
+                                                    if (empLeave.DayType == "fullDay")
+                                                    {
+                                                        buttonColor = "leave-btn";
+                                                        attedenceType = "Leave";
+                                                    }
+                                                    if (empLeave.DayType == "halfDay")
+                                                    {
+                                                        buttonColor = "leave-btn";
+                                                        attedenceType = "H/D Leave";
+                                                    }
+                                                    if (empLeave.DayType == "")
+                                                    {
+                                                        buttonColor = "yellow-btn";
+                                                        attedenceType = "Permission";
+                                                    }
+
                                                 }
 
                                             }
@@ -374,9 +395,19 @@
                                     else
                                     {
                                         var leaveType = "Absent";
+                                        var buttoncolorcode = "absent-btn";
                                         if (empLeave != null)
                                         {
-                                            leaveType = empLeave.leavecategory;
+                                            if (empLeave.leavecategory.ToLowerInvariant().Contains("leave"))
+                                            {
+                                                leaveType = "Leave";
+                                                buttoncolorcode = "leave-btn";
+                                            }
+                                            if (empLeave.leavecategory.ToLowerInvariant().Contains("permission"))
+                                            {
+                                                leaveType = "Permission";
+                                                buttoncolorcode = "yellow-btn";
+                                            }
                                         }
                                         <tr>
 
@@ -399,10 +430,10 @@
                                             <td>@employee.Location</td>
                                             <td>@Model.SelectedDate.ToString("dd MMMM yyyy")</td>
 
-                                            <td>00:00 AM</td>
-                                            <td>00:00 AM</td>
-                                            <td>00h:00m</td>
-                                            <td><button class="leave-btn">@leaveType</button></td>
+                                            <td>---</td>
+                                            <td>---</td>
+                                            <td>---</td>
+                                            <td><button class="@buttoncolorcode">@leaveType</button></td>
                                             <td><i class="fas fa-pencil-alt empattendence-edit" data-attendenceid="34" data-toggle="modal" data-target="#leaveUpdateModal"></i></td>
                                         </tr>
                                     }

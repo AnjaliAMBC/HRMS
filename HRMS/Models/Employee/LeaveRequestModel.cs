@@ -44,6 +44,8 @@ namespace HRMS.Models.Employee
 
         public List<string> leaveTypes = new List<string>();
 
+        public List<string> HourlyPermissions = new List<string>();
+
     }
 
 

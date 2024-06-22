@@ -49,7 +49,14 @@
     if (Model.IsOnLeave == true)
     {
         buttonText = "Check-In";
-        ButtonDisabled = "disabled";
+        if (Model.empLeaveInfo != null && (Model.empLeaveInfo.DayType == "halfDay" || Model.empLeaveInfo.DayType == ""))
+        {
+            ButtonDisabled = "";
+        }
+        else
+        {
+            ButtonDisabled = "disabled";
+        }
     }
 
     var currentUserSession = Session["SiteContext"] as HRMS.Models.SiteContextModel;
@@ -77,7 +84,7 @@
                                     <div class="in-out col-md-4 p-0 pr-1 col-sm-4">
                                         <div class="check-time d-flex flex-column">
                                             <span class="check-label smalltext mr-auto">Check In time</span>
-                                            <div id="checkInTime" class="time-input mr-auto"><span style="font-size: small">@lastCheckinDate</span>@starttimeWithAmPm</div>
+                                            <div id="checkInTime" class="time-input mr-auto"><span style="font-size: small; display: none">@lastCheckinDate</span>@starttimeWithAmPm</div>
                                         </div>
                                         <div class="check-time mt-2 d-flex flex-column">
                                             <span class="check-label smalltext mr-auto">Check Out time</span>

@@ -109,79 +109,79 @@
             </div>
 
             <div class="col-md-6">
-                <div class="balance-section-wrapper">
+                <div class="balance-section-wrapper" style="display: none">
 
                 </div>
-            </div>        
+            </div>
         </div>
     </div>
 
 
     <script>
-        //$(document).ready(function () {
-        //    function generateDayTypeRows() {
-        //        var fromDate = $('#fromleaveDateadmin').val();
-        //        var toDate = $('#toleaveDateadmin').val();
-        //        var dayTypeLabel1 = $('#admindayTypeLabel');
-        //        var dayTypeContainer1 = $('#admindayTypeContainer');
+            //$(document).ready(function () {
+            //    function generateDayTypeRows() {
+            //        var fromDate = $('#fromleaveDateadmin').val();
+            //        var toDate = $('#toleaveDateadmin').val();
+            //        var dayTypeLabel1 = $('#admindayTypeLabel');
+            //        var dayTypeContainer1 = $('#admindayTypeContainer');
 
-        //        // Clear previous entries
-        //        dayTypeContainer1.empty();
+            //        // Clear previous entries
+            //        dayTypeContainer1.empty();
 
-        //        if (fromDate && toDate) {
-        //            // Show the "Day Type" label
-        //            dayTypeLabel1.show();
+            //        if (fromDate && toDate) {
+            //            // Show the "Day Type" label
+            //            dayTypeLabel1.show();
 
-        //            var start = new Date(fromDate);
-        //            var end = new Date(toDate);
+            //            var start = new Date(fromDate);
+            //            var end = new Date(toDate);
 
-        //            // Generate a row for each date in the range
-        //            for (var d = new Date(start); d <= end; d.setDate(d.getDate() + 1)) {
-        //                var dateStr = d.toISOString().split('T')[0];
-        //                var dayTypeRow = `
-        //                            <div class="form-group-row admin-apply-leave-form">
-        //                                <div class="admin-apply-date-label">${dateStr}</div>
-        //                                <div class="admin-vertical-line"></div>
-        //                                <div class="admindayleave-type-container">
-        //                                    <div class="form-check">
-        //                                        <input class="form-check-input" type="radio" name="dayType_${dateStr}" value="fullDay" checked>
-        //                                        <label class="form-check-label">Full Day</label>
-        //                                    </div>
-        //                                    <div class="form-check">
-        //                                        <input class="form-check-input" type="radio" name="dayType_${dateStr}" value="halfDay">
-        //                                        <label class="form-check-label">Half Day</label>
-        //                                    </div>
-        //                                    <select class="form-control admin-half-day-select" name="halfType_${dateStr}" disabled>
-        //                                        <option>First Half</option>
-        //                                        <option>Second Half</option>
-        //                                    </select>
-        //                                </div>
-        //                            </div>`;
-        //                dayTypeContainer1.append(dayTypeRow);
-        //            }
+            //            // Generate a row for each date in the range
+            //            for (var d = new Date(start); d <= end; d.setDate(d.getDate() + 1)) {
+            //                var dateStr = d.toISOString().split('T')[0];
+            //                var dayTypeRow = `
+            //                            <div class="form-group-row admin-apply-leave-form">
+            //                                <div class="admin-apply-date-label">${dateStr}</div>
+            //                                <div class="admin-vertical-line"></div>
+            //                                <div class="admindayleave-type-container">
+            //                                    <div class="form-check">
+            //                                        <input class="form-check-input" type="radio" name="dayType_${dateStr}" value="fullDay" checked>
+            //                                        <label class="form-check-label">Full Day</label>
+            //                                    </div>
+            //                                    <div class="form-check">
+            //                                        <input class="form-check-input" type="radio" name="dayType_${dateStr}" value="halfDay">
+            //                                        <label class="form-check-label">Half Day</label>
+            //                                    </div>
+            //                                    <select class="form-control admin-half-day-select" name="halfType_${dateStr}" disabled>
+            //                                        <option>First Half</option>
+            //                                        <option>Second Half</option>
+            //                                    </select>
+            //                                </div>
+            //                            </div>`;
+            //                dayTypeContainer1.append(dayTypeRow);
+            //            }
 
-        //            // Enable/disable half day selection
-        //            $('input[name^="dayType_"]').change(function () {
-        //                var halfTypeSelect = $(this).closest('.admin-apply-leave-form').find('select');
-        //                if ($(this).val() === 'halfDay') {
-        //                    halfTypeSelect.prop('disabled', false);
-        //                } else {
-        //                    halfTypeSelect.prop('disabled', true);
-        //                }
-        //            });
-        //        } else {
-        //            // Hide the "Day Type" label if dates are not selected
-        //            dayTypeLabel1.hide();
-        //        }
-        //    }
+            //            // Enable/disable half day selection
+            //            $('input[name^="dayType_"]').change(function () {
+            //                var halfTypeSelect = $(this).closest('.admin-apply-leave-form').find('select');
+            //                if ($(this).val() === 'halfDay') {
+            //                    halfTypeSelect.prop('disabled', false);
+            //                } else {
+            //                    halfTypeSelect.prop('disabled', true);
+            //                }
+            //            });
+            //        } else {
+            //            // Hide the "Day Type" label if dates are not selected
+            //            dayTypeLabel1.hide();
+            //        }
+            //    }
 
-        //    // Initially hide the "Day Type" label
-        //    $('#admindayTypeLabel').hide();
+            //    // Initially hide the "Day Type" label
+            //    $('#admindayTypeLabel').hide();
 
-        //    // Attach change event listeners to date fields
-        //    $('#fromleaveDateadmin, #toleaveDateadmin').change(generateDayTypeRows);
+            //    // Attach change event listeners to date fields
+            //    $('#fromleaveDateadmin, #toleaveDateadmin').change(generateDayTypeRows);
 
-        //});
+            //});
 
 
 

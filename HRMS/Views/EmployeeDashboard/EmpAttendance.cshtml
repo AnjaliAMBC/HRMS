@@ -48,6 +48,34 @@
                     .att-table {
                         margin-top: 15px;
                     }
+
+                    .att-calender {
+                        padding: 20px;
+                    }
+
+                    .form-row {
+                        display: flex;
+                        align-items: center;
+                    }
+
+                    .form-group {
+                        display: flex;
+                        flex-direction: column;
+                        margin-right: 10px;
+                    }
+
+                    .apply-div {
+                        display: flex;
+                        align-items: center;
+                        margin-top: 10px;
+                    }
+
+                    .error-message {
+                        color: red;
+                        font-size: 12px;
+                        margin-top: 5px;
+                        display: none;
+                    }
                 </style>
 
                 @{
@@ -71,17 +99,26 @@
 
                         <div class="att-calender">
                             <div class="form-row from-to-calen">
-                                <div class="col d-flex b-from col-md-6" style="align-items: center; font-size:14px;">
-                                    <span>From</span> <input type="date" class="form-control ml-2" id="attendancefrom" name="attendancefrom" style="font-size:13px;">
+                                <div class="form-group">
+                                    <div class="d-flex align-items-center" style="font-size: 14px;">
+                                        <span>From</span>
+                                        <input type="date" class="form-control ml-2" id="attendancefrom" name="attendancefrom" style="font-size: 13px;">
+                                    </div>
+                                    <span id="from-error" class="error-message">Please fill out this field.</span>
                                 </div>
-                                <div class="col d-flex b-to col-md-6" style="align-items: center; font-size: 14px;">
-                                    <span>To</span> <input type="date" class="form-control ml-2" id="attendanceto" name="attendanceto" style="font-size:13px;">
-</div>
-                            </div>
-                            <div class="apply-div col-md-4">
-                                <button class="btn apply-filter attendance-find ml-3">View</button>
+                                <div class="form-group">
+                                    <div class="d-flex align-items-center" style="font-size: 14px;">
+                                        <span>To</span>
+                                        <input type="date" class="form-control ml-2" id="attendanceto" name="attendanceto" style="font-size: 13px;">
+                                    </div>
+                                    <span id="to-error" class="error-message">Please fill out this field.</span>
+                                </div>
+                                <div class="apply-div">
+                                    <button class="btn apply-filter attendance-find" onclick="return validateDates()">View</button>
+                                </div>
                             </div>
                         </div>
+
                     </div>
                     <div class="att-table table-responsive-sm table-responsive">
 
@@ -105,6 +142,8 @@
                                     }
 
                                     var isCheckInExists = Model.AttedenceList.Where(x => x.Login_date == date).FirstOrDefault();
+                                    var empLeave = Model.Leaves.Where(x => x.leavedate == date).FirstOrDefault();
+
                                     if (isCheckInExists != null)
                                     {
                                         string starttimeWithAmPm = isCheckInExists.Signin_Time.ToString("hh:mm tt", System.Globalization.CultureInfo.InvariantCulture);
@@ -130,12 +169,12 @@
                                             hours = (int)timeDifference?.TotalHours;
                                             minutes = (int)timeDifference?.Minutes;
 
-                                            if (hours < 9)
-                                            {
-                                                statusType = "bar-width-yellow";
-                                                buttonColor = "yellow-btn";
-                                                attedenceType = "Permission";
-                                            }
+                                            //if (hours < 9)
+                                            //{
+                                            //    statusType = "bar-width-yellow";
+                                            //    buttonColor = "yellow-btn";
+                                            //    attedenceType = "Permission";
+                                            //}
                                         }
                                         else
                                         {
@@ -149,6 +188,40 @@
                                                 minutes = (int)timeDifference?.Minutes;
                                             }
                                         }
+
+                                        if (empLeave != null)
+                                        {
+                                            if (empLeave.DayType == "fullDay")
+                                            {
+                                                statusType = "bar-width-red";
+                                                attedenceType = "Leave";
+                                                buttonColor = "leave-btn";
+                                            }
+                                            if (empLeave.DayType == "halfDay")
+                                            {
+                                                if (empLeave.HalfDayCategory == "First Half")
+                                                {
+                                                    buttonColor = "firsthalf-leave-button";
+                                                    statusType = "bar-width-firsthalf-leave";
+                                                }
+                                                else
+                                                {
+                                                    buttonColor = "secondhalf-leave-button";
+                                                    statusType = "bar-width-second-leave";
+                                                }
+
+                                                attedenceType = "H/D Leave";
+
+                                            }
+                                            if (empLeave.DayType == "")
+                                            {
+                                                statusType = "bar-width-yellow";
+                                                attedenceType = "Permission";
+                                                buttonColor = "yellow-btn";
+                                            }
+
+                                        }
+
 
                                         <tr>
                                             <th scope="row">@isCheckInExists.Login_date.ToString("dd MMMM yyyy") <br><span class="fntblur">@isCheckInExists.Login_date.ToString("ddd", System.Globalization.CultureInfo.InvariantCulture)</span></th>
@@ -170,9 +243,27 @@
                                         string attedenceType = "Weekend";
                                         if (!isWeekendDate)
                                         {
-                                            statusType = "bar-width-blue";
-                                            buttonColor = "leave-btn";
-                                            attedenceType = "Absent";
+                                            if (empLeave != null)
+                                            {
+                                                if (empLeave.leavecategory.ToLowerInvariant().Contains("leave"))
+                                                {
+                                                    statusType = "bar-width-red";
+                                                    attedenceType = "Leave";
+                                                    buttonColor = "leave-btn";
+                                                }
+                                                if (empLeave.leavecategory.ToLowerInvariant().Contains("permission"))
+                                                {
+                                                    statusType = "bar-width-yellow";
+                                                    attedenceType = "Permission";
+                                                    buttonColor = "yellow-btn";
+                                                }
+                                            }
+                                            else
+                                            {
+                                                statusType = "bar-width-blue";
+                                                attedenceType = "Absent";
+                                                buttonColor = "absent-btn";
+                                            }
                                         }
 
                                         <tr>

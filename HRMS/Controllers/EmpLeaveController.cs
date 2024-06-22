@@ -67,6 +67,14 @@ namespace HRMS.Controllers
                 "Comp Off"
             };
 
+            applyleaveModel.HourlyPermissions = new List<string>
+            {
+                "0.5 Hours",
+                "1 Hour",
+                "1.5 Hours",
+                "2 Hours"                
+            };
+
 
 
             return PartialView("~/Views/EmployeeDashboard/EmpApplyleave.cshtml", applyleaveModel);
@@ -325,10 +333,21 @@ namespace HRMS.Controllers
             else
             {
                 // Query leave data and group by LeaveRequestName
-                leaves = _dbContext.con_leaveupdate
-                   .Where(x => x.Fromdate >= dateStart && x.Todate <= dateEnd && x.LeaveRequestName == leaverequestname && x.employee_id == empID)
-                   .OrderByDescending(x => x.Fromdate)
-                   .ToList();
+                if(!string.IsNullOrWhiteSpace(empID))
+                {
+                    leaves = _dbContext.con_leaveupdate
+                  .Where(x => x.Fromdate >= dateStart && x.Todate <= dateEnd && x.LeaveRequestName == leaverequestname && x.employee_id == empID)
+                  .OrderByDescending(x => x.Fromdate)
+                  .ToList();
+                }
+                else
+                {
+                    leaves = _dbContext.con_leaveupdate
+                 .Where(x => x.Fromdate >= dateStart && x.Todate <= dateEnd && x.LeaveRequestName == leaverequestname)
+                 .OrderByDescending(x => x.Fromdate)
+                 .ToList();
+                }
+               
             }
             var json = JsonConvert.SerializeObject(leaves);
 

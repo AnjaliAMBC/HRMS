@@ -9,6 +9,17 @@
 }
 
 <div class="employeeleaveapply-view">
+    <style>
+        .error-message {
+            color: red;
+            display: none; /* Hidden by default */
+        }
+
+        .input-error, .input-error select {
+            border-color: red !important;
+        }
+    </style>
+
     <div class="container">
         <div class="row">
             <div class="col-lg-5 col-md-11 popup-form">
@@ -28,6 +39,7 @@
                                     <option @selected value="@emp.EmployeeID" data-emplocation="@emp.Location" data-empemail="@emp.OfficalEmailid">@emp.EmployeeName</option>
                                 }
                             </select>
+                            <span class="error-message" id="leaveempname-error"></span>
                         </div>
                         <label for="leaveType" class="leave_label">Leave Type*</label>
                         <select class="form-control" id="leaveType">
@@ -40,8 +52,8 @@
                                 var selected = leavetype == selectedLeaveType ? "selected" : "";
                                 <option @selected value="@leavetype">@leavetype</option>
                             }
-
                         </select>
+                        <span class="error-message" id="leaveType-error"></span>
                     </div>
                     <div class="apply-date-section">
                         <div class="form-group">
@@ -55,8 +67,7 @@
                             {
                                 <input type="date" class="form-control" id="fromleaveDate">
                             }
-
-
+                            <span class="error-message" id="fromleaveDate-error"></span>
                         </div>
                         <div class="form-group to-date-group">
                             <label for="toleaveDate">To Date*</label>
@@ -69,18 +80,26 @@
                             {
                                 <input type="date" class="form-control" id="toleaveDate">
                             }
-
+                            <span class="error-message" id="toleaveDate-error"></span>
                         </div>
                     </div>
                     <div class="form-group time-section" style="display: none">
                         <label for="HourPermission" class="hour_label">Hour Permission*</label>
                         <select class="form-control" id="HourPermission">
                             <option selected disabled>Select Hours</option>
-                            <option value="0.5">0.5 Hours</option>
-                            <option value="1">1 Hour</option>
-                            <option value="1.5">1.5 Hours</option>
-                            <option value="2">2 Hours</option>
+
+                            @{
+                                decimal selectedHourPermission = Model.EditLeaveInfo != null && Model.EditLeaveInfo.leavesource == "Hourly Permission" ? Model.EditLeaveInfo.LeaveDays : 0;
+                            }
+                            @foreach (var hourPermission in Model.HourlyPermissions)
+                            {
+                                var permissionHourString = hourPermission.Split(' ')[0];
+                                decimal permissionHour = decimal.Parse(permissionHourString);
+                                var selected = permissionHour == selectedHourPermission ? "selected" : "";
+                                <option @selected value="@permissionHour">@hourPermission</option>
+                            }
                         </select>
+                        <span class="error-message" id="HourPermission-error"></span>
                     </div>
                     <div class="form-group" id="dayTypeLabel" style="display: none">
                         <label>Day Type*</label>
@@ -96,6 +115,7 @@
                         <label for="teamEmail">Team Email</label>
                         <input type="text" value="@leaveDefaultEmails" class="form-control" id="teamEmail">
                         <div style="display: none" id="defaultteamEmail">@leaveDefaultEmails</div>
+                        <span class="error-message" id="teamEmail-error"></span>
                     </div>
                     <div class="form-group">
                         <label for="reason">Reason</label>
@@ -103,6 +123,7 @@
                             var leave_reason = @Model.EditLeaveInfo != null && !string.IsNullOrWhiteSpace(Model.EditLeaveInfo.leave_reason) ? Model.EditLeaveInfo.leave_reason : "";
                         }
                         <textarea class="form-control" id="reason">@leave_reason</textarea>
+                        <span class="error-message" id="reason-error"></span>
                     </div>
                     <div class="form-group">
                         <label for="BackupName">Backup Resource Name*</label>
@@ -110,6 +131,7 @@
                             var BackupResource_Name = @Model.EditLeaveInfo != null && !string.IsNullOrWhiteSpace(Model.EditLeaveInfo.BackupResource_Name) ? Model.EditLeaveInfo.BackupResource_Name : "";
                         }
                         <input type="text" class="form-control" id="BackupName" value="@BackupResource_Name">
+                        <span class="error-message" id="BackupName-error"></span>
                     </div>
                     <div class="form-group">
                         <label for="BackupNo">Contact Number (In case of Emergency)*</label>
@@ -117,12 +139,13 @@
                             var EmergencyContact_no = @Model.EditLeaveInfo != null && !string.IsNullOrWhiteSpace(Model.EditLeaveInfo.EmergencyContact_no) ? Model.EditLeaveInfo.EmergencyContact_no : "";
                         }
                         <input type="text" class="form-control" id="BackupNo" value="@EmergencyContact_no">
+                        <span class="error-message" id="BackupNo-error"></span>
                     </div>
                     <button type="submit" class="btn btn-primary btn-apply-empleave mb-4">@buttonText</button>
                 </form>
             </div>
             <div class="col-lg-6 col-md-12">
-                <div class="balance-section-wrapper">
+                <div class="balance-section-wrapper" style="display: none">
                 </div>
             </div>
         </div>

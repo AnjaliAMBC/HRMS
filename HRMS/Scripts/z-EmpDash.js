@@ -189,17 +189,41 @@ function formatDateenUS(inputDate) {
     return date.toLocaleDateString('en-GB', { day: '2-digit', month: 'long', year: 'numeric' });
 }
 
+function AttedencevalidateDates() {
+    var fromDate = document.getElementById('attendancefrom').value;
+    var toDate = document.getElementById('attendanceto').value;
+    var fromError = document.getElementById('from-error');
+    var toError = document.getElementById('to-error');
+
+    var isValid = true;
+
+    if (fromDate === "") {
+        fromError.style.display = 'block';
+        isValid = false;
+    } else {
+        fromError.style.display = 'none';
+    }
+
+    if (toDate === "") {
+        toError.style.display = 'block';
+        isValid = false;
+    } else {
+        toError.style.display = 'none';
+    }
+
+    return isValid;
+}
+
 $(document).on('click', '.attendance-find', function (event) {
     event.preventDefault();
-    // Read values from 'from' and 'to' date inputs
-    var fromDate = $("#attendancefrom").val();
-    var toDate = $("#attendanceto").val();
-
-    // Format dates as "dd MMMM yyyy"
-    var formattedFromDate = formatDateenUS(fromDate);
-    var formattedToDate = formatDateenUS(toDate);
-
-    GetAttendenceInfo(formattedFromDate, formattedToDate);
+    var isvalid = AttedencevalidateDates();
+    if (isvalid) {
+        var fromDate = $("#attendancefrom").val();
+        var toDate = $("#attendanceto").val();
+        var formattedFromDate = formatDateenUS(fromDate);
+        var formattedToDate = formatDateenUS(toDate);
+        GetAttendenceInfo(formattedFromDate, formattedToDate);
+    }  
 });
 
 

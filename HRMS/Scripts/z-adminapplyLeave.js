@@ -15,7 +15,7 @@
 
             $(".hiddenempdashboard").html("");
 
-            $(".hiddenadmindashboard").html(response);    
+            $(".hiddenadmindashboard").html(response);
             var formContent = $(".hiddenadmindashboard").find(".employeeleaveapply-view").html();
             $(".admin-leave-container").html(formContent);
             $('.admin-leave-container').show();
@@ -23,14 +23,21 @@
             $(".hiddenempdashboard").html(response);
             formContent = $(".hiddenempdashboard").find(".employeeleaveapply-view").html();
             $(".leave-dashboard-data").html(formContent);
-            $('.leave-dashboard-data').show();          
-        
+            $('.leave-dashboard-data').show();
+
 
             $('.admin-attendance-container').hide();
             $('.admin-empmanagement-container').hide();
             $('.admin-emppadd-container').hide();
             $('.admin-dashboard-container').hide();
             $('.admin-ticketing-container').hide();
+
+            //In case of edit
+            if (leaverequestname != undefined && leaverequestname != "" && $('#leaveType').val() == "Hourly Permission") {
+                $('.time-section').show();
+                $('.apply-date-section').hide();
+            }           
+            
             $(".hiddenadmindashboard").html("");
             $(".hiddenempdashboard").html("");
 
@@ -41,7 +48,7 @@
                 $('#totalLeavesContainer').show();
                 generateDayTypeRows(leaverequestname);
             }
-        
+
             generateBalanceSection();
 
         },

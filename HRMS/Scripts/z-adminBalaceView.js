@@ -96,3 +96,106 @@ $(document).on('click', '.adminleave-history', function (event) {
         }
     });
 });
+
+
+
+$(document).on('change', '#userSelect', function (event) {
+    var employeeId = $(this).val();
+    if (employeeId) {
+        $.ajax({
+            url: '/AdminLeave/AdminLeaveBalanceUpdatebyEmpID',
+            type: 'GET',
+            data: { selectedEmpID: employeeId },
+            success: function (data) {
+                var tableBody = $('#leaveBalanceTableBody');
+                tableBody.empty();
+                $.each(data.AvailableLeaves, function (index, leave) {
+                    var row = '<tr>' +
+                        '<td class="leaveupdate-type"><span class="' + leave.DashBoardColorCode + '">' + leave.ShortName + '</span> ' + leave.Type + '</td>' +
+                        '<td><input type="number" class="form-control total-available-leave" value="' + leave.Available.toString().replace(".00", "") + '"></td>' +
+                        '<td><input type="text" disabled class="form-control" value="' + leave.Booked.toString().replace(".00", "") + '"></td>' +
+                        '<td><input type="text" disabled class="form-control" value="' + leave.Balance.toString().replace(".00", "") + '"></td>' +
+                        '</tr>';
+                    tableBody.append(row);
+                });
+            },
+            error: function (xhr, status, error) {
+                console.error('Error: ' + error);
+            }
+        });
+    }
+});
+
+
+$(document).on('input', '.total-available-leave', function () {
+    var $row = $(this).closest('tr');
+    var totalAvailable = parseFloat($(this).val());
+    var booked = parseFloat($row.find('input[disabled].form-control').first().val());
+
+    var availableLeaves = totalAvailable - booked;
+    $row.find('input[disabled].form-control').last().val(availableLeaves);
+});
+
+
+
+$(document).on('click', '#updateleavebalanceButton', function () {
+    var leaveData = {};
+
+    $('#leaveBalanceTableBody tr').each(function () {
+        var $row = $(this);
+        var leaveType = $row.find('.leaveupdate-type span').text();
+        var totalAvailable = parseFloat($row.find('.total-available-leave').val()) || 0;
+
+        switch (leaveType) {
+            case 'EL':
+                leaveData.Earned = totalAvailable;
+                break;
+            case 'EML':
+                leaveData.Emergency = totalAvailable;
+                break;
+            case 'SL':
+                leaveData.Sick = totalAvailable;
+                break;
+            case 'BL':
+                leaveData.Bereavement = totalAvailable;
+                break;
+            case 'HP':
+                leaveData.HourlyPermission = totalAvailable;
+                break;
+            case 'ML':
+                leaveData.Marriage = totalAvailable;
+                break;
+            case 'MTL':
+                leaveData.Maternity = totalAvailable;
+                break;
+            case 'PL':
+                leaveData.Paternity = totalAvailable;
+                break;
+            case 'CO':
+                leaveData.CompOff = totalAvailable;
+                break;
+        }
+    });
+
+    // Example EmpID and Year, replace with actual values
+    leaveData.EmpID = $('#userSelect').val();
+
+    $.ajax({
+        url: '/AdminLeave/UpdateLeaveBalanceBasedonEmpID', // replace with your API endpoint
+        type: 'POST',
+        contentType: 'application/json',
+        data: JSON.stringify(leaveData),
+        success: function (response) {
+            $('#modalMessage').text('Leave balance updated successfully.');
+            $('#messageModal').modal('show');
+        },
+        error: function (error) {
+            console.error('Error updating leave balance:', error);
+            $('#modalMessage').text('Failed to update leave balance.');
+            $('#messageModal').modal('show');
+        }
+    });
+});
+
+
+

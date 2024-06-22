@@ -24,7 +24,7 @@ namespace HRMS.Controllers
         // GET: EmpAttendance
         public ActionResult Index(string startdate, string endDate)
         {
-            if(startdate == "Invalid Date" ||  endDate == "Invalid Date")
+            if (startdate == "Invalid Date" || endDate == "Invalid Date")
             {
                 return null;
             }
@@ -43,7 +43,7 @@ namespace HRMS.Controllers
             if (!string.IsNullOrWhiteSpace(startdate) && !string.IsNullOrWhiteSpace(endDate))
             {
                 model.startWeek = DateTime.ParseExact(startdate, "dd MMMM yyyy", CultureInfo.InvariantCulture);
-                model.EndWeek = DateTime.ParseExact(endDate, "dd MMMM yyyy", CultureInfo.InvariantCulture);                
+                model.EndWeek = DateTime.ParseExact(endDate, "dd MMMM yyyy", CultureInfo.InvariantCulture);
             }
 
             var selectedWeekAttendence = _dbContext.tbld_ambclogininformation.Where(x => x.Login_date >= model.startWeek && x.Login_date <= model.EndWeek && x.Employee_Code == cuserContext.EmpInfo.EmployeeID).ToList();
@@ -51,6 +51,12 @@ namespace HRMS.Controllers
             if (selectedWeekAttendence != null && selectedWeekAttendence.Any())
             {
                 model.AttedenceList = selectedWeekAttendence;
+            }
+
+            var selectedDateLeaves = _dbContext.con_leaveupdate.Where(x => x.leavedate >= model.startWeek && x.leavedate <= model.EndWeek && x.employee_id == cuserContext.EmpInfo.EmployeeID).ToList();
+            if (selectedDateLeaves != null && selectedDateLeaves.Any())
+            {
+                model.Leaves = selectedDateLeaves;
             }
 
             // Get all dates between start and end date
