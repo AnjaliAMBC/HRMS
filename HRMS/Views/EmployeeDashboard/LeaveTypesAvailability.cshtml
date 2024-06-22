@@ -12,8 +12,17 @@
             <div class="col-md-2 m-0">
                 <div class="card card-body tracker-card @availabilty.ColorCode">
                     <h6 class="tracker-title">@availabilty.Type</h6>
-                    <p class="tracker-details">Available: @availabilty.Available.ToString().Replace(".0", "") Days</p>
-                    <p class="tracker-details">Booked: @availabilty.Booked Days</p>
+
+                    @if (@availabilty.Type == "Hourly Permission")
+                    {
+                        <p class="tracker-details">Available: @availabilty.Available.ToString().Replace(".00", "") Hours</p>
+                        <p class="tracker-details">Booked: @availabilty.Booked.ToString().Replace(".00", "") Hours</p>
+                    }
+                    else
+                    {
+                        <p class="tracker-details">Available: @availabilty.Available.ToString().Replace(".00", "") Days</p>
+                        <p class="tracker-details">Booked: @availabilty.Booked.ToString().Replace(".00", "") Days</p>
+                    }
                 </div>
             </div>
         </div>

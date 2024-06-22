@@ -207,53 +207,60 @@ $(document).on('click', '.btn-apply-empleave', function (event) {
     let location = $("#leaveempname option:selected").attr("data-emplocation");
     let officialEmail = $("#leaveempname option:selected").attr("data-empemail");
 
-
     let isValid = true;
-    let errorMessage = '';
+
+    function showError(elementId, message) {
+        let errorElement = $('#' + elementId + '-error');
+        errorElement.text(message);
+        errorElement.show();
+        $('#' + elementId).addClass('input-error');
+    }
+
+    $('.error-message').hide(); // Hide all error messages at the start
+    $('.input-error').removeClass('input-error'); // Remove error highlight at the start
 
     if (!leaveType || leaveType === "Select Leave Type") {
         isValid = false;
-        errorMessage += 'Leave Type is required.\n';
+        showError('leaveType', 'Leave Type is required.');
     }
 
     if (leaveType === "Hourly Permission") {
         if (!fromDate) {
             isValid = false;
-            errorMessage += 'From Date is required.\n';
+            showError('fromleaveDate', 'From Date is required.');
         }
         if (!hourPermission || hourPermission === "Select Hours") {
             isValid = false;
-            errorMessage += 'Hour Permission is required for Hourly Permission leave.\n';
+            showError('HourPermission', 'Hour Permission is required for Hourly Permission leave.');
         }
-
     } else {
         if (!fromDate) {
             isValid = false;
-            errorMessage += 'From Date is required.\n';
+            showError('fromleaveDate', 'From Date is required.');
         }
         if (!toDate) {
             isValid = false;
-            errorMessage += 'To Date is required.\n';
+            showError('toleaveDate', 'To Date is required.');
         }
         if (fromDate && toDate && new Date(toDate) < new Date(fromDate)) {
             isValid = false;
-            errorMessage += 'To Date should be greater than From Date.\n';
+            showError('toleaveDate', 'To Date should be greater than From Date.');
         }
     }
 
     if (!teamEmail) {
         isValid = false;
-        errorMessage += 'Team Email is required.\n';
+        showError('teamEmail', 'Team Email is required.');
     }
 
     if (!backupName) {
         isValid = false;
-        errorMessage += 'Backup Resource Name is required.\n';
+        showError('BackupName', 'Backup Resource Name is required.');
     }
 
     if (!backupNo) {
         isValid = false;
-        errorMessage += 'Contact Number (In case of Emergency) is required.\n';
+        showError('BackupNo', 'Contact Number (In case of Emergency) is required.');
     }
 
     let dayTypeContainer = document.getElementById('dayTypeContainer');
@@ -280,15 +287,14 @@ $(document).on('click', '.btn-apply-empleave', function (event) {
             });
         } else {
             isValid = false;
-            errorMessage += `Day Type is required for ${row.querySelector('.apply-date-label').textContent}.\n`;
+            showError('dayTypeContainer', `Day Type is required for ${row.querySelector('.apply-date-label').textContent}.`);
         }
     });
 
     if (!hasDayTypeSelection && leaveType != "Hourly Permission") {
         isValid = false;
-        errorMessage += 'At least one day type selection is required.\n';
+        showError('dayTypeContainer', 'At least one day type selection is required.');
     }
-
 
     if ($('.loginempisadmin').text() != "True") {
         var leavesApplyied = $('#totalLeaves').text().split(' ');
@@ -302,18 +308,17 @@ $(document).on('click', '.btn-apply-empleave', function (event) {
 
             if (isNaN(decimalAppliedLeaves) || isNaN(decimaltotalAvailableBalanceLeaves)) {
                 isValid = false;
-                errorMessage += "Invalid input related to leave balance";
+                showError('totalLeavesContainer', "Invalid input related to leave balance");
             }
 
             if (decimalAppliedLeaves > decimaltotalAvailableBalanceLeaves) {
                 isValid = false;
-                errorMessage += 'You are not allowed to apply the leaves more than the available balance. Please contact administrator.\n';
+                showError('totalLeavesContainer', 'You are not allowed to apply the leaves more than the available balance. Please contact administrator.');
             }
         }
     }
 
     if (!isValid) {
-        alert(errorMessage);
         return;
     }
 
@@ -372,7 +377,6 @@ $(document).on('click', '.btn-apply-empleave', function (event) {
         }
     });
 });
-
 
 
 $(document).on('change', '#leaveType', function (event) {
