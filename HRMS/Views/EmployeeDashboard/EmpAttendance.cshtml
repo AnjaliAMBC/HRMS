@@ -48,6 +48,34 @@
                     .att-table {
                         margin-top: 15px;
                     }
+
+                    .att-calender {
+                        padding: 20px;
+                    }
+
+                    .form-row {
+                        display: flex;
+                        align-items: center;
+                    }
+
+                    .form-group {
+                        display: flex;
+                        flex-direction: column;
+                        margin-right: 10px;
+                    }
+
+                    .apply-div {
+                        display: flex;
+                        align-items: center;
+                        margin-top: 10px;
+                    }
+
+                    .error-message {
+                        color: red;
+                        font-size: 12px;
+                        margin-top: 5px;
+                        display: none;
+                    }
                 </style>
 
                 @{
@@ -71,17 +99,26 @@
 
                         <div class="att-calender">
                             <div class="form-row from-to-calen">
-                                <div class="col d-flex b-from col-md-6" style="align-items: center; font-size:14px;">
-                                    <span>From</span> <input type="date" class="form-control ml-2" id="attendancefrom" name="attendancefrom" style="font-size:13px;">
+                                <div class="form-group">
+                                    <div class="d-flex align-items-center" style="font-size: 14px;">
+                                        <span>From</span>
+                                        <input type="date" class="form-control ml-2" id="attendancefrom" name="attendancefrom" style="font-size: 13px;">
+                                    </div>
+                                    <span id="from-error" class="error-message">Please fill out this field.</span>
                                 </div>
-                                <div class="col d-flex b-to col-md-6" style="align-items: center; font-size: 14px;">
-                                    <span>To</span> <input type="date" class="form-control ml-2" id="attendanceto" name="attendanceto" style="font-size:13px;">
+                                <div class="form-group">
+                                    <div class="d-flex align-items-center" style="font-size: 14px;">
+                                        <span>To</span>
+                                        <input type="date" class="form-control ml-2" id="attendanceto" name="attendanceto" style="font-size: 13px;">
+                                    </div>
+                                    <span id="to-error" class="error-message">Please fill out this field.</span>
                                 </div>
-                            </div>
-                            <div class="apply-div col-md-4">
-                                <button class="btn apply-filter attendance-find ml-3">View</button>
+                                <div class="apply-div">
+                                    <button class="btn apply-filter attendance-find" onclick="return validateDates()">View</button>
+                                </div>
                             </div>
                         </div>
+
                     </div>
                     <div class="att-table table-responsive-sm table-responsive">
 
@@ -162,9 +199,19 @@
                                             }
                                             if (empLeave.DayType == "halfDay")
                                             {
-                                                statusType = "bar-width-red";
+                                                if (empLeave.HalfDayCategory == "First Half")
+                                                {
+                                                    buttonColor = "firsthalf-leave-button";
+                                                    statusType = "bar-width-firsthalf-leave";
+                                                }
+                                                else
+                                                {
+                                                    buttonColor = "secondhalf-leave-button";
+                                                    statusType = "bar-width-second-leave";
+                                                }
+
                                                 attedenceType = "H/D Leave";
-                                                buttonColor = "leave-btn";
+
                                             }
                                             if (empLeave.DayType == "")
                                             {
