@@ -18,26 +18,24 @@
                 <form>
                     <div class="form-group">
                         <label for="CompemployeeName">Employee Name</label>
-                        @{
-                            var isdiabled = "disabled";
-                            var selectedempID = "";
-                            if (currentUserSession.IsAdmin)
-                            {
-                                isdiabled = "";
-                            }
-                            else
-                            {
-                                selectedempID = currentUserSession.EmpInfo.EmployeeID;
-                            }
-                        }
+                        @{ var isdiabled = "disabled";
+                                        var selectedempID = "";
+                                        if (currentUserSession.IsAdmin)
+                                        {
+                                            isdiabled = "";
+                                        }
+                                        else
+                                        {
+                                            selectedempID = currentUserSession.EmpInfo.EmployeeID;
+                                        } }
                         <select class="form-control" id="CompemployeeName" @isdiabled>
                             <option selected disabled>Select Employee Name</option>
                             @foreach (var emp in Model)
                             {
                                 var selected = !currentUserSession.IsAdmin && emp.EmployeeID == selectedempID ? "selected" : "";
-                                <option @selected value="@emp.EmployeeID" data-emplocation="@emp.Location" data-empemail="@emp.OfficalEmailid">@emp.EmployeeName</option>
-                            }
+                <option @selected value="@emp.EmployeeID" data-emplocation="@emp.Location" data-empemail="@emp.OfficalEmailid">@emp.EmployeeName</option>}
                         </select>
+                        <div class="invalid-feedback">Employee Name is mandatory.</div>
                     </div>
                     <div class="form-group">
                         <label for="Compdate">Date</label>

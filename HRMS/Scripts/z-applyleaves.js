@@ -427,5 +427,6 @@ $(document).on('click', '.dashhoiday_description', function (e) {
     var holidayDate = $('#Compdate').val($(this).find('p').text());
     $('#compOffMessage').html("");
     $('#compOffMessage').hide();
+    $('#CompemployeeName').removeClass("is-invalid");
     $("#compOffModal").modal('show');
 });
