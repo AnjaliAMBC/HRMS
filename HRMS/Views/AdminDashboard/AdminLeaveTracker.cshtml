@@ -2,6 +2,12 @@
 
 @Html.Partial("_NavBar")
 
+<style>
+    .weekend-background {
+        color: gray;
+    }
+</style>
+
 <div class="container-fluid res-admin-leave">
     @Html.Partial("_adminsidemenu")
     <div class="hiddenadmindashboard" style="display: none"></div>
@@ -52,7 +58,7 @@
                 <div class="empleavesbasedonmonthselected" style="display: none">@Newtonsoft.Json.JsonConvert.SerializeObject(Model.LeavesInfo);</div>
 
 
-             
+
 
                 <script>
                     /* generateLeaveCalendar(new Date().getMonth(), new Date().getFullYear());*/
