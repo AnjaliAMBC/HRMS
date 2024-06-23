@@ -60,7 +60,7 @@
 
 $(document).on('click', '.adminside-leaveapply', function (event) {
     event.preventDefault();
-    HighlightAdminActiveLink($(this));
+    //HighlightAdminActiveLink($(this));
     $('.leave-pagetitle').text("Apply Leave");
     $('.btn-apply-empleave').text("Apply Leave");
     $('#dayTypeContainer').hide();

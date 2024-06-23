@@ -98,5 +98,28 @@
     <script src="~/Scripts/z-applyleaves.js"></script>
     <script src="~/Scripts/z-adminLeave.js"></script>
     <script src="~/Scripts/z-compoff.js"></script>
+
+    <script>
+        $(document).ready(function () {
+            // Get the current URL path
+            var currentUrl = window.location.pathname;
+
+            $('#admindash-menu li').removeClass('sidebaractive');
+            $('#admindash-menu li a.active').removeClass('active');
+
+            // Iterate through each menu item
+            $('#admindash-menu a').each(function () {
+                // Check if the href attribute matches the current URL
+                if ($(this).attr('href') === currentUrl) {
+                    // Add the active class to the matching menu item
+                    $(this).addClass('active');
+
+                    $(this).parent().addClass('sidebaractive');
+                    // Break the loop
+                    return false;
+                }
+            });
+        });
+    </script>
 </body>
 </html>

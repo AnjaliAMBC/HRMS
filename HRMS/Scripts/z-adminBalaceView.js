@@ -1,6 +1,6 @@
 ﻿$(document).on('click', '.adminleave-Balanve-link', function (event) {
     event.preventDefault();
-    HighlightAdminActiveLink($(this));
+    //HighlightAdminActiveLink($(this));
     $.ajax({
         url: '/adminleave/adminleavebalance',
         type: 'GET',
@@ -68,7 +68,7 @@ $(document).on('click', '.employeeinfo-balance', function (event) {
 //Admin Leave History of all employees 
 $(document).on('click', '.adminleave-history', function (event) {
     event.preventDefault();
-    HighlightAdminActiveLink($(this));
+    //HighlightAdminActiveLink($(this));
     $.ajax({
         url: '/adminleave/adminLalleavehistory',
         type: 'GET',
