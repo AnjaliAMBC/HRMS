@@ -75,7 +75,7 @@ $(document).on('click', '.adminleave-history', function (event) {
     event.preventDefault();
     //HighlightAdminActiveLink($(this));
     $.ajax({
-        url: '/adminleave/adminLalleavehistory',
+        url: '/adminleave/adminleavehistory',
         type: 'GET',
         dataType: 'html',
         success: function (response) {

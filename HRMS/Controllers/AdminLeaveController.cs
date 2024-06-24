@@ -139,10 +139,9 @@ namespace HRMS.Controllers
 
             return Json("", JsonRequestBehavior.AllowGet);
         }
-        public ActionResult AdminLAlleaveHistory()
+        public ActionResult AdminLeaveHistory()
         {
-            return View("~/Views/AdminDashboard/AdminLeaveHistory.cshtml");
-
+            return PartialView("~/Views/AdminDashboard/AdminLeaveHistory.cshtml");
         }
 
         public ActionResult UpdateLeaveBalanceBasedonEmpID(LeaveBalance leaveBalance)

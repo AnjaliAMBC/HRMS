@@ -1,24 +1,124 @@
-﻿
-<style>
-    /* Adjust options padding */
-    .multiselect-container label.radio {
-        padding-left: 20px !important;
-    }
-
-    /* Hide Down Arrow */
-    .multiselect.dropdown-toggle::after {
-        display: none;
-    }
-</style>
-
-<div class="admin-leaveHistory-view">
+﻿<div class="admin-leaveHistory-view">
     <div class="container-fluid res-admin-leave-history">
         <div class="row mb-2 align-items-center">
             <div class="col-lg-3 col-md-2">
                 <h3 class="ml-1">Leave History</h3>
             </div>
-            <div class="col-lg-1 navbarl col-sm-12 col-md-12 res-admin-leave-balance-calender">
-                <i class="fa fa-calendar" aria-hidden="true"></i>
+            @*multiselect search dropdown*@
+            <div class="col-lg-9 d-flex justify-content-end">
+                <div class="dropdown">
+                    <a class="btn btn-outline-primary adminleavehistory-dropdown-toggle" href="#" id="employeeDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                        Select Employees <i class="fas fa-chevron-down ml-1"></i>
+                    </a>
+                    <div class="dropdown-menu adminleavehistory-dropdown-menu dropdown-menu-wide p-3" aria-labelledby="employeeDropdown">
+                        <input type="text" class="form-control mb-2" id="employeeSearch" placeholder="Search">
+                        <div id="employeeList">
+                            <div class="form-check">
+                                <input class="form-check-input" type="checkbox" value="" id="selectAll">
+                                <label class="adminleavehistory-form-check-label" for="selectAll">
+                                    <span>Select All</span>
+                                    <i class="fas fa-user-check"></i>
+                                </label>
+                            </div>
+                            <div class="form-check">
+                                <input class="form-check-input" type="checkbox" value="" id="emp1">
+                                <label class="adminleavehistory-form-check-label" for="emp1">
+                                    <span>Mathumathi Mariyappan 1261</span>
+                                    <i class="fas fa-user"></i>
+                                </label>
+                            </div>
+                            <div class="form-check">
+                                <input class="form-check-input" type="checkbox" value="" id="emp2">
+                                <label class="adminleavehistory-form-check-label" for="emp2">
+                                    <span>Ravikumar Mantri 0012</span>
+                                    <i class="fas fa-user"></i>
+                                </label>
+                            </div>
+                            <div class="form-check">
+                                <input class="form-check-input" type="checkbox" value="" id="emp3">
+                                <label class="adminleavehistory-form-check-label" for="emp3">
+                                    <span>Sriram Vivekanandan 1155</span>
+                                    <i class="fas fa-user"></i>
+                                </label>
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+                <!-- Advanced Filters -->
+                <div class="col-lg-3 navbarl col-sm-12 col-md-4 res-admin-leavehistory-block-header res-admin-leavehistory-filter">
+                    <div class="advanced-leavehistory-filtertab d-flex justify-content-between1 align-items-center">
+                        <p class="advancetitle mb-0">Advanced Filters</p>
+                        <div class="toggle-button advanceleave-history-button ml-2">
+                            <button class="collapsedropdown collapsed btn" type="button" data-toggle="collapse" data-target="#adminleavehistoryfilter" aria-expanded="false" aria-controls="demo">
+                                <i class="fa-solid fa-angle-down"></i>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+                <!-- Add leave history dropdown -->
+                <div class="col-lg-2 navbarl col-sm-12 col-md-12 res-admin-leavehistory-block-header res-admin-leave-balance-export">
+                    <div class="leavehistory-exportdropdown form-group">
+                        <select name="leavehistory-exportdropdown" class="leavehistory-exportdropdown form-control form-select" id="leavehistory-exportdropdown">
+                            <option value="" disabled="" selected="" hidden="">Export</option>
+                            <option value="csv">As CSV</option>
+                            <option value="xls">As XLS</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="col-lg-1 navbarl col-sm-12 col-md-12 res-admin-leavehistory-block-header res-admin-leave-balance-calender">
+                    <i class="fa fa-calendar" aria-hidden="true"></i>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="row justify-content-end ml-2 col-md-12 res-admin-leavehistory-filter-show">
+        <div class="col-lg-11 col-sm-12 col-md-12">
+            <div id="adminleavehistoryfilter" class="collapse advanceleavehistoryfilter">
+                <div class="collapse-topic align-items-center justify-content-end res-admin-history-filter-inside" style="margin-right: 24px;">
+                    <span class="mr-3 res-admin-filter">
+                        Filter By<span class="res-close-btn" style="display:none;">X</span>
+                    </span>
+
+                    <div class="form-group res-adminadvfilter-leavehistory d-flex">
+                        <label for="from" class="mr-2">From</label>
+                        <input type="date" class="form-control form-control-sm mr-2" id="leavehistory-fromDate" style="width: 120px;">
+                    </div>
+                    <div class="form-group res-adminadvfilter-leavehistory d-flex">
+                        <label for="to" class="mr-2">To</label>
+                        <input type="date" class="form-control form-control-sm mr-2" id="leavehistory-toDate" style="width: 120px;">
+                    </div>
+
+                    <div class="dropdown res-adminadvfilter-leavehistory mr-3" style="border-radius: 10px;">
+                        <select class="form-control form-select-sm" name="department" id="leavehistory-department-dropdown" style="border-radius: 15px; height: 35px; width: 131px;">
+                            <option value="" disabled selected>Department</option>
+                            <option value="HR">HR</option>
+                            <option value="DGM - Design">DGM - Design</option>
+                            <option value="DGM - Web">DGM - Web</option>
+                            <option value="All">All</option>
+                        </select>
+                    </div>
+                    <div class="dropdown res-adminadvfilter-leavehistory mr-3">
+                        <select class="form-control form-select-sm" name="Location" id="leavehistory-Location-dropdown" style="border-radius: 15px; height: 35px; width: 131px;">
+                            <option value="" disabled selected>Location</option>
+                            <option value="Madurai">Madurai</option>
+                            <option value="Hyderabad">Hyderabad</option>
+                            <option value="All">All</option>
+                        </select>
+                    </div>
+                    <div class="dropdown res-adminadvfilter-leavehistory">
+                        <select class="form-control form-select-sm" name="status" id="leavehistory-status-dropdown" style="border-radius: 15px; height: 35px; width: 131px;border: 1px solid lightgray">
+                            <option value="" disabled selected>Status</option>
+                            <option value="Active">Active</option>
+                            <option value="In Active">In Active</option>
+                            <option value="All">All</option>
+                        </select>
+                    </div>
+                    <div class="form-group align-items-center res-adminadvfilter-leavehistory mr-2">
+                        <button type="button" class="btn btn-sm btn-primary leave-submit">Export</button>
+                    </div>
+                </div>
             </div>
         </div>
     </div>
@@ -57,39 +157,16 @@
                 <tr>
                     <td></td>
                     <td>1</td>
-                    <td><div style="display: flex; align-items: center;"><img style="width: 40px;border-radius: 50%;" src="assets/images/dummy-profile.jpg"><span style="margin-top: 0px; margin-right: 10px;">TestName<br><span style="color: #3E78CF;">asas@klk.dd</span></span></div></td>
+                    <td><div style="display: flex; align-items: center;">@*<img style="width: 40px;border-radius: 50%;" src="assets/images/dummy-profile.jpg">*@<span style="margin-top: 0px; margin-right: 10px;">TestName<br><span style="color: #3E78CF;">asas@klk.dd</span></span></div></td>
                     <td>Sick Leave</td>
-                    <td class="res-admin-leave-from"><div class="res-leave-his-date">18 Jun 2024</div><div class="res-leave-his-day">Tue</divclass="res-leave-his-date"></td>
-                    <td class="res-admin-leave-to"><div class="res-leave-his-date">18 Jun 2024</div><div class="res-leave-his-day">Tue</divclass="res-leave-his-date"></td>
+                    <td class="res-admin-leave-from"><div class="res-leave-his-date">18 Jun 2024</div><div class="res-leave-his-day mutedText">Tue</div></td>
+                    <td class="res-admin-leave-to"><div class="res-leave-his-date">18 Jun 2024</div><div class="res-leave-his-day mutedText">Tue</div></td>
                     <td>2</td>
                     <td>Madurai</td>
                     <td>Test</td>
                     <td></td>
                 </tr>
-                <tr>
-                    <td></td>
-                    <td>2</td>
-                    <td><div style="display: flex; align-items: center;"><img style="width: 40px;border-radius: 50%;" src="assets/images/dummy-profile.jpg"><span style="margin-top: 0px; margin-right: 10px;">TestName<br><span style="color: #3E78CF;">asas@klk.dd</span></span></div></td>
-                    <td>Sick Leave</td>
-                    <td class="res-admin-leave-from"><div class="res-leave-his-date">18 Jun 2024</div><div class="res-leave-his-day">Tue</divclass="res-leave-his-date"></td>
-                    <td class="res-admin-leave-to"><div class="res-leave-his-date">18 Jun 2024</div><div class="res-leave-his-day">Tue</divclass="res-leave-his-date"></td>
-                    <td>2</td>
-                    <td>Madurai</td>
-                    <td>Test</td>
-                    <td></td>
-                </tr>
-                <tr>
-                    <td></td>
-                    <td>3</td>
-                    <td><div style="display: flex; align-items: center;"><img style="width: 40px;border-radius: 50%;" src="assets/images/dummy-profile.jpg"><span style="margin-top: 0px; margin-right: 10px;">TestName<br><span style="color: #3E78CF;">asas@klk.dd</span></span></div></td>
-                    <td>Sick Leave</td>
-                    <td class="res-admin-leave-from"><div class="res-leave-his-date">18 Jun 2024</div><div class="res-leave-his-day">Tue</divclass="res-leave-his-date"></td>
-                    <td class="res-admin-leave-to"><div class="res-leave-his-date">18 Jun 2024</div><div class="res-leave-his-day">Tue</divclass="res-leave-his-date"></td>
-                    <td>2</td>
-                    <td>Madurai</td>
-                    <td>Test</td>
-                    <td></td>
-                </tr>
+
             </tbody>
         </table>
     </div>
@@ -98,7 +175,9 @@
 
 <script>
 
-    var table = $('#adminleaveHistoryTable').DataTable({
+
+
+    $('#adminleaveHistoryTable').DataTable({
         "paging": true,
         "searching": false,
         "pageLength": 8, // Set the default number of rows to display
@@ -125,39 +204,52 @@
 
     $('#dropdownMenuContent input[type="checkbox"]').prop('checked', true);
 
-    $(document).ready(function () {
-        $(document).on('click', '#dropdownMenu', function () {
-            $('#dropdownMenuContent').toggle();
-        });
 
-        $(document).on('click', function (event) {
-            if (!$(event.target).closest('.dropdown-columns').length && !$(event.target).is('#dropdownMenu')) {
-                $('#dropdownMenuContent').hide();
-            }
-        });
-
-        initializeMultiselect1('#adminselectEmployee', 'Select Employees');
-        $('.multiselect').addClass('bordered');
-
-        $(document).on('change', '#adminselectEmployee', function () {
-            $('.multiselect').addClass('bordered');
-            initializeMultiselect1(this, 'Select Employees');
-        });
-
-        function initializeMultiselect1(selector, nonSelectedText) {
-            $(selector).multiselect('destroy').multiselect({
-                includeSelectAllOption: true,
-                enableFiltering: true,
-                buttonWidth: '100%',
-                nonSelectedText: nonSelectedText
-            });
-        }
-
-        $('#adminselectEmployee').on('show.bs.dropdown', function () {
-            // do something…
-            alert('sdsd');
-        })
+    $(document).on('click', '#dropdownMenu', function () {
+        $('#dropdownMenuContent').toggle();
     });
 
+    $(document).on('click', function (event) {
+        if (!$(event.target).closest('.dropdown-columns').length && !$(event.target).is('#dropdownMenu')) {
+            $('#dropdownMenuContent').hide();
+        }
+    });
 
+    initializeMultiselect1('#adminselectEmployee', 'Select Employees');
+    $('.multiselect').addClass('bordered');
+
+    $(document).on('change', '#adminselectEmployee', function () {
+        $('.multiselect').addClass('bordered');
+        initializeMultiselect1(this, 'Select Employees');
+    });
+
+    function initializeMultiselect1(selector, nonSelectedText) {
+        $(selector).multiselect('destroy').multiselect({
+            includeSelectAllOption: true,
+            enableFiltering: true,
+            buttonWidth: '100%',
+            nonSelectedText: nonSelectedText
+        });
+    }
+    $(document).on('show.bs.dropdown', '#adminselectEmployee', function () {
+        alert('sdsd');
+    })
+
+    $(document).on('keyup', '#employeeSearch', function () {
+        var value = $(this).val().toLowerCase();
+        $('#employeeList .form-check').filter(function () {
+            $(this).toggle($(this).text().toLowerCase().indexOf(value) > -1)
+        });
+    });
+
+    // Select All functionality
+    $(document).on('change', '#selectAll', function () {
+        var checked = $(this).is(':checked');
+        $('#employeeList .form-check-input').prop('checked', checked);
+    });
+
+    $(document).on('change', '#selectAllRows', function () {
+        var checked = $(this).is(':checked');
+        $('#leaveTable tbody input[type="checkbox"]').prop('checked', checked);
+    });
 </script>
