@@ -420,7 +420,7 @@ $(document).on('change', '#HourPermission', function (event) {
 });
 
 
-$(document).on('click', '.dashhoiday_description', function (e) {
+$(document).on('click', '.compOff-request', function (e) {
     e.preventDefault();
     $('#Compreason').val("");
     var holidayName = $('.selectedholidayname').text($(this).find('h6').text());
@@ -429,4 +429,8 @@ $(document).on('click', '.dashhoiday_description', function (e) {
     $('#compOffMessage').hide();
     $('#CompemployeeName').removeClass("is-invalid");
     $("#compOffModal").modal('show');
+});
+
+$(document).on('click', '.compOff-History-Page', function (e) {
+    e.preventDefault();
 });

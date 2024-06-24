@@ -38,8 +38,7 @@
 //leave balance update page 
 
 $(document).on('click', '.employeeinfo-balance', function (event) {
-    event.preventDefault();
-    /* HighlightAdminActiveLink($(this));*/
+    event.preventDefault(); 
     var employeeId = $(this).attr("data-empid");
     $.ajax({
         url: '/adminleave/adminleavebalanceupdate',
@@ -72,12 +71,12 @@ $(document).on('click', '.employeeinfo-balance', function (event) {
 
 //Admin Leave History of all employees 
 $(document).on('click', '.adminleave-history', function (event) {
-    event.preventDefault();
-    //HighlightAdminActiveLink($(this));
+    event.preventDefault();   
     $.ajax({
-        url: '/adminleave/adminLalleavehistory',
+        url: '/adminleave/adminleavehistory',
         type: 'GET',
         dataType: 'html',
+        data: { year: 2024 },
         success: function (response) {
             $(".hiddenadmindashboard").html("");
             $('.admin-dashboard-container').html("");
@@ -209,4 +208,40 @@ function exportLeaveBalance() {
 }
 
 
+//adminleave Compoff page 
 
+$(document).on('click', '.adminleave-CompOff-link', function (event) {
+    event.preventDefault();
+    //HighlightAdminActiveLink($(this));
+    $.ajax({
+        url: '/adminleave/adminleavecompensatoryoff',
+        type: 'GET',
+        dataType: 'html',
+        beforeSend: function () {
+            $('.show-progress').show();
+        },
+        success: function (response) {
+            $(".hiddenadmindashboard").html("");
+            $('.admin-dashboard-container').html("");
+            $(".admin-emppadd-container").html("");
+            $('.admin-empmanagement-container').html("");
+            $('.admin-attendance-container').html("");
+            $('.admin-leave-container').html("");
+            $(".hiddenadmindashboard").html(response);
+            var formContent = $(".hiddenadmindashboard").find(".admin-leave-compoff-view").html();
+            $(".admin-leave-container").html(formContent);
+            $('.admin-leave-container').show();
+            $('.admin-attendance-container').hide();
+            $('.admin-empmanagement-container').hide();
+            $('.admin-emppadd-container').hide();
+            $('.admin-dashboard-container').hide();
+            $('.admin-ticketing-container').hide();
+            $(".hiddenadmindashboard").html("");
+            $('.show-progress').hide();
+        },
+        error: function (xhr, status, error) {
+            $('.show-progress').hide();
+            console.error("Error deleting employee:", error);
+        }
+    });
+});
