@@ -2,9 +2,11 @@
 using HRMS.Models.Admin;
 using HRMS.Models.Employee;
 using Newtonsoft.Json;
+using OfficeOpenXml;
 using System;
 using System.Collections.Generic;
 using System.Globalization;
+using System.IO;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
@@ -164,5 +166,90 @@ namespace HRMS.Controllers
 
             return Json(new { success = false, message = "An error occurred: " });
         }
+
+        public ActionResult ExportLeaveBalance()
+        {
+            var cuserContext = SiteContext.GetCurrentUserContext();           
+
+            var exportLeaveBalanceModel = new List<LeaveBalanceExport>();
+
+            var currentYear = DateTime.Today.Year.ToString();
+            var employees = _dbContext.emp_info.ToList();
+            var leaveTypes = new LeaveCalculator().LeaveCategories();
+
+            foreach (var emp in employees)
+            {
+                var exportModel = new LeaveBalanceExport
+                {
+                    Employees = emp,
+                    EmpLeaveBalance = _dbContext.LeaveBalances
+                        .FirstOrDefault(x => x.EmpID == emp.EmployeeID && x.Year == currentYear)
+                };
+
+                foreach (var leaveType in leaveTypes)
+                {
+                    exportModel.AvailableLeaves.Add(new LeaveCalculator().GetEmpBasedAvailableLeaves(emp, exportModel.EmpLeaveBalance, leaveType));
+                }
+                exportLeaveBalanceModel.Add(exportModel);
+            }
+
+            using (var package = new ExcelPackage())
+            {
+                var worksheet = package.Workbook.Worksheets.Add("Leave Balance");
+
+                // Add headers
+                worksheet.Cells[1, 1].Value = "EmpID";
+                worksheet.Cells[1, 2].Value = "EmployeeName";
+                worksheet.Cells[1, 3].Value = "EmailID";
+
+                int colIndex = 4;
+                foreach (var leaveType in leaveTypes)
+                {
+                    worksheet.Cells[1, colIndex].Value = leaveType.Type + " Balance";
+                    //worksheet.Cells[1, colIndex + 1].Value = leaveType + " Booked";
+                    //worksheet.Cells[1, colIndex + 2].Value = leaveType + " Balance";
+                    colIndex += 1;
+                }
+
+                int rowIndex = 2;
+                foreach (var model in exportLeaveBalanceModel)
+                {
+                    worksheet.Cells[rowIndex, 1].Value = model.Employees.EmployeeID;
+                    worksheet.Cells[rowIndex, 2].Value = model.Employees.EmployeeName;
+                    worksheet.Cells[rowIndex, 3].Value = model.Employees.OfficalEmailid;
+
+                    colIndex = 4;
+                    foreach (var leave in model.AvailableLeaves)
+                    {
+                        worksheet.Cells[rowIndex, colIndex].Value = leave.Balance;
+                        //worksheet.Cells[rowIndex, colIndex + 1].Value = leave.Booked;
+                        //worksheet.Cells[rowIndex, colIndex + 2].Value = leave.Balance;
+                        colIndex += 1;
+                    }
+                    rowIndex++;
+                }
+
+                // Auto-fit columns for all cells
+                worksheet.Cells[worksheet.Dimension.Address].AutoFitColumns();
+
+                // Set some document properties
+                package.Workbook.Properties.Title = "Leave Balance Report";
+                package.Workbook.Properties.Author = cuserContext.EmpInfo.EmployeeName;
+                package.Workbook.Properties.Comments = "This report was generated using AMBC PRM application";
+
+                // Set some extended property values
+                package.Workbook.Properties.Company = "AMBC";
+
+                var stream = new MemoryStream();
+                package.SaveAs(stream);
+                stream.Position = 0;
+
+                string excelName = $"LeaveBalance-{DateTime.Now.ToString("yyyyMMddHHmmssfff")}.xlsx";
+
+                return File(stream, "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet", excelName);
+            }
+        }
+
+
     }
 }

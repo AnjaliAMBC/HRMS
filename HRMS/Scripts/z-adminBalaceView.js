@@ -5,6 +5,9 @@
         url: '/adminleave/adminleavebalance',
         type: 'GET',
         dataType: 'html',
+        beforeSend: function () {
+            $('.show-progress').show();
+        },
         success: function (response) {
             $(".hiddenadmindashboard").html("");
             $('.admin-dashboard-container').html("");
@@ -22,8 +25,10 @@
             $('.admin-dashboard-container').hide();
             $('.admin-ticketing-container').hide();
             $(".hiddenadmindashboard").html("");
+            $('.show-progress').hide();
         },
         error: function (xhr, status, error) {
+            $('.show-progress').hide();
             console.error("Error deleting employee:", error);
         }
     });
@@ -196,6 +201,12 @@ $(document).on('click', '#updateleavebalanceButton', function () {
         }
     });
 });
+
+
+function exportLeaveBalance() {
+    $('.show-progress').show();
+    window.location.href = "/adminleave/exportleavebalance";
+}
 
 
 

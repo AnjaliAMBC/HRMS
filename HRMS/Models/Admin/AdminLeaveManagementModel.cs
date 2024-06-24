@@ -23,4 +23,12 @@ namespace HRMS.Models.Admin
         public LeaveBalance EmpLeaveBalance = new LeaveBalance();
         public List<AvailableLeaves> AvailableLeaves { get; set; } = new List<AvailableLeaves>();
     }
+
+    public class LeaveBalanceExport
+    {
+        public emp_info Employees = new emp_info();
+
+        public LeaveBalance EmpLeaveBalance = new LeaveBalance();
+        public List<AvailableLeaves> AvailableLeaves { get; set; } = new List<AvailableLeaves>();
+    }
 }
