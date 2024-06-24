@@ -139,9 +139,22 @@ namespace HRMS.Controllers
 
             return Json("", JsonRequestBehavior.AllowGet);
         }
-        public ActionResult AdminLeaveHistory()
+        public ActionResult AdminLeaveHistory(int year)
         {
-            return PartialView("~/Views/AdminDashboard/AdminLeaveHistory.cshtml");
+            if (year == 0)
+            {
+                year = DateTime.Today.Year;
+            }
+
+            DateTime startDate = new DateTime(year, 1, 1);
+            DateTime endDate = new DateTime(year, 12, 31);
+            var AdminLeaveHistoryModel = new AdminLeaveHistoryViewModel();
+
+            var leavesHistory = new LeaveCalculator().EmpLeaveInfoBasedonFromAndToDatesWithLeaveDate(startDate.ToString("yyyy-MM-dd"), endDate.ToString("yyyy-MM-dd"), "");
+            AdminLeaveHistoryModel.AllEMployeeLeaves = leavesHistory;
+            AdminLeaveHistoryModel.Employees = _dbContext.emp_info.ToList();
+
+            return PartialView("~/Views/AdminDashboard/AdminLeaveHistory.cshtml", AdminLeaveHistoryModel);
         }
 
         public ActionResult UpdateLeaveBalanceBasedonEmpID(LeaveBalance leaveBalance)
@@ -168,7 +181,7 @@ namespace HRMS.Controllers
 
         public ActionResult ExportLeaveBalance()
         {
-            var cuserContext = SiteContext.GetCurrentUserContext();           
+            var cuserContext = SiteContext.GetCurrentUserContext();
 
             var exportLeaveBalanceModel = new List<LeaveBalanceExport>();
 
@@ -248,7 +261,10 @@ namespace HRMS.Controllers
                 return File(stream, "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet", excelName);
             }
         }
-
+        public ActionResult AdminLeaveCompensatoryOff()
+        {
+            return PartialView("~/Views/AdminDashboard/AdminLeaveCompOff.cshtml");
+        }
 
     }
 }

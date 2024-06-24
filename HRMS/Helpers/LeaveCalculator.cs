@@ -447,6 +447,53 @@ namespace HRMS.Helpers
             return result;
         }
 
+        public List<LeaveInfo> EmpLeaveInfoBasedonFromAndToDatesWithLeaveDate(string startDate, string endDate, string empId)
+        {
+
+            DateTime dateStart = DateTime.ParseExact(startDate, "yyyy-MM-dd", null);
+            DateTime dateEnd = DateTime.ParseExact(endDate, "yyyy-MM-dd", null);
+
+            var leaves = new List<LeaveInfo>();
+
+            if (!string.IsNullOrWhiteSpace(empId))
+            {
+                leaves = _dbContext.con_leaveupdate
+                    .Where(x => x.employee_id == empId && x.leavedate >= dateStart && x.leavedate <= dateEnd)
+                    .GroupBy(x => x.LeaveRequestName)
+                    .Select(g => new LeaveInfo
+                    {
+                        LeaveRequestName = g.Key,
+                        Fromdate = g.Min(x => x.Fromdate),
+                        Todate = g.Max(x => x.Todate),
+                        TotalLeaveDays = g.Sum(x => x.LeaveDays),
+                        LatestLeave = g.OrderByDescending(x => x.leavedate).FirstOrDefault()
+                    })
+                    .OrderByDescending(x => x.LatestLeave.leavedate)
+                    .ToList();
+            }
+            else
+            {
+                leaves = _dbContext.con_leaveupdate
+                    .Where(x => x.leavedate >= dateStart && x.leavedate <= dateEnd)
+                    .GroupBy(x => x.LeaveRequestName)
+                    .Select(g => new LeaveInfo
+                    {
+                        LeaveRequestName = g.Key,
+                        Fromdate = g.Min(x => x.Fromdate),
+                        Todate = g.Max(x => x.Todate),
+                        TotalLeaveDays = g.Sum(x => x.LeaveDays),
+                        LatestLeave = g.OrderByDescending(x => x.leavedate).FirstOrDefault()
+                    })
+                    .OrderByDescending(x => x.LatestLeave.leavedate)
+                    .ToList();
+            }
+
+            var result = leaves
+                .OrderByDescending(x => x.LatestLeave.leavedate)
+                .ToList();
+            return result;
+        }
+
         public List<LeaveInfo> EmpLeaveInfoBasedonDate(string startdate, string enddate)
         {
 

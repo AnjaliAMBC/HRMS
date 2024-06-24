@@ -73,6 +73,11 @@ namespace HRMS
               url: "{controller}/{action}/{id}",
               defaults: new { controller = "Compoff", action = "SubmitCompOff", id = UrlParameter.Optional }
           );
+            routes.MapRoute(
+              name: "AdminCompOff",
+              url: "{controller}/{action}/{id}",
+              defaults: new { controller = "AdminLeave", action = "AdminLeaveCompensatoryOff", id = UrlParameter.Optional }
+          );
         }
     }
 }

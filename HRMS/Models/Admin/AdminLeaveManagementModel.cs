@@ -31,4 +31,13 @@ namespace HRMS.Models.Admin
         public LeaveBalance EmpLeaveBalance = new LeaveBalance();
         public List<AvailableLeaves> AvailableLeaves { get; set; } = new List<AvailableLeaves>();
     }
+
+    public class AdminLeaveHistoryViewModel
+    {
+        public List<LeaveInfo> AllEMployeeLeaves = new List<LeaveInfo>();
+
+        public List<emp_info> Employees = new List<emp_info>();
+
+
+    }
 }
