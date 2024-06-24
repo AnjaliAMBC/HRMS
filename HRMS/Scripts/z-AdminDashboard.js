@@ -362,7 +362,7 @@ $(document).on('change', '#action', function () {
 //Leave Tracker
 $('.admin-leave').click(function (event) {
     event.preventDefault();
-    HighlightAdminActiveLink($(this));
+    //HighlightAdminActiveLink($(this));
     $.ajax({
         url: '/adminleave/index',
         type: 'GET',

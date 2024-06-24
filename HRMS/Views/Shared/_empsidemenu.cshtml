@@ -1,29 +1,33 @@
-﻿<div id="left-side-menu-normal" class="row" style="margin-left: -29px; ">
+﻿@{
+    var pageUrlPath = Request.Url.AbsolutePath.ToLowerInvariant();
+    var currentContext = Session["SiteContext"] as HRMS.Models.SiteContextModel; }
+
+<div id="left-side-menu-normal" class="row" style="margin-left: -29px;">
     <div class="col-md-2">
         <div class="sidebar" style="top: 56px !important">
             <ul id="empdash-menu" style="list-style-type: none;">
-                <li class="mb-2">
-                    <a href="/empdash/index" class="active ">
+                <li class="mb-2 @(pageUrlPath.Contains("/empdash/index") ? "active sidebaractive" : "")">
+                    <a href="/empdash/index" class="@(pageUrlPath == "/empdash/index" ? "active" : "")">
                         <span class="material-icons dash-icon">dashboard</span>Dashboard
                     </a>
                 </li>
-                <li class="mb-2">
-                    <a href="/employeedashboard/selfservice" class="">
+                <li class="mb-2 @(pageUrlPath.Contains("/employeedashboard/selfservice") ? "active sidebaractive" : "")">
+                    <a href="/employeedashboard/selfservice" class="@(pageUrlPath == "/employeedashboard/selfservice" ? "active" : "")">
                         <span class="material-icons self-icon">groups</span>Self Service
                     </a>
                 </li>
-                <li class="mb-2">
-                    <a href="/EmpAttendance/Index" class="">
+                <li class="mb-2 @(pageUrlPath.Contains("/empattendance/index") ? "active sidebaractive" : "")">
+                    <a href="/EmpAttendance/Index" class="@(pageUrlPath == "/empattendance/Index" ? "active" : "")">
                         <span class="material-icons attendance-icon">calendar_month</span>Attendance
                     </a>
                 </li>
-                <li class="mb-2">
-                    <a href="/EmpLeave/Index" class="">
+                <li class="mb-2 @(pageUrlPath.Contains("/empleave/index") ? "active sidebaractive" : "")">
+                    <a href="/EmpLeave/Index" class="@(pageUrlPath == "/empleave/Index" ? "active" : "")">
                         <span class="material-icons leave-icon-emp">logout</span>Leave Tracker
                     </a>
                 </li>
-                <li class="mb-2">
-                    <a href="" class="">
+                <li class="mb-2 @(pageUrlPath.Contains("/ticketing") ? "active sidebaractive" : "")">
+                    <a href="/ticketing" class="@(pageUrlPath == "/ticketing" ? "active" : "")">
                         <span class="material-icons ticket-icon">laptop_chromebook</span>Ticketing
                     </a>
                 </li>
@@ -32,42 +36,63 @@
     </div>
 </div>
 
-<div id="left-side-menu" class="row" style="margin-left: -29px; ">    
-    <div class="col-md-2">        
+<div id="left-side-menu" class="row" style="margin-left: -29px;">
+    <div class="col-md-2">
         <div class="sidebar" style="">
 
             <div class="sidebar-header mt-4">
-                <div class="bl"><img src="https://res.cloudinary.com/practicaldev/image/fetch/s--kg3uPx2P--/c_limit%2Cf_auto%2Cfl_progressive%2Cq_auto%2Cw_880/https://www.gravatar.com/avatar/2c7d99fe281ecd3bcd65ab915bac6dd5%3Fs%3D250" alt="Employee Image" class="profile img-fluid nav-image-profile"></div>
+                <div class="bl">
+                    @if (!string.IsNullOrWhiteSpace(currentContext.EmpInfo.imagepath))
+                    {
+                        var empImageURl = System.Configuration.ConfigurationManager.AppSettings["EmpImagesFolder"] + "/" + currentContext.EmpInfo.imagepath;
+                        <img src="@empImageURl" alt="Employee Image" class="profile img-fluid nav-image-profile">
+                    }
+                    else
+                    {
+                        string[] names = currentContext.EmpInfo.EmployeeName.Split(new char[] { ' ' }, StringSplitOptions.RemoveEmptyEntries);
+                        if (names.Length > 0)
+                        {
+                            string firstName = names[0];
+                            string lastName = names.Length > 1 ? names[names.Length - 1] : string.Empty;
+                            char firstLetterOfFirstName = char.ToUpper(firstName[0]);
+                            char firstLetterOfLastName = !string.IsNullOrEmpty(lastName) ? char.ToUpper(lastName[0]) : '\0';
+                            <div class="default-image-navbar">@firstLetterOfFirstName@firstLetterOfLastName</div>
+                        }
+                    }
+
+
+                    @*<img src="https://res.cloudinary.com/practicaldev/image/fetch/s--kg3uPx2P--/c_limit%2Cf_auto%2Cfl_progressive%2Cq_auto%2Cw_880/https://www.gravatar.com/avatar/2c7d99fe281ecd3bcd65ab915bac6dd5%3Fs%3D250" alt="Employee Image" class="profile img-fluid nav-image-profile">*@
+                </div>
                 <div class="br">
-                    <div class="name font-weight-bold">Karthick Babu OM</div>
-                    <div class="email"><a href="mailtojohn@test.com">kumar@test.com</a></div>
-                    <div class="designation">Graphics UI/UX Designer</div>
+                    <div class="name font-weight-bold">@currentContext.EmpInfo.EmployeeName</div>
+                    <div class="email"><a href="mailto:@currentContext.EmpInfo.OfficalEmailid">@currentContext.EmpInfo.OfficalEmailid</a></div>
+                    <div class="designation">@currentContext.EmpInfo.Designation</div>
                 </div>
             </div>
 
             <ul id="empdash-menu" style="list-style-type: none;">
-                <li class="mb-2">
-                    <a href="/empdash/index" class="active ">
+                <li class="mb-2 @(pageUrlPath.Contains("/empdash/index") ? "active sidebaractive" : "")">
+                    <a href="/empdash/index" class="@(pageUrlPath == "/empdash/index" ? "active" : "")">
                         <span class="material-icons dash-icon">dashboard</span>Dashboard
                     </a>
                 </li>
-                <li class="mb-2">
-                    <a href="/employeedashboard/selfservice" class="">
+                <li class="mb-2 @(pageUrlPath.Contains("/employeedashboard/selfservice") ? "active sidebaractive" : "")">
+                    <a href="/employeedashboard/selfservice" class="@(pageUrlPath == "/employeedashboard/selfservice" ? "active" : "")">
                         <span class="material-icons self-icon">groups</span>Self Service
                     </a>
                 </li>
-                <li class="mb-2">
-                    <a href="/EmpAttendance/Index" class="">
+                <li class="mb-2 @(pageUrlPath.Contains("/empattendance/Index") ? "active sidebaractive" : "")">
+                    <a href="/EmpAttendance/Index" class="@(pageUrlPath == "/empattendance/Index" ? "active" : "")">
                         <span class="material-icons attendance-icon">calendar_month</span>Attendance
                     </a>
                 </li>
-                <li class="mb-2">
-                    <a href="/EmpLeave/Index" class="">
+                <li class="mb-2 @(pageUrlPath.Contains("/empleave/index") ? "active sidebaractive" : "")">
+                    <a href="/EmpLeave/Index" class="@(pageUrlPath == "/empleave/index" ? "active" : "")">
                         <span class="material-icons leave-icon-emp">logout</span>Leave Tracker
                     </a>
                 </li>
-                <li class="mb-2">
-                    <a href="" class="">
+                <li class="mb-2 @(pageUrlPath.Contains("/ticketing") ? "active sidebaractive" : "")">
+                    <a href="/ticketing" class="@(pageUrlPath == "/ticketing" ? "active" : "")">
                         <span class="material-icons ticket-icon">laptop_chromebook</span>Ticketing
                     </a>
                 </li>

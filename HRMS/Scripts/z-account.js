@@ -80,6 +80,9 @@ $(document).ready(function () {
             $.ajax({
                 type: 'POST',
                 url: '/account/login',
+                beforeSend: function () {
+                    $('.show-progress').show();
+                },
                 data: data,
                 success: function (data) {
                     $('.error-message').html("");

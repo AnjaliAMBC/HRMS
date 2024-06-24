@@ -76,32 +76,36 @@
             <div class="col-md-3 res-admin-leave-balance-export">
                 <div class="dropdowns-container d-flex align-items-center" style="justify-content: flex-end;">
                     <div class="form-group adminleave-dropdown" style="margin-top: 17px;">
-                        <label class="export-label" for="exportLeaveLabel">Export</label>
-                        <button type="button" class="btn btn-link" id="exportLeaveButton" style="padding: 0; margin-left: 10px; font-size: 13px;" data-toggle="collapse" data-target="#LeaveDateDropdown">
-                            <i class="fas fa-chevron-down" style="cursor: pointer;"></i>
-                        </button>
+                        <button type="button" class="btn btn-primary" id="exportLeaveButton" onclick="exportLeaveBalance()">Export</button>
                     </div>
+
+                    @*<div class="form-group adminleave-dropdown" style="margin-top: 17px;">
+                            <label class="export-label" for="exportLeaveLabel">Export</label>
+                            <button type="button" class="btn btn-link" id="exportLeaveButton" style="padding: 0; margin-left: 10px; font-size: 13px;" data-toggle="collapse" data-target="#LeaveDateDropdown">
+                                <i class="fas fa-chevron-down" style="cursor: pointer;"></i>
+                            </button>
+                        </div>*@
                 </div>
             </div>
         </div>
 
-        <div class="collapse" id="LeaveDateDropdown">
-            <div class="col-md-4"></div>
-            <div class="col-md-6 d-flex justify-content-end res-admin-leave-datedropdown" style="margin-left:43%">
-                <div class="form-group d-flex mr-2">
-                    <label for="from" class="mr-2">From</label>
-                    <input type="date" class="form-control form-control-sm" id="fromDate" style="width: 120px;">
+        @*<div class="collapse" id="LeaveDateDropdown">
+                <div class="col-md-4"></div>
+                <div class="col-md-6 d-flex justify-content-end res-admin-leave-datedropdown" style="margin-left:43%">
+                    <div class="form-group d-flex mr-2">
+                        <label for="from" class="mr-2">From</label>
+                        <input type="date" class="form-control form-control-sm" id="fromDate" style="width: 120px;">
+                    </div>
+                    <div class="form-group d-flex mr-2">
+                        <label for="to" class="mr-2">To</label>
+                        <input type="date" class="form-control form-control-sm" id="toDate" style="width: 120px;">
+                    </div>
+                    <div class="form-group d-flex align-items-center">
+                        <button type="button" class="btn btn-sm btn-primary" onclick="submitDateRange()">Submit</button>
+                        <a href="#" class="clearLeave-filter ml-2">Clear</a>
+                    </div>
                 </div>
-                <div class="form-group d-flex mr-2">
-                    <label for="to" class="mr-2">To</label>
-                    <input type="date" class="form-control form-control-sm" id="toDate" style="width: 120px;">
-                </div>
-                <div class="form-group d-flex align-items-center">
-                    <button type="button" class="btn btn-sm btn-primary" onclick="submitDateRange()">Submit</button>
-                    <a href="#" class="clearLeave-filter ml-2">Clear</a>
-                </div>
-            </div>
-        </div>
+            </div>*@
 
         <div class="res-admin-leave-balance-table table-responsive">
             <table class="table table-leave-balance" id="leaveBalanceTable" style="font-size:14px;">

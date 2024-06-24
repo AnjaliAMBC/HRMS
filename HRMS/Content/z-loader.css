@@ -48,3 +48,68 @@
         transform: rotate(360deg);
     }
 }
+
+
+@keyframes spin {
+    from {
+        transform: rotate(0deg);
+    }
+
+    to {
+        transform: rotate(360deg);
+    }
+}
+
+:root {
+    /* Color Variables */
+    --primary-color: #002F6B;
+    --progress-text-color: var(--primary-color); /* Adjusted to use primary color */
+    /* Spacing Variables */
+    --progress-body-margin: 0 auto 8px; /* From $spacing-settings 'small' as 8px */
+}
+
+.progress-container {
+    display: flex;
+    margin: 0;
+    position: fixed;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    z-index: 200;
+    align-items: center;
+    justify-content: center;
+    opacity: 0;
+    transform: scale(0.5);
+    transition: opacity 0.5s, transform 0.5s;
+    background: rgba(255, 255, 255, 0.3); /* Semi-transparent background */
+    /*backdrop-filter: blur(0.1px);*/ /* Blur effect */
+}
+
+    .progress-container.show-progress {
+        opacity: 1;
+        transform: scale(1);
+    }
+
+.progressloader {
+    max-width: 50%;
+}
+
+.progress-body {
+    margin: var(--progress-body-margin);
+    width: 145px;
+    height: 145px;
+    position: relative;
+    animation: counterspin 3s infinite linear;
+}
+
+    .progress-body img {
+        width: 25%;
+        height: 25%;
+        animation: spin 3s infinite linear;
+    }
+
+.progress-text {
+    color: var(--progress-text-color);
+    visibility: hidden;
+}

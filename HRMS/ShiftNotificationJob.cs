@@ -58,26 +58,31 @@ namespace HRMS
             //Checkin Remainder emails
             foreach (var checkinEmp in employeesToRemindCheckin)
             {
-                var shiftStartTime = checkinEmp.ShiftStartTime?.ToString("hh:mm:tt");
-                var checkInSubject = "Reminder: Your Shift Starts Soon at " + shiftStartTime;
-                var checkInBody = $@"
-                Dear {checkinEmp.EmployeeName},
-
-                This is a reminder to check-in.
-
-                Your shift begins at {shiftStartTime}. Ensure you have marked your attendance.
-
-                Best regards,
-                PRM AMBC.";
-
-                var emailRequest = new EmailRequest()
+                if (checkinEmp.ShiftStartTime != null && checkinEmp.ShiftStartTime.HasValue)
                 {
-                    Body = checkInBody,
-                    ToEmail = checkinEmp.OfficalEmailid,
-                    Subject = checkInSubject
-                };
+                    DateTime time = DateTime.ParseExact(checkinEmp.ShiftStartTime.Value.ToString(), "HH:mm:ss", null);
+                    string shiftStartTime = time.ToString("hh:mm tt");
+                    var checkInSubject = "Reminder: Your Shift Starts Soon at " + shiftStartTime;
+                    var checkInBody = $@"
+                        Dear {checkinEmp.EmployeeName},
 
-                var sendNotification = EMailHelper.SendEmail(emailRequest);
+                        This is a reminder to check-in.
+
+                        Your shift begins at {shiftStartTime}. Ensure you have marked your attendance.
+
+                        Best regards,
+                        PRM AMBC.";
+
+                    var emailRequest = new EmailRequest()
+                    {
+                        Body = checkInBody,
+                        ToEmail = checkinEmp.OfficalEmailid,
+                        Subject = checkInSubject
+                    };
+
+                    var sendNotification = EMailHelper.SendEmail(emailRequest);
+                }
+
             }
 
 
