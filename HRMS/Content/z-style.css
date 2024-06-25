@@ -14,6 +14,10 @@ tbody {
     width: 30px;
 }
 
+.mutedText {
+    color: #aaa;
+}
+
 input[type=radio] {
     border: 2px solid white;
     box-shadow: 0 0 0 1px #007bff;
@@ -431,7 +435,7 @@ input[type=radio]:checked {
 
 .res-admin-leave-history .res-admin-leave-balance-calender {
     width: 2%;
-    margin-left: -4%;
+    margin-left: -9%;
     display: inline-flex;
     margin-top: 4px;
 }
@@ -446,10 +450,10 @@ input[type=radio]:checked {
     font-size: 12px;
 }
 
-    #adminleavehistoryfilter .res-adminadvfilter-leavehistory select {
-        font-size: 12px;
-        height: 30px !important;
-    }
+#adminleavehistoryfilter .res-adminadvfilter-leavehistory select {
+    font-size: 12px;
+    height: 30px !important;
+}
 
 .res-admin-leavehistory-block-header.leavehistory-exportdropdown {
     margin-bottom: 0 !important;
@@ -459,12 +463,32 @@ input[type=radio]:checked {
     color: #aaa;
 }
 
+.res-admin-leave-history .adminleavehistory-dropdown-toggle {
+    border: 1px solid #ccc;
+    border-radius: 0;
+    color: #ccc;
+    width: 85%;
+}
+
+.res-admin-leave-history .adminleavehistory-dropdown-toggle:hover, .res-admin-leave-history .adminleavehistory-dropdown-toggle:focus {
+    background-color: transparent;
+    color: #ccc;
+    border: 1px solid;
+}
+
+.res-admin-leave-history .adminleavehistory-dropdown-menu #employeeSearchinput {
+    border-radius: 5px;
+    border: 1px solid #80ccff;
+}
+
+.res-admin-leave-history .adminleavehistory-dropdown-menu {
+    width: 83%;
+}
+
 /* admin leave history end*/
 
 /* admin leave import start*/
-
 .admin-leaveimport-view {
-
 }
 
 .admin-leaveimport-view .download-leave-btn {
@@ -512,6 +536,7 @@ input[type=radio]:checked {
 
 .res-admin-leavecompoff-view #LeavecompoffDateDropdown {
     margin-left: 56%;
+    margin-top: 10px;
 }
 
 .res-admin-leavecompoff-view #adminleavecompoffTable_filter,
@@ -524,7 +549,8 @@ input[type=radio]:checked {
 }
 
 .res-admin-leavecompoff-view #adminleavecompoffTable .chatIcon {
-    top: 5px;
+    margin-right: 10px;
+    display: inline-block;
 }
 
 .res-admin-leavecompoff-view #adminleavecompoffTable .acceptLeavecompoffBtn {
@@ -560,7 +586,57 @@ input[type=radio]:checked {
     background: #ff4d4d;
 }
 
+.res-admin-leavecompoff-view .statusBtnFlex {
+    display: flex;
+    justify-content: flex-end;
+}
+
+.res-admin-leavecompoff-view .res-adminleave-compoff-header-right {
+    margin-top: -10px;
+}
+
+.res-admin-leavecompoff-view #adminleavecompoffTable {
+    margin-top: 15px;
+}
+
+.res-admin-leavecompoff-view .res-adminleave-drop {
+    margin-right: 0px;
+}
+
+.res-admin-leavecompoff-view .res-adminleave-compoff-header-right .adminleave-compoff-dropdown {
+    margin-right: 35px;
+}
+
+.res-admin-leavecompoff-view .export-compoff-label {
+    margin-right: 20px;
+}
+
+.res-admin-leavecompoff-view .res-admincompoff-header {
+    justify-content: space-around;
+}
+
+.res-admin-leavecompoff-view #adminleavecompoffTable .commentSec p {
+    display: inline-block;
+}
+
+#adminleavecompoffTable .adminleave-edit-history {
+    margin-top: 7px;
+    color: #aaa;
+    margin-left: 10px;
+    cursor: pointer;
+}
+
+#adminleavecompoffTable .admin-leavehistoryoptions {
+    position: absolute;
+    background: #fff;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    cursor: pointer;
+    right: 90px;
+}
+
 /* admin leave compoff end*/
+
 /* employee dashboard start*/
 .emp-dashboard .main-content.container-fluid {
     padding: 75px 0px;
@@ -691,8 +767,32 @@ input[type=checkbox], input[type=radio] {
     background: none;
 }
 
-    .empleave-container .empleave-calendar-body .empleave-leave-request div {
-        height: auto !important;
-        border-radius: 3px;
-    }
+.empleave-container .empleave-calendar-body .empleave-leave-request div {
+    height: auto !important;
+    border-radius: 3px;
+}
+
+#leaveHistoryTable .emp-leaveoptions {
+    position: absolute;
+    top: auto;
+    cursor: pointer;
+}
+
+.leave-history #leaveHistoryTable .chatIcon {
+    margin-right: 10px;
+    display: inline-block;
+}
+
+.leave-history #leaveHistoryTable .commentSec p {
+    display: inline-block;
+}
+
+.leave-history #empleaveCompOffTable .chatIcon {
+    margin-right: 10px;
+    display: inline-block;
+}
+
+.leave-history #empleaveCompOffTable .commentSec p {
+    display: inline-block;
+}
 /* emp leave end*/
