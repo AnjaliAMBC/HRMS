@@ -371,7 +371,15 @@ namespace HRMS.Helpers
 
             if (string.IsNullOrWhiteSpace(empID))
             {
-                selectedDateLeaves = _dbContext.con_leaveupdate.Where(x => x.leavedate >= model.SelectedDate && x.leavedate <= model.SelectedEndDate).ToList();
+                if (fromDashboard)
+                {
+                    selectedDateLeaves = _dbContext.con_leaveupdate.Where(x => x.createddate >= model.SelectedDate && x.createddate <= model.SelectedEndDate && x.employee_id == empID).ToList();
+                }
+                else
+                {
+                    selectedDateLeaves = _dbContext.con_leaveupdate.Where(x => x.leavedate >= model.SelectedDate && x.leavedate <= model.SelectedEndDate).ToList();
+                }
+
             }
             else
             {
