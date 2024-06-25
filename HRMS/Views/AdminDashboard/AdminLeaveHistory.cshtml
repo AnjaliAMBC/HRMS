@@ -8,9 +8,9 @@
             display: none;
         }
 
-        /* #adminleaveHistoryTable_length {
+        #adminleaveHistoryTable_length {
             display: none;
-        }*/
+        }
 
         .adminleavehistory-dropdown-toggle::after {
             display: none;
@@ -41,7 +41,7 @@
             </div>
             @*multiselect search dropdown*@
             <div class="col-lg-9 d-flex justify-content-end">
-                <div class="dropdown">
+                <div class="dropdown col-lg-6">
                     <a class="btn btn-outline-primary adminleavehistory-dropdown-toggle" href="#" id="employeeDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                         Select Employees <i class="fas fa-chevron-down ml-1"></i>
                     </a>
@@ -107,8 +107,8 @@
                 </div>
 
                 <div class="col-lg-2 navbarl col-sm-12 col-md-12 res-admin-leavehistory-block-header res-admin-leave-balance-export">
-                    <div class="form-group adminleave-history" style="margin-top: 17px;">
-                        <button type="button" class="btn btn-primary" id="exportLeaveHistory">Export</button>
+                    <div class="form-group adminleave-history" style="">
+                        <button type="button" class="btn btn-primary" id="exportLeaveHistory" onclick="exportLeaveHistory()">Export</button>
                     </div>
                 </div>
                 <div class="col-lg-1 navbarl col-sm-12 col-md-12 res-admin-leavehistory-block-header res-admin-leave-balance-calender">

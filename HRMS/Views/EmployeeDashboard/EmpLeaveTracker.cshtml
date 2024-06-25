@@ -39,16 +39,18 @@
         display: none;
     }
 
-   .position-relative{
-        width:64px;
+    /*.position-relative {
+        width: 64px;
     }
-    #leaveHistoryTable tbody tr{
-        height:90px;
+
+    #leaveHistoryTable tbody tr {
+        height: 90px;
     }
+
     .rowBorder .mutedText {
         color: #A8A8A8;
-        font-size:12px;
-    }
+        font-size: 12px;
+    }*/
 </style>
 @Html.Partial("_NavBar")
 <div class="container-fluid emp-leave">
@@ -88,7 +90,7 @@
                                 <button class="btn btn-primary btn-apply-leave">Apply Leave</button>
                             </div>
                             <div class="leavehistory_btn d-flex mt-2 mb-1">
-                                <i class="fa-solid fa-clock-rotate-left mt-1 mr-1"></i>
+                                <i class="fa-solid fa-calendar mt-1 mr-1"></i>
                                 <a href="#" class="history_btn">Leave History</a>
                             </div>
                         </div>
@@ -118,53 +120,127 @@
                     </div>
 
                     <div class="leave-history mt-4" style="display: none;">
-                        <div class="leavehistory-year">
-                            <h5>Leave History</h5>
 
-                            @{
-                                int currentYear = DateTime.Now.Year;
-                                List<int> years = new List<int>();
+                        <ul class="nav nav-tabs res-admin-empleave-tabs responsive-tabs" id="myTab" role="tablist" style="background-color: #EEF4FF; font-size: 15px; width: 100%;">
+                            <li class="nav-item active" role="presentation">
+                                <a class="nav-link active" id="tab1-link" data-toggle="tab" href="#empLeaveHistoryTab1" role="tab" aria-controls="empLeaveHistoryTab1" aria-selected="true"><b>Leave History</b></a>
+                            </li>
+                            <li class="nav-item" role="presentation">
+                                <a class="nav-link" id="tab2-link" data-toggle="tab" href="#empComponsatoryOffTab2" role="tab" aria-controls="empComponsatoryOffTab2" aria-selected="false"><b>Compensatory Off</b></a>
+                            </li>
+                            <i class="fa fa-caret-up" "></i>
+                            <i class="fa fa-caret-down"></i>
+                        </ul>
 
-                                for (int i = 0; i <= 10; i++)
-                                {
-                                    years.Add(currentYear - i);
-                                }
-                            }
-                            <div class="year-dropdown">
+                        <div class="tab-content" id="myTabContentEmpLeaveHistory">
 
-                                <select class="form-control" id="leavehistoryyear">
+                            <div class="empleavehistory-year tab-pane fade show active" id="empLeaveHistoryTab1" role="tabpanel" aria-labelledby="tab1-link">
+                                <div class="leavehistory-year">
+                                    <h5 style="visibility:hidden;">Leave History</h5>
 
-                                    @foreach (var year in years)
-                                    {
-                                        <option value="@year">@year</option>
+                                    @{
+                                        int currentYear = DateTime.Now.Year;
+                                        List<int> years = new List<int>();
+
+                                        for (int i = 0; i <= 10; i++)
+                                        {
+                                            years.Add(currentYear - i);
+                                        }
                                     }
-                                </select>
+                                    <div class="year-dropdown">
+
+                                        <select class="form-control" id="leavehistoryyear">
+
+                                            @foreach (var year in years)
+                                            {
+                                            <option value="@year">@year</option>
+                                            }
+                                        </select>
+                                    </div>
+
+                                    <!--<div class="year-dropdown">
+                                    <div class="year-dropdown-select" id="leaveYearSelected" onclick="toggleLeaveYearOptions()">Year</div>
+                                    <div class="year-dropdown-options" id="leaveYearOptions">-->
+                                    <!-- Year options will be dynamically populated here -->
+                                    <!--</div>
+                                    </div>-->
+                                </div>
+
+                                <div class="table-responsive">
+                                    <table id="leaveHistoryTable" class="table leave-history-table">
+                                        <thead style="display: none">
+                                            <tr>
+                                                <th>Date</th>
+                                                <th>Day(s)</th>
+                                                <th>Leave Type</th>
+                                                <th>Status</th>
+                                                <th>Reason</th>
+                                                <th></th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                        </tbody>
+                                    </table>
+                                </div>
                             </div>
 
-                            <!--<div class="year-dropdown">
-                                <div class="year-dropdown-select" id="leaveYearSelected" onclick="toggleLeaveYearOptions()">Year</div>
-                                <div class="year-dropdown-options" id="leaveYearOptions">-->
-                            <!-- Year options will be dynamically populated here -->
-                            <!--</div>
-                            </div>-->
+                            <div class="empleavecompoff-year tab-pane fade" id="empComponsatoryOffTab2" role="tabpanel" aria-labelledby="tab2-link">
+                                <div class="empleavecompoff-year">
+                                </div>
+                                <div class="table-responsive">
+                                    <table id="empleaveCompOffTable" class="table empleave-compoff-table">
+                                        <thead style="display: none">
+                                            <tr>
+                                                <th>Date</th>
+                                                <th>Day(s)</th>
+                                                <th>Leave Type</th>
+                                                <th>Status</th>
+                                                <th>Reason</th>
+                                                <th></th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            <tr class="rowBorder odd">
+                                                <td class="fontSmall dataMinWidth dateMaxWidth">
+                                                    <p class="mb-0 fontWtMedium">21 June 2024 - 26 June 2024</p><span class="mutedText">Fri - Wed</span>
+                                                </td>
+                                                <td class="fontSmall">
+                                                    <div class="mutedText">Day(s)</div>
+                                                    <span class="fontWtMedium">3</span>
+                                                </td>
+                                                <td class="fontSmall dataMinWidth">
+                                                    <div class="mutedText">Leave Type</div>
+                                                    <span class="fontWtbold">Earned Leave</span>
+                                                </td>
+                                                <td class="fontSmall">
+                                                    <div class="mutedText">Status</div>
+                                                    <span class="fontWtMedium status-approved">Approved</span>
+                                                </td>
+                                                <td class="fontSmall commentSec">
+                                                    <div class="dFlex">
+                                                        <i class="fa-solid fa-message chatIcon"></i>
+                                                        <p>e342234</p>
+                                                    </div>
+                                                </td>
+                                                <td class="fontSmall position-relative">
+                                                    <i class="fas fa-ellipsis-h leave-edit-compoff" onclick="toggleEmpLeaveCompOffActionOptions(this)"></i>
+                                                    <div class="emp-leaveoptions" style="display:none">
+                                                        <a class="dropdown-item emp-leavecompoff-edit" onclick="empleavecompoffedit($(this))" data-leavename="11">Edit</a>
+                                                        <a class="dropdown-item emp-leavecompoff-cancel" onclick="empleavecompoffcancel($(this))" data-leavename="11">Cancel</a>
+                                                    </div>
+                                                </td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+
                         </div>
 
-                        <table id="leaveHistoryTable" class="table leave-history-table">
-                            <thead style="display: none">
-                                <tr>
-                                    <th>Date</th>
-                                    <th>Day(s)</th>
-                                    <th>Leave Type</th>
-                                    <th>Status</th>
-                                    <th>Reason</th>
-                                    <th></th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                            </tbody>
-                        </table>
+
                     </div>
                 </div>
+
             </div>
         </div>
     </div>

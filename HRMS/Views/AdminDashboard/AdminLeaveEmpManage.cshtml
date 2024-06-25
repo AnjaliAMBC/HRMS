@@ -171,6 +171,11 @@
         #adminleaveTable-mgmt_filter {
             display: none;
         }
+
+        .dropdowns-leave-container-date {
+            display: flex;
+            align-items: center;
+        }
     </style>
     <div class="container-fluid">
         <div class="row">
@@ -178,8 +183,8 @@
                 <h5>Leave Approval</h5>
             </div>
 
-            <div class="col-sm-12 col-md-12 col-lg-8 res-adminleave-header-right">
-                <div class="dropdowns-leave-container">
+            <div class="col-sm-12 col-md-12 col-lg-8 d-flex justify-content-end res-adminleave-header-right">
+                <div class="dropdowns-leave-container col-md-12 col-lg-12">
                     <div class="search-container">
                         <div class="input-group">
                             <div class="input-group-prepend">
@@ -240,7 +245,7 @@
 
 
 
-        <div class="dropdowns-leave-container mb-4 res-adminleave-date-align">
+        <div class="dropdowns-leave-container-date mb-4 res-adminleave-date-align">
             <div class="dropdown leavemonthmonth-dropdown">
                 <input type="month" id="myLeaveMonth" value="" class="form-control">
             </div>
