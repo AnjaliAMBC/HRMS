@@ -347,3 +347,12 @@ $(document).on('click', '.btn-importleave-submit', function (event) {
         }
     });
 });
+
+function downloadLeaveTemplate() {
+    var link = document.createElement('a');
+    link.href = '/assets/templates/ToalEMpLeavesTemplate.xlsx';
+    link.download = 'TotalEmpLeaveTemplate.xlsx';
+    document.body.appendChild(link);
+    link.click();
+    document.body.removeChild(link);
+}
