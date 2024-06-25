@@ -6,6 +6,8 @@
     var reason = $('#Compreason').val();
     var submittedUser = $('.loggedinempname').text();
     var selectedholidayname = $('.selectedholidayname').text();
+    var selectedHolidayNumber = $('.selectedholidaynumber').text();
+    var selectedHolidayLocation = $('.selectedholidaylocation').text();
 
     // Validation
     if (!employeeID) {
@@ -28,7 +30,10 @@
             compOffDate: compOffDate,
             reason: reason,
             submittedUser: submittedUser,
-            holidayname: selectedholidayname
+            holidayname: selectedholidayname,
+            holidynumber: selectedHolidayNumber,
+            holidaylocation: selectedHolidayLocation
+
         },
         success: function (response) {
             if (response.StatusCode == 200) {

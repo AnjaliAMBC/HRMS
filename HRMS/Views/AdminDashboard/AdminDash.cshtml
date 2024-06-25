@@ -216,23 +216,25 @@
                                             {
                                                 if (@holiday.HolidayDate != DateTime.MinValue)
                                                 {
-                                                    @*<li class="admindash_holiday">
-                                                            <h6 class="mb-0">@holiday.HolidayName</h6>
-                                                            <div class="leave_data d-flex">
-                                                                <p class="smalltext mb-0">@holiday.HolidayDate.ToString("dd MMMM dddd")</p>
-                                                                <p class="smalltext ml-auto mb-0 ">@holiday.Region</p>
-                                                            </div>
-                                                        </li>*@
+                                                    var compoffsAppliedBasedOnHoliday = Model.CompoffApplied as Dictionary<int, int>;
+                                                    var totalApplied = compoffsAppliedBasedOnHoliday != null && compoffsAppliedBasedOnHoliday.ContainsKey(holiday.HolidayNo)
+                                                                ? compoffsAppliedBasedOnHoliday[holiday.HolidayNo]
+                                                                : 0;
 
                                                     <li class="dashhoiday_description">
-                                                        <a class="res-holidays-details-left compOff-request">
+                                                        <a class="res-holidays-details-left compOff-request" data-leavenumber="@holiday.HolidayNo" data-location="@holiday.Region">
                                                             <h6 class="mb-0">@holiday.HolidayName</h6>
-                                                            <p class="smalltext">@holiday.HolidayDate.ToString("dd MMMM dddd")</p>
+                                                            <p class="smalltext">@holiday.HolidayDate.ToString("dd MMMM dddd")</p><span>@holiday.Region</span>
                                                         </a>
-                                                        <span class="res-holidays-details-right compOff-History-Page">
-                                                            <div class="res-holiday-count">2</div>
-                                                            <div class="res-holiday-desc">Comp Off</div>
-                                                        </span>
+
+                                                        @if (totalApplied > 0)
+                                                        {
+                                                            <span class="res-holidays-details-right compOff-History-Page">
+                                                                <div class="res-holiday-count">@totalApplied</div>
+                                                                <div class="res-holiday-desc">Comp Off</div>
+                                                            </span>
+                                                        }
+
                                                     </li>
                                                 }
                                             }

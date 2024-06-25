@@ -82,49 +82,49 @@ function generateDayTypeRows(leaverequestname) {
             type: 'POST',
             data: { startdate: fromDate, enddate: toDate, leaverequestname: leaverequestname },
             success: function (response) {
-            console.log('Success:', response);
+                console.log('Success:', response);
 
-            var jsonData = $.parseJSON(response);
+                var jsonData = $.parseJSON(response);
 
-            // Parse the JSON data (assuming jsonData is your parsed JSON array)
-            /*  var jsonData = response;*/
-            // Generate a row for each date in the range
-            for (var d = new Date(start); d <= end; d.setDate(d.getDate() + 1)) {
+                // Parse the JSON data (assuming jsonData is your parsed JSON array)
+                /*  var jsonData = response;*/
+                // Generate a row for each date in the range
+                for (var d = new Date(start); d <= end; d.setDate(d.getDate() + 1)) {
 
-                if ($('#leaveType').val() != "Maternity Leave") {
-                    // Skip weekends (Saturday and Sunday)
-                    if (d.getDay() === 0 || d.getDay() === 6) {
-                        continue;
+                    if ($('#leaveType').val() != "Maternity Leave") {
+                        // Skip weekends (Saturday and Sunday)
+                        if (d.getDay() === 0 || d.getDay() === 6) {
+                            continue;
+                        }
                     }
-                }
 
-                var dateStr = d.toISOString().split('T')[0];
-                var dayTypeRow = `
+                    var dateStr = d.toISOString().split('T')[0];
+                    var dayTypeRow = `
                     <div class="form-group-row apply-leave-form">
                         <div class="apply-date-label">${dateStr}</div>
                         <div class="vertical-line"></div>
                         <div class="dayleave-type-container">`;
 
-                // Find matching leave request for the current date
-                var matchingLeave = jsonData.find(function (leave) {
-                    return leave.leavedate.split('T')[0] === dateStr;
-                });
+                    // Find matching leave request for the current date
+                    var matchingLeave = jsonData.find(function (leave) {
+                        return leave.leavedate.split('T')[0] === dateStr;
+                    });
 
-                // Determine default values for radio buttons and half day selection
-                var fullDayChecked = 'checked';
-                var halfDayChecked = '';
-                var halfDaySelectDisabled = 'disabled';
+                    // Determine default values for radio buttons and half day selection
+                    var fullDayChecked = 'checked';
+                    var halfDayChecked = '';
+                    var halfDaySelectDisabled = 'disabled';
 
-                if (matchingLeave) {
-                    if (matchingLeave.DayType === 'fullDay') {
-                        fullDayChecked = 'checked';
-                    } else if (matchingLeave.DayType === 'halfDay') {
-                        halfDayChecked = 'checked';
-                        halfDaySelectDisabled = '';
+                    if (matchingLeave) {
+                        if (matchingLeave.DayType === 'fullDay') {
+                            fullDayChecked = 'checked';
+                        } else if (matchingLeave.DayType === 'halfDay') {
+                            halfDayChecked = 'checked';
+                            halfDaySelectDisabled = '';
+                        }
                     }
-                }
 
-                dayTypeRow += `
+                    dayTypeRow += `
                             <div class="form-check">
                                 <input class="form-check-input" type="radio" name="dayType_${dateStr}" value="fullDay" ${fullDayChecked}>
                                 <label class="form-check-label">Full Day</label>
@@ -139,40 +139,40 @@ function generateDayTypeRows(leaverequestname) {
                             </select>
                         </div>
                     </div>`;
-                dayTypeContainer.append(dayTypeRow);
-            }
-
-            // Enable/disable half day selection
-            $('input[name^="dayType_"]').change(function () {
-                var halfTypeSelect = $(this).closest('.apply-leave-form').find('select');
-                if ($(this).val() === 'halfDay') {
-                    halfTypeSelect.prop('disabled', false);
-                } else {
-                    halfTypeSelect.prop('disabled', true);
+                    dayTypeContainer.append(dayTypeRow);
                 }
-                // Recalculate total leaves when day type changes
+
+                // Enable/disable half day selection
+                $('input[name^="dayType_"]').change(function () {
+                    var halfTypeSelect = $(this).closest('.apply-leave-form').find('select');
+                    if ($(this).val() === 'halfDay') {
+                        halfTypeSelect.prop('disabled', false);
+                    } else {
+                        halfTypeSelect.prop('disabled', true);
+                    }
+                    // Recalculate total leaves when day type changes
+                    calculateTotalLeaves();
+                });
+
+                // Append the total leaves display to the total leaves container
+                totalLeavesContainer.html('<div>Total Leaves: <span id="totalLeaves"><b>0</b></span></div>');
+
+                // Calculate total leaves when day type rows are generated
                 calculateTotalLeaves();
-            });
-
-            // Append the total leaves display to the total leaves container
-            totalLeavesContainer.html('<div>Total Leaves: <span id="totalLeaves"><b>0</b></span></div>');
-
-            // Calculate total leaves when day type rows are generated
-            calculateTotalLeaves();
-        },
-        error: function (error) {
-            console.error('Error:', error);
-            alert('An error occurred while submitting the leave request.');
-        }
-    });
+            },
+            error: function (error) {
+                console.error('Error:', error);
+                alert('An error occurred while submitting the leave request.');
+            }
+        });
 
 
-} else {
-    // Hide the "Day Type" label if dates are not selected
-    dayTypeLabel.hide();
-    // Clear the total leaves container if dates are not selected
-    totalLeavesContainer.empty();
-}
+    } else {
+        // Hide the "Day Type" label if dates are not selected
+        dayTypeLabel.hide();
+        // Clear the total leaves container if dates are not selected
+        totalLeavesContainer.empty();
+    }
 }
 
 
@@ -425,6 +425,8 @@ $(document).on('click', '.compOff-request', function (e) {
     $('#Compreason').val("");
     var holidayName = $('.selectedholidayname').text($(this).find('h6').text());
     var holidayDate = $('#Compdate').val($(this).find('p').text());
+    $('.selectedholidaynumber').text($(this).attr("data-leavenumber"));
+    $('.selectedholidaylocation').text($(this).attr("data-location"));
     $('#compOffMessage').html("");
     $('#compOffMessage').hide();
     $('#CompemployeeName').removeClass("is-invalid");
