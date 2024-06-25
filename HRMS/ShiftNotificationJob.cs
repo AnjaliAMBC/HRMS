@@ -55,6 +55,8 @@ namespace HRMS
                 return false;
             });
 
+            var siteURL = System.Configuration.ConfigurationManager.AppSettings["siteURL"];
+            var logoURL = siteURL + "/Assets/AMBC_Logo.png";
             //Checkin Remainder emails
             foreach (var checkinEmp in employeesToRemindCheckin)
             {
@@ -66,11 +68,7 @@ namespace HRMS
                     var checkInBody = $@"
             <html>
                 <body style='font-family: Arial, sans-serif;'>
-                    <div style='border: 1px solid #ddd; padding: 20px; max-width: 600px; margin: 0 auto;'>
-                        <div style='padding: 10px; border-bottom: 1px solid #ddd; background-color: #f8f8f8;'>
-                            <strong style='color: red;'>WARNING:</strong> This email originated outside of AMBC. 
-                            <strong>DO NOT CLICK</strong> links or attachments unless you recognize the sender and know the content is safe.
-                        </div>
+                    <div style='border: 1px solid #ddd; padding: 20px; max-width: 600px; margin: 0 auto;'>                        
                         <div style='padding: 20px;'>
                             <p>Hi {checkinEmp.EmployeeName},</p>
                             <p>This is a reminder to check-in.</p>
@@ -78,7 +76,7 @@ namespace HRMS
                             <p>Best regards,<br>PRM AMBC</p>
                         </div>
                         <div style='text-align: center; padding: 10px; border-top: 1px solid #ddd;'>
-                            <img src='https://prm.ambctechnologies.com/logo.png' alt='AMBC Logo' style='max-width: 100px;'>
+                            <img src={logoURL} alt='AMBC Logo' style='max-width: 100px;'>
                         </div>
                     </div>
                 </body>
