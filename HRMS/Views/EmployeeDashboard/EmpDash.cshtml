@@ -13,6 +13,8 @@
     string lastCheckinDate = "";
     bool showCheckInButton = false;
 
+    bool previousdayortodaycheckinexist = false;
+
 
     if (Model.empLastDayCheckInDetails != null && !Model.empLastDayCheckInDetails.IsSignedOutOnLastCheckInDate && Model.empLastDayCheckInDetails.LoginID != 0)
     {
@@ -25,6 +27,7 @@
         lastCheckinDate = checkInTime.ToString("dd/MM/yyyy");
         starttimeWithAmPm = checkInTime.ToString("hh:mm tt", System.Globalization.CultureInfo.InvariantCulture);
         showCheckInButton = true;
+        previousdayortodaycheckinexist = true;
     }
 
     var ButtonDisabled = "";
@@ -44,9 +47,10 @@
 
         starttimeWithAmPm = checkInTime.ToString("hh:mm tt", System.Globalization.CultureInfo.InvariantCulture);
         endtimeWithAmPm = checkOutTime?.ToString("hh:mm tt", System.Globalization.CultureInfo.InvariantCulture);
+        previousdayortodaycheckinexist = true;
     }
 
-    if (Model.IsOnLeave == true && showCheckInButton == false)
+    if (Model.IsOnLeave == true && previousdayortodaycheckinexist == false)
     {
         buttonText = "Check-In";
         if (Model.empLeaveInfo != null && (Model.empLeaveInfo.DayType == "halfDay" || Model.empLeaveInfo.DayType == ""))
