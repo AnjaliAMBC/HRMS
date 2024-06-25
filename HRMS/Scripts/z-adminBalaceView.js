@@ -270,7 +270,7 @@ $(document).on('click', '.leave-export-history', function (event) {
     if (!toDate) {
         $('#leavehistory-toDate').addClass('is-invalid');
         $('#leavehistory-toDate').closest('.form-group').append('<span class="validation-error text-danger"></span>');
-       /* $('#leavehistory-toDate').closest('.form-group').append('<span class="validation-error text-danger">To date is required</span>');*/
+        /* $('#leavehistory-toDate').closest('.form-group').append('<span class="validation-error text-danger">To date is required</span>');*/
         isValid = false;
     }
 
@@ -280,4 +280,70 @@ $(document).on('click', '.leave-export-history', function (event) {
         window.location.href = "/adminleave/exportleavedatatoexcel?startdate=" + fromDate + "&endDate=" + toDate + "&department=" + "" + "&location=" + $('#leavehistory-Location-dropdown').val() + "&status=" + $('#leavehistory-status-dropdown').val();
         $('.show-progress').hide();
     }
+});
+
+
+$(document).on('click', '.btn-totalleaves-import', function (event) {
+    event.preventDefault();
+  
+    $.ajax({
+        url: '/adminleave/AdminTotalLeavesImport',
+        type: 'GET',
+        dataType: 'html',      
+        beforeSend: function () {
+            $('.show-progress').show();
+        },
+        success: function (response) {
+            $(".hiddenadmindashboard").html("");
+            $('.admin-dashboard-container').html("");
+            $(".admin-emppadd-container").html("");
+            $('.admin-empmanagement-container').html("");
+            $('.admin-attendance-container').html("");
+            $('.admin-leave-container').html("");
+            $(".hiddenadmindashboard").html(response);
+            var formContent = $(".hiddenadmindashboard").find(".admin-totalleaveimport-view").html();
+            $(".admin-leave-container").html(formContent);
+            $('.admin-leave-container').show();
+            $('.admin-attendance-container').hide();
+            $('.admin-empmanagement-container').hide();
+            $('.admin-emppadd-container').hide();
+            $('.admin-dashboard-container').hide();
+            $('.admin-ticketing-container').hide();
+            $(".hiddenadmindashboard").html("");
+            $('.show-progress').hide();
+        },
+        error: function (xhr, status, error) {
+            $('.show-progress').hide();
+            console.error("Error deleting employee:", error);
+        }
+    });
+});
+
+
+$(document).on('click', '.btn-importleave-submit', function (event) {
+    var file = $('#leave-file-upload-input')[0].files[0];
+    var formData = new FormData();
+    formData.append('file', file);
+
+    $.ajax({
+        url: '/adminleave/uploadtotalleavesexcel',
+        type: 'POST',
+        data: formData,
+        contentType: false,
+        processData: false,
+        success: function (response) {
+            if (response.success) {
+                console.log(response.data); 
+                $('#modalMessage').text(response.message);
+                $('#messageModal').modal('show');
+            } else {
+                $('#modalMessage').text(response.message);
+                $('#messageModal').modal('show');
+            }
+        },
+        error: function (xhr, status, error) {
+            $('#modalMessage').text('Error uploading file: ' + error);
+            $('#messageModal').modal('show');           
+        }
+    });
 });

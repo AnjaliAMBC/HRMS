@@ -356,5 +356,137 @@ namespace HRMS.Controllers
                 return File(stream, "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet", excelName);
             }
         }
+
+
+        public ActionResult AdminTotalLeavesImport()
+        {
+            return PartialView("~/Views/AdminDashboard/AdminTotalLeavesImport.cshtml");
+        }
+
+
+        [HttpPost]
+        public JsonResult UploadTotalLeavesExcel(HttpPostedFileBase file)
+        {
+            if (file == null || file.ContentLength == 0)
+            {
+                return Json(new { success = false, message = "No file uploaded or file is empty." });
+            }
+
+            try
+            {
+                using (var package = new ExcelPackage(file.InputStream))
+                {
+                    var workbook = package.Workbook;
+
+                    if (workbook == null || workbook.Worksheets.Count == 0)
+                    {
+                        return Json(new { success = false, message = "No worksheets found in the Excel file." });
+                    }
+
+                    // Access the first worksheet
+                    var worksheet = workbook.Worksheets.FirstOrDefault();
+                    if (worksheet == null)
+                    {
+                        return Json(new { success = false, message = "Failed to retrieve worksheet." });
+                    }
+
+                    List<EmployeeRecord> records = new List<EmployeeRecord>();
+                    int totalRows = worksheet.Dimension.End.Row;
+
+                    // Assuming headers are in the first row
+                    for (int row = 2; row <= totalRows; row++)
+                    {
+                        if (worksheet.Cells[row, 1].Value == null || worksheet.Cells[row, 2].Value == null)
+                        {
+                            // If required cells (e.g., EmpID and EmployeeName) are empty, skip this row
+                            continue;
+                        }
+
+                        var record = new EmployeeRecord
+                        {
+                            EmpID = worksheet.Cells[row, 1].Value?.ToString(),
+                            EmployeeName = worksheet.Cells[row, 2].Value?.ToString(),
+                            Year = worksheet.Cells[row, 3].Value?.ToString(),
+                            Earned = ParseDecimal(worksheet.Cells[row, 4].Value?.ToString()),
+                            Emergency = ParseDecimal(worksheet.Cells[row, 5].Value?.ToString()),
+                            Sick = ParseDecimal(worksheet.Cells[row, 6].Value?.ToString()),
+                            Bereavement = ParseDecimal(worksheet.Cells[row, 7].Value?.ToString()),
+                            HourlyPermission = ParseDecimal(worksheet.Cells[row, 8].Value?.ToString()),
+                            Marriage = ParseDecimal(worksheet.Cells[row, 9].Value?.ToString()),
+                            Maternity = ParseDecimal(worksheet.Cells[row, 10].Value?.ToString()),
+                            Paternity = ParseDecimal(worksheet.Cells[row, 11].Value?.ToString()),
+                            CompOff = ParseDecimal(worksheet.Cells[row, 12].Value?.ToString())
+                        };
+
+                        records.Add(record);
+                    }
+
+
+                    foreach (var record in records)
+                    {
+                        var isRecordExists = _dbContext.LeaveBalances.Where(x => x.EmpID == record.EmpID && x.Year == record.Year).FirstOrDefault();
+
+                        if (isRecordExists != null)
+                        {
+                            isRecordExists.Earned = record.Earned;
+                            isRecordExists.Emergency = record.Emergency;
+                            isRecordExists.Sick = record.Sick;
+                            isRecordExists.Bereavement = record.Bereavement;
+                            //isRecordExists.HourlyPermission = record.HourlyPermission;
+                            isRecordExists.Marriage = record.Marriage;
+                            isRecordExists.Maternity = record.Marriage;
+                            isRecordExists.Paternity = record.Paternity;
+                            isRecordExists.CompOff = record.CompOff;
+                            _dbContext.SaveChanges();
+                        }
+                        else
+                        {
+                            var leaveBalance = new LeaveBalance()
+                            {
+                                Bereavement = record.Bereavement,
+                                CompOff = record.CompOff,
+                                EmployeeName = record.EmployeeName,
+                                EmpID = record.EmpID,
+                                Emergency = record.Emergency,
+                                Earned = record.Earned,
+                                Marriage = record.Marriage,
+                                Maternity = record.Maternity,
+                                Paternity = record.Paternity,
+                                Sick = record.Sick,
+                                Year = record.Year
+                            };
+
+                            _dbContext.LeaveBalances.Add(leaveBalance);
+                            _dbContext.SaveChanges();
+                        }
+                    }
+
+                    return Json(new { success = true, message = "Total Leaves info uploaded successfully!" });
+                }
+            }
+            catch (Exception ex)
+            {
+                return Json(new { success = false, message = "Error reading Excel file: " + ex.Message });
+            }
+        }
+
+        private decimal ParseDecimal(string value)
+        {
+            if (string.IsNullOrWhiteSpace(value))
+            {
+                return 0; // or handle as needed
+            }
+
+            decimal result;
+            if (!decimal.TryParse(value, out result))
+            {
+                throw new FormatException("Invalid numeric format."); // Handle parsing failure
+            }
+
+            return result;
+        }
+
+
+
     }
 }

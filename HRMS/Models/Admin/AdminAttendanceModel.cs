@@ -36,4 +36,19 @@ namespace HRMS.Models.Admin
 
     }
 
+    public class EmployeeRecord
+    {
+        public string EmpID { get; set; }
+        public string EmployeeName { get; set; }
+        public string Year { get; set; }
+        public decimal Earned { get; set; }
+        public decimal Emergency { get; set; }
+        public decimal Sick { get; set; }
+        public decimal Bereavement { get; set; }
+        public decimal HourlyPermission { get; set; }
+        public decimal Marriage { get; set; }
+        public decimal Maternity { get; set; }
+        public decimal Paternity { get; set; }
+        public decimal CompOff { get; set; }
+    }
 }
