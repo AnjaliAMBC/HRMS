@@ -448,8 +448,8 @@ function GetEmpLeaveHistory() {
                 const fromDay = formatJSONDateDay(item.Fromdate);
                 const toDay = formatJSONDateDay(item.Todate);
                 const dateDisplay = fromDate === toDate
-                    ? `<p class="mb-0 fontWtMedium">${fromDate}</p><span class="mutedText">${fromDay}</span>`
-                    : `<p class="mb-0 fontWtMedium">${fromDate} - ${toDate}</p><span class="mutedText">${fromDay} - ${toDay}</span>`;
+                    ? `<p class="mb-0 fontWtMedium"><b>${fromDate}</b></p><span class="mutedText">${fromDay}</span>`
+                    : `<p class="mb-0 fontWtMedium"><b>${fromDate} - ${toDate}</b></p><span class="mutedText">${fromDay} - ${toDay}</span>`;
 
                 const statusClass = item.LatestLeave.LeaveStatus.toLowerCase() === 'approved' ? 'status-approved' :
                     item.LatestLeave.LeaveStatus.toLowerCase() === 'cancelled' ? 'status-cancelled' : '';
@@ -461,19 +461,19 @@ function GetEmpLeaveHistory() {
                         </td>
                         <td class="fontSmall">
                             <div class="mutedText">Day(s)</div>
-                            <span class="fontWtMedium">${item.TotalLeaveDays}</span>
+                            <span class="fontWtMedium"><b>${item.TotalLeaveDays}</b></span>
                         </td>
                         <td class="fontSmall dataMinWidth">
                             <div class="mutedText">Leave Type</div>
-                            <span class="fontWtbold">${item.LatestLeave.leavesource}</span>
+                            <span class="fontWtbold"><b>${item.LatestLeave.leavesource}</b></span>
                         </td>
                         <td class="fontSmall">
                             <div class="mutedText">Status</div>
                             <span class="fontWtMedium ${statusClass}">${item.LatestLeave.LeaveStatus}</span>
                         </td>
                         <td class="fontSmall commentSec">
-                            <div class="dFlex">
-                                <i class="fa-solid fa-message chatIcon"></i>
+                            <div class="dFlex d-flex">
+                                <i class="fa-solid fa-message chatIcon mt-1 mr-2"></i>
                                 <p>${item.LatestLeave.leave_reason}</p>
                             </div>                            
                         </td>
