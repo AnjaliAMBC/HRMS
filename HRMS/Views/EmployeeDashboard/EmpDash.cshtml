@@ -46,7 +46,7 @@
         endtimeWithAmPm = checkOutTime?.ToString("hh:mm tt", System.Globalization.CultureInfo.InvariantCulture);
     }
 
-    if (Model.IsOnLeave == true)
+    if (Model.IsOnLeave == true && showCheckInButton == false)
     {
         buttonText = "Check-In";
         if (Model.empLeaveInfo != null && (Model.empLeaveInfo.DayType == "halfDay" || Model.empLeaveInfo.DayType == ""))
