@@ -13,6 +13,10 @@
     string lastCheckinDate = "";
     bool showCheckInButton = false;
 
+    bool previousdayortodaycheckinexist = false;
+
+    var buttonDeafultbgcolor = "#3E78CF";
+
 
     if (Model.empLastDayCheckInDetails != null && !Model.empLastDayCheckInDetails.IsSignedOutOnLastCheckInDate && Model.empLastDayCheckInDetails.LoginID != 0)
     {
@@ -25,6 +29,7 @@
         lastCheckinDate = checkInTime.ToString("dd/MM/yyyy");
         starttimeWithAmPm = checkInTime.ToString("hh:mm tt", System.Globalization.CultureInfo.InvariantCulture);
         showCheckInButton = true;
+        previousdayortodaycheckinexist = true;
     }
 
     var ButtonDisabled = "";
@@ -41,12 +46,17 @@
             buttonText = "Check-In";
             ButtonDisabled = "disabled";
         }
+        else
+        {
+            buttonDeafultbgcolor = "red";
+        }
 
         starttimeWithAmPm = checkInTime.ToString("hh:mm tt", System.Globalization.CultureInfo.InvariantCulture);
         endtimeWithAmPm = checkOutTime?.ToString("hh:mm tt", System.Globalization.CultureInfo.InvariantCulture);
+        previousdayortodaycheckinexist = true;
     }
 
-    if (Model.IsOnLeave == true)
+    if (Model.IsOnLeave == true && previousdayortodaycheckinexist == false)
     {
         buttonText = "Check-In";
         if (Model.empLeaveInfo != null && (Model.empLeaveInfo.DayType == "halfDay" || Model.empLeaveInfo.DayType == ""))
@@ -99,7 +109,7 @@
                                         </div>
                                         <span class="showcheckinbuttonpostcheckout" style="display: none">@showCheckInButton</span>
                                         <div class="button-container text-left total-hours">
-                                            <button class="btn btn-checkin" data-checkinid="@loginID" @ButtonDisabled>@buttonText</button>
+                                            <button class="btn btn-checkin" style="background-color: @buttonDeafultbgcolor" data-checkinid="@loginID" @ButtonDisabled>@buttonText</button>
                                         </div>
                                     </div>
                                     <div class="col-md-4 p-0 pr-1 col-sm-4">

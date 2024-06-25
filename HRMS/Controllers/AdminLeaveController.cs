@@ -139,20 +139,34 @@ namespace HRMS.Controllers
 
             return Json("", JsonRequestBehavior.AllowGet);
         }
-        public ActionResult AdminLeaveHistory(int year)
+        public ActionResult AdminLeaveHistory(string startdate, string endDate)
         {
-            if (year == 0)
+            DateTime dateStart = new DateTime();
+            DateTime dateEnd = new DateTime();
+            if (string.IsNullOrWhiteSpace(startdate))
             {
-                year = DateTime.Today.Year;
+                dateStart = new DateTime(System.DateTime.Today.Year, 1, 1);
+            }
+            else
+            {
+                dateStart = System.DateTime.Parse(startdate);
             }
 
-            DateTime startDate = new DateTime(year, 1, 1);
-            DateTime endDate = new DateTime(year, 12, 31);
-            var AdminLeaveHistoryModel = new AdminLeaveHistoryViewModel();
+            if (string.IsNullOrWhiteSpace(endDate))
+            {
+                dateEnd = new DateTime(System.DateTime.Today.Year, 12, 31);
+            }
+            else
+            {
+                dateEnd = System.DateTime.Parse(endDate);
+            }
 
-            var leavesHistory = new LeaveCalculator().EmpLeaveInfoBasedonFromAndToDatesWithLeaveDate(startDate.ToString("yyyy-MM-dd"), endDate.ToString("yyyy-MM-dd"), "");
+            var AdminLeaveHistoryModel = new AdminLeaveHistoryViewModel();
+            var leavesHistory = new LeaveCalculator().EmpLeaveInfoBasedonFromAndToDatesWithLeaveDate(dateStart.ToString("yyyy-MM-dd"), dateEnd.ToString("yyyy-MM-dd"), "", "", "", "");
             AdminLeaveHistoryModel.AllEMployeeLeaves = leavesHistory;
             AdminLeaveHistoryModel.Employees = _dbContext.emp_info.ToList();
+
+            AdminLeaveHistoryModel.Departments = new EmployeeHelper(_dbContext).GetDepartments();
 
             return PartialView("~/Views/AdminDashboard/AdminLeaveHistory.cshtml", AdminLeaveHistoryModel);
         }
@@ -265,6 +279,214 @@ namespace HRMS.Controllers
         {
             return PartialView("~/Views/AdminDashboard/AdminLeaveCompOff.cshtml");
         }
+
+
+        public ActionResult ExportLeaveDataToExcel(string startDate, string endDate, string empId, string department, string location, string status)
+        {
+            var cuserContext = SiteContext.GetCurrentUserContext();
+
+            DateTime dateStart = DateTime.ParseExact(startDate, "yyyy-MM-dd", null);
+            DateTime dateEnd = DateTime.ParseExact(endDate, "yyyy-MM-dd", null);
+
+            var leaveInfos = new LeaveCalculator().EmpLeaveInfoBasedonFromAndToDatesWithLeaveDate(dateStart.ToString("yyyy-MM-dd"), dateEnd.ToString("yyyy-MM-dd"), "", department, location, status);
+
+            using (var package = new ExcelPackage())
+            {
+                var worksheet = package.Workbook.Worksheets.Add("Leave Data");
+
+                // Add headers
+                worksheet.Cells[1, 1].Value = "Emp-ID";
+                worksheet.Cells[1, 2].Value = "Name";
+                worksheet.Cells[1, 3].Value = "Email";
+                worksheet.Cells[1, 4].Value = "Leave Type";
+                worksheet.Cells[1, 5].Value = "From Date";
+                worksheet.Cells[1, 6].Value = "To Date";
+                worksheet.Cells[1, 7].Value = "Days/Hours";
+                worksheet.Cells[1, 8].Value = "Location";
+                worksheet.Cells[1, 9].Value = "Reason";
+                worksheet.Cells[1, 10].Value = "Status";
+                worksheet.Cells[1, 11].Value = "Submitted By";
+                worksheet.Cells[1, 12].Value = "Submitted Date";
+                worksheet.Cells[1, 13].Value = "Updated By";
+                worksheet.Cells[1, 14].Value = "Updated Date";
+
+                // Add data rows
+                for (int i = 0; i < leaveInfos.Count; i++)
+                {
+                    var leaveInfo = leaveInfos[i];
+                    var row = i + 2;
+
+                    worksheet.Cells[row, 1].Value = leaveInfo.LatestLeave.employee_id;
+                    worksheet.Cells[row, 2].Value = leaveInfo.LatestLeave.employee_name;
+                    worksheet.Cells[row, 3].Value = leaveInfo.LatestLeave.OfficalEmailid;
+                    worksheet.Cells[row, 4].Value = leaveInfo.LatestLeave.leavesource;
+                    worksheet.Cells[row, 5].Value = leaveInfo.Fromdate?.ToString("yyyy-MM-dd");
+                    worksheet.Cells[row, 6].Value = leaveInfo.Todate?.ToString("yyyy-MM-dd");
+                    worksheet.Cells[row, 7].Value = leaveInfo.TotalLeaveDays;
+                    worksheet.Cells[row, 8].Value = leaveInfo.LatestLeave.Location;
+                    worksheet.Cells[row, 9].Value = leaveInfo.LatestLeave.leave_reason;
+                    worksheet.Cells[row, 10].Value = leaveInfo.LatestLeave.LeaveStatus;
+                    worksheet.Cells[row, 11].Value = leaveInfo.LatestLeave.submittedby;
+                    worksheet.Cells[row, 12].Value = leaveInfo.LatestLeave.createddate?.ToString("yyyy-MM-dd");
+                    worksheet.Cells[row, 13].Value = leaveInfo.LatestLeave.updatedby;
+                    worksheet.Cells[row, 14].Value = leaveInfo.LatestLeave.updateddate?.ToString("yyyy-MM-dd");
+                }
+
+                //// Save the file
+                //FileInfo fileInfo = new FileInfo(filePath);
+                //package.SaveAs(fileInfo);
+
+                // Auto-fit columns for all cells
+                worksheet.Cells[worksheet.Dimension.Address].AutoFitColumns();
+
+                // Set some document properties
+                package.Workbook.Properties.Title = "Leave History";
+                package.Workbook.Properties.Author = cuserContext.EmpInfo.EmployeeName;
+                package.Workbook.Properties.Comments = "This report was generated using AMBC PRM application";
+
+                // Set some extended property values
+                package.Workbook.Properties.Company = "AMBC";
+
+                var stream = new MemoryStream();
+                package.SaveAs(stream);
+                stream.Position = 0;
+
+                string excelName = $"LeaveHistory-{DateTime.Now.ToString("yyyyMMddHHmmssfff")}.xlsx";
+
+                return File(stream, "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet", excelName);
+            }
+        }
+
+
+        public ActionResult AdminTotalLeavesImport()
+        {
+            return PartialView("~/Views/AdminDashboard/AdminTotalLeavesImport.cshtml");
+        }
+
+
+        [HttpPost]
+        public JsonResult UploadTotalLeavesExcel(HttpPostedFileBase file)
+        {
+            if (file == null || file.ContentLength == 0)
+            {
+                return Json(new { success = false, message = "No file uploaded or file is empty." });
+            }
+
+            try
+            {
+                using (var package = new ExcelPackage(file.InputStream))
+                {
+                    var workbook = package.Workbook;
+
+                    if (workbook == null || workbook.Worksheets.Count == 0)
+                    {
+                        return Json(new { success = false, message = "No worksheets found in the Excel file." });
+                    }
+
+                    // Access the first worksheet
+                    var worksheet = workbook.Worksheets.FirstOrDefault();
+                    if (worksheet == null)
+                    {
+                        return Json(new { success = false, message = "Failed to retrieve worksheet." });
+                    }
+
+                    List<EmployeeRecord> records = new List<EmployeeRecord>();
+                    int totalRows = worksheet.Dimension.End.Row;
+
+                    // Assuming headers are in the first row
+                    for (int row = 2; row <= totalRows; row++)
+                    {
+                        if (worksheet.Cells[row, 1].Value == null || worksheet.Cells[row, 2].Value == null)
+                        {
+                            // If required cells (e.g., EmpID and EmployeeName) are empty, skip this row
+                            continue;
+                        }
+
+                        var record = new EmployeeRecord
+                        {
+                            EmpID = worksheet.Cells[row, 1].Value?.ToString(),
+                            EmployeeName = worksheet.Cells[row, 2].Value?.ToString(),
+                            Year = worksheet.Cells[row, 3].Value?.ToString(),
+                            Earned = ParseDecimal(worksheet.Cells[row, 4].Value?.ToString()),
+                            Emergency = ParseDecimal(worksheet.Cells[row, 5].Value?.ToString()),
+                            Sick = ParseDecimal(worksheet.Cells[row, 6].Value?.ToString()),
+                            Bereavement = ParseDecimal(worksheet.Cells[row, 7].Value?.ToString()),
+                            HourlyPermission = ParseDecimal(worksheet.Cells[row, 8].Value?.ToString()),
+                            Marriage = ParseDecimal(worksheet.Cells[row, 9].Value?.ToString()),
+                            Maternity = ParseDecimal(worksheet.Cells[row, 10].Value?.ToString()),
+                            Paternity = ParseDecimal(worksheet.Cells[row, 11].Value?.ToString()),
+                            CompOff = ParseDecimal(worksheet.Cells[row, 12].Value?.ToString())
+                        };
+
+                        records.Add(record);
+                    }
+
+
+                    foreach (var record in records)
+                    {
+                        var isRecordExists = _dbContext.LeaveBalances.Where(x => x.EmpID == record.EmpID && x.Year == record.Year).FirstOrDefault();
+
+                        if (isRecordExists != null)
+                        {
+                            isRecordExists.Earned = record.Earned;
+                            isRecordExists.Emergency = record.Emergency;
+                            isRecordExists.Sick = record.Sick;
+                            isRecordExists.Bereavement = record.Bereavement;
+                            //isRecordExists.HourlyPermission = record.HourlyPermission;
+                            isRecordExists.Marriage = record.Marriage;
+                            isRecordExists.Maternity = record.Marriage;
+                            isRecordExists.Paternity = record.Paternity;
+                            isRecordExists.CompOff = record.CompOff;
+                            _dbContext.SaveChanges();
+                        }
+                        else
+                        {
+                            var leaveBalance = new LeaveBalance()
+                            {
+                                Bereavement = record.Bereavement,
+                                CompOff = record.CompOff,
+                                EmployeeName = record.EmployeeName,
+                                EmpID = record.EmpID,
+                                Emergency = record.Emergency,
+                                Earned = record.Earned,
+                                Marriage = record.Marriage,
+                                Maternity = record.Maternity,
+                                Paternity = record.Paternity,
+                                Sick = record.Sick,
+                                Year = record.Year
+                            };
+
+                            _dbContext.LeaveBalances.Add(leaveBalance);
+                            _dbContext.SaveChanges();
+                        }
+                    }
+
+                    return Json(new { success = true, message = "Total Leaves info uploaded successfully!" });
+                }
+            }
+            catch (Exception ex)
+            {
+                return Json(new { success = false, message = "Error reading Excel file: " + ex.Message });
+            }
+        }
+
+        private decimal ParseDecimal(string value)
+        {
+            if (string.IsNullOrWhiteSpace(value))
+            {
+                return 0; // or handle as needed
+            }
+
+            decimal result;
+            if (!decimal.TryParse(value, out result))
+            {
+                throw new FormatException("Invalid numeric format."); // Handle parsing failure
+            }
+
+            return result;
+        }
+
+
 
     }
 }

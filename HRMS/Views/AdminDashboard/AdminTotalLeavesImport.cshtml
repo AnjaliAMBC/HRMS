@@ -1,58 +1,61 @@
-﻿<div class="admin-empadd-view">
+﻿<div class="admin-totalleaveimport-view">
     <div class="container">
         <!-- Headline: Import Employee -->
-        <h3 class="import-user-head">Import Employee</h3>
+        <h3 class="import-leave-head">Import Leave Balance</h3>
 
         <!-- Description with bullet points -->
         <div class="description">
-            <p>Here's how to import employees:</p>
             <ul>
-                <li>Prepare your employee data in a xlsx format.</li>
+                <li>Download the Excel file and fill it with proper data.</li>
+                <li>Prepare your leave data in a xlsx format.</li>
                 <li>Make sure the CSV file follows the correct format.</li>
                 <li>Use the template provided for best results.</li>
             </ul>
         </div>
 
         <div>
-            <button class="btn btn-primary download-btn" onclick="downloadTemplate()">Download Template</button>
+            <button class="btn btn-primary download-leave-btn" onclick="downloadLeaveTemplate()">Download Template</button>
         </div>
         <p style=" margin-bottom: 35px; margin-top: 5px;">Sample excel template</p>
 
-        <div class="file-upload" id="file-upload-area">
-            <label for="file-upload-input" id="file-upload-label">
+        <div class="leave-file-upload" id="leave-file-upload-area">
+            <label for="leave-file-upload-input" id="leave-file-upload-label">
                 <i class="fas fa-cloud-upload-alt fa-3x mb-3"></i><br>
                 Drag and drop files or Browse<br>
                 Supported formats: .XLSX
             </label>
-            <input type="file" id="file-upload-input" accept=".xlsx" onchange="handleFileUpload(this)">
+            <input type="file" id="leave-file-upload-input" accept=".xlsx" onchange="handleLeaveFileUpload(this)">
         </div>
 
-        <div class="uploaded-file" id="uploaded-file-info" style="display: none;">
-            <p style="color: green; font-size: 13px;" id="uploaded-file-text"></p>
+        <div class="leave-uploaded-file" id="leave-uploaded-file-info" style="display: none;">
+            <p style="color: green; font-size: 13px;" id="leave-uploaded-file-text"></p>
         </div>
 
         <div class="submit-button">
-            <button class="btn btn-primary btn-importuser-submit" style="background-color:#2693F8">Submit</button>
+            <button class="btn btn-primary btn-importleave-submit" style="background-color:#2693F8">Submit</button>
         </div>
 
-        <div class="modal fade" id="importSuccessModal" tabindex="-1" role="dialog" aria-labelledby="importSuccessModalLabel" aria-hidden="true">
+        <div class="modal fade" id="importleaveSuccessModal" tabindex="-1" role="dialog" aria-labelledby="importleaveSuccessModalLabel" aria-hidden="true">
             <div class="modal-dialog" role="document">
                 <div class="modal-content">
                     <div class="modal-header">
-                        <h5 class="modal-title" id="importSuccessModalLabel">Import Users</h5>
+                        <h5 class="modal-title" id="importleaveSuccessModalLabel">Import Users</h5>
                         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                             <span aria-hidden="true">&times;</span>
                         </button>
                     </div>
                     <div class="modal-body">
-                        <p class="success-message">Users imported successfully!</p>
+                        <p class="success-message">Leave imported successfully!</p>
                     </div>
                     <div class="modal-footer">
                         <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
-                        <button type="button" class="btn btn-primary refresh-emptablist">Close</button>
+                        <button type="button" class="btn btn-primary refresh-leavetablist">Close</button>
                     </div>
                 </div>
             </div>
         </div>
     </div>
+
+    @Html.Partial("CommonModalPopups")
+
 </div>

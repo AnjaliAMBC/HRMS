@@ -38,7 +38,7 @@
 //leave balance update page 
 
 $(document).on('click', '.employeeinfo-balance', function (event) {
-    event.preventDefault(); 
+    event.preventDefault();
     var employeeId = $(this).attr("data-empid");
     $.ajax({
         url: '/adminleave/adminleavebalanceupdate',
@@ -71,12 +71,12 @@ $(document).on('click', '.employeeinfo-balance', function (event) {
 
 //Admin Leave History of all employees 
 $(document).on('click', '.adminleave-history', function (event) {
-    event.preventDefault();   
+    event.preventDefault();
     $.ajax({
         url: '/adminleave/adminleavehistory',
         type: 'GET',
         dataType: 'html',
-        data: { year: 2024 },
+        data: { startdate: $('#leavehistory-fromDate').val(), endDate: $('#leavehistory-toDate').val(), department: "", location: $('#leavehistory-Location-dropdown').val(), status: $('#leavehistory-status-dropdown').val() },
         success: function (response) {
             $(".hiddenadmindashboard").html("");
             $('.admin-dashboard-container').html("");
@@ -245,3 +245,114 @@ $(document).on('click', '.adminleave-CompOff-link', function (event) {
         }
     });
 });
+
+
+$(document).on('click', '.leave-export-history', function (event) {
+    // Prevent the default action
+    event.preventDefault();
+
+    // Get the values of the date fields
+    var fromDate = $('#leavehistory-fromDate').val();
+    var toDate = $('#leavehistory-toDate').val();
+
+    // Clear previous validation messages
+    $('.validation-error').remove();
+    $('#leavehistory-fromDate').removeClass('is-invalid');
+    $('#leavehistory-toDate').removeClass('is-invalid');
+
+    // Check if the dates are provided
+    var isValid = true;
+    if (!fromDate) {
+        $('#leavehistory-fromDate').addClass('is-invalid');
+        $('#leavehistory-fromDate').closest('.form-group').append('<span class="validation-error text-danger"></span>');
+        isValid = false;
+    }
+    if (!toDate) {
+        $('#leavehistory-toDate').addClass('is-invalid');
+        $('#leavehistory-toDate').closest('.form-group').append('<span class="validation-error text-danger"></span>');
+        /* $('#leavehistory-toDate').closest('.form-group').append('<span class="validation-error text-danger">To date is required</span>');*/
+        isValid = false;
+    }
+
+    // If both dates are provided, proceed with the export
+    if (isValid) {
+        $('.show-progress').show();
+        window.location.href = "/adminleave/exportleavedatatoexcel?startdate=" + fromDate + "&endDate=" + toDate + "&department=" + "" + "&location=" + $('#leavehistory-Location-dropdown').val() + "&status=" + $('#leavehistory-status-dropdown').val();
+        $('.show-progress').hide();
+    }
+});
+
+
+$(document).on('click', '.btn-totalleaves-import', function (event) {
+    event.preventDefault();
+  
+    $.ajax({
+        url: '/adminleave/AdminTotalLeavesImport',
+        type: 'GET',
+        dataType: 'html',      
+        beforeSend: function () {
+            $('.show-progress').show();
+        },
+        success: function (response) {
+            $(".hiddenadmindashboard").html("");
+            $('.admin-dashboard-container').html("");
+            $(".admin-emppadd-container").html("");
+            $('.admin-empmanagement-container').html("");
+            $('.admin-attendance-container').html("");
+            $('.admin-leave-container').html("");
+            $(".hiddenadmindashboard").html(response);
+            var formContent = $(".hiddenadmindashboard").find(".admin-totalleaveimport-view").html();
+            $(".admin-leave-container").html(formContent);
+            $('.admin-leave-container').show();
+            $('.admin-attendance-container').hide();
+            $('.admin-empmanagement-container').hide();
+            $('.admin-emppadd-container').hide();
+            $('.admin-dashboard-container').hide();
+            $('.admin-ticketing-container').hide();
+            $(".hiddenadmindashboard").html("");
+            $('.show-progress').hide();
+        },
+        error: function (xhr, status, error) {
+            $('.show-progress').hide();
+            console.error("Error deleting employee:", error);
+        }
+    });
+});
+
+
+$(document).on('click', '.btn-importleave-submit', function (event) {
+    var file = $('#leave-file-upload-input')[0].files[0];
+    var formData = new FormData();
+    formData.append('file', file);
+
+    $.ajax({
+        url: '/adminleave/uploadtotalleavesexcel',
+        type: 'POST',
+        data: formData,
+        contentType: false,
+        processData: false,
+        success: function (response) {
+            if (response.success) {
+                console.log(response.data); 
+                $('#modalMessage').text(response.message);
+                $('#messageModal').modal('show');
+            } else {
+                $('#modalMessage').text(response.message);
+                $('#messageModal').modal('show');
+            }
+        },
+        error: function (xhr, status, error) {
+            $('#modalMessage').text('Error uploading file: ' + error);
+            $('#messageModal').modal('show');           
+        }
+    });
+});
+
+function downloadLeaveTemplate() {
+    var link = document.createElement('a');
+    link.href = '/assets/templates/ToalEMpLeavesTemplate.xlsx';
+    link.download = 'TotalEmpLeaveTemplate.xlsx';
+    document.body.appendChild(link);
+    link.click();
+    document.body.removeChild(link);
+}

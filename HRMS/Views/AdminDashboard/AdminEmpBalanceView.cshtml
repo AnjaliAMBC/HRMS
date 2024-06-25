@@ -73,18 +73,20 @@
                     <input type="text" id="adminleavetableSearch" placeholder="Search By Keyword" class="advancesearch form-control" aria-label="Search By Keyword" style="border-radius: 0 10px 10px 0; height: 35px; font-size: 14px;">
                 </div>
             </div>
+
+            <div class="col-md-3 res-admin-leave-balance-export">
+                <div class="dropdowns-container d-flex align-items-center" style="justify-content: flex-end;">
+                    <div class="form-group" style="margin-top: 17px;">
+                        <button type="button" class="btn btn-primary btn-totalleaves-import">Import</button>
+                    </div>
+                </div>
+            </div>
+
             <div class="col-md-3 res-admin-leave-balance-export">
                 <div class="dropdowns-container d-flex align-items-center" style="justify-content: flex-end;">
                     <div class="form-group adminleave-dropdown" style="margin-top: 17px;">
                         <button type="button" class="btn btn-primary" id="exportLeaveButton" onclick="exportLeaveBalance()">Export</button>
                     </div>
-
-                    @*<div class="form-group adminleave-dropdown" style="margin-top: 17px;">
-                            <label class="export-label" for="exportLeaveLabel">Export</label>
-                            <button type="button" class="btn btn-link" id="exportLeaveButton" style="padding: 0; margin-left: 10px; font-size: 13px;" data-toggle="collapse" data-target="#LeaveDateDropdown">
-                                <i class="fas fa-chevron-down" style="cursor: pointer;"></i>
-                            </button>
-                        </div>*@
                 </div>
             </div>
         </div>

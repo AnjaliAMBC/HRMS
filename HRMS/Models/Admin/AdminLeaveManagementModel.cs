@@ -38,6 +38,8 @@ namespace HRMS.Models.Admin
 
         public List<emp_info> Employees = new List<emp_info>();
 
+        public List<DropdownItem> Departments = new List<DropdownItem>();
+
 
     }
 }

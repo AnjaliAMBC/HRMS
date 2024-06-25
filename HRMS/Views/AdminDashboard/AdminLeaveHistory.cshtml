@@ -8,9 +8,10 @@
             display: none;
         }
 
-        #adminleaveHistoryTable_length {
+        /* #adminleaveHistoryTable_length {
             display: none;
-        }
+        }*/
+
         .adminleavehistory-dropdown-toggle::after {
             display: none;
         }
@@ -78,9 +79,36 @@
                     </div>
                 </div>
                 <!-- Add leave history dropdown -->
+                <div class="col-lg-2 navbarl col-sm-12 col-md-12 res-admin-leavehistory-block-header res-admin-total-leaves-import">
+                    <div class="form-group " style="margin-top: 17px;">
+                        <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#uploadTotalLeavesModal">Import</button>
+                    </div>
+                </div>
+
+                <!-- Modal -->
+                <div class="modal fade" id="uploadTotalLeavesModal" tabindex="-1" role="dialog" aria-labelledby="uploadModalLabel" aria-hidden="true">
+                    <div class="modal-dialog" role="document">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <h5 class="modal-title" id="uploadModalLabel">Upload Excel File</h5>
+                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                    <span aria-hidden="true">&times;</span>
+                                </button>
+                            </div>
+                            <div class="modal-body">
+                                <input type="file" id="excelFile" name="excelFile" />
+                            </div>
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                                <button type="button" class="btn btn-primary" id="btnUpload">Upload</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
                 <div class="col-lg-2 navbarl col-sm-12 col-md-12 res-admin-leavehistory-block-header res-admin-leave-balance-export">
                     <div class="form-group adminleave-history" style="margin-top: 17px;">
-                        <button type="button" class="btn btn-primary" id="exportLeaveHistory" onclick="exportLeaveHistory()">Export</button>
+                        <button type="button" class="btn btn-primary" id="exportLeaveHistory">Export</button>
                     </div>
                 </div>
                 <div class="col-lg-1 navbarl col-sm-12 col-md-12 res-admin-leavehistory-block-header res-admin-leave-balance-calender">
@@ -110,9 +138,10 @@
                     <div class="dropdown res-adminadvfilter-leavehistory mr-3" style="border-radius: 10px;">
                         <select class="form-control form-select-sm" name="department" id="leavehistory-department-dropdown" style="border-radius: 15px; height: 35px; width: 131px;">
                             <option value="" disabled selected>Department</option>
-                            <option value="HR">HR</option>
-                            <option value="DGM - Design">DGM - Design</option>
-                            <option value="DGM - Web">DGM - Web</option>
+                            @foreach (var item in Model.Departments)
+                            {
+                                <option value="@item.Id">@item.Id</option>
+                            }
                             <option value="All">All</option>
                         </select>
                     </div>
@@ -144,7 +173,7 @@
         <table class="table table-admin-leave-history" id="adminleaveHistoryTable" style="font-size:14px;">
             <thead style="background-color: #EEF4FF; border-radius: 10px;">
                 <tr>
-                    <th><input type="checkbox" id="selectAll"></th>
+                    <th><input type="checkbox" id="selectAllrows"></th>
                     <th>Emp-ID</th>
                     <th>Name</th>
                     <th>Leave Type</th>
@@ -153,6 +182,11 @@
                     <th>Days/Hours</th>
                     <th>Location</th>
                     <th>Reason</th>
+                    <th style="display: none">Status</th>
+                    <th style="display: none">Submitted By</th>
+                    <th style="display: none">Submitted Date</th>
+                    <th style="display: none">Updated By</th>
+                    <th style="display: none">Updated Date</th>
                     <th>
                         <div class="dropdown dropdown-columns">
                             <span class="menu-icon dropdown-th" id="dropdownMenu"><i class="fa-solid fa-list"></i></span>
@@ -175,29 +209,58 @@
                 @foreach (var leaveInfo in Model.AllEMployeeLeaves)
                 {
                     <tr>
-                        <td> <input type="checkbox" id="selectAll"></td>
+                        <td> <input type="checkbox"></td>
                         <td>@leaveInfo.LatestLeave.employee_id</td>
                         @{
                             var empImagePath = "/Assets/EmpImages/" + leaveInfo.LatestLeave.employee_id + ".jpeg";
                         }
-                        <td><div style="display: flex; align-items: center;"><img style="width: 40px;border-radius: 50%;" src="@empImagePath"><span style="margin-top: 0px; margin-right: 10px;">@leaveInfo.LatestLeave.employee_name<br><span style="color: #3E78CF;">asas@klk.dd</span></span></div></td>
+                        <td><div style="display: flex; align-items: center;"><img style="width: 40px;border-radius: 50%;" src="@empImagePath"><span style="margin-top: 0px; margin-right: 10px;">@leaveInfo.LatestLeave.employee_name<br><span style="color: #3E78CF;">@leaveInfo.LatestLeave.OfficalEmailid</span></span></div></td>
                         <td>@leaveInfo.LatestLeave.leavesource</td>
-                        <td class="res-admin-leave-from"><div class="res-leave-his-date">@leaveInfo.LatestLeave.Fromdate.ToString()</div><div class="res-leave-his-day mutedText">Tue</div></td>
-                        <td class="res-admin-leave-to"><div class="res-leave-his-date">@leaveInfo.LatestLeave.Todate.ToString()</div><div class="res-leave-his-day mutedText">Tue</div></td>
+                        <td class="res-admin-leave-from">
+                            <div class="res-leave-his-date">
+                                @(leaveInfo.LatestLeave.Fromdate.HasValue
+            ? leaveInfo.LatestLeave.Fromdate.Value.ToString("dd MMMM yyyy")
+            : "No Date Available")
+
+                            </div><div class="res-leave-his-day mutedText">
+                                @(leaveInfo.LatestLeave.Fromdate.HasValue
+            ? leaveInfo.LatestLeave.Fromdate.Value.ToString("ddd")
+            : "No Date Available")
+                            </div>
+                        </td>
+                        <td class="res-admin-leave-to">
+                            <div class="res-leave-his-date">
+                                @(leaveInfo.LatestLeave.Todate.HasValue
+            ? leaveInfo.LatestLeave.Todate.Value.ToString("dd MMMM yyyy")
+            : "No Date Available")
+                            </div><div class="res-leave-his-day mutedText">
+                                @(leaveInfo.LatestLeave.Todate.HasValue
+            ? leaveInfo.LatestLeave.Todate.Value.ToString("ddd")
+            : "No Date Available")
+                            </div>
+                        </td>
                         <td>@leaveInfo.TotalLeaveDays</td>
                         <td>@leaveInfo.LatestLeave.Location</td>
                         <td>@leaveInfo.LatestLeave.leave_reason</td>
+                        <td style="display: none">@leaveInfo.LatestLeave.LeaveStatus</td>
+                        <td style="display: none">@leaveInfo.LatestLeave.createdby</td>
+                        <td style="display: none">@(leaveInfo.LatestLeave.createddate.HasValue? leaveInfo.LatestLeave.createddate.Value.ToString("dd MMMM yyyy"): "No Date Available")</td>
+                        <td style="display: none">@leaveInfo.LatestLeave.updatedby</td>
+                        <td style="display: none">@(leaveInfo.LatestLeave.updateddate.HasValue? leaveInfo.LatestLeave.updateddate.Value.ToString("dd MMMM yyyy"): "No Date Available")</td>
                         <td></td>
                     </tr>
                 }
-
 
             </tbody>
         </table>
     </div>
 
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.16.9/xlsx.full.min.js"></script>
+
+
     <script>
         $(document).ready(function () {
+            // Initialize DataTable if not already initialized
             if (!$.fn.DataTable.isDataTable('#adminleaveHistoryTable')) {
                 var table = $('#adminleaveHistoryTable').DataTable({
                     "responsive": true,
@@ -206,31 +269,17 @@
                     "ordering": false,
                     "info": true,
                     "autoWidth": false,
-                    "lengthMenu": [[7, 14, 21, -1], [7, 14, 21, "All"]],
-                    //"columnDefs": [
-                    //    { "orderable": false, "targets": 1 },
-                    //    { "orderable": false, "targets": 3 }
-                    //]
-                    //"paging": true,
-                    //"searching": false,
-                    //"pageLength": 8,
-                    //"lengthChange": false,
-                    //"info": true,
-                    //"order": [],
-                    //"autoWidth": false,
-                    //"columnDefs": [
-                    //    {
-                    //        "targets": 0,
-                    //        "orderable": false,
-                    //        "render": function (data, type, full, meta) {
-                    //            return '<input type="checkbox" class="adminleave-history-check"/>'
-                    //        }
-                    //    },
-                    //]
+                    "lengthMenu": [[7, 14, 21, -1], [7, 14, 21, "All"]]
                 });
             }
 
+            // Handle the "Select All" checkbox functionality
+            $(document).on('change', '#selectAllrows', function () {
+                var checked = $(this).is(':checked');
+                $('#adminleaveHistoryTable tbody input[type="checkbox"]').prop('checked', checked);
+            });
 
+            // Dropdown menu toggle
             $('#dropdownMenuContent input[type="checkbox"]').change(function () {
                 var columnIdx = $(this).closest('a').index() + 1;
                 var isChecked = $(this).prop('checked');
@@ -238,7 +287,6 @@
             });
 
             $('#dropdownMenuContent input[type="checkbox"]').prop('checked', true);
-
 
             $(document).on('click', '#dropdownMenu', function () {
                 $('#dropdownMenuContent').toggle();
@@ -250,26 +298,7 @@
                 }
             });
 
-            initializeMultiselect1('#adminselectEmployee', 'Select Employees');
-            $('.multiselect').addClass('bordered');
-
-            $(document).on('change', '#adminselectEmployee', function () {
-                $('.multiselect').addClass('bordered');
-                initializeMultiselect1(this, 'Select Employees');
-            });
-
-            function initializeMultiselect1(selector, nonSelectedText) {
-                $(selector).multiselect('destroy').multiselect({
-                    includeSelectAllOption: true,
-                    enableFiltering: true,
-                    buttonWidth: '100%',
-                    nonSelectedText: nonSelectedText
-                });
-            }
-            $(document).on('show.bs.dropdown', '#adminselectEmployee', function () {
-                alert('sdsd');
-            })
-
+            // Employee search filter
             $(document).on('keyup', '#employeeSearch', function () {
                 var value = $(this).val().toLowerCase();
                 $('#employeeList .form-check').filter(function () {
@@ -277,47 +306,103 @@
                 });
             });
 
-            // Select All functionality
-
-            // Step 4: Filter the DataTable when individual checkboxes are toggled
-            $('#employeeList .form-check-input').change(function () {
-                filterTable(table);
-            });
-
-            // Step 3: Implement the "Select All" functionality
-            $('#selectAll').change(function () {
+            // Select All functionality in employee list
+            $(document).on('change', '#selectAll', function () {
                 var checked = $(this).is(':checked');
                 $('#employeeList .form-check-input').not('#selectAll').prop('checked', checked);
                 filterTable(table);
             });
 
-            // Step 2: Filter the DataTable based on selected employees
-            function filterTable(adminHistoryTable) {
+            // Filter DataTable based on selected employees
+            $('#employeeList .form-check-input').change(function () {
+                filterTable(table);
+            });
+
+            function filterTable(table) {
                 var selectedEmployees = [];
                 $('#employeeList .form-check-input:checked').not('#selectAll').each(function () {
                     selectedEmployees.push($(this).attr('id'));
                 });
 
                 if (selectedEmployees.length > 0) {
-                    adminHistoryTable.columns(1).search(selectedEmployees.join('|'), true, false).draw();
+                    table.columns(1).search(selectedEmployees.join('|'), true, false).draw();
                 } else {
-                    adminHistoryTable.columns(1).search('').draw();
+                    table.columns(1).search('').draw();
                 }
             }
 
 
-            //$(document).on('change', '#selectAll', function () {
-            //    var checked = $(this).is(':checked');
-            //    $('#employeeList .form-check-input').prop('checked', checked);
-            //});
 
-            //$(document).on('change', '#selectAllRows', function () {
-            //    var checked = $(this).is(':checked');
-            //    $('#leaveTable tbody input[type="checkbox"]').prop('checked', checked);
-            //});
+            $(document).off('click', '#exportLeaveHistory').on('click', '#exportLeaveHistory', function (event) {
+                event.preventDefault();
+
+                // Get the table element
+                var table = document.getElementById("adminleaveHistoryTable");
+
+                // Extract table headers, skipping the checkbox column
+                var headers = [];
+                for (var i = 1; i < table.rows[0].cells.length; i++) {
+                    headers.push(table.rows[0].cells[i].innerText);
+                }
+
+                // Insert new headers for Name and Email if not already present
+                if (!headers.includes("Name")) headers.splice(1, 0, "Name");
+                if (!headers.includes("Email")) headers.splice(2, 0, "Email");
+
+                // Extract table data for selected rows only
+                var data = [];
+                for (var i = 1; i < table.rows.length; i++) {
+                    var checkbox = table.rows[i].cells[0].querySelector('input[type="checkbox"]');
+                    if (checkbox && checkbox.checked) {
+                        var row = [];
+                        for (var j = 1; j < table.rows[i].cells.length; j++) {
+                            if (j === 2) {
+                                // Extract name and email separately from the third cell
+                                var nameEmailCell = table.rows[i].cells[j];
+                                var name = nameEmailCell.querySelector("span").childNodes[0].textContent.trim();
+                                var email = nameEmailCell.querySelector("span").childNodes[2].textContent.trim();
+                                row.push(name);
+                                row.push(email);
+                            } else {
+                                row.push(table.rows[i].cells[j].innerText);
+                            }
+                        }
+                        data.push(row);
+                    }
+                }
+
+                // Combine headers and data
+                data.unshift(headers);
+
+                // Create a new workbook and add the table data
+                var wb = XLSX.utils.book_new();
+                var ws = XLSX.utils.aoa_to_sheet(data);
+
+                // Set alignment to left for all cells
+                for (var R = 0; R < data.length; ++R) {
+                    for (var C = 0; C < data[R].length; ++C) {
+                        var cell_address = XLSX.utils.encode_cell({ r: R, c: C });
+                        if (!ws[cell_address]) ws[cell_address] = {};
+                        ws[cell_address].s = {
+                            alignment: { horizontal: "left" }
+                        };
+                    }
+                }
+
+                // Adjust column width to start from the beginning
+                var colWidths = data[0].map(() => ({ wch: 20 }));
+                ws['!cols'] = colWidths;
+
+                // Append worksheet to workbook
+                XLSX.utils.book_append_sheet(wb, ws, "Leave History");
+
+                // Export the workbook to Excel file
+                XLSX.writeFile(wb, "LeaveHistory.xlsx");
+            });
+
+
+
         });
-
-
     </script>
 
 </div>

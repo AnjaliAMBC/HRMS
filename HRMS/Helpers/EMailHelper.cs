@@ -23,6 +23,7 @@ namespace HRMS.Helpers
                 mail.To.Add(request.ToEmail);
                 mail.Subject = request.Subject;
                 mail.Body = request.Body;
+                mail.IsBodyHtml = true;
 
                 SmtpClient smtpClient = new SmtpClient(smtpHost, System.Convert.ToInt32(smtpPort));
                 smtpClient.Credentials = new NetworkCredential(fromEmail, fromPassword);
