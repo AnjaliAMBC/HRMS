@@ -25,5 +25,7 @@ namespace HRMS
         public Nullable<System.DateTime> createddate { get; set; }
         public string updatedby { get; set; }
         public Nullable<System.DateTime> updateddate { get; set; }
+        public Nullable<int> Holidayno { get; set; }
+        public string Location { get; set; }
     }
 }
