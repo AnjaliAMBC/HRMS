@@ -486,7 +486,9 @@ namespace HRMS.Controllers
             return result;
         }
 
-
-
+        public ActionResult AdminEmpLeaveCalender()
+        {
+            return PartialView("~/Views/AdminDashboard/AdminEmpLeaveCalender.cshtml");
+        }
     }
 }
