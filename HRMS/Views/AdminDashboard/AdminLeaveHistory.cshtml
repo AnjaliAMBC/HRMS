@@ -11,6 +11,7 @@
         #adminleaveHistoryTable_length {
             display: none;
         }
+
         .adminleavehistory-dropdown-toggle::after {
             display: none;
         }
@@ -110,9 +111,10 @@
                     <div class="dropdown res-adminadvfilter-leavehistory mr-3" style="border-radius: 10px;">
                         <select class="form-control form-select-sm" name="department" id="leavehistory-department-dropdown" style="border-radius: 15px; height: 35px; width: 131px;">
                             <option value="" disabled selected>Department</option>
-                            <option value="HR">HR</option>
-                            <option value="DGM - Design">DGM - Design</option>
-                            <option value="DGM - Web">DGM - Web</option>
+                            @foreach (var item in Model.Departments)
+                            {
+                                <option value="@item.Id">@item.Id</option>
+                            }
                             <option value="All">All</option>
                         </select>
                     </div>
@@ -182,8 +184,29 @@
                         }
                         <td><div style="display: flex; align-items: center;"><img style="width: 40px;border-radius: 50%;" src="@empImagePath"><span style="margin-top: 0px; margin-right: 10px;">@leaveInfo.LatestLeave.employee_name<br><span style="color: #3E78CF;">asas@klk.dd</span></span></div></td>
                         <td>@leaveInfo.LatestLeave.leavesource</td>
-                        <td class="res-admin-leave-from"><div class="res-leave-his-date">@leaveInfo.LatestLeave.Fromdate.ToString()</div><div class="res-leave-his-day mutedText">Tue</div></td>
-                        <td class="res-admin-leave-to"><div class="res-leave-his-date">@leaveInfo.LatestLeave.Todate.ToString()</div><div class="res-leave-his-day mutedText">Tue</div></td>
+                        <td class="res-admin-leave-from">
+                            <div class="res-leave-his-date">
+                                @(leaveInfo.LatestLeave.Fromdate.HasValue
+            ? leaveInfo.LatestLeave.Fromdate.Value.ToString("dd MMMM yyyy")
+            : "No Date Available")
+
+                            </div><div class="res-leave-his-day mutedText">
+                                @(leaveInfo.LatestLeave.Fromdate.HasValue
+            ? leaveInfo.LatestLeave.Fromdate.Value.ToString("ddd")
+            : "No Date Available")
+                            </div>
+                        </td>
+                        <td class="res-admin-leave-to">
+                            <div class="res-leave-his-date">
+                                @(leaveInfo.LatestLeave.Todate.HasValue
+            ? leaveInfo.LatestLeave.Todate.Value.ToString("dd MMMM yyyy")
+            : "No Date Available")
+                            </div><div class="res-leave-his-day mutedText">
+                                @(leaveInfo.LatestLeave.Todate.HasValue
+            ? leaveInfo.LatestLeave.Todate.Value.ToString("ddd")
+            : "No Date Available")
+                            </div>
+                        </td>
                         <td>@leaveInfo.TotalLeaveDays</td>
                         <td>@leaveInfo.LatestLeave.Location</td>
                         <td>@leaveInfo.LatestLeave.leave_reason</td>

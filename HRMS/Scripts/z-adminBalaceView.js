@@ -38,7 +38,7 @@
 //leave balance update page 
 
 $(document).on('click', '.employeeinfo-balance', function (event) {
-    event.preventDefault(); 
+    event.preventDefault();
     var employeeId = $(this).attr("data-empid");
     $.ajax({
         url: '/adminleave/adminleavebalanceupdate',
@@ -71,12 +71,12 @@ $(document).on('click', '.employeeinfo-balance', function (event) {
 
 //Admin Leave History of all employees 
 $(document).on('click', '.adminleave-history', function (event) {
-    event.preventDefault();   
+    event.preventDefault();
     $.ajax({
         url: '/adminleave/adminleavehistory',
         type: 'GET',
         dataType: 'html',
-        data: { year: 2024 },
+        data: { startdate: $('#leavehistory-fromDate').val(), endDate: $('#leavehistory-toDate').val(), department: "", location: $('#leavehistory-Location-dropdown').val(), status: $('#leavehistory-status-dropdown').val() },
         success: function (response) {
             $(".hiddenadmindashboard").html("");
             $('.admin-dashboard-container').html("");
@@ -244,4 +244,40 @@ $(document).on('click', '.adminleave-CompOff-link', function (event) {
             console.error("Error deleting employee:", error);
         }
     });
+});
+
+
+$(document).on('click', '.leave-export-history', function (event) {
+    // Prevent the default action
+    event.preventDefault();
+
+    // Get the values of the date fields
+    var fromDate = $('#leavehistory-fromDate').val();
+    var toDate = $('#leavehistory-toDate').val();
+
+    // Clear previous validation messages
+    $('.validation-error').remove();
+    $('#leavehistory-fromDate').removeClass('is-invalid');
+    $('#leavehistory-toDate').removeClass('is-invalid');
+
+    // Check if the dates are provided
+    var isValid = true;
+    if (!fromDate) {
+        $('#leavehistory-fromDate').addClass('is-invalid');
+        $('#leavehistory-fromDate').closest('.form-group').append('<span class="validation-error text-danger"></span>');
+        isValid = false;
+    }
+    if (!toDate) {
+        $('#leavehistory-toDate').addClass('is-invalid');
+        $('#leavehistory-toDate').closest('.form-group').append('<span class="validation-error text-danger"></span>');
+       /* $('#leavehistory-toDate').closest('.form-group').append('<span class="validation-error text-danger">To date is required</span>');*/
+        isValid = false;
+    }
+
+    // If both dates are provided, proceed with the export
+    if (isValid) {
+        $('.show-progress').show();
+        window.location.href = "/adminleave/exportleavedatatoexcel?startdate=" + fromDate + "&endDate=" + toDate + "&department=" + "" + "&location=" + $('#leavehistory-Location-dropdown').val() + "&status=" + $('#leavehistory-status-dropdown').val();
+        $('.show-progress').hide();
+    }
 });

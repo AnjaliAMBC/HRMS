@@ -139,20 +139,34 @@ namespace HRMS.Controllers
 
             return Json("", JsonRequestBehavior.AllowGet);
         }
-        public ActionResult AdminLeaveHistory(int year)
+        public ActionResult AdminLeaveHistory(string startdate, string endDate)
         {
-            if (year == 0)
+            DateTime dateStart = new DateTime();
+            DateTime dateEnd = new DateTime();
+            if (string.IsNullOrWhiteSpace(startdate))
             {
-                year = DateTime.Today.Year;
+                dateStart = new DateTime(System.DateTime.Today.Year, 1, 1);
+            }
+            else
+            {
+                dateStart = System.DateTime.Parse(startdate);
             }
 
-            DateTime startDate = new DateTime(year, 1, 1);
-            DateTime endDate = new DateTime(year, 12, 31);
-            var AdminLeaveHistoryModel = new AdminLeaveHistoryViewModel();
+            if (string.IsNullOrWhiteSpace(endDate))
+            {
+                dateEnd = new DateTime(System.DateTime.Today.Year, 12, 31);
+            }
+            else
+            {
+                dateEnd = System.DateTime.Parse(endDate);
+            }
 
-            var leavesHistory = new LeaveCalculator().EmpLeaveInfoBasedonFromAndToDatesWithLeaveDate(startDate.ToString("yyyy-MM-dd"), endDate.ToString("yyyy-MM-dd"), "");
+            var AdminLeaveHistoryModel = new AdminLeaveHistoryViewModel();
+            var leavesHistory = new LeaveCalculator().EmpLeaveInfoBasedonFromAndToDatesWithLeaveDate(dateStart.ToString("yyyy-MM-dd"), dateEnd.ToString("yyyy-MM-dd"), "", "", "", "");
             AdminLeaveHistoryModel.AllEMployeeLeaves = leavesHistory;
             AdminLeaveHistoryModel.Employees = _dbContext.emp_info.ToList();
+
+            AdminLeaveHistoryModel.Departments = new EmployeeHelper(_dbContext).GetDepartments();
 
             return PartialView("~/Views/AdminDashboard/AdminLeaveHistory.cshtml", AdminLeaveHistoryModel);
         }
@@ -266,5 +280,81 @@ namespace HRMS.Controllers
             return PartialView("~/Views/AdminDashboard/AdminLeaveCompOff.cshtml");
         }
 
+
+        public ActionResult ExportLeaveDataToExcel(string startDate, string endDate, string empId, string department, string location, string status)
+        {
+            var cuserContext = SiteContext.GetCurrentUserContext();
+
+            DateTime dateStart = DateTime.ParseExact(startDate, "yyyy-MM-dd", null);
+            DateTime dateEnd = DateTime.ParseExact(endDate, "yyyy-MM-dd", null);
+
+            var leaveInfos = new LeaveCalculator().EmpLeaveInfoBasedonFromAndToDatesWithLeaveDate(dateStart.ToString("yyyy-MM-dd"), dateEnd.ToString("yyyy-MM-dd"), "", department, location, status);
+
+            using (var package = new ExcelPackage())
+            {
+                var worksheet = package.Workbook.Worksheets.Add("Leave Data");
+
+                // Add headers
+                worksheet.Cells[1, 1].Value = "Employee ID";
+                worksheet.Cells[1, 2].Value = "Employee Name";
+                worksheet.Cells[1, 3].Value = "Official Email ID";
+                worksheet.Cells[1, 4].Value = "Leave Type";
+                worksheet.Cells[1, 5].Value = "From Date";
+                worksheet.Cells[1, 6].Value = "To Date";
+                worksheet.Cells[1, 7].Value = "Total Leaves";
+                worksheet.Cells[1, 8].Value = "Location";
+                worksheet.Cells[1, 9].Value = "Leave Reason";
+                worksheet.Cells[1, 10].Value = "Leave Status";
+                worksheet.Cells[1, 11].Value = "Submitted By";
+                worksheet.Cells[1, 12].Value = "Submitted Date";
+                worksheet.Cells[1, 13].Value = "Updated By";
+                worksheet.Cells[1, 14].Value = "Updated Date";
+
+                // Add data rows
+                for (int i = 0; i < leaveInfos.Count; i++)
+                {
+                    var leaveInfo = leaveInfos[i];
+                    var row = i + 2;
+
+                    worksheet.Cells[row, 1].Value = leaveInfo.LatestLeave.employee_id;
+                    worksheet.Cells[row, 2].Value = leaveInfo.LatestLeave.employee_name;
+                    worksheet.Cells[row, 3].Value = leaveInfo.LatestLeave.OfficalEmailid;
+                    worksheet.Cells[row, 4].Value = leaveInfo.LeaveRequestName;
+                    worksheet.Cells[row, 5].Value = leaveInfo.Fromdate?.ToString("yyyy-MM-dd");
+                    worksheet.Cells[row, 6].Value = leaveInfo.Todate?.ToString("yyyy-MM-dd");
+                    worksheet.Cells[row, 7].Value = leaveInfo.TotalLeaveDays;
+                    worksheet.Cells[row, 8].Value = leaveInfo.LatestLeave.Location;
+                    worksheet.Cells[row, 9].Value = leaveInfo.LatestLeave.leave_reason;
+                    worksheet.Cells[row, 10].Value = leaveInfo.LatestLeave.LeaveStatus;
+                    worksheet.Cells[row, 11].Value = leaveInfo.LatestLeave.submittedby;
+                    worksheet.Cells[row, 12].Value = leaveInfo.LatestLeave.createddate?.ToString("yyyy-MM-dd");
+                    worksheet.Cells[row, 13].Value = leaveInfo.LatestLeave.updatedby;
+                    worksheet.Cells[row, 14].Value = leaveInfo.LatestLeave.updateddate?.ToString("yyyy-MM-dd");
+                }
+
+                //// Save the file
+                //FileInfo fileInfo = new FileInfo(filePath);
+                //package.SaveAs(fileInfo);
+
+                // Auto-fit columns for all cells
+                worksheet.Cells[worksheet.Dimension.Address].AutoFitColumns();
+
+                // Set some document properties
+                package.Workbook.Properties.Title = "Leave History";
+                package.Workbook.Properties.Author = cuserContext.EmpInfo.EmployeeName;
+                package.Workbook.Properties.Comments = "This report was generated using AMBC PRM application";
+
+                // Set some extended property values
+                package.Workbook.Properties.Company = "AMBC";
+
+                var stream = new MemoryStream();
+                package.SaveAs(stream);
+                stream.Position = 0;
+
+                string excelName = $"LeaveHistory-{DateTime.Now.ToString("yyyyMMddHHmmssfff")}.xlsx";
+
+                return File(stream, "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet", excelName);
+            }
+        }
     }
 }
