@@ -57,7 +57,9 @@ namespace HRMS
 
             var siteURL = System.Configuration.ConfigurationManager.AppSettings["siteURL"];
             var logoURL = siteURL + "/Assets/AMBC_Logo.png";
-            //Checkin Remainder emails
+            var companyURL = siteURL; // Assuming company URL is the same as site URL, adjust if needed
+
+            // Checkin Reminder emails
             foreach (var checkinEmp in employeesToRemindCheckin)
             {
                 if (checkinEmp.ShiftStartTime != null && checkinEmp.ShiftStartTime.HasValue)
@@ -66,21 +68,26 @@ namespace HRMS
                     string shiftStartTime = time.ToString("hh:mm tt");
                     var checkInSubject = "Do not forget to do your Check-in!";
                     var checkInBody = $@"
-            <html>
-                <body style='font-family: Arial, sans-serif;'>
-                    <div style='border: 1px solid #ddd; padding: 20px; max-width: 600px; margin: 0 auto;'>                        
-                        <div style='padding: 20px;'>
-                            <p>Hi {checkinEmp.EmployeeName},</p>
-                            <p>This is a reminder to check-in.</p>
-                            <p>Your shift begins at {shiftStartTime}. Ensure you have marked your attendance.</p>
-                            <p>Best regards,<br>PRM AMBC</p>
+        <html>
+            <body style='font-family: Arial, sans-serif;'>
+                <div style='border: 1px solid #ddd; padding: 20px; max-width: 600px; margin: 0 auto;'>                        
+                    <div style='padding: 20px;'>
+                        <div style='display: flex; align-items: center;'>
+                            <p style='margin: 0;'>Hi {checkinEmp.EmployeeName},</p>
+                            <a href='{logoURL}' target='_blank' style='margin-left: 10px;'>
+                                <img src='{logoURL}' alt='AMBC Logo' style='max-width: 50px;'>
+                            </a>
                         </div>
-                        <div style='text-align: center; padding: 10px; border-top: 1px solid #ddd;'>
-                            <img src={logoURL} alt='AMBC Logo' style='max-width: 100px;'>
-                        </div>
+                        <p>This is a reminder to check-in.</p>
+                        <p>Your shift begins at {shiftStartTime}. Ensure you have marked your attendance.</p>
+                        <p>Best regards,<br>PRM AMBC</p>
                     </div>
-                </body>
-            </html>";
+                    <div style='text-align: center; padding: 10px; border-top: 1px solid #ddd;'>
+                        <a href='{siteURL}' target='_blank'>{siteURL}</a>
+                    </div>
+                </div>
+            </body>
+        </html>";
 
                     var emailRequest = new EmailRequest()
                     {
@@ -92,6 +99,7 @@ namespace HRMS
                     var sendNotification = EMailHelper.SendEmail(emailRequest);
                 }
             }
+
 
 
             //Checkout remainder emails
