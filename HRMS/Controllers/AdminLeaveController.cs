@@ -295,16 +295,16 @@ namespace HRMS.Controllers
                 var worksheet = package.Workbook.Worksheets.Add("Leave Data");
 
                 // Add headers
-                worksheet.Cells[1, 1].Value = "Employee ID";
-                worksheet.Cells[1, 2].Value = "Employee Name";
-                worksheet.Cells[1, 3].Value = "Official Email ID";
+                worksheet.Cells[1, 1].Value = "Emp-ID";
+                worksheet.Cells[1, 2].Value = "Name";
+                worksheet.Cells[1, 3].Value = "Email";
                 worksheet.Cells[1, 4].Value = "Leave Type";
                 worksheet.Cells[1, 5].Value = "From Date";
                 worksheet.Cells[1, 6].Value = "To Date";
-                worksheet.Cells[1, 7].Value = "Total Leaves";
+                worksheet.Cells[1, 7].Value = "Days/Hours";
                 worksheet.Cells[1, 8].Value = "Location";
-                worksheet.Cells[1, 9].Value = "Leave Reason";
-                worksheet.Cells[1, 10].Value = "Leave Status";
+                worksheet.Cells[1, 9].Value = "Reason";
+                worksheet.Cells[1, 10].Value = "Status";
                 worksheet.Cells[1, 11].Value = "Submitted By";
                 worksheet.Cells[1, 12].Value = "Submitted Date";
                 worksheet.Cells[1, 13].Value = "Updated By";
@@ -319,7 +319,7 @@ namespace HRMS.Controllers
                     worksheet.Cells[row, 1].Value = leaveInfo.LatestLeave.employee_id;
                     worksheet.Cells[row, 2].Value = leaveInfo.LatestLeave.employee_name;
                     worksheet.Cells[row, 3].Value = leaveInfo.LatestLeave.OfficalEmailid;
-                    worksheet.Cells[row, 4].Value = leaveInfo.LeaveRequestName;
+                    worksheet.Cells[row, 4].Value = leaveInfo.LatestLeave.leavesource;
                     worksheet.Cells[row, 5].Value = leaveInfo.Fromdate?.ToString("yyyy-MM-dd");
                     worksheet.Cells[row, 6].Value = leaveInfo.Todate?.ToString("yyyy-MM-dd");
                     worksheet.Cells[row, 7].Value = leaveInfo.TotalLeaveDays;
