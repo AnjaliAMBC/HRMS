@@ -1,4 +1,5 @@
 ﻿using HRMS.Helpers;
+using HRMS.Models;
 using HRMS.Models.Admin;
 using HRMS.Models.Employee;
 using Newtonsoft.Json;
@@ -275,9 +276,32 @@ namespace HRMS.Controllers
                 return File(stream, "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet", excelName);
             }
         }
-        public ActionResult AdminLeaveCompensatoryOff()
+        public ActionResult AdminLeaveCompensatoryOff(string fromDate, string todate)
         {
-            return PartialView("~/Views/AdminDashboard/AdminLeaveCompOff.cshtml");
+            var model = new CompOffModel();
+            DateTime dateStart = new DateTime();
+            DateTime dateEnd = new DateTime();
+            if (string.IsNullOrWhiteSpace(fromDate))
+            {
+                dateStart = new DateTime(System.DateTime.Today.Year, 1, 1);
+            }
+            else
+            {
+                dateStart = System.DateTime.Parse(fromDate);
+            }
+
+            if (string.IsNullOrWhiteSpace(todate))
+            {
+                dateEnd = new DateTime(System.DateTime.Today.Year, 12, 31);
+            }
+            else
+            {
+                dateEnd = System.DateTime.Parse(todate);
+            }
+
+            var compoffsApplied = _dbContext.Compoffs.Where(x => x.CampOffDate >= dateStart && x.CampOffDate <= dateEnd).ToList();
+            model.CompOffs = compoffsApplied;
+            return PartialView("~/Views/AdminDashboard/AdminLeaveCompOff.cshtml", model);
         }
 
 
