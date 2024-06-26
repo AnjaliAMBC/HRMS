@@ -310,12 +310,16 @@ $(document).on('click', '.btn-apply-empleave', function (event) {
 
             if (isNaN(decimalAppliedLeaves) || isNaN(decimaltotalAvailableBalanceLeaves)) {
                 isValid = false;
-                showError('totalLeavesContainer', "Invalid input related to leave balance");
+                $('error-message-showerror').text("Invalid input related to leave balance");
+                $('error-message-showerror').show();
+                //showError('error-message-showerror', "Invalid input related to leave balance");
             }
 
             if (decimalAppliedLeaves > decimaltotalAvailableBalanceLeaves) {
                 isValid = false;
-                showError('totalLeavesContainer', 'You are not allowed to apply the leaves more than the available balance. Please contact administrator.');
+                $('error-message-showerror').text("You are not allowed to apply the leaves more than the available balance. Please contact administrator.");
+                $('error-message-showerror').show();
+                //showError('error-message-showerror', 'You are not allowed to apply the leaves more than the available balance. Please contact administrator.');
             }
         }
     }

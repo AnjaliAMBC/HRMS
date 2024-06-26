@@ -41,7 +41,7 @@
         checkInTime = Model.todayCheckInInfo.Signin_Time;
         checkOutTime = Model.todayCheckInInfo.Signout_Time;
 
-        if (checkOutTime != null && checkOutTime != DateTime.MinValue && Model.IsOnLeave == true)
+        if ((checkOutTime != null && checkOutTime != DateTime.MinValue) || Model.IsOnLeave == true)
         {
             buttonText = "Check-In";
             ButtonDisabled = "disabled";
