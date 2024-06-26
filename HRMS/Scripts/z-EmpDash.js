@@ -253,7 +253,10 @@ function generateCalendar(month, year) {
             const today = new Date();
             const firstDayOfMonth = new Date(year, month, 1);
             const daysInMonth = new Date(year, month + 1, 0).getDate();
-            const startingDay = firstDayOfMonth.getDay();  // getDay() returns 0 for Sunday
+            let startingDay = firstDayOfMonth.getDay();
+
+            // Adjust starting day so that Monday is the first day of the week
+            startingDay = (startingDay + 6) % 7;
 
             const calendarBody = document.getElementById("calendarBody");
             if (!calendarBody) {
@@ -283,9 +286,9 @@ function generateCalendar(month, year) {
                         const cell = document.createElement("td");
                         cell.textContent = date;
 
-                        // Highlight Sunday (0) and Saturday (6) in red
-                        if (j === 0 || j === 6) {
-                            cell.style.color = "red";
+                        // Highlight Sunday (6) and Saturday (5) in red (because now Sunday is the 6th day)
+                        if (j === 5 || j === 6) {
+                            cell.style.color = "#8C8C8C";
                         }
 
                         const festivalKey = `${month + 1}-${date}`;
@@ -311,8 +314,11 @@ function generateCalendar(month, year) {
             }
         }
     });
-
 }
+
+
+ 
+
 
 function prevMonth() {
     currentDashCalenderMonth--;
