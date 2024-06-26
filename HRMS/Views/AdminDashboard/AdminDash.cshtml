@@ -5,7 +5,7 @@
 <div class="container-fluid res-admin-dashboard">
     @Html.Partial("_adminsidemenu")
     <div class="main-content container-fluid" style="width: 84%">
-        <div class="content admin-empmanagement-container pt-3">
+        <div class="content admin-empmanagement-container ">
 
             <div class="admin-dashboard-view">
                 <div class="container-fluid res-admindash">
@@ -67,10 +67,10 @@
                                 <!-- Announcements Section -->
                                 <div class="card mx-2">
                                     <div class="card-header">
-                                        Announcements
+                                        HR Tickets
                                     </div>
                                     <div class="card-body admindash_card scrollbar px-4 py-1 announcement_card">
-                                        <form>
+                                                                        @*<form>
                                             <div class="form-group mb-2">
                                                 <label for="subject" class="m-0">Subject</label>
                                                 <input type="text" class="form-control" id="subject" placeholder="Enter subject">
@@ -84,7 +84,14 @@
                                                 <input type="text" class="form-control" id="to" placeholder="Enter recipients">
                                             </div>
                                             <button type="submit" class="btn btn-primary d-flex ml-auto px-4 py-1">Send</button>
-                                        </form>
+                                        </form>*@
+
+                                        <p class="m-0 p-0">Can't able to apply leave'</p>
+                                        <div class="d-flex inside_content">
+                                            <p class="mutedText"><i class="fa-solid fa-circle-exclamation mr-1"></i>Priority-</p>
+                                            <p class="status-priority">High</p>
+                                            <p class="mutedText ml-3"><i class="fa-solid fa-user mr-1"></i>Closed by subhashini</p>
+                                        </div>
                                     </div>
                                 </div>
                             </div>
@@ -104,7 +111,7 @@
                                             <i class="fas fa-chevron-left chevron-icon ml-4" onclick="prevMonth()"></i>
                                         </div>
                                         <div>
-                                            <h6 id="monthYear" class="mt-1"></h6>
+                                            <h6 id="monthYear" class="mt-1 mb-0"></h6>
                                         </div>
                                         <div>
                                             <i class="fas fa-chevron-right chevron-icon mr-4" onclick="nextMonth()"></i>
@@ -224,7 +231,7 @@
                                                     <li class="dashhoiday_description">
                                                         <a class="res-holidays-details-left compOff-request" data-leavenumber="@holiday.HolidayNo" data-location="@holiday.Region">
                                                             <h6 class="mb-0">@holiday.HolidayName</h6>
-                                                            <p class="smalltext">@holiday.HolidayDate.ToString("dd MMMM dddd")</p><span>@holiday.Region</span>
+                                                            <p class="smalltext">@holiday.HolidayDate.ToString("dd MMMM dddd")<span class="ml-2 holiday_location">@holiday.Region</span></p>
                                                         </a>
 
                                                         @if (totalApplied > 0)
