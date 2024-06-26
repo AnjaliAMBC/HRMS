@@ -342,7 +342,8 @@ $(document).on('click', '.btn-apply-empleave', function (event) {
         OfficalEmailid: officialEmail,
         ActionType: $('.btn-apply-empleave').text(),
         EditRequestName: $('#editleaverequestname').text(),
-
+        Department: department,
+        Designation: designation
     };
 
     $.ajax({

@@ -72,7 +72,7 @@ namespace HRMS.Controllers
                 "0.5 Hours",
                 "1 Hour",
                 "1.5 Hours",
-                "2 Hours"                
+                "2 Hours"
             };
 
 
@@ -140,7 +140,7 @@ namespace HRMS.Controllers
                             updatedby = leaveRequest.SubmittedBy,
                             updateddate = DateTime.Now,
                             Designation = leaveRequest.Designation,
-                            //Department= leaveRequest.Department,
+                            Department = leaveRequest.Department,
 
                         });
                     }
@@ -173,7 +173,7 @@ namespace HRMS.Controllers
                         updatedby = leaveRequest.SubmittedBy,
                         updateddate = DateTime.Now,
                         Designation = leaveRequest.Designation,
-                        //Department= leaveRequest.Department,
+                        Department = leaveRequest.Department,
                     });
                 }
 
@@ -338,7 +338,7 @@ namespace HRMS.Controllers
             else
             {
                 // Query leave data and group by LeaveRequestName
-                if(!string.IsNullOrWhiteSpace(empID))
+                if (!string.IsNullOrWhiteSpace(empID))
                 {
                     leaves = _dbContext.con_leaveupdate
                   .Where(x => x.Fromdate >= dateStart && x.Todate <= dateEnd && x.LeaveRequestName == leaverequestname && x.employee_id == empID)
@@ -352,7 +352,7 @@ namespace HRMS.Controllers
                  .OrderByDescending(x => x.Fromdate)
                  .ToList();
                 }
-               
+
             }
             var json = JsonConvert.SerializeObject(leaves);
 
