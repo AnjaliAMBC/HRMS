@@ -517,6 +517,68 @@ function GetEmpLeaveHistory() {
 }
 
 
+function GetCompOffHistory() {
+    $.ajax({
+        url: '/adminleave/EmployeeLeaveCompensatoryOff',
+        type: 'GET',
+        dataType: 'json',
+        data: {
+            fromDate: $('#fromDate').val(),
+            todate: $('#toDate').val(),
+            empID: $('.loggedinempid').text()
+        },
+        success: function (response) {
+            var json = $.parseJSON(response);
+            let tableRows = json.CompOffs.map(item => {
+                const requestedDate = item.createddate ? new Date(item.createddate).toLocaleDateString('en-GB', { day: 'numeric', month: 'long', year: 'numeric' }) : "";
+                const workDate = item.CampOffDate ? new Date(item.CampOffDate).toLocaleDateString('en-GB', { day: 'numeric', month: 'long', year: 'numeric' }) : "";
+
+                return `
+                    <tr>
+                        <td style="display:none">${item.EmployeeID}</td>
+                        <td style="display:none">${item.EmployeeName}</td>
+                        <td>
+                            <div class="mutedText">Requested Date</div>
+                            <span class="fontWtMedium"><b>${requestedDate}</b></span>
+                        </td>
+                        <td>
+                             <div class="mutedText">Work Date</div>
+                             <span class="fontWtMedium"><b>${workDate}</b></span>
+                        </td>
+                        <td><div class="mutedText">Status</div>
+                             <span class="fontWtMedium"><b>${item.status}</b></span>
+                        </td>
+                        <td><div class="mutedText">Reason</div>
+                             <span class="fontWtMedium"><b>${item.leave_reason}</b></span></td>
+                    </tr>
+                `;
+            }).join('');
+
+            $('#empleaveCompOffTable tbody').html(tableRows);
+
+            if (!$.fn.DataTable.isDataTable('#empleaveCompOffTable')) {
+                $('#empleaveCompOffTable').DataTable({
+                    "paging": true,
+                    "searching": false,
+                    "ordering": true,
+                    "info": true,
+                    "autoWidth": false,
+                    "lengthMenu": [[7, 14, 21, -1], [7, 14, 21, "All"]],
+                    "columnDefs": [
+                        { "orderable": true, "targets": 0 },
+                        { "orderable": true, "targets": 2 },
+                        { "orderable": true, "targets": 3 }
+                    ]
+                });
+            }
+        },
+        error: function (xhr, status, error) {
+            console.error(error);
+        }
+    });
+}
+
+
 
 function toggleLeaveActionOptions(iconElement) {
     const optionsMenu = $(iconElement).next('.emp-leaveoptions');
@@ -617,6 +679,7 @@ $(document).on('click', '.history_btn', function (event) {
         cardDiv.style.display = 'none';
         leaveHistory.style.display = 'block';
         GetEmpLeaveHistory();
+        GetCompOffHistory();
 
     } else {
         historyBtn.textContent = "Leave History";

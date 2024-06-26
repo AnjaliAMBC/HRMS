@@ -153,7 +153,7 @@
 
                                             @foreach (var year in years)
                                             {
-                                            <option value="@year">@year</option>
+                                                <option value="@year">@year</option>
                                             }
                                         </select>
                                     </div>
@@ -191,45 +191,15 @@
                                     <table id="empleaveCompOffTable" class="table empleave-compoff-table">
                                         <thead style="display: none">
                                             <tr>
-                                                <th>Date</th>
-                                                <th>Day(s)</th>
-                                                <th>Leave Type</th>
+                                                <th>Emp ID</th>
+                                                <th>Emp Name</th>
+                                                <th>Requested Date</th>
+                                                <th>Work Date</th>
                                                 <th>Status</th>
                                                 <th>Reason</th>
-                                                <th></th>
                                             </tr>
                                         </thead>
                                         <tbody>
-                                            <tr class="rowBorder odd">
-                                                <td class="fontSmall dataMinWidth dateMaxWidth">
-                                                    <p class="mb-0 fontWtMedium">21 June 2024 - 26 June 2024</p><span class="mutedText">Fri - Wed</span>
-                                                </td>
-                                                <td class="fontSmall">
-                                                    <div class="mutedText">Day(s)</div>
-                                                    <span class="fontWtMedium">3</span>
-                                                </td>
-                                                <td class="fontSmall dataMinWidth">
-                                                    <div class="mutedText">Leave Type</div>
-                                                    <span class="fontWtbold">Earned Leave</span>
-                                                </td>
-                                                <td class="fontSmall">
-                                                    <div class="mutedText">Status</div>
-                                                    <span class="fontWtMedium status-approved">Approved</span>
-                                                </td>
-                                                <td class="fontSmall commentSec">
-                                                    <div class="dFlex">
-                                                        <i class="fa-solid fa-message chatIcon"></i>
-                                                        <p>e342234</p>
-                                                    </div>
-                                                </td>
-                                                <td class="fontSmall position-relative">
-                                                    <i class="fas fa-ellipsis-h leave-edit-compoff" onclick="toggleEmpLeaveCompOffActionOptions(this)"></i>
-                                                    <div class="emp-leaveoptions" style="display:none">
-                                                        <a class="dropdown-item emp-leavecompoff-edit" onclick="empleavecompoffedit($(this))" data-leavename="11">Edit</a>
-                                                        <a class="dropdown-item emp-leavecompoff-cancel" onclick="empleavecompoffcancel($(this))" data-leavename="11">Cancel</a>
-                                                    </div>
-                                                </td>
-                                            </tr>
                                         </tbody>
                                     </table>
                                 </div>

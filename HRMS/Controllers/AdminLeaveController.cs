@@ -278,11 +278,18 @@ namespace HRMS.Controllers
         }
         public ActionResult AdminLeaveCompensatoryOff(string fromDate, string todate)
         {
-            CompOffModel model = GetCompoffsByFromandTodate(fromDate, todate);
+            CompOffModel model = GetCompoffsByFromandTodate(fromDate, todate, "");
             return PartialView("~/Views/AdminDashboard/AdminLeaveCompOff.cshtml", model);
         }
 
-        private CompOffModel GetCompoffsByFromandTodate(string fromDate, string todate)
+        public ActionResult EmployeeLeaveCompensatoryOff(string fromDate, string todate, string empID)
+        {
+            CompOffModel model = GetCompoffsByFromandTodate(fromDate, todate, empID);
+            var json = JsonConvert.SerializeObject(model);
+            return Json(json, JsonRequestBehavior.AllowGet);
+        }
+
+        private CompOffModel GetCompoffsByFromandTodate(string fromDate, string todate, string empID)
         {
             var model = new CompOffModel();
             DateTime dateStart = new DateTime();
@@ -305,7 +312,17 @@ namespace HRMS.Controllers
                 dateEnd = System.DateTime.Parse(todate);
             }
 
-            var compoffsApplied = _dbContext.Compoffs.Where(x => x.CampOffDate >= dateStart && x.CampOffDate <= dateEnd).ToList();
+            var compoffsApplied = new List<Compoff>();
+
+            if (string.IsNullOrWhiteSpace(empID))
+            {
+                compoffsApplied = _dbContext.Compoffs.Where(x => x.CampOffDate >= dateStart && x.CampOffDate <= dateEnd).ToList();
+            }
+            else
+            {
+                compoffsApplied = _dbContext.Compoffs.Where(x => x.CampOffDate >= dateStart && x.CampOffDate <= dateEnd && x.EmployeeID == empID).ToList();
+            }
+
             model.CompOffs = compoffsApplied;
             return model;
         }
@@ -313,7 +330,7 @@ namespace HRMS.Controllers
         public ActionResult ExportCompOffstoExcel(string startDate, string endDate)
         {
             var cuserContext = SiteContext.GetCurrentUserContext();
-            var compOffs = GetCompoffsByFromandTodate(startDate, endDate).CompOffs;
+            var compOffs = GetCompoffsByFromandTodate(startDate, endDate, "").CompOffs;
 
             using (var package = new ExcelPackage())
             {
