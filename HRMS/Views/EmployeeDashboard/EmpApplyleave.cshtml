@@ -36,7 +36,7 @@
                                 @foreach (var emp in Model.employees)
                                 {
                                     var selected = !currentUserSession.IsAdmin && emp.EmployeeID == selectedempID ? "selected" : "";
-                                    <option @selected value="@emp.EmployeeID" data-emplocation="@emp.Location" data-empemail="@emp.OfficalEmailid">@emp.EmployeeName</option>
+                                    <option @selected value="@emp.EmployeeID" data-emplocation="@emp.Location" data-empemail="@emp.OfficalEmailid" data-designation="@emp.Designation" data-department="@emp.Department">@emp.EmployeeName</option>
                                 }
                             </select>
                             <span class="error-message" id="leaveempname-error"></span>

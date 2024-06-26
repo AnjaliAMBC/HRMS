@@ -27,6 +27,8 @@ namespace HRMS.Models.Employee
         public string OfficalEmailid { get; set; }
         public string ActionType { get; set; }
         public string EditRequestName { get; set; }
+        public string Designation { get; set; }
+        public string Department { get; set; }
     }
 
     public class DayTypeEntry

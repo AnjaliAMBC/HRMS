@@ -39,5 +39,6 @@ namespace HRMS
         public string updatedby { get; set; }
         public Nullable<System.DateTime> updateddate { get; set; }
         public string Designation { get; set; }
+        public string Department { get; set; }
     }
 }

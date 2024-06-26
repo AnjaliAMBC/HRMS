@@ -282,7 +282,7 @@ function generateLeaveCalendar(month, year) {
                                         cell.classList.add("highlight-currentleave");
                                     } else if (leaveholidays[holidayKey] != undefined && leaveholidays[holidayKey] != "") {
                                         cell.classList.add("highlight-festival-leave");
-                                        cell.innerHTML += `<div>${leaveholidays[holidayKey]}</div>`;
+                                        cell.innerHTML += `<div><i class="fa fa-circle"></i>${leaveholidays[holidayKey]}</div>`;
                                     }
 
                                     if (leaveRequests[formattedDate]) {
@@ -517,6 +517,14 @@ function GetEmpLeaveHistory() {
 }
 
 
+function toggleEmpCompoffActionOptions(iconElement) {
+    const optionsMenu = $(iconElement).next('.emp-compoffs');
+    $('.emp-compoffs').not(optionsMenu).hide(); // Hide any other open menus
+    optionsMenu.toggle(); // Toggle visibility of the clicked menu
+}
+
+
+
 function GetCompOffHistory() {
     $.ajax({
         url: '/adminleave/EmployeeLeaveCompensatoryOff',
@@ -533,6 +541,13 @@ function GetCompOffHistory() {
                 const requestedDate = item.createddate ? new Date(item.createddate).toLocaleDateString('en-GB', { day: 'numeric', month: 'long', year: 'numeric' }) : "";
                 const workDate = item.CampOffDate ? new Date(item.CampOffDate).toLocaleDateString('en-GB', { day: 'numeric', month: 'long', year: 'numeric' }) : "";
 
+                const leaveStatus = item.addStatus.toLowerCase();
+                const leaveActions = (leaveStatus === 'pending') ? `
+                    <i class="fas fa-ellipsis-h" onclick="toggleEmpCompoffActionOptions(this)"></i>
+                    <div class="emp-compoffs" style="display:none">                       
+                        <a href="" class="dropdown-item statusBtn cancelLeavecompoffBtn" data-leavename="Cancel" data-compoffnum="${item.Compoff_no}">Cancel</a>                       
+                    </div>` : '';
+
                 return `
                     <tr>
                         <td style="display:none">${item.EmployeeID}</td>
@@ -545,11 +560,14 @@ function GetCompOffHistory() {
                              <div class="mutedText">Work Date</div>
                              <span class="fontWtMedium"><b>${workDate}</b></span>
                         </td>
-                        <td><div class="mutedText">Status</div>
-                             <span class="fontWtMedium"><b>${item.status}</b></span>
+                        <td class="compoff-status"><div class="mutedText">Status</div>
+                             <span class="fontWtMedium"><b>${item.addStatus}</b></span>
                         </td>
                         <td><div class="mutedText">Reason</div>
-                             <span class="fontWtMedium"><b>${item.leave_reason}</b></span></td>
+                             <span class="fontWtMedium"><b>${item.Reason}</b></span></td>
+                        <td class="fontSmall position-relative compoff-actions">
+                            ${leaveActions}
+                        </td>
                     </tr>
                 `;
             }).join('');

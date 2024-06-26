@@ -186,7 +186,7 @@ namespace HRMS.Controllers
                 leaveBalanceInfo.Maternity = leaveBalance.Maternity;
                 leaveBalanceInfo.Sick = leaveBalance.Sick;
                 leaveBalanceInfo.Paternity = leaveBalance.Paternity;
-                //leaveBalanceInfo.HourlyPermission = 
+                leaveBalanceInfo.HourlyPermission = leaveBalance.HourlyPermission;
                 _dbContext.SaveChanges();
                 return Json(new { success = true, message = "Leave balance updated successfully." });
             }
@@ -316,11 +316,11 @@ namespace HRMS.Controllers
 
             if (string.IsNullOrWhiteSpace(empID))
             {
-                compoffsApplied = _dbContext.Compoffs.Where(x => x.CampOffDate >= dateStart && x.CampOffDate <= dateEnd).ToList();
+                compoffsApplied = _dbContext.Compoffs.Where(x => x.CampOffDate >= dateStart && x.CampOffDate <= dateEnd).OrderByDescending(x => x.createddate).ToList();
             }
             else
             {
-                compoffsApplied = _dbContext.Compoffs.Where(x => x.CampOffDate >= dateStart && x.CampOffDate <= dateEnd && x.EmployeeID == empID).ToList();
+                compoffsApplied = _dbContext.Compoffs.Where(x => x.CampOffDate >= dateStart && x.CampOffDate <= dateEnd && x.EmployeeID == empID).OrderByDescending(x => x.createddate).ToList();
             }
 
             model.CompOffs = compoffsApplied;
@@ -399,27 +399,38 @@ namespace HRMS.Controllers
             {
                 var worksheet = package.Workbook.Worksheets.Add("Leave Data");
 
-                // Add headers
-                worksheet.Cells[1, 1].Value = "Emp-ID";
-                worksheet.Cells[1, 2].Value = "Name";
-                worksheet.Cells[1, 3].Value = "Email";
-                worksheet.Cells[1, 4].Value = "Leave Type";
-                worksheet.Cells[1, 5].Value = "From Date";
-                worksheet.Cells[1, 6].Value = "To Date";
-                worksheet.Cells[1, 7].Value = "Days/Hours";
-                worksheet.Cells[1, 8].Value = "Location";
-                worksheet.Cells[1, 9].Value = "Reason";
-                worksheet.Cells[1, 10].Value = "Status";
-                worksheet.Cells[1, 11].Value = "Submitted By";
-                worksheet.Cells[1, 12].Value = "Submitted Date";
-                worksheet.Cells[1, 13].Value = "Updated By";
-                worksheet.Cells[1, 14].Value = "Updated Date";
+                // Add first three rows with custom information
+                worksheet.Cells[1, 1].Value = "From Date";
+                worksheet.Cells[1, 2].Value = dateStart.ToString("dd-MMM-yyyy");
 
-                // Add data rows
+                worksheet.Cells[2, 1].Value = "To Date";
+                worksheet.Cells[2, 2].Value = dateEnd.ToString("dd-MMM-yyyy");
+
+                worksheet.Cells[3, 1].Value = "Department";
+                worksheet.Cells[3, 2].Value = department;
+
+                // Add an empty row
+                // Add headers starting from the fifth row
+                worksheet.Cells[5, 1].Value = "Emp-ID";
+                worksheet.Cells[5, 2].Value = "Name";
+                worksheet.Cells[5, 3].Value = "Email";
+                worksheet.Cells[5, 4].Value = "Leave Type";
+                worksheet.Cells[5, 5].Value = "From Date";
+                worksheet.Cells[5, 6].Value = "To Date";
+                worksheet.Cells[5, 7].Value = "Days/Hours";
+                worksheet.Cells[5, 8].Value = "Location";
+                worksheet.Cells[5, 9].Value = "Reason";
+                worksheet.Cells[5, 10].Value = "Status";
+                worksheet.Cells[5, 11].Value = "Submitted By";
+                worksheet.Cells[5, 12].Value = "Submitted Date";
+                worksheet.Cells[5, 13].Value = "Updated By";
+                worksheet.Cells[5, 14].Value = "Updated Date";
+
+                // Add data rows starting from the sixth row
                 for (int i = 0; i < leaveInfos.Count; i++)
                 {
                     var leaveInfo = leaveInfos[i];
-                    var row = i + 2;
+                    var row = i + 6; // Adjust for the rows added above
 
                     worksheet.Cells[row, 1].Value = leaveInfo.LatestLeave.employee_id;
                     worksheet.Cells[row, 2].Value = leaveInfo.LatestLeave.employee_name;
@@ -427,7 +438,7 @@ namespace HRMS.Controllers
                     worksheet.Cells[row, 4].Value = leaveInfo.LatestLeave.leavesource;
                     worksheet.Cells[row, 5].Value = leaveInfo.Fromdate?.ToString("yyyy-MM-dd");
                     worksheet.Cells[row, 6].Value = leaveInfo.Todate?.ToString("yyyy-MM-dd");
-                    worksheet.Cells[row, 7].Value = leaveInfo.TotalLeaveDays;
+                    worksheet.Cells[row, 7].Value = leaveInfo.TotalLeaveDays.ToString().Trim();
                     worksheet.Cells[row, 8].Value = leaveInfo.LatestLeave.Location;
                     worksheet.Cells[row, 9].Value = leaveInfo.LatestLeave.leave_reason;
                     worksheet.Cells[row, 10].Value = leaveInfo.LatestLeave.LeaveStatus;
@@ -436,10 +447,6 @@ namespace HRMS.Controllers
                     worksheet.Cells[row, 13].Value = leaveInfo.LatestLeave.updatedby;
                     worksheet.Cells[row, 14].Value = leaveInfo.LatestLeave.updateddate?.ToString("yyyy-MM-dd");
                 }
-
-                //// Save the file
-                //FileInfo fileInfo = new FileInfo(filePath);
-                //package.SaveAs(fileInfo);
 
                 // Auto-fit columns for all cells
                 worksheet.Cells[worksheet.Dimension.Address].AutoFitColumns();
@@ -461,6 +468,7 @@ namespace HRMS.Controllers
                 return File(stream, "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet", excelName);
             }
         }
+
 
 
         public ActionResult ChangeCompoffStatus(int compoffNum, string status)
@@ -556,7 +564,7 @@ namespace HRMS.Controllers
                             isRecordExists.Emergency = record.Emergency;
                             isRecordExists.Sick = record.Sick;
                             isRecordExists.Bereavement = record.Bereavement;
-                            //isRecordExists.HourlyPermission = record.HourlyPermission;
+                            isRecordExists.HourlyPermission = record.HourlyPermission;
                             isRecordExists.Marriage = record.Marriage;
                             isRecordExists.Maternity = record.Marriage;
                             isRecordExists.Paternity = record.Paternity;
@@ -577,7 +585,8 @@ namespace HRMS.Controllers
                                 Maternity = record.Maternity,
                                 Paternity = record.Paternity,
                                 Sick = record.Sick,
-                                Year = record.Year
+                                Year = record.Year,
+                                HourlyPermission = record.HourlyPermission                               
                             };
 
                             _dbContext.LeaveBalances.Add(leaveBalance);

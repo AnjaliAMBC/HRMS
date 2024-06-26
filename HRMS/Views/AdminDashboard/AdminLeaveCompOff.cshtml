@@ -89,7 +89,7 @@
                             @{
                                 var empImagePath = "/Assets/EmpImages/" + @compoff.EmployeeID + ".jpeg";
                             }
-                            <td><div style="display: flex; align-items: center;"><img style="width: 40px;border-radius: 50%;" src="@empImagePath"><span style="margin-top: 0px; margin-right: 10px;">@compoff.EmployeeName<br><span style="color: #3E78CF;">@*@compoff.LatestLeave.OfficalEmailid*@</span></span></div></td>
+                            <td><div style="display: flex; align-items: center;"><img style="width: 40px;border-radius: 50%;" src="@empImagePath"><span style="margin-top: 0px; margin-right: 10px;">@compoff.EmployeeName<br><span style="color: #3E78CF;">@compoff.OfficalEmailid</span></span></div></td>
                             <td class="fontSmall dataMinWidth dateMaxWidth">
                                 <span class="mutedText">Requested Date</span>
                                 <p class="mb-0 fontWtMedium">
@@ -113,7 +113,7 @@
                                 <div class="dFlex">
                                     <i class="fa-solid fa-message chatIcon"></i>
                                     <p>
-                                        Test data Test data Test data Test data
+                                        @compoff.Reason
                                     </p>
                                 </div>
                                 <div class="statusBtnFlex">

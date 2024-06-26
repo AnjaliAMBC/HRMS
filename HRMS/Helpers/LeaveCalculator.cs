@@ -475,10 +475,10 @@ namespace HRMS.Helpers
 
             query = query.Where(x => x.leavedate >= dateStart && x.leavedate <= dateEnd);
 
-            //if (department != "null" && !string.IsNullOrWhiteSpace(department))
-            //{
-            //    query = query.Where(x => x.department == department);
-            //}
+            if (department != "null" && !string.IsNullOrWhiteSpace(department))
+            {
+                query = query.Where(x => x.Department == department);
+            }
 
             if (location != "null" && !string.IsNullOrWhiteSpace(location))
             {

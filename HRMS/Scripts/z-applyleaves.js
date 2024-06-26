@@ -206,6 +206,8 @@ $(document).on('click', '.btn-apply-empleave', function (event) {
     let backupNo = $('#BackupNo').val();
     let location = $("#leaveempname option:selected").attr("data-emplocation");
     let officialEmail = $("#leaveempname option:selected").attr("data-empemail");
+    let department = $("#leaveempname option:selected").attr("data-department");
+    let designation = $("#leaveempname option:selected").attr("data-designation");
 
     let isValid = true;
 
@@ -339,7 +341,9 @@ $(document).on('click', '.btn-apply-empleave', function (event) {
         Location: location,
         OfficalEmailid: officialEmail,
         ActionType: $('.btn-apply-empleave').text(),
-        EditRequestName: $('#editleaverequestname').text()
+        EditRequestName: $('#editleaverequestname').text(),
+        Department: department,
+        Designation: designation
     };
 
     $.ajax({
@@ -425,8 +429,8 @@ $(document).on('click', '.dashhoiday_description', function (e) {
     $('#Compreason').val("");
     var holidayName = $('.selectedholidayname').text($(this).find('h6').text());
     var holidayDate = $('#Compdate').val($(this).find('p').text());
-    $('.selectedholidaynumber').text($(this).attr("data-leavenumber"));
-    $('.selectedholidaylocation').text($(this).attr("data-location"));
+    $('.selectedholidaynumber').text($(this).find('a').attr("data-leavenumber"));
+    $('.selectedholidaylocation').text($(this).find('a').attr("data-location"));
     $('#compOffMessage').html("");
     $('#compOffMessage').hide();
     $('#CompemployeeName').removeClass("is-invalid");
