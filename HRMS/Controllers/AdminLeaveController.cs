@@ -278,6 +278,12 @@ namespace HRMS.Controllers
         }
         public ActionResult AdminLeaveCompensatoryOff(string fromDate, string todate)
         {
+            CompOffModel model = GetCompoffsByFromandTodate(fromDate, todate);
+            return PartialView("~/Views/AdminDashboard/AdminLeaveCompOff.cshtml", model);
+        }
+
+        private CompOffModel GetCompoffsByFromandTodate(string fromDate, string todate)
+        {
             var model = new CompOffModel();
             DateTime dateStart = new DateTime();
             DateTime dateEnd = new DateTime();
@@ -301,9 +307,67 @@ namespace HRMS.Controllers
 
             var compoffsApplied = _dbContext.Compoffs.Where(x => x.CampOffDate >= dateStart && x.CampOffDate <= dateEnd).ToList();
             model.CompOffs = compoffsApplied;
-            return PartialView("~/Views/AdminDashboard/AdminLeaveCompOff.cshtml", model);
+            return model;
         }
 
+        public ActionResult ExportCompOffstoExcel(string startDate, string endDate)
+        {
+            var cuserContext = SiteContext.GetCurrentUserContext();
+            var compOffs = GetCompoffsByFromandTodate(startDate, endDate).CompOffs;
+
+            using (var package = new ExcelPackage())
+            {
+                var worksheet = package.Workbook.Worksheets.Add("Leave Data");
+
+                // Add headers
+                worksheet.Cells[1, 1].Value = "Emp-ID";
+                worksheet.Cells[1, 2].Value = "Name";
+                worksheet.Cells[1, 3].Value = "Email";
+                worksheet.Cells[1, 4].Value = "Requested Date";
+                worksheet.Cells[1, 5].Value = "Work Date";
+                worksheet.Cells[1, 6].Value = "Location";
+                worksheet.Cells[1, 7].Value = "Reason";
+                worksheet.Cells[1, 8].Value = "Status";
+
+                // Add data rows
+                for (int i = 0; i < compOffs.Count; i++)
+                {
+                    var copmOffInfo = compOffs[i];
+                    var row = i + 2;
+
+                    worksheet.Cells[row, 1].Value = copmOffInfo.EmployeeID;
+                    worksheet.Cells[row, 2].Value = copmOffInfo.EmployeeName;
+                    worksheet.Cells[row, 3].Value = "";
+                    worksheet.Cells[row, 4].Value = copmOffInfo.createddate?.ToString("yyyy-MM-dd");
+                    worksheet.Cells[row, 5].Value = copmOffInfo.CampOffDate.ToString("yyyy-MM-dd");
+                    worksheet.Cells[row, 6].Value = copmOffInfo.Location;
+                    worksheet.Cells[row, 7].Value = "";
+                    worksheet.Cells[row, 8].Value = copmOffInfo.addStatus;
+                }
+
+                //// Save the file
+                //FileInfo fileInfo = new FileInfo(filePath);
+                //package.SaveAs(fileInfo);
+
+                // Auto-fit columns for all cells
+                worksheet.Cells[worksheet.Dimension.Address].AutoFitColumns();
+
+                // Set some document properties
+                package.Workbook.Properties.Title = "Compoff Requests";
+                package.Workbook.Properties.Author = cuserContext.EmpInfo.EmployeeName;
+                package.Workbook.Properties.Comments = "This report was generated using AMBC PRM application";
+
+                // Set some extended property values
+                package.Workbook.Properties.Company = "AMBC";
+
+                var stream = new MemoryStream();
+                package.SaveAs(stream);
+                stream.Position = 0;
+
+                string excelName = $"CompoffRequests-{DateTime.Now.ToString("yyyyMMddHHmmssfff")}.xlsx";
+                return File(stream, "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet", excelName);
+            }
+        }
 
         public ActionResult ExportLeaveDataToExcel(string startDate, string endDate, string empId, string department, string location, string status)
         {
@@ -378,6 +442,25 @@ namespace HRMS.Controllers
                 string excelName = $"LeaveHistory-{DateTime.Now.ToString("yyyyMMddHHmmssfff")}.xlsx";
 
                 return File(stream, "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet", excelName);
+            }
+        }
+
+
+        public ActionResult ChangeCompoffStatus(int compoffNum, string status)
+        {
+            try
+            {
+                var compoffsApplied = _dbContext.Compoffs.Where(x => x.Compoff_no == compoffNum).FirstOrDefault();
+                if (compoffsApplied != null)
+                {
+                    compoffsApplied.addStatus = status;
+                    _dbContext.SaveChanges();
+                }
+                return Json(new { success = true, message = "Compoff " + status + " successfully." });
+            }
+            catch (Exception)
+            {
+                return Json(new { success = false, message = "Error occured while chaning compoff status." });
             }
         }
 

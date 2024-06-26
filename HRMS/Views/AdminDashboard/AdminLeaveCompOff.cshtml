@@ -1,6 +1,11 @@
 ﻿@model HRMS.Models.CompOffModel
 
 <div class="admin-leave-compoff-view">
+    <style>
+        .error {
+            border-color: red !important;
+        }
+    </style>
     <div class="container-fluid res-admin-leavecompoff-view">
         <div class="row res-admincompoff-header">
             <div class="col-sm-12 col-md-12 col-lg-4 res-adminleave-compoff-header-left">
@@ -44,22 +49,22 @@
         </div>
 
         <div class="collapse" id="LeavecompoffDateDropdown">
-
             <div class="col-md-4"></div> <!-- Empty column -->
             <div class="col-md-8 d-flex res-adminleave-compoff-from-to">
                 <div class="form-group d-flex">
                     <label for="from" class="mr-2">From</label>
                     <input type="date" class="form-control form-control-sm mr-2" id="fromDate" style="width: 120px;">
+                    @*<div id="fromDateError" class="text-danger" style="display: none;">Please select a from date</div>*@
                 </div>
                 <div class="form-group d-flex">
                     <label for="to" class="mr-2">To</label>
                     <input type="date" class="form-control form-control-sm mr-2" id="toDate" style="width: 120px;">
+                    @*<div id="toDateError" class="text-danger" style="display: none;">Please select a to date</div>*@
                 </div>
                 <div class="form-group d-flex align-items-center mr-2">
                     <button type="button" class="btn btn-sm btn-primary btn-admin-compoff-history">Submit</button>
                     <a href="#" class="clearLeave-compoff-filter ml-2">Clear</a>
                 </div>
-
             </div>
         </div>
 
@@ -112,13 +117,34 @@
                                     </p>
                                 </div>
                                 <div class="statusBtnFlex">
-                                    <a href="" class="statusBtn acceptLeavecompoffBtn" data-leavename="Approve">Approve</a>
-                                    <a href="" class="statusBtn rejectLeavecompoffBtn" data-leavename="Reject">Reject</a>
-                                    <i class="fas fa-ellipsis-h adminleave-edit-history" onclick="toggleAdminLeaveHistoryActionOptions(this)"></i>
-                                    <div class="admin-leavehistoryoptions" style="display:none">
-                                        <a class="dropdown-item admin-leavehistory-edit" onclick="adminleavehistoryedit($(this))" data-adminleavehistoryname=''>Edit</a>
-                                        <a class="dropdown-item admin-leavehistory-cancel" onclick="adminleavehistorycancel($(this))" data-adminleavehistoryname=''>Cancel</a>
-                                    </div>
+                                    @if (@compoff.addStatus != "Approved" && compoff.addStatus != "Rejected")
+                                    {
+                                        <a href="" class="statusBtn acceptLeavecompoffBtn" data-leavename="Approve" data-compoffnum="@compoff.Compoff_no">Approve</a>
+                                        <a href="" class="statusBtn rejectLeavecompoffBtn" data-leavename="Reject" data-compoffnum="@compoff.Compoff_no">Reject</a>
+                                        <div id="statusLabel" class="statusLabel" style="display: none">@compoff.addStatus</div>
+                                    }
+                                    else
+                                    {
+                                        <div id="statusLabel" class="statusLabel">@compoff.addStatus</div>
+                                    }
+
+                                    @if (@compoff.addStatus == "Approved" || compoff.addStatus == "Rejected")
+                                    {
+                                        <i class="fas fa-ellipsis-h adminleave-edit-history" onclick="toggleAdminLeaveHistoryActionOptions(this)"></i>
+                                        <div class="admin-leavehistoryoptions" style="display:none">
+                                            @if (compoff.addStatus == "Approved")
+                                            {
+                                                <a href="" class="dropdown-item statusBtn rejectLeavecompoffBtn" data-leavename="Reject" data-compoffnum="@compoff.Compoff_no">Change Status</a>
+                                            }
+                                            else
+                                            {
+                                                <a href="" class="dropdown-item statusBtn acceptLeavecompoffBtn" data-leavename="Approve" data-compoffnum="@compoff.Compoff_no">Change Status</a>
+                                            }
+
+                                            @*<a class="dropdown-item admin-leavehistory-edit" onclick="adminleavehistoryedit($(this))" data-adminleavehistoryname=''>Edit</a>*@
+                                            @*<a class="dropdown-item admin-leavehistory-cancel" onclick="adminleavehistorycancel($(this))" data-adminleavehistoryname=''>Cancel</a>*@
+                                        </div>
+                                    }
                                 </div>
                             </td>
                         </tr>
@@ -147,6 +173,8 @@
         $(document).on('keyup', '.advanceLeavecompoffsearch', function () {
             table.search(this.value).draw();
         });
+
+
 
     });
 
