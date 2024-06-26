@@ -139,6 +139,9 @@ namespace HRMS.Controllers
                             createddate = DateTime.Now,
                             updatedby = leaveRequest.SubmittedBy,
                             updateddate = DateTime.Now,
+                            Designation = leaveRequest.Designation,
+                            //Department= leaveRequest.Department,
+
                         });
                     }
                 }
@@ -169,6 +172,8 @@ namespace HRMS.Controllers
                         createddate = DateTime.Now,
                         updatedby = leaveRequest.SubmittedBy,
                         updateddate = DateTime.Now,
+                        Designation = leaveRequest.Designation,
+                        //Department= leaveRequest.Department,
                     });
                 }
 

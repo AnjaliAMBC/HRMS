@@ -277,7 +277,7 @@ $(document).on('click', '.leave-export-history', function (event) {
     // If both dates are provided, proceed with the export
     if (isValid) {
         $('.show-progress').show();
-        window.location.href = "/adminleave/exportleavedatatoexcel?startdate=" + fromDate + "&endDate=" + toDate + "&department=" + "" + "&location=" + $('#leavehistory-Location-dropdown').val() + "&status=" + $('#leavehistory-status-dropdown').val();
+        window.location.href = "/adminleave/exportleavedatatoexcel?startdate=" + fromDate + "&endDate=" + toDate + "&department=" + $('#leavehistory-department-dropdown').val() + "&location=" + $('#leavehistory-Location-dropdown').val() + "&status=" + $('#leavehistory-status-dropdown').val();
         $('.show-progress').hide();
     }
 });
@@ -285,11 +285,11 @@ $(document).on('click', '.leave-export-history', function (event) {
 
 $(document).on('click', '.btn-totalleaves-import', function (event) {
     event.preventDefault();
-  
+
     $.ajax({
         url: '/adminleave/AdminTotalLeavesImport',
         type: 'GET',
-        dataType: 'html',      
+        dataType: 'html',
         beforeSend: function () {
             $('.show-progress').show();
         },
@@ -333,7 +333,7 @@ $(document).on('click', '.btn-importleave-submit', function (event) {
         processData: false,
         success: function (response) {
             if (response.success) {
-                console.log(response.data); 
+                console.log(response.data);
                 $('#modalMessage').text(response.message);
                 $('#messageModal').modal('show');
             } else {
@@ -343,7 +343,7 @@ $(document).on('click', '.btn-importleave-submit', function (event) {
         },
         error: function (xhr, status, error) {
             $('#modalMessage').text('Error uploading file: ' + error);
-            $('#messageModal').modal('show');           
+            $('#messageModal').modal('show');
         }
     });
 });

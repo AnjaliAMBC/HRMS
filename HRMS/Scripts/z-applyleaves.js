@@ -206,6 +206,8 @@ $(document).on('click', '.btn-apply-empleave', function (event) {
     let backupNo = $('#BackupNo').val();
     let location = $("#leaveempname option:selected").attr("data-emplocation");
     let officialEmail = $("#leaveempname option:selected").attr("data-empemail");
+    let department = $("#leaveempname option:selected").attr("data-department");
+    let designation = $("#leaveempname option:selected").attr("data-designation");
 
     let isValid = true;
 
@@ -339,7 +341,8 @@ $(document).on('click', '.btn-apply-empleave', function (event) {
         Location: location,
         OfficalEmailid: officialEmail,
         ActionType: $('.btn-apply-empleave').text(),
-        EditRequestName: $('#editleaverequestname').text()
+        EditRequestName: $('#editleaverequestname').text(),
+
     };
 
     $.ajax({

@@ -104,13 +104,13 @@ $(document).on('click', '.acceptLeavecompoffBtn', function (e) {
     let $this = $(this);
     let $row = $this.closest('.statusBtnFlex');
     $.ajax({
-        url: '/adminleave/ChangeCompoffStatus', 
+        url: '/adminleave/ChangeCompoffStatus',
         type: 'POST',
         data: {
             compoffNum: compoffNum,
             status: 'Approved'
         },
-        success: function (response) {           
+        success: function (response) {
             if (response.success == true) {
                 //$('#statusLabel').text('Approved').show();
                 $row.find('.statusLabel').text('Approved').show();
@@ -131,14 +131,14 @@ $(document).on('click', '.rejectLeavecompoffBtn', function (e) {
     let $this = $(this);
     let $row = $this.closest('.statusBtnFlex');
     $.ajax({
-        url: '/adminleave/ChangeCompoffStatus', 
+        url: '/adminleave/ChangeCompoffStatus',
         type: 'POST',
         data: {
             compoffNum: compoffNum,
             status: 'Rejected'
         },
         success: function (response) {
-           
+
             if (response.success == true) {
                 $row.find('.statusLabel').text('Rejected').show();
                 //$('#statusLabel').text('Rejected').show();
@@ -152,4 +152,31 @@ $(document).on('click', '.rejectLeavecompoffBtn', function (e) {
     });
 });
 
+
+$(document).on('click', '.cancelLeavecompoffBtn', function (e) {
+    e.preventDefault();
+    let compoffNum = $(this).data('compoffnum');
+    var $btn = $(this);
+
+    $.ajax({
+        url: '/adminleave/ChangeCompoffStatus',
+        type: 'POST',
+        data: {
+            compoffNum: compoffNum,
+            status: 'Cancelled'
+        },
+        success: function (response) {
+            if (response.success) {
+                // Find the closest tr and update the status
+                $btn.closest('tr').find('.compoff-status span').html('<b>Cancelled</b>');
+                $btn.closest('tr').find('.compoff-actions').hide();
+            } else {
+                console.error('Failed to cancel compensatory off');
+            }
+        },
+        error: function (error) {
+            console.log(error);
+        }
+    });
+});
 
