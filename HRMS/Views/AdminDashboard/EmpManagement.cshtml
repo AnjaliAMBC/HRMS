@@ -16,9 +16,8 @@
                                 <option value="export">Export</option>
                             </select>
                         </div>
-                        <div class="col-lg-4"></div>
                         <!-- Search box -->
-                        <div class="col-lg-3 navbarl col-sm-12 col-md-6 res-admin-empman-search">
+                        <div class="col-lg-4 navbarl1 col-sm-12 col-md-12 res-admin-empman-search">
                             <div class="search-container" style=" margin-left: 32px; ">
                                 <div class="input-group" style="border-radius: 20px;">
                                     <div class="input-group-prepend">
@@ -29,32 +28,30 @@
                             </div>
                         </div>
 
+                        <div class="col-lg-5 navbarl1 col-sm-12 col-md-12 res-admin-empman-header-right">
+                            <!-- Advanced Filters -->
+                            <div class="col-lg-6 navbarl1 col-sm-12 col-md-6 res-admin-empman-filter">
+                                <div class="advanced-filtertab d-flex justify-content-between align-items-center">
+                                    <p class="advancetitle mb-0">Advanced Filters</p>
+                                    <div class="toggle-button advance-button ml-2">
+                                        <button class="collapsedropdown collapsed btn" type="button" data-toggle="collapse" data-target="#demo" aria-expanded="false" aria-controls="demo">
+                                            <i class="fa-solid fa-angle-down"></i>
+                                        </button>
+                                    </div>
+                                </div>
+                            </div>
 
-                        <!-- Advanced Filters -->
-                        <div class="col-lg-2 navbarl col-sm-12 col-md-4 res-admin-empman-filter">
-                            <div class="advanced-filtertab d-flex justify-content-between align-items-center">
-                                <p class="advancetitle mb-0">Advanced Filters</p>
-                                <div class="toggle-button advance-button ml-2">
-                                    <button class="collapsedropdown collapsed btn" type="button" data-toggle="collapse" data-target="#demo" aria-expanded="false" aria-controls="demo">
-                                        <i class="fa-solid fa-angle-down"></i>
-                                    </button>
+                            <!-- Add Employee dropdown -->
+                            <div class="col-lg-5 navbarl1 col-sm-12 col-md-5 res-admin-empman-add">
+                                <div class="addingemployee form-group">
+                                    <select name="addemployee" class="addemployee form-control form-select" id="addemployee">
+                                        <option value="" disabled="" selected="" hidden="">Add Employee</option>
+                                        <option value="Addmanually">+ Add Manually</option>
+                                        <option value="importuser">+ Import User</option>
+                                    </select>
                                 </div>
                             </div>
                         </div>
-
-                        <!-- Add Employee dropdown -->
-                        <div class="col-lg-2 navbarl col-sm-12 col-md-12 res-admin-empman-add">
-                            <div class="addingemployee form-group">
-                                <select name="addemployee" class="addemployee form-control form-select" id="addemployee">
-                                    <option value="" disabled="" selected="" hidden="">Add Employee</option>
-                                    <option value="Addmanually">+ Add Manually</option>
-                                    <option value="importuser">+ Import User</option>
-                                </select>
-                            </div>
-                        </div>
-
-
-
 
                     </div>
                 </div>
@@ -64,32 +61,32 @@
                         <div id="demo" class="collapse advancefilter">
                             <div class="collapse-topic d-flex align-items-center justify-content-end res-admin-filter-inside" style="margin-right: 24px;">
                                 <span class="mr-3 res-admin-filter">Filter By<span class="res-close-btn" style="display:none;">X</span>
-                                <div class="dropdown mr-3" style="border-radius: 10px;">
-                                    <select class="form-control form-select-sm" name="department" id="department-dropdown" style="border-radius: 15px; height: 35px; width: 131px;">
-                                        <option value="" disabled selected>Department</option>
-                                        <option value="HR">HR</option>
-                                        <option value="DGM - Design">DGM - Design</option>
-                                        <option value="DGM - Web">DGM - Web</option>
-                                        <option value="All">All</option>
-                                    </select>
-                                </div>
-                                <div class="dropdown mr-3">
-                                    <select class="form-control form-select-sm" name="Location" id="Location-dropdown" style="border-radius: 15px; height: 35px; width: 131px;">
-                                        <option value="" disabled selected>Location</option>
-                                        <option value="Madurai">Madurai</option>
-                                        <option value="Hyderabad">Hyderabad</option>
-                                        <option value="All">All</option>
-                                    </select>
-                                </div>
-                                <div class="dropdown">
-                                    <select class="form-control form-select-sm" name="status" id="status-dropdown" style="border-radius: 15px; height: 35px; width: 131px;border: 1px solid lightgray">
-                                        <option value="" disabled selected>Status</option>
-                                        <option value="Active">Active</option>
-                                        <option value="In Active">In Active</option>
-                                        <option value="All">All</option>
-                                    </select>
-                                </div>
-                                <a href="#" class="clearfilter ml-3 res-clear-btn">clear</a>
+                                    <div class="dropdown mr-3" style="border-radius: 10px;">
+                                        <select class="form-control form-select-sm" name="department" id="department-dropdown" style="border-radius: 15px; height: 35px; width: 131px;">
+                                            <option value="" disabled selected>Department</option>
+                                            <option value="HR">HR</option>
+                                            <option value="DGM - Design">DGM - Design</option>
+                                            <option value="DGM - Web">DGM - Web</option>
+                                            <option value="All">All</option>
+                                        </select>
+                                    </div>
+                                    <div class="dropdown mr-3">
+                                        <select class="form-control form-select-sm" name="Location" id="Location-dropdown" style="border-radius: 15px; height: 35px; width: 131px;">
+                                            <option value="" disabled selected>Location</option>
+                                            <option value="Madurai">Madurai</option>
+                                            <option value="Hyderabad">Hyderabad</option>
+                                            <option value="All">All</option>
+                                        </select>
+                                    </div>
+                                    <div class="dropdown">
+                                        <select class="form-control form-select-sm" name="status" id="status-dropdown" style="border-radius: 15px; height: 35px; width: 131px;border: 1px solid lightgray">
+                                            <option value="" disabled selected>Status</option>
+                                            <option value="Active">Active</option>
+                                            <option value="In Active">In Active</option>
+                                            <option value="All">All</option>
+                                        </select>
+                                    </div>
+                                    <a href="#" class="clearfilter ml-3 res-clear-btn">clear</a>
                             </div>
                         </div>
                     </div>
@@ -192,7 +189,7 @@
         "info": true,
         "order": [],
         "columnDefs": [
-            {                
+            {
                 "targets": 0,
                 "orderable": false,
                 "render": function (data, type, full, meta) {

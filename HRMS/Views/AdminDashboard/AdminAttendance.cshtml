@@ -5,7 +5,7 @@
     <div class="hiddenadmindashboard" style="display: none"></div>
     @Html.Partial("_adminsidemenu")
     <div class="main-content container-fluid" style="width: 84%">
-        <div class="content admin-attendance-container" style="margin-left: -25px; margin-top: 3%">
+        <div class="content admin-attendance-container" style="margin-left: -25px;">
             <div class="admin-attendancemgmt-view">
                 <div style="margin-left: 2%">
                     <style>
@@ -159,20 +159,23 @@
                     </style>
 
                     <div class="row mb-2 align-items-center">
-                        <div class="col-4 col-sm-12 col-lg-4">
+                        <div class="col-4 col-sm-12 col-lg-3">
                             <h4 style="margin-left: 26px;">Attendance</h4>
                         </div>
 
-                        <div class="col-8 d-flex justify-content-end col-sm-12 col-md-12 col-lg-8 res-admin-att-header-block">
-                            <div class="dropdowns-container d-flex  align-items-center att_navbar res-admin-attendance-header">
-                                <div class="search-container mr-2">
-                                    <div class="input-group">
-                                        <div class="input-group-prepend">
-                                            <span class="input-group-text" style="background-color: transparent; border-right: none; border-radius: 10px 0 0 10px; height: 35px;"><i class="fas fa-search" style="color: #369479;"></i></span>
-                                        </div>
-                                        <input type="text" id="adminAttedencetableSearch" placeholder="Search By Keyword" class="advancesearch form-control" aria-label="Search By Keyword" style="border-radius: 0 10px 10px 0; height: 35px; font-size: 14px;">
+                        <div class="d-flex justify-content-end col-sm-12 col-md-12 col-lg-3 res-admin-att-header-block">
+                            <div class="search-container mr-2">
+                                <div class="input-group">
+                                    <div class="input-group-prepend">
+                                        <span class="input-group-text" style="background-color: transparent; border-right: none; border-radius: 10px 0 0 10px; height: 35px;"><i class="fas fa-search" style="color: #369479;"></i></span>
                                     </div>
+                                    <input type="text" id="adminAttedencetableSearch" placeholder="Search By Keyword" class="advancesearch form-control" aria-label="Search By Keyword" style="border-radius: 0 10px 10px 0; height: 35px; font-size: 14px;">
                                 </div>
+                            </div>
+                        </div>
+
+                        <div class="col-8 d-flex justify-content-end col-sm-12 col-md-12 col-lg-6 res-admin-att-header-block">
+                            <div class="dropdowns-container d-flex  align-items-center att_navbar res-admin-attendance-header">
 
                                 <div class="form-group mr-2 status-drop adminatt-dropdown" style="margin-top: 10px;">
                                     <select class="form-control form-select-sm p-0 ml-5" name="status" id="status-dropdown">

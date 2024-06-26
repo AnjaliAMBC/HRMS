@@ -688,20 +688,19 @@ $(document).on('click', '.history_btn', function (event) {
     var historyBtn = document.querySelector('.history_btn');
     var leaveHistory = document.querySelector('.leave-history');
     var cardDiv = document.querySelector('.empleave-card');
-    var icon = document.getElementById('icon-change');
+    var icon = document.querySelector('.icon-leave');
 
     if (leaveHistory.style.display === "none") {
         historyBtn.textContent = "View Calendar";
         icon.classList.remove("fa-clock-rotate-left");
-        icon.classList.add("fa-calendar-alt");
+        icon.classList.add("fa-calendar");
         cardDiv.style.display = 'none';
         leaveHistory.style.display = 'block';
         GetEmpLeaveHistory();
-        GetCompOffHistory();
 
     } else {
         historyBtn.textContent = "Leave History";
-        icon.classList.remove("fa-calendar-alt");
+        icon.classList.remove("fa-calendar");
         icon.classList.add("fa-clock-rotate-left");
         cardDiv.style.display = 'block';
         leaveHistory.style.display = 'none';
