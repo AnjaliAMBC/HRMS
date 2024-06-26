@@ -388,7 +388,7 @@ $(document).on('click', '.btn-apply-empleave', function (event) {
         error: function (error) {
             console.error('Error:', error);
             // Show error message in modal
-            $('#modalMessage').text('An error occurred while submitting the leave request.');
+            $('#modalMessage').removeClass('text-success').addClass('text-danger').text('An error occurred while submitting the leave request.');
             $('#messageModal').modal('show');
         }
     });
