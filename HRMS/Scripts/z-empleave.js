@@ -697,6 +697,7 @@ $(document).on('click', '.history_btn', function (event) {
         cardDiv.style.display = 'none';
         leaveHistory.style.display = 'block';
         GetEmpLeaveHistory();
+        GetCompOffHistory();
 
     } else {
         historyBtn.textContent = "Leave History";
