@@ -6,6 +6,8 @@
     var reason = $('#Compreason').val();
     var submittedUser = $('.loggedinempname').text();
     var selectedholidayname = $('.selectedholidayname').text();
+    var selectedHolidayNumber = $('.selectedholidaynumber').text();
+    var selectedHolidayLocation = $('.selectedholidaylocation').text();
 
     // Validation
     if (!employeeID) {
@@ -28,7 +30,10 @@
             compOffDate: compOffDate,
             reason: reason,
             submittedUser: submittedUser,
-            holidayname: selectedholidayname
+            holidayname: selectedholidayname,
+            holidynumber: selectedHolidayNumber,
+            holidaylocation: selectedHolidayLocation
+
         },
         success: function (response) {
             if (response.StatusCode == 200) {
@@ -43,3 +48,106 @@
         }
     });
 });
+
+$(document).on('click', '.btn-admin-compoff-history', function () {
+    let fromDate = $('#fromDate').val();
+    let toDate = $('#toDate').val();
+    let isValid = true;
+
+    if (!fromDate) {
+        $('#fromDate').addClass('error');
+        isValid = false;
+    } else {
+        $('#fromDate').removeClass('error');
+    }
+
+    if (!toDate) {
+        $('#toDate').addClass('error');
+        isValid = false;
+    } else {
+        $('#toDate').removeClass('error');
+    }
+
+    if (isValid) {
+        window.location.href = '/adminleave/exportcompoffstoexcel?startDate=' + fromDate + "&endDate=" + toDate;
+        //$.ajax({
+        //    url: '/adminleave/exportcompoffstoexcel',
+        //    type: 'POST',
+        //    data: {
+        //        startDate: fromDate,
+        //        endDate: toDate
+        //    },
+        //    success: function (response) {
+        //        console.log(response);
+        //    },
+        //    error: function (error) {
+        //        console.log(error);
+        //    }
+        //});
+    }
+});
+
+$(document).on('click', '.clearLeave-compoff-filter', function () {
+    e.preventDefault();
+    $('#fromDate').val('');
+    $('#toDate').val('');
+    $('#fromDateError').hide();
+    $('#toDateError').hide();
+});
+
+
+$(document).on('click', '.acceptLeavecompoffBtn', function (e) {
+    e.preventDefault();
+    let compoffNum = $(this).data('compoffnum');
+    let $this = $(this);
+    let $row = $this.closest('.statusBtnFlex');
+    $.ajax({
+        url: '/adminleave/ChangeCompoffStatus', 
+        type: 'POST',
+        data: {
+            compoffNum: compoffNum,
+            status: 'Approved'
+        },
+        success: function (response) {           
+            if (response.success == true) {
+                //$('#statusLabel').text('Approved').show();
+                $row.find('.statusLabel').text('Approved').show();
+                $this.hide();
+                $this.siblings('.rejectLeavecompoffBtn').hide();
+            }
+
+        },
+        error: function (error) {
+            console.log(error);
+        }
+    });
+});
+
+$(document).on('click', '.rejectLeavecompoffBtn', function (e) {
+    e.preventDefault();
+    let compoffNum = $(this).data('compoffnum');
+    let $this = $(this);
+    let $row = $this.closest('.statusBtnFlex');
+    $.ajax({
+        url: '/adminleave/ChangeCompoffStatus', 
+        type: 'POST',
+        data: {
+            compoffNum: compoffNum,
+            status: 'Rejected'
+        },
+        success: function (response) {
+           
+            if (response.success == true) {
+                $row.find('.statusLabel').text('Rejected').show();
+                //$('#statusLabel').text('Rejected').show();
+                $this.hide();
+                $this.siblings('.acceptLeavecompoffBtn').hide();
+            }
+        },
+        error: function (error) {
+            console.log(error);
+        }
+    });
+});
+
+

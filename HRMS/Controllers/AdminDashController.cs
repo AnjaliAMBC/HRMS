@@ -30,6 +30,23 @@ namespace HRMS.Controllers
             model.BirthModel = new EmployeeEventHelper().Birthday();
             model.UpcomingHolidays = new EmployeeEventHelper().GetUpcomingHolidays("");
 
+            Dictionary<int, int> compoffsaplliedbasedonholiday = new Dictionary<int, int>();
+            foreach (var upcomingholiday in model.UpcomingHolidays)
+            {
+                var appliedCompoffs = _dbContext.Compoffs.Where(x => x.Holidayno == upcomingholiday.HolidayNo).ToList();
+
+                if (appliedCompoffs != null && appliedCompoffs.Count() > 0)
+                {
+                    compoffsaplliedbasedonholiday.Add(upcomingholiday.HolidayNo, appliedCompoffs.Count());
+                }
+                else
+                {
+                    compoffsaplliedbasedonholiday.Add(upcomingholiday.HolidayNo, 0);
+                }
+            }
+
+            model.CompoffApplied = compoffsaplliedbasedonholiday;
+
             var AdminLeaveManagementModel = new AdminLeaveManagementModel();
             var leavesAppliedToday = new LeaveCalculator().GetLeavesInfoBasedonStartandEndDate(DateTime.Today.ToString("dd MMMM yyyy"), DateTime.Today.ToString("dd MMMM yyyy"), AdminLeaveManagementModel, "", true);
             model.LeavesInfo = leavesAppliedToday;

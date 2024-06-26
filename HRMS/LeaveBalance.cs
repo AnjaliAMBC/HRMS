@@ -22,7 +22,7 @@ namespace HRMS
         public Nullable<decimal> Emergency { get; set; }
         public Nullable<decimal> Sick { get; set; }
         public Nullable<decimal> Bereavement { get; set; }
-        public Nullable<System.TimeSpan> HourlyPermission { get; set; }
+        public Nullable<decimal> HourlyPermission { get; set; }
         public Nullable<decimal> Marriage { get; set; }
         public Nullable<decimal> Maternity { get; set; }
         public Nullable<decimal> Paternity { get; set; }

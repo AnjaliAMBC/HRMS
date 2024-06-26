@@ -63,6 +63,7 @@ namespace HRMS.Helpers
                     HolidayDate = (DateTime)h.holiday_date,
                     HolidayName = h.holiday_name,
                     Region = h.region,
+                    HolidayNo = h.holidayno
                 }).ToList();
 
             return upcomingHolidays;

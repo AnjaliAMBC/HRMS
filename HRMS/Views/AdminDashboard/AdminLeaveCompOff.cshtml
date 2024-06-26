@@ -1,4 +1,11 @@
-﻿<div class="admin-leave-compoff-view">
+﻿@model HRMS.Models.CompOffModel
+
+<div class="admin-leave-compoff-view">
+    <style>
+        .error {
+            border-color: red !important;
+        }
+    </style>
     <div class="container-fluid res-admin-leavecompoff-view">
         <div class="row res-admincompoff-header">
             <div class="col-sm-12 col-md-12 col-lg-4 res-adminleave-compoff-header-left">
@@ -18,10 +25,10 @@
 
             <div class="col-sm-12 col-md-12 col-lg-4 d-flex justify-content-end res-adminleave-compoff-header-right">
                 <div class="dropdowns-leave-compoff-container">
-                    
+
 
                     <div class="form-group adminleave-compoff-dropdown" style="margin-top: 10px;">
-                        <label class="export-compoff-label" for="exportcompoffLeaveLabel" style="margin:0;">Filter</label>
+                        <label class="export-compoff-label" for="exportcompoffLeaveLabel" style="margin:0;">Export</label>
                         <i class="fas fa-chevron-down" id="exportcompoffLeaveIcon" style="cursor: pointer; font-size:13px;" data-toggle="collapse" data-target="#LeavecompoffDateDropdown"></i>
                     </div>
                     <div class="dropdown res-adminleave-drop">
@@ -29,8 +36,10 @@
                             Leave Settings
                         </button>
                         <div class="dropdown-menu" aria-labelledby="leavecompoffSettingsDropdown" style="border:1px solid gray">
-                            <a class="dropdown-item adminleave-compoff-Balanve-link">Leave Balance</a>
-                            <a class="dropdown-item adminside-leave-compoff-apply">Apply Leave</a>
+                            <a class="dropdown-item adminleave-history">Leave History</a>
+                            <a class="dropdown-item adminleave-Balanve-link">Leave Balance</a>
+                            <a class="dropdown-item adminleave-CompOff-link">Compensatory Off</a>
+                            <a class="dropdown-item adminside-leaveapply">Apply Leave</a>
                         </div>
 
                     </div>
@@ -40,74 +49,107 @@
         </div>
 
         <div class="collapse" id="LeavecompoffDateDropdown">
-
             <div class="col-md-4"></div> <!-- Empty column -->
             <div class="col-md-8 d-flex res-adminleave-compoff-from-to">
                 <div class="form-group d-flex">
                     <label for="from" class="mr-2">From</label>
                     <input type="date" class="form-control form-control-sm mr-2" id="fromDate" style="width: 120px;">
+                    @*<div id="fromDateError" class="text-danger" style="display: none;">Please select a from date</div>*@
                 </div>
                 <div class="form-group d-flex">
                     <label for="to" class="mr-2">To</label>
                     <input type="date" class="form-control form-control-sm mr-2" id="toDate" style="width: 120px;">
+                    @*<div id="toDateError" class="text-danger" style="display: none;">Please select a to date</div>*@
                 </div>
                 <div class="form-group d-flex align-items-center mr-2">
-                    <button type="button" class="btn btn-sm btn-primary leave-submit">Submit</button>
+                    <button type="button" class="btn btn-sm btn-primary btn-admin-compoff-history">Submit</button>
                     <a href="#" class="clearLeave-compoff-filter ml-2">Clear</a>
                 </div>
-
             </div>
         </div>
 
         <div class="res-adminleavecompoffTable-mgmt table-responsive">
             <table id="adminleavecompoffTable" class="table leave-compoff-table" style="width:96%;">
                 <thead class="thead-light" style="display:none;">
+                    <tr>
+                        <th>Emp-ID</th>
+                        <th>Name</th>
+                        <th>Requested Date</th>
+                        <th>Work Date</th>
+                        <th>Location</th>
+                        <th>Reason</th>
+                    </tr>
                 </thead>
                 <tbody>
-                    <tr class="rowBorder">
-                        <td class="fontSmall">232</td>
-                        <td>
-                            <div class="userLeaveDetails">
-                                <img src="/img"
-                                     class="userIcon"
-                                     alt="user" />
-                                <div class="fontSmall">
-                                    <p class="mb-0 fontWtMedium">test user</p>
-                                    <a href="#">emailid@ambc.com</a>
-                                </div>
-                            </div>
-                        </td>
-                        <td class="fontSmall dataMinWidth dateMaxWidth">
-                            <span class="mutedText">Requested Date</span>
-                            <p class="mb-0 fontWtMedium">10 Oct 2024, Mon</p>
 
-                        </td>
-                        <td class="fontSmall">
-                            <div class="mutedText">Work Date</div>
-                            <span class="fontWtMedium">10 Oct 2024, Mon</span>
-                        </td>
-                        <td class="fontSmall">
-                            <div class="mutedText">Location</div>
-                            <span class="fontWtbold">Madurai</span>
-                        </td>
-                        <td class="fontSmall commentSec">
-                            <div class="dFlex">
-                                <i class="fa-solid fa-message chatIcon"></i>
-                                <p>
-                                    Test data Test data Test data Test data
+                    @foreach (var compoff in Model.CompOffs)
+                    {
+                        <tr class="rowBorder">
+                            <td class="fontSmall">@compoff.EmployeeID</td>
+                            @{
+                                var empImagePath = "/Assets/EmpImages/" + @compoff.EmployeeID + ".jpeg";
+                            }
+                            <td><div style="display: flex; align-items: center;"><img style="width: 40px;border-radius: 50%;" src="@empImagePath"><span style="margin-top: 0px; margin-right: 10px;">@compoff.EmployeeName<br><span style="color: #3E78CF;">@*@compoff.LatestLeave.OfficalEmailid*@</span></span></div></td>
+                            <td class="fontSmall dataMinWidth dateMaxWidth">
+                                <span class="mutedText">Requested Date</span>
+                                <p class="mb-0 fontWtMedium">
+                                    @(compoff.createddate.HasValue
+            ? compoff.createddate.Value.ToString("dd MMMM yyyy")
+            : "No Date Available"),     @(compoff.createddate.HasValue
+            ? compoff.createddate.Value.ToString("ddd")
+            : "No Date Available")
                                 </p>
-                            </div>
-                            <div class="statusBtnFlex">
-                                <a href="" class="statusBtn acceptLeavecompoffBtn" data-leavename="Approve">Approve</a>
-                                <a href="" class="statusBtn rejectLeavecompoffBtn" data-leavename="Reject">Reject</a>
-                                <i class="fas fa-ellipsis-h adminleave-edit-history" onclick="toggleAdminLeaveHistoryActionOptions(this)"></i>
-                                <div class="admin-leavehistoryoptions" style="display:none">
-                                    <a class="dropdown-item admin-leavehistory-edit" onclick="adminleavehistoryedit($(this))" data-adminleavehistoryname=''>Edit</a>
-                                    <a class="dropdown-item admin-leavehistory-cancel" onclick="adminleavehistorycancel($(this))" data-adminleavehistoryname=''>Cancel</a>
+
+                            </td>
+                            <td class="fontSmall">
+                                <div class="mutedText">Work Date</div>
+                                <span class="fontWtMedium">@compoff.CampOffDate.ToString("dd MMMM yyyy"), @compoff.CampOffDate.ToString("ddd")</span>
+                            </td>
+                            <td class="fontSmall">
+                                <div class="mutedText">Location</div>
+                                <span class="fontWtbold">@compoff.Location</span>
+                            </td>
+                            <td class="fontSmall commentSec">
+                                <div class="dFlex">
+                                    <i class="fa-solid fa-message chatIcon"></i>
+                                    <p>
+                                        Test data Test data Test data Test data
+                                    </p>
                                 </div>
-                            </div>
-                        </td>
-                    </tr>
+                                <div class="statusBtnFlex">
+                                    @if (@compoff.addStatus != "Approved" && compoff.addStatus != "Rejected")
+                                    {
+                                        <a href="" class="statusBtn acceptLeavecompoffBtn" data-leavename="Approve" data-compoffnum="@compoff.Compoff_no">Approve</a>
+                                        <a href="" class="statusBtn rejectLeavecompoffBtn" data-leavename="Reject" data-compoffnum="@compoff.Compoff_no">Reject</a>
+                                        <div id="statusLabel" class="statusLabel" style="display: none">@compoff.addStatus</div>
+                                    }
+                                    else
+                                    {
+                                        <div id="statusLabel" class="statusLabel">@compoff.addStatus</div>
+                                    }
+
+                                    @if (@compoff.addStatus == "Approved" || compoff.addStatus == "Rejected")
+                                    {
+                                        <i class="fas fa-ellipsis-h adminleave-edit-history" onclick="toggleAdminLeaveHistoryActionOptions(this)"></i>
+                                        <div class="admin-leavehistoryoptions" style="display:none">
+                                            @if (compoff.addStatus == "Approved")
+                                            {
+                                                <a href="" class="dropdown-item statusBtn rejectLeavecompoffBtn" data-leavename="Reject" data-compoffnum="@compoff.Compoff_no">Change Status</a>
+                                            }
+                                            else
+                                            {
+                                                <a href="" class="dropdown-item statusBtn acceptLeavecompoffBtn" data-leavename="Approve" data-compoffnum="@compoff.Compoff_no">Change Status</a>
+                                            }
+
+                                            @*<a class="dropdown-item admin-leavehistory-edit" onclick="adminleavehistoryedit($(this))" data-adminleavehistoryname=''>Edit</a>*@
+                                            @*<a class="dropdown-item admin-leavehistory-cancel" onclick="adminleavehistorycancel($(this))" data-adminleavehistoryname=''>Cancel</a>*@
+                                        </div>
+                                    }
+                                </div>
+                            </td>
+                        </tr>
+                    }
+
                 </tbody>
             </table>
         </div>
@@ -115,29 +157,26 @@
 </div>
 
 <script>
-        $(document).ready(function () {
+    $(document).ready(function () {
+        if (!$.fn.DataTable.isDataTable('#adminleavecompoffTable')) {
+            var table = $('#adminleavecompoffTable').DataTable({
+                "responsive": true,
+                "paging": true,
+                "searching": true,
+                "ordering": false,
+                "info": true,
+                "autoWidth": false,
+                "lengthMenu": [[7, 14, 21, -1], [7, 14, 21, "All"]]
+            });
+        }
 
-            if (!$.fn.DataTable.isDataTable('#adminleavecompoffTable')) {
-                $('#adminleavecompoffTable').DataTable({
-                    "responsive": true,
-                    "paging": true,
-                    "searching": true,
-                    "ordering": false,
-                    "info": true,
-                    "autoWidth": false,
-                    "lengthMenu": [[7, 14, 21, -1], [7, 14, 21, "All"]],
-                    "columnDefs": [
-                        { "orderable": false, "targets": 0 },
-                        { "orderable": false, "targets": 1 },
-                        { "orderable": false, "targets": 2 },
-                        { "orderable": false, "targets": 3 },
-                        { "orderable": false, "targets": 4 },
-                        { "orderable": false, "targets": 5 },
-                        { "orderable": false, "targets": 6 },
-                    ]
-                });
-            }
+        $(document).on('keyup', '.advanceLeavecompoffsearch', function () {
+            table.search(this.value).draw();
         });
+
+
+
+    });
 
     function toggleAdminLeaveHistoryActionOptions(iconElement) {
         const optionsMenu = $(iconElement).next('.admin-leavehistoryoptions');

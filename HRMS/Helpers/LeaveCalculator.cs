@@ -308,10 +308,10 @@ namespace HRMS.Helpers
                         {
                             empLeaveBalance.Bereavement = empAvailableLeave.Available;
                         }
-                        //if (leaveType.Type == "Hourly Permission")
-                        //{
-                        //    empLeaveBalance.HourlyPermission = empAvailableLeave.Available;
-                        //}
+                        if (leaveType.Type == "Hourly Permission")
+                        {
+                            empLeaveBalance.HourlyPermission = empAvailableLeave.Available;
+                        }
                         if (leaveType.Type == "Marriage Leave")
                         {
                             empLeaveBalance.Marriage = empAvailableLeave.Available;

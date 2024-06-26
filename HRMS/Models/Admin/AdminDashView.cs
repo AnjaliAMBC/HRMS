@@ -14,6 +14,8 @@ namespace HRMS.Models.Admin
         public AdminLeaveManagementModel LeavesInfo { get; set; } = new AdminLeaveManagementModel();
 
         public List<emp_info> Employees { get; set; } = new List<emp_info>();
+
+        public Dictionary<int, int> CompoffApplied = new Dictionary<int, int>();
     }
     //public class AnniversaryModel
     //{

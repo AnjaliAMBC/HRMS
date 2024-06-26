@@ -17,7 +17,7 @@ namespace HRMS.Controllers
             _dbContext = new HRMS_EntityFramework();
         }
 
-        public JsonResult SubmitCompOff(string employeeID, string empName, DateTime compOffDate, string reason, string submittedUser, string holidayname)
+        public JsonResult SubmitCompOff(string employeeID, string empName, DateTime compOffDate, string reason, string submittedUser, string holidayname, int holidynumber, string holidaylocation)
         {
             var jsonResponse = new JsonResponse();
             try
@@ -33,8 +33,10 @@ namespace HRMS.Controllers
                     EmployeeName = empName,
                     HolidayName = holidayname,
                     updateddate = DateTime.Today,
-                    concatinatestring = employeeID + "_" + compOffDate.ToString()
+                    concatinatestring = employeeID + "_" + compOffDate.ToString(),
                     //Reason = reason,
+                    Holidayno = holidynumber,
+                    Location = holidaylocation
 
                 };
 
