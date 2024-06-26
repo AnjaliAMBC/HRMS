@@ -358,10 +358,11 @@ $(document).on('click', '.btn-apply-empleave', function (event) {
         success: function (response) {
             console.log('Success:', response);
             if (response.jsonResponse.StatusCode == 200) {
+                // Clear form fields
                 $('#leaveType').val($('#leaveType option:first').val());
                 $('#fromleaveDate').val('');
                 $('#toleaveDate').val('');
-                $('#HourPermission').val();
+                $('#HourPermission').val('');
                 $('#teamEmail').val('');
                 $('#teamEmail').val($('#defaultteamEmail').text());
                 $('#reason').val('');
@@ -376,14 +377,22 @@ $(document).on('click', '.btn-apply-empleave', function (event) {
                 $('#dayTypeContainer').hide();
                 $('.balance-section-wrapper').empty();
                 $('.time-section').hide();
+               
+                $('#modalMessage').removeClass('text-danger').addClass('text-success').text(response.jsonResponse.Message);
+                $('#messageModal').modal('show');
+            } else {              
+                $('#modalMessage').removeClass('text-success').addClass('text-danger').text(response.jsonResponse.Message);
+                $('#messageModal').modal('show');
             }
-            alert(response.jsonResponse.Message);
         },
         error: function (error) {
             console.error('Error:', error);
-            alert('An error occurred while submitting the leave request.');
+            // Show error message in modal
+            $('#modalMessage').text('An error occurred while submitting the leave request.');
+            $('#messageModal').modal('show');
         }
     });
+
 });
 
 
