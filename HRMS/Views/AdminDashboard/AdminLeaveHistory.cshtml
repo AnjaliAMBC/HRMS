@@ -4,6 +4,15 @@
 <div class="admin-leaveHistory-view">
 
     <style>
+
+        .userIcon {
+            width: 42px;
+            height: 42px;
+            object-fit: cover;
+            border-radius: 50%;
+            margin-right: 10px;
+        }
+
         #adminleaveHistoryTable_filter {
             display: none;
         }
@@ -80,29 +89,8 @@
                 </div>
                 <!-- Add leave history dropdown -->
                 <div class="col-lg-2 navbarl col-sm-12 col-md-12 res-admin-leavehistory-block-header res-admin-total-leaves-import">
-                    <div class="form-group " style="margin-top: 17px;">
+                    <div class="form-group " style="">
                         <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#uploadTotalLeavesModal">Import</button>
-                    </div>
-                </div>
-
-                <!-- Modal -->
-                <div class="modal fade" id="uploadTotalLeavesModal" tabindex="-1" role="dialog" aria-labelledby="uploadModalLabel" aria-hidden="true">
-                    <div class="modal-dialog" role="document">
-                        <div class="modal-content">
-                            <div class="modal-header">
-                                <h5 class="modal-title" id="uploadModalLabel">Upload Excel File</h5>
-                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                    <span aria-hidden="true">&times;</span>
-                                </button>
-                            </div>
-                            <div class="modal-body">
-                                <input type="file" id="excelFile" name="excelFile" />
-                            </div>
-                            <div class="modal-footer">
-                                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                                <button type="button" class="btn btn-primary" id="btnUpload">Upload</button>
-                            </div>
-                        </div>
                     </div>
                 </div>
 
@@ -113,6 +101,27 @@
                 </div>
                 <div class="col-lg-1 navbarl col-sm-12 col-md-12 res-admin-leavehistory-block-header res-admin-leave-balance-calender">
                     <i class="fa fa-calendar AdminIndiEmpLeave-History" aria-hidden="true"></i>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal -->
+    <div class="modal fade" id="uploadTotalLeavesModal" tabindex="-1" role="dialog" aria-labelledby="uploadModalLabel" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="uploadModalLabel">Upload Excel File</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <input type="file" id="excelFile" name="excelFile" />
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                    <button type="button" class="btn btn-primary" id="btnUpload">Upload</button>
                 </div>
             </div>
         </div>
@@ -216,7 +225,7 @@
                         @{
                             var empImagePath = "/Assets/EmpImages/" + leaveInfo.LatestLeave.employee_id + ".jpeg";
                         }
-                        <td><div style="display: flex; align-items: center;"><img style="width: 40px;border-radius: 50%;" src="@empImagePath"><span style="margin-top: 0px; margin-right: 10px;">@leaveInfo.LatestLeave.employee_name<br><span style="color: #3E78CF;">@leaveInfo.LatestLeave.OfficalEmailid</span></span></div></td>
+                        <td><div style="display: flex; align-items: center;"><img class="userIcon" src="@empImagePath"><span style="margin-top: 0px; margin-right: 10px;">@leaveInfo.LatestLeave.employee_name<br><span style="color: #3E78CF;">@leaveInfo.LatestLeave.OfficalEmailid</span></span></div></td>
                         <td>@leaveInfo.LatestLeave.leavesource</td>
                         <td class="res-admin-leave-from">
                             <div class="res-leave-his-date">

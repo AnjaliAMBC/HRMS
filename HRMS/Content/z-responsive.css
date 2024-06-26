@@ -307,6 +307,7 @@
 
     .mobile-view .attendance-nav .att-calender .from-to-calen {
         width: 100%;
+        display: inline-block;
     }
 
     .mobile-view .attendance-nav .att-calender .apply-div {
@@ -315,7 +316,7 @@
         display: block;
     }
 
-    /* attendence end*/
+    /* emp attendence end*/
 
     /* emp leave start*/
     .mobile-view .emp-leave .main-content.container-fluid {
@@ -469,6 +470,7 @@
 
     .mobile-view .res-admin-employee-management .res-admin-empman-filter-show .res-admin-filter-inside div.dropdown {
         margin: 10px 0px !important;
+        width: 100%;
     }
 
     .mobile-view .res-admin-employee-management .res-admin-empman-filter-show .res-admin-filter-inside select{
@@ -624,8 +626,11 @@
         display: inline;
     }
 
-    /* admin employee management end */
+    .mobile-view .admin-empmanagement-view .res-admin-empman-header-right {
+        display: inline-block;
+    }
 
+    /* admin employee management end */
     /* admin attendance start*/
     .mobile-view .res-admin-attendance .main-content.container-fluid {
         width: 100% !important;
@@ -1725,6 +1730,10 @@
 /* Media Query for Tablets Ipads portrait mode start */
 @media only screen and (min-width:768px) and (max-width:1024px) {
 
+    .main-content {
+        margin-left: 185px !important;
+    }
+
     .col-md-auto {
         -ms-flex: 0 0 auto;
         flex: 0 0 auto;
@@ -2220,6 +2229,10 @@
         display: inline;
     }
 
+    .tablet-view .admin-empmanagement-view .res-admin-empman-header-right {
+        display: inline-block;
+    }
+
     /*admin emp management page end*/
 
     /* admin attendance start*/
@@ -2383,4 +2396,22 @@
     .responsive-tabs.nav-tabs i.fa {
         display: none;
     }
+}
+
+@media only screen and (min-width:1920px) and (max-width: 2560px) {
+
+    .emp-leave .container {
+        margin-left: 0px;
+    }
+
+    .emp-self-service .backgroundimg {
+        width: 102% !important;
+    }
+
+    .main-content.container-fluid {
+        width: 90% !important;
+        margin-right: 0;
+    }
+
+
 }
