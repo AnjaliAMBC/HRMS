@@ -310,15 +310,15 @@ $(document).on('click', '.btn-apply-empleave', function (event) {
 
             if (isNaN(decimalAppliedLeaves) || isNaN(decimaltotalAvailableBalanceLeaves)) {
                 isValid = false;
-                $('error-message-showerror').text("Invalid input related to leave balance");
-                $('error-message-showerror').show();
+                $('.error-message-showerror').html("Invalid input related to leave balance.<br><br>");
+                $('.error-message-showerror').show();
                 //showError('error-message-showerror', "Invalid input related to leave balance");
             }
 
             if (decimalAppliedLeaves > decimaltotalAvailableBalanceLeaves) {
                 isValid = false;
-                $('error-message-showerror').text("You are not allowed to apply the leaves more than the available balance. Please contact administrator.");
-                $('error-message-showerror').show();
+                $('.error-message-showerror').html("You are not allowed to apply the leaves more than the available balance. Please contact administrator.<br><br>");
+                $('.error-message-showerror').show();
                 //showError('error-message-showerror', 'You are not allowed to apply the leaves more than the available balance. Please contact administrator.');
             }
         }
@@ -388,6 +388,8 @@ $(document).on('click', '.btn-apply-empleave', function (event) {
 
 
 $(document).on('change', '#leaveType', function (event) {
+    $('.error-message-showerror').html("");
+    $('.error-message-showerror').hide();
 
     $('.balance-section-wrapper').show();
     var selectedLeaveType = $(this).val();
