@@ -387,7 +387,7 @@ $(document).off('click', '.rejectLeaveBtn').on('click', '.rejectLeaveBtn', funct
     var $statusLabel = $statusBtnFlex.siblings('.statusLabel');
 
     $.ajax({
-        url: '/EmpLeave/ApproveLeave',
+        url: '/EmpLeave/RejectLeave',
         type: 'POST',
         data: { leaveRequestName: leaveName },
         success: function (response) {

@@ -141,7 +141,7 @@
                                     }
 
                                     var isCheckInExists = Model.AttedenceList.Where(x => x.Login_date == date).FirstOrDefault();
-                                    var empLeave = Model.Leaves.Where(x => x.leavedate == date).FirstOrDefault();
+                                    var empLeave = Model.Leaves.Where(x => x.leavedate == date && (x.LeaveStatus != "Rejected" && x.LeaveStatus != "Cancelled")).FirstOrDefault();
 
                                     if (isCheckInExists != null)
                                     {
