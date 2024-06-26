@@ -186,7 +186,7 @@ namespace HRMS.Controllers
                 leaveBalanceInfo.Maternity = leaveBalance.Maternity;
                 leaveBalanceInfo.Sick = leaveBalance.Sick;
                 leaveBalanceInfo.Paternity = leaveBalance.Paternity;
-                //leaveBalanceInfo.HourlyPermission = 
+                leaveBalanceInfo.HourlyPermission = leaveBalance.HourlyPermission;
                 _dbContext.SaveChanges();
                 return Json(new { success = true, message = "Leave balance updated successfully." });
             }
@@ -316,11 +316,11 @@ namespace HRMS.Controllers
 
             if (string.IsNullOrWhiteSpace(empID))
             {
-                compoffsApplied = _dbContext.Compoffs.Where(x => x.CampOffDate >= dateStart && x.CampOffDate <= dateEnd).ToList();
+                compoffsApplied = _dbContext.Compoffs.Where(x => x.CampOffDate >= dateStart && x.CampOffDate <= dateEnd).OrderByDescending(x => x.createddate).ToList();
             }
             else
             {
-                compoffsApplied = _dbContext.Compoffs.Where(x => x.CampOffDate >= dateStart && x.CampOffDate <= dateEnd && x.EmployeeID == empID).ToList();
+                compoffsApplied = _dbContext.Compoffs.Where(x => x.CampOffDate >= dateStart && x.CampOffDate <= dateEnd && x.EmployeeID == empID).OrderByDescending(x => x.createddate).ToList();
             }
 
             model.CompOffs = compoffsApplied;
@@ -556,7 +556,7 @@ namespace HRMS.Controllers
                             isRecordExists.Emergency = record.Emergency;
                             isRecordExists.Sick = record.Sick;
                             isRecordExists.Bereavement = record.Bereavement;
-                            //isRecordExists.HourlyPermission = record.HourlyPermission;
+                            isRecordExists.HourlyPermission = record.HourlyPermission;
                             isRecordExists.Marriage = record.Marriage;
                             isRecordExists.Maternity = record.Marriage;
                             isRecordExists.Paternity = record.Paternity;
@@ -577,7 +577,8 @@ namespace HRMS.Controllers
                                 Maternity = record.Maternity,
                                 Paternity = record.Paternity,
                                 Sick = record.Sick,
-                                Year = record.Year
+                                Year = record.Year,
+                                HourlyPermission = record.HourlyPermission                               
                             };
 
                             _dbContext.LeaveBalances.Add(leaveBalance);

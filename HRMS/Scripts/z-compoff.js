@@ -1,6 +1,8 @@
 ﻿$('.compoff-submit').click(function () {
     var employeeID = $('#CompemployeeName').val();
     var empName = $("#CompemployeeName option:selected").text();
+    var empEmail = $("#CompemployeeName option:selected").attr("data-empemail");
+    var empLocation = $("#CompemployeeName option:selected").attr("data-emplocation");
 
     var compOffDate = $('#Compdate').val();
     var reason = $('#Compreason').val();
@@ -32,8 +34,8 @@
             submittedUser: submittedUser,
             holidayname: selectedholidayname,
             holidynumber: selectedHolidayNumber,
-            holidaylocation: selectedHolidayLocation
-
+            holidaylocation: selectedHolidayLocation,
+            empEmail: empEmail
         },
         success: function (response) {
             if (response.StatusCode == 200) {
