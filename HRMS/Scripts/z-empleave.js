@@ -201,15 +201,15 @@ function generateLeaveCalendar(month, year) {
         var lastDayFormatted = formatDateyyyyMMdd(lastDay);
 
         const leaveTypeColors = {
-            "Earned Leave": "#FFD700", // Gold
-            "Emergency Leave": "#FF6347", // Tomato
-            "Sick Leave": "#ADFF2F", // GreenYellow
-            "Bereavement Leave": "#808080", // Gray
-            "Hourly Permission": "#20B2AA", // LightSeaGreen
-            "Marriage Leave": "#FF69B4", // HotPink
-            "Maternity Leave": "#FFB6C1", // LightPink
-            "Paternity Leave": "#87CEEB", // SkyBlue
-            "Comp Off": "#8A2BE2" // BlueViolet
+            "Earned Leave": "#A5E2E9", // Gold
+            "Emergency Leave": "#C4BEF4", // Tomato
+            "Sick Leave": "#ACFF97", // GreenYellow
+            "Bereavement Leave": "#FFC297", // Gray
+            "Hourly Permission": "#BBCDF3", // LightSeaGreen
+            "Marriage Leave": "#A8E4E2", // HotPink
+            "Maternity Leave": "#FEA8B5", // LightPink
+            "Paternity Leave": "#F4D8C0", // SkyBlue
+            "Comp Off": "#F8CADC" // BlueViolet
         };
 
         $.ajax({
@@ -670,7 +670,7 @@ $(document).on('click', '.history_btn', function (event) {
     var historyBtn = document.querySelector('.history_btn');
     var leaveHistory = document.querySelector('.leave-history');
     var cardDiv = document.querySelector('.empleave-card');
-    var icon = document.querySelector('.fa-solid');
+    var icon = document.getElementById('icon-change');
 
     if (leaveHistory.style.display === "none") {
         historyBtn.textContent = "View Calendar";
