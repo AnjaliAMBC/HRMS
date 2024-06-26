@@ -46,7 +46,8 @@
 
                 $('#dayTypeContainer').show();
                 $('#totalLeavesContainer').show();
-                generateDayTypeRows(leaverequestname);
+                $('.balance-section-wrapper').show();
+                generateDayTypeRows(leaverequestname);            
             }
 
             generateBalanceSection();
