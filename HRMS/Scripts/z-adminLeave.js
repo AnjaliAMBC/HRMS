@@ -366,9 +366,26 @@ $(document).off('click', '.acceptLeaveBtn').on('click', '.acceptLeaveBtn', funct
         data: { leaveRequestName: leaveName },
         success: function (response) {
             if (response.success == true) {
-                var $statusLabel = $('<small class="statusLabel">Approved</small>');
-                $statusBtnFlex.append($statusLabel);
+                //var $statusLabel = $('<small class="statusLabel">Approved</small>');
+                //$statusBtnFlex.append($statusLabel);
+                //$statusBtnFlex.find('.statusBtn').hide();
+
+                $statusBtnFlex.find('.statusLabel').text('Approved').show();
+                //$statusBtnFlex.append($statusLabel);
                 $statusBtnFlex.find('.statusBtn').hide();
+                $statusBtnFlex.find('.changestatusapprove').hide();
+
+                // Check if admin-leaveapprovaloptions div exists, if not create it
+                if ($statusBtnFlex.find('.admin-leaveapprovaloptions').length === 0) {
+                    var adminLeaveApprovalOptions = `
+                        <i class="fas fa-ellipsis-h adminleave-leave-approval" onclick="toggleAdminLeaveApprovalActionOptions(this)"></i>
+                        <div class="admin-leaveapprovaloptions" style="display:none">
+                            <a href="" class="dropdown-item rejectLeaveBtn changestatusreject" data-leavename="${leaveName}" data-compoffnum="${leaveName}">Change Status</a>
+                        </div>
+                    `;
+                    $statusBtnFlex.append(adminLeaveApprovalOptions);
+                }
+
             } else {
                 alert('Failed to update the status. Please try again.');
             }
@@ -384,17 +401,29 @@ $(document).off('click', '.rejectLeaveBtn').on('click', '.rejectLeaveBtn', funct
     event.preventDefault();
     var leaveName = $(this).data('leavename');
     var $statusBtnFlex = $(this).closest('.statusBtnFlex');
-    var $statusLabel = $statusBtnFlex.siblings('.statusLabel');
+    //var $statusLabel = $statusBtnFlex.siblings('.statusLabel');
 
     $.ajax({
-        url: '/EmpLeave/ApproveLeave',
+        url: '/EmpLeave/RejectLeave',
         type: 'POST',
         data: { leaveRequestName: leaveName },
         success: function (response) {
             if (response.success == true) {
-                var $statusLabel = $('<small class="statusLabel">Rejected</small>');
-                $statusBtnFlex.append($statusLabel);
+                /*  var $statusLabel = $('<small class="statusLabel">Rejected</small>');*/
+                $statusBtnFlex.find('.statusLabel').text('Rejected').show();
+                //$statusBtnFlex.append($statusLabel);
                 $statusBtnFlex.find('.statusBtn').hide();
+                $statusBtnFlex.find('.changestatusreject').hide();
+
+                if ($statusBtnFlex.find('.admin-leaveapprovaloptions').length === 0) {
+                    var adminLeaveApprovalOptions = `
+                        <i class="fas fa-ellipsis-h adminleave-leave-approval" onclick="toggleAdminLeaveApprovalActionOptions(this)"></i>
+                        <div class="admin-leaveapprovaloptions" style="display:none">
+                            <a href="" class="dropdown-item acceptLeaveBtn changestatusapprove" data-leavename="${leaveName}" data-compoffnum="${leaveName}">Change Status</a>
+                        </div>
+                    `;
+                    $statusBtnFlex.append(adminLeaveApprovalOptions);
+                }
             } else {
                 alert('Failed to update the status. Please try again.');
             }
@@ -404,6 +433,14 @@ $(document).off('click', '.rejectLeaveBtn').on('click', '.rejectLeaveBtn', funct
         }
     });
 });
+
+
+function toggleAdminLeaveApprovalActionOptions(iconElement) {
+    const optionsMenu = $(iconElement).next('.admin-leaveapprovaloptions');
+    $('.admin-leaveapprovaloptions').not(optionsMenu).hide();
+    optionsMenu.toggle();
+}
+
 
 
 

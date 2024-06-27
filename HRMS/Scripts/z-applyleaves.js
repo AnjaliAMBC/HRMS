@@ -310,15 +310,15 @@ $(document).on('click', '.btn-apply-empleave', function (event) {
 
             if (isNaN(decimalAppliedLeaves) || isNaN(decimaltotalAvailableBalanceLeaves)) {
                 isValid = false;
-                $('error-message-showerror').text("Invalid input related to leave balance");
-                $('error-message-showerror').show();
+                $('.error-message-showerror').html("Invalid input related to leave balance.<br><br>");
+                $('.error-message-showerror').show();
                 //showError('error-message-showerror', "Invalid input related to leave balance");
             }
 
             if (decimalAppliedLeaves > decimaltotalAvailableBalanceLeaves) {
                 isValid = false;
-                $('error-message-showerror').text("You are not allowed to apply the leaves more than the available balance. Please contact administrator.");
-                $('error-message-showerror').show();
+                $('.error-message-showerror').html("You are not allowed to apply the leaves more than the available balance. Please contact administrator.<br><br>");
+                $('.error-message-showerror').show();
                 //showError('error-message-showerror', 'You are not allowed to apply the leaves more than the available balance. Please contact administrator.');
             }
         }
@@ -358,10 +358,11 @@ $(document).on('click', '.btn-apply-empleave', function (event) {
         success: function (response) {
             console.log('Success:', response);
             if (response.jsonResponse.StatusCode == 200) {
+                // Clear form fields
                 $('#leaveType').val($('#leaveType option:first').val());
                 $('#fromleaveDate').val('');
                 $('#toleaveDate').val('');
-                $('#HourPermission').val();
+                $('#HourPermission').val('');
                 $('#teamEmail').val('');
                 $('#teamEmail').val($('#defaultteamEmail').text());
                 $('#reason').val('');
@@ -376,18 +377,28 @@ $(document).on('click', '.btn-apply-empleave', function (event) {
                 $('#dayTypeContainer').hide();
                 $('.balance-section-wrapper').empty();
                 $('.time-section').hide();
+               
+                $('#modalMessage').removeClass('text-danger').addClass('text-success').text(response.jsonResponse.Message);
+                $('#messageModal').modal('show');
+            } else {              
+                $('#modalMessage').removeClass('text-success').addClass('text-danger').text(response.jsonResponse.Message);
+                $('#messageModal').modal('show');
             }
-            alert(response.jsonResponse.Message);
         },
         error: function (error) {
             console.error('Error:', error);
-            alert('An error occurred while submitting the leave request.');
+            // Show error message in modal
+            $('#modalMessage').removeClass('text-success').addClass('text-danger').text('An error occurred while submitting the leave request.');
+            $('#messageModal').modal('show');
         }
     });
+
 });
 
 
 $(document).on('change', '#leaveType', function (event) {
+    $('.error-message-showerror').html("");
+    $('.error-message-showerror').hide();
 
     $('.balance-section-wrapper').show();
     var selectedLeaveType = $(this).val();

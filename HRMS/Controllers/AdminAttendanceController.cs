@@ -16,6 +16,7 @@ namespace HRMS.Controllers
     using Helpers;
     using HRMS.Models.Employee;
     using Microsoft.Ajax.Utilities;
+    using System.Configuration;
     using System.Data.Entity;
 
     public class AdminAttendanceController : Controller
@@ -390,13 +391,24 @@ namespace HRMS.Controllers
                         {
                             associatedEmloyees.ForEach(p =>
                             {
+                                // Store existing shift timings
+                                var existingShiftStartTime = p.ShiftStartTime;
+                                var existingShiftEndTime = p.ShiftEndTime;
+
+                                // Update to new shift timings
                                 p.ShiftTimings = selectedShift;
                                 p.ShiftStartTime = shiftStartTimeSelected;
                                 p.ShiftEndTime = shiftEndTimeSelected;
+
+                                // Send email notification if required
+                                if (data.notification)
+                                {
+                                    SendShiftChangeNotificationEmail(p, existingShiftStartTime, existingShiftEndTime, shiftStartTimeSelected, shiftEndTimeSelected);
+                                }
+
                                 _dbContext.Entry(p).State = EntityState.Modified;
                             });
                         }
-
                         _dbContext.SaveChanges();
                     }
                 }
@@ -409,49 +421,100 @@ namespace HRMS.Controllers
                         {
                             associatedEmloyees.ForEach(p =>
                             {
+                                // Store existing shift timings
+                                var existingShiftStartTime = p.ShiftStartTime;
+                                var existingShiftEndTime = p.ShiftEndTime;
+
+                                // Update to new shift timings
                                 p.ShiftTimings = selectedShift;
                                 p.ShiftStartTime = shiftStartTimeSelected;
                                 p.ShiftEndTime = shiftEndTimeSelected;
+
+                                // Send email notification if required
+                                if (data.notification)
+                                {
+                                    SendShiftChangeNotificationEmail(p, existingShiftStartTime, existingShiftEndTime, shiftStartTimeSelected, shiftEndTimeSelected);
+                                }
+
                                 _dbContext.Entry(p).State = EntityState.Modified;
                             });
                         }
-
                         _dbContext.SaveChanges();
                     }
                 }
 
-                if (data.notification == true)
+                if (data.notification)
                 {
-                    foreach (var emp in associatedEmloyees)
-                    {
-                        var emailRequest = new EmailRequest()
-                        {
-                            Body = $"Dear {emp.EmployeeName},\n\nYour shift has been changed. New shift details:\n{selectedShift}\n\nBest Regards,\nPRM AMBC",
-                            ToEmail = emp.OfficalEmailid,
-                            Subject = "TESt Shift Change Notification",
-                        };
-                        var sendNotification = EMailHelper.SendEmail(emailRequest);
-                    }
-
                     model.JsonResponse.Message = "Shift timings updated and Email notification sent successfully!";
                     model.JsonResponse.StatusCode = 200;
-
-                    return Json(model, JsonRequestBehavior.AllowGet);
                 }
                 else
                 {
                     model.JsonResponse.Message = "Shift timings updated successfully!";
                     model.JsonResponse.StatusCode = 200;
-                    return Json(model, JsonRequestBehavior.AllowGet);
                 }
+
+                return Json(model, JsonRequestBehavior.AllowGet);
             }
-            catch (Exception)
+            catch (Exception ex)
             {
-                model.JsonResponse.Message = "Error occured!";
+                model.JsonResponse.Message = "Error occurred!";
                 model.JsonResponse.StatusCode = 500;
                 return Json(model, JsonRequestBehavior.AllowGet);
             }
         }
+
+        private void SendShiftChangeNotificationEmail(emp_info emp, TimeSpan? existingShiftStartTime, TimeSpan? existingShiftEndTime, TimeSpan newShiftStartTime, TimeSpan newShiftEndTime)
+        {
+            var siteURL = ConfigurationManager.AppSettings["siteURL"];
+            var logoURL = siteURL + "/Assets/AMBC_Logo.png";
+
+            string existingShiftStartTimeString = existingShiftStartTime.HasValue ? existingShiftStartTime.Value.ToString(@"hh\:mm") : "N/A";
+            string existingShiftEndTimeString = existingShiftEndTime.HasValue ? existingShiftEndTime.Value.ToString(@"hh\:mm") : "N/A";
+            string newShiftStartTimeString = newShiftStartTime.ToString(@"hh\:mm");
+            string newShiftEndTimeString = newShiftEndTime.ToString(@"hh\:mm");
+
+            string body = $@"
+        <html>
+        <head></head>
+        <body>
+            <div style='font-family: Arial, sans-serif; border: 1px solid gray;width: 50%;'>
+                <div style='margin-left: 20px'>
+                    <div style='margin-bottom: 20px;'>
+                        <img src='{logoURL}' alt='Company Logo' style='width: 100px; float: right'>
+                    </div>
+                    <h2 style='color: #333;'>Dear {emp.EmployeeName}</h2>
+                    <h3 style='color: #333;'>SHIFT CHANGE</h3>
+                    <p>Your Shift has been changed as indicated below</p>
+                    <table border='1' cellpadding='5' cellspacing='0' style='border-collapse: collapse; width: 80%;'>
+                        <tr>
+                            <th style='background-color: #f2f2f2;'>Existing Shift(s)</th>
+                            <th style='background-color: #f2f2f2;'>Changed Shift</th>
+                        </tr>
+                        <tr>
+                            <td style='text-align: center;'>{existingShiftStartTimeString} - {existingShiftEndTimeString}</td>
+                            <td style='text-align: center;'>{newShiftStartTimeString} - {newShiftEndTimeString}</td>
+                        </tr>
+                    </table>
+                    <div style='margin-top: 20px; font-size: 12px; color: #666;'>
+                        <p>Automated mail from <a href='{siteURL}'>{siteURL}</a></p>
+                    </div>
+                <div>
+            </div>
+        </body>
+        </html>";
+
+            var emailRequest = new EmailRequest()
+            {
+                Body = body,
+                ToEmail = emp.OfficalEmailid,
+                Subject = "Shift Change Notification",
+            };
+
+            EMailHelper.SendEmail(emailRequest);
+        }
+
+
 
         [HttpPost]
         public ActionResult UpdateEmployeeCheckIn(EmployeeCheckInUpdateModel model)
