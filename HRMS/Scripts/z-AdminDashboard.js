@@ -738,3 +738,9 @@ $(document).ready(function () {
         }
     });
 });
+
+$(document).on('click', '.compOff-History-Page', function () {
+    window.location.href = "/adminleave/index?fromcompoff=true";
+});
+
+
