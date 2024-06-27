@@ -374,6 +374,18 @@ $(document).off('click', '.acceptLeaveBtn').on('click', '.acceptLeaveBtn', funct
                 //$statusBtnFlex.append($statusLabel);
                 $statusBtnFlex.find('.statusBtn').hide();
                 $statusBtnFlex.find('.changestatusapprove').hide();
+
+                // Check if admin-leaveapprovaloptions div exists, if not create it
+                if ($statusBtnFlex.find('.admin-leaveapprovaloptions').length === 0) {
+                    var adminLeaveApprovalOptions = `
+                        <i class="fas fa-ellipsis-h adminleave-leave-approval" onclick="toggleAdminLeaveApprovalActionOptions(this)"></i>
+                        <div class="admin-leaveapprovaloptions" style="display:none">
+                            <a href="" class="dropdown-item rejectLeaveBtn changestatusreject" data-leavename="${leaveName}" data-compoffnum="${leaveName}">Change Status</a>
+                        </div>
+                    `;
+                    $statusBtnFlex.append(adminLeaveApprovalOptions);
+                }
+
             } else {
                 alert('Failed to update the status. Please try again.');
             }
@@ -402,6 +414,16 @@ $(document).off('click', '.rejectLeaveBtn').on('click', '.rejectLeaveBtn', funct
                 //$statusBtnFlex.append($statusLabel);
                 $statusBtnFlex.find('.statusBtn').hide();
                 $statusBtnFlex.find('.changestatusreject').hide();
+
+                if ($statusBtnFlex.find('.admin-leaveapprovaloptions').length === 0) {
+                    var adminLeaveApprovalOptions = `
+                        <i class="fas fa-ellipsis-h adminleave-leave-approval" onclick="toggleAdminLeaveApprovalActionOptions(this)"></i>
+                        <div class="admin-leaveapprovaloptions" style="display:none">
+                            <a href="" class="dropdown-item acceptLeaveBtn changestatusapprove" data-leavename="${leaveName}" data-compoffnum="${leaveName}">Change Status</a>
+                        </div>
+                    `;
+                    $statusBtnFlex.append(adminLeaveApprovalOptions);
+                }
             } else {
                 alert('Failed to update the status. Please try again.');
             }

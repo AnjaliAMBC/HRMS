@@ -324,11 +324,11 @@
                                         <div class="admin-leaveapprovaloptions" style="display:none">
                                             @if (@leaveemp.LatestLeave.LeaveStatus == "Approved")
                                             {
-                                                <a href="" class="dropdown-item rejectLeaveBtn" data-leavename="@leaveemp.LatestLeave.LeaveRequestName" data-compoffnum="@leaveemp.LatestLeave.LeaveRequestName">Change Status</a>
+                                                <a href="" class="dropdown-item rejectLeaveBtn changestatusreject" data-leavename="@leaveemp.LatestLeave.LeaveRequestName" data-compoffnum="@leaveemp.LatestLeave.LeaveRequestName">Change Status</a>
                                             }
                                             else
                                             {
-                                                <a href="" class="dropdown-item acceptLeaveBtn" data-leavename="@leaveemp.LatestLeave.LeaveRequestName" data-compoffnum="@leaveemp.LatestLeave.LeaveRequestName">Change Status</a>
+                                                <a href="" class="dropdown-item acceptLeaveBtn changestatusapprove" data-leavename="@leaveemp.LatestLeave.LeaveRequestName" data-compoffnum="@leaveemp.LatestLeave.LeaveRequestName">Change Status</a>
                                             }
                                         </div>
                                     }
