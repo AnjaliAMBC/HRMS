@@ -311,10 +311,26 @@
                                     {
                                         <a href="" class="statusBtn acceptLeaveBtn" data-leavename="@leaveemp.LatestLeave.LeaveRequestName">Approve</a>
                                         <a href="" class="statusBtn rejectLeaveBtn" data-leavename="@leaveemp.LatestLeave.LeaveRequestName">Reject</a>
+                                        <div id="statusLabel" class="statusLabel" style="display: none">@leaveemp.LatestLeave.LeaveStatus</div>
                                     }
                                     else
                                     {
                                         <small class="statusLabel">@leaveemp.LatestLeave.LeaveStatus</small>
+                                    }
+
+                                    @if (@leaveemp.LatestLeave.LeaveStatus == "Approved" || @leaveemp.LatestLeave.LeaveStatus == "Rejected")
+                                    {
+                                        <i class="fas fa-ellipsis-h adminleave-leave-approval" onclick="toggleAdminLeaveApprovalActionOptions(this)"></i>
+                                        <div class="admin-leaveapprovaloptions" style="display:none">
+                                            @if (@leaveemp.LatestLeave.LeaveStatus == "Approved")
+                                            {
+                                                <a href="" class="dropdown-item rejectLeaveBtn" data-leavename="@leaveemp.LatestLeave.LeaveRequestName" data-compoffnum="@leaveemp.LatestLeave.LeaveRequestName">Change Status</a>
+                                            }
+                                            else
+                                            {
+                                                <a href="" class="dropdown-item acceptLeaveBtn" data-leavename="@leaveemp.LatestLeave.LeaveRequestName" data-compoffnum="@leaveemp.LatestLeave.LeaveRequestName">Change Status</a>
+                                            }
+                                        </div>
                                     }
 
                                 </div>
@@ -379,6 +395,8 @@
                 }
                 $('#adminleaveTable-mgmt').DataTable().column(5).search(location).draw();
             });
+
+
 
             //// Check if DataTable is already initialized and destroy it
             //if ($.fn.DataTable.isDataTable('#adminleaveTable-mgmt')) {
