@@ -2322,10 +2322,13 @@
     .tablet-view .admin-attendancemgmt-view .b-to label {
         margin-right: 10px;
     }
+
+    .tablet-view .admin-attendance-container {
+        margin-left: 0px !important;
+    }
     /* admin attendance end*/
 
     /* admin leave start*/
-
     .tablet-view .res-admin-leave .main-content.container-fluid {
         width: 78% !important;
         margin-left: 170px;
@@ -2388,7 +2391,7 @@
 
     /* admin leave import end */
 
-    }
+}
 
 /* Media Query for Tablets Ipads portrait mode end */
 
@@ -2405,7 +2408,7 @@
     }
 
     .emp-self-service .backgroundimg {
-        width: 102% !important;
+        width: 103% !important;
     }
 
     .main-content.container-fluid {
@@ -2413,5 +2416,32 @@
         margin-right: 0;
     }
 
+    body div.res-admin-leave .main-content.container-fluid {
+        width: 91% !important;
+    }
+
+    .res-admin-leave .admin-leaveimport-view {
+        margin: 0;
+    }
+
+    .res-admin-leave-balance-table #leaveBalanceTable {
+        width: 100% !important;
+    }
+
+    .res-admin-leave-balance #leaveBalanceTable thead th:nth-child(1) {
+        width: 45px !important;
+    }
+
+    .res-admin-leave-balance #leaveBalanceTable thead th:nth-child(2) {
+        width: 140px !important;
+    }
+
+    .res-admin-leave-balance #leaveBalanceTable thead th:nth-child(11) {
+        width: 80px !important;
+    }
+
+    .admin-attendance-container #adminaddendancetable .leave-btn, .admin-attendance-container #adminaddendancetable .gray-btn {
+        width: 68%;
+    }
 
 }
