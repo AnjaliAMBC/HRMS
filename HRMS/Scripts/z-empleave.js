@@ -44,12 +44,12 @@ function generateLeaveHolidays(holidays) {
     return leaveholidays;
 }
 
-function fetchLeaveHolidays() {
-    updateLeaveCalendar();
+function fetchLeaveHolidays(selectedempid) {
+    updateLeaveCalendar(selectedempid);
 }
 
-function updateLeaveCalendar() {
-    generateLeaveCalendar(currentLeaveMonth, currentLeaveYear);
+function updateLeaveCalendar(selectedempid) {
+    generateLeaveCalendar(currentLeaveMonth, currentLeaveYear, selectedempid);
 }
 
 // Utility function to format date as YYYY-MM-DD
@@ -60,7 +60,7 @@ function formatDateyyyyMMdd(date) {
     return yyyy + '-' + mm + '-' + dd;
 }
 
-function generateLeaveCalendar(month, year) {
+function generateLeaveCalendar(month, year, selectedempid) {
 
     var isAdminLeavePage = false;
     var linktoleavecalender = "btn-apply-leave1";
@@ -71,6 +71,11 @@ function generateLeaveCalendar(month, year) {
     }
 
     var empID = isAdminLeavePage ? "" : $('.loggedinempid').text();
+
+    if (selectedempid != undefined && selectedempid != "") {
+        isAdminLeavePage = false;
+        empID = selectedempid;
+    }
 
     if (isAdminLeavePage == true) {
         $.ajax({
@@ -334,9 +339,16 @@ function prevLeaveMonth() {
     currentLeaveMonth--;
     if (currentLeaveMonth < 0) {
         currentLeaveMonth = 11;
-        currentLeaveYear--;
+        currentLeaveYear--;    }
+
+    if ($('.LeaveEmpHistory-calender').length) {
+        var empId = $('.LeaveEmp-dropdowntoggle').attr('data-empid');
+        updateLeaveCalendar(empId);
+    } else {
+        updateLeaveCalendar();
     }
-    updateLeaveCalendar();
+
+   
 }
 
 function nextLeaveMonth() {
@@ -345,7 +357,13 @@ function nextLeaveMonth() {
         currentLeaveMonth = 0;
         currentLeaveYear++;
     }
-    updateLeaveCalendar();
+    if ($('.LeaveEmpHistory-calender').length) {
+        var empId = $('.LeaveEmp-dropdowntoggle').attr('data-empid');
+        updateLeaveCalendar(empId);
+    } else {
+        updateLeaveCalendar();
+    }
+
 }
 
 const leavetoday = new Date();
