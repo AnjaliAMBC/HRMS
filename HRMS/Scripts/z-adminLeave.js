@@ -441,6 +441,60 @@ function toggleAdminLeaveApprovalActionOptions(iconElement) {
     optionsMenu.toggle();
 }
 
+$(document).on('click', '.AdminIndiEmpLeave-History', function (event) {
+
+    $.ajax({
+        url: '/adminleave/AdminEmpLeaveCalender',
+        type: 'GET',
+        dataType: 'html',    
+        success: function (response) {
+            $(".hiddenadmindashboard").html("");
+            $('.admin-dashboard-container').html("");
+            $(".admin-emppadd-container").html("");
+            $('.admin-empmanagement-container').html("");
+            $('.admin-attendance-container').html("");
+            $('.admin-leave-container').html("");
+            $('.admin-leave-management-view').html("");
+
+            $(".hiddenadmindashboard").html(response);
+            var formContent = $(".hiddenadmindashboard").find(".AdminLeaveEmpCalender-Page").html();
+            $(".admin-leave-container").html(formContent);
+
+            $('.admin-empmanagement-container').hide();
+            $('.admin-dashboard-container').hide();
+            $('.admin-emppadd-container').hide();
+            $('.admin-attendance-container').hide();
+            $('.admin-leave-container').show();
+            $('.admin-ticketing-container').hide();
+            $(".hiddenadmindashboard").html("");
+        },
+        error: function (xhr, status, error) {
+            var err = eval("(" + xhr.responseText + ")");
+        }
+    });
+
+});
+
+$(document).on('click', '.admin-empbased-leave-calender', function (event) {
+
+    event.preventDefault();
+    $('.show-progress').show();
+
+    var selectedEmployee = $(this).text();
+    var empId = $(this).data('empid');
+
+    $('.LeaveEmp-dropdowntoggle').text(selectedEmployee);
+    $('.LeaveEmp-dropdowntoggle').attr('data-empid', empId);
+
+    fetchLeaveHolidays(empId);
+    $('.show-progress').hide();
+});
+
+
+
+
+
+
 
 
 

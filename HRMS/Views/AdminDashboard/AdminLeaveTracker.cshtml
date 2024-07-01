@@ -1,5 +1,10 @@
 ﻿@model HRMS.Models.Admin.AdminLeaveManagementModel
 
+@{
+    var pageUrlPath = Request.Url.ToString().ToLowerInvariant();
+}
+
+
 @Html.Partial("_NavBar")
 
 <style>
@@ -13,7 +18,7 @@
     <div class="hiddenadmindashboard" style="display: none"></div>
     <div class="main-content container-fluid" style="width: 84%">
 
-        <div class="content admin-leave-container" >
+        <div class="content admin-leave-container">
 
 
             <div class="admin-leavecalender-view">
@@ -33,35 +38,53 @@
                             </div>
                         </div>
                     </div>
-                    <div class="card empleave-card mb-3">
-                        <div class="card-header empleave-card-header empleave-calendar-header text-dark">
-                            <i class="fas fa-chevron-left empleave-chevron-icon" onclick="prevLeaveMonth()"></i>
-                            <h6 id="empleave-monthYear"></h6>
-                            <i class="fas fa-chevron-right empleave-chevron-icon" onclick="nextLeaveMonth()"></i>
+
+                    @if (!pageUrlPath.Contains("fromcompoff"))
+                    {
+                        <div class="card empleave-card mb-3">
+                            <div class="card-header empleave-card-header empleave-calendar-header text-dark">
+                                <i class="fas fa-chevron-left empleave-chevron-icon" onclick="prevLeaveMonth()"></i>
+                                <h6 id="empleave-monthYear"></h6>
+                                <i class="fas fa-chevron-right empleave-chevron-icon" onclick="nextLeaveMonth()"></i>
+                            </div>
+                            <div class="card-body empleave-calendar-body table-responsive">
+                                <table class="table empleave-calendar-table" style="">
+                                    <thead>
+                                        <tr>
+                                            <th scope="col">Monday</th>
+                                            <th scope="col">Tuesday</th>
+                                            <th scope="col">Wednesday</th>
+                                            <th scope="col">Thursday</th>
+                                            <th scope="col">Friday</th>
+                                            <th scope="col">Saturday</th>
+                                            <th scope="col">Sunday</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody id="empleave-calendarBody"></tbody>
+                                </table>
+                            </div>
                         </div>
-                        <div class="card-body empleave-calendar-body table-responsive">
-                            <table class="table empleave-calendar-table" style="">
-                                <thead>
-                                    <tr>
-                                        <th scope="col">Monday</th>
-                                        <th scope="col">Tuesday</th>
-                                        <th scope="col">Wednesday</th>
-                                        <th scope="col">Thursday</th>
-                                        <th scope="col">Friday</th>
-                                        <th scope="col">Saturday</th>
-                                        <th scope="col">Sunday</th>
-                                    </tr>
-                                </thead>
-                                <tbody id="empleave-calendarBody"></tbody>
-                            </table>
-                        </div>
-                    </div>
+                    }
+                    else
+                    {
+                        <script>
+                            $(document).ready(function () {
+                                if (document.location.href.toLocaleLowerCase().indexOf('fromcompoff') > -1) {
+                                    $('.adminleave-CompOff-link').click();
+
+                                    var uri = window.location.toString();
+                                    if (uri.indexOf("?") > 0) {
+                                        var clean_uri = uri.substring(0, uri.indexOf("?"));
+                                        window.history.replaceState({}, document.title, clean_uri);
+                                    }
+                                }
+                              
+                            });
+                        </script>
+                    }
                 </div>
 
                 <div class="empleavesbasedonmonthselected" style="display: none">@Newtonsoft.Json.JsonConvert.SerializeObject(Model.LeavesInfo);</div>
-
-
-
 
                 <script>
                     /* generateLeaveCalendar(new Date().getMonth(), new Date().getFullYear());*/

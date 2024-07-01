@@ -621,7 +621,10 @@ namespace HRMS.Controllers
 
         public ActionResult AdminEmpLeaveCalender()
         {
-            return PartialView("~/Views/AdminDashboard/AdminEmpLeaveCalender.cshtml");
+            var AdminLeaveEmpCalenderViewModel = new AdminLeaveEmpCalenderViewModel();
+            AdminLeaveEmpCalenderViewModel.Employees = _dbContext.emp_info.ToList();
+
+            return PartialView("~/Views/AdminDashboard/AdminEmpLeaveCalender.cshtml", AdminLeaveEmpCalenderViewModel);
         }
     }
 }

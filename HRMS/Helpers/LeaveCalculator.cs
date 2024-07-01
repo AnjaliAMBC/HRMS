@@ -373,7 +373,7 @@ namespace HRMS.Helpers
             {
                 if (fromDashboard)
                 {
-                    selectedDateLeaves = _dbContext.con_leaveupdate.Where(x => x.createddate >= model.SelectedDate && x.createddate <= model.SelectedEndDate && x.employee_id == empID).ToList();
+                    selectedDateLeaves = _dbContext.con_leaveupdate.Where(x => x.createddate >= model.SelectedDate && x.createddate <= model.SelectedEndDate).ToList();
                 }
                 else
                 {
