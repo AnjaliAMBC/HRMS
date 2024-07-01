@@ -652,11 +652,15 @@
         margin-left: 0px !important;
     }
 
-    .mobile-view .res-admin-attendance .admin-attendancemgmt-view .days-container {
+    .mobile-view .res-admin-attendance #daysContainer.days-container {
         overflow-x: scroll;
         display: inline-flex;
         width: 88%;
         margin: 10px 7%;
+    }
+
+    .mobile-view .res-admin-attendance #daysContainer.days-container .day {
+        margin: 0 4px;
     }
 
     .mobile-view .res-admin-attendance .res-admin-attendance-header .adminatt-dropdown label {
@@ -975,6 +979,41 @@
     }
 
     /* admin leave import end */
+
+    /* admin leave compoff start */
+
+    .mobile-view .res-admincompoff-header .res-adminleave-compoff-header-center {
+        display: inline-block !important;
+    }
+
+    .mobile-view .res-admincompoff-header .res-adminleave-compoff-header-right {
+        margin-top: 10px;
+        display: inline !important;
+    }
+
+    .mobile-view .res-admincompoff-header #LeavecompoffDateDropdown {
+        margin-left: 0;
+        margin-top: 10px;
+    }
+
+    .mobile-view .res-admin-leavecompoff-view #LeavecompoffDateDropdown {
+        margin-left: 0;
+        margin-top: 10px;
+    }
+
+    .mobile-view .res-admin-leavecompoff-view .res-adminleave-compoff-from-to {
+        display: inline-block !important
+    }
+
+    .mobile-view .res-admin-leavecompoff-view .res-adminleave-compoff-from-to label {
+        width: 15% !important;
+    }
+
+    .mobile-view .res-admin-leavecompoff-view .res-adminleave-compoff-from-to input {
+        width: 85% !important;
+    }
+
+    /* admin leave compoff end */
 }
 
 /* Media Query for low resolution  Tablets, Ipads start */
@@ -2390,7 +2429,7 @@
     }
 
     .tablet-view .admin-leave-container .adminleave-dropdown {
-        width: 30%;
+        width: 28%;
         display: inline-block;
         margin-right: 20px !important;
         text-align: center;
@@ -2501,6 +2540,48 @@
     }
 
     /* admin leave import end */
+
+    /* admin leave compoff start */
+
+    .tablet-view .res-admincompoff-header .res-adminleave-compoff-header-center {
+        display: inline-block !important;
+    }
+
+    .tablet-view .res-admincompoff-header .res-adminleave-compoff-header-right {
+        margin-top: 10px;
+        display: inline !important;
+    }
+
+    .tablet-view .res-admincompoff-header #LeavecompoffDateDropdown {
+        margin-left: 0;
+        margin-top: 10px;
+    }
+
+    .tablet-view .res-admin-leavecompoff-view .dropdowns-leave-compoff-container {
+        justify-content: space-between;
+    }
+
+    .tablet-view .admin-leavecalender-view .empleave-calendar-table .empleave-leave-request {
+        top: 5px;
+    }
+
+    .tablet-view .res-admin-leavecompoff-view #LeavecompoffDateDropdown {
+        margin-left: 0;
+        margin-top: 10px;
+    }
+
+    .tablet-view .res-admin-leavecompoff-view .res-adminleave-compoff-from-to {
+    }
+
+        .tablet-view .res-admin-leavecompoff-view .res-adminleave-compoff-from-to label {
+            width: 15% !important;
+        }
+
+        .tablet-view .res-admin-leavecompoff-view .res-adminleave-compoff-from-to input {
+            width: 85% !important;
+        }
+
+    /* admin leave compoff end */
 
 }
 
