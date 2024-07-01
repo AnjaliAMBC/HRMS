@@ -277,7 +277,26 @@ div.main-content {
     width: 80% !important;
 }
 
+.addshiftcard #employeeDropdown .multiselect-native-select .btn {
+    color: #212529;
+}
+
+.addshiftcard #employeeDropdown .multiselect-native-select .multiselect-selected-text {
+    float: left;
+    width: 94%;
+}
+
+.addshiftcard #employeeDropdown .multiselect-native-select button b {
+    float: right;
+    width: 100%;
+}
+
+.addshiftcard #employeeDropdown .multiselect-native-select button .multiselect-container > li > a > label {
+    padding: 3px 20px 3px 15px;
+}
+
 /*admin attendance end*/
+
 /* admin leave start*/
 .res-admin-leave .main-content.container-fluid {
     width: 87% !important;
@@ -455,6 +474,7 @@ div.main-content {
 }
 
 /* admin leave end*/
+
 /* admin leave balance start*/
 .res-admin-leave-balance {
     margin-top: -25px;
@@ -462,59 +482,59 @@ div.main-content {
     width: 103%;
 }
 
-    .res-admin-leave-balance .search-container {
-        margin-left: 15% !important;
-    }
+.res-admin-leave-balance .search-container {
+    margin-left: 15% !important;
+}
 
-    .res-admin-leave-balance .res-admin-leave-balance-export {
-        margin-left: 0%;
-    }
+.res-admin-leave-balance .res-admin-leave-balance-export {
+    margin-left: 0%;
+}
 
-    .res-admin-leave-balance #leaveBalanceTable {
-        margin: 0px;
-        width: 112%;
-    }
+.res-admin-leave-balance #leaveBalanceTable {
+    margin: 0px;
+    width: 112%;
+}
 
-        .res-admin-leave-balance #leaveBalanceTable thead {
-            background-color: transparent;
-        }
+.res-admin-leave-balance #leaveBalanceTable thead {
+    background-color: transparent;
+}
 
-            .res-admin-leave-balance #leaveBalanceTable thead th {
-                color: #000;
-                border-top: 0px;
-                font-weight: normal;
-                text-align: center;
-            }
+.res-admin-leave-balance #leaveBalanceTable thead th {
+    color: #000;
+    border-top: 0px;
+    font-weight: normal;
+    text-align: center;
+}
 
-                .res-admin-leave-balance #leaveBalanceTable thead th:nth-child(1),
-                .res-admin-leave-balance #leaveBalanceTable thead th:nth-child(2) {
-                    visibility: hidden;
-                }
+.res-admin-leave-balance #leaveBalanceTable thead th:nth-child(1),
+.res-admin-leave-balance #leaveBalanceTable thead th:nth-child(2) {
+    visibility: hidden;
+}
 
-        .res-admin-leave-balance #leaveBalanceTable tbody td {
-            text-align: center;
-        }
+.res-admin-leave-balance #leaveBalanceTable tbody td {
+    text-align: center;
+}
 
-            .res-admin-leave-balance #leaveBalanceTable tbody td:nth-child(1),
-            .res-admin-leave-balance #leaveBalanceTable tbody td:nth-child(2) {
-                text-align: left;
-            }
+.res-admin-leave-balance #leaveBalanceTable tbody td:nth-child(1),
+.res-admin-leave-balance #leaveBalanceTable tbody td:nth-child(2) {
+    text-align: left;
+}
 
-        .res-admin-leave-balance #leaveBalanceTable thead th:nth-child(3) {
-            width: 95px;
-        }
+.res-admin-leave-balance #leaveBalanceTable thead th:nth-child(3) {
+    width: 95px;
+}
 
-        .res-admin-leave-balance #leaveBalanceTable thead th:nth-child(5) {
-            width: 90px;
-        }
+.res-admin-leave-balance #leaveBalanceTable thead th:nth-child(5) {
+    width: 90px;
+}
 
-        .res-admin-leave-balance #leaveBalanceTable thead th:nth-child(7) {
-            width: 140px;
-        }
+.res-admin-leave-balance #leaveBalanceTable thead th:nth-child(7) {
+    width: 140px;
+}
 
-        .res-admin-leave-balance #leaveBalanceTable thead th:nth-child(11) {
-            width: 60px;
-        }
+.res-admin-leave-balance #leaveBalanceTable thead th:nth-child(11) {
+    width: 60px;
+}
 
 #exportLeaveButton i {
     color: #212529;
@@ -662,8 +682,32 @@ div.main-content {
     background: #2693F8;
 }
 
-..res-admin-leave-history .advanceleave-history-button {
+.res-admin-leave-history .advanceleave-history-button {
     margin-left: 16px !important;
+}
+
+#empleave-calendarBody .empleave-leave-request {
+    position: relative;
+    float: initial !important;
+    top: 14px;
+    left: 0px;
+    height: auto !important;
+}
+
+.LeaveEmpHistory-calender .res-leavehistpry-calender-search #employeeDropdown {
+    border: 1px solid #ccc;
+    border-radius: 0;
+    color: #ccc;
+    width: 85%;
+}
+
+.LeaveEmpHistory-calender .res-leavehistpry-calender-search .LeaveEmp-dropdown {
+    width: 85%;
+}
+
+.LeaveEmpHistory-calender .leave-history-calender {
+    justify-content: right;
+    display: flex;
 }
 
 /* admin leave history end*/
