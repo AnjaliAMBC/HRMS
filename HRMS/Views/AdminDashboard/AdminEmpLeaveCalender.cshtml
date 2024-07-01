@@ -4,7 +4,7 @@
 <div class="AdminLeaveEmpCalender-Page">
     <style>
         .LeaveEmpHistory-calender {
-            max-width: 800px;
+            //max-width: 800px;
         }
 
         .LeaveEmp-dropdown {
@@ -82,10 +82,12 @@
     </style>
     <div class="card empleave-card mb-3">
 
-        <div class="LeaveEmpHistory-calender">
-            <div class="title-dropdown-row">
-                <h1 class="mb-0">Leave History</h1>
-                <div class="dropdown-container">
+        <div class="LeaveEmpHistory-calender row">
+            <div class="title-dropdown-row col-lg-12">
+                <div class="col col-sm-12 col-md-12 col-lg-3">
+                    <h3 class="mb-0">Leave History</h3>
+                </div>
+                <div class="dropdown-container col-lg-5 res-leavehistpry-calender-search">
                     <div class="dropdown">
                         <button class="btn btn-secondary dropdown-toggle LeaveEmp-dropdowntoggle" type="button" id="employeeDropdown" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                             Select Employee
@@ -104,7 +106,7 @@
                         </div>
                     </div>
                 </div>
-                <div class="leave-history-calender">
+                <div class="leave-history-calender col-lg-1">
                     <i class="fa-solid fa-table-cells"></i>
                 </div>
             </div>
@@ -116,7 +118,7 @@
             <i class="fas fa-chevron-right empleave-chevron-icon" onclick="nextLeaveMonth()"></i>
         </div>
         <div class="card-body empleave-calendar-body table-responsive">
-            <table class="table empleave-calendar-table" style="width: 80%; color: #23366f">
+            <table class="table empleave-calendar-table" style="width: 100%; color: #23366f">
                 <thead>
                     <tr>
                         <th scope="col">Monday</th>

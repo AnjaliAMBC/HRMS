@@ -41,9 +41,9 @@ input[type=radio] {
     transition: all ease-in 0.2s;
 }
 
-input[type=radio]:checked {
-    background-color: #007bff;
-}
+    input[type=radio]:checked {
+        background-color: #007bff;
+    }
 
 div.main-content {
     //padding-top: 35px;
@@ -108,10 +108,10 @@ div.main-content {
     margin-right: 0px !important;
 }
 
-.res-admin-employee-management .res-admin-filter-inside .dropdown {
-    display: inline-block;
-    width: 21%;
-}
+    .res-admin-employee-management .res-admin-filter-inside .dropdown {
+        display: inline-block;
+        width: 21%;
+    }
 
 .res-admin-employee-management .res-clear-btn {
     background: #2693F8;
@@ -151,7 +151,7 @@ div.main-content {
 }
 
 .dropdown-toggle {
-    color: black;
+    color: white;
 }
 
 .admin-empmanagement-view .res-admin-filter {
@@ -183,8 +183,8 @@ div.main-content {
 .admin-empmanagement-view #myTabContent .container.tab-container .row {
 }
 
-.admin-empmanagement-view #myTabContent .container.tab-container .row .col-lg-3 {
-}
+    .admin-empmanagement-view #myTabContent .container.tab-container .row .col-lg-3 {
+    }
 
 .admin-empmanagement-view .res-admin-empman-filter advanced-filtertab .advance-button {
     margin-left: 16px !important;
@@ -220,9 +220,9 @@ div.main-content {
     margin-left: 0% !important;
 }
 
-.res-admin-individual-att-from-to .form-inline {
-    justify-content: right;
-}
+    .res-admin-individual-att-from-to .form-inline {
+        justify-content: right;
+    }
 
 .adminatt-dropdown label {
     margin-right: 12px !important;
@@ -232,11 +232,11 @@ div.main-content {
     justify-content: left;
 }
 
-.admin-attendancemgmt-view .dropdowns-container .day {
-    margin: 0 4px;
-}
+    .admin-attendancemgmt-view .dropdowns-container .day {
+        margin: 0 4px;
+    }
 
-.admin-attendance-container #adminaddendancetable thead th{
+.admin-attendance-container #adminaddendancetable thead th {
     //text-align: center;
 }
 
@@ -260,6 +260,38 @@ div.main-content {
 }
 
 .addshiftcard #departmentDropdown .multiselect-native-select button .multiselect-container > li > a > label {
+    padding: 3px 20px 3px 15px;
+}
+
+.admin-empmanagement-view .nav-tabs .nav-link {
+    padding: 7px 14px;
+}
+
+.admin-empmanagement-view .nav-tabs.responsive-tabs {
+    border-radius: 10px 10px 0px 0px;
+}
+
+.res-admin-individual-attendance-table .leave-btn,
+.res-admin-individual-attendance-table .gray-btn,
+.res-admin-individual-attendance-table .present-btn {
+    width: 80% !important;
+}
+
+.addshiftcard #employeeDropdown .multiselect-native-select .btn {
+    color: #212529;
+}
+
+.addshiftcard #employeeDropdown .multiselect-native-select .multiselect-selected-text {
+    float: left;
+    width: 94%;
+}
+
+.addshiftcard #employeeDropdown .multiselect-native-select button b {
+    float: right;
+    width: 100%;
+}
+
+.addshiftcard #employeeDropdown .multiselect-native-select button .multiselect-container > li > a > label {
     padding: 3px 20px 3px 15px;
 }
 
@@ -379,20 +411,20 @@ div.main-content {
     left: 0px;
 }
 
-.admin-leavecalender-view .empleave-calendar-table .empleave-leave-request img {
-    margin-left: -7px;
-}
+    .admin-leavecalender-view .empleave-calendar-table .empleave-leave-request img {
+        margin-left: -7px;
+    }
 
-.admin-leavecalender-view .empleave-calendar-table .empleave-leave-request .more-count {
-    background: #ccc;
-    border-radius: 20px;
-    width: 25px;
-    height: 25px;
-    text-align: center;
-    font-size: 12px;
-    margin-left: -5px;
-    padding-top: 4px;
-}
+    .admin-leavecalender-view .empleave-calendar-table .empleave-leave-request .more-count {
+        background: #ccc;
+        border-radius: 20px;
+        width: 25px;
+        height: 25px;
+        text-align: center;
+        font-size: 12px;
+        margin-left: -5px;
+        padding-top: 4px;
+    }
 
 .admin-leavecalender-view .container.admin-leave-tracker {
     max-width: 100%;
@@ -402,14 +434,15 @@ div.main-content {
     justify-content: left;
 }
 
-.res-admin-leave .leaveSettings-dropdown a{
+.res-admin-leave .leaveSettings-dropdown a {
     cursor: pointer;
 }
 
 #adminleaveTable-mgmt .admin-leaveapprovaloptions {
     position: absolute;
     font-size: 12px;
-    top: 20px;
+    top: -25px;
+    left: 55px;
 }
 
     #adminleaveTable-mgmt .admin-leaveapprovaloptions .changestatusreject {
@@ -432,7 +465,12 @@ div.main-content {
 
 #adminleaveTable-mgmt .adminleave-leave-approval {
     margin-left: 10px;
-    cursor: pointer;    
+    cursor: pointer;
+}
+
+#adminleaveTable-mgmt .commentSec .statusBtnFlex {
+    position: relative;
+    right: 0px;
 }
 
 /* admin leave end*/
@@ -444,59 +482,59 @@ div.main-content {
     width: 103%;
 }
 
-    .res-admin-leave-balance .search-container {
-        margin-left: 15% !important;
-    }
+.res-admin-leave-balance .search-container {
+    margin-left: 15% !important;
+}
 
-    .res-admin-leave-balance .res-admin-leave-balance-export {
-        margin-left: 0%;
-    }
+.res-admin-leave-balance .res-admin-leave-balance-export {
+    margin-left: 0%;
+}
 
-    .res-admin-leave-balance #leaveBalanceTable {
-        margin: 0px;
-        width: 112%;
-    }
+.res-admin-leave-balance #leaveBalanceTable {
+    margin: 0px;
+    width: 112%;
+}
 
-        .res-admin-leave-balance #leaveBalanceTable thead {
-            background-color: transparent;
-        }
+.res-admin-leave-balance #leaveBalanceTable thead {
+    background-color: transparent;
+}
 
-            .res-admin-leave-balance #leaveBalanceTable thead th {
-                color: #000;
-                border-top: 0px;
-                font-weight: normal;
-                text-align: center;
-            }
+.res-admin-leave-balance #leaveBalanceTable thead th {
+    color: #000;
+    border-top: 0px;
+    font-weight: normal;
+    text-align: center;
+}
 
-                .res-admin-leave-balance #leaveBalanceTable thead th:nth-child(1),
-                .res-admin-leave-balance #leaveBalanceTable thead th:nth-child(2) {
-                    visibility: hidden;
-                }
+.res-admin-leave-balance #leaveBalanceTable thead th:nth-child(1),
+.res-admin-leave-balance #leaveBalanceTable thead th:nth-child(2) {
+    visibility: hidden;
+}
 
-        .res-admin-leave-balance #leaveBalanceTable tbody td {
-            text-align: center;
-        }
+.res-admin-leave-balance #leaveBalanceTable tbody td {
+    text-align: center;
+}
 
-            .res-admin-leave-balance #leaveBalanceTable tbody td:nth-child(1),
-            .res-admin-leave-balance #leaveBalanceTable tbody td:nth-child(2) {
-                text-align: left;
-            }
+.res-admin-leave-balance #leaveBalanceTable tbody td:nth-child(1),
+.res-admin-leave-balance #leaveBalanceTable tbody td:nth-child(2) {
+    text-align: left;
+}
 
-        .res-admin-leave-balance #leaveBalanceTable thead th:nth-child(3) {
-            width: 95px;
-        }
+.res-admin-leave-balance #leaveBalanceTable thead th:nth-child(3) {
+    width: 95px;
+}
 
-        .res-admin-leave-balance #leaveBalanceTable thead th:nth-child(5) {
-            width: 90px;
-        }
+.res-admin-leave-balance #leaveBalanceTable thead th:nth-child(5) {
+    width: 90px;
+}
 
-        .res-admin-leave-balance #leaveBalanceTable thead th:nth-child(7) {
-            width: 140px;
-        }
+.res-admin-leave-balance #leaveBalanceTable thead th:nth-child(7) {
+    width: 140px;
+}
 
-        .res-admin-leave-balance #leaveBalanceTable thead th:nth-child(11) {
-            width: 60px;
-        }
+.res-admin-leave-balance #leaveBalanceTable thead th:nth-child(11) {
+    width: 60px;
+}
 
 #exportLeaveButton i {
     color: #212529;
@@ -569,10 +607,10 @@ div.main-content {
     width: 20%;
 }
 
-.res-admin-leave-history .res-admin-leavehistory-filter .advanced-leavehistory-filtertab {
-    margin-top: 6px;
-    justify-content: center;
-}
+    .res-admin-leave-history .res-admin-leavehistory-filter .advanced-leavehistory-filtertab {
+        margin-top: 6px;
+        justify-content: center;
+    }
 
 .res-admin-leave-history .res-admin-leave-balance-export {
     width: 12%;
@@ -590,16 +628,16 @@ div.main-content {
     display: inline-block !important;
 }
 
-#adminleavehistoryfilter .res-adminadvfilter-leavehistory label,
-#adminleavehistoryfilter .res-adminadvfilter-leavehistory input {
-    display: inline-block;
-    font-size: 12px;
-}
+    #adminleavehistoryfilter .res-adminadvfilter-leavehistory label,
+    #adminleavehistoryfilter .res-adminadvfilter-leavehistory input {
+        display: inline-block;
+        font-size: 12px;
+    }
 
-#adminleavehistoryfilter .res-adminadvfilter-leavehistory select {
-    font-size: 12px;
-    height: 30px !important;
-}
+    #adminleavehistoryfilter .res-adminadvfilter-leavehistory select {
+        font-size: 12px;
+        height: 30px !important;
+    }
 
 .res-admin-leavehistory-block-header.leavehistory-exportdropdown {
     margin-bottom: 0 !important;
@@ -616,11 +654,11 @@ div.main-content {
     width: 85%;
 }
 
-.res-admin-leave-history .adminleavehistory-dropdown-toggle:hover, .res-admin-leave-history .adminleavehistory-dropdown-toggle:focus {
-    background-color: transparent;
-    color: #ccc;
-    border: 1px solid;
-}
+    .res-admin-leave-history .adminleavehistory-dropdown-toggle:hover, .res-admin-leave-history .adminleavehistory-dropdown-toggle:focus {
+        background-color: transparent;
+        color: #ccc;
+        border: 1px solid;
+    }
 
 .res-admin-leave-history .adminleavehistory-dropdown-menu #employeeSearchinput {
     border-radius: 5px;
@@ -636,16 +674,40 @@ div.main-content {
     display: none;
 }
 
-.res-admin-leave-history .res-admin-total-leaves-import button {
-    background: #2693F8;
-}
+    .res-admin-leave-history .res-admin-total-leaves-import button {
+        background: #2693F8;
+    }
 
 .res-admin-leave-history .res-admin-leave-balance-export button {
     background: #2693F8;
 }
 
-..res-admin-leave-history .advanceleave-history-button {
+.res-admin-leave-history .advanceleave-history-button {
     margin-left: 16px !important;
+}
+
+#empleave-calendarBody .empleave-leave-request {
+    position: relative;
+    float: initial !important;
+    top: 14px;
+    left: 0px;
+    height: auto !important;
+}
+
+.LeaveEmpHistory-calender .res-leavehistpry-calender-search #employeeDropdown {
+    border: 1px solid #ccc;
+    border-radius: 0;
+    color: #ccc;
+    width: 85%;
+}
+
+.LeaveEmpHistory-calender .res-leavehistpry-calender-search .LeaveEmp-dropdown {
+    width: 85%;
+}
+
+.LeaveEmpHistory-calender .leave-history-calender {
+    justify-content: right;
+    display: flex;
 }
 
 /* admin leave history end*/
@@ -717,7 +779,7 @@ div.main-content {
     display: inline-block;
 }
 
-.res-admin-leavecompoff-view #adminleavecompoffTable .acceptLeavecompoffBtn {
+.res-admin-leavecompoff-view #adminleavecompoffTable .statusBtnFlex .acceptLeavecompoffBtn {
     border: 1px solid #00ffcc;
     color: #00ffcc;
     margin-right: 10px;
@@ -728,13 +790,13 @@ div.main-content {
     font-weight: 500;
 }
 
-    .res-admin-leavecompoff-view #adminleavecompoffTable .acceptLeavecompoffBtn:hover {
+    .res-admin-leavecompoff-view #adminleavecompoffTable .statusBtnFlex .acceptLeavecompoffBtn:hover {
         border: 1px solid #00ffcc;
         color: #fff;
         background: #00ffcc;
     }
 
-.res-admin-leavecompoff-view #adminleavecompoffTable .rejectLeavecompoffBtn {
+.res-admin-leavecompoff-view #adminleavecompoffTable .statusBtnFlex .rejectLeavecompoffBtn {
     border: 1px solid #ff4d4d;
     color: #ff4d4d;
     border-radius: 30px;
@@ -744,7 +806,7 @@ div.main-content {
     font-weight: 500;
 }
 
-    .res-admin-leavecompoff-view #adminleavecompoffTable .rejectLeavecompoffBtn:hover {
+    .res-admin-leavecompoff-view #adminleavecompoffTable .statusBtnFlex .rejectLeavecompoffBtn:hover {
         border: 1px solid #ff4d4d;
         color: #fff;
         background: #ff4d4d;
@@ -790,14 +852,50 @@ div.main-content {
     cursor: pointer;
 }
 
-#adminleavecompoffTable .admin-leavehistoryoptions {
+.res-admin-leavecompoff-view #adminleavecompoffTable .admin-leavehistoryoptions {
     position: absolute;
-    background: #fff;
-    border: 1px solid #ccc;
+    background: #f5f5f0;
+    border: 0px solid #ccc;
     border-radius: 4px;
     cursor: pointer;
     right: 90px;
 }
+
+    .res-admin-leavecompoff-view #adminleavecompoffTable .admin-leavehistoryoptions .rejectLeavecompoffBtn {
+        padding: 4px 5px;
+        background: #f5f5f0;
+        color: #000;
+        border: 0px solid #f5f5f0;
+        font-size: 10px;
+        box-shadow: 1px 4px 5px 1px #f5f5f0;
+    }
+
+        .res-admin-leavecompoff-view #adminleavecompoffTable .admin-leavehistoryoptions .rejectLeavecompoffBtn:hover {
+            padding: 4px 5px;
+            background: #f5f5f0;
+            color: #000;
+            border: 0px solid #f5f5f0;
+            font-size: 10px;
+            box-shadow: 1px 4px 5px 1px #f5f5f0;
+        }
+
+    .res-admin-leavecompoff-view #adminleavecompoffTable .admin-leavehistoryoptions .acceptLeavecompoffBtn {
+        padding: 4px 5px;
+        background: #f5f5f0;
+        color: #000;
+        border: 0px solid #f5f5f0;
+        font-size: 10px;
+        box-shadow: 1px 4px 5px 1px #f5f5f0;
+    }
+
+        .res-admin-leavecompoff-view #adminleavecompoffTable .admin-leavehistoryoptions .acceptLeavecompoffBtn:hover {
+            padding: 4px 5px;
+            background: #f5f5f0;
+            color: #000;
+            border: 0px solid #f5f5f0;
+            font-size: 10px;
+            box-shadow: 1px 4px 5px 1px #f5f5f0;
+        }
 
 /* admin leave compoff end*/
 
@@ -962,7 +1060,7 @@ input[type=checkbox], input[type=radio] {
     display: inline-block;
 }
 
-#empleaveCompOffTable .compoff-actions i{
+#empleaveCompOffTable .compoff-actions i {
     cursor: pointer;
 }
 
