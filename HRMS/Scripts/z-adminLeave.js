@@ -446,10 +446,8 @@ $(document).on('click', '.AdminIndiEmpLeave-History', function (event) {
     $.ajax({
         url: '/adminleave/AdminEmpLeaveCalender',
         type: 'GET',
-        dataType: 'html',
-        /*  data: { selectedStartDate: DateSelected, SelectedendDate: EndDateSelected },*/
+        dataType: 'html',    
         success: function (response) {
-
             $(".hiddenadmindashboard").html("");
             $('.admin-dashboard-container').html("");
             $(".admin-emppadd-container").html("");
@@ -479,13 +477,12 @@ $(document).on('click', '.AdminIndiEmpLeave-History', function (event) {
 
 $(document).on('click', '.admin-empbased-leave-calender', function (event) {
 
-    event.preventDefault(); // Prevent the default anchor click behavior
+    event.preventDefault();
     $('.show-progress').show();
-    // Get the selected employee name and empid
+
     var selectedEmployee = $(this).text();
     var empId = $(this).data('empid');
 
-    // Update the button text and data-empid attribute
     $('.LeaveEmp-dropdowntoggle').text(selectedEmployee);
     $('.LeaveEmp-dropdowntoggle').attr('data-empid', empId);
 
