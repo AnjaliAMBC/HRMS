@@ -54,9 +54,9 @@ namespace HRMS.Models.Employee
     public class AvailableLeaves
     {
         public string Type { get; set; }
-        public decimal? Available { get; set; }
-        public decimal Booked { get; set; }
-        public decimal? Balance { get; set; }
+        public decimal? Available { get; set; } = 0;
+        public decimal Booked { get; set; } = 0;
+        public decimal? Balance { get; set; } = 0;
         public string ColorCode { get; set; }
         public string DashBoardColorCode { get; set; }
         public string ShortName { get; set; }

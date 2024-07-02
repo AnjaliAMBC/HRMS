@@ -194,24 +194,33 @@ namespace HRMS.Controllers
 
         public ActionResult GetAvailableLeaves(string empId, string leaveType)
         {
-            int currentYear = DateTime.Now.Year;
-            string january1stString = $"{currentYear}-01-01";
-            string december31stString = $"{currentYear}-12-31";
+            //int currentYear = DateTime.Now.Year;
+            //string january1stString = $"{currentYear}-01-01";
+            //string december31stString = $"{currentYear}-12-31";
 
-            DateTime january1st = DateTime.ParseExact(january1stString, "yyyy-MM-dd", null);
-            DateTime december31st = DateTime.ParseExact(december31stString, "yyyy-MM-dd", null);
+            //DateTime january1st = DateTime.ParseExact(january1stString, "yyyy-MM-dd", null);
+            //DateTime december31st = DateTime.ParseExact(december31stString, "yyyy-MM-dd", null);
 
-            var employee = _dbContext.emp_info.FirstOrDefault(x => x.EmployeeID == empId);
-            if (employee == null)
+            //var employee = _dbContext.emp_info.FirstOrDefault(x => x.EmployeeID == empId);
+            //if (employee == null)
+            //{
+            //    // Handle case where employee is not found
+            //    return Json(new { error = "Employee not found" }, JsonRequestBehavior.AllowGet);
+            //}
+
+            //var leaveTypeCategory = new LeavesCategory();
+            //leaveTypeCategory.Type = leaveType;
+
+            //var availableLeaves = new LeaveCalculator().CalculateAvailableLeaves(employee, leaveTypeCategory);
+
+            LeaveTypesBasedOnEmpViewModel empLeaveTypes = new LeaveCalculator().GetLeavesByEmp(empId);
+            var availableLeaves = new AvailableLeaves();
+
+            if (empLeaveTypes != null && empLeaveTypes.LeaveTypes.Count() > 0)
             {
-                // Handle case where employee is not found
-                return Json(new { error = "Employee not found" }, JsonRequestBehavior.AllowGet);
+                availableLeaves = empLeaveTypes.LeaveTypes[0].AvailableLeaves.Where(x => x.Type == leaveType).FirstOrDefault();
             }
 
-            var leaveTypeCategory = new LeavesCategory();
-            leaveTypeCategory.Type = leaveType;
-
-            var availableLeaves = new LeaveCalculator().CalculateAvailableLeaves(employee, leaveTypeCategory);
 
             // Return available leaves as JSON
             return Json(availableLeaves, JsonRequestBehavior.AllowGet);

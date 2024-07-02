@@ -65,7 +65,7 @@
                     <th>Status</th>
                 </tr>
             </thead>
-            <tbody>
+            <tbody class="res-admin-individual-attendance-table">
                 @foreach (System.DateTime date in Model.AllDates)
                 {
                     var isWeekendDate = date.DayOfWeek == DayOfWeek.Saturday || date.DayOfWeek == DayOfWeek.Sunday;

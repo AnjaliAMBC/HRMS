@@ -354,11 +354,11 @@ namespace HRMS.Controllers
 
                     worksheet.Cells[row, 1].Value = copmOffInfo.EmployeeID;
                     worksheet.Cells[row, 2].Value = copmOffInfo.EmployeeName;
-                    worksheet.Cells[row, 3].Value = "";
+                    worksheet.Cells[row, 3].Value = copmOffInfo.OfficalEmailid;
                     worksheet.Cells[row, 4].Value = copmOffInfo.createddate?.ToString("yyyy-MM-dd");
                     worksheet.Cells[row, 5].Value = copmOffInfo.CampOffDate.ToString("yyyy-MM-dd");
                     worksheet.Cells[row, 6].Value = copmOffInfo.Location;
-                    worksheet.Cells[row, 7].Value = "";
+                    worksheet.Cells[row, 7].Value = copmOffInfo.Reason;
                     worksheet.Cells[row, 8].Value = copmOffInfo.addStatus;
                 }
 
