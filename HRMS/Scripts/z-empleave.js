@@ -676,8 +676,10 @@ function empleaveedit(currentthis) {
 
 }
 
-function empleavecancel(currentthis) {
-    var leaveName = currentthis.attr("data-leavename");
+
+// Add a click event listener for the confirm button in the modal
+$('#confirmCancelButton').on('click', function () {
+    var leaveName = $(this).data('leavename');
 
     $.ajax({
         url: '/empLeave/EmpLeaveCancel',
@@ -697,7 +699,44 @@ function empleavecancel(currentthis) {
         }
     });
 
+    // Hide the modal after the AJAX call is made
+    $('#confirmCancelModal').modal('hide');
+});
+
+
+function empleavecancel(currentthis) {
+    var leaveName = currentthis.attr("data-leavename");
+
+    // Store leave name in a global variable or data attribute
+    $('#confirmCancelButton').data('leavename', leaveName);
+
+    // Show the confirmation modal
+    $('#confirmCancelModal').modal('show');
 }
+
+
+//function empleavecancel(currentthis) {
+//    var leaveName = currentthis.attr("data-leavename");
+
+//    $.ajax({
+//        url: '/empLeave/EmpLeaveCancel',
+//        type: 'POST',
+//        dataType: 'json',
+//        data: { leavenumber: leaveName },
+//        success: function (response) {
+//            GetEmpLeaveHistory();
+//            if (response.StatusCode == 200) {
+//                showMessageModal(response.Message, true);
+//            } else {
+//                showMessageModal(response.Message, false);
+//            }
+//        },
+//        error: function (xhr, status, error) {
+//            console.error("Error occurred: " + error);
+//        }
+//    });
+
+//}
 
 // Cancel leave event
 $(document).on('click', '.emp-leave-cancel', function (event) {
