@@ -9,7 +9,7 @@
 
 $('.emp-selfservice').click(function (event) {
     event.preventDefault();
-    HighlightEmpActiveLink($(this));
+    //HighlightEmpActiveLink($(this));
     $.ajax({
         url: '/employeedashboard/selfservice',
         type: 'GET',
