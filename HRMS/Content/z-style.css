@@ -273,7 +273,8 @@ div.main-content {
 
 .res-admin-individual-attendance-table .leave-btn,
 .res-admin-individual-attendance-table .gray-btn,
-.res-admin-individual-attendance-table .present-btn {
+.res-admin-individual-attendance-table .present-btn,
+.res-admin-individual-attendance-table .yellow-btn {
     width: 80% !important;
 }
 
@@ -508,7 +509,7 @@ div.main-content {
 
 .res-admin-leave-balance #leaveBalanceTable thead th:nth-child(1),
 .res-admin-leave-balance #leaveBalanceTable thead th:nth-child(2) {
-    visibility: hidden;
+    //visibility: hidden;
 }
 
 .res-admin-leave-balance #leaveBalanceTable tbody td {
@@ -574,8 +575,10 @@ div.main-content {
     margin-bottom: 20px;
 }
 
+.res-admin-leave-balance-dropdown {
+    margin-top: 16px;
+}
 /* admin leave balance end*/
-
 /* admin leave history start */
 .res-admin-leave .res-admin-filter-inside {
     margin-right: 0px !important;
@@ -1069,4 +1072,28 @@ input[type=checkbox], input[type=radio] {
     border: 1px solid #ccc;
     border-radius: 2px;
 }
+
+.emp-leave .leave-dashboard-data .balance-section-wrapper .res-emp-apply-leave .balance-section {
+    border: 1px solid #ccc;
+    padding: 10px;
+    border-radius: 3px;
+    background: #e6ffff;
+    width: 75%;
+}
+
+.emp-leave .leave-dashboard-data .res-emp-apply-leave .balance-section .leave-apply-info-block {
+    display: inline-block;
+    width: 100%;
+}
+
+.emp-leave .leave-dashboard-data .res-emp-apply-leave .balance-section .leave-apply-info-block .res-leave-apply-left {
+    display: inline-block;
+    width: 90%;
+}
+
+.emp-leave .leave-dashboard-data .res-emp-apply-leave .balance-section .leave-apply-info-block .res-leave-apply-right {
+    display: inline-block;
+    width: 10%;
+}
+
 /* emp leave end*/

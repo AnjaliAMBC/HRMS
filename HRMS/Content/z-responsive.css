@@ -370,10 +370,23 @@
         font-size: 14px;
     }
 
+    .mobile-view .emp-leave .leave-dashboard-data .balance-section-wrapper .res-emp-apply-leave .balance-section {
+        width: 100%;
+        margin: 0 !important;
+    }
+
+    .mobile-view .emp-leave .leave-dashboard-data .balance-section-wrapper .res-emp-apply-leave {
+        margin: 0 !important;
+    }
+
+    .mobile-view .emp-leave .leave-dashboard-data .res-emp-apply-leave .balance-section .leave-apply-info-block .res-leave-apply-left {
+        display: inline-block;
+        width: 85%;
+    }
+
     /* emp leave end*/
 
     /* login start*/
-
     .mobile-view .login-page .login-container {
         max-width: 100%;
         margin-top: 40px;
@@ -852,6 +865,7 @@
     /* admin leave end*/
 
     /* admin leave history start*/
+
     .mobile-view .res-admin-leavehistory-main-header {
         justify-content: initial !important;
         display: inline-block !important;
@@ -891,6 +905,31 @@
     .mobile-view #adminleavehistoryfilter .res-adminadvfilter-leavehistory select {
         width: 100% !important;
     }
+
+    .mobile-view .res-admin-leavehistory-calendar .LeaveEmpHistory-calender .title-dropdown-row {
+        display: inline-block;
+    }
+
+    .mobile-view .res-admin-leavehistory-calendar .LeaveEmpHistory-calender .res-leavehistpry-calender-search #employeeDropdown {
+        width: 100%;
+    }
+
+    .mobile-view .res-admin-leavehistory-calendar .LeaveEmpHistory-calender .res-leavehistpry-calender-search {
+        margin-left: 0px;
+        margin-top: 10px;
+        width: 85%;
+        display: inline-block;
+    }
+
+    .mobile-view .res-admin-leavehistory-calendar .LeaveEmpHistory-calender .leave-history-calender {
+        display: inline-block;
+        width: 10%;
+    }
+
+    .mobile-view .res-admin-leavehistory-calendar .LeaveEmpHistory-calender .res-leavehistpry-calender-search .LeaveEmp-dropdown {
+        width: 100%;
+    }
+
     /* admin leave history end*/
 
     /* admin leave balance start*/
@@ -904,7 +943,11 @@
     }
 
     .mobile-view .res-admin-leave-balance .search-container {
-        margin-left: 7% !important;
+        margin-left: 0% !important;
+    }
+
+    .mobile-view .res-admin-leave-balance-main-header .res-admin-leave-balance-title h5{
+        margin-left: 0 !important;
     }
 
     .mobile-view .res-admin-leave-balance-export .dropdowns-container {
@@ -964,10 +1007,41 @@
         width: 80% !important;
     }
 
+    .mobile-view .res-admin-leave-balance-header-right {
+        display: inline-block !important;
+    }
+
+    .mobile-view .res-admin-leave-balance-header-right .res-admin-leave-balance-export,
+    .mobile-view .res-admin-leave-balance-header-right .res-admin-leave-balance-dropdown {
+        display: inline-block !important;
+        padding: 0;
+    }
+
+    .mobile-view .res-admin-leave-balance-header-right .res-admin-leave-balance-export.res-export-btn {
+        margin-left: -5px;
+    }
+
+    .mobile-view .res-admin-leave-balance-header-right .res-admin-leave-balance-dropdown {
+        padding: 0 15px;
+    }
+
+    .mobile-view .res-adminleavebalance-update-block .res-admin-leavebalance-select {
+        display: inline-block !important;
+        justify-content: normal !important;
+        width: 100%;
+    }
+
+    .mobile-view .res-adminleavebalance-update-block #userSelect {
+        width: 100% !important;
+    }
+
+    .mobile-view .table.leaveblanceupdate-table {
+        width: 100%;
+    }
+
     /* admin leave balance end*/
 
     /* admin leave import start */
-
     .mobile-view .admin-leaveimport-view .leave-file-upload {
         width: 100%;
     }
@@ -2072,7 +2146,7 @@
     .tablet-view .emp-leave .main-content.container-fluid {
         width: 70% !important;
         padding: 65px 0px;
-        margin-left: 220px;
+        margin-left: 220px !important;
     }
 
     .tablet-view .emp-leave .tracker_topic {
@@ -2507,6 +2581,11 @@
         padding-left: 5px;
         margin-top: 10px;
     }
+
+    .tablet-view .res-admin-leavehistory-calendar .LeaveEmpHistory-calender .res-leavehistpry-calender-search #employeeDropdown {
+        width: 100%;
+    }
+
     /* admin leave history end*/
 
     /* admin leave balance start*/
@@ -2523,12 +2602,17 @@
         margin-left: 4% !important;
     }
 
+    .tablet-view .res-admin-leave-balance .res-admin-leave-balance-export.res-export-btn .dropdowns-container {
+        justify-content: normal !important;
+    }
+
+    .tablet-view .res-adminleavebalance-update-block .table.leaveblanceupdate-table {
+        width: 100%;
+    }
 
     /* admin leave balance end*/
 
-
     /* admin leave import start */
-
     .tablet-view .admin-leaveimport-view .leave-file-upload {
         width: 100%;
     }

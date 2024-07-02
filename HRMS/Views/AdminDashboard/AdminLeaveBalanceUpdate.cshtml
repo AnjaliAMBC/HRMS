@@ -52,7 +52,7 @@
     </style>
     <div class="container res-adminleavebalance-update-block">
         <h4 class="mb-4">Leave Balance</h4>
-        <div class="d-flex justify-content-between mb-4">
+        <div class="d-flex justify-content-between mb-4 res-admin-leavebalance-select">
             <select class="custom-select w-50" id="userSelect">
                 <option selected>Select User</option>
 
@@ -68,29 +68,31 @@
             @*<button class="btn btn-primary" data-toggle="modal" data-target="#addLeaveModal">Add Leave</button>*@
         </div>
 
-        <table class="table leaveblanceupdate-table">
-            <thead>
-                <tr>
-                    <th scope="col">Leave Type</th>
-                    <th scope="col">Total Days</th>
-                    <th scope="col">Booked</th>
-                    <th scope="col">Available</th>
-                </tr>
-            </thead>
-            <tbody id="leaveBalanceTableBody">
-
-                @foreach (var leave in Model.AvailableLeaves)
-                {
+        <div class="table-responsive">
+            <table class="table leaveblanceupdate-table">
+                <thead>
                     <tr>
-                        <td class="leaveupdate-type"><span class="@leave.DashBoardColorCode">@leave.ShortName</span> @leave.Type</td>
-                        <td><input type="number" class="form-control total-available-leave" value="@leave.Available.ToString().Replace(".00","")"></td>
-                        <td><input type="text" disabled class="form-control" value="@leave.Booked.ToString().Replace(".00","")"></td>
-                        <td><input type="text" disabled class="form-control" value="@leave.Balance.ToString().Replace(".00","")"></td>
+                        <th scope="col">Leave Type</th>
+                        <th scope="col">Total Days</th>
+                        <th scope="col">Booked</th>
+                        <th scope="col">Available</th>
                     </tr>
-                }
+                </thead>
+                <tbody id="leaveBalanceTableBody">
 
-            </tbody>
-        </table>
+                    @foreach (var leave in Model.AvailableLeaves)
+                    {
+                        <tr>
+                            <td class="leaveupdate-type"><span class="@leave.DashBoardColorCode">@leave.ShortName</span> @leave.Type</td>
+                            <td><input type="number" class="form-control total-available-leave" value="@leave.Available.ToString().Replace(".00","")"></td>
+                            <td><input type="text" disabled class="form-control" value="@leave.Booked.ToString().Replace(".00","")"></td>
+                            <td><input type="text" disabled class="form-control" value="@leave.Balance.ToString().Replace(".00","")"></td>
+                        </tr>
+                    }
+
+                </tbody>
+            </table>
+        </div>
         <button class="btn btn-primary" id="updateleavebalanceButton">Update</button>
     </div>
 

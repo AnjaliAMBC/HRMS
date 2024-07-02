@@ -24,26 +24,32 @@ function generateBalanceSection() {
         data: { empId: empId, leaveType: leaveType },
         success: function (data) {
             var balanceSectionHTML = `
-            <div class="ml-4" style="margin-top:25px;">
+            <div class="ml-4 res-emp-apply-leave" style="margin-top:25px;">
                 <div class="balance-section mt-4 ml-4">
                     <div class="row" style="line-height:2;">
-                        <div class="col-md-4">
-                            <span>Total Balance</span>
+                        <div class="col-md-12 leave-apply-info-block">
+                            <div class="col-md-10 res-leave-apply-left">
+                                <span>Total Balance</span>
+                            </div>
+                            <div class="col-md-1 res-leave-apply-right">
+                                <div class="available-total">${data.Available}</div>
+                            </div>
                         </div>
-                        <div class="col-md-6">
-                            <div class="available-total">${data.Available}</div>
+                        <div class="col-md-12 leave-apply-info-block">
+                            <div class="col-md-10 res-leave-apply-left">
+                                <span>Currently Booked</span>
+                            </div>
+                            <div class="col-md-1 res-leave-apply-right">
+                                <div class="booked-leaves">${data.Booked}</div>
+                            </div>
                         </div>
-                        <div class="col-md-4">
-                            <span>Currently Booked</span>
-                        </div>
-                        <div class="col-md-6">
-                            <div class="booked-leaves">${data.Booked}</div>
-                        </div>
-                        <div class="col-md-4">
-                            <span>Available Balance</span>
-                        </div>
-                        <div class="col-md-6">
-                            <div class="available-balance">${data.Balance}</div>
+                        <div class="col-md-12 leave-apply-info-block">
+                            <div class="col-md-10 res-leave-apply-left">
+                                <span>Available Balance</span>
+                            </div>
+                            <div class="col-md-1 res-leave-apply-right">
+                                <div class="available-balance">${data.Balance}</div>
+                            </div>
                         </div>
                     </div>
                 </div>
