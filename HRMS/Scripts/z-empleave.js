@@ -75,7 +75,15 @@ function generateLeaveCalendar(month, year, selectedempid) {
     if (selectedempid != undefined && selectedempid != "") {
         isAdminLeavePage = false;
         empID = selectedempid;
+        linktoleavecalender = "btn-admin-emp-apply-leave";
     }
+
+    if ($('div.LeaveEmpHistory-calender').length) {
+        isAdminLeavePage = false;
+        linktoleavecalender = "btn-admin-emp-apply-leave1";
+    }
+
+   
 
     if (isAdminLeavePage == true) {
         $.ajax({
@@ -205,16 +213,22 @@ function generateLeaveCalendar(month, year, selectedempid) {
         var lastDay = new Date(currentDate.getFullYear(), currentDate.getMonth() + 1, 0);
         var lastDayFormatted = formatDateyyyyMMdd(lastDay);
 
+
+        if (year && month && month >= 1 && month <= 12) {
+            firstDayFormatted = formatDateyyyyMMdd(new Date(year, month, 1));
+            lastDayFormatted = formatDateyyyyMMdd(new Date(year, month + 1, 0));
+        }
+
         const leaveTypeColors = {
-            "Earned Leave": "#A5E2E9", // Gold
-            "Emergency Leave": "#C4BEF4", // Tomato
-            "Sick Leave": "#ACFF97", // GreenYellow
-            "Bereavement Leave": "#FFC297", // Gray
-            "Hourly Permission": "#BBCDF3", // LightSeaGreen
-            "Marriage Leave": "#A8E4E2", // HotPink
-            "Maternity Leave": "#FEA8B5", // LightPink
-            "Paternity Leave": "#F4D8C0", // SkyBlue
-            "Comp Off": "#F8CADC" // BlueViolet
+            "Earned Leave": "#A5E2E9", 
+            "Emergency Leave": "#C4BEF4", 
+            "Sick Leave": "#ACFF97", 
+            "Bereavement Leave": "#FFC297", 
+            "Hourly Permission": "#BBCDF3", 
+            "Marriage Leave": "#A8E4E2",
+            "Maternity Leave": "#FEA8B5",
+            "Paternity Leave": "#F4D8C0",
+            "Comp Off": "#F8CADC"
         };
 
         $.ajax({
@@ -339,7 +353,8 @@ function prevLeaveMonth() {
     currentLeaveMonth--;
     if (currentLeaveMonth < 0) {
         currentLeaveMonth = 11;
-        currentLeaveYear--;    }
+        currentLeaveYear--;
+    }
 
     if ($('.LeaveEmpHistory-calender').length) {
         var empId = $('.LeaveEmp-dropdowntoggle').attr('data-empid');
@@ -348,7 +363,7 @@ function prevLeaveMonth() {
         updateLeaveCalendar();
     }
 
-   
+
 }
 
 function nextLeaveMonth() {

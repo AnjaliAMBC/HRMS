@@ -340,7 +340,7 @@ namespace HRMS.Controllers
             {
                 // Query leave data and group by LeaveRequestName
                 leaves = _dbContext.con_leaveupdate
-                   .Where(x => x.Fromdate >= dateStart && x.Todate <= dateEnd && x.employee_id == empID)
+                   .Where(x => x.leavedate >= dateStart && x.leavedate <= dateEnd && x.employee_id == empID)
                    .OrderByDescending(x => x.Fromdate)
                    .ToList();
             }
