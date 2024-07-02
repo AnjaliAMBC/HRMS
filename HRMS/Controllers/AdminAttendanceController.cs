@@ -157,9 +157,11 @@ namespace HRMS.Controllers
                 selectedEmployeeCheckins = _dbContext.CheckInViews.Where(e => e.Login_date >= startDate && e.Login_date <= endDate).ToList();
             }
 
+            var leavesOnSelectedDates = _dbContext.con_leaveupdate.Where(x => x.leavedate >= startDate && x.leavedate <= endDate).ToList();
+
             // Define your color constants
-            var headerBackgroundColor = Color.LightBlue;
-            var headerFontColor = Color.DarkBlue;
+            //var headerBackgroundColor = Color.LightBlue;
+            //var headerFontColor = Color.DarkBlue;
             var headerFontSize = 12; //
 
             using (ExcelPackage excelPackage = new ExcelPackage())
@@ -177,9 +179,9 @@ namespace HRMS.Controllers
                     }
 
                     var cell = worksheet.Cells[1, columnIndex];
-                    cell.Style.Fill.PatternType = ExcelFillStyle.Solid;
-                    cell.Style.Fill.BackgroundColor.SetColor(headerBackgroundColor);
-                    cell.Style.Font.Color.SetColor(headerFontColor);
+                    //cell.Style.Fill.PatternType = ExcelFillStyle.Solid;
+                    //cell.Style.Fill.BackgroundColor.SetColor(headerBackgroundColor);
+                    //cell.Style.Font.Color.SetColor(headerFontColor);
                     cell.Style.Font.Size = headerFontSize;
                     cell.Value = properties[i].Name;
 
@@ -295,15 +297,15 @@ namespace HRMS.Controllers
                                                     worksheet.Cells[row, columnIndex].Value = "Present";
                                                     var cell = worksheet.Cells[row, columnIndex];
 
-                                                    cell.Style.Fill.PatternType = ExcelFillStyle.Solid;
-                                                    cell.Style.Fill.BackgroundColor.SetColor(Color.GreenYellow);
+                                                    //cell.Style.Fill.PatternType = ExcelFillStyle.Solid;
+                                                    //cell.Style.Fill.BackgroundColor.SetColor(Color.GreenYellow);
                                                 }
                                                 else
                                                 {
                                                     worksheet.Cells[row, columnIndex].Value = "Permission";
                                                     var cell = worksheet.Cells[row, columnIndex];
-                                                    cell.Style.Fill.PatternType = ExcelFillStyle.Solid;
-                                                    cell.Style.Fill.BackgroundColor.SetColor(Color.MediumOrchid);
+                                                    //cell.Style.Fill.PatternType = ExcelFillStyle.Solid;
+                                                    //cell.Style.Fill.BackgroundColor.SetColor(Color.MediumOrchid);
                                                 }
                                             }
                                             else
@@ -311,8 +313,8 @@ namespace HRMS.Controllers
                                                 worksheet.Cells[row, columnIndex].Value = "Present";
                                                 var cell = worksheet.Cells[row, columnIndex];
 
-                                                cell.Style.Fill.PatternType = ExcelFillStyle.Solid;
-                                                cell.Style.Fill.BackgroundColor.SetColor(Color.GreenYellow);
+                                                //cell.Style.Fill.PatternType = ExcelFillStyle.Solid;
+                                                //cell.Style.Fill.BackgroundColor.SetColor(Color.GreenYellow);
                                             }
 
                                         }
@@ -330,22 +332,33 @@ namespace HRMS.Controllers
                         }
                         else
                         {
+                            var selectedDateIsWeekend = allSelectedDate.DayOfWeek == DayOfWeek.Saturday || allSelectedDate.DayOfWeek == DayOfWeek.Sunday;
+
+                            var typeOfLeave = selectedDateIsWeekend == true ? "Weekend" : "Absent";
+
+                            var isLeaveApplied = leavesOnSelectedDates.Where(x => x.leavedate == allSelectedDate && x.employee_id == emp.EmployeeID).FirstOrDefault();
+
+                            if(isLeaveApplied != null)
+                            {
+                                typeOfLeave = "Leave";
+                            }
+
+
                             worksheet.Cells[row, 1].Value = emp.EmployeeID;
                             //worksheet.Cells[row, 2].Value = emp.EmployeeStatus;
 
-                            worksheet.Cells[row, 2].Value = "Leave";
+                            worksheet.Cells[row, 2].Value = typeOfLeave;
                             var cell = worksheet.Cells[row, 2];
-                            cell.Style.Fill.PatternType = ExcelFillStyle.Solid;
-                            cell.Style.Fill.BackgroundColor.SetColor(Color.OrangeRed);
+                            //cell.Style.Fill.PatternType = ExcelFillStyle.Solid;
+                            //cell.Style.Fill.BackgroundColor.SetColor(Color.OrangeRed);
 
                             worksheet.Cells[row, 3].Value = emp.EmployeeName;
                             worksheet.Cells[row, 4].Value = emp.ShiftTimings;
                             worksheet.Cells[row, 5].Value = emp.OfficalEmailid;
-                            worksheet.Cells[row, 6].Value = "";
-                            worksheet.Cells[row, 7].Value = "";
-                            worksheet.Cells[row, 8].Value = "";
-
-                            worksheet.Cells[row, 9].Value = "";
+                            worksheet.Cells[row, 6].Value = allSelectedDate.ToString("dd-MM-yyyy");
+                            worksheet.Cells[row, 7].Value = "--";
+                            worksheet.Cells[row, 8].Value = "--";
+                            worksheet.Cells[row, 9].Value = "--";
                             worksheet.Cells[row, 10].Value = emp.Location;
                             row++;
                         }

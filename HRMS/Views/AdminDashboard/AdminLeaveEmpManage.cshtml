@@ -320,7 +320,12 @@
                                     }
                                     else
                                     {
-                                        <small class="statusLabel">@leaveemp.LatestLeave.LeaveStatus</small>
+                                        var statuscolorcode = "green";
+                                        if (@leaveemp.LatestLeave.LeaveStatus == "Rejected")
+                                        {
+                                            statuscolorcode = "red";
+                                        }
+                                        <small class="statusLabel" style="color: @statuscolorcode ">@leaveemp.LatestLeave.LeaveStatus</small>
                                     }
 
                                     @if (@leaveemp.LatestLeave.LeaveStatus == "Approved" || @leaveemp.LatestLeave.LeaveStatus == "Rejected")
@@ -403,101 +408,11 @@
 
 
 
-            //// Check if DataTable is already initialized and destroy it
-            //if ($.fn.DataTable.isDataTable('#adminleaveTable-mgmt')) {
-            //    $('#adminleaveTable-mgmt').DataTable().clear().destroy();
-            //}
-
-            //if ($.fn.DataTable.isDataTable('#adminleaveTable-mgmt')) {
-            //    $('#adminleaveTable-mgmt').DataTable().clear().destroy();
-            //}
-
-            // if ($.fn.DataTable.isDataTable('#adminleaveTable-mgmt')) {
-            //     $('#adminleaveTable-mgmt').DataTable().destroy();
-            //}
-
-
-
-            //// Initialize DataTable with appropriate configuration
-            //$('#adminleaveTable-mgmt').DataTable({
-            //    "paging": true,
-            //    "searching": true,
-            //    "ordering": false,
-            //    "info": true,
-            //    "autoWidth": false,
-            //    "lengthMenu": [[7, 14, 21, -1], [7, 14, 21, "All"]],
-            //    "columns": [
-            //        { "data": "employee_id" },
-            //        {
-            //            "data": "employee_name",
-            //            "render": function (data, type, row) {
-            //                return `
-            //                <div class="userLeaveDetails">
-            //                    <img src="" class="userIcon" alt="user" />
-            //                    <div class="fontSmall">
-            //                        <p class="mb-0 fontWtMedium">${data}</p>
-            //                        <a href="#">john.doe@example.com</a>
-            //                    </div>
-            //                </div>`;
-            //            }
-            //        },
-            //        //{
-            //        //    "data": "leavedate",
-            //        //    "render": function (data, type, row) {
-            //        //        const date = new Date(data);
-            //        //        const options = { day: '2-digit', month: 'long', year: 'numeric' };
-            //        //        const formattedDate = date.toLocaleDateString('en-GB', options);
-            //        //        const day = date.toLocaleDateString('en-GB', { weekday: 'short' });
-            //        //        return `
-            //        //        <div class="fontWtMedium">${formattedDate}</div>
-            //        //        <span class="mutedText">${day}</span>`;
-            //        //    }
-            //        //},
-            //        //{
-            //        //    "data": null,
-            //        //    "render": function (data, type, row) {
-            //        //        return `
-            //        //        <div class="mutedText">Day(s)</div>
-            //        //        <span class="fontWtMedium">1</span>`;
-            //        //    }
-            //        //},
-            //        //{
-            //        //    "data": "leavesource",
-            //        //    "render": function (data, type, row) {
-            //        //        return `
-            //        //        <div class="mutedText">Leave Type</div>
-            //        //        <span class="fontWtbold">${data}</span>`;
-            //        //    }
-            //        //},
-            //        //{
-            //        //    "data": "location",
-            //        //    "render": function (data, type, row) {
-            //        //        return `
-            //        //        <div class="mutedText">Location</div>
-            //        //        <span class="fontWtbold">${data}</span>`;
-            //        //    }
-            //        //},
-            //        //{
-            //        //    "data": "leave_reason",
-            //        //    "render": function (data, type, row) {
-            //        //        return `
-            //        //        <div class="dFlex">
-            //        //            <i class="fa-solid fa-message chatIcon"></i>
-            //        //            <p>${data}</p>
-            //        //        </div>
-            //        //        <div class="statusBtnFlex">
-            //        //            <a href="" class="statusBtn acceptBtn">Approve</a>
-            //        //            <a href="" class="statusBtn rejectBtn">Reject</a>
-            //        //        </div>`;
-            //        //    }
-            //        //}
-            //    ]
-            //});
-
-            //$(document).off('click', '.btn-admin-apply-leave1').on('click', '.btn-admin-apply-leave1', function (event) {
-            //    event.preventDefault();
-            //    AdminLeaveDataMap("", "");
-            //});
+            function toggleAdminLeaveApprovalActionOptions(iconElement) {
+                const optionsMenu = $(iconElement).next('.admin-leaveapprovaloptions');
+                $('.admin-leaveapprovaloptions').not(optionsMenu).hide();
+                optionsMenu.toggle();
+            }
         });
     </script>
 

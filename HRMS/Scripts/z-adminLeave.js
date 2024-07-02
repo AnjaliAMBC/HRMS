@@ -370,14 +370,17 @@ $(document).off('click', '.acceptLeaveBtn').on('click', '.acceptLeaveBtn', funct
                 //$statusBtnFlex.append($statusLabel);
                 //$statusBtnFlex.find('.statusBtn').hide();
 
-                $statusBtnFlex.find('.statusLabel').text('Approved').show();
-                //$statusBtnFlex.append($statusLabel);
-                $statusBtnFlex.find('.statusBtn').hide();
-                $statusBtnFlex.find('.changestatusapprove').hide();
+                //$statusBtnFlex.find('.statusLabel').text('Approved').show();
+                ////$statusBtnFlex.append($statusLabel);
+                //$statusBtnFlex.find('.statusBtn').hide();
+                //$statusBtnFlex.find('.changestatusapprove').hide();
+
+                $statusBtnFlex.empty();
 
                 // Check if admin-leaveapprovaloptions div exists, if not create it
                 if ($statusBtnFlex.find('.admin-leaveapprovaloptions').length === 0) {
                     var adminLeaveApprovalOptions = `
+                         <small class="statusLabel" style="color: green">Approved</small>
                         <i class="fas fa-ellipsis-h adminleave-leave-approval" onclick="toggleAdminLeaveApprovalActionOptions(this)"></i>
                         <div class="admin-leaveapprovaloptions" style="display:none">
                             <a href="" class="dropdown-item rejectLeaveBtn changestatusreject" data-leavename="${leaveName}" data-compoffnum="${leaveName}">Change Status</a>
@@ -410,13 +413,16 @@ $(document).off('click', '.rejectLeaveBtn').on('click', '.rejectLeaveBtn', funct
         success: function (response) {
             if (response.success == true) {
                 /*  var $statusLabel = $('<small class="statusLabel">Rejected</small>');*/
-                $statusBtnFlex.find('.statusLabel').text('Rejected').show();
-                //$statusBtnFlex.append($statusLabel);
-                $statusBtnFlex.find('.statusBtn').hide();
-                $statusBtnFlex.find('.changestatusreject').hide();
+                //$statusBtnFlex.find('.statusLabel').text('Rejected').show();
+                ////$statusBtnFlex.append($statusLabel);
+                //$statusBtnFlex.find('.statusBtn').hide();
+                //$statusBtnFlex.find('.changestatusreject').hide();
+
+                $statusBtnFlex.empty();
 
                 if ($statusBtnFlex.find('.admin-leaveapprovaloptions').length === 0) {
                     var adminLeaveApprovalOptions = `
+                        <small class="statusLabel" style="color: red">Rejected</small>
                         <i class="fas fa-ellipsis-h adminleave-leave-approval" onclick="toggleAdminLeaveApprovalActionOptions(this)"></i>
                         <div class="admin-leaveapprovaloptions" style="display:none">
                             <a href="" class="dropdown-item acceptLeaveBtn changestatusapprove" data-leavename="${leaveName}" data-compoffnum="${leaveName}">Change Status</a>
