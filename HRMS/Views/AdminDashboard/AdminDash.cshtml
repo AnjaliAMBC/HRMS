@@ -219,7 +219,7 @@
                                         Upcoming Holidays
                                     </div>
                                     <div class="card-body scrollbar admindash_card p-2">
-                                        <ul class="list-group list-group-flush">
+                                        <ul class="list-group list-group-flush res-admin-dash-upcomingholidays-block">
                                             @foreach (HRMS.Models.EmployeeEvent.UpcomingHoliday holiday in Model.UpcomingHolidays)
                                             {
                                                 if (@holiday.HolidayDate != DateTime.MinValue)
@@ -232,7 +232,7 @@
                                                     <li>
                                                         <a class="dashhoiday_description res-holidays-details-left compOff-request" data-leavenumber="@holiday.HolidayNo" data-location="@holiday.Region">
                                                             <h6 class="mb-0">@holiday.HolidayName</h6>
-                                                            <p class="smalltext">@holiday.HolidayDate.ToString("dd MMMM dddd")</p><span class="ml-2 holiday_location">@holiday.Region</span>
+                                                            <p class="smalltext res-admin-dash-location">@holiday.HolidayDate.ToString("dd MMMM dddd")</p><span class="ml-2 holiday_location">@holiday.Region</span>
                                                         </a>
 
                                                         @if (totalApplied > 0)
