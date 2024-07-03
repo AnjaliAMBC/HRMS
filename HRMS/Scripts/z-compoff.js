@@ -33,7 +33,7 @@
             reason: reason,
             submittedUser: submittedUser,
             holidayname: selectedholidayname,
-            holidynumber: selectedHolidayNumber,
+            holidynumber: parseInt(selectedHolidayNumber),
             holidaylocation: selectedHolidayLocation,
             empEmail: empEmail
         },
