@@ -486,8 +486,9 @@ function GetEmpLeaveHistory() {
 
                 const leaveStatus = item.LatestLeave.LeaveStatus.toLowerCase();
                 const statusClass = leaveStatus === 'approved' ? 'status-approved' :
-                    leaveStatus === 'cancelled' ? 'status-cancelled' :
+                    leaveStatus === 'cancelled' || leaveStatus === 'rejected' ? 'status-cancelled' :
                         leaveStatus === 'pending' ? 'status-pending' : '';
+
 
                 const leaveActions = (leaveStatus === 'pending' || leaveStatus === 'cancelled') ? `
                     <i class="fas fa-ellipsis-h leave-edit-history" onclick="toggleLeaveActionOptions(this)"></i>
@@ -575,6 +576,12 @@ function GetCompOffHistory() {
                 const workDate = item.CampOffDate ? new Date(item.CampOffDate).toLocaleDateString('en-GB', { day: 'numeric', month: 'long', year: 'numeric' }) : "";
 
                 const leaveStatus = item.addStatus.toLowerCase();
+                
+                const statusClass = leaveStatus === 'approved' ? 'compoff-status-approved' :
+                    leaveStatus === 'rejected' ? 'compoff-status-rejected' :
+                        leaveStatus === 'cancelled' ? 'compoff-status-cancelled' :
+                            leaveStatus === 'pending' ? 'compoff-status-pending' : '';
+
                 const leaveActions = (leaveStatus === 'pending') ? `
                     <i class="fas fa-ellipsis-h" onclick="toggleEmpCompoffActionOptions(this)"></i>
                     <div class="emp-compoffs" style="display:none">                       
@@ -582,26 +589,27 @@ function GetCompOffHistory() {
                     </div>` : '';
 
                 return `
-                    <tr>
-                        <td style="display:none">${item.EmployeeID}</td>
-                        <td style="display:none">${item.EmployeeName}</td>
-                        <td>
-                            <div class="mutedText">Requested Date</div>
-                            <span class="fontWtMedium"><b>${requestedDate}</b></span>
-                        </td>
-                        <td>
-                             <div class="mutedText">Work Date</div>
-                             <span class="fontWtMedium"><b>${workDate}</b></span>
-                        </td>
-                        <td class="compoff-status"><div class="mutedText">Status</div>
-                             <span class="fontWtMedium"><b>${item.addStatus}</b></span>
-                        </td>
-                        <td><div class="mutedText">Reason</div>
-                             <span class="fontWtMedium"><b>${item.Reason}</b></span></td>
-                        <td class="fontSmall position-relative compoff-actions">
-                            ${leaveActions}
-                        </td>
-                    </tr>
+                   <tr>
+                <td style="display:none">${item.EmployeeID}</td>
+                <td style="display:none">${item.EmployeeName}</td>
+                <td>
+                    <div class="mutedText">Requested Date</div>
+                    <span class="fontWtMedium"><b>${requestedDate}</b></span>
+                </td>
+                <td>
+                     <div class="mutedText">Work Date</div>
+                     <span class="fontWtMedium"><b>${workDate}</b></span>
+                </td>
+                <td class="compoff-status">
+                    <div class="mutedText">Status</div>
+                    <span class="fontWtMedium ${statusClass}"><b>${item.addStatus}</b></span>
+                </td>
+                <td><div class="mutedText">Reason</div>
+                     <span class="fontWtMedium"><b>${item.Reason}</b></span></td>
+                <td class="fontSmall position-relative compoff-actions">
+                    ${leaveActions}
+                </td>
+            </tr>
                 `;
             }).join('');
 
