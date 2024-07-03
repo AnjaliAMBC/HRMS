@@ -279,9 +279,8 @@
                                 {
                                     if (@holiday.HolidayDate != DateTime.MinValue)
                                     {
-
-                                        <li class="dashhoiday_description Emp-CompOffRequest">
-                                            <a data-leavenumber="@holiday.HolidayNo" data-location="@holiday.Region">
+                                        <li>
+                                            <a class="dashhoiday_description Emp-CompOffRequest" data-leavenumber="@holiday.HolidayNo" data-location="@holiday.Region">
                                                 <h6 class="mb-0">@holiday.HolidayName</h6>
                                                 <p class="smalltext">@holiday.HolidayDate.ToString("dd MMMM dddd")</p>
                                             </a>

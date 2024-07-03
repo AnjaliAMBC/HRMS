@@ -100,6 +100,14 @@ div.main-content {
         color: #00ffcc;
     }
 
+.res-holidays-details-left.compOff-request .res-admin-dash-location {
+    display: inline;
+}
+
+.res-admin-dash-upcomingholidays-block li {
+    margin-bottom: 10px;
+}
+
 /* admin dashnoard end */
 
 /* admin employee management start */
@@ -147,7 +155,7 @@ div.main-content {
 }
 
 .admin-empmanagement-container {
-    margin-top: 0%;
+    margin-top: 2%;
 }
 
 .dropdown-toggle {
@@ -273,7 +281,8 @@ div.main-content {
 
 .res-admin-individual-attendance-table .leave-btn,
 .res-admin-individual-attendance-table .gray-btn,
-.res-admin-individual-attendance-table .present-btn {
+.res-admin-individual-attendance-table .present-btn,
+.res-admin-individual-attendance-table .yellow-btn {
     width: 80% !important;
 }
 
@@ -295,12 +304,30 @@ div.main-content {
     padding: 3px 20px 3px 15px;
 }
 
+.res-admin-attendance-main #adminaddendancetable_wrapper {
+    padding-right: 0;
+}
+
+.res-admin-attendance-individual #adminaddendancetable_wrapper {
+    margin-right: 20px;
+}
+
+.res-admin-individual-attendance {
+    margin-left: 5px;
+    padding-left: 0px;
+}
+
+.res-admin-attendance-individual #adminaddendancetable {
+    padding-left: 0;
+    margin-left: 0 !important;
+}
 /*admin attendance end*/
 
 /* admin leave start*/
 .res-admin-leave .main-content.container-fluid {
     width: 87% !important;
     margin-left: 175px;
+    margin-top: 20px;
 }
 
 .res-admin-leave #adminleaveSettingsDropdown {
@@ -473,6 +500,33 @@ div.main-content {
     right: 0px;
 }
 
+.admin-leave-tracker .empleave-calendar-body {
+    padding-left: 0;
+}
+
+.admin-leave-container .balance-section-wrapper .res-emp-apply-leave .balance-section {
+    border: 1px solid #ccc;
+    padding: 10px;
+    border-radius: 3px;
+    background: #e6ffff;
+    width: 60%;
+}
+
+.admin-leave-container .res-emp-apply-leave .balance-section .leave-apply-info-block {
+    display: inline-block;
+    width: 100%;
+}
+
+.admin-leave-container .res-emp-apply-leave .balance-section .leave-apply-info-block .res-leave-apply-left {
+    display: inline-block;
+    width: 90%;
+}
+
+.admin-leave-container .res-emp-apply-leave .balance-section .leave-apply-info-block .res-leave-apply-right {
+    display: inline-block;
+    width: 10%;
+}
+
 /* admin leave end*/
 
 /* admin leave balance start*/
@@ -508,7 +562,7 @@ div.main-content {
 
 .res-admin-leave-balance #leaveBalanceTable thead th:nth-child(1),
 .res-admin-leave-balance #leaveBalanceTable thead th:nth-child(2) {
-    visibility: hidden;
+    //visibility: hidden;
 }
 
 .res-admin-leave-balance #leaveBalanceTable tbody td {
@@ -574,6 +628,9 @@ div.main-content {
     margin-bottom: 20px;
 }
 
+.res-admin-leave-balance-dropdown {
+    margin-top: 16px;
+}
 /* admin leave balance end*/
 
 /* admin leave history start */
@@ -622,6 +679,7 @@ div.main-content {
     margin-left: -9%;
     display: inline-flex;
     margin-top: 10px;
+    margin-right: 10px;
 }
 
 #adminleavehistoryfilter .res-adminadvfilter-leavehistory {
@@ -688,7 +746,7 @@ div.main-content {
 
 #empleave-calendarBody .empleave-leave-request {
     position: relative;
-    float: initial !important;
+    //float: initial !important;
     top: 14px;
     left: 0px;
     height: auto !important;
@@ -708,6 +766,14 @@ div.main-content {
 .LeaveEmpHistory-calender .leave-history-calender {
     justify-content: right;
     display: flex;
+}
+
+.dropdowns-leave-container .res-adminleave-drop {
+    margin-right: 0px;
+}
+
+.highlight-festival-leave i{
+    margin-right: 2px;
 }
 
 /* admin leave history end*/
@@ -858,7 +924,7 @@ div.main-content {
     border: 0px solid #ccc;
     border-radius: 4px;
     cursor: pointer;
-    right: 90px;
+    right: 50px;
 }
 
     .res-admin-leavecompoff-view #adminleavecompoffTable .admin-leavehistoryoptions .rejectLeavecompoffBtn {
@@ -904,6 +970,20 @@ div.main-content {
     padding: 75px 0px;
 }
 
+.Emp-CompOffRequest {
+    text-decoration: none;
+    color: black;
+}
+
+.Emp-CompOffRequest:hover {
+    text-decoration: none;
+    color: black;
+}
+
+.dashholiday_body .card-body.scrollbar {
+    padding: 10px 10px;
+}
+
 /* employee dashboard end*/
 
 /* employee attendance start */
@@ -930,6 +1010,22 @@ div.main-content {
         display: inline-block;
     }
 
+#attendanceTable .empatt-body .attendance-bar.res-emp-attendance-absent-btn {
+    border: 1px solid #00B4F2;
+}
+
+#attendanceTable .empatt-body .attendance-bar.res-emp-attendance-present-btn {
+    border: 1px solid #0FCD92;
+}
+
+#attendanceTable .empatt-body .attendance-bar.res-emp-attendance-leave-btn {
+    border: 1px solid #F8284A;
+}
+
+#attendanceTable .empatt-body .attendance-bar.res-emp-attendance-gray-btn {
+    border: 1px solid lightgray;
+}
+
 /* employee attendance end */
 
 /* emp leave start */
@@ -952,7 +1048,7 @@ div.main-content {
 }
 
 .empleave-container .empleave-calendar-body {
-    //padding: 1rem 0;
+    padding: 20px 0;
 }
 
 #leaveHistoryTable_wrapper {
@@ -1069,4 +1165,36 @@ input[type=checkbox], input[type=radio] {
     border: 1px solid #ccc;
     border-radius: 2px;
 }
+
+.emp-leave .leave-dashboard-data .balance-section-wrapper .res-emp-apply-leave .balance-section {
+    border: 1px solid #ccc;
+    padding: 10px;
+    border-radius: 3px;
+    background: #e6ffff;
+    width: 60%;
+}
+
+.emp-leave .leave-dashboard-data .res-emp-apply-leave .balance-section .leave-apply-info-block {
+    display: inline-block;
+    width: 100%;
+}
+
+.emp-leave .leave-dashboard-data .res-emp-apply-leave .balance-section .leave-apply-info-block .res-leave-apply-left {
+    display: inline-block;
+    width: 90%;
+}
+
+.emp-leave .leave-dashboard-data .res-emp-apply-leave .balance-section .leave-apply-info-block .res-leave-apply-right {
+    display: inline-block;
+    width: 10%;
+}
+
+.leave-dashboard-data .res-emp-leave-title {
+    margin-left: 0px;
+}
+
+.empleave-container .res-emp-carousel {
+    margin-left: 0;
+}
+
 /* emp leave end*/

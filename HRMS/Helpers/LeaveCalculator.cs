@@ -506,6 +506,57 @@ namespace HRMS.Helpers
             return leaves;
         }
 
+        public List<LeaveInfo> EmpLeaveInfoBasedonBasedOnTodayDate(
+    string startDate,
+    string endDate,
+    string empId,
+    string department,
+    string location,
+    string status)
+        {
+            DateTime dateStart = DateTime.ParseExact(startDate, "yyyy-MM-dd", null);
+            DateTime dateEnd = DateTime.ParseExact(endDate, "yyyy-MM-dd", null);
+
+            var query = _dbContext.con_leaveupdate.AsQueryable();
+
+            if (!string.IsNullOrWhiteSpace(empId))
+            {
+                query = query.Where(x => x.employee_id == empId);
+            }
+
+            query = query.Where(x => x.createddate >= dateStart && x.createddate <= dateEnd);
+
+            if (department != "null" && !string.IsNullOrWhiteSpace(department))
+            {
+                query = query.Where(x => x.Department == department);
+            }
+
+            if (location != "null" && !string.IsNullOrWhiteSpace(location))
+            {
+                query = query.Where(x => x.Location == location);
+            }
+
+            if (status != "null" && !string.IsNullOrWhiteSpace(status))
+            {
+                query = query.Where(x => x.LeaveStatus == status);
+            }
+
+            var leaves = query
+                .GroupBy(x => x.LeaveRequestName)
+                .Select(g => new LeaveInfo
+                {
+                    LeaveRequestName = g.Key,
+                    Fromdate = g.Min(x => x.Fromdate),
+                    Todate = g.Max(x => x.Todate),
+                    TotalLeaveDays = g.Sum(x => x.LeaveDays),
+                    LatestLeave = g.OrderByDescending(x => x.leavedate).FirstOrDefault()
+                })
+                .OrderByDescending(x => x.LatestLeave.leavedate)
+                .ToList();
+
+            return leaves;
+        }
+
         public List<LeaveInfo> EmpLeaveInfoBasedonDate(string startdate, string enddate)
         {
 

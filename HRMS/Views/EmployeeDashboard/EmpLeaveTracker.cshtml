@@ -132,7 +132,7 @@
                             <li class="nav-item" role="presentation">
                                 <a class="nav-link" id="tab2-link" data-toggle="tab" href="#empComponsatoryOffTab2" role="tab" aria-controls="empComponsatoryOffTab2" aria-selected="false"><b>Compensatory Off</b></a>
                             </li>
-                            <i class="fa fa-caret-up" ></i>
+                            <i class="fa fa-caret-up"></i>
                             <i class="fa fa-caret-down"></i>
                         </ul>
 
@@ -224,6 +224,28 @@
 
 @Html.Partial("CommonModalPopups")
 
+
+<!-- Confirmation Modal -->
+<div id="confirmCancelModal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="confirmCancelModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="confirmCancelModalLabel">Confirm Cancel Leave</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                Are you sure you want to cancel this leave?
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                <button type="button" class="btn btn-danger" id="confirmCancelButton">Cancel Leave</button>
+            </div>
+        </div>
+    </div>
+</div>
+
 <script>
     function FillEmpBasedLeavesAvailability() {
         $.ajax({
@@ -255,4 +277,5 @@
             yearOptions.style.display = 'none';
         }
     };
+
 </script>

@@ -313,14 +313,14 @@ $(document).off('change', '#myLeaveMonth').on('change', '#myLeaveMonth', functio
 });
 
 
-function ApproveLeaveRequest(leaveName) {
+function ApproveLeaveRequest(leaveName, element) {
     $.ajax({
         url: '/EmpLeave/ApproveLeave',
         type: 'POST',
         data: { leaveRequestName: leaveName },
         success: function (response) {
             if (response.success) {
-                $(this).parent().html('<small>Approved</small>');
+                element.parent().html('<small>Approved</small>');
             } else {
                 alert('Failed to approve leave.');
             }
@@ -330,17 +330,17 @@ function ApproveLeaveRequest(leaveName) {
 
 $('.btn_approve').click(function () {
     var leaveName = $(this).data('leavename');
-    ApproveLeaveRequest(leaveName)
+    ApproveLeaveRequest(leaveName, $(this))
 });
 
-function RejectLeaveRequest(leaveName) {
+function RejectLeaveRequest(leaveName, element) {
     $.ajax({
         url: '/EmpLeave/RejectLeave',
         type: 'POST',
         data: { leaveRequestName: leaveName },
         success: function (response) {
             if (response.success) {
-                $(this).parent().html('<small>Rejected</small>');
+                element.parent().html('<small>Rejected</small>');
             } else {
                 alert('Failed to reject leave.');
             }
@@ -350,7 +350,7 @@ function RejectLeaveRequest(leaveName) {
 
 $('.btn_reject').click(function () {
     var leaveName = $(this).data('leavename');
-    RejectLeaveRequest(leaveName);
+    RejectLeaveRequest(leaveName, $(this));
 });
 
 
@@ -370,14 +370,17 @@ $(document).off('click', '.acceptLeaveBtn').on('click', '.acceptLeaveBtn', funct
                 //$statusBtnFlex.append($statusLabel);
                 //$statusBtnFlex.find('.statusBtn').hide();
 
-                $statusBtnFlex.find('.statusLabel').text('Approved').show();
-                //$statusBtnFlex.append($statusLabel);
-                $statusBtnFlex.find('.statusBtn').hide();
-                $statusBtnFlex.find('.changestatusapprove').hide();
+                //$statusBtnFlex.find('.statusLabel').text('Approved').show();
+                ////$statusBtnFlex.append($statusLabel);
+                //$statusBtnFlex.find('.statusBtn').hide();
+                //$statusBtnFlex.find('.changestatusapprove').hide();
+
+                $statusBtnFlex.empty();
 
                 // Check if admin-leaveapprovaloptions div exists, if not create it
                 if ($statusBtnFlex.find('.admin-leaveapprovaloptions').length === 0) {
                     var adminLeaveApprovalOptions = `
+                         <small class="statusLabel" style="color: green">Approved</small>
                         <i class="fas fa-ellipsis-h adminleave-leave-approval" onclick="toggleAdminLeaveApprovalActionOptions(this)"></i>
                         <div class="admin-leaveapprovaloptions" style="display:none">
                             <a href="" class="dropdown-item rejectLeaveBtn changestatusreject" data-leavename="${leaveName}" data-compoffnum="${leaveName}">Change Status</a>
@@ -410,13 +413,16 @@ $(document).off('click', '.rejectLeaveBtn').on('click', '.rejectLeaveBtn', funct
         success: function (response) {
             if (response.success == true) {
                 /*  var $statusLabel = $('<small class="statusLabel">Rejected</small>');*/
-                $statusBtnFlex.find('.statusLabel').text('Rejected').show();
-                //$statusBtnFlex.append($statusLabel);
-                $statusBtnFlex.find('.statusBtn').hide();
-                $statusBtnFlex.find('.changestatusreject').hide();
+                //$statusBtnFlex.find('.statusLabel').text('Rejected').show();
+                ////$statusBtnFlex.append($statusLabel);
+                //$statusBtnFlex.find('.statusBtn').hide();
+                //$statusBtnFlex.find('.changestatusreject').hide();
+
+                $statusBtnFlex.empty();
 
                 if ($statusBtnFlex.find('.admin-leaveapprovaloptions').length === 0) {
                     var adminLeaveApprovalOptions = `
+                        <small class="statusLabel" style="color: red">Rejected</small>
                         <i class="fas fa-ellipsis-h adminleave-leave-approval" onclick="toggleAdminLeaveApprovalActionOptions(this)"></i>
                         <div class="admin-leaveapprovaloptions" style="display:none">
                             <a href="" class="dropdown-item acceptLeaveBtn changestatusapprove" data-leavename="${leaveName}" data-compoffnum="${leaveName}">Change Status</a>
@@ -446,7 +452,7 @@ $(document).on('click', '.AdminIndiEmpLeave-History', function (event) {
     $.ajax({
         url: '/adminleave/AdminEmpLeaveCalender',
         type: 'GET',
-        dataType: 'html',    
+        dataType: 'html',
         success: function (response) {
             $(".hiddenadmindashboard").html("");
             $('.admin-dashboard-container').html("");
