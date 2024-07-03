@@ -17,42 +17,42 @@
                                 <!-- Leave Request Section -->
                                 <div class="card leave-requests mx-2">
                                     <div class="card-header">
-                                        Leave Request (@Model.LeavesInfo.LeavesInfo.Count())
+                                        Leave Request (@Model.AllEMployeeLeaves.Count())
                                     </div>
                                     <div class="card-body admindash_card scrollbar p-2">
                                         <ul class="list-group list-group-flush">
-                                            @foreach (var leave in Model.LeavesInfo.LeavesInfo)
+                                            @foreach (var leave in Model.AllEMployeeLeaves)
                                             {
                                                 <li class="list-group-item p-0">
                                                     <div class="leave-info">
                                                         @{
-                                                            var empImagePath = "/Assets/EmpImages/" + leave.employee_id + ".jpeg";
+                                                            var empImagePath = "/Assets/EmpImages/" + leave.LatestLeave.employee_id + ".jpeg";
                                                         }
                                                         <img src="@empImagePath" alt="emp name" class="rounded-circle">
                                                         <div class="leave-text mt-2">
-                                                            <span>@leave.employee_name</span>
+                                                            <span>@leave.LatestLeave.employee_name</span>
                                                             @if (leave.Fromdate != leave.Todate)
                                                             {
-                                                                <small>@leave.leavesource | @leave.Fromdate.Value.ToString("dd MMMM yyyy") to @leave.Todate.Value.ToString("dd MMMM yyyy")</small>
+                                                                <small>@leave.LatestLeave.leavesource | @leave.LatestLeave.Fromdate.Value.ToString("dd MMMM yyyy") to @leave.LatestLeave.Todate.Value.ToString("dd MMMM yyyy")</small>
                                                             }
                                                             else
                                                             {
-                                                                <small>@leave.leavesource | @leave.leavedate.Value.ToString("dd MMMM yyyy")</small>
+                                                                <small>@leave.LatestLeave.leavesource | @leave.LatestLeave.leavedate.Value.ToString("dd MMMM yyyy")</small>
                                                             }
 
                                                         </div>
                                                     </div>
                                                     <div class="btn-group">
 
-                                                        @if (leave.LeaveStatus == "Pending")
+                                                        @if (leave.LatestLeave.LeaveStatus == "Pending")
                                                         {
-                                                            <button type="button" data-leavename="@leave.LeaveRequestName" class="btn_approve p-0">✔ Approve</button>
-                                                            <button type="button" data-leavename="@leave.LeaveRequestName" class="btn_reject ml-0">✖ Reject</button>
+                                                            <button type="button" data-leavename="@leave.LatestLeave.LeaveRequestName" class="btn_approve p-0">✔ Approve</button>
+                                                            <button type="button" data-leavename="@leave.LatestLeave.LeaveRequestName" class="btn_reject ml-0">✖ Reject</button>
                                                         }
                                                         else
                                                         {
                                                             <small>
-                                                                @leave.LeaveStatus
+                                                                @leave.LatestLeave.LeaveStatus
                                                             </small>
                                                         }
 
@@ -232,7 +232,7 @@
                                                     <li>
                                                         <a class="dashhoiday_description res-holidays-details-left compOff-request" data-leavenumber="@holiday.HolidayNo" data-location="@holiday.Region">
                                                             <h6 class="mb-0">@holiday.HolidayName</h6>
-                                                            <p class="smalltext">@holiday.HolidayDate.ToString("dd MMMM dddd")<span class="ml-2 holiday_location">@holiday.Region</span></p>
+                                                            <p class="smalltext">@holiday.HolidayDate.ToString("dd MMMM dddd")</p><span class="ml-2 holiday_location">@holiday.Region</span>
                                                         </a>
 
                                                         @if (totalApplied > 0)

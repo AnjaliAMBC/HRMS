@@ -313,14 +313,14 @@ $(document).off('change', '#myLeaveMonth').on('change', '#myLeaveMonth', functio
 });
 
 
-function ApproveLeaveRequest(leaveName) {
+function ApproveLeaveRequest(leaveName, element) {
     $.ajax({
         url: '/EmpLeave/ApproveLeave',
         type: 'POST',
         data: { leaveRequestName: leaveName },
         success: function (response) {
             if (response.success) {
-                $(this).parent().html('<small>Approved</small>');
+                element.parent().html('<small>Approved</small>');
             } else {
                 alert('Failed to approve leave.');
             }
@@ -330,17 +330,17 @@ function ApproveLeaveRequest(leaveName) {
 
 $('.btn_approve').click(function () {
     var leaveName = $(this).data('leavename');
-    ApproveLeaveRequest(leaveName)
+    ApproveLeaveRequest(leaveName, $(this))
 });
 
-function RejectLeaveRequest(leaveName) {
+function RejectLeaveRequest(leaveName, element) {
     $.ajax({
         url: '/EmpLeave/RejectLeave',
         type: 'POST',
         data: { leaveRequestName: leaveName },
         success: function (response) {
             if (response.success) {
-                $(this).parent().html('<small>Rejected</small>');
+                element.parent().html('<small>Rejected</small>');
             } else {
                 alert('Failed to reject leave.');
             }
@@ -350,7 +350,7 @@ function RejectLeaveRequest(leaveName) {
 
 $('.btn_reject').click(function () {
     var leaveName = $(this).data('leavename');
-    RejectLeaveRequest(leaveName);
+    RejectLeaveRequest(leaveName, $(this));
 });
 
 
@@ -452,7 +452,7 @@ $(document).on('click', '.AdminIndiEmpLeave-History', function (event) {
     $.ajax({
         url: '/adminleave/AdminEmpLeaveCalender',
         type: 'GET',
-        dataType: 'html',    
+        dataType: 'html',
         success: function (response) {
             $(".hiddenadmindashboard").html("");
             $('.admin-dashboard-container').html("");

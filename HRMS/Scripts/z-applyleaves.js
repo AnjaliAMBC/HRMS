@@ -198,6 +198,7 @@ $(document).on('change', '#toleaveDate', function (event) {
 
 $(document).on('click', '.btn-apply-empleave', function (event) {
     event.preventDefault();
+    $('.error-message-showerror').hide();
 
     let leaveType = $('#leaveType').val();
     let fromDate = $('#fromleaveDate').val();
@@ -450,8 +451,8 @@ $(document).on('click', '.dashhoiday_description', function (e) {
     $('#Compreason').val("");
     var holidayName = $('.selectedholidayname').text($(this).find('h6').text());
     var holidayDate = $('#Compdate').val($(this).find('p').text());
-    $('.selectedholidaynumber').text($(this).find('a').attr("data-leavenumber"));
-    $('.selectedholidaylocation').text($(this).find('a').attr("data-location"));
+    $('.selectedholidaynumber').text($(this).attr("data-leavenumber"));
+    $('.selectedholidaylocation').text($(this).attr("data-location"));
     $('#compOffMessage').html("");
     $('#compOffMessage').hide();
     $('#CompemployeeName').removeClass("is-invalid");

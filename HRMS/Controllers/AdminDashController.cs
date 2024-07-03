@@ -47,9 +47,13 @@ namespace HRMS.Controllers
 
             model.CompoffApplied = compoffsaplliedbasedonholiday;
 
-            var AdminLeaveManagementModel = new AdminLeaveManagementModel();
-            var leavesAppliedToday = new LeaveCalculator().GetLeavesInfoBasedonStartandEndDate(DateTime.Today.ToString("dd MMMM yyyy"), DateTime.Today.ToString("dd MMMM yyyy"), AdminLeaveManagementModel, "", true);
-            model.LeavesInfo = leavesAppliedToday;
+            //var AdminLeaveManagementModel = new AdminLeaveManagementModel();
+            //var leavesAppliedToday = new LeaveCalculator().GetLeavesInfoBasedonStartandEndDate(DateTime.Today.ToString("dd MMMM yyyy"), DateTime.Today.ToString("dd MMMM yyyy"), AdminLeaveManagementModel, "", true);
+            //model.LeavesInfo = leavesAppliedToday;
+
+            var AdminLeaveHistoryModel = new AdminLeaveHistoryViewModel();
+            var leavesAppliedToday = new LeaveCalculator().EmpLeaveInfoBasedonBasedOnTodayDate(DateTime.Today.AddDays(-1).ToString("yyyy-MM-dd"), DateTime.Today.AddDays(-1).ToString("yyyy-MM-dd"), "", "", "", "");
+            model.AllEMployeeLeaves = leavesAppliedToday;
 
             model.Employees = _dbContext.emp_info.ToList();
 
