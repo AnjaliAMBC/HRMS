@@ -198,6 +198,7 @@ $(document).on('change', '#toleaveDate', function (event) {
 
 $(document).on('click', '.btn-apply-empleave', function (event) {
     event.preventDefault();
+    $('.error-message-showerror').hide();
 
     let leaveType = $('#leaveType').val();
     let fromDate = $('#fromleaveDate').val();
