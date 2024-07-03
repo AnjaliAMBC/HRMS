@@ -46,63 +46,76 @@
     <div class="container-fluid res-admin-leave-history">
         <div class="row mb-2 align-items-center">
             <div class="col-lg-3 col-md-6">
-                <h3 class="ml-1">Leave Application</h3>
+                <h3 class="ml-1">Leave History</h3>
             </div>
             @*multiselect search dropdown*@
-            <div class="col-lg-9 d-flex justify-content-end res-admin-leavehistory-main-header">
-                <div class="dropdown col-lg-6 col-sm-12 res-admin-leavehistory-searchbar">
-                    <a class="btn btn-outline-primary adminleavehistory-dropdown-toggle" href="#" id="employeeDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                        Select Employees <i class="fas fa-chevron-down ml-1"></i>
-                    </a>
-                    <div class="dropdown-menu adminleavehistory-dropdown-menu dropdown-menu-wide p-3" aria-labelledby="employeeDropdown">
-                        <input type="text" class="form-control mb-2" id="employeeSearch" placeholder="Search">
-                        <div id="employeeList">
+        <div class="col-lg-9 d-flex justify-content-end res-admin-leavehistory-main-header">
+            <div class="dropdown col-lg-6 col-sm-12 res-admin-leavehistory-searchbar">
+                <a class="btn btn-outline-primary adminleavehistory-dropdown-toggle" href="#" id="employeeDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                    Select Employees <i class="fas fa-chevron-down ml-1"></i>
+                </a>
+                <div class="dropdown-menu adminleavehistory-dropdown-menu dropdown-menu-wide p-3" aria-labelledby="employeeDropdown">
+                    <input type="text" class="form-control mb-2" id="employeeSearch" placeholder="Search">
+                    <div id="employeeList">
+                        <div class="form-check">
+                            <input class="form-check-input" type="checkbox" value="" id="selectAll">
+                            <label class="adminleavehistory-form-check-label" for="selectAll">
+                                <span>Select All</span>
+                            </label>
+                        </div>
+
+                        @foreach (var emp in Model.Employees)
+                        {
                             <div class="form-check">
-                                <input class="form-check-input" type="checkbox" value="" id="selectAll">
-                                <label class="adminleavehistory-form-check-label" for="selectAll">
-                                    <span>Select All</span>
+                                <input class="form-check-input" type="checkbox" value="" id="@emp.EmployeeID">
+                                <label class="adminleavehistory-form-check-label" for="@emp.EmployeeID">
+                                    <span>@emp.EmployeeName @emp.EmployeeID</span>
                                 </label>
                             </div>
-
-                            @foreach (var emp in Model.Employees)
-                            {
-                                <div class="form-check">
-                                    <input class="form-check-input" type="checkbox" value="" id="@emp.EmployeeID">
-                                    <label class="adminleavehistory-form-check-label" for="@emp.EmployeeID">
-                                        <span>@emp.EmployeeName @emp.EmployeeID</span>
-                                    </label>
-                                </div>
-                            }
-                        </div>
+                        }
                     </div>
-                </div>
-                <!-- Advanced Filters -->
-                <div class="col-lg-3 navbarl col-sm-12 col-md-4 res-admin-leavehistory-block-header res-admin-leavehistory-filter">
-                    <div class="advanced-leavehistory-filtertab d-flex justify-content-between1 align-items-center">
-                        <p class="advancetitle mb-0">Advanced Filters</p>
-                        <div class="toggle-button advanceleave-history-button ml-2">
-                            <button class="collapsedropdown collapsed btn" type="button" data-toggle="collapse" data-target="#adminleavehistoryfilter" aria-expanded="false" aria-controls="demo">
-                                <i class="fa-solid fa-angle-down"></i>
-                            </button>
-                        </div>
-                    </div>
-                </div>
-                <!-- Add leave history dropdown -->
-                <div class="col-lg-2 navbarl col-sm-12 col-md-12 res-admin-leavehistory-block-header res-admin-total-leaves-import">
-                    <div class="form-group " style="">
-                        <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#uploadTotalLeavesModal">Import</button>
-                    </div>
-                </div>
-
-                <div class="col-lg-2 navbarl col-sm-12 col-md-12 res-admin-leavehistory-block-header res-admin-leave-balance-export">
-                    <div class="form-group adminleave-history" style="">
-                        <button type="button" class="btn btn-primary" id="exportLeaveHistory" onclick="exportLeaveHistory()">Export</button>
-                    </div>
-                </div>
-                <div class="col-lg-1 navbarl col-sm-12 col-md-12 res-admin-leavehistory-block-header res-admin-leave-balance-calender">
-                    <i class="fa fa-calendar AdminIndiEmpLeave-History" aria-hidden="true"></i>
                 </div>
             </div>
+            <!-- Advanced Filters -->
+            <div class="col-lg-3 navbarl col-sm-12 col-md-4 res-admin-leavehistory-block-header res-admin-leavehistory-filter">
+                <div class="advanced-leavehistory-filtertab d-flex justify-content-between1 align-items-center">
+                    <p class="advancetitle mb-0">Advanced Filters</p>
+                    <div class="toggle-button advanceleave-history-button ml-2">
+                        <button class="collapsedropdown collapsed btn" type="button" data-toggle="collapse" data-target="#adminleavehistoryfilter" aria-expanded="false" aria-controls="demo">
+                            <i class="fa-solid fa-angle-down"></i>
+                        </button>
+                    </div>
+                </div>
+            </div>
+            <!-- Add leave history dropdown -->
+            <div class="col-lg-2 navbarl col-sm-12 col-md-12 res-admin-leavehistory-block-header res-admin-total-leaves-import">
+                <div class="form-group " style="">
+                    <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#uploadTotalLeavesModal">Import</button>
+                </div>
+            </div>
+
+            <div class="col-lg-2 navbarl col-sm-12 col-md-12 res-admin-leavehistory-block-header res-admin-leave-balance-export">
+                <div class="form-group adminleave-history" style="">
+                    <button type="button" class="btn btn-primary" id="exportLeaveHistory" onclick="exportLeaveHistory()">Export</button>
+                </div>
+            </div>
+                <div class="dropdown">
+                    <button class="btn dropdown-toggle" type="button" id="adminleaveSettingsDropdown" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" style="background-color: #4b89dc;">
+                        Leave Settings
+                    </button>
+                    <div class="dropdown-menu leaveSettings-dropdown" aria-labelledby="leaveSettingsDropdown" style="border:1px solid gray">
+                        <a class="dropdown-item adminleave-history">Leave History</a>
+                        <a class="dropdown-item adminleave-Balanve-link">Leave Balance</a>
+                        <a class="dropdown-item adminleave-CompOff-link">CompOff Request</a>
+                        <a class="dropdown-item adminside-leaveapply">Apply Leave</a>
+
+                    </div>
+                </div>
+        
+            <div class="col-lg-1 navbarl col-sm-12 col-md-12 res-admin-leavehistory-block-header res-admin-leave-balance-calender">
+                <i class="fa fa-calendar AdminIndiEmpLeave-History" aria-hidden="true"></i>
+            </div>
+        </div>
         </div>
     </div>
 
