@@ -644,7 +644,9 @@
     }
 
     /* admin employee management end */
+
     /* admin attendance start*/
+
     .mobile-view .res-admin-attendance .main-content.container-fluid {
         width: 100% !important;
         padding: 65px 0px;
@@ -653,6 +655,7 @@
     .mobile-view .res-admin-attendance .res-admin-attendance-header {
         display: inline !important;
         width: 94%;
+        margin-left: 25px;
     }
 
     .mobile-view .res-admin-attendance .res-admin-attendance-header .adminatt-dropdown {
@@ -772,10 +775,17 @@
         width: auto !important;
     }
 
+    .mobile-view .admin-attendancemgmt-view .res-admin-att-header-block {
+        justify-content: center !important;
+    }
+
+    .mobile-view .res-admin-individual-att-from-to .form-inline {
+        justify-content: left;
+    }
+
     /* admin attendance end */
 
     /* admin leave start*/
-
     .mobile-view .res-admin-leave .main-content.container-fluid {
         margin-left: 0;
     }
@@ -860,6 +870,20 @@
 
     .mobile-view .res-admin-leave #daysLeaveContainer.Leave-days-container .dayLeave {
         padding: 0 2px;
+    }
+
+    .mobile-view .res-admin-leave .admin-leave-container .balance-section-wrapper .res-emp-apply-leave {
+        margin: 0 !important;
+    }
+
+    .mobile-view .res-admin-leave .admin-leave-container .balance-section-wrapper .res-emp-apply-leave .balance-section {
+        width: 100%;
+        margin: 0 !important;
+    }
+
+    .mobile-view .res-admin-leave .admin-leave-container .res-emp-apply-leave .balance-section .leave-apply-info-block .res-leave-apply-left {
+        display: inline-block;
+        width: 85%;
     }
 
     /* admin leave end*/
