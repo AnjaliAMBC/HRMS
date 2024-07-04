@@ -496,10 +496,38 @@ $(document).on('click', '.admin-empbased-leave-calender', function (event) {
     $('.show-progress').hide();
 });
 
+//admin Leave History Calender table click 
 
-
-
-
+$(document).on('click', '.Admin-leavehistory-icon', function (event) {
+    event.preventDefault();
+    $.ajax({
+        url: '/adminleave/adminleavehistory',
+        type: 'GET',
+        dataType: 'html',
+        data: { startdate: $('#leavehistory-fromDate').val(), endDate: $('#leavehistory-toDate').val(), department: "", location: $('#leavehistory-Location-dropdown').val(), status: $('#leavehistory-status-dropdown').val() },
+        success: function (response) {
+            $(".hiddenadmindashboard").html("");
+            $('.admin-dashboard-container').html("");
+            $(".admin-emppadd-container").html("");
+            $('.admin-empmanagement-container').html("");
+            $('.admin-attendance-container').html("");
+            $('.admin-leave-container').html("");
+            $(".hiddenadmindashboard").html(response);
+            var formContent = $(".hiddenadmindashboard").find(".admin-leaveHistory-view").html();
+            $(".admin-leave-container").html(formContent);
+            $('.admin-leave-container').show();
+            $('.admin-attendance-container').hide();
+            $('.admin-empmanagement-container').hide();
+            $('.admin-emppadd-container').hide();
+            $('.admin-dashboard-container').hide();
+            $('.admin-ticketing-container').hide();
+            $(".hiddenadmindashboard").html("");
+        },
+        error: function (xhr, status, error) {
+            console.error("Error deleting employee:", error);
+        }
+    });
+});
 
 
 
