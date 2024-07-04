@@ -2,6 +2,10 @@ body {
     color: #212529;
 }
 
+.button-color-blue {
+    background: #2693F8;
+}
+
 tbody {
     font-size: 14px;
 }
@@ -676,10 +680,11 @@ div.main-content {
 
 .res-admin-leave-history .res-admin-leave-balance-calender {
     width: 2%;
-    margin-left: -9%;
+    margin-left: -4%;
     display: inline-flex;
     margin-top: 10px;
     margin-right: 10px;
+    cursor: pointer;
 }
 
 #adminleavehistoryfilter .res-adminadvfilter-leavehistory {
@@ -766,6 +771,7 @@ div.main-content {
 .LeaveEmpHistory-calender .leave-history-calender {
     justify-content: right;
     display: flex;
+    cursor: pointer;
 }
 
 .dropdowns-leave-container .res-adminleave-drop {
@@ -776,9 +782,18 @@ div.main-content {
     margin-right: 2px;
 }
 
+.res-leavehistpry-calender-search #employeeDropdown {
+    background-color: initial;
+}
+
+.res-leavehistpry-calender-search .dropdown-menu.LeaveEmp-dropdown {
+    box-shadow: 0 0 3px 2px #ccc;
+}
+
 /* admin leave history end*/
 
 /* admin leave import start*/
+
 .admin-leaveimport-view {
 }
 
