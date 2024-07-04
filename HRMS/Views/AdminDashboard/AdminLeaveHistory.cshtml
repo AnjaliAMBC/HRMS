@@ -351,10 +351,32 @@
                 filterTable(table);
             });
 
-            // Filter DataTable based on selected employees
+            // Function to update selected employees in button text
+            function updateSelectedEmployees() {
+                let selectedEmployees = [];
+                $('#employeeList .form-check-input:checked').each(function () {
+                    let employeeName = $(this).siblings('label').find('span').text();
+                    selectedEmployees.push(employeeName);
+                });
+
+                // Update button text with selected employees
+                let buttonText = 'Select Employees';
+                if (selectedEmployees.length > 0) {
+                    if (selectedEmployees.length === 1) {
+                        buttonText = selectedEmployees[0];
+                    } else {
+                        buttonText = selectedEmployees.length + ' employees selected';
+                    }
+                }
+                $('#employeeDropdown').html(buttonText + ' <i class="fas fa-chevron-down ml-1"></i>');
+            }
+
+            // Event handler for checkbox change
             $('#employeeList .form-check-input').change(function () {
-                filterTable(table);
+                updateSelectedEmployees();
+                filterTable(table); // Assuming filterTable is your function to filter DataTable
             });
+
 
             function filterTable(table) {
                 var selectedEmployees = [];

@@ -51,7 +51,12 @@
                                                         }
                                                         else
                                                         {
-                                                            <small>
+                                                            var color = "green";
+                                                            if (leave.LatestLeave.LeaveStatus != "Approved")
+                                                            {
+                                                                color = "red";
+                                                            }
+                                                            <small style="color: @color">
                                                                 @leave.LatestLeave.LeaveStatus
                                                             </small>
                                                         }

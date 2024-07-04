@@ -320,7 +320,7 @@ function ApproveLeaveRequest(leaveName, element) {
         data: { leaveRequestName: leaveName },
         success: function (response) {
             if (response.success) {
-                element.parent().html('<small>Approved</small>');
+                element.parent().html('<small style="color: green">Approved</small>');
             } else {
                 alert('Failed to approve leave.');
             }
@@ -340,7 +340,7 @@ function RejectLeaveRequest(leaveName, element) {
         data: { leaveRequestName: leaveName },
         success: function (response) {
             if (response.success) {
-                element.parent().html('<small>Rejected</small>');
+                element.parent().html('<small style="color: red">Rejected</small>');
             } else {
                 alert('Failed to reject leave.');
             }
