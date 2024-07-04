@@ -23,6 +23,8 @@ namespace HRMS.Models.Admin
         public emp_info SelectedEmployee { get; set; } = new emp_info();
 
         public List<DateTime> AllDates { get; set; } = new List<DateTime>();
+
+        public List<con_leaveupdate> Leaves { get; set; } = new List<con_leaveupdate>();
     }
     public class EmployeeCheckInUpdateModel
     {

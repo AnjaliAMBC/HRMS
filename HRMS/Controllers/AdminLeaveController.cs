@@ -172,6 +172,37 @@ namespace HRMS.Controllers
             return PartialView("~/Views/AdminDashboard/AdminLeaveHistory.cshtml", AdminLeaveHistoryModel);
         }
 
+        public ActionResult AdminLeaveHistoryViewFilter(string startDate, string endDate, string empId, string department, string location, string status)
+        {
+            DateTime dateStart = new DateTime();
+            DateTime dateEnd = new DateTime();
+            if (string.IsNullOrWhiteSpace(startDate))
+            {
+                dateStart = new DateTime(System.DateTime.Today.Year, 1, 1);
+            }
+            else
+            {
+                dateStart = System.DateTime.Parse(startDate);
+            }
+
+            if (string.IsNullOrWhiteSpace(endDate))
+            {
+                dateEnd = new DateTime(System.DateTime.Today.Year, 12, 31);
+            }
+            else
+            {
+                dateEnd = System.DateTime.Parse(endDate);
+            }
+
+            var AdminLeaveHistoryModel = new AdminLeaveHistoryViewModel();
+            var leavesHistory = new LeaveCalculator().EmpLeaveInfoBasedonFromAndToDatesWithLeaveDate(dateStart.ToString("yyyy-MM-dd"), dateEnd.ToString("yyyy-MM-dd"), "", "", "", "");
+            AdminLeaveHistoryModel.AllEMployeeLeaves = leavesHistory;
+
+            var json = JsonConvert.SerializeObject(AdminLeaveHistoryModel);
+
+            return Json(json, JsonRequestBehavior.AllowGet);
+        }
+
         public ActionResult UpdateLeaveBalanceBasedonEmpID(LeaveBalance leaveBalance)
         {
             var currentYear = DateTime.Today.Year.ToString();
@@ -586,7 +617,7 @@ namespace HRMS.Controllers
                                 Paternity = record.Paternity,
                                 Sick = record.Sick,
                                 Year = record.Year,
-                                HourlyPermission = record.HourlyPermission                               
+                                HourlyPermission = record.HourlyPermission
                             };
 
                             _dbContext.LeaveBalances.Add(leaveBalance);

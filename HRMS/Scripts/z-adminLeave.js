@@ -320,7 +320,7 @@ function ApproveLeaveRequest(leaveName, element) {
         data: { leaveRequestName: leaveName },
         success: function (response) {
             if (response.success) {
-                element.parent().html('<small>Approved</small>');
+                element.parent().html('<small style="color: green">Approved</small>');
             } else {
                 alert('Failed to approve leave.');
             }
@@ -340,7 +340,7 @@ function RejectLeaveRequest(leaveName, element) {
         data: { leaveRequestName: leaveName },
         success: function (response) {
             if (response.success) {
-                element.parent().html('<small>Rejected</small>');
+                element.parent().html('<small style="color: red">Rejected</small>');
             } else {
                 alert('Failed to reject leave.');
             }
@@ -447,8 +447,10 @@ function toggleAdminLeaveApprovalActionOptions(iconElement) {
     optionsMenu.toggle();
 }
 
-$(document).on('click', '.AdminIndiEmpLeave-History', function (event) {
 
+
+$(document).off('click', '.AdminIndiEmpLeave-History').on('click', '.AdminIndiEmpLeave-History', function (event) {
+    $('.show-progress').show();
     $.ajax({
         url: '/adminleave/AdminEmpLeaveCalender',
         type: 'GET',
@@ -473,6 +475,12 @@ $(document).on('click', '.AdminIndiEmpLeave-History', function (event) {
             $('.admin-leave-container').show();
             $('.admin-ticketing-container').hide();
             $(".hiddenadmindashboard").html("");
+
+            setTimeout(function () {
+                $('.show-progress').show();
+                fetchLeaveHolidays();
+                $('.show-progress').hide();
+            }, 1000);
         },
         error: function (xhr, status, error) {
             var err = eval("(" + xhr.responseText + ")");
@@ -498,7 +506,7 @@ $(document).on('click', '.admin-empbased-leave-calender', function (event) {
 
 //admin Leave History Calender table click 
 
-$(document).on('click', '.Admin-leavehistory-icon', function (event) {
+$(document).off('click', '.Admin-leavehistory-icon').on('click', '.Admin-leavehistory-icon', function (event) {
     event.preventDefault();
     $.ajax({
         url: '/adminleave/adminleavehistory',
