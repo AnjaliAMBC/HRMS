@@ -113,6 +113,15 @@ div.main-content {
     margin-bottom: 10px;
 }
 
+.admin-dashboard-view .admindash_card tbody#calendarBody:before,
+.emp-dashboard .employeedash tbody#calendarBody:before {
+    /* This doesn't work because of border-collapse */
+    line-height: 10px;
+    content: "_";
+    color: white;
+    display: block;
+}
+
 /* admin dashnoard end */
 
 /* admin employee management start */
