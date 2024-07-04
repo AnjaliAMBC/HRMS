@@ -114,6 +114,12 @@ namespace HRMS.Controllers
                 model.EmpCheckInList = selectedDateAttendence;
             }
 
+            var selectedDateLeaves = _dbContext.con_leaveupdate.Where(x => x.leavedate >= model.SelectedStartDate && x.leavedate <= model.SelectedEndDate && x.employee_id == selectedEmpID).ToList();
+            if (selectedDateLeaves != null && selectedDateLeaves.Any())
+            {
+                model.Leaves = selectedDateLeaves;
+            }
+
             // Get all dates between start and end date
             List<DateTime> allDates = DateHelper.GetAllDates(model.SelectedStartDate, model.SelectedEndDate);
             model.AllDates = allDates;
