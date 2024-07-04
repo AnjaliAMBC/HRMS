@@ -1,4 +1,6 @@
-﻿$(document).on('click', '.adminleave-Balanve-link', function (event) {
+﻿
+
+$(document).on('click', '.adminleave-Balanve-link', function (event) {
     event.preventDefault();
     //HighlightAdminActiveLink($(this));
     $.ajax({
@@ -280,6 +282,136 @@ $(document).on('click', '.leave-export-history', function (event) {
         window.location.href = "/adminleave/exportleavedatatoexcel?startdate=" + fromDate + "&endDate=" + toDate + "&department=" + $('#leavehistory-department-dropdown').val() + "&location=" + $('#leavehistory-Location-dropdown').val() + "&status=" + $('#leavehistory-status-dropdown').val();
         $('.show-progress').hide();
     }
+});
+
+
+$(document).on('click', '.leave-view-history', function (event) {
+    // Prevent the default action
+    event.preventDefault();
+
+    // Get the values of the date fields
+    var fromDate = $('#leavehistory-fromDate').val();
+    var toDate = $('#leavehistory-toDate').val();
+
+    // Clear previous validation messages
+    $('.validation-error').remove();
+    $('#leavehistory-fromDate').removeClass('is-invalid');
+    $('#leavehistory-toDate').removeClass('is-invalid');
+
+    // Check if the dates are provided
+    var isValid = true;
+    if (!fromDate) {
+        $('#leavehistory-fromDate').addClass('is-invalid');
+        $('#leavehistory-fromDate').closest('.form-group').append('<span class="validation-error text-danger"></span>');
+        isValid = false;
+    }
+    if (!toDate) {
+        $('#leavehistory-toDate').addClass('is-invalid');
+        $('#leavehistory-toDate').closest('.form-group').append('<span class="validation-error text-danger"></span>');
+        /* $('#leavehistory-toDate').closest('.form-group').append('<span class="validation-error text-danger">To date is required</span>');*/
+        isValid = false;
+    }
+    // If both dates are provided, proceed with the export
+    // If both dates are provided, proceed with the export
+    if (isValid) {
+        $('.show-progress').show();
+
+        $.ajax({
+            url: '/adminleave/AdminLeaveHistoryViewFilter',
+            dataType: 'json',
+            data: {
+                startDate: fromDate,
+                endDate: toDate,
+                empId: "",
+                department: $('#leavehistory-department-dropdown').val(),
+                location: $('#leavehistory-Location-dropdown').val(),
+                status: $('#leavehistory-status-dropdown').val()
+            },
+            beforeSend: function () {
+                $('.show-progress').show();
+            },
+            success: function (response) {
+                $('.show-progress').hide();
+
+                var tableBody = '';
+                var responseJson = $.parseJSON(response);
+                $.each(responseJson.AllEMployeeLeaves, function (index, leaveInfo) {
+                    var empImagePath = "/Assets/EmpImages/" + leaveInfo.LatestLeave.employee_id + ".jpeg";
+                    var createdDate = leaveInfo.LatestLeave.createddate ? new Date(leaveInfo.LatestLeave.createddate).toLocaleDateString('en-GB', { day: 'numeric', month: 'long', year: 'numeric' }) : "No Date Available";
+                    var createdDay = leaveInfo.LatestLeave.createddate ? new Date(leaveInfo.LatestLeave.createddate).toLocaleDateString('en-GB', { weekday: 'short' }) : "No Date Available";
+                    var fromDate = leaveInfo.LatestLeave.Fromdate ? new Date(leaveInfo.LatestLeave.Fromdate).toLocaleDateString('en-GB', { day: 'numeric', month: 'long', year: 'numeric' }) : "No Date Available";
+                    var fromDay = leaveInfo.LatestLeave.Fromdate ? new Date(leaveInfo.LatestLeave.Fromdate).toLocaleDateString('en-GB', { weekday: 'short' }) : "No Date Available";
+                    var toDate = leaveInfo.LatestLeave.Todate ? new Date(leaveInfo.LatestLeave.Todate).toLocaleDateString('en-GB', { day: 'numeric', month: 'long', year: 'numeric' }) : "No Date Available";
+                    var toDay = leaveInfo.LatestLeave.Todate ? new Date(leaveInfo.LatestLeave.Todate).toLocaleDateString('en-GB', { weekday: 'short' }) : "No Date Available";
+
+                    tableBody += `<tr>
+                    <td><input type="checkbox"></td>
+                    <td>${leaveInfo.LatestLeave.employee_id}</td>
+                    <td>
+                        <div style="display: flex; align-items: center;">
+                            <img class="userIcon" src="${empImagePath}">
+                            <span style="margin-top: 0px; margin-right: 10px;">
+                                ${leaveInfo.LatestLeave.employee_name}<br>
+                                <span style="color: #3E78CF;">${leaveInfo.LatestLeave.OfficalEmailid}</span>
+                            </span>
+                        </div>
+                    </td>
+                    <td>${leaveInfo.LatestLeave.leavesource}</td>
+                    <td class="res-admin-leave-applieddate">
+                        <div class="res-leave-his-date">${createdDate}</div>
+                        <div class="res-leave-his-day mutedText">${createdDay}</div>
+                    </td>
+                    <td class="res-admin-leave-from">
+                        <div class="res-leave-his-date">${fromDate}</div>
+                        <div class="res-leave-his-day mutedText">${fromDay}</div>
+                    </td>
+                    <td class="res-admin-leave-to">
+                        <div class="res-leave-his-date">${toDate}</div>
+                        <div class="res-leave-his-day mutedText">${toDay}</div>
+                    </td>
+                    <td>${leaveInfo.TotalLeaveDays}</td>
+                    <td>${leaveInfo.LatestLeave.Location}</td>
+                    <td>${leaveInfo.LatestLeave.leave_reason}</td>
+                    <td style="display: none">${leaveInfo.LatestLeave.LeaveStatus}</td>
+                    <td style="display: none">${leaveInfo.LatestLeave.createdby}</td>
+                    <td style="display: none">${createdDate}</td>
+                    <td style="display: none">${leaveInfo.LatestLeave.updatedby}</td>
+                    <td style="display: none">${leaveInfo.LatestLeave.updateddate ? new Date(leaveInfo.LatestLeave.updateddate).toLocaleDateString('en-GB', { day: 'numeric', month: 'long', year: 'numeric' }) : "No Date Available"}</td>
+                    <td></td>
+                  </tr>`;
+                });
+
+                // Clear the table body and destroy the existing DataTable
+                var table = $('#adminleaveHistoryTable').DataTable();
+                table.clear().destroy();
+
+                // Append the new table body content
+                $('#adminleaveHistoryTable tbody').html(tableBody);
+
+                // Re-initialize the DataTable
+                $('#adminleaveHistoryTable').DataTable({
+                    "paging": true,
+                    "searching": true,
+                    "ordering": false,
+                    "info": true,
+                    "autoWidth": false,
+                    "lengthMenu": [[7, 14, 21, -1], [7, 14, 21, "All"]],
+                    "columnDefs": [
+                        { "orderable": false, "targets": 0 }, // Disable ordering on the Checkbox column
+                        { "orderable": false, "targets": 1 }, // Disable ordering on the ID column
+                        { "orderable": false, "targets": 2 }  // Disable ordering on the Employee Info column
+                    ]
+                });
+            },
+            error: function (xhr, status, error) {
+                $('.show-progress').hide();
+                console.error("Error fetching leave history:", error);
+            }
+        });
+    }
+
+
+
 });
 
 
