@@ -538,5 +538,70 @@ $(document).off('click', '.Admin-leavehistory-icon').on('click', '.Admin-leavehi
 });
 
 
+$(document).off('click', '.btn-import-leaves-hstory').on('click', '.btn-import-leaves-hstory', function (event) {
+    event.preventDefault();
+
+    $.ajax({
+        url: '/adminleave/AdminLeavesHistoryImport',
+        type: 'GET',
+        dataType: 'html',
+        beforeSend: function () {
+            $('.show-progress').show();
+        },
+        success: function (response) {
+            $(".hiddenadmindashboard").html("");
+            $('.admin-dashboard-container').html("");
+            $(".admin-emppadd-container").html("");
+            $('.admin-empmanagement-container').html("");
+            $('.admin-attendance-container').html("");
+            $('.admin-leave-container').html("");
+            $(".hiddenadmindashboard").html(response);
+            var formContent = $(".hiddenadmindashboard").find(".adminEmp-LeaveHistoryImport-view").html();
+            $(".admin-leave-container").html(formContent);
+            $('.admin-leave-container').show();
+            $('.admin-attendance-container').hide();
+            $('.admin-empmanagement-container').hide();
+            $('.admin-emppadd-container').hide();
+            $('.admin-dashboard-container').hide();
+            $('.admin-ticketing-container').hide();
+            $(".hiddenadmindashboard").html("");
+            $('.show-progress').hide();
+        },
+        error: function (xhr, status, error) {
+            $('.show-progress').hide();
+            console.error("Error deleting employee:", error);
+        }
+    });
+});
+
+
+$(document).off('click', '.btn-importleavehistrory-submit').on('click', '.btn-importleavehistrory-submit', function (event) {
+    var file = $('#leaveistory-file-upload-input')[0].files[0];
+    var formData = new FormData();
+    formData.append('file', file);
+
+    $.ajax({
+        url: '/adminleave/UploadLeavesHistoryExcel',
+        type: 'POST',
+        data: formData,
+        contentType: false,
+        processData: false,
+        success: function (response) {
+            if (response.success) {
+                console.log(response.data);
+                $('#modalMessage').text(response.message);
+                $('#messageModal').modal('show');
+            } else {
+                $('#modalMessage').text(response.message);
+                $('#messageModal').modal('show');
+            }
+        },
+        error: function (xhr, status, error) {
+            $('#modalMessage').text('Error uploading file: ' + error);
+            $('#messageModal').modal('show');
+        }
+    });
+});
+
 
 
