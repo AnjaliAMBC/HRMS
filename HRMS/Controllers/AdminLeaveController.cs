@@ -526,6 +526,161 @@ namespace HRMS.Controllers
             return PartialView("~/Views/AdminDashboard/AdminTotalLeavesImport.cshtml");
         }
 
+        public ActionResult AdminLeavesHistoryImport()
+        {
+            return PartialView("~/Views/AdminDashboard/AdminEmpLeaveHistoryImport.cshtml");
+        }
+
+
+        [HttpPost]
+        public JsonResult UploadLeavesHistoryExcel(HttpPostedFileBase file)
+        {
+            if (file == null || file.ContentLength == 0)
+            {
+                return Json(new { success = false, message = "No file uploaded or file is empty." });
+            }
+
+            try
+            {
+                using (var package = new ExcelPackage(file.InputStream))
+                {
+                    var workbook = package.Workbook;
+
+                    if (workbook == null || workbook.Worksheets.Count == 0)
+                    {
+                        return Json(new { success = false, message = "No worksheets found in the Excel file." });
+                    }
+
+                    // Access the first worksheet
+                    var worksheet = workbook.Worksheets.FirstOrDefault();
+                    if (worksheet == null)
+                    {
+                        return Json(new { success = false, message = "Failed to retrieve worksheet." });
+                    }
+
+                    List<con_leaveupdate> records = new List<con_leaveupdate>();
+                    int totalRows = worksheet.Dimension.End.Row;
+
+                    for (int row = 2; row <= totalRows; row++)
+                    {
+                        if (worksheet.Cells[row, 3].Value == null)
+                        {
+                            continue;
+                        }
+
+                        var record = new con_leaveupdate
+                        {
+                            leavedate = DateTime.Parse(worksheet.Cells[row, 1].Value?.ToString() ?? string.Empty),
+                            employee_id = worksheet.Cells[row, 2].Value?.ToString(),
+                            leave_reason = worksheet.Cells[row, 3].Value?.ToString(),
+                            DayType = worksheet.Cells[row, 4].Value?.ToString(),
+                            LeaveDays = ParseDecimal(worksheet.Cells[row, 5].Value?.ToString()),
+                            HalfDayCategory = worksheet.Cells[row, 6].Value?.ToString(),
+                            submittedby = worksheet.Cells[row, 7].Value?.ToString(),
+                            leavesource = worksheet.Cells[row, 8].Value?.ToString(),
+                            leaveuniqkey = worksheet.Cells[row, 9].Value?.ToString(),
+                            leavecategory = worksheet.Cells[row, 10].Value?.ToString(),
+                            employee_name = worksheet.Cells[row, 11].Value?.ToString(),
+                            BackupResource_Name = worksheet.Cells[row, 12].Value?.ToString(),
+                            EmergencyContact_no = worksheet.Cells[row, 13].Value?.ToString(),
+                            LeaveStatus = worksheet.Cells[row, 14].Value?.ToString(),
+                            OfficalEmailid = worksheet.Cells[row, 15].Value?.ToString(),
+                            Fromdate = !string.IsNullOrWhiteSpace(worksheet.Cells[row, 16].Value?.ToString()) ? DateTime.Parse(worksheet.Cells[row, 16].Value?.ToString()) : DateTime.MaxValue,
+                            Todate = !string.IsNullOrWhiteSpace(worksheet.Cells[row, 17].Value?.ToString()) ? DateTime.Parse(worksheet.Cells[row, 17].Value?.ToString()) : DateTime.MaxValue,
+                            LeaveRequestName = worksheet.Cells[row, 18].Value?.ToString(),
+                            Location = worksheet.Cells[row, 19].Value?.ToString(),
+                            createdby = worksheet.Cells[row, 20].Value?.ToString(),
+                            createddate = !string.IsNullOrWhiteSpace(worksheet.Cells[row, 21].Value?.ToString()) ? DateTime.Parse(worksheet.Cells[row, 21].Value?.ToString()) : DateTime.MaxValue,
+                            updatedby = worksheet.Cells[row, 22].Value?.ToString(),
+                            updateddate = !string.IsNullOrWhiteSpace(worksheet.Cells[row, 23].Value?.ToString()) ? DateTime.Parse(worksheet.Cells[row, 23].Value?.ToString()) : DateTime.MaxValue,
+                            Designation = worksheet.Cells[row, 24].Value?.ToString(),
+                            Department = worksheet.Cells[row, 25].Value?.ToString()
+                        };
+
+                        records.Add(record);
+                    }
+
+                    foreach (var record in records)
+                    {
+                        var isRecordExists = _dbContext.con_leaveupdate.FirstOrDefault(x => x.leaveuniqkey == record.leaveuniqkey);
+
+                        if (isRecordExists != null)
+                        {
+                            // Update existing record
+                            isRecordExists.leavedate = record.leavedate;
+                            isRecordExists.employee_id = record.employee_id;
+                            isRecordExists.leave_reason = record.leave_reason;
+                            isRecordExists.DayType = record.DayType;
+                            isRecordExists.LeaveDays = record.LeaveDays;
+                            isRecordExists.HalfDayCategory = record.HalfDayCategory;
+                            isRecordExists.submittedby = record.submittedby;
+                            isRecordExists.leavesource = record.leavesource;
+                            isRecordExists.leavecategory = record.leavecategory;
+                            isRecordExists.employee_name = record.employee_name;
+                            isRecordExists.BackupResource_Name = record.BackupResource_Name;
+                            isRecordExists.EmergencyContact_no = record.EmergencyContact_no;
+                            isRecordExists.LeaveStatus = record.LeaveStatus;
+                            isRecordExists.OfficalEmailid = record.OfficalEmailid;
+                            isRecordExists.Fromdate = record.Fromdate;
+                            isRecordExists.Todate = record.Todate;
+                            isRecordExists.LeaveRequestName = record.LeaveRequestName;
+                            isRecordExists.Location = record.Location;
+                            isRecordExists.createdby = record.createdby;
+                            isRecordExists.createddate = record.createddate;
+                            isRecordExists.updatedby = record.updatedby;
+                            isRecordExists.updateddate = record.updateddate;
+                            isRecordExists.Designation = record.Designation;
+                            isRecordExists.Department = record.Department;
+                        }
+                        else
+                        {
+                            // Add new record
+                            var leaveUpdate = new con_leaveupdate
+                            {
+                                leavedate = record.leavedate,
+                                employee_id = record.employee_id,
+                                leave_reason = record.leave_reason,
+                                DayType = record.DayType,
+                                LeaveDays = record.LeaveDays,
+                                HalfDayCategory = record.HalfDayCategory,
+                                submittedby = record.submittedby,
+                                leavesource = record.leavesource,
+                                leavecategory = record.leavecategory,
+                                employee_name = record.employee_name,
+                                BackupResource_Name = record.BackupResource_Name,
+                                EmergencyContact_no = record.EmergencyContact_no,
+                                LeaveStatus = record.LeaveStatus,
+                                OfficalEmailid = record.OfficalEmailid,
+                                Fromdate = record.Fromdate,
+                                Todate = record.Todate,
+                                LeaveRequestName = record.LeaveRequestName,
+                                Location = record.Location,
+                                createdby = record.createdby,
+                                createddate = record.createddate,
+                                updatedby = record.updatedby,
+                                updateddate = record.updateddate,
+                                Designation = record.Designation,
+                                Department = record.Department
+                            };
+
+                            _dbContext.con_leaveupdate.Add(leaveUpdate);
+                        }
+
+                        _dbContext.SaveChanges();
+                    }
+
+                    return Json(new { success = true, message = "Total Leaves info uploaded successfully!" });
+                }
+            }
+            catch (Exception ex)
+            {
+                return Json(new
+                {
+                    success = false,
+                    message = "Error reading Excel file: " + ex.Message
+                });
+            }
+        }
 
         [HttpPost]
         public JsonResult UploadTotalLeavesExcel(HttpPostedFileBase file)

@@ -69,7 +69,7 @@
                         <div class="col-md-offset-5 border mr-4 block-view" style="width: 31%">
                             <div class="form-group" style=" background-color: #C4C4C4;">
                                 <div class="form-group row">
-                                    <h6 style="margin-left: 24px; margin-top: 10px;"><b>Employee Information</b></h6>
+                                    <h6 style="margin-left: 24px; margin-top: 10px;"><b>Employee Details</b></h6>
                                 </div>
                             </div>
                             <div class="form-group" style="line-height: normal">
@@ -151,7 +151,7 @@
                         <div class="col-md-offset-5 border mr-4 block-view" style="width: 31%;">
                             <div class="form-group" style="background-color: #C4C4C4;">
                                 <div class="form-group row">
-                                    <h6 style="margin-left: 24px; margin-top: 10px;"><b>Reporting Information</b></h6>
+                                    <h6 style="margin-left: 24px; margin-top: 10px;"><b>Reporting Details</b></h6>
                                 </div>
                             </div>
                             <div class="form-group" style="line-height: normal;">
@@ -201,7 +201,7 @@
                         <div class="col-md-offset-5 border block-view mr-4" style="width: 31%;">
                             <div class="form-group" style="background-color: #C4C4C4;">
                                 <div class="form-group row">
-                                    <h6 style="margin-left: 24px; margin-top: 10px;"><b>General Information</b></h6>
+                                    <h6 style="margin-left: 24px; margin-top: 10px;"><b>General Details</b></h6>
                                 </div>
                             </div>
                             <div class="form-group" style="line-height: normal;">
@@ -265,115 +265,85 @@
 
 
                     <div class="row empviewrow mb-3" style="font-size: 13px">
-                        <div class="col-md-offset-5 border mr-4 block-view" style="width: 31%;">
-                            <div class="form-group" style="background-color: #C4C4C4;">
-                                <div class="form-group row">
-                                    <h6 style="margin-left: 24px; margin-top: 10px;"><b>Bank Details</b></h6>
-                                </div>
-                            </div>
-                            <div class="form-group" style="line-height: normal;">
-                                <div class="form-group row">
-                                    <label for="bankName" class="col-md-5 col-sm-5" style="margin-left: 10px; margin-top: 10px;">Bank Name</label>
-                                    <div class="col-md-6 col-sm-6" style="margin-left: 10px; margin-top: 10px; word-wrap: break-word;">@Model.EmpInfo.BankName</div>
-                                </div>
-                            </div>
-                            <div class="form-group" style="line-height: normal;">
-                                <div class="form-group row">
-                                    <label for="accountNumber" class="col-md-5 col-sm-5" style="margin-left: 10px;">Account Number</label>
-                                    <div class="col-md-6 col-sm-6" style="margin-left: 10px; word-wrap: break-word;">@Model.EmpInfo.AccountNumber</div>
-                                </div>
-                            </div>
-                            <div class="form-group" style="line-height: normal;">
-                                <div class="form-group row">
-                                    <label for="branch" class="col-md-5 col-sm-5" style="margin-left: 10px;">Branch</label>
-                                    <div class="col-md-6 col-sm-6" style="margin-left: 10px; word-wrap: break-word;">@Model.EmpInfo.Branch</div>
-                                </div>
-                            </div>
-                            <div class="form-group" style="line-height: normal;">
-                                <div class="form-group row">
-                                    <label for="typeOfAccount" class="col-md-5 col-sm-5" style="margin-left: 10px;">Type of Account</label>
-                                    <div class="col-md-6 col-sm-6" style="margin-left: 10px; word-wrap: break-word;">@Model.EmpInfo.TypeofAccount</div>
-                                </div>
-                            </div>
-                            <div class="form-group" style="line-height: normal;">
-                                <div class="form-group row">
-                                    <label for="ifscCode" class="col-md-5 col-sm-5" style="margin-left: 10px;">IFSC Code</label>
-                                    <div class="col-md-6 col-sm-6" style="margin-left: 10px; word-wrap: break-word;">@Model.EmpInfo.IFSCcode</div>
-                                </div>
-                            </div>
-                        </div>
+                        @*<div class="col-md-offset-5 border mr-4 block-view" style="width: 31%;">
+            <div class="form-group" style="background-color: #C4C4C4;">
+                <div class="form-group row">
+                    <h6 style="margin-left: 24px; margin-top: 10px;"><b>Bank Details</b></h6>
+                </div>
+            </div>
+            <div class="form-group" style="line-height: normal;">
+                <div class="form-group row">
+                    <label for="bankName" class="col-md-5 col-sm-5" style="margin-left: 10px; margin-top: 10px;">Bank Name</label>
+                    <div class="col-md-6 col-sm-6" style="margin-left: 10px; margin-top: 10px; word-wrap: break-word;">@Model.EmpInfo.BankName</div>
+                </div>
+            </div>
+            <div class="form-group" style="line-height: normal;">
+                <div class="form-group row">
+                    <label for="accountNumber" class="col-md-5 col-sm-5" style="margin-left: 10px;">Account Number</label>
+                    <div class="col-md-6 col-sm-6" style="margin-left: 10px; word-wrap: break-word;">@Model.EmpInfo.AccountNumber</div>
+                </div>
+            </div>
+            <div class="form-group" style="line-height: normal;">
+                <div class="form-group row">
+                    <label for="branch" class="col-md-5 col-sm-5" style="margin-left: 10px;">Branch</label>
+                    <div class="col-md-6 col-sm-6" style="margin-left: 10px; word-wrap: break-word;">@Model.EmpInfo.Branch</div>
+                </div>
+            </div>
+            <div class="form-group" style="line-height: normal;">
+                <div class="form-group row">
+                    <label for="typeOfAccount" class="col-md-5 col-sm-5" style="margin-left: 10px;">Type of Account</label>
+                    <div class="col-md-6 col-sm-6" style="margin-left: 10px; word-wrap: break-word;">@Model.EmpInfo.TypeofAccount</div>
+                </div>
+            </div>
+            <div class="form-group" style="line-height: normal;">
+                <div class="form-group row">
+                    <label for="ifscCode" class="col-md-5 col-sm-5" style="margin-left: 10px;">IFSC Code</label>
+                    <div class="col-md-6 col-sm-6" style="margin-left: 10px; word-wrap: break-word;">@Model.EmpInfo.IFSCcode</div>
+                </div>
+            </div>
+        </div>*@
 
 
-                        <div class="col-md-offset-5 border mr-4 block-view" style="width: 31%;">
-                            <div class="form-group" style="background-color: #C4C4C4;">
-                                <div class="form-group row">
-                                    <h6 style="margin-left: 24px; margin-top: 10px;"><b>Identity Proof Details</b></h6>
-                                </div>
-                            </div>
-                            <div class="form-group" style="line-height: normal;">
-                                <div class="form-group row">
-                                    <label for="panNumber" class="col-md-5 col-sm-5" style="margin-left: 10px; margin-top: 10px;">PAN Number</label>
-                                    <div class="col-md-6 col-sm-6" style="margin-left: 10px; margin-top: 10px; word-wrap: break-word;">@Model.EmpInfo.PANnumber</div>
-                                </div>
-                            </div>
-                            <div class="form-group" style="line-height: normal;">
-                                <div class="form-group row">
-                                    <label for="aadharNumber" class="col-md-5 col-sm-5" style="margin-left: 10px;">Aadhar Number</label>
-                                    <div class="col-md-6 col-sm-6" style="margin-left: 10px; word-wrap: break-word;">@Model.EmpInfo.AadharNumber</div>
-                                </div>
-                            </div>
-                            <div class="form-group" style="line-height: normal;">
-                                <div class="form-group row">
-                                    <label for="passportNumber" class="col-md-5 col-sm-5" style="margin-left: 10px;">Passport Number</label>
-                                    <div class="col-md-6 col-sm-6" style="margin-left: 10px; word-wrap: break-word;">@Model.EmpInfo.Passport</div>
-                                </div>
-                            </div>
-                            <div class="form-group" style="line-height: normal;">
-                                <div class="form-group row">
-                                    <label for="passportDOE" class="col-md-5 col-sm-5" style="margin-left: 10px;">DOE of Passport</label>
-                                    <div class="col-md-6 col-sm-6" style="margin-left: 10px; word-wrap: break-word;">
+                        @*<div class="col-md-offset-5 border mr-4 block-view" style="width: 31%;">
+            <div class="form-group" style="background-color: #C4C4C4;">
+                <div class="form-group row">
+                    <h6 style="margin-left: 24px; margin-top: 10px;"><b>Identity Proof Details</b></h6>
+                </div>
+            </div>
+            <div class="form-group" style="line-height: normal;">
+                <div class="form-group row">
+                    <label for="panNumber" class="col-md-5 col-sm-5" style="margin-left: 10px; margin-top: 10px;">PAN Number</label>
+                    <div class="col-md-6 col-sm-6" style="margin-left: 10px; margin-top: 10px; word-wrap: break-word;">@Model.EmpInfo.PANnumber</div>
+                </div>
+            </div>
+            <div class="form-group" style="line-height: normal;">
+                <div class="form-group row">
+                    <label for="aadharNumber" class="col-md-5 col-sm-5" style="margin-left: 10px;">Aadhar Number</label>
+                    <div class="col-md-6 col-sm-6" style="margin-left: 10px; word-wrap: break-word;">@Model.EmpInfo.AadharNumber</div>
+                </div>
+            </div>
+            <div class="form-group" style="line-height: normal;">
+                <div class="form-group row">
+                    <label for="passportNumber" class="col-md-5 col-sm-5" style="margin-left: 10px;">Passport Number</label>
+                    <div class="col-md-6 col-sm-6" style="margin-left: 10px; word-wrap: break-word;">@Model.EmpInfo.Passport</div>
+                </div>
+            </div>
+            <div class="form-group" style="line-height: normal;">
+                <div class="form-group row">
+                    <label for="passportDOE" class="col-md-5 col-sm-5" style="margin-left: 10px;">DOE of Passport</label>
+                    <div class="col-md-6 col-sm-6" style="margin-left: 10px; word-wrap: break-word;">
 
-                                        @if (Model.EmpInfo.DOEofPassport != null && Model.EmpInfo.DOEofPassport != DateTime.MinValue)
-                                        {
-                                            if (Model.EmpInfo.DOEofPassport.HasValue)
-                                            {
-                                                @Model.EmpInfo.DOEofPassport.Value.ToString("dd-MM-yyyy")
-                                            }
-                                        }
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-
-
-                        <div class="col-md-offset-5 border block-view mr-4" style="width: 31%;">
-                            <div class="form-group" style="background-color: #C4C4C4;">
-                                <div class="form-group row">
-                                    <h6 style="margin-left: 24px; margin-top: 10px;"><b>Statutory Details</b></h6>
-                                </div>
-                            </div>
-                            <div class="form-group" style="line-height: normal;">
-                                <div class="form-group row">
-                                    <label for="uanNumber" class="col-md-5 col-sm-5" style="margin-left: 10px; margin-top: 10px;">UAN Number</label>
-                                    <div class="col-md-6 col-sm-6" style="margin-left: 10px; margin-top: 10px; word-wrap: break-word;">@Model.EmpInfo.UANNumber</div>
-                                </div>
-                            </div>
-                            <div class="form-group" style="line-height: normal;">
-                                <div class="form-group row">
-                                    <label for="pfNumber" class="col-md-5 col-sm-5" style="margin-left: 10px;">PF Number</label>
-                                    <div class="col-md-6 col-sm-6" style="margin-left: 10px; word-wrap: break-word;">@Model.EmpInfo.PFNumber</div>
-                                </div>
-                            </div>
-                            <div class="form-group" style="line-height: normal;">
-                                <div class="form-group row">
-                                    <label for="ecisNumber" class="col-md-5 col-sm-5" style="margin-left: 10px;">ECIS Number</label>
-                                    <div class="col-md-6 col-sm-6" style="margin-left: 10px; word-wrap: break-word;">@Model.EmpInfo.ESICNumber</div>
-                                </div>
-                            </div>
-                        </div>
-
+                        @if (Model.EmpInfo.DOEofPassport != null && Model.EmpInfo.DOEofPassport != DateTime.MinValue)
+                        {
+                            if (Model.EmpInfo.DOEofPassport.HasValue)
+                            {
+                                @Model.EmpInfo.DOEofPassport.Value.ToString("dd-MM-yyyy")
+                            }
+                        }
                     </div>
-                    <div class="row empviewrow mb-3" style="font-size: 13px">
+                </div>
+            </div>
+        </div>*@
                         <div class="col-md-offset-5 border mr-4 block-view" style="width: 31%;">
                             <div class="form-group" style="background-color: #C4C4C4;">
                                 <div class="form-group row">
@@ -437,6 +407,36 @@
                         <div class="col-md-offset-5 border block-view mr-4" style="width: 31%;">
                             <div class="form-group" style="background-color: #C4C4C4;">
                                 <div class="form-group row">
+                                    <h6 style="margin-left: 24px; margin-top: 10px;"><b>Statutory Details</b></h6>
+                                </div>
+                            </div>
+                            <div class="form-group" style="line-height: normal;">
+                                <div class="form-group row">
+                                    <label for="uanNumber" class="col-md-5 col-sm-5" style="margin-left: 10px; margin-top: 10px;">UAN Number</label>
+                                    <div class="col-md-6 col-sm-6" style="margin-left: 10px; margin-top: 10px; word-wrap: break-word;">@Model.EmpInfo.UANNumber</div>
+                                </div>
+                            </div>
+                            <div class="form-group" style="line-height: normal;">
+                                <div class="form-group row">
+                                    <label for="pfNumber" class="col-md-5 col-sm-5" style="margin-left: 10px;">PF Number</label>
+                                    <div class="col-md-6 col-sm-6" style="margin-left: 10px; word-wrap: break-word;">@Model.EmpInfo.PFNumber</div>
+                                </div>
+                            </div>
+                            <div class="form-group" style="line-height: normal;">
+                                <div class="form-group row">
+                                    <label for="ecisNumber" class="col-md-5 col-sm-5" style="margin-left: 10px;">ECIS Number</label>
+                                    <div class="col-md-6 col-sm-6" style="margin-left: 10px; word-wrap: break-word;">@Model.EmpInfo.ESICNumber</div>
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+                    <div class="row empviewrow mb-3" style="font-size: 13px">
+                        
+
+                        @*<div class="col-md-offset-5 border block-view mr-4" style="width: 31%;">
+                            <div class="form-group" style="background-color: #C4C4C4;">
+                                <div class="form-group row">
                                     <h6 style="margin-left: 24px; margin-top: 10px;"><b>Previous Employer Details</b></h6>
                                 </div>
                             </div>
@@ -488,12 +488,12 @@
                                     <div class="col-md-6 col-sm-6" style="margin-left: 10px; word-wrap: break-word;">@Model.EmpInfo.ReasonforRelieving</div>
                                 </div>
                             </div>
-                        </div>
+                        </div>*@
 
                     </div>
 
-                    <div class="row empviewrow mb-3" style="font-size: 13px">
-                        <div class="col-md-offset-5 border mr-4 block-view" style="width: 31%;">
+                    <!--<div class="row empviewrow mb-3" style="font-size: 13px">-->
+                        @*<div class="col-md-offset-5 border mr-4 block-view" style="width: 31%;">
                             <div class="form-group" style="background-color: #C4C4C4;">
                                 <div class="form-group row">
                                     <h6 style="margin-left: 24px; margin-top: 10px;"><b>Separation Information</b></h6>
@@ -521,9 +521,9 @@
                             </div>
 
 
-                        </div>
+                        </div>*@
 
-                        <div class="col-md-offset-5 border mr-4 block-view" style="width: 31%;">
+                        @*<div class="col-md-offset-5 border mr-4 block-view" style="width: 31%;">
                             <div class="form-group" style="background-color: #C4C4C4;">
                                 <div class="form-group row">
                                     <h6 style="margin-left: 24px; margin-top: 10px;"><b>Personal Information</b></h6>
@@ -547,11 +547,8 @@
                                     <div class="col-md-6 col-sm-6" style="margin-left: 10px; word-wrap: break-word;">@Model.EmpInfo.Specialization</div>
                                 </div>
                             </div>
-                        </div>
-
-
-
-                    </div>
+                        </div>*@
+                    <!--</div>-->
                 </div>
             </div>
         </div>

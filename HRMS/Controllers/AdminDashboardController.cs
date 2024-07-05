@@ -14,6 +14,7 @@ using OfficeOpenXml;
 using System.Net.Mail;
 using System.Configuration;
 using System.Net;
+using HRMS.Models.Employee;
 
 namespace HRMS.Controllers
 {
@@ -177,6 +178,8 @@ namespace HRMS.Controllers
             {
                 model.EmpInfo = formData;
                 var existingEmployee = _dbContext.emp_info.Where(emp => emp.EmployeeID == formData.EmployeeID).FirstOrDefault();
+
+                var earlierEmploymentType = existingEmployee.EmployeeType;
                 if (existingEmployee != null)
                 {
                     // Update all properties of the existing entity
@@ -234,11 +237,73 @@ namespace HRMS.Controllers
                     existingEmployee.UpdatedBy = model.EmpInfo.UpdatedBy;
                     existingEmployee.UpdatedDate = DateTime.Now;
 
-                    // Save changes back to the database
                     _dbContext.SaveChanges();
-
                     model.JsonResponse.Message = "Employee details updated successfully!";
                     model.JsonResponse.StatusCode = 200;
+
+                    if (earlierEmploymentType == "Probation" && model.EmpInfo.EmployeeType == "Full-Time")
+                    {
+                        var currentYear = DateTime.Now.Year.ToString();
+                        var empAvailableLeave = new AvailableLeaves();
+                        var empLeaveBalance = new LeaveBalance();
+
+                        var currentYearFirstDate = new DateTime(DateTime.Now.Year, 1, 1);
+                        var lastYearFirstDate = currentYearFirstDate.AddMonths(-12);
+                        var leaveTypes = new LeaveCalculator().LeaveCategories();
+
+                        var empLeaveBalanceInfo = _dbContext.LeaveBalances.Where(x => x.Year == currentYear && x.EmpID == existingEmployee.EmployeeID).FirstOrDefault();
+
+                        foreach (var leaveType in leaveTypes)
+                        {
+                            empAvailableLeave = new LeaveCalculator().CalculateAvailableLeaves(existingEmployee, leaveType);
+
+                            if (leaveType.Type == "Earned Leave")
+                            {
+                                empLeaveBalance.Earned = empAvailableLeave.Available;
+                            }
+                            if (leaveType.Type == "Emergency Leave")
+                            {
+                                empLeaveBalance.Emergency = empAvailableLeave.Available;
+                            }
+                            if (leaveType.Type == "Sick Leave")
+                            {
+                                empLeaveBalance.Sick = empAvailableLeave.Available;
+                            }
+                            if (leaveType.Type == "Bereavement Leave")
+                            {
+                                empLeaveBalance.Bereavement = empAvailableLeave.Available;
+                            }
+                            if (leaveType.Type == "Hourly Permission")
+                            {
+                                empLeaveBalance.HourlyPermission = empAvailableLeave.Available;
+                            }
+                            if (leaveType.Type == "Marriage Leave")
+                            {
+                                empLeaveBalance.Marriage = empAvailableLeave.Available;
+                            }
+                            if (leaveType.Type == "Maternity Leave")
+                            {
+                                empLeaveBalance.Maternity = empAvailableLeave.Available;
+                            }
+                            if (leaveType.Type == "Paternity Leave")
+                            {
+                                empLeaveBalance.Paternity = empAvailableLeave.Available;
+                            }
+                            if (leaveType.Type == "Comp Off")
+                            {
+                                empLeaveBalance.CompOff = empAvailableLeave.Available;
+                            }
+                        }
+                        empLeaveBalance.EmpID = existingEmployee.EmployeeID;
+                        empLeaveBalance.EmployeeName = existingEmployee.EmployeeName;
+                        empLeaveBalance.Year = currentYear;
+
+                        //Add new entry
+                        _dbContext.LeaveBalances.Add(empLeaveBalance);
+                        //Delete old entry
+                        _dbContext.LeaveBalances.Remove(empLeaveBalanceInfo);
+                        _dbContext.SaveChanges();
+                    }
                 }
             }
             catch (Exception ex)
