@@ -48,8 +48,9 @@ namespace HRMS.Helpers
 
         private static bool IsProbationaryEmployee(emp_info employee)
         {
-            var lastDayOfProbatation = employee.DOJ.AddMonths(3);
-            return lastDayOfProbatation >= DateTime.Today ? true : false;
+            //var lastDayOfProbatation = employee.DOJ.AddMonths(3);
+            //return lastDayOfProbatation >= DateTime.Today ? true : false;
+            return employee.EmployeeType == "Probation" ? true : false;
         }
 
         private AvailableLeaves CalculateProbationaryLeaves(emp_info employee, LeavesCategory leaveType)
@@ -260,6 +261,7 @@ namespace HRMS.Helpers
 
                 if (isEmpLeaveBalanceExists != null)
                 {
+
                     var empLeaveBalance = new LeaveBalance()
                     {
                         Bereavement = isEmpLeaveBalanceExists.Bereavement,
@@ -287,14 +289,31 @@ namespace HRMS.Helpers
                     var empAvailableLeave = new AvailableLeaves();
                     var empLeaveBalance = new LeaveBalance();
 
+                    var currentYearFirstDate = new DateTime(DateTime.Now.Year, 1, 1);
+                    var lastYearFirstDate = currentYearFirstDate.AddMonths(-12);
+
+                    var lastYear = lastYearFirstDate.Year.ToString();
+                    decimal? lastYearEarnedLeaveBalance = 0;
+
+                    if (lastYearFirstDate >= emp.DOJ)
+                    {
+                        var lastYearLeaveBalance = _dbContext.LeaveBalances.Where(x => x.EmpID == emp.EmployeeID && x.Year == lastYear).FirstOrDefault();
+
+                        if (lastYearLeaveBalance != null)
+                        {
+                            lastYearEarnedLeaveBalance = lastYearLeaveBalance.Earned >= 5 ? 5 : 0;
+                        }
+                    }
+
                     foreach (var leaveType in leaveTypes)
                     {
                         empAvailableLeave = new LeaveCalculator().CalculateAvailableLeaves(emp, leaveType);
-                        employee.AvailableLeaves.Add(empAvailableLeave);
 
                         if (leaveType.Type == "Earned Leave")
                         {
-                            empLeaveBalance.Earned = empAvailableLeave.Available;
+                            empLeaveBalance.Earned = empAvailableLeave.Available + lastYearEarnedLeaveBalance;
+                            empAvailableLeave.Available = empAvailableLeave.Available + lastYearEarnedLeaveBalance;
+                            empAvailableLeave.Balance = empAvailableLeave.Available - empAvailableLeave.Booked;
                         }
                         if (leaveType.Type == "Emergency Leave")
                         {
@@ -328,6 +347,8 @@ namespace HRMS.Helpers
                         {
                             empLeaveBalance.CompOff = empAvailableLeave.Available;
                         }
+
+                        employee.AvailableLeaves.Add(empAvailableLeave);
                     }
                     empLeaveBalance.EmpID = employee.empInfo.EmployeeID;
                     empLeaveBalance.EmployeeName = employee.empInfo.EmployeeName;

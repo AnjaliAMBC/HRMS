@@ -1,0 +1,41 @@
+﻿<div class="adminEmp-LeaveHistoryImport-view">
+    <div class="container admin-leaveimport-view">
+        <!-- Headline: Import Employee -->
+        <h3 class="import-leave-head">Import Leave History</h3>
+
+        <!-- Description with bullet points -->
+        <div class="description">
+            <ul>
+                <li>Download the Excel file and fill it with proper data.</li>
+                <li>Prepare your leave data in a xlsx format.</li>
+                <li>Make sure the CSV file follows the correct format.</li>
+                <li>Use the template provided for best results.</li>
+            </ul>
+        </div>
+
+        <div>
+            <button class="btn btn-primary download-leave-btn" onclick="downloadLeaveTemplate()">Download Template</button>
+        </div>
+        <p style=" margin-bottom: 35px; margin-top: 5px;">Sample excel template</p>
+
+        <div class="leave-file-upload" id="leave-file-upload-area">
+            <label for="leave-file-upload-input" id="leave-file-upload-label">
+                <i class="fas fa-cloud-upload-alt fa-3x mb-3"></i><br>
+                Drag and drop files or Browse<br>
+                Supported formats: .XLSX
+            </label>
+            <input type="file" id="leaveistory-file-upload-input" accept=".xlsx">
+        </div>
+
+        <div class="leave-uploaded-file" id="leave-uploaded-file-info" style="display: none;">
+            <p style="color: green; font-size: 13px;" id="leave-uploaded-file-text"></p>
+        </div>
+
+        <div class="submit-button">
+            <button class="btn btn-primary btn-importleavehistrory-submit" style="background-color:#2693F8">Submit</button>
+        </div>       
+    </div>
+
+    @Html.Partial("CommonModalPopups")
+
+</div>

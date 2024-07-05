@@ -52,7 +52,7 @@ namespace HRMS.Controllers
             //model.LeavesInfo = leavesAppliedToday;
 
             var AdminLeaveHistoryModel = new AdminLeaveHistoryViewModel();
-            var leavesAppliedToday = new LeaveCalculator().EmpLeaveInfoBasedonBasedOnTodayDate(DateTime.Today.AddDays(-1).ToString("yyyy-MM-dd"), DateTime.Today.AddDays(-1).ToString("yyyy-MM-dd"), "", "", "", "");
+            var leavesAppliedToday = new LeaveCalculator().EmpLeaveInfoBasedonBasedOnTodayDate(DateTime.Today.ToString("yyyy-MM-dd"), DateTime.Today.ToString("yyyy-MM-dd"), "", "", "", "");
             model.AllEMployeeLeaves = leavesAppliedToday;
 
             model.Employees = _dbContext.emp_info.ToList();

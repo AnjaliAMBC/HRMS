@@ -113,6 +113,15 @@ div.main-content {
     margin-bottom: 10px;
 }
 
+.admin-dashboard-view .admindash_card tbody#calendarBody:before,
+.emp-dashboard .employeedash tbody#calendarBody:before {
+    /* This doesn't work because of border-collapse */
+    line-height: 10px;
+    content: "_";
+    color: white;
+    display: block;
+}
+
 /* admin dashnoard end */
 
 /* admin employee management start */
@@ -734,9 +743,9 @@ div.main-content {
     box-shadow: 0 0 3px 2px #ccc;
 }
 
-.res-admin-leave-history .res-admin-total-leaves-import {
+/*.res-admin-leave-history .res-admin-total-leaves-import {
     display: none;
-}
+}*/
 
     .res-admin-leave-history .res-admin-total-leaves-import button {
         background: #2693F8;

@@ -77,6 +77,7 @@
 
                     var isCheckInExists = Model.EmpCheckInList.Where(x => x.Login_date == date).FirstOrDefault();
 
+                    var empLeave = Model.Leaves.Where(x => x.leavedate == date && (x.LeaveStatus != "Rejected" && x.LeaveStatus != "Cancelled")).FirstOrDefault();
 
                     if (isCheckInExists != null)
                     {
@@ -103,12 +104,12 @@
                             hours = (int)timeDifference?.TotalHours;
                             minutes = (int)timeDifference?.Minutes;
 
-                            if (hours < 9)
-                            {
-                                statusType = "bar-width-yellow";
-                                buttonColor = "yellow-btn";
-                                attedenceType = "Permission";
-                            }
+                            //if (hours < 9)
+                            //{
+                            //    statusType = "bar-width-yellow";
+                            //    buttonColor = "yellow-btn";
+                            //    attedenceType = "Permission";
+                            //}
                         }
                         else
                         {
@@ -121,6 +122,39 @@
                                 hours = (int)timeDifference?.TotalHours;
                                 minutes = (int)timeDifference?.Minutes;
                             }
+                        }
+
+                        if (empLeave != null)
+                        {
+                            if (empLeave.DayType == "fullDay")
+                            {
+                                statusType = "bar-width-red";
+                                attedenceType = "Leave";
+                                buttonColor = "leave-btn";
+                            }
+                            if (empLeave.DayType == "halfDay")
+                            {
+                                if (empLeave.HalfDayCategory == "First Half")
+                                {
+                                    buttonColor = "firsthalf-leave-button";
+                                    statusType = "bar-width-firsthalf-leave";
+                                }
+                                else
+                                {
+                                    buttonColor = "secondhalf-leave-button";
+                                    statusType = "bar-width-second-leave";
+                                }
+
+                                attedenceType = "H/D Leave";
+
+                            }
+                            if (empLeave.DayType == "")
+                            {
+                                statusType = "bar-width-yellow";
+                                attedenceType = "Permission";
+                                buttonColor = "yellow-btn";
+                            }
+
                         }
 
                         <tr>
@@ -139,9 +173,27 @@
                         string attedenceType = "Weekend";
                         if (!isWeekendDate)
                         {
-                            statusType = "bar-width-red";
-                            buttonColor = "leave-btn";
-                            attedenceType = "Leave";
+                            if (empLeave != null)
+                            {
+                                if (empLeave.leavecategory.ToLowerInvariant().Contains("leave"))
+                                {
+                                    statusType = "bar-width-red";
+                                    attedenceType = "Leave";
+                                    buttonColor = "leave-btn";
+                                }
+                                if (empLeave.leavecategory.ToLowerInvariant().Contains("permission"))
+                                {
+                                    statusType = "bar-width-yellow";
+                                    attedenceType = "Permission";
+                                    buttonColor = "yellow-btn";
+                                }
+                            }
+                            else
+                            {
+                                statusType = "bar-width-blue";
+                                attedenceType = "Absent";
+                                buttonColor = "absent-btn";
+                            }
                         }
 
                         <tr>

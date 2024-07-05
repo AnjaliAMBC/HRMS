@@ -320,7 +320,7 @@ function ApproveLeaveRequest(leaveName, element) {
         data: { leaveRequestName: leaveName },
         success: function (response) {
             if (response.success) {
-                element.parent().html('<small>Approved</small>');
+                element.parent().html('<small style="color: green">Approved</small>');
             } else {
                 alert('Failed to approve leave.');
             }
@@ -340,7 +340,7 @@ function RejectLeaveRequest(leaveName, element) {
         data: { leaveRequestName: leaveName },
         success: function (response) {
             if (response.success) {
-                element.parent().html('<small>Rejected</small>');
+                element.parent().html('<small style="color: red">Rejected</small>');
             } else {
                 alert('Failed to reject leave.');
             }
@@ -447,8 +447,10 @@ function toggleAdminLeaveApprovalActionOptions(iconElement) {
     optionsMenu.toggle();
 }
 
-$(document).on('click', '.AdminIndiEmpLeave-History', function (event) {
 
+
+$(document).off('click', '.AdminIndiEmpLeave-History').on('click', '.AdminIndiEmpLeave-History', function (event) {
+    $('.show-progress').show();
     $.ajax({
         url: '/adminleave/AdminEmpLeaveCalender',
         type: 'GET',
@@ -473,6 +475,12 @@ $(document).on('click', '.AdminIndiEmpLeave-History', function (event) {
             $('.admin-leave-container').show();
             $('.admin-ticketing-container').hide();
             $(".hiddenadmindashboard").html("");
+
+            setTimeout(function () {
+                $('.show-progress').show();
+                fetchLeaveHolidays();
+                $('.show-progress').hide();
+            }, 1000);
         },
         error: function (xhr, status, error) {
             var err = eval("(" + xhr.responseText + ")");
@@ -498,7 +506,7 @@ $(document).on('click', '.admin-empbased-leave-calender', function (event) {
 
 //admin Leave History Calender table click 
 
-$(document).on('click', '.Admin-leavehistory-icon', function (event) {
+$(document).off('click', '.Admin-leavehistory-icon').on('click', '.Admin-leavehistory-icon', function (event) {
     event.preventDefault();
     $.ajax({
         url: '/adminleave/adminleavehistory',
@@ -529,6 +537,71 @@ $(document).on('click', '.Admin-leavehistory-icon', function (event) {
     });
 });
 
+
+$(document).off('click', '.btn-import-leaves-hstory').on('click', '.btn-import-leaves-hstory', function (event) {
+    event.preventDefault();
+
+    $.ajax({
+        url: '/adminleave/AdminLeavesHistoryImport',
+        type: 'GET',
+        dataType: 'html',
+        beforeSend: function () {
+            $('.show-progress').show();
+        },
+        success: function (response) {
+            $(".hiddenadmindashboard").html("");
+            $('.admin-dashboard-container').html("");
+            $(".admin-emppadd-container").html("");
+            $('.admin-empmanagement-container').html("");
+            $('.admin-attendance-container').html("");
+            $('.admin-leave-container').html("");
+            $(".hiddenadmindashboard").html(response);
+            var formContent = $(".hiddenadmindashboard").find(".adminEmp-LeaveHistoryImport-view").html();
+            $(".admin-leave-container").html(formContent);
+            $('.admin-leave-container').show();
+            $('.admin-attendance-container').hide();
+            $('.admin-empmanagement-container').hide();
+            $('.admin-emppadd-container').hide();
+            $('.admin-dashboard-container').hide();
+            $('.admin-ticketing-container').hide();
+            $(".hiddenadmindashboard").html("");
+            $('.show-progress').hide();
+        },
+        error: function (xhr, status, error) {
+            $('.show-progress').hide();
+            console.error("Error deleting employee:", error);
+        }
+    });
+});
+
+
+$(document).off('click', '.btn-importleavehistrory-submit').on('click', '.btn-importleavehistrory-submit', function (event) {
+    var file = $('#leaveistory-file-upload-input')[0].files[0];
+    var formData = new FormData();
+    formData.append('file', file);
+
+    $.ajax({
+        url: '/adminleave/UploadLeavesHistoryExcel',
+        type: 'POST',
+        data: formData,
+        contentType: false,
+        processData: false,
+        success: function (response) {
+            if (response.success) {
+                console.log(response.data);
+                $('#modalMessage').text(response.message);
+                $('#messageModal').modal('show');
+            } else {
+                $('#modalMessage').text(response.message);
+                $('#messageModal').modal('show');
+            }
+        },
+        error: function (xhr, status, error) {
+            $('#modalMessage').text('Error uploading file: ' + error);
+            $('#messageModal').modal('show');
+        }
+    });
+});
 
 
 
