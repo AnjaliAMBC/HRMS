@@ -48,8 +48,9 @@ namespace HRMS.Helpers
 
         private static bool IsProbationaryEmployee(emp_info employee)
         {
-            var lastDayOfProbatation = employee.DOJ.AddMonths(3);
-            return lastDayOfProbatation >= DateTime.Today ? true : false;
+            //var lastDayOfProbatation = employee.DOJ.AddMonths(3);
+            //return lastDayOfProbatation >= DateTime.Today ? true : false;
+            return employee.EmployeeType == "Probation" ? true : false;
         }
 
         private AvailableLeaves CalculateProbationaryLeaves(emp_info employee, LeavesCategory leaveType)
