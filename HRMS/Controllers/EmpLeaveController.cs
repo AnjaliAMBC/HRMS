@@ -184,25 +184,50 @@ namespace HRMS.Controllers
                 leaveRequest.jsonResponse.Message = "Leave request submitted successfully.";
                 leaveRequest.jsonResponse.StatusCode = 200;
 
-
-                var emailSubject = "Leave Submission Update!";
-                var emailBody = RenderPartialToString(this, "_LeaveNotificationEmail", leaves, ViewData, TempData);
-
-                var teamEmails = "";
-                if (!string.IsNullOrWhiteSpace(leaveRequest.TeamEmail))
+                //When employee apply leave
+                if (leaves[0].employee_name == leaveRequest.SubmittedBy)
                 {
-                    teamEmails = "," + leaveRequest.TeamEmail;
+                    var emailSubject = "Leave  Request for " + leaveRequest.LeaveType + "from " + Convert.ToDateTime(leaveRequest.FromDate).ToString("dd MMMM yyyy") + " to " + Convert.ToDateTime(leaveRequest.ToDate).ToString("dd MMMM yyyy");
+                    var emailBody = RenderPartialToString(this, "_LeaveNotificationEmpEmail", leaves, ViewData, TempData);
+
+                    var teamEmails = "";
+                    if (!string.IsNullOrWhiteSpace(leaveRequest.TeamEmail))
+                    {
+                        teamEmails = "," + leaveRequest.TeamEmail;
+                    }
+
+                    var emailRequest = new EmailRequest()
+                    {
+                        Body = emailBody,
+                        ToEmail = leaveRequest.OfficalEmailid + teamEmails,
+                        CCEmail = ConfigurationManager.AppSettings["LeaveEmails"],
+                        Subject = emailSubject
+                    };
+
+                    var sendNotification = EMailHelper.SendEmail(emailRequest);
                 }
-
-                var emailRequest = new EmailRequest()
+                //In case admin submit the leave on employee behalf
+                else
                 {
-                    Body = emailBody,
-                    ToEmail = leaveRequest.OfficalEmailid + teamEmails,
-                    CCEmail = ConfigurationManager.AppSettings["LeaveEmails"],
-                    Subject = emailSubject
-                };
+                    var emailSubject = "Leave Submission Update!";
+                    var emailBody = RenderPartialToString(this, "_LeaveNotificationAdminEmail", leaves, ViewData, TempData);
 
-                var sendNotification = EMailHelper.SendEmail(emailRequest);
+                    var teamEmails = "";
+                    if (!string.IsNullOrWhiteSpace(leaveRequest.TeamEmail))
+                    {
+                        teamEmails = "," + leaveRequest.TeamEmail;
+                    }
+
+                    var emailRequest = new EmailRequest()
+                    {
+                        Body = emailBody,
+                        ToEmail = leaveRequest.OfficalEmailid + teamEmails,
+                        CCEmail = ConfigurationManager.AppSettings["LeaveEmails"],
+                        Subject = emailSubject
+                    };
+
+                    var sendNotification = EMailHelper.SendEmail(emailRequest);
+                }
 
 
                 return Json(leaveRequest, JsonRequestBehavior.AllowGet);
