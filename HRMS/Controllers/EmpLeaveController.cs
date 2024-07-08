@@ -332,6 +332,22 @@ namespace HRMS.Controllers
                     leave.LeaveStatus = "Approved";
                 }
                 _dbContext.SaveChanges();
+
+
+                var emailSubject = "Leave Approved";
+                var emailBody = RenderPartialToString(this, "_LeaveApprovedEmail", leaves, ViewData, TempData);
+
+
+                var emailRequest = new EmailRequest()
+                {
+                    Body = emailBody,
+                    ToEmail = leaves[0].OfficalEmailid,
+                    Subject = emailSubject
+                };
+
+                var sendNotification = EMailHelper.SendEmail(emailRequest);
+
+
                 return Json(new { success = true });
             }
             return Json(new { success = false });
@@ -348,6 +364,19 @@ namespace HRMS.Controllers
                     leave.LeaveStatus = "Rejected";
                 }
                 _dbContext.SaveChanges();
+
+                var emailSubject = "Leave Rejected";
+                var emailBody = RenderPartialToString(this, "_LeaveRejectedEmail", leaves, ViewData, TempData);
+
+                var emailRequest = new EmailRequest()
+                {
+                    Body = emailBody,
+                    ToEmail = leaves[0].OfficalEmailid,
+                    Subject = emailSubject
+                };
+
+                var sendNotification = EMailHelper.SendEmail(emailRequest);
+
                 return Json(new { success = true });
             }
             return Json(new { success = false });
