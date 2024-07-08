@@ -133,7 +133,13 @@
                                     }
                                     else
                                     {
-                                        <div id="statusLabel" class="statusLabel">@compoff.addStatus</div>
+                                        var statuscolorcode = "green";
+                                        if (@compoff.addStatus == "Rejected")
+                                        {
+                                            statuscolorcode = "red";
+                                        }
+                                        <div id="statusLabel" class="statusLabel" style="color: @statuscolorcode ">@compoff.addStatus</div>
+
                                     }
 
                                     @if (@compoff.addStatus == "Approved" || compoff.addStatus == "Rejected")

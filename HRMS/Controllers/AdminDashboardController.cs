@@ -142,7 +142,7 @@ namespace HRMS.Controllers
             try
             {
                 var emailBody = "";
-                var emailSubject = "AMBC HRMS Login created";
+                var emailSubject = "Welcome to AMBC! Access Your AMBC Employee Portal";
                 emailBody = PartialViewHelper.RenderPartialToString(this, "_newLoginpassword", empInfoModel, ViewData, TempData);
 
                 using (MailMessage mm = new MailMessage(ConfigurationManager.AppSettings["SMTPUserName"], empInfoModel.EmployeeEmail))
