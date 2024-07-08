@@ -296,7 +296,8 @@ div.main-content {
 .res-admin-individual-attendance-table .leave-btn,
 .res-admin-individual-attendance-table .gray-btn,
 .res-admin-individual-attendance-table .present-btn,
-.res-admin-individual-attendance-table .yellow-btn {
+.res-admin-individual-attendance-table .yellow-btn,
+.res-admin-individual-attendance-table .absent-btn {
     width: 80% !important;
 }
 
@@ -721,9 +722,9 @@ div.main-content {
 }
 
 .res-admin-leave-history .adminleavehistory-dropdown-toggle {
-    border: 1px solid #ccc;
+    border: 1px solid #212529;
     border-radius: 0;
-    color: #ccc;
+    color: #212529;
     width: 85%;
 }
 
@@ -768,9 +769,9 @@ div.main-content {
 }
 
 .LeaveEmpHistory-calender .res-leavehistpry-calender-search #employeeDropdown {
-    border: 1px solid #ccc;
+    border: 1px solid #212529;
     border-radius: 0;
-    color: #ccc;
+    color: #212529;
     width: 85%;
 }
 
@@ -800,17 +801,32 @@ div.main-content {
     box-shadow: 0 0 3px 2px #ccc;
 }
 
+.res-admin-leave-history .res-admin-total-leaves-import {
+    margin-right: 20px;
+}
+
+.admin-empadd-view .download-btn {
+    color: #fff;
+}
+
+#leaveistory-file-upload-input {
+    display: none;
+}
+
+#leave-file-upload-label {
+    cursor: pointer;
+}
+
 /* admin leave history end*/
 
 /* admin leave import start*/
-
 .admin-leaveimport-view {
 }
 
     .admin-leaveimport-view .download-leave-btn {
         border: 2px solid #007bff;
         background-color: #fff;
-        color: #007bff;
+        color: #fff;
     }
 
     .admin-leaveimport-view .leave-file-upload {
