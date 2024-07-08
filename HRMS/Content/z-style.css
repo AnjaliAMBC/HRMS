@@ -2,6 +2,10 @@ body {
     color: #212529;
 }
 
+::-webkit-scrollbar {
+    height: 5px;
+}
+
 .btn-primary {
     background: #2693F8 !important;
     border-color: #2693F8 !important;
@@ -722,7 +726,7 @@ div.main-content {
 }
 
 .res-admin-leave-history .adminleavehistory-dropdown-toggle {
-    border: 1px solid #212529;
+    border: 1px solid #ced4da;
     border-radius: 0;
     color: #212529;
     width: 85%;
@@ -769,7 +773,7 @@ div.main-content {
 }
 
 .LeaveEmpHistory-calender .res-leavehistpry-calender-search #employeeDropdown {
-    border: 1px solid #212529;
+    border: 1px solid #ced4da;
     border-radius: 0;
     color: #212529;
     width: 85%;
@@ -787,6 +791,8 @@ div.main-content {
 
 .dropdowns-leave-container .res-adminleave-drop {
     margin-right: 0px;
+    display: inline-flex;
+    justify-content: right;
 }
 
 .highlight-festival-leave i{
@@ -815,6 +821,10 @@ div.main-content {
 
 #leave-file-upload-label {
     cursor: pointer;
+}
+
+.admin-leave-container .res-adminleave-header-left {
+    margin-top: 15px;
 }
 
 /* admin leave history end*/

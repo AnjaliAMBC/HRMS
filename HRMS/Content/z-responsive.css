@@ -837,13 +837,15 @@
     .mobile-view .admin-leave-container .dropdowns-leave-container {
         display: inline-block;
         width: 95%;
+        padding: 0;
     }
 
     .mobile-view .admin-leave-container .adminleave-dropdown {
-        width: 40%;
+        max-width: 38%;
         display: inline-block;
-        margin-right: 20px !important;
+        margin-right: 55px !important;
         text-align: right;
+        padding-left: 0px;
     }
 
     .mobile-view .admin-leave-container .export-label {
@@ -1057,11 +1059,11 @@
     }
 
     .mobile-view .res-admin-leave-balance-header-right .res-admin-leave-balance-export.res-export-btn {
-        margin-left: -5px;
+        margin-left: 7px;
     }
 
     .mobile-view .res-admin-leave-balance-header-right .res-admin-leave-balance-dropdown {
-        padding: 0 15px;
+        padding: 0 0px;
     }
 
     .mobile-view .res-adminleavebalance-update-block .res-admin-leavebalance-select {
@@ -2539,6 +2541,7 @@
     .tablet-view .res-adminleave-header-right .dropdowns-leave-container {
         display: inline-block;
         width: 100%;
+        padding: 0;
     }
 
     .tablet-view .admin-leave-container .adminleave-dropdown {
@@ -2605,7 +2608,7 @@
     }
 
     .tablet-view #adminleavehistoryfilter .res-adminadvfilter-leavehistory input {
-        width: 80% !important;
+        width: 85% !important;
     }
 
     .tablet-view #adminleavehistoryfilter .res-adminadvfilter-leavehistory select {
@@ -2619,6 +2622,11 @@
     .tablet-view .res-admin-leave-history .res-admin-leavehistory-searchbar {
         padding-left: 5px;
         margin-top: 10px;
+        display: inline-flex;
+    }
+
+    .tablet-view .res-admin-leave-history .res-admin-total-leaves-import {
+        margin: 10px 0px 0px 5px;
     }
 
     .tablet-view .res-admin-leavehistory-calendar .LeaveEmpHistory-calender .res-leavehistpry-calender-search #employeeDropdown {
