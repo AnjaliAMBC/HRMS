@@ -25,6 +25,7 @@ using HRMS.Helpers;
 
 namespace HRMS.Controllers
 {
+    using static HRMS.Helpers.PartialViewHelper;
     public class EmpLeaveController : Controller
     {
         // Database context
@@ -182,6 +183,28 @@ namespace HRMS.Controllers
 
                 leaveRequest.jsonResponse.Message = "Leave request submitted successfully.";
                 leaveRequest.jsonResponse.StatusCode = 200;
+
+
+                var emailSubject = "Leave Submission Update!";
+                var emailBody = RenderPartialToString(this, "_LeaveNotificationEmail", leaves, ViewData, TempData);
+
+                var teamEmails = "";
+                if (!string.IsNullOrWhiteSpace(leaveRequest.TeamEmail))
+                {
+                    teamEmails = "," + leaveRequest.TeamEmail;
+                }
+
+                var emailRequest = new EmailRequest()
+                {
+                    Body = emailBody,
+                    ToEmail = leaveRequest.OfficalEmailid + teamEmails,
+                    CCEmail = ConfigurationManager.AppSettings["LeaveEmails"],
+                    Subject = emailSubject
+                };
+
+                var sendNotification = EMailHelper.SendEmail(emailRequest);
+
+
                 return Json(leaveRequest, JsonRequestBehavior.AllowGet);
             }
             catch (Exception ex)

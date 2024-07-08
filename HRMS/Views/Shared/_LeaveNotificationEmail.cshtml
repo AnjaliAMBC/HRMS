@@ -1,0 +1,56 @@
+﻿@model List<con_leaveupdate>
+
+<style>
+    body {
+        font-family: Arial, sans-serif;
+        color: #333;
+    }
+
+    .email-container {
+        border: 1px solid #ddd;
+        padding: 20px;
+        max-width: 600px;
+        margin: 0 auto;
+    }
+
+    .email-content {
+        padding: 20px;
+    }
+
+    .email-footer {
+        text-align: center;
+        padding: 10px;
+        border-top: 1px solid #ddd;
+    }
+</style>
+
+@if (Model != null && Model.Any())
+{
+    var leaveUpdate = Model.First();
+    <div class="email-container">
+        <div class="email-content">
+            <p>Hello @leaveUpdate.employee_name,</p>
+
+            <p>
+                As per the request, @leaveUpdate.employee_name's leave has been applied
+                from @(leaveUpdate.Fromdate?.ToString("dd-MM-yyyy") ?? "N/A")
+                to @(leaveUpdate.Todate?.ToString("dd-MM-yyyy") ?? "N/A")
+                by @leaveUpdate.createdby.
+            </p>
+
+            <p>
+                <strong>Employee Name:</strong> @leaveUpdate.employee_name<br />
+                @*<strong>Applied for:</strong> Multiple Days<br />*@
+                <strong>From Date:</strong> @(leaveUpdate.Fromdate?.ToString("dd-MM-yyyy") ?? "N/A")<br />
+                <strong>To Date:</strong> @(leaveUpdate.Todate?.ToString("dd-MM-yyyy") ?? "N/A")<br />
+                <strong>Submitted By:</strong> @leaveUpdate.createdby<br />
+                <strong>Leave Type:</strong> @leaveUpdate.leavesource<br />
+                <strong>Reason:</strong> @leaveUpdate.leave_reason
+            </p>
+
+            <p>Please update your leave info in your client calendar and upcoming out-of-office in your signature.</p>
+
+            <p><strong>Note:</strong> All ‘Earned Leaves’ require 2 weeks’ notice to get approval from the management and clients.</p>
+        </div>
+    </div>
+}
