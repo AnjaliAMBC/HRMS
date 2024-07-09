@@ -318,13 +318,20 @@ function ApproveLeaveRequest(leaveName, element) {
         url: '/EmpLeave/ApproveLeave',
         type: 'POST',
         data: { leaveRequestName: leaveName },
+        beforeSend: function () {
+            $('.show-progress').show();
+        },
         success: function (response) {
             if (response.success) {
                 element.parent().html('<small style="color: green">Approved</small>');
             } else {
                 alert('Failed to approve leave.');
             }
-        }.bind(this)
+            $('.show-progress').hide();
+        }.bind(this),
+        complete: function () {
+            $('.show-progress').hide();
+        }
     });
 }
 
@@ -364,6 +371,9 @@ $(document).off('click', '.acceptLeaveBtn').on('click', '.acceptLeaveBtn', funct
         url: '/EmpLeave/ApproveLeave',
         type: 'POST',
         data: { leaveRequestName: leaveName },
+        beforeSend: function () {
+            $('.show-progress').show();
+        },
         success: function (response) {
             if (response.success == true) {
                 //var $statusLabel = $('<small class="statusLabel">Approved</small>');
@@ -392,9 +402,13 @@ $(document).off('click', '.acceptLeaveBtn').on('click', '.acceptLeaveBtn', funct
             } else {
                 alert('Failed to update the status. Please try again.');
             }
+            $('.show-progress').hide();
         },
         error: function () {
             alert('An error occurred. Please try again.');
+        },
+        complete: function () {
+            $('.show-progress').hide();
         }
     });
 });
@@ -410,6 +424,9 @@ $(document).off('click', '.rejectLeaveBtn').on('click', '.rejectLeaveBtn', funct
         url: '/EmpLeave/RejectLeave',
         type: 'POST',
         data: { leaveRequestName: leaveName },
+        beforeSend: function () {
+            $('.show-progress').show();
+        },
         success: function (response) {
             if (response.success == true) {
                 /*  var $statusLabel = $('<small class="statusLabel">Rejected</small>');*/
@@ -433,9 +450,14 @@ $(document).off('click', '.rejectLeaveBtn').on('click', '.rejectLeaveBtn', funct
             } else {
                 alert('Failed to update the status. Please try again.');
             }
+
+            $('.show-progress').hide();
         },
         error: function () {
             alert('An error occurred. Please try again.');
+        },
+        complete: function () {
+            $('.show-progress').hide();
         }
     });
 });
@@ -579,7 +601,6 @@ $(document).off('click', '.btn-importleavehistrory-submit').on('click', '.btn-im
     var file = $('#leaveistory-file-upload-input')[0].files[0];
     var formData = new FormData();
     formData.append('file', file);
-
     $.ajax({
         url: '/adminleave/UploadLeavesHistoryExcel',
         type: 'POST',

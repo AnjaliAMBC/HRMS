@@ -166,7 +166,7 @@ namespace HRMS.Controllers
             try
             {
                 var emailBody = "";
-                var emailSubject = "Password Reset Request";
+                var emailSubject = "Reset Password";
                 emailBody = RenderPartialToString(this, "_ForgotPasswordEmail", empInfoModel, ViewData, TempData);
 
                 using (MailMessage mm = new MailMessage(ConfigurationManager.AppSettings["SMTPUserName"], empInfoModel.EmployeeEmail))

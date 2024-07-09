@@ -386,6 +386,9 @@ $(document).on('click', '.btn-apply-empleave', function (event) {
         url: '/empleave/ajaxapplyleave',
         type: 'POST',
         contentType: 'application/json',
+        beforeSend: function () {
+            $('.show-progress').show();
+        },
         data: JSON.stringify(formData),
         success: function (response) {
             console.log('Success:', response);
@@ -422,6 +425,9 @@ $(document).on('click', '.btn-apply-empleave', function (event) {
             // Show error message in modal
             $('#modalMessage').removeClass('text-success').addClass('text-danger').text('An error occurred while submitting the leave request.');
             $('#messageModal').modal('show');
+        },
+        complete: function () {
+            $('.show-progress').hide();
         }
     });
 

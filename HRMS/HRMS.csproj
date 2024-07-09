@@ -134,6 +134,7 @@
     <Compile Include="App_Start\BundleConfig.cs" />
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
+    <Compile Include="AttendanceSigninReports.cs" />
     <Compile Include="CheckInView.cs">
       <DependentUpon>HRMS.tt</DependentUpon>
     </Compile>
@@ -141,8 +142,10 @@
       <DependentUpon>HRMS.tt</DependentUpon>
     </Compile>
     <Compile Include="Controllers\AdminLeaveController.cs" />
+    <Compile Include="Controllers\AdminTickettingController.cs" />
     <Compile Include="Controllers\CompoffController.cs" />
     <Compile Include="Controllers\EmpLeaveController.cs" />
+    <Compile Include="Controllers\EmpTicketingController.cs" />
     <Compile Include="Controllers\ProfileController.cs" />
     <Compile Include="con_leaveupdate.cs">
       <DependentUpon>HRMS.tt</DependentUpon>
@@ -151,6 +154,7 @@
     <Compile Include="Helpers\DateHelper.cs" />
     <Compile Include="Helpers\EMailHelper.cs" />
     <Compile Include="Helpers\LeaveCalculator.cs" />
+    <Compile Include="HolidayNotificationJob.cs" />
     <Compile Include="LeaveBalance.cs">
       <DependentUpon>HRMS.tt</DependentUpon>
     </Compile>
@@ -323,6 +327,7 @@
     </Content>
     <Content Include="Assets\Templates\ImportUserTemplate.xlsx" />
     <Content Include="Assets\Templates\ToalEMpLeavesTemplate.xlsx" />
+    <Content Include="Assets\Templates\SampleLeaveHistoryImport.xlsx" />
     <None Include="Scripts\jquery-3.4.1.intellisense.js" />
     <Content Include="Scripts\jquery-3.4.1.js" />
     <Content Include="Scripts\jquery-3.4.1.min.js" />
@@ -383,11 +388,17 @@
     <Content Include="Views\AdminDashboard\AdminEmpLeaveCalender.cshtml" />
     <Content Include="Views\AdminDashboard\AdminTotalLeavesImport.cshtml" />
     <Content Include="Views\AdminDashboard\AdminEmpLeaveHistoryImport.cshtml" />
+    <Content Include="Views\Shared\_LeaveNotificationAdminEmail.cshtml" />
+    <Content Include="Views\Shared\_LeaveApprovedEmail.cshtml" />
+    <Content Include="Views\Shared\_LeaveRejectedEmail.cshtml" />
+    <Content Include="Views\Shared\_LeaveNotificationEmpEmail.cshtml" />
+    <Content Include="Views\Shared\_compoffNotificationempemail.cshtml" />
+    <Content Include="Views\EmployeeDashboard\EmpTicketing.cshtml" />
+    <Content Include="Views\AdminDashboard\AdminTicketingView.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
-    <Folder Include="Views\Compoff\" />
-    <Folder Include="Views\Profile\" />
+    <Folder Include="Views\AdminTicketting\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="fonts\glyphicons-halflings-regular.woff2" />

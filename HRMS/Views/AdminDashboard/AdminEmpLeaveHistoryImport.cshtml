@@ -14,18 +14,18 @@
         </div>
 
         <div>
-            <button class="btn btn-primary download-leave-btn" onclick="downloadLeaveTemplate()">Download Template</button>
+            <button class="btn btn-primary download-leave-btn" onclick="downloadLeaveHistoryTemplate()">Download Template</button>
         </div>
         <p style=" margin-bottom: 35px; margin-top: 5px;">Sample excel template</p>
 
         <div class="leave-file-upload" id="leave-file-upload-area">
-            <label for="leave-file-upload-input" id="leave-file-upload-label">
+            <label for="leave-file-upload-input" id="leavehistory-file-upload-label">
                 <i class="fas fa-cloud-upload-alt fa-3x mb-3"></i><br>
                 Drag and drop files or Browse<br>
                 Supported formats: .XLSX
             </label>
             <input type="file" id="leaveistory-file-upload-input" accept=".xlsx">
-        </div>
+        </div>       
 
         <div class="leave-uploaded-file" id="leave-uploaded-file-info" style="display: none;">
             <p style="color: green; font-size: 13px;" id="leave-uploaded-file-text"></p>
@@ -33,7 +33,7 @@
 
         <div class="submit-button">
             <button class="btn btn-primary btn-importleavehistrory-submit" style="background-color:#2693F8">Submit</button>
-        </div>       
+        </div>
     </div>
 
     @Html.Partial("CommonModalPopups")
