@@ -601,7 +601,6 @@ $(document).off('click', '.btn-importleavehistrory-submit').on('click', '.btn-im
     var file = $('#leaveistory-file-upload-input')[0].files[0];
     var formData = new FormData();
     formData.append('file', file);
-
     $.ajax({
         url: '/adminleave/UploadLeavesHistoryExcel',
         type: 'POST',

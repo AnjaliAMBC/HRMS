@@ -144,6 +144,7 @@
     <Compile Include="Controllers\AdminLeaveController.cs" />
     <Compile Include="Controllers\CompoffController.cs" />
     <Compile Include="Controllers\EmpLeaveController.cs" />
+    <Compile Include="Controllers\EmpTicketingController.cs" />
     <Compile Include="Controllers\ProfileController.cs" />
     <Compile Include="con_leaveupdate.cs">
       <DependentUpon>HRMS.tt</DependentUpon>
@@ -325,6 +326,7 @@
     </Content>
     <Content Include="Assets\Templates\ImportUserTemplate.xlsx" />
     <Content Include="Assets\Templates\ToalEMpLeavesTemplate.xlsx" />
+    <Content Include="Assets\Templates\SampleLeaveHistoryImport.xlsx" />
     <None Include="Scripts\jquery-3.4.1.intellisense.js" />
     <Content Include="Scripts\jquery-3.4.1.js" />
     <Content Include="Scripts\jquery-3.4.1.min.js" />
@@ -390,10 +392,12 @@
     <Content Include="Views\Shared\_LeaveRejectedEmail.cshtml" />
     <Content Include="Views\Shared\_LeaveNotificationEmpEmail.cshtml" />
     <Content Include="Views\Shared\_compoffNotificationempemail.cshtml" />
+    <Content Include="Views\EmployeeDashboard\EmpTicketing.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
     <Folder Include="Views\Compoff\" />
+    <Folder Include="Views\EmpTicketing\" />
     <Folder Include="Views\Profile\" />
   </ItemGroup>
   <ItemGroup>

@@ -61,18 +61,20 @@ namespace HRMS
                 <p>Kindly let us know your work status on or before {h.holiday_date?.AddDays(-10):dd MMMM yyyy} to avail comp off.</p>").Aggregate((a, b) => a + b);
 
             var body = $@"
-                <html>
-                    <body style='font-family: Arial, sans-serif;'>
-                        <div style='display: flex; align-items: center;'>
-                            <img src='{logoURL}' alt='AMBC Logo' style='max-width: 50px; margin-right: 10px;'>
-                            <p style='margin: 0;'>Hello All,</p>
-                        </div>
-                        <p>Greetings of the day!</p>
-                        {holidayDescriptions}
-                        <p>Please submit your request through our portal at least 10 days before the deadline.</p>
-                        <p><a href='{siteURL}'>[PASTE THE REDIRECTION LINK HERE]</a></p>
-                    </body>
-                </html>";
+<html>
+    <body style='font-family: Arial, sans-serif;'>
+        <div style='overflow: auto; margin-bottom: 20px;'>
+            <img src='{logoURL}' alt='AMBC Logo' style='max-width: 50px; float: right; margin-left: 10px;'>
+            <p style='margin: 0; font-size: 18px;'>Hello All,</p>
+        </div>
+        <p style='font-size: 16px;'>Greetings of the day!</p>
+        <div style='font-size: 16px;'>
+            {holidayDescriptions}
+        </div>
+        <p style='font-size: 16px;'>Please submit your request through our portal at least 10 days before the deadline.</p>
+        <p style='font-size: 16px;'><a href='{siteURL}' style='color: #007bff;'>[PASTE THE REDIRECTION LINK HERE]</a></p>
+    </body>
+</html>";
 
             var emailRequest = new EmailRequest()
             {
