@@ -481,8 +481,8 @@ function GetEmpLeaveHistory() {
                 const fromDay = formatJSONDateDay(item.Fromdate);
                 const toDay = formatJSONDateDay(item.Todate);
                 const dateDisplay = fromDate === toDate
-                    ? `<p class="mb-0 fontWtMedium"><b>${fromDate}</b></p><span class="mutedText">${fromDay}</span>`
-                    : `<p class="mb-0 fontWtMedium"><b>${fromDate} - ${toDate}</b></p><span class="mutedText">${fromDay} - ${toDay}</span>`;
+                    ? `<p class="mb-0 fontWtMedium">${fromDate}</p><span class="mutedText">${fromDay}</span>`
+                    : `<p class="mb-0 fontWtMedium">${fromDate} - ${toDate}</p><span class="mutedText">${fromDay} - ${toDay}</span>`;
 
                 const leaveStatus = item.LatestLeave.LeaveStatus.toLowerCase();
                 const statusClass = leaveStatus === 'approved' ? 'status-approved' :
@@ -504,17 +504,17 @@ function GetEmpLeaveHistory() {
                         </td>
                         <td class="fontSmall">
                             <div class="mutedText">Day(s)</div>
-                            <span class="fontWtMedium"><b>${item.TotalLeaveDays}</b></span>
+                            <span class="fontWtMedium">${item.TotalLeaveDays}</span>
                         </td>
                         <td class="fontSmall dataMinWidth">
                             <div class="mutedText">Leave Type</div>
-                            <span class="fontWtbold"><b>${item.LatestLeave.leavesource}</b></span>
+                            <span class="fontWtbold">${item.LatestLeave.leavesource}</span>
                         </td>
                         <td class="fontSmall">
                             <div class="mutedText">Status</div>
                             <span class="fontWtMedium ${statusClass}">${item.LatestLeave.LeaveStatus}</span>
                         </td>
-                        <td class="fontSmall commentSec">
+                        <td style="width: 420px;" class="fontSmall commentSec">
                             <div class="dFlex d-flex">
                                 <i class="fa-solid fa-message chatIcon mt-1 mr-2"></i>
                                 <p>${item.LatestLeave.leave_reason}</p>
@@ -594,18 +594,22 @@ function GetCompOffHistory() {
                 <td style="display:none">${item.EmployeeName}</td>
                 <td>
                     <div class="mutedText">Requested Date</div>
-                    <span class="fontWtMedium"><b>${requestedDate}</b></span>
+                    <span class="fontWtMedium">${requestedDate}</span>
                 </td>
                 <td>
                      <div class="mutedText">Work Date</div>
-                     <span class="fontWtMedium"><b>${workDate}</b></span>
+                     <span class="fontWtMedium">${workDate}</span>
                 </td>
                 <td class="compoff-status">
                     <div class="mutedText">Status</div>
-                    <span class="fontWtMedium ${statusClass}"><b>${item.addStatus}</b></span>
+                    <span class="fontWtMedium ${statusClass}">${item.addStatus}</span>
+                </td>                
+                <td style="width: 420px;" class="fontSmall commentSec">
+                    <div class="dFlex d-flex">
+                        <i class="fa-solid fa-message chatIcon mt-1 mr-2"></i>
+                        <p>${item.Reason}</p>
+                    </div>
                 </td>
-                <td><div class="mutedText">Reason</div>
-                     <span class="fontWtMedium"><b>${item.Reason}</b></span></td>
                 <td class="fontSmall position-relative compoff-actions">
                     ${leaveActions}
                 </td>

@@ -340,6 +340,21 @@ div.main-content {
     padding-left: 0;
     margin-left: 0 !important;
 }
+
+.addshiftcontent .addshiftcard .res-adminatt-dept-dropdown {
+    width: 74%;
+    margin-left: -10px;
+    display: inline-block;
+}
+
+.addshiftcontent .addshiftcard .res-adminatt-dept-dropdown #departmentDropdown {
+    width: 100%;
+}
+
+.addshiftcontent .addshiftcard .res-adminatt-dept-dropdown #employeeDropdown {
+    width: 100%;
+}
+
 /*admin attendance end*/
 
 /* admin leave start*/
@@ -546,6 +561,10 @@ div.main-content {
     width: 10%;
 }
 
+.res-adminleaveTable-mgmt #adminleaveTable-mgmt .userLeaveDetails .fontSmall a {
+    text-decoration: none !important;
+}
+
 /* admin leave end*/
 
 /* admin leave balance start*/
@@ -650,6 +669,12 @@ div.main-content {
 .res-admin-leave-balance-dropdown {
     margin-top: 16px;
 }
+
+.employeeinfo-balance .fontSmall a {
+    color: #3E78CF;
+    text-decoration: none !important;
+}
+
 /* admin leave balance end*/
 
 /* admin leave history start */
@@ -1215,6 +1240,15 @@ input[type=checkbox], input[type=radio] {
     position: absolute;
     border: 1px solid #ccc;
     border-radius: 2px;
+}
+
+#empleaveCompOffTable .emp-compoffs a.dropdown-item {
+    padding: 4px 5px;
+    font-size: 12px;
+}
+
+.empleavecompoff-year #empleaveCompOffTable_wrapper {
+    padding: 0;
 }
 
 .emp-leave .leave-dashboard-data .balance-section-wrapper .res-emp-apply-leave .balance-section {
