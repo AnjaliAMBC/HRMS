@@ -3,5 +3,17 @@
     ViewBag.Title = "EmpTicketing";
 }
 
-<h2>EmpTicketing</h2>
+@Html.Partial("_NavBar")
+<div class="container-fluid emp-Ticket">
+    @Html.Partial("_empsidemenu")
+    <div class="main-content container-fluid" style="width: 84%">
+        <div class="hiddenempdashboard" style="display: none"></div>
+        <div class="content employee-Ticketing" style="margin-top: 3%;">
+            <div class="empTicketing-container">
+
+                <h2>EmpTicketing</h2>
+            </div>
+        </div>
+    </div>
+</div>
 
