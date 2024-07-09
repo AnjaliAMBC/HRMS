@@ -15,7 +15,7 @@ namespace HRMS
             RouteConfig.RegisterRoutes(RouteTable.Routes);
             BundleConfig.RegisterBundles(BundleTable.Bundles);
 
-           // StartQuartzScheduler();
+            StartQuartzScheduler();
 
         }
 
