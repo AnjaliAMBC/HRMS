@@ -1,14 +1,10 @@
 ﻿
-@{
-    ViewBag.Title = "EmpTicketing";
-}
-
 @Html.Partial("_NavBar")
-<div class="container-fluid emp-Ticket">
+<div class="container-fluid emp-Ticket-view">
     @Html.Partial("_empsidemenu")
     <div class="main-content container-fluid" style="width: 84%">
-        <div class="hiddenempdashboard" style="display: none"></div>
-        <div class="content employee-Ticketing" style="margin-top: 3%;">
+        <div class="hiddenempdashboard" style="display:none"></div>
+        <div class="content employee-Ticketing myrequest-dashboard-data" style="margin-top: 3%;">
             <div class="empTicketing-container">
                 <div class="row res-emp-tickethistory-header">
                     <div class="col-lg-3 res-emp-tickethistory-title">
@@ -18,7 +14,7 @@
                         
                     </div>
                     <div class="col-lg-3 res-emp-tickethistory-right">
-                        <button type="button" class="btn btn-primary btn-addticket ">Add Ticket</button>
+                        <button type="button" class="btn btn-primary btn-empRaiseTicket">Raise Ticket</button>
                     </div>
                 </div>
                 
