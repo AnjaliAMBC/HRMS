@@ -51,4 +51,19 @@ $(document).ready(function () {
         $('.responsive-tabs').toggleClass('open');
     });
 
+    $('.sidebar-dropdown > a').click(function () {
+        console.log('ss');
+        //$(".sidebar-submenu").toggle();
+        $(this).next('.sidebar-submenu').toggle(300);
+        $(this).find('i').toggleClass('fa-chevron-down fa-chevron-up');
+    });
+
+    $('.sidebar-submenu ul li a').click(function (e) {
+        // Remove 'sidebaractive' class from all menu items
+        $('.sidebar-submenu ul li').removeClass('sidebaractive');
+
+        // Add 'sidebaractive' class to the clicked menu item
+        $(this).parent('li').addClass('sidebaractive');
+    });
+
 });

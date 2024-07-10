@@ -10,10 +10,118 @@
         <div class="hiddenempdashboard" style="display: none"></div>
         <div class="content employee-Ticketing" style="margin-top: 3%;">
             <div class="empTicketing-container">
-
-                <h2>EmpTicketing</h2>
+                <div class="row res-emp-tickethistory-header">
+                    <div class="col-lg-3 res-emp-tickethistory-title">
+                        <h4>Ticket History</h4>
+                    </div>
+                    <div class="col-lg-6 res-emp-tickethistory-mid">
+                        
+                    </div>
+                    <div class="col-lg-3 res-emp-tickethistory-right">
+                        <button type="button" class="btn btn-primary btn-addticket ">Add Ticket</button>
+                    </div>
+                </div>
+                
             </div>
+
+            <div class="empleave-ticket-history" id="empTicketHistory">
+                <div class="table-responsive">
+                    <table id="leaveTicketHistoryTable" class="table leave-tickethistory-table">
+                        <thead style="display: none">
+                            <tr>
+                                <th>Date</th>
+                                <th>Day(s)</th>
+                                <th>Leave Type</th>
+                                <th>Status</th>
+                                <th>Reason</th>
+                                <th></th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr class="rowBorder odd">
+                                <td class="fontSmall dataMinWidth dateMaxWidth">
+                                    <p class="mb-0 fontWtMedium">Category</p><span class="mutedText">IT</span>
+                                </td>
+                                <td class="fontSmall">
+                                    <div class="mutedText">Priority</div>
+                                    <span class="fontWtMedium">High</span>
+                                </td>
+                                <td class="fontSmall dataMinWidth">
+                                    <div class="mutedText">Subject</div>
+                                    <span class="fontWtbold">Network port issue</span>
+                                </td>
+                                <td class="fontSmall">
+                                    <div class="mutedText">Status</div>
+                                    <span class="fontWtMedium status-approved">Closed</span>
+                                </td>
+                                <td style="width: 420px;" class="fontSmall commentSec">
+                                    <div class="dFlex d-flex">
+                                        <i class="fa-solid fa-message chatIcon mt-1 mr-2"></i>
+                                        <p>Reason Reason Reason Reason Reason Reason Reason </p>
+                                    </div>
+                                </td>
+                                <td class="fontSmall position-relative">
+
+                                    <i class="fas fa-ellipsis-h emp-ticket-edit-history" onclick="toggleLeaveTicketHistoryActionOptions(this)"></i>
+                                    <div class="emp-tickethistoryoptions" style="display:none">
+                                        <a class="dropdown-item emp-tickethistory-edit" onclick="emptickethistoryedit($(this))" data-leavename="1311_2024-08-27_2024-08-27">Edit</a>
+                                        <a class="dropdown-item emp-tickethistory-cancel" onclick="emptickethistorycancel($(this))" data-leavename="1311_2024-08-27_2024-08-27">Cancel</a>
+                                    </div>
+                                </td>
+                            </tr>
+                            <tr class="rowBorder even">
+                                <td class="fontSmall dataMinWidth dateMaxWidth">
+                                    <p class="mb-0 fontWtMedium">Category</p><span class="mutedText">IT</span>
+                                </td>
+                                <td class="fontSmall">
+                                    <div class="mutedText">Priority</div>
+                                    <span class="fontWtMedium">High</span>
+                                </td>
+                                <td class="fontSmall dataMinWidth">
+                                    <div class="mutedText">Subject</div>
+                                    <span class="fontWtbold">Network port issue</span>
+                                </td>
+                                <td class="fontSmall">
+                                    <div class="mutedText">Status</div>
+                                    <span class="fontWtMedium status-pending">Pending</span>
+                                </td>
+                                <td style="width: 420px;" class="fontSmall commentSec">
+                                    <div class="dFlex d-flex">
+                                        <i class="fa-solid fa-message chatIcon mt-1 mr-2"></i>
+                                        <p>Reason Reason Reason Reason Reason Reason Reason </p>
+                                    </div>
+                                </td>
+                                <td class="fontSmall position-relative">
+
+                                    <i class="fas fa-ellipsis-h emp-ticket-edit-history" onclick="toggleLeaveTicketHistoryActionOptions(this)"></i>
+                                    <div class="emp-tickethistoryoptions" style="display:none">
+                                        <a class="dropdown-item emp-tickethistory-edit" onclick="emptickethistoryedit($(this))" data-leavename="13112_2024-08-27_2024-08-27">Edit</a>
+                                        <a class="dropdown-item emp-tickethistory-cancel" onclick="emptickethistorycancel($(this))" data-leavename="13112_2024-08-27_2024-08-27">Cancel</a>
+                                    </div>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
         </div>
     </div>
 </div>
+
+<script>    
+    function toggleLeaveTicketHistoryActionOptions(iconElement) {
+        const optionsMenu = $(iconElement).next('.emp-tickethistoryoptions');
+        $('.emp-tickethistoryoptions').not(optionsMenu).hide(); // Hide any other open menus
+        optionsMenu.toggle(); // Toggle visibility of the clicked menu
+    }
+    $(document).ready(function () {
+       /* $(document).on('click', function () {
+            $('.emp-tickethistoryoptions').hide();
+        });
+        $('#leaveTicketHistoryTable').on('click', '.emp-tickethistoryoptions', function (event) {
+            event.stopPropagation();
+        });*/
+    });
+</script>
 
