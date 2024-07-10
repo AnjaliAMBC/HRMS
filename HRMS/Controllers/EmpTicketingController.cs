@@ -13,5 +13,10 @@ namespace HRMS.Controllers
         {
              return View("~/Views/EmployeeDashboard/EmpTicketing.cshtml");
         }
+        public ActionResult EmpTicketRaise()
+        {
+
+            return PartialView("~/Views/EmployeeDashboard/EmpRaiseTicket.cshtml");
+        }
     }
 }
