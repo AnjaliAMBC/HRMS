@@ -33,7 +33,7 @@
                         <button class="btn emp-raiseticket-attach-label">Upload a file</button>
                         <input type="file" id="emp-raiseticket-attach-file-upload" name="emp-raiseticket-attach-file-upload" />
                         <span class="emp-raiseticket-file-name"></span>
-                    </div>
+                    </span>
                     <span class="error-message" id="emp-raiseticket-attach-error"></span>
                 </div>
                 <div class="form-group div-emp-raiseticket-priority">
@@ -56,7 +56,8 @@
 </div>
 
 <script>
-    $('#emp-raiseticket-attach-file-upload').change(function () {
-        console.log('ss');
+    $(document).on('change', '#emp-raiseticket-attach-file-upload', function () {
+        var filename = $(this).val().split('\\').pop();  
+        $('.emp-raiseticket-file-name').text(filename);  
     });
 </script>

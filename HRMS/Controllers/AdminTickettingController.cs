@@ -14,6 +14,14 @@ namespace HRMS.Controllers
        
             return View("~/Views/AdminDashboard/AdminTicketingView.cshtml");
         }
-        
+        public ActionResult AdminHrTicket()
+        {
+            return View("~/Views/AdminDashboard/AdminHrTicketing.cshtml");
+        }
+        public ActionResult AdminItAssignAgent()
+        {
+       
+            return PartialView("~/Views/AdminDashboard/AdminAssignAgent.cshtml");
+        }
     }
 }
