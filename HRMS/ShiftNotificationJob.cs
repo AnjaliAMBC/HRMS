@@ -90,7 +90,7 @@ namespace HRMS
 
             var siteURL = System.Configuration.ConfigurationManager.AppSettings["siteURL"];
             var logoURL = siteURL + "/Assets/AMBC_Logo.png";
-            var companyURL = siteURL; // Assuming company URL is the same as site URL, adjust if needed
+            var companyURL = siteURL; 
 
             // Checkin Reminder emails
             foreach (var checkinEmp in employeesToRemindCheckin)
