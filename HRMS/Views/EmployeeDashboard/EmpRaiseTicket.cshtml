@@ -3,5 +3,60 @@
     ViewBag.Title = "EmpRaiseTicket";
 }
 <div class="EmpTicket-raise-container">
-    <h2>EmpRaiseTicket</h2>
+    <div class="col-lg-5 col-md-11 emp-ticket-raise-popup-form">
+        <form id="emp-ticket-raise-Form">
+            <div class="form-group">
+                <h4 class="mb-4 ticketing-pagetitle">Raise Ticket</h4>
+                <div class="form-group div-emp-raiseticket-category">
+                    <label for="emp-raiseticket-category" class="emp-raiseticket-label">Category*</label>
+                    <select class="form-control" id="emp-raiseticket-category">
+                        <option selected disabled>Select IT or HR</option>
+                        <option value="1" data-emplocation="m" data-empemail="em" data-designation="de" data-department="dep">A1</option>
+                        <option value="2" data-emplocation="m" data-empemail="em" data-designation="de" data-department="dep">A2</option>
+                        <option value="3" data-emplocation="m" data-empemail="em" data-designation="de" data-department="dep">A3</option>
+                    </select>
+                    <span class="error-message" id="emp-raiseticket-category-error"></span>
+                </div>
+                <div class="form-group">
+                    <label for="emp-raiseticket-subject">Subject*</label>
+                    <input type="text" value="" class="form-control" id="emp-raiseticket-subject" placeholder="Enter Subject">
+                    <span class="error-message" id="emp-raiseticket-subject-error"></span>
+                </div>
+                <div class="form-group">
+                    <label for="emp-raiseticket-description">Description*</label>
+                    <textarea class="form-control" id="emp-raiseticket-description"></textarea>
+                    <span class="error-message" id="emp-raiseticket-description-error"></span>
+                </div>
+                <div class="form-group">
+                    <label for="emp-raiseticket-attach">Attach File*</label>
+                    <span class="emp-raiseticket-attach-upload-btn-wrapper">
+                        <button class="btn emp-raiseticket-attach-label">Upload a file</button>
+                        <input type="file" id="emp-raiseticket-attach-file-upload" name="emp-raiseticket-attach-file-upload" />
+                        <span class="emp-raiseticket-file-name"></span>
+                    </div>
+                    <span class="error-message" id="emp-raiseticket-attach-error"></span>
+                </div>
+                <div class="form-group div-emp-raiseticket-priority">
+                    <label for="emp-raiseticket-priority" class="emp-raiseticket-priority-label">Select Priority*</label>
+                    <select class="form-control" id="emp-raiseticket-priority">
+                        <option selected disabled>Select Priority</option>
+                        <option value="1">High</option>
+                        <option value="2">Mid</option>
+                        <option value="3">Low</option>
+                    </select>
+                    <span class="error-message" id="emp-raiseticket-priority-error"></span>
+                </div>
+                <div class="emp-raiseticket-submit">
+                    <button type="submit" class="btn btn-apply-emp-raiseticket-cancel mb-4">Cancel</button>
+                    <button type="submit" class="btn btn-primary btn-apply-emp-raiseticket-submit mb-4">Submit</button>
+                </div>
+            </div>
+        </form>
+    </div>
 </div>
+
+<script>
+    $('#emp-raiseticket-attach-file-upload').change(function () {
+        console.log('ss');
+    });
+</script>

@@ -52,7 +52,6 @@ $(document).ready(function () {
     });
 
     $('.sidebar-dropdown > a').click(function () {
-        console.log('ss');
         //$(".sidebar-submenu").toggle();
         $(this).next('.sidebar-submenu').toggle(300);
         $(this).find('i').toggleClass('fa-chevron-down fa-chevron-up');
@@ -64,6 +63,6 @@ $(document).ready(function () {
 
         // Add 'sidebaractive' class to the clicked menu item
         $(this).parent('li').addClass('sidebaractive');
-    });
+    });    
 
 });
