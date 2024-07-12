@@ -1,0 +1,54 @@
+﻿@model List<con_leaveupdate>
+
+@{
+    var siteURL = System.Configuration.ConfigurationManager.AppSettings["siteURL"];
+    var logoURL = siteURL + "/Assets/AMBC_Logo.png";
+}
+
+<style>
+    body {
+        font-family: Arial, sans-serif;
+        color: #333;
+    }
+
+    .email-container {
+        border: 1px solid #ddd;
+        padding: 20px;
+        max-width: 600px;
+        margin: 0 auto;
+    }
+
+    .email-content {
+        padding: 20px;
+    }
+
+    .email-footer {
+        text-align: center;
+        padding: 10px;
+        border-top: 1px solid #ddd;
+    }
+</style>
+
+@if (Model != null && Model.Any())
+{
+    var leaveUpdate = Model.First();
+    <div class="email-container">
+        <div class="email-content">
+            <p>Hello HR,</p>
+            <a href="@siteURL" target="_blank" style="float: right; margin-left: 10px;">
+                <img src="@logoURL" alt="AMBC Logo" style="max-width: 50px;">
+            </a>
+
+            <p>@leaveUpdate.leave_reason</p>
+
+            <p><strong>Backup Resource Name:</strong> @leaveUpdate.BackupResource_Name</p>
+
+            <p><strong>Contact Number (In case of Emergency):</strong> @leaveUpdate.EmergencyContact_no</p>
+
+            <p>
+                Thanks and Regards,<br />
+                @leaveUpdate.employee_name
+            </p>
+        </div>
+    </div>
+}

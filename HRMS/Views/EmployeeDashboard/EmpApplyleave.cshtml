@@ -6,6 +6,8 @@
 
     var pageTitle = !string.IsNullOrWhiteSpace(Model.Leaves) && Model.Leaves != "[]" ? "Edit Leave" : "Apply Leave";
     var buttonText = !string.IsNullOrWhiteSpace(Model.Leaves) && Model.Leaves != "[]" ? "Edit" : "Apply";
+
+    var hideDivStyle = currentUserSession != null && !currentUserSession.IsAdmin ? "display:none;" : "";
 }
 
 <div class="employeeleaveapply-view">
@@ -26,7 +28,7 @@
                 <form id="leaveForm">
                     <div class="form-group">
                         <h4 class="mb-4 leave-pagetitle">@pageTitle</h4>
-                        <div class="form-group div-leave-empname">
+                        <div class="form-group div-leave-empname" style="@hideDivStyle">
                             <label for="leaveempname" class="leave_label">Employee Name*</label>
                             <select class="form-control" id="leaveempname">
                                 <option selected disabled>Select Employee Name</option>

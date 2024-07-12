@@ -27,10 +27,17 @@
                         <span class="material-icons leave-icon-emp">logout</span>Leave
                     </a>
                 </li>
-                <li class="mb-2 @(pageUrlPath.Contains("/ticketing") ? "active sidebaractive" : "")">
-                    <a href="/ticketing" class="@(pageUrlPath == "/ticketing" ? "active" : "")">
+                <li class="sidebar-dropdown mb-2 @(pageUrlPath.Contains("/adminticketting/index") ? "active sidebaractive" : "")">
+                    <a href="#" class="@(pageUrlPath == "/adminticketting/index" ? "active" : "")">
                         <span class="material-icons ticket-icon">laptop_chromebook</span>Ticketing
+                        <i class="fa fa-chevron-down pull-right side-menubar-updown"></i>
                     </a>
+                    <div class="sidebar-submenu">
+                        <ul>
+                            <li><a href="/AdminTicketting/Index"><span class="menu-bar-design-red"></span>IT Ticketing</a></li>
+                            <li><a href="/AdminTicketting/AdminHrTicket" class=""><span class="menu-bar-design-blue"></span>HR Ticketing</a></li>
+                        </ul>
+                    </div>
                 </li>
             </ul>
         </div>
@@ -89,8 +96,8 @@
                         <span class="material-icons leave-icon-emp">logout</span>Leave
                     </a>
                 </li>
-                <li class="mb-2 @(pageUrlPath.Contains("/ticketing") ? "active sidebaractive" : "")">
-                    <a href="/ticketing" class="@(pageUrlPath == "/ticketing" ? "active" : "")">
+                <li class="mb-2 @(pageUrlPath.Contains("/adminticketting/index") ? "active sidebaractive" : "")">
+                    <a href="/AdminTicketting/Index" class="@(pageUrlPath == "/adminticketting/index" ? "active" : "")">
                         <span class="material-icons ticket-icon">laptop_chromebook</span>Ticketing
                     </a>
                 </li>

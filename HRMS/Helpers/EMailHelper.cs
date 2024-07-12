@@ -21,6 +21,10 @@ namespace HRMS.Helpers
                 MailMessage mail = new MailMessage();
                 mail.From = new MailAddress(fromEmail);
                 mail.To.Add(request.ToEmail);
+                if (!string.IsNullOrWhiteSpace(request.CCEmail))
+                {
+                    mail.CC.Add(request.CCEmail);
+                }
                 mail.Subject = request.Subject;
                 mail.Body = request.Body;
                 mail.IsBodyHtml = true;

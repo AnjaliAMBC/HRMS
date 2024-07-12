@@ -68,6 +68,93 @@ div.main-content {
     color: #343a40;
 }
 
+/* sidebar menu start */
+
+.sidebar .sidebar-dropdown .side-menubar-updown {
+    display: inline-block;
+    text-align: right;
+    width: 35%;
+}
+
+.sidebar .sidebar-dropdown {
+    display: inline-block;
+    width: 100%;
+}
+
+.sidebar .sidebar-dropdown .sidebar-submenu {
+    display: none;
+}
+
+.sidebar .sidebar-dropdown .sidebar-submenu .menu-bar-design-red {
+    width: 5px;
+    background-color: red;
+    display: inline-block;
+    height: 20px;
+    border-radius: 5px 0px 0px 5px;
+    margin-right: 10px;
+    position: relative;
+    top: 5px;
+}
+
+.sidebar .sidebar-dropdown .sidebar-submenu .menu-bar-design-blue {
+    width: 5px;
+    background-color: #2693F8;
+    display: inline-block;
+    height: 20px;
+    border-radius: 5px 0px 0px 5px;
+    margin-right: 10px;
+    position: relative;
+    top: 5px;
+}
+
+.sidebar .sidebar-dropdown .sidebar-submenu .menu-bar-design-darkcyan {
+    width: 5px;
+    background-color: darkcyan;
+    display: inline-block;
+    height: 20px;
+    border-radius: 5px 0px 0px 5px;
+    margin-right: 10px;
+    position: relative;
+    top: 5px;
+}
+
+.sidebar .sidebar-dropdown .sidebar-submenu .menu-bar-design-chocolate {
+    width: 5px;
+    background-color: chocolate;
+    display: inline-block;
+    height: 20px;
+    border-radius: 5px 0px 0px 5px;
+    margin-right: 10px;
+    position: relative;
+    top: 5px;
+}
+
+.sidebar .sidebar-dropdown .sidebar-submenu .menu-bar-design-slategrey {
+    width: 5px;
+    background-color: slategrey;
+    display: inline-block;
+    height: 20px;
+    border-radius: 5px 0px 0px 5px;
+    margin-right: 10px;
+    position: relative;
+    top: 5px;
+}
+
+.sidebar .sidebar-submenu ul {
+    padding-left: 0px;
+    cursor: pointer;
+}
+
+.sidebar .sidebar-submenu li a {
+    padding-left: 15px;
+}
+
+.sidebar .sidebar-dropdown.active div.sidebar-submenu {
+    display: block;
+}
+
+/* sidebar menu end */
+
 /* admin dashnoard start */
 .res-admin-dashboard .dashcard_style {
     height: auto;
@@ -347,13 +434,13 @@ div.main-content {
     display: inline-block;
 }
 
-.addshiftcontent .addshiftcard .res-adminatt-dept-dropdown #departmentDropdown {
-    width: 100%;
-}
+    .addshiftcontent .addshiftcard .res-adminatt-dept-dropdown #departmentDropdown {
+        width: 100%;
+    }
 
-.addshiftcontent .addshiftcard .res-adminatt-dept-dropdown #employeeDropdown {
-    width: 100%;
-}
+    .addshiftcontent .addshiftcard .res-adminatt-dept-dropdown #employeeDropdown {
+        width: 100%;
+    }
 
 /*admin attendance end*/
 
@@ -551,15 +638,15 @@ div.main-content {
     width: 100%;
 }
 
-.admin-leave-container .res-emp-apply-leave .balance-section .leave-apply-info-block .res-leave-apply-left {
-    display: inline-block;
-    width: 90%;
-}
+    .admin-leave-container .res-emp-apply-leave .balance-section .leave-apply-info-block .res-leave-apply-left {
+        display: inline-block;
+        width: 90%;
+    }
 
-.admin-leave-container .res-emp-apply-leave .balance-section .leave-apply-info-block .res-leave-apply-right {
-    display: inline-block;
-    width: 10%;
-}
+    .admin-leave-container .res-emp-apply-leave .balance-section .leave-apply-info-block .res-leave-apply-right {
+        display: inline-block;
+        width: 10%;
+    }
 
 .res-adminleaveTable-mgmt #adminleaveTable-mgmt .userLeaveDetails .fontSmall a {
     text-decoration: none !important;
@@ -574,59 +661,59 @@ div.main-content {
     width: 103%;
 }
 
-.res-admin-leave-balance .search-container {
-    margin-left: 15% !important;
-}
+    .res-admin-leave-balance .search-container {
+        margin-left: 15% !important;
+    }
 
-.res-admin-leave-balance .res-admin-leave-balance-export {
-    margin-left: 0%;
-}
+    .res-admin-leave-balance .res-admin-leave-balance-export {
+        margin-left: 0%;
+    }
 
-.res-admin-leave-balance #leaveBalanceTable {
-    margin: 0px;
-    width: 112%;
-}
+    .res-admin-leave-balance #leaveBalanceTable {
+        margin: 0px;
+        width: 112%;
+    }
 
-.res-admin-leave-balance #leaveBalanceTable thead {
-    background-color: transparent;
-}
+        .res-admin-leave-balance #leaveBalanceTable thead {
+            background-color: transparent;
+        }
 
-.res-admin-leave-balance #leaveBalanceTable thead th {
-    color: #000;
-    border-top: 0px;
-    font-weight: normal;
-    text-align: center;
-}
+            .res-admin-leave-balance #leaveBalanceTable thead th {
+                color: #000;
+                border-top: 0px;
+                font-weight: normal;
+                text-align: center;
+            }
 
-.res-admin-leave-balance #leaveBalanceTable thead th:nth-child(1),
-.res-admin-leave-balance #leaveBalanceTable thead th:nth-child(2) {
-    //visibility: hidden;
-}
+                .res-admin-leave-balance #leaveBalanceTable thead th:nth-child(1),
+                .res-admin-leave-balance #leaveBalanceTable thead th:nth-child(2) {
+                    //visibility: hidden;
+                }
 
-.res-admin-leave-balance #leaveBalanceTable tbody td {
-    text-align: center;
-}
+        .res-admin-leave-balance #leaveBalanceTable tbody td {
+            text-align: center;
+        }
 
-.res-admin-leave-balance #leaveBalanceTable tbody td:nth-child(1),
-.res-admin-leave-balance #leaveBalanceTable tbody td:nth-child(2) {
-    text-align: left;
-}
+            .res-admin-leave-balance #leaveBalanceTable tbody td:nth-child(1),
+            .res-admin-leave-balance #leaveBalanceTable tbody td:nth-child(2) {
+                text-align: left;
+            }
 
-.res-admin-leave-balance #leaveBalanceTable thead th:nth-child(3) {
-    width: 95px;
-}
+        .res-admin-leave-balance #leaveBalanceTable thead th:nth-child(3) {
+            width: 95px;
+        }
 
-.res-admin-leave-balance #leaveBalanceTable thead th:nth-child(5) {
-    width: 90px;
-}
+        .res-admin-leave-balance #leaveBalanceTable thead th:nth-child(5) {
+            width: 90px;
+        }
 
-.res-admin-leave-balance #leaveBalanceTable thead th:nth-child(7) {
-    width: 140px;
-}
+        .res-admin-leave-balance #leaveBalanceTable thead th:nth-child(7) {
+            width: 140px;
+        }
 
-.res-admin-leave-balance #leaveBalanceTable thead th:nth-child(11) {
-    width: 60px;
-}
+        .res-admin-leave-balance #leaveBalanceTable thead th:nth-child(11) {
+            width: 60px;
+        }
 
 #exportLeaveButton i {
     color: #212529;
@@ -777,9 +864,9 @@ div.main-content {
     display: none;
 }*/
 
-    .res-admin-leave-history .res-admin-total-leaves-import button {
-        background: #2693F8;
-    }
+.res-admin-leave-history .res-admin-total-leaves-import button {
+    background: #2693F8;
+}
 
 .res-admin-leave-history .res-admin-leave-balance-export button {
     background: #2693F8;
@@ -820,7 +907,7 @@ div.main-content {
     justify-content: right;
 }
 
-.highlight-festival-leave i{
+.highlight-festival-leave i {
     margin-right: 2px;
 }
 
@@ -1041,6 +1128,76 @@ div.main-content {
 
 /* admin leave compoff end*/
 
+/* admin ticket listing start */
+
+.res-admin-ticket-listing .adminticketlisting-dropdown-toggle {
+    border: 1px solid #ced4da;
+    border-radius: 0;
+    color: #212529;
+    width: 85%;
+    padding: 0.375rem 0.75rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background-color: transparent;
+}
+
+.res-admin-ticket-listing .adminticketlisting-dropdown-toggle:hover, .res-admin-ticket-listing .adminticketlisting-dropdown-toggle:focus {
+    background-color: transparent;
+    color: #ccc;
+    border: 1px solid;
+}
+
+.res-admin-ticket-listing .res-admin-ticketlisting-header-right .res-admin-ticketlisting-block-header {
+    display: inline-block;
+    padding-top: 15px;
+}
+
+.res-admin-ticket-listing .res-admin-ticketlisting-header-right {
+
+}
+
+.res-admin-ticket-listing #adminticketlistingTable .userIcon {
+    width: 42px;
+    height: 42px;
+    object-fit: cover;
+    border-radius: 50%;
+    margin-right: 10px;
+}
+
+.res-admin-ticket-listing #adminticketlistingTable .btn-assignagent {
+    font-size: 12px;
+    background-color: #00B4F2;
+    color: white;
+    border: 0;
+    width: 65%;
+    border-radius: 2px;
+}
+
+#adminticketlistingTable .ticket-status-color-blue {
+    color: #3E78CF;
+}
+
+#adminticketlistingTable .ticket-status-color-red {
+    color: red;
+}
+
+.res-admin-ticketlisting-searchbar .adminticketlisting-dropdown-menu {
+    width: 79%;
+    box-shadow: 0 0 3px 2px #ccc;
+}
+
+#adminticketlistingfilter .res-adminadvfilter-ticketlisting {
+    display: inline-block !important;
+}
+
+#adminticketlistingfilter .res-adminadvfilter-ticketlisting label, #adminticketlistingfilter .res-adminadvfilter-ticketlisting input {
+    display: inline-block;
+    font-size: 12px;
+}
+
+/* admin ticket listing end*/
+
 /* employee dashboard start*/
 .emp-dashboard .main-content.container-fluid {
     padding: 75px 0px;
@@ -1051,10 +1208,10 @@ div.main-content {
     color: black;
 }
 
-.Emp-CompOffRequest:hover {
-    text-decoration: none;
-    color: black;
-}
+    .Emp-CompOffRequest:hover {
+        text-decoration: none;
+        color: black;
+    }
 
 .dashholiday_body .card-body.scrollbar {
     padding: 10px 10px;
@@ -1242,10 +1399,10 @@ input[type=checkbox], input[type=radio] {
     border-radius: 2px;
 }
 
-#empleaveCompOffTable .emp-compoffs a.dropdown-item {
-    padding: 4px 5px;
-    font-size: 12px;
-}
+    #empleaveCompOffTable .emp-compoffs a.dropdown-item {
+        padding: 4px 5px;
+        font-size: 12px;
+    }
 
 .empleavecompoff-year #empleaveCompOffTable_wrapper {
     padding: 0;
@@ -1264,15 +1421,15 @@ input[type=checkbox], input[type=radio] {
     width: 100%;
 }
 
-.emp-leave .leave-dashboard-data .res-emp-apply-leave .balance-section .leave-apply-info-block .res-leave-apply-left {
-    display: inline-block;
-    width: 90%;
-}
+    .emp-leave .leave-dashboard-data .res-emp-apply-leave .balance-section .leave-apply-info-block .res-leave-apply-left {
+        display: inline-block;
+        width: 90%;
+    }
 
-.emp-leave .leave-dashboard-data .res-emp-apply-leave .balance-section .leave-apply-info-block .res-leave-apply-right {
-    display: inline-block;
-    width: 10%;
-}
+    .emp-leave .leave-dashboard-data .res-emp-apply-leave .balance-section .leave-apply-info-block .res-leave-apply-right {
+        display: inline-block;
+        width: 10%;
+    }
 
 .leave-dashboard-data .res-emp-leave-title {
     margin-left: 0px;
@@ -1283,3 +1440,90 @@ input[type=checkbox], input[type=radio] {
 }
 
 /* emp leave end*/
+
+/* emp ticket history start */
+
+#leaveTicketHistoryTable, #leaveTicketHistoryTable th, #leaveTicketHistoryTable td {
+    border: none;
+}
+
+#leaveTicketHistoryTable tbody tr {
+    border-bottom: 1px solid #ccc;
+}
+
+#leaveTicketHistoryTable .emp-ticket-edit-history {
+    border: 2px solid lightgray;
+    font-size: smaller;
+    height: 20px;
+    width: 20px;
+    text-align: center;
+    line-height: 1rem;
+    color: gray;
+    cursor: pointer;
+}
+
+#leaveTicketHistoryTable .emp-tickethistoryoptions {
+    position: absolute;
+    top: auto;
+    cursor: pointer;
+    padding: 5px 5px;
+    width: 70px;
+    background-color: white;
+    border: 1px solid #ccc;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    z-index: 1000;
+    right: 0;
+    margin-top: 0px;
+}
+
+#leaveTicketHistoryTable .emp-tickethistoryoptions a {
+    display: block;
+    padding: 2px 4px;
+    color: #333;
+    text-decoration: none;
+}
+
+.res-emp-tickethistory-header .res-emp-tickethistory-right {
+    display: flex;
+    justify-content: right;
+}
+
+/* emp ticket history end */
+
+/* emp ticket raise start */
+
+.emp-ticket-raise-popup-form #emp-ticket-raise-Form .emp-raiseticket-submit {
+    display: inline-block;
+    width: 100%;
+    text-align: right;
+}
+
+.emp-ticket-raise-popup-form #emp-ticket-raise-Form .emp-raiseticket-attach-upload-btn-wrapper {
+    position: relative;
+    overflow: hidden;
+    display: inline-block;
+    width: 100%;
+}
+
+.emp-ticket-raise-popup-form #emp-ticket-raise-Form .emp-raiseticket-attach-label {
+    border: 1px solid #b3b3b3;
+    color: #595959;
+    background-color: #ccc;
+    padding: 5px 35px;
+    border-radius: 2px;
+    font-size: 12px;
+    cursor: pointer;
+}
+
+.emp-ticket-raise-popup-form #emp-ticket-raise-Form .emp-raiseticket-attach-upload-btn-wrapper input[type=file] {
+    font-size: 100px;
+    position: absolute;
+    left: 0;
+    top: 0;
+    opacity: 0;
+    width: 31%;
+    height: 30px;
+    cursor: pointer;
+}
+
+/* emp ticket raise end */

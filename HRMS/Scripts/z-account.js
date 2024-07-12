@@ -104,6 +104,7 @@ $(document).ready(function () {
                     }
                 },
                 error: function (xhr, status, error) {
+                    $('.show-progress').hide();
                     var err = eval("(" + xhr.responseText + ")");
                     // Handle error response
                 }

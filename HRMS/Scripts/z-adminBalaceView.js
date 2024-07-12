@@ -489,6 +489,16 @@ function downloadLeaveTemplate() {
     document.body.removeChild(link);
 }
 
+function downloadLeaveHistoryTemplate() {
+    var link = document.createElement('a');
+    link.href = '/assets/templates/SampleLeaveHistoryImport.xlsx';
+    link.download = 'TotalEmpLeaveHistoryTemplate.xlsx';
+    document.body.appendChild(link);
+    link.click();
+    document.body.removeChild(link);
+}
+
+
 //AdminIndivisual Employee Leave History Calender 
 //$(document).on('click', '.AdminIndiEmpLeave-History', function (event) {
 //    event.preventDefault();

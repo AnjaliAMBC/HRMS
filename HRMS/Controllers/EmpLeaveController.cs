@@ -25,6 +25,7 @@ using HRMS.Helpers;
 
 namespace HRMS.Controllers
 {
+    using static HRMS.Helpers.PartialViewHelper;
     public class EmpLeaveController : Controller
     {
         // Database context
@@ -182,6 +183,53 @@ namespace HRMS.Controllers
 
                 leaveRequest.jsonResponse.Message = "Leave request submitted successfully.";
                 leaveRequest.jsonResponse.StatusCode = 200;
+
+                //When employee apply leave
+                if (leaves[0].employee_name == leaveRequest.SubmittedBy)
+                {
+                    var emailSubject = "Leave  Request for " + leaveRequest.LeaveType + "from " + Convert.ToDateTime(leaveRequest.FromDate).ToString("dd MMMM yyyy") + " to " + Convert.ToDateTime(leaveRequest.ToDate).ToString("dd MMMM yyyy");
+                    var emailBody = RenderPartialToString(this, "_LeaveNotificationEmpEmail", leaves, ViewData, TempData);
+
+                    var teamEmails = "";
+                    if (!string.IsNullOrWhiteSpace(leaveRequest.TeamEmail))
+                    {
+                        teamEmails = "," + leaveRequest.TeamEmail;
+                    }
+
+                    var emailRequest = new EmailRequest()
+                    {
+                        Body = emailBody,
+                        ToEmail = leaveRequest.OfficalEmailid + teamEmails,
+                        CCEmail = ConfigurationManager.AppSettings["LeaveEmails"],
+                        Subject = emailSubject
+                    };
+
+                    var sendNotification = EMailHelper.SendEmail(emailRequest);
+                }
+                //In case admin submit the leave on employee behalf
+                else
+                {
+                    var emailSubject = "Leave Submission Update!";
+                    var emailBody = RenderPartialToString(this, "_LeaveNotificationAdminEmail", leaves, ViewData, TempData);
+
+                    var teamEmails = "";
+                    if (!string.IsNullOrWhiteSpace(leaveRequest.TeamEmail))
+                    {
+                        teamEmails = "," + leaveRequest.TeamEmail;
+                    }
+
+                    var emailRequest = new EmailRequest()
+                    {
+                        Body = emailBody,
+                        ToEmail = leaveRequest.OfficalEmailid + teamEmails,
+                        CCEmail = ConfigurationManager.AppSettings["LeaveEmails"],
+                        Subject = emailSubject
+                    };
+
+                    var sendNotification = EMailHelper.SendEmail(emailRequest);
+                }
+
+
                 return Json(leaveRequest, JsonRequestBehavior.AllowGet);
             }
             catch (Exception ex)
@@ -309,6 +357,22 @@ namespace HRMS.Controllers
                     leave.LeaveStatus = "Approved";
                 }
                 _dbContext.SaveChanges();
+
+
+                var emailSubject = "Leave Approved";
+                var emailBody = RenderPartialToString(this, "_LeaveApprovedEmail", leaves, ViewData, TempData);
+
+
+                var emailRequest = new EmailRequest()
+                {
+                    Body = emailBody,
+                    ToEmail = leaves[0].OfficalEmailid,
+                    Subject = emailSubject
+                };
+
+                var sendNotification = EMailHelper.SendEmail(emailRequest);
+
+
                 return Json(new { success = true });
             }
             return Json(new { success = false });
@@ -325,6 +389,19 @@ namespace HRMS.Controllers
                     leave.LeaveStatus = "Rejected";
                 }
                 _dbContext.SaveChanges();
+
+                var emailSubject = "Leave Rejected";
+                var emailBody = RenderPartialToString(this, "_LeaveRejectedEmail", leaves, ViewData, TempData);
+
+                var emailRequest = new EmailRequest()
+                {
+                    Body = emailBody,
+                    ToEmail = leaves[0].OfficalEmailid,
+                    Subject = emailSubject
+                };
+
+                var sendNotification = EMailHelper.SendEmail(emailRequest);
+
                 return Json(new { success = true });
             }
             return Json(new { success = false });

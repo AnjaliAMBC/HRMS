@@ -37,6 +37,23 @@ namespace HRMS.Models.Admin
         public string loginID { get; set; }
 
     }
+    public class EmployeeLoginReport
+    {
+        public int EmployeeId { get; set; }
+        public string EmployeeName { get; set; }
+        public string EmailID { get; set; }
+        public DateTime Date { get; set; }
+        public TimeSpan SigninTime { get; set; }
+        public TimeSpan SignoutTime { get; set; }
+        public decimal TotalHours { get; set; }
+        public TimeSpan? EarlyEntry { get; set; }
+        public TimeSpan? LateEntry { get; set; }
+        public TimeSpan? EarlyExit { get; set; }
+        public TimeSpan? LateExit { get; set; }
+        public decimal NetHours { get; set; }
+        public string ShiftTime { get; set; }
+    }
+
 
     public class EmployeeRecord
     {
