@@ -63,6 +63,6 @@ $(document).ready(function () {
 
         // Add 'sidebaractive' class to the clicked menu item
         $(this).parent('li').addClass('sidebaractive');
-    });    
+    });
 
 });
