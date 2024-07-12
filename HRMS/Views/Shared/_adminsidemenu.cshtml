@@ -22,12 +22,22 @@
                         <span class="material-icons attendance-icon">calendar_month</span>Attendance
                     </a>
                 </li>
-                <li class="mb-2 @(pageUrlPath.Contains("/adminleave/index") ? "active sidebaractive" : "")">
-                    <a href="/adminleave/index" class="@(pageUrlPath == "/adminleave/index" ? "active" : "")">
+                <li class="admin-leave-main-menu sidebar-dropdown mb-2 @(pageUrlPath.Contains("/adminleave/index") ? "active sidebaractive" : "")">
+                    <a href="#" class="@(pageUrlPath == "/adminleave/index" ? "active" : "")">
                         <span class="material-icons leave-icon-emp">logout</span>Leave
+                        <i class="fa fa-chevron-down pull-right side-menubar-updown"></i>
                     </a>
+                    <div class="sidebar-submenu">
+                        <ul>
+                            <li><a href="/adminleave/index"><span class="menu-bar-design-red"></span>Leave Tracker</a></li>
+                            <li><a class="adminleave-history"><span class="menu-bar-design-blue"></span>Leave History</a></li>
+                            <li><a class="adminleave-Balanve-link"><span class="menu-bar-design-chocolate"></span>Leave Balance</a></li>
+                            <li><a class="adminleave-CompOff-link"><span class="menu-bar-design-darkcyan"></span>CompOff Request</a></li>
+                            <li><a class="adminside-leaveapply"><span class="menu-bar-design-slategrey"></span>Apply Leave</a></li>
+                        </ul>
+                    </div>
                 </li>
-                <li class="sidebar-dropdown mb-2 @(pageUrlPath.Contains("/adminticketting/index") ? "active sidebaractive" : "")">
+                <li class="admin-ticket-main-menu sidebar-dropdown mb-2 @(pageUrlPath.Contains("/adminticketting/index") ? "active sidebaractive" : "")">
                     <a href="#" class="@(pageUrlPath == "/adminticketting/index" ? "active" : "")">
                         <span class="material-icons ticket-icon">laptop_chromebook</span>Ticketing
                         <i class="fa fa-chevron-down pull-right side-menubar-updown"></i>

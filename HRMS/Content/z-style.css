@@ -73,7 +73,11 @@ div.main-content {
 .sidebar .sidebar-dropdown .side-menubar-updown {
     display: inline-block;
     text-align: right;
-    width: 35%;
+    width: 32%;
+}
+
+.sidebar .admin-leave-main-menu .side-menubar-updown {
+    width: 45%;
 }
 
 .sidebar .sidebar-dropdown {
@@ -152,6 +156,8 @@ div.main-content {
 .sidebar .sidebar-dropdown.active div.sidebar-submenu {
     display: block;
 }
+
+
 
 /* sidebar menu end */
 
@@ -1197,6 +1203,154 @@ div.main-content {
 }
 
 /* admin ticket listing end*/
+
+/* admin hr ticket start */
+
+.res-admin-hr-ticket-listing .adminhrticketlisting-dropdown-toggle {
+    border: 1px solid #ced4da;
+    border-radius: 0;
+    color: #212529;
+    width: 75%;
+    padding: 0.375rem 0.75rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background-color: transparent;
+}
+
+.res-admin-hr-ticketlisting-searchbar .adminhrticketlisting-dropdown-menu {
+    width: 79%;
+    box-shadow: 0 0 3px 2px #ccc;
+}
+
+.res-admin-hr-ticket-listing .res-admin-hr-ticketlisting-header-right .res-admin-hr-ticketlisting-block-header {
+    display: inline-block;
+    padding-top: 15px;
+}
+
+.res-admin-hr-ticket-listing #adminhrticketlistingTable .userIcon {
+    width: 42px;
+    height: 42px;
+    object-fit: cover;
+    border-radius: 50%;
+    margin-right: 10px;
+}
+
+#adminhrticketlistingTable .res-admin-hr-ticketlisting-user-details .admin-hr-ticketing-listing-details {
+    margin: 5px 0;
+}
+
+#adminhrticketlistingTable .admin-hr-ticketing-listing-details .id-name {
+    color: #2693F8;
+}
+
+#adminhrticketlistingTable .hr-ticket-info {
+    width: 130px;
+    display: inline-block;
+    text-align: center;
+}
+
+#adminhrticketlistingTable .admin-hr-ticketing-listing-closedby {
+    display: inline-block;
+    background: #b3ffff;
+    padding: 3px 10px;
+    font-size: 12px;
+    color: gray;
+}
+
+    #adminhrticketlistingTable .admin-hr-ticketing-listing-closedby span {
+        color: #2693F8;
+    }
+
+#adminhrticketlistingTable .res-hr-ticketlisting-color {
+    width: 10px;
+    height: 10px;
+    display: inline-block;
+    margin-right: 2px;
+}
+
+#adminhrticketlistingTable .res-hr-ticketlisting-color-red {
+    background: red;
+}
+
+#adminhrticketlistingTable .res-hr-ticketlisting-color-orange {
+    background: orange;
+}
+
+#adminhrticketlistingTable .res-admin-hr-ticketlisting-date .res-ticketlisting-priority-status {
+    margin-left: 2px;
+}
+
+#adminhrticketlistingTable .fa-solid.fa-clock {
+    color: #ccc;
+}
+
+#adminhrticketlistingTable .hr-ticketing-response-time {
+    display: inline-block;
+    background: #ffe6e6;
+    color: #ff9999;
+    padding: 0 10px;
+    margin-bottom: 5px;
+}
+
+#adminhrticketlistingTable .hr-ticket-prioritylevel {
+    display: inline-block;
+    width: 160px;
+}
+
+#adminhrticketlistingTable .hr-ticketing-empty-block {
+    display: inline-block;
+    visibility: hidden;
+}
+
+#adminhrticketlistingTable .res-ticketlisting-status-level {
+    width: 80px;
+    text-align: center;
+    padding: 2px 15px;
+}
+
+#adminhrticketlistingTable .ticket-status-closed {
+    background: #b3ffec;
+    color: #00b386;
+    border: 1px solid #00b386;
+}
+
+#adminhrticketlistingTable .ticket-status-open {
+    background: #e6f2ff;
+    color: #3399ff;
+    border: 1px solid #3399ff;
+}
+
+#adminhrticketlistingTable .hr-ticket-info i {
+    margin-right: 5px;
+    color: #ccc;
+}
+
+#adminhrticketlistingTable .res-ticketlisting-location {
+    margin-top: 5px;
+}
+
+#adminhrticketlistingTable.admin-hr-ticketlisting-button .collapsedropdown {
+    border: 0px;
+}
+
+#adminticketlistingTable, #adminticketlistingTable th, #adminticketlistingTable td {
+    border: none;
+}
+
+#adminhrticketlistingTable, #adminhrticketlistingTable th, #adminhrticketlistingTable td {
+    border: none;
+}
+
+#adminticketlistingTable tbody tr {
+    border-bottom: 1px solid #ccc;
+}
+
+#adminhrticketlistingTable tbody tr {
+    border-bottom: 1px solid #ccc;
+}
+
+/* admin hr ticket end */
 
 /* employee dashboard start*/
 .emp-dashboard .main-content.container-fluid {
