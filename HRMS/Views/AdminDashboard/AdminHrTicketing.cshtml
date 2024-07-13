@@ -40,23 +40,11 @@
                         </div>
                     </div>
 
-                    <div class="col-lg-2 res-admin-hr-ticketlisting-header-right">
+                    <div class="col-lg-3 res-admin-hr-ticketlisting-header-right">
                         <!-- Filters -->
-                        <div class="col-lg-9 col-sm-7 col-md-5 res-admin-hr-ticketlisting-block-header res-admin-hr-ticketlisting-filter">
+                        <div class="col-lg-12 col-sm-7 col-md-5 res-admin-hr-ticketlisting-block-header res-admin-hr-ticketlisting-filter">
                             <div class="admin-hr-ticketlisting-filtertab d-flex align-items-center">
                                 <p class="advancetitle mb-0">Filters</p>
-                                <div class="toggle-button admin-hr-ticketlisting-button ml-2">
-                                    <button class="collapsedropdown collapsed btn" type="button" data-toggle="collapse" data-target="#adminticketlistingfilter" aria-expanded="false" aria-controls="demo">
-                                        <i class="fa-solid fa-angle-down"></i>
-                                    </button>
-                                </div>
-                            </div>
-                        </div>
-
-                        <!-- Export -->
-                        <div class="col-lg-1 col-sm-3 col-md-3 res-admin-hr-ticketlisting-block-header res-admin-hr-ticketlisting-export">
-                            <div class="admin-hr-ticketlisting-exporttab d-flex align-items-center">
-                                <p class="advancetitle mb-0">Export</p>
                                 <div class="toggle-button admin-hr-ticketlisting-button ml-2">
                                     <button class="collapsedropdown collapsed btn" type="button" data-toggle="collapse" data-target="#adminhrticketlistingfilter" aria-expanded="false" aria-controls="demo">
                                         <i class="fa-solid fa-angle-down"></i>
@@ -68,12 +56,59 @@
                     </div>
                 </div>
 
+                <div class="row justify-content-end ml-2 col-md-12 res-admin-hr-ticketlisting-filter-show">
+                    <div class="col-lg-12 col-sm-12 col-md-12">
+                        <div id="adminhrticketlistingfilter" class="collapse adminhrticketlistingfilter">
+                            <div class="collapse-topic align-items-center justify-content-end res-admin-hr-ticketlisting-filter-inside" style="margin-right: 0; display: flex;">
+                                <span class="mr-3 res-admin-filter">
+                                    Filter By<span class="res-close-btn" style="display:none;">X</span>
+                                </span>
+                                <div class="form-group res-adminadvfilter-hrticketlisting d-flex">
+                                    <label for="from" class="mr-2">From Date</label>
+                                    <input type="date" class="form-control form-control-sm mr-2" id="hrticketlisting-fromDate" style="width: 120px;">
+                                </div>
+                                <div class="form-group res-adminadvfilter-hrticketlisting d-flex">
+                                    <label for="from" class="mr-2">To Date</label>
+                                    <input type="date" class="form-control form-control-sm mr-2" id="hrticketlisting-toDate" style="width: 120px;">
+                                </div>
+                                <div class="dropdown res-adminadvfilter-hrticketlisting">
+                                    <select class="form-control form-select-sm" name="status" id="hr-ticketlisting-status-dropdown" style="border-radius: 15px; height: 28px; width: 131px; border: 1px solid lightgray; padding: 0 10px; font-size: 12px;">
+                                        <option value="" disabled selected>Status</option>
+                                        <option value="Approved">Approved</option>
+                                        <option value="Rejected">Rejected</option>
+                                        <option value="Pending">Pending</option>
+                                        <option value="Cancelled">Cancelled</option>
+                                        <option value="All">All</option>
+                                    </select>
+                                </div>
+                                <div class="dropdown res-adminadvfilter-hrticketlisting">
+                                    <select class="form-control form-select-sm" name="location" id="hr-ticketlisting-location-dropdown" style="border-radius: 15px; height: 28px; width: 131px; border: 1px solid lightgray; padding: 0 10px; font-size: 12px;">
+                                        <option value="" disabled selected>Location</option>
+                                        <option value="Madurai">Madurai</option>
+                                        <option value="Hyderabad">Hyderabad</option>
+                                        <option value="All">All</option>
+                                    </select>
+                                </div>
+                                <div class="dropdown res-adminadvfilter-hrticketlisting">
+                                    <select class="form-control form-select-sm" name="closedby" id="hr-ticketlisting-closedby-dropdown" style="border-radius: 15px; height: 28px; width: 131px; border: 1px solid lightgray; padding: 0 10px; font-size: 12px;">
+                                        <option value="" disabled selected>Closed By</option>
+                                        <option value="Raj">Raj</option>
+                                        <option value="Kumar">Kumar</option>
+                                    </select>
+                                </div>
+                                <div class="form-group align-items-center res-adminadvfilter-hrticketlisting mr-2">
+                                    <button type="button" class="btn btn-sm btn-primary hrticketlisting-view">View</button>
+                                    <button type="button" class="btn btn-sm btn-primary hrticketlisting-export">Export</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
 
                 <div class="res-admin-hr-ticket-listing-table table-responsive">
                     <table class="table table-admin-hr-ticket-listing" id="adminhrticketlistingTable" style="font-size:14px;">
                         <thead style="background-color: #EEF4FF; border-radius: 10px;display:none;">
                             <tr>
-                                <th><input type="checkbox" id="selectAllrows"></th>
                                 <th>Emp-ID</th>
                                 <th>Priority</th>
                                 <th>Location</th>
@@ -82,10 +117,9 @@
                         </thead>
                         <tbody>
                             <tr class="odd">
-                                <td style="width: 10px"> <input type="checkbox"></td>
                                 <td style="width: 400px">
                                     <div class="res-admin-hr-ticketlisting-user-details" style="display: flex; align-items: center;">
-                                        <img class="userIcon" src="/Assets/EmpImages/1311.jpeg">
+                                        <i class="hr-ticket-msg-icon fa-regular fa-message"></i>
                                         <span style="margin-top: 0px; margin-right: 10px;">
                                             <div class="admin-hr-ticketing-listing-title">Laptop Not Working</div>
                                             <div class="admin-hr-ticketing-listing-details">
@@ -109,7 +143,7 @@
                                             <i class="fa-solid fa-clock" aria-hidden="true"></i>
                                             <span class="res-ticketlisting-priority-status">07 Oct 2024, Sat 07:00AM</span>
                                         </span>
-                                    </div>                                    
+                                    </div>
                                 </td>
                                 <td class="res-admin-ticketlisting-location-info">
                                     <div class="hr-ticketing-empty-block"></div>
@@ -121,10 +155,9 @@
                                 </td>
                             </tr>
                             <tr class="even">
-                                <td style="width: 10px"> <input type="checkbox"></td>
                                 <td style="width: 400px">
                                     <div class="res-admin-hr-ticketlisting-user-details" style="display: flex; align-items: center;">
-                                        <img class="userIcon" src="/Assets/EmpImages/1311.jpeg">
+                                        <i class="hr-ticket-msg-icon fa-regular fa-message"></i>
                                         <span style="margin-top: 0px; margin-right: 10px;">
                                             <div class="admin-hr-ticketing-listing-title">Laptop Not Working</div>
                                             <div class="admin-hr-ticketing-listing-details">
@@ -150,7 +183,7 @@
                                             <span class="res-ticketlisting-priority-status">07 Oct 2024, Sat 07:00AM</span>
                                         </span>
                                     </div>
-                                </td>                                
+                                </td>
                                 <td class="res-admin-ticketlisting-location-info">
                                     <div class="hr-ticketing-empty-block"></div>
                                     <div class="res-ticketlisting-location">Madurai</div>

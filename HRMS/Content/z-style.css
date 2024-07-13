@@ -1204,6 +1204,35 @@ div.main-content {
 
 /* admin ticket listing end*/
 
+/* admin it ticket form start */
+
+.admin-itticketing-block .form-control {
+    display: inline-block;
+}
+
+.admin-itticketing-block .div-admin-itticket-status {
+    display: inline-block;
+    padding-left: 0;
+    max-width: 50%;
+}
+
+.admin-itticketing-block .div-admin-itticket-closeddate {
+    display: inline-block;
+    padding-right: 0;
+    max-width: 49%;
+}
+
+.admin-itticketing-block #admin-itticketing-closeddate {
+    padding: 19px 10px;
+    font-size: 1rem;
+}
+
+.admin-ticket-it-popup-form #admin-ticket-it-Form .admin-itticket-submit {
+    display: inline-block;
+    width: 100%;
+    text-align: right;
+}
+
 /* admin hr ticket start */
 
 .res-admin-hr-ticket-listing .adminhrticketlisting-dropdown-toggle {
@@ -1219,13 +1248,14 @@ div.main-content {
 }
 
 .res-admin-hr-ticketlisting-searchbar .adminhrticketlisting-dropdown-menu {
-    width: 79%;
+    width: 71%;
     box-shadow: 0 0 3px 2px #ccc;
 }
 
 .res-admin-hr-ticket-listing .res-admin-hr-ticketlisting-header-right .res-admin-hr-ticketlisting-block-header {
-    display: inline-block;
+    display: inline-flex;
     padding-top: 15px;
+    justify-content: right;
 }
 
 .res-admin-hr-ticket-listing #adminhrticketlistingTable .userIcon {
@@ -1348,6 +1378,41 @@ div.main-content {
 
 #adminhrticketlistingTable tbody tr {
     border-bottom: 1px solid #ccc;
+}
+
+.res-admin-hr-ticketlisting-user-details .hr-ticket-msg-icon {
+    display: inline-block;
+    padding: 15px;
+    border-radius: 25px;
+    margin-right: 10px;
+    color: #fff;
+}
+
+.admin-hr-ticketlisting-button .collapsedropdown {
+    border: 0px solid black;
+}
+
+#adminhrticketlistingfilter .res-adminadvfilter-hrticketlisting {
+    display: inline-block !important;
+}
+
+#adminhrticketlistingfilter .res-adminadvfilter-hrticketlisting label,
+#adminhrticketlistingfilter .res-adminadvfilter-hrticketlisting input {
+    display: inline-block;
+    font-size: 12px;
+    margin-top: 15px;
+}
+
+#adminhrticketlistingfilter .res-adminadvfilter-hrticketlisting button {
+    margin-top: 15px;
+}
+
+#adminhrticketlistingTable .odd .hr-ticket-msg-icon{
+    background: #ffb3b3;
+}
+
+#adminhrticketlistingTable .even .hr-ticket-msg-icon {
+    background: #99ccff;
 }
 
 /* admin hr ticket end */
