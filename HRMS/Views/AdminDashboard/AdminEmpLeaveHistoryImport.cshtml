@@ -19,12 +19,12 @@
         <p style=" margin-bottom: 35px; margin-top: 5px;">Sample excel template</p>
 
         <div class="leave-file-upload" id="leave-file-upload-area">
-            <label for="leave-file-upload-input" id="leavehistory-file-upload-label">
+            <label for="leaveistory-file-upload-input" id="leavehistory-file-upload-label">
                 <i class="fas fa-cloud-upload-alt fa-3x mb-3"></i><br>
                 Drag and drop files or Browse<br>
                 Supported formats: .XLSX
             </label>
-            <input type="file" id="leaveistory-file-upload-input" accept=".xlsx">
+            <input type="file" id="leaveistory-file-upload-input" accept=".xlsx" onchange="importLeaveHistroyFileUpload(this)">
         </div>       
 
         <div class="leave-uploaded-file" id="leave-uploaded-file-info" style="display: none;">
@@ -39,3 +39,14 @@
     @Html.Partial("CommonModalPopups")
 
 </div>
+
+<script>
+    function importLeaveHistroyFileUpload(input) {
+    var uploadedFile = input.files[0];
+    var uploadedFileName = uploadedFile.name;
+
+    // Display the uploaded file name
+    document.getElementById('leave-uploaded-file-text').textContent = 'File Uploaded: ' + uploadedFileName;
+    document.getElementById('leave-uploaded-file-info').style.display = 'block';
+    }
+</script>
