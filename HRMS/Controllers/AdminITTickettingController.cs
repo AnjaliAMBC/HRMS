@@ -17,7 +17,7 @@ namespace HRMS.Controllers
         
         public ActionResult AdminItTicketOpenClose()
         {
-            return View("~/Views/AdminDashboard/AdminItTicketOpenClose.cshtml");
+          return View("~/Views/AdminDashboard/AdminItTicketOpenClose.cshtml");
         }
     }
 }
