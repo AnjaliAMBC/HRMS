@@ -1,421 +1,430 @@
 ﻿@model HRMS.Models.Admin.AdminLeaveManagementModel
 
-<div class="admin-leave-management-view">
-    <style>
-        .custom-LeaveLocation-toggle {
-            border: none;
-            background-color: transparent;
-        }
-
-            .custom-LeaveLocation-toggle::after {
-                content: none; /* Remove default dropdown arrow */
-            }
-
-        .dropdowns-leave-container {
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-        }
-
-        .btn-light:focus {
-            background-color: transparent !important;
-            border-color: transparent !important;
-        }
-
-        .btn-light:hover {
-            color: #212529;
-            background-color: transparent !important;
-            border-color: transparent !important;
-        }
-
-        .Leave-days-container {
-            display: flex;
-            flex-wrap: nowrap;
-        }
-
-        .future {
-            color: blue; /* Example color for future dates */
-        }
-
-        .weekend {
-            color: red; /* Example color for weekend dates */
-        }
-
-
-        .dayLeave {
-            text-align: center;
-            border-radius: 18%;
-            cursor: pointer;
-            margin: 3px;
-            width: 27px;
-            height: 27px;
-            line-height: 25px; /* Add border */
-        }
-
-            .dayLeave.active {
-                border: 2px solid #9FE2FA;
-                color: grey;
-                font-weight: 500;
-                border-radius: 5px;
-                padding: 0px 24px 28px 5px;
-                padding-left: -1px !important;
-                background-color: aliceblue;
-            }
-
-        .userLeaveDetails {
-            display: flex;
-            align-items: center;
-        }
-
-        .userIcon {
-            width: 42px;
-            height: 42px;
-            object-fit: cover;
-            border-radius: 50%;
-            margin-right: 10px;
-        }
-
-        .mutedText {
-            color: var(--muted-text);
-        }
-
-        .dFlex {
-            display: flex;
-        }
-
-        .statusBtnFlex {
-            display: flex;
-            justify-content: flex-end;
-        }
-
-        .statusBtn,
-        .statusBtn:hover,
-        .statusBtn:focus,
-        .statusBtn:active {
-            border-radius: 30px;
-            padding: 5px 17px;
-            outline: transparent;
-            font-size: 12px;
-            text-decoration: none;
-            font-weight: 500;
-        }
-
-        .acceptBtn,
-        .acceptBtn:hover,
-        .acceptBtn:active,
-        .acceptBtn:focus {
-            border: 1px solid #0FCD92;
-            color: #0FCD92 !important;
-            margin-right: 10px;
-        }
-
-        .rejectBtn,
-        .rejectBtn:hover,
-        .rejectBtn:focus,
-        .rejectBtn:active {
-            border: 1px solid #F8284A;
-            color: #F8284A !important;
-        }
-
-        .rowBorder {
-            border-bottom: 1px solid Black;
-        }
-
-        .chatIcon {
-            margin-right: 10px;
-            position: relative;
-            top: 9px;
-            color: lightsalmon;
-        }
-
-        .commentSec {
-            max-width: 290px;
-        }
-
-        .dataMinWidth {
-            min-width: 120px;
-        }
-
-        .dateMaxWidth {
-            max-width: 160px;
-        }
-
-        .dateSec {
-            margin: 15px 0;
-            display: flex;
-            align-items: center;
-        }
-
-        .days span {
-            margin: 3px;
-            padding: 3px 5px;
-            font-size: 12px;
-            font-weight: 500;
-        }
-
-        .activeDate {
-            border: 1px solid var(--blue);
-            background-color: var(--activeBg);
-            border-radius: 3px;
-        }
-
-        #myLeaveMonth {
-            width: 78%;
-            border-radius: 20px;
-            background-color: aliceblue;
-        }
-
-        #LeaveDateDropdown {
-            margin-left: 66%;
-        }
-
-        #adminleaveTable-mgmt_length {
-            display: none;
-        }
-
-        #adminleaveTable-mgmt_filter {
-            display: none;
-        }
-
-        .dropdowns-leave-container-date {
-            display: flex;
-            align-items: center;
-        }
-    </style>
-    <div class="container-fluid">
-        <div class="row">
-            <div class="col-sm-12 col-md-12 col-lg-3 res-adminleave-header-left">
-                <h5>Leave Request</h5>
-            </div>
-
-            <div class="col-sm-12 col-md-12 col-lg-9 d-flex justify-content-end res-adminleave-header-right">
-                <div class="dropdowns-leave-container col-md-12 col-lg-12">
-                    <div class="search-container col-lg-6">
-                        <div class="input-group">
-                            <div class="input-group-prepend">
-                                <span class="input-group-text" style="background-color: transparent; border-right: none; border-radius: 10px 0 0 10px; height: 35px;"><i class="fas fa-search"></i></span>
-                            </div>
-                            <input type="text" placeholder="Search By Keyword" class="advanceLeavesearch form-control" aria-label="Search By Keyword" style="border-radius: 0 10px 10px 0; height: 35px; font-size: 14px;">
-                        </div>
-                    </div>
-                    <div class="form-group mr-2 adminleave-dropdown col-lg-2 col-sm-5" style="margin-top: 10px;">
-                        <select class="form-control form-select-sm p-0 ml-2" name="status" id="leavelocation-dropdown">
-                            <option value="" disabled selected>Location</option>
-                            <option value="Hyderabad">Hyderabad</option>
-                            <option value="Madurai">Madurai</option>
-                            <option value="All">All</option>
-                        </select>
-                    </div>
-
-                    <div class="form-group adminleave-dropdown" style="margin-top: 10px; display:none;">
-                        <label class="export-label" for="exportLeaveLabel" style="margin:0;">Export</label>
-                        <i class="fas fa-chevron-down" id="exportLeaveIcon" style="cursor: pointer; font-size:13px;" data-toggle="collapse" data-target="#LeaveDateDropdown"></i>
-                    </div>
-                    <div class="dropdown res-adminleave-drop col-lg-2 col-sm-5">
-                        <button class="btn  dropdown-toggle" type="button" id="leaveSettingsDropdown" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" style="background-color: #2693F8;">
-                            Leave Settings
-                        </button>
-                        <div class="dropdown-menu" aria-labelledby="leaveSettingsDropdown" style="border: 1px solid gray; cursor: pointer;">
-                            <a class="dropdown-item adminleave-history">Leave History</a>
-                            <a class="dropdown-item adminleave-Balanve-link">Leave Balance</a>
-                            <a class="dropdown-item adminleave-CompOff-link">CompOff Request</a>
-                            <a class="dropdown-item adminside-leaveapply">Apply Leave</a>
-                        </div>
-
-                    </div>
-
-                </div>
-            </div>
-        </div>
-
-        <div class="collapse" id="LeaveDateDropdown">
-
-            <div class="col-md-4"></div> <!-- Empty column -->
-            <div class="col-md-8 d-flex res-adminleave-emp-from-to">
-                <div class="form-group d-flex">
-                    <label for="from" class="mr-2">From</label>
-                    <input type="date" class="form-control form-control-sm mr-2" id="fromDate" style="width: 120px;">
-                </div>
-                <div class="form-group d-flex">
-                    <label for="to" class="mr-2">To</label>
-                    <input type="date" class="form-control form-control-sm mr-2" id="toDate" style="width: 120px;">
-                </div>
-                <div class="form-group d-flex align-items-center mr-2">
-                    <button type="button" class="btn btn-sm btn-primary leave-submit">Submit</button>
-                    <a href="#" class="clearLeave-filter ml-2">Clear</a>
-                </div>
-
-            </div>
-        </div>
-
-
-
-        <div class="dropdowns-leave-container-date mb-4 res-adminleave-date-align">
-            <div class="dropdown leavemonthmonth-dropdown">
-                <input type="month" id="myLeaveMonth" value="" class="form-control">
-            </div>
-            <div class="Leave-days-container" id="daysLeaveContainer">
-                <!-- Dates will be added dynamically here -->
-            </div>
-        </div>
-
-        <div class="leaveselecteddate" style="display: none">@Model.SelectedDate.ToString("dd MMMM yyyy")</div>
-        <div class="leaveselectedmonth" style="display: none">@Model.SelectedDate.ToString("yyyy-MM")</div>
-
-        <div class="res-adminleaveTable-mgmt table-responsive">
-            <table id="adminleaveTable-mgmt" class="table leave-table" style="width:100%;">
-                <thead class="thead-light" style="display:none;">
-                </thead>
-                <tbody>
-
-                    @foreach (var leaveemp in Model.LeavesInfoBasedOnFromAndTodate)
-                    {
-                        <tr class="rowBorder">
-                            <td class="fontSmall">@leaveemp.LatestLeave.employee_id</td>
-                            <td>
-                                <div class="userLeaveDetails">
-
-                                    @{
-                                        var empImagePath = "/Assets/EmpImages/" + leaveemp.LatestLeave.employee_id + ".jpeg";
-                                    }
-                                    <img src="@empImagePath"
-                                         class="userIcon"
-                                         alt="user" />
-                                    <div class="fontSmall">
-                                        <p class="mb-0 fontWtMedium">@leaveemp.LatestLeave.employee_name</p>
-                                        <a href="#">@leaveemp.LatestLeave.OfficalEmailid</a>
-                                    </div>
-                                </div>
-                            </td>
-                            <td class="fontSmall dataMinWidth dateMaxWidth">
-                                <p class="mb-0 fontWtMedium">@leaveemp.LatestLeave.leavedate.Value.ToString("dd MMM yyyy")</p>
-                                <span class="mutedText">@leaveemp.LatestLeave.leavedate.Value.ToString("ddd")</span>
-                            </td>
-                            <td class="fontSmall">
-                                <div class="mutedText">Day(s)</div>
-                                <span class="fontWtMedium">@leaveemp.TotalLeaveDays</span>
-                            </td>
-                            <td class="fontSmall dataMinWidth">
-                                <div class="mutedText">Leave Type</div>
-                                <span class="fontWtbold">@leaveemp.LatestLeave.leavesource</span>
-                            </td>
-                            <td class="fontSmall">
-                                <div class="mutedText">Location</div>
-                                <span class="fontWtbold">@leaveemp.LatestLeave.Location</span>
-                            </td>
-                            <td style="width:280px;" class="fontSmall commentSec">
-                                <div class="dFlex">
-                                    <i class="fa-solid fa-message chatIcon"></i>
-                                    <p>
-                                        @leaveemp.LatestLeave.leave_reason
-                                    </p>
-                                </div>
-                                <div class="statusBtnFlex">
-
-                                    @if (leaveemp.LatestLeave.LeaveStatus == "Pending")
-                                    {
-                                        <a href="" class="statusBtn acceptLeaveBtn" data-leavename="@leaveemp.LatestLeave.LeaveRequestName">Approve</a>
-                                        <a href="" class="statusBtn rejectLeaveBtn" data-leavename="@leaveemp.LatestLeave.LeaveRequestName">Reject</a>
-                                        <div id="statusLabel" class="statusLabel" style="display: none">@leaveemp.LatestLeave.LeaveStatus</div>
-                                    }
-                                    else
-                                    {
-                                        var statuscolorcode = "green";
-                                        if (@leaveemp.LatestLeave.LeaveStatus == "Rejected")
-                                        {
-                                            statuscolorcode = "red";
-                                        }
-                                        <small class="statusLabel" style="color: @statuscolorcode ">@leaveemp.LatestLeave.LeaveStatus</small>
-                                    }
-
-                                    @if (@leaveemp.LatestLeave.LeaveStatus == "Approved" || @leaveemp.LatestLeave.LeaveStatus == "Rejected")
-                                    {
-                                        <i class="fas fa-ellipsis-h adminleave-leave-approval" onclick="toggleAdminLeaveApprovalActionOptions(this)"></i>
-                                        <div class="admin-leaveapprovaloptions" style="display:none">
-                                            @if (@leaveemp.LatestLeave.LeaveStatus == "Approved")
-                                            {
-                                                <a href="" class="dropdown-item rejectLeaveBtn changestatusreject" data-leavename="@leaveemp.LatestLeave.LeaveRequestName" data-compoffnum="@leaveemp.LatestLeave.LeaveRequestName">Change Status</a>
-                                            }
-                                            else
-                                            {
-                                                <a href="" class="dropdown-item acceptLeaveBtn changestatusapprove" data-leavename="@leaveemp.LatestLeave.LeaveRequestName" data-compoffnum="@leaveemp.LatestLeave.LeaveRequestName">Change Status</a>
-                                            }
-                                        </div>
-                                    }
-
-                                </div>
-                            </td>
-                        </tr>
+@Html.Partial("_NavBar")
+<div class="container-fluid res-admin-Ticketing">
+    <div class="hiddenadmindashboard" style="display: none"></div>
+    @Html.Partial("_adminsidemenu")
+    <div class="main-content container-fluid" style="width: 84%">
+        <div class="content admin-leave-management-container" style="margin-left: -25px; margin-top: 10px;">
+            <div class="admin-leave-management-view">
+                <style>
+                    .custom-LeaveLocation-toggle {
+                        border: none;
+                        background-color: transparent;
                     }
 
-                </tbody>
-            </table>
+                        .custom-LeaveLocation-toggle::after {
+                            content: none; /* Remove default dropdown arrow */
+                        }
+
+                    .dropdowns-leave-container {
+                        display: flex;
+                        align-items: center;
+                        justify-content: space-between;
+                    }
+
+                    .btn-light:focus {
+                        background-color: transparent !important;
+                        border-color: transparent !important;
+                    }
+
+                    .btn-light:hover {
+                        color: #212529;
+                        background-color: transparent !important;
+                        border-color: transparent !important;
+                    }
+
+                    .Leave-days-container {
+                        display: flex;
+                        flex-wrap: nowrap;
+                    }
+
+                    .future {
+                        color: blue; /* Example color for future dates */
+                    }
+
+                    .weekend {
+                        color: red; /* Example color for weekend dates */
+                    }
+
+
+                    .dayLeave {
+                        text-align: center;
+                        border-radius: 18%;
+                        cursor: pointer;
+                        margin: 3px;
+                        width: 27px;
+                        height: 27px;
+                        line-height: 25px; /* Add border */
+                    }
+
+                        .dayLeave.active {
+                            border: 2px solid #9FE2FA;
+                            color: grey;
+                            font-weight: 500;
+                            border-radius: 5px;
+                            padding: 0px 24px 28px 5px;
+                            padding-left: -1px !important;
+                            background-color: aliceblue;
+                        }
+
+                    .userLeaveDetails {
+                        display: flex;
+                        align-items: center;
+                    }
+
+                    .userIcon {
+                        width: 42px;
+                        height: 42px;
+                        object-fit: cover;
+                        border-radius: 50%;
+                        margin-right: 10px;
+                    }
+
+                    .mutedText {
+                        color: var(--muted-text);
+                    }
+
+                    .dFlex {
+                        display: flex;
+                    }
+
+                    .statusBtnFlex {
+                        display: flex;
+                        justify-content: flex-end;
+                    }
+
+                    .statusBtn,
+                    .statusBtn:hover,
+                    .statusBtn:focus,
+                    .statusBtn:active {
+                        border-radius: 30px;
+                        padding: 5px 17px;
+                        outline: transparent;
+                        font-size: 12px;
+                        text-decoration: none;
+                        font-weight: 500;
+                    }
+
+                    .acceptBtn,
+                    .acceptBtn:hover,
+                    .acceptBtn:active,
+                    .acceptBtn:focus {
+                        border: 1px solid #0FCD92;
+                        color: #0FCD92 !important;
+                        margin-right: 10px;
+                    }
+
+                    .rejectBtn,
+                    .rejectBtn:hover,
+                    .rejectBtn:focus,
+                    .rejectBtn:active {
+                        border: 1px solid #F8284A;
+                        color: #F8284A !important;
+                    }
+
+                    .rowBorder {
+                        border-bottom: 1px solid Black;
+                    }
+
+                    .chatIcon {
+                        margin-right: 10px;
+                        position: relative;
+                        top: 9px;
+                        color: lightsalmon;
+                    }
+
+                    .commentSec {
+                        max-width: 290px;
+                    }
+
+                    .dataMinWidth {
+                        min-width: 120px;
+                    }
+
+                    .dateMaxWidth {
+                        max-width: 160px;
+                    }
+
+                    .dateSec {
+                        margin: 15px 0;
+                        display: flex;
+                        align-items: center;
+                    }
+
+                    .days span {
+                        margin: 3px;
+                        padding: 3px 5px;
+                        font-size: 12px;
+                        font-weight: 500;
+                    }
+
+                    .activeDate {
+                        border: 1px solid var(--blue);
+                        background-color: var(--activeBg);
+                        border-radius: 3px;
+                    }
+
+                    #myLeaveMonth {
+                        width: 78%;
+                        border-radius: 20px;
+                        background-color: aliceblue;
+                    }
+
+                    #LeaveDateDropdown {
+                        margin-left: 66%;
+                    }
+
+                    #adminleaveTable-mgmt_length {
+                        display: none;
+                    }
+
+                    #adminleaveTable-mgmt_filter {
+                        display: none;
+                    }
+
+                    .dropdowns-leave-container-date {
+                        display: flex;
+                        align-items: center;
+                    }
+                </style>
+                <div class="container-fluid">
+                    <div class="row">
+                        <div class="col-sm-12 col-md-12 col-lg-3 res-adminleave-header-left">
+                            <h5>Leave Request</h5>
+                        </div>
+
+                        <div class="col-sm-12 col-md-12 col-lg-9 d-flex justify-content-end res-adminleave-header-right">
+                            <div class="dropdowns-leave-container col-md-12 col-lg-12">
+                                <div class="search-container col-lg-6">
+                                    <div class="input-group">
+                                        <div class="input-group-prepend">
+                                            <span class="input-group-text" style="background-color: transparent; border-right: none; border-radius: 10px 0 0 10px; height: 35px;"><i class="fas fa-search"></i></span>
+                                        </div>
+                                        <input type="text" placeholder="Search By Keyword" class="advanceLeavesearch form-control" aria-label="Search By Keyword" style="border-radius: 0 10px 10px 0; height: 35px; font-size: 14px;">
+                                    </div>
+                                </div>
+                                <div class="form-group mr-2 adminleave-dropdown col-lg-2 col-sm-5" style="margin-top: 10px;">
+                                    <select class="form-control form-select-sm p-0 ml-2" name="status" id="leavelocation-dropdown">
+                                        <option value="" disabled selected>Location</option>
+                                        <option value="Hyderabad">Hyderabad</option>
+                                        <option value="Madurai">Madurai</option>
+                                        <option value="All">All</option>
+                                    </select>
+                                </div>
+
+                                <div class="form-group adminleave-dropdown" style="margin-top: 10px; display:none;">
+                                    <label class="export-label" for="exportLeaveLabel" style="margin:0;">Export</label>
+                                    <i class="fas fa-chevron-down" id="exportLeaveIcon" style="cursor: pointer; font-size:13px;" data-toggle="collapse" data-target="#LeaveDateDropdown"></i>
+                                </div>
+                                @*<div class="dropdown res-adminleave-drop col-lg-2 col-sm-5">
+                                    <button class="btn  dropdown-toggle" type="button" id="leaveSettingsDropdown" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" style="background-color: #2693F8;">
+                                        Leave Settings
+                                    </button>
+                                    <div class="dropdown-menu" aria-labelledby="leaveSettingsDropdown" style="border: 1px solid gray; cursor: pointer;">
+                                        <a class="dropdown-item adminleave-history">Leave History</a>
+                                        <a class="dropdown-item adminleave-Balanve-link">Leave Balance</a>
+                                        <a class="dropdown-item adminleave-CompOff-link">CompOff Request</a>
+                                        <a class="dropdown-item adminside-leaveapply">Apply Leave</a>
+                                    </div>
+
+                                </div>*@
+
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="collapse" id="LeaveDateDropdown">
+
+                        <div class="col-md-4"></div> <!-- Empty column -->
+                        <div class="col-md-8 d-flex res-adminleave-emp-from-to">
+                            <div class="form-group d-flex">
+                                <label for="from" class="mr-2">From</label>
+                                <input type="date" class="form-control form-control-sm mr-2" id="fromDate" style="width: 120px;">
+                            </div>
+                            <div class="form-group d-flex">
+                                <label for="to" class="mr-2">To</label>
+                                <input type="date" class="form-control form-control-sm mr-2" id="toDate" style="width: 120px;">
+                            </div>
+                            <div class="form-group d-flex align-items-center mr-2">
+                                <button type="button" class="btn btn-sm btn-primary leave-submit">Submit</button>
+                                <a href="#" class="clearLeave-filter ml-2">Clear</a>
+                            </div>
+
+                        </div>
+                    </div>
+
+
+
+                    <div class="dropdowns-leave-container-date mb-4 res-adminleave-date-align">
+                        <div class="dropdown leavemonthmonth-dropdown">
+                            <input type="month" id="myLeaveMonth" value="" class="form-control">
+                        </div>
+                        <div class="Leave-days-container" id="daysLeaveContainer">
+                            <!-- Dates will be added dynamically here -->
+                        </div>
+                    </div>
+
+                    <div class="leaveselecteddate" style="display: none">@Model.SelectedDate.ToString("dd MMMM yyyy")</div>
+                    <div class="leaveselectedmonth" style="display: none">@Model.SelectedDate.ToString("yyyy-MM")</div>
+
+                    <div class="res-adminleaveTable-mgmt table-responsive">
+                        <table id="adminleaveTable-mgmt" class="table leave-table" style="width:100%;">
+                            <thead class="thead-light" style="display:none;">
+                            </thead>
+                            <tbody>
+
+                                @foreach (var leaveemp in Model.LeavesInfoBasedOnFromAndTodate)
+                                {
+                                    <tr class="rowBorder">
+                                        <td class="fontSmall">@leaveemp.LatestLeave.employee_id</td>
+                                        <td>
+                                            <div class="userLeaveDetails">
+
+                                                @{
+                                                    var empImagePath = "/Assets/EmpImages/" + leaveemp.LatestLeave.employee_id + ".jpeg";
+                                                }
+                                                <img src="@empImagePath"
+                                                     class="userIcon"
+                                                     alt="user" />
+                                                <div class="fontSmall">
+                                                    <p class="mb-0 fontWtMedium">@leaveemp.LatestLeave.employee_name</p>
+                                                    <a href="#">@leaveemp.LatestLeave.OfficalEmailid</a>
+                                                </div>
+                                            </div>
+                                        </td>
+                                        <td class="fontSmall dataMinWidth dateMaxWidth">
+                                            <p class="mb-0 fontWtMedium">@leaveemp.LatestLeave.leavedate.Value.ToString("dd MMM yyyy")</p>
+                                            <span class="mutedText">@leaveemp.LatestLeave.leavedate.Value.ToString("ddd")</span>
+                                        </td>
+                                        <td class="fontSmall">
+                                            <div class="mutedText">Day(s)</div>
+                                            <span class="fontWtMedium">@leaveemp.TotalLeaveDays</span>
+                                        </td>
+                                        <td class="fontSmall dataMinWidth">
+                                            <div class="mutedText">Leave Type</div>
+                                            <span class="fontWtbold">@leaveemp.LatestLeave.leavesource</span>
+                                        </td>
+                                        <td class="fontSmall">
+                                            <div class="mutedText">Location</div>
+                                            <span class="fontWtbold">@leaveemp.LatestLeave.Location</span>
+                                        </td>
+                                        <td style="width:280px;" class="fontSmall commentSec">
+                                            <div class="dFlex">
+                                                <i class="fa-solid fa-message chatIcon"></i>
+                                                <p>
+                                                    @leaveemp.LatestLeave.leave_reason
+                                                </p>
+                                            </div>
+                                            <div class="statusBtnFlex">
+
+                                                @if (leaveemp.LatestLeave.LeaveStatus == "Pending")
+                                                {
+                                                    <a href="" class="statusBtn acceptLeaveBtn" data-leavename="@leaveemp.LatestLeave.LeaveRequestName">Approve</a>
+                                                    <a href="" class="statusBtn rejectLeaveBtn" data-leavename="@leaveemp.LatestLeave.LeaveRequestName">Reject</a>
+                                                    <div id="statusLabel" class="statusLabel" style="display: none">@leaveemp.LatestLeave.LeaveStatus</div>
+                                                }
+                                                else
+                                                {
+                                                    var statuscolorcode = "green";
+                                                    if (@leaveemp.LatestLeave.LeaveStatus == "Rejected")
+                                                    {
+                                                        statuscolorcode = "red";
+                                                    }
+                                                    <small class="statusLabel" style="color: @statuscolorcode ">@leaveemp.LatestLeave.LeaveStatus</small>
+                                                }
+
+                                                @if (@leaveemp.LatestLeave.LeaveStatus == "Approved" || @leaveemp.LatestLeave.LeaveStatus == "Rejected")
+                                                {
+                                                    <i class="fas fa-ellipsis-h adminleave-leave-approval" onclick="toggleAdminLeaveApprovalActionOptions(this)"></i>
+                                                    <div class="admin-leaveapprovaloptions" style="display:none">
+                                                        @if (@leaveemp.LatestLeave.LeaveStatus == "Approved")
+                                                        {
+                                                            <a href="" class="dropdown-item rejectLeaveBtn changestatusreject" data-leavename="@leaveemp.LatestLeave.LeaveRequestName" data-compoffnum="@leaveemp.LatestLeave.LeaveRequestName">Change Status</a>
+                                                        }
+                                                        else
+                                                        {
+                                                            <a href="" class="dropdown-item acceptLeaveBtn changestatusapprove" data-leavename="@leaveemp.LatestLeave.LeaveRequestName" data-compoffnum="@leaveemp.LatestLeave.LeaveRequestName">Change Status</a>
+                                                        }
+                                                    </div>
+                                                }
+
+                                            </div>
+                                        </td>
+                                    </tr>
+                                }
+
+                            </tbody>
+                        </table>
+                    </div>
+
+                </div>
+
+                <script>
+                    $(document).ready(function () {
+
+                        $('#myLeaveMonth').val(new Date($('.leaveselecteddate').text()).getFullYear() + '-' + ('0' + (new Date($('.leaveselecteddate').text()).getMonth() + 1)).slice(-2));
+
+
+                        if (!$.fn.DataTable.isDataTable('#adminleaveTable-mgmt')) {
+                            $('#adminleaveTable-mgmt').DataTable({
+                                "responsive": true,
+                                "paging": true,
+                                "searching": true,
+                                "ordering": false,
+                                "info": true,
+                                "autoWidth": false,
+                                "lengthMenu": [[7, 14, 21, -1], [7, 14, 21, "All"]],
+                                "columnDefs": [
+                                    { "orderable": false, "targets": 0 },
+                                    { "orderable": false, "targets": 1 },
+                                    { "orderable": false, "targets": 2 },
+                                    { "orderable": false, "targets": 3 },
+                                    { "orderable": false, "targets": 4 },
+                                    { "orderable": false, "targets": 5 },
+                                    { "orderable": false, "targets": 6 },
+                                ]
+                            });
+                        }
+
+
+                        updateLeaveDays($('#myLeaveMonth').val());
+
+                        $('.dayLeave').each(function () {
+                            var date = $(this).data('date');
+                            if (date === $('.leaveselecteddate').text()) {
+                                $(this).addClass('active');
+                            }
+                        });
+
+
+                        // Apply search filter on DataTable based on input value
+                        $(document).on('keyup', '.advanceLeavesearch', function (event) {
+                            $('#adminleaveTable-mgmt').DataTable().search($(this).val()).draw();
+                        });
+
+
+                        $(document).on('change', '#leavelocation-dropdown', function (event) {
+                            var location = $(this).val();
+                            if (location == "All") {
+                                location = "";
+                            }
+                            $('#adminleaveTable-mgmt').DataTable().column(5).search(location).draw();
+                        });
+
+
+
+                        function toggleAdminLeaveApprovalActionOptions(iconElement) {
+                            const optionsMenu = $(iconElement).next('.admin-leaveapprovaloptions');
+                            $('.admin-leaveapprovaloptions').not(optionsMenu).hide();
+                            optionsMenu.toggle();
+                        }
+                    });
+                </script>
+
+            </div>
         </div>
-
     </div>
-
-    <script>
-        $(document).ready(function () {
-
-            $('#myLeaveMonth').val(new Date($('.leaveselecteddate').text()).getFullYear() + '-' + ('0' + (new Date($('.leaveselecteddate').text()).getMonth() + 1)).slice(-2));
-
-
-            if (!$.fn.DataTable.isDataTable('#adminleaveTable-mgmt')) {
-                $('#adminleaveTable-mgmt').DataTable({
-                    "responsive": true,
-                    "paging": true,
-                    "searching": true,
-                    "ordering": false,
-                    "info": true,
-                    "autoWidth": false,
-                    "lengthMenu": [[7, 14, 21, -1], [7, 14, 21, "All"]],
-                    "columnDefs": [
-                        { "orderable": false, "targets": 0 },
-                        { "orderable": false, "targets": 1 },
-                        { "orderable": false, "targets": 2 },
-                        { "orderable": false, "targets": 3 },
-                        { "orderable": false, "targets": 4 },
-                        { "orderable": false, "targets": 5 },
-                        { "orderable": false, "targets": 6 },
-                    ]
-                });
-            }
-
-
-            updateLeaveDays($('#myLeaveMonth').val());
-
-            $('.dayLeave').each(function () {
-                var date = $(this).data('date');
-                if (date === $('.leaveselecteddate').text()) {
-                    $(this).addClass('active');
-                }
-            });
-
-
-            // Apply search filter on DataTable based on input value
-            $(document).on('keyup', '.advanceLeavesearch', function (event) {
-                $('#adminleaveTable-mgmt').DataTable().search($(this).val()).draw();
-            });
-
-
-            $(document).on('change', '#leavelocation-dropdown', function (event) {
-                var location = $(this).val();
-                if (location == "All") {
-                    location = "";
-                }
-                $('#adminleaveTable-mgmt').DataTable().column(5).search(location).draw();
-            });
-
-
-
-            function toggleAdminLeaveApprovalActionOptions(iconElement) {
-                const optionsMenu = $(iconElement).next('.admin-leaveapprovaloptions');
-                $('.admin-leaveapprovaloptions').not(optionsMenu).hide();
-                optionsMenu.toggle();
-            }
-        });
-    </script>
-
 </div>
 
 

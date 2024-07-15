@@ -1,40 +1,40 @@
 ﻿
 
-$(document).on('click', '.adminleave-Balanve-link', function (event) {
-    event.preventDefault();
-    //HighlightAdminActiveLink($(this));
-    $.ajax({
-        url: '/adminleave/adminleavebalance',
-        type: 'GET',
-        dataType: 'html',
-        beforeSend: function () {
-            $('.show-progress').show();
-        },
-        success: function (response) {
-            $(".hiddenadmindashboard").html("");
-            $('.admin-dashboard-container').html("");
-            $(".admin-emppadd-container").html("");
-            $('.admin-empmanagement-container').html("");
-            $('.admin-attendance-container').html("");
-            $('.admin-leave-container').html("");
-            $(".hiddenadmindashboard").html(response);
-            var formContent = $(".hiddenadmindashboard").find(".admin-leaveBalance-view").html();
-            $(".admin-leave-container").html(formContent);
-            $('.admin-leave-container').show();
-            $('.admin-attendance-container').hide();
-            $('.admin-empmanagement-container').hide();
-            $('.admin-emppadd-container').hide();
-            $('.admin-dashboard-container').hide();
-            $('.admin-ticketing-container').hide();
-            $(".hiddenadmindashboard").html("");
-            $('.show-progress').hide();
-        },
-        error: function (xhr, status, error) {
-            $('.show-progress').hide();
-            console.error("Error deleting employee:", error);
-        }
-    });
-});
+//$(document).on('click', '.adminleave-Balanve-link', function (event) {
+//    event.preventDefault();
+//    //HighlightAdminActiveLink($(this));
+//    $.ajax({
+//        url: '/adminleave/adminleavebalance',
+//        type: 'GET',
+//        dataType: 'html',
+//        beforeSend: function () {
+//            $('.show-progress').show();
+//        },
+//        success: function (response) {
+//            $(".hiddenadmindashboard").html("");
+//            $('.admin-dashboard-container').html("");
+//            $(".admin-emppadd-container").html("");
+//            $('.admin-empmanagement-container').html("");
+//            $('.admin-attendance-container').html("");
+//            $('.admin-leave-container').html("");
+//            $(".hiddenadmindashboard").html(response);
+//            var formContent = $(".hiddenadmindashboard").find(".admin-leaveBalance-view").html();
+//            $(".admin-leave-container").html(formContent);
+//            $('.admin-leave-container').show();
+//            $('.admin-attendance-container').hide();
+//            $('.admin-empmanagement-container').hide();
+//            $('.admin-emppadd-container').hide();
+//            $('.admin-dashboard-container').hide();
+//            $('.admin-ticketing-container').hide();
+//            $(".hiddenadmindashboard").html("");
+//            $('.show-progress').hide();
+//        },
+//        error: function (xhr, status, error) {
+//            $('.show-progress').hide();
+//            console.error("Error deleting employee:", error);
+//        }
+//    });
+//});
 
 
 //leave balance update page 
@@ -72,36 +72,36 @@ $(document).on('click', '.employeeinfo-balance', function (event) {
 });
 
 //Admin Leave History of all employees 
-$(document).on('click', '.adminleave-history', function (event) {
-    event.preventDefault();
-    $.ajax({
-        url: '/adminleave/adminleavehistory',
-        type: 'GET',
-        dataType: 'html',
-        data: { startdate: $('#leavehistory-fromDate').val(), endDate: $('#leavehistory-toDate').val(), department: "", location: $('#leavehistory-Location-dropdown').val(), status: $('#leavehistory-status-dropdown').val() },
-        success: function (response) {
-            $(".hiddenadmindashboard").html("");
-            $('.admin-dashboard-container').html("");
-            $(".admin-emppadd-container").html("");
-            $('.admin-empmanagement-container').html("");
-            $('.admin-attendance-container').html("");
-            $('.admin-leave-container').html("");
-            $(".hiddenadmindashboard").html(response);
-            var formContent = $(".hiddenadmindashboard").find(".admin-leaveHistory-view").html();
-            $(".admin-leave-container").html(formContent);
-            $('.admin-leave-container').show();
-            $('.admin-attendance-container').hide();
-            $('.admin-empmanagement-container').hide();
-            $('.admin-emppadd-container').hide();
-            $('.admin-dashboard-container').hide();
-            $('.admin-ticketing-container').hide();
-            $(".hiddenadmindashboard").html("");
-        },
-        error: function (xhr, status, error) {
-            console.error("Error deleting employee:", error);
-        }
-    });
-});
+//$(document).on('click', '.adminleave-history', function (event) {
+//    event.preventDefault();
+//    $.ajax({
+//        url: '/adminleave/adminleavehistory',
+//        type: 'GET',
+//        dataType: 'html',
+//        data: { startdate: $('#leavehistory-fromDate').val(), endDate: $('#leavehistory-toDate').val(), department: "", location: $('#leavehistory-Location-dropdown').val(), status: $('#leavehistory-status-dropdown').val() },
+//        success: function (response) {
+//            $(".hiddenadmindashboard").html("");
+//            $('.admin-dashboard-container').html("");
+//            $(".admin-emppadd-container").html("");
+//            $('.admin-empmanagement-container').html("");
+//            $('.admin-attendance-container').html("");
+//            $('.admin-leave-container').html("");
+//            $(".hiddenadmindashboard").html(response);
+//            var formContent = $(".hiddenadmindashboard").find(".admin-leaveHistory-view").html();
+//            $(".admin-leave-container").html(formContent);
+//            $('.admin-leave-container').show();
+//            $('.admin-attendance-container').hide();
+//            $('.admin-empmanagement-container').hide();
+//            $('.admin-emppadd-container').hide();
+//            $('.admin-dashboard-container').hide();
+//            $('.admin-ticketing-container').hide();
+//            $(".hiddenadmindashboard").html("");
+//        },
+//        error: function (xhr, status, error) {
+//            console.error("Error deleting employee:", error);
+//        }
+//    });
+//});
 
 
 
@@ -214,38 +214,39 @@ function exportLeaveBalance() {
 
 $(document).on('click', '.adminleave-CompOff-link', function (event) {
     event.preventDefault();
+    window.location.href = '/adminleave/adminleavecompensatoryoff';
     //HighlightAdminActiveLink($(this));
-    $.ajax({
-        url: '/adminleave/adminleavecompensatoryoff',
-        type: 'GET',
-        dataType: 'html',
-        beforeSend: function () {
-            $('.show-progress').show();
-        },
-        success: function (response) {
-            $(".hiddenadmindashboard").html("");
-            $('.admin-dashboard-container').html("");
-            $(".admin-emppadd-container").html("");
-            $('.admin-empmanagement-container').html("");
-            $('.admin-attendance-container').html("");
-            $('.admin-leave-container').html("");
-            $(".hiddenadmindashboard").html(response);
-            var formContent = $(".hiddenadmindashboard").find(".admin-leave-compoff-view").html();
-            $(".admin-leave-container").html(formContent);
-            $('.admin-leave-container').show();
-            $('.admin-attendance-container').hide();
-            $('.admin-empmanagement-container').hide();
-            $('.admin-emppadd-container').hide();
-            $('.admin-dashboard-container').hide();
-            $('.admin-ticketing-container').hide();
-            $(".hiddenadmindashboard").html("");
-            $('.show-progress').hide();
-        },
-        error: function (xhr, status, error) {
-            $('.show-progress').hide();
-            console.error("Error deleting employee:", error);
-        }
-    });
+    //$.ajax({
+    //    url: '/adminleave/adminleavecompensatoryoff',
+    //    type: 'GET',
+    //    dataType: 'html',
+    //    beforeSend: function () {
+    //        $('.show-progress').show();
+    //    },
+    //    success: function (response) {
+    //        $(".hiddenadmindashboard").html("");
+    //        $('.admin-dashboard-container').html("");
+    //        $(".admin-emppadd-container").html("");
+    //        $('.admin-empmanagement-container').html("");
+    //        $('.admin-attendance-container').html("");
+    //        $('.admin-leave-container').html("");
+    //        $(".hiddenadmindashboard").html(response);
+    //        var formContent = $(".hiddenadmindashboard").find(".admin-leave-compoff-view").html();
+    //        $(".admin-leave-container").html(formContent);
+    //        $('.admin-leave-container').show();
+    //        $('.admin-attendance-container').hide();
+    //        $('.admin-empmanagement-container').hide();
+    //        $('.admin-emppadd-container').hide();
+    //        $('.admin-dashboard-container').hide();
+    //        $('.admin-ticketing-container').hide();
+    //        $(".hiddenadmindashboard").html("");
+    //        $('.show-progress').hide();
+    //    },
+    //    error: function (xhr, status, error) {
+    //        $('.show-progress').hide();
+    //        console.error("Error deleting employee:", error);
+    //    }
+    //});
 });
 
 

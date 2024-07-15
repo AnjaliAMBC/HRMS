@@ -141,8 +141,9 @@
     <Compile Include="Compoff.cs">
       <DependentUpon>HRMS.tt</DependentUpon>
     </Compile>
+    <Compile Include="Controllers\AdminHrTicketingController.cs" />
     <Compile Include="Controllers\AdminLeaveController.cs" />
-    <Compile Include="Controllers\AdminTickettingController.cs" />
+    <Compile Include="Controllers\AdminITTickettingController.cs" />
     <Compile Include="Controllers\CompoffController.cs" />
     <Compile Include="Controllers\EmpLeaveController.cs" />
     <Compile Include="Controllers\EmpTicketingController.cs" />
@@ -399,7 +400,8 @@
     <Content Include="Views\AdminDashboard\AdminTicketingView.cshtml" />
     <Content Include="Views\EmployeeDashboard\EmpRaiseTicket.cshtml" />
     <Content Include="Views\AdminDashboard\AdminHrTicketing.cshtml" />
-    <Content Include="Views\AdminDashboard\AdminAssignAgent.cshtml" />
+    <Content Include="Views\AdminDashboard\AdminItTicketOpenClose.cshtml" />
+    <Content Include="Views\AdminDashboard\AdminHrTicketOpenCloseView.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
