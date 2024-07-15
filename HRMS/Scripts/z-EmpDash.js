@@ -499,7 +499,10 @@ function updateHoursTimer1() {
 }
 
 //On page load
-generateCalendar(new Date().getMonth(), new Date().getFullYear());
+if ($('.admin-leave-container').length > 0) {
+    generateCalendar(new Date().getMonth(), new Date().getFullYear());
+}
+
 
 updateDashRunningTime();
 setInterval(updateDashRunningTime, 1000);

@@ -1,6 +1,6 @@
 ﻿@{
     var pageUrlPath = Request.Url.AbsolutePath.ToLowerInvariant();
-    var currentContext = Session["SiteContext"] as HRMS.Models.SiteContextModel; 
+    var currentContext = Session["SiteContext"] as HRMS.Models.SiteContextModel;
 }
 
 <div id="left-side-menu-normal" class="row">
@@ -30,10 +30,10 @@
                     <div class="sidebar-submenu">
                         <ul>
                             <li><a href="/adminleave/index"><span class="menu-bar-design-red"></span>Leave Tracker</a></li>
-                            <li><a class="adminleave-history"><span class="menu-bar-design-blue"></span>Leave History</a></li>
-                            <li><a class="adminleave-Balanve-link"><span class="menu-bar-design-chocolate"></span>Leave Balance</a></li>
-                            <li><a class="adminleave-CompOff-link"><span class="menu-bar-design-darkcyan"></span>CompOff Request</a></li>
-                            <li><a class="adminside-leaveapply"><span class="menu-bar-design-slategrey"></span>Apply Leave</a></li>
+                            <li><a href="/adminleave/adminleavehistory" class="adminleave-history"><span class="menu-bar-design-blue"></span>Leave History</a></li>
+                            <li><a href="/adminleave/adminleavebalance" class="adminleave-Balanve-link"><span class="menu-bar-design-chocolate"></span>Leave Balance</a></li>
+                            <li><a href="/adminleave/adminleavebalance" class="adminleave-CompOff-link"><span class="menu-bar-design-darkcyan"></span>CompOff Request</a></li>
+                            @*<li><a class="adminside-leaveapply"><span class="menu-bar-design-slategrey"></span>Apply Leave</a></li>*@
                         </ul>
                     </div>
                 </li>
@@ -44,8 +44,8 @@
                     </a>
                     <div class="sidebar-submenu">
                         <ul>
-                            <li><a href="/AdminTicketting/Index"><span class="menu-bar-design-red"></span>IT Ticketing</a></li>
-                            <li><a href="/AdminTicketting/AdminHrTicket" class=""><span class="menu-bar-design-blue"></span>HR Ticketing</a></li>
+                            <li><a href="/AdminITTicketting/Index"><span class="menu-bar-design-red"></span>IT Ticketing</a></li>
+                            <li><a href="/AdminHrTicketing/AdminHrTicket" class=""><span class="menu-bar-design-blue"></span>HR Ticketing</a></li>
                         </ul>
                     </div>
                 </li>
@@ -106,8 +106,8 @@
                         <span class="material-icons leave-icon-emp">logout</span>Leave
                     </a>
                 </li>
-                <li class="mb-2 @(pageUrlPath.Contains("/adminticketting/index") ? "active sidebaractive" : "")">
-                    <a href="/AdminTicketting/Index" class="@(pageUrlPath == "/adminticketting/index" ? "active" : "")">
+                <li class="mb-2 @(pageUrlPath.Contains("/adminitticketting/index") ? "active sidebaractive" : "")">
+                    <a href="/adminticketting/index" class="@(pageUrlPath == "/adminticketting/index" ? "active" : "")">
                         <span class="material-icons ticket-icon">laptop_chromebook</span>Ticketing
                     </a>
                 </li>

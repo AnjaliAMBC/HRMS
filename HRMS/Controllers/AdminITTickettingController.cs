@@ -6,7 +6,7 @@ using System.Web.Mvc;
 
 namespace HRMS.Controllers
 {
-    public class AdminTickettingController : Controller
+    public class AdminITTickettingController : Controller
     {
         // GET: AdminTicketting
         public ActionResult Index()
@@ -14,14 +14,10 @@ namespace HRMS.Controllers
        
             return View("~/Views/AdminDashboard/AdminTicketingView.cshtml");
         }
-        public ActionResult AdminHrTicket()
+        
+        public ActionResult AdminItTicketOpenClose()
         {
-            return View("~/Views/AdminDashboard/AdminHrTicketing.cshtml");
-        }
-        public ActionResult AdminItAssignAgent()
-        {
-       
-            return PartialView("~/Views/AdminDashboard/AdminAssignAgent.cshtml");
+            return View("~/Views/AdminDashboard/AdminItTicketOpenClose.cshtml");
         }
     }
 }
