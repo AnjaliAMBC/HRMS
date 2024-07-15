@@ -7,10 +7,20 @@
         <form id="emp-ticket-raise-Form">
             <div class="form-group">
                 <h4 class="mb-4 ticketing-pagetitle">Raise Ticket</h4>
+                <div class="form-group div-emp-raiseticket-ticketype">
+                    <label for="emp-raiseticket-ticketype" class="emp-raiseticket-label">Ticket Type*</label>
+                    <select class="form-control" id="emp-raiseticket-ticketype">
+                        <option selected disabled>Select IT or HR</option>
+                        <option value="1" data-emplocation="m" data-empemail="em" data-designation="de" data-department="dep">A1</option>
+                        <option value="2" data-emplocation="m" data-empemail="em" data-designation="de" data-department="dep">A2</option>
+                        <option value="3" data-emplocation="m" data-empemail="em" data-designation="de" data-department="dep">A3</option>
+                    </select>
+                    <span class="error-message" id="emp-raiseticket-category-error"></span>
+                </div>
                 <div class="form-group div-emp-raiseticket-category">
                     <label for="emp-raiseticket-category" class="emp-raiseticket-label">Category*</label>
                     <select class="form-control" id="emp-raiseticket-category">
-                        <option selected disabled>Select IT or HR</option>
+                        <option selected disabled>Select Catgory</option>
                         <option value="1" data-emplocation="m" data-empemail="em" data-designation="de" data-department="dep">A1</option>
                         <option value="2" data-emplocation="m" data-empemail="em" data-designation="de" data-department="dep">A2</option>
                         <option value="3" data-emplocation="m" data-empemail="em" data-designation="de" data-department="dep">A3</option>
@@ -34,6 +44,7 @@
                         <input type="file" id="emp-raiseticket-attach-file-upload" name="emp-raiseticket-attach-file-upload" />
                         <span class="emp-raiseticket-file-name"></span>
                     </span>
+                    <div class="emp-raiseticket-attach-file-upload-size">Only JPEG, PNG with max size of 2MB</div>
                     <span class="error-message" id="emp-raiseticket-attach-error"></span>
                 </div>
                 <div class="form-group div-emp-raiseticket-priority">
