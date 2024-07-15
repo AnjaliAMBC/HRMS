@@ -2,31 +2,32 @@
 <div class="container-fluid res-admin-Ticketing">
     <div class="hiddenadmindashboard" style="display: none"></div>
     @Html.Partial("_adminsidemenu")
-    <div class="main-content container-fluid" style="width: 84%">
-        <div class="content admin-ticketing-container" style="margin-left: -25px; margin-top: 10px;">
-            <div class="container-fluid res-admin-ticket-listing">
+    <div class="main-content container-fluid AdminItTicketing-View" style="width: 84%">
+
+        <div class="content admin-it-ticketing-container" style="margin-left: -25px; margin-top: 20px;">
+            <div class="container-fluid res-admin-it-ticket-listing">
                 <div class="row mb-2 align-items-center">
                     <div class="col-lg-3 col-md-6">
-                        <h3 class="ml-1">Ticket Listing</h3>
+                        <h3 class="ml-1">IT Ticketing</h3>
                     </div>
 
-                    <div class="col-lg-5 res-admin-ticketlisting-main-header">
-                        <div class="dropdown col-lg-12 col-sm-12 col-md-6 res-admin-ticketlisting-searchbar">
-                            <a class="btn btn-outline-primary adminticketlisting-dropdown-toggle" href="#" id="employeeDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                    <div class="col-lg-6 res-admin-it-ticketlisting-main-header">
+                        <div class="dropdown col-lg-12 col-sm-12 col-md-6 res-admin-it-ticketlisting-searchbar">
+                            <a class="btn btn-outline-primary adminitticketlisting-dropdown-toggle" href="#" id="employeeDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                 Select Employees <i class="fas fa-chevron-down ml-1"></i>
                             </a>
-                            <div class="dropdown-menu adminticketlisting-dropdown-menu dropdown-menu-wide p-3" aria-labelledby="employeeDropdown">
+                            <div class="dropdown-menu adminitticketlisting-dropdown-menu dropdown-menu-wide p-3" aria-labelledby="employeeDropdown">
                                 <input type="text" class="form-control mb-2" id="employeeSearch" placeholder="Search">
                                 <div id="employeeList">
                                     <div class="form-check">
                                         <input class="form-check-input" type="checkbox" value="" id="selectAll">
-                                        <label class="adminticketlisting-form-check-label" for="selectAll">
+                                        <label class="adminitticketlisting-form-check-label" for="selectAll">
                                             <span>Select All</span>
                                         </label>
                                     </div>
                                     <div class="form-check">
                                         <input class="form-check-input" type="checkbox" value="" id="11">
-                                        <label class="adminticketlisting-form-check-label" for="11">
+                                        <label class="adminitticketlisting-form-check-label" for="11">
                                             <span>AAA 11</span>
                                         </label>
                                     </div>
@@ -35,41 +36,39 @@
                         </div>
                     </div>
 
-                    <div class="col-lg-4 res-admin-ticketlisting-header-right">
-                        <!-- Advanced Filters -->
-                        <div class="col-lg-8 col-sm-7 col-md-5 res-admin-ticketlisting-block-header res-admin-ticketlisting-filter">
-                            <div class="advanced-ticketlisting-filtertab d-flex justify-content-between1 align-items-center">
-                                <p class="advancetitle mb-0">Advanced Filters</p>
-                                <div class="toggle-button advance-ticketlisting-button ml-2">
-                                    <button class="collapsedropdown collapsed btn" type="button" data-toggle="collapse" data-target="#adminticketlistingfilter" aria-expanded="false" aria-controls="demo">
+                    <div class="col-lg-3 res-admin-it-ticketlisting-header-right">
+                        <!-- Filters -->
+                        <div class="col-lg-12 col-sm-7 col-md-5 res-admin-it-ticketlisting-block-header res-admin-it-ticketlisting-filter">
+                            <div class="admin-it-ticketlisting-filtertab d-flex align-items-center">
+                                <p class="advancetitle mb-0">Filters</p>
+                                <div class="toggle-button admin-it-ticketlisting-button ml-2">
+                                    <button class="collapsedropdown collapsed btn" type="button" data-toggle="collapse" data-target="#adminitticketlistingfilter" aria-expanded="false" aria-controls="demo">
                                         <i class="fa-solid fa-angle-down"></i>
                                     </button>
                                 </div>
                             </div>
                         </div>
 
-                        <div class="col-lg-1 col-sm-3 col-md-3 res-admin-ticketlisting-block-header res-admin-ticketlisting-export">
-                            <div class="form-group admin-ticketlisting" style="">
-                                <button type="button" class="btn btn-primary" id="exportTicketlisting" onclick="exportTicketListing()">Export</button>
-                            </div>
-                        </div>
                     </div>
-
                 </div>
 
-                <div class="row justify-content-end ml-2 col-md-12 res-admin-ticketlisting-filter-show">
-                    <div class="col-lg-11 col-sm-12 col-md-12">
-                        <div id="adminticketlistingfilter" class="collapse adminticketlistingfilter">
-                            <div class="collapse-topic align-items-center justify-content-end res-admin-ticketlisting-filter-inside" style="margin-right: 24px;">
+                <div class="row justify-content-end ml-2 col-md-12 res-admin-it-ticketlisting-filter-show">
+                    <div class="col-lg-12 col-sm-12 col-md-12">
+                        <div id="adminitticketlistingfilter" class="collapse adminiticketlistingfilter">
+                            <div class="collapse-topic align-items-center justify-content-end res-admin-it-ticketlisting-filter-inside" style="margin-right: 0; display: flex;">
                                 <span class="mr-3 res-admin-filter">
                                     Filter By<span class="res-close-btn" style="display:none;">X</span>
                                 </span>
-                                <div class="form-group res-adminadvfilter-ticketlisting d-flex">
-                                    <label for="from" class="mr-2">Raised On</label>
-                                    <input type="date" class="form-control form-control-sm mr-2" id="ticketlisting-fromDate" style="width: 120px;">
+                                <div class="form-group res-adminadvfilter-itticketlisting d-flex">
+                                    <label for="from" class="mr-2">From Date</label>
+                                    <input type="date" class="form-control form-control-sm mr-2" id="itticketlisting-fromDate" style="width: 120px;">
                                 </div>
-                                <div class="dropdown res-adminadvfilter-ticketlisting">
-                                    <select class="form-control form-select-sm" name="status" id="ticketlisting-status-dropdown" style="border-radius: 15px; height: 35px; width: 131px;border: 1px solid lightgray">
+                                <div class="form-group res-adminadvfilter-itticketlisting d-flex">
+                                    <label for="from" class="mr-2">To Date</label>
+                                    <input type="date" class="form-control form-control-sm mr-2" id="itticketlisting-toDate" style="width: 120px;">
+                                </div>
+                                <div class="dropdown res-adminadvfilter-hrticketlisting">
+                                    <select class="form-control form-select-sm" name="status" id="it-ticketlisting-status-dropdown" style="border-radius: 15px; height: 28px; width: 131px; border: 1px solid lightgray; padding: 0 10px; font-size: 12px;">
                                         <option value="" disabled selected>Status</option>
                                         <option value="Approved">Approved</option>
                                         <option value="Rejected">Rejected</option>
@@ -78,91 +77,126 @@
                                         <option value="All">All</option>
                                     </select>
                                 </div>
-                                <div class="form-group align-items-center res-adminadvfilter-ticketlisting mr-2">
-                                    <button type="button" class="btn btn-sm btn-primary ticketlisting-view">Search</button>
+                                <div class="dropdown res-adminadvfilter-itticketlisting">
+                                    <select class="form-control form-select-sm" name="location" id="it-ticketlisting-location-dropdown" style="border-radius: 15px; height: 28px; width: 131px; border: 1px solid lightgray; padding: 0 10px; font-size: 12px;">
+                                        <option value="" disabled selected>Location</option>
+                                        <option value="Madurai">Madurai</option>
+                                        <option value="Hyderabad">Hyderabad</option>
+                                        <option value="All">All</option>
+                                    </select>
+                                </div>
+                                <div class="dropdown res-adminadvfilter-itticketlisting">
+                                    <select class="form-control form-select-sm" name="closedby" id="it-ticketlisting-closedby-dropdown" style="border-radius: 15px; height: 28px; width: 131px; border: 1px solid lightgray; padding: 0 10px; font-size: 12px;">
+                                        <option value="" disabled selected>Closed By</option>
+                                        <option value="Raj">Raj</option>
+                                        <option value="Kumar">Kumar</option>
+                                    </select>
+                                </div>
+                                <div class="form-group align-items-center res-adminadvfilter-itticketlisting mr-2">
+                                    <button type="button" class="btn btn-sm btn-primary itticketlisting-view">View</button>
+                                    <button type="button" class="btn btn-sm btn-primary itticketlisting-export">Export</button>
                                 </div>
                             </div>
                         </div>
                     </div>
                 </div>
 
-                <div class="res-admin-ticket-listing-table table-responsive">
-                    <table class="table table-admin-ticket-listing" id="adminticketlistingTable" style="font-size:14px;">
+                <div class="res-admin-it-ticket-listing-table table-responsive">
+                    <table class="table table-admin-it-ticket-listing" id="adminitticketlistingTable" style="font-size:14px;">
                         <thead style="background-color: #EEF4FF; border-radius: 10px;display:none;">
                             <tr>
-                                <th><input type="checkbox" id="selectAllrows"></th>
                                 <th>Emp-ID</th>
-                                <th>Name</th>
-                                <th>Leave Type</th>
-                                <th>Applied Date</th>
-                                <th>From Date</th>
+                                <th>Priority</th>
+                                <th>Location</th>
+                                <th>Status</th>
                             </tr>
                         </thead>
                         <tbody>
                             <tr class="odd">
-                                <td> <input type="checkbox"></td>
-                                <td>
-                                    <div style="display: flex; align-items: center;">
-                                        <img class="userIcon" src="/Assets/EmpImages/1311.jpeg">
+                                <td style="width: 400px">
+                                    <div class="res-admin-it-ticketlisting-user-details" style="display: flex; align-items: center;">
+                                        <i class="it-ticket-msg-icon fa-regular fa-message"></i>
                                         <span style="margin-top: 0px; margin-right: 10px;">
-                                            Laptop Not Working<br>
-                                            <span style="color: #3E78CF;"><span>1212</span> <span>Sriram</span></span>
+                                            <div class="admin-it-ticketing-listing-title">Laptop Not Working</div>
+                                            <div class="admin-it-ticketing-listing-details">
+                                                <span class="it-ticket-id">#1212</span>
+                                                <span class="it-ticket-info"><i class="fa-solid fa-folder" aria-hidden="true"></i> General</span>
+                                                <span class="id-name">123 Sriram</span>
+                                            </div>
                                         </span>
                                     </div>
                                 </td>
-                                <td class="res-admin-ticketlisting-applieddate">
-                                    <span class="res-ticketlisting-his-day mutedText">Raised On</span>
-                                    <span class="res-ticketlisting-his-date">08 July 2024</span>
+                                <td style="width: 400px" class="res-admin-it-ticketlisting-priority">
+                                    <div style="visibility: hidden;" class="it-ticketing-response-time">
+                                        Response Time 2 Hr
+                                    </div>
+                                    <div class="it-ticketing-priority-date">
+                                        <span class="it-ticket-prioritylevel">
+                                            <span class="res-it-ticketlisting-color res-it-ticketlisting-color-red"></span>
+                                            <span class="res-it-ticketlisting-priority-status">High</span>
+                                        </span>
+                                        <span class="res-admin-it-ticketlisting-date">
+                                            <i class="fa-solid fa-clock" aria-hidden="true"></i>
+                                            <span class="res-itticketlisting-priority-status">07 Oct 2024, Sat 07:00AM</span>
+                                        </span>
+                                    </div>
                                 </td>
-                                <td class="res-admin-ticketlisting-priority">
-                                    <span class="res-ticketlisting-priority-title mutedText">Priority</span>
-                                    <span class="res-ticketlisting-priority-status">High</span>
+                                <td class="res-admin-itticketlisting-location-info">
+                                    <div class="it-ticketing-empty-block"></div>
+                                    <div class="res-itticketlisting-location">Madurai</div>
                                 </td>
-                                <td class="res-admin-ticketlisting-status">
-                                    <span class="res-ticketlisting-status-title mutedText">Status</span>
-                                    <span class="res-ticketlisting-status-level ticket-status-color-red">Open</span>
-                                </td>
-                                <td class="res-admin-ticketlisting-agent">
-                                    <button class="btn btn-primary btn-assignagent btn-It-assignagent">Assign Agent</button>
+                                <td class="res-admin-itticketlisting-status">
+                                    <div class="it-ticketing-empty-block"></div>
+                                    <div class="res-itticketlisting-status-level ticket-status-open">Open</div>
                                 </td>
                             </tr>
                             <tr class="even">
-                                <td> <input type="checkbox"></td>
-                                <td>
-                                    <div style="display: flex; align-items: center;">
-                                        <img class="userIcon" src="/Assets/EmpImages/1311.jpeg">
+                                <td style="width: 400px">
+                                    <div class="res-admin-it-ticketlisting-user-details" style="display: flex; align-items: center;">
+                                        <i class="it-ticket-msg-icon fa-regular fa-message"></i>
                                         <span style="margin-top: 0px; margin-right: 10px;">
-                                            Laptop Not Working<br>
-                                            <span style="color: #3E78CF;"><span>1212</span> <span>Sriram</span></span>
+                                            <div class="admin-it-ticketing-listing-title">Laptop Not Working</div>
+                                            <div class="admin-it-ticketing-listing-details">
+                                                <span class="it-ticket-id">#1212</span>
+                                                <span class="it-ticket-info"><i class="fa-solid fa-folder" aria-hidden="true"></i> Others</span>
+                                                <span class="id-name">123 Sriram</span>
+                                            </div>
+                                            <div class="admin-it-ticketing-listing-closedby">Closed By <span>TestUser</span></div>
                                         </span>
                                     </div>
                                 </td>
-                                <td class="res-admin-ticketlisting-applieddate">
-                                    <span class="res-ticketlisting-his-day mutedText">Raised On</span>
-                                    <span class="res-ticketlisting-his-date">08 July 2024</span>
+                                <td style="width: 400px" class="res-admin-it-ticketlisting-priority">
+                                    <div class="it-ticketing-response-time">
+                                        Response Time 2 Hr
+                                    </div>
+                                    <div class="it-ticketing-priority-date">
+                                        <span class="it-ticket-prioritylevel">
+                                            <span class="res-it-ticketlisting-color res-it-ticketlisting-color-orange"></span>
+                                            <span class="res-it-ticketlisting-priority-status">Medium</span>
+                                        </span>
+                                        <span class="res-admin-it-ticketlisting-date">
+                                            <i class="fa-solid fa-clock" aria-hidden="true"></i>
+                                            <span class="res-itticketlisting-priority-status">07 Oct 2024, Sat 07:00AM</span>
+                                        </span>
+                                    </div>
                                 </td>
-                                <td class="res-admin-ticketlisting-priority">
-                                    <span class="res-ticketlisting-priority-title mutedText">Priority</span>
-                                    <span class="res-ticketlisting-priority-status">High</span>
+                                <td class="res-admin-itticketlisting-location-info">
+                                    <div class="it-ticketing-empty-block"></div>
+                                    <div class="res-itticketlisting-location">Madurai</div>
                                 </td>
-                                <td class="res-admin-ticketlisting-status">
-                                    <span class="res-ticketlisting-status-title mutedText">Status</span>
-                                    <span class="res-ticketlisting-status-level ticket-status-color-blue">Closed</span>
-                                </td>
-                                <td class="res-admin-ticketlisting-agent">
-                                    <button class="btn btn-primary btn-assignagent">Assign Agent</button>
+                                <td class="res-admin-itticketlisting-status">
+                                    <div class="it-ticketing-empty-block"></div>
+                                    <div class="res-itticketlisting-status-level ticket-status-closed">Closed</div>
                                 </td>
                             </tr>
                         </tbody>
                     </table>
                 </div>
 
-
             </div>
-
-
         </div>
+
     </div>
-   
+
 </div>
 

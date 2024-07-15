@@ -1138,13 +1138,13 @@ div.main-content {
 
 /* admin leave compoff end*/
 
-/* admin ticket listing start */
+/* admin it ticket start */
 
-.res-admin-ticket-listing .adminticketlisting-dropdown-toggle {
+.res-admin-it-ticket-listing .adminitticketlisting-dropdown-toggle {
     border: 1px solid #ced4da;
     border-radius: 0;
     color: #212529;
-    width: 85%;
+    width: 75%;
     padding: 0.375rem 0.75rem;
     display: flex;
     justify-content: space-between;
@@ -1152,22 +1152,18 @@ div.main-content {
     background-color: transparent;
 }
 
-.res-admin-ticket-listing .adminticketlisting-dropdown-toggle:hover, .res-admin-ticket-listing .adminticketlisting-dropdown-toggle:focus {
-    background-color: transparent;
-    color: #ccc;
-    border: 1px solid;
+.res-admin-it-ticketlisting-searchbar .adminitticketlisting-dropdown-menu {
+    width: 71%;
+    box-shadow: 0 0 3px 2px #ccc;
 }
 
-.res-admin-ticket-listing .res-admin-ticketlisting-header-right .res-admin-ticketlisting-block-header {
-    display: inline-block;
+.res-admin-it-ticket-listing .res-admin-it-ticketlisting-header-right .res-admin-it-ticketlisting-block-header {
+    display: inline-flex;
     padding-top: 15px;
+    justify-content: right;
 }
 
-.res-admin-ticket-listing .res-admin-ticketlisting-header-right {
-
-}
-
-.res-admin-ticket-listing #adminticketlistingTable .userIcon {
+.res-admin-it-ticket-listing #adminitticketlistingTable .userIcon {
     width: 42px;
     height: 42px;
     object-fit: cover;
@@ -1175,38 +1171,157 @@ div.main-content {
     margin-right: 10px;
 }
 
-.res-admin-ticket-listing #adminticketlistingTable .btn-assignagent {
+#adminitticketlistingTable .res-admin-it-ticketlisting-user-details .admin-it-ticketing-listing-details {
+    margin: 5px 0;
+}
+
+#adminitticketlistingTable .admin-it-ticketing-listing-details .id-name {
+    color: #2693F8;
+}
+
+#adminitticketlistingTable .it-ticket-info {
+    width: 130px;
+    display: inline-block;
+    text-align: center;
+}
+
+#adminitticketlistingTable .admin-it-ticketing-listing-closedby {
+    display: inline-block;
+    background: #b3ffff;
+    padding: 3px 10px;
     font-size: 12px;
-    background-color: #00B4F2;
-    color: white;
-    border: 0;
-    width: 65%;
-    border-radius: 2px;
+    color: gray;
 }
 
-#adminticketlistingTable .ticket-status-color-blue {
-    color: #3E78CF;
+    #adminitticketlistingTable .admin-it-ticketing-listing-closedby span {
+        color: #2693F8;
+    }
+
+#adminitticketlistingTable .res-it-ticketlisting-color {
+    width: 10px;
+    height: 10px;
+    display: inline-block;
+    margin-right: 2px;
 }
 
-#adminticketlistingTable .ticket-status-color-red {
-    color: red;
+#adminitticketlistingTable .res-it-ticketlisting-color-red {
+    background: red;
 }
 
-.res-admin-ticketlisting-searchbar .adminticketlisting-dropdown-menu {
-    width: 79%;
-    box-shadow: 0 0 3px 2px #ccc;
+#adminitticketlistingTable .res-it-ticketlisting-color-orange {
+    background: orange;
 }
 
-#adminticketlistingfilter .res-adminadvfilter-ticketlisting {
+#adminitticketlistingTable .res-admin-it-ticketlisting-date .res-itticketlisting-priority-status {
+    margin-left: 2px;
+}
+
+#adminitticketlistingTable .fa-solid.fa-clock {
+    color: #ccc;
+}
+
+#adminitticketlistingTable .it-ticketing-response-time {
+    display: inline-block;
+    background: #ffe6e6;
+    color: #ff9999;
+    padding: 0 10px;
+    margin-bottom: 5px;
+}
+
+#adminitticketlistingTable .it-ticket-prioritylevel {
+    display: inline-block;
+    width: 160px;
+}
+
+#adminitticketlistingTable .it-ticketing-empty-block {
+    display: inline-block;
+    visibility: hidden;
+}
+
+#adminitticketlistingTable .res-itticketlisting-status-level {
+    width: 80px;
+    text-align: center;
+    padding: 2px 15px;
+}
+
+#adminitticketlistingTable .ticket-status-closed {
+    background: #b3ffec;
+    color: #00b386;
+    border: 1px solid #00b386;
+}
+
+#adminitticketlistingTable .ticket-status-open {
+    background: #e6f2ff;
+    color: #3399ff;
+    border: 1px solid #3399ff;
+}
+
+#adminitticketlistingTable .it-ticket-info i {
+    margin-right: 5px;
+    color: #ccc;
+}
+
+#adminitticketlistingTable .res-itticketlisting-location {
+    margin-top: 5px;
+}
+
+#adminitticketlistingTable.admin-it-ticketlisting-button .collapsedropdown {
+    border: 0px;
+}
+
+#adminticketlistingTable, #adminticketlistingTable th, #adminticketlistingTable td {
+    border: none;
+}
+
+#adminitticketlistingTable, #adminitticketlistingTable th, #adminitticketlistingTable td {
+    border: none;
+}
+
+#adminticketlistingTable tbody tr {
+    border-bottom: 1px solid #ccc;
+}
+
+#adminitticketlistingTable tbody tr {
+    border-bottom: 1px solid #ccc;
+}
+
+.res-admin-it-ticketlisting-user-details .it-ticket-msg-icon {
+    display: inline-block;
+    padding: 15px;
+    border-radius: 25px;
+    margin-right: 10px;
+    color: #fff;
+}
+
+.admin-it-ticketlisting-button .collapsedropdown {
+    border: 0px solid black;
+}
+
+#adminitticketlistingfilter .res-adminadvfilter-itticketlisting {
     display: inline-block !important;
 }
 
-#adminticketlistingfilter .res-adminadvfilter-ticketlisting label, #adminticketlistingfilter .res-adminadvfilter-ticketlisting input {
+#adminitticketlistingfilter .res-adminadvfilter-itticketlisting label,
+#adminitticketlistingfilter .res-adminadvfilter-itticketlisting input {
     display: inline-block;
     font-size: 12px;
+    margin-top: 15px;
 }
 
-/* admin ticket listing end*/
+#adminitticketlistingfilter .res-adminadvfilter-itticketlisting button {
+    margin-top: 15px;
+}
+
+#adminitticketlistingTable .odd .it-ticket-msg-icon {
+    background: #ffb3b3;
+}
+
+#adminitticketlistingTable .even .it-ticket-msg-icon {
+    background: #99ccff;
+}
+
+/* admin it ticket end */
+
 
 /* admin it ticket form start */
 
@@ -1236,6 +1351,8 @@ div.main-content {
     width: 100%;
     text-align: right;
 }
+
+/* admin it ticket form end */
 
 /* admin hr ticket start */
 
