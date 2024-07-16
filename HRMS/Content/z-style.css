@@ -1322,7 +1322,6 @@ div.main-content {
 
 /* admin it ticket end */
 
-
 /* admin it ticket form start */
 
 .admin-itticketing-block .form-control {
@@ -1332,7 +1331,8 @@ div.main-content {
 .admin-itticketing-block .div-admin-itticket-status {
     display: inline-block;
     padding-left: 0;
-    max-width: 50%;
+    max-width: 46%;
+    margin-right: 15px;
 }
 
 .admin-itticketing-block .div-admin-itticket-closeddate {
@@ -1350,6 +1350,34 @@ div.main-content {
     display: inline-block;
     width: 100%;
     text-align: right;
+}
+
+.admin-ticket-it-popup-form .div-admin-itticketing-subject {
+    width: 110%;
+}
+
+.admin-ticket-it-popup-form .div-admin-itticketing-subject input {
+    width: 90%;
+    display: inline-block;
+}
+
+.admin-ticket-it-popup-form .div-admin-itticketing-subject a {
+    position: relative;
+    background: #d9d9d9;
+    padding: 5px 6px;
+    color: #000;
+    border-radius: 2px;
+}
+
+.admin-ticket-it-popup-form .div-admin-itticket-raisedon {
+    width: 46%;
+    display: inline-block;
+    margin-right: 20px;
+}
+
+.admin-ticket-it-popup-form .div-admin-itticket-priority {
+    display: inline-block;
+    width: 48%;
 }
 
 /* admin it ticket form end */
@@ -1537,6 +1565,66 @@ div.main-content {
 }
 
 /* admin hr ticket end */
+
+/* admin hr ticket form start */
+
+.admin-hrticketing-block .form-control {
+    display: inline-block;
+}
+
+.admin-hrticketing-block .div-admin-hrticketing-status {
+    display: inline-block;
+    padding-left: 0;
+    max-width: 46%;
+    margin-right: 15px;
+}
+
+.admin-hrticketing-block .div-admin-hrticketing-closeddate {
+    display: inline-block;
+    padding-right: 0;
+    max-width: 49%;
+}
+
+.admin-hrticketing-block #hrticketing-closeddate {
+    padding: 19px 10px;
+    font-size: 1rem;
+}
+
+.admin-ticket-hr-popup-form #admin-ticket-hr-Form .admin-hrticketing-submit {
+    display: inline-block;
+    width: 100%;
+    text-align: right;
+}
+
+.admin-ticket-hr-popup-form .div-hrticketing-subject {
+    width: 110%;
+}
+
+.admin-ticket-hr-popup-form .div-hrticketing-subject input {
+    width: 90%;
+    display: inline-block;
+}
+
+.admin-ticket-hr-popup-form .div-hrticketing-subject a {
+    position: relative;
+    background: #d9d9d9;
+    padding: 5px 6px;
+    color: #000;
+    border-radius: 2px;
+}
+
+.admin-ticket-hr-popup-form .div-hrticketing-raisedon {
+    width: 46%;
+    display: inline-block;
+    margin-right: 20px;
+}
+
+.admin-ticket-hr-popup-form .div-hrticketing-priority {
+    display: inline-block;
+    width: 48%;
+}
+
+/* admin hr ticket form end */
 
 /* employee dashboard start*/
 .emp-dashboard .main-content.container-fluid {
@@ -1783,15 +1871,7 @@ input[type=checkbox], input[type=radio] {
 
 /* emp ticket history start */
 
-#leaveTicketHistoryTable, #leaveTicketHistoryTable th, #leaveTicketHistoryTable td {
-    border: none;
-}
-
-#leaveTicketHistoryTable tbody tr {
-    border-bottom: 1px solid #ccc;
-}
-
-#leaveTicketHistoryTable .emp-ticket-edit-history {
+#empticketlistingTable .emp-ticket-edit-history {
     border: 2px solid lightgray;
     font-size: smaller;
     height: 20px;
@@ -1800,9 +1880,10 @@ input[type=checkbox], input[type=radio] {
     line-height: 1rem;
     color: gray;
     cursor: pointer;
+    margin-top: 23px;
 }
 
-#leaveTicketHistoryTable .emp-tickethistoryoptions {
+#empticketlistingTable .emp-tickethistoryoptions {
     position: absolute;
     top: auto;
     cursor: pointer;
@@ -1816,7 +1897,7 @@ input[type=checkbox], input[type=radio] {
     margin-top: 0px;
 }
 
-#leaveTicketHistoryTable .emp-tickethistoryoptions a {
+#empticketlistingTable .emp-tickethistoryoptions a {
     display: block;
     padding: 2px 4px;
     color: #333;
@@ -1826,6 +1907,125 @@ input[type=checkbox], input[type=radio] {
 .res-emp-tickethistory-header .res-emp-tickethistory-right {
     display: flex;
     justify-content: right;
+}
+
+#empticketlistingTable, #empticketlistingTable th, #empticketlistingTable td {
+    border: none;
+}
+
+#empticketlistingTable tbody tr {
+    border-bottom: 1px solid #ccc;
+}
+
+#empticketlistingTable .odd .emp-ticket-msg-icon {
+    background: #ffb3b3;
+}
+
+.res-emp-ticketlisting-user-details .emp-ticket-msg-icon {
+    display: inline-block;
+    padding: 15px;
+    border-radius: 25px;
+    margin-right: 10px;
+    color: #fff;
+}
+
+#empticketlistingTable .res-emp-ticketlisting-user-details .emp-ticketing-listing-details {
+    margin: 5px 0;
+}
+
+#empticketlistingTable .emp-ticket-info {
+    width: 130px;
+    display: inline-block;
+    text-align: center;
+}
+
+#empticketlistingTable .emp-ticket-info i {
+    margin-right: 5px;
+    color: #ccc;
+}
+
+#empticketlistingTable .emp-ticketing-listing-details .id-name {
+    color: #2693F8;
+}
+
+#empticketlistingTable .emp-ticketing-response-time {
+    display: inline-block;
+    background: #ffe6e6;
+    color: #ff9999;
+    padding: 0 10px;
+    margin-bottom: 5px;
+}
+
+#empticketlistingTable .emp-ticketing-empty-block {
+    display: inline-block;
+    visibility: hidden;
+}
+
+#empticketlistingTable .res-empticketlisting-location {
+    margin-top: 5px;
+}
+
+#empticketlistingTable .emp-ticket-prioritylevel {
+    display: inline-block;
+    width: 160px;
+}
+
+#empticketlistingTable .res-emp-ticketlisting-color {
+    width: 10px;
+    height: 10px;
+    display: inline-block;
+    margin-right: 2px;
+}
+
+#empticketlistingTable .fa-solid.fa-clock {
+    color: #ccc;
+}
+
+#empticketlistingTable .res-emp-ticketlisting-date .res-empticketlisting-priority-status {
+    margin-left: 2px;
+}
+
+#empticketlistingTable .res-emp-ticketlisting-color-red {
+    background: red;
+}
+
+#empticketlistingTable .res-emp-ticketlisting-color-orange {
+    background: orange;
+}
+
+#empticketlistingTable .res-empticketlisting-status-level {
+    width: 80px;
+    text-align: center;
+    padding: 2px 15px;
+}
+
+#empticketlistingTable .ticket-status-open {
+    background: #e6f2ff;
+    color: #3399ff;
+    border: 1px solid #3399ff;
+}
+
+#empticketlistingTable .even .emp-ticket-msg-icon {
+    background: #99ccff;
+}
+
+#empticketlistingTable .ticket-status-closed {
+    background: #b3ffec;
+    color: #00b386;
+    border: 1px solid #00b386;
+}
+
+#empticketlistingTable .emp-ticketing-listing-closedby {
+    display: inline-block;
+    background: #b3ffff;
+    padding: 3px 10px;
+    font-size: 12px;
+    color: gray;
+    margin-top: 23px;
+}
+
+#empticketlistingTable .emp-ticketing-listing-closedby span {
+    color: #2693F8;
 }
 
 /* emp ticket history end */
