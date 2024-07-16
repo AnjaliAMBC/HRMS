@@ -303,12 +303,14 @@ function highlightLeaveDate(element) {
 
 $(document).off('change', '#myLeaveMonth').on('change', '#myLeaveMonth', function (event) {
     event.preventDefault();
+    $('.show-progress').show();
     var selectedMonth = new Date($('#myLeaveMonth').val());
     var startDate = new Date(selectedMonth.getFullYear(), selectedMonth.getMonth(), 1);
     var endDate = new Date(selectedMonth.getFullYear(), selectedMonth.getMonth() + 1, 0);
     var formattedStartDate = formatDateToCustomString(startDate);
     var formattedEndDate = formatDateToCustomString(endDate);
     AdminLeaveDataMap(formattedStartDate, "");
+    $('.show-progress').hide();
     //updateLeaveDays(formattedStartDate);
 });
 
@@ -473,41 +475,44 @@ function toggleAdminLeaveApprovalActionOptions(iconElement) {
 
 $(document).off('click', '.AdminIndiEmpLeave-History').on('click', '.AdminIndiEmpLeave-History', function (event) {
     $('.show-progress').show();
-    $.ajax({
-        url: '/adminleave/AdminEmpLeaveCalender',
-        type: 'GET',
-        dataType: 'html',
-        success: function (response) {
-            $(".hiddenadmindashboard").html("");
-            $('.admin-dashboard-container').html("");
-            $(".admin-emppadd-container").html("");
-            $('.admin-empmanagement-container').html("");
-            $('.admin-attendance-container').html("");
-            $('.admin-leave-container').html("");
-            $('.admin-leave-management-view').html("");
+    window.location.href = "/adminleave/AdminEmpLeaveCalender";
+    //$.ajax({
+    //    url: '/adminleave/AdminEmpLeaveCalender',
+    //    type: 'GET',
+    //    dataType: 'html',
+    //    success: function (response) {
+    //        $(".hiddenadmindashboard").html("");
+    //        $('.admin-dashboard-container').html("");
+    //        $(".admin-emppadd-container").html("");
+    //        $('.admin-empmanagement-container').html("");
+    //        $('.admin-attendance-container').html("");
+    //        $('.admin-leave-container').html("");
+    //        $('.admin-leave-management-view').html("");
+    //        $(".admin-leaveHistory-container").html("");
 
-            $(".hiddenadmindashboard").html(response);
-            var formContent = $(".hiddenadmindashboard").find(".AdminLeaveEmpCalender-Page").html();
-            $(".admin-leave-container").html(formContent);
+    //        $(".hiddenadmindashboard").html(response);
+    //        var formContent = $(".hiddenadmindashboard").find(".AdminLeaveEmpCalender-Page").html();
+    //        $(".admin-leaveHistory-container").html(formContent);
 
-            $('.admin-empmanagement-container').hide();
-            $('.admin-dashboard-container').hide();
-            $('.admin-emppadd-container').hide();
-            $('.admin-attendance-container').hide();
-            $('.admin-leave-container').show();
-            $('.admin-ticketing-container').hide();
-            $(".hiddenadmindashboard").html("");
+    //        $('.admin-empmanagement-container').hide();
+    //        $('.admin-dashboard-container').hide();
+    //        $('.admin-emppadd-container').hide();
+    //        $('.admin-attendance-container').hide();
+    //        $('.admin-leave-container').show();
+    //        $('.admin-ticketing-container').hide();
+    //        $('.admin-leave-container').hide();
+    //        $(".hiddenadmindashboard").html("");
 
-            setTimeout(function () {
-                $('.show-progress').show();
-                fetchLeaveHolidays();
-                $('.show-progress').hide();
-            }, 1000);
-        },
-        error: function (xhr, status, error) {
-            var err = eval("(" + xhr.responseText + ")");
-        }
-    });
+    //        setTimeout(function () {
+    //            $('.show-progress').show();
+    //            fetchLeaveHolidays();
+    //            $('.show-progress').hide();
+    //        }, 1000);
+    //    },
+    //    error: function (xhr, status, error) {
+    //        var err = eval("(" + xhr.responseText + ")");
+    //    }
+    //});
 
 });
 
@@ -530,33 +535,37 @@ $(document).on('click', '.admin-empbased-leave-calender', function (event) {
 
 $(document).off('click', '.Admin-leavehistory-icon').on('click', '.Admin-leavehistory-icon', function (event) {
     event.preventDefault();
-    $.ajax({
-        url: '/adminleave/adminleavehistory',
-        type: 'GET',
-        dataType: 'html',
-        data: { startdate: $('#leavehistory-fromDate').val(), endDate: $('#leavehistory-toDate').val(), department: "", location: $('#leavehistory-Location-dropdown').val(), status: $('#leavehistory-status-dropdown').val() },
-        success: function (response) {
-            $(".hiddenadmindashboard").html("");
-            $('.admin-dashboard-container').html("");
-            $(".admin-emppadd-container").html("");
-            $('.admin-empmanagement-container').html("");
-            $('.admin-attendance-container').html("");
-            $('.admin-leave-container').html("");
-            $(".hiddenadmindashboard").html(response);
-            var formContent = $(".hiddenadmindashboard").find(".admin-leaveHistory-view").html();
-            $(".admin-leave-container").html(formContent);
-            $('.admin-leave-container').show();
-            $('.admin-attendance-container').hide();
-            $('.admin-empmanagement-container').hide();
-            $('.admin-emppadd-container').hide();
-            $('.admin-dashboard-container').hide();
-            $('.admin-ticketing-container').hide();
-            $(".hiddenadmindashboard").html("");
-        },
-        error: function (xhr, status, error) {
-            console.error("Error deleting employee:", error);
-        }
-    });
+    $('.show-progress').show();
+    window.location.href = "/adminleave/adminleavehistory";
+  
+    //$.ajax({
+    //    url: '/adminleave/adminleavehistory',
+    //    type: 'GET',
+    //    dataType: 'html',
+    //    data: { startdate: $('#leavehistory-fromDate').val(), endDate: $('#leavehistory-toDate').val(), department: "", location: $('#leavehistory-Location-dropdown').val(), status: $('#leavehistory-status-dropdown').val() },
+    //    success: function (response) {
+    //        $(".hiddenadmindashboard").html("");
+    //        $('.admin-dashboard-container').html("");
+    //        $(".admin-emppadd-container").html("");
+    //        $('.admin-empmanagement-container').html("");
+    //        $('.admin-attendance-container').html("");
+    //        $('.admin-leave-container').html("");
+    //        $('.admin-leaveHistory-container').html("");
+    //        $(".hiddenadmindashboard").html(response);
+    //        var formContent = $(".hiddenadmindashboard").find(".admin-leaveHistory-view").html();
+    //        $(".admin-leaveHistory-container").html(formContent);
+    //        $('.admin-attendance-container').hide();
+    //        $('.admin-empmanagement-container').hide();
+    //        $('.admin-emppadd-container').hide();
+    //        $('.admin-dashboard-container').hide();
+    //        $('.admin-ticketing-container').hide();
+    //        $('.admin-leave-container').hide();
+    //        $(".hiddenadmindashboard").html("");
+    //    },
+    //    error: function (xhr, status, error) {
+    //        console.error("Error deleting employee:", error);
+    //    }
+    //});
 });
 
 
@@ -571,21 +580,11 @@ $(document).off('click', '.btn-import-leaves-hstory').on('click', '.btn-import-l
             $('.show-progress').show();
         },
         success: function (response) {
-            $(".hiddenadmindashboard").html("");
-            $('.admin-dashboard-container').html("");
-            $(".admin-emppadd-container").html("");
-            $('.admin-empmanagement-container').html("");
-            $('.admin-attendance-container').html("");
-            $('.admin-leave-container').html("");
+            $(".hiddenadmindashboard").html("");       
+            $(".admin-leaveHistory-container").html("");
             $(".hiddenadmindashboard").html(response);
             var formContent = $(".hiddenadmindashboard").find(".adminEmp-LeaveHistoryImport-view").html();
-            $(".admin-leave-container").html(formContent);
-            $('.admin-leave-container').show();
-            $('.admin-attendance-container').hide();
-            $('.admin-empmanagement-container').hide();
-            $('.admin-emppadd-container').hide();
-            $('.admin-dashboard-container').hide();
-            $('.admin-ticketing-container').hide();
+            $(".admin-leaveHistory-container").html(formContent);
             $(".hiddenadmindashboard").html("");
             $('.show-progress').hide();
         },

@@ -65,7 +65,7 @@ function generateLeaveCalendar(month, year, selectedempid) {
     var isAdminLeavePage = false;
     var linktoleavecalender = "btn-apply-leave1";
 
-    if ($('div.admin-leave-container').length) {
+    if ($('div.admin-leaveHistory-container').length || $('div.admin-leave-container').length) {
         isAdminLeavePage = true;
         linktoleavecalender = "btn-admin-apply-leave1";
     }
@@ -152,33 +152,32 @@ function generateLeaveCalendar(month, year, selectedempid) {
                                     cell.classList.add(linktoleavecalender);
 
                                     const holidayKey = `${month + 1}-${date}`;
+                                    if (leaveRequests[formattedDate]) {
+                                        const leaveDiv = document.createElement("div");
+                                        leaveDiv.classList.add("empleave-leave-request");
+                                        leaveDiv.style.backgroundColor = "#e7f3fe"; // Add background color to leaveDiv
+
+                                        leaveRequests[formattedDate].forEach((leave, index) => {
+                                            if (index < 2) { // Show up to 2 images directly
+                                                const img = document.createElement("img");
+                                                img.src = `/Assets/EmpImages/${leave.LatestLeave.employee_id}.jpeg`; // Adjust the image path as needed
+                                                img.alt = leave.employee_name;
+                                                img.title = leave.employee_name;
+                                                leaveDiv.appendChild(img);
+                                            } else if (index === 2) { // Show the count of additional leave requests
+                                                const moreDiv = document.createElement("div");
+                                                moreDiv.classList.add("more-count");
+                                                moreDiv.textContent = `+ ${leaveRequests[formattedDate].length - 2}`;
+                                                leaveDiv.appendChild(moreDiv);
+                                            }
+                                        });
+
+                                        cell.appendChild(leaveDiv);
+                                        cell.classList.add("highlight-leave");
+                                        cell.style.backgroundColor = "#e7f3fe"; // Add background color to parent td
+                                    }
                                     if (date === today.getDate() && year === today.getFullYear() && month === today.getMonth()) {
                                         cell.classList.add("highlight-currentleave");
-
-                                        if (leaveRequests[formattedDate]) {
-                                            const leaveDiv = document.createElement("div");
-                                            leaveDiv.classList.add("empleave-leave-request");
-                                            leaveDiv.style.backgroundColor = "#e7f3fe"; // Add background color to leaveDiv
-
-                                            leaveRequests[formattedDate].forEach((leave, index) => {
-                                                if (index < 2) { // Show up to 2 images directly
-                                                    const img = document.createElement("img");
-                                                    img.src = `/Assets/EmpImages/${leave.LatestLeave.employee_id}.jpeg`; // Adjust the image path as needed
-                                                    img.alt = leave.employee_name;
-                                                    img.title = leave.employee_name;
-                                                    leaveDiv.appendChild(img);
-                                                } else if (index === 2) { // Show the count of additional leave requests
-                                                    const moreDiv = document.createElement("div");
-                                                    moreDiv.classList.add("more-count");
-                                                    moreDiv.textContent = `+ ${leaveRequests[formattedDate].length - 2}`;
-                                                    leaveDiv.appendChild(moreDiv);
-                                                }
-                                            });
-
-                                            cell.appendChild(leaveDiv);
-                                            cell.classList.add("highlight-leave");
-                                            cell.style.backgroundColor = "#e7f3fe"; // Add background color to parent td
-                                        }
                                     } else if (leaveholidays[holidayKey] != undefined && leaveholidays[holidayKey] != "") {
                                         cell.classList.add("highlight-festival-leave");
                                         cell.innerHTML += `<div><i class="fa fa-circle"></i> ${leaveholidays[holidayKey]}</div>`;
@@ -203,6 +202,7 @@ function generateLeaveCalendar(month, year, selectedempid) {
                 var err = eval("(" + xhr.responseText + ")");
             }
         });
+
     }
     else {
         var currentDate = new Date();

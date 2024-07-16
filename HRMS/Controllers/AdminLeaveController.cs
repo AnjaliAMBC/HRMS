@@ -35,7 +35,7 @@ namespace HRMS.Controllers
         public ActionResult AdminLeaveBalance()
         {
             LeaveTypesBasedOnEmpViewModel empLeaveTypes = new LeaveCalculator().GetLeavesByEmp("");
-            return PartialView("~/Views/AdminDashboard/AdminEmpBalanceView.cshtml", empLeaveTypes);
+            return View("~/Views/AdminDashboard/AdminEmpBalanceView.cshtml", empLeaveTypes);
         }
         public ActionResult AdminLeaveApply()
         {
@@ -44,17 +44,28 @@ namespace HRMS.Controllers
 
         public ActionResult AdminCalenderLeaveManagement(int month, int year, string empID)
         {
-            //DateTime startDate, endDate;
+            // Calculate the start and end dates of the selected month
+            //DateTime startDate = new DateTime(year, month + 1, 1);
+            //DateTime endDate = startDate.AddMonths(1).AddDays(-1);
 
-            //GetMonthStartAndEndDates(month, year, out startDate, out endDate);
-
-            //var model = new AdminLeaveManagementModel();
-
+            // Fetch the leave information for the selected month
             var leaves = new LeaveCalculator().EmpLeaveInfoBasedonDate(DateTime.Today.ToString("dd-MM-yyyy"), DateTime.Today.ToString("dd-MM-yyyy"));
-            //new LeaveCalculator().GetLeavesInfoBasedonStartandEndDate(startDate.ToString(), "", model, empID);
+
+            var currentContext = Session["SiteContext"] as HRMS.Models.SiteContextModel;
+            var isSuperAdmin = HRMS.Helpers.SuperAdminHelper.IsSuperAdmin(currentContext);
+
+            if (isSuperAdmin)
+            {
+                var adminLocations = HRMS.Helpers.SuperAdminHelper.GetAdminLocations(currentContext);
+                leaves = adminLocations.Any()
+                                           ? leaves.Where(x => adminLocations.Contains(x.LatestLeave.Location)).ToList()
+                                           : leaves.ToList();
+            }
+            // Serialize the leave information to JSON
             var json = JsonConvert.SerializeObject(leaves);
             return Json(json.Replace(";", ""), JsonRequestBehavior.AllowGet);
         }
+
 
         public static void GetMonthStartAndEndDates(int month, int year, out DateTime startDate, out DateTime endDate)
         {
@@ -88,6 +99,8 @@ namespace HRMS.Controllers
 
             model.SelectedEndDate = model.SelectedDate;
             model.LeavesInfoBasedOnFromAndTodate = new LeaveCalculator().EmpLeaveInfoBasedonDate(model.SelectedDate.ToString("dd-MM-yyyy"), model.SelectedEndDate.ToString("dd-MM-yyyy"));
+                     
+
             return PartialView("~/Views/AdminDashboard/AdminLeaveEmpManage.cshtml", model);
         }
 
@@ -169,7 +182,7 @@ namespace HRMS.Controllers
 
             AdminLeaveHistoryModel.Departments = new EmployeeHelper(_dbContext).GetDepartments();
 
-            return PartialView("~/Views/AdminDashboard/AdminLeaveHistory.cshtml", AdminLeaveHistoryModel);
+            return View("~/Views/AdminDashboard/AdminLeaveHistory.cshtml", AdminLeaveHistoryModel);
         }
 
         public ActionResult AdminLeaveHistoryViewFilter(string startDate, string endDate, string empId, string department, string location, string status)
@@ -194,8 +207,24 @@ namespace HRMS.Controllers
                 dateEnd = System.DateTime.Parse(endDate);
             }
 
+            if (department == "All")
+            {
+                department = "";
+            }
+
+
+            if (location == "All")
+            {
+                location = "";
+            }
+
+            if (status == "All")
+            {
+                status = "";
+            }
+
             var AdminLeaveHistoryModel = new AdminLeaveHistoryViewModel();
-            var leavesHistory = new LeaveCalculator().EmpLeaveInfoBasedonFromAndToDatesWithLeaveDate(dateStart.ToString("yyyy-MM-dd"), dateEnd.ToString("yyyy-MM-dd"), "", "", "", "");
+            var leavesHistory = new LeaveCalculator().EmpLeaveInfoBasedonFromAndToDatesWithLeaveDate(dateStart.ToString("yyyy-MM-dd"), dateEnd.ToString("yyyy-MM-dd"), empId, department, location, status);
             AdminLeaveHistoryModel.AllEMployeeLeaves = leavesHistory;
 
             var json = JsonConvert.SerializeObject(AdminLeaveHistoryModel);
@@ -310,7 +339,7 @@ namespace HRMS.Controllers
         public ActionResult AdminLeaveCompensatoryOff(string fromDate, string todate)
         {
             CompOffModel model = GetCompoffsByFromandTodate(fromDate, todate, "");
-            return PartialView("~/Views/AdminDashboard/AdminLeaveCompOff.cshtml", model);
+            return View("~/Views/AdminDashboard/AdminLeaveCompOff.cshtml", model);
         }
 
         public ActionResult EmployeeLeaveCompensatoryOff(string fromDate, string todate, string empID)
@@ -810,7 +839,7 @@ namespace HRMS.Controllers
             var AdminLeaveEmpCalenderViewModel = new AdminLeaveEmpCalenderViewModel();
             AdminLeaveEmpCalenderViewModel.Employees = _dbContext.emp_info.ToList();
 
-            return PartialView("~/Views/AdminDashboard/AdminEmpLeaveCalender.cshtml", AdminLeaveEmpCalenderViewModel);
+            return View("~/Views/AdminDashboard/AdminEmpLeaveCalender.cshtml", AdminLeaveEmpCalenderViewModel);
         }
     }
 }

@@ -1,223 +1,232 @@
 ﻿@model HRMS.Models.Employee.LeaveTypesBasedOnEmpViewModel
+@Html.Partial("_NavBar")
+<div class="container-fluid res-admin-Ticketing">
+    <div class="hiddenadmindashboard" style="display: none"></div>
+    @Html.Partial("_adminsidemenu")
+    <div class="main-content container-fluid" style="width: 84%">
+        <div class="content admin-leaveBalance-container" style="margin-left: -25px; margin-top: 10px;">
 
-
-<div class="admin-leaveBalance-view">
-    <style>
-        #location-dropdown {
-            border: none;
-            background-color: transparent;
-        }
-
-        .IndiLeaveDetails {
-            display: flex;
-            align-items: center;
-        }
-
-        .userIcon {
-            width: 42px;
-            height: 42px;
-            object-fit: cover;
-            border-radius: 50%;
-            margin-right: 10px;
-        }
-
-        .odd {
-            background-color: #f9f9f9 !important;
-        }
-
-        .even {
-            background-color: #ffffff !important;
-        }
-
-        thead {
-            background-color: #0086b3;
-            color: white;
-        }
-
-            thead th:first-child {
-                border-top-left-radius: 10px;
-            }
-
-            thead th:last-child {
-                border-top-right-radius: 10px;
-            }
-
-        table.dataTable.no-footer {
-            border-bottom: none;
-        }
-
-        table.dataTable thead th, table.dataTable thead td {
-            border-bottom: none;
-        }
-
-        table.dataTable thead th {
-            border-top: 1px solid #dee2e6;
-        }
-
-        #leaveBalanceTable_filter {
-            display: none;
-        }
-    </style>
-    <div class="container-fluid res-admin-leave-balance">
-        <div class="row mb-2 align-items-center res-admin-leave-balance-main-header">
-            <div class="col-lg-2 col-md-5 res-admin-leave-balance-title">
-                <h5 class="ml-4">Leave Balance</h5>
-            </div>
-            <div class="col-lg-3 col-md-6 search-container" style="margin-left:30%;">
-                <div class="input-group">
-                    <div class="input-group-prepend">
-                        <span class="input-group-text" style="background-color: transparent; border-right: none; border-radius: 10px 0 0 10px; height: 35px;">
-                            <i class="fas fa-search" style="color: #369479;"></i>
-                        </span>
-                    </div>
-                    <input type="text" id="adminleavetableSearch" placeholder="Search By Keyword" class="advancesearch form-control" aria-label="Search By Keyword" style="border-radius: 0 10px 10px 0; height: 35px; font-size: 14px;">
-                </div>
-            </div>
-
-            <div class="col-sm-12 col-lg-5 col-md-10 res-admin-leave-balance-header-right">
-                <div class="col-sm-3 col-md-3 res-admin-leave-balance-export">
-                    <div class="dropdowns-container d-flex align-items-center" style="justify-content: flex-end;">
-                        <div class="form-group" style="margin-top: 17px;">
-                            <button type="button" class="btn btn-primary btn-totalleaves-import">Import</button>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="col-sm-3 col-md-3 res-admin-leave-balance-export res-export-btn">
-                    <div class="dropdowns-container d-flex align-items-center" style="justify-content: flex-end;">
-                        <div class="form-group adminleave-dropdown" style="margin-top: 17px;">
-                            <button type="button" class="btn btn-primary" id="exportLeaveButton" onclick="exportLeaveBalance()">Export</button>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="dropdown col-sm-4 col-md-5 col-lg-4 res-admin-leave-balance-dropdown">
-                    <button class="btn dropdown-toggle" type="button" id="adminleaveSettingsDropdown" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" style="">
-                        Leave Settings
-                    </button>
-                    <div class="dropdown-menu leaveSettings-dropdown" aria-labelledby="leaveSettingsDropdown" style="border:1px solid gray">
-                        <a class="dropdown-item adminleave-history">Leave History</a>
-                        <a class="dropdown-item adminleave-Balanve-link">Leave Balance</a>
-                        <a class="dropdown-item adminleave-CompOff-link">CompOff Request</a>
-                        <a class="dropdown-item adminside-leaveapply">Apply Leave</a>
-
-                    </div>
-                </div>
-            </div>
-            
-
-        </div>
-
-        @*<div class="collapse" id="LeaveDateDropdown">
-                <div class="col-md-4"></div>
-                <div class="col-md-6 d-flex justify-content-end res-admin-leave-datedropdown" style="margin-left:43%">
-                    <div class="form-group d-flex mr-2">
-                        <label for="from" class="mr-2">From</label>
-                        <input type="date" class="form-control form-control-sm" id="fromDate" style="width: 120px;">
-                    </div>
-                    <div class="form-group d-flex mr-2">
-                        <label for="to" class="mr-2">To</label>
-                        <input type="date" class="form-control form-control-sm" id="toDate" style="width: 120px;">
-                    </div>
-                    <div class="form-group d-flex align-items-center">
-                        <button type="button" class="btn btn-sm btn-primary" onclick="submitDateRange()">Submit</button>
-                        <a href="#" class="clearLeave-filter ml-2">Clear</a>
-                    </div>
-                </div>
-            </div>*@
-
-        <div class="res-admin-leave-balance-table table-responsive">
-            <table class="table table-leave-balance" id="leaveBalanceTable" style="font-size:14px;">
-                <thead>
-                    <tr>
-                        <th>Emp-ID</th>
-                        <th>Employee Name</th>
-                        <th>Earned Leave</th>
-                        <th>Emergency</th>
-                        <th>Sick Leave</th>
-                        <th>Bereavement</th>
-                        <th>Hourly Permission</th>
-                        <th>Marriage</th>
-                        <th>Maternity</th>
-                        <th>Paternity</th>
-                        <th>Comp Off</th>
-                    </tr>
-                </thead>
-                <tbody>
-
-                    @foreach (HRMS.Models.Employee.LeaveEmployee emp in Model.LeaveTypes)
-                    {
-                        <tr class="leave-IndiRow">
-                            <td class="fontSmall">@emp.empInfo.EmployeeID</td>
-                            <td class="employeeinfo-balance" data-empid="@emp.empInfo.EmployeeID">
-                                <div class="IndiLeaveDetails">
-
-                                    @if (!string.IsNullOrWhiteSpace(@emp.empInfo.imagepath))
-                                    {
-                                        var empImageURl = System.Configuration.ConfigurationManager.AppSettings["EmpImagesFolder"] + "/" + emp.empInfo.imagepath;
-                                        <img src="@empImageURl" alt="Employee Image" class="userIcon">
-                                    }
-                                    else
-                                    {
-                                        // Check if emp, empInfo, and EmployeeName are not null
-                                        if (emp != null && emp.empInfo != null && !string.IsNullOrEmpty(emp.empInfo.EmployeeName))
-                                        {
-                                            string[] names = emp.empInfo.EmployeeName.Split(new char[] { ' ' }, StringSplitOptions.RemoveEmptyEntries);
-
-                                            if (names.Length > 0)
-                                            {
-                                                string firstName = names[0];
-                                                string lastName = names.Length > 1 ? names[names.Length - 1] : string.Empty;
-                                                char firstLetterOfFirstName = char.ToUpper(firstName[0]);
-                                                char firstLetterOfLastName = !string.IsNullOrEmpty(lastName) ? char.ToUpper(lastName[0]) : '\0';
-                                                <div class="default-image-navbar">@firstLetterOfFirstName @firstLetterOfLastName</div>
-                                            }
-
-                                        }
-                                    }
-
-                                    @*<img src="images/userIcon.png" class="userIcon" alt="user" />*@
-                                    <div class="fontSmall">
-                                        <p class="mb-0 fontWtMedium">@emp.empInfo.EmployeeName</p>
-                                        <a href="#">@emp.empInfo.OfficalEmailid</a>
-                                    </div>
-                                </div>
-                            </td>
-                            @foreach (HRMS.Models.Employee.AvailableLeaves availabilty in emp.AvailableLeaves)
-                            {
-                                <td class="fontSmall dataMinWidth dateMaxWidth">
-                                    <div class="earned-indi">@availabilty.Balance.ToString().Replace(".00", "").Replace(".0", "")</div>
-                                </td>
-                            }
-                        </tr>
+            <div class="admin-leaveBalance-view">
+                <style>
+                    #location-dropdown {
+                        border: none;
+                        background-color: transparent;
                     }
 
-                </tbody>
-            </table>
+                    .IndiLeaveDetails {
+                        display: flex;
+                        align-items: center;
+                    }
+
+                    .userIcon {
+                        width: 42px;
+                        height: 42px;
+                        object-fit: cover;
+                        border-radius: 50%;
+                        margin-right: 10px;
+                    }
+
+                    .odd {
+                        background-color: #f9f9f9 !important;
+                    }
+
+                    .even {
+                        background-color: #ffffff !important;
+                    }
+
+                    thead {
+                        background-color: #0086b3;
+                        color: white;
+                    }
+
+                        thead th:first-child {
+                            border-top-left-radius: 10px;
+                        }
+
+                        thead th:last-child {
+                            border-top-right-radius: 10px;
+                        }
+
+                    table.dataTable.no-footer {
+                        border-bottom: none;
+                    }
+
+                    table.dataTable thead th, table.dataTable thead td {
+                        border-bottom: none;
+                    }
+
+                    table.dataTable thead th {
+                        border-top: 1px solid #dee2e6;
+                    }
+
+                    #leaveBalanceTable_filter {
+                        display: none;
+                    }
+                </style>
+                <div class="container-fluid res-admin-leave-balance">
+                    <div class="row mb-2 align-items-center res-admin-leave-balance-main-header">
+                        <div class="col-lg-2 col-md-5 res-admin-leave-balance-title">
+                            <h5 class="ml-4">Leave Balance</h5>
+                        </div>
+                        <div class="col-lg-3 col-md-6 search-container" style="margin-left:30%;">
+                            <div class="input-group">
+                                <div class="input-group-prepend">
+                                    <span class="input-group-text" style="background-color: transparent; border-right: none; border-radius: 10px 0 0 10px; height: 35px;">
+                                        <i class="fas fa-search" style="color: #369479;"></i>
+                                    </span>
+                                </div>
+                                <input type="text" id="adminleavetableSearch" placeholder="Search By Keyword" class="advancesearch form-control" aria-label="Search By Keyword" style="border-radius: 0 10px 10px 0; height: 35px; font-size: 14px;">
+                            </div>
+                        </div>
+
+                        <div class="col-sm-12 col-lg-5 col-md-10 res-admin-leave-balance-header-right">
+                            <div class="col-sm-3 col-md-3 res-admin-leave-balance-export">
+                                <div class="dropdowns-container d-flex align-items-center" style="justify-content: flex-end;">
+                                    <div class="form-group" style="margin-top: 17px;">
+                                        <button type="button" class="btn btn-primary btn-totalleaves-import">Import</button>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="col-sm-3 col-md-3 res-admin-leave-balance-export res-export-btn">
+                                <div class="dropdowns-container d-flex align-items-center" style="justify-content: flex-end;">
+                                    <div class="form-group adminleave-dropdown" style="margin-top: 17px;">
+                                        <button type="button" class="btn btn-primary" id="exportLeaveButton" onclick="exportLeaveBalance()">Export</button>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="dropdown col-sm-4 col-md-5 col-lg-4 res-admin-leave-balance-dropdown">
+                                <button class="btn dropdown-toggle" type="button" id="adminleaveSettingsDropdown" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" style="">
+                                    Leave Settings
+                                </button>
+                                <div class="dropdown-menu leaveSettings-dropdown" aria-labelledby="leaveSettingsDropdown" style="border:1px solid gray">
+                                    <a class="dropdown-item adminleave-history">Leave History</a>
+                                    <a class="dropdown-item adminleave-Balanve-link">Leave Balance</a>
+                                    <a class="dropdown-item adminleave-CompOff-link">CompOff Request</a>
+                                    <a class="dropdown-item adminside-leaveapply">Apply Leave</a>
+
+                                </div>
+                            </div>
+                        </div>
+
+
+                    </div>
+
+                    @*<div class="collapse" id="LeaveDateDropdown">
+                            <div class="col-md-4"></div>
+                            <div class="col-md-6 d-flex justify-content-end res-admin-leave-datedropdown" style="margin-left:43%">
+                                <div class="form-group d-flex mr-2">
+                                    <label for="from" class="mr-2">From</label>
+                                    <input type="date" class="form-control form-control-sm" id="fromDate" style="width: 120px;">
+                                </div>
+                                <div class="form-group d-flex mr-2">
+                                    <label for="to" class="mr-2">To</label>
+                                    <input type="date" class="form-control form-control-sm" id="toDate" style="width: 120px;">
+                                </div>
+                                <div class="form-group d-flex align-items-center">
+                                    <button type="button" class="btn btn-sm btn-primary" onclick="submitDateRange()">Submit</button>
+                                    <a href="#" class="clearLeave-filter ml-2">Clear</a>
+                                </div>
+                            </div>
+                        </div>*@
+
+                    <div class="res-admin-leave-balance-table table-responsive">
+                        <table class="table table-leave-balance" id="leaveBalanceTable" style="font-size:14px;">
+                            <thead>
+                                <tr>
+                                    <th>Emp-ID</th>
+                                    <th>Employee Name</th>
+                                    <th>Earned Leave</th>
+                                    <th>Emergency</th>
+                                    <th>Sick Leave</th>
+                                    <th>Bereavement</th>
+                                    <th>Hourly Permission</th>
+                                    <th>Marriage</th>
+                                    <th>Maternity</th>
+                                    <th>Paternity</th>
+                                    <th>Comp Off</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+
+                                @foreach (HRMS.Models.Employee.LeaveEmployee emp in Model.LeaveTypes)
+                                {
+                                    <tr class="leave-IndiRow">
+                                        <td class="fontSmall">@emp.empInfo.EmployeeID</td>
+                                        <td class="employeeinfo-balance" data-empid="@emp.empInfo.EmployeeID">
+                                            <div class="IndiLeaveDetails">
+
+                                                @if (!string.IsNullOrWhiteSpace(@emp.empInfo.imagepath))
+                                                {
+                                                    var empImageURl = System.Configuration.ConfigurationManager.AppSettings["EmpImagesFolder"] + "/" + emp.empInfo.imagepath;
+                                                    <img src="@empImageURl" alt="Employee Image" class="userIcon">
+                                                }
+                                                else
+                                                {
+                                                    // Check if emp, empInfo, and EmployeeName are not null
+                                                    if (emp != null && emp.empInfo != null && !string.IsNullOrEmpty(emp.empInfo.EmployeeName))
+                                                    {
+                                                        string[] names = emp.empInfo.EmployeeName.Split(new char[] { ' ' }, StringSplitOptions.RemoveEmptyEntries);
+
+                                                        if (names.Length > 0)
+                                                        {
+                                                            string firstName = names[0];
+                                                            string lastName = names.Length > 1 ? names[names.Length - 1] : string.Empty;
+                                                            char firstLetterOfFirstName = char.ToUpper(firstName[0]);
+                                                            char firstLetterOfLastName = !string.IsNullOrEmpty(lastName) ? char.ToUpper(lastName[0]) : '\0';
+                                                            <div class="default-image-navbar">@firstLetterOfFirstName @firstLetterOfLastName</div>
+                                                        }
+
+                                                    }
+                                                }
+
+                                                @*<img src="images/userIcon.png" class="userIcon" alt="user" />*@
+                                                <div class="fontSmall">
+                                                    <p class="mb-0 fontWtMedium">@emp.empInfo.EmployeeName</p>
+                                                    <a href="#">@emp.empInfo.OfficalEmailid</a>
+                                                </div>
+                                            </div>
+                                        </td>
+                                        @foreach (HRMS.Models.Employee.AvailableLeaves availabilty in emp.AvailableLeaves)
+                                        {
+                                            <td class="fontSmall dataMinWidth dateMaxWidth">
+                                                <div class="earned-indi">@availabilty.Balance.ToString().Replace(".00", "").Replace(".0", "")</div>
+                                            </td>
+                                        }
+                                    </tr>
+                                }
+
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+
+                <script>
+                    $(document).ready(function () {
+
+                        if (!$.fn.DataTable.isDataTable('#leaveBalanceTable')) {
+                            var table = $('#leaveBalanceTable').DataTable({
+                                "paging": true,
+                                "info": false,
+                                "searching": true,  // Disable the built-in search
+                                "ordering": false,
+                                "lengthChange": false,
+                                "pageLength": 8,
+                                "stripeClasses": ['odd', 'even']
+                            });
+
+
+                            $(document).on('keyup', '#adminleavetableSearch', function () {
+                                table.search(this.value).draw();
+                            });
+                        }
+                    });
+
+
+                </script>
+            </div>
         </div>
     </div>
-
-    <script>
-        $(document).ready(function () {
-
-            if (!$.fn.DataTable.isDataTable('#leaveBalanceTable')) {
-                var table = $('#leaveBalanceTable').DataTable({
-                    "paging": true,
-                    "info": false,
-                    "searching": true,  // Disable the built-in search
-                    "ordering": false,
-                    "lengthChange": false,
-                    "pageLength": 8,
-                    "stripeClasses": ['odd', 'even']
-                });
-
-
-                $(document).on('keyup', '#adminleavetableSearch', function () {
-                    table.search(this.value).draw();
-                });
-            }
-        });
-
-
-    </script>
 </div>
+

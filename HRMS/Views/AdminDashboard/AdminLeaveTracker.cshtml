@@ -26,16 +26,16 @@
                     <div class="d-flex justify-content-between align-items-center mb-4 res-admin-leave-header">
                         <h4>Leave Tracker</h4>
                         <div class="dropdown">
-                            <button class="btn dropdown-toggle" type="button" id="adminleaveSettingsDropdown" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" style="">
-                                Leave Settings
-                            </button>
-                            <div class="dropdown-menu leaveSettings-dropdown" aria-labelledby="leaveSettingsDropdown" style="border:1px solid gray">
-                                <a class="dropdown-item adminleave-history">Leave History</a>
-                                <a class="dropdown-item adminleave-Balanve-link">Leave Balance</a>
-                                <a class="dropdown-item adminleave-CompOff-link">CompOff Request</a>
-                                <a class="dropdown-item adminside-leaveapply">Apply Leave</a>
+                            @*<button class="btn dropdown-toggle" type="button" id="adminleaveSettingsDropdown" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" style="">
+                                    Leave Settings
+                                </button>
+                                <div class="dropdown-menu leaveSettings-dropdown" aria-labelledby="leaveSettingsDropdown" style="border:1px solid gray">
+                                    <a class="dropdown-item adminleave-history">Leave History</a>
+                                    <a class="dropdown-item adminleave-Balanve-link">Leave Balance</a>
+                                    <a class="dropdown-item adminleave-CompOff-link">CompOff Request</a>*@
+                            <a class="dropdown-item adminside-leaveapply btn-sm">Apply Leave</a>
 
-                            </div>
+                            @*</div>*@
                         </div>
                     </div>
 
@@ -78,7 +78,7 @@
                                         window.history.replaceState({}, document.title, clean_uri);
                                     }
                                 }
-                              
+
                             });
                         </script>
                     }
@@ -93,3 +93,5 @@
         </div>
     </div>
 </div>
+
+<script src="~/Scripts/z-empleave.js"></script>

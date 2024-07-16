@@ -80,7 +80,7 @@ namespace HRMS.Controllers
                     loginModel.IsUser = true;
                     var currentEmployee = _dbContext.emp_info.Where(emp => emp.EmployeeID == loginModel.EmployeeID).FirstOrDefault();
                     SiteContext.LoginInfo = isEmpExists;
-                    SiteContext.EmpInfo = currentEmployee; 
+                    SiteContext.EmpInfo = currentEmployee;
                     Session["SiteContext"] = SiteContext;
 
                     FormsAuthentication.SetAuthCookie(isEmpExists.EmployeeID.ToString(), loginModel.StaySignedIn);
@@ -90,7 +90,7 @@ namespace HRMS.Controllers
 
             if (!string.IsNullOrWhiteSpace(loginModel.EmailID))
             {
-                var isEmpExists = _dbContext.emplogins.Where(emp => emp.EmployeeEmail == loginModel.EmailID && emp.Password == loginModel.Password && emp.EmployeeRole == "HR Admin").FirstOrDefault();
+                var isEmpExists = _dbContext.emplogins.Where(emp => emp.EmployeeEmail == loginModel.EmailID && emp.Password == loginModel.Password && (emp.EmployeeRole.Contains("HR Admin") || emp.EmployeeRole.Contains("Super Admin"))).FirstOrDefault();
                 if (isEmpExists != null)
                 {
                     loginModel.IsAdmin = true;

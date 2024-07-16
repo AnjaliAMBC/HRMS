@@ -605,6 +605,34 @@ namespace HRMS.Helpers
             return result;
         }
 
+        public List<LeaveInfo> EmpLeaveInfoBasedonFromAndToDateWithCreatedDate(string startdate, string enddate)
+        {
+
+            DateTime dateStart = DateTime.ParseExact(startdate, "dd-MM-yyyy", null);
+            DateTime dateEnd = DateTime.ParseExact(enddate, "dd-MM-yyyy", null);
+
+            // Query leave data and group by LeaveRequestName
+            var leaves = _dbContext.con_leaveupdate
+                .Where(x => x.createddate >= dateStart && x.createddate <= dateEnd)
+                .GroupBy(x => x.LeaveRequestName)
+                .Select(g => new LeaveInfo
+                {
+                    LeaveRequestName = g.Key,
+                    Fromdate = g.Min(x => x.Fromdate),
+                    Todate = g.Max(x => x.Todate),
+                    TotalLeaveDays = g.Sum(x => x.LeaveDays),
+                    LatestLeave = g.OrderByDescending(x => x.leavedate).FirstOrDefault()
+                })
+                .OrderByDescending(x => x.LatestLeave.leavedate)
+                .ToList();
+
+            // If you need to return leaves list as a specific type, convert it accordingly
+            var result = leaves
+                .OrderByDescending(x => x.LatestLeave.leavedate)
+                .ToList();
+            return result;
+        }
+
 
         public AvailableLeaves GetEmpBasedAvailableLeaves(emp_info employee, LeaveBalance leaveBalanceInfo, LeavesCategory leaveType)
         {

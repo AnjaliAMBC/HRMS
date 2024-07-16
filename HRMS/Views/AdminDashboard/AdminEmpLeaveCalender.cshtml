@@ -1,188 +1,200 @@
 ﻿@model HRMS.Models.Admin.AdminLeaveEmpCalenderViewModel
 
+@Html.Partial("_NavBar")
+<div class="container-fluid res-admin-Ticketing">
+    <div class="hiddenadmindashboard" style="display: none"></div>
+    @Html.Partial("_adminsidemenu")
+    <div class="main-content container-fluid" style="width: 84%">
+        <div class="content admin-leaveHistory-container" style="margin-left: -25px; margin-top: 10px;">
 
-<div class="AdminLeaveEmpCalender-Page">
-    <style>
-        .LeaveEmpHistory-calender {
-            //max-width: 800px;
-        }
+            <div class="AdminLeaveEmpCalender-Page">
+                <style>
+                    .LeaveEmpHistory-calender {
+                        /* //max-width: 800px;*/
+                    }
 
-        .LeaveEmp-dropdown {
-            width: 100%;
-            max-height: 300px;
-            overflow-y: auto;
-            padding: 0;
-        }
+                    .LeaveEmp-dropdown {
+                        width: 100%;
+                        max-height: 300px;
+                        overflow-y: auto;
+                        padding: 0;
+                    }
 
-        .LeaveEmp-dropdowntoggle {
-            width: 100%;
-            text-align: left;
-            position: relative;
-        }
+                    .LeaveEmp-dropdowntoggle {
+                        width: 100%;
+                        text-align: left;
+                        position: relative;
+                    }
 
-            .LeaveEmp-dropdowntoggle::after {
-                position: absolute;
-                right: 10px;
-                top: 50%;
-                transform: translateY(-50%);
-            }
+                        .LeaveEmp-dropdowntoggle::after {
+                            position: absolute;
+                            right: 10px;
+                            top: 50%;
+                            transform: translateY(-50%);
+                        }
 
-        .dropdown-item {
-            white-space: normal;
-        }
+                    .dropdown-item {
+                        white-space: normal;
+                    }
 
-        .form-control {
-            border-radius: 0;
-            box-shadow: none;
-            border: none;
-            border-bottom: 1px solid #ddd;
-            margin: 0;
-        }
+                    .form-control {
+                        border-radius: 0;
+                        box-shadow: none;
+                        border: none;
+                        border-bottom: 1px solid #ddd;
+                        margin: 0;
+                    }
 
-        .dropdown .form-control {
-            border-top-left-radius: .25rem;
-            border-top-right-radius: .25rem;
-        }
+                    .dropdown .form-control {
+                        border-top-left-radius: .25rem;
+                        border-top-right-radius: .25rem;
+                    }
 
-        .LeaveEmp-dropdown a {
-            padding: .5rem 1.5rem;
-        }
+                    .LeaveEmp-dropdown a {
+                        padding: .5rem 1.5rem;
+                    }
 
-        .dropdown-divider {
-            margin: 0;
-        }
+                    .dropdown-divider {
+                        margin: 0;
+                    }
 
-        .title-dropdown-row {
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-        }
+                    .title-dropdown-row {
+                        display: flex;
+                        align-items: center;
+                        justify-content: space-between;
+                    }
 
-        .dropdown-container {
-            flex: 1;
-            margin-left: 20px;
-        }
+                    .dropdown-container {
+                        flex: 1;
+                        margin-left: 20px;
+                    }
 
-        .LeaveEmp-dropdowntoggle {
-            width: 100%;
-            text-align: left;
-            position: relative;
-            background-color: #ffffff; /* White background color */
-            color: #000000; /* Black text color */
-            border: 1px solid #ced4da; /* Optional: Add border for clarity */
-        }
+                    .LeaveEmp-dropdowntoggle {
+                        width: 100%;
+                        text-align: left;
+                        position: relative;
+                        background-color: #ffffff; /* White background color */
+                        color: #000000; /* Black text color */
+                        border: 1px solid #ced4da; /* Optional: Add border for clarity */
+                    }
 
-            .LeaveEmp-dropdowntoggle:hover,
-            .LeaveEmp-dropdowntoggle:focus,
-            .LeaveEmp-dropdowntoggle:active {
-                background-color: #ffffff; /* Ensure consistent white background color */
-                color: #000000; /* Ensure consistent black text color */
-                border-color: #ced4da; /* Ensure consistent border color */
-            }
-    </style>
-    <div class="card empleave-card mb-3 res-admin-leavehistory-calendar">
+                        .LeaveEmp-dropdowntoggle:hover,
+                        .LeaveEmp-dropdowntoggle:focus,
+                        .LeaveEmp-dropdowntoggle:active {
+                            background-color: #ffffff; /* Ensure consistent white background color */
+                            color: #000000; /* Ensure consistent black text color */
+                            border-color: #ced4da; /* Ensure consistent border color */
+                        }
+                </style>
+                <div class="card empleave-card mb-3 res-admin-leavehistory-calendar">
 
-        <div class="LeaveEmpHistory-calender row">
-            <div class="title-dropdown-row col-lg-12">
-                <div class="col col-sm-12 col-md-5 col-lg-3 res-admin-leave-history-calendar-title">
-                    <h3 class="mb-0">Leave History</h3>
-                </div>
-                <div class="dropdown-container col-lg-5 res-leavehistpry-calender-search">
-                    <div class="dropdown">
-                        <button class="btn btn-secondary dropdown-toggle LeaveEmp-dropdowntoggle" type="button" id="employeeDropdown" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                            Select Employee
-                        </button>
-                        <div class="dropdown-menu LeaveEmp-dropdown" aria-labelledby="employeeDropdown">
-                            <input type="text" class="form-control" id="employeeSearch" placeholder="Search">
-                            <div class="dropdown-divider"></div>
-                            <div id="employeeList">
+                    <div class="LeaveEmpHistory-calender row">
+                        <div class="title-dropdown-row col-lg-12">
+                            <div class="col col-sm-12 col-md-5 col-lg-3 res-admin-leave-history-calendar-title">
+                                <h3 class="mb-0">Leave History</h3>
+                            </div>
+                            <div class="dropdown-container col-lg-5 res-leavehistpry-calender-search">
+                                <div class="dropdown">
+                                    <button class="btn btn-secondary dropdown-toggle LeaveEmp-dropdowntoggle" type="button" id="employeeDropdown" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                        Select Employee
+                                    </button>
+                                    <div class="dropdown-menu LeaveEmp-dropdown" aria-labelledby="employeeDropdown">
+                                        <input type="text" class="form-control" id="employeeSearch" placeholder="Search">
+                                        <div class="dropdown-divider"></div>
+                                        <div id="employeeList">
 
-                                @foreach (var emp in Model.Employees)
-                                {
-                                    <a class="dropdown-item admin-empbased-leave-calender" data-empid="@emp.EmployeeID" href="#">@emp.EmployeeName</a>
-                                }
+                                            @foreach (var emp in Model.Employees)
+                                            {
+                                                <a class="dropdown-item admin-empbased-leave-calender" data-empid="@emp.EmployeeID" href="#">@emp.EmployeeName</a>
+                                            }
 
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="leave-history-calender col-md-1 col-lg-1">
+                                <i class="fa-solid fa-table-cells Admin-leavehistory-icon"></i>
                             </div>
                         </div>
                     </div>
+
+                    <div class="card-header empleave-card-header empleave-calendar-header text-dark mt-4">
+                        <i class="fas fa-chevron-left empleave-chevron-icon" onclick="prevLeaveMonth()"></i>
+                        <h6 id="empleave-monthYear"></h6>
+                        <i class="fas fa-chevron-right empleave-chevron-icon" onclick="nextLeaveMonth()"></i>
+                    </div>
+                    <div class="card-body empleave-calendar-body table-responsive">
+                        <table class="table empleave-calendar-table" style="width: 100%; color: #23366f">
+                            <thead>
+                                <tr>
+                                    <th scope="col">Monday</th>
+                                    <th scope="col">Tuesday</th>
+                                    <th scope="col">Wednesday</th>
+                                    <th scope="col">Thursday</th>
+                                    <th scope="col">Friday</th>
+                                    <th scope="col">Saturday</th>
+                                    <th scope="col">Sunday</th>
+                                </tr>
+                            </thead>
+                            <tbody id="empleave-calendarBody"></tbody>
+                        </table>
+                    </div>
                 </div>
-                <div class="leave-history-calender col-md-1 col-lg-1">
-                    <i class="fa-solid fa-table-cells Admin-leavehistory-icon"></i>
-                </div>
+
+                <script>
+                    $(document).ready(function () {
+                        if (!window.fetchLeaveHolidaysCalled) {
+                            window.fetchLeaveHolidaysCalled = true;
+                            $('.show-progress').show();
+                            setTimeout(function () {
+                                fetchLeaveHolidays();
+                                $('.show-progress').hide();
+                            }, 2000);
+                        }
+                    });
+
+                    $(document).ready(function () {
+                        //const employees = [
+                        //    "Mathumathi Mariyappan 1261",
+                        //    "Ravikumar Mantri 0012",
+                        //    "Sriram Vivekanandan 1155",
+                        //    "Rajesh Kumar 1262",
+                        //    "Linkeshwaran 1268",
+                        //    "Goutham Arunagiri 1301",
+                        //    "Asif Mohammed 1132",
+                        //    "Mithun Sivaprakasam 1158",
+                        //    "Seema Ashok"
+                        //];
+
+                        //function renderEmployeeList(filteredEmployees) {
+                        //    const employeeList = $('#employeeList');
+                        //    employeeList.empty();
+                        //    filteredEmployees.forEach(employee => {
+                        //        const listItem = `<a class="dropdown-item admin-empbased-leave-calender" data-empid="1311" href="#">${employee}</a>`;
+                        //        employeeList.append(listItem);
+                        //    });
+                        //}
+
+                        //// Initial rendering of the employee list
+                        //renderEmployeeList(employees);
+
+                        $('#employeeSearch').on('keyup', function () {
+                            const searchText = $(this).val().toLowerCase();
+                            const filteredEmployees = employees.filter(employee => employee.toLowerCase().includes(searchText));
+                            renderEmployeeList(filteredEmployees);
+                        });
+
+                        $(document).on('click', '.dropdown-item', function () {
+                            const selectedEmployee = $(this).text();
+                            $('#employeeDropdown').text(selectedEmployee);
+                            $('.LeaveEmp-dropdown').removeClass('show');
+                        });
+                    });
+                </script>
             </div>
         </div>
-
-        <div class="card-header empleave-card-header empleave-calendar-header text-dark mt-4">
-            <i class="fas fa-chevron-left empleave-chevron-icon" onclick="prevLeaveMonth()"></i>
-            <h6 id="empleave-monthYear"></h6>
-            <i class="fas fa-chevron-right empleave-chevron-icon" onclick="nextLeaveMonth()"></i>
-        </div>
-        <div class="card-body empleave-calendar-body table-responsive">
-            <table class="table empleave-calendar-table" style="width: 100%; color: #23366f">
-                <thead>
-                    <tr>
-                        <th scope="col">Monday</th>
-                        <th scope="col">Tuesday</th>
-                        <th scope="col">Wednesday</th>
-                        <th scope="col">Thursday</th>
-                        <th scope="col">Friday</th>
-                        <th scope="col">Saturday</th>
-                        <th scope="col">Sunday</th>
-                    </tr>
-                </thead>
-                <tbody id="empleave-calendarBody"></tbody>
-            </table>
-        </div>
     </div>
-
-    <script>
-        $(document).ready(function () {
-            if (!window.fetchLeaveHolidaysCalled) {
-                window.fetchLeaveHolidaysCalled = true;
-                $('.show-progress').show();
-                setTimeout(function () {
-                    fetchLeaveHolidays();
-                    $('.show-progress').hide();
-                }, 2000);
-            }
-        });
-
-        $(document).ready(function () {
-            //const employees = [
-            //    "Mathumathi Mariyappan 1261",
-            //    "Ravikumar Mantri 0012",
-            //    "Sriram Vivekanandan 1155",
-            //    "Rajesh Kumar 1262",
-            //    "Linkeshwaran 1268",
-            //    "Goutham Arunagiri 1301",
-            //    "Asif Mohammed 1132",
-            //    "Mithun Sivaprakasam 1158",
-            //    "Seema Ashok"
-            //];
-
-            //function renderEmployeeList(filteredEmployees) {
-            //    const employeeList = $('#employeeList');
-            //    employeeList.empty();
-            //    filteredEmployees.forEach(employee => {
-            //        const listItem = `<a class="dropdown-item admin-empbased-leave-calender" data-empid="1311" href="#">${employee}</a>`;
-            //        employeeList.append(listItem);
-            //    });
-            //}
-
-            //// Initial rendering of the employee list
-            //renderEmployeeList(employees);
-
-            $('#employeeSearch').on('keyup', function () {
-                const searchText = $(this).val().toLowerCase();
-                const filteredEmployees = employees.filter(employee => employee.toLowerCase().includes(searchText));
-                renderEmployeeList(filteredEmployees);
-            });
-
-            $(document).on('click', '.dropdown-item', function () {
-                const selectedEmployee = $(this).text();
-                $('#employeeDropdown').text(selectedEmployee);
-                $('.LeaveEmp-dropdown').removeClass('show');
-            });
-        });
-    </script>
 </div>
+
+<script src="~/Scripts/z-EmpDash.js"></script>
+<script src="~/Scripts/z-empleave.js"></script>

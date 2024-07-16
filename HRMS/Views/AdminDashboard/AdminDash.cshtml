@@ -1,5 +1,14 @@
-﻿@model HRMS.Models.Admin.AdminDashView
+﻿@using HRMS.Helpers
 
+@model HRMS.Models.Admin.AdminDashView
+
+
+
+@{
+    var currentContext = Session["SiteContext"] as HRMS.Models.SiteContextModel;
+    var isSuperAdmin = HRMS.Helpers.SuperAdminHelper.IsSuperAdmin(currentContext);
+    var adminLocations = HRMS.Helpers.SuperAdminHelper.GetAdminLocations(currentContext);
+}
 
 @Html.Partial("_NavBar")
 
@@ -17,11 +26,16 @@
                                 <!-- Leave Request Section -->
                                 <div class="card leave-requests mx-2">
                                     <div class="card-header">
-                                        Leave Request (@Model.AllEMployeeLeaves.Count())
+                                        @{
+                                            var filteredLeaveRequests = adminLocations.Any()
+                                            ? Model.AllEMployeeLeaves.Where(x => adminLocations.Contains(x.LatestLeave.Location))
+                                            : Model.AllEMployeeLeaves;
+                                        }
+                                        Leave Request (@filteredLeaveRequests.Count())
                                     </div>
                                     <div class="card-body admindash_card scrollbar p-2">
                                         <ul class="list-group list-group-flush">
-                                            @foreach (var leave in Model.AllEMployeeLeaves)
+                                            @foreach (var leave in filteredLeaveRequests)
                                             {
                                                 <li class="list-group-item p-0">
                                                     <div class="leave-info">
@@ -259,7 +273,8 @@
                     </div>
                 </div>
 
-
+                <script src="~/Scripts/z-EmpDash.js"></script>
+                <script src="~/Scripts/z-empleave.js"></script>
                 <script>
                     generateCalendar(new Date().getMonth(), new Date().getFullYear());
                 </script>

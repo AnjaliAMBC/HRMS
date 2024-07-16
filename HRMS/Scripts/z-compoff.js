@@ -89,7 +89,7 @@ $(document).on('click', '.btn-admin-compoff-history', function () {
     }
 });
 
-$(document).on('click', '.clearLeave-compoff-filter', function () {
+$(document).on('click', '.clearLeave-compoff-filter', function (e) {
     e.preventDefault();
     $('#fromDate').val('');
     $('#toDate').val('');
