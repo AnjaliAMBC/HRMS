@@ -3,19 +3,20 @@
 <div class="container-fluid res-admin-Ticketing">
     <div class="hiddenadmindashboard" style="display: none"></div>
     @Html.Partial("_adminsidemenu")
-    <div class="main-content container-fluid AdminHrTicketing-View" style="width: 84%">
+    <div class="main-content container-fluid AdminHrTicketing-View" style="width: 84%; margin-top: 15px;">
             <div class="HRTicketing-View">
-                <div class="col-lg-5 col-md-11 hr-ticketing-popup-form">
-                    <form id="hr-ticketing-Form">
+                <div class="col-lg-5 col-md-11 admin-ticket-hr-popup-form">
+                    <form id="admin-ticket-hr-Form">
                         <div class="form-group">
                             <h4 class="mb-4 hr-ticketing-pagetitle">HR Ticketing</h4>
                             <div class="form-group div-hrticketing-category">
                                 <label for="hrticketing-category" class="hrticketing-label">Category</label>
                                 <input type="text" class="form-control" id="hrticketing-category" value="Laptop" readonly>
                             </div>
-                            <div class="form-group">
+                            <div class="form-group div-hrticketing-subject">
                                 <label for="hrticketing-subject">Subject</label>
                                 <input type="text" class="form-control" id="hrticketing-subject" value="Internet port not working" readonly>
+                                <a target="_blank" href="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSu1UGSw-06AINJmKdegf621q-09xA-rbF7LWUdlzjErS0LbZNQIWl-SC3YJbDslVLH0dI&usqp=CAU"><i class="fa-regular fa-image"></i></a>
                             </div>
                             <div class="form-group">
                                 <label for="hrticketing-description">Description*</label>
@@ -42,24 +43,24 @@
                                 </select>
                                 <span class="error-message" id="hrticketing-closedby-error"></span>
                             </div>
-                            <div class="hrticketing-block">
-                                <div class="form-group col-lg-5 div-hrticketing-status">
-                                    <label for="hrticketing-status" class="hrticketing-priority-label">Select Status*</label>
-                                    <select class="form-control" id="hrticketing-status">
+                            <div class="admin-hrticketing-block">
+                                <div class="form-group col-lg-5 div-admin-hrticketing-status">
+                                    <label for="admin-hrticketing-status" class="admin-hrticketing-priority-label">Select Status*</label>
+                                    <select class="form-control" id="admin-hrticketing-status">
                                         <option selected disabled>Select Status</option>
                                         <option value="1">Pending</option>
                                         <option value="2">Hold</option>
                                     </select>
-                                    <span class="error-message" id="hrticketing-status-error"></span>
+                                    <span class="error-message" id="admin-hrticketing-status-error"></span>
                                 </div>
-                                <div class="form-group col-lg-5 div-hrticketing-closeddate">
-                                    <label for="hrticketing-closeddate" class="hrticketing-closeddate-label">Closed Date*</label>
+                                <div class="form-group col-lg-5 div-admin-hrticketing-closeddate">
+                                    <label for="admin-hrticketing-closeddate" class="admin-hrticketing-closeddate-label">Closed Date*</label>
                                     <input type="date" class="form-control form-control-sm mr-2" id="hrticketing-closeddate" value="">
                                 </div>
                             </div>
-                            <div class="hrticketing-submit">
-                                <button type="submit" class="btn btn-apply-hrticketing-cancel mb-4">Cancel</button>
-                                <button type="submit" class="btn btn-primary btn-apply-hrticketing-submit mb-4">Submit</button>
+                            <div class="admin-hrticketing-submit">
+                                <button type="submit" class="btn btn-apply-admin-hrticketing-cancel mb-4">Cancel</button>
+                                <button type="submit" class="btn btn-primary btn-apply-admin-hrticketing-submit mb-4">Submit</button>
                             </div>
                         </div>
                     </form>

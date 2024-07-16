@@ -11,113 +11,190 @@
                         <h4>Ticket History</h4>
                     </div>
                     <div class="col-lg-6 res-emp-tickethistory-mid">
-                        
+
                     </div>
                     <div class="col-lg-3 res-emp-tickethistory-right">
                         <button type="button" class="btn btn-primary btn-empRaiseTicket">Raise Ticket</button>
                     </div>
                 </div>
-                
+
             </div>
 
             <div class="empleave-ticket-history" id="empTicketHistory">
-                <div class="table-responsive">
-                    <table id="leaveTicketHistoryTable" class="table leave-tickethistory-table">
-                        <thead style="display: none">
+                <div class="res-emp-ticket-listing-table table-responsive">
+                    <table class="table table-emp-ticket-listing" id="empticketlistingTable" style="font-size:14px;">
+                        <thead style="background-color: #EEF4FF; border-radius: 10px;display:none;">
                             <tr>
-                                <th>Date</th>
-                                <th>Day(s)</th>
-                                <th>Leave Type</th>
+                                <th>Emp-ID</th>
+                                <th>Priority</th>
+                                <th>Location</th>
                                 <th>Status</th>
-                                <th>Reason</th>
-                                <th></th>
+                                <th>Action</th>
                             </tr>
                         </thead>
                         <tbody>
-                            <tr class="rowBorder odd">
-                                <td class="fontSmall dataMinWidth dateMaxWidth">
-                                    <p class="mb-0 fontWtMedium">Category</p><span class="mutedText">IT</span>
-                                </td>
-                                <td class="fontSmall">
-                                    <div class="mutedText">Priority</div>
-                                    <span class="fontWtMedium">High</span>
-                                </td>
-                                <td class="fontSmall dataMinWidth">
-                                    <div class="mutedText">Subject</div>
-                                    <span class="fontWtbold">Network port issue</span>
-                                </td>
-                                <td class="fontSmall">
-                                    <div class="mutedText">Status</div>
-                                    <span class="fontWtMedium status-approved">Closed</span>
-                                </td>
-                                <td style="width: 420px;" class="fontSmall commentSec">
-                                    <div class="dFlex d-flex">
-                                        <i class="fa-solid fa-message chatIcon mt-1 mr-2"></i>
-                                        <p>Reason Reason Reason Reason Reason Reason Reason </p>
+                            <tr class="odd">
+                                <td style="width: 300px">
+                                    <div class="res-emp-ticketlisting-user-details" style="display: flex; align-items: center;">
+                                        <i class="emp-ticket-msg-icon fa-regular fa-message"></i>
+                                        <span style="margin-top: 0px; margin-right: 10px;">
+                                            <div class="emp-ticketing-listing-title">Laptop Not Working</div>
+                                            <div class="emp-ticketing-listing-details">
+                                                <span class="emp-ticket-id">#1212</span>
+                                                <span class="emp-ticket-info"><i class="fa-solid fa-folder" aria-hidden="true"></i> General</span>
+                                            </div>
+                                        </span>
                                     </div>
                                 </td>
+                                <td style="width: 400px" class="res-emp-ticketlisting-priority">
+                                    <div style="visibility: hidden;" class="emp-ticketing-response-time">
+                                        Response Time 2 Hr
+                                    </div>
+                                    <div class="emp-ticketing-priority-date">
+                                        <span class="emp-ticket-prioritylevel">
+                                            <span class="res-emp-ticketlisting-color res-emp-ticketlisting-color-red"></span>
+                                            <span class="res-emp-ticketlisting-priority-status">High</span>
+                                        </span>
+                                        <span class="res-emp-ticketlisting-date">
+                                            <i class="fa-solid fa-clock" aria-hidden="true"></i>
+                                            <span class="res-empticketlisting-priority-status">07 Oct 2024, Sat 07:00AM</span>
+                                        </span>
+                                    </div>
+                                </td>
+                                <td class="res-emp-ticketlisting-location-info">
+                                    <div class="emp-ticketing-empty-block"></div>
+                                    <div class="emp-ticketing-listing-closedby">Closed By <span></span></div>
+                                </td>
+                                <td class="res-emp-ticketlisting-status">
+                                    <div class="emp-ticketing-empty-block"></div>
+                                    <div class="res-empticketlisting-status-level ticket-status-open">Open</div>
+                                </td>
                                 <td class="fontSmall position-relative">
-
                                     <i class="fas fa-ellipsis-h emp-ticket-edit-history" onclick="toggleLeaveTicketHistoryActionOptions(this)"></i>
                                     <div class="emp-tickethistoryoptions" style="display:none">
-                                        <a class="dropdown-item emp-tickethistory-edit" onclick="emptickethistoryedit($(this))" data-leavename="1311_2024-08-27_2024-08-27">Edit</a>
-                                        <a class="dropdown-item emp-tickethistory-cancel" onclick="emptickethistorycancel($(this))" data-leavename="1311_2024-08-27_2024-08-27">Cancel</a>
+                                        <a class="dropdown-item emp-tickethistory-edit" onclick="emptickethistoryedit($(this))" data-ticketname="13112_2024-08-27_2024-08-27">Edit</a>
+                                        <a class="dropdown-item emp-tickethistory-cancel" onclick="emptickethistorycancel($(this))" data-ticketname="13112_2024-08-27_2024-08-27">Cancel</a>
                                     </div>
                                 </td>
                             </tr>
-                            <tr class="rowBorder even">
-                                <td class="fontSmall dataMinWidth dateMaxWidth">
-                                    <p class="mb-0 fontWtMedium">Category</p><span class="mutedText">IT</span>
-                                </td>
-                                <td class="fontSmall">
-                                    <div class="mutedText">Priority</div>
-                                    <span class="fontWtMedium">High</span>
-                                </td>
-                                <td class="fontSmall dataMinWidth">
-                                    <div class="mutedText">Subject</div>
-                                    <span class="fontWtbold">Network port issue</span>
-                                </td>
-                                <td class="fontSmall">
-                                    <div class="mutedText">Status</div>
-                                    <span class="fontWtMedium status-pending">Pending</span>
-                                </td>
-                                <td style="width: 420px;" class="fontSmall commentSec">
-                                    <div class="dFlex d-flex">
-                                        <i class="fa-solid fa-message chatIcon mt-1 mr-2"></i>
-                                        <p>Reason Reason Reason Reason Reason Reason Reason </p>
+                            <tr class="even">
+                                <td style="width: 300px">
+                                    <div class="res-emp-ticketlisting-user-details" style="display: flex; align-items: center;">
+                                        <i class="emp-ticket-msg-icon fa-regular fa-message"></i>
+                                        <span style="margin-top: 0px; margin-right: 10px;">
+                                            <div class="emp-ticketing-listing-title">Laptop Not Working</div>
+                                            <div class="emp-ticketing-listing-details">
+                                                <span class="emp-ticket-id">#1212</span>
+                                                <span class="emp-ticket-info"><i class="fa-solid fa-folder" aria-hidden="true"></i> Others</span>
+                                            </div>
+                                        </span>
                                     </div>
                                 </td>
-                                <td class="fontSmall position-relative">
-
-                                    <i class="fas fa-ellipsis-h emp-ticket-edit-history" onclick="toggleLeaveTicketHistoryActionOptions(this)"></i>
-                                    <div class="emp-tickethistoryoptions" style="display:none">
-                                        <a class="dropdown-item emp-tickethistory-edit" onclick="emptickethistoryedit($(this))" data-leavename="13112_2024-08-27_2024-08-27">Edit</a>
-                                        <a class="dropdown-item emp-tickethistory-cancel" onclick="emptickethistorycancel($(this))" data-leavename="13112_2024-08-27_2024-08-27">Cancel</a>
+                                <td style="width: 400px" class="res-emp-ticketlisting-priority">
+                                    <div class="emp-ticketing-response-time">
+                                        Response Time 2 Hr
                                     </div>
+                                    <div class="emp-ticketing-priority-date">
+                                        <span class="emp-ticket-prioritylevel">
+                                            <span class="res-emp-ticketlisting-color res-emp-ticketlisting-color-orange"></span>
+                                            <span class="res-emp-ticketlisting-priority-status">Medium</span>
+                                        </span>
+                                        <span class="res-emp-ticketlisting-date">
+                                            <i class="fa-solid fa-clock" aria-hidden="true"></i>
+                                            <span class="res-empticketlisting-priority-status">07 Oct 2024, Sat 07:00AM</span>
+                                        </span>
+                                    </div>
+                                </td>
+                                <td class="res-emp-ticketlisting-location-info">
+                                    <div class="emp-ticketing-empty-block"></div>
+                                    <div class="emp-ticketing-listing-closedby">Closed By <span>TestUser</span></div>
+                                </td>
+                                <td class="res-emp-ticketlisting-status">
+                                    <div class="emp-ticketing-empty-block"></div>
+                                    <div class="res-empticketlisting-status-level ticket-status-closed">Closed</div>
                                 </td>
                             </tr>
                         </tbody>
                     </table>
                 </div>
+
             </div>
 
         </div>
     </div>
 </div>
 
-<script>    
+<!-- Confirmation Modal -->
+<div id="empTicketConfirmCancelModal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="empTicketConfirmCancelModal" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="empTicketConfirmCancelModalLabel">Confirm Cancel Ticket</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                Are you sure you want to cancel this ticket?
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                <button type="button" class="btn btn-danger" id="empTicketConfirmCancelButton">Cancel Ticket</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
     function toggleLeaveTicketHistoryActionOptions(iconElement) {
         const optionsMenu = $(iconElement).next('.emp-tickethistoryoptions');
         $('.emp-tickethistoryoptions').not(optionsMenu).hide(); // Hide any other open menus
         optionsMenu.toggle(); // Toggle visibility of the clicked menu
     }
     $(document).ready(function () {
-       /* $(document).on('click', function () {
-            $('.emp-tickethistoryoptions').hide();
-        });
-        $('#leaveTicketHistoryTable').on('click', '.emp-tickethistoryoptions', function (event) {
-            event.stopPropagation();
-        });*/
+        /* $(document).on('click', function () {
+             $('.emp-tickethistoryoptions').hide();
+         });
+         $('#leaveTicketHistoryTable').on('click', '.emp-tickethistoryoptions', function (event) {
+             event.stopPropagation();
+         });*/
     });
+
+    function emptickethistorycancel(currentthis) {
+        var ticketName = currentthis.attr("data-ticketname");
+
+        // Store leave name in a global variable or data attribute
+        $('#empTicketConfirmCancelButton').data('ticketname', ticketName);
+
+        // Show the confirmation modal
+        $('#empTicketConfirmCancelModal').modal('show');
+    }
+
+    // Add a click event listener for the confirm button in the modal
+    $('#empTicketConfirmCancelButton').on('click', function () {
+        var ticketName = $(this).data('ticketname');
+
+        $.ajax({
+            url: '/empLeave/EmpLeaveCancel',
+            type: 'POST',
+            dataType: 'json',
+            data: { ticketnumber: ticketName },
+            success: function (response) {
+                //GetEmpLeaveHistory();
+                if (response.StatusCode == 200) {
+                    showMessageModal(response.Message, true);
+                } else {
+                    showMessageModal(response.Message, false);
+                }
+            },
+            error: function (xhr, status, error) {
+                console.error("Error occurred: " + error);
+            }
+        });
+
+        // Hide the modal after the AJAX call is made
+        $('#empTicketConfirmCancelModal').modal('hide');
+    });
+
 </script>
 
