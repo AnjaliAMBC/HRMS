@@ -24,7 +24,7 @@ namespace HRMS.Controllers
         {
             var model = new TicketingModel();
             var cuserContext = SiteContext.GetCurrentUserContext();
-            var employeeId = cuserContext.EmpInfo.EmployeeID; 
+            var employeeId = cuserContext.EmpInfo.EmployeeID;
 
             var employeeTickets = _dbContext.IT_Ticket.Where(t => t.EmployeeID == employeeId).ToList();
             model.empTickets = employeeTickets;
@@ -95,6 +95,26 @@ namespace HRMS.Controllers
                 {
                     return Json(new { success = false, message = "Invalid file type or size." });
                 }
+            }
+            catch (Exception ex)
+            {
+                return Json(new { success = false, message = ex.Message });
+            }
+        }
+
+
+        [HttpPost]
+        public JsonResult UpdateTicketStatus(int ticketName, string status)
+        {
+            try
+            {
+                var cancellTicket = _dbContext.IT_Ticket.Where(x => x.TicketNo == ticketName).FirstOrDefault();
+                if (cancellTicket != null)
+                {
+                    cancellTicket.Status = status;
+                    _dbContext.SaveChanges();
+                }
+                return Json(new { success = true });
             }
             catch (Exception ex)
             {

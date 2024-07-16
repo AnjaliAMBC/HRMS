@@ -77,7 +77,7 @@ $(document).on('click', '.btn-apply-emp-raiseticket-submit', function (event) {
         formData.append('EmployeeID', $('.loggedinempid').text());
         formData.append('EmployeeName', $('.loggedinempname').text());
         formData.append('OfficialEmailID', $('.loggedinempemail').text());
-        formData.append('Status', 'Pending');
+        formData.append('Status', 'Open');
         formData.append('Location', $('.loggedinemplocation').text());
         formData.append('File', $('#emp-raiseticket-attach-file-upload')[0].files[0]);
 
@@ -106,6 +106,7 @@ $(document).on('click', '.btn-apply-emp-raiseticket-submit', function (event) {
 
 $(document).on('click', '.btn-apply-emp-raiseticket-cancel', function (event) {
     event.preventDefault();
+    $('#empTicketConfirmCancelModal').removeAttr('disabled');
     $('#emp-ticket-raise-Form')[0].reset();
     $('#category-div').show();
 });
@@ -117,3 +118,70 @@ $(document).on('change', '#emp-raiseticket-attach-file-upload', function (event)
     $('.emp-raiseticket-attach-label').removeClass('error');
     $('#emp-raiseticket-attach-error').text('');
 });
+
+function toggleLeaveTicketHistoryActionOptions(iconElement) {
+    const optionsMenu = $(iconElement).next('.emp-tickethistoryoptions');
+    $('.emp-tickethistoryoptions').not(optionsMenu).hide();
+    optionsMenu.toggle();
+}
+
+var currentSelectedrow;
+
+function emptickethistorycancel(currentthis) {
+    currentSelectedrow = currentthis.closest('tr');
+    var ticketName = currentthis.attr("data-ticketname");
+    $('#empTicketConfirmCancelButton').attr('data-ticketname', ticketName);
+    $('#empTicketConfirmCancelModal .modal-body').html('Are you sure you want to cancel this ticket?');
+    $('#empTicketConfirmCancelButton').attr('disabled', false);
+    $('#empTicketConfirmCancelModal').modal('show');
+}
+
+$(document).on('click', '#empTicketConfirmCancelButton', function (event) {
+    var ticketName = $(this).attr('data-ticketname');
+    var $currentButton = $(this); // Store reference to the clicked button
+
+    if (ticketName) {
+        var $row = currentSelectedrow;
+
+        if ($row) {
+            $.ajax({
+                url: '/empticketing/Updateticketstatus', // Ensure this URL is correct
+                method: 'POST',
+                data: {
+                    ticketName: ticketName,
+                    status: 'Cancelled'
+                },
+                success: function (response) {
+                    if (response.success) {
+                        $('#empTicketConfirmCancelModal .modal-body').html('<p>Ticket has been cancelled.</p>');
+                        $currentButton.attr('disabled', true);
+
+                        // Update the status of the current row to 'Cancelled'
+                        $row.find('.res-empticketlisting-status-level').text('Cancelled'); 
+                        $row.find('.emp-ticket-edit-history').hide();
+                        toggleLeaveTicketHistoryActionOptions($row.find('.emp-ticket-edit-history'));
+                    } else {
+                        $('#empTicketConfirmCancelModal .modal-body').html('<p>An error occurred: ' + response.message + '</p>');
+                    }
+                },
+                error: function (xhr, status, error) {
+                    $('#empTicketConfirmCancelModal .modal-body').html('<p>An error occurred. Please try again later.</p>');
+                }
+            });
+        } else {
+            $('#empTicketConfirmCancelModal .modal-body').html('<p>Row not found in the DataTable.</p>');
+        }
+    } else {
+        $('#empTicketConfirmCancelModal .modal-body').html('<p>Ticket information is missing. Please try again.</p>');
+    }
+});
+
+// Function to open the modal and set the ticketName attribute
+function openCancelModal(ticketNo) {
+    $('#empTicketConfirmCancelButton').attr('data-ticketname', ticketNo);
+    $('#empTicketConfirmCancelModal').modal('show');
+}
+
+// Example usage
+// <button onclick="openCancelModal('TICKET123')">Cancel Ticket</button>
+

@@ -46,7 +46,7 @@
                         <tbody>
                             @foreach (var ticket in Model.empTickets)
                             {
-                                <tr class="odd">
+                                <tr data-ticketnum="@ticket.TicketNo">
                                     <td style="width: 300px">
                                         <div class="res-emp-ticketlisting-user-details" style="display: flex; align-items: center;">
                                             <i class="emp-ticket-msg-icon fa-regular fa-message"></i>
@@ -103,51 +103,19 @@
                                         <div class="emp-ticketing-empty-block"></div>
                                         <div class="res-empticketlisting-status-level @HRMS.Helpers.TicketingHelper.GetTicketStatusCssClass(ticket.Status)">@ticket.Status</div>
                                     </td>
-                                    <td class="fontSmall position-relative">
+
+                                    @{
+                                        var ticketStatus = ticket.Status == "Open" ? "display: block" : "display: none";
+                                    }
+                                    <td class="fontSmall position-relative" style="@ticketStatus">
                                         <i class="fas fa-ellipsis-h emp-ticket-edit-history" onclick="toggleLeaveTicketHistoryActionOptions(this)"></i>
                                         <div class="emp-tickethistoryoptions" style="display:none">
-                                            <a class="dropdown-item emp-tickethistory-edit" onclick="emptickethistoryedit($(this))" data-ticketname="@ticket.TicketNo">Edit</a>
+                                            @*<a class="dropdown-item emp-tickethistory-edit" onclick="emptickethistoryedit($(this))" data-ticketname="@ticket.TicketNo">Edit</a>*@
                                             <a class="dropdown-item emp-tickethistory-cancel" onclick="emptickethistorycancel($(this))" data-ticketname="@ticket.TicketNo">Cancel</a>
                                         </div>
                                     </td>
                                 </tr>
-                                @*<tr class="even">
-                                        <td style="width: 300px">
-                                            <div class="res-emp-ticketlisting-user-details" style="display: flex; align-items: center;">
-                                                <i class="emp-ticket-msg-icon fa-regular fa-message"></i>
-                                                <span style="margin-top: 0px; margin-right: 10px;">
-                                                    <div class="emp-ticketing-listing-title">Laptop Not Working</div>
-                                                    <div class="emp-ticketing-listing-details">
-                                                        <span class="emp-ticket-id">#1212</span>
-                                                        <span class="emp-ticket-info"><i class="fa-solid fa-folder" aria-hidden="true"></i> Others</span>
-                                                    </div>
-                                                </span>
-                                            </div>
-                                        </td>
-                                        <td style="width: 400px" class="res-emp-ticketlisting-priority">
-                                            <div class="emp-ticketing-response-time">
-                                                Response Time 2 Hr
-                                            </div>
-                                            <div class="emp-ticketing-priority-date">
-                                                <span class="emp-ticket-prioritylevel">
-                                                    <span class="res-emp-ticketlisting-color res-emp-ticketlisting-color-orange"></span>
-                                                    <span class="res-emp-ticketlisting-priority-status">Medium</span>
-                                                </span>
-                                                <span class="res-emp-ticketlisting-date">
-                                                    <i class="fa-solid fa-clock" aria-hidden="true"></i>
-                                                    <span class="res-empticketlisting-priority-status">07 Oct 2024, Sat 07:00AM</span>
-                                                </span>
-                                            </div>
-                                        </td>
-                                        <td class="res-emp-ticketlisting-location-info">
-                                            <div class="emp-ticketing-empty-block"></div>
-                                            <div class="emp-ticketing-listing-closedby">Closed By <span>TestUser</span></div>
-                                        </td>
-                                        <td class="res-emp-ticketlisting-status">
-                                            <div class="emp-ticketing-empty-block"></div>
-                                            <div class="res-empticketlisting-status-level ticket-status-closed">Closed</div>
-                                        </td>
-                                    </tr>*@
+
                             }
                         </tbody>
                     </table>
@@ -174,7 +142,7 @@
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                <button type="button" class="btn btn-danger" id="empTicketConfirmCancelButton">Cancel Ticket</button>
+                <button type="button" class="btn btn-danger" data-ticketname="" id="empTicketConfirmCancelButton">Cancel Ticket</button>
             </div>
         </div>
     </div>
@@ -198,40 +166,6 @@
         }
     });
 
-    function toggleLeaveTicketHistoryActionOptions(iconElement) {
-        const optionsMenu = $(iconElement).next('.emp-tickethistoryoptions');
-        $('.emp-tickethistoryoptions').not(optionsMenu).hide();
-        optionsMenu.toggle();
-    }
-
-    function emptickethistorycancel(currentthis) {
-        var ticketName = currentthis.attr("data-ticketname");
-        $('#empTicketConfirmCancelButton').data('ticketname', ticketName);
-        $('#empTicketConfirmCancelModal').modal('show');
-    }
-
-    $('#empTicketConfirmCancelButton').on('click', function () {
-        var ticketName = $(this).data('ticketname');
-
-        $.ajax({
-            url: '/empLeave/EmpLeaveCancel',
-            type: 'POST',
-            dataType: 'json',
-            data: { ticketnumber: ticketName },
-            success: function (response) {
-                if (response.StatusCode == 200) {
-                    showMessageModal(response.Message, true);
-                } else {
-                    showMessageModal(response.Message, false);
-                }
-            },
-            error: function (xhr, status, error) {
-                console.error("Error occurred: " + error);
-            }
-        });
-        $('#empTicketConfirmCancelModal').modal('hide');
-    });
-
-
 </script>
 
+<script src="~/Scripts/z-raiseticket.js"></script>
