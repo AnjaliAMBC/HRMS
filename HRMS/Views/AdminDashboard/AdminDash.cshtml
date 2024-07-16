@@ -1,5 +1,14 @@
-﻿@model HRMS.Models.Admin.AdminDashView
+﻿@using HRMS.Helpers
 
+@model HRMS.Models.Admin.AdminDashView
+
+
+
+@{
+    var currentContext = Session["SiteContext"] as HRMS.Models.SiteContextModel;
+    var isSuperAdmin = HRMS.Helpers.SuperAdminHelper.IsSuperAdmin(currentContext);
+    var adminLocations = HRMS.Helpers.SuperAdminHelper.GetAdminLocations(currentContext);
+}
 
 @Html.Partial("_NavBar")
 
@@ -17,11 +26,16 @@
                                 <!-- Leave Request Section -->
                                 <div class="card leave-requests mx-2">
                                     <div class="card-header">
-                                        Leave Request (@Model.AllEMployeeLeaves.Count())
+                                        @{
+                                            var filteredLeaveRequests = adminLocations.Any()
+                                            ? Model.AllEMployeeLeaves.Where(x => adminLocations.Contains(x.LatestLeave.Location))
+                                            : Model.AllEMployeeLeaves;
+                                        }
+                                        Leave Request (@filteredLeaveRequests.Count())
                                     </div>
                                     <div class="card-body admindash_card scrollbar p-2">
                                         <ul class="list-group list-group-flush">
-                                            @foreach (var leave in Model.AllEMployeeLeaves)
+                                            @foreach (var leave in filteredLeaveRequests)
                                             {
                                                 <li class="list-group-item p-0">
                                                     <div class="leave-info">
@@ -77,20 +91,20 @@
                                     </div>
                                     <div class="card-body admindash_card scrollbar px-4 py-1 announcement_card">
                                         @*<form>
-                                    <div class="form-group mb-2">
-                                        <label for="subject" class="m-0">Subject</label>
-                                        <input type="text" class="form-control" id="subject" placeholder="Enter subject">
-                                    </div>
-                                    <div class="form-group mb-2">
-                                        <label for="description" class="m-0">Description</label>
-                                        <textarea class="form-control" id="description" rows="3" placeholder="Describe the announcement in few words."></textarea>
-                                    </div>
-                                    <div class="form-group mb-2">
-                                        <label for="to" class="m-0">To</label>
-                                        <input type="text" class="form-control" id="to" placeholder="Enter recipients">
-                                    </div>
-                                    <button type="submit" class="btn btn-primary d-flex ml-auto px-4 py-1">Send</button>
-                                </form>*@
+                                                <div class="form-group mb-2">
+                                                    <label for="subject" class="m-0">Subject</label>
+                                                    <input type="text" class="form-control" id="subject" placeholder="Enter subject">
+                                                </div>
+                                                <div class="form-group mb-2">
+                                                    <label for="description" class="m-0">Description</label>
+                                                    <textarea class="form-control" id="description" rows="3" placeholder="Describe the announcement in few words."></textarea>
+                                                </div>
+                                                <div class="form-group mb-2">
+                                                    <label for="to" class="m-0">To</label>
+                                                    <input type="text" class="form-control" id="to" placeholder="Enter recipients">
+                                                </div>
+                                                <button type="submit" class="btn btn-primary d-flex ml-auto px-4 py-1">Send</button>
+                                            </form>*@
 
                                         <p class="m-0 p-0">Can't able to apply leave'</p>
                                         <div class="d-flex inside_content">
@@ -105,12 +119,12 @@
                                 <!-- Calendar Section -->
                                 <div class="card mx-2">
                                     <!--<div class="card-header">
-                            January 2024
-                        </div>
-                        <div class="card-body">-->
+                                        January 2024
+                                    </div>
+                                    <div class="card-body">-->
                                     <!-- Calendar placeholder -->
                                     <!--<div id="calendar"></div>
-                        </div>-->
+                                    </div>-->
 
                                     <div class="card-header calendar-header text-dark">
                                         <div>

@@ -1,5 +1,12 @@
 ﻿@model HRMS.Models.Admin.AdminLeaveManagementModel
 
+
+@{
+    var currentContext = Session["SiteContext"] as HRMS.Models.SiteContextModel;
+    var isSuperAdmin = HRMS.Helpers.SuperAdminHelper.IsSuperAdmin(currentContext);
+    var adminLocations = HRMS.Helpers.SuperAdminHelper.GetAdminLocations(currentContext);
+}
+
 @Html.Partial("_NavBar")
 <div class="container-fluid res-admin-Ticketing">
     <div class="hiddenadmindashboard" style="display: none"></div>
@@ -204,7 +211,11 @@
                                         <input type="text" placeholder="Search By Keyword" class="advanceLeavesearch form-control" aria-label="Search By Keyword" style="border-radius: 0 10px 10px 0; height: 35px; font-size: 14px;">
                                     </div>
                                 </div>
-                                <div class="form-group mr-2 adminleave-dropdown col-lg-2 col-sm-5" style="margin-top: 10px;">
+
+                                @{
+                                    var locationVisibility = isSuperAdmin ? "display: none" : "display: block";
+                                }
+                                <div class="form-group mr-2 adminleave-dropdown col-lg-2 col-sm-5" style="margin-top: 10px; @locationVisibility">
                                     <select class="form-control form-select-sm p-0 ml-2" name="status" id="leavelocation-dropdown">
                                         <option value="" disabled selected>Location</option>
                                         <option value="Hyderabad">Hyderabad</option>
@@ -218,17 +229,17 @@
                                     <i class="fas fa-chevron-down" id="exportLeaveIcon" style="cursor: pointer; font-size:13px;" data-toggle="collapse" data-target="#LeaveDateDropdown"></i>
                                 </div>
                                 @*<div class="dropdown res-adminleave-drop col-lg-2 col-sm-5">
-                                    <button class="btn  dropdown-toggle" type="button" id="leaveSettingsDropdown" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" style="background-color: #2693F8;">
-                                        Leave Settings
-                                    </button>
-                                    <div class="dropdown-menu" aria-labelledby="leaveSettingsDropdown" style="border: 1px solid gray; cursor: pointer;">
-                                        <a class="dropdown-item adminleave-history">Leave History</a>
-                                        <a class="dropdown-item adminleave-Balanve-link">Leave Balance</a>
-                                        <a class="dropdown-item adminleave-CompOff-link">CompOff Request</a>
-                                        <a class="dropdown-item adminside-leaveapply">Apply Leave</a>
-                                    </div>
+                                        <button class="btn  dropdown-toggle" type="button" id="leaveSettingsDropdown" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" style="background-color: #2693F8;">
+                                            Leave Settings
+                                        </button>
+                                        <div class="dropdown-menu" aria-labelledby="leaveSettingsDropdown" style="border: 1px solid gray; cursor: pointer;">
+                                            <a class="dropdown-item adminleave-history">Leave History</a>
+                                            <a class="dropdown-item adminleave-Balanve-link">Leave Balance</a>
+                                            <a class="dropdown-item adminleave-CompOff-link">CompOff Request</a>
+                                            <a class="dropdown-item adminside-leaveapply">Apply Leave</a>
+                                        </div>
 
-                                </div>*@
+                                    </div>*@
 
                             </div>
                         </div>
@@ -274,7 +285,13 @@
                             </thead>
                             <tbody>
 
-                                @foreach (var leaveemp in Model.LeavesInfoBasedOnFromAndTodate)
+                                @{
+                                    var filteredLeaveRequests = adminLocations.Any()
+                                    ? Model.LeavesInfoBasedOnFromAndTodate.Where(x => adminLocations.Contains(x.LatestLeave.Location))
+                                    : Model.LeavesInfoBasedOnFromAndTodate;
+                                }
+
+                                @foreach (var leaveemp in filteredLeaveRequests)
                                 {
                                     <tr class="rowBorder">
                                         <td class="fontSmall">@leaveemp.LatestLeave.employee_id</td>

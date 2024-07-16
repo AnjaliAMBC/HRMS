@@ -50,6 +50,17 @@ namespace HRMS.Controllers
 
             // Fetch the leave information for the selected month
             var leaves = new LeaveCalculator().EmpLeaveInfoBasedonDate(DateTime.Today.ToString("dd-MM-yyyy"), DateTime.Today.ToString("dd-MM-yyyy"));
+
+            var currentContext = Session["SiteContext"] as HRMS.Models.SiteContextModel;
+            var isSuperAdmin = HRMS.Helpers.SuperAdminHelper.IsSuperAdmin(currentContext);
+
+            if (isSuperAdmin)
+            {
+                var adminLocations = HRMS.Helpers.SuperAdminHelper.GetAdminLocations(currentContext);
+                leaves = adminLocations.Any()
+                                           ? leaves.Where(x => adminLocations.Contains(x.LatestLeave.Location)).ToList()
+                                           : leaves.ToList();
+            }
             // Serialize the leave information to JSON
             var json = JsonConvert.SerializeObject(leaves);
             return Json(json.Replace(";", ""), JsonRequestBehavior.AllowGet);
@@ -88,6 +99,8 @@ namespace HRMS.Controllers
 
             model.SelectedEndDate = model.SelectedDate;
             model.LeavesInfoBasedOnFromAndTodate = new LeaveCalculator().EmpLeaveInfoBasedonDate(model.SelectedDate.ToString("dd-MM-yyyy"), model.SelectedEndDate.ToString("dd-MM-yyyy"));
+                     
+
             return PartialView("~/Views/AdminDashboard/AdminLeaveEmpManage.cshtml", model);
         }
 
@@ -194,7 +207,7 @@ namespace HRMS.Controllers
                 dateEnd = System.DateTime.Parse(endDate);
             }
 
-            if(department == "All")
+            if (department == "All")
             {
                 department = "";
             }
