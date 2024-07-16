@@ -179,6 +179,12 @@ $(document).off('click', '.emp-imgs').on('click', '.emp-imgs', function (event) 
 $(document).on('change', '#imageInput', function (event) {
     event.preventDefault();
     var file = this.files[0];
+    // Check if the file is a JPEG image
+    if (file.type !== 'image/jpeg') {
+        alert('Please upload a JPEG image.');
+        return;
+    }
+
     var formData = new FormData();
     formData.append('file', file);
 
