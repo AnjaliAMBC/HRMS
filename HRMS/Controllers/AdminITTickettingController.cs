@@ -8,7 +8,7 @@ namespace HRMS.Controllers
 {
     public class AdminITTickettingController : Controller
     {
-        // GET: AdminTicketting
+        private readonly HRMS_EntityFramework _dbContext;
         public ActionResult Index()
         {
        
