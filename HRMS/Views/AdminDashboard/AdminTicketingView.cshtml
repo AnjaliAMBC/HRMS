@@ -141,7 +141,7 @@
                                     </td>
                                     <td class="res-admin-itticketlisting-status">
                                         <div class="it-ticketing-empty-block"></div>
-                                        <div class="res-itticketlisting-status-level ticket-status-@ticket.Status">@ticket.Status</div>
+                                        <div class="res-itticketlisting-status-level ticket-status-@ticket.Status" onclick="adminitticketcommentpopup($(this))">@ticket.Status</div>
                                     </td>
                                 </tr>
                             }
@@ -154,6 +154,71 @@
 
     </div>
 
+</div>
+
+<!-- admin it ticket comments Modal -->
+<div id="adminItTicketCommentsModal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="adminItTicketCommentsModal" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-body">
+
+                <div class="modal-header">
+                    <h5 class="modal-title" id="adminItTicketConfirmCancelModalLabel">Comments</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+
+                <div class="admin-it-ticketing-commentbox-popup-list">
+                    <div class="admin-it-ticketing-commentbox-list">
+                        <div class="col-lg-1 admin-it-ticketing-commentbox-left">
+                            <img class="userIcon" src="/Assets/EmpImages/1075.jpeg">
+                            <div class="vl"></div>
+                        </div>
+                        <span class="col-lg-7 admin-it-ticketing-commentbox-mid">
+                            <div class="admin-it-ticketing-commentbox-userinfo">1155 Sriram</div>
+                            <div class="admin-it-ticketing-commentbox-status">Ticket Reopen</div>
+                            <div class="admin-it-ticketing-commentbox-desc" title="This is dummy text This is dummy text This is dummy text This is dummy text">This is dummy text This is dummy text This is dummy text This is dummy text</div>
+                        </span>
+                        <span class="col-lg-2 admin-it-ticketing-commentbox-right">
+                            <div class="admin-it-ticketing-commentbox-date">03 July 2024</div>
+                        </span>
+                    </div>
+
+                    <div class="admin-it-ticketing-commentbox-list">
+                        <div class="col-lg-1 admin-it-ticketing-commentbox-left">
+                            <img class="userIcon" src="/Assets/EmpImages/1020.jpeg">
+                            <div class="vl"></div>
+                        </div>
+                        <span class="col-lg-7 admin-it-ticketing-commentbox-mid">
+                            <div class="admin-it-ticketing-commentbox-userinfo">1155 Sriram</div>
+                            <div class="admin-it-ticketing-commentbox-status">Ticket Closed</div>
+                        </span>
+                        <span class="col-lg-2 admin-it-ticketing-commentbox-right">
+                            <div class="admin-it-ticketing-commentbox-date">03 July 2024</div>
+                        </span>
+                    </div>
+
+                    <div class="admin-it-ticketing-commentbox-list">
+                        <div class="col-lg-1 admin-it-ticketing-commentbox-left">
+                            <img class="userIcon" src="/Assets/EmpImages/1075.jpeg">
+                        </div>
+                        <span class="col-lg-7 admin-it-ticketing-commentbox-mid">
+                            <div class="admin-it-ticketing-commentbox-userinfo">1155 Sriram</div>
+                            <div class="admin-it-ticketing-commentbox-status">Ticket Acknowledge</div>
+                            <div class="admin-it-ticketing-commentbox-desc" title="This is dummy text This is dummy text This is dummy text This is dummy text">This is dummy text This is dummy text This is dummy text This is dummy text</div>
+                        </span>
+                        <span class="col-lg-2 admin-it-ticketing-commentbox-right">
+                            <div class="admin-it-ticketing-commentbox-date">03 July 2024</div>
+                        </span>
+                    </div>
+
+                </div>
+
+
+            </div>
+        </div>
+    </div>
 </div>
 
 
@@ -229,6 +294,13 @@
             $('.show-progress').hide();
         }
     });
+
+    function adminitticketcommentpopup(currentthis) {
+        var ticketName = currentthis.attr("data-ticketname");
+
+        // Show the confirmation modal
+        $('#adminItTicketCommentsModal').modal('show');
+    }
 
 
 </script>
