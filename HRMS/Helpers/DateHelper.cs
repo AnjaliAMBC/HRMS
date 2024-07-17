@@ -25,5 +25,14 @@ namespace HRMS.Helpers
 
             return allDates;
         }
+
+        public static string FormatTimeDifference(TimeSpan timeDifference)
+        {
+            int days = (int)timeDifference.TotalDays;
+            int hours = timeDifference.Hours;
+            int minutes = timeDifference.Minutes;
+
+            return $"{days} days {hours} hours {minutes} minutes";
+        }
     }
 }
