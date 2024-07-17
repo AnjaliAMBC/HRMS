@@ -624,4 +624,14 @@ $(document).off('click', '.btn-importleavehistrory-submit').on('click', '.btn-im
 });
 
 
+function handleLeaveFileUpload(input) {
+    var uploadedFile = input.files[0];
+    var uploadedFileName = uploadedFile.name;
+
+    // Display the uploaded file name
+    document.getElementById('leave-uploaded-file-text').textContent = 'File Uploaded: ' + uploadedFileName;
+    document.getElementById('leave-uploaded-file-info').style.display = 'block';
+}
+
+
 

@@ -37,5 +37,7 @@ namespace HRMS
         public virtual DbSet<LeaveBalance> LeaveBalances { get; set; }
         public virtual DbSet<Compoff> Compoffs { get; set; }
         public virtual DbSet<con_leaveupdate> con_leaveupdate { get; set; }
+        public virtual DbSet<IT_Ticket> IT_Ticket { get; set; }
+        public virtual DbSet<Location> Locations { get; set; }
     }
 }

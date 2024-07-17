@@ -13,9 +13,14 @@
 
 
     var ticketigSidebarShow = "display: none";
-    if (pageUrlPath.Contains("/adminitticketting/index") || pageUrlPath.Contains("/adminhrticketing/adminhrticket"))
+    var highliateHRTicketing = "";
+    if (pageUrlPath.Contains("/adminticketing/itticketing") || pageUrlPath.Contains("/adminticketing/hrticketing") || pageUrlPath.Contains("/adminticketing/gethrticketdetails"))
     {
         ticketigSidebarShow = "display: block";
+        if (pageUrlPath.Contains("/adminticketing/gethrticketdetails"))
+        {
+            highliateHRTicketing = "sidebaractive";
+        }
     }
 
 }
@@ -26,7 +31,7 @@
             <ul id="admindash-menu">
                 <li class="mb-2 @(pageUrlPath.Contains("/admindash/index") ? "active sidebaractive" : "")">
                     <a href="/admindash/index" class="@(pageUrlPath == "/admindash/index" ? "active" : "")">
-                        <span class="material-icons dash-icon">Dashboard</span>Dashboard
+                        <span class="material-icons dash-icon">dashboard</span>Dashboard
                     </a>
                 </li>
                 <li class="mb-2 @(pageUrlPath.Contains("/admindashboard/employeemanagement") ? "active sidebaractive" : "")">
@@ -57,9 +62,6 @@
                     </div>
                 </li>
 
-
-
-
                 <li class="admin-ticket-main-menu sidebar-dropdown mb-2 @(pageUrlPath.Contains("/adminticketting/index") ? "active sidebaractive" : "")">
                     <a href="#" class="@(pageUrlPath == "/adminticketting/index" ? "active" : "")">
                         <span class="material-icons ticket-icon">laptop_chromebook</span>Ticketing
@@ -67,8 +69,8 @@
                     </a>
                     <div class="sidebar-submenu" style="@ticketigSidebarShow">
                         <ul>
-                            <li><a href="/adminitticketting/index"><span class="menu-bar-design-red"></span>IT Ticketing</a></li>
-                            <li><a href="/adminhrticketing/adminhrticket" class=""><span class="menu-bar-design-blue"></span>HR Ticketing</a></li>
+                            <li><a href="/adminticketing/itticketing"><span class="menu-bar-design-red"></span>IT Ticketing</a></li>
+                            <li class="@highliateHRTicketing"><a href="/adminticketing/hrticketing" class=""><span class="menu-bar-design-blue"></span>HR Ticketing</a></li>
                         </ul>
                     </div>
                 </li>
