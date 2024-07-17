@@ -111,7 +111,7 @@
                                 </td>
                                 <td class="res-emp-ticketlisting-status">
                                     <div class="emp-ticketing-empty-block"></div>
-                                    <div class="res-empticketlisting-status-level ticket-status-closed">Closed</div>
+                                    <div class="res-empticketlisting-status-level ticket-status-closed" onclick="emptickethistorycommentpopup($(this))">Closed</div>
                                 </td>
                             </tr>
                         </tbody>
@@ -140,6 +140,74 @@
             <div class="modal-footer">
                 <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
                 <button type="button" class="btn btn-danger" id="empTicketConfirmCancelButton">Cancel Ticket</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- emp ticket comments Modal -->
+<div id="empTicketCommentsModal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="empTicketCommentsModal" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-body">
+
+                <div class="emp-ticketing-commentbox-popup">
+                    <div class="form-group">
+                        <label for="emp-tickethistory-comment-label">Comment</label>
+                        <textarea class="form-control" id="emp-tickethistory-comments"></textarea>
+                    </div>
+                    <div class="emp-tickethistory-comment-submit">
+                        <button type="submit" class="btn btn-apply-emp-tickethistory-comment-reopen mb-4">Re-Open</button>
+                        <button type="submit" class="btn btn-primary btn-apply-emp-tickethistory-comment-submitbtn mb-4">Acknowledge</button>
+                    </div>
+                </div>
+                <div class="emp-ticketing-commentbox-popup-list">
+                    <div class="emp-ticketing-commentbox-list">
+                        <div class="col-lg-1 emp-ticketing-commentbox-left">
+                            <img class="userIcon" src="/Assets/EmpImages/1075.jpeg">
+                            <div class="vl"></div>
+                        </div>
+                        <span class="col-lg-7 emp-ticketing-commentbox-mid">
+                            <div class="emp-ticketing-commentbox-userinfo">1155 Sriram</div>
+                            <div class="emp-ticketing-commentbox-status">Ticket Reopen</div>
+                            <div class="emp-ticketing-commentbox-desc" title="This is dummy text This is dummy text This is dummy text This is dummy text">This is dummy text This is dummy text This is dummy text This is dummy text</div>
+                        </span>
+                        <span class="col-lg-2 emp-ticketing-commentbox-right">
+                            <div class="emp-ticketing-commentbox-date">03 July 2024</div>
+                        </span>
+                    </div>
+
+                    <div class="emp-ticketing-commentbox-list">
+                        <div class="col-lg-1 emp-ticketing-commentbox-left">
+                            <img class="userIcon" src="/Assets/EmpImages/1020.jpeg">
+                            <div class="vl"></div>
+                        </div>
+                        <span class="col-lg-7 emp-ticketing-commentbox-mid">
+                            <div class="emp-ticketing-commentbox-userinfo">1155 Sriram</div>
+                            <div class="emp-ticketing-commentbox-status">Ticket Closed</div>
+                        </span>
+                        <span class="col-lg-2 emp-ticketing-commentbox-right">
+                            <div class="emp-ticketing-commentbox-date">03 July 2024</div>
+                        </span>
+                    </div>
+
+                    <div class="emp-ticketing-commentbox-list">
+                        <div class="col-lg-1 emp-ticketing-commentbox-left">
+                            <img class="userIcon" src="/Assets/EmpImages/1075.jpeg">
+                        </div>
+                        <span class="col-lg-7 emp-ticketing-commentbox-mid">
+                            <div class="emp-ticketing-commentbox-userinfo">1155 Sriram</div>
+                            <div class="emp-ticketing-commentbox-status">Ticket Acknowledge</div>
+                            <div class="emp-ticketing-commentbox-desc" title="This is dummy text This is dummy text This is dummy text This is dummy text">This is dummy text This is dummy text This is dummy text This is dummy text</div>
+                        </span>
+                        <span class="col-lg-2 emp-ticketing-commentbox-right">
+                            <div class="emp-ticketing-commentbox-date">03 July 2024</div>
+                        </span>
+                    </div>
+
+                </div>
+
+
             </div>
         </div>
     </div>
@@ -195,6 +263,13 @@
         // Hide the modal after the AJAX call is made
         $('#empTicketConfirmCancelModal').modal('hide');
     });
+
+    function emptickethistorycommentpopup(currentthis) {
+        var ticketName = currentthis.attr("data-ticketname");
+
+        // Show the confirmation modal
+        $('#empTicketCommentsModal').modal('show');
+    }
 
 </script>
 
