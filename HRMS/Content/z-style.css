@@ -1291,6 +1291,7 @@ div.main-content {
     border-radius: 25px;
     margin-right: 10px;
     color: #fff;
+    height: 44px;
 }
 
 .admin-it-ticketlisting-button .collapsedropdown {
@@ -1535,6 +1536,7 @@ div.main-content {
     border-radius: 25px;
     margin-right: 10px;
     color: #fff;
+    height: 44px;
 }
 
 .admin-hr-ticketlisting-button .collapsedropdown {
@@ -2076,3 +2078,68 @@ input[type=checkbox], input[type=radio] {
 }
 
 /* emp ticket raise end */
+
+/* emp ticket comment popup start */
+
+.emp-ticketing-commentbox-popup-list {
+    height: 250px;
+    overflow-y: scroll;
+}
+
+.emp-ticketing-commentbox-list {
+    display: flex;
+    font-size: 13px;
+}
+
+    .emp-ticketing-commentbox-list .emp-ticketing-commentbox-left {
+        padding: 0;
+        margin-right: 20px;
+    }
+
+    .emp-ticketing-commentbox-list .emp-ticketing-commentbox-left img {
+        width: 42px;
+        height: 42px;
+        object-fit: cover;
+        border-radius: 50%;
+        margin-right: 10px;
+    }
+
+    .emp-ticketing-commentbox-list .emp-ticketing-commentbox-left .vl {
+        border-left: 2px solid #ccc;
+        height: 60px;
+        margin-left: 20px;
+    }
+
+    .emp-ticketing-commentbox-list .emp-ticketing-commentbox-mid {
+        padding: 0;
+        margin-right: 25px;
+    }
+
+    .emp-ticketing-commentbox-list .emp-ticketing-commentbox-mid .emp-ticketing-commentbox-status {
+        color: #2693F8;
+        margin-bottom: 10px;
+    }
+
+    .emp-ticketing-commentbox-list .emp-ticketing-commentbox-mid .emp-ticketing-commentbox-desc {
+        text-overflow: ellipsis;
+        white-space: nowrap;
+        overflow: hidden;
+    }
+
+    .emp-ticketing-commentbox-list .emp-ticketing-commentbox-right {
+        padding: 0;
+    }
+
+    .emp-ticketing-commentbox-popup .emp-tickethistory-comment-submit {
+        display: inline-block;
+        width: 100%;
+        text-align: right;
+    }
+
+    .emp-ticketing-commentbox-popup .emp-tickethistory-comment-submit .btn-apply-emp-tickethistory-comment-reopen {
+        background: red;
+        color: #fff;
+        margin-right: 10px;
+    }
+
+/* emp ticket comment popup end */
