@@ -19,7 +19,7 @@
                                 <div class="input-group-prepend">
                                     <span class="input-group-text" style="background-color: transparent; border-right: none; border-radius: 20px 0 0 20px; height: 35px;"><i class="fas fa-search" style="color: #369479"></i></span>
                                 </div>
-                                <input type="text" placeholder="Search By Keyword" class="advancesearch form-control" aria-label="Search By Keyword" style="border-radius: 0 20px 20px 0; height: 35px; font-size: 14px;">
+                                <input type="text" placeholder="Search By Keyword" class="advancesearch hr-search form-control" aria-label="Search By Keyword" style="border-radius: 0 20px 20px 0; height: 35px; font-size: 14px;">
                             </div>
                         </div>
                     </div>
@@ -125,96 +125,113 @@
                             </tr>
                         </thead>
                         <tbody>
-                            <tr class="odd">
-                                <td style="width: 400px">
-                                    <div class="res-admin-hr-ticketlisting-user-details" style="display: flex; align-items: center;">
-                                        <i class="hr-ticket-msg-icon fa-regular fa-message"></i>
-                                        <span style="margin-top: 0px; margin-right: 10px;">
-                                            <div class="admin-hr-ticketing-listing-title">Laptop Not Working</div>
-                                            <div class="admin-hr-ticketing-listing-details">
-                                                <span class="hr-ticket-id">#1212</span>
-                                                <span class="hr-ticket-info"><i class="fa-solid fa-folder" aria-hidden="true"></i> General</span>
-                                                <span class="id-name">123 Sriram</span>
-                                            </div>
-                                        </span>
-                                    </div>
-                                </td>
-                                <td style="width: 400px" class="res-admin-hr-ticketlisting-priority">
-                                    <div style="visibility: hidden;" class="hr-ticketing-response-time">
-                                        Response Time 2 Hr
-                                    </div>
-                                    <div class="hr-ticketing-priority-date">
-                                        <span class="hr-ticket-prioritylevel">
-                                            <span class="res-hr-ticketlisting-color res-hr-ticketlisting-color-red"></span>
-                                            <span class="res-hr-ticketlisting-priority-status">High</span>
-                                        </span>
-                                        <span class="res-admin-hr-ticketlisting-date">
-                                            <i class="fa-solid fa-clock" aria-hidden="true"></i>
-                                            <span class="res-ticketlisting-priority-status">07 Oct 2024, Sat 07:00AM</span>
-                                        </span>
-                                    </div>
-                                </td>
-                                <td class="res-admin-ticketlisting-location-info">
-                                    <div class="hr-ticketing-empty-block"></div>
-                                    <div class="res-ticketlisting-location">Madurai</div>
-                                </td>
-                                <td class="res-admin-ticketlisting-status">
-                                    <div class="hr-ticketing-empty-block"></div>
-                                    <div class="res-ticketlisting-status-level ticket-status-open">Open</div>
-                                </td>
-                            </tr>
-                            <tr class="even">
-                                <td style="width: 400px">
-                                    <div class="res-admin-hr-ticketlisting-user-details" style="display: flex; align-items: center;">
-                                        <i class="hr-ticket-msg-icon fa-regular fa-message"></i>
-                                        <span style="margin-top: 0px; margin-right: 10px;">
-                                            <div class="admin-hr-ticketing-listing-title">Laptop Not Working</div>
-                                            <div class="admin-hr-ticketing-listing-details">
-                                                <span class="hr-ticket-id">#1212</span>
-                                                <span class="hr-ticket-info"><i class="fa-solid fa-folder" aria-hidden="true"></i> Others</span>
-                                                <span class="id-name">123 Sriram</span>
-                                            </div>
-                                            <div class="admin-hr-ticketing-listing-closedby">Closed By <span>TestUser</span></div>
-                                        </span>
-                                    </div>
-                                </td>
-                                <td style="width: 400px" class="res-admin-hr-ticketlisting-priority">
-                                    <div class="hr-ticketing-response-time">
-                                        Response Time 2 Hr
-                                    </div>
-                                    <div class="hr-ticketing-priority-date">
-                                        <span class="hr-ticket-prioritylevel">
-                                            <span class="res-hr-ticketlisting-color res-hr-ticketlisting-color-orange"></span>
-                                            <span class="res-hr-ticketlisting-priority-status">Medium</span>
-                                        </span>
-                                        <span class="res-admin-hr-ticketlisting-date">
-                                            <i class="fa-solid fa-clock" aria-hidden="true"></i>
-                                            <span class="res-ticketlisting-priority-status">07 Oct 2024, Sat 07:00AM</span>
-                                        </span>
-                                    </div>
-                                </td>
-                                <td class="res-admin-ticketlisting-location-info">
-                                    <div class="hr-ticketing-empty-block"></div>
-                                    <div class="res-ticketlisting-location">Madurai</div>
-                                </td>
-                                <td class="res-admin-ticketlisting-status">
-                                    <div class="hr-ticketing-empty-block"></div>
-                                    <div class="res-ticketlisting-status-level ticket-status-closed">Closed</div>
-                                </td>
-                            </tr>
-                        </tbody>
+                            @foreach (var ticket in Model.empTickets)
+                            {
+                                <tr>
+                                    <td style="width: 400px">
+                                        <div class="res-admin-hr-ticketlisting-user-details" style="display: flex; align-items: center;">
+                                            <i class="hr-ticket-msg-icon fa-regular fa-message"></i>
+                                            <span style="margin-top: 0px; margin-right: 10px;">
+                                                <div class="admin-hr-ticketing-listing-title" data-ticketnum="@ticket.TicketNo">@ticket.Subject</div>
+                                                <div class="admin-hr-ticketing-listing-details">
+                                                    <span class="hr-ticket-id">@ticket.TicketNo</span>
+                                                    <span class="hr-ticket-info"><i class="fa-solid fa-folder" aria-hidden="true"></i> @ticket.Category</span>
+                                                    <span class="id-name">@ticket.EmployeeID @ticket.EmployeeName</span>
+                                                </div>
+                                            </span>
+                                        </div>
+                                    </td>
+                                    <td style="width: 400px" class="res-admin-hr-ticketlisting-priority">
+                                        <div style="visibility: hidden;" class="hr-ticketing-response-time">
+                                            Response Time @ticket.ResponseTime Hr
+                                        </div>
+                                        <div class="hr-ticketing-priority-date">
+                                            <span class="hr-ticket-prioritylevel">
+                                                <span class="res-hr-ticketlisting-color res-hr-ticketlisting-color-red"></span>
+                                                <span class="res-hr-ticketlisting-priority-status">@ticket.Priority</span>
+                                            </span>
+                                            <span class="res-admin-hr-ticketlisting-date">
+                                                <i class="fa-solid fa-clock" aria-hidden="true"></i>
+                                                <span class="res-ticketlisting-priority-status">
+                                                @(ticket.Created_date.HasValue ? ticket.Created_date.Value.ToString("dd MMM yyyy, ddd hh:mmtt") : "N/A")
+                                                </span>
+                                            </span>
+                                        </div>
+                                    </td>
+                                    <td class="res-admin-ticketlisting-location-info">
+                                        <div class="hr-ticketing-empty-block"></div>
+                                        <div class="res-ticketlisting-location">@ticket.Location</div>
+                                    </td>
+                                    <td class="res-admin-ticketlisting-status">
+                                        <div class="hr-ticketing-empty-block"></div>
+                                        <div class="res-ticketlisting-status-level ticket-status-@ticket.Status">@ticket.Status</div>
+                                    </td>
+                                </tr>
+                            }
+                                @*<tr class="even">
+                                    <td style="width: 400px">
+                                        <div class="res-admin-hr-ticketlisting-user-details" style="display: flex; align-items: center;">
+                                            <i class="hr-ticket-msg-icon fa-regular fa-message"></i>
+                                            <span style="margin-top: 0px; margin-right: 10px;">
+                                                <div class="admin-hr-ticketing-listing-title">Laptop Not Working</div>
+                                                <div class="admin-hr-ticketing-listing-details">
+                                                    <span class="hr-ticket-id">#1212</span>
+                                                    <span class="hr-ticket-info"><i class="fa-solid fa-folder" aria-hidden="true"></i> Others</span>
+                                                    <span class="id-name">123 Sriram</span>
+                                                </div>
+                                                <div class="admin-hr-ticketing-listing-closedby">Closed By <span>TestUser</span></div>
+                                            </span>
+                                        </div>
+                                    </td>
+                                    <td style="width: 400px" class="res-admin-hr-ticketlisting-priority">
+                                        <div class="hr-ticketing-response-time">
+                                            Response Time 2 Hr
+                                        </div>
+                                        <div class="hr-ticketing-priority-date">
+                                            <span class="hr-ticket-prioritylevel">
+                                                <span class="res-hr-ticketlisting-color res-hr-ticketlisting-color-orange"></span>
+                                                <span class="res-hr-ticketlisting-priority-status">Medium</span>
+                                            </span>
+                                            <span class="res-admin-hr-ticketlisting-date">
+                                                <i class="fa-solid fa-clock" aria-hidden="true"></i>
+                                                <span class="res-ticketlisting-priority-status">07 Oct 2024, Sat 07:00AM</span>
+                                            </span>
+                                        </div>
+                                    </td>
+                                    <td class="res-admin-ticketlisting-location-info">
+                                        <div class="hr-ticketing-empty-block"></div>
+                                        <div class="res-ticketlisting-location">Madurai</div>
+                                    </td>
+                                    <td class="res-admin-ticketlisting-status">
+                                        <div class="hr-ticketing-empty-block"></div>
+                                        <div class="res-ticketlisting-status-level ticket-status-closed">Closed</div>
+                                    </td>
+                                </tr>*@
+                            </tbody>
                     </table>
                 </div>
-
-
             </div>
         </div>
-
-
-
-
-
-
     </div>
-
 </div>
+<script>
+    $(document).on('keyup', '.hr-search', function () {
+        var searchText = $(this).val().toLowerCase();
+        $('#adminhrticketlistingTable tbody tr').each(function () {
+            var found = false;
+            $(this).find('td').each(function () {
+                var cellContent = $(this).text().toLowerCase();
+                if (cellContent.indexOf(searchText) !== -1) {
+                    found = true;
+                    return false; // Exit loop if found
+                }
+            });
+
+            if (found) {
+                $(this).show();
+            } else {
+                $(this).hide();
+            }
+        });
+    });
+</script>

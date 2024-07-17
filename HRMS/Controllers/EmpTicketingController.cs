@@ -104,7 +104,7 @@ namespace HRMS.Controllers
 
 
         [HttpPost]
-        public JsonResult UpdateTicketStatus(int ticketName, string status)
+        public JsonResult CancelTicket(int ticketName, string status)
         {
             try
             {
@@ -121,5 +121,9 @@ namespace HRMS.Controllers
                 return Json(new { success = false, message = ex.Message });
             }
         }
+
+
+    
+
     }
 }

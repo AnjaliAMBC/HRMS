@@ -145,7 +145,7 @@ $(document).on('click', '#empTicketConfirmCancelButton', function (event) {
 
         if ($row) {
             $.ajax({
-                url: '/empticketing/Updateticketstatus', // Ensure this URL is correct
+                url: '/empticketing/cancelticket', // Ensure this URL is correct
                 method: 'POST',
                 data: {
                     ticketName: ticketName,
@@ -157,7 +157,7 @@ $(document).on('click', '#empTicketConfirmCancelButton', function (event) {
                         $currentButton.attr('disabled', true);
 
                         // Update the status of the current row to 'Cancelled'
-                        $row.find('.res-empticketlisting-status-level').text('Cancelled'); 
+                        $row.find('.res-empticketlisting-status-level').text('Cancelled');
                         $row.find('.emp-ticket-edit-history').hide();
                         toggleLeaveTicketHistoryActionOptions($row.find('.emp-ticket-edit-history'));
                     } else {
