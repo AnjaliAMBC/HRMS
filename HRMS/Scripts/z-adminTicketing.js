@@ -12,27 +12,18 @@ $(document).on('click', '.btn-hrticketing-back', function () {
     window.location.href = "/adminticketing/hrticketing";
 });
 
-//$('.btn-apply-admin-hrticketing-submit').on('click', function (e) {
-//    event.preventDefault();
-//    window.location.href = "/adminticketing/hrticketing";
-//});
-
-
-
-
 $(document).on('click', '.btn-apply-admin-hrticketing-submit', function (event) {
     event.preventDefault();
     var ticketModel =
     {
         TicketNo: $(this).data('ticketnum'),
         Status: $('#admin-hrticketing-status').val(),
-        resolvedBy: $('#hrticketing-closedby').val(),
+        Resolved_by: $('#hrticketing-closedby').val(),
         isacknowledge: $('#hrticketing-closeddate').val(),
-        ReopenComments: $('#hrticketing-closeddate').val(),
-        closureComments: $('#hrticketing-closeddate').val(),
-        Closedby: "",
+        ReopenedComments: $('#hrticketing-closeddate').val(),
+        AcknowledgeComments: $('#hrticketing-closeddate').val(),
+        Closedby: $('#hrticketing-closedby').val()
     }
-
 
     $.ajax({
         url: '/adminticketing/updateticketstatus',
@@ -43,13 +34,16 @@ $(document).on('click', '.btn-apply-admin-hrticketing-submit', function (event) 
         dataType: 'json',
         success: function (response) {
             if (response.success) {
-                alert("Ticket status updated successfully.");
+                $('#modalMessage').text("Ticket " + $('#admin-hrticketing-status').val() + "  updated successfully.");
+                $('#messageModal').modal('show');
             } else {
-                alert("Error: " + response.message);
+                $('#modalMessage').text("Error: " + response.message);
+                $('#messageModal').modal('show');
             }
         },
         error: function (xhr, status, error) {
-            alert("An error occurred: " + error);
+            $('#modalMessage').text("An error occurred: " + error);
+            $('#messageModal').modal('show');
         }
     });
 });

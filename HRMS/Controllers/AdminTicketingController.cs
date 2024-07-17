@@ -169,16 +169,32 @@ namespace HRMS.Controllers
 
                     if (ticket.Status == "Resolved")
                     {
-                        //ticket.ResolvedBy = resolvedBy;
-                        //ticket.ClosedDate = closedDate;
+                        ticket.Resolved_by = ticketModel.Resolved_by;
+                        ticket.ResolvedDate = DateTime.Now;
+                      
+                        if (ticket.Created_date.HasValue)
+                        {
+                            TimeSpan timeDifference = ticket.ResolvedDate.Value - ticket.Created_date.Value;
+                            ticket.ResponseTime = timeDifference;
+                        }
+
                     }
-                    else if (ticket.Status == "Re Open")
+                    else if (ticket.Status == "Re-Open")
                     {
-                        // Add any specific logic for Re Open status here
+                        ticket.ReopenedDate = DateTime.Now;
+                        ticket.ReopenedComments = ticketModel.ReopenedComments;
                     }
                     else if (ticket.Status == "Closed")
                     {
-                        //ticket.ClosedDate = closedDate;
+                        ticket.Closedby = ticketModel.Closedby;
+                        ticket.AcknowledgeComments = ticketModel.AcknowledgeComments;
+                        ticket.Closed_date = DateTime.Now;
+                    }
+
+                    else if (ticket.isacknowledge == "true")
+                    {
+                        ticket.Closedby = ticketModel.Closedby;
+                        ticket.AcknowledgeComments = ticketModel.AcknowledgeComments;
                     }
 
                     _dbContext.SaveChanges();

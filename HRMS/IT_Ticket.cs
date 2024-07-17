@@ -31,5 +31,10 @@ namespace HRMS
         public string Closedby { get; set; }
         public Nullable<System.TimeSpan> ResponseTime { get; set; }
         public string Location { get; set; }
+        public string Resolved_by { get; set; }
+        public Nullable<System.DateTime> ResolvedDate { get; set; }
+        public Nullable<System.DateTime> ReopenedDate { get; set; }
+        public string ReopenedComments { get; set; }
+        public string AcknowledgeComments { get; set; }
     }
 }

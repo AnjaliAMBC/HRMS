@@ -142,9 +142,21 @@
                                         </div>
                                     </td>
                                     <td style="width: 400px" class="res-admin-hr-ticketlisting-priority">
-                                        <div style="visibility: hidden;" class="hr-ticketing-response-time">
-                                            Response Time @ticket.ResponseTime Hr
-                                        </div>
+                                        @if (@ticket.ResponseTime != null && ticket.ResponseTime.HasValue)
+                                        {
+                                            int totalHours = (int)ticket.ResponseTime.Value.TotalHours;
+                                            int totalMinutes = ticket.ResponseTime.Value.Minutes;
+
+                                            <div class="hr-ticketing-response-time">
+
+                                                @if (ticket.ResponseTime != null)
+                                                {
+                                                    <p>Response Time: @totalHours.ToString("00"):@totalMinutes.ToString("00") Hr</p>
+                                                }
+
+                                            </div>
+                                        }
+
                                         <div class="hr-ticketing-priority-date">
                                             <span class="hr-ticket-prioritylevel">
                                                 <span class="res-hr-ticketlisting-color res-hr-ticketlisting-color-red"></span>
@@ -153,7 +165,7 @@
                                             <span class="res-admin-hr-ticketlisting-date">
                                                 <i class="fa-solid fa-clock" aria-hidden="true"></i>
                                                 <span class="res-ticketlisting-priority-status">
-                                                @(ticket.Created_date.HasValue ? ticket.Created_date.Value.ToString("dd MMM yyyy, ddd hh:mmtt") : "N/A")
+                                                    @(ticket.Created_date.HasValue ? ticket.Created_date.Value.ToString("dd MMM yyyy, ddd hh:mmtt") : "N/A")
                                                 </span>
                                             </span>
                                         </div>
@@ -168,7 +180,7 @@
                                     </td>
                                 </tr>
                             }
-                                @*<tr class="even">
+                            @*<tr class="even">
                                     <td style="width: 400px">
                                         <div class="res-admin-hr-ticketlisting-user-details" style="display: flex; align-items: center;">
                                             <i class="hr-ticket-msg-icon fa-regular fa-message"></i>
@@ -207,7 +219,7 @@
                                         <div class="res-ticketlisting-status-level ticket-status-closed">Closed</div>
                                     </td>
                                 </tr>*@
-                            </tbody>
+                        </tbody>
                     </table>
                 </div>
             </div>

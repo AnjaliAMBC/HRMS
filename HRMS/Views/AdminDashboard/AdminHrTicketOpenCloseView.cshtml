@@ -40,13 +40,20 @@
                             <input type="text" class="form-control" id="hrticketing-priority" value="@Model.TicketViewModel.Priority" readonly>
                         </div>
                         <div class="form-group div-hrticketing-closedby">
-                            <label for="hrticketing-closedby" class="hrticketing-priority-label">Closed By*</label>
+                            <label for="hrticketing-closedby" class="hrticketing-priority-label">Resolved By*</label>
                             <select class="form-control" id="hrticketing-closedby">
                                 <option selected disabled>Select Name</option>
+
+                                @{
+                                    var selectedemp = Model.TicketViewModel.Resolved_by;
+                                }
                                 @foreach (var itemp in Model.ITEmployees)
                                 {
-                                    <option value="@itemp.EmployeeID">@itemp.EmployeeName</option>
+                                    var selected = itemp.EmployeeID == selectedemp ? "selected" : "";
+                                    <option @selected value="@itemp.EmployeeID">@itemp.EmployeeName</option>
+
                                 }
+
                             </select>
                             <span class="error-message" id="hrticketing-closedby-error"></span>
                         </div>
@@ -54,20 +61,55 @@
                             <div class="form-group div-admin-hrticketing-status">
                                 <label for="admin-hrticketing-status" class="admin-hrticketing-priority-label">Select Status*</label>
                                 <select class="form-control" id="admin-hrticketing-status">
+                                    @{
+                                        var selectedTicketStatus = Model.TicketViewModel.Status;
+                                    }
+
+                                    @{
+                                        var ticketStatuses = new List<string>();
+                                        ticketStatuses.Add("Resolved");
+                                        ticketStatuses.Add("Closed");
+                                        ticketStatuses.Add("Re-Open");
+                                    }
                                     <option selected disabled>Select Status</option>
-                                    <option value="Resolved">Resolved</option>
-                                    <option value="Closed">Closed</option>
+                                    @foreach (var item in ticketStatuses)
+                                    {
+                                        var selectedStatus = item == selectedTicketStatus ? "selected" : "";
+                                        <option value="@item" @selectedStatus>@item</option>
+                                    }
+
+
                                 </select>
                                 <span class="error-message" id="admin-hrticketing-status-error"></span>
                             </div>
                             <div class="form-group div-admin-hrticketing-closeddate">
-                                <label for="admin-hrticketing-closeddate" class="admin-hrticketing-closeddate-label">Closed Date*</label>
-                                <input type="date" class="form-control form-control-sm mr-2" id="hrticketing-closeddate" value="@Model.TicketViewModel.Closed_date?.ToString(" yyyy-MM-dd")"">
+                                <label for="admin-hrticketing-closeddate" class="admin-hrticketing-closeddate-label">Date*</label>
+                                @{
+                                    string displayDate = "";
+                                    if (Model.TicketViewModel.Status == "Resolved")
+                                    {
+                                        displayDate = Model.TicketViewModel.ResolvedDate?.ToString("yyyy-MM-dd");
+                                    }
+                                    else if (Model.TicketViewModel.Status == "Closed")
+                                    {
+                                        displayDate = Model.TicketViewModel.Closed_date?.ToString("yyyy-MM-dd");
+                                    }
+                                    else if (Model.TicketViewModel.Status == "Re-Open")
+                                    {
+                                        displayDate = Model.TicketViewModel.ReopenedDate?.ToString("yyyy-MM-dd");
+                                    }
+                                    else // default to current date if status is "Open" or other status
+                                    {
+                                        displayDate = DateTime.Now.ToString("yyyy-MM-dd");
+                                    }
+                                }
+                                <input type="date" class="form-control form-control-sm mr-2" id="hrticketing-closeddate" value="@displayDate">
                             </div>
+
                         </div>
                         <div class="admin-hrticketing-submit">
                             <button type="button" class="btn btn-secondary btn-hrticketing-back mb-4">Back</button>
-                            @if (Model.TicketViewModel.Status != "Cancelled")
+                            @if (Model.TicketViewModel.Status != "Cancelled" && Model.TicketViewModel.Status != "Closed")
                             {
                                 <button type="button" class="btn btn-primary btn-apply-admin-hrticketing-submit mb-4" data-ticketnum="@Model.TicketViewModel.TicketNo">Submit</button>
                             }
@@ -77,7 +119,7 @@
                 </form>
             </div>
         </div>
-
-
     </div>
 </div>
+
+@Html.Partial("CommonModalPopups")
