@@ -1,5 +1,15 @@
 ﻿@model HRMS.Models.TicketingModel
 
+<style>
+    #adminhrticketlistingTable_length {
+        display: none;
+    }
+
+    #adminhrticketlistingTable_filter {
+        display: none;
+    }
+</style>
+
 @Html.Partial("_NavBar")
 <div class="container-fluid res-admin-Ticketing">
     <div class="hiddenadmindashboard" style="display: none"></div>
@@ -83,10 +93,11 @@
                                 <div class="dropdown res-adminadvfilter-hrticketlisting">
                                     <select class="form-control form-select-sm" name="status" id="hr-ticketlisting-status-dropdown" style="border-radius: 15px; height: 28px; width: 131px; border: 1px solid lightgray; padding: 0 10px; font-size: 12px;">
                                         <option value="" disabled selected>Status</option>
-                                        <option value="Approved">Approved</option>
-                                        <option value="Rejected">Rejected</option>
-                                        <option value="Pending">Pending</option>
+                                        <option value="Open">Open</option>
+                                        <option value="Resolved">Resolved</option>
+                                        <option value="Closed">Closed</option>
                                         <option value="Cancelled">Cancelled</option>
+                                        <option value="Re-Open">Re-Open</option>
                                         <option value="All">All</option>
                                     </select>
                                 </div>
@@ -101,8 +112,13 @@
                                 <div class="dropdown res-adminadvfilter-hrticketlisting">
                                     <select class="form-control form-select-sm" name="closedby" id="hr-ticketlisting-closedby-dropdown" style="border-radius: 15px; height: 28px; width: 131px; border: 1px solid lightgray; padding: 0 10px; font-size: 12px;">
                                         <option value="" disabled selected>Closed By</option>
-                                        <option value="Raj">Raj</option>
-                                        <option value="Kumar">Kumar</option>
+
+                                        @foreach (var itemp in Model.itEmployees)
+                                        {
+                                            <option value="@itemp.EmployeeID">@itemp.EmployeeName</option>
+                                        }
+                                        <option value="All">All</option>
+
                                     </select>
                                 </div>
                                 <div class="form-group align-items-center res-adminadvfilter-hrticketlisting mr-2">
@@ -226,24 +242,53 @@
         </div>
     </div>
 </div>
+
 <script>
-    $(document).on('keyup', '.hr-search', function () {
-        var searchText = $(this).val().toLowerCase();
-        $('#adminhrticketlistingTable tbody tr').each(function () {
-            var found = false;
-            $(this).find('td').each(function () {
-                var cellContent = $(this).text().toLowerCase();
-                if (cellContent.indexOf(searchText) !== -1) {
-                    found = true;
-                    return false; // Exit loop if found
-                }
+    $(document).ready(function () {
+        if (!$.fn.DataTable.isDataTable('#adminhrticketlistingTable')) {
+            var table = $('#adminhrticketlistingTable').DataTable({
+                "paging": true,
+                "searching": true,
+                "ordering": false,
+                "info": true,
+                "autoWidth": false,
+                "lengthMenu": [[7, 14, 21, -1], [7, 14, 21, "All"]],
+                "columnDefs": [
+                    { "orderable": false, "targets": 1 },
+                    { "orderable": false, "targets": 3 }
+                ]
             });
 
-            if (found) {
-                $(this).show();
-            } else {
-                $(this).hide();
-            }
-        });
+            $(document).on('keyup', '.hr-search', function () {
+                table.search(this.value).draw(); // Search value across all columns and redraw table
+            });
+        }
+
+
     });
+
+
+
 </script>
+
+@*<script>
+        $(document).on('keyup', '.hr-search', function () {
+            var searchText = $(this).val().toLowerCase();
+            $('#adminhrticketlistingTable tbody tr').each(function () {
+                var found = false;
+                $(this).find('td').each(function () {
+                    var cellContent = $(this).text().toLowerCase();
+                    if (cellContent.indexOf(searchText) !== -1) {
+                        found = true;
+                        return false; // Exit loop if found
+                    }
+                });
+
+                if (found) {
+                    $(this).show();
+                } else {
+                    $(this).hide();
+                }
+            });
+        });
+    </script>*@

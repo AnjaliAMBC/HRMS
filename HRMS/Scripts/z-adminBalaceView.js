@@ -398,9 +398,9 @@ $(document).on('click', '.leave-view-history', function (event) {
                     "autoWidth": false,
                     "lengthMenu": [[7, 14, 21, -1], [7, 14, 21, "All"]],
                     "columnDefs": [
-                        { "orderable": false, "targets": 0 }, // Disable ordering on the Checkbox column
-                        { "orderable": false, "targets": 1 }, // Disable ordering on the ID column
-                        { "orderable": false, "targets": 2 }  // Disable ordering on the Employee Info column
+                        { "orderable": false, "targets": 0 },
+                        { "orderable": false, "targets": 1 },
+                        { "orderable": false, "targets": 2 }
                     ]
                 });
             },

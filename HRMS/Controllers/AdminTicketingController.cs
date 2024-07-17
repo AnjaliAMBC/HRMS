@@ -1,5 +1,6 @@
 ﻿using HRMS.Helpers;
 using HRMS.Models;
+using Newtonsoft.Json;
 using OfficeOpenXml;
 using System;
 using System.Collections.Generic;
@@ -42,7 +43,17 @@ namespace HRMS.Controllers
 
             var employeeTickets = _dbContext.IT_Ticket.Where(x => x.TicketType == "HR").OrderByDescending(x => x.Created_date);
             model.empTickets = employeeTickets.ToList();
+
+            model.itEmployees = _dbContext.emp_info.Where(x => x.Department == "HR").ToList();
             return View("~/Views/AdminDashboard/AdminHrTicketing.cshtml", model);
+        }
+
+
+        public ActionResult GetHrTicketFilter(string fromDate, string toDate, string status, string location, string closedBy)
+        {
+            List<IT_Ticket> ticketsList = GetHRTicketsFilter(fromDate, toDate, status, location, closedBy);
+            var json = JsonConvert.SerializeObject(ticketsList);
+            return Json(json, JsonRequestBehavior.AllowGet);
         }
         public ActionResult GetHRTicketDetails(int ticketNo)
         {
@@ -87,36 +98,9 @@ namespace HRMS.Controllers
         }
 
 
-        public ActionResult ItExportToExcel(DateTime? fromDate, DateTime? toDate, string status, string location, string closedBy)
+        public ActionResult HRExportToExcel(string fromDate, string toDate, string status, string location, string closedBy)
         {
-            var employeeTickets = _dbContext.IT_Ticket.Where(x => x.TicketType == "IT");
-
-            if (fromDate.HasValue)
-            {
-                employeeTickets = employeeTickets.Where(x => x.Created_date >= fromDate.Value);
-            }
-
-            if (toDate.HasValue)
-            {
-                employeeTickets = employeeTickets.Where(x => x.Created_date <= toDate.Value);
-            }
-
-            if (!string.IsNullOrEmpty(status))
-            {
-                employeeTickets = employeeTickets.Where(x => x.Status == status);
-            }
-
-            if (!string.IsNullOrEmpty(location))
-            {
-                employeeTickets = employeeTickets.Where(x => x.Location == location);
-            }
-
-            if (!string.IsNullOrEmpty(closedBy))
-            {
-                employeeTickets = employeeTickets.Where(x => x.Closedby == closedBy);
-            }
-
-            var ticketsList = employeeTickets.ToList();
+            List<IT_Ticket> ticketsList = GetHRTicketsFilter(fromDate, toDate, status, location, closedBy);
 
             // Create Excel package
             ExcelPackage excelPackage = new ExcelPackage();
@@ -152,9 +136,45 @@ namespace HRMS.Controllers
             excelPackage.SaveAs(memoryStream);
             memoryStream.Position = 0;
 
-            string excelName = $"It-TickcketHistory-{DateTime.Now:yyyyMMddHHmmssfff}.xlsx";
+            string excelName = $"HR-TickcketHistory-{DateTime.Now:yyyyMMddHHmmssfff}.xlsx";
 
             return File(memoryStream, "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet", excelName);
+        }
+
+        private List<IT_Ticket> GetHRTicketsFilter(string fromDate, string toDate, string status, string location, string closedBy)
+        {
+            DateTime dateStart = System.DateTime.Parse(fromDate);
+            DateTime dateEnd = System.DateTime.Parse(toDate);
+
+            var employeeTickets = _dbContext.IT_Ticket.Where(x => x.TicketType == "HR");
+
+            if (fromDate != null && !string.IsNullOrEmpty(fromDate))
+            {
+                employeeTickets = employeeTickets.Where(x => x.Created_date >= dateStart);
+            }
+
+            if (toDate != null && !string.IsNullOrEmpty(toDate))
+            {
+                employeeTickets = employeeTickets.Where(x => x.Created_date <= dateEnd);
+            }
+
+            if (status != "null" && status != "All" && !string.IsNullOrEmpty(status))
+            {
+                employeeTickets = employeeTickets.Where(x => x.Status == status);
+            }
+
+            if (location != "null" && location != "All" && !string.IsNullOrEmpty(location))
+            {
+                employeeTickets = employeeTickets.Where(x => x.Location == location);
+            }
+
+            if (closedBy != "null" && closedBy != "All" && !string.IsNullOrEmpty(closedBy))
+            {
+                employeeTickets = employeeTickets.Where(x => x.Closedby == closedBy);
+            }
+
+            var ticketsList = employeeTickets.ToList();
+            return ticketsList;
         }
 
         [HttpPost]
@@ -171,7 +191,7 @@ namespace HRMS.Controllers
                     {
                         ticket.Resolved_by = ticketModel.Resolved_by;
                         ticket.ResolvedDate = DateTime.Now;
-                      
+
                         if (ticket.Created_date.HasValue)
                         {
                             TimeSpan timeDifference = ticket.ResolvedDate.Value - ticket.Created_date.Value;
