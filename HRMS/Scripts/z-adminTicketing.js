@@ -373,7 +373,7 @@ $(document).on('click', '.itticketlisting-view', function (event) {
                         var totalMinutes = Math.floor((totalSeconds % 3600) / 60);
 
                         responseTimeHtml = 'Response Time ' + totalHours.toString().padStart(2, '0') + ':' + totalMinutes.toString().padStart(2, '0') + ' Hr';
-                    }                  
+                    }
 
                     html += '<tr>';
                     html += '<td style="width: 400px">';
@@ -452,6 +452,135 @@ $(document).on('click', '.itticketlisting-view', function (event) {
     }
 });
 
+$(document).on('click', '.res-itticketlisting-status-level', function (event) {
+    event.preventDefault();
+    var ticketNo = $(this).closest('tr').find('.admin-it-ticketing-listing-title').data('ticketnum');
+
+    $.ajax({
+        url: '/adminticketing/getticketdetailsbynumber?ticketNo=' + ticketNo,
+        method: 'GET',
+        success: function (data) {
+            var modalBody = $('#adminItTicketCommentsModal .modal-body .admin-it-ticketing-commentbox-popup-list');
+            populateModal(data, modalBody);
+            $('#adminItTicketCommentsModal').modal('show');
+        },
+        error: function (err) {
+            console.log(err);
+        }
+    });
+});
+
+function populateModal(ticketdata, modalBody) {
+   
+    modalBody.empty();
+
+    // Determine which details to display based on ticket status
+    var html = '';
+    var ticket = $.parseJSON(ticketdata);
+
+    let formattedOpenDate = ticket.Created_date ? new Date(ticket.Created_date).toLocaleDateString('en-GB') : 'N/A';
+
+    // Initial details always shown
+    html += `
+        <div class="admin-it-ticketing-commentbox-list">
+            <div class="col-lg-1 admin-it-ticketing-commentbox-left">
+                <img class="userIcon" src="/Assets/EmpImages/${ticket.EmployeeID}.jpeg">
+                <div class="vl"></div>
+            </div>
+            <span class="col-lg-7 admin-it-ticketing-commentbox-mid">
+                <div class="admin-it-ticketing-commentbox-userinfo">${ticket.EmployeeID} ${ticket.EmployeeName}</div>
+                <div class="admin-it-ticketing-commentbox-status">Open</div>
+                <div class="admin-it-ticketing-commentbox-desc" title="${ticket.Subject}">${ticket.Subject}</div>
+            </span>
+            <span class="col-lg-2 admin-it-ticketing-commentbox-right">
+                <div class="admin-it-ticketing-commentbox-date">${formattedOpenDate}</div>
+            </span>
+        </div>
+    `;
+
+    // Additional details based on ticket status
+    if (ticket.ResolvedDate !== null) {
+        let formattedResolvedDate = ticket.ResolvedDate ? new Date(ticket.ResolvedDate).toLocaleDateString('en-GB') : 'N/A';
+        html += `
+            <div class="admin-it-ticketing-commentbox-list">
+                <div class="col-lg-1 admin-it-ticketing-commentbox-left">
+                    <img class="userIcon" src="/Assets/EmpImages/${ticket.Resolved_by}.jpeg">
+                    <div class="vl"></div>
+                </div>
+                <span class="col-lg-7 admin-it-ticketing-commentbox-mid">
+                    <div class="admin-it-ticketing-commentbox-userinfo">${ticket.Resolved_by}</div>
+                    <div class="admin-it-ticketing-commentbox-status">Resolved</div>
+                </span>
+                <span class="col-lg-2 admin-it-ticketing-commentbox-right">
+                    <div class="admin-it-ticketing-commentbox-date">${formattedResolvedDate}</div>
+                </span>
+            </div>
+        `;
+    }
+
+    if (ticket.ReopenedDate !== null) {
+        let formattedReOpenDate = ticket.ReopenedDate ? new Date(ticket.ReopenedDate).toLocaleDateString('en-GB') : 'N/A';
+        html += `
+            <div class="admin-it-ticketing-commentbox-list">
+                <div class="col-lg-1 admin-it-ticketing-commentbox-left">
+                    <img class="userIcon" src="/Assets/EmpImages/${ticket.EmployeeID}.jpeg">
+                    <div class="vl"></div>
+                </div>
+                <span class="col-lg-7 admin-it-ticketing-commentbox-mid">
+                    <div class="admin-it-ticketing-commentbox-userinfo">${ticket.EmployeeID} ${ticket.EmployeeName}</div>
+                    <div class="admin-it-ticketing-commentbox-status">Re-Open</div>
+                    <div class="admin-it-ticketing-commentbox-desc">${ticket.ReopenedComments}</div>
+                </span>
+                <span class="col-lg-2 admin-it-ticketing-commentbox-right">
+                    <div class="admin-it-ticketing-commentbox-date">${formattedReOpenDate}</div>
+                </span>
+            </div>
+        `;
+    }
+
+    if (ticket.Closed_date !== null) {
+        let formattedClosedDate = ticket.Closed_date ? new Date(ticket.Closed_date).toLocaleDateString('en-GB') : 'N/A';
+        html += `
+        <div class="admin-it-ticketing-commentbox-list">
+            <div class="col-lg-1 admin-it-ticketing-commentbox-left">
+                <img class="userIcon" src="/Assets/EmpImages/${ticket.Closedby}.jpeg">
+                <div class="vl"></div>
+            </div>
+            <span class="col-lg-7 admin-it-ticketing-commentbox-mid">
+                <div class="admin-it-ticketing-commentbox-userinfo">${ticket.Closedby}</div>
+                <div class="admin-it-ticketing-commentbox-status">Closed</div>
+                <div class="admin-it-ticketing-commentbox-desc">${ticket.AcknowledgeComments !== null ? ticket.AcknowledgeComments : 'NA'}</div>
+                ${ticket.AcknowledgeComments ? '<div><input type="checkbox" checked disabled> Acknowledged</div>' : ''}
+            </span>
+            <span class="col-lg-2 admin-it-ticketing-commentbox-right">
+                <div class="admin-it-ticketing-commentbox-date">${formattedClosedDate}</div>
+            </span>
+        </div>
+    `;
+    }
+
+
+    modalBody.append(html);
+}
+
+
+$(document).on('click', '.res-ticketlisting-status-level', function (event) {
+    event.preventDefault();
+    var ticketNo = $(this).closest('tr').find('.admin-hr-ticketing-listing-title').data('ticketnum');
+
+    $.ajax({
+        url: '/adminticketing/getticketdetailsbynumber?ticketNo=' + ticketNo,
+        method: 'GET',
+        success: function (data) {
+            var modalBody = $('#adminHrTicketCommentsModal .modal-body .admin-hr-ticketing-commentbox-popup-list');
+            populateModal(data, modalBody);
+            $('#adminHrTicketCommentsModal').modal('show');
+        },
+        error: function (err) {
+            console.log(err);
+        }
+    });
+});
 
 
 

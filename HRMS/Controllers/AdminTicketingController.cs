@@ -278,5 +278,12 @@ namespace HRMS.Controllers
 
             return File(memoryStream, "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet", excelName);
         }
+
+        public ActionResult GetTicketDetailsByNumber(int ticketNo)
+        {
+            var ticket = _dbContext.IT_Ticket.FirstOrDefault(t => t.TicketNo == ticketNo);
+            var json = JsonConvert.SerializeObject(ticket);
+            return Json(json, JsonRequestBehavior.AllowGet);
+        }
     }
 }
