@@ -161,8 +161,8 @@
                                         <div class="res-itticketlisting-location">@ticket.Location</div>
                                     </td>
                                     <td class="res-admin-itticketlisting-status">
-                                        <div class="it-ticketing-empty-block @HRMS.Helpers.TicketingHelper.GetTicketStatusCssClass(ticket.Status)"></div>
-                                        <div class="res-itticketlisting-status-level ticket-status-@ticket.Status">@ticket.Status</div>
+                                        <div class="it-ticketing-empty-block"></div>
+                                        <div class="res-itticketlisting-status-level @HRMS.Helpers.TicketingHelper.GetTicketStatusCssClass(ticket.Status) ticket-status-@ticket.Status">@ticket.Status</div>
                                     </td>
                                 </tr>
                             }

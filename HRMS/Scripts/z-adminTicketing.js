@@ -492,16 +492,6 @@ function populateModal(ticketdata, modalBody) {
     var ticket = $.parseJSON(ticketdata);
 
     // Add HTML for comment box and buttons specific to Resolved status
-    html += `
-           <div class="modal-header">
-                 <h5 class="modal-title">Ticket Flow</h5>
-                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                     <span aria-hidden="true">&times;</span>
-              </button>
-           </div>
-        `;
-
-    // Add HTML for comment box and buttons specific to Resolved status
     if (ticket.Status == "Resolved") {
         html += `
             <div class="emp-ticketing-commentbox-popup">
