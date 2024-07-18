@@ -1,8 +1,16 @@
-﻿
-@{
-    ViewBag.Title = "EmpRaiseTicket";
-}
+﻿@model HRMS.Models.TicketingModel
+
 <div class="EmpTicket-raise-container">
+    <style>
+        .error-message {
+            color: red;
+        }
+
+        .form-control.error {
+            border-color: red;
+        }
+    </style>
+
     <div class="col-lg-5 col-md-11 emp-ticket-raise-popup-form">
         <form id="emp-ticket-raise-Form">
             <div class="form-group">
@@ -10,20 +18,29 @@
                 <div class="form-group div-emp-raiseticket-ticketype">
                     <label for="emp-raiseticket-ticketype" class="emp-raiseticket-label">Ticket Type*</label>
                     <select class="form-control" id="emp-raiseticket-ticketype">
-                        <option selected disabled>Select IT or HR</option>
-                        <option value="1" data-emplocation="m" data-empemail="em" data-designation="de" data-department="dep">A1</option>
-                        <option value="2" data-emplocation="m" data-empemail="em" data-designation="de" data-department="dep">A2</option>
-                        <option value="3" data-emplocation="m" data-empemail="em" data-designation="de" data-department="dep">A3</option>
+                        <option selected="" disabled="">Select IT or HR</option>
+                        <option value="IT">IT</option>
+                        <option value="HR">HR</option>
                     </select>
-                    <span class="error-message" id="emp-raiseticket-category-error"></span>
+                    <span class="error-message" id="emp-raiseticket-ticketype-error"></span>
                 </div>
-                <div class="form-group div-emp-raiseticket-category">
+                <div class="form-group div-emp-raiseticket-category" id="category-div" style="display: none">
                     <label for="emp-raiseticket-category" class="emp-raiseticket-label">Category*</label>
-                    <select class="form-control" id="emp-raiseticket-category">
-                        <option selected disabled>Select Catgory</option>
-                        <option value="1" data-emplocation="m" data-empemail="em" data-designation="de" data-department="dep">A1</option>
-                        <option value="2" data-emplocation="m" data-empemail="em" data-designation="de" data-department="dep">A2</option>
-                        <option value="3" data-emplocation="m" data-empemail="em" data-designation="de" data-department="dep">A3</option>
+                    <select class="form-control" id="emp-raiseticket-itcategory" style="display: none;">
+                        <option selected="" disabled="">Select Category</option>
+                        <option value="Hardware">Hardware</option>
+                        <option value="Software">Software</option>
+                        <option value="Network">Network</option>
+                        <option value="Others">Others</option>
+                    </select>
+                    <select class="form-control" id="emp-raiseticket-hrcategory" style="display: none;">
+                        <option selected="" disabled="">Select Category</option>
+                        <option value="Recruitment">Recruitment</option>
+                        <option value="Payroll">Payroll</option>
+                        <option value="Benefits">Benefits</option>
+                        <option value="PF">PF</option>
+                        <option value="Leaves">Leaves</option>
+                        <option value="Others">Others</option>
                     </select>
                     <span class="error-message" id="emp-raiseticket-category-error"></span>
                 </div>
@@ -40,8 +57,8 @@
                 <div class="form-group">
                     <label for="emp-raiseticket-attach">Attach File*</label>
                     <span class="emp-raiseticket-attach-upload-btn-wrapper">
-                        <button class="btn emp-raiseticket-attach-label">Upload a file</button>
-                        <input type="file" id="emp-raiseticket-attach-file-upload" name="emp-raiseticket-attach-file-upload" />
+                        <button type="button" class="btn emp-raiseticket-attach-label">Upload a file</button>
+                        <input type="file" id="emp-raiseticket-attach-file-upload" name="emp-raiseticket-attach-file-upload" accept="image/jpeg, image/png">
                         <span class="emp-raiseticket-file-name"></span>
                     </span>
                     <div class="emp-raiseticket-attach-file-upload-size">Only JPEG, PNG with max size of 2MB</div>
@@ -50,25 +67,26 @@
                 <div class="form-group div-emp-raiseticket-priority">
                     <label for="emp-raiseticket-priority" class="emp-raiseticket-priority-label">Select Priority*</label>
                     <select class="form-control" id="emp-raiseticket-priority">
-                        <option selected disabled>Select Priority</option>
-                        <option value="1">High</option>
-                        <option value="2">Mid</option>
-                        <option value="3">Low</option>
+                        <option selected="" disabled="">Select Priority</option>
+                        <option value="High">High</option>
+                        <option value="Mid">Mid</option>
+                        <option value="Low">Low</option>
                     </select>
                     <span class="error-message" id="emp-raiseticket-priority-error"></span>
                 </div>
                 <div class="emp-raiseticket-submit">
-                    <button type="submit" class="btn btn-apply-emp-raiseticket-cancel mb-4">Cancel</button>
-                    <button type="submit" class="btn btn-primary btn-apply-emp-raiseticket-submit mb-4">Submit</button>
+                    <button type="button" class="btn btn-apply-emp-raiseticket-cancel mb-4">Cancel</button>
+                    <button type="button" class="btn btn-primary btn-apply-emp-raiseticket-submit mb-4">Submit</button>
                 </div>
             </div>
         </form>
+
+
+        <!-- Modal for success message -->
+        @Html.Partial("CommonModalPopups")
+
     </div>
 </div>
 
-<script>
-    $(document).on('change', '#emp-raiseticket-attach-file-upload', function () {
-        var filename = $(this).val().split('\\').pop();  
-        $('.emp-raiseticket-file-name').text(filename);  
-    });
-</script>
+
+<script src="~/Scripts/z-raiseticket.js"></script>

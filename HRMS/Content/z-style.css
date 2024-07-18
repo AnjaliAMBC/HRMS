@@ -658,6 +658,12 @@ div.main-content {
     text-decoration: none !important;
 }
 
+.admin-leavecalender-view .adminside-leaveapply {
+    background: #2693F8;
+    color: #fff;
+    cursor: pointer;
+}
+
 /* admin leave end*/
 
 /* admin leave balance start*/
@@ -1291,6 +1297,7 @@ div.main-content {
     border-radius: 25px;
     margin-right: 10px;
     color: #fff;
+    height: 44px;
 }
 
 .admin-it-ticketlisting-button .collapsedropdown {
@@ -1381,6 +1388,65 @@ div.main-content {
 }
 
 /* admin it ticket form end */
+
+/* admin it ticket comment popup start */
+
+#adminItTicketCommentsModal .modal-header {
+    border-bottom: 0px;
+    padding: 0 5px;
+}
+
+.admin-it-ticketing-commentbox-popup-list {
+    height: 250px;
+    overflow-y: scroll;
+    margin: 15px 10px;
+}
+
+.admin-it-ticketing-commentbox-list {
+    display: flex;
+    font-size: 13px;
+}
+
+.admin-it-ticketing-commentbox-list .admin-it-ticketing-commentbox-left {
+    padding: 0;
+    margin-right: 20px;
+}
+
+.admin-it-ticketing-commentbox-list .admin-it-ticketing-commentbox-left img {
+    width: 42px;
+    height: 42px;
+    object-fit: cover;
+    border-radius: 50%;
+    margin-right: 10px;
+}
+
+.admin-it-ticketing-commentbox-list .admin-it-ticketing-commentbox-left .vl {
+    border-left: 2px solid #ccc;
+    height: 60px;
+    margin-left: 20px;
+    }
+
+.admin-it-ticketing-commentbox-list .admin-it-ticketing-commentbox-mid {
+    padding: 0;
+    margin-right: 25px;
+}
+
+.admin-it-ticketing-commentbox-list .admin-it-ticketing-commentbox-mid .admin-it-ticketing-commentbox-status {
+    color: #2693F8;
+    margin-bottom: 10px;
+}
+
+.admin-it-ticketing-commentbox-list .admin-it-ticketing-commentbox-mid .admin-it-ticketing-commentbox-desc {
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    overflow: hidden;
+}
+
+.admin-it-ticketing-commentbox-list .admin-it-ticketing-commentbox-right {
+    padding: 0;
+}
+
+/* admin it ticket comment popup end */
 
 /* admin hr ticket start */
 
@@ -1535,6 +1601,7 @@ div.main-content {
     border-radius: 25px;
     margin-right: 10px;
     color: #fff;
+    height: 44px;
 }
 
 .admin-hr-ticketlisting-button .collapsedropdown {
@@ -1625,6 +1692,65 @@ div.main-content {
 }
 
 /* admin hr ticket form end */
+
+/* admin it ticket comment popup start */
+
+#adminHrTicketCommentsModal .modal-header {
+    border-bottom: 0px;
+    padding: 0 5px;
+}
+
+.admin-hr-ticketing-commentbox-popup-list {
+    height: 250px;
+    overflow-y: scroll;
+    margin: 15px 10px;
+}
+
+.admin-hr-ticketing-commentbox-list {
+    display: flex;
+    font-size: 13px;
+}
+
+.admin-hr-ticketing-commentbox-list .admin-hr-ticketing-commentbox-left {
+    padding: 0;
+    margin-right: 20px;
+}
+
+.admin-hr-ticketing-commentbox-list .admin-hr-ticketing-commentbox-left img {
+    width: 42px;
+    height: 42px;
+    object-fit: cover;
+    border-radius: 50%;
+    margin-right: 10px;
+}
+
+.admin-hr-ticketing-commentbox-list .admin-hr-ticketing-commentbox-left .vl {
+    border-left: 2px solid #ccc;
+    height: 60px;
+    margin-left: 20px;
+}
+
+.admin-hr-ticketing-commentbox-list .admin-hr-ticketing-commentbox-mid {
+    padding: 0;
+    margin-right: 25px;
+}
+
+.admin-hr-ticketing-commentbox-list .admin-hr-ticketing-commentbox-mid .admin-hr-ticketing-commentbox-status {
+    color: #2693F8;
+    margin-bottom: 10px;
+}
+
+.admin-hr-ticketing-commentbox-list .admin-hr-ticketing-commentbox-mid .admin-hr-ticketing-commentbox-desc {
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    overflow: hidden;
+}
+
+.admin-hr-ticketing-commentbox-list .admin-hr-ticketing-commentbox-right {
+    padding: 0;
+}
+
+/* admin hr ticket comment popup end */
 
 /* employee dashboard start*/
 .emp-dashboard .main-content.container-fluid {
@@ -2076,3 +2202,68 @@ input[type=checkbox], input[type=radio] {
 }
 
 /* emp ticket raise end */
+
+/* emp ticket comment popup start */
+
+.emp-ticketing-commentbox-popup-list {
+    height: 250px;
+    overflow-y: scroll;
+}
+
+.emp-ticketing-commentbox-list {
+    display: flex;
+    font-size: 13px;
+}
+
+    .emp-ticketing-commentbox-list .emp-ticketing-commentbox-left {
+        padding: 0;
+        margin-right: 20px;
+    }
+
+    .emp-ticketing-commentbox-list .emp-ticketing-commentbox-left img {
+        width: 42px;
+        height: 42px;
+        object-fit: cover;
+        border-radius: 50%;
+        margin-right: 10px;
+    }
+
+    .emp-ticketing-commentbox-list .emp-ticketing-commentbox-left .vl {
+        border-left: 2px solid #ccc;
+        height: 60px;
+        margin-left: 20px;
+    }
+
+    .emp-ticketing-commentbox-list .emp-ticketing-commentbox-mid {
+        padding: 0;
+        margin-right: 25px;
+    }
+
+    .emp-ticketing-commentbox-list .emp-ticketing-commentbox-mid .emp-ticketing-commentbox-status {
+        color: #2693F8;
+        margin-bottom: 10px;
+    }
+
+    .emp-ticketing-commentbox-list .emp-ticketing-commentbox-mid .emp-ticketing-commentbox-desc {
+        text-overflow: ellipsis;
+        white-space: nowrap;
+        overflow: hidden;
+    }
+
+    .emp-ticketing-commentbox-list .emp-ticketing-commentbox-right {
+        padding: 0;
+    }
+
+    .emp-ticketing-commentbox-popup .emp-tickethistory-comment-submit {
+        display: inline-block;
+        width: 100%;
+        text-align: right;
+    }
+
+    .emp-ticketing-commentbox-popup .emp-tickethistory-comment-submit .btn-apply-emp-tickethistory-comment-reopen {
+        background: red;
+        color: #fff;
+        margin-right: 10px;
+    }
+
+/* emp ticket comment popup end */

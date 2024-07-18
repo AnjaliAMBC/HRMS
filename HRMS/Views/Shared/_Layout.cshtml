@@ -116,6 +116,10 @@
             // Get the current URL path
             var currentUrl = window.location.pathname;
 
+            if (currentUrl == "/adminticketing/gethrticketdetails") {
+                return;
+            }
+
             $('#admindash-menu li').removeClass('sidebaractive');
             $('#admindash-menu li a.active').removeClass('active');
 
