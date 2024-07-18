@@ -50,7 +50,7 @@
                                         <div class="res-emp-ticketlisting-user-details" style="display: flex; align-items: center;">
                                             <i class="emp-ticket-msg-icon fa-regular fa-message"></i>
                                             <span style="margin-top: 0px; margin-right: 10px;">
-                                                <div class="emp-ticketing-listing-title">@ticket.Subject</div>
+                                                <div class="emp-ticketing-listing-title" data-ticketnum="@ticket.TicketNo">@ticket.Subject</div>
                                                 <div class="emp-ticketing-listing-details">
                                                     <span class="emp-ticket-id">#@ticket.TicketNo</span>
                                                     <span class="emp-ticket-info"><i class="fa-solid fa-folder" aria-hidden="true"></i> @ticket.TicketType - @ticket.Category</span>
@@ -91,13 +91,24 @@
                                     </td>
                                     <td class="res-emp-ticketlisting-location-info">
                                         <div class="emp-ticketing-empty-block"></div>
-                                        @if (ticket.Closedby != null)
-                                        {
-                                            <div class="emp-ticketing-listing-closedby">Closed By <span>@ticket.Closedby</span></div> }
-                                        @*else
+                                        @*@if (ticket.Status == "Open")
                                             {
-                                                <div class="emp-ticketing-listing-closedby">Closed By <span>N/A</span></div>}*@
+                                                <div class="emp-ticketing-listing-openedby">Open By: <span>@ticket.EmployeeName</span></div>
+                                            }
+                                            else if (ticket.Status == "ReOpen")
+                                            {
+                                                <div class="emp-ticketing-listing-reopenedby">Re-Open By: <span>@ticket.EmployeeName</span></div>
+                                            }
+                                            else if (ticket.Status == "Resolved")
+                                            {*@
+                                        <div class="emp-ticketing-listing-closedby">Resolved By: <span>@ticket.ResolvedByName</span></div>
+                                        @*}
+                                            else if (ticket.Status == "Closed")
+                                            {
+                                                <div class="emp-ticketing-listing-closedby">Closed By: <span>@ticket.ResolvedByName</span></div>
+                                            }*@
                                     </td>
+
                                     <td class="res-emp-ticketlisting-status">
                                         <div class="emp-ticketing-empty-block"></div>
                                         <div class="res-empticketlisting-status-level @HRMS.Helpers.TicketingHelper.GetTicketStatusCssClass(ticket.Status)">@ticket.Status</div>
@@ -154,16 +165,16 @@
         <div class="modal-content">
             <div class="modal-body">
 
-                <div class="emp-ticketing-commentbox-popup">
-                    <div class="form-group">
-                        <label for="emp-tickethistory-comment-label">Comment</label>
-                        <textarea class="form-control" id="emp-tickethistory-comments"></textarea>
-                    </div>
-                    <div class="emp-tickethistory-comment-submit">
-                        <button type="submit" class="btn btn-apply-emp-tickethistory-comment-reopen mb-4">Re-Open</button>
-                        <button type="submit" class="btn btn-primary btn-apply-emp-tickethistory-comment-submitbtn mb-4">Acknowledge</button>
-                    </div>
-                </div>
+                @*<div class="emp-ticketing-commentbox-popup">
+                        <div class="form-group">
+                            <label for="emp-tickethistory-comment-label">Comment</label>
+                            <textarea class="form-control" id="emp-tickethistory-comments"></textarea>
+                        </div>
+                        <div class="emp-tickethistory-comment-submit">
+                            <button type="submit" class="btn btn-apply-emp-tickethistory-comment-reopen mb-4">Re-Open</button>
+                            <button type="submit" class="btn btn-primary btn-apply-emp-tickethistory-comment-submitbtn mb-4">Acknowledge</button>
+                        </div>
+                    </div>*@
                 <div class="emp-ticketing-commentbox-popup-list">
                     <div class="emp-ticketing-commentbox-list">
                         <div class="col-lg-1 emp-ticketing-commentbox-left">
@@ -233,14 +244,6 @@
             });
         }
     });
-
-    function emptickethistorycommentpopup(currentthis) {
-        var ticketName = currentthis.attr("data-ticketname");
-
-        // Show the confirmation modal
-        $('#empTicketCommentsModal').modal('show');
-    }
-
 </script>
 
 <script src="~/Scripts/z-raiseticket.js"></script>
