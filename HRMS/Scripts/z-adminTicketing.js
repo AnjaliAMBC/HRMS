@@ -243,10 +243,12 @@ $(document).on('click', '.btn-apply-admin-itticket-submit', function (event) {
         TicketNo: $(this).data('ticketnum'),
         Status: $('#admin-itticket-status').val(),
         Resolved_by: $('#admin-itticket-closedby').val(),
+        ResolvedByName: $('#admin-itticket-closedby option:selected').text(),
         Closed_date: $('#admin-itticketing-closeddate').val(),
         ResolvedDate: $('#admin-itticketing-closeddate').val(),
         ReopenedDate: $('#admin-itticketing-closeddate').val(),
-        Closedby: $('#admin-itticket-closedby').val()
+        Closedby: $('#admin-itticket-closedby').val(),
+        ClosedByName: $('#admin-itticket-closedby option:selected').text()
     }
 
     $.ajax({
@@ -365,6 +367,17 @@ $(document).on('click', '.itticketlisting-view', function (event) {
                 $.each(response, function (index, ticket) {
                     var responseTimeHtml = '';
 
+                    var colorClass = "";
+                    if (ticket.Priority == "Mid") {
+                        colorClass = "res-it-ticketlisting-color-orange";
+                    }
+                    if (ticket.Priority == "High") {
+                        colorClass = "res-it-ticketlisting-color-red";
+                    }
+                    if (ticket.Priority == "Low") {
+                        colorClass = "res-it-ticketlisting-color-red";
+                    }
+
 
                     if (ticket.ResponseTime != null) {
                         // Convert the response time from seconds to hours, minutes, and seconds
@@ -394,7 +407,7 @@ $(document).on('click', '.itticketlisting-view', function (event) {
                     html += responseTimeHtml + '</div>';
                     html += '<div class="it-ticketing-priority-date">';
                     html += '<span class="it-ticket-prioritylevel">';
-                    html += '<span class="res-it-ticketlisting-color res-it-ticketlisting-color-red"></span>';
+                    html += '<span class="res-it-ticketlisting-color ' + colorClass + '"></span>';
                     html += '<span class="res-it-ticketlisting-priority-status">' + ticket.Priority + '</span>';
                     html += '</span>';
                     html += '<span class="res-admin-it-ticketlisting-date">';
@@ -538,7 +551,7 @@ function populateModal(ticketdata, modalBody) {
                     <div class="vl"></div>
                 </div>
                 <span class="col-lg-7 admin-it-ticketing-commentbox-mid">
-                    <div class="admin-it-ticketing-commentbox-userinfo">${ticket.Resolved_by}</div>
+                    <div class="admin-it-ticketing-commentbox-userinfo">${ticket.Resolved_by} ${ticket.ResolvedByName}</div>
                     <div class="admin-it-ticketing-commentbox-status">Resolved</div>
                 </span>
                 <span class="col-lg-2 admin-it-ticketing-commentbox-right">
@@ -577,7 +590,7 @@ function populateModal(ticketdata, modalBody) {
                 <div class="vl"></div>
             </div>
             <span class="col-lg-7 admin-it-ticketing-commentbox-mid">
-                <div class="admin-it-ticketing-commentbox-userinfo">${ticket.Closedby}</div>
+                <div class="admin-it-ticketing-commentbox-userinfo">${ticket.Closedby} ${ticket.ResolvedByName}</div>
                 <div class="admin-it-ticketing-commentbox-status">Closed</div>
                 <div class="admin-it-ticketing-commentbox-desc">${ticket.AcknowledgeComments !== null ? ticket.AcknowledgeComments : 'NA'}</div>
                 ${ticket.isacknowledge != null ? '<div><input type="checkbox" checked disabled> Acknowledged</div>' : '<div><input type="checkbox" disabled> Acknowledged</div>'}

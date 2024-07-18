@@ -54,10 +54,13 @@ $(document).on('click', '.employeeinfo-balance', function (event) {
             $('.admin-empmanagement-container').html("");
             $('.admin-attendance-container').html("");
             $('.admin-leave-container').html("");
+            $(".admin-leaveBalance-container").html("");
             $(".hiddenadmindashboard").html(response);
             var formContent = $(".hiddenadmindashboard").find(".admin-leaveBalanceUpdate-view").html();
-            $(".admin-leave-container").html(formContent);
-            $('.admin-leave-container').show();
+           // $(".admin-leave-container").html(formContent);
+            $(".admin-leaveBalance-container").html(formContent);
+            $('.admin-leave-container').hide();
+            $(".admin-leaveBalance-container").show();
             $('.admin-attendance-container').hide();
             $('.admin-empmanagement-container').hide();
             $('.admin-emppadd-container').hide();
@@ -433,15 +436,17 @@ $(document).on('click', '.btn-totalleaves-import', function (event) {
             $('.admin-empmanagement-container').html("");
             $('.admin-attendance-container').html("");
             $('.admin-leave-container').html("");
+            $('.admin-leaveBalance-container').html("");
             $(".hiddenadmindashboard").html(response);
             var formContent = $(".hiddenadmindashboard").find(".admin-totalleaveimport-view").html();
-            $(".admin-leave-container").html(formContent);
-            $('.admin-leave-container').show();
+            $(".admin-leaveBalance-container").html(formContent);
+            $('.admin-leave-container').hide();
             $('.admin-attendance-container').hide();
             $('.admin-empmanagement-container').hide();
             $('.admin-emppadd-container').hide();
             $('.admin-dashboard-container').hide();
             $('.admin-ticketing-container').hide();
+            $('.admin-leaveBalance-container').show();
             $(".hiddenadmindashboard").html("");
             $('.show-progress').hide();
         },

@@ -13,7 +13,7 @@ namespace HRMS.Helpers
             {
                 case "high":
                     return "res-emp-ticketlisting-color-red";
-                case "medium":
+                case "mid":
                     return "res-emp-ticketlisting-color-orange";
                 case "low":
                     return "res-emp-ticketlisting-color-green";
@@ -31,7 +31,9 @@ namespace HRMS.Helpers
                     return "ticket-status-open";
                 case "closed":
                     return "ticket-status-closed";
-                case "pending":
+                case "resolved":
+                    return "ticket-status-pending";
+                case "re-open":
                     return "ticket-status-pending";
                 default:
                     return ""; // Default or unknown status

@@ -256,6 +256,7 @@ $(document).on('click', '.btn-apply-emp-tickethistory-comment-reopen, .btn-apply
     var ticketNo = $(this).attr('data-ticketname'); // Assuming data-ticketname attribute is set appropriately
     var ticketStatus = $(this).attr('data-status'); // Assuming data-status attribute is set appropriately
     var comments = $('#emp-tickethistory-comments').val();
+    var updateby = $('.loggedinempname').text();
     var $currentButton = $(this);
 
     if (ticketNo && ticketStatus) {
@@ -266,7 +267,8 @@ $(document).on('click', '.btn-apply-emp-tickethistory-comment-reopen, .btn-apply
             data: {
                 ticketName: ticketNo,
                 status: ticketStatus,
-                comments: comments
+                comments: comments,
+                updateby: updateby
             },
             success: function (response) {
                 if (response.success) {

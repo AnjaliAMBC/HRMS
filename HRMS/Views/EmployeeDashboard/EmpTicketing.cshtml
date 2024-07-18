@@ -91,13 +91,24 @@
                                     </td>
                                     <td class="res-emp-ticketlisting-location-info">
                                         <div class="emp-ticketing-empty-block"></div>
-                                        @if (ticket.Closedby != null)
-                                        {
-                                            <div class="emp-ticketing-listing-closedby">Closed By <span>@ticket.Closedby</span></div> }
-                                        @*else
+                                        @*@if (ticket.Status == "Open")
                                             {
-                                                <div class="emp-ticketing-listing-closedby">Closed By <span>N/A</span></div>}*@
+                                                <div class="emp-ticketing-listing-openedby">Open By: <span>@ticket.EmployeeName</span></div>
+                                            }
+                                            else if (ticket.Status == "ReOpen")
+                                            {
+                                                <div class="emp-ticketing-listing-reopenedby">Re-Open By: <span>@ticket.EmployeeName</span></div>
+                                            }
+                                            else if (ticket.Status == "Resolved")
+                                            {*@
+                                        <div class="emp-ticketing-listing-closedby">Resolved By: <span>@ticket.ResolvedByName</span></div>
+                                        @*}
+                                            else if (ticket.Status == "Closed")
+                                            {
+                                                <div class="emp-ticketing-listing-closedby">Closed By: <span>@ticket.ResolvedByName</span></div>
+                                            }*@
                                     </td>
+
                                     <td class="res-emp-ticketlisting-status">
                                         <div class="emp-ticketing-empty-block"></div>
                                         <div class="res-empticketlisting-status-level @HRMS.Helpers.TicketingHelper.GetTicketStatusCssClass(ticket.Status)">@ticket.Status</div>

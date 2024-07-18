@@ -144,7 +144,7 @@
 
                                         <div class="it-ticketing-priority-date">
                                             <span class="it-ticket-prioritylevel">
-                                                <span class="res-it-ticketlisting-color res-it-ticketlisting-color-red"></span>
+                                                <span class="res-it-ticketlisting-color @HRMS.Helpers.TicketingHelper.GetPriorityColor(ticket.Priority)"></span>
                                                 <span class="res-it-ticketlisting-priority-status">@ticket.Priority</span>
                                             </span>
                                             <span class="res-admin-it-ticketlisting-date">
@@ -161,7 +161,7 @@
                                         <div class="res-itticketlisting-location">@ticket.Location</div>
                                     </td>
                                     <td class="res-admin-itticketlisting-status">
-                                        <div class="it-ticketing-empty-block"></div>
+                                        <div class="it-ticketing-empty-block @HRMS.Helpers.TicketingHelper.GetTicketStatusCssClass(ticket.Status)"></div>
                                         <div class="res-itticketlisting-status-level ticket-status-@ticket.Status">@ticket.Status</div>
                                     </td>
                                 </tr>

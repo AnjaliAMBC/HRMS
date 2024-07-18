@@ -198,6 +198,7 @@ namespace HRMS.Controllers
                     if (ticket.Status == "Resolved")
                     {
                         ticket.Resolved_by = ticketModel.Resolved_by;
+                        ticket.ResolvedByName = ticketModel.ResolvedByName;
                         ticket.ResolvedDate = DateTime.Now;
 
                         if (ticket.Created_date.HasValue)
@@ -217,6 +218,7 @@ namespace HRMS.Controllers
                         ticket.Closedby = ticketModel.Closedby;
                         ticket.AcknowledgeComments = ticketModel.AcknowledgeComments;
                         ticket.Closed_date = DateTime.Now;
+                        ticket.ClosedByName = ticketModel.ResolvedByName;
                     }
 
                     else if (ticket.isacknowledge == "true")

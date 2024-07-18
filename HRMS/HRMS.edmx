@@ -186,6 +186,8 @@
           <Property Name="ReopenedComments" Type="varchar" MaxLength="255" />
           <Property Name="AcknowledgeComments" Type="varchar" MaxLength="255" />
           <Property Name="ResponseTime" Type="bigint" />
+          <Property Name="ClosedByName" Type="varchar" MaxLength="500" />
+          <Property Name="ResolvedByName" Type="varchar" MaxLength="500" />
         </EntityType>
         <EntityType Name="LeaveBalance">
           <Key>
@@ -593,6 +595,8 @@ warning 6002: The table/view 'HRMS_PortalDev1.dbo.CheckInView' does not have a p
           <Property Name="ReopenedComments" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
           <Property Name="AcknowledgeComments" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
           <Property Name="ResponseTime" Type="Int64" />
+          <Property Name="ClosedByName" Type="String" MaxLength="500" FixedLength="false" Unicode="false" />
+          <Property Name="ResolvedByName" Type="String" MaxLength="500" FixedLength="false" Unicode="false" />
         </EntityType>
       </Schema>
     </edmx:ConceptualModels>
@@ -850,6 +854,8 @@ warning 6002: The table/view 'HRMS_PortalDev1.dbo.CheckInView' does not have a p
           <EntitySetMapping Name="IT_Ticket">
             <EntityTypeMapping TypeName="HRMS_EntityModel.IT_Ticket">
               <MappingFragment StoreEntitySet="IT_Ticket">
+                <ScalarProperty Name="ResolvedByName" ColumnName="ResolvedByName" />
+                <ScalarProperty Name="ClosedByName" ColumnName="ClosedByName" />
                 <ScalarProperty Name="ResponseTime" ColumnName="ResponseTime" />
                 <ScalarProperty Name="AcknowledgeComments" ColumnName="AcknowledgeComments" />
                 <ScalarProperty Name="ReopenedComments" ColumnName="ReopenedComments" />

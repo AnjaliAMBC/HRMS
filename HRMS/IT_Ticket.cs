@@ -36,5 +36,7 @@ namespace HRMS
         public string ReopenedComments { get; set; }
         public string AcknowledgeComments { get; set; }
         public Nullable<long> ResponseTime { get; set; }
+        public string ClosedByName { get; set; }
+        public string ResolvedByName { get; set; }
     }
 }
