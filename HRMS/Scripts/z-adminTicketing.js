@@ -230,9 +230,9 @@ $(document).on('click', '.hrticketlisting-view', function (event) {
 });
 
 
-$(document).on('click', '.btn-itticketing-back', function () {
-    window.location.href = "/adminticketing/itticketing";
-});
+//$(document).on('click', '.btn-itticketing-back', function () {
+//    window.location.href = "/adminticketing/itticketing";
+//});
 
 
 // it ticket Submit 
@@ -490,16 +490,6 @@ function populateModal(ticketdata, modalBody) {
     // Determine which details to display based on ticket status
     var html = '';
     var ticket = $.parseJSON(ticketdata);
-
-    // Add HTML for comment box and buttons specific to Resolved status
-    html += `
-           <div class="modal-header">
-                 <h5 class="modal-title">Ticket Flow</h5>
-                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                     <span aria-hidden="true">&times;</span>
-              </button>
-           </div>
-        `;
 
     // Add HTML for comment box and buttons specific to Resolved status
     if (ticket.Status == "Resolved") {

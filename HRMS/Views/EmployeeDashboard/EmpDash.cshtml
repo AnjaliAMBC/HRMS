@@ -159,8 +159,30 @@
                     <div class="card mb-3 dashcard_style">
                         <div class="card-header text-black">My Tickets</div>
                         <div class="card-body scrollbar p-3 dashticket_description">
-                            <p class="mb-0">System Not working <span class="badge badge-danger">High</span></p>
-                            <p class="smalltext">Closed by Goutham Arunaigiri</p>
+
+                            @foreach (var myTicket in Model.MyTickets)
+                            {
+                                <p class="mb-0">@myTicket.Subject <span class="badge badge-danger">@myTicket.Priority</span></p>
+
+                                if (myTicket.Status == "Open")
+                                {
+                                    <p class="smalltext">Open By: @myTicket.EmployeeName</p>
+                                }
+                                else if (myTicket.Status == "ReOpen")
+                                {
+                                    <p class="smalltext">Re-Open By: @myTicket.EmployeeName</p>
+                                }
+                                else if (myTicket.Status == "Resolved")
+                                {
+                                    <p class="smalltext">Resolved By: @myTicket.ResolvedByName</p>
+                                }
+                                else if (myTicket.Status == "Closed")
+                                {
+                                    <p class="smalltext">Closed By: @myTicket.ResolvedByName</p>
+                                }
+
+                            }
+
                         </div>
                     </div>
                 </div>

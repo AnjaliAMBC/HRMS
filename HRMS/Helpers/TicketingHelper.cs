@@ -28,15 +28,15 @@ namespace HRMS.Helpers
             switch (status.ToLower())
             {
                 case "open":
-                    return "ticket-status-open";
+                    return "ithrticket-status-open";
                 case "closed":
-                    return "ticket-status-closed";
+                    return "ithrticket-status-closed";
                 case "resolved":
                     return "ticket-status-pending";
                 case "re-open":
                     return "ticket-status-pending";
                 default:
-                    return ""; // Default or unknown status
+                    return ""; 
             }
         }
     }

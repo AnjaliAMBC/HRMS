@@ -13,6 +13,7 @@ namespace HRMS.Controllers
 {
     using Helpers;
     using HRMS.Models;
+    using System.Data.Entity;
     using System.Globalization;
 
     public class EmpDashController : Controller
@@ -90,6 +91,10 @@ namespace HRMS.Controllers
             model.LeavesTypeInfo = leaveTypes;
 
             model.Employees = _dbContext.emp_info.Where(x => x.EmployeeStatus == "Active").ToList();
+
+            model.MyTickets = _dbContext.IT_Ticket
+              .Where(x => x.EmployeeID == model.EmpInfo.EmployeeID && DbFunctions.TruncateTime(x.Created_date) == DateTime.Today)
+              .ToList();
 
             return View("~/Views/EmployeeDashboard/EmpDash.cshtml", model);
         }

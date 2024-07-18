@@ -188,7 +188,7 @@
                                     </td>
                                     <td class="res-admin-ticketlisting-status">
                                         <div class="hr-ticketing-empty-block"></div>
-                                        <div class="res-ticketlisting-status-level ticket-status-@ticket.Status">@ticket.Status</div>
+                                        <div class="res-ticketlisting-status-level @HRMS.Helpers.TicketingHelper.GetTicketStatusCssClass(ticket.Status) ticket-status-@ticket.Status">@ticket.Status</div>
                                     </td>
                                 </tr>
                             }
@@ -244,61 +244,14 @@
     <div class="modal-dialog" role="document">
         <div class="modal-content">
             <div class="modal-body">
-
                 <div class="modal-header">
                     <h5 class="modal-title" id="adminHrTicketConfirmCancelModalLabel">Comments</h5>
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                         <span aria-hidden="true">&times;</span>
                     </button>
                 </div>
-
                 <div class="admin-hr-ticketing-commentbox-popup-list">
-                    <div class="admin-hr-ticketing-commentbox-list">
-                        <div class="col-lg-1 admin-hr-ticketing-commentbox-left">
-                            <img class="userIcon" src="/Assets/EmpImages/1075.jpeg">
-                            <div class="vl"></div>
-                        </div>
-                        <span class="col-lg-7 admin-hr-ticketing-commentbox-mid">
-                            <div class="admin-hr-ticketing-commentbox-userinfo">1155 Sriram</div>
-                            <div class="admin-hr-ticketing-commentbox-status">Ticket Reopen</div>
-                            <div class="admin-hr-ticketing-commentbox-desc" title="This is dummy text This is dummy text This is dummy text This is dummy text">This is dummy text This is dummy text This is dummy text This is dummy text</div>
-                        </span>
-                        <span class="col-lg-2 admin-hr-ticketing-commentbox-right">
-                            <div class="admin-hr-ticketing-commentbox-date">03 July 2024</div>
-                        </span>
-                    </div>
-
-                    <div class="admin-hr-ticketing-commentbox-list">
-                        <div class="col-lg-1 admin-hr-ticketing-commentbox-left">
-                            <img class="userIcon" src="/Assets/EmpImages/1020.jpeg">
-                            <div class="vl"></div>
-                        </div>
-                        <span class="col-lg-7 admin-hr-ticketing-commentbox-mid">
-                            <div class="admin-hr-ticketing-commentbox-userinfo">1155 Sriram</div>
-                            <div class="admin-hr-ticketing-commentbox-status">Ticket Closed</div>
-                        </span>
-                        <span class="col-lg-2 admin-hr-ticketing-commentbox-right">
-                            <div class="admin-hr-ticketing-commentbox-date">03 July 2024</div>
-                        </span>
-                    </div>
-
-                    <div class="admin-hr-ticketing-commentbox-list">
-                        <div class="col-lg-1 admin-hr-ticketing-commentbox-left">
-                            <img class="userIcon" src="/Assets/EmpImages/1075.jpeg">
-                        </div>
-                        <span class="col-lg-7 admin-hr-ticketing-commentbox-mid">
-                            <div class="admin-hr-ticketing-commentbox-userinfo">1155 Sriram</div>
-                            <div class="admin-hr-ticketing-commentbox-status">Ticket Acknowledge</div>
-                            <div class="admin-hr-ticketing-commentbox-desc" title="This is dummy text This is dummy text This is dummy text This is dummy text">This is dummy text This is dummy text This is dummy text This is dummy text</div>
-                        </span>
-                        <span class="col-lg-2 admin-hr-ticketing-commentbox-right">
-                            <div class="admin-hr-ticketing-commentbox-date">03 July 2024</div>
-                        </span>
-                    </div>
-
                 </div>
-
-
             </div>
         </div>
     </div>

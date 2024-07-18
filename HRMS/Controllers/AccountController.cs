@@ -90,15 +90,38 @@ namespace HRMS.Controllers
 
             if (!string.IsNullOrWhiteSpace(loginModel.EmailID))
             {
-                var isEmpExists = _dbContext.emplogins.Where(emp => emp.EmployeeEmail == loginModel.EmailID && emp.Password == loginModel.Password && (emp.EmployeeRole.Contains("HR Admin") || emp.EmployeeRole.Contains("Super Admin"))).FirstOrDefault();
+                var isEmpExists = _dbContext.emplogins.Where(emp => emp.EmployeeEmail == loginModel.EmailID && emp.Password == loginModel.Password && (emp.EmployeeRole.Contains("HR Admin") || emp.EmployeeRole.Contains("Super Admin") || emp.EmployeeRole.Contains("IT Admin"))).FirstOrDefault();
                 if (isEmpExists != null)
                 {
-                    loginModel.IsAdmin = true;
+                   
                     //_siteCotext.SetSiteContext(loginModel.EmployeeID, isEmpExists);
                     var currentEmployee = _dbContext.emp_info.Where(emp => emp.OfficalEmailid == loginModel.EmailID).FirstOrDefault();
                     SiteContext.LoginInfo = isEmpExists;
                     SiteContext.EmpInfo = currentEmployee;
-                    SiteContext.IsAdmin = true;
+
+                    if (isEmpExists.EmployeeRole.ToLowerInvariant().Contains("it admin"))
+                    {
+                        loginModel.IsITAdmin = true;
+                        SiteContext.IsITAdmin = true;
+
+                        SiteContext.IsAdmin = false;
+                    }
+
+                    if (isEmpExists.EmployeeRole.ToLowerInvariant().Contains("super admin"))
+                    {
+                        loginModel.IsSuperAdmin = true;
+                        loginModel.IsAdmin = true;
+
+                        SiteContext.IsAdmin = true;
+                        SiteContext.IsSuperAdmin = true;
+                    }
+
+                    if (isEmpExists.EmployeeRole.ToLowerInvariant().Contains("hr admin"))
+                    {
+                        loginModel.IsAdmin = true;
+                        SiteContext.IsAdmin = true;
+                    }
+
                     Session["SiteContext"] = SiteContext;
 
                     FormsAuthentication.SetAuthCookie(isEmpExists.EmployeeID.ToString(), loginModel.StaySignedIn);
