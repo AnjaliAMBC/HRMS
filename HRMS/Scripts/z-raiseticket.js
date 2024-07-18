@@ -185,3 +185,120 @@ function openCancelModal(ticketNo) {
 // Example usage
 // <button onclick="openCancelModal('TICKET123')">Cancel Ticket</button>
 
+
+
+//$(document).on('click', '.btn-apply-emp-tickethistory-comment-reopen', function (event) {
+//    var ticketName = $(this).attr('data-ticketname');
+//    var ticketStatus = $(this).attr('data-status');
+//    var comments = $('#emp-tickethistory-comments').val();
+//    var $currentButton = $(this); 
+
+//    if (ticketName) {
+//        var $row = currentSelectedrow;
+
+//        if ($row) {
+//            $.ajax({
+//                url: '/empticketing/TicketStatusChangeByEmp', // Ensure this URL is correct
+//                method: 'POST',
+//                data: {
+//                    ticketName: ticketName,
+//                    status: ticketStatus,
+//                    comments: comments
+//                },
+//                success: function (response) {
+//                    if (response.success) {
+//                        $('#empTicketConfirmCancelModal .modal-body').html('<p>Ticket has been cancelled.</p>');
+//                        $currentButton.attr('disabled', true);
+
+//                        // Update the status of the current row to 'Cancelled'
+//                        $row.find('.res-empticketlisting-status-level').text('Cancelled');
+//                        $row.find('.emp-ticket-edit-history').hide();
+//                        toggleLeaveTicketHistoryActionOptions($row.find('.emp-ticket-edit-history'));
+//                    } else {
+//                        $('#empTicketConfirmCancelModal .modal-body').html('<p>An error occurred: ' + response.message + '</p>');
+//                    }
+//                },
+//                error: function (xhr, status, error) {
+//                    $('#empTicketConfirmCancelModal .modal-body').html('<p>An error occurred. Please try again later.</p>');
+//                }
+//            });
+//        } else {
+//            $('#empTicketConfirmCancelModal .modal-body').html('<p>Row not found in the DataTable.</p>');
+//        }
+//    } else {
+//        $('#empTicketConfirmCancelModal .modal-body').html('<p>Ticket information is missing. Please try again.</p>');
+//    }
+//});
+
+
+$(document).on('click', '.res-empticketlisting-status-level', function (event) {
+    event.preventDefault();
+    var ticketNo = $(this).closest('tr').find('.emp-ticketing-listing-title').data('ticketnum');
+    currentSelectedrow = $(this).closest('tr');
+
+    $.ajax({
+        url: '/adminticketing/getticketdetailsbynumber?ticketNo=' + ticketNo,
+        method: 'GET',
+        success: function (data) {
+            var modalBody = $('#empTicketCommentsModal .modal-body .emp-ticketing-commentbox-popup-list');
+            populateModal(data, modalBody);
+            $('#empTicketCommentsModal').modal('show');
+        },
+        error: function (err) {
+            console.log(err);
+        }
+    });
+});
+
+
+
+$(document).on('click', '.btn-apply-emp-tickethistory-comment-reopen, .btn-apply-emp-tickethistory-comment-submitbtn', function (event) {
+    var ticketNo = $(this).attr('data-ticketname'); // Assuming data-ticketname attribute is set appropriately
+    var ticketStatus = $(this).attr('data-status'); // Assuming data-status attribute is set appropriately
+    var comments = $('#emp-tickethistory-comments').val();
+    var $currentButton = $(this);
+
+    if (ticketNo && ticketStatus) {
+        var $modal = $('#empTicketCommentsModal');
+        $.ajax({
+            url: '/empticketing/ticketstatuschangebyemp?ticketNo=' + ticketNo,
+            method: 'POST',
+            data: {
+                ticketName: ticketNo,
+                status: ticketStatus,
+                comments: comments
+            },
+            success: function (response) {
+                if (response.success) {
+                    $('#empTicketCommentsModal').modal('show');
+
+                    // Hide the comment box popup after successful operation
+                    $modal.find('.emp-ticketing-commentbox-popup').hide();
+                    $modal.find('.emp-ticketing-statuschange-div').html('<p>Ticket status has been updated successfully.</p>');
+
+                    // Additional logic based on status if needed
+                    if (ticketStatus === 'Re-Open') {
+                        currentSelectedrow.find('.res-empticketlisting-status-level').text('Re-Open');
+                    } else if (ticketStatus === 'Closed') {
+                        currentSelectedrow.find('.res-empticketlisting-status-level').text('Closed');
+                    }
+
+                    // Optionally, disable the current button
+                    $currentButton.attr('disabled', true);
+                } else {
+                    $messageContainer.html('<p>An error occurred: ' + response.message + '</p>');
+                }
+            },
+            error: function (xhr, status, error) {
+                $messageContainer.html('<p>An error occurred. Please try again later.</p>');
+            }
+        });
+    } else {
+        // Handle case where ticketName or ticketStatus is missing
+        $('#empTicketCommentsModal .modal-body').html('<p>Ticket information is missing. Please try again.</p>');
+    }
+});
+
+
+
+

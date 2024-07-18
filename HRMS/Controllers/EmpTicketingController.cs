@@ -122,8 +122,36 @@ namespace HRMS.Controllers
             }
         }
 
+        public JsonResult TicketStatusChangeByEmp(int ticketName, string status, string comments)
+        {
+            try
+            {
+                var ticket = _dbContext.IT_Ticket.Where(x => x.TicketNo == ticketName).FirstOrDefault();
+                if (ticket != null)
+                {
+                    if(status == "Re-Open")
+                    {
+                        ticket.Status = "Re-Open";
+                        ticket.ReopenedComments = comments;
+                        ticket.ReopenedDate = DateTime.Now;
+                    }
 
-    
+                    if (status == "Closed")
+                    {
+                        ticket.Status = "Closed";
+                        ticket.AcknowledgeComments = comments;
+                        ticket.isacknowledge = "true";
+                        ticket.Closed_date = DateTime.Now;
+                    }
 
+                    _dbContext.SaveChanges();
+                }
+                return Json(new { success = true });
+            }
+            catch (Exception ex)
+            {
+                return Json(new { success = false, message = ex.Message });
+            }
+        }
     }
 }

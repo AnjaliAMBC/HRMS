@@ -471,14 +471,44 @@ $(document).on('click', '.res-itticketlisting-status-level', function (event) {
 });
 
 function populateModal(ticketdata, modalBody) {
-   
+
     modalBody.empty();
 
     // Determine which details to display based on ticket status
     var html = '';
     var ticket = $.parseJSON(ticketdata);
 
+    // Add HTML for comment box and buttons specific to Resolved status
+    html += `
+           <div class="modal-header">
+                 <h5 class="modal-title">Ticket Flow</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                     <span aria-hidden="true">&times;</span>
+              </button>
+           </div>
+        `;
+
+    // Add HTML for comment box and buttons specific to Resolved status
+    if (ticket.Status == "Resolved") {
+        html += `
+            <div class="emp-ticketing-commentbox-popup">
+                <div class="form-group">
+                    <label for="emp-tickethistory-comment-label">Comment</label>
+                    <textarea class="form-control" id="emp-tickethistory-comments"></textarea>
+                </div>
+                <div class="emp-tickethistory-comment-submit">
+                    <button type="button" class="btn btn-apply-emp-tickethistory-comment-reopen emp-ticket-status-change mb-4" data-ticketname="${ticket.TicketNo}" data-status="Re-Open">Re-Open</button>
+                    <button type="button" class="btn btn-primary btn-apply-emp-tickethistory-comment-submitbtn emp-ticket-status-change mb-4" data-ticketname="${ticket.TicketNo}" data-status="Closed">Acknowledge</button>
+                </div>
+            </div>
+            <div class="emp-ticketing-statuschange-div">
+            </div>
+        `;
+    }
+
+
     let formattedOpenDate = ticket.Created_date ? new Date(ticket.Created_date).toLocaleDateString('en-GB') : 'N/A';
+
 
     // Initial details always shown
     html += `
@@ -581,6 +611,5 @@ $(document).on('click', '.res-ticketlisting-status-level', function (event) {
         }
     });
 });
-
 
 
