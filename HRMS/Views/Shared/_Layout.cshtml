@@ -116,7 +116,7 @@
             // Get the current URL path
             var currentUrl = window.location.pathname;
 
-            if (currentUrl == "/adminticketing/gethrticketdetails") {
+            if (currentUrl.toLocaleLowerCase() == "/adminticketing/gethrticketdetails" || currentUrl.toLocaleLowerCase() == "/adminticketing/getitticketdetails") {
                 return;
             }
 

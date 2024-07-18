@@ -1,5 +1,13 @@
 ﻿@model HRMS.Models.TicketingModel
+<style>
+    #adminitticketlistingTable_length {
+        display: none;
+    }
 
+    #adminitticketlistingTable_filter {
+        display: none;
+    }
+</style>
 
 @Html.Partial("_NavBar")
 <div class="container-fluid res-admin-Ticketing">
@@ -59,10 +67,11 @@
                                 <div class="dropdown res-adminadvfilter-hrticketlisting">
                                     <select class="form-control form-select-sm" name="status" id="it-ticketlisting-status-dropdown" style="border-radius: 15px; height: 28px; width: 131px; border: 1px solid lightgray; padding: 0 10px; font-size: 12px;">
                                         <option value="" disabled selected>Status</option>
-                                        <option value="Approved">Approved</option>
-                                        <option value="Rejected">Rejected</option>
-                                        <option value="Pending">Pending</option>
+                                        <option value="Open">Open</option>
+                                        <option value="Resolved">Resolved</option>
+                                        <option value="Closed">Closed</option>
                                         <option value="Cancelled">Cancelled</option>
+                                        <option value="Re-Open">Re-Open</option>
                                         <option value="All">All</option>
                                     </select>
                                 </div>
@@ -77,8 +86,11 @@
                                 <div class="dropdown res-adminadvfilter-itticketlisting">
                                     <select class="form-control form-select-sm" name="closedby" id="it-ticketlisting-closedby-dropdown" style="border-radius: 15px; height: 28px; width: 131px; border: 1px solid lightgray; padding: 0 10px; font-size: 12px;">
                                         <option value="" disabled selected>Closed By</option>
-                                        <option value="Raj">Raj</option>
-                                        <option value="Kumar">Kumar</option>
+                                        @foreach (var itemp in Model.itEmployees)
+                                        {
+                                            <option value="@itemp.EmployeeID">@itemp.EmployeeName</option>
+                                        }
+                                        <option value="All">All</option>
                                     </select>
                                 </div>
                                 <div class="form-group align-items-center res-adminadvfilter-itticketlisting mr-2">
@@ -108,7 +120,7 @@
                                         <div class="res-admin-it-ticketlisting-user-details" style="display: flex; align-items: center;">
                                             <i class="it-ticket-msg-icon fa-regular fa-message"></i>
                                             <span style="margin-top: 0px; margin-right: 10px;">
-                                                <div class="admin-it-ticketing-listing-title">@ticket.Subject</div>
+                                                <div class="admin-it-ticketing-listing-title" data-ticketnum="@ticket.TicketNo">@ticket.Subject</div>
                                                 <div class="admin-it-ticketing-listing-details">
                                                     <span class="it-ticket-id">#@ticket.TicketNo</span>
                                                     <span class="it-ticket-info"><i class="fa-solid fa-folder" aria-hidden="true"></i> @ticket.Category</span>
@@ -118,9 +130,18 @@
                                         </div>
                                     </td>
                                     <td style="width: 400px" class="res-admin-it-ticketlisting-priority">
-                                        <div style="visibility: hidden;" class="it-ticketing-response-time">
-                                            Response Time @ticket.ResponseTime Hr
-                                        </div>
+
+                                        @if (ticket.ResponseTime != null && ticket.ResponseTime.HasValue)
+                                        {
+                                            TimeSpan responseTime = TimeSpan.FromSeconds(ticket.ResponseTime.Value);
+                                            int totalHours = (int)responseTime.TotalHours;
+                                            int totalMinutes = responseTime.Minutes;
+
+                                            <div class="it-ticketing-response-time">
+                                                <p>Response Time: @totalHours.ToString("00"):@totalMinutes.ToString("00") Hr</p>
+                                            </div>
+                                        }
+
                                         <div class="it-ticketing-priority-date">
                                             <span class="it-ticket-prioritylevel">
                                                 <span class="res-it-ticketlisting-color res-it-ticketlisting-color-red"></span>
@@ -155,8 +176,6 @@
     </div>
 
 </div>
-
-<!-- admin it ticket comments Modal -->
 <div id="adminItTicketCommentsModal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="adminItTicketCommentsModal" aria-hidden="true">
     <div class="modal-dialog" role="document">
         <div class="modal-content">
@@ -214,18 +233,15 @@
                     </div>
 
                 </div>
-
-
             </div>
         </div>
     </div>
 </div>
 
-
 <script>
     $(document).ready(function () {
-        if (!$.fn.DataTable.isDataTable('#table-admin-it-ticket-listing')) {
-            $('#table-admin-it-ticket-listing').DataTable({
+        if (!$.fn.DataTable.isDataTable('#adminitticketlistingTable')) {
+            var table = $('#adminitticketlistingTable').DataTable({
                 "paging": true,
                 "searching": true,
                 "ordering": false,
@@ -233,67 +249,22 @@
                 "autoWidth": false,
                 "lengthMenu": [[7, 14, 21, -1], [7, 14, 21, "All"]],
                 "columnDefs": [
-                    { "orderable": false, "targets": [1, 3] } // Adjusted to array form for multiple targets
+                    { "orderable": false, "targets": 1 },
+                    { "orderable": false, "targets": 3 }
                 ]
             });
+
+            $(document).on('keyup', '.it-search', function () {
+                table.search(this.value).draw(); // Search value across all columns and redraw table
+            });
         }
+
+
     });
     // It ticketing search
 
-    $(document).on('keyup', '.it-search', function () {
-        var searchText = $(this).val().toLowerCase();
-        $('#adminitticketlistingTable tbody tr').each(function () {
-            var found = false;
-            $(this).find('td').each(function () {
-                var cellContent = $(this).text().toLowerCase();
-                if (cellContent.indexOf(searchText) !== -1) {
-                    found = true;
-                    return false; // Exit loop if found
-                }
-            });
-
-            if (found) {
-                $(this).show();
-            } else {
-                $(this).hide();
-            }
-        });
-    });
 
 
-    $(document).on('click', '.itticketlisting-export', function (event) {
-        event.preventDefault();
-        var fromDate = $('#itticketlisting-fromDate').val();
-        var toDate = $('#itticketlisting-toDate').val();
-        var status = $('#it-ticketlisting-status-dropdown').val();
-        var location = $('#it-ticketlisting-location-dropdown').val();
-        var closedBy = $('#it-ticketlisting-closedby-dropdown').val();
-
-        // Clear previous validation messages
-        $('.validation-error').remove();
-        $('#itticketlisting-fromDate').removeClass('is-invalid');
-        $('#itticketlisting-toDate').removeClass('is-invalid');
-
-        // Check if the dates are provided
-        var isValid = true;
-        if (!fromDate) {
-            $('#itticketlisting-fromDate').addClass('is-invalid');
-            $('#itticketlisting-fromDate').closest('.form-group').append('<span class="validation-error text-danger">From date is required</span>');
-            isValid = false;
-        }
-        if (!toDate) {
-            $('#itticketlisting-toDate').addClass('is-invalid');
-            $('#itticketlisting-toDate').closest('.form-group').append('<span class="validation-error text-danger">To date is required</span>');
-            isValid = false;
-        }
-
-        // If both dates are provided, proceed with the export
-        if (isValid) {
-            $('.show-progress').show();
-            window.location.href = "/adminticketing/itexportoexcel?fromDate=" + fromDate + "&toDate=" + toDate + "&status=" + status + "&location=" + location + "&closedBy=" + closedBy;
-            $('.show-progress').hide();
-        }
-    });
 
     function adminitticketcommentpopup(currentthis) {
         var ticketName = currentthis.attr("data-ticketname");
@@ -301,7 +272,6 @@
         // Show the confirmation modal
         $('#adminItTicketCommentsModal').modal('show');
     }
-
 
 </script>
 

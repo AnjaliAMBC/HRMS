@@ -5,12 +5,17 @@
 
 $(document).on('click', '.admin-it-ticketing-listing-title', function () {
     var ticketNum = $(this).attr("data-ticketnum");
-    window.location.href = "/adminticketing/adminitticketopenclose";
+    window.location.href = "/adminticketing/getitticketdetails?ticketNo=" + ticketNum;
 });
 
 $(document).on('click', '.btn-hrticketing-back', function () {
     window.location.href = "/adminticketing/hrticketing";
 });
+
+$(document).on('click', '.btn-itticketing-back', function () {
+    window.location.href = "/adminticketing/itticketing";
+});
+
 
 $(document).on('click', '.btn-apply-admin-hrticketing-submit', function (event) {
     event.preventDefault();
@@ -66,12 +71,12 @@ $(document).on('click', '.hrticketlisting-export', function (event) {
     var isValid = true;
     if (!fromDate) {
         $('#hrticketlisting-fromDate').addClass('is-invalid');
-        $('#hrticketlisting-fromDate').closest('.form-group').append('<span class="validation-error text-danger">From date is required</span>');
+        $('#hrticketlisting-fromDate').closest('.form-group').append('<span class="validation-error text-danger"></span>');
         isValid = false;
     }
     if (!toDate) {
         $('#hrticketlisting-toDate').addClass('is-invalid');
-        $('#hrticketlisting-toDate').closest('.form-group').append('<span class="validation-error text-danger">To date is required</span>');
+        $('#hrticketlisting-toDate').closest('.form-group').append('<span class="validation-error text-danger"></span>');
         isValid = false;
     }
 
@@ -107,12 +112,12 @@ $(document).on('click', '.hrticketlisting-view', function (event) {
     var isValid = true;
     if (!fromDate) {
         $('#hrticketlisting-fromDate').addClass('is-invalid');
-        $('#hrticketlisting-fromDate').closest('.form-group').append('<span class="validation-error text-danger">From date is required</span>');
+        $('#hrticketlisting-fromDate').closest('.form-group').append('<span class="validation-error text-danger"></span>');
         isValid = false;
     }
     if (!toDate) {
         $('#hrticketlisting-toDate').addClass('is-invalid');
-        $('#hrticketlisting-toDate').closest('.form-group').append('<span class="validation-error text-danger">To date is required</span>');
+        $('#hrticketlisting-toDate').closest('.form-group').append('<span class="validation-error text-danger"></span>');
         isValid = false;
     }
 
@@ -138,12 +143,12 @@ $(document).on('click', '.hrticketlisting-view', function (event) {
                     var responseTimeHtml = '';
 
                     if (ticket.ResponseTime != null) {
-                        // Parse the TimeSpan string (hh:mm:ss.ffffff)
-                        var timeParts = ticket.ResponseTime.split(':');
-                        var totalHours = parseInt(timeParts[0]);
-                        var totalMinutes = parseInt(timeParts[1]);
+                        // Convert the response time from seconds to hours, minutes, and seconds
+                        var totalSeconds = ticket.ResponseTime;
+                        var totalHours = Math.floor(totalSeconds / 3600);
+                        var totalMinutes = Math.floor((totalSeconds % 3600) / 60);
 
-                        responseTimeHtml = '<p>Response Time: ' + totalHours.toString().padStart(2, '0') + ':' + totalMinutes.toString().padStart(2, '0') + ' Hr</p>';
+                        responseTimeHtml = 'Response Time ' + totalHours.toString().padStart(2, '0') + ':' + totalMinutes.toString().padStart(2, '0') + ' Hr';
                     }
 
                     html += '<tr>';
@@ -225,6 +230,227 @@ $(document).on('click', '.hrticketlisting-view', function (event) {
 });
 
 
+$(document).on('click', '.btn-itticketing-back', function () {
+    window.location.href = "/adminticketing/itticketing";
+});
+
+
+// it ticket Submit 
+$(document).on('click', '.btn-apply-admin-itticket-submit', function (event) {
+    event.preventDefault();
+
+    var ticketModel = {
+        TicketNo: $(this).data('ticketnum'),
+        Status: $('#admin-itticket-status').val(),
+        Resolved_by: $('#admin-itticket-closedby').val(),
+        Closed_date: $('#admin-itticketing-closeddate').val(),
+        ResolvedDate: $('#admin-itticketing-closeddate').val(),
+        ReopenedDate: $('#admin-itticketing-closeddate').val(),
+        Closedby: $('#admin-itticket-closedby').val()
+    }
+
+    $.ajax({
+        url: '/adminticketing/updateticketstatus',
+        type: 'POST',
+        data: {
+            ticketModel: ticketModel
+        },
+        dataType: 'json',
+        success: function (response) {
+            if (response.success) {
+                $('#modalMessage').text("Ticket " + $('#admin-itticket-status').val() + " updated successfully.");
+                $('#messageModal').modal('show');
+            } else {
+                $('#modalMessage').text("Error: " + response.message);
+                $('#messageModal').modal('show');
+            }
+        },
+        error: function (xhr, status, error) {
+            $('#modalMessage').text("An error occurred: " + error);
+            $('#messageModal').modal('show');
+        }
+    });
+});
+
+
+
+$(document).on('click', '.itticketlisting-export', function (event) {
+    event.preventDefault();
+
+    var fromDate = $('#itticketlisting-fromDate').val();
+    var toDate = $('#itticketlisting-toDate').val();
+    var status = $('#it-ticketlisting-status-dropdown').val();
+    var location = $('#it-ticketlisting-location-dropdown').val();
+    var closedBy = $('#it-ticketlisting-closedby-dropdown').val();
+
+
+    $('.validation-error').remove();
+    $('#itticketlisting-fromDate').removeClass('is-invalid');
+    $('#itticketlisting-toDate').removeClass('is-invalid');
+
+    var isValid = true;
+    if (!fromDate) {
+        $('#itticketlisting-fromDate').addClass('is-invalid');
+        $('#itticketlisting-fromDate').closest('.form-group').append('<span class="validation-error text-danger"></span>');
+        isValid = false;
+    }
+    if (!toDate) {
+        $('#itticketlisting-toDate').addClass('is-invalid');
+        $('#itticketlisting-toDate').closest('.form-group').append('<span class="validation-error text-danger"></span>');
+        isValid = false;
+    }
+
+    if (isValid) {
+        $('.show-progress').show();
+        var url = "/adminticketing/itexporttoexcel?" +
+            "fromDate=" + fromDate +
+            "&toDate=" + toDate +
+            "&status=" + status +
+            "&location=" + location +
+            "&closedBy=" + closedBy;
+
+        window.location.href = url;
+        $('.show-progress').hide();
+    }
+});
+
+
+
+
+$(document).on('click', '.itticketlisting-view', function (event) {
+    event.preventDefault();
+
+    var fromDate = $('#itticketlisting-fromDate').val();
+    var toDate = $('#itticketlisting-toDate').val();
+    var status = $('#it-ticketlisting-status-dropdown').val();
+    var location = $('#it-ticketlisting-location-dropdown').val();
+    var closedBy = $('#it-ticketlisting-closedby-dropdown').val();
+
+
+    $('.validation-error').remove();
+    $('#itticketlisting-fromDate').removeClass('is-invalid');
+    $('#itticketlisting-toDate').removeClass('is-invalid');
+
+    var isValid = true;
+    if (!fromDate) {
+        $('#itticketlisting-fromDate').addClass('is-invalid');
+        $('#itticketlisting-fromDate').closest('.form-group').append('<span class="validation-error text-danger"></span>');
+        isValid = false;
+    }
+    if (!toDate) {
+        $('#itticketlisting-toDate').addClass('is-invalid');
+        $('#itticketlisting-toDate').closest('.form-group').append('<span class="validation-error text-danger"></span>');
+        isValid = false;
+    }
+
+
+    // If both dates are provided, proceed with the export
+    if (isValid) {
+        $('.show-progress').show();
+        $.ajax({
+            url: '/adminticketing/getitticketfilter',
+            type: 'GET',
+            data: {
+                fromDate: fromDate,
+                toDate: toDate,
+                status: status,
+                location: location,
+                closedBy: closedBy
+            },
+            success: function (data) {
+                var html = '';
+
+                var response = $.parseJSON(data);
+
+                $.each(response, function (index, ticket) {
+                    var responseTimeHtml = '';
+
+
+                    if (ticket.ResponseTime != null) {
+                        // Convert the response time from seconds to hours, minutes, and seconds
+                        var totalSeconds = ticket.ResponseTime;
+                        var totalHours = Math.floor(totalSeconds / 3600);
+                        var totalMinutes = Math.floor((totalSeconds % 3600) / 60);
+
+                        responseTimeHtml = 'Response Time ' + totalHours.toString().padStart(2, '0') + ':' + totalMinutes.toString().padStart(2, '0') + ' Hr';
+                    }                  
+
+                    html += '<tr>';
+                    html += '<td style="width: 400px">';
+                    html += '<div class="res-admin-it-ticketlisting-user-details" style="display: flex; align-items: center;">';
+                    html += '<i class="it-ticket-msg-icon fa-regular fa-message"></i>';
+                    html += '<span style="margin-top: 0px; margin-right: 10px;">';
+                    html += '<div class="admin-it-ticketing-listing-title" data-ticketnum="' + ticket.TicketNo + '">' + ticket.Subject + '</div>';
+                    html += '<div class="admin-it-ticketing-listing-details">';
+                    html += '<span class="it-ticket-id">#' + ticket.TicketNo + '</span>';
+                    html += '<span class="it-ticket-info"><i class="fa-solid fa-folder" aria-hidden="true"></i> ' + ticket.Category + '</span>';
+                    html += '<span class="id-name">' + ticket.EmployeeID + ' ' + ticket.EmployeeName + '</span>';
+                    html += '</div>';
+                    html += '</span>';
+                    html += '</div>';
+                    html += '</td>';
+                    html += '<td style="width: 400px" class="res-admin-it-ticketlisting-priority">';
+                    html += '<div class="it-ticketing-response-time">';
+                    html += responseTimeHtml + '</div>';
+                    html += '<div class="it-ticketing-priority-date">';
+                    html += '<span class="it-ticket-prioritylevel">';
+                    html += '<span class="res-it-ticketlisting-color res-it-ticketlisting-color-red"></span>';
+                    html += '<span class="res-it-ticketlisting-priority-status">' + ticket.Priority + '</span>';
+                    html += '</span>';
+                    html += '<span class="res-admin-it-ticketlisting-date">';
+                    html += '<i class="fa-solid fa-clock" aria-hidden="true"></i>';
+                    html += '<span class="res-itticketlisting-priority-status">';
+                    html += (ticket.Created_date ? new Date(ticket.Created_date).toLocaleString('en-US', { day: '2-digit', month: 'short', year: 'numeric', weekday: 'short', hour: 'numeric', minute: 'numeric', hour12: true }) : 'N/A');
+                    html += '</span>';
+                    html += '</span>';
+                    html += '</div>';
+                    html += '</td>';
+                    html += '<td class="res-admin-itticketlisting-location-info">';
+                    html += '<div class="it-ticketing-empty-block"></div>';
+                    html += '<div class="res-itticketlisting-location">' + ticket.Location + '</div>';
+                    html += '</td>';
+                    html += '<td class="res-admin-itticketlisting-status">';
+                    html += '<div class="it-ticketing-empty-block"></div>';
+                    html += '<div class="res-itticketlisting-status-level ticket-status-' + ticket.Status + '" onclick="adminitticketcommentpopup($(this))">' + ticket.Status + '</div>';
+                    html += '</td>';
+                    html += '</tr>';
+                });
+
+                // Clear the table body and destroy the existing DataTable
+                var table = $('#adminitticketlistingTable').DataTable();
+                table.clear().destroy();
+
+                // Update the table body with new content
+                $('#adminitticketlistingTable tbody').html(html);
+
+                // Re-initialize the DataTable after the table body is updated
+                table = $('#adminitticketlistingTable').DataTable({
+                    "paging": true,
+                    "searching": true,
+                    "ordering": false,
+                    "info": true,
+                    "autoWidth": false,
+                    "lengthMenu": [[7, 14, 21, -1], [7, 14, 21, "All"]],
+                    "columnDefs": [
+                        { "orderable": false, "targets": 1 },
+                        { "orderable": false, "targets": 3 }
+                    ]
+                });
+
+                $(document).on('keyup', '.it-search', function () {
+                    table.search(this.value).draw(); // Search value across all columns and redraw table
+                });
+
+                $('.show-progress').hide();
+
+            },
+            error: function (xhr, status, error) {
+                $('.show-progress').hide();
+            }
+        });
+
+    }
+});
 
 
 

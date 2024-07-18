@@ -158,18 +158,14 @@
                                         </div>
                                     </td>
                                     <td style="width: 400px" class="res-admin-hr-ticketlisting-priority">
-                                        @if (@ticket.ResponseTime != null && ticket.ResponseTime.HasValue)
+                                        @if (ticket.ResponseTime != null && ticket.ResponseTime.HasValue)
                                         {
-                                            int totalHours = (int)ticket.ResponseTime.Value.TotalHours;
-                                            int totalMinutes = ticket.ResponseTime.Value.Minutes;
+                                            TimeSpan responseTime = TimeSpan.FromSeconds(ticket.ResponseTime.Value);
+                                            int totalHours = (int)responseTime.TotalHours;
+                                            int totalMinutes = responseTime.Minutes;
 
                                             <div class="hr-ticketing-response-time">
-
-                                                @if (ticket.ResponseTime != null)
-                                                {
-                                                    <p>Response Time: @totalHours.ToString("00"):@totalMinutes.ToString("00") Hr</p>
-                                                }
-
+                                                <p>Response Time: @totalHours.ToString("00"):@totalMinutes.ToString("00") Hr</p>
                                             </div>
                                         }
 
