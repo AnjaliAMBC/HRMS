@@ -2,9 +2,11 @@
     .navbar-nav .nav-item {
         position: relative;
     }
-    .sign-out{
-        text-decoration:underline;
+
+    .sign-out {
+        text-decoration: underline;
     }
+
     .profile-image-container {
         width: 45px;
         height: 45px;
@@ -90,8 +92,10 @@
             <div class="loggedinempid">@currentContext.EmpInfo.EmployeeID</div>
             <div class="loggedinempemail" style="display:none;">@currentContext.EmpInfo.OfficalEmailid</div>
             <div class="loggedinemplocation" style="display:none;">@currentContext.EmpInfo.Location</div>
-        </div>        
+        </div>
         <div class="loginempisadmin" style="display: none">@currentContext.IsAdmin</div>
+        <div class="loginempissuperadmin" style="display: none">@currentContext.IsSuperAdmin</div>
+        <div class="loginempisitadmin" style="display: none">@currentContext.IsITAdmin</div>
         @*<div class="loggedinempjoiningdate">@currentContext.EmpInfo.DOJ</div>*@
         <p style="color: #3E78CF; font-size:14px;">@currentContext.EmpInfo.OfficalEmailid</p>
         <p style="color: #343a40;">@currentContext.EmpInfo.Designation</p>

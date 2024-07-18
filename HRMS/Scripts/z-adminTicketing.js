@@ -230,9 +230,9 @@ $(document).on('click', '.hrticketlisting-view', function (event) {
 });
 
 
-$(document).on('click', '.btn-itticketing-back', function () {
-    window.location.href = "/adminticketing/itticketing";
-});
+//$(document).on('click', '.btn-itticketing-back', function () {
+//    window.location.href = "/adminticketing/itticketing";
+//});
 
 
 // it ticket Submit 
