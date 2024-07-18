@@ -550,7 +550,7 @@ function populateModal(ticketdata, modalBody) {
                 <div class="admin-it-ticketing-commentbox-userinfo">${ticket.Closedby}</div>
                 <div class="admin-it-ticketing-commentbox-status">Closed</div>
                 <div class="admin-it-ticketing-commentbox-desc">${ticket.AcknowledgeComments !== null ? ticket.AcknowledgeComments : 'NA'}</div>
-                ${ticket.AcknowledgeComments ? '<div><input type="checkbox" checked disabled> Acknowledged</div>' : ''}
+                ${ticket.isacknowledge != null ? '<div><input type="checkbox" checked disabled> Acknowledged</div>' : '<div><input type="checkbox" disabled> Acknowledged</div>'}
             </span>
             <span class="col-lg-2 admin-it-ticketing-commentbox-right">
                 <div class="admin-it-ticketing-commentbox-date">${formattedClosedDate}</div>
