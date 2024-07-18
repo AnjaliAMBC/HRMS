@@ -20,6 +20,7 @@ namespace HRMS.Models.Employee
         public LeaveTypesBasedOnEmpViewModel LeavesTypeInfo { get; set; } = new LeaveTypesBasedOnEmpViewModel();
         public List<emp_info> Employees { get; set; } = new List<emp_info>();
         public con_leaveupdate empLeaveInfo { get; set; } = new con_leaveupdate();
+        public List<IT_Ticket> MyTickets { get; set; } = new List<IT_Ticket>();
 
     }
 

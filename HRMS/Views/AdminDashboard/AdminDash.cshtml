@@ -90,28 +90,34 @@
                                         HR Tickets
                                     </div>
                                     <div class="card-body admindash_card scrollbar px-4 py-1 announcement_card">
-                                        @*<form>
-                                                <div class="form-group mb-2">
-                                                    <label for="subject" class="m-0">Subject</label>
-                                                    <input type="text" class="form-control" id="subject" placeholder="Enter subject">
-                                                </div>
-                                                <div class="form-group mb-2">
-                                                    <label for="description" class="m-0">Description</label>
-                                                    <textarea class="form-control" id="description" rows="3" placeholder="Describe the announcement in few words."></textarea>
-                                                </div>
-                                                <div class="form-group mb-2">
-                                                    <label for="to" class="m-0">To</label>
-                                                    <input type="text" class="form-control" id="to" placeholder="Enter recipients">
-                                                </div>
-                                                <button type="submit" class="btn btn-primary d-flex ml-auto px-4 py-1">Send</button>
-                                            </form>*@
+                                        @foreach (var hrTicket in Model.AllHRTickets)
+                                        {
+                                            <p class="m-0 p-0">@hrTicket.Subject</p>
+                                            <div class="d-flex inside_content">
+                                                <p class="mutedText"><i class="fa-solid fa-circle-exclamation mr-1"></i>Priority-</p>
+                                                <p class="status-priority">High</p>
 
-                                        <p class="m-0 p-0">Can't able to apply leave'</p>
-                                        <div class="d-flex inside_content">
-                                            <p class="mutedText"><i class="fa-solid fa-circle-exclamation mr-1"></i>Priority-</p>
-                                            <p class="status-priority">High</p>
-                                            <p class="mutedText ml-3"><i class="fa-solid fa-user mr-1"></i>Closed by subhashini</p>
-                                        </div>
+                                                @if (hrTicket.Status == "Open")
+                                                {
+                                                    <p class="mutedText ml-3"><i class="fa-solid fa-user mr-1"></i>Open By: @hrTicket.EmployeeName</p>
+                                                }
+                                                else if (hrTicket.Status == "ReOpen")
+                                                {
+                                                    <p class="mutedText ml-3"><i class="fa-solid fa-user mr-1"></i>Re-Open By: @hrTicket.EmployeeName</p>
+
+                                                }
+                                                else if (hrTicket.Status == "Resolved")
+                                                {
+                                                    <p class="mutedText ml-3"><i class="fa-solid fa-user mr-1"></i>Resolved By: @hrTicket.EmployeeName</p>
+
+                                                }
+                                                else if (hrTicket.Status == "Closed")
+                                                {
+                                                    <p class="mutedText ml-3"><i class="fa-solid fa-user mr-1"></i>Closed By: @hrTicket.EmployeeName</p>
+                                                }
+                                            </div>
+
+                                        }
                                     </div>
                                 </div>
                             </div>
