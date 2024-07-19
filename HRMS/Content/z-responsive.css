@@ -163,6 +163,14 @@
         display: block;
     }
 
+    #left-side-menu .sidebar .admin-leave-main-menu .side-menubar-updown {
+        width: 50%;
+    }
+
+    #left-side-menu .sidebar .admin-ticket-main-menu .side-menubar-updown {
+        width: 40%;
+    }
+
     /* header and side menu end*/
 
     /* emp dashboard start */
@@ -384,7 +392,60 @@
         width: 85%;
     }
 
+    .mobile-view .admin-leaveHistory-container {
+        margin-top: 70px !important;
+    }
+
+    .mobile-view .admin-leaveBalance-container {
+        margin-left: -5px !important;
+        margin-top: 50px !important;
+    }
+
+    .mobile-view .admin-leave-compoff-container {
+        margin-left: -5px !important;
+        margin-top: 70px !important;
+    }
+
     /* emp leave end*/
+
+    /* emp ticket start */
+
+    .mobile-view .employee-Ticketing {
+        margin-top: 70px !important;
+    }
+
+    .mobile-view #empticketlistingTable {
+        margin: 0;
+    }
+
+    .mobile-view #empticketlistingTable {
+        table-layout: fixed;
+        margin: 0 5%;
+    }
+
+    .mobile-view #empticketlistingTable tbody td:nth-child(3) {
+        width: 120px !important;
+    }
+
+    .mobile-view #empticketlistingTable tbody td:nth-child(4) {
+        width: 100px !important;
+    }
+
+    .mobile-view .res-emp-tickethistory-header .res-emp-tickethistory-title {
+        width: 50%;
+        display: inline-block;
+    }
+
+    .mobile-view .res-emp-tickethistory-header .res-emp-tickethistory-mid {
+        display: none;
+    }
+
+    .mobile-view .res-emp-tickethistory-header .res-emp-tickethistory-right {
+        display: inline-flex;
+        width: 42%;
+    }
+
+    /* emp ticket end */
 
     /* login start*/
     .mobile-view .login-page .login-container {
@@ -2429,6 +2490,45 @@
 
     /* emp leave end*/
 
+    /* emp ticket start */
+
+    .tablet-view .emp-Ticket-view .main-content {
+        width: 74% !important;
+    }
+
+    .tablet-view .res-emp-tickethistory-header .res-emp-tickethistory-title {
+        width: 38%;
+        display: inline-block;
+    }
+
+    .tablet-view .res-emp-tickethistory-header .res-emp-tickethistory-mid {
+        display: none;
+    }
+
+    .tablet-view .res-emp-tickethistory-header .res-emp-tickethistory-right {
+        display: inline-flex;
+        width: 61%;
+    }
+
+    .tablet-view #empticketlistingTable {
+        margin: 0;
+    }
+
+    .tablet-view #empticketlistingTable {
+        table-layout: fixed;
+        margin: 0 5%;
+    }
+
+        .tablet-view #empticketlistingTable tbody td:nth-child(3) {
+            width: 180px !important;
+        }
+
+        .tablet-view #empticketlistingTable tbody td:nth-child(4) {
+            width: 100px !important;
+        }
+
+    /* emp ticket end */
+
     /*admin emp management page start*/
     .tablet-view .res-admin-employee-management .main-content {
         width: 75% !important;
@@ -2730,7 +2830,22 @@
 
     .tablet-view .res-admin-leave #daysLeaveContainer.Leave-days-container .dayLeave {
         padding: 0 2px;
-    }   
+    }
+
+    .tablet-view .res-admin-leave .admin-leaveHistory-container {
+        margin-left: 0px !important;
+        margin-top: 0px !important;
+    }
+
+    .tablet-view .res-admin-leave .admin-leaveBalance-container {
+        margin-left: 0px !important;
+        margin-top: 0px !important;
+    }
+
+    .tablet-view .res-admin-leave .admin-leave-compoff-container {
+        margin-left: 0px !important;
+        margin-top: 0px !important;
+    }
 
     /* admin leave end*/
 
