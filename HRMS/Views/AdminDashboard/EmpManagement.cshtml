@@ -60,7 +60,8 @@
                     <div class="col-lg-8 col-sm-12 col-md-12">
                         <div id="demo" class="collapse advancefilter">
                             <div class="collapse-topic d-flex align-items-center justify-content-end res-admin-filter-inside" style="margin-right: 24px;">
-                                <span class="mr-3 res-admin-filter">Filter By<span class="res-close-btn" style="display:none;">X</span>
+                                <span class="mr-3 res-admin-filter">
+                                    Filter By<span class="res-close-btn" style="display:none;">X</span>
                                     <div class="dropdown mr-3" style="border-radius: 10px;">
                                         <select class="form-control form-select-sm" name="department" id="department-dropdown" style="border-radius: 15px; height: 35px; width: 131px;">
                                             <option value="" disabled selected>Department</option>
@@ -204,7 +205,7 @@
                 "render": function (data, type, full, meta) {
                     var imageHtml = '';
                     if (data.image) {
-                        var imageURl = "/assets/empImages/" + data.image;
+                        var imageURl = "/assets/empImages/" + data.image + "?" + new Date().getTime();
                         imageHtml = '<img src="' + imageURl + '" alt="Profile Image" style="width: 45px; height: 45px; border-radius: 50%; margin-right: 10px;">';
                     } else {
                         var firstNameInitial = data.name.charAt(0);

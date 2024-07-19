@@ -299,7 +299,7 @@
                                             <div class="userLeaveDetails">
 
                                                 @{
-                                                    var empImagePath = "/Assets/EmpImages/" + leaveemp.LatestLeave.employee_id + ".jpeg";
+                                                    var empImagePath = "/Assets/EmpImages/" + leaveemp.LatestLeave.employee_id + ".jpeg" + "?" + System.DateTime.Now;
                                                 }
                                                 <img src="@empImagePath"
                                                      class="userIcon"

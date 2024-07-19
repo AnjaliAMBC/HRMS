@@ -24,6 +24,7 @@ $(document).on('click', '.btn-apply-admin-hrticketing-submit', function (event) 
         TicketNo: $(this).data('ticketnum'),
         Status: $('#admin-hrticketing-status').val(),
         Resolved_by: $('#hrticketing-closedby').val(),
+        ResolvedByName: $('#hrticketing-closedby option:selected').text(),
         isacknowledge: $('#hrticketing-closeddate').val(),
         ReopenedComments: $('#hrticketing-closeddate').val(),
         AcknowledgeComments: $('#hrticketing-closeddate').val(),
@@ -518,7 +519,7 @@ function populateModal(ticketdata, modalBody) {
     html += `
         <div class="admin-it-ticketing-commentbox-list">
             <div class="col-lg-1 admin-it-ticketing-commentbox-left">
-                <img class="userIcon" src="/Assets/EmpImages/${ticket.EmployeeID}.jpeg">
+                <img class="userIcon" src="/Assets/EmpImages/${ticket.EmployeeID}.jpeg?${new Date().getTime()}">
                 <div class="vl"></div>
             </div>
             <span class="col-lg-7 admin-it-ticketing-commentbox-mid">
@@ -538,7 +539,7 @@ function populateModal(ticketdata, modalBody) {
         html += `
             <div class="admin-it-ticketing-commentbox-list">
                 <div class="col-lg-1 admin-it-ticketing-commentbox-left">
-                    <img class="userIcon" src="/Assets/EmpImages/${ticket.Resolved_by}.jpeg">
+                    <img class="userIcon" src="/Assets/EmpImages/${ticket.Resolved_by}.jpeg?${new Date().getTime()}">
                     <div class="vl"></div>
                 </div>
                 <span class="col-lg-7 admin-it-ticketing-commentbox-mid">
@@ -557,7 +558,7 @@ function populateModal(ticketdata, modalBody) {
         html += `
             <div class="admin-it-ticketing-commentbox-list">
                 <div class="col-lg-1 admin-it-ticketing-commentbox-left">
-                    <img class="userIcon" src="/Assets/EmpImages/${ticket.EmployeeID}.jpeg">
+                    <img class="userIcon" src="/Assets/EmpImages/${ticket.EmployeeID}.jpeg?${new Date().getTime()}">
                     <div class="vl"></div>
                 </div>
                 <span class="col-lg-7 admin-it-ticketing-commentbox-mid">
@@ -577,7 +578,7 @@ function populateModal(ticketdata, modalBody) {
         html += `
         <div class="admin-it-ticketing-commentbox-list">
             <div class="col-lg-1 admin-it-ticketing-commentbox-left">
-                <img class="userIcon" src="/Assets/EmpImages/${ticket.Closedby}.jpeg">
+                <img class="userIcon" src="/Assets/EmpImages/${ticket.Closedby}.jpeg?${new Date().getTime()}">
                 <div class="vl"></div>
             </div>
             <span class="col-lg-7 admin-it-ticketing-commentbox-mid">
