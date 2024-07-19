@@ -26,7 +26,7 @@ namespace HRMS.Controllers
             var cuserContext = SiteContext.GetCurrentUserContext();
             var employeeId = cuserContext.EmpInfo.EmployeeID;
 
-            var employeeTickets = _dbContext.IT_Ticket.Where(t => t.EmployeeID == employeeId).ToList();
+            var employeeTickets = _dbContext.IT_Ticket.Where(t => t.EmployeeID == employeeId).OrderByDescending(x => x.Created_date).ToList();
             model.empTickets = employeeTickets;
             return View("~/Views/EmployeeDashboard/EmpTicketing.cshtml", model);
         }
@@ -122,7 +122,7 @@ namespace HRMS.Controllers
             }
         }
 
-        public JsonResult TicketStatusChangeByEmp(int ticketName, string status, string comments, string updateby)
+        public JsonResult TicketStatusChangeByEmp(int ticketName, string status, string comments, string updateby, string updatebyID)
         {
             try
             {
@@ -144,6 +144,7 @@ namespace HRMS.Controllers
                         ticket.isacknowledge = "true";
                         ticket.Closed_date = DateTime.Now;
                         ticket.ClosedByName = updateby;
+                        ticket.Closedby = updatebyID;
                     }
 
                     _dbContext.SaveChanges();

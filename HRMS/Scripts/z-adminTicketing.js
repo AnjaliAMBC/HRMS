@@ -492,7 +492,8 @@ function populateModal(ticketdata, modalBody) {
     var ticket = $.parseJSON(ticketdata);
 
     // Add HTML for comment box and buttons specific to Resolved status
-    if (ticket.Status == "Resolved") {
+    if (ticket.Status == "Resolved" && ($('.loginempisadmin').text() == "False") && $('.loginempisitadmin').text() != "True") {
+
         html += `
             <div class="emp-ticketing-commentbox-popup">
                 <div class="form-group">
@@ -580,7 +581,7 @@ function populateModal(ticketdata, modalBody) {
                 <div class="vl"></div>
             </div>
             <span class="col-lg-7 admin-it-ticketing-commentbox-mid">
-                <div class="admin-it-ticketing-commentbox-userinfo">${ticket.Closedby} ${ticket.ResolvedByName}</div>
+                <div class="admin-it-ticketing-commentbox-userinfo">${ticket.Closedby} ${ticket.ClosedByName}</div>
                 <div class="admin-it-ticketing-commentbox-status">Closed</div>
                 <div class="admin-it-ticketing-commentbox-desc">${ticket.AcknowledgeComments !== null ? ticket.AcknowledgeComments : 'NA'}</div>
                 ${ticket.isacknowledge != null ? '<div><input type="checkbox" checked disabled> Acknowledged</div>' : '<div><input type="checkbox" disabled> Acknowledged</div>'}

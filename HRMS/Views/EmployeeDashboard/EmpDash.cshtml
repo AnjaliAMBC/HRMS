@@ -162,7 +162,7 @@
 
                             @foreach (var myTicket in Model.MyTickets)
                             {
-                                <p class="mb-0">@myTicket.Subject <span class="badge badge-danger">@myTicket.Priority</span></p>
+                                <p class="mb-0">@myTicket.Subject <span class="badge @HRMS.Helpers.TicketingHelper.GetTicketPriorityDashCssClass(myTicket.Priority)">@myTicket.Priority</span></p>
 
                                 if (myTicket.Status == "Open")
                                 {

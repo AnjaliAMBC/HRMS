@@ -198,6 +198,9 @@ $(document).on('change', '#imageInput', function (event) {
         success: function (response) {
             if (response.JsonResponse.StatusCode == 200) {
                 var newImageUrl = response.ImageURl;
+                var timestamp = new Date().getTime();
+                newImageUrl += '?' + timestamp;
+
                 //Slef service page image update
                 $('.emp-imageurl').attr('src', newImageUrl);
                 $('.emp-imageurl').show();
