@@ -34,9 +34,26 @@ namespace HRMS.Helpers
                 case "resolved":
                     return "ticket-status-pending";
                 case "re-open":
-                    return "ticket-status-pending";
+                    return "ticket-status-re-open";
+                case "cancelled":
+                    return "ticket-status-cancelled";
                 default:
                     return ""; 
+            }
+        }
+       
+            public static string GetTicketPriorityDashCssClass(string status)
+        {
+            switch (status.ToLower())
+            {
+                case "low":
+                    return "badge-low";
+                case "mid":
+                    return "badge-mid";
+                case "high":
+                    return "badge-danger";                
+                default:
+                    return "";
             }
         }
     }

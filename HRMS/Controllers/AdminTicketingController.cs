@@ -4,6 +4,7 @@ using Newtonsoft.Json;
 using OfficeOpenXml;
 using System;
 using System.Collections.Generic;
+using System.Drawing;
 using System.IO;
 using System.Linq;
 using System.Web;
@@ -104,8 +105,6 @@ namespace HRMS.Controllers
             return View("~/Views/AdminDashboard/AdminItTicketOpenClose.cshtml", model);
         }
 
-
-
         public ActionResult HRExportToExcel(string fromDate, string toDate, string status, string location, string closedBy)
         {
             List<IT_Ticket> ticketsList = GetTicketsFilter(fromDate, toDate, status, location, closedBy, "HR");
@@ -114,16 +113,33 @@ namespace HRMS.Controllers
             ExcelPackage excelPackage = new ExcelPackage();
             var worksheet = excelPackage.Workbook.Worksheets.Add("Tickets");
 
-            // Header row
-            worksheet.Cells["A1"].Value = "Employee ID";
-            worksheet.Cells["B1"].Value = "Subject";
-            worksheet.Cells["C1"].Value = "Priority";
-            worksheet.Cells["D1"].Value = "Location";
-            worksheet.Cells["E1"].Value = "Status";
-            worksheet.Cells["F1"].Value = "Created Date";
+            // Insert filter criteria
+            worksheet.Cells["A1"].Value = "From Date:";
+            worksheet.Cells["B1"].Value = fromDate;
+            worksheet.Cells["C1"].Value = "To Date:";
+            worksheet.Cells["D1"].Value = toDate;
+            worksheet.Cells["E1"].Value = "Status:";
+            worksheet.Cells["F1"].Value = status;
+            worksheet.Cells["G1"].Value = "Location:";
+            worksheet.Cells["H1"].Value = location;
+            worksheet.Cells["I1"].Value = "Closed By:";
+            worksheet.Cells["J1"].Value = closedBy;
+
+
+            worksheet.Cells["A2:F2"].Style.Fill.PatternType = OfficeOpenXml.Style.ExcelFillStyle.Solid;
+            worksheet.Cells["A2:F2"].Style.Fill.BackgroundColor.SetColor(Color.LightGray);
+            // Adjust header row
+            worksheet.Cells["A2"].Value = "Employee ID";
+            worksheet.Cells["B2"].Value = "Subject";
+            worksheet.Cells["C2"].Value = "Priority";
+            worksheet.Cells["D2"].Value = "Location";
+            worksheet.Cells["E2"].Value = "Status";
+            worksheet.Cells["F2"].Value = "Created Date";
+
+           
 
             // Data rows
-            int row = 2;
+            int row = 3; // Start after filter criteria and header row
             foreach (var ticket in ticketsList)
             {
                 worksheet.Cells[string.Format("A{0}", row)].Value = ticket.EmployeeID;
@@ -148,6 +164,7 @@ namespace HRMS.Controllers
 
             return File(memoryStream, "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet", excelName);
         }
+
 
         private List<IT_Ticket> GetTicketsFilter(string fromDate, string toDate, string status, string location, string closedBy, string type)
         {

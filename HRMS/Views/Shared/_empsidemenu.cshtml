@@ -44,7 +44,7 @@
                 <div class="bl">
                     @if (!string.IsNullOrWhiteSpace(currentContext.EmpInfo.imagepath))
                     {
-                        var empImageURl = System.Configuration.ConfigurationManager.AppSettings["EmpImagesFolder"] + "/" + currentContext.EmpInfo.imagepath;
+                        var empImageURl = System.Configuration.ConfigurationManager.AppSettings["EmpImagesFolder"] + "/" + currentContext.EmpInfo.imagepath + "?" + System.DateTime.Now;
                         <img src="@empImageURl" alt="Employee Image" class="profile img-fluid nav-image-profile">
                     }
                     else

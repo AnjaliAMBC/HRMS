@@ -48,17 +48,17 @@
                                     <i class="fas fa-chevron-down" id="exportcompoffLeaveIcon" style="cursor: pointer; font-size:13px;" data-toggle="collapse" data-target="#LeavecompoffDateDropdown"></i>
                                 </div>
                                 @*<div class="dropdown res-adminleave-drop">
-                                    <button class="btn btn-primary dropdown-toggle" type="button" id="leavecompoffSettingsDropdown" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" style="">
-                                        Leave Settings
-                                    </button>
-                                    <div class="dropdown-menu" aria-labelledby="leavecompoffSettingsDropdown" style="border:1px solid gray; cursor: pointer;">
-                                        <a class="dropdown-item adminleave-history">Leave History</a>
-                                        <a class="dropdown-item adminleave-Balanve-link">Leave Balance</a>
-                                        <a class="dropdown-item adminleave-CompOff-link">CompOff Request</a>
-                                        <a class="dropdown-item adminside-leaveapply">Apply Leave</a>
-                                    </div>
+                                        <button class="btn btn-primary dropdown-toggle" type="button" id="leavecompoffSettingsDropdown" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" style="">
+                                            Leave Settings
+                                        </button>
+                                        <div class="dropdown-menu" aria-labelledby="leavecompoffSettingsDropdown" style="border:1px solid gray; cursor: pointer;">
+                                            <a class="dropdown-item adminleave-history">Leave History</a>
+                                            <a class="dropdown-item adminleave-Balanve-link">Leave Balance</a>
+                                            <a class="dropdown-item adminleave-CompOff-link">CompOff Request</a>
+                                            <a class="dropdown-item adminside-leaveapply">Apply Leave</a>
+                                        </div>
 
-                                </div>*@
+                                    </div>*@
 
                             </div>
                         </div>
@@ -103,7 +103,7 @@
                                     <tr class="rowBorder">
                                         <td class="fontSmall">@compoff.EmployeeID</td>
                                         @{
-                                            var empImagePath = "/Assets/EmpImages/" + @compoff.EmployeeID + ".jpeg";
+                                            var empImagePath = "/Assets/EmpImages/" + @compoff.EmployeeID + ".jpeg" + "?" + System.DateTime.Now;
                                         }
                                         <td><div style="display: flex; align-items: center;"><img class="userIcon" src="@empImagePath"><span style="margin-top: 0px; margin-right: 10px;">@compoff.EmployeeName<br><span style="color: #3E78CF;">@compoff.OfficalEmailid</span></span></div></td>
                                         <td class="fontSmall dataMinWidth dateMaxWidth">

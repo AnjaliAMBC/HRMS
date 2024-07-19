@@ -40,7 +40,7 @@
                                                 <li class="list-group-item p-0">
                                                     <div class="leave-info">
                                                         @{
-                                                            var empImagePath = "/Assets/EmpImages/" + leave.LatestLeave.employee_id + ".jpeg";
+                                                            var empImagePath = "/Assets/EmpImages/" + leave.LatestLeave.employee_id + ".jpeg" + "?" + System.DateTime.Now;
                                                         }
                                                         <img src="@empImagePath" alt="emp name" class="rounded-circle">
                                                         <div class="leave-text mt-2">
@@ -182,7 +182,7 @@
 
                                                 @foreach (var empBirthday in Model.BirthModel)
                                                 {
-                                                    var empImageURl = System.Configuration.ConfigurationManager.AppSettings["EmpImagesFolder"] + "/" + empBirthday.imagePath;
+                                                    var empImageURl = System.Configuration.ConfigurationManager.AppSettings["EmpImagesFolder"] + "/" + empBirthday.imagePath + "?" + System.DateTime.Now;
 
                                                     <li class="list-group-item p-0">
                                                         <div class="d-flex align-items-center mb-3">
@@ -218,7 +218,7 @@
                                         {
                                             foreach (var employeeAnniversary in Model.AnniversaryModel)
                                             {
-                                                var empAnniversaryImageURl = System.Configuration.ConfigurationManager.AppSettings["EmpImagesFolder"] + "/" + @employeeAnniversary.imagePath;
+                                                var empAnniversaryImageURl = System.Configuration.ConfigurationManager.AppSettings["EmpImagesFolder"] + "/" + @employeeAnniversary.imagePath + "?" + System.DateTime.Now;
 
                                                 <ul class="list-group list-group-flush">
                                                     <li class="list-group-item p-0">

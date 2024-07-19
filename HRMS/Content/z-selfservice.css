@@ -125,3 +125,41 @@
     vertical-align: middle;
     margin-bottom: -2px;
 }
+
+/* Card hover effects */
+.my-card {
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+    .my-card:hover {
+        transform: scale(1.05); /* Increase size on hover */
+        box-shadow: 0 0 15px rgba(0, 0, 0, 0.3); /* Add shadow on hover */
+    }
+
+.my-card-item {
+    transition: transform 0.3s ease;
+}
+
+    .my-card-item:hover {
+        transform: rotate(1deg); /* Rotate slightly on hover */
+    }
+.my-card-hover:hover {
+    transform: translateY(-2px); /* Move card up slightly on hover */
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Add shadow on hover */
+}
+
+.my-card-hover .btn-checkin {
+    transition: background-color 0.3s ease; /* Smooth transition for background color change */
+}
+
+    .my-card-hover .btn-checkin:hover {
+        background-color: darken(@buttonDeafultbgcolor, 10%); /* Darken background color on hover */
+    }
+
+.my-card-hover .check-time {
+    transition: transform 0.3s ease; /* Smooth transition for transform property */
+}
+
+    .my-card-hover .check-time:hover {
+        transform: scale(1.05); /* Scale up slightly on hover */
+    }

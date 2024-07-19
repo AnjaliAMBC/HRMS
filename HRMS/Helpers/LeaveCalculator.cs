@@ -778,7 +778,7 @@ namespace HRMS.Helpers
             leaveTypes.Add(new LeavesCategory() { Type = "Emergency Leave", Colrocode = "emr_border", DashBoardColorCode = "bg-emergency", ShortName = "EML" });
             leaveTypes.Add(new LeavesCategory() { Type = "Sick Leave", Colrocode = "sick_border", DashBoardColorCode = "bg-danger", ShortName = "SL" });
             leaveTypes.Add(new LeavesCategory() { Type = "Bereavement Leave", Colrocode = "bev_border", DashBoardColorCode = "bg-bereavement", ShortName = "BL" });
-            leaveTypes.Add(new LeavesCategory() { Type = "Hourly Permission", Colrocode = "hou_border", DashBoardColorCode = "bg-bereavement", ShortName = "HP" });
+            leaveTypes.Add(new LeavesCategory() { Type = "Hourly Permission", Colrocode = "hou_border", DashBoardColorCode = "bg-hourly", ShortName = "HP" });
             leaveTypes.Add(new LeavesCategory() { Type = "Marriage Leave", Colrocode = "mar_border", DashBoardColorCode = "bg-marriage", ShortName = "ML" });
             leaveTypes.Add(new LeavesCategory() { Type = "Maternity Leave", Colrocode = "mat_border", DashBoardColorCode = "bg-maternity", ShortName = "MTL" });
             leaveTypes.Add(new LeavesCategory() { Type = "Paternity Leave", Colrocode = "pat_border", DashBoardColorCode = "bg-paternity", ShortName = "PL" });

@@ -97,17 +97,17 @@
                             </div>
 
                             @*<div class="dropdown col-sm-4 col-md-5 col-lg-4 res-admin-leave-balance-dropdown">
-                                <button class="btn dropdown-toggle" type="button" id="adminleaveSettingsDropdown" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" style="">
-                                    Leave Settings
-                                </button>
-                                <div class="dropdown-menu leaveSettings-dropdown" aria-labelledby="leaveSettingsDropdown" style="border:1px solid gray">
-                                    <a class="dropdown-item adminleave-history">Leave History</a>
-                                    <a class="dropdown-item adminleave-Balanve-link">Leave Balance</a>
-                                    <a class="dropdown-item adminleave-CompOff-link">CompOff Request</a>
-                                    <a class="dropdown-item adminside-leaveapply">Apply Leave</a>
+                                    <button class="btn dropdown-toggle" type="button" id="adminleaveSettingsDropdown" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" style="">
+                                        Leave Settings
+                                    </button>
+                                    <div class="dropdown-menu leaveSettings-dropdown" aria-labelledby="leaveSettingsDropdown" style="border:1px solid gray">
+                                        <a class="dropdown-item adminleave-history">Leave History</a>
+                                        <a class="dropdown-item adminleave-Balanve-link">Leave Balance</a>
+                                        <a class="dropdown-item adminleave-CompOff-link">CompOff Request</a>
+                                        <a class="dropdown-item adminside-leaveapply">Apply Leave</a>
 
-                                </div>
-                            </div>*@
+                                    </div>
+                                </div>*@
                         </div>
 
 
@@ -159,7 +159,7 @@
 
                                                 @if (!string.IsNullOrWhiteSpace(@emp.empInfo.imagepath))
                                                 {
-                                                    var empImageURl = System.Configuration.ConfigurationManager.AppSettings["EmpImagesFolder"] + "/" + emp.empInfo.imagepath;
+                                                    var empImageURl = System.Configuration.ConfigurationManager.AppSettings["EmpImagesFolder"] + "/" + emp.empInfo.imagepath + "?" + System.DateTime.Now;
                                                     <img src="@empImageURl" alt="Employee Image" class="userIcon">
                                                 }
                                                 else

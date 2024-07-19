@@ -24,6 +24,7 @@ $(document).on('click', '.btn-apply-admin-hrticketing-submit', function (event) 
         TicketNo: $(this).data('ticketnum'),
         Status: $('#admin-hrticketing-status').val(),
         Resolved_by: $('#hrticketing-closedby').val(),
+        ResolvedByName: $('#hrticketing-closedby option:selected').text(),
         isacknowledge: $('#hrticketing-closeddate').val(),
         ReopenedComments: $('#hrticketing-closeddate').val(),
         AcknowledgeComments: $('#hrticketing-closeddate').val(),
@@ -492,7 +493,8 @@ function populateModal(ticketdata, modalBody) {
     var ticket = $.parseJSON(ticketdata);
 
     // Add HTML for comment box and buttons specific to Resolved status
-    if (ticket.Status == "Resolved") {
+    if (ticket.Status == "Resolved" && ($('.loginempisadmin').text() == "False") && $('.loginempisitadmin').text() != "True") {
+
         html += `
             <div class="emp-ticketing-commentbox-popup">
                 <div class="form-group">
@@ -517,7 +519,7 @@ function populateModal(ticketdata, modalBody) {
     html += `
         <div class="admin-it-ticketing-commentbox-list">
             <div class="col-lg-1 admin-it-ticketing-commentbox-left">
-                <img class="userIcon" src="/Assets/EmpImages/${ticket.EmployeeID}.jpeg">
+                <img class="userIcon" src="/Assets/EmpImages/${ticket.EmployeeID}.jpeg?${new Date().getTime()}">
                 <div class="vl"></div>
             </div>
             <span class="col-lg-7 admin-it-ticketing-commentbox-mid">
@@ -537,7 +539,7 @@ function populateModal(ticketdata, modalBody) {
         html += `
             <div class="admin-it-ticketing-commentbox-list">
                 <div class="col-lg-1 admin-it-ticketing-commentbox-left">
-                    <img class="userIcon" src="/Assets/EmpImages/${ticket.Resolved_by}.jpeg">
+                    <img class="userIcon" src="/Assets/EmpImages/${ticket.Resolved_by}.jpeg?${new Date().getTime()}">
                     <div class="vl"></div>
                 </div>
                 <span class="col-lg-7 admin-it-ticketing-commentbox-mid">
@@ -556,7 +558,7 @@ function populateModal(ticketdata, modalBody) {
         html += `
             <div class="admin-it-ticketing-commentbox-list">
                 <div class="col-lg-1 admin-it-ticketing-commentbox-left">
-                    <img class="userIcon" src="/Assets/EmpImages/${ticket.EmployeeID}.jpeg">
+                    <img class="userIcon" src="/Assets/EmpImages/${ticket.EmployeeID}.jpeg?${new Date().getTime()}">
                     <div class="vl"></div>
                 </div>
                 <span class="col-lg-7 admin-it-ticketing-commentbox-mid">
@@ -576,11 +578,11 @@ function populateModal(ticketdata, modalBody) {
         html += `
         <div class="admin-it-ticketing-commentbox-list">
             <div class="col-lg-1 admin-it-ticketing-commentbox-left">
-                <img class="userIcon" src="/Assets/EmpImages/${ticket.Closedby}.jpeg">
+                <img class="userIcon" src="/Assets/EmpImages/${ticket.Closedby}.jpeg?${new Date().getTime()}">
                 <div class="vl"></div>
             </div>
             <span class="col-lg-7 admin-it-ticketing-commentbox-mid">
-                <div class="admin-it-ticketing-commentbox-userinfo">${ticket.Closedby} ${ticket.ResolvedByName}</div>
+                <div class="admin-it-ticketing-commentbox-userinfo">${ticket.Closedby} ${ticket.ClosedByName}</div>
                 <div class="admin-it-ticketing-commentbox-status">Closed</div>
                 <div class="admin-it-ticketing-commentbox-desc">${ticket.AcknowledgeComments !== null ? ticket.AcknowledgeComments : 'NA'}</div>
                 ${ticket.isacknowledge != null ? '<div><input type="checkbox" checked disabled> Acknowledged</div>' : '<div><input type="checkbox" disabled> Acknowledged</div>'}

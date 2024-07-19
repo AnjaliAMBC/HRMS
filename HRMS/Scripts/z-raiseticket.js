@@ -10,7 +10,7 @@
     $('#category-div').show();
 });
 
-$(document).on('click', '.btn-apply-emp-raiseticket-submit', function (event) {
+$(document).off('click', '.btn-apply-emp-raiseticket-submit').on('click', '.btn-apply-emp-raiseticket-submit', function (event) {
     event.preventDefault();
     var isValid = true;
     $('.error-message').text('');
@@ -88,12 +88,13 @@ $(document).on('click', '.btn-apply-emp-raiseticket-submit', function (event) {
             contentType: false,
             processData: false,
             success: function (response) {
+                $('#messageModal .modal-body').html('<p>Ticket has been raised successfully.</p>');
                 $('#messageModal').modal('show');
-                // Reset form fields
+              
                 $('#emp-ticket-raise-Form')[0].reset();
-                $('#category-div').hide(); // Hide category for next ticket
-                $('#emp-raiseticket-itcategory').hide(); // Hide IT category
-                $('#emp-raiseticket-hrcategory').hide(); // Hide HR category
+                $('#category-div').hide(); 
+                $('#emp-raiseticket-itcategory').hide(); 
+                $('#emp-raiseticket-hrcategory').hide(); 
             },
             error: function (response) {
                 // Handle error
@@ -157,7 +158,7 @@ $(document).on('click', '#empTicketConfirmCancelButton', function (event) {
                         $currentButton.attr('disabled', true);
 
                         // Update the status of the current row to 'Cancelled'
-                        $row.find('.res-empticketlisting-status-level').text('Cancelled');
+                        $row.find('.res-empticketlisting-status-level').text('Cancelled').addClass('ticket-status-cancelled');
                         $row.find('.emp-ticket-edit-history').hide();
                         toggleLeaveTicketHistoryActionOptions($row.find('.emp-ticket-edit-history'));
                     } else {
@@ -257,6 +258,7 @@ $(document).on('click', '.btn-apply-emp-tickethistory-comment-reopen, .btn-apply
     var ticketStatus = $(this).attr('data-status'); // Assuming data-status attribute is set appropriately
     var comments = $('#emp-tickethistory-comments').val();
     var updateby = $('.loggedinempname').text();
+    var updatebyID = $('.loggedinempid').text();
     var $currentButton = $(this);
 
     if (ticketNo && ticketStatus) {
@@ -268,7 +270,8 @@ $(document).on('click', '.btn-apply-emp-tickethistory-comment-reopen, .btn-apply
                 ticketName: ticketNo,
                 status: ticketStatus,
                 comments: comments,
-                updateby: updateby
+                updateby: updateby,
+                updatebyID: updatebyID
             },
             success: function (response) {
                 if (response.success) {

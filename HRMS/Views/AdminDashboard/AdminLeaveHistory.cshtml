@@ -103,17 +103,17 @@
                                 </div>
                             </div>
                             @*<div class="col-lg-2 col-sm-6 col-md-4 dropdown res-admin-leave-balance-settings-dropdown">
-                                <button class="btn dropdown-toggle" type="button" id="adminleaveSettingsDropdown" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" style="">
-                                    Leave Settings
-                                </button>
-                                <div class="dropdown-menu leaveSettings-dropdown" aria-labelledby="leaveSettingsDropdown" style="border:1px solid gray">
-                                    <a class="dropdown-item adminleave-history">Leave History</a>
-                                    <a class="dropdown-item adminleave-Balanve-link">Leave Balance</a>
-                                    <a class="dropdown-item adminleave-CompOff-link">CompOff Request</a>
-                                    <a class="dropdown-item adminside-leaveapply">Apply Leave</a>
+                                    <button class="btn dropdown-toggle" type="button" id="adminleaveSettingsDropdown" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" style="">
+                                        Leave Settings
+                                    </button>
+                                    <div class="dropdown-menu leaveSettings-dropdown" aria-labelledby="leaveSettingsDropdown" style="border:1px solid gray">
+                                        <a class="dropdown-item adminleave-history">Leave History</a>
+                                        <a class="dropdown-item adminleave-Balanve-link">Leave Balance</a>
+                                        <a class="dropdown-item adminleave-CompOff-link">CompOff Request</a>
+                                        <a class="dropdown-item adminside-leaveapply">Apply Leave</a>
 
-                                </div>
-                            </div>*@
+                                    </div>
+                                </div>*@
 
                             <div class="col-lg-1 navbarl col-sm-12 col-md-12 res-admin-leavehistory-block-header res-admin-leave-balance-calender">
                                 <i class="fa fa-calendar AdminIndiEmpLeave-History" aria-hidden="true"></i>
@@ -220,7 +220,7 @@
                                     <td> <input type="checkbox"></td>
                                     <td>@leaveInfo.LatestLeave.employee_id</td>
                                     @{
-                                        var empImagePath = "/Assets/EmpImages/" + leaveInfo.LatestLeave.employee_id + ".jpeg";
+                                        var empImagePath = "/Assets/EmpImages/" + leaveInfo.LatestLeave.employee_id + ".jpeg" + "?" + System.DateTime.Now;
                                     }
                                     <td><div style="display: flex; align-items: center;"><img class="userIcon" src="@empImagePath"><span style="margin-top: 0px; margin-right: 10px;">@leaveInfo.LatestLeave.employee_name<br><span style="color: #3E78CF;">@leaveInfo.LatestLeave.OfficalEmailid</span></span></div></td>
                                     <td>@leaveInfo.LatestLeave.leavesource</td>
