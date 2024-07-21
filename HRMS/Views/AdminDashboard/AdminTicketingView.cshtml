@@ -15,11 +15,11 @@
     @Html.Partial("_adminsidemenu")
     <div class="main-content container-fluid AdminItTicketing-View" style="width: 84%">
 
-        <div class="content admin-it-ticketing-container" style="margin-left: -25px; margin-top: 20px;">
+        <div class="content admin-it-ticketing-container" style="margin-left: -15px; margin-top: 20px;">
             <div class="container-fluid res-admin-it-ticket-listing">
                 <div class="row mb-2 align-items-center">
                     <div class="col-lg-3 col-md-6">
-                        <h3 class="ml-1">IT Ticketing</h3>
+                        <h4 class="ml-1">IT Ticketing</h4>
                     </div>
 
                     <div class="col-lg-4 navbarl1 col-sm-12 col-md-12 res-admin-empman-search">
@@ -120,7 +120,7 @@
                                         <div class="res-admin-it-ticketlisting-user-details" style="display: flex; align-items: center;">
                                             <i class="it-ticket-msg-icon fa-regular fa-message"></i>
                                             <span style="margin-top: 0px; margin-right: 10px;">
-                                                <div class="admin-it-ticketing-listing-title" data-ticketnum="@ticket.TicketNo">@ticket.Subject</div>
+                                                <div class="admin-it-ticketing-listing-title" title="@ticket.Subject" data-ticketnum="@ticket.TicketNo">@ticket.Subject</div>
                                                 <div class="admin-it-ticketing-listing-details">
                                                     <span class="it-ticket-id">#@ticket.TicketNo</span>
                                                     <span class="it-ticket-info"><i class="fa-solid fa-folder" aria-hidden="true"></i> @ticket.Category</span>

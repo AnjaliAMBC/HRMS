@@ -157,6 +157,36 @@ div.main-content {
     display: block;
 }
 
+.pink-effect {
+    background-clip: text;
+    filter: drop-shadow(0 2px 2px hsla(290, 100%, 20%, 1));
+    box-shadow: 0 0rem 0 0 rgba(10, 75, 195, 0.50), 0 0px 1.5rem rgba(255, 29, 88, 1) inset, 0 0.75rem 0.5rem rgba(255, 29, 88, 0.4) inset, 0 0.1px 0px 0 rgba(255, 29, 88, 1) inset;
+}
+
+.black-effect {
+    background-clip: text;
+    filter: drop-shadow(0 2px 2px hsla(248, 188%, 54%, 1));
+    box-shadow: 0 0rem 0 0 rgba(10, 75, 195, 0.50), 0 0px 1.5rem rgba(22, 23, 72, 1) inset, 0 0.75rem 0.5rem rgba(255, 255, 255, 0.4) inset, 0 0.1px 0px 0 rgba(152, 70, 158, 1) inset;
+}
+
+.orange-effect {
+    background-clip: text;
+    filter: drop-shadow(0 2px 2px hsla(235, 77%, 68%, 1));
+    box-shadow: 0 0rem 0 0 rgba( 255, 137, 40, 0.50), 0 0px 1.5rem rgba( 255, 137, 40, 1) inset, 0 0.75rem 0.5rem rgba( 255, 137, 40, 0.4) inset, 0 0.1px 0px 0 rgba( 255, 137, 40, 1) inset;
+}
+
+.yellow-effect {
+    background-clip: text;
+    filter: drop-shadow(0 2px 2px hsla(25, 35%, 74%, 1));
+    box-shadow: 0 0rem 0 0 rgba( 255, 137, 40, 0.50), 0 0px 1.5rem rgba( 247, 195, 49, 1) inset, 0 0.75rem 0.5rem rgba(247, 195, 49, 0.4) inset, 0 0.1px 0px 0 rgba(247, 195, 49, 1) inset;
+}
+
+.blue-effect {
+    background-clip: text;
+    filter: drop-shadow(0 2px 2px hsla(222, 77%, 83%, 1));
+    box-shadow: 0 0rem 0 0 rgba( 255, 137, 40, 0.50), 0 0px 1.5rem rgba( 0, 73, 183, 1) inset, 0 0.75rem 0.5rem rgba(0, 73, 183, 0.4) inset, 0 0.1px 0px 0 rgba(0, 73, 183, 1) inset;
+}
+
 /* sidebar menu end */
 
 /* admin dashnoard start */
@@ -260,7 +290,7 @@ div.main-content {
 
 .admin-empmanagement-container .import-user-head {
     margin-top: 0;
-    margin-bottom: 1%;
+    margin-bottom: 15px;
 }
 
 .admin-empmanagement-container {
@@ -307,10 +337,13 @@ div.main-content {
     margin-left: 16px !important;
 }
 
+.admin-empmanagement-view .admin-empadd-view {
+    margin-left: 15px;
+}
+
 /* admin employee management end */
 
 /*admin attendance start*/
-
 .admin-attendancemgmt-view .b-from label,
 .admin-attendancemgmt-view .b-to label {
     margin-right: 10px;
@@ -381,7 +414,7 @@ div.main-content {
 }
 
 .admin-empmanagement-view .nav-tabs .nav-link {
-    padding: 7px 14px;
+    padding: 7px 13px;
 }
 
 .admin-empmanagement-view .nav-tabs.responsive-tabs {
@@ -451,7 +484,7 @@ div.main-content {
 /* admin leave start*/
 .res-admin-leave .main-content.container-fluid {
     width: 87% !important;
-    margin-left: 175px;
+    margin-left: 180px;
     margin-top: 20px;
 }
 
@@ -672,7 +705,7 @@ div.main-content {
 }
 
     .res-admin-leave-balance .search-container {
-        margin-left: 15% !important;
+        margin-left: 5% !important;
     }
 
     .res-admin-leave-balance .res-admin-leave-balance-export {
@@ -770,6 +803,10 @@ div.main-content {
 .employeeinfo-balance .fontSmall a {
     color: #3E78CF;
     text-decoration: none !important;
+}
+
+.admin-leaveimport-view {
+    margin-left: 10px !important;
 }
 
 /* admin leave balance end*/
@@ -1325,6 +1362,13 @@ div.main-content {
     background: #99ccff;
 }
 
+#adminitticketlistingTable .admin-it-ticketing-listing-title {
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    overflow: hidden;
+    width: 310px;
+}
+
 /* admin it ticket end */
 
 /* admin it ticket form start */
@@ -1422,7 +1466,11 @@ div.main-content {
     border-left: 2px solid #ccc;
     height: 60px;
     margin-left: 20px;
-    }
+}
+
+.admin-it-ticketing-commentbox-list:last-child .admin-it-ticketing-commentbox-left .vl {
+    display: none;
+}
 
 .admin-it-ticketing-commentbox-list .admin-it-ticketing-commentbox-mid {
     padding: 0;
@@ -1629,6 +1677,13 @@ div.main-content {
     background: #99ccff;
 }
 
+#adminhrticketlistingTable .admin-hr-ticketing-listing-title {
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    overflow: hidden;
+    width: 310px;
+}
+
 /* admin hr ticket end */
 
 /* admin hr ticket form start */
@@ -1728,6 +1783,10 @@ div.main-content {
     margin-left: 20px;
 }
 
+.admin-hr-ticketing-commentbox-list:last-child .admin-hr-ticketing-commentbox-left .vl {
+    display: none;
+}
+
 .admin-hr-ticketing-commentbox-list .admin-hr-ticketing-commentbox-mid {
     padding: 0;
     margin-right: 25px;
@@ -1751,6 +1810,7 @@ div.main-content {
 /* admin hr ticket comment popup end */
 
 /* employee dashboard start*/
+
 .emp-dashboard .main-content.container-fluid {
     padding: 75px 0px;
 }
@@ -1767,6 +1827,11 @@ div.main-content {
 
 .dashholiday_body .card-body.scrollbar {
     padding: 10px 10px;
+}
+
+.employeedash {
+    margin-left: 20px;
+    width: 99%;
 }
 
 /* employee dashboard end*/
@@ -1816,8 +1881,8 @@ div.main-content {
 /* emp leave start */
 
 .leave-dashboard-data {
-    margin-top: 0% !important;
-    margin-left: 0% !important;
+    margin-top: 5px !important;
+    margin-left: 10px !important;
 }
 
 .empleave-container .container-fluid {
@@ -1989,6 +2054,10 @@ input[type=checkbox], input[type=radio] {
 
 .empleave-container .res-emp-carousel {
     margin-left: 0;
+}
+
+.emp-leave-apply-form {
+    padding-left: 0px;
 }
 
 /* emp leave end*/
@@ -2233,6 +2302,10 @@ input[type=checkbox], input[type=radio] {
         border-left: 2px solid #ccc;
         height: 60px;
         margin-left: 20px;
+    }
+
+    .emp-ticketing-commentbox-list:last-child .emp-ticketing-commentbox-left .vl {
+        display: none;
     }
 
     .emp-ticketing-commentbox-list .emp-ticketing-commentbox-mid {
