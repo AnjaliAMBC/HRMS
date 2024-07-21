@@ -660,6 +660,7 @@ namespace HRMS.Controllers
                             isRecordExists.updateddate = record.updateddate;
                             isRecordExists.Designation = record.Designation;
                             isRecordExists.Department = record.Department;
+                        
                         }
                         else
                         {
@@ -689,7 +690,8 @@ namespace HRMS.Controllers
                                 updatedby = record.updatedby,
                                 updateddate = record.updateddate,
                                 Designation = record.Designation,
-                                Department = record.Department
+                                Department = record.Department,
+                                leaveuniqkey = record.employee_id + "_" + record.leavedate
                             };
 
                             _dbContext.con_leaveupdate.Add(leaveUpdate);
