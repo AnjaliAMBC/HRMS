@@ -245,6 +245,8 @@ namespace HRMS.Controllers
                     }
 
                     _dbContext.SaveChanges();
+
+                    TicketingHelper.SendTicketConfirmationEmail(ticket);
                 }
                 return Json(new { success = true });
             }

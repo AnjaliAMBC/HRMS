@@ -15,57 +15,51 @@
 }
 
 .spinner {
-    width: 10px;
-    height: 10px;
-    border-radius: 50%;
-    display: inline-block;
     position: relative;
-    box-sizing: border-box;
-    animation: rotation 1s linear infinite;
-    /*background: cornflowerblue;*/
+    width: 50px;
+    height: 50px;
 }
 
+    .spinner::before,
     .spinner::after {
         content: '';
         box-sizing: border-box;
         position: absolute;
         top: 50%;
-        left: 55%;
+        left: 50%;
         transform: translate(-50%, -50%);
-        width: 25px;
-        height: 25px;
+        width: 50px;
+        height: 50px;
         border-radius: 50%;
-        border: 3px solid #2693F8;
-        /*border-bottom-color: #2693F8;*/ /* Blue color */
+        border: 4px solid transparent;
+    }
+
+    .spinner::before {
+        border-top-color: #2693F8;
+        border-right-color: #00c6ff;
+        animation: rotation 1s linear infinite;
+    }
+
+    .spinner::after {
+        border-bottom-color: #FF5733;
+        border-left-color: #FFC300;
+        animation: rotation 1s linear infinite reverse;
     }
 
 @keyframes rotation {
     0% {
-        transform: rotate(0deg);
+        transform: translate(-50%, -50%) rotate(0deg);
     }
 
     100% {
-        transform: rotate(360deg);
-    }
-}
-
-
-@keyframes spin {
-    from {
-        transform: rotate(0deg);
-    }
-
-    to {
-        transform: rotate(360deg);
+        transform: translate(-50%, -50%) rotate(360deg);
     }
 }
 
 :root {
-    /* Color Variables */
     --primary-color: #002F6B;
-    --progress-text-color: var(--primary-color); /* Adjusted to use primary color */
-    /* Spacing Variables */
-    --progress-body-margin: 0 auto 8px; /* From $spacing-settings 'small' as 8px */
+    --progress-text-color: var(--primary-color);
+    --progress-body-margin: 0 auto 8px;
 }
 
 .progress-container {
@@ -82,8 +76,7 @@
     opacity: 0;
     transform: scale(0.5);
     transition: opacity 0.5s, transform 0.5s;
-    background: rgba(255, 255, 255, 0.3); /* Semi-transparent background */
-    /*backdrop-filter: blur(0.1px);*/ /* Blur effect */
+    background: rgba(255, 255, 255, 0.8); /* Semi-transparent background */
 }
 
     .progress-container.show-progress {
@@ -100,16 +93,11 @@
     width: 145px;
     height: 145px;
     position: relative;
-    animation: counterspin 3s infinite linear;
 }
-
-    .progress-body img {
-        width: 25%;
-        height: 25%;
-        animation: spin 3s infinite linear;
-    }
 
 .progress-text {
     color: var(--progress-text-color);
-    visibility: hidden;
+    visibility: visible; /* Adjusted to ensure text is visible */
+    text-align: center;
+    margin-top: 10px; /* Add some space between spinner and text */
 }

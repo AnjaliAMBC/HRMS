@@ -19,40 +19,79 @@ $(document).on('click', '.btn-itticketing-back', function () {
 
 $(document).on('click', '.btn-apply-admin-hrticketing-submit', function (event) {
     event.preventDefault();
-    var ticketModel =
-    {
-        TicketNo: $(this).data('ticketnum'),
-        Status: $('#admin-hrticketing-status').val(),
-        Resolved_by: $('#hrticketing-closedby').val(),
-        ResolvedByName: $('#hrticketing-closedby option:selected').text(),
-        isacknowledge: $('#hrticketing-closeddate').val(),
-        ReopenedComments: $('#hrticketing-closeddate').val(),
-        AcknowledgeComments: $('#hrticketing-closeddate').val(),
-        Closedby: $('#hrticketing-closedby').val()
+
+    // Clear previous error messages
+    $('.error-message').text('');
+    $('.form-control').removeClass('is-invalid');
+
+    // Get the values
+    var resolvedBy = $('#hrticketing-closedby').val();
+    var status = $('#admin-hrticketing-status').val();
+    var date = $('#hrticketing-closeddate').val();
+    var isValid = true;
+
+    // Validate "Resolved By"
+    if (!resolvedBy) {
+        $('#hrticketing-closedby').addClass('is-invalid');
+        $('#hrticketing-closedby-error').text('Resolved By is required.');
+        isValid = false;
     }
 
-    $.ajax({
-        url: '/adminticketing/updateticketstatus',
-        type: 'POST',
-        data: {
-            ticketModel: ticketModel
-        },
-        dataType: 'json',
-        success: function (response) {
-            if (response.success) {
-                $('#modalMessage').text("Ticket " + $('#admin-hrticketing-status').val() + "  updated successfully.");
+    // Validate "Status"
+    if (!status) {
+        $('#admin-hrticketing-status').addClass('is-invalid');
+        $('#admin-hrticketing-status-error').text('Status is required.');
+        isValid = false;
+    }
+
+    // Validate "Date"
+    if (!date) {
+        $('#hrticketing-closeddate').addClass('is-invalid');
+        $('#hrticketing-closeddate-error').text('Date is required.');
+        isValid = false;
+    }
+
+    if (isValid) {
+        var ticketModel = {
+            TicketNo: $(this).data('ticketnum'),
+            Status: status,
+            Resolved_by: resolvedBy,
+            ResolvedByName: $('#hrticketing-closedby option:selected').text(),
+            isacknowledge: "",
+            ReopenedComments: "",
+            AcknowledgeComments: "",
+            Closedby: resolvedBy
+        };
+
+        $.ajax({
+            url: '/adminticketing/updateticketstatus',
+            type: 'POST',
+            data: {
+                ticketModel: ticketModel
+            },
+            dataType: 'json',
+            beforeSend: function () {
+                $('.show-progress').show();
+            },
+            success: function (response) {
+                if (response.success) {
+                    $('#modalMessage').text("Ticket " + status + " updated successfully.");
+                    $('#messageModal').modal('show');
+                } else {
+                    $('#modalMessage').text("Error: " + response.message);
+                    $('#messageModal').modal('show');
+                }
+                $('.show-progress').hide();
+            },
+            error: function (xhr, status, error) {
+                $('#modalMessage').text("An error occurred: " + error);
                 $('#messageModal').modal('show');
-            } else {
-                $('#modalMessage').text("Error: " + response.message);
-                $('#messageModal').modal('show');
+                $('.show-progress').hide();
             }
-        },
-        error: function (xhr, status, error) {
-            $('#modalMessage').text("An error occurred: " + error);
-            $('#messageModal').modal('show');
-        }
-    });
+        });
+    }
 });
+
 
 
 $(document).on('click', '.hrticketlisting-export', function (event) {
@@ -236,44 +275,82 @@ $(document).on('click', '.hrticketlisting-view', function (event) {
 //});
 
 
-// it ticket Submit 
 $(document).on('click', '.btn-apply-admin-itticket-submit', function (event) {
     event.preventDefault();
 
-    var ticketModel = {
-        TicketNo: $(this).data('ticketnum'),
-        Status: $('#admin-itticket-status').val(),
-        Resolved_by: $('#admin-itticket-closedby').val(),
-        ResolvedByName: $('#admin-itticket-closedby option:selected').text(),
-        Closed_date: $('#admin-itticketing-closeddate').val(),
-        ResolvedDate: $('#admin-itticketing-closeddate').val(),
-        ReopenedDate: $('#admin-itticketing-closeddate').val(),
-        Closedby: $('#admin-itticket-closedby').val(),
-        ClosedByName: $('#admin-itticket-closedby option:selected').text()
+    // Clear previous error messages
+    $('.error-message').text('');
+    $('.form-control').removeClass('is-invalid');
+
+    // Get the values
+    var resolvedBy = $('#admin-itticket-closedby').val();
+    var status = $('#admin-itticket-status').val();
+    var date = $('#admin-itticketing-closeddate').val();
+    var isValid = true;
+
+    // Validate "Resolved By"
+    if (!resolvedBy) {
+        $('#admin-itticket-closedby').addClass('is-invalid');
+        $('#admin-itticket-closedby-error').text('Resolved By is required.');
+        isValid = false;
     }
 
-    $.ajax({
-        url: '/adminticketing/updateticketstatus',
-        type: 'POST',
-        data: {
-            ticketModel: ticketModel
-        },
-        dataType: 'json',
-        success: function (response) {
-            if (response.success) {
-                $('#modalMessage').text("Ticket " + $('#admin-itticket-status').val() + " updated successfully.");
+    // Validate "Status"
+    if (!status) {
+        $('#admin-itticket-status').addClass('is-invalid');
+        $('#admin-itticket-status-error').text('Status is required.');
+        isValid = false;
+    }
+
+    // Validate "Date"
+    if (!date) {
+        $('#admin-itticketing-closeddate').addClass('is-invalid');
+        $('#admin-itticket-closeddate-error').text('Date is required.');
+        isValid = false;
+    }
+
+    if (isValid) {
+        var ticketModel = {
+            TicketNo: $(this).data('ticketnum'),
+            Status: status,
+            Resolved_by: resolvedBy,
+            ResolvedByName: $('#admin-itticket-closedby option:selected').text(),
+            Closed_date: date,
+            ResolvedDate: date,
+            ReopenedDate: date,
+            Closedby: resolvedBy,
+            ClosedByName: $('#admin-itticket-closedby option:selected').text()
+        };
+
+        $.ajax({
+            url: '/adminticketing/updateticketstatus',
+            type: 'POST',
+            data: {
+                ticketModel: ticketModel
+            },
+            dataType: 'json',
+            beforeSend: function () {
+                $('.show-progress').show();
+            },
+            success: function (response) {
+                if (response.success) {
+                    $('#modalMessage').text("Ticket " + status + " updated successfully.");
+                    $('#messageModal').modal('show');
+                } else {
+                    $('#modalMessage').text("Error: " + response.message);
+                    $('#messageModal').modal('show');
+                }
+                $('.show-progress').hide();
+            },
+            error: function (xhr, status, error) {
+                $('#modalMessage').text("An error occurred: " + error);
                 $('#messageModal').modal('show');
-            } else {
-                $('#modalMessage').text("Error: " + response.message);
-                $('#messageModal').modal('show');
+                $('.show-progress').hide();
             }
-        },
-        error: function (xhr, status, error) {
-            $('#modalMessage').text("An error occurred: " + error);
-            $('#messageModal').modal('show');
-        }
-    });
+        });
+    }
 });
+
 
 
 

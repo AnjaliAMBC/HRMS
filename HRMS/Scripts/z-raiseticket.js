@@ -87,16 +87,21 @@ $(document).off('click', '.btn-apply-emp-raiseticket-submit').on('click', '.btn-
             data: formData,
             contentType: false,
             processData: false,
+            beforeSend: function () {
+                $('.show-progress').show();
+            },
             success: function (response) {
                 $('#messageModal .modal-body').html('<p>Ticket has been raised successfully.</p>');
                 $('#messageModal').modal('show');
-              
+
                 $('#emp-ticket-raise-Form')[0].reset();
-                $('#category-div').hide(); 
-                $('#emp-raiseticket-itcategory').hide(); 
-                $('#emp-raiseticket-hrcategory').hide(); 
+                $('#category-div').hide();
+                $('#emp-raiseticket-itcategory').hide();
+                $('#emp-raiseticket-hrcategory').hide();
+                $('.show-progress').hide();
             },
             error: function (response) {
+                $('.show-progress').hide();
                 // Handle error
                 alert('An error occurred. Please try again.');
             }
@@ -152,6 +157,9 @@ $(document).on('click', '#empTicketConfirmCancelButton', function (event) {
                     ticketName: ticketName,
                     status: 'Cancelled'
                 },
+                beforeSend: function () {
+                    $('.show-progress').show();
+                },
                 success: function (response) {
                     if (response.success) {
                         $('#empTicketConfirmCancelModal .modal-body').html('<p>Ticket has been cancelled.</p>');
@@ -164,8 +172,11 @@ $(document).on('click', '#empTicketConfirmCancelButton', function (event) {
                     } else {
                         $('#empTicketConfirmCancelModal .modal-body').html('<p>An error occurred: ' + response.message + '</p>');
                     }
+
+                    $('.show-progress').hide();
                 },
                 error: function (xhr, status, error) {
+                    $('.show-progress').show();
                     $('#empTicketConfirmCancelModal .modal-body').html('<p>An error occurred. Please try again later.</p>');
                 }
             });
@@ -240,12 +251,17 @@ $(document).on('click', '.res-empticketlisting-status-level', function (event) {
     $.ajax({
         url: '/adminticketing/getticketdetailsbynumber?ticketNo=' + ticketNo,
         method: 'GET',
+        beforeSend: function () {
+            $('.show-progress').show();
+        },
         success: function (data) {
             var modalBody = $('#empTicketCommentsModal .modal-body .emp-ticketing-commentbox-popup-list');
             populateModal(data, modalBody);
             $('#empTicketCommentsModal').modal('show');
+            $('.show-progress').hide();
         },
         error: function (err) {
+            $('.show-progress').show();
             console.log(err);
         }
     });
@@ -273,6 +289,9 @@ $(document).on('click', '.btn-apply-emp-tickethistory-comment-reopen, .btn-apply
                 updateby: updateby,
                 updatebyID: updatebyID
             },
+            beforeSend: function () {
+                $('.show-progress').show();
+            },
             success: function (response) {
                 if (response.success) {
                     $('#empTicketCommentsModal').modal('show');
@@ -293,8 +312,10 @@ $(document).on('click', '.btn-apply-emp-tickethistory-comment-reopen, .btn-apply
                 } else {
                     $messageContainer.html('<p>An error occurred: ' + response.message + '</p>');
                 }
+                $('.show-progress').hide();
             },
             error: function (xhr, status, error) {
+                $('.show-progress').show();
                 $messageContainer.html('<p>An error occurred. Please try again later.</p>');
             }
         });
