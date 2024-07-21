@@ -259,6 +259,9 @@ $(document).on('click', '.btn-apply-admin-itticket-submit', function (event) {
             ticketModel: ticketModel
         },
         dataType: 'json',
+        beforeSend: function () {
+            $('.show-progress').show();
+        },
         success: function (response) {
             if (response.success) {
                 $('#modalMessage').text("Ticket " + $('#admin-itticket-status').val() + " updated successfully.");
@@ -267,8 +270,10 @@ $(document).on('click', '.btn-apply-admin-itticket-submit', function (event) {
                 $('#modalMessage').text("Error: " + response.message);
                 $('#messageModal').modal('show');
             }
+            $('.show-progress').hide();
         },
         error: function (xhr, status, error) {
+            $('.show-progress').show();
             $('#modalMessage').text("An error occurred: " + error);
             $('#messageModal').modal('show');
         }
