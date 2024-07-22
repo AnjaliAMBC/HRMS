@@ -26,7 +26,7 @@ using HRMS.Helpers;
 namespace HRMS.Controllers
 {
     using static HRMS.Helpers.PartialViewHelper;
-    public class EmpLeaveController : Controller
+    public class EmpLeaveController : BaseController
     {
         // Database context
         private readonly HRMS_EntityFramework _dbContext;

@@ -19,7 +19,7 @@ namespace HRMS.Controllers
     using System.Configuration;
     using System.Data.Entity;
 
-    public class AdminAttendanceController : Controller
+    public class AdminAttendanceController : BaseController
     {
         // Database context
         private readonly HRMS_EntityFramework _dbContext;

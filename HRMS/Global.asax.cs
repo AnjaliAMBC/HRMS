@@ -1,4 +1,5 @@
-﻿using Quartz;
+﻿using HRMS.Filters;
+using Quartz;
 using Quartz.Impl;
 using System.Web.Mvc;
 using System.Web.Optimization;
@@ -14,6 +15,9 @@ namespace HRMS
             FilterConfig.RegisterGlobalFilters(GlobalFilters.Filters);
             RouteConfig.RegisterRoutes(RouteTable.Routes);
             BundleConfig.RegisterBundles(BundleTable.Bundles);
+
+            GlobalFilters.Filters.Add(new CustomExceptionFilter());
+
             StartQuartzScheduler();
         }
 

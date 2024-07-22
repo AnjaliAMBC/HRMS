@@ -143,6 +143,7 @@
     </Compile>
     <Compile Include="Controllers\AdminTicketingController.cs" />
     <Compile Include="Controllers\AdminLeaveController.cs" />
+    <Compile Include="Controllers\BaseController.cs" />
     <Compile Include="Controllers\CompoffController.cs" />
     <Compile Include="Controllers\EmpLeaveController.cs" />
     <Compile Include="Controllers\EmpTicketingController.cs" />
@@ -150,6 +151,8 @@
     <Compile Include="con_leaveupdate.cs">
       <DependentUpon>HRMS.tt</DependentUpon>
     </Compile>
+    <Compile Include="Filters\CustomExceptionFilter.cs" />
+    <Compile Include="Filters\SessionTimeoutException.cs" />
     <Compile Include="Helpers\EmployeeEventHelper.cs" />
     <Compile Include="Helpers\DateHelper.cs" />
     <Compile Include="Helpers\EMailHelper.cs" />
@@ -200,6 +203,11 @@
     <Content Include="Assets\EmpProfile.png" />
     <Content Include="Assets\Fonts\familyMaterial.css" />
     <Content Include="Assets\Fonts\familyRoboto.css" />
+    <Content Include="Assets\Sidebarimages\01_Dashboard.png" />
+    <Content Include="Assets\Sidebarimages\02_Employee.png" />
+    <Content Include="Assets\Sidebarimages\03_Attendance.png" />
+    <Content Include="Assets\Sidebarimages\04_Leave.png" />
+    <Content Include="Assets\Sidebarimages\05_Ticketing.png" />
     <Content Include="Assets\WorkAnni.jpg" />
     <Content Include="Content\5.15.4all.min.css" />
     <Content Include="Content\all.min.css" />
@@ -416,6 +424,7 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
+    <Folder Include="Views\Base\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="fonts\glyphicons-halflings-regular.woff2" />

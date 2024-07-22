@@ -16,7 +16,7 @@ namespace HRMS.Controllers
     using System.Data.Entity;
     using System.Globalization;
 
-    public class EmpDashController : Controller
+    public class EmpDashController : BaseController
     {
         // Database context
         private readonly HRMS_EntityFramework _dbContext;

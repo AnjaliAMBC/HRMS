@@ -18,7 +18,7 @@ using HRMS.Models.Employee;
 
 namespace HRMS.Controllers
 {
-    public class AdminDashboardController : Controller
+    public class AdminDashboardController : BaseController
     {
         // Database context
         private readonly HRMS_EntityFramework _dbContext;
@@ -30,7 +30,7 @@ namespace HRMS.Controllers
         }
 
         // GET: AdminDashboard
-        //[CustomAuthorize(Roles = "HR Admin")]
+        [CustomAuthorize(Roles = "HR Admin, Super Admin, IT Admin")]
         public ActionResult Dashboard()
         {
             var model = new AdminDashView();
@@ -41,6 +41,7 @@ namespace HRMS.Controllers
         }
 
         //[CustomAuthorize(Roles = "HR Admin")]
+        [CustomAuthorize(Roles = "HR Admin, Super Admin")]
         public ActionResult EmployeeManagement()
         {
             var model = new EmployeeManagementViewModel();

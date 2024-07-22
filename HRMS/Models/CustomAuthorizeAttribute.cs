@@ -7,15 +7,6 @@ namespace HRMS.Models
 {
     public class CustomAuthorizeAttribute : AuthorizeAttribute
     {
-        //private readonly HttpSessionStateBase _session;
-        //private readonly SiteContext _siteCotext;
-        //private readonly HRMS_EntityFramework _dbContext;
-
-        //public CustomAuthorizeAttribute()
-        //{
-        //    _session = new HttpSessionStateWrapper(HttpContext.Current.Session);
-        //    _siteCotext = new SiteContext(_dbContext, _session);
-        //}
         // Override the AuthorizeCore method to implement custom authorization logic
         protected override bool AuthorizeCore(HttpContextBase httpContext)
         {
@@ -24,10 +15,12 @@ namespace HRMS.Models
                 throw new ArgumentNullException(nameof(httpContext));
             }
 
-            //var sessionValue = _siteCotext.RetrieveFromSession("SiteContext");
-            //httpContext.Session[] as SiteContextModel;
-            //
             var sessionValue = httpContext.Session["SiteContext"] as SiteContextModel;
+
+            if (sessionValue == null)
+            {
+                return false;
+            }
 
             // Check if the user belongs to the specified role (if any)
             if (!string.IsNullOrEmpty(Roles))
@@ -35,7 +28,7 @@ namespace HRMS.Models
                 string[] roles = Roles.Split(',');
                 foreach (var role in roles)
                 {
-                    if (sessionValue.LoginInfo.EmployeeRole == role)
+                    if (sessionValue.LoginInfo.EmployeeRole.Contains("HR Admin") || sessionValue.LoginInfo.EmployeeRole.Contains("Super Admin") || sessionValue.LoginInfo.EmployeeRole.Contains("IT Admin"))
                     {
                         return true;
                     }
@@ -60,7 +53,7 @@ namespace HRMS.Models
                 ViewData = new ViewDataDictionary { { "Message", message } }
             };
 
-            filterContext.Result = result; ;
+            filterContext.Result = result;
         }
     }
 }
