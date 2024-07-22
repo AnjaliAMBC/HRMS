@@ -59,17 +59,33 @@
                                         </div>
                                     </td>
                                     <td style="width: 400px" class="res-emp-ticketlisting-priority">
-                                        @if (ticket.Closed_date.HasValue)
+                                        @*@if (ticket.Closed_date.HasValue)
                                         {
                                             TimeSpan responseTime = ticket.Closed_date.Value - ticket.Created_date.Value;
                                             <div class="emp-ticketing-response-time">
                                                 Response Time @responseTime.TotalHours.ToString("0.00") Hr
-                                            </div> }
-                                        @*else
-                                            {
-                                                <div class="emp-ticketing-response-time">
-                                                    Response Time: N/A
-                                                </div>}*@
+                                            </div>
+                                        }*@
+
+                                        @{
+                                            TimeSpan responseTime = new TimeSpan();
+                                            int totalHours = 0;
+                                            int totalMinutes = 0;
+                                            var isVisible = "visibility: hidden;";
+                                        }
+
+                                        @if (ticket.ResponseTime != null && ticket.ResponseTime.HasValue)
+                                        {
+                                            responseTime = TimeSpan.FromSeconds(ticket.ResponseTime.Value);
+                                            totalHours = (int)responseTime.TotalHours;
+                                            totalMinutes = responseTime.Minutes;
+                                            isVisible = "";
+                                        }
+
+                                        <div style="@isVisible" class="emp-ticketing-response-time">
+                                            Response Time: @totalHours.ToString("00"):@totalMinutes.ToString("00") Hr
+                                        </div>
+
                                         <div class="emp-ticketing-priority-date">
                                             <span class="emp-ticket-prioritylevel">
                                                 <span class="res-emp-ticketlisting-color @HRMS.Helpers.TicketingHelper.GetPriorityColor(ticket.Priority)"></span>
@@ -181,7 +197,7 @@
                             <button type="submit" class="btn btn-primary btn-apply-emp-tickethistory-comment-submitbtn mb-4">Acknowledge</button>
                         </div>
                     </div>*@
-                <div class="emp-ticketing-commentbox-popup-list">                   
+                <div class="emp-ticketing-commentbox-popup-list">
                 </div>
             </div>
         </div>

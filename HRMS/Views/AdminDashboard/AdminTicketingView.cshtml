@@ -131,16 +131,23 @@
                                     </td>
                                     <td style="width: 400px" class="res-admin-it-ticketlisting-priority">
 
+                                        @{
+                                            TimeSpan responseTime = new TimeSpan();
+                                            int totalHours = 0;
+                                            int totalMinutes = 0;
+                                            var isVisible = "visibility: hidden;";
+                                        }
+
                                         @if (ticket.ResponseTime != null && ticket.ResponseTime.HasValue)
                                         {
-                                            TimeSpan responseTime = TimeSpan.FromSeconds(ticket.ResponseTime.Value);
-                                            int totalHours = (int)responseTime.TotalHours;
-                                            int totalMinutes = responseTime.Minutes;
-
-                                            <div class="it-ticketing-response-time">
-                                                Response Time: @totalHours.ToString("00"):@totalMinutes.ToString("00") Hr
-                                            </div>
+                                            responseTime = TimeSpan.FromSeconds(ticket.ResponseTime.Value);
+                                            totalHours = (int)responseTime.TotalHours;
+                                            totalMinutes = responseTime.Minutes;
                                         }
+
+                                        <div style="@isVisible" class="it-ticketing-response-time">
+                                            Response Time: @totalHours.ToString("00"):@totalMinutes.ToString("00") Hr
+                                        </div>
 
                                         <div class="it-ticketing-priority-date">
                                             <span class="it-ticket-prioritylevel">
