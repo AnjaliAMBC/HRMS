@@ -10,7 +10,7 @@ using System.Web.Mvc;
 namespace HRMS.Controllers
 {
     using Helpers;
-    public class EmpAttendanceController : Controller
+    public class EmpAttendanceController : BaseController
     {
         // Database context
         private readonly HRMS_EntityFramework _dbContext;

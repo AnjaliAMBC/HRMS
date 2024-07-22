@@ -20,7 +20,7 @@ namespace HRMS.Controllers
 {
     //using HRMS.Helpers;
 
-    public class AccountController : Controller
+    public class AccountController : BaseController
     {
         // Database context
         private readonly HRMS_EntityFramework _dbContext;
@@ -44,12 +44,14 @@ namespace HRMS.Controllers
         //}
 
         [HttpGet]
+        [AllowAnonymous]
         public ActionResult Login()
         {
             Session["SiteContext"] = null;
             return View("~/Views/Account/Login.cshtml");
         }
         [HttpPost]
+        [AllowAnonymous]
         public ActionResult Login(AccountModel loginModel)
         {
             // Check the username and password against your authentication system

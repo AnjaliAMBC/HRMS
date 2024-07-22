@@ -11,7 +11,7 @@ using System.Web.Mvc;
 
 namespace HRMS.Controllers
 {
-    public class AdminDashController : Controller
+    public class AdminDashController : BaseController
     {
         // GET: AdminDash
         private readonly HRMS_EntityFramework _dbContext;

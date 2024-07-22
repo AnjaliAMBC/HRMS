@@ -11,7 +11,7 @@ using System.Web.Mvc;
 
 namespace HRMS.Controllers
 {
-    public class EmpTicketingController : Controller
+    public class EmpTicketingController : BaseController
     {
         private readonly HRMS_EntityFramework _dbContext;
 

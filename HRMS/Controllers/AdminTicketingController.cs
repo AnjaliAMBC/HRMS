@@ -12,7 +12,7 @@ using System.Web.Mvc;
 
 namespace HRMS.Controllers
 {
-    public class AdminTicketingController : Controller
+    public class AdminTicketingController : BaseController
     {
         private readonly HRMS_EntityFramework _dbContext;
 

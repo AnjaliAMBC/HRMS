@@ -14,7 +14,7 @@ using System.Web.Mvc;
 
 namespace HRMS.Controllers
 {
-    public class AdminLeaveController : Controller
+    public class AdminLeaveController : BaseController
     {
         private readonly HRMS_EntityFramework _dbContext;
         public AdminLeaveController()

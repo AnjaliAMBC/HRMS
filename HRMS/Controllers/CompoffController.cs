@@ -12,7 +12,7 @@ namespace HRMS.Controllers
 {
     using static HRMS.Helpers.PartialViewHelper;
 
-    public class CompoffController : Controller
+    public class CompoffController : BaseController
     {
 
         private readonly HRMS_EntityFramework _dbContext;
