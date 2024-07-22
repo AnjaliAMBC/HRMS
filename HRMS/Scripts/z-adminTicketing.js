@@ -595,16 +595,16 @@ function populateModal(ticketdata, modalBody) {
     // Initial details always shown
     html += `
         <div class="admin-it-ticketing-commentbox-list">
-            <div class="col-lg-1 admin-it-ticketing-commentbox-left">
+            <div class="col-lg-1 col-md-1 col-sm-2 admin-it-ticketing-commentbox-left">
                 <img class="userIcon" src="/Assets/EmpImages/${ticket.EmployeeID}.jpeg?${new Date().getTime()}">
                 <div class="vl"></div>
             </div>
-            <span class="col-lg-7 admin-it-ticketing-commentbox-mid">
+            <span class="col-lg-7 col-md-7 col-sm-5 admin-it-ticketing-commentbox-mid">
                 <div class="admin-it-ticketing-commentbox-userinfo">${ticket.EmployeeID} ${ticket.EmployeeName}</div>
                 <div class="admin-it-ticketing-commentbox-status">Open</div>
                 <div class="admin-it-ticketing-commentbox-desc" title="${ticket.Subject}">${ticket.Subject}</div>
             </span>
-            <span class="col-lg-2 admin-it-ticketing-commentbox-right">
+            <span class="col-lg-2 col-md-2 col-sm-2 admin-it-ticketing-commentbox-right">
                 <div class="admin-it-ticketing-commentbox-date">${formattedOpenDate}</div>
             </span>
         </div>
@@ -615,15 +615,15 @@ function populateModal(ticketdata, modalBody) {
         let formattedResolvedDate = ticket.ResolvedDate ? new Date(ticket.ResolvedDate).toLocaleDateString('en-GB') : 'N/A';
         html += `
             <div class="admin-it-ticketing-commentbox-list">
-                <div class="col-lg-1 admin-it-ticketing-commentbox-left">
+                <div class="col-lg-1 col-md-1 col-sm-2 admin-it-ticketing-commentbox-left">
                     <img class="userIcon" src="/Assets/EmpImages/${ticket.Resolved_by}.jpeg?${new Date().getTime()}">
                     <div class="vl"></div>
                 </div>
-                <span class="col-lg-7 admin-it-ticketing-commentbox-mid">
+                <span class="col-lg-7 col-md-7 col-sm-5 admin-it-ticketing-commentbox-mid">
                     <div class="admin-it-ticketing-commentbox-userinfo">${ticket.Resolved_by} ${ticket.ResolvedByName}</div>
                     <div class="admin-it-ticketing-commentbox-status">Resolved</div>
                 </span>
-                <span class="col-lg-2 admin-it-ticketing-commentbox-right">
+                <span class="col-lg-2 col-md-2 col-sm-2 admin-it-ticketing-commentbox-right">
                     <div class="admin-it-ticketing-commentbox-date">${formattedResolvedDate}</div>
                 </span>
             </div>
@@ -634,16 +634,16 @@ function populateModal(ticketdata, modalBody) {
         let formattedReOpenDate = ticket.ReopenedDate ? new Date(ticket.ReopenedDate).toLocaleDateString('en-GB') : 'N/A';
         html += `
             <div class="admin-it-ticketing-commentbox-list">
-                <div class="col-lg-1 admin-it-ticketing-commentbox-left">
+                <div class="col-lg-1 col-md-1 col-sm-2 admin-it-ticketing-commentbox-left">
                     <img class="userIcon" src="/Assets/EmpImages/${ticket.EmployeeID}.jpeg?${new Date().getTime()}">
                     <div class="vl"></div>
                 </div>
-                <span class="col-lg-7 admin-it-ticketing-commentbox-mid">
+                <span class="col-lg-7 col-md-7 col-sm-5 admin-it-ticketing-commentbox-mid">
                     <div class="admin-it-ticketing-commentbox-userinfo">${ticket.EmployeeID} ${ticket.EmployeeName}</div>
                     <div class="admin-it-ticketing-commentbox-status">Re-Open</div>
                     <div class="admin-it-ticketing-commentbox-desc">${ticket.ReopenedComments}</div>
                 </span>
-                <span class="col-lg-2 admin-it-ticketing-commentbox-right">
+                <span class="col-lg-2 col-md-2 col-sm-2 admin-it-ticketing-commentbox-right">
                     <div class="admin-it-ticketing-commentbox-date">${formattedReOpenDate}</div>
                 </span>
             </div>
@@ -654,17 +654,17 @@ function populateModal(ticketdata, modalBody) {
         let formattedClosedDate = ticket.Closed_date ? new Date(ticket.Closed_date).toLocaleDateString('en-GB') : 'N/A';
         html += `
         <div class="admin-it-ticketing-commentbox-list">
-            <div class="col-lg-1 admin-it-ticketing-commentbox-left">
+            <div class="col-lg-1 col-md-1 col-sm-2 admin-it-ticketing-commentbox-left">
                 <img class="userIcon" src="/Assets/EmpImages/${ticket.Closedby}.jpeg?${new Date().getTime()}">
                 <div class="vl"></div>
             </div>
-            <span class="col-lg-7 admin-it-ticketing-commentbox-mid">
+            <span class="col-lg-7 col-md-7 col-sm-5 admin-it-ticketing-commentbox-mid">
                 <div class="admin-it-ticketing-commentbox-userinfo">${ticket.Closedby} ${ticket.ClosedByName}</div>
                 <div class="admin-it-ticketing-commentbox-status">Closed</div>
                 <div class="admin-it-ticketing-commentbox-desc">${ticket.AcknowledgeComments !== null ? ticket.AcknowledgeComments : 'NA'}</div>
                 ${ticket.isacknowledge != null ? '<div><input type="checkbox" checked disabled> Acknowledged</div>' : '<div><input type="checkbox" disabled> Acknowledged</div>'}
             </span>
-            <span class="col-lg-2 admin-it-ticketing-commentbox-right">
+            <span class="col-lg-2 col-md-2 col-sm-2 admin-it-ticketing-commentbox-right">
                 <div class="admin-it-ticketing-commentbox-date">${formattedClosedDate}</div>
             </span>
         </div>
