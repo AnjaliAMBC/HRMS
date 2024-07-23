@@ -842,5 +842,12 @@ namespace HRMS.Controllers
 
             return View("~/Views/AdminDashboard/AdminEmpLeaveCalender.cshtml", AdminLeaveEmpCalenderViewModel);
         }
+
+        
+        public JsonResult GetEmployeeEmails()
+        {
+            var emails = _dbContext.emp_info.Select(e => e.OfficalEmailid).ToList();
+            return Json(emails, JsonRequestBehavior.AllowGet);
+        }
     }
 }
