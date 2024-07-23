@@ -499,8 +499,16 @@
         margin: 0 0%;
     }
 
+    .mobile-view #empticketlistingTable tbody td:nth-child(1) {
+        width: 300px !important;
+    }
+
+    .mobile-view #empticketlistingTable tbody td:nth-child(1) .emp-ticketing-listing-title {
+        width: 250px;
+    }
+
     .mobile-view #empticketlistingTable tbody td:nth-child(3) {
-        width: 120px !important;
+        width: 240px !important;
     }
 
     .mobile-view #empticketlistingTable tbody td:nth-child(4) {
@@ -2793,6 +2801,14 @@
         margin: 0 0%;
     }
 
+    .tablet-view #empticketlistingTable tbody td:nth-child(1) {
+        width: 300px !important;
+    }
+
+    .tablet-view #empticketlistingTable tbody td:nth-child(1) .emp-ticketing-listing-title {
+        width: 250px;
+    }
+
     .tablet-view #empticketlistingTable tbody td:nth-child(3) {
         width: 220px !important;
     }
@@ -3445,7 +3461,7 @@
     }
 
     .emp-self-service .backgroundimg {
-        width: 108.4% !important;
+        width: 105.4% !important;
     }
 
     .main-content.container-fluid {
@@ -3505,6 +3521,10 @@
 
 @media only screen and (min-width:1920px) and (max-width: 2560px) {
 
+    .emp-self-service .backgroundimg {
+        width: 108.4% !important;
+    }
+
     .res-admin-leave .main-content.container-fluid {
         margin-top: 30px !important;
         margin-left: 210px !important;
@@ -3559,4 +3579,25 @@
     #adminhrticketlistingTable tbody td:nth-child(1) {
         width: 600px !important;
     }
+
+    #empticketlistingTable tbody td:nth-child(1) {
+        width: 500px !important;
+    }
+
+    #empticketlistingTable .emp-ticketing-listing-title {
+        width: 390px !important;
+    }
+
+    #empticketlistingTable tbody td:nth-child(2) {
+        width: 400px !important;
+    }
+
+    #empticketlistingTable .emp-ticket-prioritylevel {
+        width: 140px !important;
+    }
+
+    #empticketlistingTable tbody td:nth-child(3) {
+        width: 400px !important;
+    }
+
 }
