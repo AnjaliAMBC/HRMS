@@ -15,7 +15,9 @@ namespace HRMS.Models
         public bool IsValidUser { get; set; }
         public string GCaptcha { get; set; }
         public bool IsAdmin { get; set; }
+        public bool IsSuperAdmin { get; set; }
         public bool IsUser { get; set; }
+        public bool IsITAdmin { get; set; }
     }
 
     public class ForgotPasswordModel

@@ -59,6 +59,7 @@
     <link href="~/Content/Z-applyLeave.css" rel="stylesheet" />
     <link href="~/Content/z-responsive.css" rel="stylesheet" />
     <link href="~/Content/z-style.css" rel="stylesheet" />
+    <link href="~/Content/z-Adminticketting.css" rel="stylesheet" />
     <script src="~/Scripts/z-adminLeave.js"></script>
     <script src="~/Scripts/z-custom.js"></script>
     <script src="~/Scripts/z-empTicketing.js"></script>
@@ -76,11 +77,13 @@
     <div class="progress-container show-progress" style="display: none">
         <div class="progressloader">
             <div class="progress-body">
-                <img src="~/Assets/AMBCLoader.png" width="50" alt="Company Logo">
+                <div class="spinner"></div>
             </div>
             <div class="progress-text">Loading...</div>
         </div>
     </div>
+
+
 
     @RenderBody()
     @{
@@ -116,7 +119,7 @@
             // Get the current URL path
             var currentUrl = window.location.pathname;
 
-            if (currentUrl == "/adminticketing/gethrticketdetails") {
+            if (currentUrl.toLocaleLowerCase() == "/adminticketing/gethrticketdetails" || currentUrl.toLocaleLowerCase() == "/adminticketing/getitticketdetails") {
                 return;
             }
 

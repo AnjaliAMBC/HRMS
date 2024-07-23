@@ -14,12 +14,18 @@
 
     var ticketigSidebarShow = "display: none";
     var highliateHRTicketing = "";
-    if (pageUrlPath.Contains("/adminticketing/itticketing") || pageUrlPath.Contains("/adminticketing/hrticketing") || pageUrlPath.Contains("/adminticketing/gethrticketdetails"))
+    var highliateITTicketing = "";
+    if (pageUrlPath.Contains("/adminticketing/itticketing") || pageUrlPath.Contains("/adminticketing/hrticketing") || pageUrlPath.Contains("/adminticketing/gethrticketdetails") || pageUrlPath.Contains("/adminticketing/getitticketdetails"))
     {
         ticketigSidebarShow = "display: block";
         if (pageUrlPath.Contains("/adminticketing/gethrticketdetails"))
         {
             highliateHRTicketing = "sidebaractive";
+        }
+
+        if (pageUrlPath.Contains("/adminticketing/getitticketdetails"))
+        {
+            highliateITTicketing = "sidebaractive";
         }
     }
 
@@ -29,51 +35,60 @@
     <div class="col-md-2">
         <div class="sidebar" style="top: 56px !important">
             <ul id="admindash-menu">
-                <li class="mb-2 @(pageUrlPath.Contains("/admindash/index") ? "active sidebaractive" : "")">
-                    <a href="/admindash/index" class="@(pageUrlPath == "/admindash/index" ? "active" : "")">
-                        <span class="material-icons dash-icon">dashboard</span>Dashboard
-                    </a>
-                </li>
-                <li class="mb-2 @(pageUrlPath.Contains("/admindashboard/employeemanagement") ? "active sidebaractive" : "")">
-                    <a href="/admindashboard/employeemanagement" class="@(pageUrlPath == "/admindashboard/employeemanagement" ? "active" : "")">
-                        <span class="material-icons self-icon">groups</span>Employee
-                    </a>
-                </li>
-                <li class="mb-2 @(pageUrlPath.Contains("/adminattendance/attendance") ? "active sidebaractive" : "")">
-                    <a href="/adminattendance/attendance" class="@(pageUrlPath == "/adminattendance/attendance" ? "active" : "")">
-                        <span class="material-icons attendance-icon">calendar_month</span>Attendance
-                    </a>
-                </li>
 
+                @if (currentContext.IsAdmin || currentContext.IsSuperAdmin)
+                {
+                    <li class="mb-2 @(pageUrlPath.Contains("/admindash/index") ? "active sidebaractive" : "")">
+                        <a href="/admindash/index" class="@(pageUrlPath == "/admindash/index" ? "active" : "")">
+                            <img class="menu-icon" src="~/Assets/Icons/Dashboard.png" />Dashboard
+                        </a>
+                    </li>
+                    <li class="mb-2 @(pageUrlPath.Contains("/admindashboard/employeemanagement") ? "active sidebaractive" : "")">
+                        <a href="/admindashboard/employeemanagement" class="@(pageUrlPath == "/admindashboard/employeemanagement" ? "active" : "")">
+                            <img class="menu-icon" src="~/Assets/Icons/Employee.png" />Employee
+                        </a>
+                    </li>
+                    <li class="mb-2 @(pageUrlPath.Contains("/adminattendance/attendance") ? "active sidebaractive" : "")">
+                        <a href="/adminattendance/attendance" class="@(pageUrlPath == "/adminattendance/attendance" ? "active" : "")">
+                            <img class="menu-icon" src="~/Assets/Icons/Attendance.png" />Attendance
+                        </a>
+                    </li>
+                    <li class="admin-leave-main-menu sidebar-dropdown mb-2 @(pageUrlPath.Contains("/adminleave/index") ? "active sidebaractive" : "")">
+                        <a href="#" class="@(pageUrlPath == "/adminleave/index" ? "active" : "")">
+                            <img class="menu-icon" src="~/Assets/Icons/Leave.png" />Leave
+                            <i class="fa fa-chevron-down pull-right side-menubar-updown"></i>
+                        </a>
+                        <div class="sidebar-submenu" style="@leaveSidebarShow">
+                            <ul>
+                                <li><a href="/adminleave/index"><span class="menu-bar-design-red"></span>Leave Tracker</a></li>
+                                <li><a href="/adminleave/adminleavehistory" class="adminleave-history"><span class="menu-bar-design-blue"></span>Leave History</a></li>
+                                <li><a href="/adminleave/adminleavebalance" class="adminleave-Balanve-link"><span class="menu-bar-design-chocolate"></span>Leave Balance</a></li>
+                                <li><a href="/adminleave/adminleavecompensatoryoff" class="adminleave-CompOff-link "><span class="menu-bar-design-darkcyan"></span>CompOff Request</a></li>
+                                @*<li><a class="adminside-leaveapply"><span class="menu-bar-design-slategrey"></span>Apply Leave</a></li>*@
+                            </ul>
+                        </div>
+                    </li>
+                }
 
-                <li class="admin-leave-main-menu sidebar-dropdown mb-2 @(pageUrlPath.Contains("/adminleave/index") ? "active sidebaractive" : "")">
-                    <a href="#" class="@(pageUrlPath == "/adminleave/index" ? "active" : "")">
-                        <span class="material-icons leave-icon-emp">logout</span>Leave
-                        <i class="fa fa-chevron-down pull-right side-menubar-updown"></i>
-                    </a>
-                    <div class="sidebar-submenu" style="@leaveSidebarShow">
-                        <ul>
-                            <li><a href="/adminleave/index"><span class="menu-bar-design-red"></span>Leave Tracker</a></li>
-                            <li><a href="/adminleave/adminleavehistory" class="adminleave-history"><span class="menu-bar-design-blue"></span>Leave History</a></li>
-                            <li><a href="/adminleave/adminleavebalance" class="adminleave-Balanve-link"><span class="menu-bar-design-chocolate"></span>Leave Balance</a></li>
-                            <li><a href="/adminleave/adminleavecompensatoryoff" class="adminleave-CompOff-link "><span class="menu-bar-design-darkcyan"></span>CompOff Request</a></li>
-                            @*<li><a class="adminside-leaveapply"><span class="menu-bar-design-slategrey"></span>Apply Leave</a></li>*@
-                        </ul>
-                    </div>
-                </li>
+                @if (currentContext.IsAdmin || currentContext.IsSuperAdmin || currentContext.IsITAdmin)
+                {
+                    <li class="admin-ticket-main-menu sidebar-dropdown mb-2 @(pageUrlPath.Contains("/adminticketting/index") ? "active sidebaractive" : "")">
+                        <a href="#" class="@(pageUrlPath == "/adminticketting/index" ? "active" : "")">
+                            <img class="menu-icon" src="~/Assets/Icons/Ticketing.png" />Ticketing
+                            <i class="fa fa-chevron-down pull-right side-menubar-updown"></i>
+                        </a>
+                        <div class="sidebar-submenu" style="@ticketigSidebarShow">
+                            <ul>
+                                <li class="@highliateITTicketing"><a href="/adminticketing/itticketing"><span class="menu-bar-design-red"></span>IT Ticketing</a></li>
 
-                <li class="admin-ticket-main-menu sidebar-dropdown mb-2 @(pageUrlPath.Contains("/adminticketting/index") ? "active sidebaractive" : "")">
-                    <a href="#" class="@(pageUrlPath == "/adminticketting/index" ? "active" : "")">
-                        <span class="material-icons ticket-icon">laptop_chromebook</span>Ticketing
-                        <i class="fa fa-chevron-down pull-right side-menubar-updown"></i>
-                    </a>
-                    <div class="sidebar-submenu" style="@ticketigSidebarShow">
-                        <ul>
-                            <li><a href="/adminticketing/itticketing"><span class="menu-bar-design-red"></span>IT Ticketing</a></li>
-                            <li class="@highliateHRTicketing"><a href="/adminticketing/hrticketing" class=""><span class="menu-bar-design-blue"></span>HR Ticketing</a></li>
-                        </ul>
-                    </div>
-                </li>
+                                @if (currentContext.IsAdmin || currentContext.IsSuperAdmin)
+                                {
+                                    <li class="@highliateHRTicketing"><a href="/adminticketing/hrticketing" class=""><span class="menu-bar-design-blue"></span>HR Ticketing</a></li>
+                                }
+                            </ul>
+                        </div>
+                    </li>
+                }
             </ul>
         </div>
     </div>
@@ -87,7 +102,7 @@
 
                     @if (!string.IsNullOrWhiteSpace(currentContext.EmpInfo.imagepath))
                     {
-                        var empImageURl = System.Configuration.ConfigurationManager.AppSettings["EmpImagesFolder"] + "/" + currentContext.EmpInfo.imagepath;
+                        var empImageURl = System.Configuration.ConfigurationManager.AppSettings["EmpImagesFolder"] + "/" + currentContext.EmpInfo.imagepath + "?" + System.DateTime.Now;
                         <img src="@empImageURl" alt="Employee Image" class="profile img-fluid nav-image-profile">
                     }
                     else
@@ -111,34 +126,57 @@
                 </div>
             </div>
             <ul id="admindash-menu" style="list-style-type: none;">
-                <li class="mb-2 @(pageUrlPath.Contains("/admindash/index") ? "active sidebaractive" : "")">
-                    <a href="/admindash/index" class="@(pageUrlPath == "/admindash/index" ? "active" : "")">
-                        <span class="material-icons dash-icon">dashboard</span>Dashboard
-                    </a>
-                </li>
-                <li class="mb-2 @(pageUrlPath.Contains("/admindashboard/employeemanagement") ? "active sidebaractive" : "")">
-                    <a href="/admindashboard/employeemanagement" class="@(pageUrlPath == "/admindashboard/employeemanagement" ? "active" : "")">
-                        <span class="material-icons self-icon">groups</span>Employee
-                    </a>
-                </li>
-                <li class="mb-2 @(pageUrlPath.Contains("/adminattendance/attendance") ? "active sidebaractive" : "")">
-                    <a href="/adminattendance/attendance" class="@(pageUrlPath == "/adminattendance/attendance" ? "active" : "")">
-                        <span class="material-icons attendance-icon">calendar_month</span>Attendance
-                    </a>
-                </li>
-                <li class="mb-2 @(pageUrlPath.Contains("/adminleave/index") ? "active sidebaractive" : "")">
-                    <a href="/adminleave/index" class="@(pageUrlPath == "/adminleave/index" ? "active" : "")">
-                        <span class="material-icons leave-icon-emp">logout</span>Leave
-                    </a>
-                </li>
-                <li class="mb-2 @(pageUrlPath.Contains("/adminitticketting/index") ? "active sidebaractive" : "")">
-                    <a href="/adminticketting/index" class="@(pageUrlPath == "/adminticketting/index" ? "active" : "")">
-                        <span class="material-icons ticket-icon">laptop_chromebook</span>Ticketing
-                    </a>
-                </li>
+                @if (currentContext.IsAdmin || currentContext.IsSuperAdmin)
+                {
+                    <li class="mb-2 @(pageUrlPath.Contains("/admindash/index") ? "active sidebaractive" : "")">
+                        <a href="/admindash/index" class="@(pageUrlPath == "/admindash/index" ? "active" : "")">
+                            <img class="menu-icon" src="~/Assets/Icons/Dashboard.png" />Dashboard
+                        </a>
+                    </li>
+                    <li class="mb-2 @(pageUrlPath.Contains("/admindashboard/employeemanagement") ? "active sidebaractive" : "")">
+                        <a href="/admindashboard/employeemanagement" class="@(pageUrlPath == "/admindashboard/employeemanagement" ? "active" : "")">
+                            <img class="menu-icon" src="~/Assets/Icons/Employee.png" />Employee
+                        </a>
+                    </li>
+                    <li class="mb-2 @(pageUrlPath.Contains("/adminattendance/attendance") ? "active sidebaractive" : "")">
+                        <a href="/adminattendance/attendance" class="@(pageUrlPath == "/adminattendance/attendance" ? "active" : "")">
+                            <img class="menu-icon" src="~/Assets/Icons/Attendance.png" />Attendance
+                        </a>
+                    </li>
+                    <li class="admin-leave-main-menu sidebar-dropdown mb-2 @(pageUrlPath.Contains("/adminleave/index") ? "active sidebaractive" : "")">
+                        <a href="#" class="@(pageUrlPath == "/adminleave/index" ? "active" : "")">
+                            <img class="menu-icon" src="~/Assets/Icons/Leave.png" />Leave
+                            <i class="fa fa-chevron-down pull-right side-menubar-updown"></i>
+                        </a>
+                        <div class="sidebar-submenu" style="@leaveSidebarShow">
+                            <ul>
+                                <li><a href="/adminleave/index"><span class="menu-bar-design-red"></span>Leave Tracker</a></li>
+                                <li><a href="/adminleave/adminleavehistory" class="adminleave-history"><span class="menu-bar-design-blue"></span>Leave History</a></li>
+                                <li><a href="/adminleave/adminleavebalance" class="adminleave-Balanve-link"><span class="menu-bar-design-chocolate"></span>Leave Balance</a></li>
+                                <li><a href="/adminleave/adminleavecompensatoryoff" class="adminleave-CompOff-link "><span class="menu-bar-design-darkcyan"></span>CompOff Request</a></li>
+                                @*<li><a class="adminside-leaveapply"><span class="menu-bar-design-slategrey"></span>Apply Leave</a></li>*@
+                            </ul>
+                        </div>
+                    </li>
+                }
+                @if (currentContext.IsAdmin || currentContext.IsSuperAdmin || currentContext.IsITAdmin)
+                {
+                    <li class="admin-ticket-main-menu sidebar-dropdown mb-2 @(pageUrlPath.Contains("/adminitticketting/index") ? "active sidebaractive" : "")">
+                        <a href="#" class="@(pageUrlPath == "/adminticketting/index" ? "active" : "")">
+                            <img class="menu-icon" src="~/Assets/Icons/Ticketing.png" />Ticketing
+                            <i class="fa fa-chevron-down pull-right side-menubar-updown"></i>
+                        </a>
+                        <div class="sidebar-submenu" style="@ticketigSidebarShow">
+                            <ul>
+                                <li class="@highliateITTicketing"><a href="/adminticketing/itticketing"><span class="menu-bar-design-red"></span>IT Ticketing</a></li>
+                                <li class="@highliateHRTicketing"><a href="/adminticketing/hrticketing" class=""><span class="menu-bar-design-blue"></span>HR Ticketing</a></li>
+                            </ul>
+                        </div>
+                    </li>
+                }
             </ul>
             <ul id="logout_sidebar_button" class="nav nav-sidebar">
-                <li><a href="#">Sign Out</a></li>
+                <li><a onclick="signOut()">Sign Out</a></li>
             </ul>
         </div>
     </div>

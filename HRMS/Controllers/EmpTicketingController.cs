@@ -1,5 +1,6 @@
 ﻿using HRMS.Helpers;
 using HRMS.Models;
+using HRMS.Models.Employee;
 using System;
 using System.Collections.Generic;
 using System.Configuration;
@@ -10,7 +11,7 @@ using System.Web.Mvc;
 
 namespace HRMS.Controllers
 {
-    public class EmpTicketingController : Controller
+    public class EmpTicketingController : BaseController
     {
         private readonly HRMS_EntityFramework _dbContext;
 
@@ -26,7 +27,7 @@ namespace HRMS.Controllers
             var cuserContext = SiteContext.GetCurrentUserContext();
             var employeeId = cuserContext.EmpInfo.EmployeeID;
 
-            var employeeTickets = _dbContext.IT_Ticket.Where(t => t.EmployeeID == employeeId).ToList();
+            var employeeTickets = _dbContext.IT_Ticket.Where(t => t.EmployeeID == employeeId).OrderByDescending(x => x.Created_date).ToList();
             model.empTickets = employeeTickets;
             return View("~/Views/EmployeeDashboard/EmpTicketing.cshtml", model);
         }
@@ -86,8 +87,10 @@ namespace HRMS.Controllers
                     };
 
                     // Save the model to the database
-                    _dbContext.IT_Ticket.Add(ticketModel);
+                    var raisedTicket = _dbContext.IT_Ticket.Add(ticketModel);
                     _dbContext.SaveChanges();
+
+                    TicketingHelper.SendTicketConfirmationEmail(raisedTicket);
 
                     return Json(new { success = true });
                 }
@@ -113,6 +116,8 @@ namespace HRMS.Controllers
                 {
                     cancellTicket.Status = status;
                     _dbContext.SaveChanges();
+
+                    TicketingHelper.SendTicketConfirmationEmail(cancellTicket);
                 }
                 return Json(new { success = true });
             }
@@ -122,8 +127,40 @@ namespace HRMS.Controllers
             }
         }
 
+        public JsonResult TicketStatusChangeByEmp(int ticketName, string status, string comments, string updateby, string updatebyID)
+        {
+            try
+            {
+                var ticket = _dbContext.IT_Ticket.Where(x => x.TicketNo == ticketName).FirstOrDefault();
+                if (ticket != null)
+                {
+                    if (status == "Re-Open")
+                    {
+                        ticket.Status = "Re-Open";
+                        ticket.ReopenedComments = comments;
+                        ticket.ReopenedDate = DateTime.Now;
+                        ticket.ResolvedByName = updateby;
+                    }
 
-    
+                    if (status == "Closed")
+                    {
+                        ticket.Status = "Closed";
+                        ticket.AcknowledgeComments = comments;
+                        ticket.isacknowledge = "true";
+                        ticket.Closed_date = DateTime.Now;
+                        ticket.ClosedByName = updateby;
+                        ticket.Closedby = updatebyID;
+                    }
 
+                    _dbContext.SaveChanges();
+                    TicketingHelper.SendTicketConfirmationEmail(ticket);
+                }
+                return Json(new { success = true });
+            }
+            catch (Exception ex)
+            {
+                return Json(new { success = false, message = ex.Message });
+            }
+        }
     }
 }

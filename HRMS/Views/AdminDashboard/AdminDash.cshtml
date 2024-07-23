@@ -24,7 +24,7 @@
                         <div class="row">
                             <div class="col-12 col-sm-11 col-md-6 col-lg-4 col-xl-4 p-0 dashcard_style">
                                 <!-- Leave Request Section -->
-                                <div class="card leave-requests mx-2">
+                                <div class="card leave-requests mx-2 my-card">
                                     <div class="card-header">
                                         @{
                                             var filteredLeaveRequests = adminLocations.Any()
@@ -40,7 +40,7 @@
                                                 <li class="list-group-item p-0">
                                                     <div class="leave-info">
                                                         @{
-                                                            var empImagePath = "/Assets/EmpImages/" + leave.LatestLeave.employee_id + ".jpeg";
+                                                            var empImagePath = "/Assets/EmpImages/" + leave.LatestLeave.employee_id + ".jpeg" + "?" + System.DateTime.Now;
                                                         }
                                                         <img src="@empImagePath" alt="emp name" class="rounded-circle">
                                                         <div class="leave-text mt-2">
@@ -85,39 +85,45 @@
                             </div>
                             <div class="col-12 col-sm-11 col-md-6 col-lg-4 col-xl-4 p-0 dashcard_style">
                                 <!-- Announcements Section -->
-                                <div class="card mx-2">
+                                <div class="card mx-2 my-card">
                                     <div class="card-header">
                                         HR Tickets
                                     </div>
                                     <div class="card-body admindash_card scrollbar px-4 py-1 announcement_card">
-                                        @*<form>
-                                                <div class="form-group mb-2">
-                                                    <label for="subject" class="m-0">Subject</label>
-                                                    <input type="text" class="form-control" id="subject" placeholder="Enter subject">
-                                                </div>
-                                                <div class="form-group mb-2">
-                                                    <label for="description" class="m-0">Description</label>
-                                                    <textarea class="form-control" id="description" rows="3" placeholder="Describe the announcement in few words."></textarea>
-                                                </div>
-                                                <div class="form-group mb-2">
-                                                    <label for="to" class="m-0">To</label>
-                                                    <input type="text" class="form-control" id="to" placeholder="Enter recipients">
-                                                </div>
-                                                <button type="submit" class="btn btn-primary d-flex ml-auto px-4 py-1">Send</button>
-                                            </form>*@
+                                        @foreach (var hrTicket in Model.AllHRTickets)
+                                        {
+                                            <p class="m-0 p-0">@hrTicket.Subject</p>
+                                            <div class="d-flex inside_content">
+                                                <p class="mutedText"><i class="fa-solid fa-circle-exclamation mr-1"></i>Priority-</p>
+                                                <p class="status-priority">High</p>
 
-                                        <p class="m-0 p-0">Can't able to apply leave'</p>
-                                        <div class="d-flex inside_content">
-                                            <p class="mutedText"><i class="fa-solid fa-circle-exclamation mr-1"></i>Priority-</p>
-                                            <p class="status-priority">High</p>
-                                            <p class="mutedText ml-3"><i class="fa-solid fa-user mr-1"></i>Closed by subhashini</p>
-                                        </div>
+                                                @if (hrTicket.Status == "Open")
+                                                {
+                                                    <p class="mutedText ml-3"><i class="fa-solid fa-user mr-1"></i>Open By: @hrTicket.EmployeeName</p>
+                                                }
+                                                else if (hrTicket.Status == "ReOpen")
+                                                {
+                                                    <p class="mutedText ml-3"><i class="fa-solid fa-user mr-1"></i>Re-Open By: @hrTicket.EmployeeName</p>
+
+                                                }
+                                                else if (hrTicket.Status == "Resolved")
+                                                {
+                                                    <p class="mutedText ml-3"><i class="fa-solid fa-user mr-1"></i>Resolved By: @hrTicket.EmployeeName</p>
+
+                                                }
+                                                else if (hrTicket.Status == "Closed")
+                                                {
+                                                    <p class="mutedText ml-3"><i class="fa-solid fa-user mr-1"></i>Closed By: @hrTicket.EmployeeName</p>
+                                                }
+                                            </div>
+
+                                        }
                                     </div>
                                 </div>
                             </div>
                             <div class="col-12 col-sm-11 col-md-6 col-lg-4 col-xl-4 p-0 dashcard_style">
                                 <!-- Calendar Section -->
-                                <div class="card mx-2">
+                                <div class="card mx-2 my-card">
                                     <!--<div class="card-header">
                                         January 2024
                                     </div>
@@ -157,7 +163,7 @@
                             </div>
                             <div class="col-12 col-sm-11 col-md-6 col-lg-4 col-xl-4 p-0 dashcard_style">
                                 <!-- Birthdays Section -->
-                                <div class="card mx-2">
+                                <div class="card mx-2 my-card">
                                     <div class="card-header">
                                         Birthdays
                                     </div>
@@ -176,7 +182,7 @@
 
                                                 @foreach (var empBirthday in Model.BirthModel)
                                                 {
-                                                    var empImageURl = System.Configuration.ConfigurationManager.AppSettings["EmpImagesFolder"] + "/" + empBirthday.imagePath;
+                                                    var empImageURl = System.Configuration.ConfigurationManager.AppSettings["EmpImagesFolder"] + "/" + empBirthday.imagePath + "?" + System.DateTime.Now;
 
                                                     <li class="list-group-item p-0">
                                                         <div class="d-flex align-items-center mb-3">
@@ -196,7 +202,7 @@
                             </div>
                             <div class="col-12 col-sm-11 col-md-6 col-lg-4 col-xl-4 p-0 dashcard_style">
                                 <!-- Anniversaries Section -->
-                                <div class="card mx-2">
+                                <div class="card mx-2 my-card">
                                     <div class="card-header">
                                         Anniversaries
                                     </div>
@@ -212,7 +218,7 @@
                                         {
                                             foreach (var employeeAnniversary in Model.AnniversaryModel)
                                             {
-                                                var empAnniversaryImageURl = System.Configuration.ConfigurationManager.AppSettings["EmpImagesFolder"] + "/" + @employeeAnniversary.imagePath;
+                                                var empAnniversaryImageURl = System.Configuration.ConfigurationManager.AppSettings["EmpImagesFolder"] + "/" + @employeeAnniversary.imagePath + "?" + System.DateTime.Now;
 
                                                 <ul class="list-group list-group-flush">
                                                     <li class="list-group-item p-0">
@@ -233,7 +239,7 @@
 
                             <div class="col-12 col-sm-11 col-md-6 col-lg-4 col-xl-4 p-0 dashcard_style">
                                 <!-- Upcoming Holidays Section -->
-                                <div class="card mx-2">
+                                <div class="card mx-2 my-card">
                                     <div class="card-header">
                                         Upcoming Holidays
                                     </div>

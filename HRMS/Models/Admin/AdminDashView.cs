@@ -17,6 +17,8 @@ namespace HRMS.Models.Admin
         public Dictionary<int, int> CompoffApplied = new Dictionary<int, int>();
 
         public List<LeaveInfo> AllEMployeeLeaves = new List<LeaveInfo>();
+
+        public List<IT_Ticket> AllHRTickets = new List<IT_Ticket>();
     }
     //public class AnniversaryModel
     //{

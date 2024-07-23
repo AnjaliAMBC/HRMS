@@ -13,7 +13,7 @@ namespace HRMS.Controllers
     using Helpers;
     using System.Configuration;
 
-    public class EmployeeDashboardController : Controller
+    public class EmployeeDashboardController : BaseController
     {
         // Database context
         private readonly HRMS_EntityFramework _dbContext;

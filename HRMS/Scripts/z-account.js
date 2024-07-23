@@ -93,6 +93,12 @@ $(document).ready(function () {
                             return;
                         }
 
+                        if (data.IsITAdmin == true) {
+                            $('.error-message').hide();
+                            window.location.href = "/adminticketing/itticketing";
+                            return;
+                        }                        
+
                         if (data.IsUser == true) {
                             $('.error-message').hide();
                             window.location.href = "/empDash/index";

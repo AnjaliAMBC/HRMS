@@ -517,7 +517,7 @@ function GetEmpLeaveHistory() {
                         <td style="width: 420px;" class="fontSmall commentSec">
                             <div class="dFlex d-flex">
                                 <i class="fa-solid fa-message chatIcon mt-1 mr-2"></i>
-                                <p>${item.LatestLeave.leave_reason}</p>
+                                <p title="${item.LatestLeave.leave_reason}">${item.LatestLeave.leave_reason}</p>
                             </div>                            
                         </td>
                         <td class="fontSmall position-relative">
@@ -607,7 +607,7 @@ function GetCompOffHistory() {
                 <td style="width: 420px;" class="fontSmall commentSec">
                     <div class="dFlex d-flex">
                         <i class="fa-solid fa-message chatIcon mt-1 mr-2"></i>
-                        <p>${item.Reason}</p>
+                        <p title="${item.Reason}">${item.Reason}</p>
                     </div>
                 </td>
                 <td class="fontSmall position-relative compoff-actions">

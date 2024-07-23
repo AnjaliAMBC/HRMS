@@ -8,7 +8,7 @@
 }
 
 @Html.Partial("_NavBar")
-<div class="container-fluid res-admin-Ticketing">
+<div class="container-fluid res-admin-leave">
     <div class="hiddenadmindashboard" style="display: none"></div>
     @Html.Partial("_adminsidemenu")
     <div class="main-content container-fluid" style="width: 84%">
@@ -198,7 +198,7 @@
                 <div class="container-fluid">
                     <div class="row">
                         <div class="col-sm-12 col-md-12 col-lg-3 res-adminleave-header-left">
-                            <h5>Leave Request</h5>
+                            <h4>Leave Request</h4>
                         </div>
 
                         <div class="col-sm-12 col-md-12 col-lg-9 d-flex justify-content-end res-adminleave-header-right">
@@ -299,7 +299,7 @@
                                             <div class="userLeaveDetails">
 
                                                 @{
-                                                    var empImagePath = "/Assets/EmpImages/" + leaveemp.LatestLeave.employee_id + ".jpeg";
+                                                    var empImagePath = "/Assets/EmpImages/" + leaveemp.LatestLeave.employee_id + ".jpeg" + "?" + System.DateTime.Now;
                                                 }
                                                 <img src="@empImagePath"
                                                      class="userIcon"
@@ -326,10 +326,10 @@
                                             <div class="mutedText">Location</div>
                                             <span class="fontWtbold">@leaveemp.LatestLeave.Location</span>
                                         </td>
-                                        <td style="width:280px;" class="fontSmall commentSec">
+                                        <td style="width:280px;" class="admin-leaverequest-reasons fontSmall commentSec">
                                             <div class="dFlex">
                                                 <i class="fa-solid fa-message chatIcon"></i>
-                                                <p>
+                                                <p title=" @leaveemp.LatestLeave.leave_reason">
                                                     @leaveemp.LatestLeave.leave_reason
                                                 </p>
                                             </div>

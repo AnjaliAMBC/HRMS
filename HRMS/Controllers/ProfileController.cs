@@ -5,7 +5,7 @@ using System.Web.Security;
 
 namespace HRMS.Controllers
 {
-    public class ProfileController : Controller
+    public class ProfileController : BaseController
     {
 
         private readonly HRMS_EntityFramework _dbContext;

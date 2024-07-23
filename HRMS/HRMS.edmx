@@ -179,13 +179,15 @@
           <Property Name="Created_date" Type="datetime" />
           <Property Name="Closed_date" Type="datetime" />
           <Property Name="Closedby" Type="varchar" MaxLength="255" />
-          <Property Name="ResponseTime" Type="time" Precision="7" />
           <Property Name="Location" Type="varchar" MaxLength="150" Nullable="false" />
           <Property Name="Resolved_by" Type="varchar" MaxLength="255" />
           <Property Name="ResolvedDate" Type="datetime" />
           <Property Name="ReopenedDate" Type="datetime" />
           <Property Name="ReopenedComments" Type="varchar" MaxLength="255" />
           <Property Name="AcknowledgeComments" Type="varchar" MaxLength="255" />
+          <Property Name="ResponseTime" Type="bigint" />
+          <Property Name="ClosedByName" Type="varchar" MaxLength="500" />
+          <Property Name="ResolvedByName" Type="varchar" MaxLength="500" />
         </EntityType>
         <EntityType Name="LeaveBalance">
           <Key>
@@ -343,8 +345,8 @@ warning 6002: The table/view 'HRMS_PortalDev1.dbo.CheckInView' does not have a p
           <EntitySet Name="LeaveBalances" EntityType="HRMS_EntityModel.LeaveBalance" />
           <EntitySet Name="Compoffs" EntityType="HRMS_EntityModel.Compoff" />
           <EntitySet Name="con_leaveupdate" EntityType="HRMS_EntityModel.con_leaveupdate" />
-          <EntitySet Name="IT_Ticket" EntityType="HRMS_EntityModel.IT_Ticket" />
           <EntitySet Name="Locations" EntityType="HRMS_EntityModel.Location" />
+          <EntitySet Name="IT_Ticket" EntityType="HRMS_EntityModel.IT_Ticket" />
         </EntityContainer>
         <EntityType Name="Client">
           <Key>
@@ -560,6 +562,13 @@ warning 6002: The table/view 'HRMS_PortalDev1.dbo.CheckInView' does not have a p
           <Property Name="Designation" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
           <Property Name="Department" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
         </EntityType>
+        <EntityType Name="Location">
+          <Key>
+            <PropertyRef Name="Sno" />
+          </Key>
+          <Property Name="Sno" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="LocationName" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+        </EntityType>
         <EntityType Name="IT_Ticket">
           <Key>
             <PropertyRef Name="TicketNo" />
@@ -579,20 +588,15 @@ warning 6002: The table/view 'HRMS_PortalDev1.dbo.CheckInView' does not have a p
           <Property Name="Created_date" Type="DateTime" Precision="3" />
           <Property Name="Closed_date" Type="DateTime" Precision="3" />
           <Property Name="Closedby" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
-          <Property Name="ResponseTime" Type="Time" Precision="7" />
           <Property Name="Location" Type="String" Nullable="false" MaxLength="150" FixedLength="false" Unicode="false" />
           <Property Name="Resolved_by" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
           <Property Name="ResolvedDate" Type="DateTime" Precision="3" />
           <Property Name="ReopenedDate" Type="DateTime" Precision="3" />
           <Property Name="ReopenedComments" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
           <Property Name="AcknowledgeComments" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
-        </EntityType>
-        <EntityType Name="Location">
-          <Key>
-            <PropertyRef Name="Sno" />
-          </Key>
-          <Property Name="Sno" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="LocationName" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+          <Property Name="ResponseTime" Type="Int64" />
+          <Property Name="ClosedByName" Type="String" MaxLength="500" FixedLength="false" Unicode="false" />
+          <Property Name="ResolvedByName" Type="String" MaxLength="500" FixedLength="false" Unicode="false" />
         </EntityType>
       </Schema>
     </edmx:ConceptualModels>
@@ -839,16 +843,26 @@ warning 6002: The table/view 'HRMS_PortalDev1.dbo.CheckInView' does not have a p
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
+          <EntitySetMapping Name="Locations">
+            <EntityTypeMapping TypeName="HRMS_EntityModel.Location">
+              <MappingFragment StoreEntitySet="Location">
+                <ScalarProperty Name="LocationName" ColumnName="LocationName" />
+                <ScalarProperty Name="Sno" ColumnName="Sno" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
           <EntitySetMapping Name="IT_Ticket">
             <EntityTypeMapping TypeName="HRMS_EntityModel.IT_Ticket">
               <MappingFragment StoreEntitySet="IT_Ticket">
+                <ScalarProperty Name="ResolvedByName" ColumnName="ResolvedByName" />
+                <ScalarProperty Name="ClosedByName" ColumnName="ClosedByName" />
+                <ScalarProperty Name="ResponseTime" ColumnName="ResponseTime" />
                 <ScalarProperty Name="AcknowledgeComments" ColumnName="AcknowledgeComments" />
                 <ScalarProperty Name="ReopenedComments" ColumnName="ReopenedComments" />
                 <ScalarProperty Name="ReopenedDate" ColumnName="ReopenedDate" />
                 <ScalarProperty Name="ResolvedDate" ColumnName="ResolvedDate" />
                 <ScalarProperty Name="Resolved_by" ColumnName="Resolved_by" />
                 <ScalarProperty Name="Location" ColumnName="Location" />
-                <ScalarProperty Name="ResponseTime" ColumnName="ResponseTime" />
                 <ScalarProperty Name="Closedby" ColumnName="Closedby" />
                 <ScalarProperty Name="Closed_date" ColumnName="Closed_date" />
                 <ScalarProperty Name="Created_date" ColumnName="Created_date" />
@@ -864,14 +878,6 @@ warning 6002: The table/view 'HRMS_PortalDev1.dbo.CheckInView' does not have a p
                 <ScalarProperty Name="Category" ColumnName="Category" />
                 <ScalarProperty Name="TicketType" ColumnName="TicketType" />
                 <ScalarProperty Name="TicketNo" ColumnName="TicketNo" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="Locations">
-            <EntityTypeMapping TypeName="HRMS_EntityModel.Location">
-              <MappingFragment StoreEntitySet="Location">
-                <ScalarProperty Name="LocationName" ColumnName="LocationName" />
-                <ScalarProperty Name="Sno" ColumnName="Sno" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

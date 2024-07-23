@@ -13,6 +13,8 @@ namespace HRMS.Models.Admin
         public DateTime SelectedEndDate { get; set; }
 
         public List<LeaveInfo> LeavesInfoBasedOnFromAndTodate = new List<LeaveInfo>();
+
+        public List<emp_info> allEmpEmails = new List<emp_info>();
     }
 
 

@@ -46,11 +46,11 @@
                             @foreach (var ticket in Model.empTickets)
                             {
                                 <tr data-ticketnum="@ticket.TicketNo">
-                                    <td style="width: 300px">
+                                    <td style="width: 250px">
                                         <div class="res-emp-ticketlisting-user-details" style="display: flex; align-items: center;">
                                             <i class="emp-ticket-msg-icon fa-regular fa-message"></i>
                                             <span style="margin-top: 0px; margin-right: 10px;">
-                                                <div class="emp-ticketing-listing-title">@ticket.Subject</div>
+                                                <div class="emp-ticketing-listing-title" title="@ticket.Subject" data-ticketnum="@ticket.TicketNo">@ticket.Subject</div>
                                                 <div class="emp-ticketing-listing-details">
                                                     <span class="emp-ticket-id">#@ticket.TicketNo</span>
                                                     <span class="emp-ticket-info"><i class="fa-solid fa-folder" aria-hidden="true"></i> @ticket.TicketType - @ticket.Category</span>
@@ -58,18 +58,34 @@
                                             </span>
                                         </div>
                                     </td>
-                                    <td style="width: 400px" class="res-emp-ticketlisting-priority">
-                                        @if (ticket.Closed_date.HasValue)
+                                    <td style="width: 300px" class="res-emp-ticketlisting-priority">
+                                        @*@if (ticket.Closed_date.HasValue)
                                         {
                                             TimeSpan responseTime = ticket.Closed_date.Value - ticket.Created_date.Value;
                                             <div class="emp-ticketing-response-time">
                                                 Response Time @responseTime.TotalHours.ToString("0.00") Hr
-                                            </div> }
-                                        @*else
-                                            {
-                                                <div class="emp-ticketing-response-time">
-                                                    Response Time: N/A
-                                                </div>}*@
+                                            </div>
+                                        }*@
+
+                                        @{
+                                            TimeSpan responseTime = new TimeSpan();
+                                            int totalHours = 0;
+                                            int totalMinutes = 0;
+                                            var isVisible = "visibility: hidden;";
+                                        }
+
+                                        @if (ticket.ResponseTime != null && ticket.ResponseTime.HasValue)
+                                        {
+                                            responseTime = TimeSpan.FromSeconds(ticket.ResponseTime.Value);
+                                            totalHours = (int)responseTime.TotalHours;
+                                            totalMinutes = responseTime.Minutes;
+                                            isVisible = "";
+                                        }
+
+                                        <div style="@isVisible" class="emp-ticketing-response-time">
+                                            Response Time: @totalHours.ToString("00"):@totalMinutes.ToString("00") Hr
+                                        </div>
+
                                         <div class="emp-ticketing-priority-date">
                                             <span class="emp-ticket-prioritylevel">
                                                 <span class="res-emp-ticketlisting-color @HRMS.Helpers.TicketingHelper.GetPriorityColor(ticket.Priority)"></span>
@@ -89,15 +105,26 @@
 
                                         </div>
                                     </td>
-                                    <td class="res-emp-ticketlisting-location-info">
+                                    <td style="width: 240px" class="res-emp-ticketlisting-location-info">
                                         <div class="emp-ticketing-empty-block"></div>
-                                        @if (ticket.Closedby != null)
-                                        {
-                                            <div class="emp-ticketing-listing-closedby">Closed By <span>@ticket.Closedby</span></div> }
-                                        @*else
+                                        @*@if (ticket.Status == "Open")
                                             {
-                                                <div class="emp-ticketing-listing-closedby">Closed By <span>N/A</span></div>}*@
+                                                <div class="emp-ticketing-listing-openedby">Open By: <span>@ticket.EmployeeName</span></div>
+                                            }
+                                            else if (ticket.Status == "ReOpen")
+                                            {
+                                                <div class="emp-ticketing-listing-reopenedby">Re-Open By: <span>@ticket.EmployeeName</span></div>
+                                            }
+                                            else if (ticket.Status == "Resolved")
+                                            {*@
+                                        <div class="emp-ticketing-listing-closedby">Resolved By: <span>@ticket.ResolvedByName</span></div>
+                                        @*}
+                                            else if (ticket.Status == "Closed")
+                                            {
+                                                <div class="emp-ticketing-listing-closedby">Closed By: <span>@ticket.ResolvedByName</span></div>
+                                            }*@
                                     </td>
+
                                     <td class="res-emp-ticketlisting-status">
                                         <div class="emp-ticketing-empty-block"></div>
                                         <div class="res-empticketlisting-status-level @HRMS.Helpers.TicketingHelper.GetTicketStatusCssClass(ticket.Status)">@ticket.Status</div>
@@ -153,64 +180,25 @@
     <div class="modal-dialog" role="document">
         <div class="modal-content">
             <div class="modal-body">
-
-                <div class="emp-ticketing-commentbox-popup">
-                    <div class="form-group">
-                        <label for="emp-tickethistory-comment-label">Comment</label>
-                        <textarea class="form-control" id="emp-tickethistory-comments"></textarea>
-                    </div>
-                    <div class="emp-tickethistory-comment-submit">
-                        <button type="submit" class="btn btn-apply-emp-tickethistory-comment-reopen mb-4">Re-Open</button>
-                        <button type="submit" class="btn btn-primary btn-apply-emp-tickethistory-comment-submitbtn mb-4">Acknowledge</button>
-                    </div>
+                <div class="modal-header">
+                    <h5 class="modal-title" id="adminHrTicketConfirmCancelModalLabel">Comments</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
                 </div>
+
+                @*<div class="emp-ticketing-commentbox-popup">
+                        <div class="form-group">
+                            <label for="emp-tickethistory-comment-label">Comment</label>
+                            <textarea class="form-control" id="emp-tickethistory-comments"></textarea>
+                        </div>
+                        <div class="emp-tickethistory-comment-submit">
+                            <button type="submit" class="btn btn-apply-emp-tickethistory-comment-reopen mb-4">Re-Open</button>
+                            <button type="submit" class="btn btn-primary btn-apply-emp-tickethistory-comment-submitbtn mb-4">Acknowledge</button>
+                        </div>
+                    </div>*@
                 <div class="emp-ticketing-commentbox-popup-list">
-                    <div class="emp-ticketing-commentbox-list">
-                        <div class="col-lg-1 emp-ticketing-commentbox-left">
-                            <img class="userIcon" src="/Assets/EmpImages/1075.jpeg">
-                            <div class="vl"></div>
-                        </div>
-                        <span class="col-lg-7 emp-ticketing-commentbox-mid">
-                            <div class="emp-ticketing-commentbox-userinfo">1155 Sriram</div>
-                            <div class="emp-ticketing-commentbox-status">Ticket Reopen</div>
-                            <div class="emp-ticketing-commentbox-desc" title="This is dummy text This is dummy text This is dummy text This is dummy text">This is dummy text This is dummy text This is dummy text This is dummy text</div>
-                        </span>
-                        <span class="col-lg-2 emp-ticketing-commentbox-right">
-                            <div class="emp-ticketing-commentbox-date">03 July 2024</div>
-                        </span>
-                    </div>
-
-                    <div class="emp-ticketing-commentbox-list">
-                        <div class="col-lg-1 emp-ticketing-commentbox-left">
-                            <img class="userIcon" src="/Assets/EmpImages/1020.jpeg">
-                            <div class="vl"></div>
-                        </div>
-                        <span class="col-lg-7 emp-ticketing-commentbox-mid">
-                            <div class="emp-ticketing-commentbox-userinfo">1155 Sriram</div>
-                            <div class="emp-ticketing-commentbox-status">Ticket Closed</div>
-                        </span>
-                        <span class="col-lg-2 emp-ticketing-commentbox-right">
-                            <div class="emp-ticketing-commentbox-date">03 July 2024</div>
-                        </span>
-                    </div>
-
-                    <div class="emp-ticketing-commentbox-list">
-                        <div class="col-lg-1 emp-ticketing-commentbox-left">
-                            <img class="userIcon" src="/Assets/EmpImages/1075.jpeg">
-                        </div>
-                        <span class="col-lg-7 emp-ticketing-commentbox-mid">
-                            <div class="emp-ticketing-commentbox-userinfo">1155 Sriram</div>
-                            <div class="emp-ticketing-commentbox-status">Ticket Acknowledge</div>
-                            <div class="emp-ticketing-commentbox-desc" title="This is dummy text This is dummy text This is dummy text This is dummy text">This is dummy text This is dummy text This is dummy text This is dummy text</div>
-                        </span>
-                        <span class="col-lg-2 emp-ticketing-commentbox-right">
-                            <div class="emp-ticketing-commentbox-date">03 July 2024</div>
-                        </span>
-                    </div>
-
                 </div>
-
-
             </div>
         </div>
     </div>
@@ -233,14 +221,6 @@
             });
         }
     });
-
-    function emptickethistorycommentpopup(currentthis) {
-        var ticketName = currentthis.attr("data-ticketname");
-
-        // Show the confirmation modal
-        $('#empTicketCommentsModal').modal('show');
-    }
-
 </script>
 
 <script src="~/Scripts/z-raiseticket.js"></script>

@@ -3,32 +3,38 @@
     var currentContext = Session["SiteContext"] as HRMS.Models.SiteContextModel; }
 
 <div id="left-side-menu-normal" class="row" style="margin-left: -29px;">
+    <style>
+        .sidebar {            
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+                   }
+                       
+    </style>
     <div class="col-md-2">
         <div class="sidebar" style="top: 56px !important">
             <ul id="empdash-menu" style="list-style-type: none;">
                 <li class="mb-2 @(pageUrlPath.Contains("/empdash/index") ? "active sidebaractive" : "")">
                     <a href="/empdash/index" class="@(pageUrlPath == "/empdash/index" ? "active" : "")">
-                        <span class="material-icons dash-icon">dashboard</span>Dashboard
+                        <img class="menu-icon" src="/Assets/Icons/Dashboard.png" />Dashboard
                     </a>
                 </li>
                 <li class="mb-2 @(pageUrlPath.Contains("/employeedashboard/selfservice") ? "active sidebaractive" : "")">
                     <a href="/employeedashboard/selfservice" class="@(pageUrlPath == "/employeedashboard/selfservice" ? "active" : "")">
-                        <span class="material-icons self-icon">groups</span>Employee Details
+                        <img class="menu-icon" src="~/Assets/Icons/Employee.png" />Employee Details
                     </a>
                 </li>
                 <li class="mb-2 @(pageUrlPath.Contains("/empattendance/index") ? "active sidebaractive" : "")">
                     <a href="/EmpAttendance/Index" class="@(pageUrlPath == "/empattendance/Index" ? "active" : "")">
-                        <span class="material-icons attendance-icon">calendar_month</span>Attendance
+                        <img class="menu-icon" src="~/Assets/Icons/Attendance.png" />Attendance
                     </a>
                 </li>
                 <li class="mb-2 @(pageUrlPath.Contains("/empleave/index") ? "active sidebaractive" : "")">
                     <a href="/EmpLeave/Index" class="@(pageUrlPath == "/empleave/Index" ? "active" : "")">
-                        <span class="material-icons leave-icon-emp">logout</span>Leave Tracker
+                        <img class="menu-icon" src="~/Assets/Icons/Leave.png" />Leave Tracker
                     </a>
                 </li>
                 <li class="mb-2 @(pageUrlPath.Contains("/empticketing/index") ? "active sidebaractive" : "")">
                     <a href="/EmpTicketing/Index" class="@(pageUrlPath == "/empticketing/index" ? "active" : "")">
-                        <span class="material-icons ticket-icon">laptop_chromebook</span>Ticketing
+                        <img class="menu-icon" src="~/Assets/Icons/Ticketing.png" />Ticketing
                     </a>
                 </li>
             </ul>
@@ -44,7 +50,7 @@
                 <div class="bl">
                     @if (!string.IsNullOrWhiteSpace(currentContext.EmpInfo.imagepath))
                     {
-                        var empImageURl = System.Configuration.ConfigurationManager.AppSettings["EmpImagesFolder"] + "/" + currentContext.EmpInfo.imagepath;
+                        var empImageURl = System.Configuration.ConfigurationManager.AppSettings["EmpImagesFolder"] + "/" + currentContext.EmpInfo.imagepath + "?" + System.DateTime.Now;
                         <img src="@empImageURl" alt="Employee Image" class="profile img-fluid nav-image-profile">
                     }
                     else
@@ -73,33 +79,33 @@
             <ul id="empdash-menu" style="list-style-type: none;">
                 <li class="mb-2 @(pageUrlPath.Contains("/empdash/index") ? "active sidebaractive" : "")">
                     <a href="/empdash/index" class="@(pageUrlPath == "/empdash/index" ? "active" : "")">
-                        <span class="material-icons dash-icon">dashboard</span>Dashboard
+                        <img class="menu-icon" src="~/Assets/Icons/Dashboard.png" />Dashboard
                     </a>
                 </li>
                 <li class="mb-2 @(pageUrlPath.Contains("/employeedashboard/selfservice") ? "active sidebaractive" : "")">
                     <a href="/employeedashboard/selfservice" class="@(pageUrlPath == "/employeedashboard/selfservice" ? "active" : "")">
-                        <span class="material-icons self-icon">groups</span>Employee Details
+                        <img class="menu-icon" src="~/Assets/Icons/Employee.png" />Employee Details
                     </a>
                 </li>
                 <li class="mb-2 @(pageUrlPath.Contains("/empattendance/Index") ? "active sidebaractive" : "")">
                     <a href="/EmpAttendance/Index" class="@(pageUrlPath == "/empattendance/Index" ? "active" : "")">
-                        <span class="material-icons attendance-icon">calendar_month</span>Attendance
+                        <img class="menu-icon" src="~/Assets/Icons/Attendance.png" />Attendance
                     </a>
                 </li>
                 <li class="mb-2 @(pageUrlPath.Contains("/empleave/index") ? "active sidebaractive" : "")">
                     <a href="/EmpLeave/Index" class="@(pageUrlPath == "/empleave/index" ? "active" : "")">
-                        <span class="material-icons leave-icon-emp">logout</span>Leave Tracker
+                        <img class="menu-icon" src="~/Assets/Icons/Leave.png" />Leave Tracker
                     </a>
                 </li>
                 <li class="mb-2 @(pageUrlPath.Contains("/empticketing/index") ? "active sidebaractive" : "")">
                     <a href="/EmpTicketing/Index" class="@(pageUrlPath == "/empticketing/index" ? "active" : "")">
-                        <span class="material-icons ticket-icon">laptop_chromebook</span>Ticketing
+                        <img class="menu-icon" src="~/Assets/Icons/Ticketing.png" />Ticketing
                     </a>
                 </li>
             </ul>
 
             <ul id="logout_sidebar_button" class="nav nav-sidebar">
-                <li><a href="#">Sign Out</a></li>
+                <li><a onclick="signOut()">Sign Out</a></li>
             </ul>
         </div>
     </div>

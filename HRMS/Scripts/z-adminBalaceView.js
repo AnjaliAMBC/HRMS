@@ -54,10 +54,13 @@ $(document).on('click', '.employeeinfo-balance', function (event) {
             $('.admin-empmanagement-container').html("");
             $('.admin-attendance-container').html("");
             $('.admin-leave-container').html("");
+            $(".admin-leaveBalance-container").html("");
             $(".hiddenadmindashboard").html(response);
             var formContent = $(".hiddenadmindashboard").find(".admin-leaveBalanceUpdate-view").html();
-            $(".admin-leave-container").html(formContent);
-            $('.admin-leave-container').show();
+            // $(".admin-leave-container").html(formContent);
+            $(".admin-leaveBalance-container").html(formContent);
+            $('.admin-leave-container').hide();
+            $(".admin-leaveBalance-container").show();
             $('.admin-attendance-container').hide();
             $('.admin-empmanagement-container').hide();
             $('.admin-emppadd-container').hide();
@@ -337,7 +340,7 @@ $(document).on('click', '.leave-view-history', function (event) {
                 var tableBody = '';
                 var responseJson = $.parseJSON(response);
                 $.each(responseJson.AllEMployeeLeaves, function (index, leaveInfo) {
-                    var empImagePath = "/Assets/EmpImages/" + leaveInfo.LatestLeave.employee_id + ".jpeg";
+                    var empImagePath = "/Assets/EmpImages/" + leaveInfo.LatestLeave.employee_id + ".jpeg" + "?" + new Date().getTime();
                     var createdDate = leaveInfo.LatestLeave.createddate ? new Date(leaveInfo.LatestLeave.createddate).toLocaleDateString('en-GB', { day: 'numeric', month: 'long', year: 'numeric' }) : "No Date Available";
                     var createdDay = leaveInfo.LatestLeave.createddate ? new Date(leaveInfo.LatestLeave.createddate).toLocaleDateString('en-GB', { weekday: 'short' }) : "No Date Available";
                     var fromDate = leaveInfo.LatestLeave.Fromdate ? new Date(leaveInfo.LatestLeave.Fromdate).toLocaleDateString('en-GB', { day: 'numeric', month: 'long', year: 'numeric' }) : "No Date Available";
@@ -433,15 +436,17 @@ $(document).on('click', '.btn-totalleaves-import', function (event) {
             $('.admin-empmanagement-container').html("");
             $('.admin-attendance-container').html("");
             $('.admin-leave-container').html("");
+            $('.admin-leaveBalance-container').html("");
             $(".hiddenadmindashboard").html(response);
             var formContent = $(".hiddenadmindashboard").find(".admin-totalleaveimport-view").html();
-            $(".admin-leave-container").html(formContent);
-            $('.admin-leave-container').show();
+            $(".admin-leaveBalance-container").html(formContent);
+            $('.admin-leave-container').hide();
             $('.admin-attendance-container').hide();
             $('.admin-empmanagement-container').hide();
             $('.admin-emppadd-container').hide();
             $('.admin-dashboard-container').hide();
             $('.admin-ticketing-container').hide();
+            $('.admin-leaveBalance-container').show();
             $(".hiddenadmindashboard").html("");
             $('.show-progress').hide();
         },

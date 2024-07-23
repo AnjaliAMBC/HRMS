@@ -2,6 +2,7 @@
 using HRMS.Models.Admin;
 using System;
 using System.Collections.Generic;
+using System.Data.Entity;
 using System.Linq;
 using System.Net;
 using System.Web;
@@ -10,7 +11,7 @@ using System.Web.Mvc;
 
 namespace HRMS.Controllers
 {
-    public class AdminDashController : Controller
+    public class AdminDashController : BaseController
     {
         // GET: AdminDash
         private readonly HRMS_EntityFramework _dbContext;
@@ -56,6 +57,10 @@ namespace HRMS.Controllers
             model.AllEMployeeLeaves = leavesAppliedToday;
 
             model.Employees = _dbContext.emp_info.ToList();
+
+            model.AllHRTickets = _dbContext.IT_Ticket
+                .Where(x => x.TicketType == "HR" && DbFunctions.TruncateTime(x.Created_date) == DateTime.Today)
+                .ToList();
 
             return View("~/Views/AdminDashboard/AdminDash.cshtml", model);
         }
