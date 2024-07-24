@@ -25,7 +25,7 @@
                             <div class="col-12 col-sm-11 col-md-6 col-lg-4 col-xl-4 p-0 dashcard_style">
                                 <!-- Leave Request Section -->
                                 <div class="card leave-requests mx-2 my-card">
-                                    <div class="card-header">
+                                    <div class="card-header leave-request-Page">
                                         @{
                                             var filteredLeaveRequests = adminLocations.Any()
                                             ? Model.AllEMployeeLeaves.Where(x => adminLocations.Contains(x.LatestLeave.Location))
@@ -45,16 +45,20 @@
                                                         <img src="@empImagePath" alt="emp name" class="rounded-circle">
                                                         <div class="leave-text mt-2">
                                                             <span>@leave.LatestLeave.employee_name</span>
-                                                            @if (leave.Fromdate != leave.Todate)
+                                                            @if (leave.LatestLeave.leavesource == "Hourly Permission")
+                                                            {
+                                                                <small>@leave.LatestLeave.leavesource | @leave.LatestLeave.Fromdate.Value.ToString("dd MMMM yyyy")</small>
+                                                            }
+                                                            else 
                                                             {
                                                                 <small>@leave.LatestLeave.leavesource | @leave.LatestLeave.Fromdate.Value.ToString("dd MMMM yyyy") to @leave.LatestLeave.Todate.Value.ToString("dd MMMM yyyy")</small>
                                                             }
-                                                            else
+                                                            @*else
                                                             {
-                                                                <small>@leave.LatestLeave.leavesource | @leave.LatestLeave.leavedate.Value.ToString("dd MMMM yyyy")</small>
-                                                            }
-
+                                                                <small>@leave.LatestLeave.leavesource | @leave.LatestLeave.Fromdate.Value.ToString("dd MMMM yyyy")</small>
+                                                            }*@
                                                         </div>
+
                                                     </div>
                                                     <div class="btn-group">
 

@@ -342,11 +342,21 @@ $(document).on('change', '#action', function () {
             contentType: "application/json; charset=utf-8",
             dataType: "json",
             success: function (response) {
+                var byteCharacters = atob(response);
+                var byteNumbers = new Array(byteCharacters.length);
+                for (var i = 0; i < byteCharacters.length; i++) {
+                    byteNumbers[i] = byteCharacters.charCodeAt(i);
+                }
+                var byteArray = new Uint8Array(byteNumbers);
+                var blob = new Blob([byteArray], { type: 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet' });
+
                 var downloadLink = document.createElement("a");
-                downloadLink.href = "data:application/vnd.openxmlformats-officedocument.spreadsheetml.sheet;base64," + response;
+                var url = window.URL.createObjectURL(blob);
+                downloadLink.href = url;
                 downloadLink.download = "EmployeeInfo.xlsx";
                 document.body.appendChild(downloadLink);
                 downloadLink.click();
+                window.URL.revokeObjectURL(url);
                 document.body.removeChild(downloadLink);
             },
             error: function (xhr, status, error) {
@@ -355,6 +365,7 @@ $(document).on('change', '#action', function () {
         });
     }
 });
+
 
 
 
@@ -595,8 +606,25 @@ $(document).on('click', '.addemp-submit-btn', function () {
 
 $(document).on('click', '#saveNewDesignation', function (event) {
     event.preventDefault();
-    var newDesignation = $('#newDesignation').val();
-    if (newDesignation.trim() !== '') {
+    var newDesignation = $('#newDesignation').val().trim();
+    var isDuplicate = false;
+
+    // Check for duplicate designation name
+    $('#Designation option').each(function () {
+        if ($(this).val().toLowerCase() === newDesignation.toLowerCase()) {
+            isDuplicate = true;
+            return false; // break the loop
+        }
+    });
+
+    if (newDesignation === '') {
+        $('#designationError').text('Designation name cannot be empty.').show();
+        $('#successMessage').hide();
+    } else if (isDuplicate) {
+        $('#designationError').text('Designation name already exists.').show();
+        $('#successMessage').hide();
+    } else {
+        $('#designationError').hide();
         $.ajax({
             url: '/admindashboard/designationadd',
             method: 'POST',
@@ -605,46 +633,124 @@ $(document).on('click', '#saveNewDesignation', function (event) {
                 if (response.StatusCode == 200) {
                     console.log("Added Designation to DB");
                     $('#Designation').append('<option value="' + newDesignation + '">' + newDesignation + '</option>');
-                    $('#addDesignationModel').modal('hide');
+
+                    $('#newDesignation').val('');
+                    $('#addOptionForm').hide();
+                    $('#successMessage').text('Designation added successfully.').show();
+
+                    $('#saveNewDesignation').hide();
+                    $('.modal-footer .btn-secondary').text('Close');
+
+                    setTimeout(function () {
+                        $('#successMessage').hide();
+                        $('#addOptionForm').show();
+                        $('#addDesignationModel').modal('hide');
+                        $('#saveNewDesignation').show();
+                        $('.modal-footer .btn-secondary').text('Close');
+                    }, 3000); // Hide the message after 3 seconds
                 } else {
-                    console.log("Error while adding Designation to DB");
+                    console.log("Error while adding Designation to DB", response);
+                    $('#designationError').text('Error while adding designation to DB').show();
+                    $('#successMessage').hide();
                 }
             },
             error: function (xhr, status, error) {
-                console.log("Errow while adding Destination to DB")
+                console.log("Error while adding Designation to DB", error);
+                $('#designationError').text('Error while adding designation to DB').show();
+                $('#successMessage').hide();
             }
         });
     }
 });
 
+
+
+
+
 $(document).on('click', '#saveDepartment', function (event) {
     event.preventDefault();
-    var departmentName = $('#departmentName').val();
-    if (departmentName.trim() !== '') {
+    var departmentName = $('#departmentName').val().trim();
+    var isDuplicate = false;
+
+        // Check for duplicate department name
+    $('#Department option').each(function () {
+        if ($(this).val().toLowerCase() === departmentName.toLowerCase()) {
+            isDuplicate = true;
+            return false; // break the loop
+        }
+    });
+
+    if (departmentName === '') {
+        $('#departmentError').text('Department name cannot be empty.').show();
+        $('#departmentSuccessMessage').hide(); // hide success message if present
+    } else if (isDuplicate) {
+        $('#departmentError').text('Department name already exists.').show();
+        $('#departmentSuccessMessage').hide(); // hide success message if present
+    } else {
+        $('#departmentError').hide();
         $.ajax({
             url: '/admindashboard/departmentadd',
             method: 'POST',
             data: { newDepartment: departmentName },
-            success: function (response) {
+            success: function (response) {               
+
                 if (response.StatusCode == 200) {
                     console.log("Added department to DB");
                     $('#Department').append('<option value="' + departmentName + '">' + departmentName + '</option>');
-                    $('#addDepartmentModel').modal('hide');
+
+                    // Clear and hide the input field, show success message
+                    $('#departmentName').val('');
+                    $('#addDepartmentForm').hide();
+                    $('#departmentSuccessMessage').text('Department added successfully.').show();
+
+                    // Hide Save button and change Close button to 'Close'
+                    $('#saveDepartment').hide();
+                    $('.modal-footer .btn-secondary').text('Close');
+
+                    setTimeout(function () {
+                        $('#departmentSuccessMessage').hide();
+                        $('#addDepartmentForm').show();
+                        $('#addDepartmentModel').modal('hide');
+                        $('#saveDepartment').show();
+                        $('.modal-footer .btn-secondary').text('Close');
+                    }, 3000); // Hide the message after 3 seconds
                 } else {
                     console.log("Error while adding department to DB");
+                    $('#departmentError').text('Error while adding department to DB').show();
+                    $('#departmentSuccessMessage').hide(); // hide success message if present
                 }
             },
             error: function (xhr, status, error) {
-                console.log("Errow while adding Department to DB")
+                console.log("Error while adding Department to DB");
+                $('#departmentError').text('Error while adding department to DB').show();
+                $('#departmentSuccessMessage').hide(); // hide success message if present
             }
         });
     }
 });
 
+
 $(document).on('click', '#saveClient', function (event) {
     event.preventDefault();
-    var newClientName = $('#newClientName').val();
-    if (newClientName.trim() !== '') {
+    var newClientName = $('#newClientName').val().trim();
+    var isDuplicate = false;
+
+    // Check for duplicate client name
+    $('#Client option').each(function () {
+        if ($(this).val().toLowerCase() === newClientName.toLowerCase()) {
+            isDuplicate = true;
+            return false; // break the loop
+        }
+    });
+
+    if (newClientName === '') {
+        $('#clientError').text('Client name cannot be empty.').show();
+        $('#clientSuccessMessage').hide();
+    } else if (isDuplicate) {
+        $('#clientError').text('Client name already exists.').show();
+        $('#clientSuccessMessage').hide();
+    } else {
+        $('#clientError').hide();
         $.ajax({
             url: '/admindashboard/clientadd',
             method: 'POST',
@@ -653,21 +759,59 @@ $(document).on('click', '#saveClient', function (event) {
                 if (response.StatusCode == 200) {
                     console.log("Added client to DB");
                     $('#Client').append('<option value="' + newClientName + '">' + newClientName + '</option>');
-                    $('#addClientModal').modal('hide');
+
+                    // Clear and hide the input field, show success message
+                    $('#newClientName').val('');
+                    $('#addClientForm').hide();
+                    $('#clientSuccessMessage').text('Client added successfully.').show();
+
+                    // Hide Save button and change Close button to 'Close'
+                    $('#saveClient').hide();
+                    $('.modal-footer .btn-secondary').text('Close');
+
+                    setTimeout(function () {
+                        $('#clientSuccessMessage').hide();
+                        $('#addClientForm').show();
+                        $('#addClientModal').modal('hide');
+                        $('#saveClient').show();
+                        $('.modal-footer .btn-secondary').text('Close');
+                    }, 3000); // Hide the message after 3 seconds
                 } else {
                     console.log("Error while adding client to DB");
+                    $('#clientError').text('Error while adding client to DB').show();
+                    $('#clientSuccessMessage').hide();
                 }
             },
             error: function (xhr, status, error) {
-                console.log("Errow while adding client to DB")
+                console.log("Error while adding client to DB");
+                $('#clientError').text('Error while adding client to DB').show();
+                $('#clientSuccessMessage').hide();
             }
         });
     }
 });
 
+
 $(document).on('click', '#saveReportingManagerBtn', function () {
     var newReportingManager = $('#newReportingManager').val().trim();
-    if (newReportingManager.trim() !== '') {
+    var isDuplicate = false;
+
+    // Check for duplicate reporting manager name
+    $('#ReportingManager option').each(function () {
+        if ($(this).val().toLowerCase() === newReportingManager.toLowerCase()) {
+            isDuplicate = true;
+            return false; // break the loop
+        }
+    });
+
+    if (newReportingManager === '') {
+        $('#rmError').text('Name cannot be empty.').show();
+        $('#rmSuccessMessage').hide();
+    } else if (isDuplicate) {
+        $('#rmError').text('Name already exists.').show();
+        $('#rmSuccessMessage').hide();
+    } else {
+        $('#rmError').hide();
         $.ajax({
             url: '/admindashboard/rmadd',
             method: 'POST',
@@ -676,23 +820,62 @@ $(document).on('click', '#saveReportingManagerBtn', function () {
                 if (response.StatusCode == 200) {
                     console.log("Added RM to DB");
                     $('#ReportingManager').append('<option value="' + newReportingManager + '">' + newReportingManager + '</option>');
-                    $('#addReportingManagerModal').modal('hide');
+
+                    // Clear and hide the input field, show success message
+                    $('#newReportingManager').val('');
+                    $('#addReportingManagerForm').hide();
+                    $('#rmSuccessMessage').text('Reporting Manager added successfully.').show();
+
+                    // Hide Save button and change Close button to 'Close'
+                    $('#saveReportingManagerBtn').hide();
+                    $('.modal-footer .btn-secondary').text('Close');
+
+                    setTimeout(function () {
+                        $('#rmSuccessMessage').hide();
+                        $('#addReportingManagerForm').show();
+                        $('#addReportingManagerModal').modal('hide');
+                        $('#saveReportingManagerBtn').show();
+                        $('.modal-footer .btn-secondary').text('Close');
+                    }, 3000); // Hide the message after 3 seconds
                 } else {
                     console.log("Error while adding RM to DB");
-                    $('#addReportingManagerModal').modal('hide');
+                    $('#rmError').text('Error while adding Reporting Manager to DB').show();
+                    $('#rmSuccessMessage').hide();
                 }
             },
             error: function (xhr, status, error) {
-                console.log("Errow while adding RM to DB")
+                console.log("Error while adding RM to DB");
+                $('#rmError').text('Error while adding Reporting Manager to DB').show();
+                $('#rmSuccessMessage').hide();
             }
         });
     }
 });
 
+
 $(document).on('click', '#saveLeaveManagerBtn', function () {
     var newLeaveRM = $('#newLeaveManager').val().trim();
+    var isDuplicate = false;
 
-    if (newLeaveRM.trim() !== '') {
+    // Check for duplicate leave manager name
+    $('#LeavereportingManager option').each(function () {
+        if ($(this).val().toLowerCase() === newLeaveRM.toLowerCase()) {
+            isDuplicate = true;
+            return false; // break the loop
+        }
+    });
+
+    // Validate input and display messages
+    if (newLeaveRM === '') {
+        $('#lmError').text('Name cannot be empty.').show();
+        $('#lmSuccessMessage').hide();
+        console.log("Name is empty");
+    } else if (isDuplicate) {
+        $('#lmError').text('Name already exists.').show();
+        $('#lmSuccessMessage').hide();
+        console.log("Name already exists");
+    } else {
+        $('#lmError').hide();
         $.ajax({
             url: '/admindashboard/lmadd',
             method: 'POST',
@@ -701,18 +884,41 @@ $(document).on('click', '#saveLeaveManagerBtn', function () {
                 if (response.StatusCode == 200) {
                     console.log("Added LM to DB");
                     $('#LeavereportingManager').append('<option value="' + newLeaveRM + '">' + newLeaveRM + '</option>');
-                    $('#addLeaveManagerModal').modal('hide');
+
+                    // Clear and hide the input field, show success message
+                    $('#newLeaveManager').val('');
+                    $('#addLeaveManagerForm').hide();
+                    $('#lmSuccessMessage').text('Leave Manager added successfully.').show();
+                    console.log("Success message set");
+
+                    // Hide Save button and change Close button to 'Close'
+                    $('#saveLeaveManagerBtn').hide();
+                    $('.modal-footer .btn-secondary').text('Close');
+
+                    setTimeout(function () {
+                        $('#lmSuccessMessage').hide();
+                        $('#addLeaveManagerForm').show();
+                        $('#addLeaveManagerModal').modal('hide');
+                        $('#saveLeaveManagerBtn').show();
+                        $('.modal-footer .btn-secondary').text('Close');
+                    }, 3000); // Hide the message after 3 seconds
                 } else {
                     console.log("Error while adding LM to DB");
-                    $('#addLeaveManagerModal').modal('hide');
+                    $('#lmError').text('Error while adding Leave Manager to DB').show();
+                    $('#lmSuccessMessage').hide();
                 }
             },
             error: function (xhr, status, error) {
-                console.log("Errow while adding LM to DB")
+                console.log("Error while adding LM to DB");
+                $('#lmError').text('Error while adding Leave Manager to DB').show();
+                $('#lmSuccessMessage').hide();
             }
         });
     }
 });
+
+
+
 
 function toggleDropdown() {
     document.getElementById("myDropdown").classList.toggle("show");
@@ -743,4 +949,6 @@ $(document).on('click', '.compOff-History-Page', function () {
     window.location.href = "/adminleave/index?fromcompoff=true";
 });
 
-
+//$(document).on('click', '.leave-request-Page', function () {
+//    window.location.href = "/adminleave/index?fromcompoff=true";
+//});

@@ -70,17 +70,22 @@ namespace HRMS.Controllers
             }
         }
 
-
         private bool IsValidUser(AccountModel loginModel)
         {
             var SiteContext = new SiteContextModel();
             if (!string.IsNullOrWhiteSpace(loginModel.EmployeeID))
             {
-                var isEmpExists = _dbContext.emplogins.Where(emp => emp.EmployeeID == loginModel.EmployeeID && emp.Password == loginModel.Password).FirstOrDefault();
-                if (isEmpExists != null)
+                var isEmpExists = _dbContext.emplogins
+                    .Where(emp => emp.EmployeeID == loginModel.EmployeeID && emp.Password == loginModel.Password)
+                    .FirstOrDefault();
+
+                if (isEmpExists != null && isEmpExists.EmployeeStatus == "Active") // Check if employee status is active
                 {
                     loginModel.IsUser = true;
-                    var currentEmployee = _dbContext.emp_info.Where(emp => emp.EmployeeID == loginModel.EmployeeID).FirstOrDefault();
+                    var currentEmployee = _dbContext.emp_info
+                        .Where(emp => emp.EmployeeID == loginModel.EmployeeID)
+                        .FirstOrDefault();
+
                     SiteContext.LoginInfo = isEmpExists;
                     SiteContext.EmpInfo = currentEmployee;
                     Session["SiteContext"] = SiteContext;
@@ -92,12 +97,17 @@ namespace HRMS.Controllers
 
             if (!string.IsNullOrWhiteSpace(loginModel.EmailID))
             {
-                var isEmpExists = _dbContext.emplogins.Where(emp => emp.EmployeeEmail == loginModel.EmailID && emp.Password == loginModel.Password && (emp.EmployeeRole.Contains("HR Admin") || emp.EmployeeRole.Contains("Super Admin") || emp.EmployeeRole.Contains("IT Admin"))).FirstOrDefault();
-                if (isEmpExists != null)
+                var isEmpExists = _dbContext.emplogins
+                    .Where(emp => emp.EmployeeEmail == loginModel.EmailID && emp.Password == loginModel.Password &&
+                                  (emp.EmployeeRole.Contains("HR Admin") || emp.EmployeeRole.Contains("Super Admin") || emp.EmployeeRole.Contains("IT Admin")))
+                    .FirstOrDefault();
+
+                if (isEmpExists != null && isEmpExists.EmployeeStatus == "Active") // Check if employee status is active
                 {
-                   
-                    //_siteCotext.SetSiteContext(loginModel.EmployeeID, isEmpExists);
-                    var currentEmployee = _dbContext.emp_info.Where(emp => emp.OfficalEmailid == loginModel.EmailID).FirstOrDefault();
+                    var currentEmployee = _dbContext.emp_info
+                        .Where(emp => emp.OfficalEmailid == loginModel.EmailID)
+                        .FirstOrDefault();
+
                     SiteContext.LoginInfo = isEmpExists;
                     SiteContext.EmpInfo = currentEmployee;
 
@@ -105,7 +115,6 @@ namespace HRMS.Controllers
                     {
                         loginModel.IsITAdmin = true;
                         SiteContext.IsITAdmin = true;
-
                         SiteContext.IsAdmin = false;
                     }
 
@@ -113,7 +122,6 @@ namespace HRMS.Controllers
                     {
                         loginModel.IsSuperAdmin = true;
                         loginModel.IsAdmin = true;
-
                         SiteContext.IsAdmin = true;
                         SiteContext.IsSuperAdmin = true;
                     }
@@ -132,6 +140,7 @@ namespace HRMS.Controllers
             }
             return false;
         }
+
 
 
         public static string RenderPartialToString(Controller controller, string partialViewName, object model, ViewDataDictionary viewData, TempDataDictionary tempData)
