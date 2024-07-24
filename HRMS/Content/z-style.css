@@ -268,14 +268,15 @@ div.main-content {
     }
 
 .res-admin-employee-management .res-clear-btn {
-    background: #2693F8;
+    //background: #2693F8;
     padding: 5px 20px;
     border-radius: 5px;
-    color: #fff;
+    //color: #fff;
     text-transform: capitalize;
     margin-left: 0 !important;
     margin-top: 10px;
     display: inline-block;
+    text-decoration: underline;
 }
 
 .res-admin-employee-management .admin-empadd-view #myTabContent .save-and-next,
@@ -346,6 +347,15 @@ div.main-content {
 
 .admin-empmanagement-view .admin-empadd-view {
     margin-left: 15px;
+}
+
+.admin-empmanagement-view .admin-empadd-view input.form-control {
+    background: transparent;
+}
+
+.admin-empmanagement-view .res-admin-filter-inside #status-dropdown {
+    font-size: 1rem !important;
+    width: 100% !important;
 }
 
 /* admin employee management end */
@@ -586,6 +596,7 @@ div.main-content {
 
 .res-adminleaveTable-mgmt #adminleaveTable-mgmt_wrapper {
     padding: 0;
+    margin-bottom: 30px;
 }
 
 #LeaveDateDropdown label {
@@ -700,6 +711,7 @@ div.main-content {
     background: #2693F8;
     color: #fff;
     cursor: pointer;
+    padding: .25rem .5rem;
 }
 
 #adminleaveTable-mgmt .admin-leaverequest-reasons p {
@@ -1296,9 +1308,9 @@ div.main-content {
 
 #adminitticketlistingTable .it-ticketing-response-time {
     display: inline-block;
-    background: #ffe6e6;
+    //background: #ffe6e6;
     color: #ff9999;
-    padding: 0 10px;
+    //padding: 0 10px;
     margin-bottom: 5px;
 }
 
@@ -1315,7 +1327,7 @@ div.main-content {
 #adminitticketlistingTable .res-itticketlisting-status-level {
     width: 80px;
     text-align: center;
-    padding: 2px 15px;
+    //padding: 2px 15px;
 }
 
 #adminitticketlistingTable .ticket-status-closed {
@@ -1611,9 +1623,9 @@ div.main-content {
 
 #adminhrticketlistingTable .hr-ticketing-response-time {
     display: inline-block;
-    background: #ffe6e6;
+    //background: #ffe6e6;
     color: #ff9999;
-    padding: 0 10px;
+    //padding: 0 10px;
     margin-bottom: 5px;
 }
 
@@ -1630,7 +1642,7 @@ div.main-content {
 #adminhrticketlistingTable .res-ticketlisting-status-level {
     width: 80px;
     text-align: center;
-    padding: 2px 15px;
+    //padding: 2px 15px;
 }
 
 #adminhrticketlistingTable .ticket-status-closed {
@@ -2188,9 +2200,9 @@ input[type=checkbox], input[type=radio] {
 
 #empticketlistingTable .emp-ticketing-response-time {
     display: inline-block;
-    background: #ffe6e6;
+    //background: #ffe6e6;
     color: #ff9999;
-    padding: 0 10px;
+    //padding: 0 10px;
     margin-bottom: 5px;
 }
 
@@ -2237,7 +2249,7 @@ input[type=checkbox], input[type=radio] {
 #empticketlistingTable .res-empticketlisting-status-level {
     width: 80px;
     text-align: center;
-    padding: 2px 15px;
+    //padding: 2px 15px;
 }
 
 #empticketlistingTable .ticket-status-open {
