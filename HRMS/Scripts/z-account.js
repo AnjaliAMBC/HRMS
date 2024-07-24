@@ -44,16 +44,15 @@ $(".emp-login").on("click", function (event) {
 
 $(document).ready(function () {
     $('.login-continue').click(function (event) {
-        // Reset error messages
         $(".text-danger").text("");
         var isValid = true;
 
-        // Fetch input values
+        
         var empID = $("#EmployeeID").val();
         var email = $("#EmailID").val();
         var password = $("#Password").val();
 
-        // Validation logic
+      
         if ($("#EmployeeID").is(":visible") && empID === "") {
             $("#empIDError").text("Please enter your Employee ID");
             isValid = false;
@@ -68,56 +67,57 @@ $(document).ready(function () {
         }
 
         if (!isValid) {
-            event.preventDefault(); // Prevent form submission
-        }
-        else {
+            event.preventDefault(); 
+            $('.show-progress').hide(); 
+        } else {
             var data = {
                 EmployeeID: $('#EmployeeID').val(),
                 EmailID: $('#EmailID').val(),
                 Password: $('#Password').val(),
                 StaySignedIn: $('#StaySignedIn').is(':checked'),
             };
+
             $.ajax({
                 type: 'POST',
                 url: '/account/login',
                 beforeSend: function () {
-                    $('.show-progress').show();
+                    $('.show-progress').show(); 
                 },
                 data: data,
                 success: function (data) {
+                    $('.show-progress').hide();
                     $('.error-message').html("");
-                    if (data.IsValidUser == true) {
-                        if (data.IsAdmin == true) {
-                            $('.error-message').hide();
+
+                    if (data.IsValidUser) {
+                        if (data.IsAdmin) {
                             window.location.href = "/admindash/index";
                             return;
                         }
 
-                        if (data.IsITAdmin == true) {
-                            $('.error-message').hide();
+                        if (data.IsITAdmin) {
                             window.location.href = "/adminticketing/itticketing";
                             return;
-                        }                        
+                        }
 
-                        if (data.IsUser == true) {
-                            $('.error-message').hide();
+                        if (data.IsUser) {
                             window.location.href = "/empDash/index";
                         }
-                    }
-                    else {
+                    } else {
                         $('.error-message').show();
                         $('.error-message').html(data.InvalidLoginMessage);
                     }
                 },
                 error: function (xhr, status, error) {
-                    $('.show-progress').hide();
+                    $('.show-progress').hide(); 
                     var err = eval("(" + xhr.responseText + ")");
-                    // Handle error response
+                    $('.error-message').show();
+                    $('.error-message').html("An error occurred: " + err.Message);
                 }
             });
         }
     });
 });
+
 
 //Forgot password
 $('.forgot-password').click(function (e) {

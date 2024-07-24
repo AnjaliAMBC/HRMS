@@ -500,7 +500,16 @@ namespace HRMS.Controllers
                 {
                     for (int i = 0; i < properties.Length; i++)
                     {
-                        worksheet.Cells[row, i + 1].Value = properties[i].GetValue(employee);
+                        var value = properties[i].GetValue(employee);
+                        if (value is DateTime)
+                        {
+                            worksheet.Cells[row, i + 1].Style.Numberformat.Format = "yyyy-mm-dd";
+                            worksheet.Cells[row, i + 1].Value = ((DateTime)value).ToString("yyyy-MM-dd");
+                        }
+                        else
+                        {
+                            worksheet.Cells[row, i + 1].Value = value;
+                        }
                     }
                     row++;
                 }
@@ -513,6 +522,7 @@ namespace HRMS.Controllers
                 }
             }
         }
+
 
         public JsonResult DeleteEmp(DeleteEmployeeViewModel deletEmpInfo)
         {
