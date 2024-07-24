@@ -49,14 +49,14 @@
                                                             {
                                                                 <small>@leave.LatestLeave.leavesource | @leave.LatestLeave.Fromdate.Value.ToString("dd MMMM yyyy")</small>
                                                             }
-                                                            else 
+                                                            else
                                                             {
                                                                 <small>@leave.LatestLeave.leavesource | @leave.LatestLeave.Fromdate.Value.ToString("dd MMMM yyyy") to @leave.LatestLeave.Todate.Value.ToString("dd MMMM yyyy")</small>
                                                             }
                                                             @*else
-                                                            {
-                                                                <small>@leave.LatestLeave.leavesource | @leave.LatestLeave.Fromdate.Value.ToString("dd MMMM yyyy")</small>
-                                                            }*@
+                                                                {
+                                                                    <small>@leave.LatestLeave.leavesource | @leave.LatestLeave.Fromdate.Value.ToString("dd MMMM yyyy")</small>
+                                                                }*@
                                                         </div>
 
                                                     </div>
@@ -261,7 +261,7 @@
                                                     <li>
                                                         <a class="dashhoiday_description res-holidays-details-left compOff-request" data-leavenumber="@holiday.HolidayNo" data-location="@holiday.Region">
                                                             <h6 class="mb-0">@holiday.HolidayName</h6>
-                                                            <p class="smalltext res-admin-dash-location">@holiday.HolidayDate.ToString("dd MMMM dddd")</p><span class="ml-2 holiday_location">@holiday.Region</span>
+                                                            <p class="smalltext res-admin-dash-location">@holiday.HolidayDate.ToString("dd MMMM dddd")</p><span class="ml-2 holiday_location" style="display: none">@holiday.Region</span>
                                                         </a>
 
                                                         @if (totalApplied > 0)
@@ -286,8 +286,8 @@
                 <script src="~/Scripts/z-EmpDash.js"></script>
                 <script src="~/Scripts/z-empleave.js"></script>
                 @*<script>
-                    generateCalendar(new Date().getMonth(), new Date().getFullYear());
-                </script>*@
+                        generateCalendar(new Date().getMonth(), new Date().getFullYear());
+                    </script>*@
 
             </div>
         </div>

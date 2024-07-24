@@ -46,15 +46,15 @@ namespace HRMS.Helpers
         }
         public List<UpcomingHoliday> GetUpcomingHolidays(string empLocation)
         {
-            var today = DateTime.Today;
-
-            var query = _dbContext.tblambcholidays
-                .Where(h => h.holiday_date >= today);
-
             if (!string.IsNullOrEmpty(empLocation))
             {
-                query = query.Where(h => h.region == empLocation);
+                empLocation = empLocation.ToLowerInvariant();
             }
+
+            var today = DateTime.Today;
+            var query = _dbContext.tblambcholidays
+                .Where(h => h.holiday_date >= today && h.region.ToLower().Contains(empLocation));
+
 
             var upcomingHolidays = query
                 .OrderBy(h => h.holiday_date)
