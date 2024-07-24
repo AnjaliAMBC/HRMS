@@ -1908,6 +1908,18 @@
 
     /*emp attendance end*/
 
+    /* emp leave start */
+
+    .tablet-view .emp-leave .carousel-leave-item {
+        width: 147% !important;
+    }
+
+    .tablet-view .emp-leave .carousel-leave-item .tracker-card {
+        width: 160%;
+        display: inline-block !important;
+    }
+
+    /* emp leave end*/
 
     /* admin employee management start */
 
@@ -2555,7 +2567,7 @@
     }
 
     .tablet-view .main-content.container-fluid .backgroundimg {
-        width: 105% !important;
+        width: 105.9% !important;
         margin-left: -15px;
     }
 
@@ -2630,8 +2642,32 @@
 
     .tablet-view .attendance-nav .att-calender .from-to-calen {
         width: 80%;
-    }    
+    }
 
+    .tablet-view .attendance-nav .att-calender .apply-div {
+        margin: 0px 0px 0px 0px;
+    }
+
+    .tablet-view #attendanceTable {
+        table-layout: fixed;
+    }
+
+    .tablet-view #attendanceTable .attendence-thead th:nth-child(1) {
+        width: 120px !important;
+    }
+
+    .tablet-view #attendanceTable .attendence-thead th:nth-child(2) {
+        width: 230px !important;
+    }
+
+    .tablet-view #attendanceTable .attendence-thead th:nth-child(3) {
+        width: 100px !important;
+    }
+
+    .tablet-view #attendanceTable .attendence-thead th:nth-child(4) {
+        width: 100px !important;
+    }
+    
     /* attendence end*/
 
     /* emp leave start */
@@ -2858,6 +2894,7 @@
 
     .tablet-view .res-admin-employee-management .admin-empview {
         margin-bottom: 20px;
+        display: inline;
     }
 
     .tablet-view .res-admin-employee-management .res-admin-empman-filter-show {
@@ -2869,10 +2906,10 @@
     }
 
     .tablet-view .res-admin-employee-management .res-clear-btn {
-        background: #2693F8;
+        //background: #2693F8;
         padding: 5px 20px;
         border-radius: 5px;
-        color: #fff;
+        //color: #fff;
         text-transform: capitalize;
         margin-left: 0 !important;
         margin-top: 10px;
@@ -3004,7 +3041,7 @@
     }
 
     .tablet-view .dropdowns-container .month-dropdown {
-        width: 50%;
+        width: 150px;
         display: inline-block;
     }
 
@@ -3020,12 +3057,12 @@
     .tablet-view .res-admin-attendance .admin-attendancemgmt-view .days-container {
         overflow-x: scroll;
         display: inline-flex;
-        width: 95%;
+        width: 60% !important;
         margin: 10px 4%;
     }
 
     .tablet-view .res-admin-attendance .res-admin-attendance-header .adminatt-dropdown {
-        width: 25%;
+        width: 100px;
         display: inline-block !important;
     }
 
@@ -3090,6 +3127,7 @@
 
     .tablet-view .res-admin-leave-balance {
         margin-top: 0px;
+        width: 113%;
     }
 
     .tablet-view .res-admin-leave-balance .search-container {
@@ -3280,12 +3318,36 @@
     .tablet-view .res-admin-leavecompoff-view .res-adminleave-compoff-from-to {
     }
 
-        .tablet-view .res-admin-leavecompoff-view .res-adminleave-compoff-from-to label {
-            width: 15% !important;
+    .tablet-view .res-admin-leavecompoff-view .res-adminleave-compoff-from-to label {
+        width: 15% !important;
+    }
+
+    .tablet-view .res-admin-leavecompoff-view .res-adminleave-compoff-from-to input {
+        width: 85% !important;
+    }
+
+    .tablet-view #adminleavecompoffTable {
+        table-layout: fixed;
+    }
+
+        .tablet-view #adminleavecompoffTable tbody td:nth-child(1) {
+            width: 60px;
         }
 
-        .tablet-view .res-admin-leavecompoff-view .res-adminleave-compoff-from-to input {
-            width: 85% !important;
+        .tablet-view #adminleavecompoffTable tbody td:nth-child(2) {
+            width: 260px;
+        }
+
+        .tablet-view #adminleavecompoffTable tbody td:nth-child(3) {
+            width: 160px;
+        }
+
+        .tablet-view #adminleavecompoffTable tbody td:nth-child(4) {
+            width: 160px;
+        }
+
+        .tablet-view #adminleavecompoffTable tbody td:nth-child(5) {
+            width: 85px;
         }
 
     /* admin leave compoff end */
