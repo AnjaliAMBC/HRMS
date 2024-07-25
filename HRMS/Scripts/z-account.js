@@ -84,8 +84,7 @@ $(document).ready(function () {
                     $('.show-progress').show(); 
                 },
                 data: data,
-                success: function (data) {
-                    $('.show-progress').hide();
+                success: function (data) {                  
                     $('.error-message').html("");
 
                     if (data.IsValidUser) {
@@ -103,6 +102,7 @@ $(document).ready(function () {
                             window.location.href = "/empDash/index";
                         }
                     } else {
+                        $('.show-progress').hide();
                         $('.error-message').show();
                         $('.error-message').html(data.InvalidLoginMessage);
                     }

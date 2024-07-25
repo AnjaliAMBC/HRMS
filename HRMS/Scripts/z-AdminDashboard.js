@@ -483,15 +483,21 @@ $(document).on('click', '.btn-importuser-submit', function () {
         processData: false,
         contentType: false,
         dataType: 'json',
+        beforeSend: function () {
+            $('.show-progress').show();
+        },
         success: function (response) {
             $('#importSuccessModal').modal('show');
             $('.success-message').text(response.JsonResponse.Message);
+            $('.show-progress').hide();
         },
         error: function (xhr, status, error) {
+            $('.show-progress').hide();
             console.error('Error uploading file:', error);
         },
         complete: function () {
             isSubmitting = false;
+            $('.show-progress').hide();
         }
     });
 });
