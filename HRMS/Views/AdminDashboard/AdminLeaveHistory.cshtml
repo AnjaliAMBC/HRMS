@@ -48,7 +48,7 @@
                 </style>
                 <div class="container-fluid res-admin-leave-history">
                     <div class="row mb-2 align-items-center">
-                        <div class="col-lg-3 col-md-6">
+                        <div class="col-lg-3 col-md-6 admin-leave-history-header-title">
                             <h4 class="ml-1">Leave History</h4>
                         </div>
                         @*multiselect search dropdown*@
@@ -158,7 +158,7 @@
                                     </select>
                                 </div>
                                 <div class="dropdown res-adminadvfilter-leavehistory">
-                                    <select class="form-control form-select-sm" name="status" id="leavehistory-status-dropdown" style="border-radius: 15px; height: 35px; width: 131px;border: 1px solid lightgray">
+                                    <select class="form-control form-select-sm" name="status" id="leavehistory-status-dropdown" style="border-radius: 15px; height: 35px; width: 110px;border: 1px solid lightgray">
                                         <option value="" disabled selected>Status</option>
                                         <option value="Approved">Approved</option>
                                         <option value="Rejected">Rejected</option>
@@ -181,10 +181,10 @@
                         <thead style="background-color: #EEF4FF; border-radius: 10px;">
                             <tr>
                                 <th><input type="checkbox" id="selectAllrows"></th>
-                                <th>Emp ID</th>
-                                <th>Employee Name</th>
+                                <th style="width:50px;">Emp ID</th>
+                                <th style="width:230px;">Employee Name</th>
                                 <th>Leave Type</th>
-                                <th>Applied Date</th>
+                                <th style="width:110px;">Applied Date</th>
                                 <th>From Date</th>
                                 <th>To Date</th>
                                 <th>Days/Hours</th>
