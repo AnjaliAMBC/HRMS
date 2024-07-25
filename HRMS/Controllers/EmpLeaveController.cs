@@ -142,6 +142,7 @@ namespace HRMS.Controllers
                             updateddate = DateTime.Now,
                             Designation = leaveRequest.Designation,
                             Department = leaveRequest.Department,
+                            TeamEmails = leaveRequest.TeamEmail
 
                         });
                     }
@@ -175,6 +176,7 @@ namespace HRMS.Controllers
                         updateddate = DateTime.Now,
                         Designation = leaveRequest.Designation,
                         Department = leaveRequest.Department,
+                        TeamEmails = leaveRequest.TeamEmail
                     });
                 }
 
