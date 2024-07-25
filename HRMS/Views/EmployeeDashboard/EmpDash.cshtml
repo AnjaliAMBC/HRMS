@@ -143,44 +143,53 @@
                         <div class="card-header text-dark">Job Referral</div>
                         <div class="card-body scrollbar p-3">
                             @*<div class="dashjob_description mb-3">
-                                <h6 class="mb-0">Interior Designer</h6>
-                                <small>Location: Bangalore | Posted on: 10/05/2024</small>
-                            </div>
-                            <div class="dashjob_description mb-3">
-                                <h6 class="mb-0">Business Analyst </h6>
-                                <small>Location: Madurai | Posted on: 10/05/2024</small>
-                            </div>
-                            <div class="dashjob_description mb-3">
-                                <h6 class="mb-0">Jr. IT Recruiter</h6>
-                                <small>Location: Madurai | Posted on: 10/05/2024</small>
-                            </div>*@
+                                    <h6 class="mb-0">Interior Designer</h6>
+                                    <small>Location: Bangalore | Posted on: 10/05/2024</small>
+                                </div>
+                                <div class="dashjob_description mb-3">
+                                    <h6 class="mb-0">Business Analyst </h6>
+                                    <small>Location: Madurai | Posted on: 10/05/2024</small>
+                                </div>
+                                <div class="dashjob_description mb-3">
+                                    <h6 class="mb-0">Jr. IT Recruiter</h6>
+                                    <small>Location: Madurai | Posted on: 10/05/2024</small>
+                                </div>*@
                         </div>
                     </div>
                     <div class="card mb-3 dashcard_style my-card">
                         <div class="card-header text-black">My Tickets</div>
                         <div class="card-body scrollbar p-3 dashticket_description">
-
-                            @foreach (var myTicket in Model.MyTickets)
+                            @if (!Model.MyTickets?.Any() ?? true)
                             {
-                                <p class="mb-0">@myTicket.Subject <span class="badge @HRMS.Helpers.TicketingHelper.GetTicketPriorityDashCssClass(myTicket.Priority)">@myTicket.Priority</span></p>
+                                <div class="d-flex flex-column align-items-center justify-content-center">
+                                    <img src="~/Assets/WorkAnni.png" alt="No Birthdays" class="img-fluid mb-3" style="max-width: 135px;">
+                                    <p class="text-muted">No tickets.</p>
+                                </div>
+                            }
+                            else
+                            {
+                                foreach (var myTicket in Model.MyTickets)
+                                {
+                                    <p class="mb-0">@myTicket.Subject <span class="badge @HRMS.Helpers.TicketingHelper.GetTicketPriorityDashCssClass(myTicket.Priority)">@myTicket.Priority</span></p>
 
-                                if (myTicket.Status == "Open")
-                                {
-                                    <p class="smalltext">Open By: @myTicket.EmployeeName</p>
-                                }
-                                else if (myTicket.Status == "ReOpen")
-                                {
-                                    <p class="smalltext">Re-Open By: @myTicket.EmployeeName</p>
-                                }
-                                else if (myTicket.Status == "Resolved")
-                                {
-                                    <p class="smalltext">Resolved By: @myTicket.ResolvedByName</p>
-                                }
-                                else if (myTicket.Status == "Closed")
-                                {
-                                    <p class="smalltext">Closed By: @myTicket.ResolvedByName</p>
-                                }
+                                    if (myTicket.Status == "Open")
+                                    {
+                                        <p class="smalltext">Open By: @myTicket.EmployeeName</p>
+                                    }
+                                    else if (myTicket.Status == "ReOpen")
+                                    {
+                                        <p class="smalltext">Re-Open By: @myTicket.EmployeeName</p>
+                                    }
+                                    else if (myTicket.Status == "Resolved")
+                                    {
+                                        <p class="smalltext">Resolved By: @myTicket.ResolvedByName</p>
+                                    }
+                                    else if (myTicket.Status == "Closed")
+                                    {
+                                        <p class="smalltext">Closed By: @myTicket.ResolvedByName</p>
+                                    }
 
+                                }
                             }
 
                         </div>
@@ -212,7 +221,7 @@
                                             </div>
                                             <small style="display: none" class="empemail">@empBirthday.EmpEmail</small>
                                         </li>
-}
+                                    }
                                 </ul>}
                         </div>
                     </div>

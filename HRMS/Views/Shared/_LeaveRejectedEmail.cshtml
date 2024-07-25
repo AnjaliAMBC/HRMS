@@ -5,63 +5,28 @@
     var logoURL = siteURL + "/Assets/AMBC_Logo.png";
 }
 
-<style>
-    body {
-        font-family: Arial, sans-serif;
-        color: #333;
-    }
-
-    .email-container {
-        border: 1px solid #ddd;
-        padding: 20px;
-        max-width: 600px;
-        margin: 0 auto;
-    }
-
-    .email-content {
-        padding: 20px;
-    }
-
-    table {
-        border-collapse: collapse;
-        width: 100%;
-        margin-top: 20px;
-    }
-
-    td, th {
-        text-align: left;
-        padding: 8px;
-        border: 1px solid #ddd;
-    }
-
-    th {
-        background-color: #f4f4f4;
-    }
-</style>
 
 @if (Model != null && Model.Any())
 {
     var leaveUpdate = Model.First();
-    <div class="email-container">
+    <div class="email-container" style="background-color: #f8f9fa; padding: 20px; border-radius: 5px; position: relative;">
         <div class="email-content">
-            <p>Hello @leaveUpdate.employee_name,</p>
-            <a href="@siteURL" target="_blank" style="float: right; margin-left: 10px;">
+            <a href="@siteURL" target="_blank" style="position: absolute; top: 20px; right: 20px;">
                 <img src="@logoURL" alt="AMBC Logo" style="max-width: 50px;">
             </a>
-            <p>
-                Your leave request has been Rejected.
-            </p>
-
-            <table>
+            <p style="margin-top: 70px;">Hello <strong>@leaveUpdate.employee_name</strong>,</p>
+            <p>Your leave request has been <strong>Rejected</strong>.</p>
+            <table style="width: 100%; border-collapse: collapse; margin-top: 20px;">
                 <tr>
-                    <th>Rejected By</th>
-                    <th>Status</th>
+                    <th style="text-align: left; padding: 8px; border-bottom: 1px solid #ddd;"><strong>Rejected By</strong></th>
+                    <th style="text-align: left; padding: 8px; border-bottom: 1px solid #ddd;"><strong>Status</strong></th>
                 </tr>
                 <tr>
-                    <td>@leaveUpdate.updatedby</td>
-                    <td>Rejected On @System.DateTime.Now.ToString("dd-MMM-yyyy hh:mm tt")</td>
+                    <td style="padding: 8px; border-bottom: 1px solid #ddd;">@leaveUpdate.updatedby</td>
+                    <td style="padding: 8px; border-bottom: 1px solid #ddd;">Rejected On @System.DateTime.Now.ToString("dd-MMM-yyyy hh:mm tt")</td>
                 </tr>
             </table>
         </div>
     </div>
 }
+

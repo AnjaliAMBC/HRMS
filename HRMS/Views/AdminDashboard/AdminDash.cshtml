@@ -34,57 +34,68 @@
                                         Leave Request (@filteredLeaveRequests.Count())
                                     </div>
                                     <div class="card-body admindash_card scrollbar p-2">
-                                        <ul class="list-group list-group-flush">
-                                            @foreach (var leave in filteredLeaveRequests)
-                                            {
-                                                <li class="list-group-item p-0">
-                                                    <div class="leave-info">
-                                                        @{
-                                                            var empImagePath = "/Assets/EmpImages/" + leave.LatestLeave.employee_id + ".jpeg" + "?" + System.DateTime.Now;
-                                                        }
-                                                        <img src="@empImagePath" alt="emp name" class="rounded-circle">
-                                                        <div class="leave-text mt-2">
-                                                            <span>@leave.LatestLeave.employee_name</span>
-                                                            @if (leave.LatestLeave.leavesource == "Hourly Permission")
+                                        @if (!Model.AllEMployeeLeaves?.Any() ?? true)
+                                        {
+                                            <div class="d-flex flex-column align-items-center justify-content-center">
+                                                <img src="~/Assets/Birthday.png" alt="No Birthdays" class="img-fluid mb-3" style="max-width: 133px;">
+                                                <p class="text-muted">No birthdays today</p>
+                                            </div>
+                                        }
+                                        else
+                                        {
+                                            <ul class="list-group list-group-flush">
+                                                @foreach (var leave in filteredLeaveRequests)
+                                                {
+                                                    <li class="list-group-item p-0">
+                                                        <div class="leave-info">
+                                                            @{
+                                                                var empImagePath = "/Assets/EmpImages/" + leave.LatestLeave.employee_id + ".jpeg" + "?" + System.DateTime.Now;
+                                                            }
+                                                            <img src="@empImagePath" alt="emp name" class="rounded-circle">
+                                                            <div class="leave-text mt-2">
+                                                                <span>@leave.LatestLeave.employee_name</span>
+                                                                @if (leave.LatestLeave.leavesource == "Hourly Permission")
+                                                                {
+                                                                    <small>@leave.LatestLeave.leavesource | @leave.LatestLeave.Fromdate.Value.ToString("dd MMMM yyyy")</small>
+                                                                }
+                                                                else
+                                                                {
+                                                                    <small>@leave.LatestLeave.leavesource | @leave.LatestLeave.Fromdate.Value.ToString("dd MMMM yyyy") to @leave.LatestLeave.Todate.Value.ToString("dd MMMM yyyy")</small>
+                                                                }
+                                                                @*else
+                                {
+                                    <small>@leave.LatestLeave.leavesource | @leave.LatestLeave.Fromdate.Value.ToString("dd MMMM yyyy")</small>
+                                }*@
+                                                            </div>
+
+                                                        </div>
+                                                        <div class="btn-group">
+
+                                                            @if (leave.LatestLeave.LeaveStatus == "Pending")
                                                             {
-                                                                <small>@leave.LatestLeave.leavesource | @leave.LatestLeave.Fromdate.Value.ToString("dd MMMM yyyy")</small>
+                                                                <button type="button" data-leavename="@leave.LatestLeave.LeaveRequestName" class="btn_approve p-0">✔ Approve</button>
+                                                                <button type="button" data-leavename="@leave.LatestLeave.LeaveRequestName" class="btn_reject ml-0">✖ Reject</button>
                                                             }
                                                             else
                                                             {
-                                                                <small>@leave.LatestLeave.leavesource | @leave.LatestLeave.Fromdate.Value.ToString("dd MMMM yyyy") to @leave.LatestLeave.Todate.Value.ToString("dd MMMM yyyy")</small>
-                                                            }
-                                                            @*else
+                                                                var color = "green";
+                                                                if (leave.LatestLeave.LeaveStatus != "Approved")
                                                                 {
-                                                                    <small>@leave.LatestLeave.leavesource | @leave.LatestLeave.Fromdate.Value.ToString("dd MMMM yyyy")</small>
-                                                                }*@
-                                                        </div>
-
-                                                    </div>
-                                                    <div class="btn-group">
-
-                                                        @if (leave.LatestLeave.LeaveStatus == "Pending")
-                                                        {
-                                                            <button type="button" data-leavename="@leave.LatestLeave.LeaveRequestName" class="btn_approve p-0">✔ Approve</button>
-                                                            <button type="button" data-leavename="@leave.LatestLeave.LeaveRequestName" class="btn_reject ml-0">✖ Reject</button>
-                                                        }
-                                                        else
-                                                        {
-                                                            var color = "green";
-                                                            if (leave.LatestLeave.LeaveStatus != "Approved")
-                                                            {
-                                                                color = "red";
+                                                                    color = "red";
+                                                                }
+                                                                <small style="color: @color">
+                                                                    @leave.LatestLeave.LeaveStatus
+                                                                </small>
                                                             }
-                                                            <small style="color: @color">
-                                                                @leave.LatestLeave.LeaveStatus
-                                                            </small>
-                                                        }
 
-                                                    </div>
-                                                </li>
-                                            }
+                                                        </div>
+                                                    </li>
+                                                }
 
-                                        </ul>
-                                    </div>
+                                            </ul>
+                                        
+                                     }
+                                      </div>
                                 </div>
                             </div>
                             <div class="col-12 col-sm-11 col-md-6 col-lg-4 col-xl-4 p-0 dashcard_style">
@@ -94,32 +105,43 @@
                                         HR Tickets
                                     </div>
                                     <div class="card-body admindash_card scrollbar px-4 py-1 announcement_card">
-                                        @foreach (var hrTicket in Model.AllHRTickets)
+                                        @if (!Model.AllHRTickets?.Any() ?? true)
                                         {
-                                            <p class="m-0 p-0">@hrTicket.Subject</p>
-                                            <div class="d-flex inside_content">
-                                                <p class="mutedText"><i class="fa-solid fa-circle-exclamation mr-1"></i>Priority-</p>
-                                                <p class="status-priority">High</p>
-
-                                                @if (hrTicket.Status == "Open")
-                                                {
-                                                    <p class="mutedText ml-3"><i class="fa-solid fa-user mr-1"></i>Open By: @hrTicket.EmployeeName</p>
-                                                }
-                                                else if (hrTicket.Status == "ReOpen")
-                                                {
-                                                    <p class="mutedText ml-3"><i class="fa-solid fa-user mr-1"></i>Re-Open By: @hrTicket.EmployeeName</p>
-
-                                                }
-                                                else if (hrTicket.Status == "Resolved")
-                                                {
-                                                    <p class="mutedText ml-3"><i class="fa-solid fa-user mr-1"></i>Resolved By: @hrTicket.EmployeeName</p>
-
-                                                }
-                                                else if (hrTicket.Status == "Closed")
-                                                {
-                                                    <p class="mutedText ml-3"><i class="fa-solid fa-user mr-1"></i>Closed By: @hrTicket.EmployeeName</p>
-                                                }
+                                            <div class="d-flex flex-column align-items-center justify-content-center">
+                                                <img src="~/Assets/Birthday.png" alt="No Birthdays" class="img-fluid mb-3" style="max-width: 133px;">
+                                                <p class="text-muted">No birthdays today</p>
                                             </div>
+                                        }
+                                        else
+                                        {
+                                            foreach (var hrTicket in Model.AllHRTickets)
+                                            {
+                                                <p class="m-0 p-0">@hrTicket.Subject</p>
+                                                <div class="d-flex inside_content">
+                                                    <p class="mutedText"><i class="fa-solid fa-circle-exclamation mr-1"></i>Priority-</p>
+                                                    <p class="status-priority">High</p>
+
+                                                    @if (hrTicket.Status == "Open")
+                                                    {
+                                                        <p class="mutedText ml-3"><i class="fa-solid fa-user mr-1"></i>Open By: @hrTicket.EmployeeName</p>
+                                                    }
+                                                    else if (hrTicket.Status == "ReOpen")
+                                                    {
+                                                        <p class="mutedText ml-3"><i class="fa-solid fa-user mr-1"></i>Re-Open By: @hrTicket.EmployeeName</p>
+
+                                                    }
+                                                    else if (hrTicket.Status == "Resolved")
+                                                    {
+                                                        <p class="mutedText ml-3"><i class="fa-solid fa-user mr-1"></i>Resolved By: @hrTicket.EmployeeName</p>
+
+                                                    }
+                                                    else if (hrTicket.Status == "Closed")
+                                                    {
+                                                        <p class="mutedText ml-3"><i class="fa-solid fa-user mr-1"></i>Closed By: @hrTicket.EmployeeName</p>
+                                                    }
+                                                </div>
+
+                                            }
 
                                         }
                                     </div>
@@ -181,7 +203,6 @@
                                         }
                                         else
                                         {
-
                                             <ul class="list-group list-group-flush">
 
                                                 @foreach (var empBirthday in Model.BirthModel)
