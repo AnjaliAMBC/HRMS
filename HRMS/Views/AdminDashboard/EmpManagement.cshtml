@@ -60,14 +60,14 @@
                     <div class="col-lg-8 col-sm-12 col-md-12">
                         <div id="demo" class="collapse advancefilter">
                             <div class="collapse-topic d-flex align-items-center justify-content-end res-admin-filter-inside" style="margin-right: 24px;">
-                                <span class="mr-3 res-admin-filter">
-                                    Filter By<span class="res-close-btn" style="display:none;">X</span>
+                                <span class="mr-3 res-admin-filter"> Filter By<span class="res-close-btn" style="display:none;">X</span>
                                     <div class="dropdown mr-3" style="border-radius: 10px;">
                                         <select class="form-control form-select-sm" name="department" id="department-dropdown" style="border-radius: 15px; height: 35px; width: 131px;">
                                             <option value="" disabled selected>Department</option>
-                                            <option value="HR">HR</option>
-                                            <option value="DGM - Design">DGM - Design</option>
-                                            <option value="DGM - Web">DGM - Web</option>
+                                            @foreach (var item in Model.Departments)
+                                            {
+                                                <option value="@item.Id">@item.Id</option>
+                                            }
                                             <option value="All">All</option>
                                         </select>
                                     </div>
@@ -394,6 +394,7 @@
         $('#EmpsuccessModal').modal("hide");
         $('.admin-empmanagement').click();
         $('.modal-backdrop').remove();
+        window.location.href = "/admindashboard/employeemanagement";
     });
 
     $(document).off('click', '.edit-btn').on('click', '.edit-btn', function (event) {

@@ -25,7 +25,7 @@
                             <div class="col-12 col-sm-11 col-md-6 col-lg-4 col-xl-4 p-0 dashcard_style">
                                 <!-- Leave Request Section -->
                                 <div class="card leave-requests mx-2 my-card">
-                                    <div class="card-header">
+                                    <div class="card-header leave-request-Page">
                                         @{
                                             var filteredLeaveRequests = adminLocations.Any()
                                             ? Model.AllEMployeeLeaves.Where(x => adminLocations.Contains(x.LatestLeave.Location))
@@ -45,16 +45,20 @@
                                                         <img src="@empImagePath" alt="emp name" class="rounded-circle">
                                                         <div class="leave-text mt-2">
                                                             <span>@leave.LatestLeave.employee_name</span>
-                                                            @if (leave.Fromdate != leave.Todate)
+                                                            @if (leave.LatestLeave.leavesource == "Hourly Permission")
                                                             {
-                                                                <small>@leave.LatestLeave.leavesource | @leave.LatestLeave.Fromdate.Value.ToString("dd MMMM yyyy") to @leave.LatestLeave.Todate.Value.ToString("dd MMMM yyyy")</small>
+                                                                <small>@leave.LatestLeave.leavesource | @leave.LatestLeave.Fromdate.Value.ToString("dd MMMM yyyy")</small>
                                                             }
                                                             else
                                                             {
-                                                                <small>@leave.LatestLeave.leavesource | @leave.LatestLeave.leavedate.Value.ToString("dd MMMM yyyy")</small>
+                                                                <small>@leave.LatestLeave.leavesource | @leave.LatestLeave.Fromdate.Value.ToString("dd MMMM yyyy") to @leave.LatestLeave.Todate.Value.ToString("dd MMMM yyyy")</small>
                                                             }
-
+                                                            @*else
+                                                                {
+                                                                    <small>@leave.LatestLeave.leavesource | @leave.LatestLeave.Fromdate.Value.ToString("dd MMMM yyyy")</small>
+                                                                }*@
                                                         </div>
+
                                                     </div>
                                                     <div class="btn-group">
 
@@ -257,7 +261,7 @@
                                                     <li>
                                                         <a class="dashhoiday_description res-holidays-details-left compOff-request" data-leavenumber="@holiday.HolidayNo" data-location="@holiday.Region">
                                                             <h6 class="mb-0">@holiday.HolidayName</h6>
-                                                            <p class="smalltext res-admin-dash-location">@holiday.HolidayDate.ToString("dd MMMM dddd")</p><span class="ml-2 holiday_location">@holiday.Region</span>
+                                                            <p class="smalltext res-admin-dash-location">@holiday.HolidayDate.ToString("dd MMMM dddd")</p><span class="ml-2 holiday_location" style="display: none">@holiday.Region</span>
                                                         </a>
 
                                                         @if (totalApplied > 0)
@@ -282,8 +286,8 @@
                 <script src="~/Scripts/z-EmpDash.js"></script>
                 <script src="~/Scripts/z-empleave.js"></script>
                 @*<script>
-                    generateCalendar(new Date().getMonth(), new Date().getFullYear());
-                </script>*@
+                        generateCalendar(new Date().getMonth(), new Date().getFullYear());
+                    </script>*@
 
             </div>
         </div>

@@ -6,7 +6,7 @@
 }
 
 <style>
-    body {
+   /* body {
         font-family: Arial, sans-serif;
         color: #333;
     }
@@ -26,18 +26,25 @@
         text-align: center;
         padding: 10px;
         border-top: 1px solid #ddd;
-    }
+    }*/
 </style>
 
 @if (Model != null && Model.Any())
 {
     var leaveUpdate = Model.First();
-    <div class="email-container">
+    <div class="email-container" style="border: 1px solid #ddd; background-color: #f9f9f9; padding: 20px;">
         <div class="email-content">
-            <p>Hello HR,</p>
-            <a href="@siteURL" target="_blank" style="float: right; margin-left: 10px;">
-                <img src="@logoURL" alt="AMBC Logo" style="max-width: 50px;">
-            </a>
+            <div style="display: flex; justify-content: space-between; align-items: center;">
+                <p>Hello HR,</p>
+                <a href="@siteURL" target="_blank">
+                    <img src="@logoURL" alt="AMBC Logo" style="max-width: 50px; float: right;">
+                </a>
+            </div>
+
+            <p><strong>Leave Type:</strong> @leaveUpdate.leavesource</p>
+
+            <p><strong>From Date:</strong> @leaveUpdate.Fromdate</p>
+            <p><strong>To Date:</strong> @leaveUpdate.Todate</p>
 
             <p>@leaveUpdate.leave_reason</p>
 
@@ -52,3 +59,4 @@
         </div>
     </div>
 }
+

@@ -111,12 +111,17 @@
         margin: 0px 10px 0px 10px;
         border-bottom: 1px solid #ccc;
         color: black;
+        //padding-bottom: 20px;
     }
 
     #left-side-menu .sidebar-header .bl {
         display: inline-flex;
         width: 22%;
         padding: 0px 0px 0px 0px;
+    }
+
+    #left-side-menu .sidebar-header .bl .default-image-navbar {
+        margin-bottom: 20px;
     }
 
     #left-side-menu .sidebar-header .br {
@@ -130,6 +135,9 @@
     #left-side-menu .sidebar-header .bl img {
         //width: 45px;
         border-radius: 40px;
+        width: 45px;
+        height: 45px;
+        object-fit: cover;
     }
 
     #left-side-menu .sidebar-header .br div {
@@ -278,7 +286,7 @@
 
     .mobile-view .emp-attendance .main-content.container-fluid {
         width: 100% !important;
-        padding: 65px 0px;
+        padding: 55px 0px;
     }  
 
     .mobile-view .attendance-nav .att-div {
@@ -593,7 +601,7 @@
 
     .mobile-view .res-admin-employee-management .main-content.container-fluid {
         width: 100% !important;
-        padding: 65px 0px;
+        padding: 55px 0px;
     }
 
     .mobile-view .res-admin-employee-management .res-admin-empman-search .search-container {
@@ -1092,6 +1100,10 @@
 
     /* admin leave history start*/
 
+    .mobile-view .admin-leave-history-header-title {
+        margin-top: 10px;
+    }
+
     .mobile-view .res-admin-leavehistory-main-header {
         justify-content: initial !important;
         display: inline-block !important;
@@ -1218,6 +1230,16 @@
     /* admin leave history end*/
 
     /* admin leave balance start*/
+
+    .mobile-view .admin-leaveBalance-view {
+        margin-top: -15px;
+    }
+
+    .mobile-view .res-adminleavebalance-update-block {
+        display: inline-block;
+        margin-top: 10px;
+    }
+
     .mobile-view .res-admin-leave-balance {
         margin-left: 0%;
         display: inline;
@@ -1861,6 +1883,7 @@
     .tablet-view .attendance-nav .att-div {
         width: 100%;
         display: inline-block;
+        margin-top: -5px;
     }
 
     .tablet-view .attendance-nav .att-calender {
@@ -2528,13 +2551,13 @@
         margin-left: 0px !important;
     }
 
-    .tablet-view .login-page #forgotpassword button {
-        width: 100% !important;
-    }
+        .tablet-view .login-page #forgotpassword button {
+            width: 100% !important;
+        }
 
-    .tablet-view .login-page #forgotpassword .empemail-field input {
-        max-width: 100%;
-    }
+        .tablet-view .login-page #forgotpassword .empemail-field input {
+            max-width: 100%;
+        }
 
     /* forgot password start*/
 
@@ -2652,22 +2675,22 @@
         table-layout: fixed;
     }
 
-    .tablet-view #attendanceTable .attendence-thead th:nth-child(1) {
-        width: 120px !important;
-    }
+        .tablet-view #attendanceTable .attendence-thead th:nth-child(1) {
+            width: 120px !important;
+        }
 
-    .tablet-view #attendanceTable .attendence-thead th:nth-child(2) {
-        width: 230px !important;
-    }
+        .tablet-view #attendanceTable .attendence-thead th:nth-child(2) {
+            width: 230px !important;
+        }
 
-    .tablet-view #attendanceTable .attendence-thead th:nth-child(3) {
-        width: 100px !important;
-    }
+        .tablet-view #attendanceTable .attendence-thead th:nth-child(3) {
+            width: 100px !important;
+        }
 
-    .tablet-view #attendanceTable .attendence-thead th:nth-child(4) {
-        width: 100px !important;
-    }
-    
+        .tablet-view #attendanceTable .attendence-thead th:nth-child(4) {
+            width: 100px !important;
+        }
+
     /* attendence end*/
 
     /* emp leave start */
@@ -2707,9 +2730,9 @@
         display: block;
     }
 
-    .tablet-view .emp-leave .apply-date-section .form-group {
-        margin-right: 0;
-    }
+        .tablet-view .emp-leave .apply-date-section .form-group {
+            margin-right: 0;
+        }
 
     .tablet-view .emp-leave .res-emp-carousel {
         display: inline-block;
@@ -2748,6 +2771,7 @@
     .tablet-view .leave-dashboard-data .res-emp-leave-title {
         display: block;
         width: 74%;
+        margin-top: 15px;
     }
 
     .tablet-view .carousel-inner .carousel-item > div:first-child {
@@ -2762,49 +2786,49 @@
         table-layout: fixed;
     }
 
-    .tablet-view #leaveHistoryTable tbody td:nth-child(1) {
-        width: 128px !important;
-    }
+        .tablet-view #leaveHistoryTable tbody td:nth-child(1) {
+            width: 128px !important;
+        }
 
-    .tablet-view #leaveHistoryTable tbody td:nth-child(2) {
-        width: 100px !important;
-    }
+        .tablet-view #leaveHistoryTable tbody td:nth-child(2) {
+            width: 100px !important;
+        }
 
-    .tablet-view #leaveHistoryTable tbody td:nth-child(3) {
-        width: 150px !important;
-    }
+        .tablet-view #leaveHistoryTable tbody td:nth-child(3) {
+            width: 150px !important;
+        }
 
-    .tablet-view #leaveHistoryTable tbody td:nth-child(4) {
-        width: 100px !important;
-    }
+        .tablet-view #leaveHistoryTable tbody td:nth-child(4) {
+            width: 100px !important;
+        }
 
-    .tablet-view #leaveHistoryTable tbody td:nth-child(5) {
-        width: 250px !important;
-    }
+        .tablet-view #leaveHistoryTable tbody td:nth-child(5) {
+            width: 250px !important;
+        }
 
-    .tablet-view #leaveHistoryTable tbody td:nth-child(6) {
-        width: 40px !important;
-    }
+        .tablet-view #leaveHistoryTable tbody td:nth-child(6) {
+            width: 40px !important;
+        }
 
     .tablet-view #empleaveCompOffTable {
         table-layout: fixed;
     }
 
-    .tablet-view #empleaveCompOffTable tbody td:nth-child(3) {
-        width: 128px !important;
-    }
+        .tablet-view #empleaveCompOffTable tbody td:nth-child(3) {
+            width: 128px !important;
+        }
 
-    .tablet-view #empleaveCompOffTable tbody td:nth-child(4) {
-        width: 100px !important;
-    }
+        .tablet-view #empleaveCompOffTable tbody td:nth-child(4) {
+            width: 100px !important;
+        }
 
-    .tablet-view #empleaveCompOffTable tbody td:nth-child(5) {
-        width: 100px !important;
-    }
+        .tablet-view #empleaveCompOffTable tbody td:nth-child(5) {
+            width: 100px !important;
+        }
 
-    .tablet-view #empleaveCompOffTable tbody td:nth-child(6) {
-        width: 250px !important;
-    }
+        .tablet-view #empleaveCompOffTable tbody td:nth-child(6) {
+            width: 250px !important;
+        }
 
     /* emp leave end*/
 
@@ -2837,21 +2861,21 @@
         margin: 0 0%;
     }
 
-    .tablet-view #empticketlistingTable tbody td:nth-child(1) {
-        width: 300px !important;
-    }
+        .tablet-view #empticketlistingTable tbody td:nth-child(1) {
+            width: 300px !important;
+        }
 
-    .tablet-view #empticketlistingTable tbody td:nth-child(1) .emp-ticketing-listing-title {
-        width: 250px;
-    }
+            .tablet-view #empticketlistingTable tbody td:nth-child(1) .emp-ticketing-listing-title {
+                width: 250px;
+            }
 
-    .tablet-view #empticketlistingTable tbody td:nth-child(3) {
-        width: 220px !important;
-    }
+        .tablet-view #empticketlistingTable tbody td:nth-child(3) {
+            width: 220px !important;
+        }
 
-    .tablet-view #empticketlistingTable tbody td:nth-child(4) {
-        width: 100px !important;
-    }
+        .tablet-view #empticketlistingTable tbody td:nth-child(4) {
+            width: 100px !important;
+        }
 
     .tablet-view #empticketlistingTable_wrapper {
         padding: 20px 0;
@@ -2864,8 +2888,10 @@
     /* emp ticket end */
 
     /*admin emp management page start*/
+
     .tablet-view .res-admin-employee-management .main-content {
         width: 75% !important;
+        margin-top: 10px;
     }
 
     .tablet-view .admin-empview .res-admin-title {
@@ -2894,7 +2920,8 @@
 
     .tablet-view .res-admin-employee-management .admin-empview {
         margin-bottom: 20px;
-        display: inline;
+        display: inline-block;
+        margin-top: -5px;
     }
 
     .tablet-view .res-admin-employee-management .res-admin-empman-filter-show {
@@ -2954,13 +2981,13 @@
         position: absolute;
         //top: 14px;
         //right: 22px;
-        top: 140px;
+        top: 160px;
         right: 50px;
     }
 
-    .responsive-tabs.nav-tabs i.fa.fa-caret-up {
-        display: none;
-    }
+        .responsive-tabs.nav-tabs i.fa.fa-caret-up {
+            display: none;
+        }
 
     .responsive-tabs.nav-tabs > li {
         display: none;
@@ -2969,24 +2996,24 @@
         width: 100%;
     }
 
-    .responsive-tabs.nav-tabs > li:last-of-type > a {
-        margin-right: 0;
-    }
+        .responsive-tabs.nav-tabs > li:last-of-type > a {
+            margin-right: 0;
+        }
 
-    .responsive-tabs.nav-tabs > li > a {
-        margin-right: 0;
-        background: #fff;
-        border: 1px solid #DDDDDD;
-    }
+        .responsive-tabs.nav-tabs > li > a {
+            margin-right: 0;
+            background: #fff;
+            border: 1px solid #DDDDDD;
+        }
 
-    .responsive-tabs.nav-tabs > li.active {
-        display: block;
-    }
+        .responsive-tabs.nav-tabs > li.active {
+            display: block;
+        }
 
-    .responsive-tabs.nav-tabs > li.active a {
-        border: 1px solid #DDDDDD;
-        border-radius: 2px;
-    }
+            .responsive-tabs.nav-tabs > li.active a {
+                border: 1px solid #DDDDDD;
+                border-radius: 2px;
+            }
 
     .responsive-tabs.nav-tabs.open i.fa.fa-caret-up {
         display: block;
@@ -3000,17 +3027,17 @@
         display: block;
     }
 
-    .responsive-tabs.nav-tabs.open > li a {
-        border-radius: 0;
-    }
+        .responsive-tabs.nav-tabs.open > li a {
+            border-radius: 0;
+        }
 
-    .responsive-tabs.nav-tabs.open > li:first-of-type a {
-        border-radius: 2px 2px 0 0;
-    }
+        .responsive-tabs.nav-tabs.open > li:first-of-type a {
+            border-radius: 2px 2px 0 0;
+        }
 
-    .responsive-tabs.nav-tabs.open > li:last-of-type a {
-        border-radius: 0 0 2px 2px;
-    }
+        .responsive-tabs.nav-tabs.open > li:last-of-type a {
+            border-radius: 0 0 2px 2px;
+        }
 
     .admin-empmanagement-view .responsive-tabs.nav-tabs i.fa.fa-caret-down {
         //display: block;
@@ -3031,6 +3058,7 @@
         width: 71% !important;
         padding: 65px 0px;
     }
+
     .tablet-view .res-admin-attendance .res-admin-attendance-header {
         display: inline !important;
         width: 94%;
@@ -3066,10 +3094,10 @@
         display: inline-block !important;
     }
 
-    .tablet-view .res-admin-attendance .res-admin-attendance-header .adminatt-dropdown select {
-        width: 100% !important;
-        margin-left: 0px !important;
-    }
+        .tablet-view .res-admin-attendance .res-admin-attendance-header .adminatt-dropdown select {
+            width: 100% !important;
+            margin-left: 0px !important;
+        }
 
     .tablet-view .res-admin-attendance .res-admin-attendance-header .res-add-shift-btn {
         width: 20%;
@@ -3097,9 +3125,9 @@
         margin-top: 0px !important;
     }
 
-    .tablet-view .res-admin-individual-attendance .res-admin-individual-att-from-to {
-        margin-left: 5% !important;
-    }
+        .tablet-view .res-admin-individual-attendance .res-admin-individual-att-from-to {
+            margin-left: 5% !important;
+        }
 
     .tablet-view .res-admin-attendance .res-date-from-to {
         padding-right: 4% !important;
@@ -3107,6 +3135,7 @@
 
     .tablet-view .addshiftcontent {
         padding: 0px 0px 0px 20px;
+        margin-top: 5px !important;
     }
 
     .tablet-view .admin-attendancemgmt-view .b-from label,
@@ -3130,9 +3159,9 @@
         width: 113%;
     }
 
-    .tablet-view .res-admin-leave-balance .search-container {
-        margin-left: 10% !important;
-    }
+        .tablet-view .res-admin-leave-balance .search-container {
+            margin-left: 10% !important;
+        }
 
     .tablet-view .res-adminleave-header-right .dropdowns-leave-container {
         display: inline-block;
@@ -3186,6 +3215,11 @@
     /* admin leave end*/
 
     /* admin leave history start*/
+
+    .tablet-view .res-admin-leave .res-admin-leave-history .admin-leave-history-header-title h4 {
+        margin-top: 5px;
+    }
+
     .tablet-view .res-admin-leavehistory-main-header {
         justify-content: initial !important;
         display: inline-block !important;
@@ -3544,11 +3578,15 @@
     }
 
     .res-admin-leave-balance #leaveBalanceTable thead th:nth-child(1) {
-        width: 45px !important;
+        width: 50px !important;
     }
 
     .res-admin-leave-balance #leaveBalanceTable thead th:nth-child(2) {
         width: 140px !important;
+    }
+
+    .res-admin-leave-balance #leaveBalanceTable thead th:nth-child(3) {
+        width: 95px !important;
     }
 
     .res-admin-leave-balance #leaveBalanceTable thead th:nth-child(11) {

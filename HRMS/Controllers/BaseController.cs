@@ -16,8 +16,11 @@ namespace HRMS.Controllers
 
             // Skip session validation for the login action
             if (currentController.Equals("Account", StringComparison.OrdinalIgnoreCase) &&
-                currentAction.Equals("Login", StringComparison.OrdinalIgnoreCase))
-            {
+                (currentAction.Equals("Login", StringComparison.OrdinalIgnoreCase) 
+                || currentAction.Equals("ForgotPassword", StringComparison.OrdinalIgnoreCase) 
+                || currentAction.Equals("ResetPassword", StringComparison.OrdinalIgnoreCase)
+                || currentAction.Equals("UpdatePassword", StringComparison.OrdinalIgnoreCase)))
+            {                
                 base.OnActionExecuting(filterContext);
                 return;
             }

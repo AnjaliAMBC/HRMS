@@ -48,7 +48,7 @@
                 </style>
                 <div class="container-fluid res-admin-leave-history">
                     <div class="row mb-2 align-items-center">
-                        <div class="col-lg-3 col-md-6">
+                        <div class="col-lg-3 col-md-6 admin-leave-history-header-title">
                             <h4 class="ml-1">Leave History</h4>
                         </div>
                         @*multiselect search dropdown*@
@@ -158,7 +158,7 @@
                                     </select>
                                 </div>
                                 <div class="dropdown res-adminadvfilter-leavehistory">
-                                    <select class="form-control form-select-sm" name="status" id="leavehistory-status-dropdown" style="border-radius: 15px; height: 35px; width: 131px;border: 1px solid lightgray">
+                                    <select class="form-control form-select-sm" name="status" id="leavehistory-status-dropdown" style="border-radius: 15px; height: 35px; width: 110px;border: 1px solid lightgray">
                                         <option value="" disabled selected>Status</option>
                                         <option value="Approved">Approved</option>
                                         <option value="Rejected">Rejected</option>
@@ -181,10 +181,10 @@
                         <thead style="background-color: #EEF4FF; border-radius: 10px;">
                             <tr>
                                 <th><input type="checkbox" id="selectAllrows"></th>
-                                <th>Emp ID</th>
-                                <th>Employee Name</th>
+                                <th style="width:50px;">Emp ID</th>
+                                <th style="width:230px;">Employee Name</th>
                                 <th>Leave Type</th>
-                                <th>Applied Date</th>
+                                <th style="width:110px;">Applied Date</th>
                                 <th>From Date</th>
                                 <th>To Date</th>
                                 <th>Days/Hours</th>
@@ -217,46 +217,59 @@
                             @foreach (var leaveInfo in Model.AllEMployeeLeaves)
                             {
                                 <tr>
-                                    <td> <input type="checkbox"></td>
+                                    <td><input type="checkbox"></td>
                                     <td>@leaveInfo.LatestLeave.employee_id</td>
                                     @{
                                         var empImagePath = "/Assets/EmpImages/" + leaveInfo.LatestLeave.employee_id + ".jpeg" + "?" + System.DateTime.Now;
                                     }
-                                    <td><div style="display: flex; align-items: center;"><img class="userIcon" src="@empImagePath"><span style="margin-top: 0px; margin-right: 10px;">@leaveInfo.LatestLeave.employee_name<br><span style="color: #3E78CF;">@leaveInfo.LatestLeave.OfficalEmailid</span></span></div></td>
+                                    <td>
+                                        <div style="display: flex; align-items: center;">
+                                            <img class="userIcon" src="@empImagePath">
+                                            <span style="margin-top: 0px; margin-right: 10px;">
+                                                @leaveInfo.LatestLeave.employee_name<br>
+                                                <span style="color: #3E78CF;">@leaveInfo.LatestLeave.OfficalEmailid</span>
+                                            </span>
+                                        </div>
+                                    </td>
                                     <td>@leaveInfo.LatestLeave.leavesource</td>
                                     <td class="res-admin-leave-applieddate">
                                         <div class="res-leave-his-date">
                                             @(leaveInfo.LatestLeave.createddate.HasValue
-            ? leaveInfo.LatestLeave.createddate.Value.ToString("dd MMMM yyyy")
-            : "No Date Available")
-
-                                        </div><div class="res-leave-his-day mutedText">
+                    ? leaveInfo.LatestLeave.createddate.Value.ToString("dd MMMM yyyy")
+                    : "No Date Available")
+                                        </div>
+                                        <div class="res-leave-his-day mutedText">
                                             @(leaveInfo.LatestLeave.createddate.HasValue
-            ? leaveInfo.LatestLeave.createddate.Value.ToString("ddd")
-            : "No Date Available")
+                    ? leaveInfo.LatestLeave.createddate.Value.ToString("ddd")
+                    : "No Date Available")
                                         </div>
                                     </td>
                                     <td class="res-admin-leave-from">
                                         <div class="res-leave-his-date">
                                             @(leaveInfo.LatestLeave.Fromdate.HasValue
-            ? leaveInfo.LatestLeave.Fromdate.Value.ToString("dd MMMM yyyy")
-            : "No Date Available")
-
-                                        </div><div class="res-leave-his-day mutedText">
+                    ? leaveInfo.LatestLeave.Fromdate.Value.ToString("dd MMMM yyyy")
+                    : "No Date Available")
+                                        </div>
+                                        <div class="res-leave-his-day mutedText">
                                             @(leaveInfo.LatestLeave.Fromdate.HasValue
-            ? leaveInfo.LatestLeave.Fromdate.Value.ToString("ddd")
-            : "No Date Available")
+                    ? leaveInfo.LatestLeave.Fromdate.Value.ToString("ddd")
+                    : "No Date Available")
                                         </div>
                                     </td>
                                     <td class="res-admin-leave-to">
                                         <div class="res-leave-his-date">
-                                            @(leaveInfo.LatestLeave.Todate.HasValue
-            ? leaveInfo.LatestLeave.Todate.Value.ToString("dd MMMM yyyy")
-            : "No Date Available")
-                                        </div><div class="res-leave-his-day mutedText">
-                                            @(leaveInfo.LatestLeave.Todate.HasValue
-            ? leaveInfo.LatestLeave.Todate.Value.ToString("ddd")
-            : "No Date Available")
+                                            @(leaveInfo.LatestLeave.leavesource == "Hourly Permission" && leaveInfo.LatestLeave.Fromdate.HasValue
+                    ? leaveInfo.LatestLeave.Fromdate.Value.ToString("dd MMMM yyyy")
+                    : leaveInfo.LatestLeave.Todate.HasValue
+                        ? leaveInfo.LatestLeave.Todate.Value.ToString("dd MMMM yyyy")
+                        : "No Date Available")
+                                        </div>
+                                        <div class="res-leave-his-day mutedText">
+                                            @(leaveInfo.LatestLeave.leavesource == "Hourly Permission" && leaveInfo.LatestLeave.Fromdate.HasValue
+                    ? leaveInfo.LatestLeave.Fromdate.Value.ToString("ddd")
+                    : leaveInfo.LatestLeave.Todate.HasValue
+                        ? leaveInfo.LatestLeave.Todate.Value.ToString("ddd")
+                        : "No Date Available")
                                         </div>
                                     </td>
                                     <td>@leaveInfo.TotalLeaveDays</td>
@@ -264,12 +277,13 @@
                                     <td class="admin-leavehistory-reasons"><span title="@leaveInfo.LatestLeave.leave_reason">@leaveInfo.LatestLeave.leave_reason</span></td>
                                     <td style="display: none">@leaveInfo.LatestLeave.LeaveStatus</td>
                                     <td style="display: none">@leaveInfo.LatestLeave.createdby</td>
-                                    <td style="display: none">@(leaveInfo.LatestLeave.createddate.HasValue? leaveInfo.LatestLeave.createddate.Value.ToString("dd MMMM yyyy"): "No Date Available")</td>
+                                    <td style="display: none">@(leaveInfo.LatestLeave.createddate.HasValue ? leaveInfo.LatestLeave.createddate.Value.ToString("dd MMMM yyyy") : "No Date Available")</td>
                                     <td style="display: none">@leaveInfo.LatestLeave.updatedby</td>
-                                    <td style="display: none">@(leaveInfo.LatestLeave.updateddate.HasValue? leaveInfo.LatestLeave.updateddate.Value.ToString("dd MMMM yyyy"): "No Date Available")</td>
+                                    <td style="display: none">@(leaveInfo.LatestLeave.updateddate.HasValue ? leaveInfo.LatestLeave.updateddate.Value.ToString("dd MMMM yyyy") : "No Date Available")</td>
                                     <td></td>
                                 </tr>
                             }
+
 
                         </tbody>
                     </table>
