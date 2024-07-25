@@ -2,6 +2,11 @@
 
 @Html.Partial("_NavBar")
 <div class="container-fluid emp-self-service">
+    <style>
+        .boreder {
+           border: 1px solid #c7e7f0 !important
+        }
+    </style>
     @Html.Partial("_empsidemenu")
     <div class="main-content container-fluid" style="width: 84%">
         <div class="hiddenempdashboard"></div>
@@ -56,7 +61,7 @@
                     <div class="row mb-3 self-service-header-info">
                         <div class="col-lg-4 col-md-6 col-sm-12" style="margin-left: -16px; margin-right: 18px; ">
                             <h4>@Model.EmpInfo.EmployeeID - @Model.EmpInfo.EmployeeName</h4>
-                            <p style=" margin-left: 3px; font-weight: 600;">@Model.EmpInfo.Designation</p>
+                            <p style=" margin-left: 3px;">@Model.EmpInfo.Designation</p>
                         </div>
                         <div class="col-lg-4 col-md-6 col-sm-12 p-sm-0">
                             <p> <i class="material-icons">email</i> @Model.EmpInfo.OfficalEmailid</p>

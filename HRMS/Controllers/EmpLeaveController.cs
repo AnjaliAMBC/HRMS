@@ -142,6 +142,7 @@ namespace HRMS.Controllers
                             updateddate = DateTime.Now,
                             Designation = leaveRequest.Designation,
                             Department = leaveRequest.Department,
+                            TeamEmails = leaveRequest.TeamEmail
 
                         });
                     }
@@ -175,6 +176,7 @@ namespace HRMS.Controllers
                         updateddate = DateTime.Now,
                         Designation = leaveRequest.Designation,
                         Department = leaveRequest.Department,
+                        TeamEmails = leaveRequest.TeamEmail
                     });
                 }
 
@@ -191,15 +193,15 @@ namespace HRMS.Controllers
                     var emailBody = RenderPartialToString(this, "_LeaveNotificationEmpEmail", leaves, ViewData, TempData);
 
                     var teamEmails = "";
-                    if (!string.IsNullOrWhiteSpace(leaveRequest.TeamEmail))
+                    if (!string.IsNullOrWhiteSpace(leaveRequest.TeamEmail.Trim()))
                     {
-                        teamEmails = "," + leaveRequest.TeamEmail;
+                        teamEmails = "," + leaveRequest.TeamEmail.Trim();
                     }
-
+                    teamEmails = teamEmails.Trim().Trim(',');
                     var emailRequest = new EmailRequest()
                     {
                         Body = emailBody,
-                        ToEmail = leaveRequest.OfficalEmailid + teamEmails,
+                        ToEmail = !string.IsNullOrWhiteSpace(teamEmails) ? leaveRequest.OfficalEmailid + "," + teamEmails : leaveRequest.OfficalEmailid,
                         CCEmail = ConfigurationManager.AppSettings["LeaveEmails"],
                         Subject = emailSubject
                     };
@@ -215,13 +217,13 @@ namespace HRMS.Controllers
                     var teamEmails = "";
                     if (!string.IsNullOrWhiteSpace(leaveRequest.TeamEmail))
                     {
-                        teamEmails = "," + leaveRequest.TeamEmail;
+                        teamEmails = "," + leaveRequest.TeamEmail.Trim();
                     }
-
+                    teamEmails = teamEmails.Trim().Trim(',');
                     var emailRequest = new EmailRequest()
                     {
                         Body = emailBody,
-                        ToEmail = leaveRequest.OfficalEmailid + teamEmails,
+                        ToEmail = !string.IsNullOrWhiteSpace(teamEmails) ? leaveRequest.OfficalEmailid + "," + teamEmails : leaveRequest.OfficalEmailid,
                         CCEmail = ConfigurationManager.AppSettings["LeaveEmails"],
                         Subject = emailSubject
                     };
