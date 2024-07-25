@@ -34,7 +34,7 @@
             submittedUser: submittedUser,
             holidayname: selectedholidayname,
             holidynumber: parseInt(selectedHolidayNumber),
-            holidaylocation: selectedHolidayLocation,
+            holidaylocation: empLocation,
             empEmail: empEmail
         },
         success: function (response) {

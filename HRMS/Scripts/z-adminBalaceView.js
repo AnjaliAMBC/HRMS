@@ -342,11 +342,11 @@ $(document).on('click', '.leave-view-history', function (event) {
                 $.each(responseJson.AllEMployeeLeaves, function (index, leaveInfo) {
                     var empImagePath = "/Assets/EmpImages/" + leaveInfo.LatestLeave.employee_id + ".jpeg" + "?" + new Date().getTime();
                     var createdDate = leaveInfo.LatestLeave.createddate ? new Date(leaveInfo.LatestLeave.createddate).toLocaleDateString('en-GB', { day: 'numeric', month: 'long', year: 'numeric' }) : "No Date Available";
-                    var createdDay = leaveInfo.LatestLeave.createddate ? new Date(leaveInfo.LatestLeave.createddate).toLocaleDateString('en-GB', { weekday: 'short' }) : "No Date Available";
+                    var createdDay = leaveInfo.LatestLeave.createddate ? new Date(leaveInfo.LatestLeave.createddate).toLocaleDateString('en-GB', { weekday: 'long' }) : "No Date Available";
                     var fromDate = leaveInfo.LatestLeave.Fromdate ? new Date(leaveInfo.LatestLeave.Fromdate).toLocaleDateString('en-GB', { day: 'numeric', month: 'long', year: 'numeric' }) : "No Date Available";
-                    var fromDay = leaveInfo.LatestLeave.Fromdate ? new Date(leaveInfo.LatestLeave.Fromdate).toLocaleDateString('en-GB', { weekday: 'short' }) : "No Date Available";
+                    var fromDay = leaveInfo.LatestLeave.Fromdate ? new Date(leaveInfo.LatestLeave.Fromdate).toLocaleDateString('en-GB', { weekday: 'long' }) : "No Date Available";
                     var toDate = leaveInfo.LatestLeave.Todate ? new Date(leaveInfo.LatestLeave.Todate).toLocaleDateString('en-GB', { day: 'numeric', month: 'long', year: 'numeric' }) : "No Date Available";
-                    var toDay = leaveInfo.LatestLeave.Todate ? new Date(leaveInfo.LatestLeave.Todate).toLocaleDateString('en-GB', { weekday: 'short' }) : "No Date Available";
+                    var toDay = leaveInfo.LatestLeave.Todate ? new Date(leaveInfo.LatestLeave.Todate).toLocaleDateString('en-GB', { weekday: 'long' }) : "No Date Available";
 
                     tableBody += `<tr>
                     <td><input type="checkbox"></td>

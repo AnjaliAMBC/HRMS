@@ -60,12 +60,12 @@
                                     </td>
                                     <td style="width: 300px" class="res-emp-ticketlisting-priority">
                                         @*@if (ticket.Closed_date.HasValue)
-                                        {
-                                            TimeSpan responseTime = ticket.Closed_date.Value - ticket.Created_date.Value;
-                                            <div class="emp-ticketing-response-time">
-                                                Response Time @responseTime.TotalHours.ToString("0.00") Hr
-                                            </div>
-                                        }*@
+                                            {
+                                                TimeSpan responseTime = ticket.Closed_date.Value - ticket.Created_date.Value;
+                                                <div class="emp-ticketing-response-time">
+                                                    Response Time @responseTime.TotalHours.ToString("0.00") Hr
+                                                </div>
+                                            }*@
 
                                         @{
                                             TimeSpan responseTime = new TimeSpan();
@@ -117,7 +117,21 @@
                                             }
                                             else if (ticket.Status == "Resolved")
                                             {*@
-                                        <div class="emp-ticketing-listing-closedby">Resolved By: <span>@ticket.ResolvedByName</span></div>
+
+                                        <div class="emp-ticketing-listing-closedby">
+                                            Resolved By:
+                                            <span>
+                                                @{ if (!string.IsNullOrWhiteSpace(ticket.ResolvedByName))
+                                                    {
+                                                        @ticket.ResolvedByName;
+                                                    }
+                                                    else
+                                                    {
+                                                        @ticket.ClosedByName;
+                                                    } }
+                                            </span>
+                                        </div>
+
                                         @*}
                                             else if (ticket.Status == "Closed")
                                             {

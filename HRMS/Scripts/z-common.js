@@ -27,3 +27,9 @@ function showMessageModal(message, isSuccess) {
     }    
     $('#messageModal').modal('show');
 }
+
+$(document).on('click', '.btn-close-refreshpage', function (event) {
+    window.location.href = window.location.href;
+    return false;
+});
+

@@ -240,7 +240,7 @@
                                         </div>
                                         <div class="res-leave-his-day mutedText">
                                             @(leaveInfo.LatestLeave.createddate.HasValue
-                    ? leaveInfo.LatestLeave.createddate.Value.ToString("ddd")
+                    ? leaveInfo.LatestLeave.createddate.Value.ToString("dddd")
                     : "No Date Available")
                                         </div>
                                     </td>
@@ -252,7 +252,7 @@
                                         </div>
                                         <div class="res-leave-his-day mutedText">
                                             @(leaveInfo.LatestLeave.Fromdate.HasValue
-                    ? leaveInfo.LatestLeave.Fromdate.Value.ToString("ddd")
+                    ? leaveInfo.LatestLeave.Fromdate.Value.ToString("dddd")
                     : "No Date Available")
                                         </div>
                                     </td>
@@ -266,9 +266,9 @@
                                         </div>
                                         <div class="res-leave-his-day mutedText">
                                             @(leaveInfo.LatestLeave.leavesource == "Hourly Permission" && leaveInfo.LatestLeave.Fromdate.HasValue
-                    ? leaveInfo.LatestLeave.Fromdate.Value.ToString("ddd")
+                    ? leaveInfo.LatestLeave.Fromdate.Value.ToString("dddd")
                     : leaveInfo.LatestLeave.Todate.HasValue
-                        ? leaveInfo.LatestLeave.Todate.Value.ToString("ddd")
+                        ? leaveInfo.LatestLeave.Todate.Value.ToString("dddd")
                         : "No Date Available")
                                         </div>
                                     </td>
@@ -344,13 +344,14 @@
                         $(document).on('change', '#selectAll', function () {
                             var checked = $(this).is(':checked');
                             $('#employeeList .form-check-input').not('#selectAll').prop('checked', checked);
+                            updateSelectedEmployees(); // Update the selected employees text
                             filterTable(table);
                         });
 
                         // Function to update selected employees in button text
                         function updateSelectedEmployees() {
                             let selectedEmployees = [];
-                            $('#employeeList .form-check-input:checked').each(function () {
+                            $('#employeeList .form-check-input:checked').not('#selectAll').each(function () {
                                 let employeeName = $(this).siblings('label').find('span').text();
                                 selectedEmployees.push(employeeName);
                             });
@@ -368,11 +369,10 @@
                         }
 
                         // Event handler for checkbox change
-                        $('#employeeList .form-check-input').change(function () {
+                        $(document).on('change', '#employeeList .form-check-input', function () {
                             updateSelectedEmployees();
                             filterTable(table); // Assuming filterTable is your function to filter DataTable
                         });
-
 
                         function filterTable(table) {
                             var selectedEmployees = [];
