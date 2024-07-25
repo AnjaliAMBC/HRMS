@@ -165,7 +165,7 @@ namespace HRMS.Controllers
             return String.Empty;
         }
 
-
+        [AllowAnonymous]
         public ActionResult ForgotPassword(ForgotPasswordModel forgotModel)
         {
             try
@@ -195,6 +195,7 @@ namespace HRMS.Controllers
             }
         }
 
+        [AllowAnonymous]
         public JsonResult ForgotPasswordEmail(emplogin empInfoModel, ForgotPasswordModel forgotModel)
         {
             try
@@ -231,6 +232,7 @@ namespace HRMS.Controllers
         }
 
         [HttpGet]
+        [AllowAnonymous]
         public ActionResult ResetPassword(string empid)
         {
             var model = new ResetPasswordModel();
@@ -245,6 +247,7 @@ namespace HRMS.Controllers
             return View("~/Views/Account/ResetPassword.cshtml", model);
         }
 
+        [AllowAnonymous]
         public ActionResult UpdatePassword(UpdatePasswordModel updatePwdmodel)
         {
             try

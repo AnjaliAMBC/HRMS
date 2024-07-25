@@ -183,6 +183,17 @@ namespace HRMS.Controllers
                 var earlierEmploymentType = existingEmployee.EmployeeType;
                 if (existingEmployee != null)
                 {
+                    //In here in case of status chnage updating in emp login table as well
+                    if (existingEmployee.EmployeeStatus != model.EmpInfo.EmployeeStatus)
+                    {
+                        var loginRelatedtoEmp = _dbContext.emplogins.Where(x => x.EmployeeID == existingEmployee.EmployeeID).FirstOrDefault();
+                        if (loginRelatedtoEmp != null)
+                        {
+                            loginRelatedtoEmp.EmployeeStatus = model.EmpInfo.EmployeeStatus;
+                            _dbContext.SaveChanges();
+                        }
+                    }
+
                     // Update all properties of the existing entity
                     existingEmployee.EmployeeStatus = model.EmpInfo.EmployeeStatus;
                     existingEmployee.EmployeeName = model.EmpInfo.EmployeeName;
@@ -236,7 +247,7 @@ namespace HRMS.Controllers
                     existingEmployee.CreatedBy = model.EmpInfo.CreatedBy;
                     existingEmployee.CreatedDate = model.EmpInfo.CreatedDate;
                     existingEmployee.UpdatedBy = model.EmpInfo.UpdatedBy;
-                    existingEmployee.UpdatedDate = DateTime.Now;
+                    existingEmployee.UpdatedDate = DateTime.Now;                  
 
                     _dbContext.SaveChanges();
                     model.JsonResponse.Message = "Employee details updated successfully!";
@@ -304,6 +315,8 @@ namespace HRMS.Controllers
                         //Delete old entry
                         _dbContext.LeaveBalances.Remove(empLeaveBalanceInfo);
                         _dbContext.SaveChanges();
+
+
                     }
                 }
             }
@@ -697,9 +710,22 @@ namespace HRMS.Controllers
                     }
                     else
                     {
-                        model.Message = "Reporting Manager not added!";
-                        model.StatusCode = 400;
-                        return Json(model, JsonRequestBehavior.AllowGet);
+                        if (newReportingManager != null)
+                        {
+                            newReportingManager.IsReporingM = true;
+                            _dbContext.SaveChanges();
+
+                            model.Message = "Reporting Manager added successfully!";
+                            model.StatusCode = 200;
+                            return Json(model, JsonRequestBehavior.AllowGet);
+
+                        }
+                        else
+                        {
+                            model.Message = "Reporting Manager not added!";
+                            model.StatusCode = 400;
+                            return Json(model, JsonRequestBehavior.AllowGet);
+                        }
                     }
                 }
                 catch (Exception ex)
