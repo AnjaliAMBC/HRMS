@@ -62,6 +62,7 @@
           <Property Name="updateddate" Type="date" />
           <Property Name="Designation" Type="varchar" MaxLength="255" />
           <Property Name="Department" Type="varchar" MaxLength="255" />
+          <Property Name="TeamEmails" Type="nvarchar(max)" />
         </EntityType>
         <EntityType Name="Department">
           <Key>
@@ -561,6 +562,7 @@ warning 6002: The table/view 'HRMS_PortalDev1.dbo.CheckInView' does not have a p
           <Property Name="updateddate" Type="DateTime" Precision="0" />
           <Property Name="Designation" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
           <Property Name="Department" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+          <Property Name="TeamEmails" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
         </EntityType>
         <EntityType Name="Location">
           <Key>
@@ -814,6 +816,7 @@ warning 6002: The table/view 'HRMS_PortalDev1.dbo.CheckInView' does not have a p
           <EntitySetMapping Name="con_leaveupdate">
             <EntityTypeMapping TypeName="HRMS_EntityModel.con_leaveupdate">
               <MappingFragment StoreEntitySet="con_leaveupdate">
+                <ScalarProperty Name="TeamEmails" ColumnName="TeamEmails" />
                 <ScalarProperty Name="Department" ColumnName="Department" />
                 <ScalarProperty Name="Designation" ColumnName="Designation" />
                 <ScalarProperty Name="updateddate" ColumnName="updateddate" />

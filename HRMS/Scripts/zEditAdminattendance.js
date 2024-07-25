@@ -19,6 +19,11 @@ function formatAttedenceTime(timeStr) {
 }
 
 $(document).on('click', '.empattendence-edit', function () {
+
+    // Clear previous validation messages
+    $('.leaveupdate_checkin, .leaveupdate_checkout').removeClass('is-invalid');
+    $('.invalid-feedback').remove();
+
     var row = $(this).closest('tr');
     var empId = row.find('.employee-id').text();
     var employeeName = row.find('.employee-details').text().trim().split('\n')[0];
@@ -65,8 +70,8 @@ $(document).on('click', '.empattendence-edit', function () {
 
 
 
-
-$(document).on('click', '.leaveupdate_btn', function () {
+$(document).on('click', '.leaveupdate_btn', function (event) {
+    var isModelValidated = true;
     var empId = $('.leaveupdate_empid').val();
     var empName = $('.leaveupdate_name').val();
     var date = $('.leaveupdate_date').val();
@@ -75,46 +80,71 @@ $(document).on('click', '.leaveupdate_btn', function () {
     var status = $('#eleaveupdate_status').val();
     var loginID = $(this).attr("data-updateid");
 
-    $.ajax({
-        url: '/adminattendance/updateemployeecheckin',
-        type: 'POST',
-        contentType: 'application/json',
-        data: JSON.stringify({
-            EmpId: empId,
-            EmpName: empName,
-            Date: date,
-            CheckIn: checkIn,
-            CheckOut: checkOut,
-            Status: status,
-            loginID: loginID
-        }),
-        success: function (response) {
-            if (response.success) {
-                console.log('Employee data updated successfully!');
-                $('#leaveUpdateModal').modal('hide');
+    // Clear previous validation messages
+    $('.leaveupdate_checkin, .leaveupdate_checkout').removeClass('is-invalid');
+    $('.invalid-feedback').remove();
 
-                var activeDiv = $('.days-container .day.active');             
-                if (activeDiv.length) {
-                    var dateValue = activeDiv.attr('data-date');
-                    console.log(dateValue);
-                    highlightDate(activeDiv);                  
-                } 
-              
-            } else {
-                alert('Error: ' + response.message);
+    // Validate check-in and check-out times
+    if (!checkIn) {
+        $('.leaveupdate_checkin').addClass('is-invalid').after('<div class="invalid-feedback">Check-in time is required.</div>');
+        isModelValidated = false;
+    }
+
+    if (!checkOut) {
+        $('.leaveupdate_checkout').addClass('is-invalid').after('<div class="invalid-feedback">Check-out time is required.</div>');
+        isModelValidated = false;
+    } else if (checkIn && checkOut && checkIn >= checkOut) {
+        $('.leaveupdate_checkout').addClass('is-invalid').after('<div class="invalid-feedback">Check-out time must be greater than check-in time.</div>');
+        isModelValidated = false;
+    }
+
+    if (isModelValidated) {
+        $.ajax({
+            url: '/adminattendance/updateemployeecheckin',
+            type: 'POST',
+            contentType: 'application/json',
+            data: JSON.stringify({
+                EmpId: empId,
+                EmpName: empName,
+                Date: date,
+                CheckIn: checkIn,
+                CheckOut: checkOut,
+                Status: status,
+                loginID: loginID
+            }),
+            success: function (response) {
+                if (response.success) {
+                    console.log('Employee data updated successfully!');
+                    $('#leaveUpdateModal').modal('hide');
+
+                    var activeDiv = $('.days-container .day.active');
+                    if (activeDiv.length) {
+                        var dateValue = activeDiv.attr('data-date');
+                        console.log(dateValue);
+                        highlightDate(activeDiv);
+                    }
+                } else {
+                    alert('Error: ' + response.message);
+                    $('#leaveUpdateModal').modal('hide');
+                }
+
+                $('body').removeClass('modal-open');
+                $('.modal-backdrop').remove();
+            },
+            error: function (xhr, status, error) {
+                alert('Error: ' + error);
                 $('#leaveUpdateModal').modal('hide');
             }
-        },
-        error: function (xhr, status, error) {
-            alert('Error: ' + error);
-            $('#leaveUpdateModal').modal('hide');
-        }
-    });
+        });
+    }
 });
 
-$(document).on('click', '#leaveUpdateModal', function () {
-    // Your code for #leaveUpdateModal click event
-    $('body').removeClass('modal-open');
-    $('.modal-backdrop').remove();
-});
+
+
+
+//$(document).on('click', '#leaveUpdateModal', function () {
+//    // Your code for #leaveUpdateModal click event
+//    $('body').removeClass('modal-open');
+//    $('.modal-backdrop').remove();
+//});
 
