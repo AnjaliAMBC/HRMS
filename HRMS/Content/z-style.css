@@ -6,6 +6,20 @@ body {
     border: 0px solid black !important;
 }
 
+body button.btn-primary {
+    background: #3E78CF !important;
+    border: 1px solid #3E78CF !important;
+}
+
+body button.btn.collapsed {
+    background: none !important;
+    border: 0px solid !important;
+}
+
+.btn:hover {
+    color: white;
+}
+
 .menu-icon {
     width: 25px;
     height: 25px;
@@ -36,7 +50,7 @@ tbody {
 }
 
 .mutedText {
-    color: #9A9A9A;
+    color: #6c757d;
 }
 
 #leaveHistoryTable tbody .fontSmall {
@@ -366,6 +380,10 @@ div.main-content {
     width: 100% !important;
 }
 
+.res-admin-emp-import {
+    margin-left: -10px;
+}
+
 /* admin employee management end */
 
 /*admin attendance start*/
@@ -567,7 +585,7 @@ div.main-content {
 }
 
 #adminleaveTable-mgmt .mutedText {
-    color: #aaa;
+    color: #6c757d;
 }
 
 #adminleaveTable-mgmt .chatIcon {
@@ -734,7 +752,6 @@ div.main-content {
     background: #2693F8;
     color: #fff;
     cursor: pointer;
-    padding: .25rem .5rem;
 }
 
 #adminleaveTable-mgmt .admin-leaverequest-reasons p {
@@ -936,7 +953,7 @@ div.main-content {
 }
 
 #adminleaveHistoryTable .mutedText {
-    color: #aaa;
+    color: #6c757d;
 }
 
 .res-admin-leave-history .adminleavehistory-dropdown-toggle {
@@ -1126,7 +1143,7 @@ div.main-content {
 }
 
 .res-admin-leavecompoff-view #adminleavecompoffTable .mutedText {
-    color: #aaa;
+    color: #6c757d;
 }
 
 .res-admin-leavecompoff-view #adminleavecompoffTable .chatIcon {
@@ -1374,7 +1391,8 @@ div.main-content {
 #adminitticketlistingTable .res-itticketlisting-status-level {
     width: 80px;
     text-align: center;
-    //padding: 2px 15px;
+    padding: 5px 0px;
+    font-size: 13px;
 }
 
 #adminitticketlistingTable .ticket-status-closed {
@@ -1697,7 +1715,8 @@ div.main-content {
 #adminhrticketlistingTable .res-ticketlisting-status-level {
     width: 80px;
     text-align: center;
-    //padding: 2px 15px;
+    padding: 5px 0px;
+    font-size: 13px;
 }
 
 #adminhrticketlistingTable .ticket-status-closed {
@@ -1938,7 +1957,48 @@ div.main-content {
     width: 99%;
 }
 
+.emp-dashboard #dashcurrentDate {
+    margin-top: 10px;
+}
+
+.emp-dashboard #checkInTime,
+.emp-dashboard #checkOutTime,
+.emp-dashboard #checkinhoursminutes {
+    margin-top: 10px;
+}
+
+.emp-dashboard #dashcurrentTime {
+    margin-top: 25px;
+}
+
+.emp-dashboard .btn-checkin {
+    margin-top: 0px;
+    margin-left: -5px;
+}
+
+.emp-dashboard .res-emp-dash-checkout-time {
+    margin-top: 15px !important;
+}
+
+.emp-dashboard .res-emp-dash-checkin-checkout {
+    margin-top: 10px;
+}
+
 /* employee dashboard end*/
+
+/* employee details start*/
+
+.emp-data .block-view {
+    border: 1px solid #c7e7f0 !important;
+    border-radius: 4px;
+}
+
+.emp-data .empviewrow .block-view:hover {
+    transform: scale(1.002);
+    box-shadow: 0 0 5px rgba(0, 0, 0, 0.3);
+}
+
+/* employee details end */
 
 /* employee attendance start */
 
@@ -2316,7 +2376,8 @@ input[type=checkbox], input[type=radio] {
 #empticketlistingTable .res-empticketlisting-status-level {
     width: 80px;
     text-align: center;
-    //padding: 2px 15px;
+    padding: 5px 0px;
+    font-size: 13px;
 }
 
 #empticketlistingTable .ticket-status-open {
@@ -2405,6 +2466,10 @@ input[type=checkbox], input[type=radio] {
 /* emp ticket raise end */
 
 /* emp ticket comment popup start */
+
+#empTicketCommentsModal .modal-header {
+    border-bottom: 0px;
+}
 
 .emp-ticketing-commentbox-popup-list {
     height: 250px;
