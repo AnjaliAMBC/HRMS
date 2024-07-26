@@ -144,7 +144,7 @@
                         @{
                             var EmergencyContact_no = @Model.EditLeaveInfo != null && !string.IsNullOrWhiteSpace(Model.EditLeaveInfo.EmergencyContact_no) ? Model.EditLeaveInfo.EmergencyContact_no : "";
                         }
-                        <input type="text" class="form-control" id="BackupNo" value="@EmergencyContact_no">
+                        <input type="text" class="form-control" id="BackupNo" value="@EmergencyContact_no" inputmode="numeric" pattern="[0-9]*" oninput="this.value = this.value.replace(/[^0-9]/g, '');">
                         <span class="error-message" id="BackupNo-error"></span>
                     </div>
                     <span class="error-message-showerror" style="display: none; color: red"></span>

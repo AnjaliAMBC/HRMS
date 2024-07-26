@@ -247,7 +247,7 @@ namespace HRMS.Controllers
                     existingEmployee.CreatedBy = model.EmpInfo.CreatedBy;
                     existingEmployee.CreatedDate = model.EmpInfo.CreatedDate;
                     existingEmployee.UpdatedBy = model.EmpInfo.UpdatedBy;
-                    existingEmployee.UpdatedDate = DateTime.Now;                  
+                    existingEmployee.UpdatedDate = DateTime.Now;
 
                     _dbContext.SaveChanges();
                     model.JsonResponse.Message = "Employee details updated successfully!";

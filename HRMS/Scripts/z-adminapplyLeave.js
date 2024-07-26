@@ -70,11 +70,11 @@ $(document).on('click', '.adminside-leaveapply', function (event) {
 //avialable balance function
 
 var availableBalances = {
-    1: 10, // Earned Leave
-    2: 5,  // Emergency Leave
-    3: 8,  // Sick Leave
-    4: 3,  // Bereavement Leave
-    5: 12  // Hourly Permission
+    //1: 10, // Earned Leave
+    //2: 5,  // Emergency Leave
+    //3: 8,  // Sick Leave
+    //4: 3,  // Bereavement Leave
+    //5: 12  // Hourly Permission
 };
 
 // Function to update available balance based on selected leave type

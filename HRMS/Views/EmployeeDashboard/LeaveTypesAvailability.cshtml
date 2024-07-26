@@ -15,12 +15,12 @@
 
                     @if (@availabilty.Type == "Hourly Permission")
                     {
-                        <p class="tracker-details">Available: @availabilty.Available.ToString().Replace(".00", "") Hours</p>
+                        <p class="tracker-details">Available: @availabilty.Balance.ToString().Replace(".00", "") Hours</p>
                         <p class="tracker-details">Booked: @availabilty.Booked.ToString().Replace(".00", "") Hours</p>
                     }
                     else
                     {
-                        <p class="tracker-details">Available: @availabilty.Available.ToString().Replace(".00", "") Days</p>
+                        <p class="tracker-details">Available: @availabilty.Balance.ToString().Replace(".00", "") Days</p>
                         <p class="tracker-details">Booked: @availabilty.Booked.ToString().Replace(".00", "") Days</p>
                     }
                 </div>

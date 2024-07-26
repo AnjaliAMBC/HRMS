@@ -146,7 +146,7 @@ namespace HRMS.Controllers
             DateTime currentDate = DateTime.Today;
             if (selectedEmp != null)
             {
-                var holidayList = _dbContext.tblambcholidays.Where(x => x.region == selectedEmp.Location && x.holiday_date >= yearstartDate && x.holiday_date <= yearendDate);
+                var holidayList = _dbContext.tblambcholidays.Where(x => x.region.Contains(selectedEmp.Location) && x.holiday_date >= yearstartDate && x.holiday_date <= yearendDate);
                 var json = JsonConvert.SerializeObject(holidayList);
                 return Json(json.Replace(";", ""), JsonRequestBehavior.AllowGet);
             }

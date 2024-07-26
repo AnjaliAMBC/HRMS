@@ -400,7 +400,7 @@ function formatJSONDate(jsonDate) {
 function formatJSONDateDay(jsonDate) {
     const date = new Date(parseInt(jsonDate.replace(/\/Date\((.*?)\)\//, '$1')));
     const dateOptions = { day: 'numeric', month: 'long', year: 'numeric' };
-    const dayOptions = { weekday: 'short' };
+    const dayOptions = { weekday: 'long' };
     const day = date.toLocaleDateString('en-GB', dayOptions);
     return `${day}`;
 }
@@ -508,7 +508,7 @@ function GetEmpLeaveHistory() {
                         </td>
                         <td class="fontSmall dataMinWidth">
                             <div class="mutedText">Leave Type</div>
-                            <span class="fontWtbold">${item.LatestLeave.leavesource}</span>
+                            <span class="fontWtbold" style="font-weight:bold;">${item.LatestLeave.leavesource}</span>
                         </td>
                         <td class="fontSmall">
                             <div class="mutedText">Status</div>
@@ -812,7 +812,7 @@ $(document).ready(function () {
 //Leave Tracker apply leave
 $(document).on('click', '.btn-apply-leave', function (event) {
     event.preventDefault();
-    HighlightEmpActiveLink($(this));
+ /*   HighlightEmpActiveLink($(this));*/
     $.ajax({
         url: '/EmpLeave/empapplyleave',
         type: 'POST',
