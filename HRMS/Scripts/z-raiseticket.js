@@ -43,28 +43,27 @@ $(document).off('click', '.btn-apply-emp-raiseticket-submit').on('click', '.btn-
         $('#emp-raiseticket-description').addClass('error');
         isValid = false;
     }
-    if ($('#emp-raiseticket-priority').val() === null) {
-        $('#emp-raiseticket-priority-error').text('Please select a priority.').addClass('error');
-        $('#emp-raiseticket-priority').addClass('error');
+    if ($('#emp-raiseticket-attach-file-upload').val() === '') {
+        $('#emp-raiseticket-attach-error').text('Please upload a file.').addClass('error');
+        $('.emp-raiseticket-attach-label').addClass('error');
         isValid = false;
-    }
-
-    // Handle file upload validation
-    var fileInput = $('#emp-raiseticket-attach-file-upload')[0];
-    if (fileInput.files.length > 0) {
-        var file = fileInput.files[0];
-        // Check file size
+    } else {
+        var file = $('#emp-raiseticket-attach-file-upload')[0].files[0];
         if (file.size > 2097152) { // 2MB
             $('#emp-raiseticket-attach-error').text('File size must be less than 2MB.').addClass('error');
             $('.emp-raiseticket-attach-label').addClass('error');
             isValid = false;
         }
-        // Check file type
         if (!['image/jpeg', 'image/png'].includes(file.type)) {
             $('#emp-raiseticket-attach-error').text('Only JPEG and PNG files are allowed.').addClass('error');
             $('.emp-raiseticket-attach-label').addClass('error');
             isValid = false;
         }
+    }
+    if ($('#emp-raiseticket-priority').val() === null) {
+        $('#emp-raiseticket-priority-error').text('Please select a priority.').addClass('error');
+        $('#emp-raiseticket-priority').addClass('error');
+        isValid = false;
     }
 
     if (isValid) {
@@ -80,12 +79,7 @@ $(document).off('click', '.btn-apply-emp-raiseticket-submit').on('click', '.btn-
         formData.append('OfficialEmailID', $('.loggedinempemail').text());
         formData.append('Status', 'Open');
         formData.append('Location', $('.loggedinemplocation').text());
-
-        // Append file if it's valid
-        if (fileInput.files.length > 0) {
-            var file = fileInput.files[0];
-            formData.append('File', file);
-        }
+        formData.append('File', $('#emp-raiseticket-attach-file-upload')[0].files[0]);
 
         $.ajax({
             url: '/empticketing/raiseticket',
@@ -114,7 +108,6 @@ $(document).off('click', '.btn-apply-emp-raiseticket-submit').on('click', '.btn-
         });
     }
 });
-
 
 
 $(document).on('click', '.btn-apply-emp-raiseticket-cancel', function (event) {
