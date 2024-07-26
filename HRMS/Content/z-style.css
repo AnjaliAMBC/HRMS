@@ -6,6 +6,20 @@ body {
     border: 0px solid black !important;
 }
 
+body button.btn-primary {
+    background: #3E78CF !important;
+    border: 1px solid #3E78CF !important;
+}
+
+body button.btn.collapsed {
+    background: none !important;
+    border: 0px solid !important;
+}
+
+.btn:hover {
+    color: white;
+}
+
 .menu-icon {
     width: 25px;
     height: 25px;
@@ -36,7 +50,7 @@ tbody {
 }
 
 .mutedText {
-    color: #9A9A9A;
+    color: #6c757d;
 }
 
 #leaveHistoryTable tbody .fontSmall {
@@ -364,6 +378,10 @@ div.main-content {
 .admin-empmanagement-view .res-admin-filter-inside #status-dropdown {
     font-size: 1rem !important;
     width: 100% !important;
+}
+
+.res-admin-emp-import {
+    margin-left: -10px;
 }
 
 /* admin employee management end */
@@ -2439,6 +2457,10 @@ input[type=checkbox], input[type=radio] {
 /* emp ticket raise end */
 
 /* emp ticket comment popup start */
+
+#empTicketCommentsModal .modal-header {
+    border-bottom: 0px;
+}
 
 .emp-ticketing-commentbox-popup-list {
     height: 250px;
