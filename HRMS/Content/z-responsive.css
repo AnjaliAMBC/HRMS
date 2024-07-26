@@ -209,7 +209,7 @@
     }
 
     .mobile-view .total-hours {
-        display: inline-block;
+        display: block;
     }
 
     .mobile-view .emp-dashboard .main-content.container-fluid {
@@ -246,10 +246,6 @@
 
     .mobile-view #dashcurrentTime {
         font-size: 30px;
-    }
-
-    .mobile-view .total-hours {
-        display: inline-block;
     }
 
     .mobile-view .res-admin-dashboard .main-content.container-fluid {
@@ -2569,7 +2565,23 @@
 
     .tablet-view #dashcurrentTime {
         font-size: 22px;
+        margin-top: 18px;
     }
+
+    .tablet-view .emp-dashboard .res-emp-dash-checkout-time {
+        margin-top: 0px !important;
+    }
+
+    .tablet-view .emp-dashboard .res-emp-dash-checkin-checkout {
+        margin-top: 0;
+    }
+
+    .tablet-view .total-hours .btn-checkin {
+        color: white;
+        margin-top: 34px;
+        width: 85%;
+    }
+
     /* emp dashboard end */
 
     /* admin dashboard start */
@@ -3602,7 +3614,7 @@
     }
     .res-adminleavebalance-update-block {
         width: 100%;
-        margin: 0 20px;
+        margin: 0px 0px 20px 20px;
     }
 
     .admin-empmanagement-view .nav-tabs .nav-link {
