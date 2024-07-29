@@ -701,9 +701,9 @@ $('#confirmCancelButton').on('click', function () {
         success: function (response) {
             GetEmpLeaveHistory();
             if (response.StatusCode == 200) {
-                showMessageModal(response.Message, true);
+                showMessageModal(response.Message, true, "closepouponly");
             } else {
-                showMessageModal(response.Message, false);
+                showMessageModal(response.Message, false, "closepouponly");
             }
         },
         error: function (xhr, status, error) {

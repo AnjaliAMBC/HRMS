@@ -211,11 +211,34 @@ function generateDayTypeRows(leaverequestname) {
 
 
 $(document).on('change', '#fromleaveDate', function (event) {
+
+    var fromDate = $(this).val();
+    var $toDateInput = $('#toleaveDate');
+
+    if (fromDate) {
+        $toDateInput.prop('disabled', false);
+        $toDateInput.attr('min', fromDate); // Ensure "To Date" is not before "From Date"
+    } else {
+        $toDateInput.prop('disabled', true);
+        $toDateInput.val('');
+    }
+
     generateDayTypeRows();
 });
 
 
 $(document).on('change', '#toleaveDate', function (event) {
+
+    var fromDate = $('#fromleaveDate').val();
+    var toDate = $(this).val();
+
+    if (toDate && toDate < fromDate) {
+        $(this).val('');
+        $('#toleaveDate-error').text('To Date cannot be before From Date.');
+    } else {
+        $('#toleaveDate-error').text('');
+    }
+
     $('#dayTypeContainer').show();
     $('#totalLeavesContainer').show();
     generateDayTypeRows();

@@ -509,3 +509,9 @@ setInterval(updateDashRunningTime, 1000);
 
 setInterval(updateHoursTimer1, 1000);
 updateHoursTimer1();
+
+
+$(document).on('click', '.emp-my-tickets-redirect', function (event) {
+    window.location.href = "/empticketing/index";
+    return false;
+});
