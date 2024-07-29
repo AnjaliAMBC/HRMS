@@ -151,6 +151,7 @@
                                         string statusType = "bar-width-green";
                                         string buttonColor = "present-btn";
                                         string attedenceType = "Present";
+                                        string attedenceActualType = "";
                                         int hours = 00;
                                         int minutes = 00;
 
@@ -194,6 +195,7 @@
                                             {
                                                 statusType = "bar-width-red";
                                                 attedenceType = "Leave";
+                                                attedenceActualType = empLeave.leavesource;
                                                 buttonColor = "leave-btn";
                                             }
                                             if (empLeave.DayType == "halfDay")
@@ -240,6 +242,8 @@
                                         string statusType = "bar-width-gray";
                                         string buttonColor = "gray-btn";
                                         string attedenceType = "Weekend";
+                                        string attedenceActualType = "";
+
                                         if (!isWeekendDate)
                                         {
                                             if (empLeave != null)
@@ -248,6 +252,7 @@
                                                 {
                                                     statusType = "bar-width-red";
                                                     attedenceType = "Leave";
+                                                    attedenceActualType = empLeave.leavesource;
                                                     buttonColor = "leave-btn";
                                                 }
                                                 if (empLeave.leavecategory.ToLowerInvariant().Contains("permission"))
@@ -270,7 +275,15 @@
                                             <td style="padding-right: 15px !important;" class="bar-wi bar-wd">
                                                 <div class="progress attendance-bar bar res-emp-attendance-@buttonColor">
                                                     <div class="progress-bar @statusType" role="progressbar" aria-valuenow="75" aria-valuemin="10" aria-valuemax="10"></div>
-                                                    <span class="bar-time">@attedenceType</span>
+                                                    @if (!string.IsNullOrWhiteSpace(attedenceActualType))
+                                                    {
+                                                        <span class="bar-time">@attedenceActualType</span>
+                                                    }
+                                                    else
+                                                    {
+                                                        <span class="bar-time">@attedenceType</span>
+                                                    }
+
                                                 </div>
                                             </td>
 
@@ -299,7 +312,7 @@
                                 "ordering": false,
                                 "info": true,
                                 "autoWidth": false,
-                                "lengthMenu": [[7, 14, 21, -1], [7, 14, 21, "All"]],
+                                "lengthMenu": [[14, 21, -1], [14, 21, "All"]],
                                 "columnDefs": [
                                     { "orderable": false, "targets": 1 }, // Disable ordering on the Checkin-Check-Out column
                                     { "orderable": false, "targets": 3 }  // Disable ordering on the Status column

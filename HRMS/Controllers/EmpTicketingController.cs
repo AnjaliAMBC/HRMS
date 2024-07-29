@@ -57,51 +57,59 @@ namespace HRMS.Controllers
                 // Get file from FormData
                 HttpPostedFileBase file = Request.Files["File"];
 
+                string filePath = "";
+
                 // Validate file
-                if (file != null && (file.ContentType == "image/jpeg" || file.ContentType == "image/png") && file.ContentLength <= 2097152)
+                if (file != null)
                 {
-                    // Save the file in a virtual folder
-                    var fileName = Path.GetFileName(file.FileName);
-                    var TicketingFolderPath = ConfigurationManager.AppSettings["TicketingFolderPath"];
-
-                    TicketingFolderPath = TicketingFolderPath + "/" + ticketType;
-
-                    var path = Path.Combine(TicketingFolderPath, fileName);
-                    file.SaveAs(path);
-
-                    // Create and populate the IT_Ticket model
-                    var ticketModel = new IT_Ticket
+                    if ((file.ContentType == "image/jpeg" || file.ContentType == "image/png") && file.ContentLength <= 2097152)
                     {
-                        TicketType = ticketType,
-                        Category = category,
-                        Subject = subject,
-                        Description = description,
-                        Priority = priority,
-                        EmployeeID = employeeId,
-                        EmployeeName = employeeName,
-                        OfficialEmailID = officialEmail,
-                        Status = status,
-                        Location = location,
-                        Created_date = DateTime.Now,
-                        AttatchimageFile = path // Save file path to model
-                    };
+                        // Save the file in a virtual folder
+                        var fileName = Path.GetFileName(file.FileName);
+                        var TicketingFolderPath = ConfigurationManager.AppSettings["TicketingFolderPath"];
 
-                    // Save the model to the database
-                    var raisedTicket = _dbContext.IT_Ticket.Add(ticketModel);
-                    _dbContext.SaveChanges();
+                        TicketingFolderPath = TicketingFolderPath + "/" + ticketType;
 
-                    TicketingHelper.SendTicketConfirmationEmail(raisedTicket);
-
-                    return Json(new { success = true });
+                        filePath = Path.Combine(TicketingFolderPath, fileName);
+                        file.SaveAs(filePath);
+                    }
+                    else
+                    {
+                        return Json(new { success = false, message = "Invalid file type or size." });
+                    }
                 }
-                else
+
+                // Create and populate the IT_Ticket model
+                var ticketModel = new IT_Ticket
                 {
-                    return Json(new { success = false, message = "Invalid file type or size." });
-                }
+                    TicketType = ticketType,
+                    Category = category,
+                    Subject = subject,
+                    Description = description,
+                    Priority = priority,
+                    EmployeeID = employeeId,
+                    EmployeeName = employeeName,
+                    OfficialEmailID = officialEmail,
+                    Status = status,
+                    Location = location,
+                    Created_date = DateTime.Now,
+                    AttatchimageFile = filePath // Save file path to model
+                };
+
+                // Save the model to the database
+                var raisedTicket = _dbContext.IT_Ticket.Add(ticketModel);
+                _dbContext.SaveChanges();
+
+                TicketingHelper.SendTicketConfirmationEmail(raisedTicket);
+                return Json(new { success = true });
             }
             catch (Exception ex)
             {
-                return Json(new { success = false, message = ex.Message });
+                return Json(new
+                {
+                    success = false,
+                    message = ex.Message
+                });
             }
         }
 

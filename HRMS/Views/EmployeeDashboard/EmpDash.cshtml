@@ -8,7 +8,7 @@
     DateTime? checkOutTime = DateTime.MinValue;
 
     string starttimeWithAmPm = "";
-    string endtimeWithAmPm = "";
+    string endtimeWithAmPm = "00:00";
 
     string lastCheckinDate = "";
     bool showCheckInButton = false;
@@ -94,11 +94,28 @@
                                     <div class="in-out col-md-4 p-0 pr-1 col-sm-4">
                                         <div class="check-time d-flex flex-column">
                                             <span class="check-label smalltext mr-auto">Check In Time</span>
-                                            <div id="checkInTime" class="time-input mr-auto"><span style="font-size: small; display: none">@lastCheckinDate</span>@starttimeWithAmPm</div>
+
+                                            @if (string.IsNullOrWhiteSpace(starttimeWithAmPm))
+                                            {
+                                                <div id="checkInTime" class="time-input mr-auto"><span style="font-size: small; display: none">@lastCheckinDate</span>00:00</div>
+                                            }
+                                            else
+                                            {
+                                                <div id="checkInTime" class="time-input mr-auto"><span style="font-size: small; display: none">@lastCheckinDate</span>@starttimeWithAmPm</div>
+                                            }
+
                                         </div>
                                         <div class="check-time mt-2 d-flex flex-column res-emp-dash-checkout-time">
                                             <span class="check-label smalltext mr-auto">Check Out Time</span>
-                                            <div id="checkOutTime" class="time-input mr-auto">@endtimeWithAmPm</div> <!-- Replace input with div -->
+                                            @if (string.IsNullOrWhiteSpace(endtimeWithAmPm))
+                                            {
+                                                <div id="checkOutTime" class="time-input mr-auto">00:00</div>
+                                            }
+                                            else
+                                            {
+                                                <div id="checkOutTime" class="time-input mr-auto">@endtimeWithAmPm</div>
+                                            }
+
                                         </div>
                                     </div>
                                 </div>

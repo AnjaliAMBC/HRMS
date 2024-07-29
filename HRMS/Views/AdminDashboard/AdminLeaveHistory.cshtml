@@ -139,7 +139,7 @@
                                     <input type="date" class="form-control form-control-sm mr-2" id="leavehistory-toDate" style="width: 120px;">
                                 </div>
 
-                                <div class="dropdown res-adminadvfilter-leavehistory mr-3" style="border-radius: 10px;">
+                                <div class="dropdown res-adminadvfilter-leavehistory mr-2" style="border-radius: 10px;">
                                     <select class="form-control form-select-sm" name="department" id="leavehistory-department-dropdown" style="border-radius: 15px; height: 35px; width: 131px;">
                                         <option value="" disabled selected>Department</option>
                                         @foreach (var item in Model.Departments)
@@ -149,7 +149,7 @@
                                         <option value="All">All</option>
                                     </select>
                                 </div>
-                                <div class="dropdown res-adminadvfilter-leavehistory mr-3">
+                                <div class="dropdown res-adminadvfilter-leavehistory mr-2">
                                     <select class="form-control form-select-sm" name="Location" id="leavehistory-Location-dropdown" style="border-radius: 15px; height: 35px; width: 131px;">
                                         <option value="" disabled selected>Location</option>
                                         <option value="Madurai">Madurai</option>
@@ -177,25 +177,25 @@
                 </div>
 
                 <div class="res-admin-leave-history-table table-responsive">
-                    <table class="table table-admin-leave-history" id="adminleaveHistoryTable" style="font-size:14px;">
+                    <table class="table table-admin-leave-history" id="adminleaveHistoryTable" style="table-layout:fixed;font-size:14px;">
                         <thead style="background-color: #EEF4FF; border-radius: 10px;">
                             <tr>
-                                <th><input type="checkbox" id="selectAllrows"></th>
-                                <th style="width:50px;">Emp ID</th>
-                                <th style="width:230px;">Employee Name</th>
-                                <th>Leave Type</th>
-                                <th style="width:110px;">Applied Date</th>
-                                <th>From Date</th>
-                                <th>To Date</th>
-                                <th>Days/Hours</th>
-                                <th>Location</th>
+                                <th style="width:10px;"><input type="checkbox" id="selectAllrows"></th>
+                                <th style="width:55px;">Emp ID</th>
+                                <th style="width:270px;">Employee Name</th>
+                                <th style="width:100px;">Leave Type</th>
+                                <th style="width: 145px;">Applied Date</th>
+                                <th style="width:145px;">From Date</th>
+                                <th style="width:145px;">To Date</th>
+                                <th style="width:100px;">Days/Hours</th>
+                                <th style="width:100px;">Location</th>
                                 <th style="width: 100px;">Reason</th>
                                 <th style="display: none">Status</th>
                                 <th style="display: none">Submitted By</th>
                                 <th style="display: none">Submitted Date</th>
                                 <th style="display: none">Updated By</th>
                                 <th style="display: none">Updated Date</th>
-                                <th>
+                                <th style="width: 35px;">
                                     <div class="dropdown dropdown-columns">
                                         <span class="menu-icon dropdown-th" id="dropdownMenu"><i class="fa-solid fa-list"></i></span>
                                         <div class="action-menu" id="dropdownMenuContent" style="display: none; background-color:white; border-radius:5px;">
