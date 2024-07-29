@@ -31,7 +31,6 @@
 
 @if (Model != null)
 {
-
     <div class="email-container">
         <div class="email-content">
             <p>Hello HR,</p>
@@ -45,8 +44,15 @@
 
             <p>
                 Thanks and Regards,<br />
-                @Model.EmployeeName
+                @Model.EmployeeName,<br />
+                AMBC Technologies Pvt Ltd.
             </p>
         </div>
+    </div>
+
+    <div style="font-family: Calibri; color: #696969; font-size: 1.1em;">
+        This is an automated email, please do not reply.
+        <br />
+        Automated mail from <a href="https://prm.ambctechnologies.com" style="color: #2693F8;">https://prm.ambctechnologies.com</a>
     </div>
 }

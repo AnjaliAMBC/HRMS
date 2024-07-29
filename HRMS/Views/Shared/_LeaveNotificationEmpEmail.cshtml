@@ -5,95 +5,83 @@
     var logoURL = siteURL + "/Assets/AMBC_Logo.png";
 }
 
-<style>
-    /* body {
-        font-family: Arial, sans-serif;
-        color: #333;
-    }
 
-    .email-container {
-        border: 1px solid #ddd;
-        padding: 20px;
-        max-width: 600px;
-        margin: 0 auto;
-    }
-
-    .email-content {
-        padding: 20px;
-    }
-
-    .email-footer {
-        text-align: center;
-        padding: 10px;
-        border-top: 1px solid #ddd;
-    }*/
-</style>
 
 @if (Model != null && Model.Any())
 {
     var leaveUpdate = Model.First();
-<table cellpadding="0" cellspacing="0" border="0" width="100%" style="border: 1px solid #ddd; background-color: #f9f9f9; padding: 20px;">
-    <tr>
-        <td>
-            <table cellpadding="0" cellspacing="0" border="0" width="100%">
-                <tr>
-                    <td style="text-align: left; padding-bottom: 10px;">
-                        <p style="margin: 0;">Hello HR,</p>
-                    </td>
-                    <td style="text-align: right; padding-bottom: 10px;">
-                        <a href="@siteURL" target="_blank">
-                            <img src="@logoURL" alt="AMBC Logo" width="70" height="40" />
-                        </a>
-                    </td>
-                </tr>
-            </table>
-            <table cellpadding="0" cellspacing="0" border="0" width="100%">
-                <tr>
-                    <td style="padding-bottom: 10px;">
-                        <p style="margin: 0;"><strong>Resource Name:</strong> @leaveUpdate.employee_name</p>
-                    </td>
-                </tr>
-                <tr>
-                    <td style="padding-bottom: 10px;">
-                        <p style="margin: 0;"><strong>Leave Type:</strong> @leaveUpdate.leavesource</p>
-                    </td>
-                </tr>
-                <tr>
-                    <td style="padding-bottom: 10px;">
-                        <p style="margin: 0;"><strong>From Date:</strong> @(leaveUpdate.Fromdate.HasValue ? leaveUpdate.Fromdate.Value.ToString("dd-MM-yyyy") : "Not specified")</p>
-                    </td>
-                </tr>
-                <tr>
-                    <td style="padding-bottom: 10px;">
-                        <p style="margin: 0;"><strong>To Date:</strong> @(leaveUpdate.Todate.HasValue ? leaveUpdate.Todate.Value.ToString("dd-MM-yyyy") : "Not specified")</p>
-                    </td>
-                </tr>
-                <tr>
-                    <td style="padding-bottom: 10px;">
-                        <p style="margin: 0;"><strong>Reason:</strong> @leaveUpdate.leave_reason</p>
-                    </td>
-                </tr>
-                <tr>
-                    <td style="padding-bottom: 10px;">
-                        <p style="margin: 0;"><strong>Backup Resource Name:</strong> @leaveUpdate.BackupResource_Name</p>
-                    </td>
-                </tr>
-                <tr>
-                    <td style="padding-bottom: 10px;">
-                        <p style="margin: 0;"><strong>Contact Number (In case of Emergency):</strong> @leaveUpdate.EmergencyContact_no</p>
-                    </td>
-                </tr>
-                <tr>
-                    <td>
-                        <p style="margin: 0;">
-                            Thanks and Regards,<br />
-                            @leaveUpdate.employee_name,<br />
-                            @leaveUpdate.Designation,<br />
-                            AMBC Technologies Pvt Ltd.
-                        </p>
-                    </td>
-                </tr>
-            </table>
-        </td>
-    </tr>
-</table>}
+    <table cellpadding="0" cellspacing="0" border="0" width="100%" style="border: 1px solid #ddd; background-color: #f9f9f9; padding: 20px;">
+        <tr>
+            <td>
+                <table cellpadding="0" cellspacing="0" border="0" width="100%">
+                    <tr>
+                        <td style="text-align: left; padding-bottom: 10px;">
+                            <p style="margin: 0;">Hello HR,</p>
+                        </td>
+                        <td style="text-align: right; padding-bottom: 10px;">
+                            <a href="@siteURL" target="_blank">
+                                <img src="@logoURL" alt="AMBC Logo" width="70" height="40" />
+                            </a>
+                        </td>
+                    </tr>
+                </table>
+                <table cellpadding="0" cellspacing="0" border="0" width="100%">
+                    <tr>
+                        <td style="padding-bottom: 10px;">
+                            <p style="margin: 0;"><strong>Resource Name:</strong> @leaveUpdate.employee_name</p>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td style="padding-bottom: 10px;">
+                            <p style="margin: 0;"><strong>Leave Type:</strong> @leaveUpdate.leavesource</p>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td style="padding-bottom: 10px;">
+                            <p style="margin: 0;"><strong>From Date:</strong> @(leaveUpdate.Fromdate.HasValue ? leaveUpdate.Fromdate.Value.ToString("dd-MM-yyyy") : "Not specified")</p>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td style="padding-bottom: 10px;">
+                            <p style="margin: 0;"><strong>To Date:</strong> @(leaveUpdate.Todate.HasValue ? leaveUpdate.Todate.Value.ToString("dd-MM-yyyy") : "Not specified")</p>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td style="padding-bottom: 10px;">
+                            <p style="margin: 0;"><strong>Reason:</strong> @leaveUpdate.leave_reason</p>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td style="padding-bottom: 10px;">
+                            <p style="margin: 0;"><strong>Backup Resource Name:</strong> @leaveUpdate.BackupResource_Name</p>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td style="padding-bottom: 10px;">
+                            <p style="margin: 0;"><strong>Contact Number (In case of Emergency):</strong> @leaveUpdate.EmergencyContact_no</p>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <p style="margin: 0;">
+                                Thanks and Regards,<br />
+                                @leaveUpdate.employee_name,<br />
+                                @leaveUpdate.Designation,<br />
+                                AMBC Technologies Pvt Ltd.
+                            </p>
+                        </td>
+                    </tr>
+                </table>
+            </td>
+        </tr>
+    </table>
+
+    <!-- Automated Email Notice -->
+    <div style="background-color: #f9f9f9; padding: 20px; border: 1px solid #ddd; margin-top: 20px; text-align: center;">
+        <div style="font-family: Calibri; color: #696969; font-size: 1.1em;">
+            This is an automated email, please do not reply.
+            <br />
+            Automated mail from <a href="https://prm.ambctechnologies.com" style="color: #2693F8;">https://prm.ambctechnologies.com</a>
+        </div>
+    </div>
+}
