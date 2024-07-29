@@ -89,7 +89,20 @@
                                     <div class="day-date-time p-0 pl-2 col-md-8 col-sm-8">
                                         <h5 id="dashday" class="mb-0"></h5> <!-- Display day here -->
                                         <div id="dashcurrentDate" class="time-input smalltext"></div> <!-- Replace input with div -->
-                                        <div id="dashcurrentTime" class="current-time mb-2"></div> <!-- Replace input with div -->
+                                        @{
+                                            var totalCheckInhours = Model.totalCheckedInTime;
+                                            var formattedCheckInTime = @checkInTime;
+                                        }
+
+                                        @if (!string.IsNullOrWhiteSpace(Model.totalCheckedInTime))
+                                        {
+                                            formattedCheckInTime = DateTime.MinValue;
+                                        }
+                                        @if (Model.totalCheckedInTime == "" && @Model.timerModel != null && @Model.timerModel.FormattedTime.ToString() != string.Empty)
+                                        {
+                                            totalCheckInhours = @Model.timerModel.FormattedTime.ToString();
+                                        }
+                                        <div id="checkinhoursminutes" data-signedindatetime="@formattedCheckInTime" style="color: palevioletred; font-size : 35px">@totalCheckInhours</div>
                                     </div>
                                     <div class="in-out col-md-4 p-0 pr-1 col-sm-4">
                                         <div class="check-time d-flex flex-column">
@@ -97,7 +110,7 @@
 
                                             @if (string.IsNullOrWhiteSpace(starttimeWithAmPm))
                                             {
-                                                <div id="checkInTime" class="time-input mr-auto"><span style="font-size: small; display: none">@lastCheckinDate</span>00:00</div>
+                                                <div id="checkInTime" class="time-input mr-auto"><span style="font-size: small; display: none">@lastCheckinDate</span>00:00:00</div>
                                             }
                                             else
                                             {
@@ -109,7 +122,7 @@
                                             <span class="check-label smalltext mr-auto">Check Out Time</span>
                                             @if (string.IsNullOrWhiteSpace(endtimeWithAmPm))
                                             {
-                                                <div id="checkOutTime" class="time-input mr-auto">00:00</div>
+                                                <div id="checkOutTime" class="time-input mr-auto">00:00:00</div>
                                             }
                                             else
                                             {
@@ -131,21 +144,10 @@
                                     </div>
                                     <div class="col-md-4 p-0 pr-1 col-sm-4">
                                         <div class="checkinhours ">
-                                            <span class="totalhours smalltext">Total Hours</span>
-                                            @{
-                                                var totalCheckInhours = Model.totalCheckedInTime;
-                                                var formattedCheckInTime = @checkInTime;
-                                            }
+                                            <span class="totalhours smalltext">Current Time</span>
+                                            <div id="dashcurrentTime" class="current-time mb-2"></div>
+                                            @*<span class="totalhours smalltext">Total Hours</span>*@
 
-                                            @if (!string.IsNullOrWhiteSpace(Model.totalCheckedInTime))
-                                            {
-                                                formattedCheckInTime = DateTime.MinValue;
-                                            }
-                                            @if (Model.totalCheckedInTime == "" && @Model.timerModel != null && @Model.timerModel.FormattedTime.ToString() != string.Empty)
-                                            {
-                                                totalCheckInhours = @Model.timerModel.FormattedTime.ToString();
-                                            }
-                                            <div id="checkinhoursminutes" data-signedindatetime="@formattedCheckInTime" style="color: palevioletred">@totalCheckInhours</div>
                                         </div>
                                     </div>
                                 </div>
@@ -159,6 +161,7 @@
                     <div class="card mb-3 dashcard_style my-card">
                         <div class="card-header text-dark">Job Referral</div>
                         <div class="card-body scrollbar p-3">
+                            <p style="margin-top: 80px; margin-left: 103px;">No data available..!!!</p>
                             @*<div class="dashjob_description mb-3">
                                     <h6 class="mb-0">Interior Designer</h6>
                                     <small>Location: Bangalore | Posted on: 10/05/2024</small>
@@ -174,7 +177,10 @@
                         </div>
                     </div>
                     <div class="card mb-3 dashcard_style my-card">
-                        <div class="card-header text-black">My Tickets</div>
+                        <div class="card-header text-black emp-my-tickets-redirect" style="cursor: pointer;">
+                            My Tickets (@(Model.MyTickets != null ? Model.MyTickets.Count() : 0))
+                        </div>
+
                         <div class="card-body scrollbar p-3 dashticket_description">
                             @if (!Model.MyTickets?.Any() ?? true)
                             {
@@ -189,15 +195,15 @@
                                 {
                                     <p class="mb-0">@myTicket.Subject <span class="badge @HRMS.Helpers.TicketingHelper.GetTicketPriorityDashCssClass(myTicket.Priority)">@myTicket.Priority</span></p>
 
-                                    if (myTicket.Status == "Open")
-                                    {
-                                        <p class="smalltext">Open By: @myTicket.EmployeeName</p>
-                                    }
-                                    else if (myTicket.Status == "ReOpen")
-                                    {
-                                        <p class="smalltext">Re-Open By: @myTicket.EmployeeName</p>
-                                    }
-                                    else if (myTicket.Status == "Resolved")
+                                    @*if (myTicket.Status == "Open")
+                    {
+                        <p class="smalltext">Open By: @myTicket.EmployeeName</p>
+                    }
+                    else if (myTicket.Status == "ReOpen")
+                    {
+                        <p class="smalltext">Re-Open By: @myTicket.EmployeeName</p>
+                    }*@
+                                    if (myTicket.Status == "Resolved")
                                     {
                                         <p class="smalltext">Resolved By: @myTicket.ResolvedByName</p>
                                     }
@@ -280,7 +286,7 @@
                         <div class="card-header text-dark">Employee Handbook</div>
                         <div class="card-body scrollbar d-flex flex-column">
                             <!-- Note-taking section -->
-
+                            <p style="margin-top: 80px; margin-left: 103px;">No data available..!!!</p>
                         </div>
                     </div>
                 </div>
@@ -325,7 +331,7 @@
                                 {
                                     if (@holiday.HolidayDate != DateTime.MinValue)
                                     {
-                                        <li>
+                                        <li style="cursor: pointer;">
                                             <a class="dashhoiday_description Emp-CompOffRequest" data-leavenumber="@holiday.HolidayNo" data-location="@holiday.Region">
                                                 <h6 class="mb-0">@holiday.HolidayName</h6>
                                                 <p class="smalltext">@holiday.HolidayDate.ToString("dd MMMM dddd")</p>
@@ -386,6 +392,7 @@
 </div>
 <script>
     let currentIndex = 0;
+    const slideInterval = 3000; // Interval in milliseconds (3 seconds)
 
     function updateleaveslider() {
         const leavesliderWrapper = document.querySelector('.leaveslider-wrapper');
@@ -407,16 +414,27 @@
 
     function nextSlide() {
         currentIndex++;
+        if (currentIndex >= document.querySelectorAll('.leaveslider-item').length) {
+            currentIndex = 0; // Loop back to the first item
+        }
         updateleaveslider();
     }
 
     function prevSlide() {
         currentIndex--;
+        if (currentIndex < 0) {
+            currentIndex = document.querySelectorAll('.leaveslider-item').length - 1; // Loop back to the last item
+        }
         updateleaveslider();
     }
 
     window.addEventListener('resize', updateleaveslider);
-    window.addEventListener('load', updateleaveslider);
+    window.addEventListener('load', () => {
+        updateleaveslider();
+        // Start automatic sliding
+        setInterval(nextSlide, slideInterval);
+    });
+
 </script>
 
 <script src="~/Scripts/z-EmpDash.js"></script>

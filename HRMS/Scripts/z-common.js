@@ -16,20 +16,35 @@ function clearFormDataAndSelectFirstIndex(forms) {
 }
 
 
-function showMessageModal(message, isSuccess) {  
-    $('#modalMessage').text(message);   
+function showMessageModal(message, isSuccess, closepopuponly) {
+    $('#modalMessage').text(message);
     if (isSuccess) {
         $('#messageModalLabel').text('Success');
         $('#modalMessage').css('color', 'green');
     } else {
         $('#messageModalLabel').text('Failure');
         $('#modalMessage').css('color', 'red');
-    }    
+    }
+
+    // Get the close button in the modal footer
+    var closeButton = $('.btn-close-refreshpage');
+
+    if (closepopuponly != undefined && closepopuponly != "") {
+        closeButton.attr('data-dismiss', 'modal');
+    } else {
+        closeButton.removeAttr('data-dismiss');
+        // You can add a class if you need to handle something specific when the button doesn't close the modal
+        closeButton.addClass('btn-close-refreshpage');
+    }
+
     $('#messageModal').modal('show');
 }
 
 $(document).on('click', '.btn-close-refreshpage', function (event) {
-    window.location.href = window.location.href;
+    // Check if the button has the data-dismiss attribute
+    if (!$(this).attr('data-dismiss')) {
+        window.location.href = window.location.href;
+    }
     return false;
 });
 
