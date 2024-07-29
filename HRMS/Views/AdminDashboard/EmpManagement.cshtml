@@ -185,6 +185,8 @@
         data: data,
         "paging": false,
         "searching": true,
+        "scrollY": '75vh',
+        "scrollCollapse": true,
         "pageLength": 8, // Set the default number of rows to display
         "lengthChange": false,
         "info": true,
@@ -203,6 +205,7 @@
                 "class": "tdempid"
             },
             {
+                "width": '12%',
                 "targets": 2,
                 "class": "tdempname",
                 "render": function (data, type, full, meta) {
@@ -238,12 +241,15 @@
                 "targets": 5,
             },
             {
+                "width": '12%',
                 "targets": 6,
             },
             {
+                "width": '12%',
                 "targets": 7,
             },
             {
+                "width": '12%',
                 "targets": 8,
                 "orderable": false,
                 "render": function (data, type, full, meta) {

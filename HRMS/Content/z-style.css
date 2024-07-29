@@ -229,6 +229,12 @@ div.main-content {
     vertical-align: middle;
 }
 
+#admindash-menu span {
+    padding-top: 2.5px;
+    display: inline-block;
+    vertical-align: middle;
+}
+
 /* sidebar menu end */
 
 /* admin dashnoard start */
@@ -354,7 +360,20 @@ div.main-content {
 }
 
 #adminempmanagementtable {
+    margin-top: -15px;
+}
+
+#adminempmanagementtable thead {
     //width: inherit !important;
+    visibility: hidden;
+}
+
+.dataTables_scrollHeadInner table.display.dataTable thead {
+    font-size: 14px;
+}
+
+.dataTables_scrollBody {
+    border-bottom: 0px !important;
 }
 
 .admin-empmanagement-view .res-admin-empman-header-right {
