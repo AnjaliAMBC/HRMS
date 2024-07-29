@@ -44,9 +44,9 @@ $(document).off('click', '.btn-apply-emp-raiseticket-submit').on('click', '.btn-
         isValid = false;
     }
     if ($('#emp-raiseticket-attach-file-upload').val() === '') {
-        $('#emp-raiseticket-attach-error').text('Please upload a file.').addClass('error');
-        $('.emp-raiseticket-attach-label').addClass('error');
-        isValid = false;
+        //$('#emp-raiseticket-attach-error').text('Please upload a file.').addClass('error');
+        //$('.emp-raiseticket-attach-label').addClass('error');
+        //isValid = false;
     } else {
         var file = $('#emp-raiseticket-attach-file-upload')[0].files[0];
         if (file.size > 2097152) { // 2MB

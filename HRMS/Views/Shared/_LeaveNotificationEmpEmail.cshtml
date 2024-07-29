@@ -43,10 +43,10 @@
 
             <p><strong>Leave Type:</strong> @leaveUpdate.leavesource</p>
 
-            <p><strong>From Date:</strong> @leaveUpdate.Fromdate</p>
-            <p><strong>To Date:</strong> @leaveUpdate.Todate</p>
+            <p><strong>From Date:</strong> @(leaveUpdate.Fromdate.HasValue ? leaveUpdate.Fromdate.Value.ToString("dd-MM-yyyy") : "Not specified")</p>
+            <p><strong>To Date:</strong> @(leaveUpdate.Todate.HasValue ? leaveUpdate.Todate.Value.ToString("dd-MM-yyyy") : "Not specified")</p>
 
-            <p><strong>Reason:</strong>@leaveUpdate.leave_reason</p>
+            <p><strong>Reason:</strong> @leaveUpdate.leave_reason</p>
 
             <p><strong>Backup Resource Name:</strong> @leaveUpdate.BackupResource_Name</p>
 
