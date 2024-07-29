@@ -26,7 +26,7 @@
                             justify-content: center;
                             font-weight: normal;
                             margin-right: 5px;
-                            margin-left: 10px;
+                            //margin-left: 10px;
                         }
 
                         .employee-info {
@@ -264,7 +264,8 @@
                         <table id="adminaddendancetable" class="display" style="width: 100%;">
                             <thead class="adminatt_thead">
                                 <tr>
-                                    <th style="padding-left: 15px">Employee Name</th>
+                                    <th style="width:50px">Emp ID</th>
+                                    <th style="">Employee Name</th>
                                     <th>Location</th>
                                     <th>Date</th>
                                     <th>Check-in</th>
@@ -303,109 +304,109 @@
 
                                     if (empCheckin != null)
                                     {
-                                        <tr>
-                                            <td class="employee-info p-2 ml-2">
-                                                <span class="employee-id mr-2">@empCheckin.EmployeeID</span>
-                                                @if (!string.IsNullOrEmpty(employee.imagepath))
-                                                {
-                                                    <img src="@imagePath" alt="@empCheckin.EmployeeID" class="attemployee-image mr-2 ml-2">
-                                                }
-                                                else
-                                                {
-                                                    <div class="initials-circle">@initials</div>
-                                                }
+                                <tr>
+                                    <td><span class="employee-id">@empCheckin.EmployeeID</span></td>
+                                    <td class="employee-info p-2">                                        
+                                        @if (!string.IsNullOrEmpty(employee.imagepath))
+                                        {
+                                            <img src="@imagePath" alt="@empCheckin.EmployeeID" class="attemployee-image mr-2 ml-2">
+                                        }
+                                        else
+                                        {
+                                            <div class="initials-circle">@initials</div>
+                                        }
 
-                                                <div class="employee-details mt-2 ml-2">
-                                                    @empCheckin.EmployeeName<br>
-                                                    <small>@empCheckin.OfficalEmailid</small>
-                                                </div>
+                                        <div class="employee-details mt-2 ml-2">
+                                            @empCheckin.EmployeeName<br>
+                                            <small>@empCheckin.OfficalEmailid</small>
+                                        </div>
 
-                                                <span class="emp-logindate" style="display: none">@empCheckin.Login_date.ToString("dd MMMM yyyy")</span>
-                                            </td>
-                                            <td>@empCheckin.Location</td>
-                                            <td>@empCheckin.Login_date.ToString("dd MMMM yyyy")</td>
+                                        <span class="emp-logindate" style="display: none">@empCheckin.Login_date.ToString("dd MMMM yyyy")</span>
+                                    </td>
+                                    <td>@empCheckin.Location</td>
+                                    <td>@empCheckin.Login_date.ToString("dd MMMM yyyy")</td>
 
-                                            @{
-                                                string starttimeWithAmPm = empCheckin.Signin_Time.ToString("hh:mm tt", System.Globalization.CultureInfo.InvariantCulture);
-                                                string endtimeWithAmPm = empCheckin.Signout_Time?.ToString("hh:mm tt", System.Globalization.CultureInfo.InvariantCulture);
-
-
-                                                string buttonColor = "present-btn";
-                                                string attedenceType = "Present";
-                                                int hours = 00;
-                                                int minutes = 00;
-
-                                                if (endtimeWithAmPm != null)
-                                                {
-                                                    // Initialize endTime as null
-                                                    DateTime? endTime = null;
-                                                    endTime = empCheckin.Signout_Time;
+                                    @{
+                                        string starttimeWithAmPm = empCheckin.Signin_Time.ToString("hh:mm tt", System.Globalization.CultureInfo.InvariantCulture);
+                                        string endtimeWithAmPm = empCheckin.Signout_Time?.ToString("hh:mm tt", System.Globalization.CultureInfo.InvariantCulture);
 
 
-                                                    // Calculate time difference
-                                                    TimeSpan? timeDifference = endTime - empCheckin.Signin_Time;
+                                        string buttonColor = "present-btn";
+                                        string attedenceType = "Present";
+                                        int hours = 00;
+                                        int minutes = 00;
 
-                                                    // Convert time difference to hours and minutes
-                                                    hours = (int)timeDifference?.TotalHours;
-                                                    minutes = (int)timeDifference?.Minutes;
+                                        if (endtimeWithAmPm != null)
+                                        {
+                                            // Initialize endTime as null
+                                            DateTime? endTime = null;
+                                            endTime = empCheckin.Signout_Time;
 
-                                                    //if (hours < 9)
-                                                    //{
-                                                    //    statusType = "bar-width-yellow";
-                                                    //    buttonColor = "yellow-btn";
-                                                    //    attedenceType = "Permission";
-                                                    //}
 
-                                                    //if (empLeave != null)
-                                                    //{
-                                                    //    statusType = "bar-width-yellow";
-                                                    //    buttonColor = "yellow-btn";
-                                                    //    attedenceType = empLeave.leavesource;
-                                                    //}
+                                            // Calculate time difference
+                                            TimeSpan? timeDifference = endTime - empCheckin.Signin_Time;
 
-                                                }
-                                                else
-                                                {
-                                                    if (empCheckin.Login_date == DateTime.Today)
-                                                    {
-                                                        // Calculate time difference
-                                                        TimeSpan? timeDifference = DateTime.Now - empCheckin.Signin_Time;
+                                            // Convert time difference to hours and minutes
+                                            hours = (int)timeDifference?.TotalHours;
+                                            minutes = (int)timeDifference?.Minutes;
 
-                                                        // Convert time difference to hours and minutes
-                                                        hours = (int)timeDifference?.TotalHours;
-                                                        minutes = (int)timeDifference?.Minutes;
-                                                    }
+                                            //if (hours < 9)
+                                            //{
+                                            //    statusType = "bar-width-yellow";
+                                            //    buttonColor = "yellow-btn";
+                                            //    attedenceType = "Permission";
+                                            //}
 
-                                                }
+                                            //if (empLeave != null)
+                                            //{
+                                            //    statusType = "bar-width-yellow";
+                                            //    buttonColor = "yellow-btn";
+                                            //    attedenceType = empLeave.leavesource;
+                                            //}
 
-                                                if (empLeave != null)
-                                                {
-                                                    if (empLeave.DayType == "fullDay")
-                                                    {
-                                                        buttonColor = "leave-btn";
-                                                        attedenceType = "Leave";
-                                                    }
-                                                    if (empLeave.DayType == "halfDay")
-                                                    {
-                                                        buttonColor = "leave-btn";
-                                                        attedenceType = "H/D Leave";
-                                                    }
-                                                    if (empLeave.DayType == "")
-                                                    {
-                                                        buttonColor = "yellow-btn";
-                                                        attedenceType = "Permission";
-                                                    }
+                                        }
+                                        else
+                                        {
+                                            if (empCheckin.Login_date == DateTime.Today)
+                                            {
+                                                // Calculate time difference
+                                                TimeSpan? timeDifference = DateTime.Now - empCheckin.Signin_Time;
 
-                                                }
-
+                                                // Convert time difference to hours and minutes
+                                                hours = (int)timeDifference?.TotalHours;
+                                                minutes = (int)timeDifference?.Minutes;
                                             }
 
-                                            <td>@starttimeWithAmPm</td>
-                                            <td>@endtimeWithAmPm</td>
-                                            <td class="bar-wd">@hours.ToString("00").Trim()h:@minutes.ToString("00").Trim()m</td>
-                                            <td><button class="@buttonColor" style="pointer-events:none">@attedenceType</button></td>
-                                            <td><i class="fas fa-pencil-alt empattendence-edit" data-attendenceid="34" data-toggle="modal" data-target="#leaveUpdateModal"></i></td>
-                                        </tr>
+                                        }
+
+                                        if (empLeave != null)
+                                        {
+                                            if (empLeave.DayType == "fullDay")
+                                            {
+                                                buttonColor = "leave-btn";
+                                                attedenceType = "Leave";
+                                            }
+                                            if (empLeave.DayType == "halfDay")
+                                            {
+                                                buttonColor = "leave-btn";
+                                                attedenceType = "H/D Leave";
+                                            }
+                                            if (empLeave.DayType == "")
+                                            {
+                                                buttonColor = "yellow-btn";
+                                                attedenceType = "Permission";
+                                            }
+
+                                        }
+
+                                    }
+
+                                    <td>@starttimeWithAmPm</td>
+                                    <td>@endtimeWithAmPm</td>
+                                    <td class="bar-wd">@hours.ToString("00").Trim()h:@minutes.ToString("00").Trim()m</td>
+                                    <td><button class="@buttonColor" style="pointer-events:none">@attedenceType</button></td>
+                                    <td><i class="fas fa-pencil-alt empattendence-edit" data-attendenceid="34" data-toggle="modal" data-target="#leaveUpdateModal"></i></td>
+                                </tr>
                                     }
                                     else
                                     {
@@ -430,33 +431,32 @@
                                                 buttoncolorcode = "yellow-btn";
                                             }
                                         }
-                                        <tr>
+                            <tr>
+                                <td><span class="employee-ids">@employee.EmployeeID</span></td>
+                                <td class="employee-info p-2">
+                                    @if (!string.IsNullOrEmpty(employee.imagepath))
+                                    {
+                                        <img src="@imagePath" alt="@employee.EmployeeID" class="attemployee-image mr-2 ml-2">
+                                    }
+                                    else
+                                    {
+                                        <div class="initials-circle">@initials</div>
+                                    }
+                                    <div class="employee-details mt-2 ml-2">
+                                        @employee.EmployeeName<br>
+                                        <small>@employee.OfficalEmailid</small>
+                                    </div>
+                                    <span class="emp-logindate" style="display: none">@Model.SelectedDate.ToString("dd MMMM yyyy")</span>
+                                </td>
+                                <td>@employee.Location</td>
+                                <td>@Model.SelectedDate.ToString("dd MMMM yyyy")</td>
 
-                                            <td class="employee-info p-2 ml-2">
-                                                <span class="employee-id mr-2">@employee.EmployeeID</span>
-                                                @if (!string.IsNullOrEmpty(employee.imagepath))
-                                                {
-                                                    <img src="@imagePath" alt="@employee.EmployeeID" class="attemployee-image mr-2 ml-2">
-                                                }
-                                                else
-                                                {
-                                                    <div class="initials-circle">@initials</div>
-                                                }
-                                                <div class="employee-details mt-2 ml-2">
-                                                    @employee.EmployeeName<br>
-                                                    <small>@employee.OfficalEmailid</small>
-                                                </div>
-                                                <span class="emp-logindate" style="display: none">@Model.SelectedDate.ToString("dd MMMM yyyy")</span>
-                                            </td>
-                                            <td>@employee.Location</td>
-                                            <td>@Model.SelectedDate.ToString("dd MMMM yyyy")</td>
-
-                                            <td>---</td>
-                                            <td>---</td>
-                                            <td>---</td>
-                                            <td><button class="@buttoncolorcode" style="pointer-events:none">@leaveType</button></td>
-                                            <td><i class="fas fa-pencil-alt empattendence-edit" data-attendenceid="34" data-toggle="modal" data-target="#leaveUpdateModal"></i></td>
-                                        </tr>
+                                <td>---</td>
+                                <td>---</td>
+                                <td>---</td>
+                                <td><button class="@buttoncolorcode" style="pointer-events:none">@leaveType</button></td>
+                                <td><i class="fas fa-pencil-alt empattendence-edit" data-attendenceid="34" data-toggle="modal" data-target="#leaveUpdateModal"></i></td>
+                            </tr>
                                     }
                                 }
 

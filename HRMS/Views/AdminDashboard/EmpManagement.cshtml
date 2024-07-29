@@ -10,11 +10,7 @@
                     <div class="row navbar align-items-center">
                         <!-- Employee column -->
                         <div class="col-lg-3 topic d-flex res-admin-title">
-                            <h4 class="header mb-0 text-right">Employee Directory</h4>
-                            <select class="form-control ml-2" name="action" id="action" style="display: none;">
-                                <option value="" selected>Action</option>
-                                <option value="export">Export</option>
-                            </select>
+                            <h4 class="header mb-0 text-right">Employee Directory</h4>                            
                         </div>
                         <!-- Search box -->
                         <div class="col-lg-4 navbarl1 col-sm-12 col-md-12 res-admin-empman-search">
@@ -54,6 +50,13 @@
                         </div>
 
                     </div>
+                </div>
+
+                <div class="admin-emp-action-block">
+                    <select class="form-control ml-2" name="action" id="action" style="display: none;">
+                        <option value="" selected>Action</option>
+                        <option value="export">Export</option>
+                    </select>
                 </div>
 
                 <div class="row justify-content-end ml-2 col-md-12 res-admin-empman-filter-show">
@@ -182,6 +185,8 @@
         data: data,
         "paging": false,
         "searching": true,
+        "scrollY": '75vh',
+        "scrollCollapse": true,
         "pageLength": 8, // Set the default number of rows to display
         "lengthChange": false,
         "info": true,
@@ -200,6 +205,7 @@
                 "class": "tdempid"
             },
             {
+                "width": '12%',
                 "targets": 2,
                 "class": "tdempname",
                 "render": function (data, type, full, meta) {
@@ -235,12 +241,15 @@
                 "targets": 5,
             },
             {
+                "width": '12%',
                 "targets": 6,
             },
             {
+                "width": '12%',
                 "targets": 7,
             },
             {
+                "width": '12%',
                 "targets": 8,
                 "orderable": false,
                 "render": function (data, type, full, meta) {

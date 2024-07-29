@@ -20,12 +20,21 @@ body button.btn.collapsed {
     color: white;
 }
 
+select option:hover,
+select option:focus {
+    background-color: yellow !important;
+}
+
 .menu-icon {
     width: 25px;
     height: 25px;
     border-radius: 3px;
     margin-right: 10px;
     margin-left: 10px;
+}
+
+.view-profile-btn:hover {
+    color: #272727;
 }
 
 ::-webkit-scrollbar {
@@ -214,6 +223,18 @@ div.main-content {
     box-shadow: 0 0rem 0 0 rgba( 255, 137, 40, 0.50), 0 0px 1.5rem rgba( 0, 73, 183, 1) inset, 0 0.75rem 0.5rem rgba(0, 73, 183, 0.4) inset, 0 0.1px 0px 0 rgba(0, 73, 183, 1) inset;
 }
 
+#empdash-menu span {
+    padding-top: 2.5px;
+    display: inline-block;
+    vertical-align: middle;
+}
+
+#admindash-menu span {
+    padding-top: 2.5px;
+    display: inline-block;
+    vertical-align: middle;
+}
+
 /* sidebar menu end */
 
 /* admin dashnoard start */
@@ -285,11 +306,12 @@ div.main-content {
     .res-admin-employee-management .res-admin-filter-inside .dropdown {
         display: inline-block;
         width: 21%;
+        margin: 0 5px;
     }
 
 .res-admin-employee-management .res-clear-btn {
     //background: #2693F8;
-    padding: 5px 20px;
+    padding: 5px 15px;
     border-radius: 5px;
     //color: #fff;
     text-transform: capitalize;
@@ -338,12 +360,26 @@ div.main-content {
 }
 
 #adminempmanagementtable {
+    margin-top: -15px;
+}
+
+#adminempmanagementtable thead {
     //width: inherit !important;
+    visibility: hidden;
+}
+
+.dataTables_scrollHeadInner table.display.dataTable thead {
+    font-size: 14px;
+}
+
+.dataTables_scrollBody {
+    border-bottom: 0px !important;
 }
 
 .admin-empmanagement-view .res-admin-empman-header-right {
     justify-content: end;
     display: flex;
+    padding-right: 0;
 }
 
 .admin-empmanagement-view .res-admin-empman-filter {
@@ -432,6 +468,7 @@ div.main-content {
 
 .admin-attendance-container #adminaddendancetable thead th {
     //text-align: center;
+    font-size: 14px;
 }
 
 .admin-attendance-container #adminaddendancetable .leave-btn,
@@ -458,7 +495,8 @@ div.main-content {
 }
 
 .admin-empmanagement-view .nav-tabs .nav-link {
-    padding: 7px 13px;
+    padding: 7px 14px;
+    text-transform: capitalize;
 }
 
 .admin-empmanagement-view .nav-tabs.responsive-tabs {
@@ -511,7 +549,7 @@ div.main-content {
 }
 
 .addshiftcontent .addshiftcard .res-adminatt-dept-dropdown {
-    width: 74%;
+    width: 80%;
     margin-left: -10px;
     display: inline-block;
 }
@@ -763,6 +801,11 @@ div.main-content {
     text-overflow: ellipsis;
 }
 
+#adminleaveTable-mgmt tbody tr td:nth-child(1) {
+    display: block;
+    margin-top: 20px;
+}
+
 /* admin leave end*/
 
 /* admin leave balance start*/
@@ -878,6 +921,16 @@ div.main-content {
 
 .res-admin-leave-balance .res-admin-leave-balance-title h4 {
     margin-top: 10px;
+}
+
+#leaveBalanceTable tbody tr td:nth-child(1) {
+    display: block;
+    margin-top: 10px;
+}
+
+.res-adminleavebalance-update-block {
+    margin-bottom: 25px;
+    margin-left: 15px;
 }
 
 /* admin leave balance end*/
@@ -1078,9 +1131,15 @@ div.main-content {
     margin-top: -10px;
 }
 
+#adminleaveHistoryTable tbody tr td:nth-child(2) {
+    display: block;
+    margin-top: 10px;
+}
+
 /* admin leave history end*/
 
 /* admin leave import start*/
+
 .admin-leaveimport-view {
 }
 
@@ -1280,6 +1339,15 @@ div.main-content {
 
 .res-admin-leavecompoff-view .res-adminleave-compoff-header-left h4 {
     margin-top: 3px;
+}
+
+.res-adminleave-compoff-from-to label {
+    padding-top: 3px;
+}
+
+#adminleavecompoffTable tbody tr td:nth-child(1) {
+    display: block;
+    margin-top: 20px;
 }
 
 /* admin leave compoff end*/
