@@ -17,7 +17,11 @@
                         <div class="form-group div-hrticketing-subject">
                             <label for="hrticketing-subject">Subject</label>
                             <input type="text" class="form-control" id="hrticketing-subject" value="@Model.TicketViewModel.Subject" readonly>
-                            <a target="_blank" href="@Model.TicketViewModel.AttatchimageFile.Replace(System.Configuration.ConfigurationManager.AppSettings["TicketingFolderPath"], "/ticketing")"><i class="fa-regular fa-image"></i></a>
+                            @if (!string.IsNullOrWhiteSpace(@Model.TicketViewModel.AttatchimageFile))
+                            {
+                                <a target="_blank" href="@Model.TicketViewModel.AttatchimageFile.Replace(System.Configuration.ConfigurationManager.AppSettings["TicketingFolderPath"], "/ticketing")"><i class="fa-regular fa-image"></i></a>
+                            }
+
                         </div>
                         <div class="form-group">
                             <label for="hrticketing-description">Description*</label>
