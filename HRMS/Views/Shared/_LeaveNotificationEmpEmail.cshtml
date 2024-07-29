@@ -6,7 +6,7 @@
 }
 
 <style>
-   /* body {
+    /* body {
         font-family: Arial, sans-serif;
         color: #333;
     }
@@ -37,10 +37,10 @@
             <div style="display: flex; justify-content: space-between; align-items: center;">
                 <p>Hello HR,</p>
                 <a href="@siteURL" target="_blank">
-                    <img src="@logoURL" alt="AMBC Logo" style="max-width: 50px; float: right;">
+                    <img src="@logoURL" alt="AMBC Logo" style="width: 50px; height: auto;">
                 </a>
             </div>
-
+            <p><strong>Resource Name:</strong> @leaveUpdate.employee_name</p>
             <p><strong>Leave Type:</strong> @leaveUpdate.leavesource</p>
 
             <p><strong>From Date:</strong> @(leaveUpdate.Fromdate.HasValue ? leaveUpdate.Fromdate.Value.ToString("dd-MM-yyyy") : "Not specified")</p>
@@ -52,9 +52,13 @@
 
             <p><strong>Contact Number (In case of Emergency):</strong> @leaveUpdate.EmergencyContact_no</p>
 
+            <br />
+            <br />
             <p>
                 Thanks and Regards,<br />
-                @leaveUpdate.employee_name
+                @leaveUpdate.employee_name,<br />
+                @leaveUpdate.Designation,<br />
+                AMBC Technologies Pvt Ltd.
             </p>
         </div>
     </div>
