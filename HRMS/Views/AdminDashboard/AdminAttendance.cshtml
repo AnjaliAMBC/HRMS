@@ -306,7 +306,7 @@
                                     {
                                 <tr>
                                     <td><span class="employee-id">@empCheckin.EmployeeID</span></td>
-                                    <td class="employee-info p-2">                                        
+                                    <td class="employee-info p-2">
                                         @if (!string.IsNullOrEmpty(employee.imagepath))
                                         {
                                             <img src="@imagePath" alt="@empCheckin.EmployeeID" class="attemployee-image mr-2 ml-2">
@@ -327,42 +327,27 @@
                                     <td>@empCheckin.Login_date.ToString("dd MMMM yyyy")</td>
 
                                     @{
-                                        string starttimeWithAmPm = empCheckin.Signin_Time.ToString("hh:mm tt", System.Globalization.CultureInfo.InvariantCulture);
-                                        string endtimeWithAmPm = empCheckin.Signout_Time?.ToString("hh:mm tt", System.Globalization.CultureInfo.InvariantCulture);
-
+                                        string starttimeWithAmPm = empCheckin.Signin_Time.ToString("hh:mm:ss tt", System.Globalization.CultureInfo.InvariantCulture);
+                                        string endtimeWithAmPm = empCheckin.Signout_Time?.ToString("hh:mm:ss tt", System.Globalization.CultureInfo.InvariantCulture);
 
                                         string buttonColor = "present-btn";
                                         string attedenceType = "Present";
                                         int hours = 00;
                                         int minutes = 00;
+                                        int seconds = 00; // Initialize seconds variable
 
                                         if (endtimeWithAmPm != null)
                                         {
                                             // Initialize endTime as null
-                                            DateTime? endTime = null;
-                                            endTime = empCheckin.Signout_Time;
-
+                                            DateTime? endTime = empCheckin.Signout_Time;
 
                                             // Calculate time difference
                                             TimeSpan? timeDifference = endTime - empCheckin.Signin_Time;
 
-                                            // Convert time difference to hours and minutes
+                                            // Convert time difference to hours, minutes, and seconds
                                             hours = (int)timeDifference?.TotalHours;
                                             minutes = (int)timeDifference?.Minutes;
-
-                                            //if (hours < 9)
-                                            //{
-                                            //    statusType = "bar-width-yellow";
-                                            //    buttonColor = "yellow-btn";
-                                            //    attedenceType = "Permission";
-                                            //}
-
-                                            //if (empLeave != null)
-                                            //{
-                                            //    statusType = "bar-width-yellow";
-                                            //    buttonColor = "yellow-btn";
-                                            //    attedenceType = empLeave.leavesource;
-                                            //}
+                                            seconds = (int)timeDifference?.Seconds; // Calculate seconds
 
                                         }
                                         else
@@ -372,11 +357,11 @@
                                                 // Calculate time difference
                                                 TimeSpan? timeDifference = DateTime.Now - empCheckin.Signin_Time;
 
-                                                // Convert time difference to hours and minutes
+                                                // Convert time difference to hours, minutes, and seconds
                                                 hours = (int)timeDifference?.TotalHours;
                                                 minutes = (int)timeDifference?.Minutes;
+                                                seconds = (int)timeDifference?.Seconds; // Calculate seconds
                                             }
-
                                         }
 
                                         if (empLeave != null)
@@ -396,13 +381,12 @@
                                                 buttonColor = "yellow-btn";
                                                 attedenceType = "Permission";
                                             }
-
                                         }
-
                                     }
 
                                     <td>@starttimeWithAmPm</td>
                                     <td>@endtimeWithAmPm</td>
+
                                     <td class="bar-wd">@hours.ToString("00").Trim()h:@minutes.ToString("00").Trim()m</td>
                                     <td><button class="@buttonColor" style="pointer-events:none">@attedenceType</button></td>
                                     <td><i class="fas fa-pencil-alt empattendence-edit" data-attendenceid="34" data-toggle="modal" data-target="#leaveUpdateModal"></i></td>

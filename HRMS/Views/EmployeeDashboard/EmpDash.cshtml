@@ -8,7 +8,7 @@
     DateTime? checkOutTime = DateTime.MinValue;
 
     string starttimeWithAmPm = "";
-    string endtimeWithAmPm = "00:00";
+    string endtimeWithAmPm = "00:00:00";
 
     string lastCheckinDate = "";
     bool showCheckInButton = false;
@@ -51,8 +51,8 @@
             buttonDeafultbgcolor = "#ff6b6b";
         }
 
-        starttimeWithAmPm = checkInTime.ToString("hh:mm tt", System.Globalization.CultureInfo.InvariantCulture);
-        endtimeWithAmPm = checkOutTime?.ToString("hh:mm tt", System.Globalization.CultureInfo.InvariantCulture);
+        starttimeWithAmPm = checkInTime.ToString("hh:mm:ss tt", System.Globalization.CultureInfo.InvariantCulture);
+        endtimeWithAmPm = checkOutTime?.ToString("hh:mm:ss tt", System.Globalization.CultureInfo.InvariantCulture);
         previousdayortodaycheckinexist = true;
     }
 
@@ -122,7 +122,7 @@
                                             <span class="check-label smalltext mr-auto">Check Out Time</span>
                                             @if (string.IsNullOrWhiteSpace(endtimeWithAmPm))
                                             {
-                                                <div id="checkOutTime" class="time-input mr-auto">00:00:00</div>
+                                        <div id="checkOutTime" class="time-input mr-auto">00:00:00</div>
                                             }
                                             else
                                             {
@@ -205,13 +205,13 @@
                                     <p class="mb-0">@myTicket.Subject <span class="badge @HRMS.Helpers.TicketingHelper.GetTicketPriorityDashCssClass(myTicket.Priority)">@myTicket.Priority</span></p>
 
                                     @*if (myTicket.Status == "Open")
-                    {
-                        <p class="smalltext">Open By: @myTicket.EmployeeName</p>
-                    }
-                    else if (myTicket.Status == "ReOpen")
-                    {
-                        <p class="smalltext">Re-Open By: @myTicket.EmployeeName</p>
-                    }*@
+                                        {
+                                            <p class="smalltext">Open By: @myTicket.EmployeeName</p>
+                                        }
+                                        else if (myTicket.Status == "ReOpen")
+                                        {
+                                            <p class="smalltext">Re-Open By: @myTicket.EmployeeName</p>
+                                        }*@
                                     if (myTicket.Status == "Resolved")
                                     {
                                         <p class="smalltext">Resolved By: @myTicket.ResolvedByName</p>
