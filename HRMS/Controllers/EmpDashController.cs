@@ -157,7 +157,7 @@ namespace HRMS.Controllers
 
                         model.CheckInInfo = checkInRecord;
                         model.JsonResponse.StatusCode = 200;
-                        model.JsonResponse.Message = "Check-Out is successful";
+                        model.JsonResponse.Message = "Check Out is successful";
                     }
 
                 }
@@ -167,7 +167,7 @@ namespace HRMS.Controllers
             {
                 ErrorHelper.CaptureError(ex);
                 model.JsonResponse.StatusCode = 500;
-                model.JsonResponse.Message = "Error while Check-Out";
+                model.JsonResponse.Message = "Error while Check Out";
                 return Json(model, JsonRequestBehavior.AllowGet);
             }
         }
