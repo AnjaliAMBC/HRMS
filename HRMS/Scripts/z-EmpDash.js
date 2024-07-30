@@ -32,7 +32,7 @@ $(document).on('click', '.btn-checkin', function (event) {
 
     var checkInId = $(".btn-checkin").attr("data-checkinid");
 
-    if ($('.btn-checkin').text() == "Check-In") {
+    if ($('.btn-checkin').text() == "Check In") {
         $.ajax({
             url: '/empdash/checkin',
             type: 'POST',
@@ -66,7 +66,7 @@ $(document).on('click', '.btn-checkin', function (event) {
             data: { checkInID: checkInId },
             success: function (response) {
                 if (response.JsonResponse.StatusCode == 200) {
-                    $('.btn-checkin').text("Check-In");
+                    $('.btn-checkin').text("Check In");
                     $('.btn-checkin').prop('disabled', true);
 
                     var checkinTime = formatDateAndTime(new Date());
@@ -364,7 +364,7 @@ function toggleCheck() {
         var currentTime = hours.toString().padStart(2, '0') + ":" + minutes + ":" + seconds;
         document.getElementById("checkInTime").textContent = currentTime;
         lastAction = "checkOut";
-        document.querySelector("button").textContent = "Check-Out";
+        document.querySelector("button").textContent = "Check Out";
     } else {
         // Perform check-out
         var currentDate = new Date();
@@ -379,7 +379,7 @@ function toggleCheck() {
         var currentTime = hours.toString().padStart(2, '0') + ":" + minutes + ":" + seconds;
         document.getElementById("checkOutTime").textContent = currentTime;
         lastAction = "checkIn";
-        document.querySelector("button").textContent = "Check-In";
+        document.querySelector("button").textContent = "Check In";
     }
 }
 

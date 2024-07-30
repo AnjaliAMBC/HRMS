@@ -3,7 +3,7 @@
 
 @{
     var loginID = 0;
-    var buttonText = "Check-In";
+    var buttonText = "Check In";
     DateTime checkInTime = DateTime.MinValue;
     DateTime? checkOutTime = DateTime.MinValue;
 
@@ -20,7 +20,7 @@
 
     if (Model.empLastDayCheckInDetails != null && !Model.empLastDayCheckInDetails.IsSignedOutOnLastCheckInDate && Model.empLastDayCheckInDetails.LoginID != 0)
     {
-        buttonText = "Check-Out";
+        buttonText = "Check Out";
         loginID = Model.empLastDayCheckInDetails.LoginID;
 
         checkInTime = Model.empLastDayCheckInDetails.SignInTime;
@@ -37,13 +37,13 @@
     if (Model.todayCheckInInfo != null && Model.todayCheckInInfo.login_id != 0)
     {
         loginID = Model.todayCheckInInfo.login_id;
-        buttonText = "Check-Out";
+        buttonText = "Check Out";
         checkInTime = Model.todayCheckInInfo.Signin_Time;
         checkOutTime = Model.todayCheckInInfo.Signout_Time;
 
         if ((checkOutTime != null && checkOutTime != DateTime.MinValue) || Model.IsOnLeave == true)
         {
-            buttonText = "Check-In";
+            buttonText = "Check In";
             ButtonDisabled = "disabled";
         }
         else
@@ -58,7 +58,7 @@
 
     if (Model.IsOnLeave == true && previousdayortodaycheckinexist == false)
     {
-        buttonText = "Check-In";
+        buttonText = "Check In";
         if (Model.empLeaveInfo != null && (Model.empLeaveInfo.DayType == "halfDay" || Model.empLeaveInfo.DayType == ""))
         {
             ButtonDisabled = "";
