@@ -102,7 +102,7 @@
                                         {
                                             totalCheckInhours = @Model.timerModel.FormattedTime.ToString();
                                         }
-                                        <div id="checkinhoursminutes" data-signedindatetime="@formattedCheckInTime" style="color: palevioletred; font-size : 35px">@totalCheckInhours</div>
+                                        <div id="checkinhoursminutes" data-signedindatetime="@formattedCheckInTime" style="color: #3E78CF; font-size : 35px">@totalCheckInhours</div>
                                     </div>
                                     <div class="in-out col-md-4 p-0 pr-1 col-sm-4">
                                         <div class="check-time d-flex flex-column">
@@ -191,6 +191,15 @@
                             }
                             else
                             {
+
+                                <div class="emp-dash-ticket-info">
+                                    <div class="emp-dash-ticket-title">Test data</div>
+                                    <div class="emp-dash-ticket-desc">
+                                        <span class="dash-ticket-desc-left-block"><i class="fa fa-exclamation-circle" aria-hidden="true"></i><span>Priority - <span class="dash-ticket-priority-high">High</span></span></span>
+                                        <span class="dash-ticket-desc-right-block"><i class="fa fa-user" aria-hidden="true"></i><span>Closed by Goutham</span></span>
+                                    </div>
+                                </div>
+
                                 foreach (var myTicket in Model.MyTickets)
                                 {
                                     <p class="mb-0">@myTicket.Subject <span class="badge @HRMS.Helpers.TicketingHelper.GetTicketPriorityDashCssClass(myTicket.Priority)">@myTicket.Priority</span></p>
