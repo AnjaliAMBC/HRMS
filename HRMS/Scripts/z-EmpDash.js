@@ -2,16 +2,19 @@
     var now = new Date(); // Get current date and time
     var hours = now.getHours();
     var minutes = now.getMinutes();
+    var seconds = now.getSeconds(); // Get current seconds
     var ampm = hours >= 12 ? 'PM' : 'AM';
 
     hours = hours % 12;
     hours = hours ? hours : 12; // The hour '0' should be '12'
     hours = hours < 10 ? '0' + hours : hours; // Add leading zero if hours is less than 10
-    minutes = minutes < 10 ? '0' + minutes : minutes;
+    minutes = minutes < 10 ? '0' + minutes : minutes; // Add leading zero if minutes is less than 10
+    seconds = seconds < 10 ? '0' + seconds : seconds; // Add leading zero if seconds is less than 10
 
-    var formattedTime = hours + ':' + minutes + ' ' + ampm;
+    var formattedTime = hours + ':' + minutes + ':' + seconds + ' ' + ampm;
     return formattedTime;
 }
+
 
 function formatDateAndTime(date) {
     var day = ("0" + date.getDate()).slice(-2);

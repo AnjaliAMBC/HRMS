@@ -232,15 +232,15 @@ function generateLeaveCalendar(month, year, selectedempid) {
         };*/
 
         const leaveTypeColors = {
-            "Earned Leave": "#C4BEF4",
-            "Emergency Leave": "#C4BEF4",
-            "Sick Leave": "#C4BEF4",
-            "Bereavement Leave": "#C4BEF4",
+            "Earned Leave": "#1cDDDc",
+            "Emergency Leave": "#A5D8EB",
+            "Sick Leave": "#FA9F9E",
+            "Bereavement Leave": "#B4C1C7",
             "Hourly Permission": "#C4BEF4",
-            "Marriage Leave": "#C4BEF4",
-            "Maternity Leave": "#C4BEF4",
-            "Paternity Leave": "#C4BEF4",
-            "Comp Off": "#C4BEF4"
+            "Marriage Leave": "#BDD7EE",
+            "Maternity Leave": "#AEF0FF",
+            "Paternity Leave": "#FEBDD1",
+            "Comp Off": "#9FB6FD"
         };
 
         $.ajax({
