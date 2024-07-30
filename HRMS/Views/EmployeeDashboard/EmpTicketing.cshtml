@@ -46,7 +46,7 @@
                             @foreach (var ticket in Model.empTickets)
                             {
                                 <tr data-ticketnum="@ticket.TicketNo">
-                                    <td style="width: 250px">
+                                    <td style="width: 200px">
                                         <div class="res-emp-ticketlisting-user-details" style="display: flex; align-items: center;">
                                             <i class="emp-ticket-msg-icon fa-regular fa-message"></i>
                                             <span style="margin-top: 0px; margin-right: 10px;">
@@ -118,19 +118,19 @@
                                             else if (ticket.Status == "Resolved")
                                             {*@
 
-                                        <div class="emp-ticketing-listing-closedby">
-                                            Resolved By:
-                                            <span>
-                                                @{ if (!string.IsNullOrWhiteSpace(ticket.ResolvedByName))
-                                                    {
-                                                        @ticket.ResolvedByName;
-                                                    }
-                                                    else
-                                                    {
-                                                        @ticket.ClosedByName;
-                                                    } }
-                                            </span>
-                                        </div>
+                                    <div class="emp-ticketing-listing-closedby">
+                                        <span>Resolved By:</span>
+
+                                        @{ if (!string.IsNullOrWhiteSpace(ticket.ResolvedByName))
+                                            {
+                                                <label title="@ticket.ResolvedByName">@ticket.ResolvedByName</label>
+                                            }
+                                            else
+                                            {
+                                                <label title="@ticket.ClosedByName">@ticket.ClosedByName</label>
+                                            } }
+
+                                    </div>
 
                                         @*}
                                             else if (ticket.Status == "Closed")
@@ -139,7 +139,7 @@
                                             }*@
                                     </td>
 
-                                    <td class="res-emp-ticketlisting-status">
+                                    <td style="width: 100px" class="res-emp-ticketlisting-status">
                                         <div class="emp-ticketing-empty-block"></div>
                                         <div class="res-empticketlisting-status-level @HRMS.Helpers.TicketingHelper.GetTicketStatusCssClass(ticket.Status)">@ticket.Status</div>
                                     </td>

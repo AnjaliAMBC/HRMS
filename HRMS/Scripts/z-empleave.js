@@ -219,7 +219,7 @@ function generateLeaveCalendar(month, year, selectedempid) {
             lastDayFormatted = formatDateyyyyMMdd(new Date(year, month + 1, 0));
         }
 
-        const leaveTypeColors = {
+        /*const leaveTypeColors = {
             "Earned Leave": "#A5E2E9", 
             "Emergency Leave": "#C4BEF4", 
             "Sick Leave": "#ACFF97", 
@@ -229,6 +229,18 @@ function generateLeaveCalendar(month, year, selectedempid) {
             "Maternity Leave": "#FEA8B5",
             "Paternity Leave": "#F4D8C0",
             "Comp Off": "#F8CADC"
+        };*/
+
+        const leaveTypeColors = {
+            "Earned Leave": "#C4BEF4",
+            "Emergency Leave": "#C4BEF4",
+            "Sick Leave": "#C4BEF4",
+            "Bereavement Leave": "#C4BEF4",
+            "Hourly Permission": "#C4BEF4",
+            "Marriage Leave": "#C4BEF4",
+            "Maternity Leave": "#C4BEF4",
+            "Paternity Leave": "#C4BEF4",
+            "Comp Off": "#C4BEF4"
         };
 
         $.ajax({

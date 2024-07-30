@@ -53,6 +53,11 @@
             width: 100%;
             margin: 10px 0;
         }
+
+    .header-notification {
+        margin: 12px 20px 0px 0px;
+        cursor: pointer;
+    }
 </style>
 
 <nav class="navbar navbar-expand-md navbar-light bg-light fixed-top" style="box-shadow: 0 0 5px 2px rgba(0, 0, 0, .3); height: 55px;">
@@ -62,6 +67,7 @@
     </button>
     <div class="collapse navbar-collapse" id="navbarNav">
         <ul class="navbar-nav ml-auto">
+            <li class="header-notification"><i class="fa fa-bell" aria-hidden="true"></i></li>
             <li class="nav-item" id="navbar-profile">
                 @{
                     var currentContext = Session["SiteContext"] as HRMS.Models.SiteContextModel;
