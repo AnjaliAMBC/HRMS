@@ -2526,8 +2526,13 @@ input[type=checkbox], input[type=radio] {
     margin-top: 23px;
 }
 
-#empticketlistingTable .emp-ticketing-listing-closedby span {
+#empticketlistingTable .emp-ticketing-listing-closedby label {
     color: #2693F8;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    overflow: hidden;
+    width: 100px;
+    display: inline-flex;
 }
 
 #empticketlistingTable .emp-ticketing-listing-title {
@@ -2535,6 +2540,10 @@ input[type=checkbox], input[type=radio] {
     white-space: nowrap;
     overflow: hidden;
     width: 285px;
+}
+
+#empticketlistingTable .emp-ticketing-listing-closedby span {
+    
 }
 
 /* emp ticket history end */
