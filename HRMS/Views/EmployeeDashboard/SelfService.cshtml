@@ -23,7 +23,8 @@
                         {
                             var empImageURl = System.Configuration.ConfigurationManager.AppSettings["EmpImagesFolder"] + "/" + Model.EmpInfo.imagepath + "?" + System.DateTime.Now;
                             <img src="@empImageURl" alt="Employee Image" class="profile img-fluid emp-imageurl">
-                        }                        else
+                        }
+                        else
                         {
                             <img src="" alt="Employee Image" class="profile img-fluid emp-imageurl" style="display: none">
                             // Split the full name into first name and last name
@@ -54,7 +55,7 @@
 
                             }
                         }
-
+                        <div class="img-edit-icon"><span><i class="fa fa-pencil fa-lg"></i></span></div>
                         <input type="file" id="imageInput" style="display: none;">
 
                     </div>
@@ -558,5 +559,16 @@
         </div>
     </div>
 </div>
+
+<script>
+$(document).ready(function(){
+$(".emp-imgs").mouseover(function(){
+    $(".img-edit-icon").css("display", "inline-block");
+  });
+    $(".emp-imgs").mouseout(function(){
+        $(".img-edit-icon").css("display", "none");
+  });
+});
+</script>
 
 

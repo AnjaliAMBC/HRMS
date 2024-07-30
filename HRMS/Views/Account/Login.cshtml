@@ -3,6 +3,15 @@
         background-color: #F2F6FF;
     }
 
+    .toggle-password {
+        float: right;
+        position: relative;
+        z-index: 2;
+        right: 55px;
+        top: -27px;
+        cursor: pointer;
+    }
+
   
 </style>
 
@@ -30,6 +39,7 @@
                         </label>
                     </div>
                     <input type="password" id="Password" class="form-control input-lg logininput" placeholder="Enter your password">
+                    <span toggle="#Password" class="fa fa-fw fa-eye field-icon toggle-password"></span>
                     <span class="text-danger" id="passwordError"></span>
                 </div>
                 <div class="form-group form-check" style="margin-left: 0%">
@@ -72,5 +82,18 @@
     </div>
 
 </div>
+
+<script>
+    $(".toggle-password").click(function () {
+
+        $(this).toggleClass("fa-eye fa-eye-slash");
+        var input = $($(this).attr("toggle"));
+        if (input.attr("type") == "password") {
+            input.attr("type", "text");
+        } else {
+            input.attr("type", "password");
+        }
+    });
+</script>
 
 

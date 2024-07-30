@@ -75,6 +75,11 @@
                         margin-top: 5px;
                         display: none;
                     }
+
+                    .empatt-body tr:nth-child(1) th,
+                    .empatt-body tr:nth-child(1) td {
+                        padding-top: 20px;
+                    }
                 </style>
 
                 @{
@@ -312,7 +317,7 @@
                                 "ordering": false,
                                 "info": true,
                                 "autoWidth": false,
-                                "lengthMenu": [[14, 21, -1], [14, 21, "All"]],
+                                "lengthMenu": [[7, 14, 21, -1], [7, 14, 21, "All"]],
                                 "columnDefs": [
                                     { "orderable": false, "targets": 1 }, // Disable ordering on the Checkin-Check-Out column
                                     { "orderable": false, "targets": 3 }  // Disable ordering on the Status column
