@@ -2,16 +2,19 @@
     var now = new Date(); // Get current date and time
     var hours = now.getHours();
     var minutes = now.getMinutes();
+    var seconds = now.getSeconds(); // Get current seconds
     var ampm = hours >= 12 ? 'PM' : 'AM';
 
     hours = hours % 12;
     hours = hours ? hours : 12; // The hour '0' should be '12'
     hours = hours < 10 ? '0' + hours : hours; // Add leading zero if hours is less than 10
-    minutes = minutes < 10 ? '0' + minutes : minutes;
+    minutes = minutes < 10 ? '0' + minutes : minutes; // Add leading zero if minutes is less than 10
+    seconds = seconds < 10 ? '0' + seconds : seconds; // Add leading zero if seconds is less than 10
 
-    var formattedTime = hours + ':' + minutes + ' ' + ampm;
+    var formattedTime = hours + ':' + minutes + ':' + seconds + ' ' + ampm;
     return formattedTime;
 }
+
 
 function formatDateAndTime(date) {
     var day = ("0" + date.getDate()).slice(-2);
@@ -29,7 +32,7 @@ $(document).on('click', '.btn-checkin', function (event) {
 
     var checkInId = $(".btn-checkin").attr("data-checkinid");
 
-    if ($('.btn-checkin').text() == "Check-In") {
+    if ($('.btn-checkin').text() == "Check In") {
         $.ajax({
             url: '/empdash/checkin',
             type: 'POST',
@@ -63,7 +66,7 @@ $(document).on('click', '.btn-checkin', function (event) {
             data: { checkInID: checkInId },
             success: function (response) {
                 if (response.JsonResponse.StatusCode == 200) {
-                    $('.btn-checkin').text("Check-In");
+                    $('.btn-checkin').text("Check In");
                     $('.btn-checkin').prop('disabled', true);
 
                     var checkinTime = formatDateAndTime(new Date());
@@ -361,7 +364,7 @@ function toggleCheck() {
         var currentTime = hours.toString().padStart(2, '0') + ":" + minutes + ":" + seconds;
         document.getElementById("checkInTime").textContent = currentTime;
         lastAction = "checkOut";
-        document.querySelector("button").textContent = "Check-Out";
+        document.querySelector("button").textContent = "Check Out";
     } else {
         // Perform check-out
         var currentDate = new Date();
@@ -376,7 +379,7 @@ function toggleCheck() {
         var currentTime = hours.toString().padStart(2, '0') + ":" + minutes + ":" + seconds;
         document.getElementById("checkOutTime").textContent = currentTime;
         lastAction = "checkIn";
-        document.querySelector("button").textContent = "Check-In";
+        document.querySelector("button").textContent = "Check In";
     }
 }
 

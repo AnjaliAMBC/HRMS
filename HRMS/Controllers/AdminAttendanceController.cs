@@ -495,33 +495,33 @@ namespace HRMS.Controllers
 
             string body = $@"
         <html>
-        <head></head>
-        <body>
-            <div style='font-family: Arial, sans-serif; border: 1px solid gray;width: 50%;'>
-                <div style='margin-left: 20px'>
-                    <div style='margin-bottom: 20px;'>
-                        <img src='{logoURL}' alt='Company Logo' style='width: 100px; float: right'>
-                    </div>
-                    <h2 style='color: #333;'>Dear {emp.EmployeeName}</h2>
-                    <h3 style='color: #333;'>SHIFT CHANGE</h3>
-                    <p>Your Shift has been changed as indicated below</p>
-                    <table border='1' cellpadding='5' cellspacing='0' style='border-collapse: collapse; width: 80%;'>
-                        <tr>
-                            <th style='background-color: #f2f2f2;'>Existing Shift(s)</th>
-                            <th style='background-color: #f2f2f2;'>Changed Shift</th>
-                        </tr>
-                        <tr>
-                            <td style='text-align: center;'>{existingShiftStartTimeString} - {existingShiftEndTimeString}</td>
-                            <td style='text-align: center;'>{newShiftStartTimeString} - {newShiftEndTimeString}</td>
-                        </tr>
-                    </table>
-                    <div style='margin-top: 20px; font-size: 12px; color: #666;'>
-                        <p>Automated mail from <a href='{siteURL}'>{siteURL}</a></p>
-                    </div>
-                <div>
+    <head></head>
+    <body>
+        <div style='font-family: Arial, sans-serif; border: 1px solid gray; width: 50%; padding: 20px;'>
+            <div style='margin-bottom: 20px;'>
+                <img src='{logoURL}' alt='Company Logo' style='width: 100px; float: right;'>
             </div>
-        </body>
-        </html>";
+            <h2 style='color: #333;'>Dear {emp.EmployeeName}</h2>
+            <h3 style='color: #333;'>SHIFT CHANGE</h3>
+            <p>Your Shift has been changed as indicated below</p>
+            <table border='1' cellpadding='5' cellspacing='0' style='border-collapse: collapse; width: 80%; margin-top: 20px;'>
+                <tr>
+                    <th style='background-color: #f2f2f2;'>Existing Shift(s)</th>
+                    <th style='background-color: #f2f2f2;'>Changed Shift</th>
+                </tr>
+                <tr>
+                    <td style='text-align: center;'>{existingShiftStartTimeString} - {existingShiftEndTimeString}</td>
+                    <td style='text-align: center;'>{newShiftStartTimeString} - {newShiftEndTimeString}</td>
+                </tr>
+            </table>
+            <div style='font-family: Calibri; color: #696969; font-size: 1.1em; margin-top: 20px;'>
+                This is an automated email, please do not reply.
+                <br />
+                Automated mail from <a href='https://prm.ambctechnologies.com' style='color: #2693F8;'>https://prm.ambctechnologies.com</a>
+            </div>
+        </div>
+    </body>
+</html>";
 
             var emailRequest = new EmailRequest()
             {

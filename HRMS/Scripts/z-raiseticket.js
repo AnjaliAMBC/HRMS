@@ -91,7 +91,7 @@ $(document).off('click', '.btn-apply-emp-raiseticket-submit').on('click', '.btn-
                 $('.show-progress').show();
             },
             success: function (response) {
-                $('#messageModal .modal-body').html('<p>Ticket has been raised successfully.</p>');
+                $('#messageModal .modal-body').html('<p >Ticket has been raised successfully.</p>');
                 $('#messageModal').modal('show');
 
                 $('#emp-ticket-raise-Form')[0].reset();

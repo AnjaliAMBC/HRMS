@@ -110,8 +110,8 @@ namespace HRMS
                         </a>
                     </div>
                     <div style='font-family: Calibri; color: #696969; margin-top: 20px; font-size: 1.1em;'>
-                        <p>Reminder for Check-In</p>
-                        <p>Please remember to complete your daily check-in by {shiftStartTime}.</p>
+                        <p>Reminder for Check In</p>
+                        <p>Please remember to complete your daily check in by {shiftStartTime}.</p>
                         <p>Contact [Support Email/Phone] if you need help.</p>
                         <p>Best regards,<br>PRM AMBC</p>
                     </div>
@@ -144,7 +144,7 @@ namespace HRMS
                 if (checkoutEmp.ShiftEndTime.HasValue)
                 {
                     var shiftEndTime = new DateTime(checkoutEmp.ShiftEndTime.Value.Ticks).ToString("HH:mm"); // 24-hour format
-                    var checkOutSubject = "Do not forget to do your Check-out!";
+                    var checkOutSubject = "Do not forget to do your Check out!";
                     var checkOutBody = $@"
         <html>
             <body style='font-family: Arial, sans-serif; background-color: #f2f2f2;'>
@@ -156,8 +156,8 @@ namespace HRMS
                         </a>
                     </div>
                     <div style='font-family: Calibri; color: #696969; margin-top: 20px; font-size: 1.1em;'>
-                        <p>Reminder for Check-Out</p>
-                        <p>Please remember to complete your daily check-out by {shiftEndTime}.</p>
+                        <p>Reminder for Check Out</p>
+                        <p>Please remember to complete your daily check out by {shiftEndTime}.</p>
                         <p>Contact [Support Email/Phone] if you need help.</p>
                         <p>Best regards,<br>PRM AMBC</p>
                     </div>
