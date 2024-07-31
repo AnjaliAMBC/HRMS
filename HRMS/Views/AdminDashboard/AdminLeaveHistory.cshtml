@@ -126,9 +126,9 @@
                     <div class="col-lg-11 col-sm-12 col-md-12">
                         <div id="adminleavehistoryfilter" class="collapse advanceleavehistoryfilter">
                             <div class="collapse-topic align-items-center justify-content-end res-admin-history-filter-inside" style="margin-right: 24px;">
-                                <span class="mr-3 res-admin-filter">
+                                @*<span class="mr-3 res-admin-filter">
                                     Filter By<span class="res-close-btn" style="display:none;">X</span>
-                                </span>
+                                </span>*@
 
                                 <div class="form-group res-adminadvfilter-leavehistory d-flex">
                                     <label for="from" class="mr-2">From</label>
@@ -195,7 +195,7 @@
                                 <th style="display: none">Submitted Date</th>
                                 <th style="display: none">Updated By</th>
                                 <th style="display: none">Updated Date</th>
-                                <th style="width: 35px;">
+                                @*<th style="width: 35px;">
                                     <div class="dropdown dropdown-columns">
                                         <span class="menu-icon dropdown-th" id="dropdownMenu"><i class="fa-solid fa-list"></i></span>
                                         <div class="action-menu" id="dropdownMenuContent" style="display: none; background-color:white; border-radius:5px;">
@@ -209,7 +209,7 @@
                                             <a href="#" class="Reason"><input type="checkbox"> Reason</a>
                                         </div>
                                     </div>
-                                </th>
+                                </th>*@
                             </tr>
                         </thead>
                         <tbody>
@@ -280,7 +280,7 @@
                                     <td style="display: none">@(leaveInfo.LatestLeave.createddate.HasValue ? leaveInfo.LatestLeave.createddate.Value.ToString("dd MMMM yyyy") : "No Date Available")</td>
                                     <td style="display: none">@leaveInfo.LatestLeave.updatedby</td>
                                     <td style="display: none">@(leaveInfo.LatestLeave.updateddate.HasValue ? leaveInfo.LatestLeave.updateddate.Value.ToString("dd MMMM yyyy") : "No Date Available")</td>
-                                    <td></td>
+                                    @*<td></td>*@
                                 </tr>
                             }
 

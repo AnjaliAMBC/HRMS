@@ -100,32 +100,39 @@ namespace HRMS
                     var shiftStartTime = new DateTime(checkinEmp.ShiftStartTime.Value.Ticks).ToString("HH:mm"); // 24-hour format
                     var checkInSubject = "Attendance Check-In Reminder";
                     var checkInBody = $@"
-        <html>
-            <body style='font-family: Arial, sans-serif; background-color: #f2f2f2;'>
-                <div style='border: 1px solid #ddd; padding: 20px; max-width: 600px; margin: 0 auto;'>                        
-                    <div style='font-family: Calibri; color: #696969; display: flex; justify-content: space-between; align-items: center;'>
-                        <p style='margin: 0; font-size: 1.1em;'>Hi {checkinEmp.EmployeeName},</p>
-                        <a href='{logoURL}' target='_blank' style='align-self: flex-start;'>
-                            <img src='{logoURL}' alt='AMBC Logo' style='max-width: 50px;'>
-                        </a>
-                    </div>
-                    <div style='font-family: Calibri; color: #696969; margin-top: 20px; font-size: 1.1em;'>
-                        <p>Reminder for Check In</p>
-                        <p>Please remember to complete your daily check in by {shiftStartTime}.</p>
-                        <p>Contact [Support Email/Phone] if you need help.</p>
-                        <p>Best regards,<br>PRM AMBC</p>
-                    </div>
-                </div>
-                <div style='text-align: center; padding: 10px; border-top: 1px solid #ddd;'>
-                    <a href='{siteURL}' target='_blank'>{siteURL}</a>
-                </div>
-                <div style='font-family: Calibri; color: #696969; font-size: 1.1em; text-align: center; padding: 10px;'>
-                    This is an automated email, please do not reply.
-                    <br />
-                    Automated mail from <a href='https://prm.ambctechnologies.com' style='color: #2693F8;'>https://prm.ambctechnologies.com</a>
-                </div>
-            </body>
-        </html>";
+<html>
+    <body style='font-family: Calibri, sans-serif; background-color: #f2f2f2; padding: 20px; margin: 0;'>
+        <div style='background-color: #f8f9fa; padding: 20px; border-radius: 8px; max-width: 600px; margin: auto;'>
+            <div style='padding: 20px; background-color: #fff; border-radius: 8px; box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);'>
+                <table style='width: 100%; border-collapse: collapse;'>
+                    <tr>
+                        <td style='text-align: right; padding: 10px 0;'>
+                            <a href='{siteURL}' target='_blank'>
+                                <img src='{logoURL}' alt='AMBC Logo' style='max-width: 50px;'>
+                            </a>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <p style='margin-top: 0; font-size: 1.1em;'>Hi <strong>{checkinEmp.EmployeeName}</strong>,</p>
+                            <div style='font-family: Calibri; color: #696969; margin-top: 20px; font-size: 1.1em;'>
+                                <p>Reminder for Check In</p>
+                                <p>Please remember to complete your daily check in by {shiftStartTime}.</p>
+                                <p>Contact [Support Email/Phone] if you need help.</p>
+                                <p>Best regards,<br>PRM AMBC</p>
+                            </div>
+                        </td>
+                    </tr>
+                </table>
+            </div>
+            <div style='font-family: Calibri; color: #696969; font-size: 1.1em; margin-top: 20px; text-align: center;'>
+                This is an automated email, please do not reply.
+                <br />
+                Automated mail from <a href='https://prm.ambctechnologies.com' style='color: #2693F8;'>https://prm.ambctechnologies.com</a>
+            </div>
+        </div>
+    </body>
+</html>";
 
                     var emailRequest = new EmailRequest()
                     {
@@ -138,6 +145,8 @@ namespace HRMS
                 }
             }
 
+
+
             // Checkout reminder emails
             foreach (var checkoutEmp in employeesToRemindCheckout)
             {
@@ -146,32 +155,39 @@ namespace HRMS
                     var shiftEndTime = new DateTime(checkoutEmp.ShiftEndTime.Value.Ticks).ToString("HH:mm"); // 24-hour format
                     var checkOutSubject = "Do not forget to do your Check out!";
                     var checkOutBody = $@"
-        <html>
-            <body style='font-family: Arial, sans-serif; background-color: #f2f2f2;'>
-                <div style='border: 1px solid #ddd; padding: 20px; max-width: 600px; margin: 0 auto;'>                        
-                    <div style='font-family: Calibri; color: #696969; display: flex; justify-content: space-between; align-items: center;'>
-                        <p style='margin: 0; font-size: 1.1em;'>Hi {checkoutEmp.EmployeeName},</p>
-                        <a href='{logoURL}' target='_blank' style='align-self: flex-start;'>
-                            <img src='{logoURL}' alt='AMBC Logo' style='max-width: 50px;'>
-                        </a>
-                    </div>
-                    <div style='font-family: Calibri; color: #696969; margin-top: 20px; font-size: 1.1em;'>
-                        <p>Reminder for Check Out</p>
-                        <p>Please remember to complete your daily check out by {shiftEndTime}.</p>
-                        <p>Contact [Support Email/Phone] if you need help.</p>
-                        <p>Best regards,<br>PRM AMBC</p>
-                    </div>
-                </div>
-                <div style='text-align: center; padding: 10px; border-top: 1px solid #ddd;'>
-                    <a href='{siteURL}' target='_blank'>{siteURL}</a>
-                </div>
-                <div style='font-family: Calibri; color: #696969; font-size: 1.1em; text-align: center; padding: 10px;'>
-                    This is an automated email, please do not reply.
-                    <br />
-                    Automated mail from <a href='https://prm.ambctechnologies.com' style='color: #2693F8;'>https://prm.ambctechnologies.com</a>
-                </div>
-            </body>
-        </html>";
+<html>
+    <body style='font-family: Calibri, sans-serif; background-color: #f2f2f2; padding: 20px; margin: 0;'>
+        <div style='background-color: #f8f9fa; padding: 20px; border-radius: 8px; max-width: 600px; margin: auto;'>
+            <div style='padding: 20px; background-color: #fff; border-radius: 8px; box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);'>
+                <table style='width: 100%; border-collapse: collapse;'>
+                    <tr>
+                        <td style='text-align: right; padding: 10px 0;'>
+                            <a href='{siteURL}' target='_blank'>
+                                <img src='{logoURL}' alt='AMBC Logo' style='max-width: 50px;'>
+                            </a>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <p style='margin-top: 0; font-size: 1.1em;'>Hi <strong>{checkoutEmp.EmployeeName}</strong>,</p>
+                            <div style='font-family: Calibri; color: #696969; margin-top: 20px; font-size: 1.1em;'>
+                                <p>Reminder for Check Out</p>
+                                <p>Please remember to complete your daily check out by {shiftEndTime}.</p>
+                                <p>Contact [Support Email/Phone] if you need help.</p>
+                                <p>Best regards,<br>PRM AMBC</p>
+                            </div>
+                        </td>
+                    </tr>
+                </table>
+            </div>
+            <div style='font-family: Calibri; color: #696969; font-size: 1.1em; margin-top: 20px; text-align: center;'>
+                This is an automated email, please do not reply.
+                <br />
+                Automated mail from <a href='https://prm.ambctechnologies.com' style='color: #2693F8;'>https://prm.ambctechnologies.com</a>
+            </div>
+        </div>
+    </body>
+</html>";
 
                     var emailRequest = new EmailRequest()
                     {
@@ -183,10 +199,10 @@ namespace HRMS
                     var sendNotification = EMailHelper.SendEmail(emailRequest);
                 }
             }
-
             return Task.CompletedTask;
-        }
 
         }
 
     }
+
+}

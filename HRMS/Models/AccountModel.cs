@@ -40,4 +40,13 @@ namespace HRMS.Models
         public bool IsPasswordReset { get; set; } = false;
         public string ResponseMessage { get; set; }
     }
+
+    public class ChangePasswordModel
+    {
+
+        public string Empid { get; set; }
+        public string Password { get; set; }       
+        public bool IsPasswordReset { get; set; } = false;
+        public string ResponseMessage { get; set; }
+    }
 }

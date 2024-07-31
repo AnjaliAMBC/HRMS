@@ -27,10 +27,10 @@ $(document).on('click', '.empattendence-edit', function () {
     var row = $(this).closest('tr');
     var empId = row.find('.employee-id').text();
     var employeeName = row.find('.employee-details').text().trim().split('\n')[0];
-    var date = row.find('td:nth-child(3)').text().trim();
-    var checkIn = row.find('td:nth-child(4)').text().trim();
-    var checkOut = row.find('td:nth-child(5)').text().trim();
-    var status = row.find('td:nth-child(7) button').text().trim();
+    var date = row.find('td:nth-child(4)').text().trim();
+    var checkIn = row.find('td:nth-child(5)').text().trim();
+    var checkOut = row.find('td:nth-child(6)').text().trim();
+    var status = row.find('td:nth-child(8) button').text().trim();
     var loginID = $(this).attr('data-attendenceid');
 
     // Manually parse the date string
