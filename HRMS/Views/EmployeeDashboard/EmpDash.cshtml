@@ -48,7 +48,7 @@
         }
         else
         {
-            buttonDeafultbgcolor = "#ff6b6b";
+            buttonDeafultbgcolor = "#C70000";
         }
 
         starttimeWithAmPm = checkInTime.ToString("hh:mm:ss tt", System.Globalization.CultureInfo.InvariantCulture);
@@ -401,7 +401,7 @@
 </div>
 <script>
     let currentIndex = 0;
-    const slideInterval = 3000; // Interval in milliseconds (3 seconds)
+    /*const slideInterval = 3000; */// Interval in milliseconds (3 seconds)
 
     function updateleaveslider() {
         const leavesliderWrapper = document.querySelector('.leaveslider-wrapper');
@@ -441,7 +441,7 @@
     window.addEventListener('load', () => {
         updateleaveslider();
         // Start automatic sliding
-        setInterval(nextSlide, slideInterval);
+        /*setInterval(nextSlide, slideInterval);*/
     });
 
 </script>

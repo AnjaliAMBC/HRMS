@@ -5,7 +5,7 @@
     var logoURL = siteURL + "/Assets/AMBC_Logo.png";
 }
 
-<style>
+@*<style>
     body {
         font-family: Arial, sans-serif;
         color: #333;
@@ -27,32 +27,30 @@
         padding: 10px;
         border-top: 1px solid #ddd;
     }
-</style>
+</style>*@
 
 @if (Model != null)
 {
-    <div class="email-container">
-        <div class="email-content">
-            <p>Hello HR,</p>
-            <a href="@siteURL" target="_blank" style="float: right; margin-left: 10px;">
+    <div class="email-container" style="font-family: Calibri; color: #333; background-color: #f9f9f9; padding: 20px; border-radius: 8px; max-width: 600px; margin: auto;">
+        <div class="email-content" style="position: relative; padding: 20px; background-color: #fff; border-radius: 8px; box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);">
+            <a href="@siteURL" target="_blank" style="position: absolute; right: 20px; top: 20px;">
                 <img src="@logoURL" alt="AMBC Logo" style="max-width: 50px;">
             </a>
-
+            <p>Hello HR,</p>
             <p>
-                I will be working on @Model.HolidayName due to reason, @Model.Reason
+                I will be working on @Model.HolidayName due to @Model.Reason.
             </p>
-
             <p>
                 Thanks and Regards,<br />
                 @Model.EmployeeName,<br />
                 AMBC Technologies Pvt Ltd.
             </p>
         </div>
+        <div style="font-family: Calibri; color: #696969; font-size: 1.1em; margin-top: 20px; text-align: center;">
+            This is an automated email, please do not reply.
+            <br />
+            Automated mail from <a href="https://prm.ambctechnologies.com" style="color: #2693F8;">https://prm.ambctechnologies.com</a>
+        </div>
     </div>
 
-    <div style="font-family: Calibri; color: #696969; font-size: 1.1em;">
-        This is an automated email, please do not reply.
-        <br />
-        Automated mail from <a href="https://prm.ambctechnologies.com" style="color: #2693F8;">https://prm.ambctechnologies.com</a>
-    </div>
 }

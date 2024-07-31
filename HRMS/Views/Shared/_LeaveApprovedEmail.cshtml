@@ -6,48 +6,14 @@
     var logoURL = siteURL + "/Assets/AMBC_Logo.png";
 }
 
-<style>
-    body {
-        font-family: Arial, sans-serif;
-        color: #333;
-    }
-
-    .email-container {
-        border: 1px solid #ddd;
-        padding: 20px;
-        max-width: 600px;
-        margin: 0 auto;
-    }
-
-    .email-content {
-        padding: 20px;
-    }
-
-    table {
-        border-collapse: collapse;
-        width: 100%;
-        margin-top: 20px;
-    }
-
-    td, th {
-        text-align: left;
-        padding: 8px;
-        border: 1px solid #ddd;
-    }
-
-    th {
-        background-color: #f4f4f4;
-    }
-</style>
-
 @if (Model != null && Model.Any())
 {
     var leaveUpdate = Model.First();
-    <div class="email-container" style="background-color: #f8f9fa; padding: 20px; border-radius: 5px; position: relative;">
-        <a href="@siteURL" target="_blank" style="position: absolute; top: 20px; right: 20px;">
-            <img src="@logoURL" alt="AMBC Logo" style="max-width: 50px;">
-        </a>
-        <div class="email-content">
+    <div class="email-container" style="font-family: Calibri; color: #333; background-color: #f8f9fa; padding: 20px; border-radius: 8px; max-width: 600px; margin: auto;">
+        <div class="email-content" style="padding: 20px; background-color: #fff; border-radius: 8px; box-shadow: 0 0 10px rgba(0, 0, 0, 0.1); position: relative;">
+            <a href="@siteURL" target="_blank" style="position: absolute; top: 20px; right: 20px;">
+                <img src="@logoURL" alt="AMBC Logo" style="max-width: 50px;">
+            </a>
             <p style="margin-top: 70px;">Hello <strong>@leaveUpdate.employee_name</strong>,</p>
             <p>Your leave request has been <strong>approved</strong>.</p>
             <table style="width: 100%; border-collapse: collapse; margin-top: 20px;">
@@ -61,5 +27,11 @@
                 </tr>
             </table>
         </div>
+        <div style="font-family: Calibri; color: #696969; font-size: 1.1em; margin-top: 20px; text-align: center;">
+            This is an automated email, please do not reply.
+            <br />
+            Automated mail from <a href="https://prm.ambctechnologies.com" style="color: #2693F8;">https://prm.ambctechnologies.com</a>
+        </div>
     </div>
 }
+

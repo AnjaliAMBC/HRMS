@@ -32,39 +32,35 @@
 @if (Model != null && Model.Any())
 {
     var leaveUpdate = Model.First();
-    <div class="email-container">
-        <div class="email-content">
-            <p>Hello @leaveUpdate.employee_name,</p>
-            <a href="@siteURL" target="_blank" style="float: right; margin-left: 10px;">
+    <div class="email-container" style="font-family: Calibri; color: #333; background-color: #f8f9fa; padding: 20px; border-radius: 8px; max-width: 600px; margin: auto;">
+        <div class="email-content" style="position: relative; padding: 20px; background-color: #fff; border-radius: 8px; box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);">
+            <p style="margin-top: 0;">Hello <strong>@leaveUpdate.employee_name</strong>,</p>
+            <a href="@siteURL" target="_blank" style="position: absolute; top: 20px; right: 20px;">
                 <img src="@logoURL" alt="AMBC Logo" style="max-width: 50px;">
             </a>
-
             <p>
                 As per the request, @leaveUpdate.employee_name's leave has been applied
                 from @(leaveUpdate.Fromdate?.ToString("dd-MM-yyyy") ?? "N/A")
                 to @(leaveUpdate.Todate?.ToString("dd-MM-yyyy") ?? "N/A")
                 by @leaveUpdate.createdby.
             </p>
-
             <p>
                 <strong>Employee Name:</strong> @leaveUpdate.employee_name<br />
-                @*<strong>Applied for:</strong> Multiple Days<br />*@
+                <strong>Applied for:</strong> Multiple Days<br />
                 <strong>From Date:</strong> @(leaveUpdate.Fromdate?.ToString("dd-MM-yyyy") ?? "N/A")<br />
                 <strong>To Date:</strong> @(leaveUpdate.Todate?.ToString("dd-MM-yyyy") ?? "N/A")<br />
                 <strong>Submitted By:</strong> @leaveUpdate.createdby<br />
                 <strong>Leave Type:</strong> @leaveUpdate.leavesource<br />
                 <strong>Reason:</strong> @leaveUpdate.leave_reason
             </p>
-
             <p>Please update your leave info in your client calendar and upcoming out-of-office in your signature.</p>
-
             <p><strong>Note:</strong> All ‘Earned Leaves’ require 2 weeks’ notice to get approval from the management and clients.</p>
         </div>
-    </div>
-
-    <div style="font-family: Calibri; color: #696969; font-size: 1.1em;">
-        This is an automated email, please do not reply.
-        <br />
-        Automated mail from <a href="https://prm.ambctechnologies.com" style="color: #2693F8;">https://prm.ambctechnologies.com</a>
+        <div style="font-family: Calibri; color: #696969; font-size: 1.1em; margin-top: 20px; text-align: center;">
+            This is an automated email, please do not reply.
+            <br />
+            Automated mail from <a href="https://prm.ambctechnologies.com" style="color: #2693F8;">https://prm.ambctechnologies.com</a>
+        </div>
     </div>
 }
+

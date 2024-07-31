@@ -15,6 +15,7 @@ using System.Net.Http;
 using System.Threading.Tasks;
 using Newtonsoft.Json;
 using System.Web.Security;
+using System.Text.RegularExpressions;
 
 namespace HRMS.Controllers
 {
@@ -270,5 +271,74 @@ namespace HRMS.Controllers
                 return Json(updatePwdmodel, JsonRequestBehavior.AllowGet);
             }
         }
+
+        [HttpPost]
+        public JsonResult ChangePassword(string currentPassword, string newPassword, string confirmPassword)
+        {
+            var result = new Dictionary<string, string>();
+            bool success = true;
+
+            // Add your password validation and change logic here
+            if (string.IsNullOrWhiteSpace(currentPassword))
+            {
+                result["currentPassword"] = "Current password is required.";
+                success = false;
+            }
+
+            if (string.IsNullOrWhiteSpace(newPassword))
+            {
+                result["newPassword"] = "New password is required.";
+                success = false;
+            }
+            else if (!IsValidPassword(newPassword))
+            {
+                result["newPassword"] = "New password must be at least 8 characters long, contain at least one number, one lowercase letter, one uppercase letter, and one special character.";
+                success = false;
+            }
+
+            if (newPassword != confirmPassword)
+            {
+                result["confirmPassword"] = "Passwords do not match.";
+                success = false;
+            }
+
+            if (success)
+            {
+                // Fetch the user from the database
+                var user = _dbContext.emplogins.SingleOrDefault(u => u.Password == currentPassword);
+                if (user == null || !VerifyPassword(user.Password, currentPassword))
+                {
+                    result["currentPassword"] = "Current password is incorrect.";
+                    success = false;
+                }
+                else
+                {
+                    // Update the user's password
+                    user.Password = HashPassword(newPassword);
+                    _dbContext.SaveChanges();
+                }
+            }
+
+            return Json(new { success = success, errors = result });
+        }
+
+        private bool IsValidPassword(string password)
+        {
+            // Check if the password meets the criteria
+            var passwordRegex = new Regex(@"^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$");
+            return passwordRegex.IsMatch(password);
+        }
+
+        private bool VerifyPassword(string storedPassword, string inputPassword)
+        {
+            return storedPassword == inputPassword; 
+        }
+
+        private string HashPassword(string password)
+        {
+            
+            return password; 
+        }
+
     }
 }
