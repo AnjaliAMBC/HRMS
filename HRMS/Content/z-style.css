@@ -4,6 +4,7 @@ body {
 
 .collapsedropdown {
     border: 0px solid black !important;
+    font-size: 14px;
 }
 
 body button.btn-primary {
@@ -14,6 +15,7 @@ body button.btn-primary {
 body button.btn.collapsed {
     background: none !important;
     border: 0px solid !important;
+    font-size: 14px;
 }
 
 .btn:hover {
@@ -356,7 +358,7 @@ div.main-content {
 }
 
 .admin-empmanagement-view .res-admin-title {
-    padding: 0;
+    padding: 0 0 0 3px;
 }
 
 #adminempmanagementtable {
@@ -365,7 +367,8 @@ div.main-content {
 
 #adminempmanagementtable thead {
     //width: inherit !important;
-    visibility: hidden;
+    //visibility: hidden;
+    background: #f9f9f9 !important;
 }
 
 .dataTables_scrollHeadInner table.display.dataTable thead {
@@ -418,6 +421,14 @@ div.main-content {
 
 .res-admin-emp-import {
     margin-left: -10px;
+}
+
+#adminempmanagementtable .odd {
+    background-color: #f9f9f9 !important;
+}
+
+#adminempmanagementtable .even {
+    background-color: #ffffff !important;
 }
 
 /* admin employee management end */
@@ -1208,6 +1219,8 @@ div.main-content {
 .res-admin-leavecompoff-view #adminleavecompoffTable .chatIcon {
     margin-right: 10px;
     display: inline-block;
+    vertical-align: top;
+    margin-top: 5px;
 }
 
 .res-admin-leavecompoff-view #adminleavecompoffTable .statusBtnFlex .acceptLeavecompoffBtn {
@@ -1256,6 +1269,10 @@ div.main-content {
     margin-top: 15px;
 }
 
+.res-admin-leavecompoff-view #adminleavecompoffTable tbody tr {
+    border-bottom: 1px solid #ccc;
+}
+
 .res-admin-leavecompoff-view .res-adminleave-drop {
     margin-right: 0px;
 }
@@ -1274,6 +1291,7 @@ div.main-content {
 
 .res-admin-leavecompoff-view #adminleavecompoffTable .commentSec p {
     display: inline-block;
+    width: 280px;
 }
 
 #adminleavecompoffTable .adminleave-edit-history {
@@ -2398,6 +2416,10 @@ input[type=checkbox], input[type=radio] {
 .emp-leave-apply-form {
     padding-left: 0px;
 }
+
+    .emp-leave-apply-form #leaveForm {
+        margin-left: 20px;
+    }
 
 /* emp leave end*/
 
