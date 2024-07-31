@@ -4,7 +4,7 @@
 <div class="container-fluid emp-self-service">
     <style>
         .boreder {
-           border: 1px solid #c7e7f0 !important
+            border: 1px solid #c7e7f0 !important
         }
     </style>
     @Html.Partial("_empsidemenu")
@@ -67,6 +67,9 @@
                         <div class="col-lg-4 col-md-6 col-sm-12 p-sm-0">
                             <p> <i class="material-icons">email</i> <span style="color: #3E78CF;">@Model.EmpInfo.OfficalEmailid</span></p>
                             <p><i class="material-icons">phone</i>+91 @Model.EmpInfo.MobileNumber</p>
+                        </div>
+                        <div class="col-lg-4 col-md-6 col-sm-12 p-sm-0 emp-change-password">
+                            <button class="btn btn-primary">Change Password</button>
                         </div>
                     </div>
 
@@ -560,15 +563,115 @@
     </div>
 </div>
 
+<!-- Change Password Modal -->
+<div id="empChangePasswordModal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="empChangePasswordModal" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="empTicketConfirmCancelModalLabel">Change Password</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <form>
+                    <div class="form-group">
+                        <label for="changepassword">Change Password</label>
+                        <input type="text" class="form-control" id="changepassword" value="">
+                        <span toggle="#changepassword" class="fa fa-fw fa-eye field-icon toggle-changepassword"></span>
+                        <span class="text-danger" id="changepasswordError"></span>
+                    </div>
+                    <div class="form-group">
+                        <label for="newpassword">New Password</label>
+                        <input type="text" class="form-control" id="newpassword" value="">
+                        <span toggle="#newpassword" class="fa fa-fw fa-eye field-icon toggle-newpassword"></span>
+                        <span class="text-danger" id="newpasswordError"></span>
+                    </div>
+                    <div class="form-group">
+                        <label for="confirmpassword">Confirm Password</label>
+                        <input type="text" class="form-control" id="confirmpassword" value="">
+                        <span toggle="#confirmpassword" class="fa fa-fw fa-eye field-icon toggle-confirmpassword"></span>
+                        <span class="text-danger" id="confirmpasswordError"></span>
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn" data-dismiss="modal">Close</button>
+                <button type="button" class="btn btn-primary" data-ticketname="" id="empChangePasswordSubmitButton">Submit</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Change Password Success Modal -->
+<div id="empChangePasswordSuccessModal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="empChangePasswordSuccessModal" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-body">
+                <div class="change-password-success-popup">
+                    <i class="fa fa-check" aria-hidden="true"></i>
+                    <div class="status-head">Password Updated!</div>
+                    <div class="status-desc">Your password has been changed successfully</div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
 <script>
-$(document).ready(function(){
-$(".emp-imgs").mouseover(function(){
-    $(".img-edit-icon").css("display", "inline-block");
-  });
-    $(".emp-imgs").mouseout(function(){
-        $(".img-edit-icon").css("display", "none");
-  });
-});
+    $(document).ready(function () {
+        $(".emp-imgs").mouseover(function () {
+            $(".img-edit-icon").css("display", "inline-block");
+        });
+        $(".emp-imgs").mouseout(function () {
+            $(".img-edit-icon").css("display", "none");
+        });
+
+        $(document).on('click', '.emp-data .emp-change-password', function (e) {
+            e.preventDefault();
+            $('#changepassword').val("");
+            $('#newpassword').val("");
+            $('#confirmpassword').val("");
+            $("#empChangePasswordModal").modal('show');
+        });
+
+        $(document).on('click', '#empChangePasswordSubmitButton', function (e) {
+            e.preventDefault();
+            $("#empChangePasswordModal").modal('hide');
+            $("#empChangePasswordSuccessModal").modal('show');
+        });
+
+        $(".toggle-newpassword").click(function () {
+            $(this).toggleClass("fa-eye fa-eye-slash");
+            var input = $($(this).attr("toggle"));
+            if (input.attr("type") == "password") {
+                input.attr("type", "text");
+            } else {
+                input.attr("type", "password");
+            }
+        });
+
+        $(".toggle-changepassword").click(function () {
+            $(this).toggleClass("fa-eye fa-eye-slash");
+            var input = $($(this).attr("toggle"));
+            if (input.attr("type") == "password") {
+                input.attr("type", "text");
+            } else {
+                input.attr("type", "password");
+            }
+        });
+
+        $(".toggle-confirmpassword").click(function () {
+            $(this).toggleClass("fa-eye fa-eye-slash");
+            var input = $($(this).attr("toggle"));
+            if (input.attr("type") == "password") {
+                input.attr("type", "text");
+            } else {
+                input.attr("type", "password");
+            }
+        });
+
+    });
 </script>
 
 
