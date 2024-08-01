@@ -91,7 +91,7 @@
                                     <input type="date" class="form-control form-control-sm mr-2" id="hrticketlisting-toDate" style="width: 120px;">
                                 </div>
                                 <div class="dropdown res-adminadvfilter-hrticketlisting">
-                                    <select class="form-control form-select-sm" name="status" id="hr-ticketlisting-status-dropdown" style="border-radius: 15px; height: 28px; width: 131px; border: 1px solid lightgray; padding: 0 10px; font-size: 12px;">
+                                    <select class="form-control form-select-sm" name="status" id="hr-ticketlisting-status-dropdown" style="border-radius: 5px; height: 28px; width: 131px; border: 1px solid lightgray; padding: 0 10px; font-size: 12px;">
                                         <option value="" disabled selected>Status</option>
                                         <option value="Open">Open</option>
                                         <option value="Resolved">Resolved</option>
@@ -102,7 +102,7 @@
                                     </select>
                                 </div>
                                 <div class="dropdown res-adminadvfilter-hrticketlisting">
-                                    <select class="form-control form-select-sm" name="location" id="hr-ticketlisting-location-dropdown" style="border-radius: 15px; height: 28px; width: 131px; border: 1px solid lightgray; padding: 0 10px; font-size: 12px;">
+                                    <select class="form-control form-select-sm" name="location" id="hr-ticketlisting-location-dropdown" style="border-radius: 5px; height: 28px; width: 131px; border: 1px solid lightgray; padding: 0 10px; font-size: 12px;">
                                         <option value="" disabled selected>Location</option>
                                         <option value="Madurai">Madurai</option>
                                         <option value="Hyderabad">Hyderabad</option>
@@ -110,7 +110,7 @@
                                     </select>
                                 </div>
                                 <div class="dropdown res-adminadvfilter-hrticketlisting">
-                                    <select class="form-control form-select-sm" name="closedby" id="hr-ticketlisting-closedby-dropdown" style="border-radius: 15px; height: 28px; width: 131px; border: 1px solid lightgray; padding: 0 10px; font-size: 12px;">
+                                    <select class="form-control form-select-sm" name="closedby" id="hr-ticketlisting-closedby-dropdown" style="border-radius: 5px; height: 28px; width: 131px; border: 1px solid lightgray; padding: 0 10px; font-size: 12px;">
                                         <option value="" disabled selected>Closed By</option>
 
                                         @foreach (var itemp in Model.itEmployees)
@@ -124,6 +124,7 @@
                                 <div class="form-group align-items-center res-adminadvfilter-hrticketlisting mr-2">
                                     <button type="button" class="btn btn-sm btn-primary hrticketlisting-view">View</button>
                                     <button type="button" class="btn btn-sm btn-primary hrticketlisting-export">Export</button>
+                                    <a href="#" class="clearattendence-filter">Clear</a>
                                 </div>
                             </div>
                         </div>
@@ -294,6 +295,15 @@
         // Show the confirmation modal
         $('#adminHrTicketCommentsModal').modal('show');
     }
+
+    $(document).on('click', '.clearattendence-filter', function (event) {
+        event.preventDefault();
+        $('#hrticketlisting-fromDate').val('');
+        $('#hrticketlisting-toDate').val('');
+        $('#hr-ticketlisting-status-dropdown').val('');
+        $('#hr-ticketlisting-location-dropdown').val('');
+        $('#hr-ticketlisting-closedby-dropdown').val('');
+    });
 
 
 

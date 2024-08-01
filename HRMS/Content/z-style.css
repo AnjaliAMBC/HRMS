@@ -87,9 +87,9 @@ input[type=radio] {
     transition: all ease-in 0.2s;
 }
 
-    input[type=radio]:checked {
-        background-color: #007bff;
-    }
+input[type=radio]:checked {
+    background-color: #007bff;
+}
 
 div.main-content {
     //padding-top: 35px;
@@ -103,6 +103,24 @@ div.main-content {
 #profileDropdown .profile-dropdown-info .loggedinempid {
     display: inline-block;
     color: #343a40;
+}
+
+.res-adminadvfilter-leavehistory .clearattendence-filter {
+    cursor: pointer;
+    color: #007bff;
+    text-decoration: underline;
+    margin-left: 10px;
+}
+
+.res-adminadvfilter-hrticketlisting .clearattendence-filter,
+.res-adminadvfilter-itticketlisting .clearattendence-filter {
+    cursor: pointer;
+    color: #007bff;
+    text-decoration: underline;
+    margin-left: 10px;
+    vertical-align: middle;
+    margin-top: 14px;
+    display: inline-block;
 }
 
 /* sidebar menu start */
@@ -305,11 +323,11 @@ div.main-content {
     margin-right: 0px !important;
 }
 
-    .res-admin-employee-management .res-admin-filter-inside .dropdown {
-        display: inline-block;
-        width: 21%;
-        margin: 0 5px;
-    }
+.res-admin-employee-management .res-admin-filter-inside .dropdown {
+    display: inline-block;
+    width: 21%;
+    margin: 0 5px;
+}
 
 .res-admin-employee-management .res-clear-btn {
     //background: #2693F8;
@@ -1196,9 +1214,29 @@ div.main-content {
     margin-top: -10px;
 }
 
+#adminleaveHistoryTable tbody tr td:nth-child(1) {
+    vertical-align: middle;
+}
+
 #adminleaveHistoryTable tbody tr td:nth-child(2) {
     display: block;
     margin-top: 10px;
+}
+
+#adminleaveHistoryTable .odd {
+    background-color: #f9f9f9 !important;
+}
+
+#adminleaveHistoryTable .even {
+    background-color: #ffffff !important;
+}
+
+.AdminIndiEmpLeave-History {
+    color: #272727;
+}
+
+.res-admin-leave-history-reason-head {
+    border-top-right-radius: 10px !important;
 }
 
 /* admin leave history end*/
@@ -2206,6 +2244,7 @@ div.main-content {
 
 .emp-data .emp-change-password button {
     float: right;
+    margin-right: 5px;
 }
 
 .toggle-changepassword,
@@ -2484,8 +2523,8 @@ input[type=checkbox], input[type=radio] {
     padding-left: 0px;
 }
 
-.emp-leave-apply-form #leaveForm {
-    //margin-left: 20px;
+.res-admin-leave .emp-leave-apply-form #leaveForm {
+    margin-left: 20px;
 }
 
 .emp-leave-apply-form #leaveForm .btn-apply-empleave {

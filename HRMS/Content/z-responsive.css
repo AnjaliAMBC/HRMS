@@ -983,6 +983,10 @@
         justify-content: left;
     }
 
+    .mobile-view .admin-attendancemgmt-view .res-admin-att-header-block .search-container {
+        margin-left: 20px;
+    }
+
     /* admin attendance end */
 
     /* admin leave start*/
@@ -3684,7 +3688,30 @@
     .res-admin-leave #daysLeaveContainer.Leave-days-container .dayLeave {
         margin: 0 0.8% !important;
     }
+
+    .emp-data .emp-change-password button {
+        float: right;
+        margin-right: 7px !important;
+    }
    
+}
+
+
+/* Media Query for Tablets Ipads portrait mode start */
+@media only screen and (min-width:1600px) and (max-width:2560px) {
+    .admin-empmanagement-view .nav-tabs .nav-link {
+        padding: 7px 28px !important;
+    }
+
+    #myTabContent .tab-pane .tabs-view .container.tab-container {
+        max-width: 1280px;
+        margin-top: 20px;
+    }
+
+    .emp-data .emp-change-password button {
+        float: right;
+        margin-right: 16px !important;
+    }
 }
 
 @media only screen and (min-width:1920px) and (max-width: 2560px) {
@@ -3767,5 +3794,4 @@
     #empticketlistingTable tbody td:nth-child(3) {
         width: 400px !important;
     }
-
 }
