@@ -108,7 +108,7 @@ namespace HRMS
                     <tr>
                         <td style='text-align: right; padding: 10px 0;'>
                             <a href='{siteURL}' target='_blank'>
-                                <img src='{logoURL}' alt='AMBC Logo' style='max-width: 50px;'>
+                                <img src='{logoURL}' alt='AMBC Logo' width='50'>
                             </a>
                         </td>
                     </tr>
@@ -163,7 +163,7 @@ namespace HRMS
                     <tr>
                         <td style='text-align: right; padding: 10px 0;'>
                             <a href='{siteURL}' target='_blank'>
-                                <img src='{logoURL}' alt='AMBC Logo' style='max-width: 50px;'>
+                                <img src='{logoURL}' alt='AMBC Logo' width='50'>
                             </a>
                         </td>
                     </tr>

@@ -273,50 +273,29 @@ namespace HRMS.Controllers
         }
 
         [HttpPost]
-        public JsonResult ChangePassword(string currentPassword, string newPassword, string confirmPassword)
+        public JsonResult ChangePassword(string currentPassword, string newPassword, string confirmPassword, string empid)
         {
             var result = new Dictionary<string, string>();
             bool success = true;
 
-            // Add your password validation and change logic here
-            if (string.IsNullOrWhiteSpace(currentPassword))
-            {
-                result["currentPassword"] = "Current password is required.";
-                success = false;
-            }
-
-            if (string.IsNullOrWhiteSpace(newPassword))
-            {
-                result["newPassword"] = "New password is required.";
-                success = false;
-            }
-            else if (!IsValidPassword(newPassword))
-            {
-                result["newPassword"] = "New password must be at least 8 characters long, contain at least one number, one lowercase letter, one uppercase letter, and one special character.";
-                success = false;
-            }
-
-            if (newPassword != confirmPassword)
-            {
-                result["confirmPassword"] = "Passwords do not match.";
-                success = false;
-            }
-
             if (success)
             {
                 // Fetch the user from the database
-                var user = _dbContext.emplogins.SingleOrDefault(u => u.Password == currentPassword);
-                if (user == null || !VerifyPassword(user.Password, currentPassword))
+                var changePasswordEmp = _dbContext.emplogins.SingleOrDefault(u => u.EmployeeID == empid);
+                if (changePasswordEmp != null)
                 {
-                    result["currentPassword"] = "Current password is incorrect.";
-                    success = false;
-                }
-                else
-                {
-                    // Update the user's password
-                    user.Password = HashPassword(newPassword);
-                    _dbContext.SaveChanges();
-                }
+                    if(changePasswordEmp.Password == currentPassword)
+                    {
+                        changePasswordEmp.Password = newPassword;
+                        _dbContext.SaveChanges();
+                    }
+                    else
+                    {
+                        result["currentPassword"] = "Current password is incorrect.";
+                        success = false;
+                    }                  
+                  
+                }                
             }
 
             return Json(new { success = success, errors = result });

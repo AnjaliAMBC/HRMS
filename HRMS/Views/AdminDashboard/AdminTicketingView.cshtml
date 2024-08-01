@@ -96,7 +96,7 @@
                                 <div class="form-group align-items-center res-adminadvfilter-itticketlisting mr-2">
                                     <button type="button" class="btn btn-sm btn-primary itticketlisting-view">View</button>
                                     <button type="button" class="btn btn-sm btn-primary itticketlisting-export">Export</button>
-                                    <a href="#" class="clearattendence-filter">Clear</a>
+                                    <a href="#" class="cleariticketing-filter">Clear</a>
                                 </div>
                             </div>
                         </div>
@@ -281,14 +281,6 @@
     //    $('#adminItTicketCommentsModal').modal('show');
     //}
 
-    $(document).on('click', '.clearattendence-filter', function (event) {
-        event.preventDefault();
-        $('#itticketlisting-fromDate').val('');
-        $('#itticketlisting-toDate').val('');
-        $('#it-ticketlisting-status-dropdown').val('');
-        $('#it-ticketlisting-location-dropdown').val('');
-        $('#it-ticketlisting-closedby-dropdown').val('');
-    });
 
 </script>
 

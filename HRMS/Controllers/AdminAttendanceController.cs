@@ -166,8 +166,8 @@ namespace HRMS.Controllers
             var leavesOnSelectedDates = _dbContext.con_leaveupdate.Where(x => x.leavedate >= startDate && x.leavedate <= endDate).ToList();
 
             // Define your color constants
-            var headerBackgroundColor = Color.LightBlue;
-            var headerFontColor = Color.DarkBlue;
+            var headerBackgroundColor = Color.SkyBlue;
+            var headerFontColor = Color.White;
             var headerFontSize = 12; //
 
             using (ExcelPackage excelPackage = new ExcelPackage())

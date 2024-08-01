@@ -124,7 +124,7 @@
                                 <div class="form-group align-items-center res-adminadvfilter-hrticketlisting mr-2">
                                     <button type="button" class="btn btn-sm btn-primary hrticketlisting-view">View</button>
                                     <button type="button" class="btn btn-sm btn-primary hrticketlisting-export">Export</button>
-                                    <a href="#" class="clearattendence-filter">Clear</a>
+                                    <a href="#" class="clearhrticketing-filter">Clear</a>
                                 </div>
                             </div>
                         </div>
@@ -295,17 +295,6 @@
         // Show the confirmation modal
         $('#adminHrTicketCommentsModal').modal('show');
     }
-
-    $(document).on('click', '.clearattendence-filter', function (event) {
-        event.preventDefault();
-        $('#hrticketlisting-fromDate').val('');
-        $('#hrticketlisting-toDate').val('');
-        $('#hr-ticketlisting-status-dropdown').val('');
-        $('#hr-ticketlisting-location-dropdown').val('');
-        $('#hr-ticketlisting-closedby-dropdown').val('');
-    });
-
-
 
 </script>
 
