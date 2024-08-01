@@ -64,7 +64,7 @@ namespace HRMS
 <html>
     <body style='font-family: Arial, sans-serif;'>
         <div style='overflow: auto; margin-bottom: 20px;'>
-            <img src='{logoURL}' alt='AMBC Logo' style='max-width: 50px; float: right; margin-left: 10px;'>
+            <img src='{logoURL}' alt='AMBC Logo' width='50' style='float: right; margin-left: 10px;'>
             <p style='margin: 0; font-size: 18px;'>Hello All,</p>
         </div>
         <p style='font-size: 16px;'>Greetings of the day!</p>

@@ -122,7 +122,7 @@
                                             <span class="check-label smalltext mr-auto">Check Out Time</span>
                                             @if (string.IsNullOrWhiteSpace(endtimeWithAmPm))
                                             {
-                                        <div id="checkOutTime" class="time-input mr-auto">00:00:00</div>
+                                                <div id="checkOutTime" class="time-input mr-auto">00:00:00</div>
                                             }
                                             else
                                             {
@@ -193,35 +193,27 @@
                             {
 
                                 <div class="emp-dash-ticket-info">
-                                    <div class="emp-dash-ticket-title">Test data</div>
-                                    <div class="emp-dash-ticket-desc">
-                                        <span class="dash-ticket-desc-left-block"><i class="fa fa-exclamation-circle" aria-hidden="true"></i><span>Priority - <span class="dash-ticket-priority-high">High</span></span></span>
-                                        <span class="dash-ticket-desc-right-block"><i class="fa fa-user" aria-hidden="true"></i><span>Closed by Goutham</span></span>
-                                    </div>
+                                    @foreach (var myTicket in Model.MyTickets)
+                                    {
+
+                                        <div class="emp-dash-ticket-title">@myTicket.Subject</div>
+                                        <div class="emp-dash-ticket-desc">
+                                            <span class="dash-ticket-desc-left-block"><i class="fa fa-exclamation-circle" aria-hidden="true"></i><span>Priority - <span class="dash-ticket-priority-high">@myTicket.Priority</span></span></span>
+
+
+                                            @if (myTicket.Status == "Resolved")
+                                            {
+                                                <span class="dash-ticket-desc-right-block"><i class="fa fa-user" aria-hidden="true"></i><span>Resolved By: @myTicket.ResolvedByName</span></span>                                             
+                                            }
+                                            else if (myTicket.Status == "Closed")
+                                            {
+                                                <span class="dash-ticket-desc-right-block"><i class="fa fa-user" aria-hidden="true"></i><span>Closed By: @myTicket.ResolvedByName</span></span>                         
+                                            }
+
+                                        </div>
+                                    }
                                 </div>
-
-                                foreach (var myTicket in Model.MyTickets)
-                                {
-                                    <p class="mb-0">@myTicket.Subject <span class="badge @HRMS.Helpers.TicketingHelper.GetTicketPriorityDashCssClass(myTicket.Priority)">@myTicket.Priority</span></p>
-
-                                    @*if (myTicket.Status == "Open")
-                                        {
-                                            <p class="smalltext">Open By: @myTicket.EmployeeName</p>
-                                        }
-                                        else if (myTicket.Status == "ReOpen")
-                                        {
-                                            <p class="smalltext">Re-Open By: @myTicket.EmployeeName</p>
-                                        }*@
-                                    if (myTicket.Status == "Resolved")
-                                    {
-                                        <p class="smalltext">Resolved By: @myTicket.ResolvedByName</p>
-                                    }
-                                    else if (myTicket.Status == "Closed")
-                                    {
-                                        <p class="smalltext">Closed By: @myTicket.ResolvedByName</p>
-                                    }
-
-                                }
+                             
                             }
 
                         </div>
