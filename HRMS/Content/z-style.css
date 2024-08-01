@@ -331,6 +331,7 @@ div.main-content {
     margin-left: 0px !important;
     float: left;
     margin-bottom: 30px;
+    float: right;
 }
 
 .admin-empmanagement-container .submit-button {
@@ -362,13 +363,15 @@ div.main-content {
 }
 
 #adminempmanagementtable {
-    margin-top: -15px;
+    //margin-top: -15px;
+    table-layout: fixed;
 }
 
 #adminempmanagementtable thead {
     //width: inherit !important;
     //visibility: hidden;
     background: #f9f9f9 !important;
+    display: none;
 }
 
 .dataTables_scrollHeadInner table.display.dataTable thead {
@@ -431,6 +434,46 @@ div.main-content {
     background-color: #ffffff !important;
 }
 
+.admin-empadd-view .res-admin-emp-import #file-upload-area {
+    width: 100%;
+}
+
+#adminempmanagementtable tbody td:nth-child(1) {
+    width: 10px !important;
+}
+
+#adminempmanagementtable tbody td:nth-child(2) {
+    width: 65px !important;
+}
+
+#adminempmanagementtable tbody td:nth-child(3) {
+    width: 290px !important;
+}
+
+#adminempmanagementtable tbody td:nth-child(4) {
+    width: 130px !important;
+}
+
+#adminempmanagementtable tbody td:nth-child(5) {
+    width: 130px !important;
+}
+
+#adminempmanagementtable tbody td:nth-child(6) {
+    width: 90px !important;
+}
+
+#adminempmanagementtable tbody td:nth-child(7) {
+    width: 80px !important;
+}
+
+#adminempmanagementtable tbody td:nth-child(8) {
+    width: 50px !important;
+}
+
+#adminempmanagementtable tbody td:nth-child(9) {
+    width: 50px !important;
+}
+
 /* admin employee management end */
 
 /*admin attendance start*/
@@ -446,6 +489,7 @@ div.main-content {
 
 .admin-attendance-container .addshiftcontent {
     margin-top: -15px;
+    margin-left: -15px;
 }
 
 #leaveUpdateModal .leaveupdate_checkin, #leaveUpdateModal .leaveupdate_checkout {
@@ -575,6 +619,16 @@ div.main-content {
 
 .res-admin-individual-attendance .admin-individual-att-title-header {
     margin-top: 10px;
+}
+
+.addshiftcard .res-start-end-time {
+    display: inline-block;
+    width: 82%;
+}
+
+.addshiftcard .res-admin-addshift-submit {
+    float: right;
+    margin-right: 78px;
 }
 
 /*admin attendance end*/
@@ -1154,36 +1208,36 @@ div.main-content {
 .admin-leaveimport-view {
 }
 
-    .admin-leaveimport-view .download-leave-btn {
-        border: 2px solid #007bff;
-        background-color: #fff;
-        color: #fff;
-    }
+.admin-leaveimport-view .download-leave-btn {
+    border: 2px solid #007bff;
+    background-color: #fff;
+    color: #fff;
+}
 
-    .admin-leaveimport-view .leave-file-upload {
-        border: 2px dashed #007bff;
-        padding: 32px;
-        text-align: center;
-        border-radius: 10px;
-        cursor: pointer;
-        width: 45%;
-    }
+.admin-leaveimport-view .leave-file-upload {
+    border: 2px dashed #007bff;
+    padding: 32px;
+    text-align: center;
+    border-radius: 10px;
+    cursor: pointer;
+    width: 100%;
+}
 
-    .admin-leaveimport-view #leave-file-upload-input {
-        display: none;
-    }
+.admin-leaveimport-view #leave-file-upload-input {
+    display: none;
+}
 
-    .admin-leaveimport-view .submit-button {
-        margin-top: 20px;
-        text-align: left;
-        margin-right: 0;
-        margin-bottom: 20px;
-    }
+.admin-leaveimport-view .submit-button {
+    margin-top: 20px;
+    text-align: left;
+    margin-right: 0;
+    margin-bottom: 20px;
+}
 
-    .admin-leaveimport-view .download-leave-btn:hover {
-        color: #fff;
-        background-color: #007bff;
-    }
+.admin-leaveimport-view .download-leave-btn:hover {
+    color: #fff;
+    background-color: #007bff;
+}
 
 .admin-leave-container #leavehistory-file-upload-label {
     cursor: pointer;
@@ -1565,6 +1619,10 @@ div.main-content {
     width: 310px;
 }
 
+#adminitticketlistingTable_wrapper {
+    padding: 20px 5px;
+}
+
 /* admin it ticket end */
 
 /* admin it ticket form start */
@@ -1889,6 +1947,10 @@ div.main-content {
     width: 310px;
 }
 
+#adminhrticketlistingTable_wrapper {
+    padding: 20px 5px;
+}
+
 /* admin hr ticket end */
 
 /* admin hr ticket form start */
@@ -2142,7 +2204,7 @@ div.main-content {
     flex: 0 0 31%;
 }
 
-.emp-data .emp-change-password button{
+.emp-data .emp-change-password button {
     float: right;
 }
 
@@ -2155,6 +2217,7 @@ div.main-content {
     right: 15px;
     top: -27px;
     cursor: pointer;
+    color: #272727;
 }
 
 #empChangePasswordSuccessModal .change-password-success-popup {
@@ -2219,6 +2282,10 @@ div.main-content {
 
 #attendanceTable .empatt-body .attendance-bar.res-emp-attendance-gray-btn {
     //border: 1px solid lightgray;
+}
+
+.attendance-nav {
+    margin-left: 5px;
 }
 
 /* employee attendance end */
@@ -2417,9 +2484,13 @@ input[type=checkbox], input[type=radio] {
     padding-left: 0px;
 }
 
-    .emp-leave-apply-form #leaveForm {
-        margin-left: 20px;
-    }
+.emp-leave-apply-form #leaveForm {
+    //margin-left: 20px;
+}
+
+.emp-leave-apply-form #leaveForm .btn-apply-empleave {
+    float: right;
+}
 
 /* emp leave end*/
 
@@ -2611,6 +2682,10 @@ input[type=checkbox], input[type=radio] {
     margin: 0 0%;
 }
 
+#empticketlistingTable_wrapper {
+    padding: 20px 5px;
+}
+
 /* emp ticket history end */
 
 /* emp ticket raise start */
@@ -2656,6 +2731,10 @@ input[type=checkbox], input[type=radio] {
 
 .emp-ticket-raise-popup-form #emp-ticket-raise-Form .emp-raiseticket-attach-file-upload-size {
     font-size: 10px;
+}
+
+#emp-ticket-raise-Form {
+    margin-left: -5px;
 }
 
 /* emp ticket raise end */
