@@ -85,9 +85,7 @@ namespace HRMS.Helpers
                 justify-content: space-between;
                 align-items: center;
             }}
-            .email-logo img {{
-                max-width: 100px;
-            }}
+            
             .email-footer {{
                 margin-top: 20px;
                 text-align: center;
@@ -115,15 +113,15 @@ namespace HRMS.Helpers
                 <div class='email-header'>
                     <div>
                         <h2>Hi Team,</h2>
+                     <div class='email-logo' style='float: right;'>
+                        <img src='{logoURL}' alt='Company Logo' width='50' >
+                    </div>
                         <p>Employee <strong>{ticket.EmployeeName}</strong> with ID <strong>{ticket.EmployeeID}</strong> has raised a ticket no #<strong>{ticket.TicketNo}</strong>.</p>
                         <p><strong>Category:</strong> {ticket.Category}</p>
                         <p><strong>Subject:</strong> {ticket.Subject}</p>
                         <p><strong>Status:</strong> {ticket.Status}</p>
                         <p><strong>Date:</strong> {System.DateTime.Now.ToString("dd/MM/yyyy hh:mm tt")}</p>
-                    </div>
-                    <div class='email-logo'>
-                        <img src='{logoURL}' alt='Company Logo'>
-                    </div>
+                    </div>                    
                 </div>
                 <table class='email-table'>
                     <tr>
