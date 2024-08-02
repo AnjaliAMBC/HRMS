@@ -166,8 +166,8 @@ namespace HRMS.Controllers
             var leavesOnSelectedDates = _dbContext.con_leaveupdate.Where(x => x.leavedate >= startDate && x.leavedate <= endDate).ToList();
 
             // Define your color constants
-            var headerBackgroundColor = Color.LightBlue;
-            var headerFontColor = Color.DarkBlue;
+            var headerBackgroundColor = Color.SkyBlue;
+            var headerFontColor = Color.White;
             var headerFontSize = 12; //
 
             using (ExcelPackage excelPackage = new ExcelPackage())
@@ -514,12 +514,13 @@ namespace HRMS.Controllers
                     <td style='text-align: center;'>{newShiftStartTimeString} - {newShiftEndTimeString}</td>
                 </tr>
             </table>
+            
+        </div>
             <div style='font-family: Calibri; color: #696969; font-size: 1.1em; margin-top: 20px;'>
                 This is an automated email, please do not reply.
                 <br />
                 Automated mail from <a href='https://prm.ambctechnologies.com' style='color: #2693F8;'>https://prm.ambctechnologies.com</a>
             </div>
-        </div>
     </body>
 </html>";
 

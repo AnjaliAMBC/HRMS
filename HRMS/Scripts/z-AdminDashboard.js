@@ -939,17 +939,17 @@ function downloadTemplate() {
     document.body.removeChild(link);
 }
 
-$(document).ready(function () {
-    $(document).on('click', '#dropdownMenu', function () {
-        $('#dropdownMenuContent').toggle();
-    });
+//$(document).ready(function () {
+//    $(document).on('click', '#dropdownMenu', function () {
+//        $('#dropdownMenuContent').toggle();
+//    });
 
-    $(document).on('click', function (event) {
-        if (!$(event.target).closest('.dropdown-columns').length && !$(event.target).is('#dropdownMenu')) {
-            $('#dropdownMenuContent').hide();
-        }
-    });
-});
+//    $(document).on('click', function (event) {
+//        if (!$(event.target).closest('.dropdown-columns').length && !$(event.target).is('#dropdownMenu')) {
+//            $('#dropdownMenuContent').hide();
+//        }
+//    });
+//});
 
 $(document).on('click', '.compOff-History-Page', function () {
     window.location.href = "/adminleave/index?fromcompoff=true";

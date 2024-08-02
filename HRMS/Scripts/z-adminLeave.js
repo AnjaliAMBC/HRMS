@@ -392,7 +392,7 @@ $(document).off('click', '.acceptLeaveBtn').on('click', '.acceptLeaveBtn', funct
                 // Check if admin-leaveapprovaloptions div exists, if not create it
                 if ($statusBtnFlex.find('.admin-leaveapprovaloptions').length === 0) {
                     var adminLeaveApprovalOptions = `
-                         <small class="statusLabel" style="color: green">Approved</small>
+                         <small class="statusLabel" style="color: #3E78CF">Approved</small>
                         <i class="fas fa-ellipsis-h adminleave-leave-approval" onclick="toggleAdminLeaveApprovalActionOptions(this)"></i>
                         <div class="admin-leaveapprovaloptions" style="display:none">
                             <a href="" class="dropdown-item rejectLeaveBtn changestatusreject" data-leavename="${leaveName}" data-compoffnum="${leaveName}">Change Status</a>

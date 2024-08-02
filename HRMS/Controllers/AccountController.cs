@@ -15,6 +15,7 @@ using System.Net.Http;
 using System.Threading.Tasks;
 using Newtonsoft.Json;
 using System.Web.Security;
+using System.Text.RegularExpressions;
 
 namespace HRMS.Controllers
 {
@@ -270,5 +271,53 @@ namespace HRMS.Controllers
                 return Json(updatePwdmodel, JsonRequestBehavior.AllowGet);
             }
         }
+
+        [HttpPost]
+        public JsonResult ChangePassword(string currentPassword, string newPassword, string confirmPassword, string empid)
+        {
+            var result = new Dictionary<string, string>();
+            bool success = true;
+
+            if (success)
+            {
+                // Fetch the user from the database
+                var changePasswordEmp = _dbContext.emplogins.SingleOrDefault(u => u.EmployeeID == empid);
+                if (changePasswordEmp != null)
+                {
+                    if(changePasswordEmp.Password == currentPassword)
+                    {
+                        changePasswordEmp.Password = newPassword;
+                        _dbContext.SaveChanges();
+                    }
+                    else
+                    {
+                        result["currentPassword"] = "Current password is incorrect.";
+                        success = false;
+                    }                  
+                  
+                }                
+            }
+
+            return Json(new { success = success, errors = result });
+        }
+
+        private bool IsValidPassword(string password)
+        {
+            // Check if the password meets the criteria
+            var passwordRegex = new Regex(@"^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$");
+            return passwordRegex.IsMatch(password);
+        }
+
+        private bool VerifyPassword(string storedPassword, string inputPassword)
+        {
+            return storedPassword == inputPassword; 
+        }
+
+        private string HashPassword(string password)
+        {
+            
+            return password; 
+        }
+
     }
 }

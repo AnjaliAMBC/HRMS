@@ -508,6 +508,12 @@ namespace HRMS.Controllers
                     worksheet.Cells[1, i + 1].Value = properties[i].Name;
                 }
 
+                using (var firstRow = worksheet.Cells[1, 1, 1, properties.Length])
+                {
+                    firstRow.Style.Fill.PatternType = OfficeOpenXml.Style.ExcelFillStyle.Solid;
+                    firstRow.Style.Fill.BackgroundColor.SetColor(System.Drawing.Color.SkyBlue);
+                    firstRow.Style.Font.Color.SetColor(System.Drawing.Color.White); // Optional: Set text color to white for contrast
+                }
                 int row = 2;
                 foreach (var employee in selectedEmployees)
                 {

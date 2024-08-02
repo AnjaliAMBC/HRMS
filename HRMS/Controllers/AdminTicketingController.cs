@@ -168,8 +168,8 @@ namespace HRMS.Controllers
 
         private List<IT_Ticket> GetTicketsFilter(string fromDate, string toDate, string status, string location, string closedBy, string type)
         {
-            DateTime dateStart = System.DateTime.Parse(fromDate);
-            DateTime dateEnd = System.DateTime.Parse(toDate);
+            DateTime dateStart = !string.IsNullOrEmpty(fromDate) ? System.DateTime.Parse(fromDate) : DateTime.MinValue;
+            DateTime dateEnd = !string.IsNullOrEmpty(toDate) ? System.DateTime.Parse(toDate) : DateTime.MinValue;
 
             var employeeTickets = _dbContext.IT_Ticket.Where(x => x.TicketType == type);
 

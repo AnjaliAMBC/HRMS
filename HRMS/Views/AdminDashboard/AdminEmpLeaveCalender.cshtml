@@ -105,7 +105,7 @@
 
                                             @foreach (var emp in Model.Employees)
                                             {
-                                                <a class="dropdown-item admin-empbased-leave-calender" data-empid="@emp.EmployeeID" href="#">@emp.EmployeeName</a>
+                                            <a class="dropdown-item admin-empbased-leave-calender" data-empid="@emp.EmployeeID" href="#">@emp.EmployeeName @emp.EmployeeID</a>
                                             }
 
                                         </div>
@@ -178,11 +178,18 @@
                         //// Initial rendering of the employee list
                         //renderEmployeeList(employees);
 
-                        $('#employeeSearch').on('keyup', function () {
-                            const searchText = $(this).val().toLowerCase();
-                            const filteredEmployees = employees.filter(employee => employee.toLowerCase().includes(searchText));
-                            renderEmployeeList(filteredEmployees);
+                        $('#employeeSearch').on('input', function () {
+                            var searchValue = $(this).val().toLowerCase();
+                            $('#employeeList a').filter(function () {
+                                $(this).toggle($(this).text().toLowerCase().indexOf(searchValue) > -1);
+                            });
                         });
+
+                        //$('#employeeSearch').on('keyup', function () {
+                        //    const searchText = $(this).val().toLowerCase();
+                        //    const filteredEmployees = employees.filter(employee => employee.toLowerCase().includes(searchText));
+                        //    renderEmployeeList(filteredEmployees);
+                        //});
 
                         $(document).on('click', '.dropdown-item', function () {
                             const selectedEmployee = $(this).text();

@@ -459,18 +459,30 @@ namespace HRMS.Controllers
             {
                 var worksheet = package.Workbook.Worksheets.Add("Leave Data");
 
-                // Add first three rows with custom information
+                // Define colors
+                var headerColor = System.Drawing.Color.SkyBlue;
+                var fontColor = System.Drawing.Color.White;
+
+                // Add first three rows with custom information and color
                 worksheet.Cells[1, 1].Value = "From Date";
                 worksheet.Cells[1, 2].Value = dateStart.ToString("dd-MMM-yyyy");
+                worksheet.Cells[1, 1, 1, 2].Style.Fill.PatternType = OfficeOpenXml.Style.ExcelFillStyle.Solid;
+                worksheet.Cells[1, 1].Style.Fill.BackgroundColor.SetColor(headerColor);
+                worksheet.Cells[1, 1].Style.Font.Color.SetColor(fontColor);
 
                 worksheet.Cells[2, 1].Value = "To Date";
                 worksheet.Cells[2, 2].Value = dateEnd.ToString("dd-MMM-yyyy");
+                worksheet.Cells[2, 1, 2, 2].Style.Fill.PatternType = OfficeOpenXml.Style.ExcelFillStyle.Solid;
+                worksheet.Cells[2, 1].Style.Fill.BackgroundColor.SetColor(headerColor);
+                worksheet.Cells[2, 1].Style.Font.Color.SetColor(fontColor);
 
                 worksheet.Cells[3, 1].Value = "Department";
                 worksheet.Cells[3, 2].Value = department;
+                worksheet.Cells[3, 1].Style.Fill.PatternType = OfficeOpenXml.Style.ExcelFillStyle.Solid;
+                worksheet.Cells[3, 1].Style.Fill.BackgroundColor.SetColor(headerColor);
+                worksheet.Cells[3, 1].Style.Font.Color.SetColor(fontColor);
 
-                // Add an empty row
-                // Add headers starting from the fifth row
+                // Add headers starting from the fifth row and color
                 worksheet.Cells[5, 1].Value = "Emp-ID";
                 worksheet.Cells[5, 2].Value = "Name";
                 worksheet.Cells[5, 3].Value = "Email";
@@ -485,6 +497,9 @@ namespace HRMS.Controllers
                 worksheet.Cells[5, 12].Value = "Submitted Date";
                 worksheet.Cells[5, 13].Value = "Updated By";
                 worksheet.Cells[5, 14].Value = "Updated Date";
+                worksheet.Cells[5, 1, 5, 14].Style.Fill.PatternType = OfficeOpenXml.Style.ExcelFillStyle.Solid;
+                worksheet.Cells[5, 1, 5, 14].Style.Fill.BackgroundColor.SetColor(headerColor);
+                worksheet.Cells[5, 1, 5, 14].Style.Font.Color.SetColor(fontColor);
 
                 // Add data rows starting from the sixth row
                 for (int i = 0; i < leaveInfos.Count; i++)
@@ -528,7 +543,6 @@ namespace HRMS.Controllers
                 return File(stream, "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet", excelName);
             }
         }
-
 
 
         public ActionResult ChangeCompoffStatus(int compoffNum, string status)

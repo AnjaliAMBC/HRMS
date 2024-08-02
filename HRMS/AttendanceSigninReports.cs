@@ -85,7 +85,7 @@ namespace HRMS
             <div style='display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px;'>
                 <p style='margin: 0;'>AMBC attendance report for " + currentDate + @"</p>
                 <a href='" + siteURL + @"' target='_blank' style='margin-left: auto;'>
-                    <img src='" + logoURL + @"' alt='AMBC Logo' style='max-width: 50px; float: right;'>
+                    <img src='" + logoURL + @"' alt='AMBC Logo' width='50' style='float: right;'>
                 </a>
             </div>
             <table border='1' style='border-collapse: collapse; width: 100%; background-color: #f9f9f9; margin-top: 20px;'>

@@ -134,6 +134,113 @@ $(document).on('click', '.hrticketlisting-export', function (event) {
     }
 });
 
+function AdminHRTicketingHistory(fromDate, toDate, status, location, closedBy) {
+    $.ajax({
+        url: '/adminticketing/gethrticketfilter',
+        type: 'GET',
+        data: {
+            fromDate: fromDate,
+            toDate: toDate,
+            status: status,
+            location: location,
+            closedBy: closedBy
+        },
+        success: function (data) {
+            var html = '';
+
+            var response = $.parseJSON(data);
+
+            $.each(response, function (index, ticket) {
+                var responseTimeHtml = '';
+
+                if (ticket.ResponseTime != null) {
+                    // Convert the response time from seconds to hours, minutes, and seconds
+                    var totalSeconds = ticket.ResponseTime;
+                    var totalHours = Math.floor(totalSeconds / 3600);
+                    var totalMinutes = Math.floor((totalSeconds % 3600) / 60);
+
+                    responseTimeHtml = 'Response Time ' + totalHours.toString().padStart(2, '0') + ':' + totalMinutes.toString().padStart(2, '0') + ' Hr';
+                }
+
+                var statusColorClass = getStatusClass(ticket.Status);
+
+
+                html += '<tr>';
+                html += '<td style="width: 400px">';
+                html += '<div class="res-admin-hr-ticketlisting-user-details" style="display: flex; align-items: center;">';
+                html += '<i class="hr-ticket-msg-icon fa-regular fa-message"></i>';
+                html += '<span style="margin-top: 0px; margin-right: 10px;">';
+                html += '<div class="admin-hr-ticketing-listing-title" data-ticketnum="' + ticket.TicketNo + '">' + ticket.Subject + '</div>';
+                html += '<div class="admin-hr-ticketing-listing-details">';
+                html += '<span class="hr-ticket-id">' + ticket.TicketNo + '</span>';
+                html += '<span class="hr-ticket-info"><i class="fa-solid fa-folder" aria-hidden="true"></i> ' + ticket.Category + '</span>';
+                html += '<span class="id-name">' + ticket.EmployeeID + ' ' + ticket.EmployeeName + '</span>';
+                html += '</div>';
+                html += '</span>';
+                html += '</div>';
+                html += '</td>';
+                html += '<td style="width: 400px" class="res-admin-hr-ticketlisting-priority">';
+                html += '<div class="hr-ticketing-response-time">';
+                html += responseTimeHtml;
+                html += '</div>';
+                html += '<div class="hr-ticketing-priority-date">';
+                html += '<span class="hr-ticket-prioritylevel">';
+                html += '<span class="res-hr-ticketlisting-color res-hr-ticketlisting-color-red"></span>';
+                html += '<span class="res-hr-ticketlisting-priority-status">' + ticket.Priority + '</span>';
+                html += '</span>';
+                html += '<span class="res-admin-hr-ticketlisting-date">';
+                html += '<i class="fa-solid fa-clock" aria-hidden="true"></i>';
+                html += '<span class="res-ticketlisting-priority-status">';
+                html += (ticket.Created_date ? new Date(ticket.Created_date).toLocaleString('en-US', { weekday: 'short', year: 'numeric', month: 'short', day: '2-digit', hour: 'numeric', minute: 'numeric', hour12: true }) : 'N/A');
+                html += '</span>';
+                html += '</span>';
+                html += '</div>';
+                html += '</td>';
+                html += '<td class="res-admin-ticketlisting-location-info">';
+                html += '<div class="hr-ticketing-empty-block"></div>';
+                html += '<div class="res-ticketlisting-location">' + ticket.Location + '</div>';
+                html += '</td>';
+                html += '<td class="res-admin-ticketlisting-status">';
+                html += '<div class="hr-ticketing-empty-block"></div>';
+                html += '<div class="res-ticketlisting-status-level ' + statusColorClass + ' ticket-status-' + ticket.Status + '">' + ticket.Status + '</div>';
+                html += '</td>';
+                html += '</tr>';
+            });
+
+            // Clear the table body and destroy the existing DataTable
+            var table = $('#adminhrticketlistingTable').DataTable();
+            table.clear().destroy();
+
+            // Update the table body with new content
+            $('#adminhrticketlistingTable tbody').html(html);
+
+            // Re-initialize the DataTable after the table body is updated
+            table = $('#adminhrticketlistingTable').DataTable({
+                "paging": true,
+                "searching": true,
+                "ordering": false,
+                "info": true,
+                "autoWidth": false,
+                "lengthMenu": [[7, 14, 21, -1], [7, 14, 21, "All"]],
+                "columnDefs": [
+                    { "orderable": false, "targets": 1 },
+                    { "orderable": false, "targets": 3 }
+                ]
+            });
+
+            $(document).on('keyup', '.hr-search', function () {
+                table.search(this.value).draw(); // Search value across all columns and redraw table
+            });
+
+            $('.show-progress').hide();
+
+        },
+        error: function (xhr, status, error) {
+            $('.show-progress').hide();
+        }
+    });
+}
+
 $(document).on('click', '.hrticketlisting-view', function (event) {
     event.preventDefault();
 
@@ -164,110 +271,20 @@ $(document).on('click', '.hrticketlisting-view', function (event) {
     // If both dates are provided, proceed with the export
     if (isValid) {
         $('.show-progress').show();
-        $.ajax({
-            url: '/adminticketing/gethrticketfilter',
-            type: 'GET',
-            data: {
-                fromDate: fromDate,
-                toDate: toDate,
-                status: status,
-                location: location,
-                closedBy: closedBy
-            },
-            success: function (data) {
-                var html = '';
-
-                var response = $.parseJSON(data);
-
-                $.each(response, function (index, ticket) {
-                    var responseTimeHtml = '';
-
-                    if (ticket.ResponseTime != null) {
-                        // Convert the response time from seconds to hours, minutes, and seconds
-                        var totalSeconds = ticket.ResponseTime;
-                        var totalHours = Math.floor(totalSeconds / 3600);
-                        var totalMinutes = Math.floor((totalSeconds % 3600) / 60);
-
-                        responseTimeHtml = 'Response Time ' + totalHours.toString().padStart(2, '0') + ':' + totalMinutes.toString().padStart(2, '0') + ' Hr';
-                    }
-
-                    html += '<tr>';
-                    html += '<td style="width: 400px">';
-                    html += '<div class="res-admin-hr-ticketlisting-user-details" style="display: flex; align-items: center;">';
-                    html += '<i class="hr-ticket-msg-icon fa-regular fa-message"></i>';
-                    html += '<span style="margin-top: 0px; margin-right: 10px;">';
-                    html += '<div class="admin-hr-ticketing-listing-title" data-ticketnum="' + ticket.TicketNo + '">' + ticket.Subject + '</div>';
-                    html += '<div class="admin-hr-ticketing-listing-details">';
-                    html += '<span class="hr-ticket-id">' + ticket.TicketNo + '</span>';
-                    html += '<span class="hr-ticket-info"><i class="fa-solid fa-folder" aria-hidden="true"></i> ' + ticket.Category + '</span>';
-                    html += '<span class="id-name">' + ticket.EmployeeID + ' ' + ticket.EmployeeName + '</span>';
-                    html += '</div>';
-                    html += '</span>';
-                    html += '</div>';
-                    html += '</td>';
-                    html += '<td style="width: 400px" class="res-admin-hr-ticketlisting-priority">';
-                    html += '<div class="hr-ticketing-response-time">';
-                    html += responseTimeHtml;
-                    html += '</div>';
-                    html += '<div class="hr-ticketing-priority-date">';
-                    html += '<span class="hr-ticket-prioritylevel">';
-                    html += '<span class="res-hr-ticketlisting-color res-hr-ticketlisting-color-red"></span>';
-                    html += '<span class="res-hr-ticketlisting-priority-status">' + ticket.Priority + '</span>';
-                    html += '</span>';
-                    html += '<span class="res-admin-hr-ticketlisting-date">';
-                    html += '<i class="fa-solid fa-clock" aria-hidden="true"></i>';
-                    html += '<span class="res-ticketlisting-priority-status">';
-                    html += (ticket.Created_date ? new Date(ticket.Created_date).toLocaleString('en-US', { weekday: 'short', year: 'numeric', month: 'short', day: '2-digit', hour: 'numeric', minute: 'numeric', hour12: true }) : 'N/A');
-                    html += '</span>';
-                    html += '</span>';
-                    html += '</div>';
-                    html += '</td>';
-                    html += '<td class="res-admin-ticketlisting-location-info">';
-                    html += '<div class="hr-ticketing-empty-block"></div>';
-                    html += '<div class="res-ticketlisting-location">' + ticket.Location + '</div>';
-                    html += '</td>';
-                    html += '<td class="res-admin-ticketlisting-status">';
-                    html += '<div class="hr-ticketing-empty-block"></div>';
-                    html += '<div class="res-ticketlisting-status-level ticket-status-' + ticket.Status + '">' + ticket.Status + '</div>';
-                    html += '</td>';
-                    html += '</tr>';
-                });
-
-                // Clear the table body and destroy the existing DataTable
-                var table = $('#adminhrticketlistingTable').DataTable();
-                table.clear().destroy();
-
-                // Update the table body with new content
-                $('#adminhrticketlistingTable tbody').html(html);
-
-                // Re-initialize the DataTable after the table body is updated
-                table = $('#adminhrticketlistingTable').DataTable({
-                    "paging": true,
-                    "searching": true,
-                    "ordering": false,
-                    "info": true,
-                    "autoWidth": false,
-                    "lengthMenu": [[7, 14, 21, -1], [7, 14, 21, "All"]],
-                    "columnDefs": [
-                        { "orderable": false, "targets": 1 },
-                        { "orderable": false, "targets": 3 }
-                    ]
-                });
-
-                $(document).on('keyup', '.hr-search', function () {
-                    table.search(this.value).draw(); // Search value across all columns and redraw table
-                });
-
-                $('.show-progress').hide();
-
-            },
-            error: function (xhr, status, error) {
-                $('.show-progress').hide();
-            }
-        });
-
+        AdminHRTicketingHistory(fromDate, toDate, status, location, closedBy);
     }
 });
+
+$(document).on('click', '.clearhrticketing-filter', function (event) {
+    event.preventDefault();
+    $('#hrticketlisting-fromDate').val('');
+    $('#hrticketlisting-toDate').val('');
+    $('#hr-ticketlisting-status-dropdown').val('');
+    $('#hr-ticketlisting-location-dropdown').val('');
+    $('#hr-ticketlisting-closedby-dropdown').val('');
+    AdminHRTicketingHistory("", "", "", "", "");
+});
+
 
 
 //$(document).on('click', '.btn-itticketing-back', function () {
@@ -397,6 +414,143 @@ $(document).on('click', '.itticketlisting-export', function (event) {
 
 
 
+
+function getStatusClass(status) {
+    switch (status.toLowerCase()) {
+        case "open":
+            return "ithrticket-status-open";
+        case "closed":
+            return "ithrticket-status-closed";
+        case "resolved":
+            return "ticket-status-pending";
+        case "re-open":
+            return "ticket-status-re-open";
+        case "cancelled":
+            return "ticket-status-cancelled";
+        default:
+            return "";
+    }
+}
+
+function AdminITTicketingHistory(fromDate, toDate, status, location, closedBy) {
+    $.ajax({
+        url: '/adminticketing/getitticketfilter',
+        type: 'GET',
+        data: {
+            fromDate: fromDate,
+            toDate: toDate,
+            status: status,
+            location: location,
+            closedBy: closedBy
+        },
+        success: function (data) {
+            var html = '';
+
+            var response = $.parseJSON(data);
+
+            $.each(response, function (index, ticket) {
+                var responseTimeHtml = '';
+
+                var colorClass = "";
+                if (ticket.Priority == "Mid") {
+                    colorClass = "res-it-ticketlisting-color-orange";
+                }
+                if (ticket.Priority == "High") {
+                    colorClass = "res-it-ticketlisting-color-red";
+                }
+                if (ticket.Priority == "Low") {
+                    colorClass = "res-it-ticketlisting-color-red";
+                }
+
+
+                if (ticket.ResponseTime != null) {
+                    // Convert the response time from seconds to hours, minutes, and seconds
+                    var totalSeconds = ticket.ResponseTime;
+                    var totalHours = Math.floor(totalSeconds / 3600);
+                    var totalMinutes = Math.floor((totalSeconds % 3600) / 60);
+
+                    responseTimeHtml = 'Response Time ' + totalHours.toString().padStart(2, '0') + ':' + totalMinutes.toString().padStart(2, '0') + ' Hr';
+                }
+
+                var statusColorClass = getStatusClass(ticket.Status);
+
+
+                html += '<tr>';
+                html += '<td style="width: 400px">';
+                html += '<div class="res-admin-it-ticketlisting-user-details" style="display: flex; align-items: center;">';
+                html += '<i class="it-ticket-msg-icon fa-regular fa-message"></i>';
+                html += '<span style="margin-top: 0px; margin-right: 10px;">';
+                html += '<div class="admin-it-ticketing-listing-title" data-ticketnum="' + ticket.TicketNo + '">' + ticket.Subject + '</div>';
+                html += '<div class="admin-it-ticketing-listing-details">';
+                html += '<span class="it-ticket-id">#' + ticket.TicketNo + '</span>';
+                html += '<span class="it-ticket-info"><i class="fa-solid fa-folder" aria-hidden="true"></i> ' + ticket.Category + '</span>';
+                html += '<span class="id-name">' + ticket.EmployeeID + ' ' + ticket.EmployeeName + '</span>';
+                html += '</div>';
+                html += '</span>';
+                html += '</div>';
+                html += '</td>';
+                html += '<td style="width: 400px" class="res-admin-it-ticketlisting-priority">';
+                html += '<div class="it-ticketing-response-time">';
+                html += responseTimeHtml + '</div>';
+                html += '<div class="it-ticketing-priority-date">';
+                html += '<span class="it-ticket-prioritylevel">';
+                html += '<span class="res-it-ticketlisting-color ' + colorClass + '"></span>';
+                html += '<span class="res-it-ticketlisting-priority-status">' + ticket.Priority + '</span>';
+                html += '</span>';
+                html += '<span class="res-admin-it-ticketlisting-date">';
+                html += '<i class="fa-solid fa-clock" aria-hidden="true"></i>';
+                html += '<span class="res-itticketlisting-priority-status">';
+                html += (ticket.Created_date ? new Date(ticket.Created_date).toLocaleString('en-US', { day: '2-digit', month: 'short', year: 'numeric', weekday: 'short', hour: 'numeric', minute: 'numeric', hour12: true }) : 'N/A');
+                html += '</span>';
+                html += '</span>';
+                html += '</div>';
+                html += '</td>';
+                html += '<td class="res-admin-itticketlisting-location-info">';
+                html += '<div class="it-ticketing-empty-block"></div>';
+                html += '<div class="res-itticketlisting-location">' + ticket.Location + '</div>';
+                html += '</td>';
+                html += '<td class="res-admin-itticketlisting-status">';
+                html += '<div class="it-ticketing-empty-block"></div>';
+                html += '<div class="res-itticketlisting-status-level ' + statusColorClass + ' ticket-status-' + ticket.Status + '" onclick="adminitticketcommentpopup($(this))">' + ticket.Status + '</div>';
+                html += '</td>';
+                html += '</tr>';
+            });
+
+            // Clear the table body and destroy the existing DataTable
+            var table = $('#adminitticketlistingTable').DataTable();
+            table.clear().destroy();
+
+            // Update the table body with new content
+            $('#adminitticketlistingTable tbody').html(html);
+
+            // Re-initialize the DataTable after the table body is updated
+            table = $('#adminitticketlistingTable').DataTable({
+                "paging": true,
+                "searching": true,
+                "ordering": false,
+                "info": true,
+                "autoWidth": false,
+                "lengthMenu": [[7, 14, 21, -1], [7, 14, 21, "All"]],
+                "columnDefs": [
+                    { "orderable": false, "targets": 1 },
+                    { "orderable": false, "targets": 3 }
+                ]
+            });
+
+            $(document).on('keyup', '.it-search', function () {
+                table.search(this.value).draw(); // Search value across all columns and redraw table
+            });
+
+            $('.show-progress').hide();
+
+        },
+        error: function (xhr, status, error) {
+            $('.show-progress').hide();
+        }
+    });
+}
+
+
 $(document).on('click', '.itticketlisting-view', function (event) {
     event.preventDefault();
 
@@ -427,121 +581,20 @@ $(document).on('click', '.itticketlisting-view', function (event) {
     // If both dates are provided, proceed with the export
     if (isValid) {
         $('.show-progress').show();
-        $.ajax({
-            url: '/adminticketing/getitticketfilter',
-            type: 'GET',
-            data: {
-                fromDate: fromDate,
-                toDate: toDate,
-                status: status,
-                location: location,
-                closedBy: closedBy
-            },
-            success: function (data) {
-                var html = '';
-
-                var response = $.parseJSON(data);
-
-                $.each(response, function (index, ticket) {
-                    var responseTimeHtml = '';
-
-                    var colorClass = "";
-                    if (ticket.Priority == "Mid") {
-                        colorClass = "res-it-ticketlisting-color-orange";
-                    }
-                    if (ticket.Priority == "High") {
-                        colorClass = "res-it-ticketlisting-color-red";
-                    }
-                    if (ticket.Priority == "Low") {
-                        colorClass = "res-it-ticketlisting-color-red";
-                    }
-
-
-                    if (ticket.ResponseTime != null) {
-                        // Convert the response time from seconds to hours, minutes, and seconds
-                        var totalSeconds = ticket.ResponseTime;
-                        var totalHours = Math.floor(totalSeconds / 3600);
-                        var totalMinutes = Math.floor((totalSeconds % 3600) / 60);
-
-                        responseTimeHtml = 'Response Time ' + totalHours.toString().padStart(2, '0') + ':' + totalMinutes.toString().padStart(2, '0') + ' Hr';
-                    }
-
-                    html += '<tr>';
-                    html += '<td style="width: 400px">';
-                    html += '<div class="res-admin-it-ticketlisting-user-details" style="display: flex; align-items: center;">';
-                    html += '<i class="it-ticket-msg-icon fa-regular fa-message"></i>';
-                    html += '<span style="margin-top: 0px; margin-right: 10px;">';
-                    html += '<div class="admin-it-ticketing-listing-title" data-ticketnum="' + ticket.TicketNo + '">' + ticket.Subject + '</div>';
-                    html += '<div class="admin-it-ticketing-listing-details">';
-                    html += '<span class="it-ticket-id">#' + ticket.TicketNo + '</span>';
-                    html += '<span class="it-ticket-info"><i class="fa-solid fa-folder" aria-hidden="true"></i> ' + ticket.Category + '</span>';
-                    html += '<span class="id-name">' + ticket.EmployeeID + ' ' + ticket.EmployeeName + '</span>';
-                    html += '</div>';
-                    html += '</span>';
-                    html += '</div>';
-                    html += '</td>';
-                    html += '<td style="width: 400px" class="res-admin-it-ticketlisting-priority">';
-                    html += '<div class="it-ticketing-response-time">';
-                    html += responseTimeHtml + '</div>';
-                    html += '<div class="it-ticketing-priority-date">';
-                    html += '<span class="it-ticket-prioritylevel">';
-                    html += '<span class="res-it-ticketlisting-color ' + colorClass + '"></span>';
-                    html += '<span class="res-it-ticketlisting-priority-status">' + ticket.Priority + '</span>';
-                    html += '</span>';
-                    html += '<span class="res-admin-it-ticketlisting-date">';
-                    html += '<i class="fa-solid fa-clock" aria-hidden="true"></i>';
-                    html += '<span class="res-itticketlisting-priority-status">';
-                    html += (ticket.Created_date ? new Date(ticket.Created_date).toLocaleString('en-US', { day: '2-digit', month: 'short', year: 'numeric', weekday: 'short', hour: 'numeric', minute: 'numeric', hour12: true }) : 'N/A');
-                    html += '</span>';
-                    html += '</span>';
-                    html += '</div>';
-                    html += '</td>';
-                    html += '<td class="res-admin-itticketlisting-location-info">';
-                    html += '<div class="it-ticketing-empty-block"></div>';
-                    html += '<div class="res-itticketlisting-location">' + ticket.Location + '</div>';
-                    html += '</td>';
-                    html += '<td class="res-admin-itticketlisting-status">';
-                    html += '<div class="it-ticketing-empty-block"></div>';
-                    html += '<div class="res-itticketlisting-status-level ticket-status-' + ticket.Status + '" onclick="adminitticketcommentpopup($(this))">' + ticket.Status + '</div>';
-                    html += '</td>';
-                    html += '</tr>';
-                });
-
-                // Clear the table body and destroy the existing DataTable
-                var table = $('#adminitticketlistingTable').DataTable();
-                table.clear().destroy();
-
-                // Update the table body with new content
-                $('#adminitticketlistingTable tbody').html(html);
-
-                // Re-initialize the DataTable after the table body is updated
-                table = $('#adminitticketlistingTable').DataTable({
-                    "paging": true,
-                    "searching": true,
-                    "ordering": false,
-                    "info": true,
-                    "autoWidth": false,
-                    "lengthMenu": [[7, 14, 21, -1], [7, 14, 21, "All"]],
-                    "columnDefs": [
-                        { "orderable": false, "targets": 1 },
-                        { "orderable": false, "targets": 3 }
-                    ]
-                });
-
-                $(document).on('keyup', '.it-search', function () {
-                    table.search(this.value).draw(); // Search value across all columns and redraw table
-                });
-
-                $('.show-progress').hide();
-
-            },
-            error: function (xhr, status, error) {
-                $('.show-progress').hide();
-            }
-        });
-
+        AdminITTicketingHistory(fromDate, toDate, status, location, closedBy);
     }
 });
+
+$(document).on('click', '.cleariticketing-filter', function (event) {
+    event.preventDefault();
+    $('#itticketlisting-fromDate').val('');
+    $('#itticketlisting-toDate').val('');
+    $('#it-ticketlisting-status-dropdown').val('');
+    $('#it-ticketlisting-location-dropdown').val('');
+    $('#it-ticketlisting-closedby-dropdown').val('');
+    AdminITTicketingHistory("", "", "", "", "");
+});
+
 
 $(document).on('click', '.res-itticketlisting-status-level', function (event) {
     event.preventDefault();

@@ -941,8 +941,17 @@
         width: 100% !important;
     }
 
-    .mobile-view .res-start-end-time {
+    .mobile-view .addshiftcontent .addshiftcard .res-adminatt-dept-dropdown {
+        width: 97%;
+    }
+
+    .mobile-view .addshiftcontent .addshiftcard .res-start-end-time {
         display: block;
+        width: 100% !important;
+    }
+
+    .mobile-view .addshiftcontent .addshiftcard .res-admin-addshift-submit {
+        margin-right: 15px;
     }
 
     .mobile-view .res-admin-individual-attendance {
@@ -972,6 +981,10 @@
 
     .mobile-view .res-admin-individual-att-from-to .form-inline {
         justify-content: left;
+    }
+
+    .mobile-view .admin-attendancemgmt-view .res-admin-att-header-block .search-container {
+        margin-left: 20px;
     }
 
     /* admin attendance end */
@@ -2590,7 +2603,11 @@
     .tablet-view .total-hours .btn-checkin {
         color: white;
         margin-top: 18px;
-        width: 91%;
+        width: 104%;
+    }
+
+    .tablet-view #checkinhoursminutes {
+        font-size: 28px !important;
     }
 
     .tablet-view .day-date-time {
@@ -3198,6 +3215,13 @@
     .tablet-view .admin-attendance-container {
         margin-left: 0px !important;
     }
+
+
+    .tablet-view .addshiftcontent .addshiftcard .res-start-end-time {
+        display: block;
+        width: 90% !important;
+    }
+
     /* admin attendance end*/
 
     /* admin leave start*/
@@ -3355,6 +3379,11 @@
 
     .tablet-view .res-adminleavebalance-update-block .table.leaveblanceupdate-table {
         width: 100%;
+    }
+
+    .tablet-view .res-admin-leave-balance .res-admin-leave-balance-header-right {
+        justify-content: left;
+        display: inline-flex;
     }
 
     /* admin leave balance end*/
@@ -3668,7 +3697,144 @@
     .res-admin-leave #daysLeaveContainer.Leave-days-container .dayLeave {
         margin: 0 0.8% !important;
     }
+
+    .emp-data .emp-change-password button {
+        float: right;
+        margin-right: 7px !important;
+    }
+
+    #adminitticketlistingTable tbody td:nth-child(1) {
+        width: 500px !important;
+    }
+
+    #adminitticketlistingTable .admin-it-ticketing-listing-title {
+        width: 460px !important;
+    }
+
+    #adminitticketlistingTable tbody td:nth-child(2) {
+        width: 350px !important;
+    }
+
+    #adminitticketlistingTable .it-ticket-prioritylevel {
+        width: 110px !important;
+    }
+
+    #adminhrticketlistingTable tbody td:nth-child(1) {
+        width: 500px !important;
+    }
+
+    #adminhrticketlistingTable .admin-hr-ticketing-listing-title {
+        width: 460px !important;
+    }
+
+    #adminhrticketlistingTable tbody td:nth-child(2) {
+        width: 350px !important;
+    }
+
+    #adminhrticketlistingTable .hr-ticket-prioritylevel {
+        width: 110px !important;
+    }
+
+    #empticketlistingTable tbody td:nth-child(1) {
+        width: 410px !important;
+    }
+
+    #empticketlistingTable .emp-ticketing-listing-title {
+        width: 330px !important;
+    }
+
+    #empticketlistingTable tbody td:nth-child(3) {
+        width: 220px !important;
+    }
+
+    #empticketlistingTable .emp-ticketing-listing-closedby label {
+        width: 100px !important;
+    }
+
+    .res-admin-emp-table #adminempmanagementtable tbody td:nth-child(3) {
+        width: 290px !important;
+    }
+
+    .res-admin-emp-table #adminempmanagementtable tbody td:nth-child(6) {
+        width: 120px !important;
+    }
+
+    .res-admin-emp-table #adminempmanagementtable tbody td:nth-child(4) {
+        width: 140px !important;
+    }
    
+}
+
+
+/* Media Query for Tablets Ipads portrait mode start */
+@media only screen and (min-width:1600px) and (max-width:2560px) {
+    .admin-empmanagement-view .nav-tabs .nav-link {
+        padding: 7px 28px !important;
+    }
+
+    #myTabContent .tab-pane .tabs-view .container.tab-container {
+        max-width: 1280px;
+        margin-top: 20px;
+    }
+
+    .emp-data .emp-change-password button {
+        float: right;
+        margin-right: 16px !important;
+    }
+
+    #adminitticketlistingTable tbody td:nth-child(1) {
+        width: 600px !important;
+    }
+
+    #adminitticketlistingTable .admin-it-ticketing-listing-title {
+        width: 500px !important;
+    }
+
+    #adminhrticketlistingTable tbody td:nth-child(1) {
+        width: 600px !important;
+    }
+
+    #adminhrticketlistingTable .admin-hr-ticketing-listing-title {
+        width: 500px !important;
+    }
+
+    #empticketlistingTable tbody td:nth-child(1) {
+        width: 490px !important;
+    }
+
+    #empticketlistingTable .emp-ticketing-listing-title {
+        width: 410px !important;
+    }
+
+    #empticketlistingTable tbody td:nth-child(3) {
+        width: 300px !important;
+    }
+
+    #empticketlistingTable .emp-ticketing-listing-closedby label {
+        width: 185px !important;
+    }
+
+    .res-admin-emp-table #adminempmanagementtable tbody td:nth-child(3) {
+        width: 315px !important;
+    }
+
+    .res-admin-emp-table #adminempmanagementtable tbody td:nth-child(6) {
+        width: 150px !important;
+    }
+
+    .res-admin-emp-table #adminempmanagementtable tbody td:nth-child(4) {
+        width: 170px !important;
+    }
+
+    .res-admin-emp-table #adminempmanagementtable tbody td:nth-child(5) {
+        width: 180px !important;
+    }
+
+    .res-admin-emp-table #adminempmanagementtable tbody td:nth-child(7) {
+        width: 100px !important;
+    }
+
+
 }
 
 @media only screen and (min-width:1920px) and (max-width: 2560px) {
@@ -3752,4 +3918,23 @@
         width: 400px !important;
     }
 
+    .res-admin-emp-table #adminempmanagementtable tbody td:nth-child(3) {
+        width: 25% !important;
+    }
+
+    .res-admin-emp-table #adminempmanagementtable tbody td:nth-child(6) {
+        width: 15% !important;
+    }
+
+    .res-admin-emp-table #adminempmanagementtable tbody td:nth-child(4) {
+        width: 17% !important;
+    }
+
+    .res-admin-emp-table #adminempmanagementtable tbody td:nth-child(5) {
+        width: 16% !important;
+    }
+
+    .res-admin-emp-table #adminempmanagementtable tbody td:nth-child(7) {
+        width: 10% !important;
+    }
 }

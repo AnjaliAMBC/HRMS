@@ -289,66 +289,36 @@ $(document).on('click', '.leave-export-history', function (event) {
 });
 
 
-$(document).on('click', '.leave-view-history', function (event) {
-    // Prevent the default action
-    event.preventDefault();
+function AdminViewHistoryTable(fromDate, toDate) {
+    $.ajax({
+        url: '/adminleave/AdminLeaveHistoryViewFilter',
+        dataType: 'json',
+        data: {
+            startDate: fromDate,
+            endDate: toDate,
+            empId: "",
+            department: $('#leavehistory-department-dropdown').val(),
+            location: $('#leavehistory-Location-dropdown').val(),
+            status: $('#leavehistory-status-dropdown').val()
+        },
+        beforeSend: function () {
+            $('.show-progress').show();
+        },
+        success: function (response) {
+            $('.show-progress').hide();
 
-    // Get the values of the date fields
-    var fromDate = $('#leavehistory-fromDate').val();
-    var toDate = $('#leavehistory-toDate').val();
+            var tableBody = '';
+            var responseJson = $.parseJSON(response);
+            $.each(responseJson.AllEMployeeLeaves, function (index, leaveInfo) {
+                var empImagePath = "/Assets/EmpImages/" + leaveInfo.LatestLeave.employee_id + ".jpeg" + "?" + new Date().getTime();
+                var createdDate = leaveInfo.LatestLeave.createddate ? new Date(leaveInfo.LatestLeave.createddate).toLocaleDateString('en-GB', { day: 'numeric', month: 'long', year: 'numeric' }) : "No Date Available";
+                var createdDay = leaveInfo.LatestLeave.createddate ? new Date(leaveInfo.LatestLeave.createddate).toLocaleDateString('en-GB', { weekday: 'long' }) : "No Date Available";
+                var fromDate = leaveInfo.LatestLeave.Fromdate ? new Date(leaveInfo.LatestLeave.Fromdate).toLocaleDateString('en-GB', { day: 'numeric', month: 'long', year: 'numeric' }) : "No Date Available";
+                var fromDay = leaveInfo.LatestLeave.Fromdate ? new Date(leaveInfo.LatestLeave.Fromdate).toLocaleDateString('en-GB', { weekday: 'long' }) : "No Date Available";
+                var toDate = leaveInfo.LatestLeave.Todate ? new Date(leaveInfo.LatestLeave.Todate).toLocaleDateString('en-GB', { day: 'numeric', month: 'long', year: 'numeric' }) : "No Date Available";
+                var toDay = leaveInfo.LatestLeave.Todate ? new Date(leaveInfo.LatestLeave.Todate).toLocaleDateString('en-GB', { weekday: 'long' }) : "No Date Available";
 
-    // Clear previous validation messages
-    $('.validation-error').remove();
-    $('#leavehistory-fromDate').removeClass('is-invalid');
-    $('#leavehistory-toDate').removeClass('is-invalid');
-
-    // Check if the dates are provided
-    var isValid = true;
-    if (!fromDate) {
-        $('#leavehistory-fromDate').addClass('is-invalid');
-        $('#leavehistory-fromDate').closest('.form-group').append('<span class="validation-error text-danger"></span>');
-        isValid = false;
-    }
-    if (!toDate) {
-        $('#leavehistory-toDate').addClass('is-invalid');
-        $('#leavehistory-toDate').closest('.form-group').append('<span class="validation-error text-danger"></span>');
-        /* $('#leavehistory-toDate').closest('.form-group').append('<span class="validation-error text-danger">To date is required</span>');*/
-        isValid = false;
-    }
-    // If both dates are provided, proceed with the export
-    // If both dates are provided, proceed with the export
-    if (isValid) {
-        $('.show-progress').show();
-
-        $.ajax({
-            url: '/adminleave/AdminLeaveHistoryViewFilter',
-            dataType: 'json',
-            data: {
-                startDate: fromDate,
-                endDate: toDate,
-                empId: "",
-                department: $('#leavehistory-department-dropdown').val(),
-                location: $('#leavehistory-Location-dropdown').val(),
-                status: $('#leavehistory-status-dropdown').val()
-            },
-            beforeSend: function () {
-                $('.show-progress').show();
-            },
-            success: function (response) {
-                $('.show-progress').hide();
-
-                var tableBody = '';
-                var responseJson = $.parseJSON(response);
-                $.each(responseJson.AllEMployeeLeaves, function (index, leaveInfo) {
-                    var empImagePath = "/Assets/EmpImages/" + leaveInfo.LatestLeave.employee_id + ".jpeg" + "?" + new Date().getTime();
-                    var createdDate = leaveInfo.LatestLeave.createddate ? new Date(leaveInfo.LatestLeave.createddate).toLocaleDateString('en-GB', { day: 'numeric', month: 'long', year: 'numeric' }) : "No Date Available";
-                    var createdDay = leaveInfo.LatestLeave.createddate ? new Date(leaveInfo.LatestLeave.createddate).toLocaleDateString('en-GB', { weekday: 'long' }) : "No Date Available";
-                    var fromDate = leaveInfo.LatestLeave.Fromdate ? new Date(leaveInfo.LatestLeave.Fromdate).toLocaleDateString('en-GB', { day: 'numeric', month: 'long', year: 'numeric' }) : "No Date Available";
-                    var fromDay = leaveInfo.LatestLeave.Fromdate ? new Date(leaveInfo.LatestLeave.Fromdate).toLocaleDateString('en-GB', { weekday: 'long' }) : "No Date Available";
-                    var toDate = leaveInfo.LatestLeave.Todate ? new Date(leaveInfo.LatestLeave.Todate).toLocaleDateString('en-GB', { day: 'numeric', month: 'long', year: 'numeric' }) : "No Date Available";
-                    var toDay = leaveInfo.LatestLeave.Todate ? new Date(leaveInfo.LatestLeave.Todate).toLocaleDateString('en-GB', { weekday: 'long' }) : "No Date Available";
-
-                    tableBody += `<tr>
+                tableBody += `<tr>
                     <td><input type="checkbox"></td>
                     <td>${leaveInfo.LatestLeave.employee_id}</td>
                     <td>
@@ -383,39 +353,82 @@ $(document).on('click', '.leave-view-history', function (event) {
                     <td style="display: none">${leaveInfo.LatestLeave.updateddate ? new Date(leaveInfo.LatestLeave.updateddate).toLocaleDateString('en-GB', { day: 'numeric', month: 'long', year: 'numeric' }) : "No Date Available"}</td>
                     <td></td>
                   </tr>`;
-                });
+            });
 
-                // Clear the table body and destroy the existing DataTable
-                var table = $('#adminleaveHistoryTable').DataTable();
-                table.clear().destroy();
+            // Clear the table body and destroy the existing DataTable
+            var table = $('#adminleaveHistoryTable').DataTable();
+            table.clear().destroy();
 
-                // Append the new table body content
-                $('#adminleaveHistoryTable tbody').html(tableBody);
+            // Append the new table body content
+            $('#adminleaveHistoryTable tbody').html(tableBody);
 
-                // Re-initialize the DataTable
-                $('#adminleaveHistoryTable').DataTable({
-                    "paging": true,
-                    "searching": true,
-                    "ordering": false,
-                    "info": true,
-                    "autoWidth": false,
-                    "lengthMenu": [[7, 14, 21, -1], [7, 14, 21, "All"]],
-                    "columnDefs": [
-                        { "orderable": false, "targets": 0 },
-                        { "orderable": false, "targets": 1 },
-                        { "orderable": false, "targets": 2 }
-                    ]
-                });
-            },
-            error: function (xhr, status, error) {
-                $('.show-progress').hide();
-                console.error("Error fetching leave history:", error);
-            }
-        });
+            // Re-initialize the DataTable
+            $('#adminleaveHistoryTable').DataTable({
+                "paging": true,
+                "searching": true,
+                "ordering": false,
+                "info": true,
+                "autoWidth": false,
+                "lengthMenu": [[7, 14, 21, -1], [7, 14, 21, "All"]],
+                "columnDefs": [
+                    { "orderable": false, "targets": 0 },
+                    { "orderable": false, "targets": 1 },
+                    { "orderable": false, "targets": 2 }
+                ]
+            });
+        },
+        error: function (xhr, status, error) {
+            $('.show-progress').hide();
+            console.error("Error fetching leave history:", error);
+        }
+    });
+}
+
+
+$(document).on('click', '.leave-view-history', function (event) {
+    // Prevent the default action
+    event.preventDefault();
+
+    // Get the values of the date fields
+    var fromDate = $('#leavehistory-fromDate').val();
+    var toDate = $('#leavehistory-toDate').val();
+
+    // Clear previous validation messages
+    $('.validation-error').remove();
+    $('#leavehistory-fromDate').removeClass('is-invalid');
+    $('#leavehistory-toDate').removeClass('is-invalid');
+
+    // Check if the dates are provided
+    var isValid = true;
+    if (!fromDate) {
+        $('#leavehistory-fromDate').addClass('is-invalid');
+        $('#leavehistory-fromDate').closest('.form-group').append('<span class="validation-error text-danger"></span>');
+        isValid = false;
+    }
+    if (!toDate) {
+        $('#leavehistory-toDate').addClass('is-invalid');
+        $('#leavehistory-toDate').closest('.form-group').append('<span class="validation-error text-danger"></span>');
+        /* $('#leavehistory-toDate').closest('.form-group').append('<span class="validation-error text-danger">To date is required</span>');*/
+        isValid = false;
+    }
+    // If both dates are provided, proceed with the export
+    // If both dates are provided, proceed with the export
+    if (isValid) {
+        $('.show-progress').show();
+        AdminViewHistoryTable(fromDate, toDate);      
     }
 
+});
 
 
+$(document).on('click', '.clearleavehistory-filter', function (event) {
+    event.preventDefault();
+    $('#leavehistory-fromDate').val('');
+    $('#leavehistory-toDate').val('');
+    $('#leavehistory-department-dropdown').val('');
+    $('#leavehistory-Location-dropdown').val('');
+    $('#leavehistory-status-dropdown').val('');
+    AdminViewHistoryTable("", "");
 });
 
 
