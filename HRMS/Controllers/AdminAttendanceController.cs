@@ -499,7 +499,7 @@ namespace HRMS.Controllers
     <body>
         <div style='font-family: Arial, sans-serif; border: 1px solid gray; width: 50%; padding: 20px;'>
             <div style='margin-bottom: 20px;'>
-                <img src='{logoURL}' alt='Company Logo' style='width: 100px; float: right;'>
+                <img src='{logoURL}' alt='Company Logo' width='50' style='float: right;'>
             </div>
             <h2 style='color: #333;'>Dear {emp.EmployeeName}</h2>
             <h3 style='color: #333;'>SHIFT CHANGE</h3>

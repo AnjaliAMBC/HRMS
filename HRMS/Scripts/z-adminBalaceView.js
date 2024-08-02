@@ -345,7 +345,7 @@ function AdminViewHistoryTable(fromDate, toDate) {
                     </td>
                     <td>${leaveInfo.TotalLeaveDays}</td>
                     <td>${leaveInfo.LatestLeave.Location}</td>
-                    <td>${leaveInfo.LatestLeave.leave_reason}</td>
+                    <td class="admin-leavehistory-reasons"><span title="${leaveInfo.LatestLeave.leave_reason}">${leaveInfo.LatestLeave.leave_reason}</span></td>
                     <td style="display: none">${leaveInfo.LatestLeave.LeaveStatus}</td>
                     <td style="display: none">${leaveInfo.LatestLeave.createdby}</td>
                     <td style="display: none">${createdDate}</td>

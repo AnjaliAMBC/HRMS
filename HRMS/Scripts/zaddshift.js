@@ -65,7 +65,7 @@ function initializeMultiselect(selector, nonSelectedText) {
 }
 
 
-$(document).on('click', '.btn-addshift-submit', function (e) {  
+$(document).on('click', '.btn-addshift-submit', function (e) {
     e.preventDefault();
     $('.shift-message').hide();
 
@@ -128,6 +128,9 @@ $(document).on('click', '.btn-addshift-submit', function (e) {
             notification: notification,
             IsDepartmentBasedUpdate: IsDepartmentBasedUpdate
         },
+        beforeSend: function () {
+            $('.show-progress').show();
+        },
         success: function (response) {
             console.log(response);
 
@@ -147,12 +150,32 @@ $(document).on('click', '.btn-addshift-submit', function (e) {
             $('#selectDepartments').trigger('change');
             $('#selectEmployees').trigger('change');
 
-            $('.shift-message').show();
-            $('.shift-message').html(response.JsonResponse.Message);
+            // Display the message in the modal
+            var message = response.JsonResponse.Message;
+            var statusCode = response.JsonResponse.StatusCode;
+            var messageColor = statusCode === 200 ? 'green' : 'red';
+
+            $('#addShiftModal .modal-body').html('<p style="color: ' + messageColor + ';">' + message + '</p>');
+            $('#addShiftModal').modal('show');
+
+            $('.show-progress').hide();
         },
         error: function (xhr, status, error) {
             // Handle error response from server
             console.error(error);
+            $('#addShiftModal .modal-body').html('<p style="color: red;">An unexpected error occurred. Please try again later.</p>');
+            $('#addShiftModal').modal('show');
+        },
+        complete: function () {
+            $('.show-progress').hide();
         }
     });
 });
+
+
+$(document).on('click', '.Add-shift-pop-close', function () {
+    window.location.href = "/adminattendance/attendance";
+    return false;
+});
+
+

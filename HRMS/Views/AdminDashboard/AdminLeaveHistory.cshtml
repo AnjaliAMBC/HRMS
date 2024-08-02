@@ -7,7 +7,6 @@
         <div class="content admin-leaveHistory-container" style="margin-left: -5px; margin-top: 0px;">
             <div class="admin-leaveHistory-view">
                 <style>
-
                     .userIcon {
                         width: 42px;
                         height: 42px;
@@ -196,7 +195,7 @@
                                 <th style="display: none">Submitted Date</th>
                                 <th style="display: none">Updated By</th>
                                 <th style="display: none">Updated Date</th>
-                                <th style="width: 35px;">
+                                <th style="width: 35px; display: none">
                                     <div class="dropdown dropdown-columns">
                                         <span class="menu-icon dropdown-th" id="dropdownMenu"><i class="fa-solid fa-list"></i></span>
                                         <div class="action-menu" id="dropdownMenuContent" style="display: none; background-color:white; border-radius:5px;">
@@ -281,7 +280,7 @@
                                     <td style="display: none">@(leaveInfo.LatestLeave.createddate.HasValue ? leaveInfo.LatestLeave.createddate.Value.ToString("dd MMMM yyyy") : "No Date Available")</td>
                                     <td style="display: none">@leaveInfo.LatestLeave.updatedby</td>
                                     <td style="display: none">@(leaveInfo.LatestLeave.updateddate.HasValue ? leaveInfo.LatestLeave.updateddate.Value.ToString("dd MMMM yyyy") : "No Date Available")</td>
-                                    <td></td>
+                                    <td style="display: none"></td>
                                 </tr>
                             }
 

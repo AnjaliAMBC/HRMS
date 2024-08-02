@@ -231,7 +231,7 @@ function AdminEmpIndividualAttendence(employeeStartDate, employeeEndDate, employ
 }
 
 $(document).on('click', '.employee-info', function (event) {
-    var employeeId = $(this).find('.employee-id').text();
+    var employeeId = $(this).closest('tr').find('.employee-id').text();
     var employeeSignInDate = $(this).find('.emp-logindate').text();
 
     $.ajax({
