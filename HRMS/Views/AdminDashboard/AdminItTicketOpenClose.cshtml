@@ -87,8 +87,7 @@
                                         ticketStatuses.Add("Resolved");
                                         ticketStatuses.Add("Closed");
                                         ticketStatuses.Add("Re-Open");
-                                    }
-                                    <option selected disabled>Select Status</option>
+                                    }                                   
                                     @foreach (var item in ticketStatuses)
                                     {
                                         var selectedStatus = item == selectedTicketStatus ? "selected" : "";
