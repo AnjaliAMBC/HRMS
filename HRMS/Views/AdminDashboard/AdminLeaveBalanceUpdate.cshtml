@@ -62,7 +62,7 @@
                 @foreach (var emp in Model.Employees)
                 {
                     var selected = emp.EmployeeID == selectedempID ? "selected" : "";
-                    <option @selected value="@emp.EmployeeID">@emp.EmployeeName</option>
+            <option @selected value="@emp.EmployeeID">@emp.EmployeeName @emp.EmployeeID</option>
                 }
             </select>
             @*<button class="btn btn-primary" data-toggle="modal" data-target="#addLeaveModal">Add Leave</button>*@

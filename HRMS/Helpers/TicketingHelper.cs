@@ -113,8 +113,8 @@ namespace HRMS.Helpers
                 <div class='email-header'>
                     <div>
                         <h2>Hi Team,</h2>
-                     <div class='email-logo' style='float: right;'>
-                        <img src='{logoURL}' alt='Company Logo' width='50' >
+                     <div class='email-logo' >
+                        <img src='{logoURL}' alt='Company Logo' width='50' style='float: right;'>
                     </div>
                         <p>Employee <strong>{ticket.EmployeeName}</strong> with ID <strong>{ticket.EmployeeID}</strong> has raised a ticket no #<strong>{ticket.TicketNo}</strong>.</p>
                         <p><strong>Category:</strong> {ticket.Category}</p>

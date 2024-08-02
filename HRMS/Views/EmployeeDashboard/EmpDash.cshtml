@@ -30,11 +30,12 @@
         starttimeWithAmPm = checkInTime.ToString("hh:mm tt", System.Globalization.CultureInfo.InvariantCulture);
         showCheckInButton = true;
         previousdayortodaycheckinexist = true;
+        buttonDeafultbgcolor = "#C70000";
     }
 
     var ButtonDisabled = "";
 
-    if (Model.todayCheckInInfo != null && Model.todayCheckInInfo.login_id != 0)
+    if (Model.empLastDayCheckInDetails == null && Model.todayCheckInInfo != null && Model.todayCheckInInfo.login_id != 0)
     {
         loginID = Model.todayCheckInInfo.login_id;
         buttonText = "Check Out";
@@ -203,17 +204,17 @@
 
                                             @if (myTicket.Status == "Resolved")
                                             {
-                                                <span class="dash-ticket-desc-right-block"><i class="fa fa-user" aria-hidden="true"></i><span>Resolved By: @myTicket.ResolvedByName</span></span>                                             
+                                                <span class="dash-ticket-desc-right-block"><i class="fa fa-user" aria-hidden="true"></i><span>Resolved By: @myTicket.ResolvedByName</span></span>
                                             }
                                             else if (myTicket.Status == "Closed")
                                             {
-                                                <span class="dash-ticket-desc-right-block"><i class="fa fa-user" aria-hidden="true"></i><span>Closed By: @myTicket.ResolvedByName</span></span>                         
+                                                <span class="dash-ticket-desc-right-block"><i class="fa fa-user" aria-hidden="true"></i><span>Closed By: @myTicket.ResolvedByName</span></span>
                                             }
 
                                         </div>
                                     }
                                 </div>
-                             
+
                             }
 
                         </div>

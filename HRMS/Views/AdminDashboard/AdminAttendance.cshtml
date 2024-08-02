@@ -50,10 +50,6 @@
                             display: none;
                         }
 
-                        .future {
-                            color: blue; /* Example color for future dates */
-                        }
-
                         .weekend {
                             color: #0089bb; /* Example color for weekend dates */
                         }
@@ -170,6 +166,9 @@
                             margin-top: 0.25rem;
                             font-size: 0.875em;
                         }
+                        .attendance-submit-admin {
+                            background-color: #3E78CF;
+                        }
                     </style>
 
                     <div class="row mb-2 align-items-center">
@@ -241,7 +240,7 @@
                                     <input type="date" class="form-control form-control-sm" id="toDate" style="width: 120px;">
                                 </div>
                                 <div class="form-group d-flex align-items-center b-submit">
-                                    <button type="button" class="btn btn-sm" onclick="submitDateRange()">Submit</button>
+                                    <button type="button" class="btn btn-sm attendance-submit-admin" onclick="submitDateRange()">Submit</button>
                                     <a href="#" class="clearattendence-filter">Clear</a>
                                 </div>
                             </div>
@@ -418,7 +417,7 @@
                                             }
                                         }
                                         <tr>
-                                            <td><span class="employee-ids">@employee.EmployeeID</span></td>
+                                            <td><span class="employee-id">@employee.EmployeeID</span></td>
                                             <td class="employee-info p-2">
                                                 @if (!string.IsNullOrEmpty(employee.imagepath))
                                                 {
