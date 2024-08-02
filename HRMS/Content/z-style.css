@@ -105,15 +105,15 @@ div.main-content {
     color: #343a40;
 }
 
-.res-adminadvfilter-leavehistory .clearattendence-filter {
+.res-adminadvfilter-leavehistory .clearleavehistory-filter {
     cursor: pointer;
     color: #007bff;
     text-decoration: underline;
     margin-left: 10px;
 }
 
-.res-adminadvfilter-hrticketlisting .clearattendence-filter,
-.res-adminadvfilter-itticketlisting .clearattendence-filter {
+.res-adminadvfilter-hrticketlisting .clearhrticketing-filter,
+.res-adminadvfilter-itticketlisting .cleariticketing-filter {
     cursor: pointer;
     color: #007bff;
     text-decoration: underline;
@@ -649,6 +649,14 @@ div.main-content {
     margin-right: 78px;
 }
 
+.admin-attendance-container #adminaddendancetable .odd{
+    background-color: #f9f9f9 !important;
+}
+
+.admin-attendance-container #adminaddendancetable .even {
+    background-color: #ffffff !important;
+}
+
 /*admin attendance end*/
 
 /* admin leave start*/
@@ -689,7 +697,7 @@ div.main-content {
 
 .res-admin-leave .leavemonthmonth-dropdown #myLeaveMonth {
     width: 85%;
-    border-radius: 17px;
+    border-radius: 5px;
     margin-left: 0px;
     background-color: aliceblue;
 }
@@ -714,15 +722,15 @@ div.main-content {
 }
 
 #adminleaveTable-mgmt .acceptLeaveBtn {
-    border: 1px solid #00ffcc;
-    color: #00ffcc;
+    border: 1px solid #3E78CF;
+    color: #3E78CF;
     margin-right: 10px;
 }
 
     #adminleaveTable-mgmt .acceptLeaveBtn:hover {
-        border: 1px solid #00ffcc;
+        border: 1px solid #3E78CF;
         color: #fff;
-        background: #00ffcc;
+        background: #3E78CF;
     }
 
 #adminleaveTable-mgmt .rejectLeaveBtn {
@@ -1016,6 +1024,10 @@ div.main-content {
     margin-left: 15px;
 }
 
+.res-admin-leave-balance-main-header {
+    justify-content: space-between;
+}
+
 /* admin leave balance end*/
 
 /* admin leave history start */
@@ -1099,10 +1111,14 @@ div.main-content {
     width: 85%;
 }
 
+.res-admin-leave-history .adminleavehistory-dropdown-toggle i {
+    font-size: 12px;
+}
+
     .res-admin-leave-history .adminleavehistory-dropdown-toggle:hover, .res-admin-leave-history .adminleavehistory-dropdown-toggle:focus {
         background-color: transparent;
-        color: #ccc;
-        border: 1px solid;
+        color: #212529;
+        border: 1px solid #ccc;
     }
 
 .res-admin-leave-history .adminleavehistory-dropdown-menu #employeeSearchinput {
@@ -1316,8 +1332,8 @@ div.main-content {
 }
 
 .res-admin-leavecompoff-view #adminleavecompoffTable .statusBtnFlex .acceptLeavecompoffBtn {
-    border: 1px solid #00ffcc;
-    color: #00ffcc;
+    border: 1px solid #3E78CF;
+    color: #3E78CF;
     margin-right: 10px;
     border-radius: 30px;
     padding: 5px 17px;
@@ -1327,9 +1343,9 @@ div.main-content {
 }
 
     .res-admin-leavecompoff-view #adminleavecompoffTable .statusBtnFlex .acceptLeavecompoffBtn:hover {
-        border: 1px solid #00ffcc;
+        border: 1px solid #3E78CF;
         color: #fff;
-        background: #00ffcc;
+        background: #3E78CF;
     }
 
 .res-admin-leavecompoff-view #adminleavecompoffTable .statusBtnFlex .rejectLeavecompoffBtn {
