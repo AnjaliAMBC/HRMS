@@ -338,12 +338,12 @@
                                                 }
                                                 else
                                                 {
-                                                    var statuscolorcode = "green";
+                                                    var statuscolorcode = "#3E78CF";
                                                     if (@leaveemp.LatestLeave.LeaveStatus == "Rejected")
                                                     {
                                                         statuscolorcode = "red";
                                                     }
-                                                    <small class="statusLabel" style="color: @statuscolorcode ">@leaveemp.LatestLeave.LeaveStatus</small>
+                                                    <small class="statusLabel" style="color: @statuscolorcode "><span style="color: #212529; margin-right: 5px; ">Test Name</span> @leaveemp.LatestLeave.LeaveStatus</small>
                                                 }
 
                                                 @if (@leaveemp.LatestLeave.LeaveStatus == "Approved" || @leaveemp.LatestLeave.LeaveStatus == "Rejected")
