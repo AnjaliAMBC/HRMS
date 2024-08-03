@@ -500,9 +500,11 @@
     $(document).ready(function () {
         if (!$.fn.DataTable.isDataTable('#adminaddendancetable')) {
             $('#adminaddendancetable').DataTable({
-                "paging": true,
+                "paging": false,
                 "searching": true,
                 "ordering": false,
+                "scrollY": '50vh',
+                "scrollCollapse": true,
                 "info": true,
                 "autoWidth": false,
                 "lengthMenu": [[7, 14, 21, -1], [7, 14, 21, "All"]],

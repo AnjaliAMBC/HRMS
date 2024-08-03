@@ -3762,9 +3762,15 @@
     .res-admin-emp-table #adminempmanagementtable tbody td:nth-child(4) {
         width: 140px !important;
     }
-   
-}
 
+    #attendanceTable_wrapper .dataTables_scrollBody {
+        max-height: 60vh !important;
+    }
+
+    #adminaddendancetable_wrapper .dataTables_scrollBody {
+        max-height: 55vh !important;
+    }
+}
 
 /* Media Query for Tablets Ipads portrait mode start */
 @media only screen and (min-width:1600px) and (max-width:2560px) {
@@ -3832,6 +3838,14 @@
 
     .res-admin-emp-table #adminempmanagementtable tbody td:nth-child(7) {
         width: 100px !important;
+    }
+
+    #attendanceTable_wrapper .dataTables_scrollBody {
+        max-height: 60vh !important;
+    }
+
+    #adminaddendancetable_wrapper .dataTables_scrollBody {
+        max-height: 55vh !important;
     }
 
 
@@ -3936,5 +3950,17 @@
 
     .res-admin-emp-table #adminempmanagementtable tbody td:nth-child(7) {
         width: 10% !important;
+    }
+
+    #myTabContent .tab-pane .tabs-view .container.tab-container {
+        max-width: 2000px;
+    }
+
+    #attendanceTable_wrapper .dataTables_scrollBody {
+        max-height: 68vh !important;
+    }
+
+    #adminaddendancetable_wrapper .dataTables_scrollBody {
+        max-height: 62vh !important;
     }
 }

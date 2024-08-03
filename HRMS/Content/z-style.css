@@ -665,6 +665,10 @@ div.main-content {
     padding: 3px 15px;
 }
 
+#adminaddendancetable .adminatt_thead {
+    display: none;
+}
+
 /*admin attendance end*/
 
 /* admin leave start*/
@@ -1028,12 +1032,26 @@ div.main-content {
 }
 
 .res-adminleavebalance-update-block {
-    margin-bottom: 25px;
+    margin-bottom: 30px;
     margin-left: 15px;
+    display: inline-block;
 }
 
 .res-admin-leave-balance-main-header {
     justify-content: space-between;
+}
+
+.res-admin-leavebalance-select select {
+    width: 30% !important;
+}
+
+.res-admin-leavebalance-select select option {
+    
+}
+
+#updateleavebalanceButton {
+    float: right;
+    margin-right: 32.5%;
 }
 
 /* admin leave balance end*/
