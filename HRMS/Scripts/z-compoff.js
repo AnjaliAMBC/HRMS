@@ -102,7 +102,8 @@ $(document).on('click', '.acceptLeavecompoffBtn', function (e) {
     e.preventDefault();
     let compoffNum = $(this).data('compoffnum');
     let $this = $(this);
-    let $row = $this.closest('.statusBtnFlex');
+    let $statusBtnFlex = $this.closest('.statusBtnFlex');
+    var employeeName = $(".loggedinempname").text();
     $.ajax({
         url: '/adminleave/ChangeCompoffStatus',
         type: 'POST',
@@ -111,12 +112,49 @@ $(document).on('click', '.acceptLeavecompoffBtn', function (e) {
             status: 'Approved'
         },
         success: function (response) {
+            //if (response.success == true) {
+            //    var $statusLabel = $row.find('.statusLabel');
+            //    $statusLabel.find('.statuschangedbyname').text(employeeName);
+
+            //    $statusLabel.html(function (index, oldHtml) {
+            //        return oldHtml.replace(/Cancelled|Approved|Rejected|Pending/, '<span style="color: #3E78CF;">Approved</span>');
+            //    }).show();
+
+            //    //$statusLabel.text('Approved').show();
+
+            //    $row.find('.compoffdiv').show();
+
+            //    /* $this.hide();*/
+            //    $this.siblings('.rejectLeavecompoffBtn').hide();
+            //}
+
+
             if (response.success == true) {
-                //$('#statusLabel').text('Approved').show();
-                $row.find('.statusLabel').text('Approved').show();
-                $this.hide();
-                $this.siblings('.rejectLeavecompoffBtn').hide();
+                /*  var $statusLabel = $('<small class="statusLabel">Rejected</small>');*/
+                //$statusBtnFlex.find('.statusLabel').text('Rejected').show();
+                ////$statusBtnFlex.append($statusLabel);
+                //$statusBtnFlex.find('.statusBtn').hide();
+                //$statusBtnFlex.find('.changestatusreject').hide();
+
+                $statusBtnFlex.empty();
+
+                if ($statusBtnFlex.find('.admin-leavehistoryoptions').length === 0) {
+                    var adminCompoffApprovalOptions = `
+                        <div id="statusLabel" class="statusLabel" style="color: #3E78CF">
+                            <span style="color: #212529; margin-right: 5px;">${employeeName}</span>
+                            Approved
+                        </div>
+                        <i class="fas fa-ellipsis-h adminleave-edit-history" onclick="toggleAdminLeaveHistoryActionOptions(this)"></i>
+                        <div class="admin-leavehistoryoptions" style="display:none">
+                            <a href="" class="dropdown-item rejectLeavecompoffBtn" data-leavename="Rejected" data-compoffnum="${compoffNum}">Change Status</a>
+                        </div>
+                    `;
+                    $statusBtnFlex.append(adminCompoffApprovalOptions);
+                }
+            } else {
+                alert('Failed to update the status. Please try again.');
             }
+            $('.show-progress').hide();
 
         },
         error: function (error) {
@@ -129,7 +167,8 @@ $(document).on('click', '.rejectLeavecompoffBtn', function (e) {
     e.preventDefault();
     let compoffNum = $(this).data('compoffnum');
     let $this = $(this);
-    let $row = $this.closest('.statusBtnFlex');
+    let $statusBtnFlex = $this.closest('.statusBtnFlex');
+    var employeeName = $(".loggedinempname").text();
     $.ajax({
         url: '/adminleave/ChangeCompoffStatus',
         type: 'POST',
@@ -139,12 +178,48 @@ $(document).on('click', '.rejectLeavecompoffBtn', function (e) {
         },
         success: function (response) {
 
+            //if (response.success == true) {
+            //    var $statusLabel = $row.find('.statusLabel');
+            //    $statusLabel.find('.statuschangedbyname').text(employeeName);
+            //    /* $statusLabel.text('Rejected').show();*/
+
+            //    $statusLabel.html(function (index, oldHtml) {
+            //        // Preserve the span while changing the text after it
+            //        return oldHtml.replace(/Cancelled|Approved|Rejected/, 'Rejected');
+
+            //    }).show();
+            //    //$('#statusLabel').text('Rejected').show();
+            //    $this.hide();
+            //    $this.siblings('.acceptLeavecompoffBtn').hide();
+            //}
+
+
             if (response.success == true) {
-                $row.find('.statusLabel').text('Rejected').show();
-                //$('#statusLabel').text('Rejected').show();
-                $this.hide();
-                $this.siblings('.acceptLeavecompoffBtn').hide();
+                /*  var $statusLabel = $('<small class="statusLabel">Rejected</small>');*/
+                //$statusBtnFlex.find('.statusLabel').text('Rejected').show();
+                ////$statusBtnFlex.append($statusLabel);
+                //$statusBtnFlex.find('.statusBtn').hide();
+                //$statusBtnFlex.find('.changestatusreject').hide();
+
+                $statusBtnFlex.empty();
+
+                if ($statusBtnFlex.find('.admin-leavehistoryoptions').length === 0) {
+                    var adminCompoffApprovalOptions = `
+                        <div id="statusLabel" class="statusLabel" style="color: red">
+                            <span style="color: #212529; margin-right: 5px;">${employeeName}</span>
+                            Rejected
+                        </div>
+                        <i class="fas fa-ellipsis-h adminleave-edit-history" onclick="toggleAdminLeaveHistoryActionOptions(this)"></i>
+                        <div class="admin-leavehistoryoptions" style="display:none">
+                            <a href="" class="dropdown-item acceptLeavecompoffBtn" data-leavename="Approved" data-compoffnum="${compoffNum}">Change Status</a>
+                        </div>
+                    `;
+                    $statusBtnFlex.append(adminCompoffApprovalOptions);
+                }
+            } else {
+                alert('Failed to update the status. Please try again.');
             }
+            $('.show-progress').hide();
         },
         error: function (error) {
             console.log(error);

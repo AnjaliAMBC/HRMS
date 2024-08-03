@@ -35,7 +35,7 @@
 
     var ButtonDisabled = "";
 
-    if (Model.empLastDayCheckInDetails == null && Model.todayCheckInInfo != null && Model.todayCheckInInfo.login_id != 0)
+    if (Model.empLastDayCheckInDetails.SignInTime == DateTime.MinValue && Model.todayCheckInInfo != null && Model.todayCheckInInfo.login_id != 0)
     {
         loginID = Model.todayCheckInInfo.login_id;
         buttonText = "Check Out";
@@ -71,7 +71,13 @@
     }
 
     var currentUserSession = Session["SiteContext"] as HRMS.Models.SiteContextModel;
+
+    buttonDeafultbgcolor = buttonText == "Check In" ? "#3E78CF" : "#C70000";
+
 }
+
+<style>
+</style>
 
 @Html.Partial("_NavBar")
 <div class="container-fluid emp-dashboard">
@@ -140,7 +146,7 @@
                                         </div>
                                         <span class="showcheckinbuttonpostcheckout" style="display: none">@showCheckInButton</span>
                                         <div class="button-container text-left total-hours">
-                                            <button class="btn btn-primary btn-checkin" style="background-color: @buttonDeafultbgcolor" data-checkinid="@loginID" @ButtonDisabled>@buttonText</button>
+                                            <button class="btn btn-primary btn-checkin" style="background-color: @buttonDeafultbgcolor !important" data-checkinid="@loginID" @ButtonDisabled>@buttonText</button>
                                         </div>
                                     </div>
                                     <div class="dash-check-in-out-time col-md-4 p-0 pr-1 col-sm-4">
@@ -192,14 +198,12 @@
                             }
                             else
                             {
-
-                                <div class="emp-dash-ticket-info">
-                                    @foreach (var myTicket in Model.MyTickets)
-                                    {
-
+                                foreach (var myTicket in Model.MyTickets)
+                                {
+                                    <div class="emp-dash-ticket-info">
                                         <div class="emp-dash-ticket-title">@myTicket.Subject</div>
                                         <div class="emp-dash-ticket-desc">
-                                            <span class="dash-ticket-desc-left-block"><i class="fa fa-exclamation-circle" aria-hidden="true"></i><span>Priority - <span class="dash-ticket-priority-high">@myTicket.Priority</span></span></span>
+                                            <span class="dash-ticket-desc-left-block"><i class="fa fa-exclamation-circle" aria-hidden="true"></i><span>Priority - <span class="@HRMS.Helpers.TicketingHelper.GetMyticketDashPriorityColor(myTicket.Priority)">@myTicket.Priority</span></span></span>
 
 
                                             @if (myTicket.Status == "Resolved")
@@ -212,9 +216,8 @@
                                             }
 
                                         </div>
-                                    }
-                                </div>
-
+                                    </div>
+                                }
                             }
 
                         </div>
@@ -394,7 +397,6 @@
 </div>
 <script>
     let currentIndex = 0;
-    /*const slideInterval = 3000; */// Interval in milliseconds (3 seconds)
 
     function updateleaveslider() {
         const leavesliderWrapper = document.querySelector('.leaveslider-wrapper');

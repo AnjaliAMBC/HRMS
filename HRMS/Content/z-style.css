@@ -138,6 +138,10 @@ div.main-content {
     right: 5px !important;
 }
 
+.select2-container .select2-dropdown span.select2-search--dropdown {
+    display: none;
+}
+
 
 /* sidebar menu start */
 
@@ -516,8 +520,8 @@ div.main-content {
 
 #adminempmanagementtable_info,
 #adminaddendancetable_info,
-#attendanceTable_info {
-    margin-top: 0px;
+#attendancetable_info {
+   /* margin-top: 0px;*/
 }
 
 /* admin employee management end */
@@ -694,18 +698,18 @@ div.main-content {
 }
 
 #adminaddendancetable .adminatt_thead {
-    display: none;
+   /* //display: none;*/
 }
 
 #adminaddendancetable {
-    //table-layout: fixed;
+   /* //table-layout: fixed;*/
 }
 
 #adminaddendancetable .adminatt_tbody tr td:nth-child(1) {
     width: 5%;
 }
 #adminaddendancetable .adminatt_tbody tr td:nth-child(2) {
-    //display: inline-block !important;
+   /* display: inline !important;*/
     width: 22%;
 }
 #adminaddendancetable .adminatt_tbody tr td:nth-child(3) {
@@ -2319,16 +2323,19 @@ div.main-content {
 .dash-ticket-priority-high {
     color: #fff;
     background-color: #dc3545;
+    padding: 0 5px;
 }
 
 .dash-ticket-priority-mid {
     color: #fff;
     background-color: #ff6600;
+    padding: 0 5px;
 }
 
 .dash-ticket-priority-low {
     color: #fff;
-    background-color: #ff6600;
+    background-color: #50BEEA;
+    padding: 0 5px;
 }
 
 .emp-dash-ticket-info .emp-dash-ticket-desc span.dash-ticket-desc-right-block {

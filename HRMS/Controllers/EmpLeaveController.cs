@@ -351,12 +351,17 @@ namespace HRMS.Controllers
         [HttpPost]
         public ActionResult ApproveLeave(string leaveRequestName)
         {
+            var cuserContext = SiteContext.GetCurrentUserContext();
+
             var leaves = _dbContext.con_leaveupdate.Where(l => l.LeaveRequestName == leaveRequestName).ToList();
             if (leaves != null)
             {
                 foreach (var leave in leaves)
                 {
                     leave.LeaveStatus = "Approved";
+                    leave.approvedbyname = cuserContext.LoginInfo.EmployeeName;
+                    leave.approvedbydate = DateTime.Now;
+
                 }
                 _dbContext.SaveChanges();
 
@@ -383,12 +388,15 @@ namespace HRMS.Controllers
         [HttpPost]
         public ActionResult RejectLeave(string leaveRequestName)
         {
+            var cuserContext = SiteContext.GetCurrentUserContext();
             var leaves = _dbContext.con_leaveupdate.Where(l => l.LeaveRequestName == leaveRequestName).ToList();
             if (leaves != null)
             {
                 foreach (var leave in leaves)
                 {
                     leave.LeaveStatus = "Rejected";
+                    leave.rejectedbyname = cuserContext.LoginInfo.EmployeeName;
+                    leave.rejectedbydate = DateTime.Now;
                 }
                 _dbContext.SaveChanges();
 

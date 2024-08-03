@@ -59,6 +59,22 @@ namespace HRMS.Helpers
             }
         }
 
+        public static string GetMyticketDashPriorityColor(string priority)
+        {
+            switch (priority.ToLower())
+            {
+                case "high":
+                    return "dash-ticket-priority-high";
+                case "mid":
+                    return "dash-ticket-priority-mid";
+                case "low":
+                    return "dash-ticket-priority-low";
+                default:
+                    return ""; // Default or unknown priority
+            }
+        }
+
+
         public static void SendTicketConfirmationEmail(IT_Ticket ticket)
         {
             var siteURL = ConfigurationManager.AppSettings["siteURL"];

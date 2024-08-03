@@ -41,7 +41,9 @@ $(document).on('click', '.btn-checkin', function (event) {
                 if (response.JsonResponse.StatusCode == 200) {
                     $(".btn-checkin").text("Check Out");
                     $(".btn-checkin").attr("data-checkinid", response.CheckInInfo.login_id);
-                    $(".btn-checkin").css("background-color", "red");
+                    $(".btn-checkin").css("background-color", "");
+                    $(".btn-checkin").removeClass("btn-primary");
+                    $(".btn-checkin").addClass("important-bg");
                     var checkinTime = formatDateAndTime(new Date());
                     $('#checkinhoursminutes').attr('data-signedindatetime', checkinTime);
                     var currentTime = GetCurrentTime();
@@ -71,8 +73,8 @@ $(document).on('click', '.btn-checkin', function (event) {
 
                     var checkinTime = formatDateAndTime(new Date());
                     $('#checkinhoursminutes').attr('data-signedindatetime', checkinTime);
-
-                    $(".btn-checkin").css("background-color", "#3E78CF");
+                    $(".btn-checkin").css("background-color", "");
+                    $(".btn-checkin").addClass("btn-primary");
 
                     var currentTime = GetCurrentTime();
                     $('#checkOutTime').html(currentTime);
