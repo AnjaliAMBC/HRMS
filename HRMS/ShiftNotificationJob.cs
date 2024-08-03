@@ -118,7 +118,7 @@ namespace HRMS
                             <div style='font-family: Calibri; color: #696969; margin-top: 20px; font-size: 1.1em;'>
                                 <p>Reminder for Check In</p>
                                 <p>Please remember to complete your daily check in by {shiftStartTime}.</p>
-                                <p>Contact [Support Email/Phone] if you need help.</p>
+                                <p>Contact [hr@ambconline.com] if you need help.</p>
                                 <p>Best regards,<br>PRM AMBC</p>
                             </div>
                         </td>
@@ -173,7 +173,7 @@ namespace HRMS
                             <div style='font-family: Calibri; color: #696969; margin-top: 20px; font-size: 1.1em;'>
                                 <p>Reminder for Check Out</p>
                                 <p>Please remember to complete your daily check out by {shiftEndTime}.</p>
-                                <p>Contact [Support Email/Phone] if you need help.</p>
+                                <p>Contact [hr@ambconline.com] if you need help.</p>
                                 <p>Best regards,<br>PRM AMBC</p>
                             </div>
                         </td>
