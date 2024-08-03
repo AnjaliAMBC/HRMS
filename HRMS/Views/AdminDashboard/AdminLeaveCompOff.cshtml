@@ -137,36 +137,43 @@
                                                 {
                                                     <a href="" class="statusBtn acceptLeavecompoffBtn" data-leavename="Approve" data-compoffnum="@compoff.Compoff_no">Approve</a>
                                                     <a href="" class="statusBtn rejectLeavecompoffBtn" data-leavename="Reject" data-compoffnum="@compoff.Compoff_no">Reject</a>
-                                                    <div id="statusLabel" class="statusLabel" style="display: none">@compoff.addStatus</div>
+                                                    <div id="statusLabel" class="statusLabel" style="display: none"><span style="color: #212529; margin-right: 5px;" class="statuschangedbyname"></span>@compoff.addStatus</div>
                                                 }
                                                 else
                                                 {
                                                     var statuscolorcode = "#3E78CF";
+                                                    var currentStatusUpdatedby = "";
                                                     if (@compoff.addStatus == "Rejected")
                                                     {
+                                                        currentStatusUpdatedby = @compoff.rejectedbyname;
                                                         statuscolorcode = "red";
                                                     }
-                                                    <div id="statusLabel" class="statusLabel" style="color: @statuscolorcode "><span style="color: #212529; margin-right: 5px;">Test Name</span>@compoff.addStatus</div>
+
+                                                    if (@compoff.addStatus == "Approved")
+                                                    {
+                                                        currentStatusUpdatedby = @compoff.approvedbyname;
+                                                    }
+
+                                                    <div id="statusLabel" class="statusLabel" style="color: @statuscolorcode "><span style="color: #212529; margin-right: 5px;" class="statuschangedbyname">@currentStatusUpdatedby</span>@compoff.addStatus</div>
 
                                                 }
-
+                                               
                                                 @if (@compoff.addStatus == "Approved" || compoff.addStatus == "Rejected")
                                                 {
+
                                                     <i class="fas fa-ellipsis-h adminleave-edit-history" onclick="toggleAdminLeaveHistoryActionOptions(this)"></i>
                                                     <div class="admin-leavehistoryoptions" style="display:none">
                                                         @if (compoff.addStatus == "Approved")
                                                         {
-                                                            <a href="" class="dropdown-item rejectLeavecompoffBtn" data-leavename="Reject" data-compoffnum="@compoff.Compoff_no">Change Status</a>
+                                                            <a href="" class="dropdown-item rejectLeavecompoffBtn" data-leavename="Rejected" data-compoffnum="@compoff.Compoff_no">Change Status</a>
                                                         }
                                                         else
                                                         {
-                                                            <a href="" class="dropdown-item acceptLeavecompoffBtn" data-leavename="Approve" data-compoffnum="@compoff.Compoff_no">Change Status</a>
+                                                            <a href="" class="dropdown-item acceptLeavecompoffBtn" data-leavename="Approved" data-compoffnum="@compoff.Compoff_no">Change Status</a>
                                                         }
-
-                                                        @*<a class="dropdown-item admin-leavehistory-edit" onclick="adminleavehistoryedit($(this))" data-adminleavehistoryname=''>Edit</a>*@
-                                                        @*<a class="dropdown-item admin-leavehistory-cancel" onclick="adminleavehistorycancel($(this))" data-adminleavehistoryname=''>Cancel</a>*@
                                                     </div>
                                                 }
+
                                             </div>
                                         </td>
                                     </tr>

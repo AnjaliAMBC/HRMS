@@ -99,7 +99,7 @@ namespace HRMS.Controllers
 
             model.SelectedEndDate = model.SelectedDate;
             model.LeavesInfoBasedOnFromAndTodate = new LeaveCalculator().EmpLeaveInfoBasedonDate(model.SelectedDate.ToString("dd-MM-yyyy"), model.SelectedEndDate.ToString("dd-MM-yyyy"));
-                     
+
 
             return PartialView("~/Views/AdminDashboard/AdminLeaveEmpManage.cshtml", model);
         }
@@ -549,10 +549,22 @@ namespace HRMS.Controllers
         {
             try
             {
+                var cuserContext = SiteContext.GetCurrentUserContext();
                 var compoffsApplied = _dbContext.Compoffs.Where(x => x.Compoff_no == compoffNum).FirstOrDefault();
                 if (compoffsApplied != null)
                 {
                     compoffsApplied.addStatus = status;
+                    if (status == "Approved")
+                    {
+                        compoffsApplied.approvedbyname = cuserContext.LoginInfo.EmployeeName;
+                        compoffsApplied.approvedbydate = DateTime.Now;
+                    }
+
+                    if (status == "Rejected")
+                    {
+                        compoffsApplied.rejectedbyname = cuserContext.LoginInfo.EmployeeName;
+                        compoffsApplied.rejectedbydate = DateTime.Now;
+                    }
                     _dbContext.SaveChanges();
                 }
                 return Json(new { success = true, message = "Compoff " + status + " successfully." });
@@ -620,7 +632,7 @@ namespace HRMS.Controllers
                             LeaveDays = ParseDecimal(worksheet.Cells[row, 5].Value?.ToString()),
                             HalfDayCategory = worksheet.Cells[row, 6].Value?.ToString(),
                             submittedby = worksheet.Cells[row, 7].Value?.ToString(),
-                            leavesource = worksheet.Cells[row, 8].Value?.ToString(),                        
+                            leavesource = worksheet.Cells[row, 8].Value?.ToString(),
                             leavecategory = worksheet.Cells[row, 9].Value?.ToString(),
                             employee_name = worksheet.Cells[row, 10].Value?.ToString(),
                             BackupResource_Name = worksheet.Cells[row, 11].Value?.ToString(),
@@ -673,7 +685,7 @@ namespace HRMS.Controllers
                             isRecordExists.updateddate = record.updateddate;
                             isRecordExists.Designation = record.Designation;
                             isRecordExists.Department = record.Department;
-                        
+
                         }
                         else
                         {
@@ -857,7 +869,7 @@ namespace HRMS.Controllers
             return View("~/Views/AdminDashboard/AdminEmpLeaveCalender.cshtml", AdminLeaveEmpCalenderViewModel);
         }
 
-        
+
         public JsonResult GetEmployeeEmails()
         {
             var emails = _dbContext.emp_info.Select(e => e.OfficalEmailid).ToList();

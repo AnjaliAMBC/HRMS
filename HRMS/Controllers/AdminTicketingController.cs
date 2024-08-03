@@ -199,7 +199,7 @@ namespace HRMS.Controllers
                 employeeTickets = employeeTickets.Where(x => x.Closedby == closedBy);
             }
 
-            var ticketsList = employeeTickets.ToList();
+            var ticketsList = employeeTickets.OrderByDescending(x => x.Created_date).ToList();
             return ticketsList;
         }
 
