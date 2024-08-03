@@ -44,7 +44,8 @@
                     .Leave-days-container {
                         display: flex;
                         flex-wrap: nowrap;
-                    }                  
+                    }
+
                     .weekend {
                         color: #8d8d8d; /* Example color for weekend dates */
                     }
@@ -339,11 +340,18 @@
                                                 else
                                                 {
                                                     var statuscolorcode = "#3E78CF";
+                                                    var currentStatusUpdatedby = "";
                                                     if (@leaveemp.LatestLeave.LeaveStatus == "Rejected")
                                                     {
+                                                        currentStatusUpdatedby = @leaveemp.LatestLeave.rejectedbyname;
                                                         statuscolorcode = "red";
                                                     }
-                                                    <small class="statusLabel" style="color: @statuscolorcode "><span style="color: #212529; margin-right: 5px; ">Test Name</span> @leaveemp.LatestLeave.LeaveStatus</small>
+
+                                                    if (@leaveemp.LatestLeave.LeaveStatus == "Approved")
+                                                    {
+                                                        currentStatusUpdatedby = @leaveemp.LatestLeave.approvedbyname;
+                                                    }
+                                                    <small class="statusLabel" style="color: @statuscolorcode "><span style="color: #212529; margin-right: 5px; ">@currentStatusUpdatedby</span> @leaveemp.LatestLeave.LeaveStatus</small>
                                                 }
 
                                                 @if (@leaveemp.LatestLeave.LeaveStatus == "Approved" || @leaveemp.LatestLeave.LeaveStatus == "Rejected")

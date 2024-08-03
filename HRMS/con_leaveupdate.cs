@@ -41,5 +41,9 @@ namespace HRMS
         public string Designation { get; set; }
         public string Department { get; set; }
         public string TeamEmails { get; set; }
+        public string approvedbyname { get; set; }
+        public Nullable<System.DateTime> approvedbydate { get; set; }
+        public string rejectedbyname { get; set; }
+        public Nullable<System.DateTime> rejectedbydate { get; set; }
     }
 }
