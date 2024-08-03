@@ -20,7 +20,6 @@
         .input-error, .input-error select {
             border-color: red !important;
         }
-
     </style>
 
     <div class="container emp-leave-apply-form">
@@ -39,7 +38,7 @@
                                 @foreach (var emp in Model.employees)
                                 {
                                     var selected = !currentUserSession.IsAdmin && emp.EmployeeID == selectedempID ? "selected" : "";
-                            <option @selected value="@emp.EmployeeID" data-emplocation="@emp.Location" data-empemail="@emp.OfficalEmailid" data-designation="@emp.Designation" data-department="@emp.Department">@emp.EmployeeName @emp.EmployeeID</option>
+                                    <option @selected value="@emp.EmployeeID" data-emplocation="@emp.Location" data-empemail="@emp.OfficalEmailid" data-designation="@emp.Designation" data-department="@emp.Department">@emp.EmployeeName @emp.EmployeeID</option>
                                 }
                             </select>
                             <span class="error-message" id="leaveempname-error"></span>
@@ -163,3 +162,9 @@
     @Html.Partial("CommonModalPopups")
 </div>
 <script src="~/Scripts/z-Teamemail.js"></script>
+<script>
+$(document).ready(function() {
+    $('#leaveempname').select2();
+    $('#leaveType').select2();
+});
+</script>
