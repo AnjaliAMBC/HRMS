@@ -514,6 +514,12 @@ div.main-content {
     width: 50px !important;
 }
 
+#adminempmanagementtable_info,
+#adminaddendancetable_info,
+#attendanceTable_info {
+    margin-top: 0px;
+}
+
 /* admin employee management end */
 
 /*admin attendance start*/
@@ -694,8 +700,7 @@ div.main-content {
 /*admin attendance end*/
 
 /* admin leave start*/
-
-.res-admin-leave .res-admin-leave-history .admin-leave-history-header-title h4{
+.res-admin-leave .res-admin-leave-history .admin-leave-history-header-title h4 {
     margin-top: -5px;
 }
 
@@ -2313,14 +2318,21 @@ div.main-content {
 
 .toggle-changepassword,
 .toggle-newpassword,
-.toggle-confirmpassword {
+.toggle-confirmpassword,
+.toggle-resetPassword,
+.toggle-resetconfirmPassword {
     float: right;
     position: relative;
     z-index: 2;
-    right: 15px;
+    right: 16px;
     top: -27px;
     cursor: pointer;
     color: #272727;
+}
+
+.toggle-resetPassword,
+.toggle-resetconfirmPassword {
+    right: 57px;
 }
 
 #empChangePasswordSuccessModal .change-password-success-popup {
