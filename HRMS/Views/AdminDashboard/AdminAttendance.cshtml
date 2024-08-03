@@ -29,12 +29,7 @@
                             //margin-left: 10px;
                         }
 
-                        .employee-info {
-                            display: flex;
-                            align-items: center;
-                        }
-
-                        .employee-details {
+                       .employee-details {
                             margin-left: 10px;
                         }
 
@@ -307,7 +302,7 @@
                                     {
                                         <tr>
                                             <td><span class="employee-id">@empCheckin.EmployeeID</span></td>
-                                            <td class="employee-info1 p-2">
+                                            <td class="employee-info1 employee-indiattendance p-2">
                                                 @if (!string.IsNullOrEmpty(employee.imagepath))
                                                 {
                                                     <img src="@imagePath" alt="@empCheckin.EmployeeID" class="attemployee-image mr-2 ml-2">
@@ -418,7 +413,7 @@
                                         }
                                         <tr>
                                             <td><span class="employee-id">@employee.EmployeeID</span></td>
-                                            <td class="employee-info1 p-2">
+                                            <td class="employee-info1 employee-indiattendance p-2">
                                                 @if (!string.IsNullOrEmpty(employee.imagepath))
                                                 {
                                                     <img src="@imagePath" alt="@employee.EmployeeID" class="attemployee-image mr-2 ml-2">
