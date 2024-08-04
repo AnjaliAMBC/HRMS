@@ -51,14 +51,38 @@
             a.button:hover {
                 background-color: #0056b3;
             }
+
+        .error-details {
+            display: none; /* Hide the error details by default */
+            font-size: 14px;
+            margin-top: 20px;
+            padding: 10px;
+            border: 1px solid #ccc;
+            background-color: #f8f8f8;
+            border-radius: 5px;
+            text-align: left;
+            white-space: pre-wrap; /* Preserve whitespace */
+        }
     </style>
 </head>
 <body>
     <div class="error-container">
         <img src="~/Assets/AMBC_Logo.png" alt="Logo" class="logo" />
         <h1>Oops! Something went wrong.</h1>
-        <p>We encountered an unexpected error. Please try again later or contact support if the problem persists.</p>      
+        <p>We encountered an unexpected error. Please try again later or contact support if the problem persists.</p>
         <a href="~/Account/Login" class="button">Login Again</a>
+
+        <!-- Hidden Error Details -->
+        <div class="error-details">
+            <strong>Error Message:</strong>
+            @Model.Message
+
+            @if (Model.InnerException != null)
+            {
+                <strong>Inner Exception:</strong>
+                @Model.InnerException.Message}
+        </div>
+
     </div>
 </body>
 </html>
