@@ -40,15 +40,41 @@
             </a>
             <p>
                 As per the request, @leaveUpdate.employee_name's leave has been applied
-                from @(leaveUpdate.Fromdate?.ToString("dd-MM-yyyy") ?? "N/A")
-                to @(leaveUpdate.Todate?.ToString("dd-MM-yyyy") ?? "N/A")
+                @if (leaveUpdate.Fromdate.HasValue && leaveUpdate.Todate.HasValue)
+                {
+                    if (leaveUpdate.Fromdate.Value == leaveUpdate.Todate.Value)
+                    {
+                        @:on @(leaveUpdate.Fromdate.Value.ToString("dd-MM-yyyy"))
+                    }
+                    else
+                    {
+
+                        if (leaveUpdate.Todate.Value != DateTime.MinValue)
+                        {
+                            @:from @(leaveUpdate.Fromdate.Value.ToString("dd-MM-yyyy"))
+                            @:to @(leaveUpdate.Todate.Value.ToString("dd-MM-yyyy"))
+                        }
+                        else
+                        {
+                            @:on @(leaveUpdate.Fromdate.Value.ToString("dd-MM-yyyy"))
+                        }
+                    }
+                }
                 by @leaveUpdate.createdby.
             </p>
             <p>
                 <strong>Employee Name:</strong> @leaveUpdate.employee_name<br />
-                <strong>Applied for:</strong> Multiple Days<br />
-                <strong>From Date:</strong> @(leaveUpdate.Fromdate?.ToString("dd-MM-yyyy") ?? "N/A")<br />
-                <strong>To Date:</strong> @(leaveUpdate.Todate?.ToString("dd-MM-yyyy") ?? "N/A")<br />
+                @*<strong>Applied for:</strong> Multiple Days<br />*@
+
+                @if (leaveUpdate.Todate.HasValue && leaveUpdate.Todate.Value != DateTime.MinValue && leaveUpdate.Fromdate != leaveUpdate.Todate)
+                {
+                    <strong>From Date:</strong> @(leaveUpdate.Fromdate?.ToString("dd-MM-yyyy") ?? "N/A")<br />
+                    <strong>To Date:</strong> @(leaveUpdate.Todate.Value.ToString("dd-MM-yyyy"))<br />
+                }
+                else
+                {
+                    <strong>Date:</strong> @(leaveUpdate.Fromdate?.ToString("dd-MM-yyyy") ?? "N/A")<br />
+                }
                 <strong>Submitted By:</strong> @leaveUpdate.createdby<br />
                 <strong>Leave Type:</strong> @leaveUpdate.leavesource<br />
                 <strong>Reason:</strong> @leaveUpdate.leave_reason
@@ -62,5 +88,6 @@
             Automated mail from <a href="https://prm.ambctechnologies.com" style="color: #2693F8;">https://prm.ambctechnologies.com</a>
         </div>
     </div>
+
 }
 

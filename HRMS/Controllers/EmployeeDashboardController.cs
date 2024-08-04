@@ -29,7 +29,7 @@ namespace HRMS.Controllers
             var cuserContext = SiteContext.GetCurrentUserContext();
             model.EmpInfo = cuserContext.EmpInfo;
             model.LoginInfo = cuserContext.LoginInfo;
-          
+
 
             return View("~/Views/EmployeeDashboard/Dashboard.cshtml", model);
         }
@@ -57,33 +57,68 @@ namespace HRMS.Controllers
 
                 if (file != null && file.ContentLength > 0)
                 {
-                    var uploadsFolderPath = ConfigurationManager.AppSettings["WebRootFolder"] + ConfigurationManager.AppSettings["EmpImagesFolder"];
+                    //var uploadsFolderPath = Path.Combine(
+                    //    ConfigurationManager.AppSettings["WebRootFolder"],
+                    //    ConfigurationManager.AppSettings["EmpImagesFolder"]
+                    //);
+
+                    var uploadsFolderPath = ConfigurationManager.AppSettings["EmpImagesFolderUpload"];
 
                     if (!Directory.Exists(uploadsFolderPath))
                         Directory.CreateDirectory(uploadsFolderPath);
 
-                    var deleteExistignImage = ImageHelper.DoesImageExistForEmployee(cuserContext.LoginInfo.EmployeeID, uploadsFolderPath);
+                    // Construct the old file name and path
+                    var oldFileNamePattern = $"{cuserContext.LoginInfo.EmployeeID}.*";
+                    var oldFilePath = Directory.GetFiles(uploadsFolderPath, oldFileNamePattern).FirstOrDefault();
 
+                    // Delete the existing image if it exists
+                    if (!string.IsNullOrEmpty(oldFilePath))
+                    {
+                        try
+                        {
+                            System.IO.File.Delete(oldFilePath);
+                            Console.WriteLine($"Deleted old file: {oldFilePath}");
+                        }
+                        catch (IOException ex)
+                        {
+                            // Handle file deletion errors
+                            Console.WriteLine($"Failed to delete file: {oldFilePath}. Error: {ex.Message}");
+                            model.JsonResponse.Message = "Failed to delete the existing image.";
+                            model.JsonResponse.StatusCode = 500;
+                            return Json(model, JsonRequestBehavior.AllowGet);
+                        }
+                    }
+
+                    // Construct the new file path
                     var fileName = Path.GetFileName(file.FileName);
                     var fileExtension = file.ContentType.Split('/')[1];
-                    var updatedFileName = cuserContext.LoginInfo.EmployeeID + "." + fileExtension;
+                    var updatedFileName = $"{cuserContext.LoginInfo.EmployeeID}.{fileExtension}";
                     var filePath = Path.Combine(uploadsFolderPath, updatedFileName);
 
-                    file.SaveAs(filePath);
+                    // Save the file using stream
+                    using (var fileStream = file.InputStream)
+                    {
+                        using (var outputStream = System.IO.File.Create(filePath))
+                        {
+                            fileStream.CopyTo(outputStream);
+                        }
+                    }
 
+                    // Update employee record with new image path
                     var employee = _dbContext.emp_info.FirstOrDefault(e => e.EmployeeID == cuserContext.LoginInfo.EmployeeID);
 
                     if (employee != null)
                     {
-                        // Update the properties of the retrieved employee entity
                         employee.imagepath = updatedFileName;
                         _dbContext.SaveChanges();
-                        model.ImageURl = ConfigurationManager.AppSettings["EmpImagesFolder"] + "/" + updatedFileName;
+                        model.ImageURl = ConfigurationManager.AppSettings["EmpImagesFolder"] + "/" + $"{cuserContext.LoginInfo.EmployeeID}.{fileExtension}";
                         model.JsonResponse.Message = "Image Uploaded successfully!";
                         model.JsonResponse.StatusCode = 200;
 
-                        //Update the image in session object as well
-                        cuserContext.EmpInfo.Reason = updatedFileName;
+                        // Update the image in session object as well
+                        cuserContext.EmpInfo.imagepath = updatedFileName;
+
+                        Session["SiteContext"] = cuserContext;
                     }
                 }
                 return Json(model, JsonRequestBehavior.AllowGet);
@@ -94,5 +129,6 @@ namespace HRMS.Controllers
                 return Json(model, JsonRequestBehavior.AllowGet);
             }
         }
+
     }
 }

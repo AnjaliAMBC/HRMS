@@ -438,9 +438,13 @@ $(document).on('click', '.btn-apply-empleave', function (event) {
 
                 $('#modalMessage').removeClass('text-danger').addClass('text-success').text(response.jsonResponse.Message);
                 $('#messageModal').modal('show');
-            } else {
+
+                showMessageModal(response.jsonResponse.Message, true, "");
+
+            } else {             
                 $('#modalMessage').removeClass('text-success').addClass('text-danger').text(response.jsonResponse.Message);
                 $('#messageModal').modal('show');
+                showMessageModal(response.jsonResponse.Message, false, "closepopuponly");
             }
         },
         error: function (error) {

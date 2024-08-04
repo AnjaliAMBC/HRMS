@@ -195,8 +195,12 @@ $(document).on('click', '#updateleavebalanceButton', function () {
         contentType: 'application/json',
         data: JSON.stringify(leaveData),
         success: function (response) {
-            $('#modalMessage').text('Leave balance updated successfully.');
-            $('#messageModal').modal('show');
+            if (response.success) {
+                showMessageModal("Leave balance updated successfully.", true, "");
+            } else {
+                showMessageModal("Leave balance updated successfully.", false, "closepopuponly");
+            }
+
         },
         error: function (error) {
             console.error('Error updating leave balance:', error);
@@ -415,7 +419,7 @@ $(document).on('click', '.leave-view-history', function (event) {
     // If both dates are provided, proceed with the export
     if (isValid) {
         $('.show-progress').show();
-        AdminViewHistoryTable(fromDate, toDate);      
+        AdminViewHistoryTable(fromDate, toDate);
     }
 
 });
@@ -485,11 +489,9 @@ $(document).on('click', '.btn-importleave-submit', function (event) {
         success: function (response) {
             if (response.success) {
                 console.log(response.data);
-                $('#modalMessage').text(response.message);
-                $('#messageModal').modal('show');
+                showMessageModal(response.message, true, "");
             } else {
-                $('#modalMessage').text(response.message);
-                $('#messageModal').modal('show');
+                showMessageModal(response.message, false, "closepopuponly");
             }
         },
         error: function (xhr, status, error) {

@@ -411,9 +411,12 @@
                             <div class="form-group" style="line-height: normal;">
                                 <div class="form-group row">
                                     <label for="contactdetails" class="col-md-5 col-sm-5" style="margin-left: 10px;">Passout Year</label>
-                                    <div class="col-md-6 col-sm-6" style="margin-left: 10px; word-wrap: break-word;">@Model.EmpInfo.YearofCompletion</div>
+                                    <div class="col-md-6 col-sm-6" style="margin-left: 10px; word-wrap: break-word;">
+                                        @(Model.EmpInfo.YearofCompletion == 0 ? string.Empty : Model.EmpInfo.YearofCompletion.ToString())
+                                    </div>
                                 </div>
                             </div>
+
                         </div>
 
                         <div class="col-md-offset-5 border block-view mr-4" style="width: 31%;">
@@ -624,12 +627,12 @@
 
 <script>
     $(document).ready(function () {
-        $(".emp-imgs").mouseover(function () {
-            $(".img-edit-icon").css("display", "inline-block");
-        });
-        $(".emp-imgs").mouseout(function () {
-            $(".img-edit-icon").css("display", "none");
-        });
+        //$(".emp-imgs").mouseover(function () {
+        //    $(".img-edit-icon").css("display", "inline-block");
+        //});
+        //$(".emp-imgs").mouseout(function () {
+        //    $(".img-edit-icon").css("display", "none");
+        //});
 
         $(document).on('click', '.emp-data .emp-change-password', function (e) {
             e.preventDefault();
