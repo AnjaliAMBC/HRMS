@@ -185,12 +185,15 @@
         data: data,
         "paging": true,
         "searching": true,
-        //"scrollY": '58vh',
+        "scrollY": '400px',
         //"scrollCollapse": true,
         "pageLength": 8, // Set the default number of rows to display
         "lengthChange": false,
         "info": true,
         "order": [],
+        "initComplete": function (settings, json) {
+            //$('#adminempmanagementtable').data.reload();
+        },
         "columnDefs": [
             {
                 "width": '2%',
@@ -415,6 +418,12 @@
         AddUpdateEmployee(editEmpID);
         $('.addempheadline').text("Edit Employee");
         return;
+    });
+
+    $(document).ready(function () {
+        $(window).on('load', function () {
+            table.column().search('').draw();
+        });
     });
 
 </script>
