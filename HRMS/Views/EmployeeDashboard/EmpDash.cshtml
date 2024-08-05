@@ -77,6 +77,26 @@
 }
 
 <style>
+
+    /*.emp-imgs {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        position: relative;
+    }
+
+        .emp-imgs img {
+            max-width: 100%;
+            height: auto;*/ /* Ensures the image maintains its aspect ratio */
+        /*}
+
+    .img-edit-icon {
+        position: absolute;
+        top: 10px;
+        right: 10px;
+        cursor: pointer;
+    }*/
+
 </style>
 
 @Html.Partial("_NavBar")
@@ -129,7 +149,7 @@
                                         </div>
                                         <div class="check-time mt-2 d-flex flex-column res-emp-dash-checkout-time">
                                             <span class="check-label smalltext mr-auto">Check Out Time</span>
-                                            @if (string.IsNullOrWhiteSpace(endtimeWithAmPm))
+                                            @if (endtimeWithAmPm == null || string.IsNullOrWhiteSpace(endtimeWithAmPm))
                                             {
                                                 <div class="isusercheckedout" style="display: none">false</div>
                                                 <div id="checkOutTime" class="time-input mr-auto">00:00:00</div>
