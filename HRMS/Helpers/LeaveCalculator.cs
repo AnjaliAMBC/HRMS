@@ -690,18 +690,24 @@ namespace HRMS.Helpers
 
             if (leaveType.Type == "Comp Off")
             {
+                availableLeaves.Available = leaveBalanceInfo.CompOff;
+
                 var employeeCompoffs = _dbContext.Compoffs
                 .Where(x => x.EmployeeID == leaveBalanceInfo.EmpID && x.CampOffDate.Year == DateTime.Today.Year && x.addStatus == "Approved")
                 .ToList();
 
                 if (employeeCompoffs != null && employeeCompoffs.Count() > 0)
                 {
-                    availableLeaves.Available = employeeCompoffs.Count();
+                    availableLeaves.Available = availableLeaves.Available + employeeCompoffs.Count();
                 }
                 else
                 {
-                    availableLeaves.Available = 0;
+                    availableLeaves.Available = availableLeaves.Available;
                 }
+
+                availableLeaves.Booked = totalLeaveDays;
+
+
             }
 
             if (leaveType.Type == "Hourly Permission")

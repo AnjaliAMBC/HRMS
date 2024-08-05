@@ -117,11 +117,13 @@
 
                                             @if (string.IsNullOrWhiteSpace(starttimeWithAmPm))
                                             {
+                                                <div class="isusercheckedin" style="display: none">false</div>
                                                 <div id="checkInTime" class="time-input mr-auto"><span style="font-size: small; display: none">@lastCheckinDate</span>00:00:00</div>
                                             }
                                             else
                                             {
                                                 <div id="checkInTime" class="time-input mr-auto"><span style="font-size: small; display: none">@lastCheckinDate</span>@starttimeWithAmPm</div>
+                                                <div class="isusercheckedin" style="display: none">true</div>
                                             }
 
                                         </div>
@@ -129,14 +131,18 @@
                                             <span class="check-label smalltext mr-auto">Check Out Time</span>
                                             @if (string.IsNullOrWhiteSpace(endtimeWithAmPm))
                                             {
+                                                <div class="isusercheckedout" style="display: none">false</div>
                                                 <div id="checkOutTime" class="time-input mr-auto">00:00:00</div>
                                             }
                                             else
                                             {
+                                                <div class="isusercheckedout" style="display: none">true</div>
                                                 <div id="checkOutTime" class="time-input mr-auto">@endtimeWithAmPm</div>
                                             }
 
                                         </div>
+
+
                                     </div>
                                 </div>
                                 <div class="row res-emp-dash-checkin-checkout">
@@ -395,6 +401,10 @@
     </div>
     @Html.Partial("_compoff", Model.Employees)
 </div>
+
+<script src="~/Scripts/z-EmpDash.js"></script>
+<script src="~/Scripts/z-empleave.js"></script>
+
 <script>
     let currentIndex = 0;
 
@@ -435,12 +445,16 @@
     window.addEventListener('resize', updateleaveslider);
     window.addEventListener('load', () => {
         updateleaveslider();
+
         // Start automatic sliding
         /*setInterval(nextSlide, slideInterval);*/
     });
 
+
+
+
+
 </script>
 
-<script src="~/Scripts/z-EmpDash.js"></script>
-<script src="~/Scripts/z-empleave.js"></script>
+
 

@@ -231,7 +231,7 @@ $(document).on('click', '.attendance-find', function (event) {
         var formattedFromDate = formatDateenUS(fromDate);
         var formattedToDate = formatDateenUS(toDate);
         GetAttendenceInfo(formattedFromDate, formattedToDate);
-    }  
+    }
 });
 
 
@@ -322,7 +322,7 @@ function generateCalendar(month, year) {
 }
 
 
- 
+
 
 
 function prevMonth() {
@@ -476,6 +476,26 @@ function parseCustomDate(dateString) {
     return new Date(year, month, day, hours, minutes, seconds);
 }
 
+function parseCustomDate1(dateString) {
+    // Example dateString: '8/5/2024 10:09:28 AM'
+
+    // Split date and time parts
+    var [datePart, timePart] = dateString.split(' ');
+    var [month, day, year] = datePart.split('/').map(Number);
+    var [time, period] = timePart.split(' ');
+    var [hours, minutes, seconds] = time.split(':').map(Number);
+
+    // Convert 12-hour format to 24-hour format
+    if (period === 'PM' && hours !== 12) {
+        hours += 12;
+    } else if (period === 'AM' && hours === 12) {
+        hours = 0;
+    }
+
+    // Create and return the Date object
+    return new Date(year, month - 1, day, hours, minutes, seconds);
+}
+
 
 function updateHoursTimer1() {
 
@@ -484,6 +504,10 @@ function updateHoursTimer1() {
     if (dashhoursElementElem) {
         var signedInDateTimeStr = $('#checkinhoursminutes').attr('data-signedindatetime');
         var signedInDateTime = parseCustomDate(signedInDateTimeStr);
+
+        if ($('.isusercheckedin').text() == "true" && $('.isusercheckedout').text() == "false") {
+            signedInDateTime = parseCustomDate1(signedInDateTimeStr);
+        }
 
         if (signedInDateTime.toString() !== 'Invalid Date' && signedInDateTimeStr !== '01-01-0001 00:00:00') {
             var currentTime = new Date();
@@ -519,4 +543,12 @@ updateHoursTimer1();
 $(document).on('click', '.emp-my-tickets-redirect', function (event) {
     window.location.href = "/empticketing/index";
     return false;
+});
+
+
+document.addEventListener('DOMContentLoaded', function () {
+    setInterval(function () {      
+        updateHoursTimer1(); 
+        setInterval(updateHoursTimer1, 1000); 
+    }, 1000);
 });
