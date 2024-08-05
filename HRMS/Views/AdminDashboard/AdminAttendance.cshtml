@@ -286,7 +286,7 @@
                                     }
                                     else
                                     {
-                                        var words = employee.EmployeeName.Split(' ');
+                                        var words = employee.EmployeeName.Trim().Split(' ');
                                         if (words.Length >= 2)
                                         {
                                             initials = $"{words[0][0]}{words[1][0]}";

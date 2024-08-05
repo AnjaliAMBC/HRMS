@@ -255,7 +255,7 @@ $(document).on('click', '.btn-apply-empleave', function (event) {
     let teamEmail = $('#teamEmail').val();
     let reason = $('#reason').val();
     let EmpID = $("#leaveempname option:selected").val();
-    let EmpName = $("#leaveempname option:selected").text();
+    let EmpName = $("#leaveempname option:selected").attr("data-empname");
     let SubmittedBy = $('.loggedinempname').text();
     let backupName = $('#BackupName').val();
     let backupNo = $('#BackupNo').val();
@@ -422,7 +422,7 @@ $(document).on('click', '.btn-apply-empleave', function (event) {
                 $('#toleaveDate').val('');
                 $('#HourPermission').val('');
                 $('#teamEmail').val('');
-                $('#teamEmail').val($('#defaultteamEmail').text());
+                //$('#teamEmail').val($('#defaultteamEmail').text());
                 $('#reason').val('');
                 if ($('.loginempisadmin').text() == "True") {
                     $('#leaveempname').val($('#leaveempname option:first').val());
@@ -438,9 +438,13 @@ $(document).on('click', '.btn-apply-empleave', function (event) {
 
                 $('#modalMessage').removeClass('text-danger').addClass('text-success').text(response.jsonResponse.Message);
                 $('#messageModal').modal('show');
-            } else {
+
+                showMessageModal(response.jsonResponse.Message, true, "");
+
+            } else {             
                 $('#modalMessage').removeClass('text-success').addClass('text-danger').text(response.jsonResponse.Message);
                 $('#messageModal').modal('show');
+                showMessageModal(response.jsonResponse.Message, false, "closepopuponly");
             }
         },
         error: function (error) {

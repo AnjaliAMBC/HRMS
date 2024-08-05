@@ -165,63 +165,74 @@ $('.emp-myrequest').click(function (event) {
 });
 
 
-var isSubmitting = false;
+//var isSubmitting = false;
 
-$(document).off('click', '.emp-imgs').on('click', '.emp-imgs', function (event) {
-    if (isSubmitting) {
-        return;
-    }
-    isSubmitting = true;
-    $('#imageInput').click();
-});
+//$(document).off('click', '.emp-imgs').on('click', '.emp-imgs', function (event) {
+//    //if (isSubmitting) {
+//    //    return;
+//    //}
+//    //isSubmitting = true;
+//    $('#imageInput').click();
+//});
 
+$(document).ready(function () {
+    // Add click event to the edit icon inside emp-imgs
+    $(document).on('click', '.img-edit-icon', function (event) {
+        event.stopPropagation();
+        $('#imageInput').click();
+    });
 
-$(document).on('change', '#imageInput', function (event) {
-    event.preventDefault();
-    var file = this.files[0];
-    // Check if the file is a JPEG image
-    if (file.type !== 'image/jpeg') {
-        alert('Please upload a JPEG image.');
-        return;
-    }
+    // Handle file input change
+    $(document).on('change', '#imageInput', function (event) {
+        event.preventDefault();
+        console.log('Image input changed'); // Debug information
 
-    var formData = new FormData();
-    formData.append('file', file);
-
-    $.ajax({
-        url: '/employeedashboard/uploadimage',
-        type: 'POST',
-        data: formData,
-        processData: false,
-        contentType: false,
-        dataType: 'json',
-        success: function (response) {
-            if (response.JsonResponse.StatusCode == 200) {
-                var newImageUrl = response.ImageURl;
-                var timestamp = new Date().getTime();
-                newImageUrl += '?' + timestamp;
-
-                //Slef service page image update
-                $('.emp-imageurl').attr('src', newImageUrl);
-                $('.emp-imageurl').show();
-                $('.default-image').hide();
-
-
-                $('.nav-image-profile').show();
-                $('.nav-image-profile').attr('src', newImageUrl);
-                $('.default-image-navbar').hide();
-            } else {
-                console.error('Error uploading file:', error);
-            }
-        },
-        error: function (xhr, status, error) {
-            console.error('Error uploading file:', error);
-        },
-        complete: function () {
-            isSubmitting = false;
+        var file = this.files[0];
+        // Check if the file is a JPEG image
+        if (file.type !== 'image/jpeg') {
+            alert('Please upload a JPEG image.');
+            return;
         }
+
+        var formData = new FormData();
+        formData.append('file', file);
+
+        $.ajax({
+            url: '/employeedashboard/uploadimage',
+            type: 'POST',
+            data: formData,
+            processData: false,
+            contentType: false,
+            dataType: 'json',
+            success: function (response) {
+                if (response.JsonResponse.StatusCode == 200) {
+                    var newImageUrl = response.ImageURl;
+                    var timestamp = new Date().getTime();
+                    newImageUrl += '?' + timestamp;
+
+                    // Self service page image update
+                    $('.emp-imageurl').attr('src', newImageUrl);
+                    $('.emp-imageurl').show();
+                    $('.default-image').hide();
+
+                    // Navbar image update
+                    $('.nav-image-profile').attr('src', newImageUrl);
+                    $('.nav-image-profile').show();
+                    $('.default-image-navbar').hide();
+                } else {
+                    console.error('Error uploading file:', response.JsonResponse.Message);
+                }
+            },
+            error: function (xhr, status, error) {
+                console.error('Error uploading file:', error);
+            },
+            complete: function () {
+                isSubmitting = false;
+            }
+        });
     });
 });
+
 
 
 //function sendAnniversaryWishes() {
