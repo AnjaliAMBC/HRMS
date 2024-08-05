@@ -477,19 +477,31 @@ function parseCustomDate(dateString) {
 }
 
 function parseCustomDate1(dateString) {
-    // Example dateString: '8/5/2024 10:09:28 AM'
+    // Identify if the date string is in 'MM/DD/YYYY HH:MM:SS AM/PM' format or 'DD-MM-YYYY HH:MM:SS' format
+    var isFirstFormat = dateString.includes('/');
 
-    // Split date and time parts
-    var [datePart, timePart] = dateString.split(' ');
-    var [month, day, year] = datePart.split('/').map(Number);
-    var [time, period] = timePart.split(' ');
-    var [hours, minutes, seconds] = time.split(':').map(Number);
+    if (isFirstFormat) {
+        // Example dateString: '8/5/2024 10:09:28 AM'
 
-    // Convert 12-hour format to 24-hour format
-    if (period === 'PM' && hours !== 12) {
-        hours += 12;
-    } else if (period === 'AM' && hours === 12) {
-        hours = 0;
+        // Split date and time parts
+        var [datePart, timePart] = dateString.split(' ');
+        var [month, day, year] = datePart.split('/').map(Number);
+        var [time, period] = timePart.split(' ');
+        var [hours, minutes, seconds] = time.split(':').map(Number);
+
+        // Convert 12-hour format to 24-hour format
+        if (period === 'PM' && hours !== 12) {
+            hours += 12;
+        } else if (period === 'AM' && hours === 12) {
+            hours = 0;
+        }
+    } else {
+        // Example dateString: '05-08-2024 12:33:30'
+
+        // Split date and time parts
+        var [datePart, timePart] = dateString.split(' ');
+        var [day, month, year] = datePart.split('-').map(Number);
+        var [hours, minutes, seconds] = timePart.split(':').map(Number);
     }
 
     // Create and return the Date object
@@ -546,9 +558,9 @@ $(document).on('click', '.emp-my-tickets-redirect', function (event) {
 });
 
 
-document.addEventListener('DOMContentLoaded', function () {
-    setInterval(function () {      
-        updateHoursTimer1(); 
-        setInterval(updateHoursTimer1, 1000); 
-    }, 1000);
-});
+//document.addEventListener('DOMContentLoaded', function () {
+//    setInterval(function () {      
+//        updateHoursTimer1(); 
+//        setInterval(updateHoursTimer1, 1000); 
+//    }, 1000);
+//});

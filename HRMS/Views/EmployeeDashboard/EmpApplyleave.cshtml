@@ -5,7 +5,7 @@
     var leaveDefaultEmails = System.Configuration.ConfigurationManager.AppSettings["LeaveEmails"];
 
     var pageTitle = !string.IsNullOrWhiteSpace(Model.Leaves) && Model.Leaves != "[]" ? "Edit Leave" : "Apply Leave";
-    var buttonText = !string.IsNullOrWhiteSpace(Model.Leaves) && Model.Leaves != "[]" ? "Edit" : "Apply";
+    var buttonText = !string.IsNullOrWhiteSpace(Model.Leaves) && Model.Leaves != "[]" ? "Update" : "Submit";
 
     var hideDivStyle = currentUserSession != null && !currentUserSession.IsAdmin ? "display:none;" : "";
 }
@@ -148,7 +148,7 @@
                         <span class="error-message" id="BackupNo-error"></span>
                     </div>
                     <span class="error-message-showerror" style="display: none; color: red"></span>
-
+                    <button type="button" class="btn btn-applyleave-cancel mb-4">Cancel</button>
                     <button type="submit" class="btn btn-primary btn-apply-empleave mb-4">@buttonText</button>
                 </form>
             </div>
@@ -165,6 +165,6 @@
 <script>
     $(document).ready(function () {
         $('#leaveempname').select2();
-        $('#leaveType').select2();
+     /*   $('#leaveType').select2();*/
     });
 </script>
