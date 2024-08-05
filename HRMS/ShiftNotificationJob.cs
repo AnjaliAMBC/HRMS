@@ -103,27 +103,17 @@ namespace HRMS
 <html>
     <body style='font-family: Calibri, sans-serif; background-color: #f2f2f2; padding: 20px; margin: 0;'>
         <div style='background-color: #f8f9fa; padding: 20px; border-radius: 8px; max-width: 600px; margin: auto;'>
-            <div style='padding: 20px; background-color: #fff; border-radius: 8px; box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);'>
-                <table style='width: 100%; border-collapse: collapse;'>
-                    <tr>
-                        <td style='text-align: right; padding: 10px 0;'>
-                            <a href='{siteURL}' target='_blank'>
-                                <img src='{logoURL}' alt='AMBC Logo' width='70'>
-                            </a>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>
-                            <p style='margin-top: 0; font-size: 1.1em;'>Hi <strong>{checkinEmp.EmployeeName}</strong>,</p>
-                            <div style='font-family: Calibri; color: #696969; margin-top: 20px; font-size: 1.1em;'>
-                                <p>Reminder for Check In</p>
-                                <p>Please remember to complete your daily check in by {shiftStartTime}.</p>
-                                <p>Contact [hr@ambconline.com] if you need help.</p>
-                                <p>Best regards,<br>PRM AMBC</p>
-                            </div>
-                        </td>
-                    </tr>
-                </table>
+            <div style='padding: 20px; background-color: #fff; border-radius: 8px; box-shadow: 0 0 10px rgba(0, 0, 0, 0.1); position: relative;'>
+                <a href='{siteURL}' target='_blank' style='position: absolute; top: 20px; right: 20px;'>
+                    <img src='{logoURL}' alt='AMBC Logo' width='70' style='display: block;'>
+                </a>
+                <p style='margin-top: 70px; font-size: 1.1em;'>Hi <strong>{checkinEmp.EmployeeName}</strong>,</p>
+                <div style='font-family: Calibri; color: #696969; margin-top: 20px; font-size: 1.1em;'>
+                    <p>Reminder for Check In</p>
+                    <p>Please remember to complete your daily check in by {shiftStartTime}.</p>
+                    <p>Contact [hr@ambconline.com] if you need help.</p>
+                    <p>Best regards,<br>PRM AMBC</p>
+                </div>
             </div>
             <div style='font-family: Calibri; color: #696969; font-size: 1.1em; margin-top: 20px; text-align: center;'>
                 This is an automated email, please do not reply.
@@ -133,6 +123,7 @@ namespace HRMS
         </div>
     </body>
 </html>";
+
 
                     var emailRequest = new EmailRequest()
                     {
@@ -158,27 +149,19 @@ namespace HRMS
 <html>
     <body style='font-family: Calibri, sans-serif; background-color: #f2f2f2; padding: 20px; margin: 0;'>
         <div style='background-color: #f8f9fa; padding: 20px; border-radius: 8px; max-width: 600px; margin: auto;'>
-            <div style='padding: 20px; background-color: #fff; border-radius: 8px; box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);'>
-                <table style='width: 100%; border-collapse: collapse;'>
-                    <tr>
-                        <td style='text-align: right; padding: 10px 0;'>
-                            <a href='{siteURL}' target='_blank'>
-                                <img src='{logoURL}' alt='AMBC Logo' width='70'>
-                            </a>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>
-                            <p style='margin-top: 0; font-size: 1.1em;'>Hi <strong>{checkoutEmp.EmployeeName}</strong>,</p>
-                            <div style='font-family: Calibri; color: #696969; margin-top: 20px; font-size: 1.1em;'>
-                                <p>Reminder for Check Out</p>
-                                <p>Please remember to complete your daily check out by {shiftEndTime}.</p>
-                                <p>Contact [hr@ambconline.com] if you need help.</p>
-                                <p>Best regards,<br>PRM AMBC</p>
-                            </div>
-                        </td>
-                    </tr>
-                </table>
+            <div style='padding: 20px; background-color: #fff; border-radius: 8px; box-shadow: 0 0 10px rgba(0, 0, 0, 0.1); position: relative;'>
+                <a href='{siteURL}' target='_blank' style='position: absolute; top: 20px; right: 20px;'>
+                    <img src='{logoURL}' alt='AMBC Logo' width='70' style='display: block;'>
+                </a>
+                <div style='margin-top: 80px;'> <!-- Added margin to prevent overlap -->
+                    <p style='font-size: 1.1em;'>Hi <strong>{checkoutEmp.EmployeeName}</strong>,</p>
+                    <div style='font-family: Calibri; color: #696969; margin-top: 20px; font-size: 1.1em;'>
+                        <p>Reminder for Check Out</p>
+                        <p>Please remember to complete your daily check out by {shiftEndTime}.</p>
+                        <p>Contact [hr@ambconline.com] if you need help.</p>
+                        <p>Best regards,<br>PRM AMBC</p>
+                    </div>
+                </div>
             </div>
             <div style='font-family: Calibri; color: #696969; font-size: 1.1em; margin-top: 20px; text-align: center;'>
                 This is an automated email, please do not reply.
@@ -188,6 +171,7 @@ namespace HRMS
         </div>
     </body>
 </html>";
+
 
                     var emailRequest = new EmailRequest()
                     {
