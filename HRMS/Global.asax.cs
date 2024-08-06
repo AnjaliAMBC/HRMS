@@ -45,7 +45,7 @@ namespace HRMS
             ITrigger trigger = TriggerBuilder.Create()
                 .WithIdentity("shiftNotificationTrigger", "group1")
                 .StartNow()
-                .WithSimpleSchedule(x => x.WithIntervalInMinutes(15).RepeatForever())
+                .WithSimpleSchedule(x => x.WithIntervalInMinutes(5).RepeatForever())
                 .Build();
 
 
