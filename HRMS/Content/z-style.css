@@ -340,6 +340,22 @@ div.main-content {
     width: 100% !important;
 }
 
+.admindash_card table {
+    border-collapse: separate;
+    border-spacing: 5px 0;
+    table-layout: fixed;
+}
+
+.admindash_card table thead th {
+    width: 10px;
+    border-bottom: 0px;
+}
+
+.admindash_card table thead {
+    border-bottom: 1px solid #ccc !important;
+    box-shadow: 0px 4px 5px -4px #ccc;
+}
+
 /* admin dashnoard end */
 
 /* admin employee management start */
@@ -553,15 +569,20 @@ div.main-content {
 #leaveUpdateModal .res-submit-btn {
     margin: 0 15px !important;
     padding: 0;
+    padding-right: 30px !important;
+}
+
+#leaveUpdateModal .res-submit-btn button {
+    float: right;
 }
 
 .res-admin-individual-att-from-to {
     margin-left: 0% !important;
 }
 
-    .res-admin-individual-att-from-to .form-inline {
-        justify-content: right;
-    }
+.res-admin-individual-att-from-to .form-inline {
+    justify-content: right;
+}
 
 .adminatt-dropdown label {
     margin-right: 12px !important;
@@ -2353,6 +2374,22 @@ div.main-content {
     margin-right: 5px;
 }
 
+.emp-dashboard-calendar table {
+    border-collapse: separate;
+    border-spacing: 5px 0;
+    table-layout: fixed;
+}
+
+.emp-dashboard-calendar table thead th {
+    width: 10px;
+    border-bottom: 0px;
+}
+
+.emp-dashboard-calendar table thead {
+    border-bottom: 1px solid #ccc !important;
+    box-shadow: 0px 4px 5px -4px #ccc;
+}
+
 /* employee dashboard end*/
 
 /* employee details start*/
@@ -2665,6 +2702,10 @@ input[type=checkbox], input[type=radio] {
 }
 
 .emp-leave-apply-form #leaveForm .btn-apply-empleave {
+    /*float: right;*/
+}
+
+.emp-leave-apply-form #leaveForm .apply-leave-submit-block {
     float: right;
 }
 
