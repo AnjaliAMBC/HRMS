@@ -5,7 +5,7 @@
     var leaveDefaultEmails = System.Configuration.ConfigurationManager.AppSettings["LeaveEmails"];
 
     var pageTitle = !string.IsNullOrWhiteSpace(Model.Leaves) && Model.Leaves != "[]" ? "Edit Leave" : "Apply Leave";
-    var buttonText = !string.IsNullOrWhiteSpace(Model.Leaves) && Model.Leaves != "[]" ? "Edit" : "Apply";
+    var buttonText = !string.IsNullOrWhiteSpace(Model.Leaves) && Model.Leaves != "[]" ? "Update" : "Submit";
 
     var hideDivStyle = currentUserSession != null && !currentUserSession.IsAdmin ? "display:none;" : "";
 }
@@ -20,7 +20,6 @@
         .input-error, .input-error select {
             border-color: red !important;
         }
-
     </style>
 
     <div class="container emp-leave-apply-form">
@@ -39,7 +38,7 @@
                                 @foreach (var emp in Model.employees)
                                 {
                                     var selected = !currentUserSession.IsAdmin && emp.EmployeeID == selectedempID ? "selected" : "";
-                            <option @selected value="@emp.EmployeeID" data-emplocation="@emp.Location" data-empemail="@emp.OfficalEmailid" data-designation="@emp.Designation" data-department="@emp.Department">@emp.EmployeeName @emp.EmployeeID</option>
+                                    <option @selected value="@emp.EmployeeID" data-empname="@emp.EmployeeName" data-emplocation="@emp.Location" data-empemail="@emp.OfficalEmailid" data-designation="@emp.Designation" data-department="@emp.Department">@emp.EmployeeName @emp.EmployeeID</option>
                                 }
                             </select>
                             <span class="error-message" id="leaveempname-error"></span>
@@ -149,8 +148,10 @@
                         <span class="error-message" id="BackupNo-error"></span>
                     </div>
                     <span class="error-message-showerror" style="display: none; color: red"></span>
-
-                    <button type="submit" class="btn btn-primary btn-apply-empleave mb-4">@buttonText</button>
+                    <div class="apply-leave-submit-block">
+                        <button type="button" class="btn btn-applyleave-cancel mb-4">Cancel</button>
+                        <button type="submit" class="btn btn-primary btn-apply-empleave mb-4">@buttonText</button>
+                    </div>
                 </form>
             </div>
             <div class="col-lg-6 col-md-12">
@@ -163,3 +164,9 @@
     @Html.Partial("CommonModalPopups")
 </div>
 <script src="~/Scripts/z-Teamemail.js"></script>
+<script>
+    $(document).ready(function () {
+        $('#leaveempname').select2();
+     /*   $('#leaveType').select2();*/
+    });
+</script>

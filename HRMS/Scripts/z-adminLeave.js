@@ -388,11 +388,15 @@ $(document).off('click', '.acceptLeaveBtn').on('click', '.acceptLeaveBtn', funct
                 //$statusBtnFlex.find('.changestatusapprove').hide();
 
                 $statusBtnFlex.empty();
+                var employeeName = $(".loggedinempname").text();
 
                 // Check if admin-leaveapprovaloptions div exists, if not create it
                 if ($statusBtnFlex.find('.admin-leaveapprovaloptions').length === 0) {
                     var adminLeaveApprovalOptions = `
-                         <small class="statusLabel" style="color: #3E78CF">Approved</small>
+                         <small class="statusLabel" style="color: #3E78CF">
+                            <span style="color: #212529; margin-right: 5px;">${employeeName}</span>
+                                Approved
+                            </small>
                         <i class="fas fa-ellipsis-h adminleave-leave-approval" onclick="toggleAdminLeaveApprovalActionOptions(this)"></i>
                         <div class="admin-leaveapprovaloptions" style="display:none">
                             <a href="" class="dropdown-item rejectLeaveBtn changestatusreject" data-leavename="${leaveName}" data-compoffnum="${leaveName}">Change Status</a>
@@ -438,10 +442,14 @@ $(document).off('click', '.rejectLeaveBtn').on('click', '.rejectLeaveBtn', funct
                 //$statusBtnFlex.find('.changestatusreject').hide();
 
                 $statusBtnFlex.empty();
+                var employeeName = $(".loggedinempname").text();
 
                 if ($statusBtnFlex.find('.admin-leaveapprovaloptions').length === 0) {
                     var adminLeaveApprovalOptions = `
-                        <small class="statusLabel" style="color: red">Rejected</small>
+                        <small class="statusLabel" style="color: red">
+                            <span style="color: #212529; margin-right: 5px;">${employeeName}</span>
+                            Rejected
+                        </small>
                         <i class="fas fa-ellipsis-h adminleave-leave-approval" onclick="toggleAdminLeaveApprovalActionOptions(this)"></i>
                         <div class="admin-leaveapprovaloptions" style="display:none">
                             <a href="" class="dropdown-item acceptLeaveBtn changestatusapprove" data-leavename="${leaveName}" data-compoffnum="${leaveName}">Change Status</a>
@@ -537,7 +545,7 @@ $(document).off('click', '.Admin-leavehistory-icon').on('click', '.Admin-leavehi
     event.preventDefault();
     $('.show-progress').show();
     window.location.href = "/adminleave/adminleavehistory";
-  
+
     //$.ajax({
     //    url: '/adminleave/adminleavehistory',
     //    type: 'GET',
@@ -580,7 +588,7 @@ $(document).off('click', '.btn-import-leaves-hstory').on('click', '.btn-import-l
             $('.show-progress').show();
         },
         success: function (response) {
-            $(".hiddenadmindashboard").html("");       
+            $(".hiddenadmindashboard").html("");
             $(".admin-leaveHistory-container").html("");
             $(".hiddenadmindashboard").html(response);
             var formContent = $(".hiddenadmindashboard").find(".adminEmp-LeaveHistoryImport-view").html();

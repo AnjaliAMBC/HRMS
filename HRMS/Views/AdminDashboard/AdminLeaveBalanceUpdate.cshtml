@@ -53,7 +53,7 @@
     <div class="container res-adminleavebalance-update-block">
         <h4 class="mb-4">Leave Balance</h4>
         <div class="d-flex justify-content-between mb-4 res-admin-leavebalance-select">
-            <select class="custom-select w-50" id="userSelect">
+            <select class="custom-select" id="userSelect" >
                 <option selected>Select User</option>
 
                 @{
@@ -137,4 +137,7 @@
     ////        alert('Please enter a leave label.');
     ////    }
     ////}
+    $(document).ready(function () {
+        $('#userSelect').select2();
+    });
 </script>

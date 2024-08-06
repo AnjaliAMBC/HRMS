@@ -11,17 +11,20 @@ namespace HRMS.Helpers
     {
         public static bool DoesImageExistForEmployee(string employeeCode, string uploadsFolderPath)
         {
-            // Directory where the images are stored
-            string imagesDirectory = uploadsFolderPath; // Change this to your actual directory
+            string[] files = Directory.GetFiles(uploadsFolderPath, $"{employeeCode}.*");
 
-            // Check if any file with the employee code prefix exists in the directory
-            string[] files = Directory.GetFiles(imagesDirectory, $"{employeeCode}.*");
-
-            // Delete each file
             foreach (var file in files)
             {
-                File.Delete(file);
-                Console.WriteLine($"Deleted file: {file}");
+                try
+                {
+                    File.Delete(file);
+                    Console.WriteLine($"Deleted file: {file}");
+                }
+                catch (IOException ex)
+                {
+                    // Log or handle the exception if the file is in use or deletion fails
+                    Console.WriteLine($"Failed to delete file: {file}. Error: {ex.Message}");
+                }
             }
 
             return files.Length > 0;

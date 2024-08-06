@@ -31,6 +31,10 @@
           <Property Name="Location" Type="varchar" MaxLength="255" />
           <Property Name="OfficalEmailid" Type="varchar" MaxLength="255" />
           <Property Name="Reason" Type="varchar" MaxLength="255" />
+          <Property Name="approvedbyname" Type="nvarchar" MaxLength="500" />
+          <Property Name="approvedbydate" Type="datetime" />
+          <Property Name="rejectedbyname" Type="nvarchar" MaxLength="500" />
+          <Property Name="rejectedbydate" Type="datetime" />
         </EntityType>
         <EntityType Name="con_leaveupdate">
           <Key>
@@ -63,6 +67,10 @@
           <Property Name="Designation" Type="varchar" MaxLength="255" />
           <Property Name="Department" Type="varchar" MaxLength="255" />
           <Property Name="TeamEmails" Type="nvarchar(max)" />
+          <Property Name="approvedbyname" Type="nvarchar" MaxLength="500" />
+          <Property Name="approvedbydate" Type="datetime" />
+          <Property Name="rejectedbyname" Type="nvarchar" MaxLength="500" />
+          <Property Name="rejectedbydate" Type="datetime" />
         </EntityType>
         <EntityType Name="Department">
           <Key>
@@ -531,6 +539,10 @@ warning 6002: The table/view 'HRMS_PortalDev1.dbo.CheckInView' does not have a p
           <Property Name="Location" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
           <Property Name="OfficalEmailid" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
           <Property Name="Reason" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+          <Property Name="approvedbyname" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
+          <Property Name="approvedbydate" Type="DateTime" Precision="3" />
+          <Property Name="rejectedbyname" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
+          <Property Name="rejectedbydate" Type="DateTime" Precision="3" />
         </EntityType>
         <EntityType Name="con_leaveupdate">
           <Key>
@@ -563,6 +575,10 @@ warning 6002: The table/view 'HRMS_PortalDev1.dbo.CheckInView' does not have a p
           <Property Name="Designation" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
           <Property Name="Department" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
           <Property Name="TeamEmails" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="approvedbyname" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
+          <Property Name="approvedbydate" Type="DateTime" Precision="3" />
+          <Property Name="rejectedbyname" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
+          <Property Name="rejectedbydate" Type="DateTime" Precision="3" />
         </EntityType>
         <EntityType Name="Location">
           <Key>
@@ -795,6 +811,10 @@ warning 6002: The table/view 'HRMS_PortalDev1.dbo.CheckInView' does not have a p
           <EntitySetMapping Name="Compoffs">
             <EntityTypeMapping TypeName="HRMS_EntityModel.Compoff">
               <MappingFragment StoreEntitySet="Compoff">
+                <ScalarProperty Name="rejectedbydate" ColumnName="rejectedbydate" />
+                <ScalarProperty Name="rejectedbyname" ColumnName="rejectedbyname" />
+                <ScalarProperty Name="approvedbydate" ColumnName="approvedbydate" />
+                <ScalarProperty Name="approvedbyname" ColumnName="approvedbyname" />
                 <ScalarProperty Name="Reason" ColumnName="Reason" />
                 <ScalarProperty Name="OfficalEmailid" ColumnName="OfficalEmailid" />
                 <ScalarProperty Name="Location" ColumnName="Location" />
@@ -816,6 +836,10 @@ warning 6002: The table/view 'HRMS_PortalDev1.dbo.CheckInView' does not have a p
           <EntitySetMapping Name="con_leaveupdate">
             <EntityTypeMapping TypeName="HRMS_EntityModel.con_leaveupdate">
               <MappingFragment StoreEntitySet="con_leaveupdate">
+                <ScalarProperty Name="rejectedbydate" ColumnName="rejectedbydate" />
+                <ScalarProperty Name="rejectedbyname" ColumnName="rejectedbyname" />
+                <ScalarProperty Name="approvedbydate" ColumnName="approvedbydate" />
+                <ScalarProperty Name="approvedbyname" ColumnName="approvedbyname" />
                 <ScalarProperty Name="TeamEmails" ColumnName="TeamEmails" />
                 <ScalarProperty Name="Department" ColumnName="Department" />
                 <ScalarProperty Name="Designation" ColumnName="Designation" />

@@ -492,7 +492,7 @@ function GetEmpLeaveHistory() {
                 const toDate = formatJSONDate(item.Todate);
                 const fromDay = formatJSONDateDay(item.Fromdate);
                 const toDay = formatJSONDateDay(item.Todate);
-                const dateDisplay = fromDate === toDate
+                const dateDisplay = fromDate === toDate || item.LatestLeave.leavesource == "Hourly Permission"
                     ? `<p class="mb-0 fontWtMedium">${fromDate}</p><span class="mutedText">${fromDay}</span>`
                     : `<p class="mb-0 fontWtMedium">${fromDate} - ${toDate}</p><span class="mutedText">${fromDay} - ${toDay}</span>`;
 
@@ -713,7 +713,7 @@ $('#confirmCancelButton').on('click', function () {
         success: function (response) {
             GetEmpLeaveHistory();
             if (response.StatusCode == 200) {
-                showMessageModal(response.Message, true, "closepouponly");
+                showMessageModal(response.Message, true, "");
             } else {
                 showMessageModal(response.Message, false, "closepouponly");
             }

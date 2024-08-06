@@ -9,12 +9,12 @@
 @if (Model != null && Model.Any())
 {
     var leaveUpdate = Model.First();
-    <div class="email-container" style="background-color: #f8f9fa; padding: 20px; border-radius: 5px; position: relative;">
-        <div class="email-content">
-            <a href="@siteURL" target="_blank" style="position: absolute; top: 20px; right: 20px;">
-                <img src="@logoURL" alt="AMBC Logo" width="70">
+    <div class="email-container" style="background-color: #f8f9fa; padding: 20px; border-radius: 5px; position: relative; max-width: 600px; margin: auto;">
+        <div class="email-content" style="padding: 20px; background-color: #fff; border-radius: 5px; box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);">
+            <a href="@siteURL" target="_blank" style="float: right; margin-left: 20px; margin-top: 20px;">
+                <img src="@logoURL" alt="AMBC Logo" width="70" style="display: block;">
             </a>
-            <p style="margin-top: 70px;">Hello <strong>@leaveUpdate.employee_name</strong>,</p>
+            <p style="margin-top: 40px;">Hello <strong>@leaveUpdate.employee_name</strong>,</p>
             <p>Your leave request has been <strong>Rejected</strong>.</p>
             <table style="width: 100%; border-collapse: collapse; margin-top: 20px;">
                 <tr>
@@ -29,11 +29,12 @@
         </div>
     </div>
 
-    <div style="font-family: Calibri; color: #696969; font-size: 1.1em; margin-top: 20px;">
+    <div style="font-family: Calibri; color: #696969; font-size: 1.1em; margin-top: 20px; text-align: center;">
         This is an automated email, please do not reply.
         <br />
         Automated mail from <a href="https://prm.ambctechnologies.com" style="color: #2693F8;">https://prm.ambctechnologies.com</a>
     </div>
+
 }
 
 

@@ -41,7 +41,9 @@ $(document).on('click', '.btn-checkin', function (event) {
                 if (response.JsonResponse.StatusCode == 200) {
                     $(".btn-checkin").text("Check Out");
                     $(".btn-checkin").attr("data-checkinid", response.CheckInInfo.login_id);
-                    $(".btn-checkin").css("background-color", "red");
+                    $(".btn-checkin").css("background-color", "");
+                    $(".btn-checkin").removeClass("btn-primary");
+                    $(".btn-checkin").addClass("important-bg");
                     var checkinTime = formatDateAndTime(new Date());
                     $('#checkinhoursminutes').attr('data-signedindatetime', checkinTime);
                     var currentTime = GetCurrentTime();
@@ -71,8 +73,8 @@ $(document).on('click', '.btn-checkin', function (event) {
 
                     var checkinTime = formatDateAndTime(new Date());
                     $('#checkinhoursminutes').attr('data-signedindatetime', checkinTime);
-
-                    $(".btn-checkin").css("background-color", "#3E78CF");
+                    $(".btn-checkin").css("background-color", "");
+                    $(".btn-checkin").addClass("btn-primary");
 
                     var currentTime = GetCurrentTime();
                     $('#checkOutTime').html(currentTime);
@@ -229,7 +231,7 @@ $(document).on('click', '.attendance-find', function (event) {
         var formattedFromDate = formatDateenUS(fromDate);
         var formattedToDate = formatDateenUS(toDate);
         GetAttendenceInfo(formattedFromDate, formattedToDate);
-    }  
+    }
 });
 
 
@@ -320,7 +322,7 @@ function generateCalendar(month, year) {
 }
 
 
- 
+
 
 
 function prevMonth() {
@@ -474,6 +476,38 @@ function parseCustomDate(dateString) {
     return new Date(year, month, day, hours, minutes, seconds);
 }
 
+function parseCustomDate1(dateString) {
+    // Identify if the date string is in 'MM/DD/YYYY HH:MM:SS AM/PM' format or 'DD-MM-YYYY HH:MM:SS' format
+    var isFirstFormat = dateString.includes('/');
+
+    if (isFirstFormat) {
+        // Example dateString: '8/5/2024 10:09:28 AM'
+
+        // Split date and time parts
+        var [datePart, timePart] = dateString.split(' ');
+        var [month, day, year] = datePart.split('/').map(Number);
+        var [time, period] = timePart.split(' ');
+        var [hours, minutes, seconds] = time.split(':').map(Number);
+
+        // Convert 12-hour format to 24-hour format
+        if (period === 'PM' && hours !== 12) {
+            hours += 12;
+        } else if (period === 'AM' && hours === 12) {
+            hours = 0;
+        }
+    } else {
+        // Example dateString: '05-08-2024 12:33:30'
+
+        // Split date and time parts
+        var [datePart, timePart] = dateString.split(' ');
+        var [day, month, year] = datePart.split('-').map(Number);
+        var [hours, minutes, seconds] = timePart.split(':').map(Number);
+    }
+
+    // Create and return the Date object
+    return new Date(year, month - 1, day, hours, minutes, seconds);
+}
+
 
 function updateHoursTimer1() {
 
@@ -482,6 +516,10 @@ function updateHoursTimer1() {
     if (dashhoursElementElem) {
         var signedInDateTimeStr = $('#checkinhoursminutes').attr('data-signedindatetime');
         var signedInDateTime = parseCustomDate(signedInDateTimeStr);
+
+        if ($('.isusercheckedin').text() == "true" && $('.isusercheckedout').text() == "false") {
+            signedInDateTime = parseCustomDate1(signedInDateTimeStr);
+        }
 
         if (signedInDateTime.toString() !== 'Invalid Date' && signedInDateTimeStr !== '01-01-0001 00:00:00') {
             var currentTime = new Date();
@@ -518,3 +556,11 @@ $(document).on('click', '.emp-my-tickets-redirect', function (event) {
     window.location.href = "/empticketing/index";
     return false;
 });
+
+
+//document.addEventListener('DOMContentLoaded', function () {
+//    setInterval(function () {      
+//        updateHoursTimer1(); 
+//        setInterval(updateHoursTimer1, 1000); 
+//    }, 1000);
+//});

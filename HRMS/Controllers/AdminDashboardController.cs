@@ -457,7 +457,7 @@ namespace HRMS.Controllers
                         _dbContext.emp_info.AddRange(empList);
                         _dbContext.SaveChanges();
 
-                        model.JsonResponse.Message = "<span style='color: green;'>Users Imported successfully</span>";
+                        model.JsonResponse.Message = "Users Imported successfully";
                         model.JsonResponse.StatusCode = 200;
 
                         foreach (var importEmp in empList)

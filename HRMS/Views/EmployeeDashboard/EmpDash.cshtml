@@ -35,7 +35,7 @@
 
     var ButtonDisabled = "";
 
-    if (Model.empLastDayCheckInDetails == null && Model.todayCheckInInfo != null && Model.todayCheckInInfo.login_id != 0)
+    if (Model.empLastDayCheckInDetails.SignInTime == DateTime.MinValue && Model.todayCheckInInfo != null && Model.todayCheckInInfo.login_id != 0)
     {
         loginID = Model.todayCheckInInfo.login_id;
         buttonText = "Check Out";
@@ -71,7 +71,33 @@
     }
 
     var currentUserSession = Session["SiteContext"] as HRMS.Models.SiteContextModel;
+
+    buttonDeafultbgcolor = buttonText == "Check In" ? "#3E78CF" : "#C70000";
+
 }
+
+<style>
+
+    /*.emp-imgs {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        position: relative;
+    }
+
+        .emp-imgs img {
+            max-width: 100%;
+            height: auto;*/ /* Ensures the image maintains its aspect ratio */
+        /*}
+
+    .img-edit-icon {
+        position: absolute;
+        top: 10px;
+        right: 10px;
+        cursor: pointer;
+    }*/
+
+</style>
 
 @Html.Partial("_NavBar")
 <div class="container-fluid emp-dashboard">
@@ -111,26 +137,32 @@
 
                                             @if (string.IsNullOrWhiteSpace(starttimeWithAmPm))
                                             {
+                                                <div class="isusercheckedin" style="display: none">false</div>
                                                 <div id="checkInTime" class="time-input mr-auto"><span style="font-size: small; display: none">@lastCheckinDate</span>00:00:00</div>
                                             }
                                             else
                                             {
                                                 <div id="checkInTime" class="time-input mr-auto"><span style="font-size: small; display: none">@lastCheckinDate</span>@starttimeWithAmPm</div>
+                                                <div class="isusercheckedin" style="display: none">true</div>
                                             }
 
                                         </div>
                                         <div class="check-time mt-2 d-flex flex-column res-emp-dash-checkout-time">
                                             <span class="check-label smalltext mr-auto">Check Out Time</span>
-                                            @if (string.IsNullOrWhiteSpace(endtimeWithAmPm))
+                                            @if (endtimeWithAmPm == null || string.IsNullOrWhiteSpace(endtimeWithAmPm))
                                             {
+                                                <div class="isusercheckedout" style="display: none">false</div>
                                                 <div id="checkOutTime" class="time-input mr-auto">00:00:00</div>
                                             }
                                             else
                                             {
+                                                <div class="isusercheckedout" style="display: none">true</div>
                                                 <div id="checkOutTime" class="time-input mr-auto">@endtimeWithAmPm</div>
                                             }
 
                                         </div>
+
+
                                     </div>
                                 </div>
                                 <div class="row res-emp-dash-checkin-checkout">
@@ -140,7 +172,7 @@
                                         </div>
                                         <span class="showcheckinbuttonpostcheckout" style="display: none">@showCheckInButton</span>
                                         <div class="button-container text-left total-hours">
-                                            <button class="btn btn-checkin" style="background-color: @buttonDeafultbgcolor" data-checkinid="@loginID" @ButtonDisabled>@buttonText</button>
+                                            <button class="btn btn-primary btn-checkin" style="background-color: @buttonDeafultbgcolor !important; border: 1px solid #C70000 !important;" data-checkinid="@loginID" @ButtonDisabled>@buttonText</button>
                                         </div>
                                     </div>
                                     <div class="dash-check-in-out-time col-md-4 p-0 pr-1 col-sm-4">
@@ -162,7 +194,7 @@
                     <div class="card mb-3 dashcard_style my-card">
                         <div class="card-header text-dark">Job Referral</div>
                         <div class="card-body scrollbar p-3">
-                            <p style="margin-top: 80px; margin-left: 23%;">No data available..!!!</p>
+                            <p class="text-muted" style="margin-top: 80px; margin-left: 23%;">No data available..!!!</p>
                             @*<div class="dashjob_description mb-3">
                                     <h6 class="mb-0">Interior Designer</h6>
                                     <small>Location: Bangalore | Posted on: 10/05/2024</small>
@@ -192,14 +224,12 @@
                             }
                             else
                             {
-
-                                <div class="emp-dash-ticket-info">
-                                    @foreach (var myTicket in Model.MyTickets)
-                                    {
-
+                                foreach (var myTicket in Model.MyTickets)
+                                {
+                                    <div class="emp-dash-ticket-info">
                                         <div class="emp-dash-ticket-title">@myTicket.Subject</div>
                                         <div class="emp-dash-ticket-desc">
-                                            <span class="dash-ticket-desc-left-block"><i class="fa fa-exclamation-circle" aria-hidden="true"></i><span>Priority - <span class="dash-ticket-priority-high">@myTicket.Priority</span></span></span>
+                                            <span class="dash-ticket-desc-left-block"><i class="fa fa-exclamation-circle" aria-hidden="true"></i><span>Priority - <span class="@HRMS.Helpers.TicketingHelper.GetMyticketDashPriorityColor(myTicket.Priority)">@myTicket.Priority</span></span></span>
 
 
                                             @if (myTicket.Status == "Resolved")
@@ -212,9 +242,8 @@
                                             }
 
                                         </div>
-                                    }
-                                </div>
-
+                                    </div>
+                                }
                             }
 
                         </div>
@@ -288,7 +317,7 @@
                         <div class="card-header text-dark">Employee Handbook</div>
                         <div class="card-body scrollbar d-flex flex-column">
                             <!-- Note-taking section -->
-                            <p style="margin-top: 80px; margin-left: 23%;">No data available..!!!</p>
+                            <p class="text-muted" style="margin-top: 80px; margin-left: 23%;">No data available..!!!</p>
                         </div>
                     </div>
                 </div>
@@ -307,7 +336,7 @@
                                 <i class="fas fa-chevron-right chevron-icon mr-4" onclick="nextMonth()"></i>
                             </div>
                         </div>
-                        <div class="card-body calendar-body p-0">
+                        <div class="card-body calendar-body p-0 emp-dashboard-calendar">
                             <table class="table">
                                 <thead>
                                     <tr>
@@ -392,9 +421,12 @@
     </div>
     @Html.Partial("_compoff", Model.Employees)
 </div>
+
+<script src="~/Scripts/z-EmpDash.js"></script>
+<script src="~/Scripts/z-empleave.js"></script>
+
 <script>
     let currentIndex = 0;
-    /*const slideInterval = 3000; */// Interval in milliseconds (3 seconds)
 
     function updateleaveslider() {
         const leavesliderWrapper = document.querySelector('.leaveslider-wrapper');
@@ -433,12 +465,16 @@
     window.addEventListener('resize', updateleaveslider);
     window.addEventListener('load', () => {
         updateleaveslider();
+
         // Start automatic sliding
         /*setInterval(nextSlide, slideInterval);*/
     });
 
+
+
+
+
 </script>
 
-<script src="~/Scripts/z-EmpDash.js"></script>
-<script src="~/Scripts/z-empleave.js"></script>
+
 

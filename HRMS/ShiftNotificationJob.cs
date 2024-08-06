@@ -108,7 +108,7 @@ namespace HRMS
                     <tr>
                         <td style='text-align: right; padding: 10px 0;'>
                             <a href='{siteURL}' target='_blank'>
-                                <img src='{logoURL}' alt='AMBC Logo' width='70'>
+                                <img src='{logoURL}' alt='AMBC Logo' width='50'>
                             </a>
                         </td>
                     </tr>
@@ -118,7 +118,7 @@ namespace HRMS
                             <div style='font-family: Calibri; color: #696969; margin-top: 20px; font-size: 1.1em;'>
                                 <p>Reminder for Check In</p>
                                 <p>Please remember to complete your daily check in by {shiftStartTime}.</p>
-                                <p>Contact [Support Email/Phone] if you need help.</p>
+                                <p>Contact [hr@ambconline.com] if you need help.</p>
                                 <p>Best regards,<br>PRM AMBC</p>
                             </div>
                         </td>
@@ -133,6 +133,7 @@ namespace HRMS
         </div>
     </body>
 </html>";
+
 
                     var emailRequest = new EmailRequest()
                     {
@@ -163,7 +164,7 @@ namespace HRMS
                     <tr>
                         <td style='text-align: right; padding: 10px 0;'>
                             <a href='{siteURL}' target='_blank'>
-                                <img src='{logoURL}' alt='AMBC Logo' width='70'>
+                                <img src='{logoURL}' alt='AMBC Logo' width='50'>
                             </a>
                         </td>
                     </tr>
@@ -173,7 +174,7 @@ namespace HRMS
                             <div style='font-family: Calibri; color: #696969; margin-top: 20px; font-size: 1.1em;'>
                                 <p>Reminder for Check Out</p>
                                 <p>Please remember to complete your daily check out by {shiftEndTime}.</p>
-                                <p>Contact [Support Email/Phone] if you need help.</p>
+                                <p>Contact [hr@ambconline.com] if you need help.</p>
                                 <p>Best regards,<br>PRM AMBC</p>
                             </div>
                         </td>

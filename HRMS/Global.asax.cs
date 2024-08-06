@@ -1,6 +1,7 @@
 ﻿using HRMS.Filters;
 using Quartz;
 using Quartz.Impl;
+using System.Configuration;
 using System.Web.Mvc;
 using System.Web.Optimization;
 using System.Web.Routing;
@@ -17,6 +18,11 @@ namespace HRMS
             BundleConfig.RegisterBundles(BundleTable.Bundles);
 
             GlobalFilters.Filters.Add(new CustomExceptionFilter());
+
+            if (ConfigurationManager.AppSettings["DisableAutoNotification"] == "true")
+            {
+                return;
+            }
 
             StartQuartzScheduler();
         }

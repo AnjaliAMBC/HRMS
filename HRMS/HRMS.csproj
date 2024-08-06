@@ -231,6 +231,7 @@
     <Content Include="Content\bootstrap4.5.2.css" />
     <Content Include="Content\jquery-ui.css" />
     <Content Include="Content\jquery.dataTables.css" />
+    <Content Include="Content\select2.min.css" />
     <Content Include="Content\z-Adminticketting.css" />
     <Content Include="Content\z-responsive.css" />
     <Content Include="Content\z-style.css" />
@@ -335,6 +336,7 @@
     <Content Include="Scripts\bootstrap.bundle.min.js" />
     <Content Include="Scripts\jquery-3.6.0.min.js" />
     <Content Include="Scripts\jquery-ui.min.js" />
+    <Content Include="Scripts\select2.min.js" />
     <Content Include="Scripts\umd.popper.min.js" />
     <Content Include="Scripts\z-adminapplyLeave.js" />
     <Content Include="Scripts\z-adminBalaceView.js" />
@@ -380,12 +382,16 @@
     <Content Include="Scripts\modernizr-2.8.3.js" />
     <Content Include="Scripts\zaddshift.js" />
     <Content Include="Scripts\zadminattendence.js" />
-    <Content Include="Web.config" />
+    <Content Include="Web.config">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
     <Content Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Content Include="Web.Release.config">
       <DependentUpon>Web.config</DependentUpon>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Content Include="Views\Web.config" />
     <Content Include="Views\_ViewStart.cshtml" />

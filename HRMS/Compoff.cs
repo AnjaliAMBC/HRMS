@@ -29,5 +29,9 @@ namespace HRMS
         public string Location { get; set; }
         public string OfficalEmailid { get; set; }
         public string Reason { get; set; }
+        public string approvedbyname { get; set; }
+        public Nullable<System.DateTime> approvedbydate { get; set; }
+        public string rejectedbyname { get; set; }
+        public Nullable<System.DateTime> rejectedbydate { get; set; }
     }
 }

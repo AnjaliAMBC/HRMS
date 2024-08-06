@@ -244,6 +244,27 @@ $(document).on('change', '#toleaveDate', function (event) {
     generateDayTypeRows();
 });
 
+function ClearApplyLeaveFormFields() {
+    $('#leaveType').val($('#leaveType option:first').val());
+    $('#fromleaveDate').val('');
+    $('#toleaveDate').val('');
+    $('#HourPermission').val('');
+    $('#teamEmail').val('');
+    //$('#teamEmail').val($('#defaultteamEmail').text());
+    $('#reason').val('');
+    if ($('.loginempisadmin').text() == "True") {
+        $('#leaveempname').val($('#leaveempname option:first').val());
+    }
+    $('#BackupName').val('');
+    $('#BackupNo').val('');
+    $('#dayTypeContainer').empty();
+    $('#dayTypeLabel').hide();
+    $('#totalLeavesContainer').empty();
+    $('#dayTypeContainer').hide();
+    $('.balance-section-wrapper').empty();
+    $('.time-section').hide();
+}
+
 $(document).on('click', '.btn-apply-empleave', function (event) {
     event.preventDefault();
     $('.error-message-showerror').hide();
@@ -255,7 +276,7 @@ $(document).on('click', '.btn-apply-empleave', function (event) {
     let teamEmail = $('#teamEmail').val();
     let reason = $('#reason').val();
     let EmpID = $("#leaveempname option:selected").val();
-    let EmpName = $("#leaveempname option:selected").text();
+    let EmpName = $("#leaveempname option:selected").attr("data-empname");
     let SubmittedBy = $('.loggedinempname').text();
     let backupName = $('#BackupName').val();
     let backupNo = $('#BackupNo').val();
@@ -417,30 +438,17 @@ $(document).on('click', '.btn-apply-empleave', function (event) {
             console.log('Success:', response);
             if (response.jsonResponse.StatusCode == 200) {
                 // Clear form fields
-                $('#leaveType').val($('#leaveType option:first').val());
-                $('#fromleaveDate').val('');
-                $('#toleaveDate').val('');
-                $('#HourPermission').val('');
-                $('#teamEmail').val('');
-                $('#teamEmail').val($('#defaultteamEmail').text());
-                $('#reason').val('');
-                if ($('.loginempisadmin').text() == "True") {
-                    $('#leaveempname').val($('#leaveempname option:first').val());
-                }
-                $('#BackupName').val('');
-                $('#BackupNo').val('');
-                $('#dayTypeContainer').empty();
-                $('#dayTypeLabel').hide();
-                $('#totalLeavesContainer').empty();
-                $('#dayTypeContainer').hide();
-                $('.balance-section-wrapper').empty();
-                $('.time-section').hide();
+                ClearApplyLeaveFormFields();
 
                 $('#modalMessage').removeClass('text-danger').addClass('text-success').text(response.jsonResponse.Message);
                 $('#messageModal').modal('show');
-            } else {
+
+                showMessageModal(response.jsonResponse.Message, true, "");
+
+            } else {             
                 $('#modalMessage').removeClass('text-success').addClass('text-danger').text(response.jsonResponse.Message);
                 $('#messageModal').modal('show');
+                showMessageModal(response.jsonResponse.Message, false, "closepopuponly");
             }
         },
         error: function (error) {
@@ -529,3 +537,12 @@ $(document).on('click', '.dashhoiday_description', function (e) {
 $(document).on('click', '.compOff-History-Page', function (e) {
     e.preventDefault();
 });
+
+
+
+$(document).on('click', '.btn-applyleave-cancel', function (e) {
+    e.preventDefault();
+    ClearApplyLeaveFormFields();
+});
+
+

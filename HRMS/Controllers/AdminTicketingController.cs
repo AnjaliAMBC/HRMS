@@ -4,6 +4,7 @@ using Newtonsoft.Json;
 using OfficeOpenXml;
 using System;
 using System.Collections.Generic;
+using System.Data.Entity;
 using System.Drawing;
 using System.IO;
 using System.Linq;
@@ -175,12 +176,12 @@ namespace HRMS.Controllers
 
             if (fromDate != null && !string.IsNullOrEmpty(fromDate))
             {
-                employeeTickets = employeeTickets.Where(x => x.Created_date >= dateStart);
+                employeeTickets = employeeTickets.Where(x => DbFunctions.TruncateTime(x.Created_date) >= DbFunctions.TruncateTime(dateStart));
             }
 
             if (toDate != null && !string.IsNullOrEmpty(toDate))
             {
-                employeeTickets = employeeTickets.Where(x => x.Created_date <= dateEnd);
+                employeeTickets = employeeTickets.Where(x => DbFunctions.TruncateTime(x.Created_date) <= DbFunctions.TruncateTime(dateEnd));
             }
 
             if (status != "null" && status != "All" && !string.IsNullOrEmpty(status))
@@ -198,7 +199,7 @@ namespace HRMS.Controllers
                 employeeTickets = employeeTickets.Where(x => x.Closedby == closedBy);
             }
 
-            var ticketsList = employeeTickets.ToList();
+            var ticketsList = employeeTickets.OrderByDescending(x => x.Created_date).ToList();
             return ticketsList;
         }
 

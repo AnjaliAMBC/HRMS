@@ -19,7 +19,7 @@ body button.btn.collapsed {
 }
 
 .btn:hover {
-    //color: white;
+   /* //color: white;*/
 }
 
 select option:hover,
@@ -123,6 +123,26 @@ div.main-content {
     display: inline-block;
 }
 
+.select2-selection__rendered {
+    padding: 5px 15px !important;
+    color: #495057 !important;
+}
+
+.select2-selection.select2-selection--single {
+    height: 40px !important;
+    border: 1px solid #ced4da !important;
+}
+
+.select2-selection__arrow {
+    top: 6px !important;
+    right: 5px !important;
+}
+
+.select2-container .select2-dropdown span.select2-search--dropdown {
+    display: none;
+}
+
+
 /* sidebar menu start */
 
 .sidebar .sidebar-dropdown .side-menubar-updown {
@@ -153,7 +173,7 @@ div.main-content {
         border-radius: 5px 0px 0px 5px;
         margin-right: 10px;
         position: relative;
-        //top: 5px;
+       
     }
 
 .sidebar .sidebar-dropdown .sidebar-submenu .menu-bar-design-blue {
@@ -164,7 +184,7 @@ div.main-content {
     border-radius: 5px 0px 0px 5px;
     margin-right: 10px;
     position: relative;
-    //top: 5px;
+    
 }
 
 .sidebar .sidebar-dropdown .sidebar-submenu .menu-bar-design-darkcyan {
@@ -175,7 +195,7 @@ div.main-content {
     border-radius: 5px 0px 0px 5px;
     margin-right: 10px;
     position: relative;
-    //top: 5px;
+   
 }
 
 .sidebar .sidebar-dropdown .sidebar-submenu .menu-bar-design-chocolate {
@@ -186,7 +206,7 @@ div.main-content {
     border-radius: 5px 0px 0px 5px;
     margin-right: 10px;
     position: relative;
-    //top: 5px;
+    
 }
 
 .sidebar .sidebar-dropdown .sidebar-submenu .menu-bar-design-slategrey {
@@ -197,7 +217,7 @@ div.main-content {
     border-radius: 5px 0px 0px 5px;
     margin-right: 10px;
     position: relative;
-    //top: 5px;
+   
 }
 
 .sidebar .sidebar-submenu ul {
@@ -315,11 +335,33 @@ div.main-content {
     display: block;
 }
 
+.admindashcompempname label,
+.admindashcompempname span.select2.select2-container {
+    width: 100% !important;
+}
+
+.admindash_card table {
+    border-collapse: separate;
+    border-spacing: 5px 0;
+    table-layout: fixed;
+}
+
+.admindash_card table thead th {
+    width: 10px;
+    border-bottom: 0px;
+}
+
+.admindash_card table thead {
+    border-bottom: 1px solid #ccc !important;
+    box-shadow: 0px 4px 5px -4px #ccc;
+}
+
 /* admin dashnoard end */
 
 /* admin employee management start */
+
 .res-admin-employee-management .res-admin-filter-inside {
-    //display: inline-block !important;
+   /* //display: inline-block !important;*/
     margin-right: 0px !important;
 }
 
@@ -330,10 +372,10 @@ div.main-content {
 }
 
 .res-admin-employee-management .res-clear-btn {
-    //background: #2693F8;
+    /*//background: #2693F8;*/
     padding: 5px 15px;
     border-radius: 5px;
-    //color: #fff;
+   /* //color: #fff;*/
     text-transform: capitalize;
     margin-left: 0 !important;
     margin-top: 10px;
@@ -381,15 +423,19 @@ div.main-content {
 }
 
 #adminempmanagementtable {
-    //margin-top: -15px;
-    table-layout: fixed;
+   /* //margin-top: -15px;*/
+    /*table-layout: fixed; */
 }
 
-#adminempmanagementtable thead {
-    //width: inherit !important;
+    #adminempmanagementtable thead {
+        /* //width: inherit !important;
     //visibility: hidden;
     background: #f9f9f9 !important;
-    display: none;
+    display: none;*/
+    }
+
+#adminempmanagementtable tbody tr:nth-child(1){
+    margin-top: 0px;
 }
 
 .dataTables_scrollHeadInner table.display.dataTable thead {
@@ -492,6 +538,12 @@ div.main-content {
     width: 50px !important;
 }
 
+#adminempmanagementtable_info,
+#adminaddendancetable_info,
+#attendancetable_info {
+   /* margin-top: 0px;*/
+}
+
 /* admin employee management end */
 
 /*admin attendance start*/
@@ -517,15 +569,20 @@ div.main-content {
 #leaveUpdateModal .res-submit-btn {
     margin: 0 15px !important;
     padding: 0;
+    padding-right: 30px !important;
+}
+
+#leaveUpdateModal .res-submit-btn button {
+    float: right;
 }
 
 .res-admin-individual-att-from-to {
     margin-left: 0% !important;
 }
 
-    .res-admin-individual-att-from-to .form-inline {
-        justify-content: right;
-    }
+.res-admin-individual-att-from-to .form-inline {
+    justify-content: right;
+}
 
 .adminatt-dropdown label {
     margin-right: 12px !important;
@@ -665,11 +722,64 @@ div.main-content {
     padding: 3px 15px;
 }
 
+#adminaddendancetable .adminatt_thead {
+   /* //display: none;*/
+}
+
+#adminaddendancetable {
+    /* //table-layout: fixed;*/
+    margin-top: -35px;
+}
+
+#adminaddendancetable .adminatt_tbody tr td:nth-child(1) {
+    width: 5%;
+}
+#adminaddendancetable .adminatt_tbody tr td:nth-child(2) {
+   /* display: inline !important;*/
+    width: 22%;
+}
+#adminaddendancetable .adminatt_tbody tr td:nth-child(3) {
+    width: 8%;
+}
+#adminaddendancetable .adminatt_tbody tr td:nth-child(4) {
+    width: 10%;
+}
+#adminaddendancetable .adminatt_tbody tr td:nth-child(5) {
+    width: 10%;
+}
+#adminaddendancetable .adminatt_tbody tr td:nth-child(6) {
+    width: 10%;
+}
+#adminaddendancetable .adminatt_tbody tr td:nth-child(7) {
+    width: 8%;
+}
+#adminaddendancetable .adminatt_tbody tr td:nth-child(8) {
+    width: 10%;
+}
+#adminaddendancetable .adminatt_tbody tr td:nth-child(9) {
+    width: 8%;
+}
+
+#adminaddendancetable .attemployee-image {
+    vertical-align: sub;
+}
+
+#adminaddendancetable .employee-details {
+    width: 72% !important;
+    display: inline-block;
+}
+
+#adminaddendancetable .initials-circle {
+    display: inline-block;
+    vertical-align: bottom;
+    text-align: center;
+    padding-top: 7px;
+}
+
 /*admin attendance end*/
 
 /* admin leave start*/
-
-.res-admin-leave .res-admin-leave-history .admin-leave-history-header-title h4{
+.res-admin-leave .res-admin-leave-history .admin-leave-history-header-title h4 {
     margin-top: -5px;
 }
 
@@ -1028,12 +1138,26 @@ div.main-content {
 }
 
 .res-adminleavebalance-update-block {
-    margin-bottom: 25px;
+    margin-bottom: 30px;
     margin-left: 15px;
+    display: inline-block;
 }
 
 .res-admin-leave-balance-main-header {
     justify-content: space-between;
+}
+
+.res-admin-leavebalance-select select {
+    width: 30% !important;
+}
+
+.res-admin-leavebalance-select select option {
+    
+}
+
+#updateleavebalanceButton {
+    float: right;
+    margin-right: 32.5%;
 }
 
 /* admin leave balance end*/
@@ -2225,16 +2349,19 @@ div.main-content {
 .dash-ticket-priority-high {
     color: #fff;
     background-color: #dc3545;
+    padding: 0 5px;
 }
 
 .dash-ticket-priority-mid {
     color: #fff;
     background-color: #ff6600;
+    padding: 0 5px;
 }
 
 .dash-ticket-priority-low {
     color: #fff;
-    background-color: #ff6600;
+    background-color: #50BEEA;
+    padding: 0 5px;
 }
 
 .emp-dash-ticket-info .emp-dash-ticket-desc span.dash-ticket-desc-right-block {
@@ -2245,6 +2372,22 @@ div.main-content {
 
 .emp-dash-ticket-info .emp-dash-ticket-desc span.dash-ticket-desc-right-block i {
     margin-right: 5px;
+}
+
+.emp-dashboard-calendar table {
+    border-collapse: separate;
+    border-spacing: 5px 0;
+    table-layout: fixed;
+}
+
+.emp-dashboard-calendar table thead th {
+    width: 10px;
+    border-bottom: 0px;
+}
+
+.emp-dashboard-calendar table thead {
+    border-bottom: 1px solid #ccc !important;
+    box-shadow: 0px 4px 5px -4px #ccc;
 }
 
 /* employee dashboard end*/
@@ -2273,14 +2416,21 @@ div.main-content {
 
 .toggle-changepassword,
 .toggle-newpassword,
-.toggle-confirmpassword {
+.toggle-confirmpassword,
+.toggle-resetPassword,
+.toggle-resetconfirmPassword {
     float: right;
     position: relative;
     z-index: 2;
-    right: 15px;
+    right: 16px;
     top: -27px;
     cursor: pointer;
     color: #272727;
+}
+
+.toggle-resetPassword,
+.toggle-resetconfirmPassword {
+    right: 57px;
 }
 
 #empChangePasswordSuccessModal .change-password-success-popup {
@@ -2552,6 +2702,10 @@ input[type=checkbox], input[type=radio] {
 }
 
 .emp-leave-apply-form #leaveForm .btn-apply-empleave {
+    /*float: right;*/
+}
+
+.emp-leave-apply-form #leaveForm .apply-leave-submit-block {
     float: right;
 }
 

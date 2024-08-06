@@ -3637,6 +3637,11 @@
         margin-left: 0px;
     }
 
+    #myTabContent .tab-pane .tabs-view .container.tab-container {
+        max-width: 1270px;
+        margin-top: 20px !important;
+    }
+
     .emp-self-service .backgroundimg {
         width: 105.4% !important;
     }
@@ -3687,7 +3692,7 @@
     }
 
     .admin-empmanagement-view .nav-tabs .nav-link {
-        padding: 7px 17px !important;
+        padding: 7px 25.7px !important;
     }
 
     .res-admin-leavecompoff-view .res-adminleave-compoff-header-center {
@@ -3752,19 +3757,46 @@
     }
 
     .res-admin-emp-table #adminempmanagementtable tbody td:nth-child(3) {
-        width: 290px !important;
+        width: 250px !important;
     }
 
     .res-admin-emp-table #adminempmanagementtable tbody td:nth-child(6) {
-        width: 120px !important;
+        width: 117px !important;
+    }
+
+    .res-admin-emp-table #adminempmanagementtable tbody td:nth-child(5) {
+        width: 140px !important;
     }
 
     .res-admin-emp-table #adminempmanagementtable tbody td:nth-child(4) {
         width: 140px !important;
     }
-   
-}
 
+    .res-admin-emp-table #adminempmanagementtable tbody td:nth-child(7) {
+        width: 90px !important;
+    }
+
+    .res-admin-emp-table #adminempmanagementtable tbody td:nth-child(8) {
+        width: 40px !important;
+    }
+
+    .res-admin-emp-table #adminempmanagementtable tbody td:nth-child(9) {
+        width: 30px !important;
+    }
+
+    #attendanceTable_wrapper .dataTables_scrollBody {
+        max-height: 60vh !important;
+    }
+
+    #adminaddendancetable_wrapper .dataTables_scrollBody {
+        max-height: 55vh !important;
+    }
+
+    .admin-leave-container .emp-leave-apply-form {
+        padding-left: 0px;
+        margin: 0;
+    }
+}
 
 /* Media Query for Tablets Ipads portrait mode start */
 @media only screen and (min-width:1600px) and (max-width:2560px) {
@@ -3774,7 +3806,7 @@
 
     #myTabContent .tab-pane .tabs-view .container.tab-container {
         max-width: 1280px;
-        margin-top: 20px;
+        margin-top: 20px !important;
     }
 
     .emp-data .emp-change-password button {
@@ -3834,6 +3866,14 @@
         width: 100px !important;
     }
 
+    #attendanceTable_wrapper .dataTables_scrollBody {
+        max-height: 60vh !important;
+    }
+
+    #adminaddendancetable_wrapper .dataTables_scrollBody {
+        max-height: 55vh !important;
+    }
+
 
 }
 
@@ -3891,11 +3931,27 @@
     }
 
     #adminitticketlistingTable tbody td:nth-child(1) {
-        width: 600px !important;
+        width: 700px !important;
     }
 
     #adminhrticketlistingTable tbody td:nth-child(1) {
-        width: 600px !important;
+        width: 700px !important;
+    }
+
+    #adminitticketlistingTable tbody td:nth-child(2) {
+        width: 450px !important;
+    }
+
+    #adminhrticketlistingTable tbody td:nth-child(2) {
+        width: 450px !important;
+    }
+
+    #adminitticketlistingTable tbody td:nth-child(3) {
+        width: 215px !important;
+    }
+
+    #adminhrticketlistingTable tbody td:nth-child(3) {
+        width: 215px !important;
     }
 
     #empticketlistingTable tbody td:nth-child(1) {
@@ -3936,5 +3992,17 @@
 
     .res-admin-emp-table #adminempmanagementtable tbody td:nth-child(7) {
         width: 10% !important;
+    }
+
+    #myTabContent .tab-pane .tabs-view .container.tab-container {
+        max-width: 2000px;
+    }
+
+    #attendanceTable_wrapper .dataTables_scrollBody {
+        max-height: 68vh !important;
+    }
+
+    #adminaddendancetable_wrapper .dataTables_scrollBody {
+        max-height: 62vh !important;
     }
 }

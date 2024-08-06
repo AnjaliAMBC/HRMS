@@ -187,7 +187,7 @@ namespace HRMS.Controllers
                 leaveRequest.jsonResponse.StatusCode = 200;
 
                 //When employee apply leave
-                if (leaves[0].employee_name == leaveRequest.SubmittedBy)
+                if (leaves[0].employee_name.Contains(leaveRequest.SubmittedBy))
                 {
                     var emailSubject = "Leave Application from " + leaveRequest.EmpName + " on " + System.DateTime.Now.ToString("dd MMMM yyyy");
                     var emailBody = RenderPartialToString(this, "_LeaveNotificationEmpEmail", leaves, ViewData, TempData);
@@ -201,8 +201,8 @@ namespace HRMS.Controllers
                     var emailRequest = new EmailRequest()
                     {
                         Body = emailBody,
-                        ToEmail = !string.IsNullOrWhiteSpace(teamEmails) ? leaveRequest.OfficalEmailid + "," + teamEmails : leaveRequest.OfficalEmailid,
-                        CCEmail = ConfigurationManager.AppSettings["LeaveEmails"],
+                        ToEmail = ConfigurationManager.AppSettings["LeaveEmails"],
+                        CCEmail = !string.IsNullOrWhiteSpace(teamEmails) ? leaveRequest.OfficalEmailid + "," + teamEmails : leaveRequest.OfficalEmailid,
                         Subject = emailSubject
                     };
 
@@ -211,7 +211,8 @@ namespace HRMS.Controllers
                 //In case admin submit the leave on employee behalf
                 else
                 {
-                    var emailSubject = "Leave Submission Update!";
+                    //var emailSubject = "Leave Submission Update!";
+                    var emailSubject = "Leave Application from " + leaveRequest.EmpName + " on " + System.DateTime.Now.ToString("dd MMMM yyyy");
                     var emailBody = RenderPartialToString(this, "_LeaveNotificationAdminEmail", leaves, ViewData, TempData);
 
                     var teamEmails = "";
@@ -223,8 +224,8 @@ namespace HRMS.Controllers
                     var emailRequest = new EmailRequest()
                     {
                         Body = emailBody,
-                        ToEmail = !string.IsNullOrWhiteSpace(teamEmails) ? leaveRequest.OfficalEmailid + "," + teamEmails : leaveRequest.OfficalEmailid,
-                        CCEmail = ConfigurationManager.AppSettings["LeaveEmails"],
+                        ToEmail = ConfigurationManager.AppSettings["LeaveEmails"],                        
+                        CCEmail = !string.IsNullOrWhiteSpace(teamEmails) ? leaveRequest.OfficalEmailid + "," + teamEmails : leaveRequest.OfficalEmailid,
                         Subject = emailSubject
                     };
 
@@ -351,12 +352,17 @@ namespace HRMS.Controllers
         [HttpPost]
         public ActionResult ApproveLeave(string leaveRequestName)
         {
+            var cuserContext = SiteContext.GetCurrentUserContext();
+
             var leaves = _dbContext.con_leaveupdate.Where(l => l.LeaveRequestName == leaveRequestName).ToList();
             if (leaves != null)
             {
                 foreach (var leave in leaves)
                 {
                     leave.LeaveStatus = "Approved";
+                    leave.approvedbyname = cuserContext.LoginInfo.EmployeeName;
+                    leave.approvedbydate = DateTime.Now;
+
                 }
                 _dbContext.SaveChanges();
 
@@ -383,12 +389,15 @@ namespace HRMS.Controllers
         [HttpPost]
         public ActionResult RejectLeave(string leaveRequestName)
         {
+            var cuserContext = SiteContext.GetCurrentUserContext();
             var leaves = _dbContext.con_leaveupdate.Where(l => l.LeaveRequestName == leaveRequestName).ToList();
             if (leaves != null)
             {
                 foreach (var leave in leaves)
                 {
                     leave.LeaveStatus = "Rejected";
+                    leave.rejectedbyname = cuserContext.LoginInfo.EmployeeName;
+                    leave.rejectedbydate = DateTime.Now;
                 }
                 _dbContext.SaveChanges();
 
