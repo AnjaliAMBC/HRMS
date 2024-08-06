@@ -74,6 +74,13 @@
 
     buttonDeafultbgcolor = buttonText == "Check In" ? "#3E78CF" : "#C70000";
 
+    if ((Model.todayCheckInInfo.Signin_Time != null && Model.todayCheckInInfo.Signin_Time != DateTime.MinValue) && (Model.todayCheckInInfo.Signout_Time == DateTime.MinValue || Model.todayCheckInInfo.Signout_Time == null))
+    {
+        buttonText = "Check Out";
+        buttonDeafultbgcolor = "#C70000";
+        ButtonDisabled = "";
+    }
+
 }
 
 <style>
@@ -88,7 +95,7 @@
         .emp-imgs img {
             max-width: 100%;
             height: auto;*/ /* Ensures the image maintains its aspect ratio */
-        /*}
+    /*}
 
     .img-edit-icon {
         position: absolute;
@@ -172,7 +179,7 @@
                                         </div>
                                         <span class="showcheckinbuttonpostcheckout" style="display: none">@showCheckInButton</span>
                                         <div class="button-container text-left total-hours">
-                                            <button class="btn btn-primary btn-checkin" style="background-color: @buttonDeafultbgcolor !important; border: 1px solid #C70000 !important;" data-checkinid="@loginID" @ButtonDisabled>@buttonText</button>
+                                            <button class="btn btn-primary btn-checkin" style=" background-color: @buttonDeafultbgcolor !important; border: none !important;" data-checkinid="@loginID" @ButtonDisabled>@buttonText</button>
                                         </div>
                                     </div>
                                     <div class="dash-check-in-out-time col-md-4 p-0 pr-1 col-sm-4">

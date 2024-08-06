@@ -88,16 +88,19 @@ namespace HRMS
                     <img src='" + logoURL + @"' alt='AMBC Logo' width='70' style='float: right;'>
                 </a>
             </div>
-            <table border='1' style='border-collapse: collapse; width: 100%; background-color: #f9f9f9; margin-top: 20px;'>
-                <tr>
-                    <th>Employee ID</th>
-                    <th>Employee Name</th>
-                    <th>Employee Shift</th>
-                    <th>Login Date</th>
-                    <th>CheckIn Time</th>
-                    <th>CheckOut Time</th>
-                    <th>Working Hours</th>
-                </tr>";
+            <table border='1' style='border-collapse: collapse; width: 100%; margin-top: 20px;'>
+                <thead style='background-color: #87CEEB; color: white;'>
+                    <tr>
+                        <th>Employee ID</th>
+                        <th>Employee Name</th>
+                        <th>Employee Shift</th>
+                        <th>Login Date</th>
+                        <th>CheckIn Time</th>
+                        <th>CheckOut Time</th>
+                        <th>Working Hours</th>
+                    </tr>
+                </thead>
+                <tbody>";
 
             foreach (var info in combinedInfos)
             {
@@ -119,18 +122,19 @@ namespace HRMS
                 }
 
                 table += $@"
-                <tr>
-                    <td>{info.Employee.EmployeeID}</td>
-                    <td>{info.Employee.EmployeeName}</td>
-                    <td>{info.Employee.ShiftTimings}</td>
-                    <td>{loginInfo?.Login_date.ToString("yyyy-MM-dd") ?? ""}</td>
-                    <td>{loginInfo?.Signin_Time.ToString(@"hh\:mm") ?? ""}</td>
-                    <td>{loginInfo?.Signout_Time?.ToString(@"hh\:mm") ?? ""}</td>
-                    <td>{workingHours.ToString(@"hh\:mm")}</td>
-                </tr>";
+                    <tr>
+                        <td>{info.Employee.EmployeeID}</td>
+                        <td>{info.Employee.EmployeeName}</td>
+                        <td>{info.Employee.ShiftTimings}</td>
+                        <td>{loginInfo?.Login_date.ToString("yyyy-MM-dd") ?? ""}</td>
+                        <td>{loginInfo?.Signin_Time.ToString(@"hh\:mm") ?? ""}</td>
+                        <td>{loginInfo?.Signout_Time?.ToString(@"hh\:mm") ?? ""}</td>
+                        <td>{workingHours.ToString(@"hh\:mm")}</td>
+                    </tr>";
             }
 
             table += @"
+                </tbody>
             </table>
             <div style='font-family: Calibri; color: #696969; font-size: 1.1em; margin-top: 20px;'>
                 This is an automated email, please do not reply.
@@ -140,6 +144,7 @@ namespace HRMS
             <p>Thank you.</p>
         </body>
     </html>";
+
 
             return table;
         }
