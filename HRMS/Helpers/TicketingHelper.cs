@@ -82,6 +82,46 @@ namespace HRMS.Helpers
 
             string body = $@"
     <html>
+   <head>
+        <style>
+            .email-body {{
+                font-family: Arial, sans-serif;
+                margin: 0;
+                padding: 20px;
+                background-color: #f4f4f4;
+            }}
+            .email-content {{
+                background-color: #ffffff;
+                padding: 20px;
+                border-radius: 5px;
+                box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            }}
+            .email-header {{
+                display: flex;
+                justify-content: space-between;
+                align-items: center;
+            }}
+            
+            .email-footer {{
+                margin-top: 20px;
+                text-align: center;
+                font-size: 12px;
+                color: #888888;
+            }}
+            .email-table {{
+                width: 100%;
+                border-collapse: collapse;
+                margin-top: 20px;
+            }}
+            .email-table th, .email-table td {{
+                border: 1px solid #dddddd;
+                text-align: left;
+                padding: 8px;
+            }}
+            .email-table th {{
+                background-color: #f2f2f2;
+            }}
+        </style>
     <head>
         <style>
             .email-body {{

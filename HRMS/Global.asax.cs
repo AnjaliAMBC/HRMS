@@ -68,10 +68,12 @@ namespace HRMS
 
             // Trigger the job to run every minute
             ITrigger trigger3 = TriggerBuilder.Create()
-                .WithIdentity("CompOffIntimationmailJobTrigger", "group3")
-                .StartNow()
-                .WithSimpleSchedule(x => x.WithIntervalInMinutes(1).RepeatForever())
-                .Build();
+              .WithIdentity("CompOffIntimationmailJobTrigger", "group3")
+              .StartNow()
+              .WithDailyTimeIntervalSchedule(x => x
+                  .StartingDailyAt(TimeOfDay.HourAndMinuteOfDay(10, 0))
+                  .OnEveryDay())
+              .Build();
 
             scheduler.ScheduleJob(job, trigger).Wait();
             scheduler.ScheduleJob(job2, trigger2).Wait();

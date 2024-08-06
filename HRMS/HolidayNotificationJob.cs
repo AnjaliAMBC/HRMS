@@ -25,40 +25,51 @@ namespace HRMS
 
         public Task Execute(IJobExecutionContext context)
         {
+            var compoffEmailTriggerDuration = System.Convert.ToInt32(ConfigurationManager.AppSettings["compoffemailtriggerdayduration"]);
             var today = DateTime.Today;
 
             // Fetch holidays that are exactly 10 days from today
             var upcomingHolidays = _dbContext.tblambcholidays
-                                             .Where(h => DbFunctions.DiffDays(today, h.holiday_date) == 10)
+                                             .Where(h => DbFunctions.DiffDays(today, h.holiday_date) == compoffEmailTriggerDuration)
                                              .ToList();
 
             // Fetch group email addresses from the configuration
-            var groupEmailsConfig = ConfigurationManager.AppSettings["GroupEmails"];
-            var groupEmailMappings = groupEmailsConfig.Split(',')
-                                                       .Select(g => g.Split('@'))
-                                                       .ToDictionary(g => g[0].Replace("ambc", ""), g => $"ambc{g[0]}@ambconline.com");
+            var groupEmailsConfig = ConfigurationManager.AppSettings["GroupEmails"].ToLowerInvariant();
+            var groupEmailMappings = groupEmailsConfig.Trim().Split(',');
+
+            var requiredGroupEmail = "";
 
             // Group holidays by region and send emails
-            var groupedHolidays = upcomingHolidays.GroupBy(h => h.region);
-            foreach (var group in groupedHolidays)
+            //var groupedHolidays = upcomingHolidays.GroupBy(h => h.region);
+            foreach (var upcomingHoliday in upcomingHolidays)
             {
-                if (groupEmailMappings.TryGetValue(group.Key.ToLower(), out var groupEmail))
+                foreach (var groupemail in groupEmailMappings)
                 {
-                    var holidays = group.ToList();
-                    SendHolidayNotification(groupEmail, holidays);
+                    foreach (var holidayRegion in upcomingHoliday.region.ToLowerInvariant().Split(','))
+                    {
+                        if (groupemail.ToLowerInvariant().Contains(holidayRegion.ToLowerInvariant()))
+                        {
+                            requiredGroupEmail += groupemail.ToLowerInvariant() + ",";
+                        }
+                    }
                 }
             }
 
+            if (!string.IsNullOrWhiteSpace(requiredGroupEmail) && upcomingHolidays.Any())
+            {
+                var holidays = upcomingHolidays.FirstOrDefault();
+                SendHolidayNotification(requiredGroupEmail.Trim().TrimEnd(','), holidays, compoffEmailTriggerDuration);
+            }
             return Task.CompletedTask;
         }
 
-        private void SendHolidayNotification(string groupEmail, List<tblambcholiday> holidays)
+        private void SendHolidayNotification(string groupEmail, tblambcholiday holidays, int compoffEmailTriggerDuration)
         {
             var siteURL = ConfigurationManager.AppSettings["siteURL"];
             var logoURL = siteURL + "/Assets/AMBC_Logo.png";
-            var holidayDescriptions = holidays.Select(h => $@"
-                <p>Please note, {h.holiday_date:dd MMMM yyyy} ({h.holiday_date:dddd}) will be observed as holiday for {h.holiday_name}.</p>
-                <p>Kindly let us know your work status on or before {h.holiday_date?.AddDays(-10):dd MMMM yyyy} to avail comp off.</p>").Aggregate((a, b) => a + b);
+            var holidayDescriptions = $@"
+                <p>Please note, {holidays.holiday_date:dd MMMM yyyy} ({holidays.holiday_date:dddd}) will be observed as holiday for {holidays.holiday_name}.</p>
+                <p>Kindly let us know your work status on or before {holidays.holiday_date?.AddDays(-compoffEmailTriggerDuration):dd MMMM yyyy} to avail comp off.</p>";
 
             var body = $@"
 <html>
@@ -72,14 +83,14 @@ namespace HRMS
             {holidayDescriptions}
         </div>
         <p style='font-size: 16px;'>Please submit your request through our portal at least 10 days before the deadline.</p>
-        <p style='font-size: 16px;'><a href='{siteURL}' style='color: #007bff;'>[PASTE THE REDIRECTION LINK HERE]</a></p>
+        <p style='font-size: 16px;'><a href='{siteURL}' style='color: #007bff;'>https://prm.ambctechnologies.com</a></p>
     </body>
 </html>";
 
             var emailRequest = new EmailRequest()
             {
                 ToEmail = groupEmail,
-                Subject = $"Holiday Notification for Region {holidays.First().region} on {holidays.First().holiday_date:dd MMMM yyyy}",
+                Subject = $"Holiday Notification for Region {holidays.region} on {holidays.holiday_date:dd MMMM yyyy}",
                 Body = body
             };
 
