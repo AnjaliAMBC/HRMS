@@ -593,7 +593,7 @@ div.main-content {
 }
 
     .admin-attendancemgmt-view .dropdowns-container .day {
-        margin: 0 4px;
+        /*margin: 0 4px;*/
     }
 
 .admin-attendance-container #adminaddendancetable thead th {
@@ -1247,11 +1247,17 @@ div.main-content {
     font-size: 12px;
 }
 
-    .res-admin-leave-history .adminleavehistory-dropdown-toggle:hover, .res-admin-leave-history .adminleavehistory-dropdown-toggle:focus {
-        background-color: transparent;
-        color: #212529;
-        border: 1px solid #ccc;
-    }
+.res-admin-leave-history .adminleavehistory-dropdown-toggle:hover, .res-admin-leave-history .adminleavehistory-dropdown-toggle:focus {
+    background-color: transparent;
+    color: #212529;
+    border: 1px solid #ccc;
+}
+
+.res-admin-leave-history .adminleavehistory-dropdown-toggle:active {
+    background-color: transparent !important;
+    color: #212529 !important;
+    border: 1px solid #ccc;
+}
 
 .res-admin-leave-history .adminleavehistory-dropdown-menu #employeeSearchinput {
     border-radius: 5px;
@@ -3029,8 +3035,13 @@ input[type=checkbox], input[type=radio] {
 
 /* emp ticket comment popup end */
 
-@media screen and (-webkit-min-device-pixel-ratio:0) {
-    #adminaddendancetable {
-        margin-top: 0px !important;
+
+@media not all and (min-resolution:.001dpcm) {
+    @supports (-webkit-appearance: none) {
+        #adminaddendancetable {
+            margin-top: 0px !important;
+        }
     }
 }
+
+

@@ -4007,14 +4007,19 @@
     }
 }
 
-@media screen and (-webkit-min-device-pixel-ratio:0) and (min-width:1440px) and (max-width: 2560px) {
-    /* Safari and Chrome */
-    .admin-empmanagement-view .nav-tabs .nav-link {
-        padding: 7px 17px;
-    }
+@media not all and (min-resolution:.001dpcm) {
+    @supports (-webkit-appearance: none) {
+        @media (min-width: 1440px) and (max-width: 2560px) {
+            /* Your CSS rules for Safari in this width range */
+            /* Safari and Chrome */
+            .admin-empmanagement-view .nav-tabs .nav-link {
+                padding: 7px 17px;
+            }
 
-    /* Safari only override */
-    ::i-block-chrome, .admin-empmanagement-view .nav-tabs .nav-link {
-        padding: 7px 17px;
+            /* Safari only override */
+            ::i-block-chrome, .admin-empmanagement-view .nav-tabs .nav-link {
+                padding: 7px 17px;
+            }
+        }
     }
 }
