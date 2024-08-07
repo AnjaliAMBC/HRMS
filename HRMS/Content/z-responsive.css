@@ -3692,7 +3692,7 @@
     }
 
     .admin-empmanagement-view .nav-tabs .nav-link {
-        padding: 7px 25px !important;
+        padding: 7px 25.7px !important;
     }
 
     .res-admin-leavecompoff-view .res-adminleave-compoff-header-center {
@@ -4004,5 +4004,17 @@
 
     #adminaddendancetable_wrapper .dataTables_scrollBody {
         max-height: 62vh !important;
+    }
+}
+
+@media screen and (-webkit-min-device-pixel-ratio:0) and (min-width:1440px) and (max-width: 2560px) {
+    /* Safari and Chrome */
+    .admin-empmanagement-view .nav-tabs .nav-link {
+        padding: 7px 17px;
+    }
+
+    /* Safari only override */
+    ::i-block-chrome, .admin-empmanagement-view .nav-tabs .nav-link {
+        padding: 7px 17px;
     }
 }

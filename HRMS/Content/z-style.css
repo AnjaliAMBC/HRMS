@@ -723,7 +723,7 @@ div.main-content {
 }
 
 #adminaddendancetable .adminatt_thead {
-   /* //display: none;*/
+   /*display: none;*/
 }
 
 #adminaddendancetable {
@@ -1219,7 +1219,7 @@ div.main-content {
 
     #adminleavehistoryfilter .res-adminadvfilter-leavehistory label,
     #adminleavehistoryfilter .res-adminadvfilter-leavehistory input {
-        display: inline-block;
+        display: inline-flex;
         font-size: 12px;
     }
 
@@ -1781,7 +1781,7 @@ div.main-content {
 
 #adminitticketlistingfilter .res-adminadvfilter-itticketlisting label,
 #adminitticketlistingfilter .res-adminadvfilter-itticketlisting input {
-    display: inline-block;
+    display: inline-flex;
     font-size: 12px;
     margin-top: 15px;
 }
@@ -2109,7 +2109,7 @@ div.main-content {
 
 #adminhrticketlistingfilter .res-adminadvfilter-hrticketlisting label,
 #adminhrticketlistingfilter .res-adminadvfilter-hrticketlisting input {
-    display: inline-block;
+    display: inline-flex;
     font-size: 12px;
     margin-top: 15px;
 }
@@ -3028,3 +3028,9 @@ input[type=checkbox], input[type=radio] {
     }
 
 /* emp ticket comment popup end */
+
+@media screen and (-webkit-min-device-pixel-ratio:0) {
+    #adminaddendancetable {
+        margin-top: 0px !important;
+    }
+}
