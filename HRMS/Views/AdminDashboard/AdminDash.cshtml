@@ -118,26 +118,26 @@
                                             {
                                                 <p class="m-0 p-0">@hrTicket.Subject</p>
                                                 <div class="d-flex inside_content">
-                                                    <p class="mutedText"><i class="fa-solid fa-circle-exclamation mr-1"></i>Priority-</p>
+                                                    <p class="mutedText admin-dash-hr-ticket-priority"><i class="fa-solid fa-circle-exclamation mr-1"></i>Priority-</p>
                                                     <p class="status-priority">High</p>
 
                                                     @if (hrTicket.Status == "Open")
                                                     {
-                                                        <p class="mutedText ml-3"><i class="fa-solid fa-user mr-1"></i>Open By: @hrTicket.EmployeeName</p>
+                                                        <p class="mutedText ml-3 admin-dash-hr-ticket-user"><i class="fa-solid fa-user mr-1"></i>Open By: @hrTicket.EmployeeName</p>
                                                     }
                                                     else if (hrTicket.Status == "ReOpen")
                                                     {
-                                                        <p class="mutedText ml-3"><i class="fa-solid fa-user mr-1"></i>Re-Open By: @hrTicket.EmployeeName</p>
+                                                        <p class="mutedText ml-3 admin-dash-hr-ticket-user"><i class="fa-solid fa-user mr-1"></i>Re-Open By: @hrTicket.EmployeeName</p>
 
                                                     }
                                                     else if (hrTicket.Status == "Resolved")
                                                     {
-                                                        <p class="mutedText ml-3"><i class="fa-solid fa-user mr-1"></i>Resolved By: @hrTicket.EmployeeName</p>
+                                                        <p class="mutedText ml-3 admin-dash-hr-ticket-user"><i class="fa-solid fa-user mr-1"></i>Resolved By: @hrTicket.EmployeeName</p>
 
                                                     }
                                                     else if (hrTicket.Status == "Closed")
                                                     {
-                                                        <p class="mutedText ml-3"><i class="fa-solid fa-user mr-1"></i>Closed By: @hrTicket.EmployeeName</p>
+                                                        <p class="mutedText ml-3 admin-dash-hr-ticket-user"><i class="fa-solid fa-user mr-1"></i>Closed By: @hrTicket.EmployeeName</p>
                                                     }
                                                 </div>
 
