@@ -79,28 +79,30 @@ namespace HRMS
             var siteURL = ConfigurationManager.AppSettings["siteURL"];
             var logoURL = siteURL + "/Assets/AMBC_Logo.png";
 
+            string todayloginDate = DateTime.Now.ToString("yyyy-MM-dd");
+
             var table = @"
-    <html>
-        <body style='font-family: Arial, sans-serif;'>
-            <div style='display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px;'>
-                <p style='margin: 0;'>AMBC attendance report for " + currentDate + @"</p>
-                <a href='" + siteURL + @"' target='_blank' style='margin-left: auto;'>
-                    <img src='" + logoURL + @"' alt='AMBC Logo' width='70' style='float: right;'>
-                </a>
-            </div>
-            <table border='1' style='border-collapse: collapse; width: 100%; margin-top: 20px;'>
-                <thead style='background-color: #87CEEB; color: white;'>
-                    <tr>
-                        <th>Employee ID</th>
-                        <th>Employee Name</th>
-                        <th>Employee Shift</th>
-                        <th>Login Date</th>
-                        <th>CheckIn Time</th>
-                        <th>CheckOut Time</th>
-                        <th>Working Hours</th>
-                    </tr>
-                </thead>
-                <tbody>";
+<html>
+    <body style='font-family: Arial, sans-serif;'>
+        <div style='display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px;'>
+            <p style='margin: 0;'>AMBC attendance report for " + currentDate + @"</p>
+            <a href='" + siteURL + @"' target='_blank' style='margin-left: auto;'>
+                <img src='" + logoURL + @"' alt='AMBC Logo' width='70' style='float: right;'>
+            </a>
+        </div>
+        <table border='1' style='border-collapse: collapse; width: 100%; margin-top: 20px;'>
+            <thead style='background-color: #87CEEB; color: white;'>
+                <tr>
+                    <th>Employee ID</th>
+                    <th>Employee Name</th>                   
+                    <th>Employee Shift</th>
+                    <th>Login Date</th>
+                    <th>CheckIn Time</th>
+                    <th>CheckOut Time</th>
+                    <th>Working Hours</th>
+                </tr>
+            </thead>
+            <tbody>";
 
             foreach (var info in combinedInfos)
             {
@@ -121,35 +123,35 @@ namespace HRMS
                     }
                 }
 
+              
+
                 table += $@"
-                    <tr>
-                        <td>{info.Employee.EmployeeID}</td>
-                        <td>{info.Employee.EmployeeName}</td>
-                        <td>{info.Employee.ShiftTimings}</td>
-                        <td>{loginInfo?.Login_date.ToString("yyyy-MM-dd") ?? ""}</td>
-                        <td>{loginInfo?.Signin_Time.ToString(@"hh\:mm") ?? ""}</td>
-                        <td>{loginInfo?.Signout_Time?.ToString(@"hh\:mm") ?? ""}</td>
-                        <td>{workingHours.ToString(@"hh\:mm")}</td>
-                    </tr>";
+        <tr>
+            <td>{info.Employee.EmployeeID}</td>
+            <td>{info.Employee.EmployeeName}</td>            
+            <td>{info.Employee.ShiftTimings}
+            <td>{todayloginDate}</td> <!-- Using the current date here -->
+            <td>{loginInfo?.Signin_Time.ToString(@"hh\:mm") ?? ""}</td>
+            <td>{loginInfo?.Signout_Time?.ToString(@"hh\:mm") ?? ""}</td>
+            <td>{workingHours.ToString(@"hh\:mm")}</td>
+        </tr>";
             }
 
             table += @"
-                </tbody>
-            </table>
-            <div style='font-family: Calibri; color: #696969; font-size: 1.1em; margin-top: 20px;'>
-                This is an automated email, please do not reply.
-                <br />
-                Automated mail from <a href='https://prm.ambctechnologies.com' style='color: #2693F8;'>https://prm.ambctechnologies.com</a>
-            </div>
-            <p>Thank you.</p>
-        </body>
-    </html>";
+        </tbody>
+    </table>
+    <div style='font-family: Calibri; color: #696969; font-size: 1.1em; margin-top: 20px;'>
+        This is an automated email, please do not reply.
+        <br />
+        Automated mail from <a href='https://prm.ambctechnologies.com' style='color: #2693F8;'>https://prm.ambctechnologies.com</a>
+    </div>
+    <p>Thank you.</p>
+</body>
+</html>";
 
 
             return table;
         }
-
-
 
 
         public class EmployeeLoginInfo

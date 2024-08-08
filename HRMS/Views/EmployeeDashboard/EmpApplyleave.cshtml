@@ -4,7 +4,13 @@
     var currentUserSession = Session["SiteContext"] as HRMS.Models.SiteContextModel;
     var leaveDefaultEmails = System.Configuration.ConfigurationManager.AppSettings["LeaveEmails"];
 
+    var isLeaveTypeDisabled = "";
+
     var pageTitle = !string.IsNullOrWhiteSpace(Model.Leaves) && Model.Leaves != "[]" ? "Edit Leave" : "Apply Leave";
+    isLeaveTypeDisabled = !string.IsNullOrWhiteSpace(Model.Leaves) && Model.Leaves != "[]" ? "disabled" : "";
+
+    var isEditRecord = !string.IsNullOrWhiteSpace(Model.Leaves) && Model.Leaves != "[]" ? "true" : "false";
+
     var buttonText = !string.IsNullOrWhiteSpace(Model.Leaves) && Model.Leaves != "[]" ? "Update" : "Submit";
 
     var hideDivStyle = currentUserSession != null && !currentUserSession.IsAdmin ? "display:none;" : "";
@@ -44,7 +50,7 @@
                             <span class="error-message" id="leaveempname-error"></span>
                         </div>
                         <label for="leaveType" class="leave_label">Leave Type*</label>
-                        <select class="form-control" id="leaveType">
+                        <select class="form-control" id="leaveType" @isLeaveTypeDisabled>
                             <option selected disabled>Select Leave Type</option>
                             @{
                                 var selectedLeaveType = Model.EditLeaveInfo != null ? Model.EditLeaveInfo.leavesource : "";
@@ -113,6 +119,8 @@
                     }
                     <div id="editleaverequestname" style="display: none">@LeaveRequestName</div>
                     <div id="totalLeavesContainer" class=""></div>
+                    <div id="totalLeavesNumber" class="" style="display: none"></div>
+                    <div id="isedirecord" style="display: none">@isEditRecord</div>
                     <div class="form-group">
                         <label for="teamEmail">Team Email <span style="font-size: smaller">(add with comma separator)</span></label>
 
@@ -167,6 +175,6 @@
 <script>
     $(document).ready(function () {
         $('#leaveempname').select2();
-     /*   $('#leaveType').select2();*/
+        /*   $('#leaveType').select2();*/
     });
 </script>

@@ -502,7 +502,7 @@ function GetEmpLeaveHistory() {
                         leaveStatus === 'pending' ? 'status-pending' : '';
 
 
-                const leaveActions = (leaveStatus === 'pending' || leaveStatus === 'cancelled') ? `
+                const leaveActions = (leaveStatus === 'pending') ? `
                     <i class="fas fa-ellipsis-h leave-edit-history" onclick="toggleLeaveActionOptions(this)"></i>
                     <div class="emp-leaveoptions" style="display:none">
                         <a class="dropdown-item emp-leave-edit" onclick="empleaveedit($(this))" data-leavename='${item.LatestLeave.LeaveRequestName}'>Edit</a>
