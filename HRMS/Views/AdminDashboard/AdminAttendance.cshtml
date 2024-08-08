@@ -57,6 +57,7 @@
                             padding: 0px 24px 28px 5px;
                             padding-left: -1px !important;
                             background-color: aliceblue;
+                            margin-top: 0px;
                         }
 
                         /* Updated styles for the day divs without borders */
@@ -533,6 +534,11 @@
         $('#adminaddendancetable').DataTable().search($(this).val()).draw();
     });
 
+    $(document).ready(function () {
+        $(window).on('load', function () {
+            table.column().search('').draw();
+        });
+    });
 
 
 </script>
