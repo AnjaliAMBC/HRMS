@@ -952,9 +952,14 @@ function downloadTemplate() {
 //});
 
 $(document).on('click', '.compOff-History-Page', function () {
-    window.location.href = "/adminleave/index?fromcompoff=true";
+    window.location.href = "/adminleave/adminleavecompensatoryoff";
 });
 
-//$(document).on('click', '.leave-request-Page', function () {
-//    window.location.href = "/adminleave/index?fromcompoff=true";
-//});
+$(document).on('click', '.leave-request-Page', function () {
+   window.location.href = "/adminleave/index";
+});
+
+
+$(document).on('click', '.hr-dashtickets', function () {
+    window.location.href = "/adminticketing/hrticketing";
+});

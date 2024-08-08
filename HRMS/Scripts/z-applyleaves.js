@@ -9,6 +9,8 @@ function calculateTotalLeaves() {
             total += 0.5;
         }
     });
+
+    $('#totalLeavesNumber').text(total);
     // Update the total leaves display
     $('#totalLeaves').text(total + " Days");
 }
@@ -57,6 +59,27 @@ function generateBalanceSection() {
 
             // Replace existing balance section with updated HTML
             $('.balance-section-wrapper').html(balanceSectionHTML);
+
+            if ($('#isedirecord').text() == "true") {
+                var editableRecordLeaves = $('#totalLeavesNumber').text();
+                var existingAvailableLeaveBalance = $('.available-balance').text();
+
+                // Convert them to numbers (assuming they are numeric)
+                var totalLeaves = parseFloat(editableRecordLeaves) || 0;
+                var availableLeaveBalance = parseFloat(existingAvailableLeaveBalance) || 0;
+
+                // Combine the two values
+                var combinedTotal = totalLeaves + availableLeaveBalance;
+                $('.available-balance').text(combinedTotal);
+
+
+                var bookedLeaves = $('.booked-leaves').text();
+                var totalBookedLeaves = parseFloat(bookedLeaves) || 0;
+
+                var combinedBookedLeaves = totalBookedLeaves - totalLeaves;
+                $('.booked-leaves').text(combinedBookedLeaves)
+
+            }
 
         },
         error: function () {
@@ -182,6 +205,7 @@ function generateDayTypeRows(leaverequestname) {
 
                         // Calculate total leaves when day type rows are generated
                         calculateTotalLeaves();
+
 
                     },
                     error: function () {
@@ -445,7 +469,7 @@ $(document).on('click', '.btn-apply-empleave', function (event) {
 
                 showMessageModal(response.jsonResponse.Message, true, "");
 
-            } else {             
+            } else {
                 $('#modalMessage').removeClass('text-success').addClass('text-danger').text(response.jsonResponse.Message);
                 $('#messageModal').modal('show');
                 showMessageModal(response.jsonResponse.Message, false, "closepopuponly");

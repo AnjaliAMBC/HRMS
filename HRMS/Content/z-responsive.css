@@ -4076,16 +4076,26 @@
     }
 
     #attendanceTable_wrapper .dataTables_scrollBody {
-        max-height: 60vh !important;
+        /*max-height: 60vh !important;*/
     }
 
     #adminaddendancetable_wrapper .dataTables_scrollBody {
-        max-height: 55vh !important;
+        max-height: 435px !important;
+        height: 435px !important;
     }
 
     .admin-leave-container .emp-leave-apply-form {
         padding-left: 0px;
         margin: 0;
+    }
+
+    #adminaddendancetable_info, #attendancetable_info {
+        margin-top: 0 !important;
+    }
+
+    #adminempmanagementtable_wrapper.dataTables_wrapper .dataTables_scroll div.dataTables_scrollBody {
+        height: 455px !important;
+        max-height: 455px !important;
     }
 }
 
@@ -4157,15 +4167,15 @@
         width: 100px !important;
     }
 
-    #attendanceTable_wrapper .dataTables_scrollBody {
-        max-height: 60vh !important;
-    }
-
     #adminaddendancetable_wrapper .dataTables_scrollBody {
-        max-height: 55vh !important;
+        max-height: 480px !important;
+        height: 480px !important;
     }
 
-
+    #adminempmanagementtable_wrapper.dataTables_wrapper .dataTables_scroll div.dataTables_scrollBody {
+        height: 485px !important;
+        max-height: 485px !important;
+    }
 }
 
 @media only screen and (min-width:1920px) and (max-width: 2560px) {

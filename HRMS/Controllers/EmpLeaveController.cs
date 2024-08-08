@@ -95,7 +95,7 @@ namespace HRMS.Controllers
                 }
 
                 // Check if ActionType is Edit
-                if (leaveRequest.ActionType == "Edit")
+                if (leaveRequest.ActionType == "Update")
                 {
                     // Remove existing leaves within the edited date range
                     var existingLeaves = _dbContext.con_leaveupdate
@@ -198,20 +198,21 @@ namespace HRMS.Controllers
                         teamEmails = "," + leaveRequest.TeamEmail.Trim();
                     }
                     teamEmails = teamEmails.Trim().Trim(',');
+
                     var emailRequest = new EmailRequest()
                     {
                         Body = emailBody,
                         ToEmail = ConfigurationManager.AppSettings["LeaveEmails"],
-                        CCEmail = !string.IsNullOrWhiteSpace(teamEmails) ? leaveRequest.OfficalEmailid + "," + teamEmails : leaveRequest.OfficalEmailid,
+                        CCEmail = !string.IsNullOrWhiteSpace(teamEmails) ? teamEmails : string.Empty,
+                        BCCEmail = leaveRequest.OfficalEmailid, // Add official email ID to BCC
                         Subject = emailSubject
                     };
 
                     var sendNotification = EMailHelper.SendEmail(emailRequest);
                 }
-                //In case admin submit the leave on employee behalf
+                // In case admin submits the leave on employee's behalf
                 else
                 {
-                    //var emailSubject = "Leave Submission Update!";
                     var emailSubject = "Leave Application from " + leaveRequest.EmpName + " on " + System.DateTime.Now.ToString("dd MMMM yyyy");
                     var emailBody = RenderPartialToString(this, "_LeaveNotificationAdminEmail", leaves, ViewData, TempData);
 
@@ -221,11 +222,13 @@ namespace HRMS.Controllers
                         teamEmails = "," + leaveRequest.TeamEmail.Trim();
                     }
                     teamEmails = teamEmails.Trim().Trim(',');
+
                     var emailRequest = new EmailRequest()
                     {
                         Body = emailBody,
-                        ToEmail = ConfigurationManager.AppSettings["LeaveEmails"],                        
-                        CCEmail = !string.IsNullOrWhiteSpace(teamEmails) ? leaveRequest.OfficalEmailid + "," + teamEmails : leaveRequest.OfficalEmailid,
+                        ToEmail = ConfigurationManager.AppSettings["LeaveEmails"],
+                        CCEmail = !string.IsNullOrWhiteSpace(teamEmails) ? teamEmails : string.Empty,
+                        BCCEmail = leaveRequest.OfficalEmailid, // Add official email ID to BCC
                         Subject = emailSubject
                     };
 
@@ -311,19 +314,67 @@ namespace HRMS.Controllers
 
             try
             {
+                // Fetch the records to be cancelled
                 var canLeaveItems = _dbContext.con_leaveupdate
-                       .Where(x => x.LeaveRequestName == leavenumber).ToList();
+                    .Where(x => x.LeaveRequestName == leavenumber)
+                    .ToList();
 
                 if (canLeaveItems != null && canLeaveItems.Any())
                 {
+                    // Store the existing data temporarily
+                    var recreatedItems = new List<con_leaveupdate>();
+
                     foreach (var item in canLeaveItems)
                     {
-                        item.LeaveStatus = "Cancelled";
+                        // Copy the existing data into a new object, changing the leaveuniqkey
+                        var newItem = new con_leaveupdate
+                        {
+                            leaveno = item.leaveno,
+                            leavedate = item.leavedate,
+                            employee_id = item.employee_id,
+                            leave_reason = item.leave_reason,
+                            DayType = item.DayType,
+                            LeaveDays = item.LeaveDays,
+                            HalfDayCategory = item.HalfDayCategory,
+                            submittedby = item.submittedby,
+                            leavesource = item.leavesource,
+                            leaveuniqkey = Guid.NewGuid().ToString(), // Generate a new unique key
+                            leavecategory = item.leavecategory,
+                            employee_name = item.employee_name,
+                            BackupResource_Name = item.BackupResource_Name,
+                            EmergencyContact_no = item.EmergencyContact_no,
+                            LeaveStatus = "Cancelled", // Update the leave status
+                            OfficalEmailid = item.OfficalEmailid,
+                            Fromdate = item.Fromdate,
+                            Todate = item.Todate,
+                            LeaveRequestName = item.LeaveRequestName,
+                            Location = item.Location,
+                            createdby = item.createdby,
+                            createddate = item.createddate,
+                            updatedby = item.updatedby,
+                            updateddate = item.updateddate,
+                            Designation = item.Designation,
+                            Department = item.Department,
+                            TeamEmails = item.TeamEmails,
+                            approvedbyname = item.approvedbyname,
+                            approvedbydate = item.approvedbydate,
+                            rejectedbyname = item.rejectedbyname,
+                            rejectedbydate = item.rejectedbydate
+                        };
+
+                        recreatedItems.Add(newItem);
                     }
 
+                    // Remove the existing records
+                    _dbContext.con_leaveupdate.RemoveRange(canLeaveItems);
+
+                    // Add the new records with the updated leaveuniqkey
+                    _dbContext.con_leaveupdate.AddRange(recreatedItems);
+
+                    // Save changes to the database
                     _dbContext.SaveChanges();
 
-                    jsonResponse.Message = "Leave cancelled successfully.";
+                    jsonResponse.Message = "Leave cancelled and records updated successfully.";
                     jsonResponse.StatusCode = 200;
                 }
                 else
@@ -340,6 +391,7 @@ namespace HRMS.Controllers
                 return Json(jsonResponse, JsonRequestBehavior.AllowGet);
             }
         }
+
 
 
         public ActionResult EmployeeLeavesByType(string empId)

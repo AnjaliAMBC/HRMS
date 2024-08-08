@@ -26,6 +26,8 @@ namespace HRMS
                 return Task.CompletedTask;
             }
 
+            var employeeSignIns = _dbContext.tbld_ambclogininformation.Where(x => x.Login_date == DateTime.Today);
+
             var employeesToRemindCheckin = _dbContext.emp_info
                 .Where(emp => emp.EmployeeStatus == "Active")
                 .AsEnumerable()
@@ -41,6 +43,12 @@ namespace HRMS
                     // Check if today is a public holiday
                     bool isPublicHoliday = _dbContext.tblambcholidays.Any(ph => ph.holiday_date == DateTime.Today);
                     if (isPublicHoliday)
+                    {
+                        return false;
+                    }
+
+                    bool empSignInExists = employeeSignIns.Any(x => x.Employee_Code == emp.EmployeeID);
+                    if (empSignInExists)
                     {
                         return false;
                     }
@@ -75,6 +83,12 @@ namespace HRMS
                     {
                         return false;
                     }
+
+                    bool empSignOutExists = employeeSignIns.Any(x => x.Employee_Code == emp.EmployeeID && x.Signout_Time.HasValue);
+                    if (empSignOutExists)
+                    {
+                        return false;
+                    }                    
 
                     if (emp.ShiftStartTime.HasValue && emp.ShiftEndTime.HasValue)
                     {
