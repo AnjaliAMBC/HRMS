@@ -515,7 +515,7 @@ function updateHoursTimer1() {
 
     if (dashhoursElementElem) {
         var signedInDateTimeStr = $('#checkinhoursminutes').attr('data-signedindatetime');
-        var signedInDateTime = parseCustomDate(signedInDateTimeStr);
+        var signedInDateTime = parseCustomDate1(signedInDateTimeStr);
 
         if ($('.isusercheckedin').text() == "true" && $('.isusercheckedout').text() == "false") {
             signedInDateTime = parseCustomDate1(signedInDateTimeStr);
@@ -558,9 +558,9 @@ $(document).on('click', '.emp-my-tickets-redirect', function (event) {
 });
 
 
-//document.addEventListener('DOMContentLoaded', function () {
-//    setInterval(function () {      
-//        updateHoursTimer1(); 
-//        setInterval(updateHoursTimer1, 1000); 
-//    }, 1000);
-//});
+document.addEventListener('DOMContentLoaded', function () {
+    setInterval(function () {
+        updateHoursTimer1();
+        setInterval(updateHoursTimer1, 1000);
+    }, 1000);
+});

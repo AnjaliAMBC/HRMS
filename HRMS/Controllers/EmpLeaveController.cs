@@ -210,6 +210,7 @@ namespace HRMS.Controllers
 
                     var sendNotification = EMailHelper.SendEmail(emailRequest);
                 }
+
                 // In case admin submits the leave on employee's behalf
                 else
                 {
@@ -347,7 +348,7 @@ namespace HRMS.Controllers
                             OfficalEmailid = item.OfficalEmailid,
                             Fromdate = item.Fromdate,
                             Todate = item.Todate,
-                            LeaveRequestName = item.LeaveRequestName,
+                            LeaveRequestName = Guid.NewGuid().ToString(),
                             Location = item.Location,
                             createdby = item.createdby,
                             createddate = item.createddate,
@@ -480,7 +481,7 @@ namespace HRMS.Controllers
             {
                 // Query leave data and group by LeaveRequestName
                 leaves = _dbContext.con_leaveupdate
-                   .Where(x => x.leavedate >= dateStart && x.leavedate <= dateEnd && x.employee_id == empID)
+                   .Where(x => x.leavedate >= dateStart && x.leavedate <= dateEnd && x.employee_id == empID && x.LeaveStatus != "Cancelled")
                    .OrderByDescending(x => x.Fromdate)
                    .ToList();
             }

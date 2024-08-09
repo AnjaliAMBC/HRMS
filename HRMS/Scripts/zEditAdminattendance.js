@@ -90,10 +90,11 @@ $(document).on('click', '.leaveupdate_btn', function (event) {
         isModelValidated = false;
     }
 
-    if (!checkOut) {
-        $('.leaveupdate_checkout').addClass('is-invalid').after('<div class="invalid-feedback">Check out time is required.</div>');
-        isModelValidated = false;
-    } else if (checkIn && checkOut && checkIn >= checkOut) {
+    //if (!checkOut) {
+    //    $('.leaveupdate_checkout').addClass('is-invalid').after('<div class="invalid-feedback">Check out time is required.</div>');
+    //    isModelValidated = false;
+    //} else
+    if (checkIn && checkOut && checkIn >= checkOut) {
         $('.leaveupdate_checkout').addClass('is-invalid').after('<div class="invalid-feedback">Check out time must be greater than check-in time.</div>');
         isModelValidated = false;
     }
