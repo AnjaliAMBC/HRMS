@@ -8,8 +8,7 @@
 
 @if (Model != null && Model.Any())
 {
-    var leaveUpdate = Model.First();
-    var showReason = string.IsNullOrWhiteSpace(leaveUpdate.TeamEmails); // Assuming you have access to leaveRequest.TeamEmail here
+    var leaveUpdate = Model.First();   
 
     <table cellpadding="0" cellspacing="0" border="0" width="100%" style="border: 1px solid #ddd; background-color: #f9f9f9; padding: 20px;">
         <tr>
@@ -47,15 +46,12 @@
                             <p style="margin: 0;"><strong>To Date:</strong> @(leaveUpdate.Todate.HasValue ? leaveUpdate.Todate.Value.ToString("dd-MM-yyyy") : "Not specified")</p>
                         </td>
                     </tr>
-                    @if (showReason)
-                    {
                         <tr>
                             <td style="padding-bottom: 10px;">
                                 <p style="margin: 0;"><strong>Reason:</strong> @leaveUpdate.leave_reason</p>
                             </td>
                         </tr>
-                    }
-                    <tr>
+                             <tr>
                         <td style="padding-bottom: 10px;">
                             <p style="margin: 0;"><strong>Backup Resource Name:</strong> @leaveUpdate.BackupResource_Name</p>
                         </td>

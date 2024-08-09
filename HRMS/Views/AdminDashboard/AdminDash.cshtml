@@ -2,8 +2,6 @@
 
 @model HRMS.Models.Admin.AdminDashView
 
-
-
 @{
     var currentContext = Session["SiteContext"] as HRMS.Models.SiteContextModel;
     var isSuperAdmin = HRMS.Helpers.SuperAdminHelper.IsSuperAdmin(currentContext);
@@ -101,14 +99,8 @@
                             <div class="col-12 col-sm-11 col-md-6 col-lg-4 col-xl-4 p-0 dashcard_style">
                                 <!-- Announcements Section -->
                                 <div class="card mx-2 my-card">
-                                    <div class="card-header hr-dashtickets">
-                                        @{
-                                            var filteredHrRequests = adminLocations.Any()
-                                            ? Model.AllHRTickets.Where(x => adminLocations.Contains(x.Location))
-                                            : Model.AllHRTickets;
-                                        }
-                                    
-                                        HR Tickets(@filteredHrRequests.Count())
+                                    <div class="card-header hr-dashtickets">       
+                                        HR Tickets (@Model.AllHRTickets.Count())
                                     </div>
                                     <div class="card-body admindash_card scrollbar px-4 py-1 announcement_card">
                                         @if (!Model.AllHRTickets?.Any() ?? true)

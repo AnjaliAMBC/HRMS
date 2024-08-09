@@ -29,7 +29,7 @@
                             //margin-left: 10px;
                         }
 
-                       .employee-details {
+                        .employee-details {
                             margin-left: 10px;
                         }
 
@@ -75,9 +75,11 @@
                             .day:hover {
                                 background-color: #f0f0f0;
                             }
+
                             .day.weekend {
                                 color: #8d8d8d; /* Example color for weekend dates */
                             }
+
                         table.dataTable.display tbody td,
                         table.dataTable thead th {
                             border: none;
@@ -162,6 +164,7 @@
                             margin-top: 0.25rem;
                             font-size: 0.875em;
                         }
+
                         .attendance-submit-admin {
                             background-color: #3E78CF;
                         }
@@ -326,7 +329,17 @@
 
                                             @{
                                                 string starttimeWithAmPm = empCheckin.Signin_Time.ToString("hh:mm:ss tt", System.Globalization.CultureInfo.InvariantCulture);
-                                                string endtimeWithAmPm = empCheckin.Signout_Time?.ToString("hh:mm:ss tt", System.Globalization.CultureInfo.InvariantCulture);
+                                                string endtimeWithAmPm = "";
+
+                                                if (empCheckin.Signout_Time != null && empCheckin.Signout_Time.HasValue && empCheckin.Signout_Time?.Hour == 0 && empCheckin.Signout_Time?.Minute == 0 && empCheckin.Signout_Time?.Second == 0)
+                                                {
+                                                    //Do nothing
+                                                }
+                                                else
+                                                {
+                                                    empCheckin.Signout_Time?.ToString("hh:mm:ss tt", System.Globalization.CultureInfo.InvariantCulture);
+                                                }
+
 
                                                 string buttonColor = "present-btn";
                                                 string attedenceType = "Present";
@@ -334,7 +347,7 @@
                                                 int minutes = 00;
                                                 int seconds = 00; // Initialize seconds variable
 
-                                                if (endtimeWithAmPm != null)
+                                                if (endtimeWithAmPm != null && endtimeWithAmPm != "")
                                                 {
                                                     // Initialize endTime as null
                                                     DateTime? endTime = empCheckin.Signout_Time;

@@ -10,7 +10,7 @@
             <PropertyRef Name="Sno" />
           </Key>
           <Property Name="Sno" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-          <Property Name="ClientName" Type="varchar" MaxLength="255" />
+          <Property Name="ClientName" Type="varchar" MaxLength="1000" />
         </EntityType>
         <EntityType Name="Compoff">
           <Key>
@@ -43,7 +43,7 @@
           <Property Name="leaveno" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="leavedate" Type="date" />
           <Property Name="employee_id" Type="varchar" MaxLength="50" />
-          <Property Name="leave_reason" Type="varchar" MaxLength="255" />
+          <Property Name="leave_reason" Type="varchar" MaxLength="1500" />
           <Property Name="DayType" Type="varchar" MaxLength="100" />
           <Property Name="LeaveDays" Type="decimal" Precision="10" Scale="2" Nullable="false" />
           <Property Name="HalfDayCategory" Type="varchar" MaxLength="100" />
@@ -362,7 +362,7 @@ warning 6002: The table/view 'HRMS_PortalDev1.dbo.CheckInView' does not have a p
             <PropertyRef Name="Sno" />
           </Key>
           <Property Name="Sno" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="ClientName" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+          <Property Name="ClientName" Type="String" MaxLength="1000" FixedLength="false" Unicode="false" />
         </EntityType>
         <EntityType Name="Department">
           <Key>
@@ -551,7 +551,7 @@ warning 6002: The table/view 'HRMS_PortalDev1.dbo.CheckInView' does not have a p
           <Property Name="leaveno" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="leavedate" Type="DateTime" Precision="0" />
           <Property Name="employee_id" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
-          <Property Name="leave_reason" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+          <Property Name="leave_reason" Type="String" MaxLength="1500" FixedLength="false" Unicode="false" />
           <Property Name="DayType" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
           <Property Name="LeaveDays" Type="Decimal" Nullable="false" Precision="10" Scale="2" />
           <Property Name="HalfDayCategory" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />

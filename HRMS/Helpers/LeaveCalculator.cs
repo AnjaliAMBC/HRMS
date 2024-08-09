@@ -254,7 +254,7 @@ namespace HRMS.Helpers
             var currentYear = DateTime.Today.Year.ToString();
 
             foreach (var emp in employess)
-            {
+            {                
                 var employee = new LeaveEmployee();
                 employee.empInfo = emp;
                 var isEmpLeaveBalanceExists = _dbContext.LeaveBalances.Where(x => x.EmpID == emp.EmployeeID && x.Year == currentYear).FirstOrDefault();

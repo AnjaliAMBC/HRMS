@@ -83,7 +83,7 @@ function generateLeaveCalendar(month, year, selectedempid) {
         linktoleavecalender = "btn-admin-emp-apply-leave1";
     }
 
-   
+
 
     if (isAdminLeavePage == true) {
         $.ajax({
@@ -492,6 +492,8 @@ function GetEmpLeaveHistory() {
                 const toDate = formatJSONDate(item.Todate);
                 const fromDay = formatJSONDateDay(item.Fromdate);
                 const toDay = formatJSONDateDay(item.Todate);
+
+                var today = new Date();
                 const dateDisplay = fromDate === toDate || item.LatestLeave.leavesource == "Hourly Permission"
                     ? `<p class="mb-0 fontWtMedium">${fromDate}</p><span class="mutedText">${fromDay}</span>`
                     : `<p class="mb-0 fontWtMedium">${fromDate} - ${toDate}</p><span class="mutedText">${fromDay} - ${toDay}</span>`;
@@ -501,13 +503,26 @@ function GetEmpLeaveHistory() {
                     leaveStatus === 'cancelled' || leaveStatus === 'rejected' ? 'status-cancelled' :
                         leaveStatus === 'pending' ? 'status-pending' : '';
 
+                let leaveActions;
 
-                const leaveActions = (leaveStatus === 'pending') ? `
-                    <i class="fas fa-ellipsis-h leave-edit-history" onclick="toggleLeaveActionOptions(this)"></i>
-                    <div class="emp-leaveoptions" style="display:none">
-                        <a class="dropdown-item emp-leave-edit" onclick="empleaveedit($(this))" data-leavename='${item.LatestLeave.LeaveRequestName}'>Edit</a>
-                        <a class="dropdown-item emp-leave-cancel" onclick="empleavecancel($(this))" data-leavename='${item.LatestLeave.LeaveRequestName}'>Cancel</a>
-                    </div>` : '';
+                var fromDateInDateFormat = new Date(fromDate);
+
+                // Determine the leave actions to show based on the date comparison
+                if (today > fromDateInDateFormat) {
+                    leaveActions = (leaveStatus === 'pending') ? `
+        <i class="fas fa-ellipsis-h leave-edit-history" onclick="toggleLeaveActionOptions(this)"></i>
+        <div class="emp-leaveoptions" style="display:none">
+            <a class="dropdown-item emp-leave-edit" onclick="empleaveedit($(this))" data-leavename='${item.LatestLeave.LeaveRequestName}'>Edit</a>
+        </div>` : '';
+                } else {
+                    leaveActions = (leaveStatus === 'pending') ? `
+        <i class="fas fa-ellipsis-h leave-edit-history" onclick="toggleLeaveActionOptions(this)"></i>
+        <div class="emp-leaveoptions" style="display:none">
+            <a class="dropdown-item emp-leave-edit" onclick="empleaveedit($(this))" data-leavename='${item.LatestLeave.LeaveRequestName}'>Edit</a>
+            <a class="dropdown-item emp-leave-cancel" onclick="empleavecancel($(this))" data-leavename='${item.LatestLeave.LeaveRequestName}'>Cancel</a>
+        </div>` : '';
+                }
+
 
                 return `
                     <tr class="rowBorder">
@@ -588,7 +603,7 @@ function GetCompOffHistory() {
                 const workDate = item.CampOffDate ? new Date(item.CampOffDate).toLocaleDateString('en-GB', { day: 'numeric', month: 'long', year: 'numeric' }) : "";
 
                 const leaveStatus = item.addStatus.toLowerCase();
-                
+
                 const statusClass = leaveStatus === 'approved' ? 'compoff-status-approved' :
                     leaveStatus === 'rejected' ? 'compoff-status-rejected' :
                         leaveStatus === 'cancelled' ? 'compoff-status-cancelled' :
@@ -824,7 +839,7 @@ $(document).ready(function () {
 //Leave Tracker apply leave
 $(document).on('click', '.btn-apply-leave', function (event) {
     event.preventDefault();
- /*   HighlightEmpActiveLink($(this));*/
+    /*   HighlightEmpActiveLink($(this));*/
     $.ajax({
         url: '/EmpLeave/empapplyleave',
         type: 'POST',

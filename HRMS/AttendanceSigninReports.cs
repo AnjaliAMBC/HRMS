@@ -32,13 +32,23 @@ namespace HRMS
 
             // Get all active employees
             var activeEmployees = _dbContext.emp_info
-                                    .Where(e => e.EmployeeStatus == "Active")
-                                    .ToList();
+                                            .Where(e => e.EmployeeStatus == "Active")
+                                            .ToList();
 
             // Get today's login info
             var loginInfos = _dbContext.tbld_ambclogininformation
-                                    .Where(l => l.Login_date == today)
+                                        .Where(l => l.Login_date == today)
+                                        .ToList();
+
+            // Get leave info for today
+            var leavesOnSelectedDates = _dbContext.con_leaveupdate
+                                    .Where(x => x.leavedate == today)
+                                    .Select(x => x.employee_id)
                                     .ToList();
+
+            // Determine the type of leave based on the day
+            var selectedDateIsWeekend = today.DayOfWeek == DayOfWeek.Saturday || today.DayOfWeek == DayOfWeek.Sunday;
+            var typeOfLeave = selectedDateIsWeekend ? "Weekend" : "Leave";
 
             // Combine active employees with their login info
             var combinedInfos = activeEmployees.GroupJoin(
@@ -50,7 +60,9 @@ namespace HRMS
                     x => x.LoginInfos.Select(l => new EmployeeLoginInfo
                     {
                         Employee = x.Employee,
-                        LoginInfo = l
+                        LoginInfo = l,
+                        Status = leavesOnSelectedDates.Contains(x.Employee.EmployeeID) ? typeOfLeave :
+                                 l != null ? "Present" : "Absent"
                     }))
                 .ToList();
 
@@ -65,13 +77,14 @@ namespace HRMS
                 Body = tableHtml,
                 ToEmail = toEmails,
                 CCEmail = CCEmails,
-                Subject = "AMBC attendance report for Current date   - " + today.ToString("ddd, dd MMMM yyyy"),
+                Subject = "AMBC attendance report for Current date - " + today.ToString("ddd, dd MMMM yyyy"),
             };
 
             var attedenceReportNotification = EMailHelper.SendEmail(emailRequest);
 
             return Task.CompletedTask;
         }
+
 
         public static string GenerateHtmlTable(List<EmployeeLoginInfo> combinedInfos)
         {
@@ -94,7 +107,8 @@ namespace HRMS
             <thead style='background-color: #87CEEB; color: white;'>
                 <tr>
                     <th>Employee ID</th>
-                    <th>Employee Name</th>                   
+                    <th>Employee Name</th>
+                    <th>Status</th> <!-- Added Status Column -->
                     <th>Employee Shift</th>
                     <th>Login Date</th>
                     <th>CheckIn Time</th>
@@ -123,13 +137,12 @@ namespace HRMS
                     }
                 }
 
-              
-
                 table += $@"
         <tr>
             <td>{info.Employee.EmployeeID}</td>
-            <td>{info.Employee.EmployeeName}</td>            
-            <td>{info.Employee.ShiftTimings}
+            <td>{info.Employee.EmployeeName}</td>
+            <td>{info.Status}</td> <!-- Display the Status -->
+            <td>{info.Employee.ShiftTimings}</td>
             <td>{todayloginDate}</td> <!-- Using the current date here -->
             <td>{loginInfo?.Signin_Time.ToString(@"hh\:mm") ?? ""}</td>
             <td>{loginInfo?.Signout_Time?.ToString(@"hh\:mm") ?? ""}</td>
@@ -149,15 +162,15 @@ namespace HRMS
 </body>
 </html>";
 
-
             return table;
         }
-
 
         public class EmployeeLoginInfo
         {
             public emp_info Employee { get; set; }
             public tbld_ambclogininformation LoginInfo { get; set; }
+
+            public string Status { get; set; }
         }
 
     }

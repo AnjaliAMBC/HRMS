@@ -95,16 +95,19 @@ namespace HRMS.Helpers
             padding: 20px;
             border-radius: 5px;
             box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            position: relative;
         }}
         .email-header {{
             display: flex;
-            align-items: center;
+            align-items: flex-start;
         }}
-        .email-header div {{
-            flex: 1;
+       
+ .email-logo img {{
+            display: block;
         }}
         .email-header .email-logo {{
             margin-left: auto;
+            margin-bottom: 10px;
         }}
         .email-footer {{
             margin-top: 20px;
@@ -131,7 +134,7 @@ namespace HRMS.Helpers
     <div class='email-body'>
         <div class='email-content'>
             <div class='email-header'>
-                <div>
+                <div style='flex:1;'>
                     <h2>Hi Team,</h2>
                     <p>Employee <strong>{ticket.EmployeeName}</strong> with ID <strong>{ticket.EmployeeID}</strong> has raised a ticket no #<strong>{ticket.TicketNo}</strong>.</p>
                     <p><strong>Category:</strong> {ticket.Category}</p>
