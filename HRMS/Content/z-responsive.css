@@ -143,7 +143,7 @@
     #left-side-menu .sidebar-header .br div {
         line-height: 1.5;
         font-size: 12px;
-        width: 200px; /* Set your desired width */
+        width: 170px; /* Set your desired width */
         white-space: nowrap;
         overflow: hidden;
         text-overflow: ellipsis;
@@ -287,6 +287,10 @@
         display: flex;
     }
 
+    .mobile-view .emp-imgs .img-edit-icon {
+        width: 30px !important;
+    }
+
     /* self services end*/
 
     /* attendence start*/
@@ -412,10 +416,15 @@
         padding-left: 0px;
     }
 
+    .mobile-view .empleave-calendar-table {
+        table-layout: fixed;
+    }
+
     .mobile-view .empleave-calendar-body thead th {
         padding: 15px 15px;
         height: 26px;
         font-size: 14px;
+        width: 105px;
     }
 
     .mobile-view .emp-leave .leave-dashboard-data .balance-section-wrapper .res-emp-apply-leave .balance-section {
@@ -496,6 +505,10 @@
 
     .mobile-view #empleaveCompOffTable tbody td:nth-child(6) {
         width: 250px !important;
+    }
+
+    .leave-dashboard-data .empleave-container .leave-history {
+        margin-top: 15px !important;
     }
 
     /* emp leave end*/
@@ -3658,11 +3671,11 @@
     }
 
     .admindash_card .res-holidays-details-left {
-        width: 75%;
+        width: 75% !important;
     }
 
     .admindash_card .res-holidays-details-right {
-        width: 22%;
+        width: 22% !important;
     }
 
     .admin-empmanagement-view .res-admin-title .header {
@@ -4097,6 +4110,14 @@
         height: 455px !important;
         max-height: 455px !important;
     }
+
+    .addshiftcard .res-start-end-time input[type="time"] {
+        width: 190px !important;
+    }
+
+    .addshiftcard .res-admin-addshift-submit {
+        margin-right: 86px !important;
+    }
 }
 
 /* Media Query for Tablets Ipads portrait mode start */
@@ -4175,6 +4196,14 @@
     #adminempmanagementtable_wrapper.dataTables_wrapper .dataTables_scroll div.dataTables_scrollBody {
         height: 485px !important;
         max-height: 485px !important;
+    }
+
+    .addshiftcard .res-start-end-time input[type="time"] {
+        width: 190px !important;
+    }
+
+    .addshiftcard .res-admin-addshift-submit {
+        margin-right: 95px !important;
     }
 }
 
