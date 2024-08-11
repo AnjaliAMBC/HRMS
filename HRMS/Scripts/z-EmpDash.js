@@ -490,9 +490,9 @@ function parseCustomDate1(dateString) {
         var [hours, minutes, seconds] = time.split(':').map(Number);
 
         // Convert 12-hour format to 24-hour format
-        if (period === 'PM' && hours !== 12) {
+        if (dateString.indexOf('PM') !== -1 && hours !== 12) {
             hours += 12;
-        } else if (period === 'AM' && hours === 12) {
+        } else if (dateString.indexOf('AM') !== -1 && hours === 12) {
             hours = 0;
         }
     } else {
@@ -509,7 +509,7 @@ function parseCustomDate1(dateString) {
 }
 
 
-function updateHoursTimer1() {
+function updateHoursTimer1() {   
 
     var dashhoursElementElem = document.getElementById("checkinhoursminutes");
 

@@ -76,6 +76,9 @@ namespace HRMS.Controllers
             var SiteContext = new SiteContextModel();
             if (!string.IsNullOrWhiteSpace(loginModel.EmployeeID))
             {
+                loginModel.EmployeeID = loginModel.EmployeeID.Trim();
+                loginModel.Password = loginModel.Password.Trim();
+
                 var isEmpExists = _dbContext.emplogins
                     .Where(emp => emp.EmployeeID == loginModel.EmployeeID && emp.Password == loginModel.Password)
                     .FirstOrDefault();
@@ -98,6 +101,10 @@ namespace HRMS.Controllers
 
             if (!string.IsNullOrWhiteSpace(loginModel.EmailID))
             {
+
+                loginModel.EmailID = loginModel.EmailID.Trim();
+                loginModel.Password = loginModel.Password.Trim();
+
                 var isEmpExists = _dbContext.emplogins
                     .Where(emp => emp.EmployeeEmail == loginModel.EmailID && emp.Password == loginModel.Password &&
                                   (emp.EmployeeRole.Contains("HR Admin") || emp.EmployeeRole.Contains("Super Admin") || emp.EmployeeRole.Contains("IT Admin")))
