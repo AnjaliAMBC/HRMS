@@ -489,7 +489,8 @@ $(document).on('click', '.btn-apply-empleave', function (event) {
 });
 
 
-$(document).on('change', '#leaveType', function (event) {
+$(document).off('change', '#leaveType').on('change', '#leaveType', function (event) {
+
     $('.error-message-showerror').html("");
     $('.error-message-showerror').hide();
 

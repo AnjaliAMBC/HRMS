@@ -254,7 +254,7 @@ namespace HRMS.Helpers
             var currentYear = DateTime.Today.Year.ToString();
 
             foreach (var emp in employess)
-            {                
+            {
                 var employee = new LeaveEmployee();
                 employee.empInfo = emp;
                 var isEmpLeaveBalanceExists = _dbContext.LeaveBalances.Where(x => x.EmpID == emp.EmployeeID && x.Year == currentYear).FirstOrDefault();
@@ -742,7 +742,7 @@ namespace HRMS.Helpers
 
             if (leaveType.Type == "Sick Leave" || leaveType.Type == "Emergency Leave" || leaveType.Type == "Bereavement Leave")
             {
-                leaveBalanceDates.StartDate = new DateTime(DateTime.Today.Year, 12, 31);
+                leaveBalanceDates.StartDate = employee.DOJ;
                 leaveBalanceDates.EndDate = employee.DOJ.AddMonths(3);
             }
             return leaveBalanceDates;
@@ -761,7 +761,11 @@ namespace HRMS.Helpers
             {
                 if (isEmployeeProbationInThisCurrentYear.Year == DateTime.Today.Year)
                 {
-                    startDate = isEmployeeProbationInThisCurrentYear;
+                    var probationempYear = isEmployeeProbationInThisCurrentYear.Year;
+                    var probationempMonth = isEmployeeProbationInThisCurrentYear.Month;
+                    var probationempDate = isEmployeeProbationInThisCurrentYear.Day;
+
+                    startDate = new DateTime(probationempYear, probationempMonth, probationempDate);
                 }
             }
 
