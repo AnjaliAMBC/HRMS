@@ -232,6 +232,15 @@
           <Property Name="Sno" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="LocationName" Type="varchar" MaxLength="255" />
         </EntityType>
+        <EntityType Name="ReminderLogs">
+          <Key>
+            <PropertyRef Name="Sno" />
+          </Key>
+          <Property Name="Sno" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="EmployeeID" Type="varchar" MaxLength="150" Nullable="false" />
+          <Property Name="ReminderSentTime" Type="datetime" />
+          <Property Name="ReminderType" Type="varchar" MaxLength="255" />
+        </EntityType>
         <EntityType Name="tblambcholiday">
           <Key>
             <PropertyRef Name="holidayno" />
@@ -298,6 +307,7 @@ warning 6002: The table/view 'HRMS_PortalDev1.dbo.CheckInView' does not have a p
           <EntitySet Name="LeaveBalance" EntityType="Self.LeaveBalance" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="LeaveRM" EntityType="Self.LeaveRM" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Location" EntityType="Self.Location" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="ReminderLogs" EntityType="Self.ReminderLogs" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="tblambcholiday" EntityType="Self.tblambcholiday" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="tbld_ambclogininformation" EntityType="Self.tbld_ambclogininformation" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="CheckInView" EntityType="Self.CheckInView" store:Type="Views" store:Schema="dbo">
@@ -356,6 +366,7 @@ warning 6002: The table/view 'HRMS_PortalDev1.dbo.CheckInView' does not have a p
           <EntitySet Name="con_leaveupdate" EntityType="HRMS_EntityModel.con_leaveupdate" />
           <EntitySet Name="Locations" EntityType="HRMS_EntityModel.Location" />
           <EntitySet Name="IT_Ticket" EntityType="HRMS_EntityModel.IT_Ticket" />
+          <EntitySet Name="ReminderLogs" EntityType="HRMS_EntityModel.ReminderLog" />
         </EntityContainer>
         <EntityType Name="Client">
           <Key>
@@ -615,6 +626,15 @@ warning 6002: The table/view 'HRMS_PortalDev1.dbo.CheckInView' does not have a p
           <Property Name="ResponseTime" Type="Int64" />
           <Property Name="ClosedByName" Type="String" MaxLength="500" FixedLength="false" Unicode="false" />
           <Property Name="ResolvedByName" Type="String" MaxLength="500" FixedLength="false" Unicode="false" />
+        </EntityType>
+        <EntityType Name="ReminderLog">
+          <Key>
+            <PropertyRef Name="Sno" />
+          </Key>
+          <Property Name="Sno" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="EmployeeID" Type="String" Nullable="false" MaxLength="150" FixedLength="false" Unicode="false" />
+          <Property Name="ReminderSentTime" Type="DateTime" Precision="3" />
+          <Property Name="ReminderType" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
         </EntityType>
       </Schema>
     </edmx:ConceptualModels>
@@ -905,6 +925,16 @@ warning 6002: The table/view 'HRMS_PortalDev1.dbo.CheckInView' does not have a p
                 <ScalarProperty Name="Category" ColumnName="Category" />
                 <ScalarProperty Name="TicketType" ColumnName="TicketType" />
                 <ScalarProperty Name="TicketNo" ColumnName="TicketNo" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="ReminderLogs">
+            <EntityTypeMapping TypeName="HRMS_EntityModel.ReminderLog">
+              <MappingFragment StoreEntitySet="ReminderLogs">
+                <ScalarProperty Name="ReminderType" ColumnName="ReminderType" />
+                <ScalarProperty Name="ReminderSentTime" ColumnName="ReminderSentTime" />
+                <ScalarProperty Name="EmployeeID" ColumnName="EmployeeID" />
+                <ScalarProperty Name="Sno" ColumnName="Sno" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

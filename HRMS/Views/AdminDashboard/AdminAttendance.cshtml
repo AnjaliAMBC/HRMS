@@ -199,9 +199,6 @@
                                         <option value="All">All</option>
                                     </select>
                                 </div>
-
-
-
                                 <div class="form-group mr-2 adminatt-dropdown" style="margin-top: 10px;">
                                     <select class="form-control form-select-sm p-0 ml-2" name="status" id="location-dropdown">
                                         <option value="" disabled selected>Location</option>
@@ -415,7 +412,7 @@
 
                                         if (empLeave != null)
                                         {
-                                            if (empLeave.leavecategory.ToLowerInvariant().Contains("leave"))
+                                            if (empLeave.leavecategory.ToLowerInvariant().Contains("leave") || empLeave.leavecategory.ToLowerInvariant().Contains("comp off"))
                                             {
                                                 leaveType = "Leave";
                                                 buttoncolorcode = "leave-btn";

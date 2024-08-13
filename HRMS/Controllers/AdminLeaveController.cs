@@ -808,7 +808,7 @@ namespace HRMS.Controllers
                             isRecordExists.Bereavement = record.Bereavement;
                             isRecordExists.HourlyPermission = record.HourlyPermission;
                             isRecordExists.Marriage = record.Marriage;
-                            isRecordExists.Maternity = record.Marriage;
+                            isRecordExists.Maternity = record.Maternity;
                             isRecordExists.Paternity = record.Paternity;
                             isRecordExists.CompOff = record.CompOff;
                             _dbContext.SaveChanges();

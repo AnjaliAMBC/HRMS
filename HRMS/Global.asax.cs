@@ -77,8 +77,8 @@ namespace HRMS
               .Build();
 
             scheduler.ScheduleJob(job, trigger).Wait();
-            scheduler.ScheduleJob(job2, trigger2).Wait();
-            scheduler.ScheduleJob(job3, trigger3).Wait();
+            //scheduler.ScheduleJob(job2, trigger2).Wait();
+            //scheduler.ScheduleJob(job3, trigger3).Wait();
         }
     }
 }

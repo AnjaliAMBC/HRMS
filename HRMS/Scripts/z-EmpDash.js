@@ -509,7 +509,7 @@ function parseCustomDate1(dateString) {
 }
 
 
-function updateHoursTimer1() {   
+function updateHoursTimer1() {
 
     var dashhoursElementElem = document.getElementById("checkinhoursminutes");
 
@@ -521,21 +521,25 @@ function updateHoursTimer1() {
             signedInDateTime = parseCustomDate1(signedInDateTimeStr);
         }
 
-        if (signedInDateTime.toString() !== 'Invalid Date' && signedInDateTimeStr !== '01-01-0001 00:00:00') {
-            var currentTime = new Date();
-
-            var timeDifference = currentTime - signedInDateTime;
-            var totalSeconds = Math.floor(timeDifference / 1000);
-            var hours = Math.floor(totalSeconds / 3600);
-            var minutes = Math.floor((totalSeconds % 3600) / 60);
-            var seconds = totalSeconds % 60;
-
-            var formattedHours = hours < 10 ? "0" + hours : hours.toString();
-            var formattedMinutes = minutes < 10 ? "0" + minutes : minutes.toString();
-            var formattedSeconds = seconds < 10 ? "0" + seconds : seconds.toString();
-            var formattedTime = formattedHours + ":" + formattedMinutes + ":" + formattedSeconds;
-            $('#checkinhoursminutes').text(formattedTime);
+        if (signedInDateTime.toString() == 'Invalid Date' || signedInDateTimeStr.indexOf("01-01-0001") !== -1 || signedInDateTimeStr.indexOf("1/1/0001") !== -1) {
+            return;
         }
+
+
+        var currentTime = new Date();
+
+        var timeDifference = currentTime - signedInDateTime;
+        var totalSeconds = Math.floor(timeDifference / 1000);
+        var hours = Math.floor(totalSeconds / 3600);
+        var minutes = Math.floor((totalSeconds % 3600) / 60);
+        var seconds = totalSeconds % 60;
+
+        var formattedHours = hours < 10 ? "0" + hours : hours.toString();
+        var formattedMinutes = minutes < 10 ? "0" + minutes : minutes.toString();
+        var formattedSeconds = seconds < 10 ? "0" + seconds : seconds.toString();
+        var formattedTime = formattedHours + ":" + formattedMinutes + ":" + formattedSeconds;
+        $('#checkinhoursminutes').text(formattedTime);
+
     }
 }
 

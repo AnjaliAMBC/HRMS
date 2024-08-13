@@ -26,94 +26,101 @@ namespace HRMS
                 return Task.CompletedTask;
             }
 
-            var employeeSignIns = _dbContext.tbld_ambclogininformation.Where(x => x.Login_date == DateTime.Today);
-
-            var employeesToRemindCheckin = _dbContext.emp_info
-                .Where(emp => emp.EmployeeStatus == "Active")
-                .AsEnumerable()
-                .Where(emp =>
-                {
-                    // Check if the employee is on leave
-                    bool isOnLeave = _dbContext.con_leaveupdate.Any(l => l.employee_id == emp.EmployeeID && l.leavedate == DateTime.Today);
-                    if (isOnLeave)
-                    {
-                        return false;
-                    }
-
-                    // Check if today is a public holiday
-                    bool isPublicHoliday = _dbContext.tblambcholidays.Any(ph => ph.holiday_date == DateTime.Today);
-                    if (isPublicHoliday)
-                    {
-                        return false;
-                    }
-
-                    bool empSignInExists = employeeSignIns.Any(x => x.Employee_Code == emp.EmployeeID);
-                    if (empSignInExists)
-                    {
-                        return false;
-                    }
-
-                    if (emp.ShiftStartTime.HasValue && emp.ShiftEndTime.HasValue)
-                    {
-                        var shiftStartTime = emp.ShiftStartTime.Value;
-                        var timeDifference = shiftStartTime - now.TimeOfDay;
-                        if (timeDifference.TotalMinutes <= 15 && timeDifference.TotalMinutes >= 0)
-                        {
-                            return true;
-                        }
-                    }
-                    return false;
-                });
-
-            var employeesToRemindCheckout = _dbContext.emp_info
-                .Where(emp => emp.EmployeeStatus == "Active")
-                .AsEnumerable()
-                .Where(emp =>
-                {
-                    // Check if the employee is on leave
-                    bool isOnLeave = _dbContext.con_leaveupdate.Any(l => l.employee_id == emp.EmployeeID && l.leavedate == DateTime.Today);
-                    if (isOnLeave)
-                    {
-                        return false;
-                    }
-
-                    // Check if today is a public holiday
-                    bool isPublicHoliday = _dbContext.tblambcholidays.Any(ph => ph.holiday_date == DateTime.Today);
-                    if (isPublicHoliday)
-                    {
-                        return false;
-                    }
-
-                    bool empSignOutExists = employeeSignIns.Any(x => x.Employee_Code == emp.EmployeeID && x.Signout_Time.HasValue);
-                    if (empSignOutExists)
-                    {
-                        return false;
-                    }                    
-
-                    if (emp.ShiftStartTime.HasValue && emp.ShiftEndTime.HasValue)
-                    {
-                        var shiftEndTime = emp.ShiftEndTime.Value;
-                        var timeDifference = shiftEndTime - now.TimeOfDay;
-                        if (timeDifference.TotalMinutes <= 15 && timeDifference.TotalMinutes >= 0)
-                        {
-                            return true;
-                        }
-                    }
-                    return false;
-                });
-
-            var siteURL = System.Configuration.ConfigurationManager.AppSettings["siteURL"];
-            var logoURL = siteURL + "/Assets/AMBC_Logo.png";
-            var companyURL = siteURL;
-
-            // Checkin Reminder emails
-            foreach (var checkinEmp in employeesToRemindCheckin)
+            using (var dbContext = new HRMS_EntityFramework())
             {
-                if (checkinEmp.ShiftStartTime.HasValue)
+                var employeeSignIns = dbContext.tbld_ambclogininformation.Where(x => x.Login_date == DateTime.Today).ToList();
+
+                var fifteenMinutesAgo = now.AddMinutes(-15);
+                var recentReminders = dbContext.ReminderLogs
+                    .Where(r => r.ReminderSentTime > fifteenMinutesAgo)
+                    .ToList();
+
+                var employeesToRemindCheckin = dbContext.emp_info
+                    .Where(emp => emp.EmployeeStatus == "Active")
+                    .ToList() // Execute the query in SQL
+                    .Where(emp =>
+                    {
+                    // Check if the employee is on leave
+                    bool isOnLeave = dbContext.con_leaveupdate.Any(l => l.employee_id == emp.EmployeeID && l.leavedate == DateTime.Today);
+                        if (isOnLeave) return false;
+
+                    // Check if today is a public holiday
+                    bool isPublicHoliday = dbContext.tblambcholidays.Any(ph => ph.holiday_date == DateTime.Today);
+                        if (isPublicHoliday) return false;
+
+                        bool empSignInExists = employeeSignIns.Any(x => x.Employee_Code == emp.EmployeeID);
+                        if (empSignInExists) return false;
+
+                        if (emp.ShiftStartTime.HasValue && emp.ShiftEndTime.HasValue)
+                        {
+                            var shiftStartTime = emp.ShiftStartTime.Value;
+                            var timeDifference = shiftStartTime - now.TimeOfDay;
+
+                            bool reminderSent = recentReminders.Any(r => r.EmployeeID == emp.EmployeeID && r.ReminderType == "CheckIn");
+                            if (!reminderSent && timeDifference.TotalMinutes <= 15 && timeDifference.TotalMinutes >= 0)
+                            {
+                                dbContext.ReminderLogs.Add(new ReminderLog
+                                {
+                                    EmployeeID = emp.EmployeeID,
+                                    ReminderSentTime = now,
+                                    ReminderType = "CheckIn"
+                                });
+                                dbContext.SaveChanges(); // Save changes immediately
+                            return true;
+                            }
+                        }
+                        return false;
+                    }).ToList();
+
+                var employeesToRemindCheckout = dbContext.emp_info
+                    .Where(emp => emp.EmployeeStatus == "Active")
+                    .ToList() // Execute the query in SQL
+                    .Where(emp =>
+                    {
+                    // Check if the employee is on leave
+                    bool isOnLeave = dbContext.con_leaveupdate.Any(l => l.employee_id == emp.EmployeeID && l.leavedate == DateTime.Today);
+                        if (isOnLeave) return false;
+
+                    // Check if today is a public holiday
+                    bool isPublicHoliday = dbContext.tblambcholidays.Any(ph => ph.holiday_date == DateTime.Today);
+                        if (isPublicHoliday) return false;
+
+                        bool empSignOutExists = employeeSignIns.Any(x => x.Employee_Code == emp.EmployeeID && x.Signout_Time.HasValue);
+                        if (empSignOutExists) return false;
+
+                        if (emp.ShiftStartTime.HasValue && emp.ShiftEndTime.HasValue)
+                        {
+                            var shiftEndTime = emp.ShiftEndTime.Value;
+                            var timeDifference = shiftEndTime - now.TimeOfDay;
+
+                            bool reminderSent = recentReminders.Any(r => r.EmployeeID == emp.EmployeeID && r.ReminderType == "CheckOut");
+                            if (!reminderSent && timeDifference.TotalMinutes <= 15 && timeDifference.TotalMinutes >= 0)
+                            {
+                                dbContext.ReminderLogs.Add(new ReminderLog
+                                {
+                                    EmployeeID = emp.EmployeeID,
+                                    ReminderSentTime = now,
+                                    ReminderType = "CheckOut"
+                                });
+                                dbContext.SaveChanges(); // Save changes immediately
+                            return true;
+                            }
+                        }
+                        return false;
+                    }).ToList();
+
+                var siteURL = System.Configuration.ConfigurationManager.AppSettings["siteURL"];
+                var logoURL = siteURL + "/Assets/AMBC_Logo.png";
+                var companyURL = siteURL;
+
+                // Send Check-in Reminder emails
+                foreach (var checkinEmp in employeesToRemindCheckin)
                 {
-                    var shiftStartTime = new DateTime(checkinEmp.ShiftStartTime.Value.Ticks).ToString("HH:mm"); // 24-hour format
-                    var checkInSubject = "Attendance Check-In Reminder";
-                    var checkInBody = $@"
+                    if (checkinEmp.ShiftStartTime.HasValue)
+                    {
+                        var shiftStartTime = new DateTime(checkinEmp.ShiftStartTime.Value.Ticks).ToString("HH:mm"); // 24-hour format
+                        var checkInSubject = "Attendance Check-In Reminder";
+                        var checkInBody = $@"
 <html>
     <body style='font-family: Calibri, sans-serif; background-color: #f2f2f2; padding: 20px; margin: 0;'>
         <div style='background-color: #f8f9fa; padding: 20px; border-radius: 8px; max-width: 600px; margin: auto;'>
@@ -148,28 +155,25 @@ namespace HRMS
     </body>
 </html>";
 
+                        var emailRequest = new EmailRequest()
+                        {
+                            Body = checkInBody,
+                            ToEmail = checkinEmp.OfficalEmailid,
+                            Subject = checkInSubject
+                        };
 
-                    var emailRequest = new EmailRequest()
-                    {
-                        Body = checkInBody,
-                        ToEmail = checkinEmp.OfficalEmailid,
-                        Subject = checkInSubject
-                    };
-
-                    var sendNotification = EMailHelper.SendEmail(emailRequest);
+                        var sendNotification = EMailHelper.SendEmail(emailRequest);
+                    }
                 }
-            }
 
-
-
-            // Checkout reminder emails
-            foreach (var checkoutEmp in employeesToRemindCheckout)
-            {
-                if (checkoutEmp.ShiftEndTime.HasValue)
+                // Send Check-out reminder emails
+                foreach (var checkoutEmp in employeesToRemindCheckout)
                 {
-                    var shiftEndTime = new DateTime(checkoutEmp.ShiftEndTime.Value.Ticks).ToString("HH:mm"); // 24-hour format
-                    var checkOutSubject = "Do not forget to do your Check out!";
-                    var checkOutBody = $@"
+                    if (checkoutEmp.ShiftEndTime.HasValue)
+                    {
+                        var shiftEndTime = new DateTime(checkoutEmp.ShiftEndTime.Value.Ticks).ToString("HH:mm"); // 24-hour format
+                        var checkOutSubject = "Do not forget to do your Check out!";
+                        var checkOutBody = $@"
 <html>
     <body style='font-family: Calibri, sans-serif; background-color: #f2f2f2; padding: 20px; margin: 0;'>
         <div style='background-color: #f8f9fa; padding: 20px; border-radius: 8px; max-width: 600px; margin: auto;'>
@@ -204,20 +208,20 @@ namespace HRMS
     </body>
 </html>";
 
-                    var emailRequest = new EmailRequest()
-                    {
-                        Body = checkOutBody,
-                        ToEmail = checkoutEmp.OfficalEmailid,
-                        Subject = checkOutSubject
-                    };
+                        var emailRequest = new EmailRequest()
+                        {
+                            Body = checkOutBody,
+                            ToEmail = checkoutEmp.OfficalEmailid,
+                            Subject = checkOutSubject
+                        };
 
-                    var sendNotification = EMailHelper.SendEmail(emailRequest);
+                        var sendNotification = EMailHelper.SendEmail(emailRequest);
+                    }
                 }
             }
+
             return Task.CompletedTask;
-
         }
-
     }
 
 }

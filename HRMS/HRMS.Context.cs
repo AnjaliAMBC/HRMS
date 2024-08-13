@@ -39,5 +39,6 @@ namespace HRMS
         public virtual DbSet<con_leaveupdate> con_leaveupdate { get; set; }
         public virtual DbSet<Location> Locations { get; set; }
         public virtual DbSet<IT_Ticket> IT_Ticket { get; set; }
+        public virtual DbSet<ReminderLog> ReminderLogs { get; set; }
     }
 }

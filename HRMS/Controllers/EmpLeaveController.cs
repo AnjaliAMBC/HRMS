@@ -325,6 +325,8 @@ namespace HRMS.Controllers
                     // Store the existing data temporarily
                     var recreatedItems = new List<con_leaveupdate>();
 
+                    var leaveRequestName = Guid.NewGuid().ToString();
+
                     foreach (var item in canLeaveItems)
                     {
                         // Copy the existing data into a new object, changing the leaveuniqkey
@@ -348,7 +350,7 @@ namespace HRMS.Controllers
                             OfficalEmailid = item.OfficalEmailid,
                             Fromdate = item.Fromdate,
                             Todate = item.Todate,
-                            LeaveRequestName = Guid.NewGuid().ToString(),
+                            LeaveRequestName = leaveRequestName,
                             Location = item.Location,
                             createdby = item.createdby,
                             createddate = item.createddate,
