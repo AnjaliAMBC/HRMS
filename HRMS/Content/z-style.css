@@ -3056,12 +3056,9 @@ input[type=checkbox], input[type=radio] {
 
 /* emp ticket comment popup end */
 
-
-@media not all and (min-resolution:.001dpcm) {
-    @supports (-webkit-appearance: none) {
-        #adminaddendancetable {
-            margin-top: 0px !important;
-        }
+@supports (-webkit-backdrop-filter: none) or (-webkit-hyphens:auto) {
+    #adminaddendancetable {
+        margin-top: 0px !important;
     }
 }
 

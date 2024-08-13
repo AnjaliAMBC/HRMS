@@ -1639,6 +1639,20 @@
 }
 
 /* Media Query for low resolution  Tablets, Ipads start */
+@media only screen and (min-width:430px) and (max-width:480px) {
+    .mobile-view .res-admin-employee-management .res-admin-emp-table {
+        margin-top: 75px;
+        width: 95%;
+        display: inline-flex;
+    }
+
+    .mobile-view .res-admin-attendance .table-responsive {
+        overflow-x: auto !important;
+        display: flex;
+    }
+}
+
+/* Media Query for low resolution  Tablets, Ipads start */
 @media only screen and (min-width:481px) and (max-width:767px){
     .col-md-auto {
         -ms-flex: 0 0 auto;
@@ -4337,19 +4351,37 @@
     }
 }
 
-@media not all and (min-resolution:.001dpcm) {
-    @supports (-webkit-appearance: none) {
-        @media (min-width: 1440px) and (max-width: 2560px) {
-            /* Your CSS rules for Safari in this width range */
-            /* Safari and Chrome */
-            .admin-empmanagement-view .nav-tabs .nav-link {
-                padding: 7px 17px;
-            }
 
-            /* Safari only override */
-            ::i-block-chrome, .admin-empmanagement-view .nav-tabs .nav-link {
-                padding: 7px 17px;
-            }
+@media screen (min-width: 1025px) and (max-width: 1280px) {
+    @supports (-webkit-backdrop-filter: none) or (-webkit-hyphens:auto) {
+        .admindash_card table thead th {
+            font-size: 10px !important;
+        }
+
+        .admindash_card .res-holidays-details-left {
+            width: 73% !important;
+        }
+
+        .admindash_card .res-holidays-details-right {
+            width: 23% !important;
+        }
+
+        .admin-empmanagement-view .res-admin-title .header {
+            font-size: 22px !important;
+        }
+
+        .res-admin-empman-filter-show .col-lg-8 {
+            flex: 0 0 68.666667%;
+            max-width: 68.666667%;
         }
     }
 }
+
+@media screen (min-width: 1440px) and (max-width: 2560px) {
+    @supports (-webkit-backdrop-filter: none) or (-webkit-hyphens:auto) {
+        .admin-empmanagement-view .nav-tabs .nav-link {
+            padding: 7px 17px;
+        }
+    }
+}
+
