@@ -2578,9 +2578,18 @@
         text-align: right;
     }
 
+    .tablet-view .login-page .toggle-password {
+        right: 80px;
+    }
+
     .tablet-view .login-page .empemail-field input {
         max-width: 100%;
     }
+
+    .tablet-view .login-page #StaySignedIn {
+        margin-top: 4px !important;
+    }
+
     /* login end*/
 
     /* forgot password start*/
@@ -3413,6 +3422,54 @@
         display: inline-flex;
     }
 
+    .res-admin-leave-balance #leaveBalanceTable {
+        table-layout: fixed;
+    }
+
+        .res-admin-leave-balance #leaveBalanceTable thead th:nth-child(1) {
+            width: 60px !important;
+        }
+
+        .res-admin-leave-balance #leaveBalanceTable thead th:nth-child(2) {
+            width: 290px !important;
+        }
+
+        .res-admin-leave-balance #leaveBalanceTable thead th:nth-child(3) {
+            width: 100px !important;
+        }
+
+        .res-admin-leave-balance #leaveBalanceTable thead th:nth-child(4) {
+            width: 80px !important;
+        }
+
+        .res-admin-leave-balance #leaveBalanceTable thead th:nth-child(5) {
+            width: 80px !important;
+        }
+
+        .res-admin-leave-balance #leaveBalanceTable thead th:nth-child(6) {
+            width: 100px !important;
+        }
+
+        .res-admin-leave-balance #leaveBalanceTable thead th:nth-child(7) {
+            width: 140px !important;
+        }
+
+        .res-admin-leave-balance #leaveBalanceTable thead th:nth-child(8) {
+            width: 60px !important;
+        }
+
+        .res-admin-leave-balance #leaveBalanceTable thead th:nth-child(9) {
+            width: 60px !important;
+        }
+
+        .res-admin-leave-balance #leaveBalanceTable thead th:nth-child(10) {
+            width: 60px !important;
+        }
+
+        .res-admin-leave-balance #leaveBalanceTable thead th:nth-child(11) {
+            width: 70px !important;
+        }
+
     /* admin leave balance end*/
 
     /* admin leave import start */
@@ -3491,6 +3548,11 @@
         .tablet-view #adminleavecompoffTable tbody td:nth-child(5) {
             width: 85px;
         }
+
+    .res-admin-leavecompoff-view #adminleavecompoffTable .admin-leavehistoryoptions {
+        position: relative;
+        right: -7px;
+    }
 
     /* admin leave compoff end */
 
@@ -3660,6 +3722,7 @@
 
 /* Media Query for low resolution  Tablets, Ipads start */
 @media only screen and (min-width:1025px) and (max-width:1280px) {
+
     .admindash_card table thead th {
         font-size: 11px;
     }
@@ -3867,7 +3930,7 @@
     }
 
     #adminaddendancetable {
-        table-layout: fixed;
+        /*table-layout: fixed;*/
     }
 
         #adminaddendancetable .adminatt_thead tr th:nth-child(1) {
@@ -3915,7 +3978,7 @@
     }
 
     .res-admin-attendance-main .adminatt_thead tr th:nth-child(2) {
-        width: 37% !important;
+        width: 40% !important;
     }
 
     .res-admin-attendance-main .adminatt_thead tr th:nth-child(3) {
@@ -3945,7 +4008,6 @@
     .res-admin-attendance-main .adminatt_thead tr th:nth-child(9) {
         width: 8% !important;
     }
-
 
 }
 
@@ -4349,6 +4411,292 @@
     #adminaddendancetable_wrapper .dataTables_scrollBody {
         max-height: 62vh !important;
     }
+}
+
+@media only screen and (min-width: 695px) and (max-width: 767px) {
+
+    .tablet-view #dashcurrentTime {
+        font-size: 17px;
+        margin-top: 18px;
+    }
+
+    .tablet-view .emp-dashboard .res-emp-dash-checkout-time {
+        margin-top: 20px !important;
+    }
+
+    .tablet-view .emp-dashboard .res-emp-dash-checkin-checkout {
+        margin-top: 0;
+    }
+
+    .tablet-view .total-hours .btn-checkin {
+        color: white;
+        margin-top: 18px;
+        width: 104%;
+    }
+
+    .tablet-view #checkinhoursminutes {
+        font-size: 28px !important;
+    }
+
+    .tablet-view .day-date-time {
+        max-width: 55%;
+    }
+
+    .tablet-view .in-out {
+        max-width: 49%;
+        flex: 0 0 45%;
+    }
+
+    .tablet-view .in-out .smalltext {
+        font-size: 14px;
+    }
+
+    .res-emp-dash-checkin-checkout .dash-check-in-out {
+        max-width: 55%;
+    }
+
+    .res-emp-dash-checkin-checkout .dash-check-in-out-time {
+        max-width: 49%;
+        flex: 0 0 45%;
+        margin-top: 15px;
+    }
+
+    .empleave-calendar-table {
+        width: 98% !important;
+    }
+
+    .tablet-view #leaveHistoryTable {
+        table-layout: fixed;
+    }
+
+        .tablet-view #leaveHistoryTable tbody td:nth-child(1) {
+            width: 128px !important;
+        }
+
+        .tablet-view #leaveHistoryTable tbody td:nth-child(2) {
+            width: 100px !important;
+        }
+
+        .tablet-view #leaveHistoryTable tbody td:nth-child(3) {
+            width: 150px !important;
+        }
+
+        .tablet-view #leaveHistoryTable tbody td:nth-child(4) {
+            width: 100px !important;
+        }
+
+        .tablet-view #leaveHistoryTable tbody td:nth-child(5) {
+            width: 250px !important;
+        }
+
+        .tablet-view #leaveHistoryTable tbody td:nth-child(6) {
+            width: 40px !important;
+        }
+
+    .tablet-view #empleaveCompOffTable {
+        table-layout: fixed;
+    }
+
+        .tablet-view #empleaveCompOffTable tbody td:nth-child(3) {
+            width: 128px !important;
+        }
+
+        .tablet-view #empleaveCompOffTable tbody td:nth-child(4) {
+            width: 100px !important;
+        }
+
+        .tablet-view #empleaveCompOffTable tbody td:nth-child(5) {
+            width: 100px !important;
+        }
+
+        .tablet-view #empleaveCompOffTable tbody td:nth-child(6) {
+            width: 250px !important;
+        }
+
+    .empleave-calendar-header {
+        margin-right: 0 !important;
+    }
+
+    .admin-ticket-it-popup-form #admin-ticket-it-Form .div-admin-itticketing-subject label {
+        width: 100%;
+    }
+
+    .admin-ticket-it-popup-form .div-admin-itticketing-subject input {
+        width: 91% !important;
+    }
+
+    .admin-ticket-it-popup-form .div-admin-itticket-raisedon {
+        width: 47% !important;
+    }
+
+    .admin-itticketing-block .div-admin-itticket-status {
+        max-width: 48% !important;
+        width: 100%;
+    }
+
+    .admin-itticketing-block .div-admin-itticket-closeddate {
+        max-width: 48% !important;
+        width: 100%;
+    }
+
+    .admin-ticket-hr-popup-form #admin-ticket-hr-Form .div-hrticketing-subject label {
+        width: 100%;
+    }
+
+    .admin-ticket-hr-popup-form .div-hrticketing-subject input {
+        width: 91% !important;
+    }
+
+    .admin-ticket-hr-popup-form .div-hrticket-raisedon {
+        width: 47% !important;
+    }
+
+    .admin-hrticketing-block .div-admin-hrticketing-status {
+        max-width: 48% !important;
+        width: 100%;
+    }
+
+    .admin-hrticketing-block .div-admin-hrticketing-closeddate {
+        max-width: 48% !important;
+        width: 100%;
+    }
+
+}
+
+@media only screen and (min-width: 820px) and (max-width: 850px) {
+
+    .tablet-view .res-admin-employee-management .res-admin-emp-table {
+        margin-top: 15px;
+    }
+
+    .tablet-view .res-admin-employee-management .admin-empmanagement-view .admin-emp-action-block {
+        display: inline-block;
+        width: 200px;
+        margin-top: 60px;
+    }
+
+    .tablet-view .res-admin-employee-management .res-admin-empman-filter-show {
+        display: block;
+    }
+
+    #adminempmanagementtable {
+        table-layout: fixed;
+    }
+
+    .res-admin-emp-table table thead th:nth-child(2) {
+        width: 60px !important;
+    }
+
+    .tablet-view .dropdowns-container .month-dropdown input {
+        width: 100% !important;
+    }
+
+    .tablet-view .res-admin-attendance .admin-attendancemgmt-view .days-container {
+        margin: 10px 6%;
+    }
+
+    .admin-itticketing-block .div-admin-itticket-status {
+        max-width: 48% !important;
+        width: 100%;
+    }
+
+    .admin-itticketing-block .div-admin-itticket-closeddate {
+        max-width: 48% !important;
+        width: 100%;
+    }
+
+    .admin-hrticketing-block .div-admin-hrticket-status {
+        max-width: 48% !important;
+        width: 100%;
+    }
+
+    .admin-hrticketing-block .div-admin-hrticket-closeddate {
+        max-width: 48% !important;
+        width: 100%;
+    }
+
+
+}
+
+@media only screen and (min-width: 1025px) and (max-width: 1280px) {
+
+    .employeedash .emp-dash-block {
+        max-width: 48% !important;
+        flex: 0 0 48% !important;
+    }
+
+    .emp-dashboard .employeedash {
+        margin-left: 40px !important;
+    }
+
+    .empviewrow .block-view {
+        width: 47% !important;
+    }
+
+    .empviewrow .block-view-3 {
+        margin-top: 20px;
+    }
+
+    .empleave-calendar-table {
+        width: 98% !important;
+    }
+
+    .tablet-view #leaveHistoryTable {
+        table-layout: fixed;
+    }
+
+    .tablet-view #leaveHistoryTable tbody td:nth-child(1) {
+        width: 128px !important;
+    }
+
+    .tablet-view #leaveHistoryTable tbody td:nth-child(2) {
+        width: 100px !important;
+    }
+
+    .tablet-view #leaveHistoryTable tbody td:nth-child(3) {
+        width: 150px !important;
+    }
+
+    .tablet-view #leaveHistoryTable tbody td:nth-child(4) {
+        width: 100px !important;
+    }
+
+    .tablet-view #leaveHistoryTable tbody td:nth-child(5) {
+        width: 250px !important;
+    }
+
+    .tablet-view #leaveHistoryTable tbody td:nth-child(6) {
+        width: 40px !important;
+    }
+
+    .tablet-view #empleaveCompOffTable {
+        table-layout: fixed;
+    }
+
+    .tablet-view #empleaveCompOffTable tbody td:nth-child(3) {
+        width: 128px !important;
+    }
+
+    .tablet-view #empleaveCompOffTable tbody td:nth-child(4) {
+        width: 100px !important;
+    }
+
+    .tablet-view #empleaveCompOffTable tbody td:nth-child(5) {
+        width: 100px !important;
+    }
+
+    .tablet-view #empleaveCompOffTable tbody td:nth-child(6) {
+        width: 250px !important;
+    }
+
+    .leavehistory_btn {
+        font-size: 14px;
+    }
+
+    .empleave-calendar-header {
+        margin-right: 0 !important;
+    }
+
 }
 
 
