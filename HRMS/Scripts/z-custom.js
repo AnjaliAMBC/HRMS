@@ -30,7 +30,14 @@ $(document).ready(function () {
         console.log('Width is between 768px and 1024');
         $('body').removeClass('mobile-view');
         $('body').addClass('tablet-view');
-    }
+      }
+
+      if (width >= 1025 && width <= 1280) {
+          // Trigger your action here
+          console.log('Width is between 1025px and 1280px');
+          $('body').removeClass('mobile-view');
+          $('body').addClass('tablet-view');
+      }
   }
   
   // Initial check on page load
