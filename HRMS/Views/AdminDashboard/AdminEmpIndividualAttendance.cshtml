@@ -175,7 +175,7 @@
                         {
                             if (empLeave != null)
                             {
-                                if (empLeave.leavecategory.ToLowerInvariant().Contains("leave"))
+                                if (empLeave.leavecategory.ToLowerInvariant().Contains("leave") || empLeave.leavecategory.ToLowerInvariant().Contains("comp off"))
                                 {
                                     statusType = "bar-width-red";
                                     attedenceType = "Leave";
