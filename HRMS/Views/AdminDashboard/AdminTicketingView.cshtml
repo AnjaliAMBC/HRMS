@@ -121,7 +121,7 @@
                                         <div class="res-admin-it-ticketlisting-user-details" style="display: flex; align-items: center;">
                                             <i class="it-ticket-msg-icon fa-regular fa-message"></i>
                                             <span style="margin-top: 0px; margin-right: 10px;">
-                                                <div class="admin-it-ticketing-listing-title" title="@ticket.Subject" data-ticketnum="@ticket.TicketNo">@ticket.Subject</div>
+                                                <div class="admin-it-ticketing-listing-title" title="@ticket.Subject" data-ticketnum="@ticket.TicketNo" style=" cursor: pointer;">@ticket.Subject</div>
                                                 <div class="admin-it-ticketing-listing-details">
                                                     <span class="it-ticket-id">#@ticket.TicketNo</span>
                                                     <span class="it-ticket-info"><i class="fa-solid fa-folder" aria-hidden="true"></i> @ticket.Category</span>
@@ -170,7 +170,7 @@
                                     </td>
                                     <td class="res-admin-itticketlisting-status">
                                         <div class="it-ticketing-empty-block"></div>
-                                        <div class="res-itticketlisting-status-level @HRMS.Helpers.TicketingHelper.GetTicketStatusCssClass(ticket.Status) ticket-status-@ticket.Status">@ticket.Status</div>
+                                        <div class="res-itticketlisting-status-level @HRMS.Helpers.TicketingHelper.GetTicketStatusCssClass(ticket.Status) ticket-status-@ticket.Status" style="cursor: pointer;">@ticket.Status</div>
                                     </td>
                                 </tr>
                             }

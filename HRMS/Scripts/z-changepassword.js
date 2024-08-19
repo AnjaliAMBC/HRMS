@@ -9,11 +9,10 @@ $(document).on('click', '.toggle-changepassword, .toggle-newpassword, .toggle-co
     }
 });
 
-// Validate and submit form
+
 $(document).on('click', '#empChangePasswordSubmitButton', function () {
     var isValid = true;
 
-    // Clear previous error messages and remove success class
     $("#changepasswordError").text("");
     $("#newpasswordError").text("");
     $("#confirmpasswordError").text("");
@@ -48,12 +47,10 @@ $(document).on('click', '#empChangePasswordSubmitButton', function () {
     }
 
     if (isValid) {
-        // Indicate passwords match by adding 'is-valid' class
         $("#changepassword, #newpassword, #confirmpassword").addClass("is-valid");
-
-        // Submit the form via AJAX
+               
         $.ajax({
-            url: '/Account/ChangePassword', // Adjust URL as needed
+            url: '/Account/ChangePassword', 
             method: 'POST',
             data: {
                 currentPassword: changepassword,
@@ -63,10 +60,7 @@ $(document).on('click', '#empChangePasswordSubmitButton', function () {
             },
             success: function (response) {
                 if (response.success) {
-                    // Close the change password modal
-                    $('#empChangePasswordModal').modal('hide');
-
-                    // Show the success modal
+                     $('#empChangePasswordModal').modal('hide');
                     $('#empChangePasswordSuccessModal').modal('show');
                 } else {
                     if (response.errors.currentPassword) {
