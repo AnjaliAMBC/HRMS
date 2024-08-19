@@ -76,8 +76,6 @@ namespace HRMS.Controllers
                 "2 Hours"
             };
 
-
-
             return PartialView("~/Views/EmployeeDashboard/EmpApplyleave.cshtml", applyleaveModel);
         }
 
@@ -93,11 +91,9 @@ namespace HRMS.Controllers
                 {
                     return Json(leaveRequest, JsonRequestBehavior.AllowGet);
                 }
-
-                // Check if ActionType is Edit
+                
                 if (leaveRequest.ActionType == "Update")
-                {
-                    // Remove existing leaves within the edited date range
+                {                    
                     var existingLeaves = _dbContext.con_leaveupdate
                         .Where(l => l.LeaveRequestName == leaveRequest.EditRequestName)
                         .ToList();
@@ -249,25 +245,7 @@ namespace HRMS.Controllers
 
         public ActionResult GetAvailableLeaves(string empId, string leaveType)
         {
-            //int currentYear = DateTime.Now.Year;
-            //string january1stString = $"{currentYear}-01-01";
-            //string december31stString = $"{currentYear}-12-31";
-
-            //DateTime january1st = DateTime.ParseExact(january1stString, "yyyy-MM-dd", null);
-            //DateTime december31st = DateTime.ParseExact(december31stString, "yyyy-MM-dd", null);
-
-            //var employee = _dbContext.emp_info.FirstOrDefault(x => x.EmployeeID == empId);
-            //if (employee == null)
-            //{
-            //    // Handle case where employee is not found
-            //    return Json(new { error = "Employee not found" }, JsonRequestBehavior.AllowGet);
-            //}
-
-            //var leaveTypeCategory = new LeavesCategory();
-            //leaveTypeCategory.Type = leaveType;
-
-            //var availableLeaves = new LeaveCalculator().CalculateAvailableLeaves(employee, leaveTypeCategory);
-
+            
             LeaveTypesBasedOnEmpViewModel empLeaveTypes = new LeaveCalculator().GetLeavesByEmp(empId);
             var availableLeaves = new AvailableLeaves();
 
@@ -275,9 +253,7 @@ namespace HRMS.Controllers
             {
                 availableLeaves = empLeaveTypes.LeaveTypes[0].AvailableLeaves.Where(x => x.Type == leaveType).FirstOrDefault();
             }
-
-
-            // Return available leaves as JSON
+                      
             return Json(availableLeaves, JsonRequestBehavior.AllowGet);
         }
 

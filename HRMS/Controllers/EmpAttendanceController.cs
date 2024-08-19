@@ -12,16 +12,13 @@ namespace HRMS.Controllers
     using Helpers;
     public class EmpAttendanceController : BaseController
     {
-        // Database context
-        private readonly HRMS_EntityFramework _dbContext;
-
-        // Constructor to initialize database context
+         private readonly HRMS_EntityFramework _dbContext;
+        
         public EmpAttendanceController()
         {
-            _dbContext = new HRMS_EntityFramework(); // Replace YourDbContext with your actual DbContext class
+            _dbContext = new HRMS_EntityFramework(); 
         }
-
-        // GET: EmpAttendance
+       
         public ActionResult Index(string startdate, string endDate)
         {
             if (startdate == "Invalid Date" || endDate == "Invalid Date")
@@ -33,11 +30,9 @@ namespace HRMS.Controllers
 
             DateTime currentDate = DateTime.Today;
             DayOfWeek currentDayOfWeek = currentDate.DayOfWeek;
-
-            // Calculate the start of the week (Monday)
+           
             model.startWeek = currentDate.AddDays(-(int)currentDayOfWeek + (int)DayOfWeek.Monday);
-
-            // Calculate the end of the week (Sunday)
+            
             model.EndWeek = model.startWeek.AddDays(6);
 
             if (!string.IsNullOrWhiteSpace(startdate) && !string.IsNullOrWhiteSpace(endDate))
@@ -58,8 +53,7 @@ namespace HRMS.Controllers
             {
                 model.Leaves = selectedDateLeaves;
             }
-
-            // Get all dates between start and end date
+           
             List<DateTime> allDates = DateHelper.GetAllDates(model.startWeek, model.EndWeek);
             model.AllDates = allDates;
 
