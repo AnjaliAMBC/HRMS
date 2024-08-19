@@ -32,18 +32,7 @@ namespace HRMS.Controllers
             _dbContext = new HRMS_EntityFramework(); // Replace YourDbContext with your actual DbContext class
         }
 
-        //// Database context
-        //private readonly HRMS_EntityFramework _dbContext;
-        //private readonly SiteContext _siteCotext;
-        //private readonly HttpSessionStateBase _session;
-
-        //// Constructor to initialize database context
-        //public AccountController()
-        //{
-        //    _dbContext = new HRMS_EntityFramework();           
-        //    _siteCotext = new SiteContext(_dbContext, _session);// Replace YourDbContext with your actual DbContext class 
-        //}
-
+       
         [HttpGet]
         [AllowAnonymous]
         public ActionResult Login()
@@ -55,7 +44,7 @@ namespace HRMS.Controllers
         [AllowAnonymous]
         public ActionResult Login(AccountModel loginModel)
         {
-            // Check the username and password against your authentication system
+           
             if (IsValidUser(loginModel))
             {
                 FormsAuthentication.SetAuthCookie(loginModel.EmailID, false);
@@ -83,7 +72,7 @@ namespace HRMS.Controllers
                     .Where(emp => emp.EmployeeID == loginModel.EmployeeID && emp.Password == loginModel.Password)
                     .FirstOrDefault();
 
-                if (isEmpExists != null && isEmpExists.EmployeeStatus == "Active") // Check if employee status is active
+                if (isEmpExists != null && isEmpExists.EmployeeStatus == "Active") 
                 {
                     loginModel.IsUser = true;
                     var currentEmployee = _dbContext.emp_info

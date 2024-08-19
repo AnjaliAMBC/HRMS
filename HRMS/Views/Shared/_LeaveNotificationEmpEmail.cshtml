@@ -5,10 +5,9 @@
     var logoURL = siteURL + "/Assets/AMBC_Logo.png";
 }
 
-
 @if (Model != null && Model.Any())
 {
-    var leaveUpdate = Model.First();   
+    var leaveUpdate = Model.First();
 
     <table cellpadding="0" cellspacing="0" border="0" width="100%" style="border: 1px solid #ddd; background-color: #f9f9f9; padding: 20px;">
         <tr>
@@ -41,17 +40,42 @@
                             <p style="margin: 0;"><strong>From Date:</strong> @(leaveUpdate.Fromdate.HasValue ? leaveUpdate.Fromdate.Value.ToString("dd-MM-yyyy") : "Not specified")</p>
                         </td>
                     </tr>
-                    <tr>
-                        <td style="padding-bottom: 10px;">
-                            <p style="margin: 0;"><strong>To Date:</strong> @(leaveUpdate.Todate.HasValue ? leaveUpdate.Todate.Value.ToString("dd-MM-yyyy") : "Not specified")</p>
-                        </td>
-                    </tr>
+
+                    <!-- Conditional display of To Date -->
+                    @if (leaveUpdate.leavesource == "Hourly Permission")
+                    {
+                        if (!leaveUpdate.Todate.HasValue || leaveUpdate.Todate.Value == DateTime.MinValue)
+                        {
+                            <tr>
+                                <td style="padding-bottom: 10px;">
+                                    <p style="margin: 0;"><strong>To Date:</strong> @(leaveUpdate.Fromdate.HasValue ? leaveUpdate.Fromdate.Value.ToString("dd-MM-yyyy") : "Not specified")</p>
+                                </td>
+                            </tr>
+                        }
+                        else
+                        {
+                            <tr>
+                                <td style="padding-bottom: 10px;">
+                                    <p style="margin: 0;"><strong>To Date:</strong> @(leaveUpdate.Todate.HasValue ? leaveUpdate.Todate.Value.ToString("dd-MM-yyyy") : "Not specified")</p>
+                                </td>
+                            </tr>
+                        }
+                    }
+                    else
+                    {
                         <tr>
                             <td style="padding-bottom: 10px;">
-                                <p style="margin: 0;"><strong>Reason:</strong> @leaveUpdate.leave_reason</p>
+                                <p style="margin: 0;"><strong>To Date:</strong> @(leaveUpdate.Todate.HasValue ? leaveUpdate.Todate.Value.ToString("dd-MM-yyyy") : "Not specified")</p>
                             </td>
                         </tr>
-                             <tr>
+                    }
+
+                    <tr>
+                        <td style="padding-bottom: 10px;">
+                            <p style="margin: 0;"><strong>Reason:</strong> @leaveUpdate.leave_reason</p>
+                        </td>
+                    </tr>
+                    <tr>
                         <td style="padding-bottom: 10px;">
                             <p style="margin: 0;"><strong>Backup Resource Name:</strong> @leaveUpdate.BackupResource_Name</p>
                         </td>
