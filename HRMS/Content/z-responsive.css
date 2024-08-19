@@ -3100,7 +3100,7 @@
         position: absolute;
         /*top: 14px;
         right: 22px;*/
-        top: 242px;
+        top: 160px;
         right: 50px;
     }
 
@@ -3941,7 +3941,7 @@
 
     /* emp dashboard start */
     .tablet-view .emp-dashboard .main-content {
-        width: 72% !important;
+        width: 78% !important;
         margin-left: 210px;
     }
 
@@ -4018,7 +4018,7 @@
 
     /* self services start*/
     .tablet-view .emp-self-service .main-content.container-fluid {
-        width: 73% !important;
+        width: 79% !important;
         padding: 55px 0;
     }
 
@@ -4058,7 +4058,7 @@
     /* attendence start*/
 
     .tablet-view .emp-attendance .main-content.container-fluid {
-        width: 74% !important;
+        width: 79% !important;
         padding: 64px 0px;
         margin-right: 0;
     }
@@ -4072,6 +4072,8 @@
         width: 100%;
         display: inline-block;
         margin-top: 0px;
+        justify-content: left !important;
+        margin-left: 5px;
     }
 
     .tablet-view .attendance-nav .apply-div button {
@@ -4134,7 +4136,7 @@
 
     /* emp leave start */
     .tablet-view .emp-leave .main-content.container-fluid {
-        width: 75% !important;
+        width: 82% !important;
         padding: 65px 0px;
         margin-left: 195px !important;
         margin-right: 0px;
@@ -4224,7 +4226,8 @@
     }
 
     .tablet-view .emp-leave .leave-dashboard-data .emp-leave-apply-form {
-        margin-left: 5% !important;
+        margin-left: 3% !important;
+        width: 96%;
     }
 
     .tablet-view #leaveHistoryTable {
@@ -4259,28 +4262,32 @@
         table-layout: fixed;
     }
 
-        .tablet-view #empleaveCompOffTable tbody td:nth-child(3) {
-            width: 128px !important;
-        }
+    .tablet-view #empleaveCompOffTable tbody td:nth-child(3) {
+        width: 128px !important;
+    }
 
-        .tablet-view #empleaveCompOffTable tbody td:nth-child(4) {
-            width: 100px !important;
-        }
+    .tablet-view #empleaveCompOffTable tbody td:nth-child(4) {
+        width: 100px !important;
+    }
 
-        .tablet-view #empleaveCompOffTable tbody td:nth-child(5) {
-            width: 100px !important;
-        }
+    .tablet-view #empleaveCompOffTable tbody td:nth-child(5) {
+        width: 100px !important;
+    }
 
-        .tablet-view #empleaveCompOffTable tbody td:nth-child(6) {
-            width: 250px !important;
-        }
+    .tablet-view #empleaveCompOffTable tbody td:nth-child(6) {
+        width: 250px !important;
+    }
+
+    .tablet-view .empleave-container .leave-history {
+        width: 94%;
+    }
 
     /* emp leave end*/
 
     /* emp ticket start */
 
     .tablet-view .emp-Ticket-view .main-content {
-        width: 74% !important;
+        width: 80% !important;
     }
 
     .tablet-view .res-emp-tickethistory-header .res-emp-tickethistory-title {
@@ -4339,7 +4346,7 @@
     /*admin emp management page start*/
 
     .tablet-view .res-admin-employee-management .main-content {
-        width: 75% !important;
+        width: 80% !important;
         margin-top: 10px;
     }
 
@@ -4435,13 +4442,13 @@
         position: absolute;
         /*top: 14px;
         right: 22px;*/
-        top: 242px;
+        top: 162px;
         right: 85px;
     }
 
-        .responsive-tabs.nav-tabs i.fa.fa-caret-up {
-            display: none;
-        }
+    .responsive-tabs.nav-tabs i.fa.fa-caret-up {
+        display: none;
+    }
 
     .responsive-tabs.nav-tabs > li {
         display: none;
@@ -4651,9 +4658,9 @@
         width: 113%;
     }
 
-        .tablet-view .res-admin-leave-balance .search-container {
-            margin-left: 10% !important;
-        }
+    .tablet-view .res-admin-leave-balance .search-container {
+        margin-left: 10% !important;
+    }
 
     .tablet-view .res-adminleave-header-right .dropdowns-leave-container {
         display: inline-block;
@@ -5101,10 +5108,10 @@
         margin: 0;
     }
 
-        .res-admin-hr-ticket-listing .res-admin-hr-ticketlisting-filter-show .col-lg-12 {
-            padding: 0;
-            margin: 0;
-        }
+    .res-admin-hr-ticket-listing .res-admin-hr-ticketlisting-filter-show .col-lg-12 {
+        padding: 0;
+        margin: 0;
+    }
 
     /* admin hr ticket end */
 
@@ -5124,7 +5131,7 @@
 
 }
 
-/* iPad Air (Portrait) */
+/* iPad Air (Portrait) start */
 @media only screen and (min-device-width: 820px) and (max-device-width: 1180px) and (orientation: portrait) {
     .tablet-view .res-admin-employee-management .res-admin-emp-table {
         margin-top: 15px;
@@ -5174,6 +5181,10 @@
     .admin-hrticketing-block .div-admin-hrticket-closeddate {
         max-width: 48% !important;
         width: 100%;
+    }
+
+    .tablet-view .emp-leave .main-content.container-fluid {
+        width: 74% !important;
     }
 }
 
