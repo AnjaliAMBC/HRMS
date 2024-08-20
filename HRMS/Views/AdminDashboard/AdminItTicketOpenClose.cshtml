@@ -120,7 +120,7 @@
                             </div>
                         </div>
                         <div class="admin-itticket-submit">
-                            <button type="button" class="btn btn-itticketing-back mb-4">Back</button>
+                            <button type="button" class="btn btn-secondary mb-4">Back</button>
                             @if (Model.TicketViewModel.Status != "Cancelled" && Model.TicketViewModel.Status != "Closed")
                             {
                                 <button @IsReadonlyButtonDisabled type="button" class="btn btn-primary btn-apply-admin-itticket-submit mb-4" data-ticketnum="@Model.TicketViewModel.TicketNo">Submit</button>
