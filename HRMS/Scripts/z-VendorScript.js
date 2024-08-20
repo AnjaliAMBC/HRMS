@@ -1,6 +1,10 @@
-﻿$(document).on('click', '.vendorBulk', function () {
-    window.location.href = "/Vendor/ImportVendor";
-});
-$(document).on('click', '.vendorManually', function () {
-    window.location.href = "/Vendor/AddVendor";
-});
+﻿
+$(document).on('change', '#addvendor', function () {   
+        var selectedValue = $(this).val();
+        if (selectedValue === "Addmanually") {
+            window.location.href = '/Vendor/AddVendor';
+        } else if (selectedValue === "importuser") {
+            window.location.href = '/Vendor/ImportVendor';
+        }
+    });
+
