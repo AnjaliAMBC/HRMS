@@ -262,11 +262,11 @@ namespace HRMS.Controllers
         {
             List<IT_Ticket> ticketsList = GetTicketsFilter(fromDate, toDate, status, location, closedBy, "IT");
 
-            // Create Excel package
+            
             ExcelPackage excelPackage = new ExcelPackage();
             var worksheet = excelPackage.Workbook.Worksheets.Add("Tickets");
 
-            // Header row
+           
             worksheet.Cells["A1"].Value = "Employee ID";
             worksheet.Cells["B1"].Value = "Subject";
             worksheet.Cells["C1"].Value = "Priority";
@@ -274,7 +274,6 @@ namespace HRMS.Controllers
             worksheet.Cells["E1"].Value = "Status";
             worksheet.Cells["F1"].Value = "Created Date";
 
-            // Data rows
             int row = 2;
             foreach (var ticket in ticketsList)
             {
@@ -288,10 +287,9 @@ namespace HRMS.Controllers
                 row++;
             }
 
-            // Auto fit columns
+           
             worksheet.Cells.AutoFitColumns();
-
-            // Prepare the response
+            
             var memoryStream = new MemoryStream();
             excelPackage.SaveAs(memoryStream);
             memoryStream.Position = 0;
