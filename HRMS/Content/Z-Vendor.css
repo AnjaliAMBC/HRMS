@@ -47,3 +47,112 @@
 }
 
 /* Vendor end */
+.vendor-list-edit
+{
+    margin-left:20%;
+}
+.vendorapproved-btn
+{
+    margin-left:20%;
+}
+.addingvendor
+{
+}
+
+#hr-vendorlisting-status-dropdown {
+    border: none;
+    padding: 0px;
+    font-size:1.1rem;
+}
+
+#addvendor
+{
+    height:35px;
+    border-radius:5px;
+}
+.res-admin-vendor-header-right
+{
+    padding-top:20px;
+}
+
+.res-vendorlisting
+{
+    padding:0 1.5rem;
+}
+
+#adminvendortable_wrapper
+{
+    margin:40px 0px;
+}
+
+#hr-vendorlisting-status-dropdown option {
+    font-weight: normal;
+    font-size:16px;
+    display: block;
+    padding-block-start: 0px;
+    padding-block-end: 1px;
+    min-block-size: 1.2em;
+    padding-inline: 5px;
+    white-space: nowrap;
+}
+#hr-vendorlisting-status-dropdown 
+{
+    padding-left:5px;
+}
+
+.vendorapproved-btn {
+    position: relative;
+    cursor: pointer; 
+}
+
+    .vendorapproved-btn::after {
+        content: "Approved by Mithun Shivaprakasham";
+        position: absolute;
+        top: 160%; 
+        left: 50%; 
+        transform: translateX(-50%); 
+        background-color: #333;
+        color: #fff;
+        padding: 5px 10px; 
+        border-radius: 5px;
+        width: 150px; 
+        white-space: normal; 
+        font-size: 12px; 
+        visibility: hidden; 
+        opacity: 0; 
+        transition: opacity 0.3s; 
+        z-index: 1000; 
+        text-align: center;
+    }
+    .vendorapproved-btn::before {
+        content: ""; 
+        position: absolute; 
+        top: 100%; 
+        left: 50%;
+        transform: translateX(-50%); 
+        border-width: 5px; 
+        border-style: solid; 
+        border-color: transparent transparent #333 transparent;
+        visibility: hidden;
+        opacity: 0; 
+        transition: opacity 0.3s; 
+        z-index: 1000; 
+    }
+
+    .vendorapproved-btn:hover::after,
+    .vendorapproved-btn:hover::before {
+        visibility: visible;
+        opacity: 1;
+    }
+    @media (min-width:750px) and (max-width:1000px)
+    {
+        #hr-vendorlisting-status-dropdown
+        {
+            width:50%
+        }
+    }
+
+.vendoradd-tabs label{
+    font-size:13px;
+    margin-bottom:0px;
+}
