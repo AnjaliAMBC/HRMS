@@ -2,123 +2,160 @@
 <div class="container-fluid">
     <div class="hiddenadmindashboard" style="display: none"></div>
     @Html.Partial("_adminsidemenu")
-<div class="main-content container-fluid VendorListPage-View" style="width: 84%">
-    <div class="content admin-vendor-container" style="margin-left: -10px; ">
-        <div class="admin-vendor-view">
-            <div class="container-fluid top admin-vendorview">
-                <div class="row navbar align-items-center">
-                    <!-- Employee column -->
-                    <div class="col-lg-3 topic d-flex res-admin-title">
-                        <h4 class="header mb-0 text-right">Vendor Details</h4>
-                    </div>
-                    <!-- Search box -->
-                    <div class="col-lg-4 navbarl1 col-sm-12 col-md-12 res-admin-vendor-search">
-                        <div class="search-container" style=" margin-left: 32px; ">
-                            <div class="input-group" style="border-radius: 20px;">
-                                <div class="input-group-prepend">
-                                    <span class="input-group-text" style="background-color: transparent; border-right: none; border-radius: 5px 0 0 5px; height: 35px;"><i class="fas fa-search" style="color: #369479"></i></span>
+    <div class="main-content container-fluid VendorListPage-View" style="width: 84%">
+        <div class="content admin-vendor-container" style="margin-left: -10px; ">
+            <div class="admin-vendor-view">
+                <div class="container-fluid top admin-vendorview">
+                    <div class="row navbar align-items-center">
+                        <!-- Employee column -->
+                        <div class="col-lg-3 col-md-5 topic d-flex res-admin-title">
+                            <h4 class="header mb-0 text-right">Vendor Details</h4>
+                        </div>
+                        <!-- Search box -->
+                        <div class="col-lg-4 navbarl1 col-sm-12 col-md-7 res-admin-vendor-search">
+                            <div class="search-container" style=" margin-left: 32px; ">
+                                <div class="input-group" style="border-radius: 20px;">
+                                    <div class="input-group-prepend">
+                                        <span class="input-group-text" style="background-color: transparent; border-right: none; border-radius: 5px 0 0 5px; height: 35px;"><i class="fas fa-search" style="color: #369479"></i></span>
+                                    </div>
+                                    <input type="text" placeholder="Search By Keyword" class="advancesearch form-control" aria-label="Search By Keyword" style="border-radius: 0 5px 5px 0; height: 35px; font-size: 14px;">
                                 </div>
-                                <input type="text" placeholder="Search By Keyword" class="advancesearch form-control" aria-label="Search By Keyword" style="border-radius: 0 5px 5px 0; height: 35px; font-size: 14px;">
                             </div>
+                        </div>
+
+                        <div class="col-lg-5 navbarl1 col-sm-12 col-md-12 res-admin-vendor-header-right">
+                            <!-- Export -->
+                            <div class="col-lg-4 navbarl1 col-sm-12 col-md-4 res-admin-vendor-status p-0">
+                                <div class="form-group res-vendorlisting">
+                                    <select class="form-control form-select" name="vendorstatus" id="hr-vendorlisting-status-dropdown" style="">
+                                        <option value="" disabled selected>Status</option>
+                                        <option value="Approved">Approved</option>
+                                        <option value="Rejected">Rejected</option>
+                                        <option value="Pending">Pending</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="col-lg-2 navbarl1 col-sm-12 col-md-2 res-admin-vendor-export p-0">
+                                <div class="adminvendor-export" style="">
+                                    <button type="button" class="btn vendorlist-export-btn pt-0" id="exportVendor" onclick="exportVendor()">
+                                        <span class="vendorlist-export"><img src="/assets/Export.png" alt="Export" style=""></span>
+                                    </button>
+                                </div>
+                            </div>
+
+                            <!-- Add Employee dropdown -->
+                            <div class="col-lg-5 navbarl1 col-sm-12 col-md-5 res-admin-vendor-add">
+                                <div class="addingvendor form-group">
+                                    <select name="addvendor" class="addvendor form-control form-select" id="addvendor">
+                                        <option value="" disabled="" selected="" hidden="">Add Vendor</option>
+                                        <option value="Addmanually" class="vendorManually">+ Manually</option>
+                                        <option value="importuser" class="vendorBulk">+ Bulk</option>
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+
+                <div class="admin-Vendor-action-block">
+                    <select class="form-control ml-2" name="action" id="action" style="display: none;">
+                        <option value="" selected>Action</option>
+                        <option value="export">Export</option>
+                    </select>
+                </div>
+
+                <div class="res-admin-vendor-table table-responsive">
+                    <table id="adminvendortable" class="display" style="width: 100%;">
+                        <thead style="background-color: #d8e6fb; border-radius: 10px;">
+                            <tr>
+                                <th><input type="checkbox" id="selectAll"></th>
+                                <th>Vendor ID</th>
+                                <th>Vendor Name</th>
+                                <th>Vendor Contact</th>
+                                <th>Vendor Address</th>
+                                <th>Created Date</th>
+                                <th>Created By</th>
+                                <th>Status</th>
+                                <th>Action</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr class="odd">
+                                <td><input type="checkbox" class="vendor-check"></td>
+                                <td class="tdvendorid">2000</td>
+                                <td class="tdvendorname">
+                                    <div style="display: flex; align-items: center;">
+                                        <span style="margin-top: 0px; margin-right: 10px;">Mithun Sivaprakasam<br><span style="color: #3E78CF;">mithun@ambconline.com</span></span>
+                                    </div>
+                                </td>
+                                <td>+901212122</td>
+                                <td>Test Address</td>
+                                <td>03-09-2024</td>
+                                <td>Test User</td>
+                                <td><span class="vendorapproved-btn"><img src="/assets/Approve.png" alt="Approved" style="width:25px"></span></td>
+                                <td><span class="vendor-list-edit"><i class="fas fa-pencil-alt"></i></span></td>
+                            </tr>
+                            <tr class="even">
+                                <td><input type="checkbox" class="vendor-check"></td>
+                                <td class="tdvendorid">2000</td>
+                                <td class="tdvendorname">
+                                    <div style="display: flex; align-items: center;">
+                                        <span style="margin-top: 0px; margin-right: 10px;">Mithun Sivaprakasam<br><span style="color: #3E78CF;">mithun@ambconline.com</span></span>
+                                    </div>
+                                </td>
+                                <td>+901212122</td>
+                                <td>Test Address</td>
+                                <td>03-09-2024</td>
+                                <td>Test User</td>
+                                <td><span class="vendorapproved-btn"><img src="/assets/Approve.png" alt="Approved" style="width:25px"></span></td>
+                                <td><span class="vendor-list-edit"><i class="fas fa-pencil-alt"></i></span></td>
+                            </tr>
+                            <tr class="odd">
+                                <td><input type="checkbox" class="vendor-check"></td>
+                                <td class="tdvendorid">2000</td>
+                                <td class="tdvendorname">
+                                    <div style="display: flex; align-items: center;">
+                                        <span style="margin-top: 0px; margin-right: 10px;">Mithun Sivaprakasam<br><span style="color: #3E78CF;">mithun@ambconline.com</span></span>
+                                    </div>
+                                </td>
+                                <td>+901212122</td>
+                                <td>Test Address</td>
+                                <td>03-09-2024</td>
+                                <td>Test User</td>
+                                <td><span class="vendorapproved-btn"><img src="/assets/Approve.png" alt="Approved" style="width:25px"></span></td>
+                                <td><span class="vendor-list-edit"><i class="fas fa-pencil-alt"></i></span></td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+
+            </div>
+
+            <!-- Button trigger modal -->
+            <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal">
+                Launch Popup
+            </button>
+
+            <!-- Modal -->
+            <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                <div class="modal-dialog" role="document">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                            </button>
+                        </div>
+                        <div class="modal-body text-center">
+                            <img src="/assets/correct.png" alt="Approved" style="width:120px;color:green;padding:20px">
+                            <h6>Vendor Added Successfully</h6>
                         </div>
                     </div>
-
-                    <div class="col-lg-5 navbarl1 col-sm-12 col-md-12 res-admin-vendor-header-right">
-                        <!-- Export -->
-                        <div class="col-lg-3 navbarl1 col-sm-12 col-md-6 res-admin-vendor-export">
-                            <div class="adminvendor-export" style="">
-                                <button type="button" class="btn btn-primary" id="exportVendor" onclick="exportVendor()">Export</button>
-                            </div>
-                        </div>
-
-                        <!-- Add Employee dropdown -->
-                        <div class="col-lg-5 navbarl1 col-sm-12 col-md-5 res-admin-vendor-add">
-                            <div class="addingvendor form-group">
-                                <select name="addvendor" class="addvendor form-control form-select" id="addvendor">
-                                    <option value="" disabled="" selected="" hidden="">Add Vendor</option>
-                                    <option value="Addmanually" class="vendorManually">+ Manually</option>
-                                    <option value="importuser" class="vendorBulk">+ Bulk</option>
-                                </select>
-                            </div>
-                        </div>
-                    </div>
-
                 </div>
             </div>
-
-            <div class="admin-Vendor-action-block">
-                <select class="form-control ml-2" name="action" id="action" style="display: none;">
-                    <option value="" selected>Action</option>
-                    <option value="export">Export</option>
-                </select>
-            </div>
-
-            <div class="res-admin-vendor-table table-responsive">
-                <table id="adminvendortable" class="display" style="width: 100%;">
-                    <thead style="background-color: #d8e6fb; border-radius: 10px;">
-                        <tr>
-                            <th><input type="checkbox" id="selectAll"></th>
-                            <th>Vendor ID</th>
-                            <th>Vendor Name</th>
-                            <th>Vendor Contact</th>
-                            <th>Vendor Address</th>
-                            <th>Created Date</th>
-                            <th>Created By</th>
-                            <th>Status</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <tr class="odd">
-                            <td><input type="checkbox" class="vendor-check"></td>
-                            <td class="tdvendorid">2000</td>
-                            <td class="tdvendorname">
-                                <div style="display: flex; align-items: center;">
-                                    <span style="margin-top: 0px; margin-right: 10px;">Mithun Sivaprakasam<br><span style="color: #3E78CF;">mithun@ambconline.com</span></span>
-                                </div>
-                            </td>
-                            <td>+901212122</td>
-                            <td>Test Address</td>
-                            <td>03-09-2024</td>
-                            <td>Test User</td>
-                            <td><span class="approved-btn" title="Approved"><img src="/assets/Approve.png" alt="Approved" style=""></span></td>
-                        </tr>
-                        <tr class="even">
-                            <td><input type="checkbox" class="vendor-check"></td>
-                            <td class="tdvendorid">2000</td>
-                            <td class="tdvendorname">
-                                <div style="display: flex; align-items: center;">
-                                    <span style="margin-top: 0px; margin-right: 10px;">Mithun Sivaprakasam<br><span style="color: #3E78CF;">mithun@ambconline.com</span></span>
-                                </div>
-                            </td>
-                            <td>+901212122</td>
-                            <td>Test Address</td>
-                            <td>03-09-2024</td>
-                            <td>Test User</td>
-                            <td><span class="approved-btn" title="Approved"><img src="/assets/Approve.png" alt="Approved" style=""></span></td>
-                        </tr>
-                        <tr class="odd">
-                            <td><input type="checkbox" class="vendor-check"></td>
-                            <td class="tdvendorid">2000</td>
-                            <td class="tdvendorname">
-                                <div style="display: flex; align-items: center;">
-                                    <span style="margin-top: 0px; margin-right: 10px;">Mithun Sivaprakasam<br><span style="color: #3E78CF;">mithun@ambconline.com</span></span>
-                                </div>
-                            </td>
-                            <td>+901212122</td>
-                            <td>Test Address</td>
-                            <td>03-09-2024</td>
-                            <td>Test User</td>
-                            <td><span class="approved-btn" title="Approved"><img src="/assets/Approve.png" alt="Approved" style=""></span></td>
-                        </tr>
-                    </tbody>
-                </table>
-            </div>
-
         </div>
     </div>
 </div>
-</div>
-
 <script>
     $(document).ready(function () {
         // Initialize DataTable if not already initialized
@@ -134,5 +171,4 @@
             });
         }
     });
-
 </script>
