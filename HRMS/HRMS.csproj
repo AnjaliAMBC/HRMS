@@ -194,20 +194,15 @@
     <Compile Include="tbld_ambclogininformation.cs">
       <DependentUpon>HRMS.tt</DependentUpon>
     </Compile>
-    <Content Include="Assets\ambcfavicon.png" />
-    <Content Include="Assets\AMBCLoader.png" />
+    <Content Include="Assets\Approve.png" />
     <Content Include="Assets\Birthday.png" />
-    <Content Include="Assets\Birthday123.png" />
-    <Content Include="Assets\Birthday1234.png" />
-    <Content Include="Assets\Birthday234.png" />
     <Content Include="Assets\EMBackground.png" />
-    <Content Include="Assets\empdashboard.png" />
     <Content Include="Assets\EmpImages\1020.jpeg" />
     <Content Include="Assets\EmpImages\1075.jpeg" />
     <Content Include="Assets\EmpImages\1108.jpeg" />
     <Content Include="Assets\EmpImages\1155.jpeg" />
     <Content Include="Assets\EmpImages\1261.jpeg" />
-    <Content Include="Assets\EmpProfile.png" />
+    <Content Include="Assets\Export.png" />
     <Content Include="Assets\Fonts\familyMaterial.css" />
     <Content Include="Assets\Fonts\familyRoboto.css" />
     <Content Include="Assets\Icons\Attendance.png" />
@@ -217,16 +212,15 @@
     <Content Include="Assets\Icons\Leave.png" />
     <Content Include="Assets\Icons\Ticketing.png" />
     <Content Include="Assets\Leave.png" />
+    <Content Include="Assets\Pending.png" />
+    <Content Include="Assets\Reject.png" />
     <Content Include="Assets\Sidebarimages\01_Dashboard.png" />
     <Content Include="Assets\Sidebarimages\02_Employee.png" />
     <Content Include="Assets\Sidebarimages\03_Attendance.png" />
     <Content Include="Assets\Sidebarimages\04_Leave.png" />
     <Content Include="Assets\Sidebarimages\05_Ticketing.png" />
     <Content Include="Assets\Ticket.png" />
-    <Content Include="Assets\Ticket123.png" />
     <Content Include="Assets\WorkAnni.png" />
-    <Content Include="Assets\WorkAnni123.jpg" />
-    <Content Include="Assets\WorkAnni123.png" />
     <Content Include="Content\5.15.4all.min.css" />
     <Content Include="Content\all.min.css" />
     <Content Include="Content\bootstrap-icons.min.css" />
@@ -238,6 +232,7 @@
     <Content Include="Content\z-Adminticketting.css" />
     <Content Include="Content\z-responsive.css" />
     <Content Include="Content\z-style.css" />
+    <Content Include="Content\Z-Vendor.css" />
     <Content Include="Scripts\4.5.2bootstrap.min.js" />
     <Content Include="Scripts\ajax.umdpopper.min.js" />
     <Content Include="Scripts\jquery.dataTables.js" />
@@ -353,6 +348,7 @@
     <Content Include="Scripts\z-empTicketing.js" />
     <Content Include="Scripts\z-raiseticket.js" />
     <Content Include="Scripts\z-Teamemail.js" />
+    <Content Include="Scripts\z-VendorScript.js" />
     <Content Include="Scripts\zEditAdminattendance.js" />
     <Content Include="Scripts\z-Adminemp.js" />
     <Content Include="Scripts\z-AdminDashboard.js" />
@@ -447,10 +443,14 @@
     <Content Include="Views\AdminDashboard\AdminHrTicketing.cshtml" />
     <Content Include="Views\AdminDashboard\AdminItTicketOpenClose.cshtml" />
     <Content Include="Views\AdminDashboard\AdminHrTicketOpenCloseView.cshtml" />
+    <Content Include="Views\AdminDashboard\VendorListView.cshtml" />
+    <Content Include="Views\AdminDashboard\VendorAdd.cshtml" />
+    <Content Include="Views\AdminDashboard\VendorImport.cshtml" />
+    <Content Include="Views\AdminDashboard\VendorApprovalPage.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
-    <Folder Include="Views\Base\" />
+    <Folder Include="Views\Vendor\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="fonts\glyphicons-halflings-regular.woff2" />
