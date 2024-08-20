@@ -298,7 +298,7 @@ $(document).on('click', '.btn-apply-emp-tickethistory-comment-reopen, .btn-apply
 
                     // Hide the comment box popup after successful operation
                     $modal.find('.emp-ticketing-commentbox-popup').hide();
-                    $modal.find('.emp-ticketing-statuschange-div').html('<p>Ticket status has been updated successfully.</p>');
+                    $modal.find('.emp-ticketing-statuschange-div').html('<p style="color: green;">Ticket status has been updated successfully.</p>');
 
                     // Additional logic based on status if needed
                     if (ticketStatus === 'Re-Open') {

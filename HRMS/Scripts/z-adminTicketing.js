@@ -20,31 +20,28 @@ $(document).on('click', '.btn-itticketing-back', function () {
 $(document).on('click', '.btn-apply-admin-hrticketing-submit', function (event) {
     event.preventDefault();
 
-    // Clear previous error messages
     $('.error-message').text('');
     $('.form-control').removeClass('is-invalid');
 
-    // Get the values
     var resolvedBy = $('#hrticketing-closedby').val();
     var status = $('#admin-hrticketing-status').val();
     var date = $('#hrticketing-closeddate').val();
     var isValid = true;
 
-    // Validate "Resolved By"
+    
     if (!resolvedBy) {
         $('#hrticketing-closedby').addClass('is-invalid');
         $('#hrticketing-closedby-error').text('Resolved By is required.');
         isValid = false;
     }
 
-    // Validate "Status"
     if (!status) {
         $('#admin-hrticketing-status').addClass('is-invalid');
         $('#admin-hrticketing-status-error').text('Status is required.');
         isValid = false;
     }
 
-    // Validate "Date"
+    
     if (!date) {
         $('#hrticketing-closeddate').addClass('is-invalid');
         $('#hrticketing-closeddate-error').text('Date is required.');
@@ -75,10 +72,12 @@ $(document).on('click', '.btn-apply-admin-hrticketing-submit', function (event) 
             },
             success: function (response) {
                 if (response.success) {
-                    $('#modalMessage').text("Ticket " + status + " updated successfully.");
+                    $('#modalMessage').text("Ticket " + status + " updated successfully.")
+                        .addClass('text-success'); // Add the green text class
                     $('#messageModal').modal('show');
                 } else {
-                    $('#modalMessage').text("Error: " + response.message);
+                    $('#modalMessage').text("Error: " + response.message)
+                        .removeClass('text-success'); // Remove the green text class
                     $('#messageModal').modal('show');
                 }
                 $('.show-progress').hide();
@@ -211,15 +210,12 @@ function AdminHRTicketingHistory(fromDate, toDate, status, location, closedBy) {
                 html += '</td>';
                 html += '</tr>';
             });
-
-            // Clear the table body and destroy the existing DataTable
+           
             var table = $('#adminhrticketlistingTable').DataTable();
             table.clear().destroy();
-
-            // Update the table body with new content
+                       
             $('#adminhrticketlistingTable tbody').html(html);
-
-            // Re-initialize the DataTable after the table body is updated
+                        
             table = $('#adminhrticketlistingTable').DataTable({
                 "paging": true,
                 "searching": true,
@@ -300,31 +296,31 @@ $(document).on('click', '.clearhrticketing-filter', function (event) {
 $(document).on('click', '.btn-apply-admin-itticket-submit', function (event) {
     event.preventDefault();
 
-    // Clear previous error messages
+   
     $('.error-message').text('');
     $('.form-control').removeClass('is-invalid');
 
-    // Get the values
+   
     var resolvedBy = $('#admin-itticket-closedby').val();
     var status = $('#admin-itticket-status').val();
     var date = $('#admin-itticketing-closeddate').val();
     var isValid = true;
 
-    // Validate "Resolved By"
+  
     if (!resolvedBy) {
         $('#admin-itticket-closedby').addClass('is-invalid');
         $('#admin-itticket-closedby-error').text('Resolved By is required.');
         isValid = false;
     }
 
-    // Validate "Status"
+   
     if (!status) {
         $('#admin-itticket-status').addClass('is-invalid');
         $('#admin-itticket-status-error').text('Status is required.');
         isValid = false;
     }
 
-    // Validate "Date"
+   
     if (!date) {
         $('#admin-itticketing-closeddate').addClass('is-invalid');
         $('#admin-itticket-closeddate-error').text('Date is required.');
