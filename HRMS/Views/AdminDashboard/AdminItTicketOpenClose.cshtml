@@ -30,8 +30,10 @@
                         </div>
                         <div class="form-group div-admin-itticketing-subject">
                             <label for="admin-itticket-subject" data-ticketnum="">Subject</label>
+                            <div class="admin-itticket-pic">
                             <input type="text" class="form-control" id="admin-itticket-subject" value="@Model.TicketViewModel.Subject" readonly>
                             <a target="_blank" href="@Model.TicketViewModel.AttatchimageFile.Replace(System.Configuration.ConfigurationManager.AppSettings["TicketingFolderPath"], "/ticketing")"><i class="fa-regular fa-image"></i></a>
+                            </div>
                         </div>
                         <div class="form-group">
                             <label for="admin-itticket-description">Description*</label>
