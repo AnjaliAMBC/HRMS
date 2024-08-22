@@ -14,7 +14,7 @@
                             <label for="hrticketing-category" class="hrticketing-label">Category</label>
                             <input type="text" class="form-control" id="hrticketing-category" value="@Model.TicketViewModel.Category" readonly>
                         </div>
-                        <div class="form-group div-hrticketing-subject">
+                        <div class="form-group div-hrticketing-subject d-flex flex-column">
                             <label for="hrticketing-subject">Subject</label>
                             <input type="text" class="form-control" id="hrticketing-subject" value="@Model.TicketViewModel.Subject" readonly>
                             @if (!string.IsNullOrWhiteSpace(@Model.TicketViewModel.AttatchimageFile))
@@ -61,8 +61,8 @@
                             </select>
                             <span class="error-message" style="color: red" id="hrticketing-closedby-error"></span>
                         </div>
-                        <div class="admin-hrticketing-block">
-                            <div class="form-group div-admin-hrticketing-status">
+                        <div class="admin-hrticketing-block col-12 p-0">
+                            <div class="form-group div-admin-hrticketing-status col-6 p-0">
                                 <label for="admin-hrticketing-status" class="admin-hrticketing-priority-label">Select Status*</label>
                                 <select class="form-control" id="admin-hrticketing-status">
                                     @{
@@ -86,7 +86,7 @@
                                 </select>
                                 <span class="error-message" style="color: red" id="admin-hrticketing-status-error"></span>
                             </div>
-                            <div class="form-group div-admin-hrticketing-closeddate">
+                            <div class="form-group div-admin-hrticketing-closeddate col-6 p-0">
                                 <label for="admin-hrticketing-closeddate" class="admin-hrticketing-closeddate-label">Date*</label>
                                 @{
                                     string displayDate = "";

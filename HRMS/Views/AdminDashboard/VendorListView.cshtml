@@ -12,7 +12,7 @@
                             <h4 class="header mb-0 text-right">Vendor Details</h4>
                         </div>
                         <!-- Search box -->
-                        <div class="col-lg-4 navbarl1 col-sm-12 col-md-7 res-admin-vendor-search">
+                        <div class="col-xl-4 col-lg-6 navbarl1 col-sm-12 col-md-7 res-admin-vendor-search">
                             <div class="search-container" style=" margin-left: 32px; ">
                                 <div class="input-group" style="border-radius: 20px;">
                                     <div class="input-group-prepend">
@@ -23,9 +23,9 @@
                             </div>
                         </div>
 
-                        <div class="col-lg-5 navbarl1 col-sm-12 col-md-12 res-admin-vendor-header-right">
+                        <div class="col-xl-5 col-lg-12 navbarl1 col-sm-12 col-md-12 res-admin-vendor-header-right">
                             <!-- Export -->
-                            <div class="col-lg-4 navbarl1 col-sm-12 col-md-4 res-admin-vendor-status p-0">
+                            <div class="col-xl-4 col-lg-3 navbarl1 col-sm-4 col-xs-12 col-md-4 res-admin-vendor-status p-0">
                                 <div class="form-group res-vendorlisting">
                                     <select class="form-control form-select" name="vendorstatus" id="hr-vendorlisting-status-dropdown" style="">
                                         <option value="" disabled selected>Status</option>
@@ -35,7 +35,7 @@
                                     </select>
                                 </div>
                             </div>
-                            <div class="col-lg-2 navbarl1 col-sm-12 col-md-2 res-admin-vendor-export p-0">
+                            <div class=" col-xl-2 col-lg-1 navbarl1 col-sm-2 col-md-2 res-admin-vendor-export p-0">
                                 <div class="adminvendor-export" style="">
                                     <button type="button" class="btn vendorlist-export-btn pt-0" id="exportVendor" onclick="exportVendor()">
                                         <span class="vendorlist-export"><img src="/assets/Export.png" alt="Export" style=""></span>
@@ -44,7 +44,7 @@
                             </div>
 
                             <!-- Add Employee dropdown -->
-                            <div class="col-lg-5 navbarl1 col-sm-12 col-md-5 res-admin-vendor-add">
+                            <div class="col-lg-5 navbarl1 col-sm-6 col-md-5 res-admin-vendor-add">
                                 <div class="addingvendor form-group">
                                     <select name="addvendor" class="addvendor form-control form-select" id="addvendor">
                                         <option value="" disabled="" selected="" hidden="">Add Vendor</option>
@@ -58,15 +58,9 @@
                     </div>
                 </div>
 
-                <div class="admin-Vendor-action-block">
-                    <select class="form-control ml-2" name="action" id="action" style="display: none;">
-                        <option value="" selected>Action</option>
-                        <option value="export">Export</option>
-                    </select>
-                </div>
 
                 <div class="res-admin-vendor-table table-responsive">
-                    <table id="adminvendortable" class="display" style="width: 100%;">
+                    <table id="adminvendortable" class="display" >
                         <thead style="background-color: #d8e6fb; border-radius: 10px;">
                             <tr>
                                 <th><input type="checkbox" id="selectAll"></th>
@@ -133,12 +127,12 @@
             </div>
 
             <!-- Button trigger modal -->
-            <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal">
+            <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#vendoradd-success-popup">
                 Launch Popup
             </button>
 
             <!-- Modal -->
-            <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+            <div class="modal fade" id="vendoradd-success-popup" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
                 <div class="modal-dialog" role="document">
                     <div class="modal-content">
                         <div class="modal-header">
@@ -163,7 +157,7 @@
             var table = $('#adminvendortable').DataTable({
                 "responsive": true,
                 "paging": true,
-                "searching": false, // Enable searching
+                "searching": true, // Enable searching
                 "ordering": false,
                 "info": true,
                 "autoWidth": false,
