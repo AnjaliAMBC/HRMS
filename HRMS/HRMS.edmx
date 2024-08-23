@@ -269,6 +269,32 @@
           <Property Name="IsSignOutBySystem" Type="bit" />
           <Property Name="Employee_LoginLocation" Type="varchar" MaxLength="255" />
         </EntityType>
+        <EntityType Name="VendorList">
+          <Key>
+            <PropertyRef Name="VedorID" />
+          </Key>
+          <Property Name="VedorID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="VendorName" Type="varchar" MaxLength="255" />
+          <Property Name="VendorEmail" Type="varchar" MaxLength="50" />
+          <Property Name="VendorContact" Type="varchar" MaxLength="25" />
+          <Property Name="VendorAddress" Type="varchar" MaxLength="300" />
+          <Property Name="VendorType" Type="varchar" MaxLength="25" />
+          <Property Name="VendorGST" Type="varchar" MaxLength="25" />
+          <Property Name="CreatedBy" Type="varchar" MaxLength="50" />
+          <Property Name="CreatedDate" Type="date" />
+          <Property Name="ApprovedBy" Type="varchar" MaxLength="100" />
+          <Property Name="ApprovedDate" Type="date" />
+          <Property Name="RejectedBy" Type="varchar" MaxLength="50" />
+          <Property Name="RejectedDate" Type="date" />
+          <Property Name="Status" Type="varchar" MaxLength="50" />
+        </EntityType>
+        <EntityType Name="VendorType">
+          <Key>
+            <PropertyRef Name="Sno" />
+          </Key>
+          <Property Name="Sno" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="VendorType" Type="varchar" MaxLength="50" />
+        </EntityType>
         <!--Errors Found During Generation:
 warning 6002: The table/view 'HRMS_PortalDev1.dbo.CheckInView' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
         <EntityType Name="CheckInView">
@@ -310,6 +336,8 @@ warning 6002: The table/view 'HRMS_PortalDev1.dbo.CheckInView' does not have a p
           <EntitySet Name="ReminderLogs" EntityType="Self.ReminderLogs" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="tblambcholiday" EntityType="Self.tblambcholiday" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="tbld_ambclogininformation" EntityType="Self.tbld_ambclogininformation" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="VendorList" EntityType="Self.VendorList" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="VendorType" EntityType="Self.VendorType" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="CheckInView" EntityType="Self.CheckInView" store:Type="Views" store:Schema="dbo">
             <DefiningQuery>SELECT 
     [CheckInView].[login_id] AS [login_id], 
@@ -367,6 +395,8 @@ warning 6002: The table/view 'HRMS_PortalDev1.dbo.CheckInView' does not have a p
           <EntitySet Name="Locations" EntityType="HRMS_EntityModel.Location" />
           <EntitySet Name="IT_Ticket" EntityType="HRMS_EntityModel.IT_Ticket" />
           <EntitySet Name="ReminderLogs" EntityType="HRMS_EntityModel.ReminderLog" />
+          <EntitySet Name="VendorLists" EntityType="HRMS_EntityModel.VendorList" />
+          <EntitySet Name="VendorTypes" EntityType="HRMS_EntityModel.VendorType" />
         </EntityContainer>
         <EntityType Name="Client">
           <Key>
@@ -635,6 +665,32 @@ warning 6002: The table/view 'HRMS_PortalDev1.dbo.CheckInView' does not have a p
           <Property Name="EmployeeID" Type="String" Nullable="false" MaxLength="150" FixedLength="false" Unicode="false" />
           <Property Name="ReminderSentTime" Type="DateTime" Precision="3" />
           <Property Name="ReminderType" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+        </EntityType>
+        <EntityType Name="VendorList">
+          <Key>
+            <PropertyRef Name="VedorID" />
+          </Key>
+          <Property Name="VedorID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="VendorName" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+          <Property Name="VendorEmail" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="VendorContact" Type="String" MaxLength="25" FixedLength="false" Unicode="false" />
+          <Property Name="VendorAddress" Type="String" MaxLength="300" FixedLength="false" Unicode="false" />
+          <Property Name="VendorType" Type="String" MaxLength="25" FixedLength="false" Unicode="false" />
+          <Property Name="VendorGST" Type="String" MaxLength="25" FixedLength="false" Unicode="false" />
+          <Property Name="CreatedBy" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="CreatedDate" Type="DateTime" Precision="0" />
+          <Property Name="ApprovedBy" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="ApprovedDate" Type="DateTime" Precision="0" />
+          <Property Name="RejectedBy" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="RejectedDate" Type="DateTime" Precision="0" />
+          <Property Name="Status" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+        </EntityType>
+        <EntityType Name="VendorType">
+          <Key>
+            <PropertyRef Name="Sno" />
+          </Key>
+          <Property Name="Sno" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="VendorType1" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
         </EntityType>
       </Schema>
     </edmx:ConceptualModels>
@@ -934,6 +990,34 @@ warning 6002: The table/view 'HRMS_PortalDev1.dbo.CheckInView' does not have a p
                 <ScalarProperty Name="ReminderType" ColumnName="ReminderType" />
                 <ScalarProperty Name="ReminderSentTime" ColumnName="ReminderSentTime" />
                 <ScalarProperty Name="EmployeeID" ColumnName="EmployeeID" />
+                <ScalarProperty Name="Sno" ColumnName="Sno" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="VendorLists">
+            <EntityTypeMapping TypeName="HRMS_EntityModel.VendorList">
+              <MappingFragment StoreEntitySet="VendorList">
+                <ScalarProperty Name="Status" ColumnName="Status" />
+                <ScalarProperty Name="RejectedDate" ColumnName="RejectedDate" />
+                <ScalarProperty Name="RejectedBy" ColumnName="RejectedBy" />
+                <ScalarProperty Name="ApprovedDate" ColumnName="ApprovedDate" />
+                <ScalarProperty Name="ApprovedBy" ColumnName="ApprovedBy" />
+                <ScalarProperty Name="CreatedDate" ColumnName="CreatedDate" />
+                <ScalarProperty Name="CreatedBy" ColumnName="CreatedBy" />
+                <ScalarProperty Name="VendorGST" ColumnName="VendorGST" />
+                <ScalarProperty Name="VendorType" ColumnName="VendorType" />
+                <ScalarProperty Name="VendorAddress" ColumnName="VendorAddress" />
+                <ScalarProperty Name="VendorContact" ColumnName="VendorContact" />
+                <ScalarProperty Name="VendorEmail" ColumnName="VendorEmail" />
+                <ScalarProperty Name="VendorName" ColumnName="VendorName" />
+                <ScalarProperty Name="VedorID" ColumnName="VedorID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="VendorTypes">
+            <EntityTypeMapping TypeName="HRMS_EntityModel.VendorType">
+              <MappingFragment StoreEntitySet="VendorType">
+                <ScalarProperty Name="VendorType1" ColumnName="VendorType" />
                 <ScalarProperty Name="Sno" ColumnName="Sno" />
               </MappingFragment>
             </EntityTypeMapping>

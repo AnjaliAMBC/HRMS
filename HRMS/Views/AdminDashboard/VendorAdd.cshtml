@@ -1,111 +1,173 @@
-﻿@Html.Partial("_NavBar")
+﻿@model HRMS.Models.Admin.VendorViewModel
+
+@{
+    var headline = Model.EditVendor.VedorID != 0 ? "Edit Vendor Details" : "Add Vendor Details";
+}
+
+@Html.Partial("_NavBar")
 <div class="container-fluid">
     <div class="hiddenadmindashboard" style="display: none"></div>
     @Html.Partial("_adminsidemenu")
-<div class="main-content container-fluid VendorAdding-tab" style="width: 84%">
-    <div class="content admin-vendoradd-container">
-        <div class="admin-vendor-add">
-            <div class="container-fluid top admin-vendoradd">
-                <div class="row navbar align-items-center mb-3 mt-2">
-                    <h4 class="header mb-0 text-right">Vendor Details</h4>
-                </div>
+    <div class="main-content container-fluid VendorAdding-tab" style="width: 84%">
+        <div class="content admin-vendoradd-container">
+            <div class="admin-vendor-add">
+                <div class="container-fluid top admin-vendoradd">
+                    <div class="row navbar align-items-center mb-4 mt-2">
+                        <h4 class="header mb-0 text-right">Vendor Details</h4>
+                    </div>
+                    <!-- Basic HTML Form -->
                     <form id="vendor-form" class="admin-vendorform needs-validation" novalidate>
-                        <div class="container " style="margin-left: 5px">
+                        <div class="container" style="margin-left: 5px">
                             <div class="row">
                                 <div class="col-lg-3 col-md-6">
                                     <div class="form-group vendoradd-tabs">
                                         <label for="VendorID">Vendor ID</label>
-                                        <input type="number" class="form-control" id="VendorID" placeholder="Enter Vendor ID" required>
+                                        <input type="number" class="form-control" name="VendorID" value="@Model.EditVendor.VedorID" id="VendorID" placeholder="Enter Vendor ID" required>
                                         <small style="font-size: 12px; float: right;">Last Vendor ID: 23</small>
+                                        <div class="invalid-feedback">Vendor ID is required.</div>
                                     </div>
                                 </div>
-
                                 <div class="col-lg-3 col-md-6">
                                     <div class="form-group vendoradd-tabs">
                                         <label for="VendorName">Vendor Name</label>
-                                        <input type="text" class="form-control" id="VendorName" placeholder="Enter Vendor Name" required>
+                                        <input type="text" value="@Model.EditVendor.VendorName" class="form-control" name="VendorName" id="VendorName" placeholder="Enter Vendor Name" required>
+                                        <div class="invalid-feedback">Vendor Name is required.</div>
                                     </div>
                                 </div>
                                 <div class="col-lg-3 col-md-6">
                                     <div class="form-group vendoradd-tabs">
                                         <label for="VendorEmail">Vendor Email</label>
-                                        <input type="text" class="form-control" id="VendorEmail" placeholder="Enter Vendor Email" required>
+                                        <input type="text" class="form-control" value="@Model.EditVendor.VendorEmail"name="VendorEmail" id="VendorEmail" placeholder="Enter Vendor Email" required>
+                                        <div class="invalid-feedback">Please enter a valid email address.</div>
                                     </div>
                                 </div>
                                 <div class="col-lg-3 col-md-6">
                                     <div class="form-group vendoradd-tabs">
                                         <label for="VendorContact">Vendor Contact</label>
-                                        <input type="text" class="form-control" id="VendorContact" placeholder="Enter Contact number" required>
+                                        <input type="text" class="form-control" name="VendorContact" value="@Model.EditVendor.VendorContact"id="VendorContact" placeholder="Enter Contact number" required>
+                                        <div class="invalid-feedback">Please enter a valid 10-digit contact number.</div>
                                     </div>
                                 </div>
-
                             </div>
                             <div class="row">
                                 <div class="col-lg-6 col-md-12">
                                     <div class="form-group vendoradd-tabs">
                                         <label for="VendorAddress">Vendor Address</label>
-                                        <input type="text" class="form-control" id="VendorAddress" placeholder="Enter Vendor Address" required>
+                                        <input type="text" class="form-control" value="@Model.EditVendor.VendorAddress" name="VendorAddress" id="VendorAddress" placeholder="Enter Vendor Address" required>
+                                        <div class="invalid-feedback">Vendor Address is required.</div>
                                     </div>
                                 </div>
                                 <div class="col-lg-3 col-md-6">
                                     <div class="form-group vendoradd-tabs">
                                         <label for="VendorType">Vendor Type</label>
                                         <div class="d-flex">
-                                            <select name="VendorType" class="VendorType form-control form-select" id="VendorType">
-                                                <option value="" disabled="" selected="" hidden="">Select Vendor Type</option>
-                                                <option value="option1">Option 1</option>
-                                                <option value="option2">Option 2</option>
+                                            <select name="VendorType" class="VendorType form-control form-select" id="VendorType" required>
+                                                <option value="" disabled selected hidden>Select Vendor Type</option>
+                                                @foreach (var vendortype in Model.vendorTypes)
+                                                {
+                                                    var selectedVendorType = !string.IsNullOrEmpty(Model.EditVendor.VendorType) && (Model.EditVendor.VendorType == vendortype.VendorType1) ? "selected" : "";
+                                                    <option value="@vendortype.Sno" @selectedVendorType>@vendortype.VendorType1</option>
+                                                }
                                             </select>
+
                                             <div class="input-group-append">
-                                                <button class="btn btn-secondary btn-sm" type="button" data-toggle="modal" data-target="">
+                                                <button class="btn btn-secondary btn-sm" type="button" data-toggle="modal" data-target="#addVendorTypeModal">
                                                     <i class="fas fa-plus fa-xs"></i>
                                                 </button>
                                             </div>
-                                            </div>
                                         </div>
-                                    </div>
-                                <div class="col-lg-3 col-md-6">
-                                    <div class="form-group vendoradd-tabs">
-                                        <label for="VendorGST">Vendor GST</label>
-                                        <input type="text" class="form-control" id="VendorGST" placeholder="Enter Vendor GST number" required>
+                                        <div class="invalid-feedback">Vendor Type is required.</div>
                                     </div>
                                 </div>
 
+                                <div class="col-lg-3 col-md-6">
+                                    <div class="form-group vendoradd-tabs">
+                                        <label for="VendorGST">Vendor GST</label>
+                                        <input type="text" value="@Model.EditVendor.VendorGST" class="form-control" name="VendorGST" id="VendorGST" placeholder="Enter Vendor GST number" required>
+                                        <div class="invalid-feedback">Vendor GST is required.</div>
+                                    </div>
+                                </div>
                             </div>
                             <div class="row">
                                 <div class="col-lg-3 col-md-6">
                                     <div class="form-group vendoradd-tabs">
                                         <label for="VendorCreatedby">Created By</label>
-                                        <select name="VendorCreatedby" class="VendorCreatedby form-control form-select" id="VendorCreatedby">
-                                            <option value="" disabled="" selected="" hidden="">Created by</option>
-                                            <option value="option1">Option 1</option>
-                                            <option value="option2">Option 2</option>
+                                        <select name="VendorCreatedby" class="VendorCreatedby form-control form-select" id="VendorCreatedby" required>
+                                            <option value="" disabled selected hidden>Created by</option>
+                                            @foreach (var deptEmp in Model.ITDeptEmployees)
+                                            {
+                                                var createdVendorName = !string.IsNullOrEmpty(Model.EditVendor.CreatedBy) && (Model.EditVendor.CreatedBy == deptEmp.CreatedBy) ? "selected" : "";
+                                                <option value="@deptEmp.EmployeeID" @createdVendorName>@deptEmp.EmployeeName</option>
+
+                                            }
                                         </select>
+                                        <div class="invalid-feedback">Created By is required.</div>
                                     </div>
                                 </div>
-
                                 <div class="col-lg-3 col-md-6">
                                     <div class="form-group vendoradd-tabs">
                                         <label for="VendorCreateddate">Created Date</label>
-                                        <input type="date" class="form-control" id="VendorCreateddate" required>
+                                        <input type="date" class="form-control" name="VendorCreateddate" id="VendorCreateddate" required>
+                                        <div class="invalid-feedback">Created Date is required.</div>
                                     </div>
                                 </div>
                             </div>
-                            <div class="row ">
+                            <div class="row">
                                 <div class="col-lg-12 col-md-12 text-right">
                                     <button type="button" class="btn vendoradd-Cancel">Cancel</button>
-                                    <button type="button" class="btn btn-primary vendoradd-Submit">Submit</button>
+                                    <button type="submit" class="btn btn-primary vendoradd-Update">Update</button>
                                 </div>
                             </div>
-                            </div>
-                        </form>
+                        </div>
+                    </form>
 
+                    <div class="modal fade" id="addVendorTypeModal" tabindex="-1" aria-labelledby="addVendorTypeModalLabel" aria-hidden="true">
+                        <div class="modal-dialog">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <h5 class="modal-title" id="addVendorTypeModalLabel">Add New Vendor Type</h5>
+                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                        <span aria-hidden="true">&times;</span>
+                                    </button>
+                                </div>
+                                <div class="modal-body">
+                                    <form id="addVendorTypeForm">
+                                        <div class="form-group">
+                                            <label for="newVendorType">Vendor Type Name:</label>
+                                            <input type="text" class="form-control" id="newVendorType" required>
+                                            <span id="vendorTypeError" class="text-danger" style="display:none;"></span>
+                                        </div>
+                                    </form>
+                                    <span id="vendorTypeSuccessMessage" class="text-success" style="display:none;"></span>
+                                </div>
+                                <div class="modal-footer">
+                                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                                    <button type="button" class="btn btn-primary" id="saveVendorTypeBtn">Save</button>
+                                </div>
+                            </div>
+                        </div>
                     </div>
+
+                    <div class="modal fade" id="vendorSuccessModal" tabindex="-1" role="dialog" aria-labelledby="vendorSuccessModalLabel" aria-hidden="true">
+                        <div class="modal-dialog" role="document">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <h5 class="modal-title" id="vendorSuccessModalLabel">Add Vendor</h5>
+                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                        <span aria-hidden="true">&times;</span>
+                                    </button>
+                                </div>
+                                <div class="modal-body">
+                                    <p class="vendor-success-message" style="color: green"></p>
+                                </div>
+                                <div class="modal-footer">
+                                    <button type="button" class="btn btn-primary refresh-vendortablist">Close</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
             </div>
         </div>
     </div>
-    </div>
-
-
-
-
+</div>
