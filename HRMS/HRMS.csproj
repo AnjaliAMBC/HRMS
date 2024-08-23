@@ -160,6 +160,7 @@
     <Compile Include="Helpers\LeaveCalculator.cs" />
     <Compile Include="Helpers\SuperAdminHelper.cs" />
     <Compile Include="Helpers\TicketingHelper.cs" />
+    <Compile Include="Helpers\VendorHelper.cs" />
     <Compile Include="HolidayNotificationJob.cs" />
     <Compile Include="IT_Ticket.cs">
       <DependentUpon>HRMS.tt</DependentUpon>
@@ -174,6 +175,7 @@
     <Compile Include="Models\Admin\AdminAttendanceModel.cs" />
     <Compile Include="Models\Admin\AdminDashView.cs" />
     <Compile Include="Models\Admin\AdminLeaveManagementModel.cs" />
+    <Compile Include="Models\Admin\VendorModel.cs" />
     <Compile Include="Models\CompOffModel.cs" />
     <Compile Include="Models\EmployeeEvent.cs" />
     <Compile Include="Models\Employee\CheckInModel.cs" />
@@ -194,8 +196,15 @@
     <Compile Include="tbld_ambclogininformation.cs">
       <DependentUpon>HRMS.tt</DependentUpon>
     </Compile>
+    <Compile Include="VendorList.cs">
+      <DependentUpon>HRMS.tt</DependentUpon>
+    </Compile>
+    <Compile Include="VendorType.cs">
+      <DependentUpon>HRMS.tt</DependentUpon>
+    </Compile>
     <Content Include="Assets\Approve.png" />
     <Content Include="Assets\Birthday.png" />
+    <Content Include="Assets\correct.png" />
     <Content Include="Assets\EMBackground.png" />
     <Content Include="Assets\EmpImages\1020.jpeg" />
     <Content Include="Assets\EmpImages\1075.jpeg" />
@@ -368,6 +377,7 @@
     <Content Include="Assets\Templates\ImportUserTemplate.xlsx" />
     <Content Include="Assets\Templates\ToalEMpLeavesTemplate.xlsx" />
     <Content Include="Assets\Templates\SampleLeaveHistoryImport.xlsx" />
+    <Content Include="Assets\Templates\VendorImport.xlsx" />
     <None Include="Scripts\jquery-3.4.1.intellisense.js" />
     <Content Include="Scripts\jquery-3.4.1.js" />
     <Content Include="Scripts\jquery-3.4.1.min.js" />
@@ -443,10 +453,11 @@
     <Content Include="Views\AdminDashboard\AdminHrTicketing.cshtml" />
     <Content Include="Views\AdminDashboard\AdminItTicketOpenClose.cshtml" />
     <Content Include="Views\AdminDashboard\AdminHrTicketOpenCloseView.cshtml" />
-    <Content Include="Views\AdminDashboard\VendorListView.cshtml" />
+    <Content Include="Views\AdminDashboard\_newVendorCreate.cshtml" />
     <Content Include="Views\AdminDashboard\VendorAdd.cshtml" />
-    <Content Include="Views\AdminDashboard\VendorImport.cshtml" />
     <Content Include="Views\AdminDashboard\VendorApprovalPage.cshtml" />
+    <Content Include="Views\AdminDashboard\VendorImport.cshtml" />
+    <Content Include="Views\AdminDashboard\VendorListView.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

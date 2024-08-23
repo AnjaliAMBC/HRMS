@@ -29,6 +29,14 @@
         }
     }
 
+    var highliateITSupport = "";
+    var itSupportSidebarShow = "display: none";
+    if (pageUrlPath.Contains("/vendor/index") || pageUrlPath.Contains("/vendor/approvevendor"))
+    {
+        itSupportSidebarShow = "display: block";
+        highliateITSupport = "sidebaractive";
+    }
+
 }
 
 <div id="left-side-menu-normal" class="row">
@@ -94,22 +102,24 @@
                         </div>
                     </li>
                 }
-                <li class="admin-itsupport-main-menu sidebar-dropdown mb-2 @(pageUrlPath.Contains("/adminitsupport/index") ? "active sidebaractive" : "")">
-                    <a href="#" class="@(pageUrlPath == "/adminitsupport/index" ? "active" : "")">
-                        <img class="menu-icon" src="~/Assets/Icons/Leave.png" /><span>IT Support</span>
-                        <i class="fa fa-chevron-down pull-right side-menubar-updown"></i>
-                    </a>
-                    <div class="sidebar-submenu" style="@leaveSidebarShow">
-                        <ul>
-                            <li><a href="/Vendor/index"><span class="menu-bar-design-red"></span>Vendor</a></li>
-                            <li><a href="" class=""><span class="menu-bar-design-blue"></span>Purchase Request</a></li>
-                            <li><a href="" class=""><span class="menu-bar-design-chocolate"></span>Subscription</a></li>
-                            <li><a href="" class=" "><span class="menu-bar-design-darkcyan"></span>Asset</a></li>
-                            <li><a href="/Vendor/ApproveVendor" class=""><span class="menu-bar-design-red"></span>Allocated Information</a></li>
-
-                        </ul>
-                    </div>
-                </li>
+                @if (currentContext.IsSuperAdmin || currentContext.IsITAdmin)
+                {
+                    <li class="admin-itsupport-main-menu sidebar-dropdown mb-2 @(!string.IsNullOrWhiteSpace(highliateITSupport) ? "active sidebaractive" : "")">
+                        <a href="#" class="@(pageUrlPath == "/vendor/index" ? "active" : "")">
+                            <img class="menu-icon" src="~/Assets/Icons/Leave.png" /><span>IT Support</span>
+                            <i class="fa fa-chevron-down pull-right side-menubar-updown"></i>
+                        </a>
+                        <div class="sidebar-submenu" style="@itSupportSidebarShow">
+                            <ul>
+                                <li><a href="/vendor/index"><span class="menu-bar-design-red"></span>Vendor</a></li>
+                                <li><a href="" class=""><span class="menu-bar-design-blue"></span>Purchase Request</a></li>
+                                <li><a href="" class=""><span class="menu-bar-design-chocolate"></span>Subscription</a></li>
+                                <li><a href="" class=" "><span class="menu-bar-design-darkcyan"></span>Asset</a></li>
+                                <li><a href="/vendor/approveVendor" class=""><span class="menu-bar-design-red"></span>Allocated Information</a></li>
+                            </ul>
+                        </div>
+                    </li>
+                }
             </ul>
         </div>
     </div>
@@ -152,17 +162,17 @@
                     <li class="mb-2 @(pageUrlPath.Contains("/admindash/index") ? "active sidebaractive" : "")">
                         <a href="/admindash/index" class="@(pageUrlPath == "/admindash/index" ? "active" : "")">
                             <img class="menu-icon" src="~/Assets/Icons/Dashboard.png" /><span>Dashboard</span>
-</a>
+                        </a>
                     </li>
                     <li class="mb-2 @(pageUrlPath.Contains("/admindashboard/employeemanagement") ? "active sidebaractive" : "")">
                         <a href="/admindashboard/employeemanagement" class="@(pageUrlPath == "/admindashboard/employeemanagement" ? "active" : "")">
                             <img class="menu-icon" src="~/Assets/Icons/Employee.png" /><span>Employee</span>
-</a>
+                        </a>
                     </li>
                     <li class="mb-2 @(pageUrlPath.Contains("/adminattendance/attendance") ? "active sidebaractive" : "")">
                         <a href="/adminattendance/attendance" class="@(pageUrlPath == "/adminattendance/attendance" ? "active" : "")">
                             <img class="menu-icon" src="~/Assets/Icons/Attendance.png" /><span>Attendance</span>
-</a>
+                        </a>
                     </li>
                     <li class="admin-leave-main-menu sidebar-dropdown mb-2 @(pageUrlPath.Contains("/adminleave/index") ? "active sidebaractive" : "")">
                         <a href="#" class="@(pageUrlPath == "/adminleave/index" ? "active" : "")">
