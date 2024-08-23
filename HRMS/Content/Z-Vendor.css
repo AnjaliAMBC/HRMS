@@ -45,7 +45,9 @@
 }
 
 #adminvendortable_length {
-    display: none;
+    margin-bottom: 0px !important;
+    font-size: 13px;
+    text-align:start;
 }
 
 #adminvendortable_filter, #sadminvendorapprovaltable_filter {
@@ -96,7 +98,7 @@
 
 #adminvendortable_wrapper
 {
-    margin:40px 0px;
+    margin:20px 0px;
 }
 
 #hr-vendorlisting-status-dropdown option {
@@ -174,7 +176,7 @@
             width:70%
         }
     }
-@media (max-width:768px)
+@media (max-width:767px)
 {
     .VendorListPage-View
     {
@@ -183,6 +185,31 @@
     #adminvendortable
     {
         width:150px !important;
+    }
+    #adminvendortable
+    {
+        width:165% !important;
+    }
+}
+@media (min-width:320px) and (max-width:425px)
+{
+    #adminvendortable {
+        width: 250% !important;
+    }
+    .res-sadmin-vendorapproval-header-right
+    {
+        text-align:end;
+    }
+    #sadminvendorapprovaltable_wrapper
+    {
+        margin-top:115px;
+        padding-top:0px;
+    }
+}
+@media (min-width:768px) and (max-width:1000px)
+{
+    #adminvendortable {
+        width: 145% !important;
     }
 }
 .vendoradd-tabs label{
@@ -205,6 +232,7 @@
 {
     margin-bottom:0px !important;
     font-size:13px;
+    text-align:start;
 }
 #deletevendorapproval .modal-header {
     border-bottom: 1px solid transparent !important;
@@ -222,8 +250,21 @@
 .closing-delete {
     color: blue;
 }
-@media (min-width: 576px) 
+#vendoradd-success-popup .modal-header
 {
+    border-bottom:1px solid transparent;
+}
+#exportVendor img
+{
+    height:30px;
+}
+
+.vendorapproval-export img {
+    height: 30px;
+    margin-top: 10px;
+    margin-left: 10px;
+}
+@media (min-width: 576px) {
     .modal-dialog {
         max-width: 500px;
         margin: 10% auto;
@@ -235,7 +276,12 @@
     font-size:18px;
 }
 #sadmin-approvalcard .modal-header {
-    padding: 10px 10px !important;
+    margin:0px 20px;
+    padding:10px 0px;
+}
+#sadmin-approvalcard .modal-header .modal-title
+{
+    padding-top:30px;
 }
 #sadmin-approvalcard .modal-dialog {
     max-width: 500px;
@@ -247,10 +293,12 @@
     font-size:13px;
     font-weight:600
 }
-
-.sadmin-approvalcard-tabs span{
-    padding-left:5%;
+#sadmin-approvalcard .modal-header h6 {
+    font-size: 13px;
+    font-weight: 600
 }
+
+
 
 .sadmin-approvalcard-tabs {
     padding-bottom: 1rem;
@@ -274,7 +322,7 @@
     box-sizing: border-box;
 }
 
-@media (min-width:320px) and (max-width:768px)
+@media (min-width:320px) and (max-width:767px)
 {
     .VendorApprovalPage-View
     {
@@ -284,8 +332,34 @@
     {
         padding-bottom:20px;
     }
-    .dataTables_wrapper 
-    {
-        padding-top:40px;
+    .dataTables_wrapper {
+        padding-top: 40px;
     }
+    #sadminvendorapprovaltable_wrapper {
+        margin-top: 105px !important;
+        padding-top: 0px;
+    }
+}
+
+@media (max-width:480px)
+{
+    .admin-vendor-view .res-admin-vendor-header-right
+    {
+        justify-content:left;
+    }
+    #adminvendortable_wrapper {
+        margin-top: 100px;
+    }
+    .res-vendorlisting
+    {
+        padding:0px
+    }
+}
+@media (min-width:320px) and (max-width:767px)
+{
+    .admin-vendoradd-container
+    {
+        margin-top:60px;
+    }
+    
 }
