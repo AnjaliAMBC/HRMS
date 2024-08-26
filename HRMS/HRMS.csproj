@@ -148,6 +148,7 @@
     <Compile Include="Controllers\EmpLeaveController.cs" />
     <Compile Include="Controllers\EmpTicketingController.cs" />
     <Compile Include="Controllers\ProfileController.cs" />
+    <Compile Include="Controllers\PurchaseController.cs" />
     <Compile Include="Controllers\VendorController.cs" />
     <Compile Include="con_leaveupdate.cs">
       <DependentUpon>HRMS.tt</DependentUpon>
@@ -175,7 +176,7 @@
     <Compile Include="Models\Admin\AdminAttendanceModel.cs" />
     <Compile Include="Models\Admin\AdminDashView.cs" />
     <Compile Include="Models\Admin\AdminLeaveManagementModel.cs" />
-    <Compile Include="Models\Admin\VendorModel.cs" />
+    <Compile Include="Models\ITsupport\VendorModel.cs" />
     <Compile Include="Models\CompOffModel.cs" />
     <Compile Include="Models\EmployeeEvent.cs" />
     <Compile Include="Models\Employee\CheckInModel.cs" />
@@ -355,6 +356,7 @@
     <Content Include="Scripts\z-custom.js" />
     <Content Include="Scripts\z-empleave.js" />
     <Content Include="Scripts\z-empTicketing.js" />
+    <Content Include="Scripts\z-purchaseScript.js" />
     <Content Include="Scripts\z-raiseticket.js" />
     <Content Include="Scripts\z-Teamemail.js" />
     <Content Include="Scripts\z-VendorScript.js" />
@@ -454,10 +456,15 @@
     <Content Include="Views\AdminDashboard\AdminItTicketOpenClose.cshtml" />
     <Content Include="Views\AdminDashboard\AdminHrTicketOpenCloseView.cshtml" />
     <Content Include="Views\AdminDashboard\_newVendorCreate.cshtml" />
-    <Content Include="Views\AdminDashboard\VendorAdd.cshtml" />
-    <Content Include="Views\AdminDashboard\VendorApprovalPage.cshtml" />
-    <Content Include="Views\AdminDashboard\VendorImport.cshtml" />
-    <Content Include="Views\AdminDashboard\VendorListView.cshtml" />
+    <Content Include="Views\Itsupport\VendorAdd.cshtml" />
+    <Content Include="Views\Itsupport\VendorApprovalPage.cshtml" />
+    <Content Include="Views\Itsupport\VendorImport.cshtml" />
+    <Content Include="Views\Itsupport\VendorListView.cshtml" />
+    <Content Include="Views\Itsupport\PurchaseListView.cshtml" />
+    <Content Include="Views\Itsupport\PurchangeImport.cshtml" />
+    <Content Include="Views\Itsupport\PurchaseAdd.cshtml" />
+    <Content Include="Views\Itsupport\PurchaseSuperAdminView.cshtml" />
+    <Content Include="Views\Itsupport\PurchaseItSuperAdmin.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

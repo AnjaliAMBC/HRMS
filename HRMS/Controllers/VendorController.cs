@@ -1,6 +1,7 @@
 ﻿using HRMS.Helpers;
 using HRMS.Models;
 using HRMS.Models.Admin;
+using HRMS.Models.ITsupport;
 using OfficeOpenXml;
 using OfficeOpenXml.Style;
 using System;
@@ -31,13 +32,12 @@ namespace HRMS.Controllers
             var model = new VendorViewModel();
             var vendors = _dbContext.VendorLists.ToList();
             model.Allvendors = vendors;
-
-
-            return View("~/Views/AdminDashboard/VendorListView.cshtml", model);
+       
+            return View("~/Views/Itsupport/VendorListView.cshtml", model);
         }
 
         [HttpGet]
-        public ActionResult AddVendor(int vendorid)
+        public ActionResult AddVendor(int vendorid = 0)
         {
             var model = new VendorViewModel();
 
@@ -47,7 +47,12 @@ namespace HRMS.Controllers
             }
             model.ITDeptEmployees = _dbContext.emp_info.Where(x => x.Department == "IT").ToList();
             model.vendorTypes = _dbContext.VendorTypes.ToList();
-            return View("~/Views/AdminDashboard/VendorAdd.cshtml", model);
+
+            var lastVendorId = _dbContext.VendorLists.OrderByDescending(x => x.VedorID).Select(x => x.VedorID).FirstOrDefault();
+            model.LasteVenorId = lastVendorId;
+            model.NewVendorId = model.LasteVenorId + 1;
+
+            return View("~/Views/Itsupport/VendorAdd.cshtml", model);
         }
 
 
@@ -114,11 +119,15 @@ namespace HRMS.Controllers
         }
         public ActionResult ImportVendor()
         {
-            return View("~/Views/AdminDashboard/VendorImport.cshtml");
+            return View("~/Views/Itsupport/VendorImport.cshtml");
         }
         public ActionResult ApproveVendor()
         {
-            return View("~/Views/AdminDashboard/VendorApprovalPage.cshtml");
+            var model = new VendorViewModel();
+            var vendors = _dbContext.VendorLists.ToList();
+            model.Allvendors = vendors;
+
+            return View("~/Views/Itsupport/VendorApprovalPage.cshtml", model);
         }
 
        

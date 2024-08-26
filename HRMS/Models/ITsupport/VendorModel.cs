@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 
-namespace HRMS.Models.Admin
+namespace HRMS.Models.ITsupport
 {
     public class VendorViewModel
     {
@@ -25,9 +25,12 @@ namespace HRMS.Models.Admin
 
         public VendorList EditVendor { get; set; } = new VendorList();
 
+        public int NewVendorId { get; set; }
+        public int LasteVenorId { get; set; }
+
     }
 
-        public class VendorTypeDropdown
+    public class VendorTypeDropdown
     {
         public string Id { get; set; }
         public string VendorType { get; set; }
