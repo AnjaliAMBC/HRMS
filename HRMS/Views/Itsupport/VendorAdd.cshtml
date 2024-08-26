@@ -1,4 +1,4 @@
-﻿@model HRMS.Models.Admin.VendorViewModel
+﻿@model HRMS.Models.ITsupport.VendorViewModel
 
 @{
     var headline = Model.EditVendor.VedorID != 0 ? "Edit Vendor Details" : "Add Vendor Details";
@@ -22,8 +22,8 @@
                                 <div class="col-lg-3 col-md-6">
                                     <div class="form-group vendoradd-tabs">
                                         <label for="VendorID">Vendor ID</label>
-                                        <input type="number" class="form-control" name="VendorID" value="@Model.EditVendor.VedorID" id="VendorID" placeholder="Enter Vendor ID" required>
-                                        <small style="font-size: 12px; float: right;">Last Vendor ID: 23</small>
+                                        <input type="number" class="form-control" name="VendorID" value="@Model.NewVendorId" id="VendorID" placeholder="Enter Vendor ID" required readonly>
+                                        <small style="font-size: 12px; float: right;">Last Vendor ID: @Model.LasteVenorId</small>
                                         <div class="invalid-feedback">Vendor ID is required.</div>
                                     </div>
                                 </div>
