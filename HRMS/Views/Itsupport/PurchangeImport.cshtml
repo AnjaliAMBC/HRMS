@@ -3,5 +3,72 @@
     ViewBag.Title = "PurchangeImport";
 }
 
-<h2>PurchangeImport</h2>
+@Html.Partial("_NavBar")
+<div class="container-fluid">
+    <div class="hiddenadmindashboard" style="display: none"></div>
+    @Html.Partial("_adminsidemenu")
+    <div class="main-content container-fluid PurchaseImport-View" style="width: 84%">
+        <div class="purchase-import-view">
+            <div class="container-fluid res-purchase-import col-lg-6">
+                <!-- Headline: Import Vendor -->
+                <h4 class="import-purchase-head">Bulk Upload Purchase Request</h4>
+
+                <!-- Description with bullet points -->
+                <div class="purchase-import-description">
+                    <p>Here's how to import purchases:</p>
+                    <ul>
+                        <li>Prepare your vendor data in a xlsx format.</li>
+                        <li>Make sure the CSV file follows the correct format.</li>
+                        <li>Use the template provided for best results.</li>
+                    </ul>
+                </div>
+
+                <div>
+                    <button class="btn btn-primary purchase-download-btn" onclick="downloadPurchaseTemplate()">Download Template</button>
+                </div>
+                <p style="margin-bottom: 15px; margin-top: 5px;">Sample excel template</p>
+
+                <div class="purchase-file-upload" id="purchase-file-upload-area" style="border: 2px dashed #007bff; padding: 20px; text-align: center;">
+                    <label for="purchase-file-upload-input" id="purchase-file-upload-label" style="cursor: pointer;">
+                        <i class="fas fa-cloud-upload-alt fa-3x mb-3"></i><br>
+                        Drag and drop files or Browse<br>
+                        Supported formats: .XLSX
+                    </label>
+                    <input type="file" id="purchase-file-upload-input" accept=".xlsx" onchange="handlePurchaseFileUpload(this)" style="display: none;">
+                </div>
+
+                <div class="purchase-uploaded-file" id="purchase-uploaded-file-info" style="display: none;">
+                    <p style="color: green; font-size: 13px;" id="purchase-uploaded-file-text"></p>
+                </div>
+
+                <div class="purchase-submit-button" style="margin-top: 20px;">
+                    <button class="btn btn-primary btn-purchase-import-submit" style="background-color:#007bff; float: right;">Submit</button>
+                </div>
+
+                <div class="modal fade" id="purchaseImportSuccessModal" tabindex="-1" role="dialog" aria-labelledby="purchaseImportSuccessModalLabel" aria-hidden="true">
+                    <div class="modal-dialog" role="document">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <h5 class="modal-title" id="purchaseImportSuccessModalLabel">Import Purchase</h5>
+                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                    <span aria-hidden="true">&times;</span>
+                                </button>
+                            </div>
+                            <div class="modal-body">
+                                <p class="vendor-success-message" style="color: green">Purchase imported successfully!</p>
+                            </div>
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-primary refresh-purchasetablist">Close</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+</div>
+
+
+
 

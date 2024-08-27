@@ -1,7 +1,158 @@
-﻿
+﻿@Html.Partial("_NavBar")
 @{
     ViewBag.Title = "PurchaseListView";
 }
+<div class="container-fluid">
+    <div class="hiddenadmindashboard" style="display: none"></div>
+    @Html.Partial("_adminsidemenu")
+    <div class="main-content container-fluid PurchaseListPage-View" style="width: 84%">
+        <div class="content admin-purchase-container" style="margin-left: -10px; ">
+            <div class="admin-purchase-view">
+                <div class="container-fluid top admin-purchaseview">
+                    <div class="row navbar align-items-center">
+                        <!-- Employee column -->
+                        <div class="col-lg-3 col-md-5 topic d-flex res-admin-title">
+                            <h4 class="header mb-0 text-right">Purchase Request Listing</h4>
+                        </div>
+                        <!-- Search box -->
+                        <div class="col-xl-4 col-lg-6 navbarl1 col-sm-12 col-md-7 res-admin-purchase-search">
+                            <div class="search-container" style=" margin-left: 32px; ">
+                                <div class="input-group" style="border-radius: 20px;">
+                                    <div class="input-group-prepend">
+                                        <span class="input-group-text" style="background-color: transparent; border-right: none; border-radius: 5px 0 0 5px; height: 35px;"><i class="fas fa-search" style="color: #369479"></i></span>
+                                    </div>
+                                    <input type="text" placeholder="Search By Keyword" class="purchase-advancesearch form-control" aria-label="Search By Keyword" style="border-radius: 0 5px 5px 0; height: 35px; font-size: 14px;">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-xl-5 col-lg-12 navbarl1 col-sm-12 col-md-12 res-admin-purchase-header-right">
+                            <!-- Export -->
+                            <div class="col-xl-4 col-lg-3 navbarl1 col-sm-4 col-xs-12 col-md-4 res-admin-purchase-status p-0">
+                                <div class="form-group res-purchaselisting">
+                                    <select class="form-control form-select" name="purchasestatus" id="hr-purchaselisting-status-dropdown" style="">
+                                        <option value="" disabled selected>Status</option>
+                                        <option value="Approved">Approved</option>
+                                        <option value="Rejected">Rejected</option>
+                                        <option value="Pending">Pending</option>
+                                        <option value="">All</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="col-xl-2 col-lg-1  navbarl1 col-sm-2 col-md-2 res-admin-purchase-export p-0">
+                                <div class="adminpurchase-export" style="">
+                                    <button type="button" class="btn purchaselist-export-btn pt-0" id="exportPurchase" onclick="exportPurchase()">
+                                        <span class="purchaselist-export"><img src="/assets/Export.png" alt="Export" style=""></span>
+                                    </button>
+                                </div>
+                            </div>
+                            <!-- Add Employee dropdown -->
+                            <div class="col-lg-5 navbarl1 col-sm-6 col-md-5 res-admin-purchase-add">
+                                <div class="addingpurchase form-group">
+                                    <select name="addpurchase" class="addpurchase form-control form-select" id="addpurchase">
+                                        <option value="" disabled="" selected="" hidden="">Add Purchase</option>
+                                        <option value="Addmanually" class="purchaseManually">+ Manually</option>
+                                        <option value="importuser" class="purchaseBulk">+ Bulk</option>
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
 
-<h2>PurchaseListView</h2>
+                <div class="res-admin-purchase-table table-responsive">
+                    <table id="adminpurchasetable" class="display" style="width: 100%;">
+                        <thead style="background-color: #d8e6fb; border-radius: 10px;">
+                            <tr>
+                                <th><input type="checkbox" id="vendor-selectAll"></th>
+                                <th>Request No.</th>
+                                <th>Asset Type</th>
+                                <th>Vendor ID</th>
+                                <th>Vendor Name</th>
+                                <th>Files</th>
+                                <th>Requested By</th>
+                                <th>Status</th>
+                                <th>Action</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr class="odd">
+                                <td><input type="checkbox" class="purchase-check"></td>
+                                <td class="tdrequestno">PR11</td>
+                                <td class="tdassettype">Hardware</td>
+                                <td class="tdvendorid">2000</td>
+                                <td class="tdvendorname">
+                                    <div style="display: flex; align-items: center;">
+                                        <span style="margin-top: 0px; margin-right: 10px;">Mithun Sivaprakasam<br><span style="color: #3E78CF;">mithun@ambconline.com</span></span>
+                                    </div>
+                                </td>
+                                <td><a href="#">Test_File.pdf</a></td>
+                                <td>Test User</td>
+                                <td><span class="purchaseapproved-btn"><img src="/assets/Approve.png" alt="Approved" style="width:25px"></span></td>
+                                <td><span class="purchase-list-edit"><i class="fas fa-pencil-alt"></i></span></td>
+                            </tr>
+                            <tr class="even">
+                                <td><input type="checkbox" class="purchase-check"></td>
+                                <td class="tdrequestno">PR76</td>
+                                <td class="tdassettype">Hardware</td>
+                                <td class="tdvendorid">2000</td>
+                                <td class="tdvendorname">
+                                    <div style="display: flex; align-items: center;">
+                                        <span style="margin-top: 0px; margin-right: 10px;">Mithun Sivaprakasam<br><span style="color: #3E78CF;">mithun@ambconline.com</span></span>
+                                    </div>
+                                </td>
+                                <td><a href="#">Test_File.pdf</a></td>
+                                <td>Test User</td>
+                                <td><span class="purchaseapproved-btn"><img src="/assets/Approve.png" alt="Approved" style="width:25px"></span></td>
+                                <td><span class="purchase-list-edit"><i class="fas fa-pencil-alt"></i></span></td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+
+
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+    $(document).ready(function () {
+        // Initialize DataTable if not already initialized
+        if (!$.fn.DataTable.isDataTable('#adminpurchasetable')) {
+            var table = $('#adminpurchasetable').DataTable({
+                "responsive": true,
+                "paging": true,
+                "searching": true,
+                "ordering": false,
+                "info": true,
+                "autoWidth": false,
+                "lengthMenu": [[10, 20, 50, -1], [10, 20, 50, "All"]]
+            });
+            $('.purchase-advancesearch').on('keyup', function () {
+                table.search(this.value).draw(); // Perform global search on all columns
+            });
+
+
+            $(document).on('change', '#hr-purchaselisting-status-dropdown', function (event) {
+                var status = $(this).val();
+                if (status == "All") {
+                    status = "";
+                }
+                table.column(7).search(status).draw();
+            });
+        }
+
+        $(document).on('change', '#addpurchase', function () {
+            var selectedValue = $(this).val();
+            if (selectedValue === "Addmanually") {
+                window.location.href = '/purchase/purchaseadd';
+            } else if (selectedValue === "importuser") {
+                window.location.href = '/purchase/purchaseimport';
+            }
+        });
+    });
+
+
+
+</script>
 
