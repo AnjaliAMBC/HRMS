@@ -1,8 +1,6 @@
 ﻿/* Vendor start */
 
-.admin-vendor-container {
-    margin-top: 15px;
-}
+
 .sadmin-vendorapproval-container
 {
     margin-top:15px;
@@ -17,6 +15,17 @@
     height:65px;
 }
 
+.admin-vendoradd .navbar
+{
+    padding-left:30px;
+}
+.admin-vendoradd{
+    padding-left:0px;
+}
+.VendorAdding-tab
+{
+    padding-left:5px;
+}
 .admin-vendor-view .res-admin-title {
     padding: 0 0 0 3px;
 }
@@ -104,7 +113,7 @@
 
 #adminvendortable_wrapper
 {
-    margin:20px 0px;
+    margin:5px 0px;
 }
 
 #hr-vendorlisting-status-dropdown option {
@@ -211,6 +220,10 @@
         margin-top:115px;
         padding-top:0px;
     }
+    .res-vendor-import {
+        margin: 0px;
+        padding-top: 22% !important;
+    }
 }
 @media (min-width:768px) and (max-width:1000px)
 {
@@ -218,9 +231,11 @@
         width: 145% !important;
     }
 }
-.vendoradd-tabs label{
-    font-size:13px;
-    margin-bottom:0px;
+.vendoradd-tabs label {
+    font-size: 13px;
+    margin-bottom: 0px;
+    font-weight: 550;
+    padding-left: 3px;
 }
 
 .res-vendor-import
@@ -353,8 +368,19 @@
         padding-top: 40px;
     }
     #sadminvendorapprovaltable_wrapper {
-        margin-top: 105px !important;
+        margin-top: 105px;
         padding-top: 0px;
+    }
+    .admin-vendorform .container 
+    {
+        padding:0px;
+    }
+    .admin-vendoradd .navbar {
+        padding-left: 15px;
+    }
+    .res-vendor-import {
+        margin: 0px;
+        padding-top: 10%;
     }
 }
 
@@ -379,4 +405,177 @@
         margin-top:60px;
     }
     
+}
+@media (max-width :360px)
+{
+    .res-admin-title
+    {
+        margin-bottom:5px;
+    }
+    .res-admin-vendor-header-right
+    {
+        padding-left:0px;
+    }
+    #addvendor
+    {
+        width:auto
+    }
+    #adminvendortable_wrapper
+    {
+        margin-top:70px !important;
+    }
+    .res-sadmin-vendorapproval-header-right
+    {
+        justify-content:start;
+        text-align:start;
+    }
+    #sadminvendorapprovaltable_wrapper {
+        margin-top: 45px !important;
+        padding-top: 0px;
+    }
+    #sadmin-vendorapproval-status-dropdown
+    {
+        width:105%;
+    }
+}
+@media (max-width : 740px)
+{
+    .admin-vendor-view .res-admin-vendor-header-right
+    {
+        justify-content:end;
+    }
+    .dataTables_wrapper
+    {
+        padding-top:0px;
+    }
+    #sadminvendorapprovaltable_wrapper {
+        margin-top: 15px;
+        padding-top: 0px;
+    }
+    .res-sadmin-vendorapproval-header-right {
+        justify-content: flex-end;
+        padding-top: 0px;
+        margin-left: auto;
+    }
+    #adminvendortable_wrapper
+    {
+        margin:35px 0px;
+    }
+    .res-vendorlisting
+    {
+        padding-left:0px
+    }
+    #hr-vendorlisting-status-dropdown
+    {
+        padding-left:0px;
+    }
+}
+@media (min-width:600px) and (max-width:1000px)
+{
+    .res-vendorlisting
+    {
+        padding:0px;
+    }
+    #hr-vendorlisting-status-dropdown
+    {
+        padding-left:0px;
+    }
+    #sadminvendorapprovaltable_wrapper {
+        margin: 20px 0px;
+    }
+    .res-sadmin-vendorapproval-header-right {
+        justify-content: flex-end;
+        padding-top: 10px;
+        margin-left:auto;
+    }
+    .res-admin-vendor-header-right {
+        padding-top: 10px;
+    }
+    .admin-vendor-view .res-admin-vendor-add
+    {
+        padding-left:0px;
+        padding-right:0px;
+    }
+    #exportVendor
+    {
+        padding-left:0px;
+    }
+    .res-admin-vendor-header-right{
+        margin-left: auto; 
+        margin-right:15px;
+    }
+    #adminvendortable_wrapper
+    {
+        margin:20px 0px;
+    }
+    .dataTables_wrapper
+    {
+        padding-top:0px;
+    }
+}
+
+@media (min-width:1000px) and (max-width:1180px)
+{
+    .res-vendorlisting {
+        padding: 0px;
+    }
+    #addvendor
+    {
+        width:80%;
+        margin-left:auto;
+    }
+    #hr-vendorlisting-status-dropdown {
+        width: 110px;
+        padding-left: 30px;
+    }
+    .res-sadmin-vendorapproval-header-right {
+        justify-content: flex-end;
+        padding-top: 0px;
+        margin-left:auto;
+    }
+    .res-admin-vendor-header-right {
+        padding-top: 10px;
+    }
+
+    .admin-vendor-view .res-admin-vendor-add
+    {
+        padding:0px;
+    }
+    .res-admin-vendor-header-right {
+        margin-left: auto;
+        margin-right: 15px;
+    }
+
+    #adminvendortable_wrapper {
+        margin: 20px 0px;
+    }
+
+    .dataTables_wrapper {
+        padding-top: 0px;
+    }
+}
+@media (min-width:1180px) and (max-width:1180px)
+{
+    #addvendor
+    {
+        width:83%;
+        margin-left:auto
+    }
+}
+@media (min-width:375px) and (max-width:430px)
+{
+    #adminvendortable_wrapper {
+        margin: 60px 0px;
+    }
+}
+@media (min-width:540px) and (max-width:540px) {
+    .admin-vendor-view .res-admin-vendor-header-right 
+    {
+        justify-content: end;
+        margin-left:auto
+    }
+    #hr-vendorlisting-status-dropdown
+    {
+        width:120%;
+    }
 }

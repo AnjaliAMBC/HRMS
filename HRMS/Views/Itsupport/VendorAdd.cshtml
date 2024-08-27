@@ -29,21 +29,21 @@
                                 </div>
                                 <div class="col-lg-3 col-md-6">
                                     <div class="form-group vendoradd-tabs">
-                                        <label for="VendorName">Vendor Name</label>
+                                        <label for="VendorName">Vendor Name*</label>
                                         <input type="text" value="@Model.EditVendor.VendorName" class="form-control" name="VendorName" id="VendorName" placeholder="Enter Vendor Name" required>
                                         <div class="invalid-feedback">Vendor Name is required.</div>
                                     </div>
                                 </div>
                                 <div class="col-lg-3 col-md-6">
                                     <div class="form-group vendoradd-tabs">
-                                        <label for="VendorEmail">Vendor Email</label>
+                                        <label for="VendorEmail">Vendor Email*</label>
                                         <input type="text" class="form-control" value="@Model.EditVendor.VendorEmail"name="VendorEmail" id="VendorEmail" placeholder="Enter Vendor Email" required>
                                         <div class="invalid-feedback">Please enter a valid email address.</div>
                                     </div>
                                 </div>
                                 <div class="col-lg-3 col-md-6">
                                     <div class="form-group vendoradd-tabs">
-                                        <label for="VendorContact">Vendor Contact</label>
+                                        <label for="VendorContact">Vendor Contact*</label>
                                         <input type="text" class="form-control" name="VendorContact" value="@Model.EditVendor.VendorContact"id="VendorContact" placeholder="Enter Contact number" required>
                                         <div class="invalid-feedback">Please enter a valid 10-digit contact number.</div>
                                     </div>
@@ -52,7 +52,7 @@
                             <div class="row">
                                 <div class="col-lg-6 col-md-12">
                                     <div class="form-group vendoradd-tabs">
-                                        <label for="VendorAddress">Vendor Address</label>
+                                        <label for="VendorAddress">Vendor Address*</label>
                                         <input type="text" class="form-control" value="@Model.EditVendor.VendorAddress" name="VendorAddress" id="VendorAddress" placeholder="Enter Vendor Address" required>
                                         <div class="invalid-feedback">Vendor Address is required.</div>
                                     </div>
@@ -82,7 +82,7 @@
 
                                 <div class="col-lg-3 col-md-6">
                                     <div class="form-group vendoradd-tabs">
-                                        <label for="VendorGST">Vendor GST</label>
+                                        <label for="VendorGST">Vendor GST*</label>
                                         <input type="text" value="@Model.EditVendor.VendorGST" class="form-control" name="VendorGST" id="VendorGST" placeholder="Enter Vendor GST number" required>
                                         <div class="invalid-feedback">Vendor GST is required.</div>
                                     </div>
@@ -91,7 +91,7 @@
                             <div class="row">
                                 <div class="col-lg-3 col-md-6">
                                     <div class="form-group vendoradd-tabs">
-                                        <label for="VendorCreatedby">Created By</label>
+                                        <label for="VendorCreatedby">Created By*</label>
                                         <select name="VendorCreatedby" class="VendorCreatedby form-control form-select" id="VendorCreatedby" required>
                                             <option value="" disabled selected hidden>Created by</option>
                                             @foreach (var deptEmp in Model.ITDeptEmployees)
@@ -106,7 +106,7 @@
                                 </div>
                                 <div class="col-lg-3 col-md-6">
                                     <div class="form-group vendoradd-tabs">
-                                        <label for="VendorCreateddate">Created Date</label>
+                                        <label for="VendorCreateddate">Created Date*</label>
                                         <input type="date" class="form-control" name="VendorCreateddate" id="VendorCreateddate" required>
                                         <div class="invalid-feedback">Created Date is required.</div>
                                     </div>
@@ -115,7 +115,7 @@
                             <div class="row">
                                 <div class="col-lg-12 col-md-12 text-right">
                                     <button type="button" class="btn vendoradd-Cancel">Cancel</button>
-                                    <button type="submit" class="btn btn-primary vendoradd-Update">Update</button>
+                                    <button type="submit" class="btn btn-primary vendoradd-Update">Submit</button>
                                 </div>
                             </div>
                         </div>
