@@ -1,6 +1,7 @@
 ﻿using HRMS.Helpers;
 using HRMS.Models;
 using HRMS.Models.Admin;
+using HRMS.Models.Employee;
 using HRMS.Models.ITsupport;
 using OfficeOpenXml;
 using OfficeOpenXml.Style;
@@ -31,10 +32,7 @@ namespace HRMS.Controllers
         // GET: Vendor
         public ActionResult Index()
         {
-            var model = new VendorViewModel();
-            var vendors = _dbContext.VendorLists.ToList();
-            model.Allvendors = vendors;
-
+            var model = ApproverVendorFromDB();
             return View("~/Views/Itsupport/VendorListView.cshtml", model);
         }
 
@@ -88,10 +86,18 @@ namespace HRMS.Controllers
                 _dbContext.SaveChanges();
 
                 // Generate email body using the partial view
-                var emailBody = RenderPartialToString(this, "_VendorEmailBody", vendor, ViewData, TempData);
+                var emailBody = RenderPartialToString(this, "_VendorAddEmailNotification", vendor, ViewData, TempData);                
 
-                // Send email
-                SendVendorEmail(emailBody);
+                var emailRequest = new EmailRequest()
+                {
+                    Body = emailBody,
+                    ToEmail = ConfigurationManager.AppSettings["VendorEmailsTo"],
+                    CCEmail = ConfigurationManager.AppSettings["VendorEmailsCC"],
+                    Subject = "New Vendor Approval Request",
+                };
+
+                EMailHelper.SendEmail(emailRequest);
+
 
                 return Json(model, JsonRequestBehavior.AllowGet);
             }
@@ -135,42 +141,30 @@ namespace HRMS.Controllers
             return Json(new { success = false, message = "Vendor not found." });
         }
 
-        private void SendVendorEmail(string emailBody)
-        {
-            var toEmail = ConfigurationManager.AppSettings["VendorEmailsTo"];
-            var ccEmail = ConfigurationManager.AppSettings["VendorEmailsCC"];
-
-            var mailMessage = new MailMessage
-            {
-                From = new MailAddress("your-email@example.com"),
-                Subject = "New Vendor Approval Request",
-                Body = emailBody,
-                IsBodyHtml = true
-            };
-            mailMessage.To.Add(toEmail);
-            if (!string.IsNullOrEmpty(ccEmail))
-            {
-                mailMessage.CC.Add(ccEmail);
-            }
-
-            using (var smtpClient = new SmtpClient())
-            {
-                smtpClient.Send(mailMessage);
-            }
-        }
+       
         public ActionResult ImportVendor()
         {
             return View("~/Views/Itsupport/VendorImport.cshtml");
         }
         public ActionResult ApproveVendor()
         {
-            var model = new VendorViewModel();
-            var vendors = _dbContext.VendorLists.ToList();
-            model.Allvendors = vendors;
-
+            VendorViewModel model = ApproverVendorFromDB();
             return View("~/Views/Itsupport/VendorApprovalPage.cshtml", model);
         }
 
+        public ActionResult ApproveVendorPartial()
+        {
+            VendorViewModel model = ApproverVendorFromDB();
+            return PartialView("~/Views/Itsupport/_vendorapprovalpartial.cshtml", model);
+        }
+
+        private VendorViewModel ApproverVendorFromDB()
+        {
+            var model = new VendorViewModel();
+            var vendors = _dbContext.VendorLists.OrderByDescending(x => x.VedorID).ToList();
+            model.Allvendors = vendors;
+            return model;
+        }
 
         [HttpPost]
         public ActionResult AddVendorType(string VendorType)
