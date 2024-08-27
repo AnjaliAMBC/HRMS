@@ -1,0 +1,82 @@
+﻿@model HRMS.Models.ITsupport.VendorViewModel
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <style>
+        table {
+            border-collapse: collapse;
+            width: 100%;
+            margin-top: 20px;
+        }
+
+        th, td {
+            text-align: left;
+            padding: 8px;
+            border: 1px solid #ddd;
+        }
+
+        th {
+            background-color: #f2f2f2;
+        }
+
+        h2 {
+            color: #4CAF50;
+        }
+
+        p {
+            font-size: 14px;
+            color: #333;
+        }
+    </style>
+</head>
+<body>
+    <h2>Vendor Approval Request</h2>
+    <p>A new vendor has been added and is pending approval. Please find the details below:</p>
+    <table>
+        <tr>
+            <th>Vendor ID</th>
+            <td>@Model.VedorID</td>
+        </tr>
+        <tr>
+            <th>Vendor Name</th>
+            <td>@Model.VendorName</td>
+        </tr>
+        <tr>
+            <th>Vendor Email</th>
+            <td>@Model.VendorEmail</td>
+        </tr>
+        <tr>
+            <th>Vendor Contact</th>
+            <td>@Model.VendorContact</td>
+        </tr>
+        <tr>
+            <th>Vendor Address</th>
+            <td>@Model.VendorAddress</td>
+        </tr>
+        <tr>
+            <th>Vendor Type</th>
+            <td>@Model.VendorType</td>
+        </tr>
+        <tr>
+            <th>Vendor GST</th>
+            <td>@Model.VendorGST</td>
+        </tr>
+        <tr>
+            <th>Status</th>
+            <td>@Model.Status</td>
+        </tr>
+        <tr>
+            <th>Created By</th>
+            <td>@Model.CreatedBy</td>
+        </tr>
+        <tr>
+            <th>Created Date</th>
+            <td>@Model.CreatedDate?.ToString("dd-MM-yyyy")</td>
+        </tr>
+    </table>
+</body>
+</html>
+

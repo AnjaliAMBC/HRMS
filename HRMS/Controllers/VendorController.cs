@@ -17,8 +17,10 @@ using System.Web.Mvc;
 
 namespace HRMS.Controllers
 {
+    using static HRMS.Helpers.PartialViewHelper;
     public class VendorController : Controller
     {
+
         private readonly HRMS_EntityFramework _dbContext;
 
         // Constructor to initialize database context
@@ -32,7 +34,7 @@ namespace HRMS.Controllers
             var model = new VendorViewModel();
             var vendors = _dbContext.VendorLists.ToList();
             model.Allvendors = vendors;
-       
+
             return View("~/Views/Itsupport/VendorListView.cshtml", model);
         }
 
@@ -65,6 +67,7 @@ namespace HRMS.Controllers
                 var existingVendor = _dbContext.VendorLists.Find(vendor.VedorID);
                 if (existingVendor == null)
                 {
+                    vendor.Status = "Pending";
                     _dbContext.VendorLists.Add(vendor);
                     model.Message = "Vendor details Added successfully!.";
                     model.StatusCode = 200;
@@ -84,6 +87,12 @@ namespace HRMS.Controllers
                 }
                 _dbContext.SaveChanges();
 
+                // Generate email body using the partial view
+                var emailBody = RenderPartialToString(this, "_VendorEmailBody", vendor, ViewData, TempData);
+
+                // Send email
+                SendVendorEmail(emailBody);
+
                 return Json(model, JsonRequestBehavior.AllowGet);
             }
             catch (Exception ex)
@@ -93,28 +102,60 @@ namespace HRMS.Controllers
             }
         }
 
-        private void NewVendorAddEmail(VendorList vendor)
+
+        //Vendor Approve
+
+    
+        public ActionResult ApproveVendorSuperAdmin(int vendorId = 0, string approvalReason = "")
         {
-            try
+            var vendor = _dbContext.VendorLists.Find(vendorId);
+            if (vendor != null)
             {
-                var emailBody = PartialViewHelper.RenderPartialToString(this, "_newVendorCreate", vendor, ViewData, TempData);
-                var emailSubject = "New Vendor Created";
+                vendor.Status = "Approved";
+                vendor.ApproveRejectReason = approvalReason;
+                _dbContext.SaveChanges();
 
-                var emailRequest = new VendorEmailRequest
-                {
-                    Body = emailBody,
-                    ToEmail = ConfigurationManager.AppSettings["VendorEmailsTo"],
-                    CCEmail = ConfigurationManager.AppSettings["VendorEmailsCC"],
-                    Subject = emailSubject
-                };
-
-                // Implement the actual email sending logic here
-                //EmailHelper.SendEmail(emailRequest);
+                return Json(new { success = true, message = "Vendor approved successfully." });
             }
-            catch (Exception ex)
+            return Json(new { success = false, message = "Vendor not found." });
+        }
+
+      
+        public ActionResult RejectVendor(int vendorId, string approvalReason)
+        {
+            var vendor = _dbContext.VendorLists.Find(vendorId);
+            if (vendor != null)
             {
-                ErrorHelper.CaptureError(ex);
-                // Optionally log the error or handle it
+                vendor.Status = "Rejected";
+                vendor.ApproveRejectReason = approvalReason;
+                _dbContext.SaveChanges();
+
+                return Json(new { success = true, message = "Vendor rejected successfully." });
+            }
+            return Json(new { success = false, message = "Vendor not found." });
+        }
+
+        private void SendVendorEmail(string emailBody)
+        {
+            var toEmail = ConfigurationManager.AppSettings["VendorEmailsTo"];
+            var ccEmail = ConfigurationManager.AppSettings["VendorEmailsCC"];
+
+            var mailMessage = new MailMessage
+            {
+                From = new MailAddress("your-email@example.com"),
+                Subject = "New Vendor Approval Request",
+                Body = emailBody,
+                IsBodyHtml = true
+            };
+            mailMessage.To.Add(toEmail);
+            if (!string.IsNullOrEmpty(ccEmail))
+            {
+                mailMessage.CC.Add(ccEmail);
+            }
+
+            using (var smtpClient = new SmtpClient())
+            {
+                smtpClient.Send(mailMessage);
             }
         }
         public ActionResult ImportVendor()
@@ -130,7 +171,7 @@ namespace HRMS.Controllers
             return View("~/Views/Itsupport/VendorApprovalPage.cshtml", model);
         }
 
-       
+
         [HttpPost]
         public ActionResult AddVendorType(string VendorType)
         {
@@ -250,14 +291,14 @@ namespace HRMS.Controllers
                                 // Handle the case where the value is not a valid integer
                                 // For example, log an error or skip the row
                                 continue;
-                            }                            
+                            }
                             var vendorName = worksheet.Cells[row, 2].Text;
                             var vendorEmail = worksheet.Cells[row, 3].Text;
                             var vendorContact = worksheet.Cells[row, 4].Text;
                             var vendorAddress = worksheet.Cells[row, 5].Text;
                             var vendorGst = worksheet.Cells[row, 6].Text;
                             var createdDate = DateTime.Parse(worksheet.Cells[row, 7].Text);
-                            var createdBy = worksheet.Cells[row, 8].Text;                            
+                            var createdBy = worksheet.Cells[row, 8].Text;
 
                             // Add your code to save each row data to the database
                             // Example:
@@ -268,10 +309,10 @@ namespace HRMS.Controllers
                                 VendorEmail = vendorEmail,
                                 VendorContact = vendorContact,
                                 VendorAddress = vendorAddress,
-                                VendorGST=vendorGst,
+                                VendorGST = vendorGst,
                                 CreatedDate = createdDate,
                                 CreatedBy = createdBy,
-                             };
+                            };
 
                             // Save the vendor to the database
                             _dbContext.VendorLists.Add(vendor); // Assuming _context is your database context

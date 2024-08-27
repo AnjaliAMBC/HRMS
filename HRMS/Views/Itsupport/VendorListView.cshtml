@@ -15,7 +15,7 @@
                         </div>
                         <!-- Search box -->
                         <div class="col-xl-4 col-lg-6 navbarl1 col-sm-12 col-md-7 res-admin-vendor-search">
-                            <div class="search-container" >
+                            <div class="search-container" style=" margin-left: 32px; ">
                                 <div class="input-group" style="border-radius: 20px;">
                                     <div class="input-group-prepend">
                                         <span class="input-group-text" style="background-color: transparent; border-right: none; border-radius: 5px 0 0 5px; height: 35px;"><i class="fas fa-search" style="color: #369479"></i></span>
@@ -25,7 +25,7 @@
                             </div>
                         </div>
 
-                        <div class="col-xl-5 col-lg-6 navbarl1 col-sm-12 col-md-7 res-admin-vendor-header-right">
+                        <div class="col-xl-5 col-lg-12 navbarl1 col-sm-12 col-md-12 res-admin-vendor-header-right">
                             <!-- Export -->
                             <div class="col-xl-4 col-lg-3 navbarl1 col-sm-4 col-xs-12 col-md-4 res-admin-vendor-status p-0">
                                 <div class="form-group res-vendorlisting">
@@ -95,7 +95,12 @@
                                     <td>@vendor.VendorAddress</td>
                                     <td>@vendor.CreatedDate</td>
                                     <td>@vendor.CreatedBy</td>
-                                    <td><span class="vendorapproved-btn"><img src="/assets/Approve.png" alt="Approved" style="width:25px">@vendor.Status</span></td>
+                                    <td>
+                                        <span class="sadmin-vendorapproved-btn">
+                                            <img src="/assets/@(vendor.Status == "Approved" ? "Approve.png" : vendor.Status == "Rejected" ? "Reject.png" : "Pending.png")" alt="@vendor.Status" style="width:25px">
+                                            <div style="display:none">@vendor.Status</div>
+                                        </span>
+                                    </td>
                                     <td><span class="vendor-list-edit" data-vendorid="@vendor.VedorID"><i class="fas fa-pencil-alt"></i></span></td>
                                 </tr>
                             }
@@ -137,8 +142,8 @@
 
             <!-- Button trigger modal -->
             @*<button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal">
-                Launch Popup
-            </button>*@
+                    Launch Popup
+                </button>*@
 
             <!-- Modal -->
             <div class="modal fade" id="vendoradd-success-popup" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
@@ -184,9 +189,9 @@
                 }
                 table.column(7).search(status).draw();
             });
-        } 
+        }
     });
 
 
-   
+
 </script>
