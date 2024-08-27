@@ -358,8 +358,9 @@ function approveVendor(vendorId) {
         success: function (response) {
             $('#sadmin-approvalcard').modal('show');
             if (response.success) {
-                updateVendorStatus(vendorId, "Approved");
+                updateVendorStatus($('#modalVendorID').text(), "Approved");
                 generateModalFooter("Approved");
+                refreshVendorTable();
                 $('#modalMessage').text(response.message).removeClass('text-danger').addClass('text-success');
 
             } else {
@@ -368,6 +369,25 @@ function approveVendor(vendorId) {
         },
         error: function () {
             $('#modalMessage').text('An error occurred. Please try again.').removeClass('text-success').addClass('text-danger');
+        }
+    });
+}
+
+function refreshVendorTable() {
+    $.ajax({
+        url: "/vendor/ApproveVendorPartial", // Make sure this URL matches your routing setup
+        type: "GET",
+        success: function (data) {
+            $('.res-sadmin-vendorapproval-table').html(data);
+
+            // Update the hidden field with the new JSON data
+            var newVendorsJson = $('#vendorsJson').val();
+            $('#vendorsJson').val(newVendorsJson);
+
+            LoadVendorTable();
+        },
+        error: function () {
+            alert("Failed to refresh the table. Please try again.");
         }
     });
 }
@@ -382,7 +402,8 @@ function rejectVendor(vendorId) {
         success: function (response) {
             $('#sadmin-approvalcard').modal('show');
             if (response.success) {
-                updateVendorStatus(vendorId, "Rejected");
+                updateVendorStatus($('#modalVendorID').text(), "Rejected");
+                refreshVendorTable();
                 generateModalFooter("Rejected");
                 $('#modalMessage').text(response.message).removeClass('text-danger').addClass('text-success');
                
@@ -397,13 +418,13 @@ function rejectVendor(vendorId) {
 }
 
 
-function updateVendorStatus(vendorId, status) {
-    var row = $('#sadminvendorapprovaltable .tdvendorapprovalid').filter(function () {
-        return $(this).text() == vendorId;
-    }).closest('tr');
+//function updateVendorStatus(vendorId, status) {
+//    var row = $('#sadminvendorapprovaltable .tdvendorapprovalid').filter(function () {
+//        return $(this).text() == vendorId;
+//    }).closest('tr');
 
-    row.find('td:eq(7)').html('<span class="sadmin-vendorapproved-btn"><img src="/assets/' + status + '.png" alt="' + status + '" style="width:25px"></span>');
-}
+//    row.find('td:eq(7)').html('<span class="sadmin-vendorapproved-btn"><img src="/assets/' + status + '.png" alt="' + status + '" style="width:25px"></span>');
+//}
 
 
 function generateModalFooter(status) {
@@ -433,4 +454,93 @@ function generateModalFooter(status) {
     }
 }
 
+
+function updateVendorStatus(vendorId, newStatus) {
+    // Find the table row by Vendor ID
+    $('#sadminvendorapprovaltable tbody tr').each(function () {
+        var row = $(this);
+        var currentVendorId = row.find('.tdvendorid').text().trim();
+
+        if (currentVendorId == vendorId) {
+            // Update the status text and image based on the new status
+            var statusCell = row.find('td').eq(7); // Assuming the status is in the 8th column (index 7)
+
+            if (newStatus === 'Approved') {
+                statusCell.html('<span class="sadmin-vendorapproved-btn"><img src="/assets/Approve.png" alt="Approved" style="width:25px"><div style="display: block">Approved</div></span>');
+            } else if (newStatus === 'Rejected') {
+                statusCell.html('<span class="sadmin-vendorapproved-btn"><img src="/assets/Reject.png" alt="Rejected" style="width:25px"><div style="display: block">Rejected</div></span>');
+            } else {
+                statusCell.html('<span class="sadmin-vendorapproved-btn"><img src="/assets/Pending.png" alt="Pending" style="width:25px"><div style="display: block">Pending</div></span>');
+            }
+        }
+    });
+}
+
+function LoadVendorTable() {
+    // Initialize the table as a DataTable
+    var table = $('#sadminvendorapprovaltable').DataTable({
+        "responsive": true,
+        "paging": true,
+        "searching": true, // Enable searching
+        "ordering": false,
+        "info": true,
+        "autoWidth": false,
+        "lengthMenu": [[10, 20, 50, -1], [10, 20, 50, "All"]]
+    });
+
+    // Implement global search functionality
+    $('.vendorapproval-search').on('keyup', function () {
+        table.search(this.value).draw();
+    });
+
+    // Filter table based on status dropdown selection
+    $(document).on('change', '#sadmin-vendorapproval-status-dropdown', function () {
+        var status = $(this).val();
+        if (status == "All") {
+            status = "";
+        }
+        table.column(7).search(status).draw(); // Assume status is in the 8th column (index 7)
+    });
+}
+
+if ($('#sadminvendorapprovaltable').length) {
+    LoadVendorTable();
+}
+
+
+function getVendorById(vendor, vendorID) {
+    var selectedVendor = vendor.find(v => v.VedorID == vendorID);
+    return selectedVendor;
+}
+
+function openVendorModal(vendorid) {
+    // Find the table row corresponding to the vendor ID
+    var row = $('#sadminvendorapprovaltable').find('tr[data-vendorid="' + vendorid + '"]');
+
+    // Extract data from the row
+    var vendorID = row.find('.tdvendorid').text().trim();
+    var vendorName = row.find('.tdvendorapprovalname').text().trim();
+    var vendorContact = row.find('.tdvendorcontact').text().trim();
+    var vendorAddress = row.find('.tdvendoraddress').text().trim();
+    var createdDate = row.find('.tdcreateddate').text().trim();
+    var createdBy = row.find('.tdcreatedby').text().trim();
+    var vendorStatus = row.find('.tdvendorstatus div').text().trim();
+    var approveRejectReason = row.find('.tdvendorstatus').attr('data-approve-reject-reason'); // Assuming you store the reason in a data attribute
+
+    // Clear the modal fields
+    $('#modalVendorID').text("");
+    $('#modalVendorName').text("");
+    $('#modalVendorContact').text("");
+    $('#modalVendorAddress').text("");
+    $('#approvalReason').text("");
+
+    // Set the modal fields with the extracted data
+    $('#modalVendorID').text(vendorID);
+    $('#modalVendorName').text(vendorName);
+    $('#modalVendorContact').text(vendorContact);
+    $('#modalVendorAddress').text(vendorAddress);
+    $('#approvalReason').text(approveRejectReason);
+
+    generateModalFooter(vendorStatus);
+}
 

@@ -22,8 +22,19 @@
                                 <div class="col-lg-3 col-md-6">
                                     <div class="form-group vendoradd-tabs">
                                         <label for="VendorID">Vendor ID</label>
-                                        <input type="number" class="form-control" name="VendorID" value="@Model.NewVendorId" id="VendorID" placeholder="Enter Vendor ID" required readonly>
-                                        <small style="font-size: 12px; float: right;">Last Vendor ID: @Model.LasteVenorId</small>
+                                        @{
+                                            var isEditRecord = Model.EditVendor.VedorID != 0 ? true : false;
+                                            var venorID = Model.NewVendorId;
+                                            if (isEditRecord)
+                                            {
+                                                venorID = Model.EditVendor.VedorID;
+                                            }
+                                        }
+                                        <input type="number" class="form-control" name="VendorID" value="@venorID" id="VendorID" placeholder="Enter Vendor ID" required readonly>
+                                        @if (!isEditRecord)
+                                        {
+                                            <small style="font-size: 12px; float: right;">Last Vendor ID: @Model.LasteVenorId</small>
+                                        }
                                         <div class="invalid-feedback">Vendor ID is required.</div>
                                     </div>
                                 </div>
@@ -37,14 +48,14 @@
                                 <div class="col-lg-3 col-md-6">
                                     <div class="form-group vendoradd-tabs">
                                         <label for="VendorEmail">Vendor Email*</label>
-                                        <input type="text" class="form-control" value="@Model.EditVendor.VendorEmail"name="VendorEmail" id="VendorEmail" placeholder="Enter Vendor Email" required>
+                                        <input type="text" class="form-control" value="@Model.EditVendor.VendorEmail" name="VendorEmail" id="VendorEmail" placeholder="Enter Vendor Email" required>
                                         <div class="invalid-feedback">Please enter a valid email address.</div>
                                     </div>
                                 </div>
                                 <div class="col-lg-3 col-md-6">
                                     <div class="form-group vendoradd-tabs">
                                         <label for="VendorContact">Vendor Contact*</label>
-                                        <input type="text" class="form-control" name="VendorContact" value="@Model.EditVendor.VendorContact"id="VendorContact" placeholder="Enter Contact number" required>
+                                        <input type="text" class="form-control" name="VendorContact" value="@Model.EditVendor.VendorContact" id="VendorContact" placeholder="Enter Contact number" required>
                                         <div class="invalid-feedback">Please enter a valid 10-digit contact number.</div>
                                     </div>
                                 </div>
@@ -66,7 +77,7 @@
                                                 @foreach (var vendortype in Model.vendorTypes)
                                                 {
                                                     var selectedVendorType = !string.IsNullOrEmpty(Model.EditVendor.VendorType) && (Model.EditVendor.VendorType == vendortype.VendorType1) ? "selected" : "";
-                                                    <option value="@vendortype.Sno" @selectedVendorType>@vendortype.VendorType1</option>
+                                                    <option value="@vendortype.VendorType1" @selectedVendorType>@vendortype.VendorType1</option>
                                                 }
                                             </select>
 
@@ -96,8 +107,8 @@
                                             <option value="" disabled selected hidden>Created by</option>
                                             @foreach (var deptEmp in Model.ITDeptEmployees)
                                             {
-                                                var createdVendorName = !string.IsNullOrEmpty(Model.EditVendor.CreatedBy) && (Model.EditVendor.CreatedBy == deptEmp.CreatedBy) ? "selected" : "";
-                                                <option value="@deptEmp.EmployeeID" @createdVendorName>@deptEmp.EmployeeName</option>
+                                                var createdVendorName = !string.IsNullOrEmpty(Model.EditVendor.CreatedBy) && (Model.EditVendor.CreatedBy == deptEmp.EmployeeName) ? "selected" : "";
+                                                <option value="@deptEmp.EmployeeName" @createdVendorName>@deptEmp.EmployeeName</option>
 
                                             }
                                         </select>
@@ -107,7 +118,17 @@
                                 <div class="col-lg-3 col-md-6">
                                     <div class="form-group vendoradd-tabs">
                                         <label for="VendorCreateddate">Created Date*</label>
-                                        <input type="date" class="form-control" name="VendorCreateddate" id="VendorCreateddate" required>
+
+                                        @if (Model.EditVendor.CreatedDate == null || Model.EditVendor.CreatedDate == DateTime.MinValue)
+                                        {
+                                            Model.EditVendor.CreatedDate = DateTime.Today;
+                                        }
+
+
+                                        @Html.TextBoxFor(m => m.EditVendor.CreatedDate, "{0:yyyy-MM-dd}", new { @type = "date", @class = "form-control", @id = "VendorCreateddate" })
+
+
+                                        @*<input type="date" class="form-control" name="VendorCreateddate" id="VendorCreateddate" required>*@
                                         <div class="invalid-feedback">Created Date is required.</div>
                                     </div>
                                 </div>
