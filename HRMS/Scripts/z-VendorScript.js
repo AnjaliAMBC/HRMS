@@ -349,5 +349,88 @@ $(document).on('click', '.btn-vendor-import-submit', function (event) {
 });
 
 
+function approveVendor(vendorId) {
+    var reason = $('#approvalReason').val();
+    $.ajax({
+        type: "POST",
+        url: "/vendor/approvevendorsuperadmin", // Update the URL according to your routing setup
+        data: { vendorId: $('#modalVendorID').text(), approvalReason: reason },
+        success: function (response) {
+            $('#sadmin-approvalcard').modal('show');
+            if (response.success) {
+                updateVendorStatus(vendorId, "Approved");
+                generateModalFooter("Approved");
+                $('#modalMessage').text(response.message).removeClass('text-danger').addClass('text-success');
+
+            } else {
+                $('#modalMessage').text(response.message).removeClass('text-success').addClass('text-danger');
+            }
+        },
+        error: function () {
+            $('#modalMessage').text('An error occurred. Please try again.').removeClass('text-success').addClass('text-danger');
+        }
+    });
+}
+
+
+function rejectVendor(vendorId) {
+    var reason = $('#approvalReason').val();
+    $.ajax({
+        type: "POST",
+        url: "/vendor/rejectvendor", // Update the URL according to your routing setup
+        data: { vendorId: $('#modalVendorID').text(), approvalReason: reason },
+        success: function (response) {
+            $('#sadmin-approvalcard').modal('show');
+            if (response.success) {
+                updateVendorStatus(vendorId, "Rejected");
+                generateModalFooter("Rejected");
+                $('#modalMessage').text(response.message).removeClass('text-danger').addClass('text-success');
+               
+            } else {
+                $('#modalMessage').text(response.message).removeClass('text-success').addClass('text-danger');
+            }
+        },
+        error: function () {
+            $('#modalMessage').text('An error occurred. Please try again.').removeClass('text-success').addClass('text-danger');
+        }
+    });
+}
+
+
+function updateVendorStatus(vendorId, status) {
+    var row = $('#sadminvendorapprovaltable .tdvendorapprovalid').filter(function () {
+        return $(this).text() == vendorId;
+    }).closest('tr');
+
+    row.find('td:eq(7)').html('<span class="sadmin-vendorapproved-btn"><img src="/assets/' + status + '.png" alt="' + status + '" style="width:25px"></span>');
+}
+
+
+function generateModalFooter(status) {
+    let modalFooter = $('.modal-footer'); // Assuming you have a modal footer with this class
+    modalFooter.empty(); // Clear the existing content
+
+    // Add the message div
+    modalFooter.append(`
+        <div id="modalMessage" class="text-success"></div>
+    `);
+
+    if (status === 'Pending') {
+        modalFooter.append(`
+            <button class="btn btn-success" id="approveBtn" onclick="approveVendor()">Approve</button>
+            <button class="btn btn-danger" id="rejectBtn" onclick="rejectVendor()">Reject</button>
+        `);
+    } else if (status === 'Approved') {
+        modalFooter.append(`
+            <a href="#" onclick="rejectVendor()">Change Status</a>
+            <button class="btn btn-success" disabled>Approved</button>
+        `);
+    } else if (status === 'Rejected') {
+        modalFooter.append(`
+            <a href="#" onclick="approveVendor()">Change Status</a>
+            <button class="btn btn-danger" disabled>Rejected</button>
+        `);
+    }
+}
 
 

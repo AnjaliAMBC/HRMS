@@ -31,13 +31,22 @@
 
     var highliateITSupport = "";
     var itSupportSidebarShow = "display: none";
-    if (pageUrlPath.Contains("/vendor/index") || pageUrlPath.Contains("/vendor/approvevendor"))
+    if (pageUrlPath.Contains("/vendor/index") || pageUrlPath.Contains("/vendor/approvevendor") || pageUrlPath.Contains("/vendor/addvendor") || pageUrlPath.Contains("/vendor/importvendor"))
     {
         itSupportSidebarShow = "display: block";
-        highliateITSupport = "sidebaractive";
+        if (pageUrlPath.Contains("/vendor/addvendor"))
+        {
+            highliateITSupport = "sidebaractive";
+        }
+
+        if(pageUrlPath.Contains("/vendor/importvendor"))    
+            {
+                highliateITSupport = "sidebaractive";
+            }
+
     }
 
-}
+    }
 
 <div id="left-side-menu-normal" class="row">
     <style>
@@ -111,10 +120,28 @@
                         </a>
                         <div class="sidebar-submenu" style="@itSupportSidebarShow">
                             <ul>
-                                <li><a href="/vendor/index"><span class="menu-bar-design-red"></span>Vendor</a></li>
-                                <li><a href="/purchase/index" class=""><span class="menu-bar-design-blue"></span>Purchase Request</a></li>
+                                @if (currentContext.IsITAdmin)
+                                {
+                                    <li><a href="/vendor/index"><span class="menu-bar-design-red"></span>Vendor</a></li>
+                                }
+                                @if (currentContext.IsSuperAdmin)
+                                {
+                                    <li><a href="/vendor/index"><span class="menu-bar-design-red"></span>Vendor</a></li>
+                                }
+                                @if (currentContext.IsITAdmin)
+                                {
+                                    <li><a href="/purchase/index" class=""><span class="menu-bar-design-blue"></span>Purchase Request</a></li>
+                                }
+                                @if (currentContext.IsSuperAdmin)
+                                {
+                                    <li><a href="/purchase/index" class=""><span class="menu-bar-design-blue"></span>Purchase Request</a></li>
+                                }
+                                @if (currentContext.IsAccountAdmin)
+                                {
+                                    <li><a href="/purchase/index" class=""><span class="menu-bar-design-blue"></span>Purchase Request</a></li>
+                                }
                                 <li><a href="/purchase/purchasesuperadmin" class=""><span class="menu-bar-design-chocolate"></span>Subscription</a></li>
-                                <li><a href="" class=" "><span class="menu-bar-design-darkcyan"></span>Asset</a></li>
+                                <li><a href="/purchase/purchaseaccountadmin" class=" "><span class="menu-bar-design-darkcyan"></span>Asset</a></li>
                                 <li><a href="/vendor/approveVendor" class=""><span class="menu-bar-design-red"></span>Allocated Information</a></li>
                             </ul>
                         </div>

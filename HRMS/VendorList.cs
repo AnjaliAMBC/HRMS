@@ -28,5 +28,8 @@ namespace HRMS
         public string RejectedBy { get; set; }
         public Nullable<System.DateTime> RejectedDate { get; set; }
         public string Status { get; set; }
+        public string UpdatedBy { get; set; }
+        public Nullable<System.DateTime> UpdatedDate { get; set; }
+        public string ApproveRejectReason { get; set; }
     }
 }

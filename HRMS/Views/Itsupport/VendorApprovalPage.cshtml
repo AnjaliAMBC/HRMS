@@ -6,31 +6,33 @@
     @Html.Partial("_adminsidemenu")
     <div class="main-content container-fluid VendorApprovalPage-View" style="width: 84%">
 
-        <div class="content sadmin-vendorapproval-container" style="margin-left: -10px; ">
+        <div class="content sadmin-vendorapproval-container" style="margin-left: -10px;">
             <div class="sadmin-vendorapproval-view">
                 <div class="container-fluid top sadmin-vendorapproval">
                     <div class="row navbar align-items-center">
-                        <!-- Employee column -->
-                        <div class="col-lg-4 col-md-7 col-sm-12 topic d-flex res-admin-title">
-                            <h4 class="header mb-0 ">Vendor Approval Request</h4>
+                        <!-- Vendor Approval Title -->
+                        <div class="col-lg-4 col-md-5 col-sm-12 topic d-flex res-admin-title">
+                            <h4 class="header mb-0">Vendor Approval Request</h4>
                         </div>
                         <!-- Search box -->
-                        <div class="col-lg-4 navbarl1 col-sm-12 col-md-5 res-sadmin-vendorapproval-search">
-                            <div class="search-container">
+                        <div class="col-lg-4 navbarl1 col-md-7 col-sm-12 res-sadmin-vendorapproval-search">
+                            <div class="search-container" style="margin-left: 32px;">
                                 <div class="input-group" style="border-radius: 20px;">
                                     <div class="input-group-prepend">
-                                        <span class="input-group-text" style="background-color: transparent; border-right: none; border-radius: 5px 0 0 5px; height: 35px;"><i class="fas fa-search" style="color: #369479"></i></span>
+                                        <span class="input-group-text" style="background-color: transparent; border-right: none; border-radius: 5px 0 0 5px; height: 35px;">
+                                            <i class="fas fa-search" style="color: #369479"></i>
+                                        </span>
                                     </div>
                                     <input type="text" placeholder="Search By Keyword" class="vendorapproval-search form-control" aria-label="Search By Keyword" style="border-radius: 0 5px 5px 0; height: 35px; font-size: 14px;">
                                 </div>
                             </div>
                         </div>
-
-                        <div class="col-lg-4 navbarl1 col-sm-8 col-md-6 res-sadmin-vendorapproval-header-right d-flex">
-                            <!-- Export -->
-                            <div class="col-lg-4 navbarl1 col-sm-6 col-md-4 res-sadmin-vendorapproval-status p-0">
+                        <!-- Status Dropdown & Export Button -->
+                        <div class="col-lg-4 col-md-12 navbarl1 col-sm-12 res-sadmin-vendorapproval-header-right d-flex">
+                            <!-- Status Dropdown -->
+                            <div class="col-lg-6 navbarl1 col-sm-6 col-md-6 res-sadmin-vendorapproval-status p-0">
                                 <div class="form-group res-vendorapproval">
-                                    <select class="form-control form-select" name="vendorapprovalstatus" id="sadmin-vendorapproval-status-dropdown" style="">
+                                    <select class="form-control form-select" name="vendorapprovalstatus" id="sadmin-vendorapproval-status-dropdown">
                                         <option value="" disabled selected>Status</option>
                                         <option value="Approved">Approved</option>
                                         <option value="Rejected">Rejected</option>
@@ -39,18 +41,19 @@
                                     </select>
                                 </div>
                             </div>
-                            <div class="col-lg-2 navbarl1 col-sm-4 col-md-2 res-admin-vendor-export p-0">
-                                <div class="sadminvendorapproval-export" style="">
+                            <!-- Export Button -->
+                            <div class="col-lg-2 col-sm-4 col-md-2 res-admin-vendor-export p-0">
+                                <div class="sadminvendorapproval-export">
                                     <button type="button" class="btn vendorapproval-export-btn pt-0" id="exportVendor" onclick="exportVendor()">
-                                        <span class="vendorapproval-export"><img src="/assets/Export.png" alt="Export" style=""></span>
+                                        <span class="vendorapproval-export"><img src="/assets/Export.png" alt="Export"></span>
                                     </button>
                                 </div>
                             </div>
                         </div>
-
                     </div>
                 </div>
 
+                <!-- Vendor Approval Table -->
                 <div class="res-sadmin-vendorapproval-table table-responsive">
                     <table id="sadminvendorapprovaltable" class="display" style="width: 100%;">
                         <thead style="background-color: #d8e6fb; border-radius: 10px;">
@@ -68,81 +71,50 @@
                         </thead>
                         <tbody>
                             @foreach (var vendor in Model.Allvendors)
-                            { 
-                            <tr class="odd">
-                                <td><input type="checkbox" class="vendor-check"></td>
-                                <td class="tdvendorapprovalid">@vendor.VedorID</td>
-                                <td class="tdvendorapprovalname">
-                                    <div style="display: flex; align-items: center;">
-                                        <span style="margin-top: 0px; margin-right: 10px;">@vendor.VendorName<br><span style="color: #3E78CF;">@vendor.VendorEmail'</span></span>
-                                    </div>
-                                </td>
-                                <td>@vendor.VendorContact</td>
-                                <td>@vendor.VendorAddress</td>
-                                <td>@vendor.CreatedDate</td>
-                                <td>@vendor.CreatedBy</td>
-                                <td><span class="sadmin-vendorapproved-btn"><img src="/assets/Pending.png" alt="Approved" style="width:25px"></span></td>
-                                @*<td><span class="sadmin-vendorapproved-btn"><img src="/assets/Approve.png" alt="Approved" style="width:25px"></span></td>
-                                <td><span class="sadmin-vendorapproved-btn"><img src="/assets/Reject.png" alt="Approved" style="width:25px"></span></td>*@
-                                <td><span class="vendor-approval-edit" data-toggle="modal" data-target="#sadmin-approvalcard"><i class="fas fa-eye"></i></span></td>
-                            </tr>
+                            {
+                                <tr class="odd">
+                                    <td><input type="checkbox" class="vendor-check"></td>
+                                    <td class="tdvendorid">@vendor.VedorID</td>
+                                    <td class="tdvendorapprovalname">
+                                        <div style="display: flex; align-items: center;">
+                                            <span style="margin-top: 0px; margin-right: 10px;">
+                                                @vendor.VendorName<br>
+                                                <span style="color: #3E78CF;">@vendor.VendorEmail</span>
+                                            </span>
+                                        </div>
+                                    </td>
+                                    <td>@vendor.VendorContact</td>
+                                    <td>@vendor.VendorAddress</td>
+                                    <td>@vendor.CreatedDate</td>
+                                    <td>@vendor.CreatedBy</td>
+                                    <td>
+                                        <span class="sadmin-vendorapproved-btn">
+                                            <img src="/assets/@(vendor.Status == "Approved" ? "Approve.png" : vendor.Status == "Rejected" ? "Reject.png" : "Pending.png")" alt="@vendor.Status" style="width:25px">
+                                            <div style="display: block">@vendor.Status</div>
+                                        </span>
+
+                                    </td>
+                                    <td>
+                                        <span class="vendor-approval-edit" data-toggle="modal" data-target="#sadmin-approvalcard" onclick="openVendorModal(@vendor.VedorID)">
+                                            <i class="fas fa-eye"></i>
+                                        </span>
+                                    </td>
+                                </tr>
                             }
-                            @*<tr class="even">
-                                <td><input type="checkbox" class="vendorapproval-check"></td>
-                                <td class="tdvendorapprovalid">2000</td>
-                                <td class="tdvendorapprovalname">
-                                    <div style="display: flex; align-items: center;">
-                                        <span style="margin-top: 0px; margin-right: 10px;">Mithun Sivaprakasam<br><span style="color: #3E78CF;">mithun@ambconline.com</span></span>
-                                    </div>
-                                </td>
-                                <td>+901212122</td>
-                                <td>Test Address</td>
-                                <td>03-09-2024</td>
-                                <td>Test User</td>
-                                <td><span class="sadmin-vendorapproved-btn"><img src="/assets/Approve.png" alt="Approved" style="width:25px"></span></td>
-                                <td><span class="vendor-approval-edit" data-toggle="modal" data-target="#sadmin-approvalcard"><i class="fas fa-eye"></i></span></td>
-                            </tr>
-                            <tr class="odd">
-                                <td><input type="checkbox" class="vendorapproval-check"></td>
-                                <td class="tdvendorapprovalid">2000</td>
-                                <td class="tdvendorapprovalname">
-                                    <div style="display: flex; align-items: center;">
-                                        <span style="margin-top: 0px; margin-right: 10px;">Mithun Sivaprakasam<br><span style="color: #3E78CF;">mithun@ambconline.com</span></span>
-                                    </div>
-                                </td>
-                                <td>+901212122</td>
-                                <td>Test Address</td>
-                                <td>03-09-2024</td>
-                                <td>Test User</td>
-                                <td><span class="sadmin-vendorapproved-btn"><img src="/assets/Approve.png" alt="Approved" style="width:25px"></span></td>
-                                <td><span class="vendor-approval-edit" data-toggle="modal" data-target="#sadmin-approvalcard"><i class="fas fa-eye"></i></span></td>*@
                         </tbody>
                     </table>
                 </div>
-
             </div>
         </div>
-        @*<div class="modal fade" id="deletevendorapproval" tabindex="-1" role="dialog" aria-labelledby="deletevendorapproval" aria-hidden="true">
-                <div class="modal-dialog" role="document">
-                    <div class="modal-content">
-                        <div class="modal-body text-center pt-5">
-                            <h5>Are you sure you want to delete vendor?</h5>
-                        </div>
-                        <div class="modal-footer">
-                            <button type="button" class="btn closing-delete" data-dismiss="modal">Close</button>
-                            <button type="button" class="btn btn-primary">Delete</button>
-                        </div>
-                    </div>
-                </div>
-            </div>*@
 
-        <div class="modal fade" id="sadmin-approvalcard" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <!-- Vendor Approval Modal -->
+        <div class="modal fade" id="sadmin-approvalcard" tabindex="-1" role="dialog" aria-labelledby="vendorApprovalModalLabel" aria-hidden="true">
             <div class="modal-dialog" role="document">
                 <div class="modal-content">
                     <div class="modal-header">
-                        <div class="modal-title ">
+                        <div class="modal-title">
                             <h6>Vendor ID</h6>
-                            <p class="m-0 sadmin-vendorid-approvalcard">24</p>
+                            <p class="m-0 sadmin-vendorid-approvalcard" id="modalVendorID"></p>
                         </div>
                         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                             <span aria-hidden="true">&times;</span>
@@ -151,32 +123,38 @@
                     <div class="modal-body">
                         <div class="d-flex flex-column sadmin-approvalcard-tabs">
                             <label>Vendor Name</label>
-                            <span style="margin-top: 0px; margin-right: 10px;line-height:1rem">Mithun Sivaprakasam<br><p style="color: #3E78CF;font-size:13px; margin:0px">mithun@ambconline.com</p></span>
+                            <span id="modalVendorName"></span>
                         </div>
                         <div class="d-flex flex-column sadmin-approvalcard-tabs">
                             <label>Vendor Contact</label>
-                            <span>+901212122</span>
+                            <span id="modalVendorContact"></span>
                         </div>
                         <div class="d-flex flex-column sadmin-approvalcard-tabs">
                             <label>Vendor Address</label>
-                            <span>Khasra numbers:444(p),445(p),460(p),461(p),village-Bhaukapur,New Delhi.</span>
+                            <span id="modalVendorAddress"></span>
                         </div>
                         <div class="d-flex flex-column sadmin-approvalcard-tabs">
-                            <label>Reason for approval or Reject</label>
-                            <textarea id="approvalreason" class="form-control"></textarea>
+                            <label>Reason for Approval or Rejection</label>
+                            <textarea id="approvalReason" class="form-control"></textarea>
                         </div>
-
                     </div>
+                    @*<div class="modal-footer">
+                            <button class="btn btn-success" id="approveBtn" onclick="approveVendor()">Approve</button>
+                            <button class="btn btn-danger" id="rejectBtn" onclick="rejectVendor()">Reject</button>
+                        </div>*@
+
                     <div class="modal-footer">
-                        <button type="button" class="btn btn-danger">Reject</button>
-                        <button type="button" class="btn btn-success">Approve</button>
+                        <div id="modalMessage" class="text-success"></div>
                     </div>
                 </div>
             </div>
         </div>
+
     </div>
 </div>
+
 <script>
+
     $(document).ready(function () {
         // Initialize DataTable if not already initialized
         if (!$.fn.DataTable.isDataTable('#sadminvendorapprovaltable')) {
@@ -204,10 +182,72 @@
         }
     });
 
+
+
     const textarea = document.getElementById('approvalreason');
+
+
 
     textarea.addEventListener('input', function () {
         this.style.height = 'auto';
         this.style.height = this.scrollHeight + 'px';
     });
+
+    function getVendorById(vendor, vendorID) {
+        var selectedVendor = vendor.find(v => v.VedorID == vendorID);
+        return selectedVendor;
+    }
+
+
+    function openVendorModal(vendorid) {
+        var vendor = @Html.Raw(Newtonsoft.Json.JsonConvert.SerializeObject(Model.Allvendors));
+        var selectedVendor = getVendorById(vendor, vendorid);
+
+        $('#modalVendorID').text("");
+        $('#modalVendorName').text("");
+        $('#modalVendorContact').text("");
+        $('#modalVendorAddress').text("");
+        $('#approvalReason').text("");
+        $('#approveBtn').prop('disabled', false);
+        $('#rejectBtn').prop('disabled', false);
+
+        //$('#approveBtn').addClass("btn-success")
+        //$('#rejectBtn').addClass("btn-danger");
+        //$('#rejectBtn').text("Reject");
+        //$('#approveBtn').text("Approve");
+        //$('#approveBtn').css("color", "");
+        //$('#rejectBtn').css("color", "");
+
+        if (selectedVendor) {
+            //if (selectedVendor.Status != "Pending") {
+            //    if (selectedVendor.Status == "Approved") {
+            //        $('#approveBtn').text("Approved");
+            //        $('#rejectBtn').text("Change Status");
+            //        $('#rejectBtn').removeClass("btn-danger");
+            //        $('#approveBtn').prop('disabled', true);
+            //        $('#approveBtn').addClass("btn-success");
+            //        $('#rejectBtn').css("color", "blue");
+            //        $('#approveBtn').css("color", "");
+            //    }
+            //    if (selectedVendor.Status == "Rejected") {
+            //        $('#rejectBtn').text("Rejected");
+            //        $('#approveBtn').text("Change Status");
+            //        $('#approveBtn').removeClass("btn-success");
+            //        $('#rejectBtn').prop('disabled', true);
+            //        $('#rejectBtn').addClass("btn-danger");
+            //        $('#approveBtn').css("color", "blue");
+            //        $('#rejectBtn').css("color", "");
+            //    }
+            //}
+            $('#modalVendorID').text(selectedVendor.VedorID);
+            $('#modalVendorName').text(selectedVendor.VendorName);
+            $('#modalVendorContact').text(selectedVendor.VendorContact);
+            $('#modalVendorAddress').text(selectedVendor.VendorAddress);
+            $('#approvalReason').text(selectedVendor.ApproveRejectReason);
+
+            generateModalFooter(selectedVendor.Status);
+        }
+    }
+
+
 </script>

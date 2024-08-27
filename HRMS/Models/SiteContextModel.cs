@@ -13,6 +13,7 @@ namespace HRMS.Models
         public bool IsAdmin { get; set; } = false;
         public bool IsSuperAdmin { get; set; } = false;
 
+        public bool IsAccountAdmin { get; set; } = false;
         public bool IsITAdmin { get; set; } = false;
         //public CheckInDetails empLastDayCheckInDetails { get; set; } = new CheckInDetails();
     }

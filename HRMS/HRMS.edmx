@@ -287,6 +287,9 @@
           <Property Name="RejectedBy" Type="varchar" MaxLength="50" />
           <Property Name="RejectedDate" Type="date" />
           <Property Name="Status" Type="varchar" MaxLength="50" />
+          <Property Name="UpdatedBy" Type="varchar" MaxLength="50" />
+          <Property Name="UpdatedDate" Type="date" />
+          <Property Name="ApproveRejectReason" Type="varchar" MaxLength="700" />
         </EntityType>
         <EntityType Name="VendorType">
           <Key>
@@ -684,6 +687,9 @@ warning 6002: The table/view 'HRMS_PortalDev1.dbo.CheckInView' does not have a p
           <Property Name="RejectedBy" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
           <Property Name="RejectedDate" Type="DateTime" Precision="0" />
           <Property Name="Status" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="UpdatedBy" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="UpdatedDate" Type="DateTime" Precision="0" />
+          <Property Name="ApproveRejectReason" Type="String" MaxLength="700" FixedLength="false" Unicode="false" />
         </EntityType>
         <EntityType Name="VendorType">
           <Key>
@@ -997,6 +1003,9 @@ warning 6002: The table/view 'HRMS_PortalDev1.dbo.CheckInView' does not have a p
           <EntitySetMapping Name="VendorLists">
             <EntityTypeMapping TypeName="HRMS_EntityModel.VendorList">
               <MappingFragment StoreEntitySet="VendorList">
+                <ScalarProperty Name="ApproveRejectReason" ColumnName="ApproveRejectReason" />
+                <ScalarProperty Name="UpdatedDate" ColumnName="UpdatedDate" />
+                <ScalarProperty Name="UpdatedBy" ColumnName="UpdatedBy" />
                 <ScalarProperty Name="Status" ColumnName="Status" />
                 <ScalarProperty Name="RejectedDate" ColumnName="RejectedDate" />
                 <ScalarProperty Name="RejectedBy" ColumnName="RejectedBy" />

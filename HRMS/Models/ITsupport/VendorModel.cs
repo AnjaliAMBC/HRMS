@@ -28,6 +28,8 @@ namespace HRMS.Models.ITsupport
         public int NewVendorId { get; set; }
         public int LasteVenorId { get; set; }
 
+        public string ApprovalReason { get; set; }
+
     }
 
     public class VendorTypeDropdown
