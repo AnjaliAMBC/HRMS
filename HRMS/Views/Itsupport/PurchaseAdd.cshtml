@@ -3,5 +3,112 @@
     ViewBag.Title = "PurchaseAdd";
 }
 
-<h2>PurchaseAdd</h2>
+@Html.Partial("_NavBar")
+<div class="container-fluid">
+    <div class="hiddenadmindashboard" style="display: none"></div>
+    @Html.Partial("_adminsidemenu")
+    <div class="main-content container-fluid PurchaseAdding-tab" style="width: 84%">
+        <div class="content admin-purchaseadd-container">
+            <div class="admin-purchase-add">
+                <div class="container-fluid top admin-purchaseadd">
+                    <div class="row navbar align-items-center mb-4 mt-2">
+                        <h4 class="header mb-0 text-right">Add Purchase Request</h4>
+                    </div>
+
+                    <!-- Basic HTML Form -->
+                    <form id="purchase-form" class="admin-purchaseform needs-validation" novalidate>
+                        <div class="container" style="margin-left: 5px">
+                            <div class="row">
+                                <div class="col-lg-3 col-md-6"  style="padding-left: 0px;">
+                                    <div class="form-group purchaseadd-tabs">
+                                        <label for="PurchaseID">Purchase Request ID*</label>
+                                        <input type="number" class="form-control" name="PurchaseID" value="" id="PurchaseID" placeholder="Enter Purchase Request ID" required readonly>
+                                        <small style="font-size: 12px; float: right; color: gray;">Last Purchase Request ID: ER22</small>
+                                        <div class="invalid-feedback">Purchase Request ID is required.</div>
+                                    </div>
+                                </div>
+                                <div class="col-lg-3 col-md-6">
+                                    <div class="form-group purchaseadd-tabs">
+                                        <label for="AssetType">Asset Type*</label>
+                                        <div class="d-flex">
+                                            <select name="AssetType" class="AssetType form-control form-select" id="AssetType" required>
+                                                <option value="" disabled selected hidden>Select Asset Type</option>
+                                                <option value="1">Test1</option>
+                                                <option value="2">Test2</option>
+                                            </select>
+                                        </div>
+                                        <div class="invalid-feedback">Asset Type is required.</div>
+                                    </div>
+                                </div>
+                                <div class="col-lg-3 col-md-6">
+                                    <div class="form-group purchaseadd-tabs">
+                                        <label for="RequiredOn">Required On*</label>
+                                        <input type="date" class="form-control" name="RequiredOn" id="RequiredOn" required>
+                                        <div class="invalid-feedback">Required On is required.</div>
+                                    </div>
+                                </div>
+                                <div class="col-lg-3 col-md-6">
+                                    <div class="form-group purchaseadd-tabs">
+                                        <label for="Requestedby">Requested By*</label>
+                                        <select name="VendorCreatedby" class="Requestedby form-control form-select" id="Requestedby" required>
+                                            <option value="" disabled selected hidden>Requested by</option>
+                                            <option value="1">Test1</option>
+                                            <option value="2">Test2</option>
+                                        </select>
+                                        <div class="invalid-feedback">Requested By is required.</div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="row add-vendor-block">
+                                <div class="add-vendor-info">Add Vendor</div>
+                            </div>
+                            <div class="row">
+                                <div class="col-lg-3 col-md-6"  style="padding-left: 0px;">
+                                    <div class="form-group purchaseadd-tabs">
+                                        <label for="VendorName">Vendor Name</label>
+                                        <div class="d-flex">
+                                            <select name="VendorName" class="VendorName form-control form-select" id="VendorName" required>
+                                                <option value="" disabled selected hidden>Select Vendor Name</option>
+                                                <option value="1">Test1</option>
+                                                <option value="2">Test2</option>
+                                            </select>
+                                        </div>
+                                        <div class="invalid-feedback">Vendor Name is required.</div>
+                                    </div>
+                                </div>
+                                <div class="col-lg-3 col-md-6">
+                                    <div class="form-group purchaseadd-tabs">
+                                        <label for="QuotationPrice">Quotation Price</label>
+                                        <input type="text" value="" class="form-control" name="QuotationPrice" id="QuotationPrice" placeholder="Enter Quotation Price" required>
+                                        <div class="invalid-feedback">Quotation Price is required.</div>
+                                    </div>
+                                </div>
+                                <div class="col-lg-3 col-md-6">
+                                    <div class="form-group purchaseadd-tabs">
+                                        <label for="AttachFile" style="width:100%;">Attach File</label>
+                                        <div class="upload-btn-wrapper">
+                                            <button class="btn vendor-upload-btn">Upload</button>
+                                            <input type="file" value="" class="form-control" name="AttachFile" id="AttachFile" required>
+                                        </div>
+                                        <small style="font-size: 12px; float: left; margin-top: -5px; color: #3E78CF; ">File supported PDF, DOCS of 2MB</small>
+                                        <div class="invalid-feedback">Attach File is required.</div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="row">
+                                <div class="col-lg-12 col-md-12 text-right">
+                                    <button type="button" class="btn vendoradd-Cancel">Cancel</button>
+                                    <button type="submit" class="btn btn-primary vendoradd-Submit">Submit</button>
+                                </div>
+                            </div>
+                        </div>
+                    </form>
+
+                </div>
+            </div>
+        </div>
+    </div>
+</div>    
 
