@@ -3111,7 +3111,7 @@ input[type=checkbox], input[type=radio] {
 .admin-purchase-view .res-admin-purchase-export {
     justify-content: end;
     display: inline-block;
-    margin-top: 0px;
+    margin-top: 4px;
 }
 
 .PurchaseType {
@@ -3149,7 +3149,7 @@ input[type=checkbox], input[type=radio] {
     font-size: 14px;
 }
 
-#hr-purchaselisting-status-dropdown {
+#purchaselisting-status-dropdown {
     border: none;
     padding: 0px;
     font-size: 1.1rem;
@@ -3157,7 +3157,7 @@ input[type=checkbox], input[type=radio] {
     outline: none;
 }
 
-#hr-purchaselisting-status-dropdown:focus {
+#purchaselisting-status-dropdown:focus {
     outline: none;
     box-shadow: none;
 }
@@ -3176,6 +3176,84 @@ input[type=checkbox], input[type=radio] {
 
 .admin-purchase-view .res-admin-title .header {
     font-size: 23px;
+}
+
+#purchaseStatusModal .modal-header {
+    border-bottom: 0px;
+    padding: 0 5px;
+    margin-bottom: 10px;
+}
+
+#purchaseStatusModal .purchaseStatus-popup-list .purchaseStatus-list {
+    display: flex;
+    font-size: 13px;
+    margin-top: -1px;
+}
+
+#purchaseStatusModal .purchaseStatus-popup-list .purchaseStatus-left i.fa-check-circle {
+    font-size: 20px;
+    color: blue;
+    /*margin-top: 17px;*/
+    position: relative;
+}
+
+#purchaseStatusModal .purchaseStatus-popup-list .purchaseStatus-left i.fa-circle {
+    font-size: 15px;
+    color: gray;
+    margin-left: 4px;
+}
+
+#purchaseStatusModal .purchaseStatus-popup-list .purchaseStatus-left .vl-none {
+    height: 17px;
+    margin-left: 10px;
+}
+
+#purchaseStatusModal .purchaseStatus-popup-list .purchaseStatus-left .vl-0 {
+    border-left: 2px solid #ccc;
+    height: 17px;
+    margin-left: 10px;
+}
+
+#purchaseStatusModal .purchaseStatus-popup-list .purchaseStatus-left .vl {
+    border-left: 2px solid #ccc;
+    height: 45px;
+    margin-left: 10px;
+    margin-top: -5px;
+}
+
+#purchaseStatusModal .purchaseStatus-list:last-child .purchaseStatus-left .vl {
+    display: none;
+}
+
+#purchaseStatusModal .purchaseStatus-statusinfo {
+    font-weight: bold;
+    font-size: 14px;
+}
+
+#purchaseStatusModal .purchaseStatus-sentby {
+    font-size: 12px;
+}
+
+#purchaseStatusModal .purchaseStatus-sentby .sent-by {
+    font-weight: bold;
+}
+
+#purchaseStatusModal .purchaseStatus-sentby .approved-by {
+    color: darkturquoise;
+    font-weight: bold;
+}
+
+#purchaseStatusModal .purchaseStatus-sentby .sender-name {
+    color: blue;
+}
+
+#purchaseStatusModal .purchaseStatus-date {
+    color: gray;
+    font-size: 12px;
+}
+
+#purchaseStatusModal .purchaseStatus-list .purchaseStatus-mid {
+    margin-top: -2px;
 }
 
 /* Purchase end */
@@ -3228,6 +3306,161 @@ input[type=checkbox], input[type=radio] {
 }
 
 /* Purchase bulk upload end */
+
+/* purchase account start */
+
+.admin-purchaseaccount-container {
+    margin-top: 0px;
+}
+
+.admin-purchaseaccountapproval-container {
+    margin-top: 15px;
+}
+
+.admin-purchaseaccountview {
+    width: 100%;
+    height: 65px;
+}
+
+.admin-purchaseaccountapproval {
+    width: 100%;
+    height: 65px;
+}
+
+.admin-purchaseaccount-view .res-admin-title {
+    padding: 0 0 0 3px;
+}
+
+.admin-purchaseaccountapproval .res-admin-title {
+    padding: 0 0 0 3px;
+}
+
+.admin-purchaseaccount-view .res-admin-purchaseaccount-header-right {
+    justify-content: end;
+    display: flex;
+    padding-right: 0;
+}
+
+.admin-purchaseaccount-view .res-admin-purchaseaccount-export {
+    justify-content: end;
+    display: inline-block;
+    margin-top: 4px;
+}
+
+.purchaseaccountType {
+    border-radius: 0.25rem 0 0 0.25rem !important;
+}
+
+.input-group-append button {
+    border-radius: 0 0.25rem 0.25rem 0;
+}
+
+.admin-purchaseaccount-view .res-admin-purchaseaccount-add {
+    display: inline-block;
+}
+
+.addingpurchaseaccount {
+    margin: 0px;
+    padding: 0px;
+}
+
+#adminpurchaseaccounttable a {
+    color: #3E78CF;
+}
+
+#adminpurchaseaccounttable_length {
+    margin-bottom: 0px !important;
+    font-size: 13px;
+    text-align: start;
+}
+
+#adminpurchaseaccounttable_filter, #adminpurchaseaccountapprovaltable_filter {
+    display: none;
+}
+
+#adminpurchaseaccounttable thead th, #adminpurchaseaccountapprovaltable thead th {
+    font-size: 14px;
+}
+
+#purchaseaccountlisting-status-dropdown {
+    border: none;
+    padding: 0px;
+    font-size: 1.1rem;
+    padding-left: 5px;
+    outline: none;
+}
+
+#purchaseaccountlisting-status-dropdown:focus {
+    outline: none;
+    box-shadow: none;
+}
+
+.res-purchaseaccountlisting {
+    padding: 0 1.5rem;
+}
+
+.res-admin-purchaseaccount-header-right {
+    padding-top: 20px;
+}
+
+#exportpurchaseaccount img {
+    height: 30px;
+}
+
+.admin-purchaseaccount-view .res-admin-title .header {
+    font-size: 23px;
+}
+
+#adminpurchaseaccounttable .odd {
+    background-color: #f9f9f9 !important;
+}
+
+#exportPurchaseAccount img {
+    height: 30px;
+}
+
+/* purchase account end */
+
+/* purchase account edit start */
+
+.admin-purchaseaccount-add .upload-btn-wrapper {
+    position: relative;
+    overflow: hidden;
+    display: inline-block;
+    width: 100%;
+}
+
+.admin-purchaseaccount-add .purchaseorder-upload-btn {
+    border: 0px solid gray;
+    color: darkslategrey;
+    background-color: #ccc;
+    border-radius: 3px;
+    font-size: 14px;
+    width: 100%;
+    padding: 8px 0px;
+    cursor: pointer;
+}
+
+.admin-purchaseaccount-add .taxinvoice-upload-btn {
+    border: 0px solid gray;
+    color: darkslategrey;
+    background-color: #ccc;
+    border-radius: 3px;
+    font-size: 14px;
+    width: 100%;
+    padding: 8px 0px;
+    cursor: pointer;
+}
+
+.admin-purchaseaccount-add .upload-btn-wrapper input[type=file] {
+    font-size: 100px;
+    position: absolute;
+    left: 0;
+    top: 0;
+    opacity: 0;
+}
+
+/* purchase account edit end */
 
 
 @supports (-webkit-backdrop-filter: none) or (-webkit-hyphens:auto) {
