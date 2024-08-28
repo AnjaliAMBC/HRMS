@@ -6,7 +6,7 @@
         <div class="content admin-purchaseadd-container">
             <div class="admin-purchase-add">
                 <div class="container-fluid top admin-purchaseadd">
-                    <div class="row navbar align-items-center mb-4 mt-2">
+                    <div class="row navbar align-items-center mt-2">
                         <h4 class="header mb-0 text-right">Add Purchase Request</h4>
                     </div>
 
@@ -14,7 +14,7 @@
                     <form id="purchase-form" class="admin-purchaseform needs-validation" novalidate>
                         <div class="container" style="margin-left: 5px">
                             <div class="row">
-                                <div class="col-lg-3 col-md-6"  style="padding-left: 0px;">
+                                <div class="col-lg-3 col-md-6" style="padding-left: 0px;">
                                     <div class="form-group purchaseadd-tabs">
                                         <label for="PurchaseID">Purchase Request ID*</label>
                                         <input type="number" class="form-control" name="PurchaseID" value="" id="PurchaseID" placeholder="Enter Purchase Request ID" required readonly>
@@ -59,11 +59,11 @@
                                 <div class="add-vendor-info">Add Vendor</div>
                             </div>
                             <div class="row">
-                                <div class="col-lg-3 col-md-6"  style="padding-left: 0px;">
+                                <div class="col-lg-3 col-md-6" style="padding-left: 0px;">
                                     <div class="form-group purchaseadd-tabs">
-                                        <label for="VendorName">Vendor Name</label>
+                                        <label for="VendorName-1">Vendor Name</label>
                                         <div class="d-flex">
-                                            <select name="VendorName" class="VendorName form-control form-select" id="VendorName" required>
+                                            <select name="VendorName-1" class="VendorName form-control form-select" id="VendorName-1" required>
                                                 <option value="" disabled selected hidden>Select Vendor Name</option>
                                                 <option value="1">Test1</option>
                                                 <option value="2">Test2</option>
@@ -74,17 +74,85 @@
                                 </div>
                                 <div class="col-lg-3 col-md-6">
                                     <div class="form-group purchaseadd-tabs">
-                                        <label for="QuotationPrice">Quotation Price</label>
-                                        <input type="text" value="" class="form-control" name="QuotationPrice" id="QuotationPrice" placeholder="Enter Quotation Price" required>
+                                        <label for="QuotationPrice-1">Quotation Price</label>
+                                        <input type="text" value="" class="form-control" name="QuotationPrice-1" id="QuotationPrice-1" placeholder="Enter Quotation Price" required>
                                         <div class="invalid-feedback">Quotation Price is required.</div>
                                     </div>
                                 </div>
                                 <div class="col-lg-3 col-md-6">
                                     <div class="form-group purchaseadd-tabs">
-                                        <label for="AttachFile" style="width:100%;">Attach File</label>
+                                        <label for="AttachFile-1" style="width:100%;">Attach File</label>
                                         <div class="upload-btn-wrapper">
                                             <button class="btn vendor-upload-btn">Upload</button>
-                                            <input type="file" value="" class="form-control" name="AttachFile" id="AttachFile" required>
+                                            <input type="file" value="" class="form-control" name="AttachFile-1" id="AttachFile-1" required>
+                                        </div>
+                                        <small style="font-size: 12px; float: left; margin-top: -5px; color: #3E78CF; ">File supported PDF, DOCS of 2MB</small>
+                                        <div class="invalid-feedback">Attach File is required.</div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="row">
+                                <div class="col-lg-3 col-md-6" style="padding-left: 0px;">
+                                    <div class="form-group purchaseadd-tabs">
+                                        <label for="VendorName-2">Vendor Name</label>
+                                        <div class="d-flex">
+                                            <select name="VendorName-2" class="VendorName form-control form-select" id="VendorName-2" required>
+                                                <option value="" disabled selected hidden>Select Vendor Name</option>
+                                                <option value="1">Test1</option>
+                                                <option value="2">Test2</option>
+                                            </select>
+                                        </div>
+                                        <div class="invalid-feedback">Vendor Name is required.</div>
+                                    </div>
+                                </div>
+                                <div class="col-lg-3 col-md-6">
+                                    <div class="form-group purchaseadd-tabs">
+                                        <label for="QuotationPrice-2">Quotation Price</label>
+                                        <input type="text" value="" class="form-control" name="QuotationPrice-2" id="QuotationPrice-2" placeholder="Enter Quotation Price" required>
+                                        <div class="invalid-feedback">Quotation Price is required.</div>
+                                    </div>
+                                </div>
+                                <div class="col-lg-3 col-md-6">
+                                    <div class="form-group purchaseadd-tabs">
+                                        <label for="AttachFile-2" style="width:100%;">Attach File</label>
+                                        <div class="upload-btn-wrapper">
+                                            <button class="btn vendor-upload-btn">Upload</button>
+                                            <input type="file" value="" class="form-control" name="AttachFile-2" id="AttachFile-2" required>
+                                        </div>
+                                        <small style="font-size: 12px; float: left; margin-top: -5px; color: #3E78CF; ">File supported PDF, DOCS of 2MB</small>
+                                        <div class="invalid-feedback">Attach File is required.</div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="row">
+                                <div class="col-lg-3 col-md-6" style="padding-left: 0px;">
+                                    <div class="form-group purchaseadd-tabs">
+                                        <label for="VendorName-3">Vendor Name</label>
+                                        <div class="d-flex">
+                                            <select name="VendorName-3" class="VendorName form-control form-select" id="VendorName-3" required>
+                                                <option value="" disabled selected hidden>Select Vendor Name</option>
+                                                <option value="1">Test1</option>
+                                                <option value="2">Test2</option>
+                                            </select>
+                                        </div>
+                                        <div class="invalid-feedback">Vendor Name is required.</div>
+                                    </div>
+                                </div>
+                                <div class="col-lg-3 col-md-6">
+                                    <div class="form-group purchaseadd-tabs">
+                                        <label for="QuotationPrice-3">Quotation Price</label>
+                                        <input type="text" value="" class="form-control" name="QuotationPrice-3" id="QuotationPrice-3" placeholder="Enter Quotation Price" required>
+                                        <div class="invalid-feedback">Quotation Price is required.</div>
+                                    </div>
+                                </div>
+                                <div class="col-lg-3 col-md-6">
+                                    <div class="form-group purchaseadd-tabs">
+                                        <label for="AttachFile-3" style="width:100%;">Attach File</label>
+                                        <div class="upload-btn-wrapper">
+                                            <button class="btn vendor-upload-btn">Upload</button>
+                                            <input type="file" value="" class="form-control" name="AttachFile-3" id="AttachFile-3" required>
                                         </div>
                                         <small style="font-size: 12px; float: left; margin-top: -5px; color: #3E78CF; ">File supported PDF, DOCS of 2MB</small>
                                         <div class="invalid-feedback">Attach File is required.</div>
@@ -106,4 +174,8 @@
         </div>
     </div>
 </div>    
-
+<script>
+    $(document).ready(function () {        
+        $('#VendorName').select2();
+    });
+</script>
