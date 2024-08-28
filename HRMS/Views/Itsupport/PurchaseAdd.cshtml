@@ -1,4 +1,25 @@
-﻿@Html.Partial("_NavBar")
+﻿<!<!----@model HRMS.Models.ITsupport.PurchaseViewModel
+
+@{
+                var formattedPurchaseId = string.Empty;
+                var PurchaseID = 0;
+                var isEditRecord = false;
+                
+                if (Model != null)
+                {
+                    // Compute formattedPurchaseId
+                    if (Model.NewPurchaseId != 0)  // Ensure NewPurchaseId is valid
+                    {
+                        formattedPurchaseId = "PR" + Model.NewPurchaseId.ToString();
+                    }
+
+                    isEditRecord = Model.EditPurchase != null && Model.EditPurchase.PurchaseRequestID != 0;
+
+                    // Set PurchaseID based on whether it's an edit record
+                    PurchaseID = isEditRecord ? Model.EditPurchase.PurchaseRequestID : Model.NewPurchaseId;
+                } }
+
+@Html.Partial("_NavBar")
 <div class="container-fluid">
     <div class="hiddenadmindashboard" style="display: none"></div>
     @Html.Partial("_adminsidemenu")
@@ -11,14 +32,16 @@
                     </div>
 
                     <!-- Basic HTML Form -->
-                    <form id="purchase-form" class="admin-purchaseform needs-validation" novalidate>
+                    <!--<form id="purchase-form" class="admin-purchaseform needs-validation" novalidate>
                         <div class="container" style="margin-left: 5px">
                             <div class="row">
                                 <div class="col-lg-3 col-md-6" style="padding-left: 0px;">
                                     <div class="form-group purchaseadd-tabs">
                                         <label for="PurchaseID">Purchase Request ID*</label>
-                                        <input type="number" class="form-control" name="PurchaseID" value="" id="PurchaseID" placeholder="Enter Purchase Request ID" required readonly>
-                                        <small style="font-size: 12px; float: right; color: gray;">Last Purchase Request ID: ER22</small>
+                                        <input type="number" class="form-control" name="PurchaseID" value="@PurchaseID" id="PurchaseID" placeholder="Enter Purchase Request ID" required readonly>
+                                        @if (!isEditRecord)
+                                        {
+                                            <small style="font-size: 12px; float: right; color: gray;">Last Purchase Request ID: @formattedPurchaseId</small>}
                                         <div class="invalid-feedback">Purchase Request ID is required.</div>
                                     </div>
                                 </div>
@@ -26,29 +49,48 @@
                                     <div class="form-group purchaseadd-tabs">
                                         <label for="AssetType">Asset Type*</label>
                                         <div class="d-flex">
-                                            <select name="AssetType" class="AssetType form-control form-select" id="AssetType" required>
-                                                <option value="" disabled selected hidden>Select Asset Type</option>
-                                                <option value="1">Test1</option>
-                                                <option value="2">Test2</option>
+                                            <select name="AssetType" class="form-control form-select" id="AssetType" required>
+                                                <option value="" disabled selected hidden>Select Asset Type</option>-->-->
+                                                <!--@*@foreach (var purchasetype in Model.Assettypes)
+                                                {
+                                                    var selectedVendorType = Model.EditPurchase != null && Model.EditPurchase.AssetType == purchasetype.VendorType1 ? "selected" : "";
+                                                    <option value="@purchasetype.VendorType1" @Html.Raw(selectedVendorType)>
+                                                        @purchasetype.VendorType1
+                                                    </option>
+                                                }*@
                                             </select>
+
                                         </div>
                                         <div class="invalid-feedback">Asset Type is required.</div>
                                     </div>
                                 </div>
+
                                 <div class="col-lg-3 col-md-6">
                                     <div class="form-group purchaseadd-tabs">
                                         <label for="RequiredOn">Required On*</label>
-                                        <input type="date" class="form-control" name="RequiredOn" id="RequiredOn" required>
+                                        <input type="date"
+                                               class="form-control"
+                                               name="RequiredOn"
+                                               id="RequiredOn"
+                                               value="@Model.EditPurchase?.RequiredOn?.ToString(" yyyy-MM-dd")"
+                                               required>
                                         <div class="invalid-feedback">Required On is required.</div>
                                     </div>
                                 </div>
+
                                 <div class="col-lg-3 col-md-6">
                                     <div class="form-group purchaseadd-tabs">
                                         <label for="Requestedby">Requested By*</label>
-                                        <select name="VendorCreatedby" class="Requestedby form-control form-select" id="Requestedby" required>
+                                        <select name="Requestedby"
+                                                class="Requestedby form-control form-select"
+                                                id="Requestedby"
+                                                required>
                                             <option value="" disabled selected hidden>Requested by</option>
-                                            <option value="1">Test1</option>
-                                            <option value="2">Test2</option>
+                                            @foreach (var deptEmp in Model.ITDeptEmployees)
+                                            {
+                                                var selected = !string.IsNullOrEmpty(Model.EditPurchase?.RequestedBy) && (Model.EditPurchase.RequestedBy == deptEmp.EmployeeName) ? "selected" : "";
+                                                <option value="@deptEmp.EmployeeName" @selected>@deptEmp.EmployeeName</option>
+                                            }
                                         </select>
                                         <div class="invalid-feedback">Requested By is required.</div>
                                     </div>
@@ -63,10 +105,16 @@
                                     <div class="form-group purchaseadd-tabs">
                                         <label for="VendorName-1">Vendor Name</label>
                                         <div class="d-flex">
-                                            <select name="VendorName-1" class="VendorName form-control form-select" id="VendorName-1" required>
+                                            <select name="VendorName-1"
+                                                    class="VendorName form-control form-select"
+                                                    id="VendorName-1"
+                                                    required>
                                                 <option value="" disabled selected hidden>Select Vendor Name</option>
-                                                <option value="1">Test1</option>
-                                                <option value="2">Test2</option>
+                                                @foreach (var vendor in Model.allVendors)
+                                                {
+                                                    var selected = !string.IsNullOrEmpty(Model.EditPurchase?.VendorName1) && Model.EditPurchase.VendorName1 == vendor.VendorName ? "selected" : "";
+                                                    <option value="@vendor.VedorID" @selected>@vendor.VendorName</option>
+                                                }
                                             </select>
                                         </div>
                                         <div class="invalid-feedback">Vendor Name is required.</div>
@@ -75,7 +123,13 @@
                                 <div class="col-lg-3 col-md-6">
                                     <div class="form-group purchaseadd-tabs">
                                         <label for="QuotationPrice-1">Quotation Price</label>
-                                        <input type="text" value="" class="form-control" name="QuotationPrice-1" id="QuotationPrice-1" placeholder="Enter Quotation Price" required>
+                                        <input type="text"
+                                               class="form-control"
+                                               name="QuotationPrice-1"
+                                               id="QuotationPrice-1"
+                                               placeholder="Enter Quotation Price"
+                                               value="@Model.EditPurchase.QuotationPrice1"
+                                               required>
                                         <div class="invalid-feedback">Quotation Price is required.</div>
                                     </div>
                                 </div>
@@ -84,9 +138,14 @@
                                         <label for="AttachFile-1" style="width:100%;">Attach File</label>
                                         <div class="upload-btn-wrapper">
                                             <button class="btn vendor-upload-btn">Upload</button>
-                                            <input type="file" value="" class="form-control" name="AttachFile-1" id="AttachFile-1" required>
+                                            <input type="file"
+                                                   class="form-control"
+                                                   name="AttachFile-1"
+                                                   id="AttachFile-1"
+                                                   required
+                                                   accept=".pdf,.doc,.docx">
                                         </div>
-                                        <small style="font-size: 12px; float: left; margin-top: -5px; color: #3E78CF; ">File supported PDF, DOCS of 2MB</small>
+                                        <small style="font-size: 12px; float: left; margin-top: -5px; color: #3E78CF;">File supported PDF, DOCS of 2MB</small>
                                         <div class="invalid-feedback">Attach File is required.</div>
                                     </div>
                                 </div>
@@ -97,20 +156,23 @@
                                     <div class="form-group purchaseadd-tabs">
                                         <label for="VendorName-2">Vendor Name</label>
                                         <div class="d-flex">
-                                            <select name="VendorName-2" class="VendorName form-control form-select" id="VendorName-2" required>
+
+                                            <select name="VendorName-2" class="VendorName form-control form-select" id="VendorName-2">
                                                 <option value="" disabled selected hidden>Select Vendor Name</option>
-                                                <option value="1">Test1</option>
-                                                <option value="2">Test2</option>
+                                                @foreach (var vendor in Model.allVendors)
+                                                {
+                                                    var selected = !string.IsNullOrEmpty(Model.EditPurchase?.VendorName2) && Model.EditPurchase.VendorName2 == vendor.VendorName ? "selected" : "";
+                                                    <option value="@vendor.VedorID" @selected>@vendor.VendorName</option>
+                                                }
                                             </select>
                                         </div>
-                                        <div class="invalid-feedback">Vendor Name is required.</div>
                                     </div>
                                 </div>
                                 <div class="col-lg-3 col-md-6">
                                     <div class="form-group purchaseadd-tabs">
                                         <label for="QuotationPrice-2">Quotation Price</label>
-                                        <input type="text" value="" class="form-control" name="QuotationPrice-2" id="QuotationPrice-2" placeholder="Enter Quotation Price" required>
-                                        <div class="invalid-feedback">Quotation Price is required.</div>
+                                        <input type="text" class="form-control" value="@Model.EditPurchase.QuotationPrice2" name="QuotationPrice-2" id="QuotationPrice-2" placeholder="Enter Quotation Price">
+
                                     </div>
                                 </div>
                                 <div class="col-lg-3 col-md-6">
@@ -118,10 +180,9 @@
                                         <label for="AttachFile-2" style="width:100%;">Attach File</label>
                                         <div class="upload-btn-wrapper">
                                             <button class="btn vendor-upload-btn">Upload</button>
-                                            <input type="file" value="" class="form-control" name="AttachFile-2" id="AttachFile-2" required>
+                                            <input type="file" value="" class="form-control" name="AttachFile-2" id="AttachFile-2">
                                         </div>
                                         <small style="font-size: 12px; float: left; margin-top: -5px; color: #3E78CF; ">File supported PDF, DOCS of 2MB</small>
-                                        <div class="invalid-feedback">Attach File is required.</div>
                                     </div>
                                 </div>
                             </div>
@@ -131,20 +192,21 @@
                                     <div class="form-group purchaseadd-tabs">
                                         <label for="VendorName-3">Vendor Name</label>
                                         <div class="d-flex">
-                                            <select name="VendorName-3" class="VendorName form-control form-select" id="VendorName-3" required>
+                                            <select name="VendorName-3" class="VendorName form-control form-select" id="VendorName-3">
                                                 <option value="" disabled selected hidden>Select Vendor Name</option>
-                                                <option value="1">Test1</option>
-                                                <option value="2">Test2</option>
+                                                @foreach (var vendor in Model.allVendors)
+                                                {
+                                                    var selected = !string.IsNullOrEmpty(Model.EditPurchase?.VendorName3) && Model.EditPurchase.VendorName3 == vendor.VendorName ? "selected" : "";
+                                                    <option value="@vendor.VedorID" @selected>@vendor.VendorName</option>
+                                                }
                                             </select>
                                         </div>
-                                        <div class="invalid-feedback">Vendor Name is required.</div>
                                     </div>
                                 </div>
                                 <div class="col-lg-3 col-md-6">
                                     <div class="form-group purchaseadd-tabs">
                                         <label for="QuotationPrice-3">Quotation Price</label>
-                                        <input type="text" value="" class="form-control" name="QuotationPrice-3" id="QuotationPrice-3" placeholder="Enter Quotation Price" required>
-                                        <div class="invalid-feedback">Quotation Price is required.</div>
+                                        <input type="text" value="@Model.EditPurchase.QuotationPrice3" class="form-control" name="QuotationPrice-3" id="QuotationPrice-3" placeholder="Enter Quotation Price">
                                     </div>
                                 </div>
                                 <div class="col-lg-3 col-md-6">
@@ -152,10 +214,9 @@
                                         <label for="AttachFile-3" style="width:100%;">Attach File</label>
                                         <div class="upload-btn-wrapper">
                                             <button class="btn vendor-upload-btn">Upload</button>
-                                            <input type="file" value="" class="form-control" name="AttachFile-3" id="AttachFile-3" required>
+                                            <input type="file" value="" class="form-control" name="AttachFile-3" id="AttachFile-3">
                                         </div>
                                         <small style="font-size: 12px; float: left; margin-top: -5px; color: #3E78CF; ">File supported PDF, DOCS of 2MB</small>
-                                        <div class="invalid-feedback">Attach File is required.</div>
                                     </div>
                                 </div>
                             </div>
@@ -167,15 +228,158 @@
                                 </div>
                             </div>
                         </div>
-                    </form>
+                    </form>-->-->
+
+                    <!-- Success Modal -->
+                    <!--<div class="modal fade" id="successModal" tabindex="-1" role="dialog" aria-labelledby="successModalLabel" aria-hidden="true">
+                        <div class="modal-dialog" role="document">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <h5 class="modal-title" id="successModalLabel">Success</h5>
+                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                        <span aria-hidden="true">&times;</span>
+                                    </button>
+                                </div>
+                                <div class="modal-body modal-message">-->
+                                    <!-- Success message will be inserted here -->
+                                <!--</div>
+                                <div class="modal-footer">
+                                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>-->
+
+                    <!-- Error Modal -->
+                    <!--<div class="modal fade" id="errorModal" tabindex="-1" role="dialog" aria-labelledby="errorModalLabel" aria-hidden="true">
+                        <div class="modal-dialog" role="document">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <h5 class="modal-title" id="errorModalLabel">Error</h5>
+                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                        <span aria-hidden="true">&times;</span>
+                                    </button>
+                                </div>
+                                <div class="modal-body modal-message">-->
+                                    <!-- Error message will be inserted here -->
+                                <!--</div>
+                                <div class="modal-footer">
+                                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
 
                 </div>
             </div>
         </div>
     </div>
-</div>    
+</div>
 <script>
-    $(document).ready(function () {        
-        $('#VendorName').select2();
+    $(document).ready(function () {
+        $('.AssetType, .Requestedby, .VendorName').select2();
+
+
+        $('#purchase-form').on('submit', function (event) {
+            event.preventDefault();
+            let isValid = true;
+
+
+            if ($('#PurchaseID').val().trim() === '') {
+                $('#PurchaseID').addClass('is-invalid');
+                isValid = false;
+            } else {
+                $('#PurchaseID').removeClass('is-invalid');
+            }
+
+
+            if ($('#AssetType').val() === null) {
+                $('#AssetType').addClass('is-invalid');
+                isValid = false;
+            } else {
+                $('#AssetType').removeClass('is-invalid');
+            }
+
+            // Validate Required On date
+            if ($('#RequiredOn').val().trim() === '') {
+                $('#RequiredOn').addClass('is-invalid');
+                isValid = false;
+            } else {
+                $('#RequiredOn').removeClass('is-invalid');
+            }
+
+            // Validate Requested By
+            if ($('#Requestedby').val() === null) {
+                $('#Requestedby').addClass('is-invalid');
+                isValid = false;
+            } else {
+                $('#Requestedby').removeClass('is-invalid');
+            }
+
+            // Validate VendorName-1, QuotationPrice-1, AttachFile-1
+            if ($('#VendorName-1').val() === null) {
+                $('#VendorName-1').addClass('is-invalid');
+                isValid = false;
+            } else {
+                $('#VendorName-1').removeClass('is-invalid');
+            }
+
+            if ($('#QuotationPrice-1').val().trim() === '') {
+                $('#QuotationPrice-1').addClass('is-invalid');
+                isValid = false;
+            } else {
+                $('#QuotationPrice-1').removeClass('is-invalid');
+            }
+
+            if ($('#AttachFile-1').val().trim() === '') {
+                $('#AttachFile-1').addClass('is-invalid');
+                isValid = false;
+            } else {
+                $('#AttachFile-1').removeClass('is-invalid');
+            }
+
+            // Optional: Validate additional VendorName, QuotationPrice, AttachFile fields
+            $('.VendorName, .QuotationPrice, .AttachFile').each(function () {
+                if ($(this).val().trim() === '' && $(this).attr('id') !== 'VendorName-1' && $(this).attr('id') !== 'QuotationPrice-1' && $(this).attr('id') !== 'AttachFile-1') {
+                    $(this).removeClass('is-invalid');
+                }
+            });
+
+            // If the form is valid, submit the form via AJAX
+            if (isValid) {
+                $.ajax({
+                    url: '/purchase/addpurchaserequest',
+                    type: 'POST',
+                    data: new FormData(this),
+                    contentType: false,
+                    processData: false,
+                    success: function (response) {
+                        if (response.StatusCode === 200) {
+                            // Show success message in modal
+                            $('.modal-message').text(response.Message);
+                            $('#successModal').modal('show');
+                        } else {
+                            // Show error message in modal
+                            $('.modal-message').text(response.Message);
+                            $('#errorModal').modal('show');
+                        }
+                    },
+                    error: function (xhr, status, error) {
+                        // Show error message in modal
+                        $('.modal-message').text('An error occurred while processing your request. Please try again.');
+                        $('#errorModal').modal('show');
+                    }
+                });
+            }
+        });
+
+        // Reset form on cancel
+        $('.vendoradd-Cancel').on('click', function () {
+            $('#purchase-form')[0].reset();
+            $('.form-control').removeClass('is-invalid');
+        });
     });
-</script>
+
+
+</script>-->

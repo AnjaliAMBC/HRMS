@@ -232,6 +232,37 @@
           <Property Name="Sno" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="LocationName" Type="varchar" MaxLength="255" />
         </EntityType>
+        <EntityType Name="PurchaseRequest">
+          <Key>
+            <PropertyRef Name="PurchaseRequestID" />
+          </Key>
+          <Property Name="PurchaseRequestID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="AssetType" Type="varchar" MaxLength="50" />
+          <Property Name="RequestedBy" Type="varchar" MaxLength="100" />
+          <Property Name="RequiredOn" Type="date" />
+          <Property Name="VendorID1" Type="int" Nullable="false" />
+          <Property Name="VendorName1" Type="varchar" MaxLength="300" Nullable="false" />
+          <Property Name="VendorEmail1" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="QuotationPrice1" Type="decimal" Precision="18" Scale="2" Nullable="false" />
+          <Property Name="AttachFile1" Type="varchar(max)" Nullable="false" />
+          <Property Name="VendorID2" Type="int" />
+          <Property Name="VendorName2" Type="varchar" MaxLength="300" />
+          <Property Name="VendorEmail2" Type="varchar" MaxLength="50" />
+          <Property Name="QuotationPrice2" Type="decimal" Precision="18" Scale="2" />
+          <Property Name="AttachFile2" Type="varchar(max)" />
+          <Property Name="VendorID3" Type="int" />
+          <Property Name="VendorName3" Type="varchar" MaxLength="300" />
+          <Property Name="VendorEmail3" Type="varchar" MaxLength="50" />
+          <Property Name="QuotationPrice3" Type="decimal" Precision="18" Scale="2" />
+          <Property Name="AttachFile3" Type="varchar(max)" />
+          <Property Name="Status" Type="varchar" MaxLength="50" />
+          <Property Name="ApprovedBy" Type="varchar" MaxLength="100" />
+          <Property Name="ApprovedDate" Type="date" />
+          <Property Name="RejectedBy" Type="varchar" MaxLength="50" />
+          <Property Name="RejectedDate" Type="date" />
+          <Property Name="PO" Type="varchar(max)" />
+          <Property Name="TaxInvoice" Type="varchar(max)" />
+        </EntityType>
         <EntityType Name="ReminderLogs">
           <Key>
             <PropertyRef Name="Sno" />
@@ -336,6 +367,7 @@ warning 6002: The table/view 'HRMS_PortalDev1.dbo.CheckInView' does not have a p
           <EntitySet Name="LeaveBalance" EntityType="Self.LeaveBalance" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="LeaveRM" EntityType="Self.LeaveRM" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Location" EntityType="Self.Location" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="PurchaseRequest" EntityType="Self.PurchaseRequest" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="ReminderLogs" EntityType="Self.ReminderLogs" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="tblambcholiday" EntityType="Self.tblambcholiday" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="tbld_ambclogininformation" EntityType="Self.tbld_ambclogininformation" Schema="dbo" store:Type="Tables" />
@@ -400,6 +432,7 @@ warning 6002: The table/view 'HRMS_PortalDev1.dbo.CheckInView' does not have a p
           <EntitySet Name="ReminderLogs" EntityType="HRMS_EntityModel.ReminderLog" />
           <EntitySet Name="VendorLists" EntityType="HRMS_EntityModel.VendorList" />
           <EntitySet Name="VendorTypes" EntityType="HRMS_EntityModel.VendorType" />
+          <EntitySet Name="PurchaseRequests" EntityType="HRMS_EntityModel.PurchaseRequest" />
         </EntityContainer>
         <EntityType Name="Client">
           <Key>
@@ -697,6 +730,37 @@ warning 6002: The table/view 'HRMS_PortalDev1.dbo.CheckInView' does not have a p
           </Key>
           <Property Name="Sno" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="VendorType1" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+        </EntityType>
+        <EntityType Name="PurchaseRequest">
+          <Key>
+            <PropertyRef Name="PurchaseRequestID" />
+          </Key>
+          <Property Name="PurchaseRequestID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="AssetType" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="RequestedBy" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="RequiredOn" Type="DateTime" Precision="0" />
+          <Property Name="VendorID1" Type="Int32" Nullable="false" />
+          <Property Name="VendorName1" Type="String" Nullable="false" MaxLength="300" FixedLength="false" Unicode="false" />
+          <Property Name="VendorEmail1" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="QuotationPrice1" Type="Decimal" Nullable="false" Precision="18" Scale="2" />
+          <Property Name="AttachFile1" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="VendorID2" Type="Int32" />
+          <Property Name="VendorName2" Type="String" MaxLength="300" FixedLength="false" Unicode="false" />
+          <Property Name="VendorEmail2" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="QuotationPrice2" Type="Decimal" Precision="18" Scale="2" />
+          <Property Name="AttachFile2" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="VendorID3" Type="Int32" />
+          <Property Name="VendorName3" Type="String" MaxLength="300" FixedLength="false" Unicode="false" />
+          <Property Name="VendorEmail3" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="QuotationPrice3" Type="Decimal" Precision="18" Scale="2" />
+          <Property Name="AttachFile3" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="Status" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="ApprovedBy" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="ApprovedDate" Type="DateTime" Precision="0" />
+          <Property Name="RejectedBy" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="RejectedDate" Type="DateTime" Precision="0" />
+          <Property Name="PO" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="TaxInvoice" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
         </EntityType>
       </Schema>
     </edmx:ConceptualModels>
@@ -1028,6 +1092,38 @@ warning 6002: The table/view 'HRMS_PortalDev1.dbo.CheckInView' does not have a p
               <MappingFragment StoreEntitySet="VendorType">
                 <ScalarProperty Name="VendorType1" ColumnName="VendorType" />
                 <ScalarProperty Name="Sno" ColumnName="Sno" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="PurchaseRequests">
+            <EntityTypeMapping TypeName="HRMS_EntityModel.PurchaseRequest">
+              <MappingFragment StoreEntitySet="PurchaseRequest">
+                <ScalarProperty Name="TaxInvoice" ColumnName="TaxInvoice" />
+                <ScalarProperty Name="PO" ColumnName="PO" />
+                <ScalarProperty Name="RejectedDate" ColumnName="RejectedDate" />
+                <ScalarProperty Name="RejectedBy" ColumnName="RejectedBy" />
+                <ScalarProperty Name="ApprovedDate" ColumnName="ApprovedDate" />
+                <ScalarProperty Name="ApprovedBy" ColumnName="ApprovedBy" />
+                <ScalarProperty Name="Status" ColumnName="Status" />
+                <ScalarProperty Name="AttachFile3" ColumnName="AttachFile3" />
+                <ScalarProperty Name="QuotationPrice3" ColumnName="QuotationPrice3" />
+                <ScalarProperty Name="VendorEmail3" ColumnName="VendorEmail3" />
+                <ScalarProperty Name="VendorName3" ColumnName="VendorName3" />
+                <ScalarProperty Name="VendorID3" ColumnName="VendorID3" />
+                <ScalarProperty Name="AttachFile2" ColumnName="AttachFile2" />
+                <ScalarProperty Name="QuotationPrice2" ColumnName="QuotationPrice2" />
+                <ScalarProperty Name="VendorEmail2" ColumnName="VendorEmail2" />
+                <ScalarProperty Name="VendorName2" ColumnName="VendorName2" />
+                <ScalarProperty Name="VendorID2" ColumnName="VendorID2" />
+                <ScalarProperty Name="AttachFile1" ColumnName="AttachFile1" />
+                <ScalarProperty Name="QuotationPrice1" ColumnName="QuotationPrice1" />
+                <ScalarProperty Name="VendorEmail1" ColumnName="VendorEmail1" />
+                <ScalarProperty Name="VendorName1" ColumnName="VendorName1" />
+                <ScalarProperty Name="VendorID1" ColumnName="VendorID1" />
+                <ScalarProperty Name="RequiredOn" ColumnName="RequiredOn" />
+                <ScalarProperty Name="RequestedBy" ColumnName="RequestedBy" />
+                <ScalarProperty Name="AssetType" ColumnName="AssetType" />
+                <ScalarProperty Name="PurchaseRequestID" ColumnName="PurchaseRequestID" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
