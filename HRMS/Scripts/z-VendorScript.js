@@ -503,9 +503,14 @@ function LoadVendorTable() {
     });
 }
 
-if ($('#sadminvendorapprovaltable').length) {
-    LoadVendorTable();
-}
+
+$(document).ready(function () {
+    if ($('#sadminvendorapprovaltable').length) {
+        LoadVendorTable();
+    }
+});
+
+
 
 
 function getVendorById(vendor, vendorID) {

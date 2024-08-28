@@ -188,6 +188,9 @@
     <Compile Include="Models\TicketDetailsViewModel.cs" />
     <Compile Include="Models\TicketingModel.cs" />
     <Compile Include="Models\TimerModel.cs" />
+    <Compile Include="PurchaseRequest.cs">
+      <DependentUpon>HRMS.tt</DependentUpon>
+    </Compile>
     <Compile Include="ReminderLog.cs">
       <DependentUpon>HRMS.tt</DependentUpon>
     </Compile>
@@ -468,6 +471,8 @@
     <Content Include="Views\Itsupport\PurchaseAccountAdmin.cshtml" />
     <Content Include="Views\Shared\_VendorAddEmailNotification.cshtml" />
     <Content Include="Views\Itsupport\_vendorapprovalpartial.cshtml" />
+    <Content Include="Views\Itsupport\PurchaseAccountSubmit.cshtml" />
+    <Content Include="Views\Itsupport\PurchaseSuperApprovalView.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
