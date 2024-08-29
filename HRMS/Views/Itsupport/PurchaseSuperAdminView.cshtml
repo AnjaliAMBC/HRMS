@@ -1,1 +1,193 @@
-﻿
+﻿@Html.Partial("_NavBar")
+
+<div class="container-fluid">
+    <div class="hiddenadmindashboard" style="display: none"></div>
+    @Html.Partial("_adminsidemenu")
+    <div class="main-content container-fluid PurchaseSuperAdminListPage-View" style="width: 84%">
+        <div class="content admin-purchasesuperadmin-container" style="margin-left: -10px; ">
+            <div class="admin-purchasesuperadmin-view">
+                <div class="container-fluid top admin-purchasesuperadminview">
+                    <div class="row navbar align-items-center">
+                        <!-- Employee column -->
+                        <div class="col-lg-3 col-md-5 topic d-flex res-admin-title">
+                            <h4 class="header mb-0 text-right">Purchase Request Listing</h4>
+                        </div>
+                        <!-- Search box -->
+                        <div class="col-xl-4 col-lg-6 navbarl1 col-sm-12 col-md-7 res-admin-purchasesuperadmin-search">
+                            <div class="search-container" style=" margin-left: 32px; ">
+                                <div class="input-group" style="border-radius: 20px;">
+                                    <div class="input-group-prepend">
+                                        <span class="input-group-text" style="background-color: transparent; border-right: none; border-radius: 5px 0 0 5px; height: 35px;"><i class="fas fa-search" style="color: #369479"></i></span>
+                                    </div>
+                                    <input type="text" placeholder="Search By Keyword" class="purchasesuperadmin-advancesearch form-control" aria-label="Search By Keyword" style="border-radius: 0 5px 5px 0; height: 35px; font-size: 14px;">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-xl-5 col-lg-12 navbarl1 col-sm-12 col-md-12 res-admin-purchasesuperadmin-header-right">
+                            <div class="col-xl-2 col-lg-1  navbarl1 col-sm-2 col-md-2 res-admin-purchasesuperadmin-export p-0">
+                                <div class="adminpurchasesuperadmin-export" style="">
+                                    <button type="button" class="btn purchasesuperadminlist-export-btn pt-0" id="exportPurchaseSuperAdmin" onclick="exportPurchaseSuperAdmin()">
+                                        <span class="purchasesuperadminlist-export"><img src="/assets/Export.png" alt="Export" style=""></span>
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+
+                <div class="res-admin-purchasesuperadmin-table table-responsive">
+                    <table id="adminpurchasesuperadmintable" class="display" style="width: 100%;">
+                        <thead style="background-color: #d8e6fb; border-radius: 10px;">
+                            <tr>
+                                <th><input type="checkbox" id="psavendor-selectAll"></th>
+                                <th>Request No.</th>
+                                <th>Asset Type</th>
+                                <th>Vendor 1</th>
+                                <th>Vendor 2</th>
+                                <th>Vendor 3</th>
+                                <th>View Details</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr class="odd">
+                                <td><input type="checkbox" class="purchasesuperadmin-check"></td>
+                                <td class="tdpsarequestno">PR11</td>
+                                <td class="tdassettype">Hardware</td>
+                                <td class="tdvendor1 table-psa-vendor-info">
+                                    <div style="display: flex; align-items: center;">
+                                        <span style="margin-top: 0px; margin-right: 10px;">Mithun Sivaprakasam<br><span class="pending">Pending</span></span>
+                                    </div>
+                                </td>
+                                <td class="tdvendor2 table-psa-vendor-info">
+                                    <div style="display: flex; align-items: center;">
+                                        <span style="margin-top: 0px; margin-right: 10px;">Mithun Sivaprakasam<br><span class="approved">Approved</span></span>
+                                    </div>
+                                </td>
+                                <td class="tdvendor3 table-psa-vendor-info">
+                                    <div style="display: flex; align-items: center;">
+                                        <span style="margin-top: 0px; margin-right: 10px;">Mithun Sivaprakasam<br><span class="rejected">Rejected</span></span>
+                                    </div>
+                                </td>
+                                <td style="text-align:center;">
+                                    <span class="purchasesuperadmin-approval-edit" data-toggle="modal" data-target="#purchasesuperadmin-approvalcard" onclick="openPurchaseSuperAdminModal(17)">
+                                        <i class="fas fa-eye"></i>
+                                    </span>
+                                </td>
+                            </tr>
+                            <tr class="even">
+                                <td><input type="checkbox" class="purchasesuperadmin-check"></td>
+                                <td class="tdpsarequestno">PR76</td>
+                                <td class="tdassettype">Hardware</td>
+                                <td class="tdvendor1 table-psa-vendor-info">
+                                    <div style="display: flex; align-items: center;">
+                                        <span style="margin-top: 0px; margin-right: 10px;">Mithun Sivaprakasam<br><span class="pending">Pending</span></span>
+                                    </div>
+                                </td>
+                                <td class="tdvendor2 table-psa-vendor-info">
+                                    <div style="display: flex; align-items: center;">
+                                        <span style="margin-top: 0px; margin-right: 10px;">Mithun Sivaprakasam<br><span class="approved">Approved</span></span>
+                                    </div>
+                                </td>
+                                <td class="tdvendor3 table-psa-vendor-info">
+                                    -
+                                </td>
+                                <td style="text-align:center;">
+                                    <span class="purchasesuperadmin-approval-edit" data-toggle="modal" data-target="#purchasesuperadmin-approvalcard" onclick="openPurchaseSuperAdminModal(17)">
+                                        <i class="fas fa-eye"></i>
+                                    </span>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- status Modal -->
+<div id="purchaseStatusModal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="purchaseStatusModal" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-body">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="purchaseStatusModalLabel">PR 24 Status</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="purchaseStatus-popup-list">
+                    <div class="purchaseStatus-list">
+                        <div class="col-lg-1 col-md-1 col-sm-2 purchaseStatus-left">
+                            <div class="vl-none"></div>
+                            <i class="fa fa-check-circle" aria-hidden="true"></i>
+                            <div class="vl"></div>
+                        </div>
+                        <span class="col-lg-7 col-md-7 col-sm-5 purchaseStatus-mid">
+                            <div class="purchaseStatus-statusinfo">Purchase Request</div>
+                            <div class="purchaseStatus-sentby"><span class="sent-by">Sent By</span> <span class="sender-name">Abc</span></div>
+                            <div class="purchaseStatus-date" title="test">07 Jan 24 00:00 AM</div>
+                        </span>
+                    </div>
+                    <div class="purchaseStatus-list">
+                        <div class="col-lg-1 col-md-1 col-sm-2 purchaseStatus-left">
+                            <div class="vl-0"></div>
+                            <i class="fa fa-check-circle" aria-hidden="true"></i>
+                            <div class="vl"></div>
+                        </div>
+                        <span class="col-lg-7 col-md-7 col-sm-5 purchaseStatus-mid">
+                            <div class="purchaseStatus-statusinfo">Purchase Request</div>
+                            <div class="purchaseStatus-sentby"><span class="approved-by">Approved By</span> <span class="sender-name">Abc</span></div>
+                            <div class="purchaseStatus-date" title="test">07 Jan 24 00:00 AM</div>
+                        </span>
+                    </div>
+                    <div class="purchaseStatus-list">
+                        <div class="col-lg-1 col-md-1 col-sm-2 purchaseStatus-left">
+                            <i class="fa fa-circle" aria-hidden="true"></i>
+                            <div class="vl"></div>
+                        </div>
+                        <span class="col-lg-7 col-md-7 col-sm-5 purchaseStatus-mid">
+                            <div class="purchaseStatus-statusinfo">Purchase Order</div>
+                        </span>
+                    </div>
+                    <div class="purchaseStatus-list">
+                        <div class="col-lg-1 col-md-1 col-sm-2 purchaseStatus-left">
+                            <i class="fa fa-circle" aria-hidden="true"></i>
+                            <div class="vl"></div>
+                        </div>
+                        <span class="col-lg-7 col-md-7 col-sm-5 purchaseStatus-mid">
+                            <div class="purchaseStatus-statusinfo">Tax Invoice</div>
+                        </span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+    $(document).ready(function () {
+        // Initialize DataTable if not already initialized
+        if (!$.fn.DataTable.isDataTable('#adminpurchasesuperadmintable')) {
+            var table = $('#adminpurchasesuperadmintable').DataTable({
+                "responsive": true,
+                "paging": true,
+                "searching": true,
+                "ordering": false,
+                "info": true,
+                "autoWidth": false,
+                "lengthMenu": [[10, 20, 50, -1], [10, 20, 50, "All"]]
+            });
+            $('.purchasesuperadmin-advancesearch').on('keyup', function () {
+                table.search(this.value).draw(); // Perform global search on all columns
+            });
+
+        }
+
+        $(document).on('click', '.tdpsarequestno', function () {
+            $('#purchaseStatusModal').modal('show');
+        });
+    });
+</script>
