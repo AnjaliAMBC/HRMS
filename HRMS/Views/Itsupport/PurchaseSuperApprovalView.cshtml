@@ -2,6 +2,162 @@
 @{
     ViewBag.Title = "PurchaseSuperApprovalView";
 }
+@Html.Partial("_NavBar")
 
-<h2>PurchaseSuperApprovalView</h2>
+<div class="container-fluid">
+    <div class="hiddenadmindashboard" style="display: none"></div>
+    @Html.Partial("_adminsidemenu")
+    <div class="main-content container-fluid PurchaseSuperApprovalListPage-View" style="width: 84%">
+        <div class="content admin-purchasesuperapproval-container" style="margin-left: -10px; ">
+            <div class="admin-purchasesuperapproval-view">
+                <div class="container-fluid top admin-purchasesuperapprovalview">
+                    <div class="row navbar align-items-center">
+                        <!-- Employee column -->
+                        <div class="col-lg-3 col-md-5 topic d-flex res-admin-title">
+                            <h4 class="header mb-0 text-right">Purchase Request 24</h4>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="container psa-content-block">
+                    <div class="row">
+                        <div class="col-lg-4 col-md-6 col-sm-12">
+                            <div class="purchasesuperapproval-block psa-1">
+                                <div class="col-lg-1 purchasesuperapproval-block-left">
+                                    <input type="checkbox" id="purchasesuperapproval-check-1" name="purchasesuperapproval-check-1" class="purchasesuperapproval-check purchasesuperapproval-check-1">
+                                </div>
+                                <div class="col-lg-11 purchasesuperapproval-block-right">
+                                    <div class="psa-block purchasesuperapproval-vendor-info">
+                                        <div class="psalabel vendor-id-label">Vendor Id</div>
+                                        <div class="vendor-id">22</div>
+                                    </div>
+                                    <div class="psa-block purchasesuperapproval-vendorname-info">
+                                        <div class="psalabel vendor-name-label">Vendor Name</div>
+                                        <div class="vendor-name">Test data new</div>
+                                        <div class="vendor-email color-blue">test@gmail.com</div>
+                                    </div>
+                                    <div class="psa-block purchasesuperapproval-files-info">
+                                        <div class="psalabel files-label">Files</div>
+                                        <div class="files-pdf color-blue">test.pdf</div>
+                                    </div>
+                                    <div class="psa-block purchasesuperapproval-requesteddate-info">
+                                        <div class="psalabel requesteddate-label">Requested Date</div>
+                                        <div class="requesteddate-date">22-9-2024</div>
+                                    </div>
+                                    <div class="psa-block purchasesuperapproval-requestedname-info">
+                                        <div class="psalabel requestedname-label">Requested Date</div>
+                                        <div class="requestedname-name color-blue">Test User</div>
+                                    </div>
+                                    <div class="psa-block purchasesuperapproval-quoteprice-info">
+                                        <div class="psalabel quoteprice-label">Quote Price</div>
+                                        <div class="quoteprice-amount color-blue">Rs 20000</div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-lg-4 col-md-6 col-sm-12">
+                            <div class="purchasesuperapproval-block psa-2">
+                                <div class="col-lg-1 purchasesuperapproval-block-left">
+                                    <input type="checkbox" id="purchasesuperapproval-check-2" name="purchasesuperapproval-check-2" class="purchasesuperapproval-check purchasesuperapproval-check-2">
+                                </div>
+                                <div class="col-lg-11 purchasesuperapproval-block-right">
+                                    <div class="psa-block purchasesuperapproval-vendor-info">
+                                        <div class="psalabel vendor-id-label">Vendor Id</div>
+                                        <div class="vendor-id">26</div>
+                                    </div>
+                                    <div class="psa-block purchasesuperapproval-vendorname-info">
+                                        <div class="psalabel vendor-name-label">Vendor Name</div>
+                                        <div class="vendor-name">Test data new</div>
+                                        <div class="vendor-email color-blue">test@gmail.com</div>
+                                    </div>
+                                    <div class="psa-block purchasesuperapproval-files-info">
+                                        <div class="psalabel files-label">Files</div>
+                                        <div class="files-pdf color-blue">test.pdf</div>
+                                    </div>
+                                    <div class="psa-block purchasesuperapproval-requesteddate-info">
+                                        <div class="psalabel requesteddate-label">Requested Date</div>
+                                        <div class="requesteddate-date">22-9-2024</div>
+                                    </div>
+                                    <div class="psa-block purchasesuperapproval-requestedname-info">
+                                        <div class="psalabel requestedname-label">Requested Date</div>
+                                        <div class="requestedname-name color-blue">Test User</div>
+                                    </div>
+                                    <div class="psa-block purchasesuperapproval-quoteprice-info">
+                                        <div class="psalabel quoteprice-label">Quote Price</div>
+                                        <div class="quoteprice-amount color-blue">Rs 20000</div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-lg-4 col-md-6 col-sm-12">
+                            <div class="purchasesuperapproval-block psa-3">
+                                <div class="col-lg-1 purchasesuperapproval-block-left">
+                                    <input type="checkbox" id="purchasesuperapproval-check-3" name="purchasesuperapproval-check-3" class="purchasesuperapproval-check purchasesuperapproval-check-3">
+                                </div>
+                                <div class="col-lg-11 purchasesuperapproval-block-right">
+                                    <div class="psa-block purchasesuperapproval-vendor-info">
+                                        <div class="psalabel vendor-id-label">Vendor Id</div>
+                                        <div class="vendor-id">29</div>
+                                    </div>
+                                    <div class="psa-block purchasesuperapproval-vendorname-info">
+                                        <div class="psalabel vendor-name-label">Vendor Name</div>
+                                        <div class="vendor-name">Test data new</div>
+                                        <div class="vendor-email color-blue">test@gmail.com</div>
+                                    </div>
+                                    <div class="psa-block purchasesuperapproval-files-info">
+                                        <div class="psalabel files-label">Files</div>
+                                        <div class="files-pdf color-blue">test.pdf</div>
+                                    </div>
+                                    <div class="psa-block purchasesuperapproval-requesteddate-info">
+                                        <div class="psalabel requesteddate-label">Requested Date</div>
+                                        <div class="requesteddate-date">22-9-2024</div>
+                                    </div>
+                                    <div class="psa-block purchasesuperapproval-requestedname-info">
+                                        <div class="psalabel requestedname-label">Requested Date</div>
+                                        <div class="requestedname-name color-blue">Test User</div>
+                                    </div>
+                                    <div class="psa-block purchasesuperapproval-quoteprice-info">
+                                        <div class="psalabel quoteprice-label">Quote Price</div>
+                                        <div class="quoteprice-amount color-blue">Rs 20000</div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row psa-footer">
+                        <div class="col-lg-12 col-md-12 text-right">
+                            <button type="button" class="btn btn-danger psaadd-reject">Reject</button>
+                            <button type="button" class="btn btn-success psaadd-approve">Approve</button>
+                            <button type="button" class="btn psaadd-change-status color-blue" style="display:none;">Change Status</button>
+                            <button type="button" class="btn btn-success psaadd-approved" style="display:none;">Approved</button>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+$(document).ready(function () {
+    $(document).on('change', '.purchasesuperapproval-check', function () {
+        var selectedId = $(this).attr('id').split("-").pop();
+        var checked = $('#purchasesuperapproval-check-' + selectedId).is(":checked");
+        console.log('selectedId', selectedId);
+        console.log('selectedValue', checked);
+        if (checked == true) {
+            $('.psaadd-reject').css({ "display": "none" });
+            $('.psaadd-approve').css({ "display": "none" });
+            $('.psaadd-change-status').css({ "display": "inline-block" });
+            $('.psaadd-approved').css({ "display": "inline-block" });
+        } else {
+            $('.psaadd-change-status').css({ "display": "none" });
+            $('.psaadd-approved').css({ "display": "none" });
+            $('.psaadd-reject').css({ "display": "inline-block" });
+            $('.psaadd-approve').css({ "display": "inline-block" });
+        }
+    });
+});
+</script>
 
