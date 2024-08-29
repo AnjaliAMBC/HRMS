@@ -7,15 +7,15 @@
     @Html.Partial("_adminsidemenu")
     <div class="main-content container-fluid PurchaseListPage-View" style="width: 84%">
         <div class="content admin-purchase-container" style="margin-left: -10px; ">
-            <div class="admin-purchase-view">
-                <div class="container-fluid top admin-purchaseview">
+            <div class="itadmin-purchase-view">
+                <div class="container-fluid top itadmin-purchaseview">
                     <div class="row navbar align-items-center">
                         <!-- Employee column -->
                         <div class="col-lg-3 col-md-5 topic d-flex res-admin-title">
                             <h4 class="header mb-0 text-right">Purchase Request Listing</h4>
                         </div>
                         <!-- Search box -->
-                        <div class="col-xl-4 col-lg-6 navbarl1 col-sm-12 col-md-7 res-admin-purchase-search">
+                        <div class="col-xl-4 col-lg-6 navbarl1 col-sm-12 col-md-7 res-itadmin-purchase-search">
                             <div class="search-container" style=" margin-left: 32px; ">
                                 <div class="input-group" style="border-radius: 20px;">
                                     <div class="input-group-prepend">
@@ -25,7 +25,7 @@
                                 </div>
                             </div>
                         </div>
-                        <div class="col-xl-5 col-lg-12 navbarl1 col-sm-12 col-md-12 res-admin-purchase-header-right">
+                        <div class="col-xl-5 col-lg-12 navbarl1 col-sm-12 col-md-12 res-itadmin-purchase-header-right">
                             <!-- Export -->
                             <div class="col-xl-4 col-lg-3 navbarl1 col-sm-4 col-xs-12 col-md-4 res-admin-purchase-status p-0">
                                 <div class="form-group res-purchaselisting">
@@ -38,15 +38,15 @@
                                     </select>
                                 </div>
                             </div>
-                            <div class="col-xl-2 col-lg-1  navbarl1 col-sm-2 col-md-2 res-admin-purchase-export p-0">
-                                <div class="adminpurchase-export" style="">
+                            <div class="col-xl-2 col-lg-1  navbarl1 col-sm-2 col-md-2 res-itadmin-purchase-export p-0">
+                                <div class="itadminpurchase-export" style="">
                                     <button type="button" class="btn purchaselist-export-btn pt-0" id="exportPurchase" onclick="exportPurchase()">
                                         <span class="purchaselist-export"><img src="/assets/Export.png" alt="Export" style=""></span>
                                     </button>
                                 </div>
                             </div>
                             <!-- Add Employee dropdown -->
-                            <div class="col-lg-5 navbarl1 col-sm-6 col-md-5 res-admin-purchase-add">
+                            <div class="col-lg-5 navbarl1 col-sm-6 col-md-5 res-itadmin-purchase-add">
                                 <div class="addingpurchase form-group">
                                     <select name="addpurchase" class="addpurchase form-control form-select" id="addpurchase">
                                         <option value="" disabled="" selected="" hidden="">Add Purchase</option>
@@ -59,51 +59,90 @@
                     </div>
                 </div>
 
-                <div class="res-admin-purchase-table table-responsive">
+                <div class="res-itadmin-purchase-table table-responsive">
                     <table id="adminpurchasetable" class="display" style="width: 100%;">
                         <thead style="background-color: #d8e6fb; border-radius: 10px;">
                             <tr>
-                                <th><input type="checkbox" id="vendor-selectAll"></th>
+                                <th><input type="checkbox" id="itpurchase-selectAll"></th>
                                 <th>Request No.</th>
                                 <th>Asset Type</th>
-                                <th>Vendor ID</th>
-                                <th>Vendor Name</th>
-                                <th>Files</th>
                                 <th>Requested By</th>
-                                <th>Status</th>
-                                <th>Action</th>
+                                <th>Vendor 1</th>
+                                <th>Vendor 2</th>
+                                <th>Vendor 3</th>
+                                <th>View Details</th>
                             </tr>
                         </thead>
                         <tbody>
                             <tr class="odd">
-                                <td><input type="checkbox" class="purchase-check"></td>
-                                <td class="tdrequestno">PR11</td>
-                                <td class="tdassettype">Hardware</td>
-                                <td class="tdvendorid">2000</td>
-                                <td class="tdvendorname">
+                                <td><input type="checkbox" class="purchaseitadmin-check"></td>
+                                <td class="itprequestno">PR11</td>
+                                <td class="itpassettype">Hardware</td>
+                                <td>Goutham</td>
+                                <td class="itpvendor1 table-itp-vendor-info">
                                     <div style="display: flex; align-items: center;">
-                                        <span style="margin-top: 0px; margin-right: 10px;">Mithun Sivaprakasam<br><span style="color: #3E78CF;">mithun@ambconline.com</span></span>
+                                        <span style="margin-top: 0px; margin-right: 10px; line-height:1rem">
+                                            Mithun Sivaprakasam<br>
+                                            <a class="itp_filepath" href="#" target="_blank">Hardware_Quotation.pdf</a><br />
+                                            <span class="pending">Pending</span>
+                                        </span>
                                     </div>
                                 </td>
-                                <td><a href="#">Test_File.pdf</a></td>
-                                <td>Test User</td>
-                                <td><span class="purchaseapproved-btn"><img src="/assets/Approve.png" alt="Approved" style="width:25px"></span></td>
-                                <td><span class="purchase-list-edit"><i class="fas fa-pencil-alt"></i></span></td>
+                                <td class="itpvendor2 table-itp-vendor-info">
+                                    <div style="display: flex; align-items: center;">
+                                        <span style="margin-top: 0px; margin-right: 10px; line-height: 1rem">
+                                            Mithun Sivaprakasam<br>
+                                            <a class="itp_filepath" href="#" target="_blank">Hardware_Quotation.pdf</a><br />
+                                            <span class="approved">Approved</span>
+                                        </span>
+                                    </div>
+                                </td>
+                                <td class="itpvendor3 table-itp-vendor-info">
+                                    <div style="display: flex; align-items: center;">
+                                        <span style="margin-top: 0px; margin-right: 10px; line-height: 1rem">
+                                            Mithun Sivaprakasam<br>
+                                            <a class="itp_filepath" href="#"  target="_blank">Hardware_Quotation.pdf</a><br />
+                                            <span class="rejected">Rejected</span>
+                                        </span>
+                                    </div>
+                                </td>
+                                <td style="text-align:center;">
+                                    <span class="purchaseitadmin-approval-edit" data-toggle="modal" data-target="#purchaseitadmin-approvalcard" onclick="">
+                                        <i class="fas fa-pencil-alt"></i>
+                                    </span>
+                                </td>
                             </tr>
                             <tr class="even">
-                                <td><input type="checkbox" class="purchase-check"></td>
-                                <td class="tdrequestno">PR76</td>
-                                <td class="tdassettype">Hardware</td>
-                                <td class="tdvendorid">2000</td>
-                                <td class="tdvendorname">
+                                <td><input type="checkbox" class="purchaseitadmin-check"></td>
+                                <td class="itprequestno">PR76</td>
+                                <td class="itpassettype">Hardware</td>
+                                <td>Goutham</td>
+                                <td class="itpvendor1 table-itp-vendor-info">
                                     <div style="display: flex; align-items: center;">
-                                        <span style="margin-top: 0px; margin-right: 10px;">Mithun Sivaprakasam<br><span style="color: #3E78CF;">mithun@ambconline.com</span></span>
+                                        <span style="margin-top: 0px; margin-right: 10px; line-height: 1rem">
+                                        Mithun Sivaprakasam<br>
+                                            <a class="itp_filepath" href="#" target="_blank">Hardware_Quotation.pdf</a><br />
+                                        <span class="pending">Pending</span>
+                                        </span>
                                     </div>
                                 </td>
-                                <td><a href="#">Test_File.pdf</a></td>
-                                <td>Test User</td>
-                                <td><span class="purchaseapproved-btn"><img src="/assets/Approve.png" alt="Approved" style="width:25px"></span></td>
-                                <td><span class="purchase-list-edit"><i class="fas fa-pencil-alt"></i></span></td>
+                                <td class="itpvendor2 table-itp-vendor-info">
+                                    <div style="display: flex; align-items: center;">
+                                        <span style="margin-top: 0px; margin-right: 10px; line-height: 1rem">
+                                            Mithun Sivaprakasam<br>
+                                            <a class="itp_filepath" href="#" target="_blank">Hardware_Quotation.pdf</a><br />
+                                            <span class="approved">Approved</span>
+                                        </span>
+                                    </div>
+                                </td>
+                                <td class="itpvendor3 table-itp-vendor-info">
+                                    -
+                                </td>
+                                <td style="text-align:center;">
+                                    <span class="purchaseitadmin-approval-edit" data-toggle="modal" data-target="#purchaseitadmin-approvalcard" onclick="">
+                                        <i class="fas fa-pencil-alt"></i>
+                                    </span>
+                                </td>
                             </tr>
                         </tbody>
                     </table>
@@ -116,7 +155,7 @@
 </div>
 
 <!-- status Modal -->
-<div id="purchaseStatusModal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="purchaseStatusModal" aria-hidden="true">
+<div id="itpurchaseStatusModal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="purchaseStatusModal" aria-hidden="true">
     <div class="modal-dialog" role="document">
         <div class="modal-content">
             <div class="modal-body">
@@ -211,8 +250,8 @@
             }
         });
 
-        $(document).on('click', '.tdrequestno', function () {
-            $('#purchaseStatusModal').modal('show');
+        $(document).on('click', '.itprequestno', function () {
+            $('#itpurchaseStatusModal').modal('show');
         });
 
     });
