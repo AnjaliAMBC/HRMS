@@ -3084,7 +3084,7 @@ input[type=checkbox], input[type=radio] {
     margin-top: 15px;
 }
 
-.admin-purchaseview {
+.itadmin-purchaseview {
     width: 100%;
     height: 65px;
 }
@@ -3094,7 +3094,7 @@ input[type=checkbox], input[type=radio] {
     height: 65px;
 }
 
-.admin-purchase-view .res-admin-title {
+.itadmin-purchase-view .res-admin-title {
     padding: 0 0 0 3px;
 }
 
@@ -3102,13 +3102,13 @@ input[type=checkbox], input[type=radio] {
     padding: 0 0 0 3px;
 }
 
-.admin-purchase-view .res-admin-purchase-header-right {
+.itadmin-purchase-view .res-itadmin-purchase-header-right {
     justify-content: end;
     display: flex;
     padding-right: 0;
 }
 
-.admin-purchase-view .res-admin-purchase-export {
+.itadmin-purchase-view .res-itadmin-purchase-export {
     justify-content: end;
     display: inline-block;
     margin-top: 4px;
@@ -3122,7 +3122,7 @@ input[type=checkbox], input[type=radio] {
     border-radius: 0 0.25rem 0.25rem 0;
 }
 
-.admin-purchase-view .res-admin-purchase-add {
+.itadmin-purchase-view .res-itadmin-purchase-add {
     display: inline-block;
 }
 
@@ -3166,7 +3166,7 @@ input[type=checkbox], input[type=radio] {
     padding: 0 1.5rem;
 }
 
-.res-admin-purchase-header-right {
+.res-itadmin-purchase-header-right {
     padding-top: 20px;
 }
 
@@ -3174,96 +3174,100 @@ input[type=checkbox], input[type=radio] {
     height: 30px;
 }
 
-.admin-purchase-view .res-admin-title .header {
+.itadmin-purchase-view .res-admin-title .header {
     font-size: 23px;
 }
 
-#purchaseStatusModal .modal-header {
+#purchaseStatusModal .modal-header, #itpurchaseStatusModal .modal-header {
     border-bottom: 0px;
     padding: 0 5px;
     margin-bottom: 10px;
 }
 
-#purchaseStatusModal .purchaseStatus-popup-list .purchaseStatus-list {
+#purchaseStatusModal .purchaseStatus-popup-list .purchaseStatus-list, #itpurchaseStatusModal .purchaseStatus-popup-list .purchaseStatus-list {
     display: flex;
     font-size: 13px;
     margin-top: -1px;
 }
 
-#purchaseStatusModal .purchaseStatus-popup-list .purchaseStatus-left i.fa-check-circle {
+#purchaseStatusModal .purchaseStatus-popup-list .purchaseStatus-left i.fa-check-circle, #itpurchaseStatusModal .purchaseStatus-popup-list .purchaseStatus-left i.fa-check-circle {
     font-size: 20px;
     color: blue;
     /*margin-top: 17px;*/
     position: relative;
 }
 
-#purchaseStatusModal .purchaseStatus-popup-list .purchaseStatus-left i.fa-circle {
+#purchaseStatusModal .purchaseStatus-popup-list .purchaseStatus-left i.fa-circle, #itpurchaseStatusModal .purchaseStatus-popup-list .purchaseStatus-left i.fa-circle {
     font-size: 15px;
     color: gray;
     margin-left: 4px;
 }
 
-#purchaseStatusModal .purchaseStatus-popup-list .purchaseStatus-left .vl-none {
+#purchaseStatusModal .purchaseStatus-popup-list .purchaseStatus-left .vl-none, #itpurchaseStatusModal .purchaseStatus-popup-list .purchaseStatus-left .vl-none {
     height: 17px;
     margin-left: 10px;
 }
 
-#purchaseStatusModal .purchaseStatus-popup-list .purchaseStatus-left .vl-0 {
+#purchaseStatusModal .purchaseStatus-popup-list .purchaseStatus-left .vl-0, #itpurchaseStatusModal .purchaseStatus-popup-list .purchaseStatus-left .vl-0 {
     border-left: 2px solid #ccc;
     height: 17px;
     margin-left: 10px;
 }
 
-#purchaseStatusModal .purchaseStatus-popup-list .purchaseStatus-left .vl {
+#purchaseStatusModal .purchaseStatus-popup-list .purchaseStatus-left .vl, #itpurchaseStatusModal .purchaseStatus-popup-list .purchaseStatus-left .vl {
     border-left: 2px solid #ccc;
     height: 45px;
     margin-left: 10px;
     margin-top: -5px;
 }
 
-#purchaseStatusModal .purchaseStatus-list:last-child .purchaseStatus-left .vl {
+#purchaseStatusModal .purchaseStatus-list:last-child .purchaseStatus-left .vl, #itpurchaseStatusModal .purchaseStatus-list:last-child .purchaseStatus-left .vl {
     display: none;
 }
 
-#purchaseStatusModal .purchaseStatus-statusinfo {
+#purchaseStatusModal .purchaseStatus-statusinfo, #itpurchaseStatusModal .purchaseStatus-statusinfo {
     font-weight: bold;
     font-size: 14px;
 }
 
-#purchaseStatusModal .purchaseStatus-sentby {
+#purchaseStatusModal .purchaseStatus-sentby, #itpurchaseStatusModal .purchaseStatus-sentby {
     font-size: 12px;
 }
 
-#purchaseStatusModal .purchaseStatus-sentby .sent-by {
-    font-weight: bold;
-}
+    #purchaseStatusModal .purchaseStatus-sentby .sent-by, #itpurchaseStatusModal .purchaseStatus-sentby .sent-by {
+        font-weight: bold;
+    }
 
-#purchaseStatusModal .purchaseStatus-sentby .approved-by {
-    color: darkturquoise;
-    font-weight: bold;
-}
+    #purchaseStatusModal .purchaseStatus-sentby .approved-by, #itpurchaseStatusModal .purchaseStatus-sentby .approved-by {
+        color: darkturquoise;
+        font-weight: bold;
+    }
 
-#purchaseStatusModal .purchaseStatus-sentby .sender-name {
-    color: blue;
-}
-
-#purchaseStatusModal .purchaseStatus-date {
+    #purchaseStatusModal .purchaseStatus-sentby .sender-name, #itpurchaseStatusModal .purchaseStatus-sentby .sender-name {
+        color: blue;
+    }
+#purchaseStatusModal .purchaseStatus-date, #itpurchaseStatusModal .purchaseStatus-date {
     color: gray;
     font-size: 12px;
 }
 
-#purchaseStatusModal .purchaseStatus-list .purchaseStatus-mid {
+#purchaseStatusModal .purchaseStatus-list .purchaseStatus-mid, #itpurchaseStatusModal .purchaseStatus-list .purchaseStatus-mid {
     margin-top: -2px;
 }
-
-/* Purchase end */
-
-/* Purchase add start */
-
-.admin-purchase-add .purchaseadd-tabs label {
-    font-size: 13px;
-    margin-bottom: 0px;
+.itp_filepath
+{
+    text-decoration:none;
+    font-size:12px;
 }
+    .itp_filepath:hover{
+        text-decoration:none;
+    }
+    /* Purchase end */
+    /* Purchase add start */
+    .admin-purchase-add .purchaseadd-tabs label {
+        font-size: 13px;
+        margin-bottom: 0px;
+    }
 
 .admin-purchase-add .upload-btn-wrapper {
     position: relative;
@@ -3566,58 +3570,57 @@ input[type=checkbox], input[type=radio] {
     font-size: 23px;
 }
 
-.table-psa-vendor-info .pending {
+.table-psa-vendor-info .pending, .table-itp-vendor-info .pending{
     background: orange;
     color: #fff;
     padding: 2px 5px;
     font-size: 10px;
 }
 
-.table-psa-vendor-info .approved {
+.table-psa-vendor-info .approved,.table-itp-vendor-info .approved {
     background: green;
     color: #fff;
     padding: 2px 5px;
     font-size: 10px;
 }
 
-.table-psa-vendor-info .rejected {
+.table-psa-vendor-info .rejected ,.table-itp-vendor-info .rejected{
     background: red;
     color: #fff;
     padding: 2px 5px;
     font-size: 10px;
 }
 
-#adminpurchasesuperadmintable thead th:nth-child(1){
-
+#adminpurchasesuperadmintable thead th:nth-child(1), #adminpurchasetable thead th:nth-child(1) {
 }
 
-#adminpurchasesuperadmintable thead th:nth-child(2) {
+#adminpurchasesuperadmintable thead th:nth-child(2), #adminpurchasetable thead th:nth-child(2) {
 }
 
-#adminpurchasesuperadmintable thead th:nth-child(3) {
+#adminpurchasesuperadmintable thead th:nth-child(3), #adminpurchasetable thead th:nth-child(4) {
     border-top-right-radius: 10px;
     border-right: 3px solid #fff;
 }
 
-#adminpurchasesuperadmintable thead th:nth-child(4) {
+#adminpurchasesuperadmintable thead th:nth-child(4), #adminpurchasetable thead th:nth-child(5) {
     border-left: 2px solid #fff;
     border-right: 2px solid #fff;
     background: #B7CEF0;
 }
 
-#adminpurchasesuperadmintable thead th:nth-child(5) {
+#adminpurchasesuperadmintable thead th:nth-child(5), #adminpurchasetable thead th:nth-child(6) {
     border-left: 2px solid #fff;
     border-right: 2px solid #fff;
     background: #A5C0E9;
 }
 
-#adminpurchasesuperadmintable thead th:nth-child(6) {
+#adminpurchasesuperadmintable thead th:nth-child(6), #adminpurchasetable thead th:nth-child(7) {
     border-left: 2px solid #fff;
     border-right: 2px solid #fff;
     background: #95B6E7;
 }
 
-#adminpurchasesuperadmintable thead th:nth-child(7) {
+#adminpurchasesuperadmintable thead th:nth-child(7), #adminpurchasetable thead th:nth-child(8) {
     text-align: center;
     border-top-left-radius: 10px;
     border-left: 3px solid #fff;
