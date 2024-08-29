@@ -40,5 +40,10 @@ namespace HRMS
         public Nullable<System.DateTime> RejectedDate { get; set; }
         public string PO { get; set; }
         public string TaxInvoice { get; set; }
+        public string CreatedBy { get; set; }
+        public Nullable<System.DateTime> CreatedDate { get; set; }
+        public string UpdatedBy { get; set; }
+        public Nullable<System.DateTime> UpdatedDate { get; set; }
+        public string PRNumber { get; set; }
     }
 }

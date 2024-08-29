@@ -1,23 +1,25 @@
-﻿<!<!----@model HRMS.Models.ITsupport.PurchaseViewModel
+﻿@model HRMS.Models.ITsupport.PurchaseViewModel
 
 @{
-                var formattedPurchaseId = string.Empty;
-                var PurchaseID = 0;
-                var isEditRecord = false;
-                
-                if (Model != null)
-                {
-                    // Compute formattedPurchaseId
-                    if (Model.NewPurchaseId != 0)  // Ensure NewPurchaseId is valid
-                    {
-                        formattedPurchaseId = "PR" + Model.NewPurchaseId.ToString();
-                    }
+    var formattedPurchaseId = string.Empty;
+    var PurchaseID = 0;
+    var isEditRecord = false;
 
-                    isEditRecord = Model.EditPurchase != null && Model.EditPurchase.PurchaseRequestID != 0;
+    if (Model != null)
+    {
+        isEditRecord = Model.EditPurchase != null && Model.EditPurchase.PurchaseRequestID != 0;
+    }
+}
 
-                    // Set PurchaseID based on whether it's an edit record
-                    PurchaseID = isEditRecord ? Model.EditPurchase.PurchaseRequestID : Model.NewPurchaseId;
-                } }
+<style>
+    .is-invalid .select2-selection {
+        border-color: red;
+    }
+
+    .is-invalid .select2-container--default .select2-selection--single .select2-selection__rendered {
+        color: red;
+    }
+</style>
 
 @Html.Partial("_NavBar")
 <div class="container-fluid">
@@ -31,36 +33,41 @@
                         <h4 class="header mb-0 text-right">Add Purchase Request</h4>
                     </div>
 
-                    <!-- Basic HTML Form -->
-                    <!--<form id="purchase-form" class="admin-purchaseform needs-validation" novalidate>
+
+                    <form id="purchase-form" class="admin-purchaseform needs-validation" novalidate>
                         <div class="container" style="margin-left: 5px">
                             <div class="row">
                                 <div class="col-lg-3 col-md-6" style="padding-left: 0px;">
                                     <div class="form-group purchaseadd-tabs">
                                         <label for="PurchaseID">Purchase Request ID*</label>
-                                        <input type="number" class="form-control" name="PurchaseID" value="@PurchaseID" id="PurchaseID" placeholder="Enter Purchase Request ID" required readonly>
                                         @if (!isEditRecord)
                                         {
-                                            <small style="font-size: 12px; float: right; color: gray;">Last Purchase Request ID: @formattedPurchaseId</small>}
+                                            <input type="text" class="form-control" name="PurchaseID" value="@Model.NewPurchaseId" id="PurchaseID" placeholder="Enter Purchase Request ID" required readonly>
+                                            <small style="font-size: 12px; float: right; color: gray;">Last Purchase Request ID: @Model.LastePurchaseId</small>
+                                        }
+                                        else
+                                        {
+                                            <input type="number" class="form-control" name="PurchaseID" value="@Model.EditPurchase.PRNumber" id="PurchaseID" placeholder="Enter Purchase Request ID" required readonly>
+                                        }
                                         <div class="invalid-feedback">Purchase Request ID is required.</div>
                                     </div>
                                 </div>
                                 <div class="col-lg-3 col-md-6">
                                     <div class="form-group purchaseadd-tabs">
                                         <label for="AssetType">Asset Type*</label>
-                                        <div class="d-flex">
-                                            <select name="AssetType" class="form-control form-select" id="AssetType" required>
-                                                <option value="" disabled selected hidden>Select Asset Type</option>-->-->
-                                                <!--@*@foreach (var purchasetype in Model.Assettypes)
-                                                {
-                                                    var selectedVendorType = Model.EditPurchase != null && Model.EditPurchase.AssetType == purchasetype.VendorType1 ? "selected" : "";
-                                                    <option value="@purchasetype.VendorType1" @Html.Raw(selectedVendorType)>
-                                                        @purchasetype.VendorType1
-                                                    </option>
-                                                }*@
-                                            </select>
+                                        @*<div class="d-flex">*@
+                                        <select name="AssetType" class="form-control form-select AssetType" id="AssetType" required>
+                                            <option value="" disabled selected hidden>Select Asset Type</option>
+                                            @foreach (var purchasetype in Model.Assettypes)
+                                            {
+                                                var selectedVendorType = Model.EditPurchase != null && Model.EditPurchase.AssetType == purchasetype.VendorType1 ? "selected" : "";
+                                                <option value="@purchasetype.VendorType1" @selectedVendorType>
+                                                    @purchasetype.VendorType1
+                                                </option>
+                                            }
+                                        </select>
 
-                                        </div>
+                                        @*</div>*@
                                         <div class="invalid-feedback">Asset Type is required.</div>
                                     </div>
                                 </div>
@@ -81,17 +88,19 @@
                                 <div class="col-lg-3 col-md-6">
                                     <div class="form-group purchaseadd-tabs">
                                         <label for="Requestedby">Requested By*</label>
+                                        @*<div class="d-flex">*@
                                         <select name="Requestedby"
-                                                class="Requestedby form-control form-select"
+                                                class="form-control form-select Requestedby"
                                                 id="Requestedby"
                                                 required>
-                                            <option value="" disabled selected hidden>Requested by</option>
+                                            <option value="" disabled selected hidden>Select Requested by</option>
                                             @foreach (var deptEmp in Model.ITDeptEmployees)
                                             {
                                                 var selected = !string.IsNullOrEmpty(Model.EditPurchase?.RequestedBy) && (Model.EditPurchase.RequestedBy == deptEmp.EmployeeName) ? "selected" : "";
                                                 <option value="@deptEmp.EmployeeName" @selected>@deptEmp.EmployeeName</option>
                                             }
                                         </select>
+                                        @*</div>*@
                                         <div class="invalid-feedback">Requested By is required.</div>
                                     </div>
                                 </div>
@@ -104,20 +113,19 @@
                                 <div class="col-lg-3 col-md-6" style="padding-left: 0px;">
                                     <div class="form-group purchaseadd-tabs">
                                         <label for="VendorName-1">Vendor Name</label>
-                                        <div class="d-flex">
-                                            <select name="VendorName-1"
-                                                    class="VendorName form-control form-select"
-                                                    id="VendorName-1"
-                                                    required>
-                                                <option value="" disabled selected hidden>Select Vendor Name</option>
-                                                @foreach (var vendor in Model.allVendors)
-                                                {
-                                                    var selected = !string.IsNullOrEmpty(Model.EditPurchase?.VendorName1) && Model.EditPurchase.VendorName1 == vendor.VendorName ? "selected" : "";
-                                                    <option value="@vendor.VedorID" @selected>@vendor.VendorName</option>
-                                                }
-                                            </select>
-                                        </div>
+                                        <select name="VendorName-1"
+                                                class="VendorName form-control form-select"
+                                                id="VendorName-1"
+                                                required>
+                                            <option value="" disabled selected hidden>Select Vendor Name</option>
+                                            @foreach (var vendor in Model.allVendors)
+                                            {
+                                                var selected = !string.IsNullOrEmpty(Model.EditPurchase?.VendorName1) && Model.EditPurchase.VendorName1 == vendor.VendorName ? "selected" : "";
+                                                <option value="@vendor.VedorID" @selected>@vendor.VendorName - @vendor.VedorID</option>
+                                            }
+                                        </select>
                                         <div class="invalid-feedback">Vendor Name is required.</div>
+
                                     </div>
                                 </div>
                                 <div class="col-lg-3 col-md-6">
@@ -136,7 +144,7 @@
                                 <div class="col-lg-3 col-md-6">
                                     <div class="form-group purchaseadd-tabs">
                                         <label for="AttachFile-1" style="width:100%;">Attach File</label>
-                                        <div class="upload-btn-wrapper">
+                                        <div class="upload-btn-wrapper attach1wrapper">
                                             <button class="btn vendor-upload-btn">Upload</button>
                                             <input type="file"
                                                    class="form-control"
@@ -155,17 +163,16 @@
                                 <div class="col-lg-3 col-md-6" style="padding-left: 0px;">
                                     <div class="form-group purchaseadd-tabs">
                                         <label for="VendorName-2">Vendor Name</label>
-                                        <div class="d-flex">
 
-                                            <select name="VendorName-2" class="VendorName form-control form-select" id="VendorName-2">
-                                                <option value="" disabled selected hidden>Select Vendor Name</option>
-                                                @foreach (var vendor in Model.allVendors)
-                                                {
-                                                    var selected = !string.IsNullOrEmpty(Model.EditPurchase?.VendorName2) && Model.EditPurchase.VendorName2 == vendor.VendorName ? "selected" : "";
-                                                    <option value="@vendor.VedorID" @selected>@vendor.VendorName</option>
-                                                }
-                                            </select>
-                                        </div>
+                                        <select name="VendorName-2" class="VendorName form-control form-select" id="VendorName-2">
+                                            <option value="" disabled selected hidden>Select Vendor Name</option>
+                                            @foreach (var vendor in Model.allVendors)
+                                            {
+                                                var selected = !string.IsNullOrEmpty(Model.EditPurchase?.VendorName2) && Model.EditPurchase.VendorName2 == vendor.VendorName ? "selected" : "";
+                                                <option value="@vendor.VedorID" @selected>@vendor.VendorName - @vendor.VedorID</option>
+                                            }
+                                        </select>
+
                                     </div>
                                 </div>
                                 <div class="col-lg-3 col-md-6">
@@ -178,10 +185,11 @@
                                 <div class="col-lg-3 col-md-6">
                                     <div class="form-group purchaseadd-tabs">
                                         <label for="AttachFile-2" style="width:100%;">Attach File</label>
-                                        <div class="upload-btn-wrapper">
+                                        <div class="upload-btn-wrapper attach2wrapper">
                                             <button class="btn vendor-upload-btn">Upload</button>
-                                            <input type="file" value="" class="form-control" name="AttachFile-2" id="AttachFile-2">
+                                            <input type="file" value="" class="form-control" name="AttachFile-2" id="AttachFile-2"  accept=".pdf,.doc,.docx">
                                         </div>
+                                        <div class="invalid-feedback">Attach File is required.</div>
                                         <small style="font-size: 12px; float: left; margin-top: -5px; color: #3E78CF; ">File supported PDF, DOCS of 2MB</small>
                                     </div>
                                 </div>
@@ -197,7 +205,7 @@
                                                 @foreach (var vendor in Model.allVendors)
                                                 {
                                                     var selected = !string.IsNullOrEmpty(Model.EditPurchase?.VendorName3) && Model.EditPurchase.VendorName3 == vendor.VendorName ? "selected" : "";
-                                                    <option value="@vendor.VedorID" @selected>@vendor.VendorName</option>
+                                                    <option value="@vendor.VedorID" @selected>@vendor.VendorName - @vendor.VedorID</option>
                                                 }
                                             </select>
                                         </div>
@@ -212,10 +220,11 @@
                                 <div class="col-lg-3 col-md-6">
                                     <div class="form-group purchaseadd-tabs">
                                         <label for="AttachFile-3" style="width:100%;">Attach File</label>
-                                        <div class="upload-btn-wrapper">
+                                        <div class="upload-btn-wrapper attach3wrapper">
                                             <button class="btn vendor-upload-btn">Upload</button>
-                                            <input type="file" value="" class="form-control" name="AttachFile-3" id="AttachFile-3">
+                                            <input type="file" value="" class="form-control" name="AttachFile-3" id="AttachFile-3"  accept=".pdf,.doc,.docx">
                                         </div>
+                                        <div class="invalid-feedback">Attach File is required.</div>
                                         <small style="font-size: 12px; float: left; margin-top: -5px; color: #3E78CF; ">File supported PDF, DOCS of 2MB</small>
                                     </div>
                                 </div>
@@ -224,14 +233,13 @@
                             <div class="row">
                                 <div class="col-lg-12 col-md-12 text-right">
                                     <button type="button" class="btn vendoradd-Cancel">Cancel</button>
-                                    <button type="submit" class="btn btn-primary vendoradd-Submit">Submit</button>
+                                    <button type="button" class="btn btn-primary vendoradd-Submit">Submit</button>
                                 </div>
                             </div>
                         </div>
-                    </form>-->-->
-
-                    <!-- Success Modal -->
-                    <!--<div class="modal fade" id="successModal" tabindex="-1" role="dialog" aria-labelledby="successModalLabel" aria-hidden="true">
+                    </form>
+                    @*Success Modal*@
+                    <div class="modal fade" id="successModal" tabindex="-1" role="dialog" aria-labelledby="successModalLabel" aria-hidden="true">
                         <div class="modal-dialog" role="document">
                             <div class="modal-content">
                                 <div class="modal-header">
@@ -240,18 +248,18 @@
                                         <span aria-hidden="true">&times;</span>
                                     </button>
                                 </div>
-                                <div class="modal-body modal-message">-->
-                                    <!-- Success message will be inserted here -->
-                                <!--</div>
+                                <div class="modal-body modal-message">
+                                    Success message will be inserted here
+                                </div>
                                 <div class="modal-footer">
                                     <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
                                 </div>
                             </div>
                         </div>
-                    </div>-->
+                    </div>
 
-                    <!-- Error Modal -->
-                    <!--<div class="modal fade" id="errorModal" tabindex="-1" role="dialog" aria-labelledby="errorModalLabel" aria-hidden="true">
+                    @*Error Modal*@
+                    <div class="modal fade" id="errorModal" tabindex="-1" role="dialog" aria-labelledby="errorModalLabel" aria-hidden="true">
                         <div class="modal-dialog" role="document">
                             <div class="modal-content">
                                 <div class="modal-header">
@@ -260,9 +268,9 @@
                                         <span aria-hidden="true">&times;</span>
                                     </button>
                                 </div>
-                                <div class="modal-body modal-message">-->
-                                    <!-- Error message will be inserted here -->
-                                <!--</div>
+                                <div class="modal-body modal-message">
+                                    Error message will be inserted here
+                                </div>
                                 <div class="modal-footer">
                                     <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
                                 </div>
@@ -280,11 +288,118 @@
     $(document).ready(function () {
         $('.AssetType, .Requestedby, .VendorName').select2();
 
+        //function Attchemnet1Validation() {
+        //    let isValid = true;
+        //    var fileInput = $('#AttachFile-1');
+        //    var file = fileInput[0].files[0];
+        //    var parentDiv = fileInput.closest('.form-group');
+        //    $('.attach1wrapper').css('border', '');
 
-        $('#purchase-form').on('submit', function (event) {
+        //    // Check if a file is selected
+        //    if (!file) {
+        //        parentDiv.addClass('is-invalid');
+        //        fileInput.addClass('is-invalid');
+        //        $('.attach1wrapper').css('border', '1px solid red');
+        //        parentDiv.find('.invalid-feedback').text('Attach File is required.').show();
+        //        isValid = false;
+        //    } else {
+        //        // Validate file type and size
+        //        var allowedTypes = ['application/pdf', 'application/msword', 'application/vnd.openxmlformats-officedocument.wordprocessingml.document'];
+        //        var maxSize = 2 * 1024 * 1024; // 2MB
+
+        //        if ($.inArray(file.type, allowedTypes) === -1 || file.size > maxSize) {
+        //            parentDiv.addClass('is-invalid');
+        //            fileInput.addClass('is-invalid');
+        //            parentDiv.find('.invalid-feedback').text('Invalid file type or size. Please upload a PDF or DOC file less than 2MB.').show();
+        //            isValid = false;
+        //            $('.attach1wrapper').css('border', '1px solid red');
+        //        } else {
+        //            parentDiv.removeClass('is-invalid');
+        //            fileInput.removeClass('is-invalid');
+        //            parentDiv.find('.invalid-feedback').hide();
+        //            $('.attach1wrapper').css('border', '');
+        //        }
+        //    }
+
+        //    return isValid;
+        //}
+
+
+        $('#AttachFile-1').on('change', function () {
+            var isValid = AttchemnetValidation($(this), true, "attach1wrapper");
+            if (isValid) {
+                console.log("Attach1 File validation passed.");
+            } else {
+                console.log("Attach1 validation failed.");
+            }
+        });
+
+        $('#AttachFile-2').on('change', function () {
+            var isValid = AttchemnetValidation($(this), true, "attach2wrapper");
+            if (isValid) {
+                console.log("Attach2 File validation passed.");
+            } else {
+                console.log("Attach2 validation failed.");
+            }
+        });
+
+        $('#AttachFile-3').on('change', function () {
+            var isValid = AttchemnetValidation($(this), true, "attach3wrapper");
+            if (isValid) {
+                console.log("Attach3 File validation passed.");
+            } else {
+                console.log("Attach3 validation failed.");
+            }
+        });
+
+
+        function AttchemnetValidation(fileInput, validationRequired, attachwrapper) {
+            let isValid = true;
+            var file = fileInput[0].files[0];
+            var parentDiv = fileInput.closest('.form-group');
+
+            // Use the attachwrapper parameter instead of a hardcoded class name
+            $('.' + attachwrapper).css('border', '');
+
+            if (validationRequired) {
+                if (!file) {
+                    parentDiv.addClass('is-invalid');
+                    fileInput.addClass('is-invalid');
+                    // Apply the border to the dynamic attachwrapper class
+                    $('.' + attachwrapper).css('border', '1px solid red');
+                    parentDiv.find('.invalid-feedback').text('Attach File is required.').show();
+                    isValid = false;
+                }
+            }
+
+            if (file) {
+                var allowedTypes = ['application/pdf', 'application/msword', 'application/vnd.openxmlformats-officedocument.wordprocessingml.document'];
+                var maxSize = 2 * 1024 * 1024; // 2MB
+
+                if ($.inArray(file.type, allowedTypes) === -1 || file.size > maxSize) {
+                    parentDiv.addClass('is-invalid');
+                    fileInput.addClass('is-invalid');
+                    parentDiv.find('.invalid-feedback').text('Invalid file type or size. Please upload a PDF or DOC file less than 2MB.').show();
+                    // Apply the border to the dynamic attachwrapper class
+                    $('.' + attachwrapper).css('border', '1px solid red');
+                    isValid = false;
+                } else {
+                    parentDiv.removeClass('is-invalid');
+                    fileInput.removeClass('is-invalid');
+                    parentDiv.find('.invalid-feedback').hide();
+                    // Remove the border from the dynamic attachwrapper class
+                    $('.' + attachwrapper).css('border', '');
+                }
+            }
+            return isValid;
+        }
+
+
+
+        $('.vendoradd-Submit').on('click', function (event) {
             event.preventDefault();
             let isValid = true;
-
+            var formData = new FormData();
 
             if ($('#PurchaseID').val().trim() === '') {
                 $('#PurchaseID').addClass('is-invalid');
@@ -293,15 +408,15 @@
                 $('#PurchaseID').removeClass('is-invalid');
             }
 
+            if ($('#AssetType').val() === null || $('#AssetType').val() === "") {
+                $('#AssetType').next('.select2-container').addClass('is-invalid');
+                $('#AssetType').next('.select2-container').css('border', '1px solid red');
 
-            if ($('#AssetType').val() === null) {
-                $('#AssetType').addClass('is-invalid');
-                isValid = false;
             } else {
-                $('#AssetType').removeClass('is-invalid');
+                $('#AssetType').next('.select2-container').removeClass('is-invalid');
+                $('#AssetType').next('.select2-container').css('border', '');
             }
 
-            // Validate Required On date
             if ($('#RequiredOn').val().trim() === '') {
                 $('#RequiredOn').addClass('is-invalid');
                 isValid = false;
@@ -309,64 +424,79 @@
                 $('#RequiredOn').removeClass('is-invalid');
             }
 
-            // Validate Requested By
-            if ($('#Requestedby').val() === null) {
-                $('#Requestedby').addClass('is-invalid');
-                isValid = false;
+            if ($('#Requestedby').val() === null || $('#Requestedby').val() === "") {
+                $('#Requestedby').next('.select2-container').addClass('is-invalid');
+                $('#Requestedby').next('.select2-container').css('border', '1px solid red');
+
             } else {
-                $('#Requestedby').removeClass('is-invalid');
+                $('#Requestedby').next('.select2-container').removeClass('is-invalid');
+                $('#Requestedby').next('.select2-container').css('border', '');
             }
 
-            // Validate VendorName-1, QuotationPrice-1, AttachFile-1
-            if ($('#VendorName-1').val() === null) {
-                $('#VendorName-1').addClass('is-invalid');
-                isValid = false;
+            if ($('#VendorName-1').val() === null || $('#VendorName-1').val() === "") {
+                $('#VendorName-1').next('.select2-container').addClass('is-invalid');
+                $('#VendorName-1').next('.select2-container').css('border', '1px solid red');
+
             } else {
-                $('#VendorName-1').removeClass('is-invalid');
+                $('#VendorName-1').next('.select2-container').removeClass('is-invalid');
+                $('#VendorName-1').next('.select2-container').css('border', '');
             }
 
-            if ($('#QuotationPrice-1').val().trim() === '') {
+            if ($('#QuotationPrice-1').val().trim() == '0') {
                 $('#QuotationPrice-1').addClass('is-invalid');
                 isValid = false;
             } else {
                 $('#QuotationPrice-1').removeClass('is-invalid');
             }
 
-            if ($('#AttachFile-1').val().trim() === '') {
-                $('#AttachFile-1').addClass('is-invalid');
-                isValid = false;
-            } else {
-                $('#AttachFile-1').removeClass('is-invalid');
-            }
+            var fileInput1 = $('#AttachFile-1');
+            var AttchmentValidated = AttchemnetValidation(fileInput1, true, "attach1wrapper");
 
-            // Optional: Validate additional VendorName, QuotationPrice, AttachFile fields
-            $('.VendorName, .QuotationPrice, .AttachFile').each(function () {
-                if ($(this).val().trim() === '' && $(this).attr('id') !== 'VendorName-1' && $(this).attr('id') !== 'QuotationPrice-1' && $(this).attr('id') !== 'AttachFile-1') {
-                    $(this).removeClass('is-invalid');
-                }
-            });
+            if (AttchmentValidated == false) {
+                isValid = false;
+            }
 
             // If the form is valid, submit the form via AJAX
             if (isValid) {
+                formData.append('PRNumber', $('#PurchaseID').val().trim());
+                formData.append('AssetType', $('#AssetType').val().trim());
+                formData.append('RequiredOn', $('#RequiredOn').val().trim());
+                formData.append('Requestedby', $('#Requestedby').val().trim());
+
+                formData.append('Vendorname1', $('#select2-VendorName-1-container').text());
+                formData.append('Vendor1quotation', $('#QuotationPrice-1').val().trim());
+                var fileInput1 = $('#AttachFile-1');
+                var file1 = fileInput1[0].files[0];
+                formData.append('AttachFile-1', file1);
+
+                formData.append('Vendorname2', $('#select2-VendorName-2-container').text());
+                formData.append('Vendor2quotation', $('#QuotationPrice-2').val().trim());
+                var fileInput2 = $('#AttachFile-2');
+                var file2 = fileInput2[0].files[0];
+                formData.append('AttachFile-2', file2);
+
+                formData.append('Vendorname3', $('#select2-VendorName-3-container').text());
+                formData.append('Vendor3quotation', $('#QuotationPrice-3').val().trim());
+                var fileInput3 = $('#AttachFile-3');
+                var file3 = fileInput3[0].files[0];
+                formData.append('AttachFile-3', file3);
+
                 $.ajax({
                     url: '/purchase/addpurchaserequest',
                     type: 'POST',
-                    data: new FormData(this),
+                    data: formData,
                     contentType: false,
                     processData: false,
                     success: function (response) {
                         if (response.StatusCode === 200) {
-                            // Show success message in modal
                             $('.modal-message').text(response.Message);
                             $('#successModal').modal('show');
                         } else {
-                            // Show error message in modal
                             $('.modal-message').text(response.Message);
                             $('#errorModal').modal('show');
                         }
                     },
                     error: function (xhr, status, error) {
-                        // Show error message in modal
                         $('.modal-message').text('An error occurred while processing your request. Please try again.');
                         $('#errorModal').modal('show');
                     }
@@ -382,4 +512,5 @@
     });
 
 
-</script>-->
+
+</script>

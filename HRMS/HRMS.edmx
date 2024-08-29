@@ -262,6 +262,11 @@
           <Property Name="RejectedDate" Type="date" />
           <Property Name="PO" Type="varchar(max)" />
           <Property Name="TaxInvoice" Type="varchar(max)" />
+          <Property Name="CreatedBy" Type="varchar" MaxLength="50" />
+          <Property Name="CreatedDate" Type="date" />
+          <Property Name="UpdatedBy" Type="varchar" MaxLength="50" />
+          <Property Name="UpdatedDate" Type="date" />
+          <Property Name="PRNumber" Type="varchar" MaxLength="50" />
         </EntityType>
         <EntityType Name="ReminderLogs">
           <Key>
@@ -761,6 +766,11 @@ warning 6002: The table/view 'HRMS_PortalDev1.dbo.CheckInView' does not have a p
           <Property Name="RejectedDate" Type="DateTime" Precision="0" />
           <Property Name="PO" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
           <Property Name="TaxInvoice" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="CreatedBy" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="CreatedDate" Type="DateTime" Precision="0" />
+          <Property Name="UpdatedBy" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="UpdatedDate" Type="DateTime" Precision="0" />
+          <Property Name="PRNumber" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
         </EntityType>
       </Schema>
     </edmx:ConceptualModels>
@@ -1098,6 +1108,11 @@ warning 6002: The table/view 'HRMS_PortalDev1.dbo.CheckInView' does not have a p
           <EntitySetMapping Name="PurchaseRequests">
             <EntityTypeMapping TypeName="HRMS_EntityModel.PurchaseRequest">
               <MappingFragment StoreEntitySet="PurchaseRequest">
+                <ScalarProperty Name="PRNumber" ColumnName="PRNumber" />
+                <ScalarProperty Name="UpdatedDate" ColumnName="UpdatedDate" />
+                <ScalarProperty Name="UpdatedBy" ColumnName="UpdatedBy" />
+                <ScalarProperty Name="CreatedDate" ColumnName="CreatedDate" />
+                <ScalarProperty Name="CreatedBy" ColumnName="CreatedBy" />
                 <ScalarProperty Name="TaxInvoice" ColumnName="TaxInvoice" />
                 <ScalarProperty Name="PO" ColumnName="PO" />
                 <ScalarProperty Name="RejectedDate" ColumnName="RejectedDate" />
