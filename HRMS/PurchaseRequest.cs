@@ -48,5 +48,6 @@ namespace HRMS
         public string Vendor1Status { get; set; }
         public string Vendor2Status { get; set; }
         public string Vendor3Status { get; set; }
+        public string FinalStatus { get; set; }
     }
 }

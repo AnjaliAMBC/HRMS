@@ -27,10 +27,18 @@ namespace HRMS.Controllers
         // GET: Purchase
         public ActionResult Index()
         {
+            var model = PurchaseListView();
+            return View("~/Views/Itsupport/PurchaseListView.cshtml", model);
+        }
+
+        private PurchaseListViewModel PurchaseListView()
+        {
             var model = new PurchaseListViewModel();
+            var cuserContext = SiteContext.GetCurrentUserContext();
             model.PurchaseRequests = _dbContext.PurchaseRequests.OrderByDescending(x => x.PurchaseRequestID).ToList();
             model.PurchasRequestFolderPath = "/purchase";
-            return View("~/Views/Itsupport/PurchaseListView.cshtml", model);
+            model.ContextModel = cuserContext;
+            return model;
         }
 
         [HttpGet]
@@ -201,6 +209,7 @@ namespace HRMS.Controllers
                         CreatedBy = cuserContext.LoginInfo.EmployeeName,
                         CreatedDate = DateTime.Now,
                         PRNumber = PRNumber,
+                        FinalStatus = "Pending"
                     };
 
                     context.PurchaseRequests.Add(purchaseRequest);
@@ -224,6 +233,7 @@ namespace HRMS.Controllers
                     purchaseRequest.QuotationPrice3 = vendor3Quotation;
                     purchaseRequest.UpdatedBy = cuserContext.LoginInfo.EmployeeName;
                     purchaseRequest.UpdatedDate = DateTime.Now;
+                    purchaseRequest.FinalStatus = "Pending";
                     if (fileInput1 != null)
                     {
                         purchaseRequest.AttachFile1 = fileInput1Name;
@@ -297,19 +307,44 @@ namespace HRMS.Controllers
             return View("~/Views/Itsupport/PurchaseAccountSubmit.cshtml");
         }
 
-        public ActionResult PurchaseSuperApproval()
+        public ActionResult PurchaseSuperApproval(int purchaseId)
         {
-            return View("~/Views/Itsupport/PurchaseSuperApprovalView.cshtml");
+            var purchase = _dbContext.PurchaseRequests.Where(x => x.PurchaseRequestID == purchaseId).OrderByDescending(x => x.PurchaseRequestID).FirstOrDefault();
+            return View("~/Views/Itsupport/PurchaseSuperApprovalView.cshtml", purchase);
         }
 
         public ActionResult PurchasesuperAdmin()
         {
-            return View("~/Views/Itsupport/PurchaseSuperAdminView.cshtml");
+            var model = PurchaseListView();
+            return View("~/Views/Itsupport/PurchaseSuperAdminView.cshtml", model);
         }
 
         public ActionResult PurchaseAccountAdmin()
         {
             return View("~/Views/Itsupport/PurchaseAccountAdmin.cshtml");
+        }
+
+        [HttpPost]
+        public JsonResult UpdateVendorStatus(int purchaseId, string vendor1Status, string vendor2Status, string vendor3Status, string ButtonName)
+        {
+            try
+            {
+                var purchaseRequest = _dbContext.PurchaseRequests.FirstOrDefault(pr => pr.PurchaseRequestID == purchaseId);
+                if (purchaseRequest != null)
+                {
+                    purchaseRequest.Vendor1Status = vendor1Status;
+                    purchaseRequest.Vendor2Status = vendor2Status;
+                    purchaseRequest.Vendor3Status = vendor3Status;
+                    purchaseRequest.UpdatedDate = DateTime.Now;
+                    purchaseRequest.FinalStatus = ButtonName;
+                    _dbContext.SaveChanges();
+                }
+                return Json(new { success = true, message = "Purchase request " + ButtonName + " successfully!" });
+            }
+            catch (Exception ex)
+            {
+                return Json(new { success = false, message = ex.Message });
+            }
         }
     }
 }

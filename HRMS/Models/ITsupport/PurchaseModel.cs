@@ -54,6 +54,8 @@ namespace HRMS.Models.ITsupport
         public List<PurchaseRequest> PurchaseRequests { get; set; } = new List<PurchaseRequest>();
 
         public string PurchasRequestFolderPath { get; set; }
+
+        public SiteContextModel ContextModel = new SiteContextModel();
     }
 
 }

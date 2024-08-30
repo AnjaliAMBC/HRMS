@@ -270,6 +270,7 @@
           <Property Name="Vendor1Status" Type="varchar" MaxLength="50" />
           <Property Name="Vendor2Status" Type="varchar" MaxLength="50" />
           <Property Name="Vendor3Status" Type="varchar" MaxLength="50" />
+          <Property Name="FinalStatus" Type="varchar" MaxLength="50" />
         </EntityType>
         <EntityType Name="ReminderLogs">
           <Key>
@@ -777,6 +778,7 @@ warning 6002: The table/view 'HRMS_PortalDev1.dbo.CheckInView' does not have a p
           <Property Name="Vendor1Status" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
           <Property Name="Vendor2Status" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
           <Property Name="Vendor3Status" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="FinalStatus" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
         </EntityType>
       </Schema>
     </edmx:ConceptualModels>
@@ -1114,6 +1116,7 @@ warning 6002: The table/view 'HRMS_PortalDev1.dbo.CheckInView' does not have a p
           <EntitySetMapping Name="PurchaseRequests">
             <EntityTypeMapping TypeName="HRMS_EntityModel.PurchaseRequest">
               <MappingFragment StoreEntitySet="PurchaseRequest">
+                <ScalarProperty Name="FinalStatus" ColumnName="FinalStatus" />
                 <ScalarProperty Name="Vendor3Status" ColumnName="Vendor3Status" />
                 <ScalarProperty Name="Vendor2Status" ColumnName="Vendor2Status" />
                 <ScalarProperty Name="Vendor1Status" ColumnName="Vendor1Status" />
