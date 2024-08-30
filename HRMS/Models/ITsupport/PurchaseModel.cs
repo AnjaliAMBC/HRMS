@@ -49,4 +49,11 @@ namespace HRMS.Models.ITsupport
         public List<VendorModel> Vendors { get; set; } = new List<VendorModel>();
     }
 
+    public class PurchaseListViewModel
+    {
+        public List<PurchaseRequest> PurchaseRequests { get; set; } = new List<PurchaseRequest>();
+
+        public string PurchasRequestFolderPath { get; set; }
+    }
+
 }

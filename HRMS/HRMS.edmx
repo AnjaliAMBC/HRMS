@@ -263,10 +263,13 @@
           <Property Name="PO" Type="varchar(max)" />
           <Property Name="TaxInvoice" Type="varchar(max)" />
           <Property Name="CreatedBy" Type="varchar" MaxLength="50" />
-          <Property Name="CreatedDate" Type="date" />
+          <Property Name="CreatedDate" Type="datetime" />
           <Property Name="UpdatedBy" Type="varchar" MaxLength="50" />
-          <Property Name="UpdatedDate" Type="date" />
+          <Property Name="UpdatedDate" Type="datetime" />
           <Property Name="PRNumber" Type="varchar" MaxLength="50" />
+          <Property Name="Vendor1Status" Type="varchar" MaxLength="50" />
+          <Property Name="Vendor2Status" Type="varchar" MaxLength="50" />
+          <Property Name="Vendor3Status" Type="varchar" MaxLength="50" />
         </EntityType>
         <EntityType Name="ReminderLogs">
           <Key>
@@ -767,10 +770,13 @@ warning 6002: The table/view 'HRMS_PortalDev1.dbo.CheckInView' does not have a p
           <Property Name="PO" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
           <Property Name="TaxInvoice" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
           <Property Name="CreatedBy" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
-          <Property Name="CreatedDate" Type="DateTime" Precision="0" />
+          <Property Name="CreatedDate" Type="DateTime" Precision="3" />
           <Property Name="UpdatedBy" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
-          <Property Name="UpdatedDate" Type="DateTime" Precision="0" />
+          <Property Name="UpdatedDate" Type="DateTime" Precision="3" />
           <Property Name="PRNumber" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="Vendor1Status" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="Vendor2Status" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="Vendor3Status" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
         </EntityType>
       </Schema>
     </edmx:ConceptualModels>
@@ -1108,6 +1114,9 @@ warning 6002: The table/view 'HRMS_PortalDev1.dbo.CheckInView' does not have a p
           <EntitySetMapping Name="PurchaseRequests">
             <EntityTypeMapping TypeName="HRMS_EntityModel.PurchaseRequest">
               <MappingFragment StoreEntitySet="PurchaseRequest">
+                <ScalarProperty Name="Vendor3Status" ColumnName="Vendor3Status" />
+                <ScalarProperty Name="Vendor2Status" ColumnName="Vendor2Status" />
+                <ScalarProperty Name="Vendor1Status" ColumnName="Vendor1Status" />
                 <ScalarProperty Name="PRNumber" ColumnName="PRNumber" />
                 <ScalarProperty Name="UpdatedDate" ColumnName="UpdatedDate" />
                 <ScalarProperty Name="UpdatedBy" ColumnName="UpdatedBy" />

@@ -27,7 +27,10 @@ namespace HRMS.Controllers
         // GET: Purchase
         public ActionResult Index()
         {
-            return View("~/Views/Itsupport/PurchaseListView.cshtml");
+            var model = new PurchaseListViewModel();
+            model.PurchaseRequests = _dbContext.PurchaseRequests.ToList();
+            model.PurchasRequestFolderPath = "/purchase";
+            return View("~/Views/Itsupport/PurchaseListView.cshtml", model);
         }
 
         [HttpGet]
@@ -183,40 +186,39 @@ namespace HRMS.Controllers
                         VendorEmail1 = vendor1Emails,
                         VendorID1 = vendorID1,
                         QuotationPrice1 = vendor1Quotation,
-                        AttachFile1 = fileInput1Path,
+                        AttachFile1 = fileInput1Name,
                         VendorName2 = vendor2Name,
                         VendorEmail2 = vendor2Emails,
                         VendorID2 = vendorID2,
                         QuotationPrice2 = vendor2Quotation,
-                        AttachFile2 = fileInput2Path,
+                        AttachFile2 = fileInput2Name,
                         VendorName3 = vendor3Name,
                         VendorEmail3 = vendor3Emails,
                         VendorID3 = vendorID3,
                         QuotationPrice3 = vendor3Quotation,
-                        AttachFile3 = fileInput3Path,
+                        AttachFile3 = fileInput3Name,
                         Status = "Pending",
                         CreatedBy = cuserContext.LoginInfo.EmployeeName,
                         CreatedDate = DateTime.Now,
-                        PRNumber = PRNumber
+                        PRNumber = PRNumber,
+
+
                     };
 
                     context.PurchaseRequests.Add(purchaseRequest);
                 }
                 else
                 {
-                    // Update existing record
+
                     purchaseRequest.AssetType = assetType;
                     purchaseRequest.RequestedBy = requestedBy;
                     purchaseRequest.RequiredOn = DateTime.Parse(requiredOn);
                     purchaseRequest.VendorName1 = vendorName1;
                     purchaseRequest.QuotationPrice1 = vendor1Quotation;
-                    //if (attachFile1 != null) purchaseRequest.AttachFile1 = attachFile1;
                     purchaseRequest.VendorName2 = vendorName2;
                     purchaseRequest.QuotationPrice2 = vendor2Quotation;
-                    //if (attachFile2 != null) purchaseRequest.AttachFile2 = attachFile2;
                     purchaseRequest.VendorName3 = vendorName3;
                     purchaseRequest.QuotationPrice3 = vendor3Quotation;
-                    //if (attachFile3 != null) purchaseRequest.AttachFile3 = attachFile3;
                     purchaseRequest.UpdatedBy = cuserContext.LoginInfo.EmployeeName;
                     purchaseRequest.UpdatedDate = DateTime.Now;
                 }
@@ -261,6 +263,13 @@ namespace HRMS.Controllers
         public ActionResult PurchaseAdd()
         {
             return View("~/Views/Itsupport/PurchaseAdd.cshtml");
+        }
+
+
+        public JsonResult Getpurchaserequestdetails(int id)
+        {
+            var purchase = _dbContext.PurchaseRequests.Where(x => x.PurchaseRequestID == id).FirstOrDefault();
+            return Json(Newtonsoft.Json.JsonConvert.SerializeObject(purchase), JsonRequestBehavior.AllowGet);
         }
 
         public ActionResult PurchaseImport()

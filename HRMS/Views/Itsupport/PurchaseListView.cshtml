@@ -1,4 +1,6 @@
-﻿@Html.Partial("_NavBar")
+﻿@model HRMS.Models.ITsupport.PurchaseListViewModel
+
+@Html.Partial("_NavBar")
 @{
     ViewBag.Title = "PurchaseListView";
 }
@@ -27,17 +29,17 @@
                         </div>
                         <div class="col-xl-5 col-lg-12 navbarl1 col-sm-12 col-md-12 res-itadmin-purchase-header-right">
                             <!-- Export -->
-                            <div class="col-xl-4 col-lg-3 navbarl1 col-sm-4 col-xs-12 col-md-4 res-admin-purchase-status p-0">
-                                <div class="form-group res-purchaselisting">
-                                    <select class="form-control form-select" name="purchasestatus" id="purchaselisting-status-dropdown" style="">
-                                        <option value="" disabled selected>Status</option>
-                                        <option value="Approved">Approved</option>
-                                        <option value="Rejected">Rejected</option>
-                                        <option value="Pending">Pending</option>
-                                        <option value="">All</option>
-                                    </select>
-                                </div>
-                            </div>
+                            @*<div class="col-xl-4 col-lg-3 navbarl1 col-sm-4 col-xs-12 col-md-4 res-admin-purchase-status p-0">
+                                    <div class="form-group res-purchaselisting">
+                                        <select class="form-control form-select" name="purchasestatus" id="purchaselisting-status-dropdown" style="">
+                                            <option value="" disabled selected>Status</option>
+                                            <option value="Approved">Approved</option>
+                                            <option value="Rejected">Rejected</option>
+                                            <option value="Pending">Pending</option>
+                                            <option value="">All</option>
+                                        </select>
+                                    </div>
+                                </div>*@
                             <div class="col-xl-2 col-lg-1  navbarl1 col-sm-2 col-md-2 res-itadmin-purchase-export p-0">
                                 <div class="itadminpurchase-export" style="">
                                     <button type="button" class="btn purchaselist-export-btn pt-0" id="exportPurchase" onclick="exportPurchase()">
@@ -74,76 +76,59 @@
                             </tr>
                         </thead>
                         <tbody>
-                            <tr class="odd">
-                                <td><input type="checkbox" class="purchaseitadmin-check"></td>
-                                <td class="itprequestno">PR11</td>
-                                <td class="itpassettype">Hardware</td>
-                                <td>Goutham</td>
-                                <td class="itpvendor1 table-itp-vendor-info">
-                                    <div style="display: flex; align-items: center;">
-                                        <span style="margin-top: 0px; margin-right: 10px; line-height:1rem">
-                                            Mithun Sivaprakasam<br>
-                                            <a class="itp_filepath" href="#" target="_blank">Hardware_Quotation.pdf</a><br />
-                                            <span class="pending">Pending</span>
+                            @foreach (var purchserequest in Model.PurchaseRequests)
+                            {
+                                <tr>
+                                    <td><input type="checkbox" class="purchaseitadmin-check"></td>
+                                    <td class="itprequestno" data-purchaseid="@purchserequest.PurchaseRequestID">@purchserequest.PRNumber</td>
+                                    <td class="itpassettype">@purchserequest.AssetType</td>
+                                    <td>@purchserequest.RequestedBy</td>
+                                    <td class="itpvendor1 table-itp-vendor-info">
+                                        <div style="display: flex; align-items: center;">
+                                            <span style="margin-top: 0px; margin-right: 10px; line-height:1rem">
+                                                @purchserequest.VendorName1<br>
+                                                <a class="itp_filepath" href="/Ticketing/@Model.PurchasRequestFolderPath/@purchserequest.AttachFile1" target="_blank">@purchserequest.AttachFile1</a><br />
+                                                @if (string.IsNullOrWhiteSpace(@purchserequest.ApprovedBy) || string.IsNullOrWhiteSpace(@purchserequest.RejectedBy))
+                                                {
+                                                    <span class="pending">Pending</span>
+                                                }
+
+                                            </span>
+                                        </div>
+                                    </td>
+                                    <td class="itpvendor2 table-itp-vendor-info">
+                                        <div style="display: flex; align-items: center;">
+                                            <span style="margin-top: 0px; margin-right: 10px; line-height: 1rem">
+                                                @purchserequest.VendorName2<br>
+                                                @if (!string.IsNullOrWhiteSpace(@purchserequest.AttachFile2))
+                                                {
+                                                    <a class="itp_filepath" href="/Ticketing/@Model.PurchasRequestFolderPath/@purchserequest.AttachFile2" target="_blank">@purchserequest.AttachFile2</a><br />
+                                                }
+
+                                                @*<span class="approved"></span>*@
+                                            </span>
+                                        </div>
+                                    </td>
+                                    <td class="itpvendor3 table-itp-vendor-info">
+                                        <div style="display: flex; align-items: center;">
+                                            <span style="margin-top: 0px; margin-right: 10px; line-height: 1rem">
+                                                @purchserequest.VendorName3<br>
+                                                @if (!string.IsNullOrWhiteSpace(@purchserequest.AttachFile3))
+                                                {
+                                                    <a class="itp_filepath" href="/@Model.PurchasRequestFolderPath/@purchserequest.AttachFile3" target="_blank">@purchserequest.AttachFile3</a><br />
+                                                }
+                                                @*<span class="rejected"></span>*@
+                                            </span>
+                                        </div>
+                                    </td>
+                                    <td style="text-align:center;">
+                                        <span class="purchaseitadmin-approval-edit" data-toggle="modal" data-target="#purchaseitadmin-approvalcard" onclick="">
+                                            <i class="fas fa-pencil-alt"></i>
                                         </span>
-                                    </div>
-                                </td>
-                                <td class="itpvendor2 table-itp-vendor-info">
-                                    <div style="display: flex; align-items: center;">
-                                        <span style="margin-top: 0px; margin-right: 10px; line-height: 1rem">
-                                            Mithun Sivaprakasam<br>
-                                            <a class="itp_filepath" href="#" target="_blank">Hardware_Quotation.pdf</a><br />
-                                            <span class="approved">Approved</span>
-                                        </span>
-                                    </div>
-                                </td>
-                                <td class="itpvendor3 table-itp-vendor-info">
-                                    <div style="display: flex; align-items: center;">
-                                        <span style="margin-top: 0px; margin-right: 10px; line-height: 1rem">
-                                            Mithun Sivaprakasam<br>
-                                            <a class="itp_filepath" href="#"  target="_blank">Hardware_Quotation.pdf</a><br />
-                                            <span class="rejected">Rejected</span>
-                                        </span>
-                                    </div>
-                                </td>
-                                <td style="text-align:center;">
-                                    <span class="purchaseitadmin-approval-edit" data-toggle="modal" data-target="#purchaseitadmin-approvalcard" onclick="">
-                                        <i class="fas fa-pencil-alt"></i>
-                                    </span>
-                                </td>
-                            </tr>
-                            <tr class="even">
-                                <td><input type="checkbox" class="purchaseitadmin-check"></td>
-                                <td class="itprequestno">PR76</td>
-                                <td class="itpassettype">Hardware</td>
-                                <td>Goutham</td>
-                                <td class="itpvendor1 table-itp-vendor-info">
-                                    <div style="display: flex; align-items: center;">
-                                        <span style="margin-top: 0px; margin-right: 10px; line-height: 1rem">
-                                        Mithun Sivaprakasam<br>
-                                            <a class="itp_filepath" href="#" target="_blank">Hardware_Quotation.pdf</a><br />
-                                        <span class="pending">Pending</span>
-                                        </span>
-                                    </div>
-                                </td>
-                                <td class="itpvendor2 table-itp-vendor-info">
-                                    <div style="display: flex; align-items: center;">
-                                        <span style="margin-top: 0px; margin-right: 10px; line-height: 1rem">
-                                            Mithun Sivaprakasam<br>
-                                            <a class="itp_filepath" href="#" target="_blank">Hardware_Quotation.pdf</a><br />
-                                            <span class="approved">Approved</span>
-                                        </span>
-                                    </div>
-                                </td>
-                                <td class="itpvendor3 table-itp-vendor-info">
-                                    -
-                                </td>
-                                <td style="text-align:center;">
-                                    <span class="purchaseitadmin-approval-edit" data-toggle="modal" data-target="#purchaseitadmin-approvalcard" onclick="">
-                                        <i class="fas fa-pencil-alt"></i>
-                                    </span>
-                                </td>
-                            </tr>
+                                    </td>
+                                </tr>
+                            }
+
                         </tbody>
                     </table>
                 </div>
@@ -178,7 +163,7 @@
                             <div class="purchaseStatus-date" title="test">07 Jan 24 00:00 AM</div>
                         </span>
                     </div>
-                    <div class="purchaseStatus-list">
+                    <div class="purchaseStatus-list approveorreject">
                         <div class="col-lg-1 col-md-1 col-sm-2 purchaseStatus-left">
                             <div class="vl-0"></div>
                             <i class="fa fa-check-circle" aria-hidden="true"></i>
@@ -232,13 +217,17 @@
             });
 
 
-            $(document).on('change', '#hr-purchaselisting-status-dropdown', function (event) {
-                var status = $(this).val();
-                if (status == "All") {
-                    status = "";
-                }
-                table.column(7).search(status).draw();
-            });
+            //$(document).on('change', '#purchaselisting-status-dropdown', function (event) {
+            //    var status = $(this).val();
+            //    if (status == "All") {
+            //        status = "";
+            //    }
+            //    table.column(4).search(status)
+            //        .column(5).search(status)
+            //        .column(6).search(status)
+            //        .draw();
+
+            //});
         }
 
         $(document).on('change', '#addpurchase', function () {
@@ -255,6 +244,84 @@
         });
 
     });
+
+
+    $(document).on('click', '.itprequestno', function () {
+        var purchaseRequestID = $(this).data('purchaseid'); // Get the PurchaseRequestID
+
+        // AJAX request to fetch details from the server
+        $.ajax({
+            url: '/purchase/getpurchaserequestdetails', // Adjust the URL to your controller and action
+            type: 'GET',
+            data: { id: purchaseRequestID },
+            success: function (response) {
+                // Populate the modal with the fetched data
+                var data = $.parseJSON(response);
+                // Set the modal title with the PR number
+                $('#purchaseStatusModalLabel').text(data.PRNumber + ' Status');
+
+                // Display the requested by name and created date
+                $('#itpurchaseStatusModal .purchaseStatus-list').eq(0).find('.sender-name').text(data.RequestedBy);
+                $('#itpurchaseStatusModal .purchaseStatus-list').eq(0).find('.purchaseStatus-date').text(formatDate(data.CreatedDate));
+
+                if (data.ApprovedBy) {
+                    // Display approved status
+                    $('#itpurchaseStatusModal .purchaseStatus-list.approveorreject').find('.approved-by').text('Approved By');
+                    $('#itpurchaseStatusModal .purchaseStatus-list.approveorreject').find('.sender-name').text(data.ApprovedBy);
+                    $('#itpurchaseStatusModal .purchaseStatus-list.approveorreject').find('.purchaseStatus-date').text(formatDate(data.ApprovedDate));
+                    $('#itpurchaseStatusModal .purchaseStatus-list.approveorreject').find('i').removeClass('fa-circle').addClass('fa-check-circle').css('color', 'green'); // Set tick to check-circle and color to green
+                } else if (data.RejectedBy) {
+                    // Display rejected status
+                    $('#itpurchaseStatusModal .purchaseStatus-list.approveorreject').find('.approved-by').text('Rejected By');
+                    $('#itpurchaseStatusModal .purchaseStatus-list.approveorreject').find('.sender-name').text(data.RejectedBy);
+                    $('#itpurchaseStatusModal .purchaseStatus-list.approveorreject').find('.purchaseStatus-date').text(formatDate(data.RejectedDate));
+                    $('#itpurchaseStatusModal .purchaseStatus-list.approveorreject').find('i').removeClass('fa-circle').addClass('fa-check-circle').css('color', 'red'); // Set tick to check-circle and color to red
+                } else {
+                    // Display default status
+                    $('#itpurchaseStatusModal .purchaseStatus-list.approveorreject').find('.approved-by').text('Pending');
+                    $('#itpurchaseStatusModal .purchaseStatus-list.approveorreject').find('.sender-name').text('');
+                    $('#itpurchaseStatusModal .purchaseStatus-list.approveorreject').find('.purchaseStatus-date').text('');
+                    $('#itpurchaseStatusModal .purchaseStatus-list.approveorreject').find('i').removeClass('fa-check-circle').addClass('fa-circle').css('color', 'gray'); // Set tick to circle and color to gray
+                }
+
+
+
+                // Handle purchase order (PO) status
+                if (data.PO) {
+                    $('#itpurchaseStatusModal .purchaseStatus-list').eq(2).find('.fa').addClass('fa-check-circle').removeClass('fa-circle');
+                } else {
+                    $('#itpurchaseStatusModal .purchaseStatus-list').eq(2).find('.fa').addClass('fa-circle').removeClass('fa-check-circle');
+                }
+
+                // Handle tax invoice status
+                if (data.TaxInvoice) {
+                    $('#itpurchaseStatusModal .purchaseStatus-list').eq(3).find('.fa').addClass('fa-check-circle').removeClass('fa-circle');
+                } else {
+                    $('#itpurchaseStatusModal .purchaseStatus-list').eq(3).find('.fa').addClass('fa-circle').removeClass('fa-check-circle');
+                }
+
+                // Open the modal
+                $('#itpurchaseStatusModal').modal('show');
+            },
+            error: function (xhr, status, error) {
+                console.error('Error fetching purchase request details:', error);
+            }
+        });
+    });
+
+    // Utility function to format date
+    function formatDate(dateString) {
+        var date = new Date(dateString);
+        return date.toLocaleDateString('en-US', {
+            day: '2-digit',
+            month: 'short',
+            year: 'numeric',
+            hour: '2-digit',
+            minute: '2-digit',
+            hour12: true
+        });
+    }
+
 
 
 
