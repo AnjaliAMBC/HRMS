@@ -84,13 +84,13 @@ $(document).on('click', '.itprequestno', function () {
             $('#itpurchaseStatusModal .purchaseStatus-list').eq(0).find('.sender-name').text(data.RequestedBy);
             $('#itpurchaseStatusModal .purchaseStatus-list').eq(0).find('.purchaseStatus-date').text(PurchaseformatDate(data.CreatedDate));
 
-            if (data.ApprovedBy) {
+            if (data.FinalStatus == "Approved") {
                 // Display approved status
                 $('#itpurchaseStatusModal .purchaseStatus-list.approveorreject').find('.approved-by').text('Approved By');
                 $('#itpurchaseStatusModal .purchaseStatus-list.approveorreject').find('.sender-name').text(data.ApprovedBy);
                 $('#itpurchaseStatusModal .purchaseStatus-list.approveorreject').find('.purchaseStatus-date').text(PurchaseformatDate(data.ApprovedDate));
                 $('#itpurchaseStatusModal .purchaseStatus-list.approveorreject').find('i').removeClass('fa-circle').addClass('fa-check-circle').css('color', 'green'); // Set tick to check-circle and color to green
-            } else if (data.RejectedBy) {
+            } else if (data.FinalStatus == "Rejected") {
                 // Display rejected status
                 $('#itpurchaseStatusModal .purchaseStatus-list.approveorreject').find('.approved-by').text('Rejected By');
                 $('#itpurchaseStatusModal .purchaseStatus-list.approveorreject').find('.sender-name').text(data.RejectedBy);

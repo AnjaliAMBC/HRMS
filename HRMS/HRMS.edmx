@@ -257,9 +257,9 @@
           <Property Name="AttachFile3" Type="varchar(max)" />
           <Property Name="Status" Type="varchar" MaxLength="50" />
           <Property Name="ApprovedBy" Type="varchar" MaxLength="100" />
-          <Property Name="ApprovedDate" Type="date" />
+          <Property Name="ApprovedDate" Type="datetime" />
           <Property Name="RejectedBy" Type="varchar" MaxLength="50" />
-          <Property Name="RejectedDate" Type="date" />
+          <Property Name="RejectedDate" Type="datetime" />
           <Property Name="PO" Type="varchar(max)" />
           <Property Name="TaxInvoice" Type="varchar(max)" />
           <Property Name="CreatedBy" Type="varchar" MaxLength="50" />
@@ -765,9 +765,9 @@ warning 6002: The table/view 'HRMS_PortalDev1.dbo.CheckInView' does not have a p
           <Property Name="AttachFile3" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
           <Property Name="Status" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
           <Property Name="ApprovedBy" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
-          <Property Name="ApprovedDate" Type="DateTime" Precision="0" />
+          <Property Name="ApprovedDate" Type="DateTime" Precision="3" />
           <Property Name="RejectedBy" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
-          <Property Name="RejectedDate" Type="DateTime" Precision="0" />
+          <Property Name="RejectedDate" Type="DateTime" Precision="3" />
           <Property Name="PO" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
           <Property Name="TaxInvoice" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
           <Property Name="CreatedBy" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />

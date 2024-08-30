@@ -327,6 +327,8 @@ namespace HRMS.Controllers
         [HttpPost]
         public JsonResult UpdateVendorStatus(int purchaseId, string vendor1Status, string vendor2Status, string vendor3Status, string ButtonName)
         {
+            var cuserContext = SiteContext.GetCurrentUserContext();
+
             try
             {
                 var purchaseRequest = _dbContext.PurchaseRequests.FirstOrDefault(pr => pr.PurchaseRequestID == purchaseId);
@@ -337,6 +339,19 @@ namespace HRMS.Controllers
                     purchaseRequest.Vendor3Status = vendor3Status;
                     purchaseRequest.UpdatedDate = DateTime.Now;
                     purchaseRequest.FinalStatus = ButtonName;
+
+                    if (ButtonName == "Approved")
+                    {
+                        purchaseRequest.ApprovedBy = cuserContext.EmpInfo.EmployeeName;
+                        purchaseRequest.ApprovedDate = DateTime.Now;
+                    }
+
+                    if (ButtonName == "Rejected")
+                    {
+                        purchaseRequest.RejectedBy = cuserContext.EmpInfo.EmployeeName;
+                        purchaseRequest.RejectedDate = DateTime.Now;
+                    }
+
                     _dbContext.SaveChanges();
                 }
                 return Json(new { success = true, message = "Purchase request " + ButtonName + " successfully!" });
