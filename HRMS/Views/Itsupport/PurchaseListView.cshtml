@@ -122,7 +122,7 @@
                                         </div>
                                     </td>
                                     <td style="text-align:center;">
-                                        <span class="purchaseitadmin-approval-edit" data-toggle="modal" data-target="#purchaseitadmin-approvalcard" onclick="">
+                                        <span class="purchaseitadmin-approval-edit" data-purchaseid="@purchserequest.PurchaseRequestID">
                                             <i class="fas fa-pencil-alt"></i>
                                         </span>
                                     </td>
@@ -322,7 +322,10 @@
         });
     }
 
-
+    $(document).on('click', '.purchaseitadmin-approval-edit', function () {
+        var purchaseID = $(this).attr("data-purchaseid");
+        window.location.href = "/purchase/addpurchaserequest?purchaseId=" + purchaseID;
+    });
 
 
 </script>

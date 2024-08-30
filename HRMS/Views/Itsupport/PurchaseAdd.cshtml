@@ -47,7 +47,7 @@
                                         }
                                         else
                                         {
-                                            <input type="number" class="form-control" name="PurchaseID" value="@Model.EditPurchase.PRNumber" id="PurchaseID" placeholder="Enter Purchase Request ID" required readonly>
+                                            <input type="text" class="form-control" name="PurchaseID" value="@Model.EditPurchase.PRNumber" id="PurchaseID" placeholder="Enter Purchase Request ID" required readonly>
                                         }
                                         <div class="invalid-feedback">Purchase Request ID is required.</div>
                                     </div>
@@ -75,12 +75,16 @@
                                 <div class="col-lg-3 col-md-6">
                                     <div class="form-group purchaseadd-tabs">
                                         <label for="RequiredOn">Required On*</label>
-                                        <input type="date"
-                                               class="form-control"
-                                               name="RequiredOn"
-                                               id="RequiredOn"
-                                               value="@Model.EditPurchase?.RequiredOn?.ToString(" yyyy-MM-dd")"
-                                               required>
+
+                                        @if (Model.EditPurchase.RequiredOn != DateTime.MinValue)
+                                        {
+                                            @Html.TextBoxFor(m => m.EditPurchase.RequiredOn, "{0:yyyy-MM-dd}", new { @type = "date", @class = "form-control", @id = "RequiredOn" })
+                                        }
+                                        else
+                                        {
+                                            <input type="date" class="form-control" id="RequiredOn" value="@Model.EditPurchase.RequiredOn">
+                                        }
+
                                         <div class="invalid-feedback">Required On is required.</div>
                                     </div>
                                 </div>
@@ -151,8 +155,14 @@
                                                    name="AttachFile-1"
                                                    id="AttachFile-1"
                                                    required
-                                                   accept=".pdf,.doc,.docx">
+                                                   accept=".pdf,.doc,.docx" data-existingfile="@Model.EditPurchase.AttachFile1">
                                         </div>
+
+                                        @if (!string.IsNullOrWhiteSpace(@Model.EditPurchase.AttachFile1))
+                                        {
+                                            <a class="itp_filepath attchedfile-1" href="/purchase/@Model.EditPurchase.AttachFile1" target="_blank">@Model.EditPurchase.AttachFile1</a><br />
+                                        }
+
                                         <small style="font-size: 12px; float: left; margin-top: -5px; color: #3E78CF;">File supported PDF, DOCS of 2MB</small>
                                         <div class="invalid-feedback">Attach File is required.</div>
                                     </div>
@@ -187,8 +197,20 @@
                                         <label for="AttachFile-2" style="width:100%;">Attach File</label>
                                         <div class="upload-btn-wrapper attach2wrapper">
                                             <button class="btn vendor-upload-btn">Upload</button>
-                                            <input type="file" value="" class="form-control" name="AttachFile-2" id="AttachFile-2"  accept=".pdf,.doc,.docx">
+                                            <input type="file" data-existingfile="@Model.EditPurchase.AttachFile2" class="form-control" name="AttachFile-2" id="AttachFile-2" accept=".pdf,.doc,.docx">
                                         </div>
+
+                                        @{
+                                            var showAttchemnt2 = "disaply:block";
+                                        }
+
+                                        @if (string.IsNullOrWhiteSpace(@Model.EditPurchase.AttachFile3))
+                                        {
+                                            showAttchemnt2 = "disaply:none";
+                                        }
+
+                                        <a style="@showAttchemnt2" class="itp_filepath attchedfile-2" href="/purchase/@Model.EditPurchase.AttachFile2" target="_blank">@Model.EditPurchase.AttachFile2</a><br />
+
                                         <div class="invalid-feedback">Attach File is required.</div>
                                         <small style="font-size: 12px; float: left; margin-top: -5px; color: #3E78CF; ">File supported PDF, DOCS of 2MB</small>
                                     </div>
@@ -222,8 +244,19 @@
                                         <label for="AttachFile-3" style="width:100%;">Attach File</label>
                                         <div class="upload-btn-wrapper attach3wrapper">
                                             <button class="btn vendor-upload-btn">Upload</button>
-                                            <input type="file" value="" class="form-control" name="AttachFile-3" id="AttachFile-3"  accept=".pdf,.doc,.docx">
+                                            <input type="file" value="" class="form-control" name="AttachFile-3" id="AttachFile-3" data-existingfile="@Model.EditPurchase.AttachFile3" accept=".pdf,.doc,.docx">
                                         </div>
+                                        @{
+                                            var showAttchemnt3 = "disaply:block";
+                                        }
+
+                                        @if (string.IsNullOrWhiteSpace(@Model.EditPurchase.AttachFile3))
+                                        {
+                                            showAttchemnt3 = "disaply:none";
+                                        }
+
+                                        <a style="@showAttchemnt3" class="itp_filepath attchedfile-3" href="/purchase/@Model.EditPurchase.AttachFile3" target="_blank">@Model.EditPurchase.AttachFile3</a><br />
+
                                         <div class="invalid-feedback">Attach File is required.</div>
                                         <small style="font-size: 12px; float: left; margin-top: -5px; color: #3E78CF; ">File supported PDF, DOCS of 2MB</small>
                                     </div>
@@ -326,8 +359,19 @@
 
 
         $('#AttachFile-1').on('change', function () {
-            var isValid = AttchemnetValidation($(this), true, "attach1wrapper");
+            var isValid = AttchemnetValidation($(this), true, "attach1wrapper", "#AttachFile-1");
+            $(this).attr("data-existingfile", "");
             if (isValid) {
+                var fileInput1 = $('#AttachFile-1');
+                var file = fileInput1[0].files[0];
+                if (file) {
+                    var fileName = file.name;
+                    var fileUrl = URL.createObjectURL(file);
+
+                    $('.attchedfile-1').attr('href', fileUrl).text(fileName).show();
+                } else {
+                    $('.attchedfile-1').hide();
+                }
                 console.log("Attach1 File validation passed.");
             } else {
                 console.log("Attach1 validation failed.");
@@ -335,8 +379,19 @@
         });
 
         $('#AttachFile-2').on('change', function () {
-            var isValid = AttchemnetValidation($(this), true, "attach2wrapper");
+            var isValid = AttchemnetValidation($(this), true, "attach2wrapper", "#AttachFile-2");
+            $(this).attr("data-existingfile", "");
             if (isValid) {
+                var fileInput2 = $('#AttachFile-2');
+                var file = fileInput2[0].files[0];
+                if (file) {
+                    var fileName = file.name;
+                    var fileUrl = URL.createObjectURL(file);
+
+                    $('.attchedfile-2').attr('href', fileUrl).text(fileName).show();
+                } else {
+                    $('.attchedfile-2').hide();
+                }
                 console.log("Attach2 File validation passed.");
             } else {
                 console.log("Attach2 validation failed.");
@@ -344,8 +399,19 @@
         });
 
         $('#AttachFile-3').on('change', function () {
-            var isValid = AttchemnetValidation($(this), true, "attach3wrapper");
+            var isValid = AttchemnetValidation($(this), true, "attach3wrapper", "#AttachFile-3");
+            $(this).attr("data-existingfile", "");
             if (isValid) {
+                var fileInput3 = $('#AttachFile-3');
+                var file = fileInput3[0].files[0];
+                if (file) {
+                    var fileName = file.name;
+                    var fileUrl = URL.createObjectURL(file);
+
+                    $('.attchedfile-3').attr('href', fileUrl).text(fileName).show();
+                } else {
+                    $('.attchedfile-3').hide();
+                }
                 console.log("Attach3 File validation passed.");
             } else {
                 console.log("Attach3 validation failed.");
@@ -353,8 +419,13 @@
         });
 
 
-        function AttchemnetValidation(fileInput, validationRequired, attachwrapper) {
+        function AttchemnetValidation(fileInput, validationRequired, attachwrapper, filefieldid) {
+
             let isValid = true;
+            if ($(filefieldid).attr("data-existingfile") != "") {
+                return isValid;
+            }
+
             var file = fileInput[0].files[0];
             var parentDiv = fileInput.closest('.form-group');
 
@@ -450,7 +521,7 @@
             }
 
             var fileInput1 = $('#AttachFile-1');
-            var AttchmentValidated = AttchemnetValidation(fileInput1, true, "attach1wrapper");
+            var AttchmentValidated = AttchemnetValidation(fileInput1, true, "attach1wrapper", "#AttachFile-1");
 
             if (AttchmentValidated == false) {
                 isValid = false;
