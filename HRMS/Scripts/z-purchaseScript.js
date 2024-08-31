@@ -128,3 +128,51 @@ $(document).on('click', '.itprequestno', function () {
         }
     });
 });
+
+
+
+function AttchemnetValidation(fileInput, validationRequired, attachwrapper, filefieldid) {
+
+    let isValid = true;
+    if ($(filefieldid).attr("data-existingfile") != undefined && $(filefieldid).attr("data-existingfile") != "") {
+        return isValid;
+    }
+
+    var file = fileInput[0].files[0];
+    var parentDiv = fileInput.closest('.form-group');
+
+    // Use the attachwrapper parameter instead of a hardcoded class name
+    $('.' + attachwrapper).css('border', '');
+
+    if (validationRequired) {
+        if (!file) {
+            parentDiv.addClass('is-invalid');
+            fileInput.addClass('is-invalid');
+            // Apply the border to the dynamic attachwrapper class
+            $('.' + attachwrapper).css('border', '1px solid red');
+            parentDiv.find('.invalid-feedback').text('Attach File is required.').show();
+            isValid = false;
+        }
+    }
+
+    if (file) {
+        var allowedTypes = ['application/pdf', 'application/msword', 'application/vnd.openxmlformats-officedocument.wordprocessingml.document'];
+        var maxSize = 2 * 1024 * 1024; // 2MB
+
+        if ($.inArray(file.type, allowedTypes) === -1 || file.size > maxSize) {
+            parentDiv.addClass('is-invalid');
+            fileInput.addClass('is-invalid');
+            parentDiv.find('.invalid-feedback').text('Invalid file type or size. Please upload a PDF or DOC file less than 2MB.').show();
+            // Apply the border to the dynamic attachwrapper class
+            $('.' + attachwrapper).css('border', '1px solid red');
+            isValid = false;
+        } else {
+            parentDiv.removeClass('is-invalid');
+            fileInput.removeClass('is-invalid');
+            parentDiv.find('.invalid-feedback').hide();
+            // Remove the border from the dynamic attachwrapper class
+            $('.' + attachwrapper).css('border', '');
+        }
+    }
+    return isValid;
+}

@@ -1,6 +1,42 @@
-﻿
+﻿@model HRMS.PurchaseRequest
+
 @{
     ViewBag.Title = "PurchaseSuperAdminView";
+}
+
+@{
+    int ApprovedvendorID = 0;
+    string ApprovedvendorName = "";
+    string ApprovedvendorEmail = "";
+    string ApprovedvendorFile = "";
+    decimal ApprovedvendorPrice = 0;
+
+    if (Model.Vendor1Status == "Approved")
+    {
+        ApprovedvendorID = Model.VendorID1;
+        ApprovedvendorName = Model.VendorName1;
+        ApprovedvendorEmail = Model.VendorEmail1;
+        ApprovedvendorFile = Model.AttachFile1;
+        ApprovedvendorPrice = Model.QuotationPrice1;
+    }
+
+    if (Model.Vendor2Status == "Approved")
+    {
+        ApprovedvendorID = Model.VendorID2.HasValue ? Model.VendorID2.Value : 0;
+        ApprovedvendorName = Model.VendorName2;
+        ApprovedvendorEmail = Model.VendorEmail2;
+        ApprovedvendorFile = Model.AttachFile2;
+        ApprovedvendorPrice = Model.QuotationPrice2.HasValue ? Model.QuotationPrice2.Value : 0;
+    }
+
+    if (Model.Vendor3Status == "Approved")
+    {
+        ApprovedvendorID = Model.VendorID3.HasValue ? Model.VendorID3.Value : 0;
+        ApprovedvendorName = Model.VendorName3;
+        ApprovedvendorEmail = Model.VendorEmail3;
+        ApprovedvendorFile = Model.AttachFile3;
+        ApprovedvendorPrice = Model.QuotationPrice3.HasValue ? Model.QuotationPrice3.Value : 0;
+    }
 }
 
 @Html.Partial("_NavBar")
@@ -12,7 +48,7 @@
             <div class="admin-purchaseaccount-add">
                 <div class="container-fluid top admin-purchaseaccountadd">
                     <div class="row navbar align-items-center mt-2">
-                        <h4 class="header mb-0 text-right">Purchase Request 24</h4>
+                        <h4 class="header mb-0 text-right">Purchase Request: @Model.PRNumber</h4>
                     </div>
 
                     <!-- Basic HTML Form -->
@@ -22,28 +58,29 @@
                                 <div class="col-lg-3 col-md-6" style="padding-left: 0px;">
                                     <div class="form-group purchaseaccountadd-tabs">
                                         <label for="PAVendorID">Vendor ID</label>
-                                        <input type="text" class="form-control" name="PAVendorID" value="24" id="PAVendorID" placeholder="Enter Vendor ID" required readonly>
+                                        <input type="text" class="form-control" name="PAVendorID" value="@ApprovedvendorID" id="PAVendorID" placeholder="Enter Vendor ID" required readonly>
                                         <div class="invalid-feedback">Vendor ID is required.</div>
                                     </div>
                                 </div>
                                 <div class="col-lg-3 col-md-6">
                                     <div class="form-group purchaseaccountadd-tabs">
                                         <label for="PAVendorName">Vendor Name</label>
-                                        <input type="text" class="form-control" name="PAVendorName" id="PAVendorName" value="Test data" required readonly>
+                                        <input type="text" class="form-control" name="PAVendorName" id="PAVendorName" value="@ApprovedvendorName" required readonly>
                                         <div class="invalid-feedback">Vendor Name is required.</div>
                                     </div>
                                 </div>
                                 <div class="col-lg-3 col-md-6">
                                     <div class="form-group purchaseaccountadd-tabs">
                                         <label for="PAVendorEmail">Vendor Email</label>
-                                        <input type="text" class="form-control" name="PAVendorEmail" id="PAVendorEmail" value="Testdata@gmail.com" required readonly>
+                                        <input type="text" class="form-control" name="PAVendorEmail" id="PAVendorEmail" value="@ApprovedvendorEmail" required readonly>
                                         <div class="invalid-feedback">Vendor Email is required.</div>
                                     </div>
                                 </div>
                                 <div class="col-lg-3 col-md-6">
                                     <div class="form-group purchaseaccountadd-tabs">
                                         <label for="PAFiles">Files</label>
-                                        <input type="text" class="form-control" name="PAFiles" id="PAFiles" value="test.pdf" required readonly>
+                                        @*<input type="text" class="form-control" name="PAFiles" id="PAFiles" value="test.pdf" required readonly>*@
+                                        <a href="/purchase/@ApprovedvendorFile">@ApprovedvendorFile</a>
                                         <div class="invalid-feedback">Files is required.</div>
                                     </div>
                                 </div>
@@ -53,28 +90,29 @@
                                 <div class="col-lg-3 col-md-6" style="padding-left: 0px;">
                                     <div class="form-group purchaseaccountadd-tabs">
                                         <label for="PARequestedDate">Requested Date</label>
-                                        <input type="text" class="form-control" name="PARequestedDate" value="24-07-2024" id="PARequestedDate" required readonly>
+                                        <input type="date" class="form-control" id="PARequestedDate"
+                                               value="@(Model.RequiredOn.HasValue ? Model.RequiredOn.Value.ToString("yyyy-MM-dd") : string.Empty)" readonly>
                                         <div class="invalid-feedback">Requested Date is required.</div>
                                     </div>
                                 </div>
                                 <div class="col-lg-3 col-md-6">
                                     <div class="form-group purchaseaccountadd-tabs">
                                         <label for="PARequestedBy">Requested By</label>
-                                        <input type="text" class="form-control" name="PARequestedBy" id="PARequestedBy" value="Test data" required readonly>
+                                        <input type="text" class="form-control" name="PARequestedBy" id="@Model.RequestedBy" value="Test data" required readonly>
                                         <div class="invalid-feedback">Requested By is required.</div>
                                     </div>
                                 </div>
                                 <div class="col-lg-3 col-md-6">
                                     <div class="form-group purchaseaccountadd-tabs">
                                         <label for="PAQuotePrice">Quote Price</label>
-                                        <input type="text" class="form-control" name="PAQuotePrice" id="PAQuotePrice" value="Rs 2000" required readonly>
+                                        <input type="text" class="form-control" name="PAQuotePrice" id="PAQuotePrice" value="Rs @ApprovedvendorPrice" required readonly>
                                         <div class="invalid-feedback">Quote Price is required.</div>
                                     </div>
                                 </div>
                                 <div class="col-lg-3 col-md-6">
                                     <div class="form-group purchaseaccountadd-tabs">
                                         <label for="PAApprovedBy">Approved By</label>
-                                        <input type="text" class="form-control" name="PAApprovedBy" id="PAApprovedBy" value="Test User" required readonly>
+                                        <input type="text" class="form-control" name="PAApprovedBy" id="PAApprovedBy" value="@Model.ApprovedBy" required readonly>
                                         <div class="invalid-feedback">Approved By is required.</div>
                                     </div>
                                 </div>
@@ -84,17 +122,29 @@
                                 <div class="col-lg-3 col-md-6" style="padding-left: 0px;">
                                     <div class="form-group purchaseaccountadd-tabs">
                                         <label for="PAAppovedDate">Approved Date</label>
-                                        <input type="text" class="form-control" name="PAAppovedDate" value="24-08-2024" id="PAAppovedDate" required readonly>
+                                        <input type="date" class="form-control" id="PAAppovedDate"
+                                               value="@(Model.ApprovedDate.HasValue ? Model.ApprovedDate.Value.ToString("yyyy-MM-dd") : string.Empty)" readonly>
                                         <div class="invalid-feedback">Approved Date is required.</div>
                                     </div>
                                 </div>
                                 <div class="col-lg-3 col-md-6">
                                     <div class="form-group purchaseaccountadd-tabs">
                                         <label for="PAPurchaseOrder" style="width:100%;">Purchase Order</label>
-                                        <div class="upload-btn-wrapper">
+                                        <div class="upload-btn-wrapper PAPurchaseOrderwrapper">
                                             <button class="btn purchaseorder-upload-btn">Upload</button>
-                                            <input type="file" value="" class="form-control" name="PAPurchaseOrder" id="PAPurchaseOrder" required>
+                                            <input type="file" value="" class="form-control" name="PAPurchaseOrder" data-existingfile="@Model.PO" id="PAPurchaseOrder" required>
                                         </div>
+                                        @{
+                                            var showPOAttachment = "disaply:block";
+                                        }
+
+                                        @if (string.IsNullOrWhiteSpace(@Model.PO))
+                                        {
+                                            showPOAttachment = "disaply:none";
+                                        }
+
+                                        <a style="@showPOAttachment" class="itp_filepath attchedfile-1" href="/purchase/@Model.PO" target="_blank">@Model.PO</a><br />
+
                                         <small style="font-size: 12px; float: left; margin-top: -5px; color: #3E78CF; ">File supported PDF, DOCS of 2MB</small>
                                         <div class="invalid-feedback">Purchase Order is required.</div>
                                     </div>
@@ -102,10 +152,20 @@
                                 <div class="col-lg-3 col-md-6">
                                     <div class="form-group purchaseaccountadd-tabs">
                                         <label for="PATaxInvoice" style="width:100%;">Tax Invoice</label>
-                                        <div class="upload-btn-wrapper">
+                                        <div class="upload-btn-wrapper PATaxInvoiceOrderwrapper">
                                             <button class="btn taxinvoice-upload-btn">Upload</button>
-                                            <input type="file" value="" class="form-control" name="PATaxInvoice" id="PATaxInvoice" required>
+                                            <input type="file" value="" class="form-control" name="PATaxInvoice" id="PATaxInvoice" data-existingfile="@Model.TaxInvoice" required>
                                         </div>
+                                        @{
+                                            var showTaxAttachment = "disaply:block";
+                                        }
+
+                                        @if (string.IsNullOrWhiteSpace(@Model.TaxInvoice))
+                                        {
+                                            showTaxAttachment = "disaply:none";
+                                        }
+
+                                        <a style="@showPOAttachment" class="itp_filepath attchedfile-2" href="/purchase/@Model.TaxInvoice" target="_blank">@Model.TaxInvoice</a><br />
                                         <small style="font-size: 12px; float: left; margin-top: -5px; color: #3E78CF; ">File supported PDF, DOCS of 2MB</small>
                                         <div class="invalid-feedback">Tax Invoice is required.</div>
                                     </div>
@@ -118,7 +178,7 @@
                             <div class="row">
                                 <div class="col-lg-12 col-md-12 text-right">
                                     <button type="button" class="btn vendoradd-Cancel">Cancel</button>
-                                    <button type="submit" class="btn btn-primary vendoradd-Submit">Submit</button>
+                                    <button type="submit" class="btn btn-primary vendorpo-Submit" data-purchaseid="@Model.PurchaseRequestID">Submit</button>
                                 </div>
                             </div>
                         </div>
@@ -129,6 +189,156 @@
         </div>
     </div>
 </div>
+
+
+@*Success Modal*@
+<div class="modal fade" id="successModal" tabindex="-1" role="dialog" aria-labelledby="successModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="successModalLabel">Success</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body modal-message">
+                Success message will be inserted here
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary btn-po-submit-close">Close</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+@*Error Modal*@
+<div class="modal fade" id="errorModal" tabindex="-1" role="dialog" aria-labelledby="errorModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="errorModalLabel">Error</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body modal-message">
+                Error message will be inserted here
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary btn-po-submit-close">Close</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<script src="~/Scripts/z-purchaseScript.js"></script>
+
+<script>
+
+
+
+    $('#PAPurchaseOrder').on('change', function () {
+        var isValid = AttchemnetValidation($(this), true, "PAPurchaseOrderwrapper", "#PAPurchaseOrder");
+        $(this).attr("data-existingfile", "");
+        if (isValid) {
+            var fileInput1 = $('#PAPurchaseOrder');
+            var file = fileInput1[0].files[0];
+            if (file) {
+                var fileName = file.name;
+                var fileUrl = URL.createObjectURL(file);
+
+                $('.attchedfile-1').attr('href', fileUrl).text(fileName).show();
+            } else {
+                $('.attchedfile-1').hide();
+            }
+            console.log("Attach1 File validation passed.");
+        } else {
+            console.log("Attach1 validation failed.");
+        }
+    });
+
+    $('#PATaxInvoice').on('change', function () {
+        var isValid = AttchemnetValidation($(this), true, "PATaxInvoiceOrderwrapper", "#PATaxInvoice");
+        $(this).attr("data-existingfile", "");
+        if (isValid) {
+            var fileInput2 = $('#PATaxInvoice');
+            var file = fileInput2[0].files[0];
+            if (file) {
+                var fileName = file.name;
+                var fileUrl = URL.createObjectURL(file);
+
+                $('.attchedfile-2').attr('href', fileUrl).text(fileName).show();
+            } else {
+                $('.attchedfile-2').hide();
+            }
+            console.log("Attach2 File validation passed.");
+        } else {
+            console.log("Attach2 validation failed.");
+        }
+    });
+
+
+    $(document).on('click', '.vendorpo-Submit', function () {
+        event.preventDefault();
+        var purchaseID = $(this).attr("data-purchaseid");
+
+        let isValid = true;
+        var formData = new FormData();
+
+        var fileInput1 = $('#PAPurchaseOrder');
+        var AttchmentValidated1 = AttchemnetValidation(fileInput1, true, "PAPurchaseOrderwrapper", "#PAPurchaseOrder");
+
+        if (AttchmentValidated1 == false) {
+            isValid = false;
+        }
+
+        var fileInput2 = $('#PATaxInvoice');
+        var AttchmentValidated2 = AttchemnetValidation(fileInput2, true, "PATaxInvoiceOrderwrapper", "#PATaxInvoice");
+
+        if (AttchmentValidated2 == false) {
+            isValid = false;
+        }
+
+        // If the form is valid, submit the form via AJAX
+        if (isValid) {
+            formData.append('PurchaseID', purchaseID);
+            var fileInput1 = $('#PAPurchaseOrder');
+            var file1 = fileInput1[0].files[0];
+            formData.append('PAPurchaseOrder', file1);
+
+            var fileInput2 = $('#PATaxInvoice');
+            var file2 = fileInput2[0].files[0];
+            formData.append('PATaxInvoice', file2);
+
+            $.ajax({
+                url: '/purchase/purchasesubmitrequest',
+                type: 'POST',
+                data: formData,
+                contentType: false,
+                processData: false,
+                success: function (response) {
+                    if (response.StatusCode === 200) {
+                        $('.modal-message').text(response.Message);
+                        $('#successModal').modal('show');
+                    } else {
+                        $('.modal-message').text(response.Message);
+                        $('#errorModal').modal('show');
+                    }
+                },
+                error: function (xhr, status, error) {
+                    $('.modal-message').text('An error occurred while processing your request. Please try again.');
+                    $('#errorModal').modal('show');
+                }
+            });
+        }
+    });
+
+    $(document).on('click', '.btn-po-submit-close', function () {
+        window.location.href = "/purchase/purchaseaccountadmin";
+    });
+
+</script>
 
 
 

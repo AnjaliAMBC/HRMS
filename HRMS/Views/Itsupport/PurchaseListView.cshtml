@@ -88,11 +88,13 @@
                                             <span style="margin-top: 0px; margin-right: 10px; line-height:1rem">
                                                 @purchserequest.VendorName1<br>
                                                 <a class="itp_filepath" href="/Ticketing/@Model.PurchasRequestFolderPath/@purchserequest.AttachFile1" target="_blank">@purchserequest.AttachFile1</a><br />
-                                                @if (string.IsNullOrWhiteSpace(@purchserequest.ApprovedBy) || string.IsNullOrWhiteSpace(@purchserequest.RejectedBy))
-                                                {
-                                                    <span class="pending">Pending</span>
-                                                }
 
+                                                @{
+                                                    var vendor1Status = purchserequest.Vendor1Status;
+                                                    var status1Class = string.IsNullOrEmpty(vendor1Status) ? "pending" : vendor1Status.ToLowerInvariant();
+                                                    var status1Name = string.IsNullOrEmpty(vendor1Status) ? "Pending" : vendor1Status;
+                                                }
+                                                <span class="@status1Class">@status1Name</span>
                                             </span>
                                         </div>
                                     </td>
@@ -105,7 +107,13 @@
                                                     <a class="itp_filepath" href="/Ticketing/@Model.PurchasRequestFolderPath/@purchserequest.AttachFile2" target="_blank">@purchserequest.AttachFile2</a><br />
                                                 }
 
-                                                @*<span class="approved"></span>*@
+                                                @{
+                                                    var vendor2Status = purchserequest.Vendor2Status;
+                                                    var status2Class = string.IsNullOrEmpty(vendor2Status) ? "pending" : vendor2Status.ToLowerInvariant();
+                                                    var status2Name = string.IsNullOrEmpty(vendor2Status) ? "Pending" : vendor2Status;
+                                                }
+
+                                                <span class="@status2Class">@status2Name</span>
                                             </span>
                                         </div>
                                     </td>
@@ -117,7 +125,12 @@
                                                 {
                                                     <a class="itp_filepath" href="/@Model.PurchasRequestFolderPath/@purchserequest.AttachFile3" target="_blank">@purchserequest.AttachFile3</a><br />
                                                 }
-                                                @*<span class="rejected"></span>*@
+                                                @{
+                                                    var vendor3Status = @purchserequest.Vendor3Status;
+                                                    var status3Class = string.IsNullOrEmpty(vendor3Status) ? "pending" : vendor3Status.ToLowerInvariant();
+                                                    var status3Name = string.IsNullOrEmpty(vendor3Status) ? "Pending" : vendor3Status;
+                                                }
+                                                <span class="@status3Class">@status3Name</span>
                                             </span>
                                         </div>
                                     </td>
@@ -189,9 +202,9 @@
     });
 
 
-    
 
-    
+
+
 
     $(document).on('click', '.purchaseitadmin-approval-edit', function () {
         var purchaseID = $(this).attr("data-purchaseid");

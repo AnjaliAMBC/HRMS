@@ -272,6 +272,66 @@ namespace HRMS.Controllers
             return Json(model, JsonRequestBehavior.AllowGet);
         }
 
+        [HttpPost]
+        public JsonResult PurchaseSubmitRequest()
+        {
+            var model = new JsonResponse();
+            try
+            {
+                int PurchaseID = System.Convert.ToInt32(Request.Form["PurchaseID"]);
+                HttpPostedFileBase fileInput1 = Request.Files["PAPurchaseOrder"];
+                HttpPostedFileBase fileInput2 = Request.Files["PATaxInvoice"];
+                var cuserContext = SiteContext.GetCurrentUserContext();
+
+                using (var context = new HRMS_EntityFramework())
+                {
+                    var purchaseRequest = context.PurchaseRequests.FirstOrDefault(pr => pr.PurchaseRequestID == PurchaseID);
+                    if (purchaseRequest != null)
+                    {
+                        var TicketingFolderPath = ConfigurationManager.AppSettings["TicketingFolderPath"];
+                        TicketingFolderPath = TicketingFolderPath + "/Purchase";
+
+                        string fileInput1Path = "";
+                        string fileInput1Name = "";
+                        if (fileInput1 != null)
+                        {
+                            fileInput1Name = Path.GetFileName(fileInput1.FileName);
+                            purchaseRequest.PO = fileInput1Name;
+                        }
+
+                        string fileInput2Name = "";
+                        if (fileInput2 != null)
+                        {
+                            fileInput2Name = Path.GetFileName(fileInput2.FileName);
+                            purchaseRequest.TaxInvoice = fileInput2Name;
+                        }                  
+                        
+
+                        if (fileInput1 != null)
+                        {
+                            fileInput1Path = Path.Combine(TicketingFolderPath, fileInput1Name);
+                            fileInput1.SaveAs(fileInput1Path);
+                        }
+
+                        string fileInput2Path = "";
+                        if (fileInput2 != null)
+                        {
+                            fileInput2Path = Path.Combine(TicketingFolderPath, fileInput2Name);
+                            fileInput2.SaveAs(fileInput2Path);
+                        }
+                        context.SaveChanges();
+                        model.StatusCode = 200;
+                        model.Message = "Submitted successfully!";
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                model = ErrorHelper.CaptureError(ex);
+            }
+            return Json(model, JsonRequestBehavior.AllowGet);
+        }
+
         private string SaveFile(HttpPostedFileBase file)
         {
             if (file != null && file.ContentLength > 0)
@@ -302,9 +362,10 @@ namespace HRMS.Controllers
             return View("~/Views/Itsupport/PurchangeImport.cshtml");
         }
 
-        public ActionResult PurchaseAccountSubmit()
+        public ActionResult PurchaseAccountSubmit(int purchaseId)
         {
-            return View("~/Views/Itsupport/PurchaseAccountSubmit.cshtml");
+            var purchase = _dbContext.PurchaseRequests.Where(x => x.PurchaseRequestID == purchaseId).FirstOrDefault();
+            return View("~/Views/Itsupport/PurchaseAccountSubmit.cshtml", purchase);
         }
 
         public ActionResult PurchaseSuperApproval(int purchaseId)
@@ -321,7 +382,9 @@ namespace HRMS.Controllers
 
         public ActionResult PurchaseAccountAdmin()
         {
-            return View("~/Views/Itsupport/PurchaseAccountAdmin.cshtml");
+            var model = PurchaseListView();
+            model.PurchaseRequests = model.PurchaseRequests.Where(x => x.FinalStatus == "Approved").ToList();
+            return View("~/Views/Itsupport/PurchaseAccountAdmin.cshtml", model);
         }
 
         [HttpPost]
