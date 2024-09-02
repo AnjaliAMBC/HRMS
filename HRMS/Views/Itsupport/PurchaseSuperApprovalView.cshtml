@@ -1,4 +1,5 @@
-﻿
+﻿@model HRMS.PurchaseRequest
+
 @{
     ViewBag.Title = "PurchaseSuperApprovalView";
 }
@@ -14,7 +15,7 @@
                     <div class="row navbar align-items-center">
                         <!-- Employee column -->
                         <div class="col-lg-3 col-md-5 topic d-flex res-admin-title">
-                            <h4 class="header mb-0 text-right">Purchase Request 24</h4>
+                            <h4 class="header mb-0 text-right">Purchase Request @Model.PRNumber</h4>
                         </div>
                     </div>
                 </div>
@@ -24,33 +25,39 @@
                         <div class="col-lg-4 col-md-6 col-sm-12">
                             <div class="purchasesuperapproval-block psa-1">
                                 <div class="col-lg-1 purchasesuperapproval-block-left">
-                                    <input type="checkbox" id="purchasesuperapproval-check-1" name="purchasesuperapproval-check-1" class="purchasesuperapproval-check purchasesuperapproval-check-1">
+                                    @{
+                                        var vendor1StatusApproved = Model.Vendor1Status == "Approved" ? true : false;
+                                        var vendor1Selected = vendor1StatusApproved ? "checked" : "";
+                                    }
+                                    <input @vendor1Selected data-purchaseid="@Model.PurchaseRequestID" data-selectedvendor="Vendor1Status" type="checkbox" id="purchasesuperapproval-check-1" name="purchasesuperapproval-check-1" class="purchasesuperapproval-check purchasesuperapproval-check-1">
                                 </div>
                                 <div class="col-lg-11 purchasesuperapproval-block-right">
                                     <div class="psa-block purchasesuperapproval-vendor-info">
                                         <div class="psalabel vendor-id-label">Vendor Id</div>
-                                        <div class="vendor-id">22</div>
+                                        <div class="vendor-id">@Model.VendorID1</div>
                                     </div>
                                     <div class="psa-block purchasesuperapproval-vendorname-info">
                                         <div class="psalabel vendor-name-label">Vendor Name</div>
-                                        <div class="vendor-name">Test data new</div>
-                                        <div class="vendor-email color-blue">test@gmail.com</div>
+                                        <div class="vendor-name">@Model.VendorName1</div>
+                                        <div class="vendor-email color-blue">@Model.VendorEmail1</div>
                                     </div>
                                     <div class="psa-block purchasesuperapproval-files-info">
                                         <div class="psalabel files-label">Files</div>
-                                        <div class="files-pdf color-blue">test.pdf</div>
+                                        <div class="files-pdf color-blue">
+                                            <a class="itp_filepath" href="/purchase/@Model.AttachFile1" target="_blank">@Model.AttachFile1</a><br />
+                                        </div>
                                     </div>
                                     <div class="psa-block purchasesuperapproval-requesteddate-info">
                                         <div class="psalabel requesteddate-label">Requested Date</div>
-                                        <div class="requesteddate-date">22-9-2024</div>
+                                        <div class="requesteddate-date">@Model.RequiredOn.Value.ToString("yyyy-MM-dd")</div>
                                     </div>
                                     <div class="psa-block purchasesuperapproval-requestedname-info">
-                                        <div class="psalabel requestedname-label">Requested Date</div>
-                                        <div class="requestedname-name color-blue">Test User</div>
+                                        <div class="psalabel requestedname-label">Requested By</div>
+                                        <div class="requestedname-name color-blue">@Model.RejectedBy</div>
                                     </div>
                                     <div class="psa-block purchasesuperapproval-quoteprice-info">
                                         <div class="psalabel quoteprice-label">Quote Price</div>
-                                        <div class="quoteprice-amount color-blue">Rs 20000</div>
+                                        <div class="quoteprice-amount color-blue">Rs @Model.QuotationPrice1</div>
                                     </div>
                                 </div>
                             </div>
@@ -58,33 +65,39 @@
                         <div class="col-lg-4 col-md-6 col-sm-12">
                             <div class="purchasesuperapproval-block psa-2">
                                 <div class="col-lg-1 purchasesuperapproval-block-left">
-                                    <input type="checkbox" id="purchasesuperapproval-check-2" name="purchasesuperapproval-check-2" class="purchasesuperapproval-check purchasesuperapproval-check-2">
+                                    @{
+                                        var vendor2StatusApproved = Model.Vendor2Status == "Approved" ? true : false;
+                                        var vendor2Selected = vendor2StatusApproved ? "checked" : "";
+                                    }
+                                    <input @vendor2Selected data-purchaseid="@Model.PurchaseRequestID" data-selectedvendor="Vendor2Status" type="checkbox" id="purchasesuperapproval-check-2" name="purchasesuperapproval-check-2" class="purchasesuperapproval-check purchasesuperapproval-check-2">
                                 </div>
                                 <div class="col-lg-11 purchasesuperapproval-block-right">
                                     <div class="psa-block purchasesuperapproval-vendor-info">
                                         <div class="psalabel vendor-id-label">Vendor Id</div>
-                                        <div class="vendor-id">26</div>
+                                        <div class="vendor-id">@Model.VendorID2</div>
                                     </div>
                                     <div class="psa-block purchasesuperapproval-vendorname-info">
                                         <div class="psalabel vendor-name-label">Vendor Name</div>
-                                        <div class="vendor-name">Test data new</div>
-                                        <div class="vendor-email color-blue">test@gmail.com</div>
+                                        <div class="vendor-name">@Model.VendorName2</div>
+                                        <div class="vendor-email color-blue">@Model.VendorEmail2</div>
                                     </div>
                                     <div class="psa-block purchasesuperapproval-files-info">
                                         <div class="psalabel files-label">Files</div>
-                                        <div class="files-pdf color-blue">test.pdf</div>
+                                        <div class="files-pdf color-blue">
+                                            <a class="itp_filepath" href="/purchase/@Model.AttachFile2" target="_blank">@Model.AttachFile2</a><br />
+                                        </div>
                                     </div>
                                     <div class="psa-block purchasesuperapproval-requesteddate-info">
                                         <div class="psalabel requesteddate-label">Requested Date</div>
-                                        <div class="requesteddate-date">22-9-2024</div>
+                                        <div class="requesteddate-date">@Model.RequiredOn.Value.ToString("yyyy-MM-dd")</div>
                                     </div>
                                     <div class="psa-block purchasesuperapproval-requestedname-info">
-                                        <div class="psalabel requestedname-label">Requested Date</div>
-                                        <div class="requestedname-name color-blue">Test User</div>
+                                        <div class="psalabel requestedname-label">Requested By</div>
+                                        <div class="requestedname-name color-blue">@Model.RejectedBy</div>
                                     </div>
                                     <div class="psa-block purchasesuperapproval-quoteprice-info">
                                         <div class="psalabel quoteprice-label">Quote Price</div>
-                                        <div class="quoteprice-amount color-blue">Rs 20000</div>
+                                        <div class="quoteprice-amount color-blue">Rs @Model.QuotationPrice2</div>
                                     </div>
                                 </div>
                             </div>
@@ -92,72 +105,262 @@
                         <div class="col-lg-4 col-md-6 col-sm-12">
                             <div class="purchasesuperapproval-block psa-3">
                                 <div class="col-lg-1 purchasesuperapproval-block-left">
-                                    <input type="checkbox" id="purchasesuperapproval-check-3" name="purchasesuperapproval-check-3" class="purchasesuperapproval-check purchasesuperapproval-check-3">
+                                    @{
+                                        var vendor3StatusApproved = Model.Vendor3Status == "Approved" ? true : false;
+                                        var vendor3Selected = vendor3StatusApproved ? "checked" : "";
+                                    }
+                                    <input @vendor3Selected data-purchaseid="@Model.PurchaseRequestID" data-selectedvendor="Vendor3Status" type="checkbox" id="purchasesuperapproval-check-3" name="purchasesuperapproval-check-3" class="purchasesuperapproval-check purchasesuperapproval-check-3">
                                 </div>
                                 <div class="col-lg-11 purchasesuperapproval-block-right">
                                     <div class="psa-block purchasesuperapproval-vendor-info">
                                         <div class="psalabel vendor-id-label">Vendor Id</div>
-                                        <div class="vendor-id">29</div>
+                                        <div class="vendor-id">@Model.VendorID3</div>
                                     </div>
                                     <div class="psa-block purchasesuperapproval-vendorname-info">
                                         <div class="psalabel vendor-name-label">Vendor Name</div>
-                                        <div class="vendor-name">Test data new</div>
-                                        <div class="vendor-email color-blue">test@gmail.com</div>
+                                        <div class="vendor-name">@Model.VendorName3</div>
+                                        <div class="vendor-email color-blue">@Model.VendorEmail2</div>
                                     </div>
                                     <div class="psa-block purchasesuperapproval-files-info">
                                         <div class="psalabel files-label">Files</div>
-                                        <div class="files-pdf color-blue">test.pdf</div>
+                                        <div class="files-pdf color-blue">
+                                            <a class="itp_filepath" href="/purchase/@Model.AttachFile3" target="_blank">@Model.AttachFile3</a><br />
+                                        </div>
                                     </div>
                                     <div class="psa-block purchasesuperapproval-requesteddate-info">
                                         <div class="psalabel requesteddate-label">Requested Date</div>
-                                        <div class="requesteddate-date">22-9-2024</div>
+                                        <div class="requesteddate-date">@Model.RequiredOn.Value.ToString("yyyy-MM-dd")</div>
                                     </div>
                                     <div class="psa-block purchasesuperapproval-requestedname-info">
-                                        <div class="psalabel requestedname-label">Requested Date</div>
-                                        <div class="requestedname-name color-blue">Test User</div>
+                                        <div class="psalabel requestedname-label">Requested By</div>
+                                        <div class="requestedname-name color-blue">@Model.RejectedBy</div>
                                     </div>
                                     <div class="psa-block purchasesuperapproval-quoteprice-info">
                                         <div class="psalabel quoteprice-label">Quote Price</div>
-                                        <div class="quoteprice-amount color-blue">Rs 20000</div>
+                                        <div class="quoteprice-amount color-blue">Rs @Model.QuotationPrice3</div>
                                     </div>
                                 </div>
                             </div>
                         </div>
                     </div>
+
+                    @{
+                        string vendorStatus;
+
+                        if (!string.IsNullOrEmpty(Model.Vendor1Status) && Model.Vendor1Status.Contains("Approved") ||
+                            !string.IsNullOrEmpty(Model.Vendor2Status) && Model.Vendor2Status.Contains("Approved") ||
+                            !string.IsNullOrEmpty(Model.Vendor3Status) && Model.Vendor3Status.Contains("Approved"))
+                        {
+                            vendorStatus = "Approved";
+                        }
+                        else if (string.IsNullOrEmpty(Model.Vendor1Status) && string.IsNullOrEmpty(Model.Vendor2Status) && string.IsNullOrEmpty(Model.Vendor3Status))
+                        {
+                            vendorStatus = "Pending";
+                        }
+                        else if (Model.Vendor1Status == "Rejected" && Model.Vendor2Status == "Rejected" && Model.Vendor3Status == "Rejected")
+                        {
+                            vendorStatus = "Rejected";
+                        }
+                        else
+                        {
+                            vendorStatus = "Pending";
+                        }
+                    }
+
                     <div class="row psa-footer">
                         <div class="col-lg-12 col-md-12 text-right">
+
+
                             <button type="button" class="btn btn-danger psaadd-reject">Reject</button>
                             <button type="button" class="btn btn-success psaadd-approve">Approve</button>
                             <button type="button" class="btn psaadd-change-status color-blue" style="display:none;">Change Status</button>
-                            <button type="button" class="btn btn-success psaadd-approved" style="display:none;">Approved</button>
+                            <button type="button" class="btn btn-success psaadd-approved" style="display:none;">@vendorStatus</button>
+
+
+
+                            @*@{
+                                    var displayButtons = "display:none";
+                                }
+                                @if (vendorStatus == "Pending")
+                                {
+                                    displayButtons = "display:block";
+                                }
+
+                                <button type="button" class="btn btn-danger psaadd-reject " style="@displayButtons">Reject</button>
+                                <button type="button" class="btn btn-success psaadd-approve " style="@displayButtons">Approve</button>
+
+
+                                @{
+                                    var displayApprovedButtons = "display:none";
+                                }
+                                @if (vendorStatus == "Approved")
+                                {
+                                    displayApprovedButtons = "display:block";
+                                }
+
+                                <button type="button" class="btn psaadd-change-status color-blue psaadd-change-status-approved" style="@displayApprovedButtons">Change Status</button>
+                                <button type="button" class="btn btn-success psaadd-approved approvedbutton" style="@displayApprovedButtons">Approved</button>
+
+
+                                @{
+                                    var displayRejectedButtons = "display:none";
+                                }
+                                @if (vendorStatus == "Rejected")
+                                {
+                                    displayRejectedButtons = "display:block";
+                                }
+
+
+                                <button type="button" class="btn psaadd-change-status color-blue psaadd-change-status-rejected" style="@displayRejectedButtons">Change Status</button>
+                                <button type="button" class="btn btn-danger psaadd-rejected rejectedbutton" style="@displayRejectedButtons">Rejected</button>*@
+
                         </div>
                     </div>
                 </div>
 
+
+
+                <div class="vendor-pr-status" data-status="@vendorStatus" style="display: none">@vendorStatus</div>
+                <div class="vendor-pr-number" style="display: none">@Model.PurchaseRequestID</div>
             </div>
         </div>
     </div>
 </div>
 
+@Html.Partial("CommonModalPopups")
+
 <script>
-$(document).ready(function () {
-    $(document).on('change', '.purchasesuperapproval-check', function () {
-        var selectedId = $(this).attr('id').split("-").pop();
-        var checked = $('#purchasesuperapproval-check-' + selectedId).is(":checked");
-        console.log('selectedId', selectedId);
-        console.log('selectedValue', checked);
-        if (checked == true) {
-            $('.psaadd-reject').css({ "display": "none" });
-            $('.psaadd-approve').css({ "display": "none" });
-            $('.psaadd-change-status').css({ "display": "inline-block" });
-            $('.psaadd-approved').css({ "display": "inline-block" });
-        } else {
-            $('.psaadd-change-status').css({ "display": "none" });
-            $('.psaadd-approved').css({ "display": "none" });
-            $('.psaadd-reject').css({ "display": "inline-block" });
-            $('.psaadd-approve').css({ "display": "inline-block" });
+    $(document).ready(function () {
+
+        function updateButtonStates(status) {
+            if (status === 'Approved') {
+                // Hide Reject and Approve buttons
+                $('.psaadd-reject').hide();
+                $('.psaadd-approve').hide();
+
+                // Show Change Status and Approved buttons
+                $('.psaadd-change-status').show().text('Change Status');
+                $('.psaadd-approved').show().text('Approved')
+                    .removeClass('btn-danger')
+                    .addClass('btn-success');
+            }
+            else if (status === 'Rejected') {
+                // Hide Reject and Approve buttons
+                $('.psaadd-reject').hide();
+                $('.psaadd-approve').hide();
+
+                // Show Change Status and Approved buttons
+                $('.psaadd-change-status').show().text('Change Status');
+                $('.psaadd-approved').show().text('Rejected')
+                    .removeClass('btn-success')
+                    .addClass('btn-danger');
+            }
+            else { // Assuming status is 'Pending' or other undefined status
+                // Show Reject and Approve buttons
+                $('.psaadd-reject').show();
+                $('.psaadd-approve').show();
+
+                // Hide Change Status and Approved buttons
+                $('.psaadd-change-status').hide();
+                $('.psaadd-approved').hide()
+                    .removeClass('btn-danger btn-success'); // Reset class in case of pending
+            }
         }
+
+
+        if ($('.vendor-pr-status').text() != "Pending") {
+            updateButtonStates($('.vendor-pr-status').text());
+            $('.purchasesuperapproval-check').prop('disabled', true);
+        }
+        else {
+            $('.purchasesuperapproval-check').prop('disabled', false);
+        }
+
+
+        $(document).on('click', '.psaadd-change-status', function () {
+            $('.purchasesuperapproval-check').prop('disabled', false);
+            updateButtonStates("");
+        });
+
+        $(document).on('change', '.purchasesuperapproval-check', function () {
+            $('.purchasesuperapproval-check').prop('checked', false);
+            $(this).prop('checked', true);
+        });
+
+
+
+        $('.psaadd-approve').on('click', function () {
+            var selectedVendor = $('.purchasesuperapproval-check:checked').data('selectedvendor');
+            var purchaseId = $('.vendor-pr-number').text();
+
+            if (!selectedVendor) {
+                showMessageModal("Please select at least one vendor before approving.", false, "closepopuponly");
+                return;
+            }
+
+            var requestData = {
+                purchaseId: purchaseId,
+                vendor1Status: selectedVendor == "Vendor1Status" ? "Approved" : "Rejected",
+                vendor2Status: selectedVendor == "Vendor2Status" ? "Approved" : "Rejected",
+                vendor3Status: selectedVendor == "Vendor3Status" ? "Approved" : "Rejected",
+                ButtonName: "Approved"
+            };
+
+            $.ajax({
+                type: "POST",
+                url: "/purchase/updatevendorstatus",
+                data: requestData,
+                success: function (response) {
+                    if (response.success) {
+                        updateButtonStates("Approved");
+
+                        showMessageModal(response.message, true, "closepopuponly");
+                    } else {
+                        showMessageModal(response.message, false, "closepopuponly");
+                    }
+                },
+                error: function () {
+                    alert("An error occurred while processing the request.");
+                }
+            });
+        });
+
+        // Reject button click event
+        $('.psaadd-reject').on('click', function () {
+            var purchaseId = $('.vendor-pr-number').text();
+
+            var requestData = {
+                purchaseId: purchaseId,
+                vendor1Status: "Rejected",
+                vendor2Status: "Rejected",
+                vendor3Status: "Rejected",
+                ButtonName: "Rejected"
+            };
+
+            $('.purchasesuperapproval-check').prop('checked', false);
+
+            $.ajax({
+                type: "POST",
+                url: "/purchase/updatevendorstatus",
+                data: requestData,
+                success: function (response) {
+                    if (response.success) {
+                        updateButtonStates("Rejected");
+                        showMessageModal(response.message, true, "closepopuponly");
+
+                    } else {
+                        showMessageModal(response.message, false, "closepopuponly");
+                    }
+                },
+                error: function () {
+                    alert("An error occurred while processing the request.");
+                }
+            });
+        });
+
+
     });
-});
+
+
 </script>
 

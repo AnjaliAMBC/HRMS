@@ -1,4 +1,6 @@
-﻿@Html.Partial("_NavBar")
+﻿@model HRMS.Models.ITsupport.PurchaseListViewModel
+
+@Html.Partial("_NavBar")
 
 <div class="container-fluid">
     <div class="hiddenadmindashboard" style="display: none"></div>
@@ -50,54 +52,58 @@
                             </tr>
                         </thead>
                         <tbody>
-                            <tr class="odd">
-                                <td><input type="checkbox" class="purchasesuperadmin-check"></td>
-                                <td class="tdpsarequestno">PR11</td>
-                                <td class="tdassettype">Hardware</td>
-                                <td class="tdvendor1 table-psa-vendor-info">
-                                    <div style="display: flex; align-items: center;">
-                                        <span style="margin-top: 0px; margin-right: 10px;">Mithun Sivaprakasam<br><span class="pending">Pending</span></span>
-                                    </div>
-                                </td>
-                                <td class="tdvendor2 table-psa-vendor-info">
-                                    <div style="display: flex; align-items: center;">
-                                        <span style="margin-top: 0px; margin-right: 10px;">Mithun Sivaprakasam<br><span class="approved">Approved</span></span>
-                                    </div>
-                                </td>
-                                <td class="tdvendor3 table-psa-vendor-info">
-                                    <div style="display: flex; align-items: center;">
-                                        <span style="margin-top: 0px; margin-right: 10px;">Mithun Sivaprakasam<br><span class="rejected">Rejected</span></span>
-                                    </div>
-                                </td>
-                                <td style="text-align:center;">
-                                    <span class="purchasesuperadmin-approval-edit" data-toggle="modal" data-target="#purchasesuperadmin-approvalcard" onclick="openPurchaseSuperAdminModal(17)">
-                                        <i class="fas fa-eye"></i>
-                                    </span>
-                                </td>
-                            </tr>
-                            <tr class="even">
-                                <td><input type="checkbox" class="purchasesuperadmin-check"></td>
-                                <td class="tdpsarequestno">PR76</td>
-                                <td class="tdassettype">Hardware</td>
-                                <td class="tdvendor1 table-psa-vendor-info">
-                                    <div style="display: flex; align-items: center;">
-                                        <span style="margin-top: 0px; margin-right: 10px;">Mithun Sivaprakasam<br><span class="pending">Pending</span></span>
-                                    </div>
-                                </td>
-                                <td class="tdvendor2 table-psa-vendor-info">
-                                    <div style="display: flex; align-items: center;">
-                                        <span style="margin-top: 0px; margin-right: 10px;">Mithun Sivaprakasam<br><span class="approved">Approved</span></span>
-                                    </div>
-                                </td>
-                                <td class="tdvendor3 table-psa-vendor-info">
-                                    -
-                                </td>
-                                <td style="text-align:center;">
-                                    <span class="purchasesuperadmin-approval-edit" data-toggle="modal" data-target="#purchasesuperadmin-approvalcard" onclick="openPurchaseSuperAdminModal(17)">
-                                        <i class="fas fa-eye"></i>
-                                    </span>
-                                </td>
-                            </tr>
+
+                            @foreach (var purchaserequest in Model.PurchaseRequests)
+                            {
+                                <tr class="odd">
+                                    <td><input type="checkbox" class="purchasesuperadmin-check"></td>
+                                    <td class="tdpsarequestno itprequestno" data-purchaseid="@purchaserequest.PurchaseRequestID">@purchaserequest.PRNumber</td>
+                                    <td class="tdassettype">@purchaserequest.AssetType</td>
+                                    <td class="tdvendor1 table-psa-vendor-info">
+                                        <div style="display: flex; align-items: center;">
+
+                                            @{
+                                                var vendor1Status = @purchaserequest.Vendor1Status;
+                                                var status1Class = string.IsNullOrEmpty(vendor1Status) ? "pending" : vendor1Status.ToLowerInvariant();
+                                                var status1Name = string.IsNullOrEmpty(vendor1Status) ? "Pending" : vendor1Status;
+                                            }
+
+                                            <span style="margin-top: 0px; margin-right: 10px;">@purchaserequest.VendorName1<br><span class="@status1Class">@status1Name</span></span>
+                                        </div>
+                                    </td>
+                                    <td class="tdvendor2 table-psa-vendor-info">
+                                        <div style="display: flex; align-items: center;">
+
+                                            @{
+                                                var vendor2Status = @purchaserequest.Vendor2Status;
+                                                var status2Class = string.IsNullOrEmpty(vendor2Status) ? "pending" : vendor2Status.ToLowerInvariant();
+                                                var status2Name = string.IsNullOrEmpty(vendor2Status) ? "Pending" : vendor2Status;
+                                            }
+
+                                            <span style="margin-top: 0px; margin-right: 10px;">@purchaserequest.VendorName2<br><span class="@status2Class">@status2Name</span></span>
+                                        </div>
+                                    </td>
+                                    <td class="tdvendor3 table-psa-vendor-info">
+                                        <div style="display: flex; align-items: center;">
+
+                                            @{
+                                                var vendor3Status = @purchaserequest.Vendor3Status;
+                                                var status3Class = string.IsNullOrEmpty(vendor3Status) ? "pending" : vendor3Status.ToLowerInvariant();
+                                                var status3Name = string.IsNullOrEmpty(vendor3Status) ? "Pending" : vendor3Status;
+                                            }
+
+                                            <span style="margin-top: 0px; margin-right: 10px;">@purchaserequest.VendorName3<br><span class="@status3Class">@status3Name</span></span>
+                                        </div>
+                                    </td>
+                                    <td style="text-align:center;">
+                                        <span class="purchasesuperadmin-approval-edit" data-purchaseid="@purchaserequest.PurchaseRequestID">
+                                            <i class="fas fa-eye"></i>
+                                        </span>
+                                    </td>
+                                </tr>
+                            }
+
+
                         </tbody>
                     </table>
                 </div>
@@ -107,65 +113,9 @@
     </div>
 </div>
 
-<!-- status Modal -->
-<div id="purchaseStatusModal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="purchaseStatusModal" aria-hidden="true">
-    <div class="modal-dialog" role="document">
-        <div class="modal-content">
-            <div class="modal-body">
-                <div class="modal-header">
-                    <h5 class="modal-title" id="purchaseStatusModalLabel">PR 24 Status</h5>
-                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                        <span aria-hidden="true">&times;</span>
-                    </button>
-                </div>
-                <div class="purchaseStatus-popup-list">
-                    <div class="purchaseStatus-list">
-                        <div class="col-lg-1 col-md-1 col-sm-2 purchaseStatus-left">
-                            <div class="vl-none"></div>
-                            <i class="fa fa-check-circle" aria-hidden="true"></i>
-                            <div class="vl"></div>
-                        </div>
-                        <span class="col-lg-7 col-md-7 col-sm-5 purchaseStatus-mid">
-                            <div class="purchaseStatus-statusinfo">Purchase Request</div>
-                            <div class="purchaseStatus-sentby"><span class="sent-by">Sent By</span> <span class="sender-name">Abc</span></div>
-                            <div class="purchaseStatus-date" title="test">07 Jan 24 00:00 AM</div>
-                        </span>
-                    </div>
-                    <div class="purchaseStatus-list">
-                        <div class="col-lg-1 col-md-1 col-sm-2 purchaseStatus-left">
-                            <div class="vl-0"></div>
-                            <i class="fa fa-check-circle" aria-hidden="true"></i>
-                            <div class="vl"></div>
-                        </div>
-                        <span class="col-lg-7 col-md-7 col-sm-5 purchaseStatus-mid">
-                            <div class="purchaseStatus-statusinfo">Purchase Request</div>
-                            <div class="purchaseStatus-sentby"><span class="approved-by">Approved By</span> <span class="sender-name">Abc</span></div>
-                            <div class="purchaseStatus-date" title="test">07 Jan 24 00:00 AM</div>
-                        </span>
-                    </div>
-                    <div class="purchaseStatus-list">
-                        <div class="col-lg-1 col-md-1 col-sm-2 purchaseStatus-left">
-                            <i class="fa fa-circle" aria-hidden="true"></i>
-                            <div class="vl"></div>
-                        </div>
-                        <span class="col-lg-7 col-md-7 col-sm-5 purchaseStatus-mid">
-                            <div class="purchaseStatus-statusinfo">Purchase Order</div>
-                        </span>
-                    </div>
-                    <div class="purchaseStatus-list">
-                        <div class="col-lg-1 col-md-1 col-sm-2 purchaseStatus-left">
-                            <i class="fa fa-circle" aria-hidden="true"></i>
-                            <div class="vl"></div>
-                        </div>
-                        <span class="col-lg-7 col-md-7 col-sm-5 purchaseStatus-mid">
-                            <div class="purchaseStatus-statusinfo">Tax Invoice</div>
-                        </span>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-</div>
+
+@Html.Partial("~/Views/Itsupport/_purchaselistflow.cshtml")
+<script src="~/Scripts/z-purchaseScript.js"></script>
 
 <script>
     $(document).ready(function () {
@@ -190,4 +140,10 @@
             $('#purchaseStatusModal').modal('show');
         });
     });
+
+    $(document).on('click', '.purchasesuperadmin-approval-edit', function () {
+        var purchaseID = $(this).attr("data-purchaseid");
+        window.location.href = "/purchase/purchasesuperapproval?purchaseId=" + purchaseID;
+    });
+
 </script>

@@ -27,7 +27,18 @@ namespace HRMS.Controllers
         // GET: Purchase
         public ActionResult Index()
         {
-            return View("~/Views/Itsupport/PurchaseListView.cshtml");
+            var model = PurchaseListView();
+            return View("~/Views/Itsupport/PurchaseListView.cshtml", model);
+        }
+
+        private PurchaseListViewModel PurchaseListView()
+        {
+            var model = new PurchaseListViewModel();
+            var cuserContext = SiteContext.GetCurrentUserContext();
+            model.PurchaseRequests = _dbContext.PurchaseRequests.OrderByDescending(x => x.PurchaseRequestID).ToList();
+            model.PurchasRequestFolderPath = "/purchase";
+            model.ContextModel = cuserContext;
+            return model;
         }
 
         [HttpGet]
@@ -46,113 +57,278 @@ namespace HRMS.Controllers
             model.ITDeptEmployees = _dbContext.emp_info.Where(x => x.Department == "IT").ToList();
             var lastPurchaseRequestId = _dbContext.PurchaseRequests
                                                    .OrderByDescending(x => x.PurchaseRequestID)
-                                                   .Select(x => x.PurchaseRequestID)
                                                    .FirstOrDefault();
-            model.LastePurchaseId = lastPurchaseRequestId;
-            model.NewPurchaseId = model.LastePurchaseId + 1;
 
+            if (lastPurchaseRequestId != null)
+            {
+                model.LastePurchaseId = lastPurchaseRequestId.PRNumber;
+                model.NewPurchaseId = "PR-" + (lastPurchaseRequestId.PurchaseRequestID + 1);
+            }
+            else
+            {
+                model.LastePurchaseId = "NA";
+                model.NewPurchaseId = "PR-1";
+            }
 
             return View("~/Views/Itsupport/PurchaseAdd.cshtml", model);
         }
 
         [HttpPost]
-        public JsonResult AddPurchaseRequest(PurchaseRequest purchaseRequest, HttpPostedFileBase attachFile1, HttpPostedFileBase attachFile2, HttpPostedFileBase attachFile3)
+        public JsonResult AddPurchaseRequest()
         {
             var model = new JsonResponse();
+            var cuserContext = SiteContext.GetCurrentUserContext();
 
-            try
+            string PRNumber = Request.Form["PRNumber"];
+            string assetType = Request.Form["AssetType"];
+            string requiredOn = Request.Form["RequiredOn"];
+            string requestedBy = Request.Form["Requestedby"];
+            string vendorName1 = Request.Form["Vendorname1"];
+
+            string[] vendor1Parts = vendorName1.Split('-');
+            string vendor1idlastpart = vendor1Parts[vendor1Parts.Length - 1].Trim();
+            int vendor1ID = int.Parse(vendor1idlastpart);
+
+            var vendor1 = _dbContext.VendorLists.Where(x => x.VedorID == vendor1ID).FirstOrDefault();
+
+            string vendor1Name = "";
+            int vendorID1 = 0;
+            string vendor1Emails = "";
+            if (vendor1 != null)
             {
-                if (string.IsNullOrEmpty(purchaseRequest.VendorName1))
-                {
-                    model.Message = "Vendor Name is required.";
-                    model.StatusCode = 400; // Bad Request
-                    return Json(model, JsonRequestBehavior.AllowGet);
-                }
+                vendor1Name = vendor1.VendorName;
+                vendorID1 = vendor1.VedorID;
+                vendor1Emails = vendor1.VendorEmail;
+            }
 
-               
-                if (purchaseRequest.QuotationPrice1 <= 0) 
-                {
-                    model.Message = "Quotation Price must be greater than zero.";
-                    model.StatusCode = 400; // Bad Request
-                    return Json(model, JsonRequestBehavior.AllowGet);
-                }
-             
-                if (attachFile1 == null || attachFile1.ContentLength == 0)
-                {
-                    model.Message = "Attach File is required.";
-                    model.StatusCode = 400; // Bad Request
-                    return Json(model, JsonRequestBehavior.AllowGet);
-                }
 
-                var existingPurchaseRequest = _dbContext.PurchaseRequests.Find(purchaseRequest.PurchaseRequestID);
+            decimal vendor1Quotation = System.Convert.ToDecimal(Request.Form["Vendor1quotation"]);
+            string vendorName2 = Request.Form["Vendorname2"];
+            string vendor2idlastpart = "0";
+            if (vendorName2 != "Select Vendor Name")
+            {
+                string[] vendor2Parts = vendorName2.Split('-');
+                vendor2idlastpart = vendor2Parts[vendor2Parts.Length - 1].Trim();
+            }
+            int vendor2ID = int.Parse(vendor2idlastpart);
 
-                if (existingPurchaseRequest == null)
+            var vendor2 = _dbContext.VendorLists.Where(x => x.VedorID == vendor2ID).FirstOrDefault();
+
+            string vendor2Name = "";
+            int vendorID2 = 0;
+            string vendor2Emails = "";
+            if (vendor2 != null)
+            {
+                vendor2Name = vendor2.VendorName;
+                vendorID2 = vendor2.VedorID;
+                vendor2Emails = vendor2.VendorEmail;
+            }
+
+
+            decimal vendor2Quotation = !string.IsNullOrWhiteSpace(Request.Form["Vendor2quotation"]) ? System.Convert.ToDecimal(Request.Form["Vendor2quotation"]) : 0;
+            string vendorName3 = Request.Form["Vendorname3"];
+            string vendor3idlastpart = "0";
+            if (vendorName3 != "Select Vendor Name")
+            {
+                string[] vendor3Parts = vendorName3.Split('-');
+                vendor3idlastpart = vendor3Parts[vendor3Parts.Length - 1].Trim();
+            }
+
+            int vendor3ID = int.Parse(vendor3idlastpart);
+
+            var vendor3 = _dbContext.VendorLists.Where(x => x.VedorID == vendor3ID).FirstOrDefault();
+
+            string vendor3Name = "";
+            int vendorID3 = 0;
+            string vendor3Emails = "";
+            if (vendor3 != null)
+            {
+                vendor3Name = vendor3.VendorName;
+                vendorID3 = vendor3.VedorID;
+                vendor3Emails = vendor3.VendorEmail;
+            }
+
+            decimal vendor3Quotation = !string.IsNullOrWhiteSpace(Request.Form["Vendor3quotation"]) ? System.Convert.ToDecimal(Request.Form["Vendor3quotation"]) : 0;
+
+            HttpPostedFileBase fileInput1 = Request.Files["AttachFile-1"];
+            HttpPostedFileBase fileInput2 = Request.Files["AttachFile-2"];
+            HttpPostedFileBase fileInput3 = Request.Files["AttachFile-3"];
+
+            var TicketingFolderPath = ConfigurationManager.AppSettings["TicketingFolderPath"];
+            TicketingFolderPath = TicketingFolderPath + "/Purchase";
+
+            string fileInput1Path = "";
+            string fileInput1Name = "";
+            if (fileInput1 != null)
+            {
+                fileInput1Name = Path.GetFileName(fileInput1.FileName);
+            }
+
+            string fileInput2Path = "";
+            string fileInput2Name = "";
+            if (fileInput2 != null)
+            {
+                fileInput2Name = Path.GetFileName(fileInput2.FileName);
+            }
+
+            string fileInput3Path = "";
+            string fileInput3Name = "";
+            if (fileInput3 != null)
+            {
+                fileInput3Name = Path.GetFileName(fileInput3.FileName);
+            }
+
+            using (var context = new HRMS_EntityFramework())
+            {
+                var purchaseRequest = context.PurchaseRequests.FirstOrDefault(pr => pr.PRNumber == PRNumber);
+
+                if (purchaseRequest == null)
                 {
-                    // New purchase request
-                    purchaseRequest.Status = "Pending";
-                    
-                    if (attachFile1 != null && attachFile1.ContentLength > 0)
+                    // Create new record
+                    purchaseRequest = new PurchaseRequest
                     {
-                        var filePath1 = SaveFile(attachFile1);
-                        purchaseRequest.AttachFile1 = filePath1;
-                    }
+                        AssetType = assetType,
+                        RequestedBy = requestedBy,
+                        RequiredOn = DateTime.Parse(requiredOn),
+                        VendorName1 = vendor1Name,
+                        VendorEmail1 = vendor1Emails,
+                        VendorID1 = vendorID1,
+                        QuotationPrice1 = vendor1Quotation,
+                        AttachFile1 = fileInput1Name,
+                        VendorName2 = vendor2Name,
+                        VendorEmail2 = vendor2Emails,
+                        VendorID2 = vendorID2,
+                        QuotationPrice2 = vendor2Quotation,
+                        AttachFile2 = fileInput2Name,
+                        VendorName3 = vendor3Name,
+                        VendorEmail3 = vendor3Emails,
+                        VendorID3 = vendorID3,
+                        QuotationPrice3 = vendor3Quotation,
+                        AttachFile3 = fileInput3Name,
+                        Status = "Pending",
+                        CreatedBy = cuserContext.LoginInfo.EmployeeName,
+                        CreatedDate = DateTime.Now,
+                        PRNumber = PRNumber,
+                        FinalStatus = "Pending"
+                    };
 
-                    if (attachFile2 != null && attachFile2.ContentLength > 0)
-                    {
-                        var filePath2 = SaveFile(attachFile2);
-                        purchaseRequest.AttachFile2 = filePath2;
-                    }
-
-                    if (attachFile3 != null && attachFile3.ContentLength > 0)
-                    {
-                        var filePath3 = SaveFile(attachFile3);
-                        purchaseRequest.AttachFile3 = filePath3;
-                    }
-
-                    _dbContext.PurchaseRequests.Add(purchaseRequest);
-                    model.Message = "Purchase request added successfully!";
+                    context.PurchaseRequests.Add(purchaseRequest);
                 }
                 else
                 {
-                    // Update existing purchase request
-                    existingPurchaseRequest.AssetType = purchaseRequest.AssetType;
-                    existingPurchaseRequest.RequestedBy = purchaseRequest.RequestedBy;
-                    existingPurchaseRequest.RequiredOn = purchaseRequest.RequiredOn;
-                    existingPurchaseRequest.VendorName1 = purchaseRequest.VendorName1;
-                    existingPurchaseRequest.QuotationPrice1 = purchaseRequest.QuotationPrice1;
-                    existingPurchaseRequest.AttachFile1 = purchaseRequest.AttachFile1;
-                    existingPurchaseRequest.VendorName2 = purchaseRequest.VendorName2;
-                    existingPurchaseRequest.QuotationPrice2 = purchaseRequest.QuotationPrice2;
-                    existingPurchaseRequest.AttachFile2 = purchaseRequest.AttachFile2;
-                    existingPurchaseRequest.VendorName3 = purchaseRequest.VendorName3;
-                    existingPurchaseRequest.QuotationPrice3 = purchaseRequest.QuotationPrice3;
-                    existingPurchaseRequest.AttachFile3 = purchaseRequest.AttachFile3;
-
-                    model.Message = "Purchase request updated successfully!";
+                    purchaseRequest.AssetType = assetType;
+                    purchaseRequest.RequestedBy = requestedBy;
+                    purchaseRequest.RequiredOn = DateTime.Parse(requiredOn);
+                    purchaseRequest.VendorName1 = vendor1Name;
+                    purchaseRequest.VendorEmail1 = vendor1Emails;
+                    purchaseRequest.VendorID1 = vendorID1;
+                    purchaseRequest.QuotationPrice1 = vendor1Quotation;
+                    purchaseRequest.VendorName2 = vendor2Name;
+                    purchaseRequest.VendorEmail2 = vendor2Emails;
+                    purchaseRequest.VendorID2 = vendorID2;
+                    purchaseRequest.QuotationPrice2 = vendor2Quotation;
+                    purchaseRequest.VendorName3 = vendor3Name;
+                    purchaseRequest.VendorEmail3 = vendor3Emails;
+                    purchaseRequest.VendorID3 = vendorID3;
+                    purchaseRequest.QuotationPrice3 = vendor3Quotation;
+                    purchaseRequest.UpdatedBy = cuserContext.LoginInfo.EmployeeName;
+                    purchaseRequest.UpdatedDate = DateTime.Now;
+                    purchaseRequest.FinalStatus = "Pending";
+                    if (fileInput1 != null)
+                    {
+                        purchaseRequest.AttachFile1 = fileInput1Name;
+                    }
+                    if (fileInput2 != null)
+                    {
+                        purchaseRequest.AttachFile2 = fileInput2Name;
+                    }
+                    if (fileInput3 != null)
+                    {
+                        purchaseRequest.AttachFile3 = fileInput3Name;
+                    }
                 }
 
-                _dbContext.SaveChanges();
-
-                var emailBody = RenderPartialToString(this, "_PurchaseRequestEmailNotification", purchaseRequest, ViewData, TempData);
-
-                var emailRequest = new EmailRequest
+                if (fileInput1 != null)
                 {
-                    Body = emailBody,
-                    ToEmail = ConfigurationManager.AppSettings["PurchaseRequestEmailsTo"],
-                    CCEmail = ConfigurationManager.AppSettings["PurchaseRequestEmailsCC"],
-                    Subject = "New Purchase Request Approval",
-                };
+                    fileInput1Path = Path.Combine(TicketingFolderPath, fileInput1Name);
+                    fileInput1.SaveAs(fileInput1Path);
+                }
 
-                EMailHelper.SendEmail(emailRequest);
+                if (fileInput2 != null)
+                {
+                    fileInput2Path = Path.Combine(TicketingFolderPath, fileInput2Name);
+                    fileInput2.SaveAs(fileInput2Path);
+                }
 
-                model.StatusCode = 200; 
+                if (fileInput3 != null)
+                {
+                    fileInput3Path = Path.Combine(TicketingFolderPath, fileInput3Name);
+                    fileInput3.SaveAs(fileInput3Path);
+                }
+
+                context.SaveChanges();
+            }
+
+            return Json(model, JsonRequestBehavior.AllowGet);
+        }
+
+        [HttpPost]
+        public JsonResult PurchaseSubmitRequest()
+        {
+            var model = new JsonResponse();
+            try
+            {
+                int PurchaseID = System.Convert.ToInt32(Request.Form["PurchaseID"]);
+                HttpPostedFileBase fileInput1 = Request.Files["PAPurchaseOrder"];
+                HttpPostedFileBase fileInput2 = Request.Files["PATaxInvoice"];
+                var cuserContext = SiteContext.GetCurrentUserContext();
+
+                using (var context = new HRMS_EntityFramework())
+                {
+                    var purchaseRequest = context.PurchaseRequests.FirstOrDefault(pr => pr.PurchaseRequestID == PurchaseID);
+                    if (purchaseRequest != null)
+                    {
+                        var TicketingFolderPath = ConfigurationManager.AppSettings["TicketingFolderPath"];
+                        TicketingFolderPath = TicketingFolderPath + "/Purchase";
+
+                        string fileInput1Path = "";
+                        string fileInput1Name = "";
+                        if (fileInput1 != null)
+                        {
+                            fileInput1Name = Path.GetFileName(fileInput1.FileName);
+                            purchaseRequest.PO = fileInput1Name;
+                        }
+
+                        string fileInput2Name = "";
+                        if (fileInput2 != null)
+                        {
+                            fileInput2Name = Path.GetFileName(fileInput2.FileName);
+                            purchaseRequest.TaxInvoice = fileInput2Name;
+                        }                  
+                        
+
+                        if (fileInput1 != null)
+                        {
+                            fileInput1Path = Path.Combine(TicketingFolderPath, fileInput1Name);
+                            fileInput1.SaveAs(fileInput1Path);
+                        }
+
+                        string fileInput2Path = "";
+                        if (fileInput2 != null)
+                        {
+                            fileInput2Path = Path.Combine(TicketingFolderPath, fileInput2Name);
+                            fileInput2.SaveAs(fileInput2Path);
+                        }
+                        context.SaveChanges();
+                        model.StatusCode = 200;
+                        model.Message = "Submitted successfully!";
+                    }
+                }
             }
             catch (Exception ex)
             {
                 model = ErrorHelper.CaptureError(ex);
-                model.StatusCode = 500; // Internal Server Error
             }
-
             return Json(model, JsonRequestBehavior.AllowGet);
         }
 
@@ -168,10 +344,17 @@ namespace HRMS.Controllers
             return null;
         }
 
-    
-    public ActionResult PurchaseAdd()
+
+        public ActionResult PurchaseAdd()
         {
             return View("~/Views/Itsupport/PurchaseAdd.cshtml");
+        }
+
+
+        public JsonResult Getpurchaserequestdetails(int id)
+        {
+            var purchase = _dbContext.PurchaseRequests.Where(x => x.PurchaseRequestID == id).OrderByDescending(x => x.PurchaseRequestID).FirstOrDefault();
+            return Json(Newtonsoft.Json.JsonConvert.SerializeObject(purchase), JsonRequestBehavior.AllowGet);
         }
 
         public ActionResult PurchaseImport()
@@ -179,24 +362,67 @@ namespace HRMS.Controllers
             return View("~/Views/Itsupport/PurchangeImport.cshtml");
         }
 
-        public ActionResult PurchaseAccountSubmit()
+        public ActionResult PurchaseAccountSubmit(int purchaseId)
         {
-            return View("~/Views/Itsupport/PurchaseAccountSubmit.cshtml");
+            var purchase = _dbContext.PurchaseRequests.Where(x => x.PurchaseRequestID == purchaseId).FirstOrDefault();
+            return View("~/Views/Itsupport/PurchaseAccountSubmit.cshtml", purchase);
         }
 
-        public ActionResult PurchaseSuperApproval()
+        public ActionResult PurchaseSuperApproval(int purchaseId)
         {
-            return View("~/Views/Itsupport/PurchaseSuperApprovalView.cshtml");
+            var purchase = _dbContext.PurchaseRequests.Where(x => x.PurchaseRequestID == purchaseId).OrderByDescending(x => x.PurchaseRequestID).FirstOrDefault();
+            return View("~/Views/Itsupport/PurchaseSuperApprovalView.cshtml", purchase);
         }
-       
+
         public ActionResult PurchasesuperAdmin()
         {
-            return View("~/Views/Itsupport/PurchaseSuperAdminView.cshtml");
+            var model = PurchaseListView();
+            return View("~/Views/Itsupport/PurchaseSuperAdminView.cshtml", model);
         }
 
         public ActionResult PurchaseAccountAdmin()
         {
-            return View("~/Views/Itsupport/PurchaseAccountAdmin.cshtml");
+            var model = PurchaseListView();
+            model.PurchaseRequests = model.PurchaseRequests.Where(x => x.FinalStatus == "Approved").ToList();
+            return View("~/Views/Itsupport/PurchaseAccountAdmin.cshtml", model);
+        }
+
+        [HttpPost]
+        public JsonResult UpdateVendorStatus(int purchaseId, string vendor1Status, string vendor2Status, string vendor3Status, string ButtonName)
+        {
+            var cuserContext = SiteContext.GetCurrentUserContext();
+
+            try
+            {
+                var purchaseRequest = _dbContext.PurchaseRequests.FirstOrDefault(pr => pr.PurchaseRequestID == purchaseId);
+                if (purchaseRequest != null)
+                {
+                    purchaseRequest.Vendor1Status = vendor1Status;
+                    purchaseRequest.Vendor2Status = vendor2Status;
+                    purchaseRequest.Vendor3Status = vendor3Status;
+                    purchaseRequest.UpdatedDate = DateTime.Now;
+                    purchaseRequest.FinalStatus = ButtonName;
+
+                    if (ButtonName == "Approved")
+                    {
+                        purchaseRequest.ApprovedBy = cuserContext.EmpInfo.EmployeeName;
+                        purchaseRequest.ApprovedDate = DateTime.Now;
+                    }
+
+                    if (ButtonName == "Rejected")
+                    {
+                        purchaseRequest.RejectedBy = cuserContext.EmpInfo.EmployeeName;
+                        purchaseRequest.RejectedDate = DateTime.Now;
+                    }
+
+                    _dbContext.SaveChanges();
+                }
+                return Json(new { success = true, message = "Purchase request " + ButtonName + " successfully!" });
+            }
+            catch (Exception ex)
+            {
+                return Json(new { success = false, message = ex.Message });
+            }
         }
     }
 }

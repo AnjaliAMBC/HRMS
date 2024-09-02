@@ -1,4 +1,6 @@
-﻿@Html.Partial("_NavBar")
+﻿@model HRMS.Models.ITsupport.PurchaseListViewModel
+
+@Html.Partial("_NavBar")
 @{
     ViewBag.Title = "PurchaseListView";
 }
@@ -27,17 +29,17 @@
                         </div>
                         <div class="col-xl-5 col-lg-12 navbarl1 col-sm-12 col-md-12 res-itadmin-purchase-header-right">
                             <!-- Export -->
-                            <div class="col-xl-4 col-lg-3 navbarl1 col-sm-4 col-xs-12 col-md-4 res-admin-purchase-status p-0">
-                                <div class="form-group res-purchaselisting">
-                                    <select class="form-control form-select" name="purchasestatus" id="purchaselisting-status-dropdown" style="">
-                                        <option value="" disabled selected>Status</option>
-                                        <option value="Approved">Approved</option>
-                                        <option value="Rejected">Rejected</option>
-                                        <option value="Pending">Pending</option>
-                                        <option value="">All</option>
-                                    </select>
-                                </div>
-                            </div>
+                            @*<div class="col-xl-4 col-lg-3 navbarl1 col-sm-4 col-xs-12 col-md-4 res-admin-purchase-status p-0">
+                                    <div class="form-group res-purchaselisting">
+                                        <select class="form-control form-select" name="purchasestatus" id="purchaselisting-status-dropdown" style="">
+                                            <option value="" disabled selected>Status</option>
+                                            <option value="Approved">Approved</option>
+                                            <option value="Rejected">Rejected</option>
+                                            <option value="Pending">Pending</option>
+                                            <option value="">All</option>
+                                        </select>
+                                    </div>
+                                </div>*@
                             <div class="col-xl-2 col-lg-1  navbarl1 col-sm-2 col-md-2 res-itadmin-purchase-export p-0">
                                 <div class="itadminpurchase-export" style="">
                                     <button type="button" class="btn purchaselist-export-btn pt-0" id="exportPurchase" onclick="exportPurchase()">
@@ -74,76 +76,72 @@
                             </tr>
                         </thead>
                         <tbody>
-                            <tr class="odd">
-                                <td><input type="checkbox" class="purchaseitadmin-check"></td>
-                                <td class="itprequestno">PR11</td>
-                                <td class="itpassettype">Hardware</td>
-                                <td>Goutham</td>
-                                <td class="itpvendor1 table-itp-vendor-info">
-                                    <div style="display: flex; align-items: center;">
-                                        <span style="margin-top: 0px; margin-right: 10px; line-height:1rem">
-                                            Mithun Sivaprakasam<br>
-                                            <a class="itp_filepath" href="#" target="_blank">Hardware_Quotation.pdf</a><br />
-                                            <span class="pending">Pending</span>
+                            @foreach (var purchserequest in Model.PurchaseRequests)
+                            {
+                                <tr>
+                                    <td><input type="checkbox" class="purchaseitadmin-check"></td>
+                                    <td class="itprequestno" data-purchaseid="@purchserequest.PurchaseRequestID">@purchserequest.PRNumber</td>
+                                    <td class="itpassettype">@purchserequest.AssetType</td>
+                                    <td>@purchserequest.RequestedBy</td>
+                                    <td class="itpvendor1 table-itp-vendor-info">
+                                        <div style="display: flex; align-items: center;">
+                                            <span style="margin-top: 0px; margin-right: 10px; line-height:1rem">
+                                                @purchserequest.VendorName1<br>
+                                                <a class="itp_filepath" href="/Ticketing/@Model.PurchasRequestFolderPath/@purchserequest.AttachFile1" target="_blank">@purchserequest.AttachFile1</a><br />
+
+                                                @{
+                                                    var vendor1Status = purchserequest.Vendor1Status;
+                                                    var status1Class = string.IsNullOrEmpty(vendor1Status) ? "pending" : vendor1Status.ToLowerInvariant();
+                                                    var status1Name = string.IsNullOrEmpty(vendor1Status) ? "Pending" : vendor1Status;
+                                                }
+                                                <span class="@status1Class">@status1Name</span>
+                                            </span>
+                                        </div>
+                                    </td>
+                                    <td class="itpvendor2 table-itp-vendor-info">
+                                        <div style="display: flex; align-items: center;">
+                                            <span style="margin-top: 0px; margin-right: 10px; line-height: 1rem">
+                                                @purchserequest.VendorName2<br>
+                                                @if (!string.IsNullOrWhiteSpace(@purchserequest.AttachFile2))
+                                                {
+                                                    <a class="itp_filepath" href="/Ticketing/@Model.PurchasRequestFolderPath/@purchserequest.AttachFile2" target="_blank">@purchserequest.AttachFile2</a><br />
+                                                }
+
+                                                @{
+                                                    var vendor2Status = purchserequest.Vendor2Status;
+                                                    var status2Class = string.IsNullOrEmpty(vendor2Status) ? "pending" : vendor2Status.ToLowerInvariant();
+                                                    var status2Name = string.IsNullOrEmpty(vendor2Status) ? "Pending" : vendor2Status;
+                                                }
+
+                                                <span class="@status2Class">@status2Name</span>
+                                            </span>
+                                        </div>
+                                    </td>
+                                    <td class="itpvendor3 table-itp-vendor-info">
+                                        <div style="display: flex; align-items: center;">
+                                            <span style="margin-top: 0px; margin-right: 10px; line-height: 1rem">
+                                                @purchserequest.VendorName3<br>
+                                                @if (!string.IsNullOrWhiteSpace(@purchserequest.AttachFile3))
+                                                {
+                                                    <a class="itp_filepath" href="/@Model.PurchasRequestFolderPath/@purchserequest.AttachFile3" target="_blank">@purchserequest.AttachFile3</a><br />
+                                                }
+                                                @{
+                                                    var vendor3Status = @purchserequest.Vendor3Status;
+                                                    var status3Class = string.IsNullOrEmpty(vendor3Status) ? "pending" : vendor3Status.ToLowerInvariant();
+                                                    var status3Name = string.IsNullOrEmpty(vendor3Status) ? "Pending" : vendor3Status;
+                                                }
+                                                <span class="@status3Class">@status3Name</span>
+                                            </span>
+                                        </div>
+                                    </td>
+                                    <td style="text-align:center;">
+                                        <span class="purchaseitadmin-approval-edit" data-purchaseid="@purchserequest.PurchaseRequestID">
+                                            <i class="fas fa-pencil-alt"></i>
                                         </span>
-                                    </div>
-                                </td>
-                                <td class="itpvendor2 table-itp-vendor-info">
-                                    <div style="display: flex; align-items: center;">
-                                        <span style="margin-top: 0px; margin-right: 10px; line-height: 1rem">
-                                            Mithun Sivaprakasam<br>
-                                            <a class="itp_filepath" href="#" target="_blank">Hardware_Quotation.pdf</a><br />
-                                            <span class="approved">Approved</span>
-                                        </span>
-                                    </div>
-                                </td>
-                                <td class="itpvendor3 table-itp-vendor-info">
-                                    <div style="display: flex; align-items: center;">
-                                        <span style="margin-top: 0px; margin-right: 10px; line-height: 1rem">
-                                            Mithun Sivaprakasam<br>
-                                            <a class="itp_filepath" href="#"  target="_blank">Hardware_Quotation.pdf</a><br />
-                                            <span class="rejected">Rejected</span>
-                                        </span>
-                                    </div>
-                                </td>
-                                <td style="text-align:center;">
-                                    <span class="purchaseitadmin-approval-edit" data-toggle="modal" data-target="#purchaseitadmin-approvalcard" onclick="">
-                                        <i class="fas fa-pencil-alt"></i>
-                                    </span>
-                                </td>
-                            </tr>
-                            <tr class="even">
-                                <td><input type="checkbox" class="purchaseitadmin-check"></td>
-                                <td class="itprequestno">PR76</td>
-                                <td class="itpassettype">Hardware</td>
-                                <td>Goutham</td>
-                                <td class="itpvendor1 table-itp-vendor-info">
-                                    <div style="display: flex; align-items: center;">
-                                        <span style="margin-top: 0px; margin-right: 10px; line-height: 1rem">
-                                        Mithun Sivaprakasam<br>
-                                            <a class="itp_filepath" href="#" target="_blank">Hardware_Quotation.pdf</a><br />
-                                        <span class="pending">Pending</span>
-                                        </span>
-                                    </div>
-                                </td>
-                                <td class="itpvendor2 table-itp-vendor-info">
-                                    <div style="display: flex; align-items: center;">
-                                        <span style="margin-top: 0px; margin-right: 10px; line-height: 1rem">
-                                            Mithun Sivaprakasam<br>
-                                            <a class="itp_filepath" href="#" target="_blank">Hardware_Quotation.pdf</a><br />
-                                            <span class="approved">Approved</span>
-                                        </span>
-                                    </div>
-                                </td>
-                                <td class="itpvendor3 table-itp-vendor-info">
-                                    -
-                                </td>
-                                <td style="text-align:center;">
-                                    <span class="purchaseitadmin-approval-edit" data-toggle="modal" data-target="#purchaseitadmin-approvalcard" onclick="">
-                                        <i class="fas fa-pencil-alt"></i>
-                                    </span>
-                                </td>
-                            </tr>
+                                    </td>
+                                </tr>
+                            }
+
                         </tbody>
                     </table>
                 </div>
@@ -154,65 +152,8 @@
     </div>
 </div>
 
-<!-- status Modal -->
-<div id="itpurchaseStatusModal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="purchaseStatusModal" aria-hidden="true">
-    <div class="modal-dialog" role="document">
-        <div class="modal-content">
-            <div class="modal-body">
-                <div class="modal-header">
-                    <h5 class="modal-title" id="purchaseStatusModalLabel">PR 24 Status</h5>
-                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                        <span aria-hidden="true">&times;</span>
-                    </button>
-                </div>
-                <div class="purchaseStatus-popup-list">
-                    <div class="purchaseStatus-list">
-                        <div class="col-lg-1 col-md-1 col-sm-2 purchaseStatus-left">
-                            <div class="vl-none"></div>
-                            <i class="fa fa-check-circle" aria-hidden="true"></i>
-                            <div class="vl"></div>
-                        </div>
-                        <span class="col-lg-7 col-md-7 col-sm-5 purchaseStatus-mid">
-                            <div class="purchaseStatus-statusinfo">Purchase Request</div>
-                            <div class="purchaseStatus-sentby"><span class="sent-by">Sent By</span> <span class="sender-name">Abc</span></div>
-                            <div class="purchaseStatus-date" title="test">07 Jan 24 00:00 AM</div>
-                        </span>
-                    </div>
-                    <div class="purchaseStatus-list">
-                        <div class="col-lg-1 col-md-1 col-sm-2 purchaseStatus-left">
-                            <div class="vl-0"></div>
-                            <i class="fa fa-check-circle" aria-hidden="true"></i>
-                            <div class="vl"></div>
-                        </div>
-                        <span class="col-lg-7 col-md-7 col-sm-5 purchaseStatus-mid">
-                            <div class="purchaseStatus-statusinfo">Purchase Request</div>
-                            <div class="purchaseStatus-sentby"><span class="approved-by">Approved By</span> <span class="sender-name">Abc</span></div>
-                            <div class="purchaseStatus-date" title="test">07 Jan 24 00:00 AM</div>
-                        </span>
-                    </div>
-                    <div class="purchaseStatus-list">
-                        <div class="col-lg-1 col-md-1 col-sm-2 purchaseStatus-left">
-                            <i class="fa fa-circle" aria-hidden="true"></i>
-                            <div class="vl"></div>
-                        </div>
-                        <span class="col-lg-7 col-md-7 col-sm-5 purchaseStatus-mid">
-                            <div class="purchaseStatus-statusinfo">Purchase Order</div>
-                        </span>
-                    </div>
-                    <div class="purchaseStatus-list">
-                        <div class="col-lg-1 col-md-1 col-sm-2 purchaseStatus-left">
-                            <i class="fa fa-circle" aria-hidden="true"></i>
-                            <div class="vl"></div>
-                        </div>
-                        <span class="col-lg-7 col-md-7 col-sm-5 purchaseStatus-mid">
-                            <div class="purchaseStatus-statusinfo">Tax Invoice</div>
-                        </span>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-</div>
+@Html.Partial("~/Views/Itsupport/_purchaselistflow.cshtml")
+<script src="~/Scripts/z-purchaseScript.js"></script>
 
 <script>
     $(document).ready(function () {
@@ -232,19 +173,23 @@
             });
 
 
-            $(document).on('change', '#hr-purchaselisting-status-dropdown', function (event) {
-                var status = $(this).val();
-                if (status == "All") {
-                    status = "";
-                }
-                table.column(7).search(status).draw();
-            });
+            //$(document).on('change', '#purchaselisting-status-dropdown', function (event) {
+            //    var status = $(this).val();
+            //    if (status == "All") {
+            //        status = "";
+            //    }
+            //    table.column(4).search(status)
+            //        .column(5).search(status)
+            //        .column(6).search(status)
+            //        .draw();
+
+            //});
         }
 
         $(document).on('change', '#addpurchase', function () {
             var selectedValue = $(this).val();
             if (selectedValue === "Addmanually") {
-                window.location.href = '/purchase/purchaseadd';
+                window.location.href = '/purchase/addpurchaserequest';
             } else if (selectedValue === "importuser") {
                 window.location.href = '/purchase/purchaseimport';
             }
@@ -256,6 +201,15 @@
 
     });
 
+
+
+
+
+
+    $(document).on('click', '.purchaseitadmin-approval-edit', function () {
+        var purchaseID = $(this).attr("data-purchaseid");
+        window.location.href = "/purchase/addpurchaserequest?purchaseId=" + purchaseID;
+    });
 
 
 </script>
