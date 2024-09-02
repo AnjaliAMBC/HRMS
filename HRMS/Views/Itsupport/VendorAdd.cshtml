@@ -1,7 +1,7 @@
 ﻿@model HRMS.Models.ITsupport.VendorViewModel
 
 @{
-    var headline = Model.EditVendor.VedorID != 0 ? "Edit Vendor Details" : "Add Vendor Details";
+    var headline = Model != null && Model.EditVendor != null && Model.EditVendor.VedorID != 0 ? "Edit Vendor Details" : "Add Vendor Details";
 }
 
 @Html.Partial("_NavBar")
@@ -23,7 +23,7 @@
                                     <div class="form-group vendoradd-tabs">
                                         <label for="VendorID">Vendor ID</label>
                                         @{
-                                            var isEditRecord = Model.EditVendor.VedorID != 0 ? true : false;
+                                            var isEditRecord = Model != null && Model.EditVendor != null && Model.EditVendor.VedorID != 0 ? true : false;
                                             var venorID = Model.NewVendorId;
                                             if (isEditRecord)
                                             {
@@ -136,7 +136,7 @@
                             <div class="row">
                                 <div class="col-lg-12 col-md-12 text-right">
                                     <button type="button" class="btn vendoradd-Cancel">Cancel</button>
-                                    <button type="submit" class="btn btn-primary vendoradd-Update">Submit</button>
+                                    <button type="button" class="btn btn-primary vendoradd-Update">Submit</button>
                                 </div>
                             </div>
                         </div>

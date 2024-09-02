@@ -169,56 +169,13 @@
 
                     <div class="row psa-footer">
                         <div class="col-lg-12 col-md-12 text-right">
-
-
                             <button type="button" class="btn btn-danger psaadd-reject">Reject</button>
                             <button type="button" class="btn btn-success psaadd-approve">Approve</button>
                             <button type="button" class="btn psaadd-change-status color-blue" style="display:none;">Change Status</button>
                             <button type="button" class="btn btn-success psaadd-approved" style="display:none;">@vendorStatus</button>
-
-
-
-                            @*@{
-                                    var displayButtons = "display:none";
-                                }
-                                @if (vendorStatus == "Pending")
-                                {
-                                    displayButtons = "display:block";
-                                }
-
-                                <button type="button" class="btn btn-danger psaadd-reject " style="@displayButtons">Reject</button>
-                                <button type="button" class="btn btn-success psaadd-approve " style="@displayButtons">Approve</button>
-
-
-                                @{
-                                    var displayApprovedButtons = "display:none";
-                                }
-                                @if (vendorStatus == "Approved")
-                                {
-                                    displayApprovedButtons = "display:block";
-                                }
-
-                                <button type="button" class="btn psaadd-change-status color-blue psaadd-change-status-approved" style="@displayApprovedButtons">Change Status</button>
-                                <button type="button" class="btn btn-success psaadd-approved approvedbutton" style="@displayApprovedButtons">Approved</button>
-
-
-                                @{
-                                    var displayRejectedButtons = "display:none";
-                                }
-                                @if (vendorStatus == "Rejected")
-                                {
-                                    displayRejectedButtons = "display:block";
-                                }
-
-
-                                <button type="button" class="btn psaadd-change-status color-blue psaadd-change-status-rejected" style="@displayRejectedButtons">Change Status</button>
-                                <button type="button" class="btn btn-danger psaadd-rejected rejectedbutton" style="@displayRejectedButtons">Rejected</button>*@
-
                         </div>
                     </div>
                 </div>
-
-
 
                 <div class="vendor-pr-status" data-status="@vendorStatus" style="display: none">@vendorStatus</div>
                 <div class="vendor-pr-number" style="display: none">@Model.PurchaseRequestID</div>
@@ -227,7 +184,45 @@
     </div>
 </div>
 
-@Html.Partial("CommonModalPopups")
+@*Success Modal*@
+<div class="modal fade" id="successModal" tabindex="-1" role="dialog" aria-labelledby="successModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="successModalLabel">Success</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body modal-message">
+                Success message will be inserted here
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary btn-purcahsesuperapporval-close" data-dismiss="modal">Close</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+@*Error Modal*@
+<div class="modal fade" id="errorModal" tabindex="-1" role="dialog" aria-labelledby="errorModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="errorModalLabel">Error</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body modal-message">
+                Error message will be inserted here
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary btn-purcahsesuperapporval-close" data-dismiss="modal">Close</button>
+            </div>
+        </div>
+    </div>
+</div>
 
 <script>
     $(document).ready(function () {
@@ -313,10 +308,11 @@
                 success: function (response) {
                     if (response.success) {
                         updateButtonStates("Approved");
-
-                        showMessageModal(response.message, true, "closepopuponly");
+                        $('.modal-message').text(response.message);
+                        $('#successModal').modal('show');
                     } else {
-                        showMessageModal(response.message, false, "closepopuponly");
+                        $('.modal-message').text(response.message);
+                        $('#errorModal').modal('show');
                     }
                 },
                 error: function () {
@@ -346,10 +342,12 @@
                 success: function (response) {
                     if (response.success) {
                         updateButtonStates("Rejected");
-                        showMessageModal(response.message, true, "closepopuponly");
+                        $('.modal-message').text(response.message);
+                        $('#successModal').modal('show');
 
                     } else {
-                        showMessageModal(response.message, false, "closepopuponly");
+                        $('.modal-message').text(response.message);
+                        $('#errorModal').modal('show');
                     }
                 },
                 error: function () {
@@ -361,6 +359,11 @@
 
     });
 
+
+    $(document).on('click', '.btn-purcahsesuperapporval-close', function () {
+        window.location.href = "/purchase/purchasesuperadmin";
+        return;
+    });
 
 </script>
 

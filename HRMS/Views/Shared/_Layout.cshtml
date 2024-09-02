@@ -69,7 +69,7 @@
     <script src="~/Scripts/z-empTicketing.js"></script>
     <script src="~/Scripts/z-adminTicketing.js"></script>
     <script src="~/Scripts/z-VendorScript.js"></script>
-   
+
     <style>
         body {
             color: #272727 !important;
@@ -142,6 +142,36 @@
             $('#admindash-menu a').each(function () {
                 // Check if the href attribute matches the current URL
                 if ($(this).attr('href') === currentUrl) {
+                    // Add the active class to the matching menu item
+                    $(this).addClass('active');
+
+                    $(this).parent().addClass('sidebaractive');
+                    // Break the loop
+                    return false;
+                }
+
+                //
+
+                if ($(this).attr('href') === "/vendor/index" && currentUrl === "/vendor/addvendor") {
+                    // Add the active class to the matching menu item
+                    $(this).addClass('active');
+
+                    $(this).parent().addClass('sidebaractive');
+                    // Break the loop
+                    return false;
+                }
+
+                if ($(this).attr('href') === "/vendor/index" && currentUrl === "/vendor/importvendor") {
+                    // Add the active class to the matching menu item
+                    $(this).addClass('active');
+
+                    $(this).parent().addClass('sidebaractive');
+                    // Break the loop
+                    return false;
+                }
+
+
+                if ($(this).attr('href') === "/purchase/index" && currentUrl === "/purchase/addpurchaserequest") {
                     // Add the active class to the matching menu item
                     $(this).addClass('active');
 

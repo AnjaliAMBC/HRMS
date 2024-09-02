@@ -158,10 +158,16 @@
                                                    accept=".pdf,.doc,.docx" data-existingfile="@Model.EditPurchase.AttachFile1">
                                         </div>
 
-                                        @if (!string.IsNullOrWhiteSpace(@Model.EditPurchase.AttachFile1))
-                                        {
-                                            <a class="itp_filepath attchedfile-1" href="/purchase/@Model.EditPurchase.AttachFile1" target="_blank">@Model.EditPurchase.AttachFile1</a><br />
+                                        @{
+                                            var showAttchemnt1 = "disaply:block";
                                         }
+
+                                        @if (string.IsNullOrWhiteSpace(@Model.EditPurchase.AttachFile1))
+                                        {
+                                            showAttchemnt1 = "disaply:none";
+                                        }
+
+                                        <a style="@showAttchemnt1" class="itp_filepath attchedfile-1" href="/purchase/@Model.EditPurchase.AttachFile1" target="_blank">@Model.EditPurchase.AttachFile1</a><br />
 
                                         <small style="font-size: 12px; float: left; margin-top: -5px; color: #3E78CF;">File supported PDF, DOCS of 2MB</small>
                                         <div class="invalid-feedback">Attach File is required.</div>
@@ -285,7 +291,7 @@
                                     Success message will be inserted here
                                 </div>
                                 <div class="modal-footer">
-                                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                                    <button type="button" class="btn btn-secondary btn-addpurcase-close" data-dismiss="modal">Close</button>
                                 </div>
                             </div>
                         </div>
@@ -305,7 +311,7 @@
                                     Error message will be inserted here
                                 </div>
                                 <div class="modal-footer">
-                                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                                    <button type="button" class="btn btn-secondary btn-addpurcase-close" data-dismiss="modal">Close</button>
                                 </div>
                             </div>
                         </div>
@@ -317,45 +323,12 @@
         </div>
     </div>
 </div>
+
+<script src="~/Scripts/z-purchaseScript.js"></script>
+
 <script>
     $(document).ready(function () {
         $('.AssetType, .Requestedby, .VendorName').select2();
-
-        //function Attchemnet1Validation() {
-        //    let isValid = true;
-        //    var fileInput = $('#AttachFile-1');
-        //    var file = fileInput[0].files[0];
-        //    var parentDiv = fileInput.closest('.form-group');
-        //    $('.attach1wrapper').css('border', '');
-
-        //    // Check if a file is selected
-        //    if (!file) {
-        //        parentDiv.addClass('is-invalid');
-        //        fileInput.addClass('is-invalid');
-        //        $('.attach1wrapper').css('border', '1px solid red');
-        //        parentDiv.find('.invalid-feedback').text('Attach File is required.').show();
-        //        isValid = false;
-        //    } else {
-        //        // Validate file type and size
-        //        var allowedTypes = ['application/pdf', 'application/msword', 'application/vnd.openxmlformats-officedocument.wordprocessingml.document'];
-        //        var maxSize = 2 * 1024 * 1024; // 2MB
-
-        //        if ($.inArray(file.type, allowedTypes) === -1 || file.size > maxSize) {
-        //            parentDiv.addClass('is-invalid');
-        //            fileInput.addClass('is-invalid');
-        //            parentDiv.find('.invalid-feedback').text('Invalid file type or size. Please upload a PDF or DOC file less than 2MB.').show();
-        //            isValid = false;
-        //            $('.attach1wrapper').css('border', '1px solid red');
-        //        } else {
-        //            parentDiv.removeClass('is-invalid');
-        //            fileInput.removeClass('is-invalid');
-        //            parentDiv.find('.invalid-feedback').hide();
-        //            $('.attach1wrapper').css('border', '');
-        //        }
-        //    }
-
-        //    return isValid;
-        //}
 
 
         $('#AttachFile-1').on('change', function () {
@@ -535,5 +508,9 @@
     });
 
 
+
+    $('.btn-addpurcase-close').on('click', function (event) {
+        window.location.href = "/purchase/index";
+    });
 
 </script>

@@ -53,7 +53,7 @@
                                     <select name="addpurchase" class="addpurchase form-control form-select" id="addpurchase">
                                         <option value="" disabled="" selected="" hidden="">Add Purchase</option>
                                         <option value="Addmanually" class="purchaseManually">+ Manually</option>
-                                        <option value="importuser" class="purchaseBulk">+ Bulk</option>
+                                        @*<option value="importuser" class="purchaseBulk">+ Bulk</option>*@
                                     </select>
                                 </div>
                             </div>
@@ -171,20 +171,8 @@
             $('.purchase-advancesearch').on('keyup', function () {
                 table.search(this.value).draw(); // Perform global search on all columns
             });
-
-
-            //$(document).on('change', '#purchaselisting-status-dropdown', function (event) {
-            //    var status = $(this).val();
-            //    if (status == "All") {
-            //        status = "";
-            //    }
-            //    table.column(4).search(status)
-            //        .column(5).search(status)
-            //        .column(6).search(status)
-            //        .draw();
-
-            //});
-        }
+           
+          }
 
         $(document).on('change', '#addpurchase', function () {
             var selectedValue = $(this).val();

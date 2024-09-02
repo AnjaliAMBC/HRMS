@@ -31,22 +31,18 @@
 
     var highliateITSupport = "";
     var itSupportSidebarShow = "display: none";
-    if (pageUrlPath.Contains("/vendor/index") || pageUrlPath.Contains("/vendor/approvevendor") || pageUrlPath.Contains("/vendor/addvendor") || pageUrlPath.Contains("/vendor/importvendor"))
+    if (pageUrlPath.Contains("/vendor/index") || pageUrlPath.Contains("/vendor/approvevendor") || pageUrlPath.Contains("/vendor/addvendor") || pageUrlPath.Contains("/vendor/importvendor")
+        || pageUrlPath.Contains("/purchase/index") || pageUrlPath.Contains("/subscription/subscriptioninfo")
+        || pageUrlPath.Contains("/asset/assetinfo") || pageUrlPath.Contains("/allocatedinformation/allocatedinfo") || pageUrlPath.Contains("/purchase/purchasesuperadmin")
+        || pageUrlPath.Contains("/purchase/addpurchaserequest"))
     {
         itSupportSidebarShow = "display: block";
-        if (pageUrlPath.Contains("/vendor/addvendor"))
-        {
-            highliateITSupport = "sidebaractive";
-        }
+        highliateITSupport = "sidebaractive";
 
-        if(pageUrlPath.Contains("/vendor/importvendor"))    
-            {
-                highliateITSupport = "sidebaractive";
-            }
 
     }
 
-    }
+}
 
 <div id="left-side-menu-normal" class="row">
     <style>
@@ -57,7 +53,6 @@
     <div class="col-md-2">
         <div class="sidebar" style="top: 56px !important">
             <ul id="admindash-menu">
-
                 @if (currentContext.IsAdmin || currentContext.IsSuperAdmin)
                 {
                     <li class="mb-2 @(pageUrlPath.Contains("/admindash/index") ? "active sidebaractive" : "")">
@@ -113,7 +108,7 @@
                 }
                 @if (currentContext.IsSuperAdmin || currentContext.IsITAdmin)
                 {
-                    <li class="admin-itsupport-main-menu sidebar-dropdown mb-2 @(!string.IsNullOrWhiteSpace(highliateITSupport) ? "active sidebaractive" : "")">
+                    <li class="admin-itsupport-main-menu sidebar-dropdown mb-2 @(!string.IsNullOrWhiteSpace(highliateITSupport) ? "active" : "")">
                         <a href="#" class="@(pageUrlPath == "/vendor/index" ? "active" : "")">
                             <img class="menu-icon" src="~/Assets/Icons/Leave.png" /><span>IT Support</span>
                             <i class="fa fa-chevron-down pull-right side-menubar-updown"></i>
@@ -126,7 +121,7 @@
                                 }
                                 @if (currentContext.IsSuperAdmin)
                                 {
-                                    <li><a href="/vendor/index"><span class="menu-bar-design-red"></span>Vendor</a></li>
+                                    <li><a href="/vendor/approveVendor"><span class="menu-bar-design-red"></span>Vendor</a></li>
                                 }
                                 @if (currentContext.IsITAdmin)
                                 {
@@ -134,20 +129,20 @@
                                 }
                                 @if (currentContext.IsSuperAdmin)
                                 {
-                                    <li><a href="/purchase/index" class=""><span class="menu-bar-design-blue"></span>Purchase Request</a></li>
+                                    <li><a href="/purchase/purchasesuperadmin" class=""><span class="menu-bar-design-blue"></span>Purchase Request</a></li>
                                 }
                                 @if (currentContext.IsAccountAdmin)
                                 {
-                                    <li><a href="/purchase/index" class=""><span class="menu-bar-design-blue"></span>Purchase Request</a></li>
+                                    <li><a href="/purchase/purchaseaccountadmin" class=""><span class="menu-bar-design-blue"></span>Purchase Request</a></li>
                                 }
-                                <li><a href="" class=""><span class="menu-bar-design-chocolate"></span>Subscription</a></li>
-                                <li><a href="" class=" "><span class="menu-bar-design-darkcyan"></span>Asset</a></li>
-                                <li><a href="/vendor/approveVendor" class=""><span class="menu-bar-design-red"></span>Allocated Information</a></li>
+                                <li><a href="/subscription/subscriptioninfo" class=""><span class="menu-bar-design-chocolate"></span>Subscription</a></li>
+                                <li><a href="/asset/assetinfo" class=" "><span class="menu-bar-design-darkcyan"></span>Asset</a></li>
+                                <li><a href="/allocatedinformation/allocatedInfo" class=""><span class="menu-bar-design-red"></span>Allocated Information</a></li>
 
-                                <li><a href="/purchase/purchaseaccountadmin" class=""><span class="menu-bar-design-chocolate"></span>Purchase Account</a></li>
-                                <li><a href="/purchase/PurchaseAccountSubmit" class=""><span class="menu-bar-design-chocolate"></span>PAccountSubmit</a></li>
-                                <li><a href="/purchase/purchasesuperadmin" class=" "><span class="menu-bar-design-darkcyan"></span>PurchaseSuperAdmin</a></li>
-                                <li><a href="/purchase/purchasesuperapproval" class=""><span class="menu-bar-design-red"></span>PurchaseSApproval</a></li>
+                                @*<li><a href="/purchase/purchaseaccountadmin" class=""><span class="menu-bar-design-chocolate"></span>Purchase Account</a></li>
+                                    <li><a href="/purchase/PurchaseAccountSubmit" class=""><span class="menu-bar-design-chocolate"></span>PAccountSubmit</a></li>
+                                    <li><a href="/purchase/purchasesuperadmin" class=" "><span class="menu-bar-design-darkcyan"></span>PurchaseSuperAdmin</a></li>
+                                    <li><a href="/purchase/purchasesuperapproval" class=""><span class="menu-bar-design-red"></span>PurchaseSApproval</a></li>*@
                             </ul>
                         </div>
                     </li>
