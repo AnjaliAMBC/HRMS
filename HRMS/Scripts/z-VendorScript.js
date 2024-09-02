@@ -2,9 +2,9 @@
 $(document).on('change', '#addvendor', function () {
     var selectedValue = $(this).val();
     if (selectedValue === "Addmanually") {
-        window.location.href = '/Vendor/AddVendor';
+        window.location.href = '/vendor/addvendor';
     } else if (selectedValue === "importuser") {
-        window.location.href = '/Vendor/ImportVendor';
+        window.location.href = '/vendor/importvendor';
     }
 });
 
@@ -102,7 +102,7 @@ function saveVendor() {
     };
 
     $.ajax({
-        url: '/vendor/AddVendor',
+        url: '/vendor/addvendor',
         type: 'POST',
         data: vendor,
         success: function (response) {
@@ -123,11 +123,14 @@ function saveVendor() {
 }
 
 // Button actions
-$('.vendoradd-Cancel').click(function () {
-    window.location.href = "/Vendor/Index"; // Redirect to vendor list page on cancel
+$(document).on('click', '.vendoradd-Cancel', function (event) {
+    event.preventDefault();
+    window.location.href = "/vendor/index"; // Redirect to vendor list page on cancel
 });
 
-$('.vendoradd-Update').click(function () {
+
+
+$(document).on('click', '.vendoradd-Update', function (event) {
     event.preventDefault();
     if (validateForm()) {
         saveVendor();
@@ -136,7 +139,7 @@ $('.vendoradd-Update').click(function () {
 
 function downloadVendorTemplate() {
     var link = document.createElement('a');
-    link.href = '/assets/templates/VendorImport.xlsx';
+    link.href = '/assets/templates/vendorimport.xlsx';
     link.download = 'VendorImportTemplate.xlsx';
     document.body.appendChild(link);
     link.click();
@@ -209,7 +212,7 @@ $(document).on('click', '#saveVendorTypeBtn', function () {
     } else {
         $('#vendorTypeError').hide();
         $.ajax({
-            url: '/vendor/AddVendorType',
+            url: '/vendor/addvendortype',
             method: 'POST',
             data: { VendorType: newVendorType },
             success: function (response) {
@@ -254,7 +257,7 @@ $(document).on('click', '.refresh-vendortablist', function (event) {
 
 $(document).on('click', '.vendor-list-edit', function (event) {
     var slectedVendor = $(this).attr("data-vendorid");
-    window.location.href = "/vendor/AddVendor?vendorid=" + slectedVendor;
+    window.location.href = "/vendor/addvendor?vendorid=" + slectedVendor;
     return false;
 });
 
@@ -278,7 +281,7 @@ function exportVendor() {
     }
 
     $.ajax({
-        url: '/Vendor/ExportSelectedVendors',
+        url: '/vendor/exportselectedvendors',
         type: 'POST',
         data: JSON.stringify({ selectedVendorIds: selectedVendorIds }),
         contentType: 'application/json; charset=utf-8',
@@ -318,7 +321,7 @@ $(document).off('change', '#vendor-file-upload-input').on('change', '#vendor-fil
 $(document).on('click', '.btn-vendor-import-submit', function (event) {
     event.preventDefault();
     $.ajax({
-        url: '/Vendor/ImportVendors',
+        url: '/vendor/importvendors',
         type: 'POST',
         data: formData,
         processData: false,
@@ -375,7 +378,7 @@ function approveVendor(vendorId) {
 
 function refreshVendorTable() {
     $.ajax({
-        url: "/vendor/ApproveVendorPartial", // Make sure this URL matches your routing setup
+        url: "/vendor/approvevendorpartial", // Make sure this URL matches your routing setup
         type: "GET",
         success: function (data) {
             $('.res-sadmin-vendorapproval-table').html(data);
@@ -406,7 +409,7 @@ function rejectVendor(vendorId) {
                 refreshVendorTable();
                 generateModalFooter("Rejected");
                 $('#modalMessage').text(response.message).removeClass('text-danger').addClass('text-success');
-               
+
             } else {
                 $('#modalMessage').text(response.message).removeClass('text-success').addClass('text-danger');
             }

@@ -146,4 +146,10 @@
         window.location.href = "/purchase/purchasesuperapproval?purchaseId=" + purchaseID;
     });
 
+    $(document).ready(function () {
+        
+        $(document).on('click', '.btn-close-refreshpage', function () {
+            window.location.href = "/purchase/purchasesuperadmin";
+        });
+    });
 </script>

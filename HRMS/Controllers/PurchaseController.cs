@@ -2,11 +2,15 @@
 using HRMS.Models;
 using HRMS.Models.Employee;
 using HRMS.Models.ITsupport;
+using OfficeOpenXml;
+using OfficeOpenXml.Style;
 using System;
 using System.Collections.Generic;
 using System.Configuration;
+using System.Drawing;
 using System.IO;
 using System.Linq;
+using System.Net;
 using System.Web;
 using System.Web.Mvc;
 
@@ -344,22 +348,81 @@ namespace HRMS.Controllers
             return null;
         }
 
-
-        public ActionResult PurchaseAdd()
+        [HttpPost]
+        public ActionResult ExportSelectedPurchaseRequests(List<int> selectedPurchaseRequestIds)
         {
-            return View("~/Views/Itsupport/PurchaseAdd.cshtml");
+            try
+            {
+                // Validate input
+                if (selectedPurchaseRequestIds == null || !selectedPurchaseRequestIds.Any())
+                {
+                    return new HttpStatusCodeResult(HttpStatusCode.BadRequest, "No purchase requests selected.");
+                }
+
+                var purchaseRequests = _dbContext.PurchaseRequests
+                                    .Where(pr => selectedPurchaseRequestIds.Contains(pr.PurchaseRequestID))
+                                    .ToList();
+
+                if (!purchaseRequests.Any())
+                {
+                    return new HttpStatusCodeResult(HttpStatusCode.NotFound, "No purchase requests found.");
+                }
+
+                using (ExcelPackage excelPackage = new ExcelPackage())
+                {
+                    var worksheet = excelPackage.Workbook.Worksheets.Add("PurchaseRequests");
+
+                    // Add headers
+                    worksheet.Cells[1, 1].Value = "Request No.";
+                    worksheet.Cells[1, 2].Value = "Asset Type";
+                    worksheet.Cells[1, 3].Value = "Requested By";
+                    worksheet.Cells[1, 4].Value = "Vendor 1 Name";
+                    worksheet.Cells[1, 5].Value = "Vendor 1 File";
+                    worksheet.Cells[1, 6].Value = "Vendor 2 Name";
+                    worksheet.Cells[1, 7].Value = "Vendor 2 File";
+                    worksheet.Cells[1, 8].Value = "Vendor 3 Name";
+                    worksheet.Cells[1, 9].Value = "Vendor 3 File";
+
+                    // Style headers
+                    using (var range = worksheet.Cells[1, 1, 1, 9])
+                    {
+                        range.Style.Fill.PatternType = ExcelFillStyle.Solid;
+                        range.Style.Fill.BackgroundColor.SetColor(Color.SkyBlue);
+                        range.Style.Font.Color.SetColor(Color.White);
+                        range.Style.Font.Bold = true;
+                    }
+
+                    // Add data
+                    for (int i = 0; i < purchaseRequests.Count; i++)
+                    {
+                        var pr = purchaseRequests[i];
+                        worksheet.Cells[i + 2, 1].Value = pr.PRNumber;
+                        worksheet.Cells[i + 2, 2].Value = pr.AssetType;
+                        worksheet.Cells[i + 2, 3].Value = pr.RequestedBy;
+                        worksheet.Cells[i + 2, 4].Value = pr.VendorName1;
+                        worksheet.Cells[i + 2, 5].Value = pr.AttachFile1; // File name only
+                        worksheet.Cells[i + 2, 6].Value = pr.VendorName2;
+                        worksheet.Cells[i + 2, 7].Value = pr.AttachFile2; // File name only
+                        worksheet.Cells[i + 2, 8].Value = pr.VendorName3;
+                        worksheet.Cells[i + 2, 9].Value = pr.AttachFile3; // File name only
+                    }
+
+                    var stream = new MemoryStream(excelPackage.GetAsByteArray());
+
+                    // Return file for download
+                    return File(stream, "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet", "SelectedPurchaseRequests.xlsx");
+                }
+            }
+            catch (Exception ex)
+            {
+                // Log the exception or handle it as needed
+                return new HttpStatusCodeResult(HttpStatusCode.InternalServerError, ex.Message);
+            }
         }
-
-
         public JsonResult Getpurchaserequestdetails(int id)
         {
             var purchase = _dbContext.PurchaseRequests.Where(x => x.PurchaseRequestID == id).OrderByDescending(x => x.PurchaseRequestID).FirstOrDefault();
             return Json(Newtonsoft.Json.JsonConvert.SerializeObject(purchase), JsonRequestBehavior.AllowGet);
-        }
-
-        public ActionResult PurchaseImport()
-        {
-            return View("~/Views/Itsupport/PurchangeImport.cshtml");
         }
 
         public ActionResult PurchaseAccountSubmit(int purchaseId)
@@ -424,5 +487,109 @@ namespace HRMS.Controllers
                 return Json(new { success = false, message = ex.Message });
             }
         }
+
+        [HttpPost]
+        public ActionResult ExportSelectedAccountPurchaseRequests(List<int> selectedPurchaseRequestIds)
+        {
+            try
+            {
+                // Check if any IDs are provided
+                if (selectedPurchaseRequestIds == null || !selectedPurchaseRequestIds.Any())
+                {
+                    return new HttpStatusCodeResult(HttpStatusCode.BadRequest, "No purchase request IDs provided.");
+                }
+
+                // Fetch purchase requests based on selected IDs
+                var purchaseRequests = _dbContext.PurchaseRequests
+                    .Where(pr => selectedPurchaseRequestIds.Contains(pr.PurchaseRequestID))
+                    .ToList();
+
+                // Filter to include only those requests where at least one vendor is approved
+                var approvedPurchaseRequests = purchaseRequests
+                    .Where(pr =>
+                        (pr.Vendor1Status == "Approved") ||
+                        (pr.Vendor2Status == "Approved") ||
+                        (pr.Vendor3Status == "Approved")
+                    )
+                    .ToList();
+
+                if (!approvedPurchaseRequests.Any())
+                {
+                    return new HttpStatusCodeResult(HttpStatusCode.NoContent, "No approved vendors to export.");
+                }
+
+                using (var package = new ExcelPackage())
+                {
+                    var worksheet = package.Workbook.Worksheets.Add("PurchaseRequests");
+
+                    worksheet.Cells[1, 1].Value = "Request No.";
+                    worksheet.Cells[1, 2].Value = "Asset Type";
+                    worksheet.Cells[1, 3].Value = "Requested By";
+                    worksheet.Cells[1, 4].Value = "Vendor Name";
+                    worksheet.Cells[1, 5].Value = "Vendor Email";
+                    worksheet.Cells[1, 6].Value = "Quotation Price";
+                    worksheet.Cells[1, 7].Value = "Attachment File";
+
+                    using (var range = worksheet.Cells[1, 1, 1, 7])
+                    {
+                        range.Style.Fill.PatternType = ExcelFillStyle.Solid;
+                        range.Style.Fill.BackgroundColor.SetColor(Color.SkyBlue);
+                        range.Style.Font.Color.SetColor(Color.White);
+                        range.Style.Font.Bold = true;
+                    }
+
+                    int rowIndex = 2;
+                    foreach (var pr in approvedPurchaseRequests)
+                    {
+                        if (pr.Vendor1Status == "Approved")
+                        {
+                            worksheet.Cells[rowIndex, 1].Value = pr.PRNumber;
+                            worksheet.Cells[rowIndex, 2].Value = pr.AssetType;
+                            worksheet.Cells[rowIndex, 3].Value = pr.RequestedBy;
+                            worksheet.Cells[rowIndex, 4].Value = pr.VendorName1;
+                            worksheet.Cells[rowIndex, 5].Value = pr.VendorEmail1;
+                            worksheet.Cells[rowIndex, 6].Value = pr.QuotationPrice1;
+                            worksheet.Cells[rowIndex, 7].Value = pr.AttachFile1;
+                            rowIndex++;
+                        }
+
+                        if (pr.Vendor2Status == "Approved")
+                        {
+                            worksheet.Cells[rowIndex, 1].Value = pr.PRNumber;
+                            worksheet.Cells[rowIndex, 2].Value = pr.AssetType;
+                            worksheet.Cells[rowIndex, 3].Value = pr.RequestedBy;
+                            worksheet.Cells[rowIndex, 4].Value = pr.VendorName2;
+                            worksheet.Cells[rowIndex, 5].Value = pr.VendorEmail2;
+                            worksheet.Cells[rowIndex, 6].Value = pr.QuotationPrice2;
+                            worksheet.Cells[rowIndex, 7].Value = pr.AttachFile2;
+                            rowIndex++;
+                        }
+
+                        if (pr.Vendor3Status == "Approved")
+                        {
+                            worksheet.Cells[rowIndex, 1].Value = pr.PRNumber;
+                            worksheet.Cells[rowIndex, 2].Value = pr.AssetType;
+                            worksheet.Cells[rowIndex, 3].Value = pr.RequestedBy;
+                            worksheet.Cells[rowIndex, 4].Value = pr.VendorName3;
+                            worksheet.Cells[rowIndex, 5].Value = pr.VendorEmail3;
+                            worksheet.Cells[rowIndex, 6].Value = pr.QuotationPrice3;
+                            worksheet.Cells[rowIndex, 7].Value = pr.AttachFile3;
+                            rowIndex++;
+                        }
+                    }
+
+                    var stream = new MemoryStream(package.GetAsByteArray());
+                    return File(stream, "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet", "SelectedPurchaseRequests.xlsx");
+                }
+            }
+            catch (Exception ex)
+            {
+                // Log the exception or handle it as needed
+                // You can use a logging framework or simply log to the console for debugging
+                Console.WriteLine(ex.ToString());
+                return new HttpStatusCodeResult(HttpStatusCode.InternalServerError, "An error occurred while generating the export.");
+            }
+        }
+
     }
 }

@@ -161,14 +161,6 @@
                 table.search(this.value).draw(); // Perform global search on all columns
             });
 
-
-            //$(document).on('change', '#hr-purchaseaccountlisting-status-dropdown', function (event) {
-            //    var status = $(this).val();
-            //    if (status == "All") {
-            //        status = "";
-            //    }
-            //    table.column(7).search(status).draw();
-            //});
         }
 
         $(document).on('click', '.purchaseaccount-po-btn', function () {
@@ -179,7 +171,70 @@
 
     });
 
+  //export puchaseaccount
+    function exportPurchaseAccount() {
+        var selectedPurchaseRequestIds = [];
 
+        // Debug: Verify that the checkboxes are being selected
+        console.log("Number of checkboxes selected:", $(".purchaseaccount-check:checked").length);
 
+        $(".purchaseaccount-check:checked").each(function () {
+            // Debug: Log the current row
+            var currentRow = $(this).closest("tr");
+            console.log("Current Row HTML:", currentRow.html());
+
+            // Retrieve the purchase request number from the specific table cell
+            var requestNo = currentRow.find(".tdrequestno").text().trim();
+            console.log("Raw Request Number:", requestNo); // Debug: Check what the raw request number is
+
+            // Extract the numeric part from the request number (e.g., convert "PR-9" to "9")
+            var numericRequestNo = requestNo.replace(/[^\d]/g, '');  // This removes all non-digit characters
+            console.log("Numeric Request Number:", numericRequestNo); // Debug: Check the numeric part
+
+            if (numericRequestNo && !isNaN(numericRequestNo)) {
+                var parsedRequestNo = parseInt(numericRequestNo, 10); // Convert to integer
+                console.log("Parsed Request Number:", parsedRequestNo); // Debug: Check the parsed number
+
+                if (!isNaN(parsedRequestNo)) {
+                    selectedPurchaseRequestIds.push(parsedRequestNo);
+                }
+            }
+        });
+
+        // Debug: Final array of IDs to be sent
+        console.log("Selected Purchase Request IDs:", selectedPurchaseRequestIds);
+
+        if (selectedPurchaseRequestIds.length === 0) {
+            alert("Please select at least one purchase request to export.");
+            return;
+        }
+
+        $.ajax({
+            type: 'POST',
+            url: '/Vendor/ExportSelectedAccountPurchaseRequests',
+            data: JSON.stringify({ selectedPurchaseRequestIds: selectedPurchaseRequestIds }),
+            contentType: 'application/json; charset=utf-8',
+            xhrFields: {
+                responseType: 'blob'
+            },
+            success: function (data) {
+                var blob = new Blob([data], { type: 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet' });
+                var link = document.createElement('a');
+                link.href = window.URL.createObjectURL(blob);
+                link.download = 'SelectedPurchaseRequests.xlsx';
+                link.click();
+            },
+            error: function (xhr, status, error) {
+                console.error('Error Details:', {
+                    status: status,
+                    error: error,
+                    responseText: xhr.responseText
+                });
+                alert('An error occurred while exporting the purchase requests. Please try again.');
+            }
+        });
+    }
+
+   
 </script>
 

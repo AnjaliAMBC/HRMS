@@ -140,7 +140,7 @@
     cursor: pointer;
 }
 
-.vendorapproved-btn::after, .sadmin-vendorapproved-btn::after {
+/*.vendorapproved-btn::after, .sadmin-vendorapproved-btn::after {
     content: "Approved by Mithun Shivaprakasham";
     position: absolute;
     top: 160%;
@@ -158,27 +158,8 @@
     transition: opacity 0.3s;
     z-index: 1000;
     text-align: center;
-}
-.vendorapproved-btn::before, .sadmin-vendorapproved-btn::before {
-    content: "";
-    position: absolute;
-    top: 100%;
-    left: 50%;
-    transform: translateX(-50%);
-    border-width: 5px;
-    border-style: solid;
-    border-color: transparent transparent #333 transparent;
-    visibility: hidden;
-    opacity: 0;
-    transition: opacity 0.3s;
-    z-index: 1000;
-}
+}*/
 
-    .vendorapproved-btn:hover::after,
-    .vendorapproved-btn:hover::before {
-        visibility: visible;
-        opacity: 1;
-    }
 .sadmin-vendorapproved-btn:hover::after, 
 .sadmin-vendorapproved-btn:hover::before
 {
