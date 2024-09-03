@@ -271,6 +271,9 @@ namespace HRMS.Controllers
                 }
 
                 context.SaveChanges();
+
+                model.StatusCode = 200;
+                model.Message = "Purchase request created successfully!";
             }
 
             return Json(model, JsonRequestBehavior.AllowGet);

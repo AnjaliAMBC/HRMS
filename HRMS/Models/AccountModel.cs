@@ -18,6 +18,8 @@ namespace HRMS.Models
         public bool IsSuperAdmin { get; set; }
         public bool IsUser { get; set; }
         public bool IsITAdmin { get; set; }
+
+        public bool IsAccountAdmin { get; set; }
     }
 
     public class ForgotPasswordModel

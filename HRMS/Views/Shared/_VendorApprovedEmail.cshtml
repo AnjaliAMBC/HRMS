@@ -1,0 +1,78 @@
+﻿@model HRMS.VendorList
+
+@{
+
+    var siteURL = System.Configuration.ConfigurationManager.AppSettings["siteURL"];
+    var logoURL = siteURL + "/Assets/AMBC_Logo.png";
+}
+
+<style>
+    body {
+        font-family: Arial, sans-serif;
+        color: #333;
+        background-color: #f4f4f4;
+        margin: 0;
+        padding: 0;
+    }
+    .email-container {
+        width: 100%;
+        max-width: 600px;
+        margin: 0 auto;
+        padding: 20px;
+        background-color: #ffffff;
+        border: 1px solid #dddddd;
+        border-radius: 4px;
+    }
+    .email-header {
+        padding-bottom: 10px;
+        border-bottom: 1px solid #eeeeee;
+    }
+        .email-header h1 {
+            font-size: 24px;
+            color: #2c3e50;
+            margin: 0;
+        }
+    .email-body {
+        padding: 20px 0;
+    }
+    .email-footer {
+        padding-top: 20px;
+        border-top: 1px solid #eeeeee;
+        font-size: 12px;
+        color: #888888;
+        text-align: center;
+        font-family: Calibri, Arial, sans-serif;
+        color: #696969;
+        font-size: 1.1em;
+        margin-top: 20px;
+    }
+        .email-footer a {
+            color: #2693F8;
+            text-decoration: none;
+        }
+</style>
+
+@if (Model != null)
+{    
+    <div class="email-container">
+        <div class="email-header">
+            <h1>Vendor Approved</h1>
+        </div>
+        <div class="email-body">
+            <a href="@siteURL" target="_blank" style="float: right; margin-left: 20px; margin-top: 20px;">
+                <img src="@logoURL" alt="AMBC Logo" width="70" style="display: block;">
+            </a>
+            <p>Hi Sir</p>
+            <p>@Model.VendorName</p>
+            <p>Your vendor registration with ID @Model.VedorID has been approved.</p>
+            <p><strong>Approved by:</strong> @Model.ApprovedBy</p>
+            <p><strong>Approval Date:</strong> @Model.ApprovedDate?.ToString("dd-MM-yyyy")</p>
+            <p><strong>Reason:</strong> @Model.ApproveRejectReason</p>
+        </div>
+        <div class="email-footer">
+            <p>This is an automated email, please do not reply.</p>
+            <p>Automated mail from <a href="https://prm.ambctechnologies.com">https://prm.ambctechnologies.com</a></p>
+        </div>
+    </div>
+
+}

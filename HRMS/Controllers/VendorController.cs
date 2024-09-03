@@ -110,38 +110,74 @@ namespace HRMS.Controllers
 
 
         //Vendor Approve
-
-    
         public ActionResult ApproveVendorSuperAdmin(int vendorId = 0, string approvalReason = "")
         {
+            var cuserContext = SiteContext.GetCurrentUserContext();
             var vendor = _dbContext.VendorLists.Find(vendorId);
+
             if (vendor != null)
             {
                 vendor.Status = "Approved";
                 vendor.ApproveRejectReason = approvalReason;
+                vendor.ApprovedBy = cuserContext.EmpInfo.EmployeeName;
+                vendor.ApprovedDate = DateTime.Now;
                 _dbContext.SaveChanges();
+
+                // Prepare the email
+                var emailSubject = "Vendor Approved";
+                var emailBody = RenderPartialToString(this, "_VendorApprovedEmail", vendor, ViewData, TempData);
+
+                var emailRequest = new EmailRequest()
+                {
+                    Body = emailBody,
+                    ToEmail = ConfigurationManager.AppSettings["VendorEmailsTo"],
+                    CCEmail = ConfigurationManager.AppSettings["VendorEmailsCC"],// Assuming you have VendorEmail in your model
+                    Subject = emailSubject
+                };
+
+                var sendNotification = EMailHelper.SendEmail(emailRequest);
 
                 return Json(new { success = true, message = "Vendor approved successfully." });
             }
+
             return Json(new { success = false, message = "Vendor not found." });
         }
 
-      
+
         public ActionResult RejectVendor(int vendorId, string approvalReason)
         {
+            var cuserContext = SiteContext.GetCurrentUserContext();
             var vendor = _dbContext.VendorLists.Find(vendorId);
+
             if (vendor != null)
             {
                 vendor.Status = "Rejected";
                 vendor.ApproveRejectReason = approvalReason;
+                vendor.RejectedBy = cuserContext.EmpInfo.EmployeeName;
+                vendor.RejectedDate = DateTime.Now;
                 _dbContext.SaveChanges();
+
+                // Prepare the email
+                var emailSubject = "Vendor Rejected";
+                var emailBody = RenderPartialToString(this, "_VendorRejectedEmail", vendor, ViewData, TempData);
+
+                var emailRequest = new EmailRequest()
+                {
+                    Body = emailBody,
+                    ToEmail = ConfigurationManager.AppSettings["VendorEmailsTo"],
+                    CCEmail = ConfigurationManager.AppSettings["VendorEmailsCC"], 
+                    Subject = emailSubject
+                };
+
+                var sendNotification = EMailHelper.SendEmail(emailRequest);
 
                 return Json(new { success = true, message = "Vendor rejected successfully." });
             }
+
             return Json(new { success = false, message = "Vendor not found." });
         }
 
-       
+
         public ActionResult ImportVendor()
         {
             return View("~/Views/Itsupport/VendorImport.cshtml");
