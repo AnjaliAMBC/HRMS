@@ -42,7 +42,7 @@
                     <td class="tdcreatedby">@vendor.CreatedBy</td>
                     <td class="tdvendorstatus">
                         <span class="sadmin-vendorapproved-btn">
-                            <img src="/assets/@(vendor.Status == "Approved" ? "Approve.png" : vendor.Status == "Rejected" ? "Reject.png" : "Pending.png")" alt="@vendor.Status" style="width:25px">
+                            <img title="Approved by USER" src="/assets/@(vendor.Status == "Approved" ? "Approve.png" : vendor.Status == "Rejected" ? "Reject.png" : "Pending.png")" alt="@vendor.Status" style="width:25px">
                             <div style="display: none">@vendor.Status</div>
                         </span>
                     </td>

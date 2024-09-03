@@ -46,7 +46,7 @@
                                 </div>
                             </div>
                             <!-- Add Employee dropdown -->
-                            <div class="col-lg-5 navbarl1 col-sm-6 col-md-5 res-admin-vendor-add">
+                            <div class="col-lg-5 navbarl1 col-sm-6 col-md-6 res-admin-vendor-add">
                                 <div class="addingvendor form-group">
                                     <select name="addvendor" class="addvendor form-control form-select" id="addvendor">
                                         <option value="" disabled="" selected="" hidden="">Add Vendor</option>
@@ -97,7 +97,7 @@
                                     <td>@vendor.CreatedBy</td>
                                     <td>
                                         <span class="sadmin-vendorapproved-btn">
-                                            <img src="/assets/@(vendor.Status == "Approved" ? "Approve.png" : vendor.Status == "Rejected" ? "Reject.png" : "Pending.png")" alt="@vendor.Status" style="width:25px">
+                                            <img title="Approved by USER" src="/assets/@(vendor.Status == "Approved" ? "Approve.png" : vendor.Status == "Rejected" ? "Reject.png" : "Pending.png")" alt="@vendor.Status" style="width:25px">
                                             <div style="display:none">@vendor.Status</div>
                                         </span>
                                     </td>
