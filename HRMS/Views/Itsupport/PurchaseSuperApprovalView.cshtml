@@ -14,7 +14,7 @@
                 <div class="container-fluid top admin-purchasesuperapprovalview">
                     <div class="row navbar align-items-center">
                         <!-- Employee column -->
-                        <div class="col-lg-3 col-md-5 topic d-flex res-admin-title">
+                        <div class="col-lg-4 col-md-6 topic d-flex res-admin-title">
                             <h4 class="header mb-0 text-right">Purchase Request @Model.PRNumber</h4>
                         </div>
                     </div>
@@ -22,16 +22,16 @@
 
                 <div class="container psa-content-block">
                     <div class="row">
-                        <div class="col-lg-4 col-md-6 col-sm-12">
+                        <div class="col-lg-4 col-md-6 col-sm-12 psa-content-details">
                             <div class="purchasesuperapproval-block psa-1">
-                                <div class="col-lg-1 purchasesuperapproval-block-left">
+                                <div class="col-lg-1 col-md-1 col-sm-1 purchasesuperapproval-block-left">
                                     @{
                                         var vendor1StatusApproved = Model.Vendor1Status == "Approved" ? true : false;
                                         var vendor1Selected = vendor1StatusApproved ? "checked" : "";
                                     }
                                     <input @vendor1Selected data-purchaseid="@Model.PurchaseRequestID" data-selectedvendor="Vendor1Status" type="checkbox" id="purchasesuperapproval-check-1" name="purchasesuperapproval-check-1" class="purchasesuperapproval-check purchasesuperapproval-check-1">
                                 </div>
-                                <div class="col-lg-11 purchasesuperapproval-block-right">
+                                <div class="col-lg-11 col-md-11 col-sm-11 purchasesuperapproval-block-right">
                                     <div class="psa-block purchasesuperapproval-vendor-info">
                                         <div class="psalabel vendor-id-label">Vendor Id</div>
                                         <div class="vendor-id">@Model.VendorID1</div>
@@ -62,16 +62,16 @@
                                 </div>
                             </div>
                         </div>
-                        <div class="col-lg-4 col-md-6 col-sm-12">
+                        <div class="col-lg-4 col-md-6 col-sm-12 psa-content-details">
                             <div class="purchasesuperapproval-block psa-2">
-                                <div class="col-lg-1 purchasesuperapproval-block-left">
+                                <div class="col-lg-1 col-md-1 col-sm-1 purchasesuperapproval-block-left">
                                     @{
                                         var vendor2StatusApproved = Model.Vendor2Status == "Approved" ? true : false;
                                         var vendor2Selected = vendor2StatusApproved ? "checked" : "";
                                     }
                                     <input @vendor2Selected data-purchaseid="@Model.PurchaseRequestID" data-selectedvendor="Vendor2Status" type="checkbox" id="purchasesuperapproval-check-2" name="purchasesuperapproval-check-2" class="purchasesuperapproval-check purchasesuperapproval-check-2">
                                 </div>
-                                <div class="col-lg-11 purchasesuperapproval-block-right">
+                                <div class="col-lg-11 col-md-11 col-sm-11 purchasesuperapproval-block-right">
                                     <div class="psa-block purchasesuperapproval-vendor-info">
                                         <div class="psalabel vendor-id-label">Vendor Id</div>
                                         <div class="vendor-id">@Model.VendorID2</div>
@@ -102,16 +102,16 @@
                                 </div>
                             </div>
                         </div>
-                        <div class="col-lg-4 col-md-6 col-sm-12">
+                        <div class="col-lg-4 col-md-6 col-sm-12 psa-content-details">
                             <div class="purchasesuperapproval-block psa-3">
-                                <div class="col-lg-1 purchasesuperapproval-block-left">
+                                <div class="col-lg-1 col-md-1 col-sm-1 purchasesuperapproval-block-left">
                                     @{
                                         var vendor3StatusApproved = Model.Vendor3Status == "Approved" ? true : false;
                                         var vendor3Selected = vendor3StatusApproved ? "checked" : "";
                                     }
                                     <input @vendor3Selected data-purchaseid="@Model.PurchaseRequestID" data-selectedvendor="Vendor3Status" type="checkbox" id="purchasesuperapproval-check-3" name="purchasesuperapproval-check-3" class="purchasesuperapproval-check purchasesuperapproval-check-3">
                                 </div>
-                                <div class="col-lg-11 purchasesuperapproval-block-right">
+                                <div class="col-lg-11 col-md-11 col-sm-11 purchasesuperapproval-block-right">
                                     <div class="psa-block purchasesuperapproval-vendor-info">
                                         <div class="psalabel vendor-id-label">Vendor Id</div>
                                         <div class="vendor-id">@Model.VendorID3</div>
