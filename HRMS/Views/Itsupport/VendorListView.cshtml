@@ -83,26 +83,36 @@
                         <tbody>
                             @foreach (var vendor in Model.Allvendors)
                             {
-                                <tr class="odd">
-                                    <td><input type="checkbox" class="vendor-check"></td>
-                                    <td class="tdvendorid">@vendor.VedorID</td>
-                                    <td class="tdvendorname">
-                                        <div style="display: flex; align-items: center;">
-                                            <span style="margin-top: 0px; margin-right: 10px;">@vendor.VendorName<br><span style="color: #3E78CF;">@vendor.VendorEmail</span></span>
-                                        </div>
-                                    </td>
-                                    <td>@vendor.VendorContact</td>
-                                    <td>@vendor.VendorAddress</td>
-                                    <td>@vendor.CreatedDate</td>
-                                    <td>@vendor.CreatedBy</td>
-                                    <td>
-                                        <span class="sadmin-vendorapproved-btn">
-                                            <img title="Approved by USER" src="/assets/@(vendor.Status == "Approved" ? "Approve.png" : vendor.Status == "Rejected" ? "Reject.png" : "Pending.png")" alt="@vendor.Status" style="width:25px">
-                                            <div style="display:none">@vendor.Status</div>
-                                        </span>
-                                    </td>
-                                    <td><span class="vendor-list-edit" data-vendorid="@vendor.VedorID"><i class="fas fa-pencil-alt"></i></span></td>
-                                </tr>
+                            <tr class="odd">
+                                <td><input type="checkbox" class="vendor-check"></td>
+                                <td class="tdvendorid">@vendor.VedorID</td>
+                                <td class="tdvendorname">
+                                    <div style="display: flex; align-items: center;">
+                                        <span style="margin-top: 0px; margin-right: 10px;">@vendor.VendorName<br><span style="color: #3E78CF;">@vendor.VendorEmail</span></span>
+                                    </div>
+                                </td>
+                                <td>@vendor.VendorContact</td>
+                                <td>@vendor.VendorAddress</td>
+                                <td>
+                                    @if (vendor.CreatedDate.HasValue)
+                                    {
+                                        @vendor.CreatedDate.Value.ToString("dd-MM-yyyy")
+                                    }                                    
+                                </td>
+
+                                <td>@vendor.CreatedBy</td>
+                                <td>
+                                    <span class="sadmin-vendorapproved-btn">
+                                        <img src="/assets/@(vendor.Status == "Approved" ? "Approve.png" : vendor.Status == "Rejected" ? "Reject.png" : "Pending.png")"
+                                             alt="@vendor.Status"
+                                             style="width:25px"
+                                             title="@(vendor.Status == "Approved" ? "Approved by " + vendor.ApprovedBy : vendor.Status == "Rejected" ? "Rejected by " + vendor.RejectedBy : "Pending")">
+                                        <div style="display:none">@vendor.Status</div>
+                                    </span>
+                                </td>
+
+                                <td><span class="vendor-list-edit" data-vendorid="@vendor.VedorID"><i class="fas fa-pencil-alt"></i></span></td>
+                            </tr>
                             }
                             @*<tr class="even">
                                     <td><input type="checkbox" class="vendor-check"></td>

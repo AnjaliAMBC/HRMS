@@ -278,6 +278,7 @@
                         </div>
                     </form>
                     @*Success Modal*@
+                    <!-- Success Modal -->
                     <div class="modal fade" id="successModal" tabindex="-1" role="dialog" aria-labelledby="successModalLabel" aria-hidden="true">
                         <div class="modal-dialog" role="document">
                             <div class="modal-content">
@@ -287,8 +288,7 @@
                                         <span aria-hidden="true">&times;</span>
                                     </button>
                                 </div>
-                                <div class="modal-body modal-message">
-                                    Success message will be inserted here
+                                <div class="modal-body" id="successMessage" style="color:forestgreen;">
                                 </div>
                                 <div class="modal-footer">
                                     <button type="button" class="btn btn-secondary btn-addpurcase-close" data-dismiss="modal">Close</button>
@@ -297,7 +297,7 @@
                         </div>
                     </div>
 
-                    @*Error Modal*@
+                    <!-- Error Modal -->
                     <div class="modal fade" id="errorModal" tabindex="-1" role="dialog" aria-labelledby="errorModalLabel" aria-hidden="true">
                         <div class="modal-dialog" role="document">
                             <div class="modal-content">
@@ -307,8 +307,7 @@
                                         <span aria-hidden="true">&times;</span>
                                     </button>
                                 </div>
-                                <div class="modal-body modal-message">
-                                    Error message will be inserted here
+                                <div class="modal-body" id="errorMessage">
                                 </div>
                                 <div class="modal-footer">
                                     <button type="button" class="btn btn-secondary btn-addpurcase-close" data-dismiss="modal">Close</button>
@@ -316,7 +315,6 @@
                             </div>
                         </div>
                     </div>
-
 
                 </div>
             </div>
@@ -327,190 +325,6 @@
 <script src="~/Scripts/z-purchaseScript.js"></script>
 
 <script>
-    $(document).ready(function () {
-        $('.AssetType, .Requestedby, .VendorName').select2();
 
-
-        $('#AttachFile-1').on('change', function () {
-            var isValid = AttchemnetValidation($(this), true, "attach1wrapper", "#AttachFile-1");
-            $(this).attr("data-existingfile", "");
-            if (isValid) {
-                var fileInput1 = $('#AttachFile-1');
-                var file = fileInput1[0].files[0];
-                if (file) {
-                    var fileName = file.name;
-                    var fileUrl = URL.createObjectURL(file);
-
-                    $('.attchedfile-1').attr('href', fileUrl).text(fileName).show();
-                } else {
-                    $('.attchedfile-1').hide();
-                }
-                console.log("Attach1 File validation passed.");
-            } else {
-                console.log("Attach1 validation failed.");
-            }
-        });
-
-        $('#AttachFile-2').on('change', function () {
-            var isValid = AttchemnetValidation($(this), true, "attach2wrapper", "#AttachFile-2");
-            $(this).attr("data-existingfile", "");
-            if (isValid) {
-                var fileInput2 = $('#AttachFile-2');
-                var file = fileInput2[0].files[0];
-                if (file) {
-                    var fileName = file.name;
-                    var fileUrl = URL.createObjectURL(file);
-
-                    $('.attchedfile-2').attr('href', fileUrl).text(fileName).show();
-                } else {
-                    $('.attchedfile-2').hide();
-                }
-                console.log("Attach2 File validation passed.");
-            } else {
-                console.log("Attach2 validation failed.");
-            }
-        });
-
-        $('#AttachFile-3').on('change', function () {
-            var isValid = AttchemnetValidation($(this), true, "attach3wrapper", "#AttachFile-3");
-            $(this).attr("data-existingfile", "");
-            if (isValid) {
-                var fileInput3 = $('#AttachFile-3');
-                var file = fileInput3[0].files[0];
-                if (file) {
-                    var fileName = file.name;
-                    var fileUrl = URL.createObjectURL(file);
-
-                    $('.attchedfile-3').attr('href', fileUrl).text(fileName).show();
-                } else {
-                    $('.attchedfile-3').hide();
-                }
-                console.log("Attach3 File validation passed.");
-            } else {
-                console.log("Attach3 validation failed.");
-            }
-        });
-
-
-        $('.vendoradd-Submit').on('click', function (event) {
-            event.preventDefault();
-            let isValid = true;
-            var formData = new FormData();
-
-            if ($('#PurchaseID').val().trim() === '') {
-                $('#PurchaseID').addClass('is-invalid');
-                isValid = false;
-            } else {
-                $('#PurchaseID').removeClass('is-invalid');
-            }
-
-            if ($('#AssetType').val() === null || $('#AssetType').val() === "") {
-                $('#AssetType').next('.select2-container').addClass('is-invalid');
-                $('#AssetType').next('.select2-container').css('border', '1px solid red');
-
-            } else {
-                $('#AssetType').next('.select2-container').removeClass('is-invalid');
-                $('#AssetType').next('.select2-container').css('border', '');
-            }
-
-            if ($('#RequiredOn').val().trim() === '') {
-                $('#RequiredOn').addClass('is-invalid');
-                isValid = false;
-            } else {
-                $('#RequiredOn').removeClass('is-invalid');
-            }
-
-            if ($('#Requestedby').val() === null || $('#Requestedby').val() === "") {
-                $('#Requestedby').next('.select2-container').addClass('is-invalid');
-                $('#Requestedby').next('.select2-container').css('border', '1px solid red');
-
-            } else {
-                $('#Requestedby').next('.select2-container').removeClass('is-invalid');
-                $('#Requestedby').next('.select2-container').css('border', '');
-            }
-
-            if ($('#VendorName-1').val() === null || $('#VendorName-1').val() === "") {
-                $('#VendorName-1').next('.select2-container').addClass('is-invalid');
-                $('#VendorName-1').next('.select2-container').css('border', '1px solid red');
-
-            } else {
-                $('#VendorName-1').next('.select2-container').removeClass('is-invalid');
-                $('#VendorName-1').next('.select2-container').css('border', '');
-            }
-
-            if ($('#QuotationPrice-1').val().trim() == '0') {
-                $('#QuotationPrice-1').addClass('is-invalid');
-                isValid = false;
-            } else {
-                $('#QuotationPrice-1').removeClass('is-invalid');
-            }
-
-            var fileInput1 = $('#AttachFile-1');
-            var AttchmentValidated = AttchemnetValidation(fileInput1, true, "attach1wrapper", "#AttachFile-1");
-
-            if (AttchmentValidated == false) {
-                isValid = false;
-            }
-
-            // If the form is valid, submit the form via AJAX
-            if (isValid) {
-                formData.append('PRNumber', $('#PurchaseID').val().trim());
-                formData.append('AssetType', $('#AssetType').val().trim());
-                formData.append('RequiredOn', $('#RequiredOn').val().trim());
-                formData.append('Requestedby', $('#Requestedby').val().trim());
-
-                formData.append('Vendorname1', $('#select2-VendorName-1-container').text());
-                formData.append('Vendor1quotation', $('#QuotationPrice-1').val().trim());
-                var fileInput1 = $('#AttachFile-1');
-                var file1 = fileInput1[0].files[0];
-                formData.append('AttachFile-1', file1);
-
-                formData.append('Vendorname2', $('#select2-VendorName-2-container').text());
-                formData.append('Vendor2quotation', $('#QuotationPrice-2').val().trim());
-                var fileInput2 = $('#AttachFile-2');
-                var file2 = fileInput2[0].files[0];
-                formData.append('AttachFile-2', file2);
-
-                formData.append('Vendorname3', $('#select2-VendorName-3-container').text());
-                formData.append('Vendor3quotation', $('#QuotationPrice-3').val().trim());
-                var fileInput3 = $('#AttachFile-3');
-                var file3 = fileInput3[0].files[0];
-                formData.append('AttachFile-3', file3);
-
-                $.ajax({
-                    url: '/purchase/addpurchaserequest',
-                    type: 'POST',
-                    data: formData,
-                    contentType: false,
-                    processData: false,
-                    success: function (response) {
-                        if (response.StatusCode === 200) {
-                            $('.modal-message').text(response.Message);
-                            $('#successModal').modal('show');
-                        } else {
-                            $('.modal-message').text(response.Message);
-                            $('#errorModal').modal('show');
-                        }
-                    },
-                    error: function (xhr, status, error) {
-                        $('.modal-message').text('An error occurred while processing your request. Please try again.');
-                        $('#errorModal').modal('show');
-                    }
-                });
-            }
-        });
-
-        // Reset form on cancel
-        $('.vendoradd-Cancel').on('click', function () {
-            $('#purchase-form')[0].reset();
-            $('.form-control').removeClass('is-invalid');
-        });
-    });
-
-
-
-    $('.btn-addpurcase-close').on('click', function (event) {
-        window.location.href = "/purchase/index";
-    });
 
 </script>

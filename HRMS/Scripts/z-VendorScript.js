@@ -395,7 +395,6 @@ function refreshVendorTable() {
     });
 }
 
-
 function rejectVendor(vendorId) {
     var reason = $('#approvalReason').val();
     $.ajax({

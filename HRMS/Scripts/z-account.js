@@ -100,6 +100,12 @@ $(document).ready(function () {
 
                         if (data.IsUser) {
                             window.location.href = "/empDash/index";
+                            return;
+                        }
+
+                        if (data.IsAccountAdmin) {
+                            window.location.href = "/vendor/index";
+                            return;
                         }
                     } else {
                         $('.show-progress').hide();

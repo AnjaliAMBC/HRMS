@@ -106,7 +106,7 @@
                         </div>
                     </li>
                 }
-                @if (currentContext.IsSuperAdmin || currentContext.IsITAdmin)
+                @if (currentContext.IsSuperAdmin || currentContext.IsITAdmin || currentContext.IsAccountAdmin)
                 {
                     <li class="admin-itsupport-main-menu sidebar-dropdown mb-2 @(!string.IsNullOrWhiteSpace(highliateITSupport) ? "active" : "")">
                         <a href="#" class="@(pageUrlPath == "/vendor/index" ? "active" : "")">
@@ -115,7 +115,7 @@
                         </a>
                         <div class="sidebar-submenu" style="@itSupportSidebarShow">
                             <ul>
-                                @if (currentContext.IsITAdmin)
+                                @if (currentContext.IsITAdmin || currentContext.IsAccountAdmin)
                                 {
                                     <li><a href="/vendor/index"><span class="menu-bar-design-red"></span>Vendor</a></li>
                                 }

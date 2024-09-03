@@ -62,86 +62,93 @@
                                 </div>
                             </div>
                         </div>
-                        <div class="col-lg-4 col-md-6 col-sm-12 psa-content-details">
-                            <div class="purchasesuperapproval-block psa-2">
-                                <div class="col-lg-1 col-md-1 col-sm-1 purchasesuperapproval-block-left">
-                                    @{
-                                        var vendor2StatusApproved = Model.Vendor2Status == "Approved" ? true : false;
-                                        var vendor2Selected = vendor2StatusApproved ? "checked" : "";
-                                    }
-                                    <input @vendor2Selected data-purchaseid="@Model.PurchaseRequestID" data-selectedvendor="Vendor2Status" type="checkbox" id="purchasesuperapproval-check-2" name="purchasesuperapproval-check-2" class="purchasesuperapproval-check purchasesuperapproval-check-2">
-                                </div>
-                                <div class="col-lg-11 col-md-11 col-sm-11 purchasesuperapproval-block-right">
-                                    <div class="psa-block purchasesuperapproval-vendor-info">
-                                        <div class="psalabel vendor-id-label">Vendor Id</div>
-                                        <div class="vendor-id">@Model.VendorID2</div>
+                        @if (Model.VendorID2 != null && Model.VendorID2 != 0)
+                        {
+                            <div class="col-lg-4 col-md-6 col-sm-12 psa-content-details">
+                                <div class="purchasesuperapproval-block psa-2">
+                                    <div class="col-lg-1 col-md-1 col-sm-1 purchasesuperapproval-block-left">
+                                        @{
+                                            var vendor2StatusApproved = Model.Vendor2Status == "Approved" ? true : false;
+                                            var vendor2Selected = vendor2StatusApproved ? "checked" : "";
+                                        }
+                                        <input @vendor2Selected data-purchaseid="@Model.PurchaseRequestID" data-selectedvendor="Vendor2Status" type="checkbox" id="purchasesuperapproval-check-2" name="purchasesuperapproval-check-2" class="purchasesuperapproval-check purchasesuperapproval-check-2">
                                     </div>
-                                    <div class="psa-block purchasesuperapproval-vendorname-info">
-                                        <div class="psalabel vendor-name-label">Vendor Name</div>
-                                        <div class="vendor-name">@Model.VendorName2</div>
-                                        <div class="vendor-email color-blue">@Model.VendorEmail2</div>
-                                    </div>
-                                    <div class="psa-block purchasesuperapproval-files-info">
-                                        <div class="psalabel files-label">Files</div>
-                                        <div class="files-pdf color-blue">
-                                            <a class="itp_filepath" href="/purchase/@Model.AttachFile2" target="_blank">@Model.AttachFile2</a><br />
+                                    <div class="col-lg-11 col-md-11 col-sm-11 purchasesuperapproval-block-right">
+                                        <div class="psa-block purchasesuperapproval-vendor-info">
+                                            <div class="psalabel vendor-id-label">Vendor Id</div>
+                                            <div class="vendor-id">@Model.VendorID2</div>
+                                        </div>
+                                        <div class="psa-block purchasesuperapproval-vendorname-info">
+                                            <div class="psalabel vendor-name-label">Vendor Name</div>
+                                            <div class="vendor-name">@Model.VendorName2</div>
+                                            <div class="vendor-email color-blue">@Model.VendorEmail2</div>
+                                        </div>
+                                        <div class="psa-block purchasesuperapproval-files-info">
+                                            <div class="psalabel files-label">Files</div>
+                                            <div class="files-pdf color-blue">
+                                                <a class="itp_filepath" href="/purchase/@Model.AttachFile2" target="_blank">@Model.AttachFile2</a><br />
+                                            </div>
+                                        </div>
+                                        <div class="psa-block purchasesuperapproval-requesteddate-info">
+                                            <div class="psalabel requesteddate-label">Requested Date</div>
+                                            <div class="requesteddate-date">@Model.RequiredOn.Value.ToString("yyyy-MM-dd")</div>
+                                        </div>
+                                        <div class="psa-block purchasesuperapproval-requestedname-info">
+                                            <div class="psalabel requestedname-label">Requested By</div>
+                                            <div class="requestedname-name color-blue">@Model.RejectedBy</div>
+                                        </div>
+                                        <div class="psa-block purchasesuperapproval-quoteprice-info">
+                                            <div class="psalabel quoteprice-label">Quote Price</div>
+                                            <div class="quoteprice-amount color-blue">Rs @Model.QuotationPrice2</div>
                                         </div>
                                     </div>
-                                    <div class="psa-block purchasesuperapproval-requesteddate-info">
-                                        <div class="psalabel requesteddate-label">Requested Date</div>
-                                        <div class="requesteddate-date">@Model.RequiredOn.Value.ToString("yyyy-MM-dd")</div>
+
+                                </div>
+                            </div>
+                        }
+                        @if (Model.VendorID3 != null && Model.VendorID3 != 0)
+                        {
+                            <div class="col-lg-4 col-md-6 col-sm-12 psa-content-details">
+                                <div class="purchasesuperapproval-block psa-3">
+                                    <div class="col-lg-1 col-md-1 col-sm-1 purchasesuperapproval-block-left">
+                                        @{
+                                            var vendor3StatusApproved = Model.Vendor3Status == "Approved" ? true : false;
+                                            var vendor3Selected = vendor3StatusApproved ? "checked" : "";
+                                        }
+                                        <input @vendor3Selected data-purchaseid="@Model.PurchaseRequestID" data-selectedvendor="Vendor3Status" type="checkbox" id="purchasesuperapproval-check-3" name="purchasesuperapproval-check-3" class="purchasesuperapproval-check purchasesuperapproval-check-3">
                                     </div>
-                                    <div class="psa-block purchasesuperapproval-requestedname-info">
-                                        <div class="psalabel requestedname-label">Requested By</div>
-                                        <div class="requestedname-name color-blue">@Model.RejectedBy</div>
-                                    </div>
-                                    <div class="psa-block purchasesuperapproval-quoteprice-info">
-                                        <div class="psalabel quoteprice-label">Quote Price</div>
-                                        <div class="quoteprice-amount color-blue">Rs @Model.QuotationPrice2</div>
+                                    <div class="col-lg-11 col-md-11 col-sm-11 purchasesuperapproval-block-right">
+                                        <div class="psa-block purchasesuperapproval-vendor-info">
+                                            <div class="psalabel vendor-id-label">Vendor Id</div>
+                                            <div class="vendor-id">@Model.VendorID3</div>
+                                        </div>
+                                        <div class="psa-block purchasesuperapproval-vendorname-info">
+                                            <div class="psalabel vendor-name-label">Vendor Name</div>
+                                            <div class="vendor-name">@Model.VendorName3</div>
+                                            <div class="vendor-email color-blue">@Model.VendorEmail2</div>
+                                        </div>
+                                        <div class="psa-block purchasesuperapproval-files-info">
+                                            <div class="psalabel files-label">Files</div>
+                                            <div class="files-pdf color-blue">
+                                                <a class="itp_filepath" href="/purchase/@Model.AttachFile3" target="_blank">@Model.AttachFile3</a><br />
+                                            </div>
+                                        </div>
+                                        <div class="psa-block purchasesuperapproval-requesteddate-info">
+                                            <div class="psalabel requesteddate-label">Requested Date</div>
+                                            <div class="requesteddate-date">@Model.RequiredOn.Value.ToString("yyyy-MM-dd")</div>
+                                        </div>
+                                        <div class="psa-block purchasesuperapproval-requestedname-info">
+                                            <div class="psalabel requestedname-label">Requested By</div>
+                                            <div class="requestedname-name color-blue">@Model.RejectedBy</div>
+                                        </div>
+                                        <div class="psa-block purchasesuperapproval-quoteprice-info">
+                                            <div class="psalabel quoteprice-label">Quote Price</div>
+                                            <div class="quoteprice-amount color-blue">Rs @Model.QuotationPrice3</div>
+                                        </div>
                                     </div>
                                 </div>
                             </div>
-                        </div>
-                        <div class="col-lg-4 col-md-6 col-sm-12 psa-content-details">
-                            <div class="purchasesuperapproval-block psa-3">
-                                <div class="col-lg-1 col-md-1 col-sm-1 purchasesuperapproval-block-left">
-                                    @{
-                                        var vendor3StatusApproved = Model.Vendor3Status == "Approved" ? true : false;
-                                        var vendor3Selected = vendor3StatusApproved ? "checked" : "";
-                                    }
-                                    <input @vendor3Selected data-purchaseid="@Model.PurchaseRequestID" data-selectedvendor="Vendor3Status" type="checkbox" id="purchasesuperapproval-check-3" name="purchasesuperapproval-check-3" class="purchasesuperapproval-check purchasesuperapproval-check-3">
-                                </div>
-                                <div class="col-lg-11 col-md-11 col-sm-11 purchasesuperapproval-block-right">
-                                    <div class="psa-block purchasesuperapproval-vendor-info">
-                                        <div class="psalabel vendor-id-label">Vendor Id</div>
-                                        <div class="vendor-id">@Model.VendorID3</div>
-                                    </div>
-                                    <div class="psa-block purchasesuperapproval-vendorname-info">
-                                        <div class="psalabel vendor-name-label">Vendor Name</div>
-                                        <div class="vendor-name">@Model.VendorName3</div>
-                                        <div class="vendor-email color-blue">@Model.VendorEmail2</div>
-                                    </div>
-                                    <div class="psa-block purchasesuperapproval-files-info">
-                                        <div class="psalabel files-label">Files</div>
-                                        <div class="files-pdf color-blue">
-                                            <a class="itp_filepath" href="/purchase/@Model.AttachFile3" target="_blank">@Model.AttachFile3</a><br />
-                                        </div>
-                                    </div>
-                                    <div class="psa-block purchasesuperapproval-requesteddate-info">
-                                        <div class="psalabel requesteddate-label">Requested Date</div>
-                                        <div class="requesteddate-date">@Model.RequiredOn.Value.ToString("yyyy-MM-dd")</div>
-                                    </div>
-                                    <div class="psa-block purchasesuperapproval-requestedname-info">
-                                        <div class="psalabel requestedname-label">Requested By</div>
-                                        <div class="requestedname-name color-blue">@Model.RejectedBy</div>
-                                    </div>
-                                    <div class="psa-block purchasesuperapproval-quoteprice-info">
-                                        <div class="psalabel quoteprice-label">Quote Price</div>
-                                        <div class="quoteprice-amount color-blue">Rs @Model.QuotationPrice3</div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
+                                            }
                     </div>
 
                     @{
@@ -308,6 +315,7 @@
                 success: function (response) {
                     if (response.success) {
                         updateButtonStates("Approved");
+                        $('.modal-message').css("color", "forestgreen");
                         $('.modal-message').text(response.message);
                         $('#successModal').modal('show');
                     } else {
@@ -342,6 +350,7 @@
                 success: function (response) {
                     if (response.success) {
                         updateButtonStates("Rejected");
+                        $('.modal-message').css("color", "red");
                         $('.modal-message').text(response.message);
                         $('#successModal').modal('show');
 
