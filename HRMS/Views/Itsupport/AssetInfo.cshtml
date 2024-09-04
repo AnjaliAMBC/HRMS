@@ -1,16 +1,141 @@
 ﻿
 
-
 @Html.Partial("_NavBar")
 <div class="container-fluid">
     <div class="hiddenadmindashboard" style="display: none"></div>
     @Html.Partial("_adminsidemenu")
-
     <div class="main-content container-fluid assetinfo-tab" style="width: 84%">
-        <div class="content admin-assetinfo-container">
-            <div class="admin-assetinfo-add">
-                <h2>Asset Info</h2>
+        <div class="content admin-assetinfo-container" style="margin-left: -10px; ">
+            <div class="admin-assetinfo-view">
+                <div class="container-fluid top admin-assetinfoview">
+                    <div class="row navbar align-items-center">
+                        <!-- asset column -->
+                        <div class="col-lg-3 col-md-5 topic d-flex res-admin-title">
+                            <h4 class="header mb-0 text-right">Asset Listing</h4>
+                        </div>
+                        <!-- Search box -->
+                        <div class="col-xl-4 col-lg-6 navbarl1 col-sm-12 col-md-7 res-admin-assetinfo-search">
+                            <div class="search-container">
+                                <div class="input-group" style="border-radius: 20px;">
+                                    <div class="input-group-prepend">
+                                        <span class="input-group-text" style="background-color: transparent; border-right: none; border-radius: 5px 0 0 5px; height: 35px;"><i class="fas fa-search" style="color: #369479"></i></span>
+                                    </div>
+                                    <input type="text" placeholder="Search By Keyword" class="assetinfo-advancesearch form-control" aria-label="Search By Keyword" style="border-radius: 0 5px 5px 0; height: 35px; font-size: 14px;">
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="col-xl-5 col-lg-6 navbarl1 col-sm-12 col-md-7 res-admin-assetinfo-header-right">
+                            <!-- Export -->
+                            <div class="col-xl-4 col-lg-3 navbarl1 col-sm-4 col-xs-12 col-md-4 res-admin-assetinfo-status p-0">
+                                <div class="form-group res-assetinfo">
+                                    <select class="form-control form-select" name="assetinfostatus" id="assetinfo-status-dropdown" style="">
+                                        <option value="" disabled selected>Status</option>
+                                        <option value="Approved">Approved</option>
+                                        <option value="Rejected">Rejected</option>
+                                        <option value="Pending">Pending</option>
+                                        <option value="">All</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="col-xl-2 col-lg-1  navbarl1 col-sm-2 col-md-2 res-admin-assetinfo-export p-0">
+                                <div class="adminassetinfo-export" style="">
+                                    <button type="button" class="btn assetinfo-export-btn pt-0" id="exportAssetinfo" onclick="exportAssetinfo()">
+                                        <span class="assetinfo-export"><img src="/assets/Export.png" alt="Export" style=""></span>
+                                    </button>
+                                </div>
+                            </div>
+                            <!-- Add asset dropdown -->
+                            <div class="col-lg-5 navbarl1 col-sm-6 col-md-6 res-admin-subscriptioninfo-add">
+                                <div class="addingassetinfo form-group">
+                                    <select name="addassetinfo" class="addassetinfo form-control form-select" id="addassetinfo">
+                                        <option value="" disabled="" selected="" hidden="">Add Asset</option>
+                                        <option value="Addmanually" class="assetinfoManually">+ Manually</option>
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="admin-assetinfo-action-block">
+                    <select class="form-control ml-2" name="action" id="action" style="display: none;">
+                        <option value="" selected>Action</option>
+                        <option value="export">Export</option>
+                    </select>
+                </div>
+
+                <div class="res-admin-assetinfo-table table-responsive">
+                    <table id="adminassetinfotable" class="display" style="width: 100%;">
+                        <thead style="background-color: #d8e6fb; border-radius: 10px;">
+                            <tr>
+                                <th>Asset Image</th>
+                                <th>Asset ID</th>
+                                <th>Location</th>
+                                <th>Allocate Status</th>
+                                <th>Manufacture</th>
+                                <th>Model</th>
+                                <th>W.Start Date</th>
+                                <th>W.End Date</th>
+                                <th>W.Status</th>
+                                <th>Service Tag</th>
+                                <th>Action</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr class="even">
+                                <td style="text-align:center;"><span class="assetinfo-image-btn"><img src="/assets/Approve.png" alt="PO" style="width:25px"></span></td>
+                                <td class="tdassetid">MB/MDU/#1122</td>
+                                <td class="tdassetlocation">Madurai</td>
+                                <td>In Use</td>
+                                <td>Dell</td>
+                                <td>Test#22GT5</td>
+                                <td>03-09-2024</td>
+                                <td>03-09-2024</td>
+                                <td>In Use</td>
+                                <td>QTYNGF23S</td>
+                                <td><span class="assetinfo-list-edit"><i class="fas fa-pencil-alt"></i></span></td>
+                            </tr>
+                            <tr class="odd">
+                                <td style="text-align:center;"><span class="assetinfo-image-btn"><img src="/assets/Approve.png" alt="PO" style="width:25px"></span></td>
+                                <td class="tdassetid">MB/MDU/#1122</td>
+                                <td class="tdassetlocation">Madurai</td>
+                                <td>In Use</td>
+                                <td>Dell</td>
+                                <td>Test#22GT5</td>
+                                <td>03-09-2024</td>
+                                <td>03-09-2024</td>
+                                <td>In Use</td>
+                                <td>QTYNGF23S</td>
+                                <td><span class="assetinfo-list-edit"><i class="fas fa-pencil-alt"></i></span></td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
             </div>
+
         </div>
     </div>
 </div>
+<script>
+    $(document).ready(function () {
+        // Initialize DataTable if not already initialized
+        if (!$.fn.DataTable.isDataTable('#adminassetinfotable')) {
+            var table = $('#adminassetinfotable').DataTable({
+                "responsive": true,
+                "paging": true,
+                "searching": true,
+                "ordering": false,
+                "info": true,
+                "autoWidth": false,
+                "lengthMenu": [[10, 20, 50, -1], [10, 20, 50, "All"]]
+            });
+            $('.assetinfo-advancesearch').on('keyup', function () {
+                table.search(this.value).draw(); // Perform global search on all columns
+            });
+        }
+    });
+
+
+
+</script>
+
