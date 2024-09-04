@@ -1,0 +1,23 @@
+﻿@model HRMS.PurchaseRequest
+
+<html>
+<head>
+    <style>
+        
+    </style>
+</head>
+<body>
+    <h2>Purchase Request Rejected</h2>
+    <p>Dear @Model.RequestedBy,</p>
+    <p>We regret to inform you that your purchase request (PR Number: @Model.PRNumber) has been rejected.</p>
+    <p>Details:</p>
+    <ul>
+        <li>Asset Type: @Model.AssetType</li>
+        <li>Requested By: @Model.RequestedBy</li>
+        <li>Required On: @Model.RequiredOn</li>
+       
+    </ul>
+    <p>If you have any questions, please contact us.</p>
+</body>
+</html>
+

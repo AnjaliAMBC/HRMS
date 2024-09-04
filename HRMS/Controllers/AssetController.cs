@@ -13,5 +13,10 @@ namespace HRMS.Controllers
         {
             return View("~/Views/Itsupport/AssetInfo.cshtml");
         }
+
+        public ActionResult AddAsset()
+        {
+            return View("~/Views/Itsupport/AddAsset.cshtml");
+        }
     }
 }

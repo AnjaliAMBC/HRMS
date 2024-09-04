@@ -1,0 +1,34 @@
+﻿@model HRMS.PurchaseRequest
+
+@{
+    var subject = $"New Purchase Request Created - @{Model.PRNumber}";
+}
+
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <title>@subject</title>
+</head>
+<body>
+    <p>Dear Team,</p>
+    <p>A new purchase request has been created with the following details:</p>
+    <ul>
+        <li><strong>PR Number:</strong> @Model.PRNumber</li>
+        <li><strong>Asset Type:</strong> @Model.AssetType</li>
+        <li><strong>Requested By:</strong> @Model.RejectedBy</li>
+        <li>
+            <strong>Required On:</strong> @if (Model.RequiredOn.HasValue)
+            {
+                @Model.RequiredOn.Value.ToString("dd-MM-yyyy")
+            }
+        </li>
+    </ul>
+    <p><strong>Vendor 1:</strong> @Model.VendorName1 - <strong>Quotation:</strong> @Model.QuotationPrice1.ToString("C")</p>
+    <p><strong>Vendor 2:</strong> @Model.VendorName2 - <strong>Quotation:</strong> @Model.QuotationPrice2.ToString("C")</p>
+    <p><strong>Vendor 3:</strong> @Model.VendorName3 - <strong>Quotation:</strong> @Model.QuotationPrice3.ToString("C")</p>
+    <p>Please review and proceed accordingly.</p>
+    <p>Regards,<br />@Model.CreatedBy</p>
+</body>
+</html>
+
