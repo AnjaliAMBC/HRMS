@@ -1,5 +1,10 @@
 ﻿@model HRMS.VendorList
 
+@{
+
+    var siteURL = System.Configuration.ConfigurationManager.AppSettings["siteURL"];
+    var logoURL = siteURL + "/Assets/AMBC_Logo.png";
+}
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -13,9 +18,7 @@
         }
 
         th, td {
-            text-align: left;
             padding: 8px;
-            border: 1px solid #ddd;
         }
 
         th {
@@ -25,62 +28,79 @@
         h2 {
             color: #4CAF50;
         }
+
         p {
             font-size: 14px;
             color: #333;
         }
+        .table_head td{
+            border:1px solid transparent;
+        }
     </style>
 </head>
 <body>
-    <h2>Vendor Approval Request</h2>
-    <p>A new vendor has been added and is pending approval. Please find the details below:</p>
-    <table>
-        <tr>
-            <th>Vendor ID</th>
-            <td>@Model.VedorID</td>
-        </tr>
-        <tr>
-            <th>Vendor Name</th>
-            <td>@Model.VendorName</td>
-        </tr>
-        <tr>
-            <th>Vendor Email</th>
-            <td>@Model.VendorEmail</td>
-        </tr>
-        <tr>
-            <th>Vendor Contact</th>
-            <td>@Model.VendorContact</td>
-        </tr>
-        <tr>
-            <th>Vendor Address</th>
-            <td>@Model.VendorAddress</td>
-        </tr>
-        <tr>
-            <th>Vendor Type</th>
-            <td>@Model.VendorType</td>
-        </tr>
-        <tr>
-            <th>Vendor GST</th>
-            <td>@Model.VendorGST</td>
-        </tr>
-        <tr>
-            <th>Status</th>
-            <td>@Model.Status</td>
-        </tr>
-        <tr>
-            <th>Created By</th>
-            <td>@Model.CreatedBy</td>
-        </tr>
-        <tr>
-            <th>Created Date</th>
-            <td>
-                @if(Model.CreatedDate.HasValue)
-                {
-                    @Model.CreatedDate.Value.ToString("dd-MM-yyyy")
-                }
-                    </td>
-        </tr>
-    </table>
+    <div class="container">
+        <table class="table_head" width="100%" cellpadding="0" cellspacing="0" border="0">
+            <tr>
+                <td style="padding: 15px 0; border: 1px solid transparent;">
+                    <h2 style="padding:0px">Vendor Approval Request</h2>
+                </td>
+                <td align="right" style="padding: 15px 0; border: 1px solid transparent;">
+                    <a href="@siteURL" target="_blank">
+                        <img src="@logoURL" alt="AMBC Logo" width="80" style="display: block;">
+                    </a>
+                </td>
+            </tr>
+        </table>
+        <p>A new vendor has been added and is pending approval. Please find the details below:</p>
+        <table>
+            <tr>
+                <th style="border: 1px solid #ddd; text-align: left; ">Vendor ID</th>
+                <td style="border: 1px solid #ddd; text-align: left; ">@Model.VedorID</td>
+            </tr>
+            <tr>
+                <th style="border: 1px solid #ddd; text-align: left; ">Vendor Name</th>
+                <td style="border: 1px solid #ddd; text-align: left; ">@Model.VendorName</td>
+            </tr>
+            <tr>
+                <th style="border: 1px solid #ddd; text-align: left; ">Vendor Email</th>
+                <td style="border: 1px solid #ddd; text-align: left; ">@Model.VendorEmail</td>
+            </tr>
+            <tr>
+                <th style="border: 1px solid #ddd; text-align: left; ">Vendor Contact</th>
+                <td style="border: 1px solid #ddd; text-align: left; ">@Model.VendorContact</td>
+            </tr>
+            <tr>
+                <th style="border: 1px solid #ddd; text-align: left; ">Vendor Address</th>
+                <td style="border: 1px solid #ddd; text-align: left; ">@Model.VendorAddress</td>
+            </tr>
+            <tr>
+                <th style="border: 1px solid #ddd; text-align: left; ">Vendor Type</th>
+                <td style="border: 1px solid #ddd; text-align: left; ">@Model.VendorType</td>
+            </tr>
+            <tr>
+                <th style="border: 1px solid #ddd; text-align: left; ">Vendor GST</th>
+                <td style="border: 1px solid #ddd; text-align: left; ">@Model.VendorGST</td>
+            </tr>
+            <tr>
+                <th style="border: 1px solid #ddd; text-align: left; ">Status</th>
+                <td style="border: 1px solid #ddd; text-align: left; ">@Model.Status</td>
+            </tr>
+            <tr>
+                <th style="border: 1px solid #ddd; text-align: left; ">Created By</th>
+                <td style="border: 1px solid #ddd; text-align: left; ">@Model.CreatedBy</td>
+            </tr>
+            <tr>
+                <th style="border: 1px solid #ddd; text-align: left; ">Created Date</th>
+                <td style="border: 1px solid #ddd; text-align: left; ">
+                    @if (Model.CreatedDate.HasValue)
+                    {
+                        @Model.CreatedDate.Value.ToString("dd-MM-yyyy")
+                    }
+                </td>
+            </tr>
+        </table>
+    </div>
 </body>
 </html>
 
