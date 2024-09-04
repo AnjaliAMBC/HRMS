@@ -1,23 +1,99 @@
 ﻿@model HRMS.PurchaseRequest
 
+@{
+
+    var siteURL = System.Configuration.ConfigurationManager.AppSettings["siteURL"];
+    var logoURL = siteURL + "/Assets/AMBC_Logo.png";
+}
 <html>
 <head>
     <style>
-        
+        body {
+            color: #333;
+            background-color: #ffffff;
+            margin: 0;
+            padding: 0;
+        }
+        .purchase_body
+        {
+            background-color:#f4f4f4;
+        }
+        .email-footer {
+            padding-top: 20px;
+            border-top: 1px solid #eeeeee;
+            font-size: 12px;
+            color: #888888;
+            text-align: center;
+            font-family: Calibri, Arial, sans-serif;
+            color: #696969;
+            font-size: 1.1em;
+            margin-top: 20px;
+        }
+        .email-container {
+            width: 100%;
+            max-width: 600px;
+            margin: 0 auto;
+            padding: 20px;
+            background-color: #ffffff;
+            border: 1px solid #dddddd;
+            border-radius: 4px;
+        }
     </style>
 </head>
-<body>
-    <h2>Purchase Request Rejected</h2>
-    <p>Dear @Model.RequestedBy,</p>
-    <p>We regret to inform you that your purchase request (PR Number: @Model.PRNumber) has been rejected.</p>
-    <p>Details:</p>
-    <ul>
-        <li>Asset Type: @Model.AssetType</li>
-        <li>Requested By: @Model.RequestedBy</li>
-        <li>Required On: @Model.RequiredOn</li>
-       
-    </ul>
-    <p>If you have any questions, please contact us.</p>
+<body class="purchase_body">
+    <div class="email-container">
+        <table width="100%" cellpadding="0" cellspacing="0" border="0" style="background-color:#ffffff;">
+            <tr>
+                <td style="padding: 0;">
+                    <p style="padding:0px">Dear @Model.RequestedBy,</p>
+                </td>
+                <td align="right" style="padding:0;">
+                    <a href="@siteURL" target="_blank">
+                        <img src="@logoURL" alt="AMBC Logo" width="80" style="display: block;">
+                    </a>
+                </td>
+            </tr>
+        </table>
+        <p style="background-color:#ffffff">Your Purchase Request <strong>@Model.PRNumber</strong> has been rejected.</p>
+        <p style="background-color:#ffffff">Details:</p>
+        <table style="width: 50%; border-collapse: collapse; padding: 0; margin: 0 20px;background-color:#ffffff" >
+            <tr>
+                <td style="padding: 5px 0;"><strong>Asset Type:</strong></td>
+                <td style="padding: 5px 0;">@Model.AssetType</td>
+            </tr>
+            <tr>
+                <td style="padding: 5px 0;"><strong>Requested By:</strong></td>
+                <td style="padding: 5px 0;">@Model.RequestedBy</td>
+            </tr>
+            <tr>
+                <td style="padding: 5px 0;"><strong>Required On:</strong></td>
+                <td style="padding: 5px 0;">
+                    @if (Model.RequiredOn.HasValue)
+                    {
+                        @Model.RequiredOn.Value.ToString("dd-MM-yyyy")
+                    }
+                </td>
+            </tr>
+            <tr>
+                <td style="padding: 5px 0;"><strong>Approved By:</strong></td>
+                <td style="padding: 5px 0;">@Model.ApprovedBy</td>
+            </tr>
+            <tr>
+                <td style="padding: 5px 0;"><strong>Approved On:</strong></td>
+                <td style="padding: 5px 0;">
+                    @if (Model.ApprovedDate.HasValue)
+                    {
+                        @Model.ApprovedDate.Value.ToString("dd-MM-yyyy hh:mm tt")
+                    }
+                </td>
+            </tr>
+        </table>
+
+        <div class="email-footer" style="margin-top: 20px; font-size: 12px; color: #666;">
+            <p style="margin: 0; background-color: #ffffff; ">This is an automated email, please do not reply.</p>
+            <p style="margin: 0; background-color: #ffffff; ">Automated mail from <a href="https://prm.ambctechnologies.com">https://prm.ambctechnologies.com</a></p>
+        </div>
+    </div>
 </body>
 </html>
 
