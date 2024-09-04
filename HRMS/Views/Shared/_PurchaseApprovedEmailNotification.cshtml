@@ -1,0 +1,22 @@
+﻿@model HRMS.PurchaseRequest
+
+<html>
+<head>
+    <style>
+        
+    </style>
+</head>
+<body>
+    <h2>Purchase Request Approved</h2>
+    <p>Dear @Model.RequestedBy,</p>
+    <p>We are pleased to inform you that your purchase request (PR Number: @Model.PRNumber) has been approved.</p>
+    <p>Details:</p>
+    <ul>
+        <li>Asset Type: @Model.AssetType</li>
+        <li>Requested By: @Model.RequestedBy</li>
+        <li>Required On: @Model.RequiredOn</li>
+        
+    </ul>
+    <p>Thank you.</p>
+</body>
+</html>

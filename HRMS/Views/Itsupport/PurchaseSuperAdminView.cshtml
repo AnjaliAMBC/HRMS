@@ -54,35 +54,47 @@
                         <tbody>
 
                             @foreach (var purchaserequest in Model.PurchaseRequests)
-                            {
-                                <tr class="odd">
-                                    <td><input type="checkbox" class="purchasesuperadmin-check"></td>
-                                    <td class="tdpsarequestno itprequestno" data-purchaseid="@purchaserequest.PurchaseRequestID">@purchaserequest.PRNumber</td>
-                                    <td class="tdassettype">@purchaserequest.AssetType</td>
-                                    <td class="tdvendor1 table-psa-vendor-info">
-                                        <div style="display: flex; align-items: center;">
+                            {                                
+                            <tr class="odd">
+                                <td><input type="checkbox" class="purchasesuperadmin-check"></td>
+                                <td class="tdpsarequestno itprequestno" data-purchaseid="@purchaserequest.PurchaseRequestID">@purchaserequest.PRNumber</td>
+                                <td class="tdassettype">@purchaserequest.AssetType</td>
+                                <td class="tdvendor1 table-psa-vendor-info">
+                                    <div style="display: flex; align-items: center;">
 
-                                            @{
-                                                var vendor1Status = @purchaserequest.Vendor1Status;
-                                                var status1Class = string.IsNullOrEmpty(vendor1Status) ? "pending" : vendor1Status.ToLowerInvariant();
-                                                var status1Name = string.IsNullOrEmpty(vendor1Status) ? "Pending" : vendor1Status;
-                                            }
+                                        @{
+                                            var vendor1Status = @purchaserequest.Vendor1Status;
+                                            var status1Class = string.IsNullOrEmpty(vendor1Status) ? "pending" : vendor1Status.ToLowerInvariant();
+                                            var status1Name = string.IsNullOrEmpty(vendor1Status) ? "Pending" : vendor1Status;
+                                        }
 
-                                            <span style="margin-top: 0px; margin-right: 10px;">@purchaserequest.VendorName1<br><span class="@status1Class">@status1Name</span></span>
-                                        </div>
-                                    </td>
+                                        <span style="margin-top: 0px; margin-right: 10px;">@purchaserequest.VendorName1<br><span class="@status1Class">@status1Name</span></span>
+                                    </div>
+                                </td>
+
+
+                                @if (purchaserequest.VendorID2 != 0)
+                                {
                                     <td class="tdvendor2 table-psa-vendor-info">
                                         <div style="display: flex; align-items: center;">
-
                                             @{
-                                                var vendor2Status = @purchaserequest.Vendor2Status;
+                                                var vendor2Status = purchaserequest.Vendor2Status;
                                                 var status2Class = string.IsNullOrEmpty(vendor2Status) ? "pending" : vendor2Status.ToLowerInvariant();
                                                 var status2Name = string.IsNullOrEmpty(vendor2Status) ? "Pending" : vendor2Status;
                                             }
-
-                                            <span style="margin-top: 0px; margin-right: 10px;">@purchaserequest.VendorName2<br><span class="@status2Class">@status2Name</span></span>
+                                            <span style="margin-top: 0px; margin-right: 10px;">
+                                                @purchaserequest.VendorName2<br>
+                                                <span class="@status2Class">@status2Name</span>
+                                            </span>
                                         </div>
                                     </td>
+                                }
+                                else
+                                {
+                                    <td>N/A</td>
+                                }
+                                @if (purchaserequest.VendorID3 != 0)
+                                {
                                     <td class="tdvendor3 table-psa-vendor-info">
                                         <div style="display: flex; align-items: center;">
 
@@ -95,14 +107,20 @@
                                             <span style="margin-top: 0px; margin-right: 10px;">@purchaserequest.VendorName3<br><span class="@status3Class">@status3Name</span></span>
                                         </div>
                                     </td>
+
+                                                }
+                else
+                {
+                    <td>N/A</td>
+                }
+
                                     <td style="text-align:center;">
                                         <span class="purchasesuperadmin-approval-edit" data-purchaseid="@purchaserequest.PurchaseRequestID">
                                             <i class="fas fa-eye"></i>
                                         </span>
                                     </td>
                                 </tr>
-                            }
-
+                              }
 
                         </tbody>
                     </table>

@@ -8,47 +8,48 @@
 });
 
 
-function savePurchaseRequest() {
-    var purchaseRequest = {
-        PurchaseID: $('#PurchaseID').val(),
-        AssetType: $('#AssetType').val(),
-        RequiredOn: $('#RequiredOn').val(),
-        RequestedBy: $('#Requestedby').val(),
-        VendorName: $('#VendorName').val(),
-        QuotationPrice: $('#QuotationPrice').val(),
-        AttachFile: $('#AttachFile')[0].files[0],
-        CreatedBy: $('#CreatedBy').val(),
-        CreatedDate: $('#CreatedDate').val()
-    };
+//function savepurchaserequest() {
+//    var purchaserequest = {
+//        purchaseid: $('#purchaseid').val(),
+//        assettype: $('#assettype').val(),
+//        requiredon: $('#requiredon').val(),
+//        requestedby: $('#requestedby').val(),
+//        vendorname: $('#vendorname').val(),
+//        quotationprice: $('#quotationprice').val(),
+//        attachfile: $('#attachfile')[0].files[0],
+//        createdby: $('#createdby').val(),
+//        createddate: $('#createddate').val()
+//    };
 
-    var formData = new FormData();
+//    var formdata = new formdata();
 
-    for (var key in purchaseRequest) {
-        formData.append(key, purchaseRequest[key]);
-    }
+//    for (var key in purchaserequest) {
+//        formdata.append(key, purchaserequest[key]);
+//    }
 
-    $.ajax({
-        url: '/purchase/AddPurchaseRequest',
-        type: 'POST',
-        data: formData,
-        contentType: false,
-        processData: false,
-        success: function (response) {
-            if (response.StatusCode == 200) {
-                console.log(response.data);
-                $('.purchase-success-message').text(response.Message);
-                $('#purchaseSuccessModal').modal('show');
-            } else {
-                $('.purchase-success-message').text(response.Message);
-                $('#purchaseSuccessModal').modal('show');
-            }
-        },
-        error: function (error) {
-            console.error(error);
-            alert('An error occurred while saving the purchase request. Please try again.');
-        }
-    });
-}
+//    $.ajax({
+//        url: '/purchase/addpurchaserequest',
+//        type: 'post',
+//        data: formdata,
+//        contenttype: false,
+//        processdata: false,
+//        success: function (response) {
+//            if (response.statuscode === 200) {
+//                // set success message and show the success modal
+//                $('.purchase-success-message').text('new purchase request created successfully!');
+//                $('#purchaserequestsuccessmodal').modal('show');
+//            } else {
+//                // set error message and show the error modal
+//                $('.purchase-error-message').text('an error occurred while creating the purchase request. please try again.');
+//                $('#purchaserequesterrormodal').modal('show');
+//            }
+//        },
+//        error: function (error) {
+//            console.error(error);
+//            alert('an error occurred while saving the purchase request. please try again.');
+//        }
+//    });
+//}
 
 
 // Utility function to format date
@@ -409,10 +410,9 @@ $(document).ready(function () {
                 contentType: false,
                 processData: false,
                 success: function (response) {
-                    if (response.StatusCode === 200) {
-                        // Show success message
+                    if (response.StatusCode == 200) {                        
                         $('#successMessage').text('Purchase Request created successfully.');
-                        $('#successModal').modal('show'); // Hide error modal just in case
+                        $('#successModal').modal('show'); 
 
                     } else {
                         // Show error message
@@ -436,7 +436,6 @@ $(document).ready(function () {
         $('.form-control').removeClass('is-invalid');
     });
 });
-
 
 
 $('.btn-addpurcase-close').on('click', function (event) {
