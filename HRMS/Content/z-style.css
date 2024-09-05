@@ -3250,18 +3250,19 @@ input[type=checkbox], input[type=radio] {
     font-size: 12px;
 }
 
-    #purchaseStatusModal .purchaseStatus-sentby .sent-by, #itpurchaseStatusModal .purchaseStatus-sentby .sent-by {
-        font-weight: bold;
-    }
+#purchaseStatusModal .purchaseStatus-sentby .sent-by, #itpurchaseStatusModal .purchaseStatus-sentby .sent-by {
+    font-weight: bold;
+}
 
-    #purchaseStatusModal .purchaseStatus-sentby .approved-by, #itpurchaseStatusModal .purchaseStatus-sentby .approved-by {
-        color: darkturquoise;
-        font-weight: bold;
-    }
+#purchaseStatusModal .purchaseStatus-sentby .approved-by, #itpurchaseStatusModal .purchaseStatus-sentby .approved-by {
+    color: darkturquoise;
+    font-weight: bold;
+}
 
-    #purchaseStatusModal .purchaseStatus-sentby .sender-name, #itpurchaseStatusModal .purchaseStatus-sentby .sender-name {
-        color: blue;
-    }
+#purchaseStatusModal .purchaseStatus-sentby .sender-name, #itpurchaseStatusModal .purchaseStatus-sentby .sender-name {
+    color: blue;
+}
+
 #purchaseStatusModal .purchaseStatus-date, #itpurchaseStatusModal .purchaseStatus-date {
     color: gray;
     font-size: 12px;
@@ -3270,20 +3271,23 @@ input[type=checkbox], input[type=radio] {
 #purchaseStatusModal .purchaseStatus-list .purchaseStatus-mid, #itpurchaseStatusModal .purchaseStatus-list .purchaseStatus-mid {
     margin-top: -2px;
 }
+
 .itp_filepath
 {
     text-decoration:none;
     font-size:12px;
 }
-    .itp_filepath:hover{
-        text-decoration:none;
-    }
-    /* Purchase end */
-    /* Purchase add start */
-    .admin-purchase-add .purchaseadd-tabs label {
-        font-size: 13px;
-        margin-bottom: 0px;
-    }
+
+.itp_filepath:hover{
+    text-decoration:none;
+}
+/* Purchase end */
+
+/* Purchase add start */
+.admin-purchase-add .purchaseadd-tabs label {
+    font-size: 13px;
+    margin-bottom: 0px;
+}
 
 .admin-purchase-add .upload-btn-wrapper {
     position: relative;
@@ -3905,6 +3909,62 @@ input[type=checkbox], input[type=radio] {
 
 /* asset view end*/
 
+/* asset add start */
+
+.admin-asset-add .assetadd-tabs label {
+    font-size: 13px;
+    margin-bottom: 0px;
+}
+
+.admin-asset-add .upload-btn-wrapper {
+    position: relative;
+    overflow: hidden;
+    display: inline-block;
+    width: 70%;
+}
+
+.admin-asset-add .asset-upload-btn {
+    border: 1px solid #ced4da;
+    color: darkslategrey;
+    background-color: #fff;
+    border-radius: 3px;
+    font-size: 14px;
+    width: 100%;
+    padding: 8px 0px;
+    cursor: pointer;
+}
+
+.admin-asset-add .upload-btn-wrapper input[type=file] {
+    font-size: 100px;
+    position: absolute;
+    left: 0;
+    top: 0;
+    opacity: 0;
+}
+
+.admin-asset-add .add-asset-block {
+    margin-top: 10px;
+    font-size: 17px;
+}
+
+.admin-asset-add .upload-btn-wrapper img {
+    position: fixed;
+    margin-left: 20px;
+    height: 37px;
+    width: 37px;
+    border: 1px solid #ced4da;
+    padding: 5px;
+}
+
+.admin-asset-add .upload-btn-wrapper .uploaded-image-close {
+    position: fixed;
+    margin-left: 47px;
+    margin-top: -5px;
+    font-size: 10px;
+    cursor: pointer;
+}
+
+/* asset add end */
 
 @supports (-webkit-backdrop-filter: none) or (-webkit-hyphens:auto) {
     #adminaddendancetable {
