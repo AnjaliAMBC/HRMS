@@ -209,6 +209,10 @@ function exportPurchase() {
 }
 
 
+$('#vendor-selectAll').click(function () {
+    $('.vendor-check').prop('checked', this.checked);
+});
+
 //super admin export
 
 function exportPurchaseSuperAdmin() {
