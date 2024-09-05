@@ -274,7 +274,7 @@ namespace HRMS.Controllers
 
                     context.SaveChanges();
 
-                    model.StatusCode = 500;
+                    model.StatusCode = 200;
                     model.Message = "Purchase request created successfully!";
 
                     var emailBody = RenderPartialToString(this, "_PurchaseAddEmailNotification", purchaseRequest, ViewData, TempData);

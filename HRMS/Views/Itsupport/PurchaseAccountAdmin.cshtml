@@ -56,7 +56,7 @@
                     <table id="adminpurchaseaccounttable" class="display" style="width: 100%;">
                         <thead style="background-color: #d8e6fb; border-radius: 10px;">
                             <tr>
-                                <th><input type="checkbox" id="vendor-selectAll"></th>
+                                <th><input type="checkbox" id="purchase-selectAll"></th>
                                 <th>Request No.</th>
                                 <th>Asset Type</th>
                                 <th>Vendor ID</th>
@@ -72,69 +72,69 @@
                             {
 
 
-                                <tr class="">
-                                    <td><input type="checkbox" class="purchaseaccount-check"></td>
-                                    <td class="tdrequestno">@purchaserequest.PRNumber</td>
-                                    <td class="tdassettype">@purchaserequest.AssetType</td>
+                            <tr class="">
+                                <td><input type="checkbox" class="purchaseaccount-check"></td>                               
+                                <td class="tdrequestno itprequestno" data-purchaseid="@purchaserequest.PurchaseRequestID">@purchaserequest.PRNumber</td>
+                                <td class="tdassettype">@purchaserequest.AssetType</td>
 
-                                    @if (purchaserequest.Vendor1Status == "Approved")
-                                    {
+                                @if (purchaserequest.Vendor1Status == "Approved")
+                                {
 
-                                        <td class="tdvendorid">@purchaserequest.VendorID1</td>
-                                        <td class="tdvendorname">
-                                            <div style="display: flex; align-items: center;">
-                                                <span style="margin-top: 0px; margin-right: 10px;">@purchaserequest.VendorName1<br><span style="color: #3E78CF;">@purchaserequest.VendorEmail1</span></span>
-                                            </div>
-                                        </td>
-                                        <td><a href="/purchase/@purchaserequest.AttachFile1" target="_blank">@purchaserequest.AttachFile1</a><br /></td>
-                                    }
-
-
-                                    @if (purchaserequest.Vendor2Status == "Approved")
-                                    {
+                                    <td class="tdvendorid">@purchaserequest.VendorID1</td>
+                                    <td class="tdvendorname">
+                                        <div style="display: flex; align-items: center;">
+                                            <span style="margin-top: 0px; margin-right: 10px;">@purchaserequest.VendorName1<br><span style="color: #3E78CF;">@purchaserequest.VendorEmail1</span></span>
+                                        </div>
+                                    </td>
+                                    <td><a href="/purchase/@purchaserequest.AttachFile1" target="_blank">@purchaserequest.AttachFile1</a><br /></td>
+                                }
 
 
-                                        <td class="tdvendorid">@purchaserequest.VendorID2</td>
-                                        <td class="tdvendorname">
-                                            <div style="display: flex; align-items: center;">
-                                                <span style="margin-top: 0px; margin-right: 10px;">@purchaserequest.VendorName2<br><span style="color: #3E78CF;">@purchaserequest.VendorEmail2</span></span>
-                                            </div>
-                                        </td>
-                                        <td><a href="/purchase/@purchaserequest.AttachFile2" target="_blank">@purchaserequest.AttachFile2</a><br /></td>
-                                    }
+                                @if (purchaserequest.Vendor2Status == "Approved")
+                                {
 
 
-                                    @if (purchaserequest.Vendor3Status == "Approved")
-                                    {
+                                    <td class="tdvendorid">@purchaserequest.VendorID2</td>
+                                    <td class="tdvendorname">
+                                        <div style="display: flex; align-items: center;">
+                                            <span style="margin-top: 0px; margin-right: 10px;">@purchaserequest.VendorName2<br><span style="color: #3E78CF;">@purchaserequest.VendorEmail2</span></span>
+                                        </div>
+                                    </td>
+                                    <td><a href="/purchase/@purchaserequest.AttachFile2" target="_blank">@purchaserequest.AttachFile2</a><br /></td>
+                                }
 
 
-                                        <td class="tdvendorid">@purchaserequest.VendorID3</td>
-                                        <td class="tdvendorname">
-                                            <div style="display: flex; align-items: center;">
-                                                <span style="margin-top: 0px; margin-right: 10px;">@purchaserequest.VendorName3<br><span style="color: #3E78CF;">@purchaserequest.VendorEmail3</span></span>
-                                            </div>
-                                        </td>
-                                        <td><a href="/purchase/@purchaserequest.AttachFile2" target="_blank">@purchaserequest.AttachFile3</a><br /></td>
-                                    }
+                                @if (purchaserequest.Vendor3Status == "Approved")
+                                {
 
-                                    <td>@purchaserequest.RequestedBy</td>
-                                    @{
-                                        var requiredPOIcon = "/assets/purchase/podefault.png";
-                                        var requiredTaxIcon = "/assets/purchase/podefault.png";
-                                    }
 
-                                    @if (!string.IsNullOrWhiteSpace(purchaserequest.PO))
-                                    {
-                                        requiredPOIcon = "/assets/purchase/poapproved.png";
-                                    }
+                                    <td class="tdvendorid">@purchaserequest.VendorID3</td>
+                                    <td class="tdvendorname">
+                                        <div style="display: flex; align-items: center;">
+                                            <span style="margin-top: 0px; margin-right: 10px;">@purchaserequest.VendorName3<br><span style="color: #3E78CF;">@purchaserequest.VendorEmail3</span></span>
+                                        </div>
+                                    </td>
+                                    <td><a href="/purchase/@purchaserequest.AttachFile2" target="_blank">@purchaserequest.AttachFile3</a><br /></td>
+                                }
 
-                                    @if (!string.IsNullOrWhiteSpace(purchaserequest.TaxInvoice))
-                                    {
-                                        requiredTaxIcon = "/assets/purchase/taxapproved.png";
-                                    }
-                                    <td><span class="purchaseaccount-po-btn" data-purchaseID="@purchaserequest.PurchaseRequestID"><img src="@requiredPOIcon" alt="PO" style="width:25px"></span></td>
-                                    <td><span class="purchaseaccount-taxinvoice-btn"><img src="@requiredTaxIcon" alt="Tax Invoice" style="width:25px"></span></td>
-                                </tr>
+                                <td>@purchaserequest.RequestedBy</td>
+                                @{
+                                    var requiredPOIcon = "/assets/purchase/podefault.png";
+                                    var requiredTaxIcon = "/assets/purchase/podefault.png";
+                                }
+
+                                @if (!string.IsNullOrWhiteSpace(purchaserequest.PO))
+                                {
+                                    requiredPOIcon = "/assets/purchase/poapproved.png";
+                                }
+
+                                @if (!string.IsNullOrWhiteSpace(purchaserequest.TaxInvoice))
+                                {
+                                    requiredTaxIcon = "/assets/purchase/taxapproved.png";
+                                }
+                                <td><span class="purchaseaccount-po-btn" data-purchaseID="@purchaserequest.PurchaseRequestID"><img src="@requiredPOIcon" alt="PO" style="width:25px"></span></td>
+                                <td><span class="purchaseaccount-taxinvoice-btn"><img src="@requiredTaxIcon" alt="Tax Invoice" style="width:25px"></span></td>
+                            </tr>
                             }
                         </tbody>
                     </table>
@@ -144,6 +144,9 @@
         </div>
     </div>
 </div>
+
+@Html.Partial("~/Views/Itsupport/_purchaselistflow.cshtml")
+<script src="~/Scripts/z-purchaseScript.js"></script>
 <script>
     $(document).ready(function () {
         // Initialize DataTable if not already initialized
@@ -164,19 +167,27 @@
         }
 
         $(document).on('click', '.purchaseaccount-po-btn', function () {
-            var purchaseID = $(this).attr("data-purchaseid");          
+            var purchaseID = $(this).attr("data-purchaseid");
 
             window.location.href = "/purchase/purchaseaccountsubmit?purchaseId=" + purchaseID;
         });
 
     });
 
-  //export puchaseaccount
+
+    $('#purchase-selectAll').click(function () {
+        $('.purchaseaccount-check').prop('checked', this.checked);
+    });
+
+
+    //export puchaseaccount
     function exportPurchaseAccount() {
         var selectedPurchaseRequestIds = [];
 
         // Debug: Verify that the checkboxes are being selected
         console.log("Number of checkboxes selected:", $(".purchaseaccount-check:checked").length);
+
+
 
         $(".purchaseaccount-check:checked").each(function () {
             // Debug: Log the current row
@@ -211,7 +222,7 @@
 
         $.ajax({
             type: 'POST',
-            url: '/Vendor/ExportSelectedAccountPurchaseRequests',
+            url: '/purchase/exportselectedaccountpurchaserequests',
             data: JSON.stringify({ selectedPurchaseRequestIds: selectedPurchaseRequestIds }),
             contentType: 'application/json; charset=utf-8',
             xhrFields: {
@@ -235,6 +246,6 @@
         });
     }
 
-   
+
 </script>
 

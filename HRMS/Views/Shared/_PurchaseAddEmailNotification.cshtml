@@ -25,8 +25,8 @@
         </li>
     </ul>
     <p><strong>Vendor 1:</strong> @Model.VendorName1 - <strong>Quotation:</strong> @Model.QuotationPrice1.ToString("C")</p>
-    <p><strong>Vendor 2:</strong> @Model.VendorName2 - <strong>Quotation:</strong> @Model.QuotationPrice2.ToString("C")</p>
-    <p><strong>Vendor 3:</strong> @Model.VendorName3 - <strong>Quotation:</strong> @Model.QuotationPrice3.ToString("C")</p>
+    <p><strong>Vendor 2:</strong> @Model.VendorName2 - <strong>Quotation:</strong> @Model.QuotationPrice2.HasValue ? @Model.QuotationPrice2.Value.ToString("C") : "N/A"</p>
+    <p><strong>Vendor 3:</strong> @Model.VendorName3 - <strong>Quotation:</strong> @Model.QuotationPrice3.HasValue ? @Model.QuotationPrice3.Value.ToString("C") : "N/A"</p>
     <p>Please review and proceed accordingly.</p>
     <p>Regards,<br />@Model.CreatedBy</p>
 </body>
