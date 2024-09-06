@@ -3896,9 +3896,17 @@ input[type=checkbox], input[type=radio] {
     padding-left: 5px;
     border: none;
     padding: 0px;
-    font-size: 1.1rem;
+    font-size: 16px;
+    width:135px;
+    padding:0px;
 }
-
+#assetinfo-type-dropdown
+{
+    border:1px solid transparent;
+    width:125px;
+    padding:0px;
+    margin-right:10px;
+}
 #exportAssetinfo img {
     height: 30px;
 }
@@ -3979,3 +3987,81 @@ input[type=checkbox], input[type=radio] {
     width: 28%;
     font-size: 12px;
 }
+
+
+.asset_itemslist {
+    font-size: 15px;
+    margin-bottom: 0px;
+}
+
+.asset_totallist {
+    font-size: 30px;
+    font-weight: 600;
+}
+
+.asset_listdetails_card {
+    line-height: 1.5rem;
+}
+
+.icon_assetlist {
+    border: 1px solid transparent;
+    border-radius: 50%;
+    width: 50px;
+    height: 50px;
+    text-align: center;
+    align-content: center;
+    margin: 10px;
+}
+
+    .icon_assetlist.icon1 {
+        background-color: #FFF6D9;
+    }
+
+    .icon_assetlist.icon2 {
+        background-color: #DBF1F9;
+    }
+
+    .icon_assetlist.icon3 {
+        background-color: #DAF1E4;
+    }
+
+    .icon_assetlist.icon4 {
+        background-color: #FCD9E4;
+    }
+
+.assetlist_cardset {
+    padding: 20px;
+}
+
+.admin-assetinfo-view .card {
+    padding-right: 0px;
+    padding-left: 20px;
+    margin-top: 40px;
+    margin-bottom: 0px;
+}
+
+#piechart g text {
+    font-size: 14px
+}
+
+.chart-legend-container {
+    display: flex; /* Align chart and legend in a row */
+    align-items: center; /* Center items vertically */
+}
+
+#piechart {
+    width: 480px; /* Set width for pie chart */
+    height: 220px; /* Set height for pie chart */
+}
+
+#legend {
+    position: absolute;
+    top: 55px;
+    right: 64px; /* Add space between the pie chart and legend */
+}
+
+    #legend div {
+        display: flex; /* Flexbox for legend items */
+        align-items: center;
+        margin-bottom: 2px; /* Spacing between legend items */
+    }

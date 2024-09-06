@@ -1,20 +1,149 @@
 ﻿
 
 @Html.Partial("_NavBar")
+<script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+<script type="text/javascript">
+    google.charts.load('current', { packages: ['corechart'] });
+    google.charts.setOnLoadCallback(drawChart);
+
+    function drawChart() {
+        var data = google.visualization.arrayToDataTable([
+            ['Asset Type', 'Number of Assets'],
+            ['Laptop', 150],
+            ['Keyboard', 50],
+            ['Mouse', 100],
+            ['Mobile Phone', 70],
+            ['UPS', 30]
+        ]);
+
+        var options = {
+            legend: { position: 'none' }, // Hide the default legend
+            chartArea: {
+                left:0,
+                top: 0,
+                width: '80%',
+                height: '90%'
+            },
+            
+        };
+
+        var chart = new google.visualization.PieChart(document.getElementById('piechart'));
+        chart.draw(data, options);
+
+        // Custom Legend Creation
+        createCustomLegend();
+    }
+
+    function createCustomLegend() {
+        const legendItems = [
+            { color: '#3366cc', label: 'Laptop' },
+            { color: '#dc3912', label: 'Keyboard' },
+            { color: '#ff9900', label: 'Mouse' },
+            { color: '#109618', label: 'Mobile Phone' },
+            { color: '#990099', label: 'UPS' }
+        ];
+
+        const legendContainer = document.getElementById('legend');
+        legendContainer.innerHTML = ''; // Clear existing content
+
+        legendItems.forEach(item => {
+            const legendItem = document.createElement('div');
+            legendItem.style.display = 'flex';
+            legendItem.style.alignItems = 'right';
+            legendItem.style.marginBottom = '10px';
+
+            const colorBox = document.createElement('div');
+            colorBox.style.width = '13px';
+            colorBox.style.height = '13px';
+            colorBox.style.backgroundColor = item.color;
+            colorBox.style.marginRight = '5px';
+            colorBox.style.marginTop = '2px';
+
+            const label = document.createElement('span');
+            label.textContent = item.label;
+            label.style.fontSize = '14px';
+
+            legendItem.appendChild(colorBox);
+            legendItem.appendChild(label);
+            legendContainer.appendChild(legendItem);
+        });
+    }
+</script>
+<style>
+   
+</style>
 <div class="container-fluid">
     <div class="hiddenadmindashboard" style="display: none"></div>
     @Html.Partial("_adminsidemenu")
     <div class="main-content container-fluid assetinfo-tab" style="width: 84%">
         <div class="content admin-assetinfo-container" style="margin-left: -10px; ">
             <div class="admin-assetinfo-view">
+                <div class="container-fluid">
+                    <div class="row">
+                        <div class="col-lg-6 col-sm-12 col-md-6 col-12 pl-3">
+                            <div class="card">
+                                <div class="row">
+                                    <div class="col-lg-6 d-flex assetlist_cardset">
+                                        <div class="icon_assetlist icon1">
+                                            <i class="fa-solid fa-laptop" style="font-size:17px;"></i>
+                                        </div>
+                                        <div class="asset_listdetails_card">
+                                            <p class="asset_itemslist">Total Asset</p>
+                                            <p class="asset_totallist">150</p>
+                                        </div>
+                                    </div>
+                                    <div class="col-lg-6 d-flex assetlist_cardset">
+                                        <div class="icon_assetlist icon2">
+                                            <i class="fa-solid fa-laptop" style="font-size:17px;"></i>
+                                        </div>
+                                        <div class="asset_listdetails_card">
+                                            <p class="asset_itemslist">Asset In Use</p>
+                                            <p class="asset_totallist">145</p>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-lg-6 d-flex assetlist_cardset">
+                                        <div class="icon_assetlist icon3">
+                                            <i class="fa-solid fa-laptop" style="font-size:17px;"></i>
+                                        </div>
+                                        <div class="asset_listdetails_card">
+                                            <p class="asset_itemslist"> Hyderabad Asset</p>
+                                            <p class="asset_totallist">73</p>
+                                        </div>
+                                    </div>
+                                    <div class="col-lg-6 d-flex assetlist_cardset">
+                                        <div class="icon_assetlist icon4">
+                                            <i class="fa-solid fa-laptop" style="font-size:17px;"></i>
+                                        </div>
+                                        <div class="asset_listdetails_card">
+                                            <p class="asset_itemslist">Madurai Asset</p>
+                                            <p class="asset_totallist">72</p>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="col-lg-6 col-sm-12 col-md-6 col-12 pl-4">
+                            <div class="card">
+                                <p style="margin-top:10px;">Asset Type</p>
+                                <div class=" chart-legend-container">
+                                    <div id="piechart" style="height:172px;"></div>
+                                    <div id="legend"></div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
                 <div class="container-fluid top admin-assetinfoview">
                     <div class="row navbar align-items-center">
                         <!-- asset column -->
-                        <div class="col-lg-3 col-md-5 topic d-flex res-admin-title">
+                        <div class="col-lg-2 col-md-5 topic d-flex res-admin-title">
                             <h4 class="header mb-0 text-right">Asset Listing</h4>
                         </div>
                         <!-- Search box -->
-                        <div class="col-xl-4 col-lg-6 navbarl1 col-sm-12 col-md-7 res-admin-assetinfo-search">
+                        <div class="col-xl-3 col-lg-6 navbarl1 col-sm-12 col-md-7 res-admin-assetinfo-search">
                             <div class="search-container">
                                 <div class="input-group" style="border-radius: 20px;">
                                     <div class="input-group-prepend">
@@ -25,20 +154,32 @@
                             </div>
                         </div>
 
-                        <div class="col-xl-5 col-lg-6 navbarl1 col-sm-12 col-md-7 res-admin-assetinfo-header-right">
+                        <div class="col-xl-6 col-lg-6 navbarl1 col-sm-12 col-md-7 res-admin-assetinfo-header-right">
                             <!-- Export -->
-                            <div class="col-xl-4 col-lg-3 navbarl1 col-sm-4 col-xs-12 col-md-4 res-admin-assetinfo-status p-0">
-                                <div class="form-group res-assetinfo">
-                                    <select class="form-control form-select" name="assetinfostatus" id="assetinfo-status-dropdown" style="">
-                                        <option value="" disabled selected>Status</option>
-                                        <option value="Approved">Approved</option>
-                                        <option value="Rejected">Rejected</option>
-                                        <option value="Pending">Pending</option>
+                            <div class="col-xl-4 col-lg-3 navbarl1 col-sm-4 col-xs-12 col-md-4 res-admin-assetinfo-assettype p-0">
+                                <div class="form-group res-assettype">
+                                    <select class="form-control form-select" name="assetinfotype" id="assetinfo-type-dropdown" style="">
+                                        <option value="" disabled selected>Asset Type</option>
+                                        <option value="Laptop">Laptop</option>
+                                        <option value="Mouse">Mouse</option>
+                                        <option value="Keyboard">Keyboard</option>
+                                        <option value="MobilePhone">Mobile Phone</option>
+                                        <option value="UPS">UPS</option>
                                         <option value="">All</option>
                                     </select>
                                 </div>
                             </div>
-                            <div class="col-xl-2 col-lg-1  navbarl1 col-sm-2 col-md-2 res-admin-assetinfo-export p-0">
+                            <div class="col-xl-3 col-lg-3 navbarl1 col-sm-4 col-xs-12 col-md-4 res-admin-assetinfo-status p-0">
+                                <div class="form-group res-assetinfo p-0">
+                                    <select class="form-control form-select" name="assetinfostatus" id="assetinfo-status-dropdown" style="">
+                                        <option value="" disabled selected>Allocate Status</option>
+                                        <option value="Assigned">Assigned</option>
+                                        <option value="NotAssigned">Not Assigned</option>
+                                        <option value="">All</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="col-xl-1 col-lg-1  navbarl1 col-sm-2 col-md-2 res-admin-assetinfo-export p-0 text-right">
                                 <div class="adminassetinfo-export" style="">
                                     <button type="button" class="btn assetinfo-export-btn pt-0" id="exportAssetinfo" onclick="exportAssetinfo()">
                                         <span class="assetinfo-export"><img src="/assets/Export.png" alt="Export" style=""></span>
@@ -46,12 +187,11 @@
                                 </div>
                             </div>
                             <!-- Add asset dropdown -->
-                            <div class="col-lg-5 navbarl1 col-sm-6 col-md-6 res-admin-subscriptioninfo-add">
+                            <div class="col-lg-3 navbarl1 col-sm-6 col-md-6 res-admin-subscriptioninfo-add text-right">
                                 <div class="addingassetinfo form-group">
-                                    <select name="addassetinfo" class="addassetinfo form-control form-select" id="addassetinfo">
-                                        <option value="" disabled="" selected="" hidden="">Add Asset</option>
-                                        <option value="Addmanually" class="assetinfoManually">+ Manually</option>
-                                    </select>
+                                    <button name="addassetinfo" class="addassetinfo btn btn-primary">
+                                        Add Asset
+                                    </button>
                                 </div>
                             </div>
                         </div>
@@ -68,45 +208,42 @@
                     <table id="adminassetinfotable" class="display" style="width: 100%;">
                         <thead style="background-color: #d8e6fb; border-radius: 10px;">
                             <tr>
-                                <th>Asset Image</th>
+                                <th><input type="checkbox" id="Assetlist-selectAll"></th>
+                                <th style="text-align:center;">Asset Image</th>
                                 <th>Asset ID</th>
-                                <th>Location</th>
+                                <th>Asset Type</th>
                                 <th>Allocate Status</th>
-                                <th>Manufacture</th>
-                                <th>Model</th>
-                                <th>W.Start Date</th>
+                                <th>Location</th>
+                                <th>Added By</th>
+                                <th>Added Date</th>
                                 <th>W.End Date</th>
-                                <th>W.Status</th>
-                                <th>Service Tag</th>
-                                <th>Action</th>
+                                <th style="text-align:center;">Action</th>
                             </tr>
                         </thead>
                         <tbody>
                             <tr class="even">
-                                <td style="text-align:center;"><span class="assetinfo-image-btn"><img src="/assets/Approve.png" alt="PO" style="width:25px"></span></td>
-                                <td class="tdassetid">MB/MDU/#1122</td>
+                                <td><input type="checkbox" class="Assetlist-check"></td>
+                                <td style="text-align:center;"><span class="assetinfo-image-btn"><img src="/assets/image8.png" alt="PO" style="width:25px"></span></td>
+                                <td class="tdassetid" style="color: #3E78CF;">MB/MDU/#1122</td>
+                                <td>Laptop</td>
+                                <td>Assigned</td>
                                 <td class="tdassetlocation">Madurai</td>
-                                <td>In Use</td>
-                                <td>Dell</td>
-                                <td>Test#22GT5</td>
+                                <td>Aravind</td>
                                 <td>03-09-2024</td>
-                                <td>03-09-2024</td>
-                                <td>In Use</td>
-                                <td>QTYNGF23S</td>
-                                <td><span class="assetinfo-list-edit"><i class="fas fa-pencil-alt"></i></span></td>
+                                <td>07-08-2025</td>
+                                <td style="text-align:center;"><span class="assetinfo-list-edit"><i class="fas fa-pencil-alt"></i></span></td>
                             </tr>
                             <tr class="odd">
-                                <td style="text-align:center;"><span class="assetinfo-image-btn"><img src="/assets/Approve.png" alt="PO" style="width:25px"></span></td>
-                                <td class="tdassetid">MB/MDU/#1122</td>
+                                <td><input type="checkbox" class="Assetlist-check"></td>
+                                <td style="text-align:center;"><span class="assetinfo-image-btn"><img src="/assets/image8.png" alt="PO" style="width:25px"></span></td>
+                                <td class="tdassetid" style="color: #3E78CF;">MB/MDU/#1122</td>
+                                <td>Laptop</td>
+                                <td>Assigned</td>
                                 <td class="tdassetlocation">Madurai</td>
-                                <td>In Use</td>
-                                <td>Dell</td>
-                                <td>Test#22GT5</td>
+                                <td>Aravind</td>
                                 <td>03-09-2024</td>
-                                <td>03-09-2024</td>
-                                <td>In Use</td>
-                                <td>QTYNGF23S</td>
-                                <td><span class="assetinfo-list-edit"><i class="fas fa-pencil-alt"></i></span></td>
+                                <td>07-08-2025</td>
+                                <td style="text-align:center;"><span class="assetinfo-list-edit"><i class="fas fa-pencil-alt"></i></span></td>
                             </tr>
                         </tbody>
                     </table>
@@ -116,6 +253,7 @@
         </div>
     </div>
 </div>
+    </div>
 <script>
     $(document).ready(function () {
         // Initialize DataTable if not already initialized
