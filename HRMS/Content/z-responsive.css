@@ -1637,6 +1637,14 @@
 
     /* admin hr ticket form end */
 
+    /* vendor add start */
+
+    .mobile-view .admin-vendoradd .navbar {
+        margin-bottom: 10px !important;
+    }
+
+    /* vendor add end*/
+
     /* vendor approval start */
 
     .mobile-view .res-sadmin-vendorapproval-header-right {
@@ -1692,6 +1700,11 @@
 
     .mobile-view .res-itadmin-purchase-table {
         margin-top: 95px;
+    }
+
+    .itadmin-purchase-view .res-itadmin-purchase-add {
+        flex: 0 0 60%;
+        max-width: 60% !important;
     }
 
     /* purchase view end */
@@ -1881,6 +1894,144 @@
     }
 
     /* asset view end */
+}
+
+@media only screen and (min-width:360px) and (max-width:740px) and (orientation: landscape) {
+    
+    /*vendor add start */
+
+    #hr-vendorlisting-status-dropdown {
+        padding-left: 0px;
+        width: 75%;
+    }
+
+    #vendor-form .container {
+        max-width: 100%;
+    }
+
+    .admin-vendoradd .navbar {
+        margin-bottom: 10px !important;
+    }
+    /*vendor add end */
+
+    /* vendor approval start */
+
+    .res-sadmin-vendorapproval-header-right .res-sadmin-vendorapproval-status {
+        max-width: 35%;
+    }
+
+    /* vendor approval end */
+
+    /* purchase view start */
+
+    .admin-purchase-container {
+        margin-top: 65px !important;
+    }
+
+    .res-itadmin-purchase-search {
+        padding: 0 !important;
+    }
+
+    .res-itadmin-purchase-search .search-container {
+        margin-left: 0px !important;
+    }
+
+    .res-purchaselisting {
+        padding: 0 !important;
+    }
+
+    .res-itadmin-purchase-header-right {
+        padding-left: 0 !important;
+    }
+
+    .admin-purchase-view .res-admin-purchase-add {
+        padding-right: 0;
+    }
+
+    .res-itadmin-purchase-table {
+        margin-top: 70px !important;
+    }
+
+    .itadmin-purchase-view .res-itadmin-purchase-add {
+        flex: 0 0 27% !important;
+        max-width: 27% !important;
+    }
+
+    .itadmin-purchase-view .res-itadmin-purchase-header-right {
+        justify-content: left !important;
+    }
+
+    .itadmin-purchase-view .res-itadmin-purchase-export {
+        max-width: 10%;
+    }
+
+    /* purchase view end */
+
+    /* purchase add start */
+
+    .admin-purchaseadd-container {
+        margin-top: 60px !important;
+        display: inline-block;
+    }
+
+    #purchase-form .row .col-lg-3.col-md-6 {
+        padding-left: 0px !important;
+    }
+
+    #purchase-form .container {
+        max-width: 100%;
+    }
+
+    /* purchase add end */
+
+    /* purchase super admin start */
+
+    .admin-purchasesuperadmin-container {
+        margin-top: 70px !important;
+    }
+
+    .res-admin-purchasesuperadmin-search {
+        padding: 0 !important;
+    }
+
+    .res-admin-purchasesuperadmin-search .search-container {
+        margin-left: 0px !important;
+    }
+
+    .res-admin-purchasesuperadmin-table {
+        margin-top: 25px !important;
+    }
+
+    .admin-purchasesuperadmin-view .res-admin-purchasesuperadmin-export {
+        display: flex !important;
+    }
+
+    /* purchase super admin end */
+
+    /* purchase super approval start */
+
+    .admin-purchasesuperapproval-container {
+        margin-top: 70px;
+    }
+
+    .admin-purchasesuperapproval-view .admin-purchasesuperapprovalview {
+        height: 50px !important;
+    }
+
+    .admin-purchasesuperapproval-view .psa-content-block .psa-footer {
+        margin-bottom: 20px;
+    }
+
+    .admin-purchasesuperapproval-view .psa-content-details {
+        margin-bottom: 20px;
+    }
+
+    .admin-purchasesuperapproval-view .psa-content-block {
+        max-width: 100%;
+    }
+
+    /* purchase super approval end */
+
 }
 
 /* Media Query for low resolution  Tablets, Ipads start */
@@ -4118,7 +4269,16 @@
     }
 
     .tablet-view .res-itadmin-purchase-table {
-        margin-top: 95px;
+        margin-top: 60px;
+    }
+
+    .tablet-view .itadmin-purchase-view .res-admin-title {
+        max-width: 52%;
+        flex: 0 0 52%;
+    }
+
+    .tablet-view .itadmin-purchase-view .res-itadmin-purchase-search {
+        max-width: 47%;
     }
 
     /* purchase view end */
@@ -4139,6 +4299,10 @@
 
     .tablet-view #purchase-form .row .col-lg-3.col-md-6 {
         padding-left: 0px;
+    }
+
+    .tablet-view #purchase-form .select2-container {
+        width: 100% !important;
     }
 
     /* purchase add end */
@@ -4204,7 +4368,16 @@
     }
 
     .tablet-view .res-admin-purchasesuperadmin-table {
-        margin-top: 80px;
+        margin-top: 60px;
+    }
+
+    .tablet-view .admin-purchasesuperadmin-view .res-admin-title {
+        max-width: 52%;
+        flex: 0 0 52%;
+    }
+
+    .tablet-view .admin-purchasesuperadmin-view .res-admin-purchasesuperadmin-search {
+        max-width: 47%;
     }
 
     /* purchase super admin end */
@@ -5577,6 +5750,107 @@
     }
 
     /* admin hr ticket form end */
+
+    /* vendor view start */
+
+    .tablet-view .VendorListPage-View {
+        width: 80% !important;
+    }
+
+    /* vendor view end */
+
+    /* vendor approval start */
+
+    .tablet-view .VendorApprovalPage-View {
+        width: 80% !important;
+    }
+
+    /* vendor approval end */
+
+    /* purchase view start */
+
+    .tablet-view .PurchaseListPage-View {
+        width: 76% !important;
+    }
+
+    .tablet-view .res-admin-purchase-search {
+        padding: 0;
+    }
+
+    .tablet-view .res-itadmin-purchase-search .search-container {
+        /*margin-left: 0px !important;*/
+    }
+
+    .tablet-view .res-purchaselisting {
+        padding: 0;
+    }
+
+    .tablet-view .res-itadmin-purchase-header-right {
+        padding-left: 0;
+        /*justify-content: left !important;*/
+    }
+
+    .tablet-view .itadmin-purchase-view .res-itadmin-purchase-export {
+        max-width: 10%;
+    }
+
+    .tablet-view .admin-purchase-view .res-admin-purchase-add {
+        padding-right: 0;
+    }
+
+    .tablet-view .res-itadmin-purchase-table {
+        margin-top: 60px;
+    }
+
+    .tablet-view .PurchaseListPage-View {
+        width: 80% !important;
+    }
+
+    .tablet-view .itadmin-purchase-view .res-itadmin-purchase-add {
+        max-width: 30%;
+    }
+
+    /* purchase view end */
+
+    /* purchase add start */
+
+    .tablet-view .PurchaseAdding-tab {
+        width: 76% !important;
+    }
+
+    .tablet-view #purchase-form .row .col-lg-3.col-md-6 {
+        padding-left: 0px;
+    }
+
+    .tablet-view #purchase-form .select2-container {
+        width: 100% !important;
+    }
+
+    /* purchase add end */
+
+    /* purchase super admin start */
+
+    .tablet-view .admin-purchasesuperadmin-view .res-admin-purchasesuperadmin-export {
+        max-width: 10%;
+    }
+
+    .tablet-view .res-admin-purchasesuperadmin-table {
+        margin-top: 30px;
+    }
+
+    /* purchase super admin end */
+
+    /* purchase super approval start */
+
+    .tablet-view .PurchaseSuperApprovalListPage-View {
+        width: 75% !important;
+    }
+
+    .tablet-view .admin-purchasesuperapproval-view .psa-content-details {
+        margin-bottom: 20px;
+    }
+
+    /* purchase super approval end */
 
 }
 
