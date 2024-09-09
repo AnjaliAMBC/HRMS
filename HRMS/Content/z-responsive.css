@@ -5765,6 +5765,14 @@
         width: 80% !important;
     }
 
+    .tablet-view .VendorApprovalPage-View .sadmin-vendorapproval-container {
+        margin-top: 10px;
+    }
+
+    .tablet-view .VendorApprovalPage-View .res-sadmin-vendorapproval-status {
+        max-width: 30%;
+    }
+
     /* vendor approval end */
 
     /* purchase view start */
@@ -5830,6 +5838,10 @@
 
     /* purchase super admin start */
 
+    .tablet-view .admin-purchasesuperadmin-container {
+        margin-top: 10px;
+    }
+
     .tablet-view .admin-purchasesuperadmin-view .res-admin-purchasesuperadmin-export {
         max-width: 10%;
     }
@@ -5843,7 +5855,7 @@
     /* purchase super approval start */
 
     .tablet-view .PurchaseSuperApprovalListPage-View {
-        width: 75% !important;
+        width: 80% !important;
     }
 
     .tablet-view .admin-purchasesuperapproval-view .psa-content-details {
@@ -5909,11 +5921,110 @@
     .tablet-view .emp-leave .main-content.container-fluid {
         width: 74% !important;
     }
+
+    .res-admin-vendor-status #hr-vendorlisting-status-dropdown {
+        padding-left: 0px;
+    }
 }
 
 /* iPad Air (Landscape) */
 @media only screen and (min-device-width: 820px) and (max-device-width: 1180px) and (orientation: landscape) {
-    /* Styles for iPad Air in landscape mode */
+
+    .admin-vendor-container {
+        margin-top: 15px !important;
+    }
+
+    .admin-purchase-container {
+        margin-top: 15px !important;
+    }
+
+    .itadmin-purchase-view .res-admin-title {
+        max-width: 30%;
+        flex: 0 0 30%;
+    }
+
+    .itadmin-purchase-view .res-itadmin-purchase-table {
+        margin-top: 40px;
+    }
+
+    .itadmin-purchase-view .res-itadmin-purchase-add {
+        max-width: 22%;
+    }
+
+    .admin-purchasesuperadmin-container {
+        margin-top: 10px !important;
+    }
+
+    .admin-purchasesuperadmin-view .res-admin-title {
+        max-width: 33%;
+        flex: 0 0 33%;
+    }
+
+    .admin-purchasesuperadmin-view .res-admin-purchasesuperadmin-table {
+        margin-top: 30px;
+    }
+}
+
+/* iPad Pro (Portrait) */
+@media only screen and (min-device-width: 1024px) and (max-device-width: 1366px) and (orientation: portrait) {
+
+    .tablet-view .VendorListPage-View,
+    .tablet-view .VendorAdding-tab {
+        width: 82% !important;
+    }
+
+    .admin-vendor-view .res-admin-vendor-export {
+        max-width: 10% !important;
+    }
+
+    .tablet-view .admin-vendor-view .res-admin-vendor-add {
+        max-width: 40% !important;
+    }
+
+    .tablet-view .PurchaseListPage-View,
+    .tablet-view .PurchaseAdding-tab {
+        width: 82% !important;
+    }
+
+    .itadmin-purchase-view .res-itadmin-purchase-export {
+        max-width: 10% !important;
+    }
+
+    .itadmin-purchase-view .res-itadmin-purchase-add {
+        max-width: 25% !important;
+    }
+
+    .admin-purchase-container {
+        margin-top: 10px !important;
+    }
+
+    .tablet-view .VendorApprovalPage-View {
+        width: 82% !important;
+    }
+
+    .sadmin-vendorapproval-view .res-sadmin-vendorapproval-status {
+        max-width: 30% !important;
+    }
+
+    .tablet-view .PurchaseSuperApprovalListPage-View,
+    .tablet-view .PurchaseSuperAdminListPage-View {
+        width: 80% !important;
+    }
+
+    .tablet-view .admin-purchasesuperadmin-container {
+        margin-top: 10px;
+    }
+}
+
+/* iPad Pro (Landscape) */
+@media only screen and (min-device-width: 1024px) and (max-device-width: 1366px) and (orientation: landscape) {
+
+    .PurchaseSuperApprovalListPage-View,
+    .PurchaseSuperAdminListPage-View,
+    .VendorApprovalPage-View {
+        width: 86% !important;
+    }
+
 }
 
 @media (min-width: 1025px) {
@@ -6579,6 +6690,10 @@
     .addshiftcard .res-admin-addshift-submit {
         margin-right: 95px !important;
     }
+
+    .admin-purchasesuperapproval-view .psa-content-block {
+        max-width: 100% !important;
+    }
 }
 
 @media only screen and (min-width:1920px) and (max-width: 2560px) {
@@ -6717,6 +6832,11 @@
     #adminaddendancetable_wrapper .dataTables_scrollBody {
         max-height: 62vh !important;
     }
+
+    .admin-purchasesuperapproval-view .psa-content-block {
+        max-width: 100% !important;
+    }
+
 }
 
 @media only screen and (min-width: 695px) and (max-width: 767px) {
