@@ -18,5 +18,10 @@ namespace HRMS.Controllers
         {
             return View("~/Views/Itsupport/AddSubscription.cshtml");
         }
+
+        public ActionResult History()
+        {
+            return View("~/Views/Itsupport/SubscriptionHistory.cshtml");
+        }
     }
 }
