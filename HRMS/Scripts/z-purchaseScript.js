@@ -167,6 +167,10 @@ function AttchemnetValidation(fileInput, validationRequired, attachwrapper, file
     return isValid;
 }
 
+$('#itpurchase-selectAll').click(function () {
+    $('.purchaseitadmin-check').prop('checked', this.checked);
+});
+
 function exportPurchase() {
     var selectedPurchaseRequestIds = [];
 

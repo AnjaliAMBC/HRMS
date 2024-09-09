@@ -277,8 +277,12 @@
 
                                 @foreach (emp_info employee in Model.AllEmployees)
                                 {
+                                    if (employee.EmployeeID == "1311")
+                                    {
+                                        var abc = 0;
+                                    }
                                     var empCheckin = Model.EmpCheckInList.Where(x => x.EmployeeID == employee.EmployeeID).FirstOrDefault();
-                                    var empLeave = Model.Leaves.Where(x => x.employee_id == employee.EmployeeID && (x.LeaveStatus != "Rejected" && x.LeaveStatus != "Canceled")).FirstOrDefault();
+                                    var empLeave = Model.Leaves.Where(x => x.employee_id == employee.EmployeeID && (x.LeaveStatus != "Rejected" && x.LeaveStatus != "Cancelled")).FirstOrDefault();
 
                                     var imagePath = "";
                                     string initials = string.Empty;

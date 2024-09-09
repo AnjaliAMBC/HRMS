@@ -59,15 +59,23 @@
 
     if (Model.IsOnLeave == true && previousdayortodaycheckinexist == false)
     {
-        buttonText = "Check In";
-        if (Model.empLeaveInfo != null && (Model.empLeaveInfo.DayType == "halfDay" || Model.empLeaveInfo.DayType == ""))
+        if (Model.empLeaveInfo != null && (Model.empLeaveInfo.LeaveStatus == "Cancelled" || Model.empLeaveInfo.LeaveStatus == "Rejected"))
         {
-            ButtonDisabled = "";
+            //Do nothing
         }
         else
         {
-            ButtonDisabled = "disabled";
+            buttonText = "Check In";
+            if (Model.empLeaveInfo != null && (Model.empLeaveInfo.DayType == "halfDay" || Model.empLeaveInfo.DayType == ""))
+            {
+                ButtonDisabled = "";
+            }
+            else
+            {
+                ButtonDisabled = "disabled";
+            }
         }
+
     }
 
     var currentUserSession = Session["SiteContext"] as HRMS.Models.SiteContextModel;

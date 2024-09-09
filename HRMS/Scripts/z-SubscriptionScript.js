@@ -5,3 +5,7 @@
         }
     });
 });
+
+function redirectToSubscriptionHistory() {
+    window.location.href = '/subscription/history';
+}
