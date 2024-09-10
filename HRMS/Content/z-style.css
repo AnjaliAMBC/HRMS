@@ -3795,6 +3795,132 @@ input[type=checkbox], input[type=radio] {
     background-color: #f9f9f9 !important;
 }
 
+.admin-subscriptioninfo-list {
+    margin: 20px 2%;
+}
+
+.admin-subscriptioninfo-list .subscriptioninfo-list-block {
+    border: 1px solid #ccc;
+    width: 47%;
+    display: inline-block;
+    margin-right: 2%;
+    margin-bottom: 20px;
+}
+
+.admin-subscriptioninfo-list .subscriptioninfo-list-block .subscriptioninfo-list-left {
+    display: inline-block;
+    width: 13%;
+    vertical-align: top;
+}
+
+.admin-subscriptioninfo-list .subscriptioninfo-list-block .subscriptioninfo-list-left #subscription-list-checkbox {
+    margin-left: 5px;
+    display: block;
+    margin-top: 5px;
+}
+
+.admin-subscriptioninfo-list .subscriptioninfo-list-block .subscriptioninfo-list-left img {
+    width: 45px;
+    height: 45px;
+    object-fit: cover;
+    border-radius: 50%;
+    margin-right: 5px;
+    margin-top: -5px;
+    display: inline-block;
+    margin-left: 18px;
+}
+
+.admin-subscriptioninfo-list .subscriptioninfo-list-block .subscriptioninfo-list-right {
+    display: inline-block;
+    width: 86%;
+    font-size: 12px;
+    padding-left: 5px;
+}
+
+    .admin-subscriptioninfo-list .subscriptioninfo-list-block .subscriptioninfo-list-right .subscriptioninfo-list-right-1 {
+        text-align: right;
+        height: 20px;
+        margin-right: -1px;
+    }
+
+.admin-subscriptioninfo-list .subscriptioninfo-list-block .subscriptioninfo-list-right .subscriptioninfo-list-right-1 span {
+    display: inline-block;
+    padding: 2px 15px;
+    font-size: 12px;
+    border-radius: 0 0 0 5px;
+}
+
+.admin-subscriptioninfo-list .subscriptioninfo-list-block .subscriptioninfo-list-right .subscriptioninfo-list-right-1.subscriptioninfo-list-due span {
+    background: orange;
+}
+
+.admin-subscriptioninfo-list .subscriptioninfo-list-block .subscriptioninfo-list-right .subscriptioninfo-list-right-1.subscriptioninfo-list-expired span {
+    background: red;
+}
+
+.admin-subscriptioninfo-list .subscriptioninfo-list-block .subscriptioninfo-list-right .subscriptioninfo-list-right-2 {
+    font-weight: bold;
+}
+
+.admin-subscriptioninfo-list .subscriptioninfo-list-block .subscriptioninfo-list-right .subscriptioninfo-list-right-3 {
+    margin: 5px 0 10px 0px;
+}
+
+.admin-subscriptioninfo-list .subscriptioninfo-list-block .subscriptioninfo-list-right .subscriptioninfo-fields {
+    display: inline-block;
+    width: 23%;
+    margin-right: 1%;
+}
+
+.admin-subscriptioninfo-list .subscriptioninfo-list-block .subscriptioninfo-list-right .subscriptioninfo-fields label {
+    margin-bottom: 0;
+    color: gray;
+}
+
+.admin-subscriptioninfo-list .subscriptioninfo-list-block .subscriptioninfo-list-right .subscriptioninfo-fields .subscriptioninfo-field-details {
+}
+
+.admin-subscriptioninfo-list .subscriptioninfo-list-block .subscriptioninfo-list-right .subscriptioninfo-list-right-4 {
+    margin: 10px 0 5px 0px;
+}
+
+.admin-subscriptioninfo-list .subscriptioninfo-list-block .subscriptioninfo-list-right .subscriptioninfo-action {
+}
+
+.admin-subscriptioninfo-list .subscriptioninfo-list-block .subscriptioninfo-list-right .subscriptioninfo-action .subscriptioninfo-edit-menu {
+    float: right;
+    position: relative;
+}
+
+.admin-subscriptioninfo-list .subscriptioninfo-list-block .subscriptioninfo-list-right .subscriptioninfo-action i.subscriptioninfo-edit {
+    background: #ccc;
+    padding: 3px 6px;
+    border-radius: 2px;
+    text-align: center;
+    cursor: pointer;
+    font-size: 10px;
+}
+
+.admin-subscriptioninfo-list .subscriptioninfo-list-block .subscriptioninfo-list-right .subscriptioninfo-action .subscriptioninfooptions {
+    position: absolute;
+    background: white;
+    box-shadow: 0px 1px 3px 1px #ccc;
+    text-align: left;
+    right: 0;
+    cursor: pointer;
+    padding: 3px 0;
+}
+
+.admin-subscriptioninfo-list .subscriptioninfo-list-block .subscriptioninfo-list-right .subscriptioninfo-action .subscriptioninfooptions a {
+    padding: 3px 10px;
+    color: #8693a1;
+}
+
+.admin-subscriptioninfo-list .subscriptioninfo-list-block .subscriptioninfo-list-right .subscriptioninfo-action .subscriptioninfooptions i {
+    margin-right: 10px;
+    font-size: 10px;
+}
+
 /* subscription view end*/
 
 /* subscription add end*/
@@ -3896,17 +4022,9 @@ input[type=checkbox], input[type=radio] {
     padding-left: 5px;
     border: none;
     padding: 0px;
-    font-size: 16px;
-    width:135px;
-    padding:0px;
+    font-size: 1.1rem;
 }
-#assetinfo-type-dropdown
-{
-    border:1px solid transparent;
-    width:125px;
-    padding:0px;
-    margin-right:10px;
-}
+
 #exportAssetinfo img {
     height: 30px;
 }
@@ -3987,81 +4105,3 @@ input[type=checkbox], input[type=radio] {
     width: 28%;
     font-size: 12px;
 }
-
-
-.asset_itemslist {
-    font-size: 15px;
-    margin-bottom: 0px;
-}
-
-.asset_totallist {
-    font-size: 30px;
-    font-weight: 600;
-}
-
-.asset_listdetails_card {
-    line-height: 1.5rem;
-}
-
-.icon_assetlist {
-    border: 1px solid transparent;
-    border-radius: 50%;
-    width: 50px;
-    height: 50px;
-    text-align: center;
-    align-content: center;
-    margin: 10px;
-}
-
-    .icon_assetlist.icon1 {
-        background-color: #FFF6D9;
-    }
-
-    .icon_assetlist.icon2 {
-        background-color: #DBF1F9;
-    }
-
-    .icon_assetlist.icon3 {
-        background-color: #DAF1E4;
-    }
-
-    .icon_assetlist.icon4 {
-        background-color: #FCD9E4;
-    }
-
-.assetlist_cardset {
-    padding: 20px;
-}
-
-.admin-assetinfo-view .card {
-    padding-right: 0px;
-    padding-left: 20px;
-    margin-top: 40px;
-    margin-bottom: 0px;
-}
-
-#piechart g text {
-    font-size: 14px
-}
-
-.chart-legend-container {
-    display: flex; /* Align chart and legend in a row */
-    align-items: center; /* Center items vertically */
-}
-
-#piechart {
-    width: 480px; /* Set width for pie chart */
-    height: 220px; /* Set height for pie chart */
-}
-
-#legend {
-    position: absolute;
-    top: 55px;
-    right: 64px; /* Add space between the pie chart and legend */
-}
-
-    #legend div {
-        display: flex; /* Flexbox for legend items */
-        align-items: center;
-        margin-bottom: 2px; /* Spacing between legend items */
-    }

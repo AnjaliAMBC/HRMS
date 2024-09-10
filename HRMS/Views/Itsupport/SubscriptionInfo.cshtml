@@ -14,29 +14,11 @@
                         </div>
                         <!-- Search box -->
                         <div class="col-xl-4 col-lg-6 navbarl1 col-sm-12 col-md-7 res-admin-subscriptioninfo-search">
-                            <div class="search-container">
-                                <div class="input-group" style="border-radius: 20px;">
-                                    <div class="input-group-prepend">
-                                        <span class="input-group-text" style="background-color: transparent; border-right: none; border-radius: 5px 0 0 5px; height: 35px;"><i class="fas fa-search" style="color: #369479"></i></span>
-                                    </div>
-                                    <input type="text" placeholder="Search By Keyword" class="subscriptioninfo-advancesearch form-control" aria-label="Search By Keyword" style="border-radius: 0 5px 5px 0; height: 35px; font-size: 14px;">
-                                </div>
-                            </div>
+                            
                         </div>
 
                         <div class="col-xl-5 col-lg-6 navbarl1 col-sm-12 col-md-7 res-admin-subscriptioninfo-header-right">
                             <!-- Export -->
-                            <div class="col-xl-4 col-lg-3 navbarl1 col-sm-4 col-xs-12 col-md-4 res-admin-subscriptioninfo-status p-0">
-                                <div class="form-group res-subscriptioninfo">
-                                    <select class="form-control form-select" name="subscriptioninfostatus" id="subscriptioninfo-status-dropdown" style="">
-                                        <option value="" disabled selected>Status</option>
-                                        <option value="Approved">Approved</option>
-                                        <option value="Rejected">Rejected</option>
-                                        <option value="Pending">Pending</option>
-                                        <option value="">All</option>
-                                    </select>
-                                </div>
-                            </div>
                             <div class="col-xl-2 col-lg-1  navbarl1 col-sm-2 col-md-2 res-admin-subscriptioninfo-export p-0">
                                 <div class="adminsubscriptioninfo-export" style="">
                                     <button type="button" class="btn subscriptioninfo-export-btn pt-0" id="exportSubscriptioninfo" onclick="exportSubscriptioninfo()">
@@ -63,46 +45,232 @@
                     </select>
                 </div>
 
-                <div class="res-admin-subscriptioninfo-table table-responsive">
-                    <table id="adminsubscriptioninfotable" class="display" style="width: 100%;">
-                        <thead style="background-color: #d8e6fb; border-radius: 10px;">
-                            <tr>
-                                <th><input type="checkbox" id="vendor-selectAll"></th>
-                                <th>Subscription ID</th>
-                                <th>Subscription Name</th>
-                                <th>Purchase Date</th>
-                                <th>Renewal Date</th>
-                                <th>Amount</th>
-                                <th>Payment Method</th>
-                                <th>Mode</th>
-                                <th>Action</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <tr class="even">
-                                <td><input type="checkbox" class="vendor-check"></td>
-                                <td class="tdsubscriptionid">2000</td>
-                                <td class="tdsubscriptionname">Azure</td>
-                                <td>16 May 2024</td>
-                                <td>16 May 2024</td>
-                                <td>03-09-2024</td>
-                                <td>Rs 101</td>
-                                <td>Auto- Renewal</td>
-                                <td><span class="subscriptioninfo-list-edit"><i class="fas fa-pencil-alt"></i></span></td>
-                            </tr>
-                            <tr class="odd">
-                                <td><input type="checkbox" class="vendor-check"></td>
-                                <td class="tdsubscriptionid">2000</td>
-                                <td class="tdsubscriptionname">Azure</td>
-                                <td>16 May 2024</td>
-                                <td>16 May 2024</td>
-                                <td>03-09-2024</td>
-                                <td>Rs 101</td>
-                                <td>Auto- Renewal</td>
-                                <td><span class="subscriptioninfo-list-edit"><i class="fas fa-pencil-alt"></i></span></td>
-                            </tr>
-                        </tbody>
-                    </table>
+                <div class="admin-subscriptioninfo-list">
+
+                    <div class="subscriptioninfo-list-block">
+                        <div class="subscriptioninfo-list-left">
+                            <input type="checkbox" name="subscription-list-checkbox" id="subscription-list-checkbox" class="subscription-list-checkbox">
+                            <img src="~/Assets/EmpImages/1155.jpeg" />
+                        </div>
+                        <div class="subscriptioninfo-list-right">
+                            <div class="subscriptioninfo-list-right-1 subscriptioninfo-list-due"><span>Due in 2 Month</span></div>
+                            <div class="subscriptioninfo-list-right-2 subscriptioninfo-list-title">VONAGE</div>
+                            <div class="subscriptioninfo-list-right-3">
+                                <div class="subscriptioninfo-fields">
+                                    <label>Category</label>
+                                    <div class="subscriptioninfo-field-details">IT support</div>
+                                </div>
+                                <div class="subscriptioninfo-fields">
+                                    <label>Subscription ID</label>
+                                    <div class="subscriptioninfo-field-details">#4556</div>
+                                </div>
+                                <div class="subscriptioninfo-fields">
+                                    <label>Purchase Date</label>
+                                    <div class="subscriptioninfo-field-details">09-09-2024</div>
+                                </div>
+                                <div class="subscriptioninfo-fields">
+                                    <label>Renewal Date</label>
+                                    <div class="subscriptioninfo-field-details">09-09-2024</div>
+                                </div>
+                            </div>
+                            <div class="subscriptioninfo-list-right-4">
+                                <div class="subscriptioninfo-fields">
+                                    <label>Amount</label>
+                                    <div class="subscriptioninfo-field-details">2400</div>
+                                </div>
+                                <div class="subscriptioninfo-fields">
+                                    <label>Payment Method</label>
+                                    <div class="subscriptioninfo-field-details">Paid In Rupee</div>
+                                </div>
+                                <div class="subscriptioninfo-fields">
+                                    <label>Mode</label>
+                                    <div class="subscriptioninfo-field-details">Online</div>
+                                </div>
+                                <div class="subscriptioninfo-fields">
+                                    <label>Vendor</label>
+                                    <div class="subscriptioninfo-field-details">Vonage</div>
+                                </div>
+                            </div>
+                            <div class="subscriptioninfo-action">
+                                <div class="subscriptioninfo-edit-menu">
+                                    <i class="fas fa-ellipsis-v subscriptioninfo-edit" onclick="toggleSubscriptioninfoActionOptions(this)"></i>
+                                    <div class="subscriptioninfooptions" style="display:none">
+                                        <a class="dropdown-item subscriptioninfo-edit" onclick="subscriptioninfoedit(1)"><i class="fas fa-pencil-alt subscriptioninfo-edit-icon"></i><span>Edit</span></a>
+                                        <a class="dropdown-item subscriptioninfo-delete" onclick="subscriptioninfodelete(1)"><i class="fas fa-trash-alt subscriptioninfo-delete-icon"></i><span>Delete</span></a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="subscriptioninfo-list-block">
+                        <div class="subscriptioninfo-list-left">
+                            <input type="checkbox" name="subscription-list-checkbox" id="subscription-list-checkbox" class="subscription-list-checkbox">
+                            <img src="~/Assets/EmpImages/1155.jpeg" />
+                        </div>
+                        <div class="subscriptioninfo-list-right">
+                            <div class="subscriptioninfo-list-right-1 subscriptioninfo-list-due"></div>
+                            <div class="subscriptioninfo-list-right-2 subscriptioninfo-list-title">VONAGE</div>
+                            <div class="subscriptioninfo-list-right-3">
+                                <div class="subscriptioninfo-fields">
+                                    <label>Category</label>
+                                    <div class="subscriptioninfo-field-details">IT support</div>
+                                </div>
+                                <div class="subscriptioninfo-fields">
+                                    <label>Subscription ID</label>
+                                    <div class="subscriptioninfo-field-details">#4556</div>
+                                </div>
+                                <div class="subscriptioninfo-fields">
+                                    <label>Purchase Date</label>
+                                    <div class="subscriptioninfo-field-details">09-09-2024</div>
+                                </div>
+                                <div class="subscriptioninfo-fields">
+                                    <label>Renewal Date</label>
+                                    <div class="subscriptioninfo-field-details">09-09-2024</div>
+                                </div>
+                            </div>
+                            <div class="subscriptioninfo-list-right-4">
+                                <div class="subscriptioninfo-fields">
+                                    <label>Amount</label>
+                                    <div class="subscriptioninfo-field-details">2400</div>
+                                </div>
+                                <div class="subscriptioninfo-fields">
+                                    <label>Payment Method</label>
+                                    <div class="subscriptioninfo-field-details">Paid In Rupee</div>
+                                </div>
+                                <div class="subscriptioninfo-fields">
+                                    <label>Mode</label>
+                                    <div class="subscriptioninfo-field-details">Online</div>
+                                </div>
+                                <div class="subscriptioninfo-fields">
+                                    <label>Vendor</label>
+                                    <div class="subscriptioninfo-field-details">Vonage</div>
+                                </div>
+                            </div>
+                            <div class="subscriptioninfo-action">
+                                <div class="subscriptioninfo-edit-menu">
+                                    <i class="fas fa-ellipsis-v subscriptioninfo-edit" onclick="toggleSubscriptioninfoActionOptions(this)"></i>
+                                    <div class="subscriptioninfooptions" style="display:none">
+                                        <a class="dropdown-item subscriptioninfo-edit" onclick="subscriptioninfoedit(1)"><i class="fas fa-pencil-alt subscriptioninfo-edit-icon"></i><span>Edit</span></a>
+                                        <a class="dropdown-item subscriptioninfo-delete" onclick="subscriptioninfodelete(1)"><i class="fas fa-trash-alt subscriptioninfo-delete-icon"></i><span>Delete</span></a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="subscriptioninfo-list-block">
+                        <div class="subscriptioninfo-list-left">
+                            <input type="checkbox" name="subscription-list-checkbox" id="subscription-list-checkbox" class="subscription-list-checkbox">
+                            <img src="~/Assets/EmpImages/1155.jpeg" />
+                        </div>
+                        <div class="subscriptioninfo-list-right">
+                            <div class="subscriptioninfo-list-right-1 subscriptioninfo-list-due"></div>
+                            <div class="subscriptioninfo-list-right-2 subscriptioninfo-list-title">VONAGE</div>
+                            <div class="subscriptioninfo-list-right-3">
+                                <div class="subscriptioninfo-fields">
+                                    <label>Category</label>
+                                    <div class="subscriptioninfo-field-details">IT support</div>
+                                </div>
+                                <div class="subscriptioninfo-fields">
+                                    <label>Subscription ID</label>
+                                    <div class="subscriptioninfo-field-details">#4556</div>
+                                </div>
+                                <div class="subscriptioninfo-fields">
+                                    <label>Purchase Date</label>
+                                    <div class="subscriptioninfo-field-details">09-09-2024</div>
+                                </div>
+                                <div class="subscriptioninfo-fields">
+                                    <label>Renewal Date</label>
+                                    <div class="subscriptioninfo-field-details">09-09-2024</div>
+                                </div>
+                            </div>
+                            <div class="subscriptioninfo-list-right-4">
+                                <div class="subscriptioninfo-fields">
+                                    <label>Amount</label>
+                                    <div class="subscriptioninfo-field-details">2400</div>
+                                </div>
+                                <div class="subscriptioninfo-fields">
+                                    <label>Payment Method</label>
+                                    <div class="subscriptioninfo-field-details">Paid In Rupee</div>
+                                </div>
+                                <div class="subscriptioninfo-fields">
+                                    <label>Mode</label>
+                                    <div class="subscriptioninfo-field-details">Online</div>
+                                </div>
+                                <div class="subscriptioninfo-fields">
+                                    <label>Vendor</label>
+                                    <div class="subscriptioninfo-field-details">Vonage</div>
+                                </div>
+                            </div>
+                            <div class="subscriptioninfo-action">
+                                <div class="subscriptioninfo-edit-menu">
+                                    <i class="fas fa-ellipsis-v subscriptioninfo-edit" onclick="toggleSubscriptioninfoActionOptions(this)"></i>
+                                    <div class="subscriptioninfooptions" style="display:none">
+                                        <a class="dropdown-item subscriptioninfo-edit" onclick="subscriptioninfoedit(1)"><i class="fas fa-pencil-alt subscriptioninfo-edit-icon"></i><span>Edit</span></a>
+                                        <a class="dropdown-item subscriptioninfo-delete" onclick="subscriptioninfodelete(1)"><i class="fas fa-trash-alt subscriptioninfo-delete-icon"></i><span>Delete</span></a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="subscriptioninfo-list-block">
+                        <div class="subscriptioninfo-list-left">
+                            <input type="checkbox" name="subscription-list-checkbox" id="subscription-list-checkbox" class="subscription-list-checkbox">
+                            <img src="~/Assets/EmpImages/1155.jpeg" />
+                        </div>
+                        <div class="subscriptioninfo-list-right">
+                            <div class="subscriptioninfo-list-right-1 subscriptioninfo-list-expired"><span>Expired</span></div>
+                            <div class="subscriptioninfo-list-right-2 subscriptioninfo-list-title">VONAGE</div>
+                            <div class="subscriptioninfo-list-right-3">
+                                <div class="subscriptioninfo-fields">
+                                    <label>Category</label>
+                                    <div class="subscriptioninfo-field-details">IT support</div>
+                                </div>
+                                <div class="subscriptioninfo-fields">
+                                    <label>Subscription ID</label>
+                                    <div class="subscriptioninfo-field-details">#4556</div>
+                                </div>
+                                <div class="subscriptioninfo-fields">
+                                    <label>Purchase Date</label>
+                                    <div class="subscriptioninfo-field-details">09-09-2024</div>
+                                </div>
+                                <div class="subscriptioninfo-fields">
+                                    <label>Renewal Date</label>
+                                    <div class="subscriptioninfo-field-details">09-09-2024</div>
+                                </div>
+                            </div>
+                            <div class="subscriptioninfo-list-right-4">
+                                <div class="subscriptioninfo-fields">
+                                    <label>Amount</label>
+                                    <div class="subscriptioninfo-field-details">2400</div>
+                                </div>
+                                <div class="subscriptioninfo-fields">
+                                    <label>Payment Method</label>
+                                    <div class="subscriptioninfo-field-details">Paid In Rupee</div>
+                                </div>
+                                <div class="subscriptioninfo-fields">
+                                    <label>Mode</label>
+                                    <div class="subscriptioninfo-field-details">Online</div>
+                                </div>
+                                <div class="subscriptioninfo-fields">
+                                    <label>Vendor</label>
+                                    <div class="subscriptioninfo-field-details">Vonage</div>
+                                </div>
+                            </div>
+                            <div class="subscriptioninfo-action">
+                                <div class="subscriptioninfo-edit-menu">
+                                    <i class="fas fa-ellipsis-v subscriptioninfo-edit" onclick="toggleSubscriptioninfoActionOptions(this)"></i>
+                                    <div class="subscriptioninfooptions" style="display:none">
+                                        <a class="dropdown-item subscriptioninfo-edit" onclick="subscriptioninfoedit(1)"><i class="fas fa-pencil-alt subscriptioninfo-edit-icon"></i><span>Edit</span></a>
+                                        <a class="dropdown-item subscriptioninfo-delete" onclick="subscriptioninfodelete(1)"><i class="fas fa-trash-alt subscriptioninfo-delete-icon"></i><span>Delete</span></a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
                 </div>
             </div>
 
@@ -127,6 +295,12 @@
             });
         }
     });
+
+    function toggleSubscriptioninfoActionOptions(iconElement) {
+        const optionsMenu = $(iconElement).next('.subscriptioninfooptions');
+        $('.subscriptioninfooptions').not(optionsMenu).hide(); // Hide any other open menus
+        optionsMenu.toggle(); // Toggle visibility of the clicked menu
+    }
 
 
 
