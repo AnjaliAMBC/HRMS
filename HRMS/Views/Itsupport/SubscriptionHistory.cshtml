@@ -2,6 +2,112 @@
 @{
     ViewBag.Title = "SubscriptionHistory";
 }
+@Html.Partial("_NavBar")
+<div class="container-fluid">
+    <div class="hiddenadmindashboard" style="display: none"></div>
+    @Html.Partial("_adminsidemenu")
+    <div class="main-content container-fluid subscriptionListing-tab" style="width: 84%">
+        <div class="content admin-subscriptionlisting-container">
+            <div class="admin-subscription-listing">
+                <div class="container-fluid top admin-subscriptionlisting">
+                    <div class="row navbar align-items-center mt-2">
+                        <h4 class="header mb-0 text-right">Subscription Listing</h4>
+                    </div>
 
-<h2>SubscriptionHistory</h2>
+                    <div class="subscriptionlisting-header">
+                        <img src="~/Assets/EmpImages/1155.jpeg" />
+                        <div class="subscriptionlisting-title">VONAGE</div>
+                    </div>
+
+                    <div class="subscriptionlisting-tab-info">
+                        <ul class="nav nav-tabs res-admin-subscriptionlisting-tabs responsive-tabs" id="subscriptionlistingTab" role="tablist" style="font-size: 15px; width: 100%;">
+                            <li class="nav-item active" role="presentation">
+                                <a class="nav-link active" id="tab1-link" data-toggle="tab" href="#tab1" role="tab" aria-controls="tab1" aria-selected="true"><b>Subscription Details</b></a>
+                            </li>
+                            <li class="nav-item" role="presentation">
+                                <a class="nav-link" id="tab2-link" data-toggle="tab" href="#tab2" role="tab" aria-controls="tab2" aria-selected="false"><b>Subscription History</b></a>
+                            </li>
+                        </ul>
+                    </div>
+
+                    <div class="tab-content" id="subscriptionlisting-TabContent">
+                        <div class="tab-pane fade subscriptionlisting-details show active" id="tab1" role="tabpanel" aria-labelledby="tab1-link">
+                            <div class="subscriptionlisting-field-info">
+                                <label>Category</label>
+                                <div class="subscriptioninfo-field-details">IT Support</div>
+                            </div>
+                            <div class="subscriptionlisting-field-info">
+                                <label>Subscription</label>
+                                <div class="subscriptioninfo-field-details">#0034</div>
+                            </div>
+                            <div class="subscriptionlisting-field-info">
+                                <label>Purchase Date</label>
+                                <div class="subscriptioninfo-field-details">08-03-2024</div>
+                            </div>
+                            <div class="subscriptionlisting-field-info">
+                                <label>License</label>
+                                <div class="subscriptioninfo-field-details">4</div>
+                            </div>
+                            <div class="subscriptionlisting-field-info">
+                                <label>Last Renewal Date</label>
+                                <div class="subscriptioninfo-field-details">08-03-2024</div>
+                            </div>
+                            <div class="subscriptionlisting-field-info">
+                                <label>Upcoming Renewal Date</label>
+                                <div class="subscriptioninfo-field-details">08-09-2024</div>
+                            </div>
+                            <div class="subscriptionlisting-field-info">
+                                <label>Added By</label>
+                                <div class="subscriptioninfo-field-details">Test User</div>
+                            </div>
+                            <div class="subscriptionlisting-field-info">
+                                <label>Added Date</label>
+                                <div class="subscriptioninfo-field-details">09-09-2024</div>
+                            </div>
+                        </div>
+                        <div class="tab-pane fade subscriptionlisting-history" id="tab2" role="tabpanel" aria-labelledby="tab2-link">
+                            <div class="subscriptionlisting-field-info">
+                                <label>Category</label>
+                                <div class="subscriptioninfo-field-details">IT Support New</div>
+                            </div>
+                            <div class="subscriptionlisting-field-info">
+                                <label>Subscription</label>
+                                <div class="subscriptioninfo-field-details">#0124</div>
+                            </div>
+                            <div class="subscriptionlisting-field-info">
+                                <label>Purchase Date</label>
+                                <div class="subscriptioninfo-field-details">18-01-2024</div>
+                            </div>
+                            <div class="subscriptionlisting-field-info">
+                                <label>License</label>
+                                <div class="subscriptioninfo-field-details">1</div>
+                            </div>
+                            <div class="subscriptionlisting-field-info">
+                                <label>Last Renewal Date</label>
+                                <div class="subscriptioninfo-field-details">12-04-2024</div>
+                            </div>
+                            <div class="subscriptionlisting-field-info">
+                                <label>Upcoming Renewal Date</label>
+                                <div class="subscriptioninfo-field-details">09-07-2024</div>
+                            </div>
+                            <div class="subscriptionlisting-field-info">
+                                <label>Added By</label>
+                                <div class="subscriptioninfo-field-details">Test User New</div>
+                            </div>
+                            <div class="subscriptionlisting-field-info">
+                                <label>Added Date</label>
+                                <div class="subscriptioninfo-field-details">10-09-2024</div>
+                            </div>
+                        </div>
+                    </div>
+
+
+
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
 

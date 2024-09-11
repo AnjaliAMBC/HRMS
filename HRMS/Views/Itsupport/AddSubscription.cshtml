@@ -17,21 +17,35 @@
                                 <div class="col-lg-3 col-md-6">
                                     <div class="form-group subscriptionadd-tabs">
                                         <label for="SubscriptionID">Subscription ID*</label>
-                                        <select name="SubscriptionID" class="SubscriptionID form-control form-select" id="SubscriptionID" required>
-                                            <option value="" disabled selected hidden>ID</option>
-                                            <option value="222">dfds</option>
-                                        </select>
+                                        <input type="text" class="form-control" value="" name="SubscriptionID" id="SubscriptionID" placeholder="Enter Subscription ID" required>
                                         <div class="invalid-feedback">Subscription ID is required.</div>
                                     </div>
                                 </div>
                                 <div class="col-lg-3 col-md-6">
                                     <div class="form-group subscriptionadd-tabs">
                                         <label for="SubscriptionName">Subscription Name*</label>
-                                        <input type="text" value="Test" class="form-control" name="SubscriptionName" id="SubscriptionName" placeholder="Enter Subscription Name" required>
-                                        <div class="invalid-feedback">Vendor Name is required.</div>
+                                        <input type="text" value="" class="form-control" name="SubscriptionName" id="SubscriptionName" placeholder="Enter Subscription Name" required>
+                                        <div class="invalid-feedback">Subscription Name is required.</div>
                                     </div>
                                 </div>
-
+                                <div class="col-lg-3 col-md-6">
+                                    <div class="form-group subscriptionadd-tabs">
+                                        <label for="SubscriptionLogo" style="width:100%;">Subscription Logo</label>
+                                        <div class="upload-btn-wrapper attach2wrapper">
+                                            <button class="btn subscriptionadd-upload-btn">Upload</button>
+                                            <input type="file" data-existingfile="" class="form-control" name="SubscriptionLogo" id="SubscriptionLogo" accept=".jpeg,.png,.jpg">
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-lg-3 col-md-6">
+                                    <div class="form-group subscriptionadd-tabs">
+                                        <label for="SubscriptionCategory">Category*</label>
+                                        <input type="text" value="" class="form-control" name="SubscriptionCategory" id="SubscriptionCategory" placeholder="Enter Category Name" required>
+                                        <div class="invalid-feedback">Category is required.</div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
                                 <div class="col-lg-3 col-md-6">
                                     <div class="form-group subscriptionadd-tabs">
                                         <label for="SubscriptionPurchasedate">Purchase Date*</label>
@@ -39,21 +53,18 @@
                                         <div class="invalid-feedback">Purchase Date is required.</div>
                                     </div>
                                 </div>
-
+                                <div class="col-lg-3 col-md-6">
+                                    <div class="form-group subscriptionadd-tabs">
+                                        <label for="SubscriptionAmount">Amount*</label>
+                                        <input type="text" class="form-control" value="" name="SubscriptionAmount" id="SubscriptionAmount" placeholder="Enter Amount" required>
+                                        <div class="invalid-feedback">Amount is required.</div>
+                                    </div>
+                                </div>
                                 <div class="col-lg-3 col-md-6">
                                     <div class="form-group subscriptionadd-tabs">
                                         <label for="SubscriptionRenewaldate">Renewal Date*</label>
                                         <input type="date" class="form-control" name="SubscriptionRenewaldate" id="SubscriptionRenewaldate" required>
                                         <div class="invalid-feedback">Renewal Date is required.</div>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="row">
-                                <div class="col-lg-3 col-md-6">
-                                    <div class="form-group subscriptionadd-tabs">
-                                        <label for="SubscriptionAmount">Amount*</label>
-                                        <input type="text" class="form-control" value="334" name="SubscriptionAmount" id="SubscriptionAmount" placeholder="Enter Amount" required>
-                                        <div class="invalid-feedback">Amount is required.</div>
                                     </div>
                                 </div>
                                 <div class="col-lg-3 col-md-6">
@@ -64,36 +75,33 @@
                                                 <option value="" disabled selected hidden>Select Payment Method</option>
                                                 <option value="111">Test</option>
                                             </select>
-                                            <div class="input-group-append">
-                                                <button class="btn btn-secondary btn-sm" type="button" data-toggle="modal" data-target="#addsubscriptionPaymentMethodModal">
-                                                    <i class="fas fa-plus fa-xs"></i>
-                                                </button>
-                                            </div>
                                         </div>
                                         <div class="invalid-feedback">Payment Method is required.</div>
                                     </div>
                                 </div>
-
-                                <div class="col-lg-3 col-md-6">
-                                    <div class="form-group subscriptionadd-tabs">
-                                        <label for="SubscriptionMode">Mode*</label>
-                                        <select name="SubscriptionMode" class="SubscriptionMode form-control form-select" id="SubscriptionMode" required>
-                                            <option value="" disabled selected hidden>Mode</option>
-                                            <option value="222">dfds</option>
-                                        </select>
-                                        <div class="invalid-feedback">Mode is required.</div>
-                                    </div>
-                                </div>
-
-                                <div class="col-lg-3 col-md-6">
+                                <div class="col-lg-6 col-md-6">
                                     <div class="form-group subscriptionadd-tabs">
                                         <label for="SubscriptionRemarks">Remarks*</label>
                                         <textarea rows="1" class="form-control" id="SubscriptionRemarks">Test</textarea>
                                         <div class="invalid-feedback">Remarks is required.</div>
                                     </div>
                                 </div>
-
-
+                                <div class="col-lg-3 col-md-6">
+                                    <div class="form-group subscriptionadd-tabs">
+                                        <label for="SubscriptionAddedBy">Added By*</label>
+                                        <select name="SubscriptionAddedBy" class="SubscriptionAddedBy form-control form-select" id="SubscriptionAddedBy" required>
+                                            <option value="" disabled selected hidden>Added By</option>
+                                            <option value="222">dfds</option>
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="col-lg-3 col-md-6">
+                                    <div class="form-group subscriptionadd-tabs">
+                                        <label for="SubscriptionAddeddate">Added Date*</label>
+                                        <input type="date" class="form-control" name="SubscriptionAddeddate" id="SubscriptionAddeddate" required>
+                                        <div class="invalid-feedback">Added Date is required.</div>
+                                    </div>
+                                </div>
                             </div>
                             <div class="row">
                                 <div class="col-lg-12 col-md-12 text-right">
@@ -133,6 +141,23 @@
             <div class="modal-footer">
                 <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
                 <button type="button" class="btn btn-primary" id="saveSubscriptionPaymentMethodBtn">Save</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Modal -->
+<div class="modal fade" id="subscriptionadd-success-popup" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body text-center">
+                <img src="/assets/correct.png" alt="Approved" style="width:120px;color:green;padding:20px">
+                <h6>Subscription Added Successfully</h6>
             </div>
         </div>
     </div>
