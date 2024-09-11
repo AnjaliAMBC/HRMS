@@ -180,6 +180,7 @@
     <Compile Include="Models\Admin\AdminDashView.cs" />
     <Compile Include="Models\Admin\AdminLeaveManagementModel.cs" />
     <Compile Include="Models\ITsupport\PurchaseModel.cs" />
+    <Compile Include="Models\ITsupport\SubscriptionModel.cs" />
     <Compile Include="Models\ITsupport\VendorModel.cs" />
     <Compile Include="Models\CompOffModel.cs" />
     <Compile Include="Models\EmployeeEvent.cs" />
@@ -198,6 +199,9 @@
       <DependentUpon>HRMS.tt</DependentUpon>
     </Compile>
     <Compile Include="ShiftNotificationJob.cs" />
+    <Compile Include="Subscription.cs">
+      <DependentUpon>HRMS.tt</DependentUpon>
+    </Compile>
     <Compile Include="tblambcholiday.cs">
       <DependentUpon>HRMS.tt</DependentUpon>
     </Compile>

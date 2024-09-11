@@ -40,11 +40,11 @@ namespace HRMS
                                         .Where(l => l.Login_date == today)
                                         .ToList();
 
-            // Get leave info for today
+            // Get leave info for today, including leave type
             var leavesOnSelectedDates = _dbContext.con_leaveupdate
-                                    .Where(x => x.leavedate == today)
-                                    .Select(x => x.employee_id)
-                                    .ToList();
+                                        .Where(x => x.leavedate == today)
+                                        .Select(x => new { x.employee_id, x.leavesource }) 
+                                        .ToList();
 
             // Determine the type of leave based on the day
             var selectedDateIsWeekend = today.DayOfWeek == DayOfWeek.Saturday || today.DayOfWeek == DayOfWeek.Sunday;
@@ -61,7 +61,8 @@ namespace HRMS
                     {
                         Employee = x.Employee,
                         LoginInfo = l,
-                        Status = leavesOnSelectedDates.Contains(x.Employee.EmployeeID) ? typeOfLeave :
+                        Status = leavesOnSelectedDates.Any(leave => leave.employee_id == x.Employee.EmployeeID && leave.leavesource == "Hourly Permission") ? "Permission" :
+                                 leavesOnSelectedDates.Any(leave => leave.employee_id == x.Employee.EmployeeID) ? typeOfLeave :
                                  l != null ? "Present" : "Absent"
                     }))
                 .ToList();
@@ -84,6 +85,7 @@ namespace HRMS
 
             return Task.CompletedTask;
         }
+
 
 
         public static string GenerateHtmlTable(List<EmployeeLoginInfo> combinedInfos)
@@ -119,7 +121,7 @@ namespace HRMS
             <tbody>";
 
             foreach (var info in combinedInfos)
-            {
+            {                
                 var loginInfo = info.LoginInfo;
                 TimeSpan workingHours = TimeSpan.Zero;
 
@@ -144,12 +146,11 @@ namespace HRMS
             <td>{info.Status}</td> <!-- Display the Status -->
             <td>{info.Employee.ShiftTimings}</td>
             <td>{todayloginDate}</td> <!-- Using the current date here -->
-            <td>{loginInfo?.Signin_Time.ToString(@"hh\:mm") ?? ""}</td>
-            <td>{loginInfo?.Signout_Time?.ToString(@"hh\:mm") ?? ""}</td>
+             <td>{loginInfo?.Signin_Time.ToString("HH:mm") ?? ""}</td> 
+             <td>{loginInfo?.Signout_Time?.ToString("HH:mm") ?? ""}</td>
             <td>{workingHours.ToString(@"hh\:mm")}</td>
         </tr>";
             }
-
             table += @"
         </tbody>
     </table>
