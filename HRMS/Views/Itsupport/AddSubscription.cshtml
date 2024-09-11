@@ -106,7 +106,7 @@
                             <div class="row">
                                 <div class="col-lg-12 col-md-12 text-right">
                                     <button type="button" class="btn subscriptionadd-Cancel">Cancel</button>
-                                    <button type="button" class="btn btn-primary subscriptionadd-Update">Submit</button>
+                                    <button type="button" class="btn btn-primary subscriptionadd-Update" data-toggle="modal" data-target="#subscriptionadd-success-popup">Submit</button>
                                 </div>
                             </div>
                         </div>
@@ -119,7 +119,7 @@
 </div>
 
 
-<div class="modal fade" id="addsubscriptionPaymentMethodModal" tabindex="-1" aria-labelledby="addsubscriptionPaymentMethodModalLabel" aria-hidden="true">
+@*<div class="modal fade" id="addsubscriptionPaymentMethodModal" tabindex="-1" aria-labelledby="addsubscriptionPaymentMethodModalLabel" aria-hidden="true">
     <div class="modal-dialog">
         <div class="modal-content">
             <div class="modal-header">
@@ -140,11 +140,12 @@
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                <button type="button" class="btn btn-primary" id="saveSubscriptionPaymentMethodBtn">Save</button>
+                <button type="button" class="btn btn-primary">Save</button>
             </div>
         </div>
     </div>
-</div>
+</div>*@
+
 
 <!-- Modal -->
 <div class="modal fade" id="subscriptionadd-success-popup" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
@@ -157,7 +158,7 @@
             </div>
             <div class="modal-body text-center">
                 <img src="/assets/correct.png" alt="Approved" style="width:120px;color:green;padding:20px">
-                <h6>Subscription Added Successfully</h6>
+                <h6>Vendor Added Successfully</h6>
             </div>
         </div>
     </div>
