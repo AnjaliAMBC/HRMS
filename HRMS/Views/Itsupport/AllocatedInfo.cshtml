@@ -3,106 +3,102 @@
 <div class="container-fluid">
     <div class="hiddenadmindashboard" style="display: none"></div>
     @Html.Partial("_adminsidemenu")
-    <div class="main-content container-fluid subscriptionAdding-tab" style="width: 84%">
-        <div class="content admin-subscriptionadd-container">
-            <div class="admin-subscription-add">
-                <div class="container-fluid top admin-subscriptionadd">
-                    <div class="row navbar align-items-center mb-4 mt-2">
-                        <h4 class="header mb-0 text-right">Add Subscription</h4>
+    <div class="main-content container-fluid subscriptionListing-tab" style="width: 84%">
+        <div class="content admin-subscriptionlisting-container">
+            <div class="admin-subscription-listing">
+                <div class="container-fluid top admin-subscriptionlisting">
+                    <div class="row navbar align-items-center mt-2">
+                        <h4 class="header mb-0 text-right">Subscription Listing</h4>
                     </div>
-                    <!-- Basic HTML Form -->
-                    <form id="subscriptionadd-form" class="admin-subscriptionform needs-validation" novalidate>
-                        <div class="container" style="margin-left: 5px">
-                            <div class="row">
-                                <div class="col-lg-3 col-md-6">
-                                    <div class="form-group subscriptionadd-tabs">
-                                        <label for="SubscriptionID">Subscription ID*</label>
-                                        <select name="SubscriptionID" class="SubscriptionID form-control form-select" id="SubscriptionID" required>
-                                            <option value="" disabled selected hidden>ID</option>
-                                            <option value="222">dfds</option>
-                                        </select>
-                                        <div class="invalid-feedback">Subscription ID is required.</div>
-                                    </div>
-                                </div>
-                                <div class="col-lg-3 col-md-6">
-                                    <div class="form-group subscriptionadd-tabs">
-                                        <label for="SubscriptionName">Subscription Name*</label>
-                                        <input type="text" value="Test" class="form-control" name="SubscriptionName" id="SubscriptionName" placeholder="Enter Subscription Name" required>
-                                        <div class="invalid-feedback">Vendor Name is required.</div>
-                                    </div>
-                                </div>
+                    
+                    <div class="subscriptionlisting-header">
+                        <img src="~/Assets/EmpImages/1155.jpeg" />
+                        <div class="subscriptionlisting-title">VONAGE</div>
+                    </div>
 
-                                <div class="col-lg-3 col-md-6">
-                                    <div class="form-group subscriptionadd-tabs">
-                                        <label for="SubscriptionPurchasedate">Purchase Date*</label>
-                                        <input type="date" class="form-control" name="SubscriptionPurchasedate" id="SubscriptionPurchasedate" required>
-                                        <div class="invalid-feedback">Purchase Date is required.</div>
-                                    </div>
-                                </div>
+                    <div class="subscriptionlisting-tab-info">
+                        <ul class="nav nav-tabs res-admin-subscriptionlisting-tabs responsive-tabs" id="subscriptionlistingTab" role="tablist" style="font-size: 15px; width: 100%;">
+                            <li class="nav-item active" role="presentation">
+                                <a class="nav-link active" id="tab1-link" data-toggle="tab" href="#tab1" role="tab" aria-controls="tab1" aria-selected="true"><b>Subscription Details</b></a>
+                            </li>
+                            <li class="nav-item" role="presentation">
+                                <a class="nav-link" id="tab2-link" data-toggle="tab" href="#tab2" role="tab" aria-controls="tab2" aria-selected="false"><b>Subscription History</b></a>
+                            </li>
+                        </ul>
+                    </div>
 
-                                <div class="col-lg-3 col-md-6">
-                                    <div class="form-group subscriptionadd-tabs">
-                                        <label for="SubscriptionRenewaldate">Renewal Date*</label>
-                                        <input type="date" class="form-control" name="SubscriptionRenewaldate" id="SubscriptionRenewaldate" required>
-                                        <div class="invalid-feedback">Renewal Date is required.</div>
-                                    </div>
-                                </div>
+                    <div class="tab-content" id="subscriptionlisting-TabContent">
+                        <div class="tab-pane fade subscriptionlisting-details show active" id="tab1" role="tabpanel" aria-labelledby="tab1-link">
+                            <div class="subscriptionlisting-field-info">
+                                <label>Category</label>
+                                <div class="subscriptioninfo-field-details">IT Support</div>
                             </div>
-                            <div class="row">
-                                <div class="col-lg-3 col-md-6">
-                                    <div class="form-group subscriptionadd-tabs">
-                                        <label for="SubscriptionAmount">Amount*</label>
-                                        <input type="text" class="form-control" value="334" name="SubscriptionAmount" id="SubscriptionAmount" placeholder="Enter Amount" required>
-                                        <div class="invalid-feedback">Amount is required.</div>
-                                    </div>
-                                </div>
-                                <div class="col-lg-3 col-md-6">
-                                    <div class="form-group subscriptionadd-tabs">
-                                        <label for="SubscriptionPaymentMethod">Payment Method</label>
-                                        <div class="d-flex">
-                                            <select name="SubscriptionPaymentMethod" class="SubscriptionPaymentMethod form-control form-select" id="SubscriptionPaymentMethod" required>
-                                                <option value="" disabled selected hidden>Select Payment Method</option>
-                                                <option value="111">Test</option>
-                                            </select>
-                                            <div class="input-group-append">
-                                                <button class="btn btn-secondary btn-sm" type="button" data-toggle="modal" data-target="#addsubscriptionPaymentMethodModal">
-                                                    <i class="fas fa-plus fa-xs"></i>
-                                                </button>
-                                            </div>
-                                        </div>
-                                        <div class="invalid-feedback">Payment Method is required.</div>
-                                    </div>
-                                </div>
-
-                                <div class="col-lg-3 col-md-6">
-                                    <div class="form-group subscriptionadd-tabs">
-                                        <label for="SubscriptionMode">Mode*</label>
-                                        <select name="SubscriptionMode" class="SubscriptionMode form-control form-select" id="SubscriptionMode" required>
-                                            <option value="" disabled selected hidden>Mode</option>
-                                            <option value="222">dfds</option>
-                                        </select>
-                                        <div class="invalid-feedback">Mode is required.</div>
-                                    </div>
-                                </div>
-
-                                <div class="col-lg-3 col-md-6">
-                                    <div class="form-group subscriptionadd-tabs">
-                                        <label for="SubscriptionRemarks">Remarks*</label>
-                                        <textarea rows="1" class="form-control" id="SubscriptionRemarks">Test</textarea>
-                                        <div class="invalid-feedback">Remarks is required.</div>
-                                    </div>
-                                </div>
-
-
+                            <div class="subscriptionlisting-field-info">
+                                <label>Subscription</label>
+                                <div class="subscriptioninfo-field-details">#0034</div>
                             </div>
-                            <div class="row">
-                                <div class="col-lg-12 col-md-12 text-right">
-                                    <button type="button" class="btn vendoradd-Cancel">Cancel</button>
-                                    <button type="button" class="btn btn-primary vendoradd-Update">Submit</button>
-                                </div>
+                            <div class="subscriptionlisting-field-info">
+                                <label>Purchase Date</label>
+                                <div class="subscriptioninfo-field-details">08-03-2024</div>
+                            </div>
+                            <div class="subscriptionlisting-field-info">
+                                <label>License</label>
+                                <div class="subscriptioninfo-field-details">4</div>
+                            </div>
+                            <div class="subscriptionlisting-field-info">
+                                <label>Last Renewal Date</label>
+                                <div class="subscriptioninfo-field-details">08-03-2024</div>
+                            </div>
+                            <div class="subscriptionlisting-field-info">
+                                <label>Upcoming Renewal Date</label>
+                                <div class="subscriptioninfo-field-details">08-09-2024</div>
+                            </div>
+                            <div class="subscriptionlisting-field-info">
+                                <label>Added By</label>
+                                <div class="subscriptioninfo-field-details">Test User</div>
+                            </div>
+                            <div class="subscriptionlisting-field-info">
+                                <label>Added Date</label>
+                                <div class="subscriptioninfo-field-details">09-09-2024</div>
                             </div>
                         </div>
-                    </form>
+                        <div class="tab-pane fade subscriptionlisting-history" id="tab2" role="tabpanel" aria-labelledby="tab2-link">
+                            <div class="subscriptionlisting-field-info">
+                                <label>Category</label>
+                                <div class="subscriptioninfo-field-details">IT Support New</div>
+                            </div>
+                            <div class="subscriptionlisting-field-info">
+                                <label>Subscription</label>
+                                <div class="subscriptioninfo-field-details">#0124</div>
+                            </div>
+                            <div class="subscriptionlisting-field-info">
+                                <label>Purchase Date</label>
+                                <div class="subscriptioninfo-field-details">18-01-2024</div>
+                            </div>
+                            <div class="subscriptionlisting-field-info">
+                                <label>License</label>
+                                <div class="subscriptioninfo-field-details">1</div>
+                            </div>
+                            <div class="subscriptionlisting-field-info">
+                                <label>Last Renewal Date</label>
+                                <div class="subscriptioninfo-field-details">12-04-2024</div>
+                            </div>
+                            <div class="subscriptionlisting-field-info">
+                                <label>Upcoming Renewal Date</label>
+                                <div class="subscriptioninfo-field-details">09-07-2024</div>
+                            </div>
+                            <div class="subscriptionlisting-field-info">
+                                <label>Added By</label>
+                                <div class="subscriptioninfo-field-details">Test User New</div>
+                            </div>
+                            <div class="subscriptionlisting-field-info">
+                                <label>Added Date</label>
+                                <div class="subscriptioninfo-field-details">10-09-2024</div>
+                            </div>
+                        </div>
+                    </div>
+
+
 
                 </div>
             </div>
@@ -110,30 +106,3 @@
     </div>
 </div>
 
-
-<div class="modal fade" id="addsubscriptionPaymentMethodModal" tabindex="-1" aria-labelledby="addsubscriptionPaymentMethodModalLabel" aria-hidden="true">
-    <div class="modal-dialog">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h5 class="modal-title" id="addsubscriptionPaymentMethodModalLabel">Add New Payment Method</h5>
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                    <span aria-hidden="true">&times;</span>
-                </button>
-            </div>
-            <div class="modal-body">
-                <form id="addSubscriptionPaymentMethodForm">
-                    <div class="form-group">
-                        <label for="newSubscriptionPaymentMethod">Payment Method Name:</label>
-                        <input type="text" class="form-control" id="newSubscriptionPaymentMethod" required>
-                        <span id="subscriptionPaymentMethodError" class="text-danger" style="display:none;"></span>
-                    </div>
-                </form>
-                <span id="subscriptionPaymentMethodSuccessMessage" class="text-success" style="display:none;"></span>
-            </div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                <button type="button" class="btn btn-primary" id="saveSubscriptionPaymentMethodBtn">Save</button>
-            </div>
-        </div>
-    </div>
-</div>
