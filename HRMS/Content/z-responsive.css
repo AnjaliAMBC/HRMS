@@ -1871,8 +1871,12 @@
     }
 
     .mobile-view .admin-subscriptioninfo-list .subscriptioninfo-list-block .subscriptioninfo-list-right .subscriptioninfo-fields {
-        width: 100%;
+        width: 47%;
         margin-bottom: 10px;
+    }
+
+    .mobile-view .admin-subscriptioninfo-list .subscriptioninfo-list-block .subscriptioninfo-list-right .subscriptioninfo-list-right-1 {
+        margin-right: -2px;
     }
 
     /* subscription view end */
@@ -1888,6 +1892,26 @@
     }
 
     /* subscription add end */
+
+    /* subscription listing start */
+
+    .mobile-view .subscriptionlisting-tab-info .responsive-tabs.nav-tabs {
+        display: inline-block;
+    }
+
+    .mobile-view .admin-subscriptionlisting-container {
+        margin-top: 65px;
+    }
+
+    .mobile-view #subscriptionlisting-TabContent .subscriptionlisting-field-info {
+        width: 100%;
+    }
+
+    .mobile-view #subscriptionlisting-TabContent .subscriptionlisting-field-info .subscriptioninfo-field-details {
+        vertical-align: top;
+    }
+
+    /* subscription listing end */
 
     /* asset view start */
 
@@ -2057,6 +2081,66 @@
     }
 
     /* purchase super approval end */
+
+    /* subscription view start */
+
+    .admin-subscriptioninfo-container {
+        display: inline-block;
+        margin-top: 60px !important;
+    }
+
+    .admin-subscriptioninfo-view .res-admin-subscriptioninfo-header-right {
+        justify-content: left !important;
+        padding-left: 0;
+    }
+
+    .admin-subscriptioninfo-view .admin-subscriptioninfo-list {
+        margin: 50px 0px 0px 2%;
+    }
+
+    .admin-subscriptioninfo-view .res-admin-subscriptioninfo-export {
+        max-width: 10%;
+    }
+
+    /* subscription view end */
+
+    /* subscription add start */
+
+    .admin-subscriptionadd-container {
+        display: inline-block;
+        margin-top: 60px !important;
+        width: 100%;
+    }
+
+    #subscriptionadd-form .container {
+        max-width: 100%;
+    }
+
+    /* subscription add end */
+
+    /* subscription listing start */
+
+    .admin-subscriptionlisting-container {
+        margin-top: 65px;
+    }
+
+    .subscriptionlisting-tab-info .res-admin-subscriptionlisting-tabs {
+        display: inline-block;
+    }
+
+    #subscriptionlisting-TabContent .subscriptionlisting-field-info {
+        width: 100%;
+    }
+
+    #subscriptionlisting-TabContent .subscriptionlisting-field-info .subscriptioninfo-field-details {
+        vertical-align: top;
+    }
+
+    #subscriptionlisting-TabContent .subscriptionlisting-field-info {
+        width: 100% !important;
+    }
+
+    /* subscription listing end */
 
 }
 
@@ -4424,6 +4508,117 @@
 
     /* purchase super approval end */
 
+    /* subscription view start */
+
+    .tablet-view .admin-subscriptioninfo-container {
+        margin-top: 15px;
+    }
+
+    .tablet-view .subscriptioninfo-tab {
+        width: 75% !important;
+    }
+
+    .tablet-view .res-admin-subscriptioninfo-search {
+        padding: 0;
+    }
+
+    .tablet-view .res-admin-subscriptioninfo-search .search-container {
+        margin-left: 0px !important;
+    }
+
+    .tablet-view .res-subscriptioninfo {
+        padding: 0;
+    }
+
+    .tablet-view .res-admin-subscriptioninfo-header-right {
+        padding-left: 0;
+        justify-content: left !important;
+    }
+
+    .tablet-view .admin-subscriptioninfo-view .res-admin-subscriptioninfo-add {
+        padding-right: 0;
+    }
+
+    .tablet-view .res-admin-subscriptioninfo-table {
+        margin-top: 95px;
+    }
+
+    .tablet-view .admin-subscriptioninfo-view .admin-subscriptioninfo-action-block {
+        display: inline-block;
+    }
+
+    .tablet-view .admin-subscriptioninfo-view .admin-subscriptioninfo-list {
+        margin: 30px 2% 20px 2%;
+        display: inline-block;
+    }
+
+    .tablet-view .admin-subscriptioninfo-list .subscriptioninfo-list-block {
+        width: 100%;
+    }
+
+    .tablet-view .admin-subscriptioninfo-list .subscriptioninfo-list-block .subscriptioninfo-list-left {
+        width: 22%;
+    }
+
+    .tablet-view .admin-subscriptioninfo-list .subscriptioninfo-list-block .subscriptioninfo-list-right {
+        width: 76%;
+    }
+
+    .tablet-view .admin-subscriptioninfo-list .subscriptioninfo-list-block .subscriptioninfo-list-right .subscriptioninfo-fields {
+        width: 47%;
+        margin-bottom: 10px;
+    }
+
+    .tablet-view .admin-subscriptioninfo-list .subscriptioninfo-list-block .subscriptioninfo-list-right .subscriptioninfo-list-right-1 {
+        margin-right: -2px;
+    }
+
+    /* subscription view end */
+
+    /* subscription add start */
+
+    .tablet-view .subscriptionAdding-tab {
+        width: 82% !important;
+    }
+
+    .tablet-view .admin-subscriptionadd-container {
+        margin-top: 10px;
+    }
+
+    .tablet-view #subscription-form .row .col-lg-3.col-md-6 {
+        padding-left: 0px;
+    }
+
+    /* subscription add end */
+
+    /* subscription listing start */
+
+    .tablet-view .subscriptionListing-tab {
+        width: 82% !important;
+    }
+
+    .tablet-view .subscriptionlisting-tab-info .responsive-tabs.nav-tabs {
+        display: inline-block;
+    }
+
+    .tablet-view .admin-subscriptionlisting-container {
+        margin-top: 10px;
+    }
+
+    .tablet-view #subscriptionlisting-TabContent .subscriptionlisting-field-info {
+        width: 100%;
+    }
+
+    .tablet-view #subscriptionlisting-TabContent .subscriptionlisting-field-info .subscriptioninfo-field-details {
+        vertical-align: top;
+    }
+
+    .tablet-view .subscriptionlisting-tab-info .responsive-tabs.nav-tabs i.fa {
+        top: 186px;
+    }
+
+    /* subscription listing end */
+
 }
 
 /* Media Query for Tablets Ipads portrait mode end */
@@ -4569,21 +4764,21 @@
         padding: 20px 30px !important;
     }
 
-        .tablet-view .login-page .forgot-container .login-heading {
-            margin-left: 0px !important;
-        }
+    .tablet-view .login-page .forgot-container .login-heading {
+        margin-left: 0px !important;
+    }
 
     .tablet-view .login-page #forgotpassword {
         margin-left: 0px !important;
     }
 
-        .tablet-view .login-page #forgotpassword button {
-            width: 100% !important;
-        }
+    .tablet-view .login-page #forgotpassword button {
+        width: 100% !important;
+    }
 
-        .tablet-view .login-page #forgotpassword .empemail-field input {
-            max-width: 100%;
-        }
+    .tablet-view .login-page #forgotpassword .empemail-field input {
+        max-width: 100%;
+    }
 
     /* forgot password start*/
 
@@ -4764,21 +4959,21 @@
         table-layout: fixed;
     }
 
-        .tablet-view #attendanceTable .attendence-thead th:nth-child(1) {
-            width: 120px !important;
-        }
+    .tablet-view #attendanceTable .attendence-thead th:nth-child(1) {
+        width: 120px !important;
+    }
 
-        .tablet-view #attendanceTable .attendence-thead th:nth-child(2) {
-            width: 230px !important;
-        }
+    .tablet-view #attendanceTable .attendence-thead th:nth-child(2) {
+        width: 230px !important;
+    }
 
-        .tablet-view #attendanceTable .attendence-thead th:nth-child(3) {
-            width: 100px !important;
-        }
+    .tablet-view #attendanceTable .attendence-thead th:nth-child(3) {
+        width: 100px !important;
+    }
 
-        .tablet-view #attendanceTable .attendence-thead th:nth-child(4) {
-            width: 100px !important;
-        }
+    .tablet-view #attendanceTable .attendence-thead th:nth-child(4) {
+        width: 100px !important;
+    }
 
     /* attendence end*/
 
@@ -5890,6 +6085,114 @@
 
     /* purchase super approval end */
 
+    /* subscription view start */
+
+    .tablet-view .admin-subscriptioninfo-container {
+        margin-top: 15px;
+    }
+
+    .tablet-view .subscriptioninfo-tab {
+        width: 82% !important;
+    }
+
+    .tablet-view .res-admin-subscriptioninfo-search {
+        padding: 0;
+    }
+
+    .tablet-view .res-admin-subscriptioninfo-search .search-container {
+        margin-left: 0px !important;
+    }
+
+    .tablet-view .admin-subscriptioninfo-view .res-admin-subscriptioninfo-export {
+        max-width: 7% !important;
+        flex: 0 0 7% !important;
+    }
+
+    .tablet-view .res-subscriptioninfo {
+        padding: 0;
+    }
+
+    .tablet-view .res-admin-subscriptioninfo-header-right {
+        padding-left: 0;
+        justify-content: left !important;
+    }
+
+    .tablet-view .admin-subscriptioninfo-view .res-admin-subscriptioninfo-add {
+        padding-right: 0;
+        max-width: 36%;
+    }
+
+    .tablet-view .res-admin-subscriptioninfo-table {
+        margin-top: 95px;
+    }
+
+    .tablet-view .admin-subscriptioninfo-view .admin-subscriptioninfo-action-block {
+        display: inline-block;
+    }
+
+    .tablet-view .admin-subscriptioninfo-view .admin-subscriptioninfo-list {
+        margin: 30px 2% 20px 2%;
+        display: inline-block;
+    }
+
+    .tablet-view .admin-subscriptioninfo-list .subscriptioninfo-list-block {
+        width: 100%;
+    }
+
+    .tablet-view .admin-subscriptioninfo-list .subscriptioninfo-list-block .subscriptioninfo-list-right .subscriptioninfo-fields {
+        margin-bottom: 10px;
+    }
+
+    .tablet-view .admin-subscriptioninfo-list .subscriptioninfo-list-block .subscriptioninfo-list-right .subscriptioninfo-list-right-1 {
+        margin-right: -2px;
+    }
+
+    /* subscription view end */
+
+    /* subscription add start */
+
+    .tablet-view .subscriptionAdding-tab {
+        width: 82% !important;
+    }
+
+    .tablet-view .admin-subscriptionadd-container {
+        margin-top: 10px;
+    }
+
+    .tablet-view #subscription-form .row .col-lg-3.col-md-6 {
+        padding-left: 0px;
+    }
+
+    /* subscription add end */
+
+    /* subscription listing start */
+
+    .tablet-view .subscriptionListing-tab {
+        width: 82% !important;
+    }
+
+    .tablet-view .subscriptionlisting-tab-info .responsive-tabs.nav-tabs {
+        display: inline-block;
+    }
+
+    .tablet-view .admin-subscriptionlisting-container {
+        margin-top: 10px;
+    }
+
+    .tablet-view #subscriptionlisting-TabContent .subscriptionlisting-field-info {
+        width: 100%;
+    }
+
+    .tablet-view #subscriptionlisting-TabContent .subscriptionlisting-field-info .subscriptioninfo-field-details {
+        vertical-align: top;
+    }
+
+    .tablet-view .subscriptionlisting-tab-info .responsive-tabs.nav-tabs i.fa {
+        top: 186px;
+    }
+
+    /* subscription listing end */
+
 }
 
 /* iPad Air (Portrait) start */
@@ -5951,6 +6254,51 @@
     .res-admin-vendor-status #hr-vendorlisting-status-dropdown {
         padding-left: 0px;
     }
+
+    /* subscription add start */
+
+    .tablet-view .subscriptionAdding-tab {
+        width: 78% !important;
+    }
+
+    .tablet-view .admin-subscriptionadd-container {
+        margin-top: 10px;
+    }
+
+    .tablet-view #subscription-form .row .col-lg-3.col-md-6 {
+        padding-left: 0px;
+    }
+
+    /* subscription add end */
+
+    /* subscription listing start */
+
+    .tablet-view .subscriptionListing-tab {
+        width: 78% !important;
+    }
+
+    .tablet-view .subscriptionlisting-tab-info .responsive-tabs.nav-tabs {
+        display: inline-block;
+    }
+
+    .tablet-view .admin-subscriptionlisting-container {
+        margin-top: 10px;
+    }
+
+    .tablet-view #subscriptionlisting-TabContent .subscriptionlisting-field-info {
+        width: 100%;
+    }
+
+    .tablet-view #subscriptionlisting-TabContent .subscriptionlisting-field-info .subscriptioninfo-field-details {
+        vertical-align: top;
+    }
+
+    .tablet-view .subscriptionlisting-tab-info .responsive-tabs.nav-tabs i.fa {
+        top: 186px;
+    }
+
+    /* subscription listing end */
+
 }
 
 /* iPad Air (Landscape) */
@@ -5989,6 +6337,88 @@
     .admin-purchasesuperadmin-view .res-admin-purchasesuperadmin-table {
         margin-top: 30px;
     }
+
+    /* subscription view start */
+
+    .admin-subscriptioninfo-container {
+        margin-top: 25px !important;
+        margin-left: 0px !important;
+    }
+
+    .res-admin-subscriptioninfo-search {
+        padding: 0;
+    }
+
+    .res-admin-subscriptioninfo-search .search-container {
+        margin-left: 0px !important;
+    }
+
+    .admin-subscriptioninfo-view .res-admin-subscriptioninfo-export {
+        max-width: 7% !important;
+        flex: 0 0 7% !important;
+    }
+
+    .res-subscriptioninfo {
+        padding: 0;
+    }
+
+    .res-admin-subscriptioninfo-header-right {
+        padding-left: 0;
+        justify-content: left !important;
+    }
+
+    .admin-subscriptioninfo-view .res-admin-subscriptioninfo-add {
+        padding-right: 0;
+        max-width: 42%;
+    }
+
+    .res-admin-subscriptioninfo-table {
+        margin-top: 95px;
+    }
+
+    .admin-subscriptioninfo-view .admin-subscriptioninfo-action-block {
+        display: inline-block;
+    }
+
+    .admin-subscriptioninfo-view .admin-subscriptioninfo-list {
+        margin: 30px 2% 20px 2%;
+        display: inline-block;
+    }
+
+    .admin-subscriptioninfo-list .subscriptioninfo-list-block {
+        width: 100%;
+    }
+
+    .admin-subscriptioninfo-list .subscriptioninfo-list-block .subscriptioninfo-list-right .subscriptioninfo-fields {
+        margin-bottom: 10px;
+    }
+
+    .admin-subscriptioninfo-list .subscriptioninfo-list-block .subscriptioninfo-list-right .subscriptioninfo-list-right-1 {
+        margin-right: -2px;
+    }
+
+    .admin-subscriptioninfo-list .subscriptioninfo-list-block .subscriptioninfo-list-left {
+        width: 10% !important;
+    }
+
+    .admin-subscriptioninfo-list .subscriptioninfo-list-block .subscriptioninfo-list-right {
+        width: 89% !important;
+    }
+
+    /* subscription view end */
+
+    /* subscription listing start */
+
+
+    .admin-subscriptionlisting-container {
+        margin-top: 10px;
+    }
+
+    #subscriptionlisting-TabContent .subscriptionlisting-field-info {
+        width: 65% !important;
+    }
+
+    /* subscription listing end */
 }
 
 /* iPad Pro (Portrait) */
@@ -6040,6 +6470,78 @@
     .tablet-view .admin-purchasesuperadmin-container {
         margin-top: 10px;
     }
+
+    /* subscription view start */
+
+    .tablet-view .admin-subscriptioninfo-container {
+        margin-top: 15px;
+    }
+
+    .tablet-view .subscriptioninfo-tab {
+        width: 82% !important;
+    }
+
+    .tablet-view .res-admin-subscriptioninfo-search {
+        padding: 0;
+    }
+
+    .tablet-view .res-admin-subscriptioninfo-search .search-container {
+        margin-left: 0px !important;
+    }
+
+    .tablet-view .admin-subscriptioninfo-view .res-admin-subscriptioninfo-export {
+        max-width: 7% !important;
+        flex: 0 0 7% !important;
+    }
+
+    .tablet-view .res-subscriptioninfo {
+        padding: 0;
+    }
+
+    .tablet-view .res-admin-subscriptioninfo-header-right {
+        padding-left: 0;
+        justify-content: left !important;
+    }
+
+    .tablet-view .admin-subscriptioninfo-view .res-admin-subscriptioninfo-add {
+        padding-right: 0;
+        max-width: 36%;
+    }
+
+    .tablet-view .res-admin-subscriptioninfo-table {
+        margin-top: 95px;
+    }
+
+    .tablet-view .admin-subscriptioninfo-view .admin-subscriptioninfo-action-block {
+        display: inline-block;
+    }
+
+    .tablet-view .admin-subscriptioninfo-view .admin-subscriptioninfo-list {
+        margin: 30px 2% 20px 2%;
+        display: inline-block;
+    }
+
+    .tablet-view .admin-subscriptioninfo-list .subscriptioninfo-list-block {
+        width: 100%;
+    }
+
+    .tablet-view .admin-subscriptioninfo-list .subscriptioninfo-list-block .subscriptioninfo-list-right .subscriptioninfo-fields {
+        margin-bottom: 10px;
+    }
+
+    .tablet-view .admin-subscriptioninfo-list .subscriptioninfo-list-block .subscriptioninfo-list-right .subscriptioninfo-list-right-1 {
+        margin-right: -2px;
+    }
+
+    /* subscription view end */
+
+    /* subscription listing start */
+
+    .tablet-view .subscriptionlisting-tab-info .responsive-tabs.nav-tabs i.fa {
+        right: 100px;
+    }
+
+    /* subscription listing end */
 }
 
 /* iPad Pro (Landscape) */
