@@ -9,7 +9,7 @@
                 <div class="container-fluid top admin-subscriptioninfoview">
                     <div class="row navbar align-items-center">
                         <!-- subscription column -->
-                        <div class="col-lg-3 col-md-5 topic d-flex res-admin-title">
+                        <div class="col-lg-3 col-md-6 topic d-flex res-admin-title">
                             <h4 class="header mb-0 text-right">Subscription Listing</h4>
                         </div>
                         <!-- Search box -->
@@ -17,9 +17,9 @@
                             
                         </div>
 
-                        <div class="col-xl-5 col-lg-6 navbarl1 col-sm-12 col-md-7 res-admin-subscriptioninfo-header-right">
+                        <div class="col-xl-5 col-lg-6 navbarl1 col-sm-12 col-md-8 res-admin-subscriptioninfo-header-right">
                             <!-- Export -->
-                            <div class="col-xl-2 col-lg-1  navbarl1 col-sm-2 col-md-2 res-admin-subscriptioninfo-export p-0">
+                            <div class="col-xl-1 col-lg-1  navbarl1 col-sm-2 col-md-2 res-admin-subscriptioninfo-export p-0">
                                 <div class="adminsubscriptioninfo-export" style="">
                                     <button type="button" class="btn subscriptioninfo-export-btn pt-0" id="exportSubscriptioninfo" onclick="exportSubscriptioninfo()">
                                         <span class="subscriptioninfo-export"><img src="/assets/Export.png" alt="Export" style=""></span>
@@ -27,9 +27,9 @@
                                 </div>
                             </div>
                             <!-- Add subscription dropdown -->
-                            <div class="col-lg-6 navbarl1 col-sm-6 col-md-6 res-admin-subscriptioninfo-add text-right">
+                            <div class="col-lg-6 navbarl1 col-sm-7 col-md-6 res-admin-subscriptioninfo-add text-right">
                                 <div class="addingsubscriptioninfo form-group">
-                                    <button name="addsubscriptioninfo" class="addsubscriptioninfo  btn btn-primary" id="addsubscriptioninfo" onclick="redirectToAddSubscription() ">
+                                    <button name="addsubscriptioninfo" class="addsubscriptioninfo btn" id="addsubscriptioninfo" onclick="redirectToAddSubscription() ">
                                         Add Subscription
                                     </button>
                                 </div>
@@ -54,7 +54,7 @@
                                 </div>
                                 <div class="subscriptioninfo-list-right">
                                     <div class="subscriptioninfo-list-right-1 subscriptioninfo-list-due"><span>Due in 2 Month</span></div>
-                                    <div class="subscriptioninfo-list-right-2 subscriptioninfo-list-title">VONAGE</div>
+                                    <div class="subscriptioninfo-list-right-2 subscriptioninfo-list-title" onclick="redirectToSubscriptionHistory()">VONAGE</div>
                                     <div class="subscriptioninfo-list-right-3">
                                         <div class="subscriptioninfo-fields">
                                             <label>Category</label>
@@ -111,7 +111,7 @@
                                 </div>
                                 <div class="subscriptioninfo-list-right">
                                     <div class="subscriptioninfo-list-right-1 subscriptioninfo-list-due"></div>
-                                    <div class="subscriptioninfo-list-right-2 subscriptioninfo-list-title">VONAGE</div>
+                                    <div class="subscriptioninfo-list-right-2 subscriptioninfo-list-title" onclick="redirectToSubscriptionHistory()">VONAGE</div>
                                     <div class="subscriptioninfo-list-right-3">
                                         <div class="subscriptioninfo-fields">
                                             <label>Category</label>
@@ -168,7 +168,7 @@
                                 </div>
                                 <div class="subscriptioninfo-list-right">
                                     <div class="subscriptioninfo-list-right-1 subscriptioninfo-list-due"></div>
-                                    <div class="subscriptioninfo-list-right-2 subscriptioninfo-list-title">VONAGE</div>
+                                    <div class="subscriptioninfo-list-right-2 subscriptioninfo-list-title" onclick="redirectToSubscriptionHistory()">VONAGE</div>
                                     <div class="subscriptioninfo-list-right-3">
                                         <div class="subscriptioninfo-fields">
                                             <label>Category</label>
@@ -225,7 +225,7 @@
                                 </div>
                                 <div class="subscriptioninfo-list-right">
                                     <div class="subscriptioninfo-list-right-1 subscriptioninfo-list-expired"><span>Expired</span></div>
-                                    <div class="subscriptioninfo-list-right-2 subscriptioninfo-list-title">VONAGE</div>
+                                    <div class="subscriptioninfo-list-right-2 subscriptioninfo-list-title" onclick="redirectToSubscriptionHistory()">VONAGE</div>
                                     <div class="subscriptioninfo-list-right-3">
                                         <div class="subscriptioninfo-fields">
                                             <label>Category</label>
