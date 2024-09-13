@@ -6305,11 +6305,11 @@
 @media only screen and (min-device-width: 820px) and (max-device-width: 1180px) and (orientation: landscape) {
 
     .admin-vendor-container {
-        margin-top: 15px !important;
+        margin-top: 10px !important;
     }
 
     .admin-purchase-container {
-        margin-top: 15px !important;
+        margin-top: 10px !important;
     }
 
     .itadmin-purchase-view .res-admin-title {
@@ -6341,7 +6341,7 @@
     /* subscription view start */
 
     .admin-subscriptioninfo-container {
-        margin-top: 25px !important;
+        margin-top: 10px !important;
         margin-left: 0px !important;
     }
 
@@ -6927,6 +6927,25 @@
         margin-right: 0 !important;
     }
 
+    .subscriptioninfo-tab {
+        width: 82% !important;
+    }
+
+    .subscriptioninfo-tab .admin-subscriptioninfo-view .res-admin-title {
+        max-width: 30%;
+        flex: 0 0 30%;
+    }
+
+    .PurchaseListPage-View .itadmin-purchase-view .res-admin-title {
+        max-width: 33%;
+        flex: 0 0 33%;
+    }
+
+    .admin-vendor-view .res-admin-vendor-header-right .res-admin-vendor-status {
+        flex: 0 0 28%;
+        max-width: 28%;
+    }
+
 }
 
 @media only screen and (min-width:1400px) and (max-width: 2560px) {
@@ -7221,6 +7240,10 @@
 
     .admin-purchasesuperapproval-view .psa-content-block {
         max-width: 100% !important;
+    }
+
+    #subscriptionadd-form .container {
+        max-width: 100%;
     }
 }
 

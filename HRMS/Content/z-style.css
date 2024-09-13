@@ -3254,18 +3254,18 @@ input[type=checkbox], input[type=radio] {
     font-size: 12px;
 }
 
-    #purchaseStatusModal .purchaseStatus-sentby .sent-by, #itpurchaseStatusModal .purchaseStatus-sentby .sent-by {
-        font-weight: bold;
-    }
+#purchaseStatusModal .purchaseStatus-sentby .sent-by, #itpurchaseStatusModal .purchaseStatus-sentby .sent-by {
+    font-weight: bold;
+}
 
-    #purchaseStatusModal .purchaseStatus-sentby .approved-by, #itpurchaseStatusModal .purchaseStatus-sentby .approved-by {
-        color: darkturquoise;
-        font-weight: bold;
-    }
+#purchaseStatusModal .purchaseStatus-sentby .approved-by, #itpurchaseStatusModal .purchaseStatus-sentby .approved-by {
+    color: darkturquoise;
+    font-weight: bold;
+}
 
-    #purchaseStatusModal .purchaseStatus-sentby .sender-name, #itpurchaseStatusModal .purchaseStatus-sentby .sender-name {
-        color: blue;
-    }
+#purchaseStatusModal .purchaseStatus-sentby .sender-name, #itpurchaseStatusModal .purchaseStatus-sentby .sender-name {
+    color: blue;
+}
 
 #purchaseStatusModal .purchaseStatus-date, #itpurchaseStatusModal .purchaseStatus-date {
     color: gray;
@@ -3281,9 +3281,14 @@ input[type=checkbox], input[type=radio] {
     font-size: 12px;
 }
 
-    .itp_filepath:hover {
-        text-decoration: none;
-    }
+.itp_filepath:hover {
+    text-decoration: none;
+}
+
+.purchaseitadmin-approval-edit {
+    cursor:pointer;
+}
+
 /* Purchase end */
 
 /* Purchase add start */
@@ -3417,10 +3422,10 @@ input[type=checkbox], input[type=radio] {
     outline: none;
 }
 
-    #purchaseaccountlisting-status-dropdown:focus {
-        outline: none;
-        box-shadow: none;
-    }
+#purchaseaccountlisting-status-dropdown:focus {
+    outline: none;
+    box-shadow: none;
+}
 
 .res-purchaseaccountlisting {
     padding: 0 1.5rem;
@@ -3572,10 +3577,10 @@ input[type=checkbox], input[type=radio] {
     outline: none;
 }
 
-    #purchasesuperadminlisting-status-dropdown:focus {
-        outline: none;
-        box-shadow: none;
-    }
+#purchasesuperadminlisting-status-dropdown:focus {
+    outline: none;
+    box-shadow: none;
+}
 
 .res-purchasesuperadminlisting {
     padding: 0 1.5rem;
@@ -3660,48 +3665,48 @@ input[type=checkbox], input[type=radio] {
 .admin-purchasesuperapproval-view {
 }
 
-    .admin-purchasesuperapproval-view .admin-purchasesuperapprovalview {
-        margin-top: 10px;
-        padding-left: 0;
-    }
+.admin-purchasesuperapproval-view .admin-purchasesuperapprovalview {
+    margin-top: 10px;
+    padding-left: 0;
+}
 
-    .admin-purchasesuperapproval-view .purchasesuperapproval-block {
-        border: 1px solid #ccc;
-        border-radius: 5px;
-        padding: 10px 5px;
-        display: flex;
-    }
+.admin-purchasesuperapproval-view .purchasesuperapproval-block {
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    padding: 10px 5px;
+    display: flex;
+}
 
-        .admin-purchasesuperapproval-view .purchasesuperapproval-block .purchasesuperapproval-block-left {
-        }
+.admin-purchasesuperapproval-view .purchasesuperapproval-block .purchasesuperapproval-block-left {
+}
 
-        .admin-purchasesuperapproval-view .purchasesuperapproval-block .purchasesuperapproval-block-right {
-        }
+.admin-purchasesuperapproval-view .purchasesuperapproval-block .purchasesuperapproval-block-right {
+}
 
-            .admin-purchasesuperapproval-view .purchasesuperapproval-block .purchasesuperapproval-block-right .psa-block {
-                margin-bottom: 10px;
-            }
+.admin-purchasesuperapproval-view .purchasesuperapproval-block .purchasesuperapproval-block-right .psa-block {
+    margin-bottom: 10px;
+}
 
-                .admin-purchasesuperapproval-view .purchasesuperapproval-block .purchasesuperapproval-block-right .psa-block .psalabel {
-                    font-weight: bold;
-                }
+.admin-purchasesuperapproval-view .purchasesuperapproval-block .purchasesuperapproval-block-right .psa-block .psalabel {
+    font-weight: bold;
+}
 
-    .admin-purchasesuperapproval-view .color-blue {
-        color: #3E78CF;
-    }
+.admin-purchasesuperapproval-view .color-blue {
+    color: #3E78CF;
+}
 
-    .admin-purchasesuperapproval-view .psa-content-block {
-        margin-left: 5px;
-        margin-top: 10px;
-    }
+.admin-purchasesuperapproval-view .psa-content-block {
+    margin-left: 5px;
+    margin-top: 10px;
+}
 
-        .admin-purchasesuperapproval-view .psa-content-block .psa-footer {
-            margin-top: 20px;
-        }
+.admin-purchasesuperapproval-view .psa-content-block .psa-footer {
+    margin-top: 20px;
+}
 
-            .admin-purchasesuperapproval-view .psa-content-block .psa-footer .psaadd-approve {
-                margin-left: 10px;
-            }
+.admin-purchasesuperapproval-view .psa-content-block .psa-footer .psaadd-approve {
+    margin-left: 10px;
+}
 
 #adminpurchasetable tbody tr:nth-child(odd) {
     background-color: #f9f9f9 !important;
@@ -3859,6 +3864,8 @@ input[type=checkbox], input[type=radio] {
 
 .admin-subscriptioninfo-list .subscriptioninfo-list-block .subscriptioninfo-list-right .subscriptioninfo-list-right-2 {
     font-weight: bold;
+    display: inline-block;
+    cursor: pointer;
 }
 
 .admin-subscriptioninfo-list .subscriptioninfo-list-block .subscriptioninfo-list-right .subscriptioninfo-list-right-3 {
@@ -3877,6 +3884,10 @@ input[type=checkbox], input[type=radio] {
 }
 
 .admin-subscriptioninfo-list .subscriptioninfo-list-block .subscriptioninfo-list-right .subscriptioninfo-fields .subscriptioninfo-field-details {
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    overflow: hidden;
+    width: 100px;
 }
 
 .admin-subscriptioninfo-list .subscriptioninfo-list-block .subscriptioninfo-list-right .subscriptioninfo-list-right-4 {
