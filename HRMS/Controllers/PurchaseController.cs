@@ -57,7 +57,7 @@ namespace HRMS.Controllers
             }
 
             model.Assettypes = _dbContext.VendorTypes.ToList();
-            model.allVendors = _dbContext.VendorLists.ToList();
+            model.allVendors = _dbContext.VendorLists.Where(x=>x.Status== "Approved").ToList();
             model.ITDeptEmployees = _dbContext.emp_info.Where(x => x.Department == "IT").ToList();
             var lastPurchaseRequestId = _dbContext.PurchaseRequests
                                                    .OrderByDescending(x => x.PurchaseRequestID)

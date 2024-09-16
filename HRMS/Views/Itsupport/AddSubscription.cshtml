@@ -1,5 +1,7 @@
-﻿<style>
-    /* Custom styles for invalid fields */
+﻿@model HRMS.Models.ITsupport.SubscriptionViewModel
+
+<style>
+ 
     .is-invalid {
         border-color: red !important;
     }
@@ -25,114 +27,139 @@
                 <div class="container-fluid top admin-subscriptionadd">
                     <div class="row navbar align-items-center mt-2">
                         <h4 class="header mb-0 text-right">Add Subscription</h4>
-                    </div>                   
+                    </div>
                     <form id="subscriptionadd-form" class="admin-subscriptionform needs-validation" novalidate>
                         <div class="container" style="margin-left: 5px">
                             <div class="row">
-                                
                                 <div class="col-lg-3 col-md-6">
                                     <div class="form-group subscriptionadd-tabs">
                                         <label for="SubscriptionID">Subscription ID*</label>
-                                        <input type="text" class="form-control" name="SubscriptionID" id="SubscriptionID" placeholder="Enter Subscription ID" required>
+                                        <input type="text" class="form-control" name="SubscriptionID" id="SubscriptionID" placeholder="Enter Subscription ID"
+                                               value="@Model.Editsubscription.SubscriptionID" required>
                                         <div class="invalid-feedback">Subscription ID is required.</div>
                                     </div>
                                 </div>
+
                                 <div class="col-lg-3 col-md-6">
                                     <div class="form-group subscriptionadd-tabs">
                                         <label for="SubscriptionName">Subscription Name*</label>
-                                        <input type="text" class="form-control" name="SubscriptionName" id="SubscriptionName" placeholder="Enter Subscription Name" required>
+                                        <input type="text" class="form-control" name="SubscriptionName" id="SubscriptionName" placeholder="Enter Subscription Name" value="@Model.Editsubscription.SubscriptionName" required>
                                         <div class="invalid-feedback">Subscription Name is required.</div>
                                     </div>
                                 </div>
-                             
+
                                 <div class="col-lg-3 col-md-6">
                                     <div class="form-group subscriptionadd-tabs">
                                         <label for="SubscriptionLogo" style="width:100%;">Subscription Logo</label>
                                         <div class="upload-btn-wrapper attach2wrapper">
                                             <button class="btn subscriptionadd-upload-btn" type="button">Upload</button>
-                                            <input type="file" class="form-control" name="SubscriptionLogo" id="SubscriptionLogo" accept=".jpeg,.png,.jpg">
+                                            <input type="file" class="form-control" name="SubscriptionLogo" id="SubscriptionLogo"
+                                                   accept=".jpeg,.png,.jpg,.pdf,.doc,.docx,.xls,.xlsx" onchange="displayFileName(this)">
                                         </div>
+                                        <!-- Add this span to display the file name -->
+                                        <span id="file-name-display" style="margin-top: 5px; display: block;"></span>
                                     </div>
                                 </div>
-                            
+
                                 <div class="col-lg-3 col-md-6">
                                     <div class="form-group subscriptionadd-tabs">
                                         <label for="SubscriptionCategory">Category*</label>
-                                        <input type="text" class="form-control" name="SubscriptionCategory" id="SubscriptionCategory" placeholder="Enter Category Name" required>
+                                        <input type="text" class="form-control" name="SubscriptionCategory" id="SubscriptionCategory" placeholder="Enter Category Name" value="@Model.Editsubscription.Category" required>
                                         <div class="invalid-feedback">Category is required.</div>
                                     </div>
                                 </div>
                             </div>
 
-                            <div class="row">                           
+                            <div class="row">
                                 <div class="col-lg-3 col-md-6">
                                     <div class="form-group subscriptionadd-tabs">
                                         <label for="SubscriptionPurchasedate">Purchase Date*</label>
-                                        <input type="date" class="form-control" name="SubscriptionPurchasedate" id="SubscriptionPurchasedate" required>
+                                        @if (Model.Editsubscription.PurchaseDate != DateTime.MinValue)
+                                        {
+                                            @Html.TextBoxFor(m => m.Editsubscription.PurchaseDate, "{0:yyyy-MM-dd}", new { @type = "date", @class = "form-control", @id = "SubscriptionPurchasedate", required = true })
+                                        }
+                                        else
+                                        {
+                                            <input type="date" class="form-control" id="SubscriptionPurchasedate" value="@Model.Editsubscription.PurchaseDate" required>
+                                        }
                                         <div class="invalid-feedback">Purchase Date is required.</div>
                                     </div>
                                 </div>
-                               
+
                                 <div class="col-lg-3 col-md-6">
                                     <div class="form-group subscriptionadd-tabs">
                                         <label for="SubscriptionAmount">Amount</label>
-                                        <input type="text" class="form-control" name="SubscriptionAmount" id="SubscriptionAmount" placeholder="Enter Amount">
+                                        <input type="text" class="form-control" name="SubscriptionAmount" id="SubscriptionAmount" placeholder="Enter Amount" value="@Model.Editsubscription.Amount">
                                     </div>
                                 </div>
 
                                 <div class="col-lg-3 col-md-6">
                                     <div class="form-group subscriptionadd-tabs">
                                         <label for="SubscriptionLicense">License</label>
-                                        <input type="text" class="form-control" name="SubscriptionLicense" id="SubscriptionLicense" placeholder="Enter License">
+                                        <input type="text" class="form-control" name="SubscriptionLicense" id="SubscriptionLicense" placeholder="Enter License" value="@Model.Editsubscription.License">
                                     </div>
                                 </div>
-                                                        
+
                                 <div class="col-lg-3 col-md-6">
                                     <div class="form-group subscriptionadd-tabs">
                                         <label for="SubscriptionRenewaldate">Renewal Date*</label>
-                                        <input type="date" class="form-control" name="SubscriptionRenewaldate" id="SubscriptionRenewaldate" required>
+                                        @if (Model.Editsubscription.RenewalDate != DateTime.MinValue)
+                                        {
+                                            @Html.TextBoxFor(m => m.Editsubscription.RenewalDate, "{0:yyyy-MM-dd}", new { @type = "date", @class = "form-control", @id = "SubscriptionRenewaldate", required = true }) }
+                                        else
+                                        {
+                                            <input type="date" class="form-control" name="SubscriptionRenewaldate" id="SubscriptionRenewaldate" value="@Model.Editsubscription.RenewalDate" required>
+                                        }
                                         <div class="invalid-feedback">Renewal Date is required.</div>
                                     </div>
                                 </div>
-                              
+
                                 <div class="col-lg-3 col-md-6">
                                     <div class="form-group subscriptionadd-tabs">
                                         <label for="SubscriptionPaymentMethod">Payment Method</label>
                                         <select name="SubscriptionPaymentMethod" class="form-control form-select" id="SubscriptionPaymentMethod">
-                                            <option value="" disabled selected hidden>Select Payment Method</option>
-                                            <option value="Credit Card">Credit Card</option>
-                                            <option value="Debit Card">Debit Card</option>
-                                            <option value="Upi Payment">Upi Payment</option>
-                                            <option value="Net Banking">Net Banking</option>
-                                            <option value="Cash">Cash</option>
-                                            <option value="Others">Others</option>
+                                            <option value="" disabled hidden>Select Payment Method</option>
+                                            <option value="Credit Card" @(Model.Editsubscription.PaymentMethod == "Credit Card" ? "selected" : "")>Credit Card</option>
+                                            <option value="Debit Card" @(Model.Editsubscription.PaymentMethod == "Debit Card" ? "selected" : "")>Debit Card</option>
+                                            <option value="Upi Payment" @(Model.Editsubscription.PaymentMethod == "Upi Payment" ? "selected" : "")>Upi Payment</option>
+                                            <option value="Net Banking" @(Model.Editsubscription.PaymentMethod == "Net Banking" ? "selected" : "")>Net Banking</option>
+                                            <option value="Cash" @(Model.Editsubscription.PaymentMethod == "Cash" ? "selected" : "")>Cash</option>
+                                            <option value="Others" @(Model.Editsubscription.PaymentMethod == "Others" ? "selected" : "")>Others</option>
                                         </select>
                                     </div>
                                 </div>
-                            
+
+
                                 <div class="col-lg-6 col-md-6">
                                     <div class="form-group subscriptionadd-tabs">
                                         <label for="SubscriptionRemarks">Remarks</label>
-                                        <textarea rows="1" class="form-control" id="SubscriptionRemarks" name="SubscriptionRemarks"></textarea>
+                                        <textarea rows="1" class="form-control" id="SubscriptionRemarks" name="SubscriptionRemarks" value="@Model.Editsubscription.Remarks"></textarea>
                                     </div>
                                 </div>
 
                                 <!-- Added By -->
                                 <div class="col-lg-3 col-md-6">
                                     <div class="form-group subscriptionadd-tabs">
-                                        <label for="SubscriptionAddedBy">Added By*</label>
+                                        <label for="SubscriptionAddedBy">Created By*</label>
                                         <select name="SubscriptionAddedBy" class="SubscriptionAddedBy form-control form-select" id="SubscriptionAddedBy" required>
                                             <option value="" disabled selected hidden>Added By</option>
-                                            <option value="222">dfds</option>
+                                            @foreach (var deptEmp in Model.ITDeptEmployees)
+                                            {
+                                                var isSelected = Model.Editsubscription != null && Model.Editsubscription.CreatedBy == deptEmp.EmployeeName ? "selected" : "";
+                                                <option value="@deptEmp.EmployeeName" @isSelected>@deptEmp.EmployeeName</option>
+                                            }
                                         </select>
+
                                         <div class="invalid-feedback">Added By is required.</div>
                                     </div>
                                 </div>
-                               
+
                                 <div class="col-lg-3 col-md-6">
                                     <div class="form-group subscriptionadd-tabs">
-                                        <label for="SubscriptionAddeddate">Added Date*</label>
-                                        <input type="date" class="form-control" name="SubscriptionAddeddate" id="SubscriptionAddeddate" required>
+                                        <label for="SubscriptionAddeddate">Created Date*</label>
+                                        <input type="date" class="form-control" name="SubscriptionAddeddate" id="SubscriptionAddeddate"
+                                               value="@((Model.Editsubscription?.CreatedDate != DateTime.MinValue) ? Model.Editsubscription.CreatedDate?.ToString("yyyy-MM-dd") : "")"
+                                               required>
                                         <div class="invalid-feedback">Added Date is required.</div>
                                     </div>
                                 </div>
@@ -141,7 +168,7 @@
                             <div class="row">
                                 <div class="col-lg-12 col-md-12 text-right">
                                     <button type="button" id="cancelButton" class="btn subscriptionadd-Cancel" onclick="clearForm()">Cancel</button>
-                                    <button type="button" class="btn btn-primary subscriptionadd-Update" data-toggle="modal" onclick="validateAndSubmitForm()">Submit</button>
+                                    <button type="button" class="btn btn-primary subscriptionadd-Update" onclick="validateAndSubmitForm()">Submit</button>
                                 </div>
                             </div>
                         </div>
@@ -152,22 +179,44 @@
         </div>
     </div>
 </div>
-
-
-
-<!-- Modal -->
+<!-- Success Modal -->
 <div class="modal fade" id="subscriptionadd-success-popup" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
     <div class="modal-dialog" role="document">
         <div class="modal-content">
             <div class="modal-header">
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                    <span aria-hidden="true">&times;</span>
+                    <span aria-hidden="true"></span>
                 </button>
             </div>
-            <div class="modal-body text-center">
-                <img src="/assets/correct.png" alt="Approved" style="width:120px;color:green;padding:20px">
+            <div class="modal-body text-center">               
                 <h6>Subscription Added Successfully</h6>
             </div>
         </div>
     </div>
 </div>
+
+<!-- Error Modal -->
+<div class="modal fade" id="subscriptionadd-error-popup" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true"></span>
+                </button>
+            </div>
+            <div class="modal-body text-center">              
+                <h6 id="error-message">An error occurred</h6>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+    function displayFileName(input) {
+        var fileName = input.files.length > 0 ? input.files[0].name : '';
+
+        // Display the file name in the span
+        document.getElementById('file-name-display').textContent = fileName;
+    }
+
+</script>

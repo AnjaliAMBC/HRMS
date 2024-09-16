@@ -283,7 +283,7 @@
         </EntityType>
         <EntityType Name="Subscription">
           <Key>
-            <PropertyRef Name="UniqueSubscriptionID" />
+            <PropertyRef Name="SubscriptionID" />
           </Key>
           <Property Name="SubscriptionID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="SubscriptionName" Type="varchar" MaxLength="255" />
@@ -298,16 +298,32 @@
           <Property Name="CreatedBy" Type="varchar" MaxLength="255" />
           <Property Name="CreatedDate" Type="datetime" />
           <Property Name="License" Type="varchar" MaxLength="50" />
-          <Property Name="UniqueSubscriptionID" Type="int" Nullable="false" />
-          <Property Name="NewPurchaseDate" Type="datetime" />
-          <Property Name="NewRenewalDate" Type="datetime" />
-          <Property Name="NewAmount" Type="decimal" Precision="18" Scale="2" />
-          <Property Name="NewPaymentMethod" Type="varchar" MaxLength="100" />
-          <Property Name="NewRemarks" Type="varchar(max)" />
-          <Property Name="NewSubscriptionStatus" Type="varchar" MaxLength="100" />
-          <Property Name="NewCreatedBy" Type="varchar" MaxLength="255" />
-          <Property Name="NewCreatedDate" Type="datetime" />
-          <Property Name="NewLicense" Type="varchar" MaxLength="50" />
+          <Property Name="SubscriptionFrequency" Type="varchar" MaxLength="100" />
+          <Property Name="DaysUntilRenewal" Type="int" />
+          <Property Name="UpdatedBy" Type="varchar" MaxLength="255" />
+          <Property Name="UpadtedDate" Type="datetime" />
+          <Property Name="SubscriptionStatusClass" Type="varchar" MaxLength="255" />
+        </EntityType>
+        <EntityType Name="SubscriptionHistory">
+          <Key>
+            <PropertyRef Name="HistoryID" />
+          </Key>
+          <Property Name="HistoryID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="SubscriptionID" Type="int" Nullable="false" />
+          <Property Name="SubscriptionName" Type="varchar" MaxLength="255" />
+          <Property Name="SubscriptionLogo" Type="varchar" MaxLength="1000" />
+          <Property Name="Category" Type="varchar" MaxLength="50" />
+          <Property Name="PurchaseDate" Type="datetime" />
+          <Property Name="RenewalDate" Type="datetime" />
+          <Property Name="Amount" Type="decimal" Precision="18" Scale="2" />
+          <Property Name="PaymentMethod" Type="varchar" MaxLength="100" />
+          <Property Name="Remarks" Type="varchar(max)" />
+          <Property Name="SubscriptionStatus" Type="varchar" MaxLength="100" />
+          <Property Name="CreatedBy" Type="varchar" MaxLength="255" />
+          <Property Name="CreatedDate" Type="datetime" />
+          <Property Name="License" Type="varchar" MaxLength="50" />
+          <Property Name="UpdatedBy" Type="varchar" MaxLength="255" />
+          <Property Name="UpadtedDate" Type="datetime" />
         </EntityType>
         <EntityType Name="tblambcholiday">
           <Key>
@@ -407,6 +423,7 @@ warning 6002: The table/view 'HRMS_PortalDev1.dbo.CheckInView' does not have a p
           <EntitySet Name="PurchaseRequest" EntityType="Self.PurchaseRequest" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="ReminderLogs" EntityType="Self.ReminderLogs" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Subscription" EntityType="Self.Subscription" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="SubscriptionHistory" EntityType="Self.SubscriptionHistory" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="tblambcholiday" EntityType="Self.tblambcholiday" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="tbld_ambclogininformation" EntityType="Self.tbld_ambclogininformation" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="VendorList" EntityType="Self.VendorList" Schema="dbo" store:Type="Tables" />
@@ -472,6 +489,7 @@ warning 6002: The table/view 'HRMS_PortalDev1.dbo.CheckInView' does not have a p
           <EntitySet Name="VendorTypes" EntityType="HRMS_EntityModel.VendorType" />
           <EntitySet Name="PurchaseRequests" EntityType="HRMS_EntityModel.PurchaseRequest" />
           <EntitySet Name="Subscriptions" EntityType="HRMS_EntityModel.Subscription" />
+          <EntitySet Name="SubscriptionHistories" EntityType="HRMS_EntityModel.SubscriptionHistory" />
         </EntityContainer>
         <EntityType Name="Client">
           <Key>
@@ -812,7 +830,7 @@ warning 6002: The table/view 'HRMS_PortalDev1.dbo.CheckInView' does not have a p
         </EntityType>
         <EntityType Name="Subscription">
           <Key>
-            <PropertyRef Name="UniqueSubscriptionID" />
+            <PropertyRef Name="SubscriptionID" />
           </Key>
           <Property Name="SubscriptionID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="SubscriptionName" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
@@ -827,16 +845,32 @@ warning 6002: The table/view 'HRMS_PortalDev1.dbo.CheckInView' does not have a p
           <Property Name="CreatedBy" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
           <Property Name="CreatedDate" Type="DateTime" Precision="3" />
           <Property Name="License" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
-          <Property Name="UniqueSubscriptionID" Type="Int32" Nullable="false" />
-          <Property Name="NewPurchaseDate" Type="DateTime" Precision="3" />
-          <Property Name="NewRenewalDate" Type="DateTime" Precision="3" />
-          <Property Name="NewAmount" Type="Decimal" Precision="18" Scale="2" />
-          <Property Name="NewPaymentMethod" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
-          <Property Name="NewRemarks" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
-          <Property Name="NewSubscriptionStatus" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
-          <Property Name="NewCreatedBy" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
-          <Property Name="NewCreatedDate" Type="DateTime" Precision="3" />
-          <Property Name="NewLicense" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="SubscriptionFrequency" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="DaysUntilRenewal" Type="Int32" />
+          <Property Name="UpdatedBy" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+          <Property Name="UpadtedDate" Type="DateTime" Precision="3" />
+          <Property Name="SubscriptionStatusClass" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+        </EntityType>
+        <EntityType Name="SubscriptionHistory">
+          <Key>
+            <PropertyRef Name="HistoryID" />
+          </Key>
+          <Property Name="HistoryID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="SubscriptionID" Type="Int32" Nullable="false" />
+          <Property Name="SubscriptionName" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+          <Property Name="SubscriptionLogo" Type="String" MaxLength="1000" FixedLength="false" Unicode="false" />
+          <Property Name="Category" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="PurchaseDate" Type="DateTime" Precision="3" />
+          <Property Name="RenewalDate" Type="DateTime" Precision="3" />
+          <Property Name="Amount" Type="Decimal" Precision="18" Scale="2" />
+          <Property Name="PaymentMethod" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="Remarks" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="SubscriptionStatus" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="CreatedBy" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+          <Property Name="CreatedDate" Type="DateTime" Precision="3" />
+          <Property Name="License" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="UpdatedBy" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+          <Property Name="UpadtedDate" Type="DateTime" Precision="3" />
         </EntityType>
       </Schema>
     </edmx:ConceptualModels>
@@ -1215,16 +1249,11 @@ warning 6002: The table/view 'HRMS_PortalDev1.dbo.CheckInView' does not have a p
           <EntitySetMapping Name="Subscriptions">
             <EntityTypeMapping TypeName="HRMS_EntityModel.Subscription">
               <MappingFragment StoreEntitySet="Subscription">
-                <ScalarProperty Name="NewLicense" ColumnName="NewLicense" />
-                <ScalarProperty Name="NewCreatedDate" ColumnName="NewCreatedDate" />
-                <ScalarProperty Name="NewCreatedBy" ColumnName="NewCreatedBy" />
-                <ScalarProperty Name="NewSubscriptionStatus" ColumnName="NewSubscriptionStatus" />
-                <ScalarProperty Name="NewRemarks" ColumnName="NewRemarks" />
-                <ScalarProperty Name="NewPaymentMethod" ColumnName="NewPaymentMethod" />
-                <ScalarProperty Name="NewAmount" ColumnName="NewAmount" />
-                <ScalarProperty Name="NewRenewalDate" ColumnName="NewRenewalDate" />
-                <ScalarProperty Name="NewPurchaseDate" ColumnName="NewPurchaseDate" />
-                <ScalarProperty Name="UniqueSubscriptionID" ColumnName="UniqueSubscriptionID" />
+                <ScalarProperty Name="SubscriptionStatusClass" ColumnName="SubscriptionStatusClass" />
+                <ScalarProperty Name="UpadtedDate" ColumnName="UpadtedDate" />
+                <ScalarProperty Name="UpdatedBy" ColumnName="UpdatedBy" />
+                <ScalarProperty Name="DaysUntilRenewal" ColumnName="DaysUntilRenewal" />
+                <ScalarProperty Name="SubscriptionFrequency" ColumnName="SubscriptionFrequency" />
                 <ScalarProperty Name="License" ColumnName="License" />
                 <ScalarProperty Name="CreatedDate" ColumnName="CreatedDate" />
                 <ScalarProperty Name="CreatedBy" ColumnName="CreatedBy" />
@@ -1238,6 +1267,28 @@ warning 6002: The table/view 'HRMS_PortalDev1.dbo.CheckInView' does not have a p
                 <ScalarProperty Name="SubscriptionLogo" ColumnName="SubscriptionLogo" />
                 <ScalarProperty Name="SubscriptionName" ColumnName="SubscriptionName" />
                 <ScalarProperty Name="SubscriptionID" ColumnName="SubscriptionID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="SubscriptionHistories">
+            <EntityTypeMapping TypeName="HRMS_EntityModel.SubscriptionHistory">
+              <MappingFragment StoreEntitySet="SubscriptionHistory">
+                <ScalarProperty Name="UpadtedDate" ColumnName="UpadtedDate" />
+                <ScalarProperty Name="UpdatedBy" ColumnName="UpdatedBy" />
+                <ScalarProperty Name="License" ColumnName="License" />
+                <ScalarProperty Name="CreatedDate" ColumnName="CreatedDate" />
+                <ScalarProperty Name="CreatedBy" ColumnName="CreatedBy" />
+                <ScalarProperty Name="SubscriptionStatus" ColumnName="SubscriptionStatus" />
+                <ScalarProperty Name="Remarks" ColumnName="Remarks" />
+                <ScalarProperty Name="PaymentMethod" ColumnName="PaymentMethod" />
+                <ScalarProperty Name="Amount" ColumnName="Amount" />
+                <ScalarProperty Name="RenewalDate" ColumnName="RenewalDate" />
+                <ScalarProperty Name="PurchaseDate" ColumnName="PurchaseDate" />
+                <ScalarProperty Name="Category" ColumnName="Category" />
+                <ScalarProperty Name="SubscriptionLogo" ColumnName="SubscriptionLogo" />
+                <ScalarProperty Name="SubscriptionName" ColumnName="SubscriptionName" />
+                <ScalarProperty Name="SubscriptionID" ColumnName="SubscriptionID" />
+                <ScalarProperty Name="HistoryID" ColumnName="HistoryID" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

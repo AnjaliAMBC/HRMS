@@ -44,5 +44,6 @@ namespace HRMS
         public virtual DbSet<VendorType> VendorTypes { get; set; }
         public virtual DbSet<PurchaseRequest> PurchaseRequests { get; set; }
         public virtual DbSet<Subscription> Subscriptions { get; set; }
+        public virtual DbSet<SubscriptionHistory> SubscriptionHistories { get; set; }
     }
 }

@@ -57,30 +57,39 @@ function generateBalanceSection() {
                 </div>
             </div>`;
 
-            // Replace existing balance section with updated HTML
+            
             $('.balance-section-wrapper').html(balanceSectionHTML);
 
             if ($('#isedirecord').text() == "true") {
                 var editableRecordLeaves = $('#totalLeavesNumber').text();
                 var existingAvailableLeaveBalance = $('.available-balance').text();
+                var bookedLeaves = $('.booked-leaves').text();
 
-                // Convert them to numbers (assuming they are numeric)
+                
                 var totalLeaves = parseFloat(editableRecordLeaves) || 0;
                 var availableLeaveBalance = parseFloat(existingAvailableLeaveBalance) || 0;
-
-                // Combine the two values
-                var combinedTotal = totalLeaves + availableLeaveBalance;
-                $('.available-balance').text(combinedTotal);
-
-
-                var bookedLeaves = $('.booked-leaves').text();
                 var totalBookedLeaves = parseFloat(bookedLeaves) || 0;
+                                
+                var isHourlyPermission = $('#leaveType').val() === 'Hourly Permission';
+                var hourPermission = parseFloat($('#HourPermission').val()) || 0; 
 
-                var combinedBookedLeaves = totalBookedLeaves - totalLeaves;
-                $('.booked-leaves').text(combinedBookedLeaves)
+                if (isHourlyPermission && hourPermission > 0) {                   
+                    var totalLeaveHours = hourPermission;  
+                    
+                    var combinedTotalHours = availableLeaveBalance + totalLeaveHours;
+                    $('.available-balance').text(combinedTotalHours.toFixed(2));  
 
+                    var combinedBookedHours = totalBookedLeaves - totalLeaveHours;
+                    $('.booked-leaves').text(combinedBookedHours.toFixed(2));  
+                } else {
+                    // For regular leaves (in days)
+                    var combinedTotal = totalLeaves + availableLeaveBalance;
+                    $('.available-balance').text(combinedTotal.toFixed(2));  
+
+                    var combinedBookedLeaves = totalBookedLeaves - totalLeaves;
+                    $('.booked-leaves').text(combinedBookedLeaves.toFixed(2)); 
+                }
             }
-
         },
         error: function () {
             alert("Error occurred while fetching available leaves.");
@@ -96,8 +105,6 @@ function generateDayTypeRows(leaverequestname) {
     var dayTypeContainer = $('#dayTypeContainer');
     var totalLeavesContainer = $('#totalLeavesContainer'); // Select the total leaves container
     var empId = $('#leaveempname').val();
-
-
     // Clear previous entries
     dayTypeContainer.empty();
 
@@ -229,9 +236,6 @@ function generateDayTypeRows(leaverequestname) {
         totalLeavesContainer.empty();
     }
 }
-
-
-
 
 
 $(document).on('change', '#fromleaveDate', function (event) {
