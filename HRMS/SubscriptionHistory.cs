@@ -12,8 +12,9 @@ namespace HRMS
     using System;
     using System.Collections.Generic;
     
-    public partial class Subscription
+    public partial class SubscriptionHistory
     {
+        public int HistoryID { get; set; }
         public int SubscriptionID { get; set; }
         public string SubscriptionName { get; set; }
         public string SubscriptionLogo { get; set; }
@@ -27,10 +28,7 @@ namespace HRMS
         public string CreatedBy { get; set; }
         public Nullable<System.DateTime> CreatedDate { get; set; }
         public string License { get; set; }
-        public string SubscriptionFrequency { get; set; }
-        public Nullable<int> DaysUntilRenewal { get; set; }
         public string UpdatedBy { get; set; }
         public Nullable<System.DateTime> UpadtedDate { get; set; }
-        public string SubscriptionStatusClass { get; set; }
     }
 }

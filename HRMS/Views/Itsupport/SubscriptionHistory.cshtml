@@ -1,11 +1,15 @@
-﻿
+﻿@model HRMS.Models.ITsupport.SubscriptionDetailsViewModel
+
 @{
-    ViewBag.Title = "SubscriptionHistory";
+    ViewBag.Title = "Subscription History";
 }
+
 @Html.Partial("_NavBar")
+
 <div class="container-fluid">
     <div class="hiddenadmindashboard" style="display: none"></div>
     @Html.Partial("_adminsidemenu")
+
     <div class="main-content container-fluid subscriptionListing-tab" style="width: 84%">
         <div class="content admin-subscriptionlisting-container">
             <div class="admin-subscription-listing">
@@ -14,9 +18,10 @@
                         <h4 class="header mb-0 text-right">Subscription Listing</h4>
                     </div>
 
+                    <!-- Subscription Details Section -->
                     <div class="subscriptionlisting-header">
-                        <img src="~/Assets/EmpImages/1155.jpeg" />
-                        <div class="subscriptionlisting-title">VONAGE</div>
+                        <img src="@Model.CurrentSubscription.SubscriptionLogo" alt="Subscription Logo" />
+                        <div class="subscriptionlisting-title">@Model.CurrentSubscription.SubscriptionName</div>
                     </div>
 
                     <div class="subscriptionlisting-tab-info">
@@ -33,83 +38,94 @@
                     </div>
 
                     <div class="tab-content" id="subscriptionlisting-TabContent">
+                        <!-- Subscription Details Tab -->
                         <div class="tab-pane fade subscriptionlisting-details show active" id="tab1" role="tabpanel" aria-labelledby="tab1-link">
                             <div class="subscriptionlisting-field-info">
                                 <label>Category</label>
-                                <div class="subscriptioninfo-field-details">IT Support</div>
+                                <div class="subscriptioninfo-field-details">@Model.CurrentSubscription.Category</div>
                             </div>
                             <div class="subscriptionlisting-field-info">
-                                <label>Subscription</label>
-                                <div class="subscriptioninfo-field-details">#0034</div>
+                                <label>Subscription ID</label>
+                                <div class="subscriptioninfo-field-details">@Model.CurrentSubscription.SubscriptionID</div>
                             </div>
                             <div class="subscriptionlisting-field-info">
                                 <label>Purchase Date</label>
-                                <div class="subscriptioninfo-field-details">08-03-2024</div>
+                                <div class="subscriptioninfo-field-details">
+                                    @(Model.CurrentSubscription.PurchaseDate.HasValue ? Model.CurrentSubscription.PurchaseDate.Value.ToString("dd-MM-yyyy") : "N/A")
+                                </div>
                             </div>
                             <div class="subscriptionlisting-field-info">
                                 <label>License</label>
-                                <div class="subscriptioninfo-field-details">4</div>
+                                <div class="subscriptioninfo-field-details">@Model.CurrentSubscription.License</div>
                             </div>
                             <div class="subscriptionlisting-field-info">
                                 <label>Last Renewal Date</label>
-                                <div class="subscriptioninfo-field-details">08-03-2024</div>
+                                <div class="subscriptioninfo-field-details">
+                                    @(Model.CurrentSubscription.RenewalDate.HasValue ? Model.CurrentSubscription.RenewalDate.Value.ToString("dd-MM-yyyy") : "N/A")
+                                </div>
                             </div>
                             <div class="subscriptionlisting-field-info">
                                 <label>Upcoming Renewal Date</label>
-                                <div class="subscriptioninfo-field-details">08-09-2024</div>
+                                <div class="subscriptioninfo-field-details">
+                                    @(Model.CurrentSubscription.RenewalDate.HasValue ? Model.CurrentSubscription.RenewalDate.Value.ToString("dd-MM-yyyy") : "N/A")
+                                </div>
                             </div>
                             <div class="subscriptionlisting-field-info">
                                 <label>Added By</label>
-                                <div class="subscriptioninfo-field-details">Test User</div>
+                                <div class="subscriptioninfo-field-details">@Model.CurrentSubscription.CreatedBy</div>
                             </div>
                             <div class="subscriptionlisting-field-info">
                                 <label>Added Date</label>
-                                <div class="subscriptioninfo-field-details">09-09-2024</div>
+                                <div class="subscriptioninfo-field-details">
+                                    @(Model.CurrentSubscription.CreatedDate.HasValue
+        ? Model.CurrentSubscription.CreatedDate.Value.ToString("dd-MM-yyyy")
+        : "N/A")
+                                </div>
+
                             </div>
                         </div>
+
+                        <!-- Subscription History Tab -->
                         <div class="tab-pane fade subscriptionlisting-history" id="tab2" role="tabpanel" aria-labelledby="tab2-link">
-                            <div class="subscriptionlisting-field-info">
-                                <label>Category</label>
-                                <div class="subscriptioninfo-field-details">IT Support New</div>
-                            </div>
-                            <div class="subscriptionlisting-field-info">
-                                <label>Subscription</label>
-                                <div class="subscriptioninfo-field-details">#0124</div>
-                            </div>
-                            <div class="subscriptionlisting-field-info">
-                                <label>Purchase Date</label>
-                                <div class="subscriptioninfo-field-details">18-01-2024</div>
-                            </div>
-                            <div class="subscriptionlisting-field-info">
-                                <label>License</label>
-                                <div class="subscriptioninfo-field-details">1</div>
-                            </div>
-                            <div class="subscriptionlisting-field-info">
-                                <label>Last Renewal Date</label>
-                                <div class="subscriptioninfo-field-details">12-04-2024</div>
-                            </div>
-                            <div class="subscriptionlisting-field-info">
-                                <label>Upcoming Renewal Date</label>
-                                <div class="subscriptioninfo-field-details">09-07-2024</div>
-                            </div>
-                            <div class="subscriptionlisting-field-info">
-                                <label>Added By</label>
-                                <div class="subscriptioninfo-field-details">Test User New</div>
-                            </div>
-                            <div class="subscriptionlisting-field-info">
-                                <label>Added Date</label>
-                                <div class="subscriptioninfo-field-details">10-09-2024</div>
-                            </div>
+                            @foreach (var history in Model.History)
+                            {
+                                <div class="subscriptionlisting-field-info">
+                                    <label>Category</label>
+                                    <div class="subscriptioninfo-field-details">@history.Category</div>
+                                </div>
+                                <div class="subscriptionlisting-field-info">
+                                    <label>Subscription</label>
+                                    <div class="subscriptioninfo-field-details">@history.SubscriptionID</div>
+                                </div>
+                                <div class="subscriptionlisting-field-info">
+                                    <label>Purchase Date</label>
+                                    <div class="subscriptioninfo-field-details">@history.PurchaseDate?.ToString("dd-MM-yyyy")</div>
+                                </div>
+                                <div class="subscriptionlisting-field-info">
+                                    <label>License</label>
+                                    <div class="subscriptioninfo-field-details">@history.License</div>
+                                </div>
+                                <div class="subscriptionlisting-field-info">
+                                    <label>Last Renewal Date</label>
+                                    <div class="subscriptioninfo-field-details">@history.RenewalDate?.ToString("dd-MM-yyyy")</div>
+                                </div>
+                                <div class="subscriptionlisting-field-info">
+                                    <label>Amount</label>
+                                    <div class="subscriptioninfo-field-details">@history.Amount</div>
+                                </div>
+                                <div class="subscriptionlisting-field-info">
+                                    <label>Added By</label>
+                                    <div class="subscriptioninfo-field-details">@history.CreatedBy</div>
+                                </div>
+                                <div class="subscriptionlisting-field-info">
+                                    <label>Added Date</label>
+                                    <div class="subscriptioninfo-field-details">@history.CreatedDate?.ToString("dd-MM-yyyy")</div>
+                                </div>
+                            }
                         </div>
                     </div>
-
-
-
                 </div>
             </div>
         </div>
     </div>
 </div>
-
-
-
