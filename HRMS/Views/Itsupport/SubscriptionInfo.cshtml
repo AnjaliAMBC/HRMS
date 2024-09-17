@@ -99,7 +99,7 @@
                                             <div class="subscriptioninfo-edit-menu">
                                                 <i class="fas fa-ellipsis-v subscriptioninfo-edit" onclick="toggleSubscriptioninfoActionOptions(this)"></i>
                                                 <div class="subscriptioninfooptions" style="display:none">
-                                                    <a class="dropdown-item subscriptioninfo-edit" onclick="redirectToEditSubscription(@subscriptions.SubscriptionID)">
+                                                    <a class="dropdown-item subscriptioninfo-edit" data-subid="@subscriptions.SubscriptionID">
                                                         <i class="fas fa-pencil-alt subscriptioninfo-edit-icon"></i><span>Edit</span>
                                                     </a>
                                                     <a class="dropdown-item subscriptioninfo-delete" onclick="subscriptioninfodelete()" data-toggle="modal" data-target="#deleteConfirmationsubscription"><i class="fas fa-trash-alt subscriptioninfo-delete-icon"></i><span>Delete</span></a>
@@ -329,10 +329,18 @@
 
     function toggleSubscriptioninfoActionOptions(iconElement) {
         const optionsMenu = $(iconElement).next('.subscriptioninfooptions');
-        $('.subscriptioninfooptions').not(optionsMenu).hide(); // Hide any other open menus
-        optionsMenu.toggle(); // Toggle visibility of the clicked menu
+        $('.subscriptioninfooptions').not(optionsMenu).hide();
+        optionsMenu.toggle(); 
     }
+    //function redirectToEditSubscription(subscriptionID) {
+    //    window.location.href = '/Subscription/AddSubscription?subscriptionID=' + subscriptionID;
+    //}
 
-
+    $(document).on('click', '.subscriptioninfo-edit', function () {
+        var subscriptionID = $(this).attr("data-subid");
+        if (subscriptionID) {
+            window.location.href = '/Subscription/AddSubscription?subid=' + subscriptionID;
+        }
+    });
 
 </script>

@@ -62,6 +62,7 @@ function validateAndSubmitForm() {
         formData.append("SubscriptionRemarks", $('#SubscriptionRemarks').val());
         formData.append("SubscriptionAddedBy", $('#SubscriptionAddedBy').val());
         formData.append("SubscriptionAddeddate", $('#SubscriptionAddeddate').val());
+        formData.append("EditRecordID", $('#SubscriptionID').val());
 
         $.ajax({
             url: '/Subscription/AddUpdateSubscription', // Ensure proper casing for URL         
@@ -108,9 +109,7 @@ function clearForm() {
 }
 //edit logic
 
-function redirectToEditSubscription(subscriptionID) {
-    window.location.href = '/Subscription/AddSubscription?subscriptionID=' + subscriptionID;
-}
+
 //export functionality 
 
 function exportSubscriptioninfo() {
