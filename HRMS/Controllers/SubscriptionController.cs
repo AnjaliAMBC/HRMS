@@ -21,25 +21,25 @@ namespace HRMS.Controllers
             _dbContext = new HRMS_EntityFramework();
         }
 
-        public ActionResult AddSubscription(int? id)
+        public ActionResult AddSubscription(int? subid)
         {
             var model = new SubscriptionViewModel();
 
             model.ITDeptEmployees = _dbContext.emp_info.Where(x => x.Department == "IT").ToList();
 
-            if (id.HasValue)
+            if (subid.HasValue)
             {
-                var subscription = _dbContext.Subscriptions.Find(id.Value);
-                if (subscription != null)
+                model.Editsubscription = _dbContext.Subscriptions
+                                                   .FirstOrDefault(x => x.SubscriptionID == subid.Value);
+
+                if (model.Editsubscription == null)
                 {
-                    model.Editsubscription = _dbContext.Subscriptions
-                                                      .FirstOrDefault(x => x.SubscriptionID == id); ;
-                }
-                else
-                {
-                    // Handle case where subscription is not found
                     return HttpNotFound();
                 }
+            }
+            else
+            {
+                model.Editsubscription = new Subscription();
             }
 
             return View("~/Views/Itsupport/AddSubscription.cshtml", model);
@@ -49,7 +49,6 @@ namespace HRMS.Controllers
         {
             try
             {
-                var id = Request.Form["SubscriptionID"];
                 var subscriptionName = Request.Form["SubscriptionName"];
                 HttpPostedFileBase file = Request.Files["SubscriptionLogo"];
                 var category = Request.Form["SubscriptionCategory"];
@@ -61,6 +60,7 @@ namespace HRMS.Controllers
                 var remarks = Request.Form["SubscriptionRemarks"];
                 var createdBy = Request.Form["SubscriptionAddedBy"];
                 var createdDate = Convert.ToDateTime(Request.Form["SubscriptionAddeddate"]);
+                var subscriptionID = !string.IsNullOrWhiteSpace(Request.Form["EditRecordID"]) ? System.Convert.ToInt32(Request.Form["EditRecordID"]) : 0;
 
                 // Handle file upload
                 string logoFilePath = null;
@@ -81,8 +81,8 @@ namespace HRMS.Controllers
                 }
 
                 Subscription subscription;
-                if (string.IsNullOrEmpty(id) || !int.TryParse(id, out int subscriptionId))
-                {                    
+                if (subscriptionID == 0)
+                {
                     subscription = new Subscription
                     {
                         SubscriptionName = subscriptionName,
@@ -102,38 +102,28 @@ namespace HRMS.Controllers
                 }
                 else
                 {
-                    // Update existing subscription
-                    subscription = _dbContext.Subscriptions.Find(subscriptionId);
-
+                    subscription = _dbContext.Subscriptions.FirstOrDefault(x => x.SubscriptionID == subscriptionID);
                     if (subscription == null)
                     {
                         return Json(new { success = false, message = "Subscription not found." });
                     }
+                    var subscriptionHistory = new SubscriptionHistory
+                    {
+                        SubscriptionID = subscription.SubscriptionID,
+                        SubscriptionName = subscription.SubscriptionName,
+                        SubscriptionLogo = subscription.SubscriptionLogo,
+                        Category = subscription.Category,
+                        PurchaseDate = subscription.PurchaseDate,
+                        RenewalDate = subscription.RenewalDate,
+                        License = subscription.License,
+                        Amount = subscription.Amount,
+                        PaymentMethod = subscription.PaymentMethod,
+                        Remarks = subscription.Remarks,
+                        CreatedBy = subscription.CreatedBy,
+                        CreatedDate = subscription.CreatedDate,
+                    };
 
-                    if (subscription.RenewalDate != renewalDate)
-                    {                        
-                        var subscriptionHistory = new SubscriptionHistory
-                        {
-                            SubscriptionID = subscription.SubscriptionID,
-                            SubscriptionName = subscription.SubscriptionName,
-                            SubscriptionLogo = subscription.SubscriptionLogo,
-                            Category = subscription.Category,
-                            PurchaseDate = subscription.PurchaseDate,
-                            RenewalDate = subscription.RenewalDate,
-                            License = subscription.License,
-                            Amount = subscription.Amount,
-                            PaymentMethod = subscription.PaymentMethod,
-                            Remarks = subscription.Remarks,
-                            CreatedBy = subscription.CreatedBy,
-                            CreatedDate = subscription.CreatedDate,                           
-                        };
-
-                        _dbContext.SubscriptionHistories.Add(subscriptionHistory);
-                    }
-
-                    subscription.SubscriptionName = subscriptionName;
-                    subscription.SubscriptionLogo = logoFilePath;
-                    subscription.Category = category;
+                    _dbContext.SubscriptionHistories.Add(subscriptionHistory);
                     subscription.PurchaseDate = purchaseDate;
                     subscription.RenewalDate = renewalDate;
                     subscription.License = license;
@@ -142,7 +132,6 @@ namespace HRMS.Controllers
                     subscription.Remarks = remarks;
                     subscription.CreatedBy = createdBy;
                     subscription.CreatedDate = createdDate;
-
                     _dbContext.Entry(subscription).State = EntityState.Modified;
                 }
 
@@ -161,7 +150,6 @@ namespace HRMS.Controllers
         }
 
 
-        
         [HttpPost]
         public JsonResult DeleteSubscription(int id)
         {

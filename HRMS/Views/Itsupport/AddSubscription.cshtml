@@ -118,7 +118,7 @@
                                     <div class="form-group subscriptionadd-tabs">
                                         <label for="SubscriptionPaymentMethod">Payment Method</label>
                                         <select name="SubscriptionPaymentMethod" class="form-control form-select" id="SubscriptionPaymentMethod">
-                                            <option value="" disabled hidden>Select Payment Method</option>
+                                            <option value="" disabled selected hidden>Select Payment Method</option>
                                             <option value="Credit Card" @(Model.Editsubscription.PaymentMethod == "Credit Card" ? "selected" : "")>Credit Card</option>
                                             <option value="Debit Card" @(Model.Editsubscription.PaymentMethod == "Debit Card" ? "selected" : "")>Debit Card</option>
                                             <option value="Upi Payment" @(Model.Editsubscription.PaymentMethod == "Upi Payment" ? "selected" : "")>Upi Payment</option>
