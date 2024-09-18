@@ -314,20 +314,44 @@ function AdminViewHistoryTable(fromDate, toDate) {
             var tableBody = '';
             var responseJson = $.parseJSON(response);
             $.each(responseJson.AllEMployeeLeaves, function (index, leaveInfo) {
-                var empImagePath = "/Assets/EmpImages/" + leaveInfo.LatestLeave.employee_id + ".jpeg" + "?" + new Date().getTime();
+                var empImagePath = "/Assets/EmpImages/" + leaveInfo.LatestLeave.employee_id + ".jpeg";
+                var empImageUrl = empImagePath + "?" + new Date().getTime();
+                var employeeName = leaveInfo.LatestLeave.employee_name || '';
                 var createdDate = leaveInfo.LatestLeave.createddate ? new Date(leaveInfo.LatestLeave.createddate).toLocaleDateString('en-GB', { day: 'numeric', month: 'long', year: 'numeric' }) : "No Date Available";
                 var createdDay = leaveInfo.LatestLeave.createddate ? new Date(leaveInfo.LatestLeave.createddate).toLocaleDateString('en-GB', { weekday: 'long' }) : "No Date Available";
                 var fromDate = leaveInfo.LatestLeave.Fromdate ? new Date(leaveInfo.LatestLeave.Fromdate).toLocaleDateString('en-GB', { day: 'numeric', month: 'long', year: 'numeric' }) : "No Date Available";
                 var fromDay = leaveInfo.LatestLeave.Fromdate ? new Date(leaveInfo.LatestLeave.Fromdate).toLocaleDateString('en-GB', { weekday: 'long' }) : "No Date Available";
                 var toDate = leaveInfo.LatestLeave.Todate ? new Date(leaveInfo.LatestLeave.Todate).toLocaleDateString('en-GB', { day: 'numeric', month: 'long', year: 'numeric' }) : "No Date Available";
                 var toDay = leaveInfo.LatestLeave.Todate ? new Date(leaveInfo.LatestLeave.Todate).toLocaleDateString('en-GB', { weekday: 'long' }) : "No Date Available";
+                
+                    var status = leaveInfo.LatestLeave.LeaveStatus.toLowerCase();
+                    var statusImageMap = {
+                        pending: '/Assets/Pending.png',
+                        rejected: '/Assets/Reject.png',
+                        approved: '/Assets/Approve.png',
+                        cancelled: '/Assets/Cancelled.png'
+                    };
+                    var statusImagePath = statusImageMap[status] || '/Assets/Pending.png';
+
+                    var initials = '';
+                        if (employeeName) {
+                            var names = employeeName.split(' ');
+                            var firstName = names[0] || '';
+                            var lastName = names.length > 1 ? names[names.length - 1] : '';
+                            initials = firstName.charAt(0).toUpperCase();
+                            if (lastName) {
+                                initials += lastName.charAt(0).toUpperCase();
+                            }
+                        }
 
                 tableBody += `<tr>
                     <td><input type="checkbox"></td>
                     <td>${leaveInfo.LatestLeave.employee_id}</td>
-                    <td>
+                    <td><img src="${statusImagePath}" alt="Leave Status" class="leaveStatusImage"></td>
+                     <td>
                         <div style="display: flex; align-items: center;">
-                            <img class="userIcon" src="${empImagePath}">
+                            <img class="userIcon" src="${empImageUrl}" alt="Employee Image" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';" />
+                            <div class="default-image-navbar" style="display:none;">${initials}</div>
                             <span style="margin-top: 0px; margin-right: 10px;">
                                 ${leaveInfo.LatestLeave.employee_name}<br>
                                 <span style="color: #3E78CF;">${leaveInfo.LatestLeave.OfficalEmailid}</span>

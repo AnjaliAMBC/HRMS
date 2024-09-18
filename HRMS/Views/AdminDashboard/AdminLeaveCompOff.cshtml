@@ -1,6 +1,4 @@
 ﻿@model HRMS.Models.CompOffModel
-
-
 @Html.Partial("_NavBar")
 <div class="container-fluid res-admin-leave">
     <div class="hiddenadmindashboard" style="display: none"></div>
@@ -100,83 +98,114 @@
 
                                 @foreach (var compoff in Model.CompOffs)
                                 {
-                                    <tr class="rowBorder">
-                                        <td class="fontSmall">@compoff.EmployeeID</td>
-                                        @{
-                                            var empImagePath = "/Assets/EmpImages/" + @compoff.EmployeeID + ".jpeg" + "?" + System.DateTime.Now;
-                                        }
-                                        <td><div style="display: flex; align-items: center;"><img class="userIcon" src="@empImagePath"><span style="margin-top: 0px; margin-right: 10px;">@compoff.EmployeeName<br><span style="color: #3E78CF;">@compoff.OfficalEmailid</span></span></div></td>
-                                        <td class="fontSmall dataMinWidth dateMaxWidth">
-                                            <span class="mutedText">Requested Date</span>
-                                            <p class="mb-0 fontWtMedium">
-                                                @(compoff.createddate.HasValue
+                                <tr class="rowBorder">
+                                    <td class="fontSmall">@compoff.EmployeeID</td>
+                                    @{
+                                        var empImagePath = "/Assets/EmpImages/" + compoff.EmployeeID + ".jpeg";
+                                        var empImageUrl = Url.Content(empImagePath) + "?" + DateTime.Now.Ticks;
+                                    }
+                                    
+                                    <td>
+                                        <div style="display: flex; align-items: center;">
+                                            @if (System.IO.File.Exists(Server.MapPath(empImagePath)))
+                                            {
+                                                <img class="userIcon" src="@empImageUrl" alt="Employee Image" />
+                                            }
+                                            else
+                                            {
+                                                // Check if employee name is not null or empty
+                                                if (!string.IsNullOrEmpty(compoff.EmployeeName))
+                                                {
+                                                    string[] names = compoff.EmployeeName.Split(new char[] { ' ' }, StringSplitOptions.RemoveEmptyEntries);
+                                                    if (names.Length > 0)
+                                                    {
+                                                        string firstName = names[0];
+                                                        string lastName = names.Length > 1 ? names[names.Length - 1] : string.Empty;
+                                                        char firstLetterOfFirstName = char.ToUpper(firstName[0]);
+                                                        char firstLetterOfLastName = !string.IsNullOrEmpty(lastName) ? char.ToUpper(lastName[0]) : '\0';
+                                                        <div class="default-image-navbar">
+                                                            @firstLetterOfFirstName @firstLetterOfLastName
+                                                        </div>
+                                                    }
+                                                }
+                                            }
+                                            <span style="margin-top: 0px; margin-right: 10px;">
+                                                @compoff.EmployeeName<br>
+                                                <span style="color: #3E78CF;">@compoff.OfficalEmailid</span>
+                                            </span>
+                                        </div>
+                                    </td>
+                                    <td class="fontSmall dataMinWidth dateMaxWidth">
+                                        <span class="mutedText">Requested Date</span>
+                                        <p class="mb-0 fontWtMedium">
+                                            @(compoff.createddate.HasValue
             ? compoff.createddate.Value.ToString("dd MMMM yyyy")
             : "No Date Available"),     @(compoff.createddate.HasValue
             ? compoff.createddate.Value.ToString("ddd")
             : "No Date Available")
+                                        </p>
+
+                                    </td>
+                                    <td class="fontSmall">
+                                        <div class="mutedText">Work Date</div>
+                                        <span class="fontWtMedium">@compoff.CampOffDate.ToString("dd MMMM yyyy"), @compoff.CampOffDate.ToString("ddd")</span>
+                                    </td>
+                                    <td class="fontSmall">
+                                        <div class="mutedText">Location</div>
+                                        <span class="fontWtbold">@compoff.Location</span>
+                                    </td>
+                                    <td style="width:320px;" class="admin-leavecompoff-reasons fontSmall commentSec">
+                                        <div class="dFlex">
+                                            <i class="fa-solid fa-message chatIcon"></i>
+                                            <p title="@compoff.Reason">
+                                                @compoff.Reason
                                             </p>
-
-                                        </td>
-                                        <td class="fontSmall">
-                                            <div class="mutedText">Work Date</div>
-                                            <span class="fontWtMedium">@compoff.CampOffDate.ToString("dd MMMM yyyy"), @compoff.CampOffDate.ToString("ddd")</span>
-                                        </td>
-                                        <td class="fontSmall">
-                                            <div class="mutedText">Location</div>
-                                            <span class="fontWtbold">@compoff.Location</span>
-                                        </td>
-                                        <td style="width:320px;" class="admin-leavecompoff-reasons fontSmall commentSec">
-                                            <div class="dFlex">
-                                                <i class="fa-solid fa-message chatIcon"></i>
-                                                <p title="@compoff.Reason">
-                                                    @compoff.Reason
-                                                </p>
-                                            </div>
-                                            <div class="statusBtnFlex">
-                                                @if (@compoff.addStatus != "Approved" && compoff.addStatus != "Rejected")
+                                        </div>
+                                        <div class="statusBtnFlex">
+                                            @if (@compoff.addStatus != "Approved" && compoff.addStatus != "Rejected")
+                                            {
+                                                <a href="" class="statusBtn acceptLeavecompoffBtn" data-leavename="Approve" data-compoffnum="@compoff.Compoff_no">Approve</a>
+                                                <a href="" class="statusBtn rejectLeavecompoffBtn" data-leavename="Reject" data-compoffnum="@compoff.Compoff_no">Reject</a>
+                                                <div id="statusLabel" class="statusLabel" style="display: none"><span style="color: #212529; margin-right: 5px;" class="statuschangedbyname"></span>@compoff.addStatus</div>
+                                            }
+                                            else
+                                            {
+                                                var statuscolorcode = "#3E78CF";
+                                                var currentStatusUpdatedby = "";
+                                                if (@compoff.addStatus == "Rejected")
                                                 {
-                                                    <a href="" class="statusBtn acceptLeavecompoffBtn" data-leavename="Approve" data-compoffnum="@compoff.Compoff_no">Approve</a>
-                                                    <a href="" class="statusBtn rejectLeavecompoffBtn" data-leavename="Reject" data-compoffnum="@compoff.Compoff_no">Reject</a>
-                                                    <div id="statusLabel" class="statusLabel" style="display: none"><span style="color: #212529; margin-right: 5px;" class="statuschangedbyname"></span>@compoff.addStatus</div>
+                                                    currentStatusUpdatedby = @compoff.rejectedbyname;
+                                                    statuscolorcode = "red";
                                                 }
-                                                else
+
+                                                if (@compoff.addStatus == "Approved")
                                                 {
-                                                    var statuscolorcode = "#3E78CF";
-                                                    var currentStatusUpdatedby = "";
-                                                    if (@compoff.addStatus == "Rejected")
+                                                    currentStatusUpdatedby = @compoff.approvedbyname;
+                                                }
+
+                                                <div id="statusLabel" class="statusLabel" style="color: @statuscolorcode "><span style="color: #212529; margin-right: 5px;" class="statuschangedbyname">@currentStatusUpdatedby</span>@compoff.addStatus</div>
+
+                                            }
+
+                                            @if (@compoff.addStatus == "Approved" || compoff.addStatus == "Rejected")
+                                            {
+
+                                                <i class="fas fa-ellipsis-h adminleave-edit-history" onclick="toggleAdminLeaveHistoryActionOptions(this)"></i>
+                                                <div class="admin-leavehistoryoptions" style="display:none">
+                                                    @if (compoff.addStatus == "Approved")
                                                     {
-                                                        currentStatusUpdatedby = @compoff.rejectedbyname;
-                                                        statuscolorcode = "red";
+                                                        <a href="" class="dropdown-item rejectLeavecompoffBtn" data-leavename="Rejected" data-compoffnum="@compoff.Compoff_no">Change Status</a>
                                                     }
-
-                                                    if (@compoff.addStatus == "Approved")
+                                                    else
                                                     {
-                                                        currentStatusUpdatedby = @compoff.approvedbyname;
+                                                        <a href="" class="dropdown-item acceptLeavecompoffBtn" data-leavename="Approved" data-compoffnum="@compoff.Compoff_no">Change Status</a>
                                                     }
+                                                </div>
+                                            }
 
-                                                    <div id="statusLabel" class="statusLabel" style="color: @statuscolorcode "><span style="color: #212529; margin-right: 5px;" class="statuschangedbyname">@currentStatusUpdatedby</span>@compoff.addStatus</div>
-
-                                                }
-                                               
-                                                @if (@compoff.addStatus == "Approved" || compoff.addStatus == "Rejected")
-                                                {
-
-                                                    <i class="fas fa-ellipsis-h adminleave-edit-history" onclick="toggleAdminLeaveHistoryActionOptions(this)"></i>
-                                                    <div class="admin-leavehistoryoptions" style="display:none">
-                                                        @if (compoff.addStatus == "Approved")
-                                                        {
-                                                            <a href="" class="dropdown-item rejectLeavecompoffBtn" data-leavename="Rejected" data-compoffnum="@compoff.Compoff_no">Change Status</a>
-                                                        }
-                                                        else
-                                                        {
-                                                            <a href="" class="dropdown-item acceptLeavecompoffBtn" data-leavename="Approved" data-compoffnum="@compoff.Compoff_no">Change Status</a>
-                                                        }
-                                                    </div>
-                                                }
-
-                                            </div>
-                                        </td>
-                                    </tr>
+                                        </div>
+                                    </td>
+                                </tr>
                                 }
 
                             </tbody>

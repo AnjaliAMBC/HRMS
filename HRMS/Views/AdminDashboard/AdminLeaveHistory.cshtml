@@ -182,6 +182,7 @@
                             <tr>
                                 <th style="width:10px;"><input type="checkbox" id="selectAllrows"></th>
                                 <th style="width:55px;">Emp ID</th>
+                                <th style="width:55px;">Status</th>
                                 <th style="width:270px;">Employee Name</th>
                                 <th style="width:100px;">Leave Type</th>
                                 <th style="width: 145px;">Applied Date</th>
@@ -189,7 +190,7 @@
                                 <th style="width:145px;">To Date</th>
                                 <th style="width:100px;">Days/Hours</th>
                                 <th style="width:100px;">Location</th>
-                                <th  class="res-admin-leave-history-reason-head" style="width: 100px;">Reason</th>
+                                <th class="res-admin-leave-history-reason-head" style="width: 100px;">Reason</th>
                                 <th style="display: none">Status</th>
                                 <th style="display: none">Submitted By</th>
                                 <th style="display: none">Submitted Date</th>
@@ -200,6 +201,7 @@
                                         <span class="menu-icon dropdown-th" id="dropdownMenu"><i class="fa-solid fa-list"></i></span>
                                         <div class="action-menu" id="dropdownMenuContent" style="display: none; background-color:white; border-radius:5px;">
                                             <a href="#" class="empid"><input type="checkbox"> Emp ID</a>
+                                            <a href="#" class="status"><input type="checkbox">Status</a>
                                             <a href="#" class="name"><input type="checkbox"> Name</a>
                                             <a href="#" class="LeaveType"><input type="checkbox"> Leave Type</a>
                                             <a href="#" class="FromDate"><input type="checkbox"> From Date</a>
@@ -216,72 +218,118 @@
 
                             @foreach (var leaveInfo in Model.AllEMployeeLeaves)
                             {
-                                <tr>
-                                    <td><input type="checkbox"></td>
-                                    <td>@leaveInfo.LatestLeave.employee_id</td>
-                                    @{
-                                        var empImagePath = "/Assets/EmpImages/" + leaveInfo.LatestLeave.employee_id + ".jpeg" + "?" + System.DateTime.Now;
-                                    }
-                                    <td>
-                                        <div style="display: flex; align-items: center;">
-                                            <img class="userIcon" src="@empImagePath">
-                                            <span style="margin-top: 0px; margin-right: 10px;">
-                                                @leaveInfo.LatestLeave.employee_name<br>
-                                                <span style="color: #3E78CF;">@leaveInfo.LatestLeave.OfficalEmailid</span>
-                                            </span>
-                                        </div>
-                                    </td>
-                                    <td>@leaveInfo.LatestLeave.leavesource</td>
-                                    <td class="res-admin-leave-applieddate">
-                                        <div class="res-leave-his-date">
-                                            @(leaveInfo.LatestLeave.createddate.HasValue
+                            <tr>
+                                <td><input type="checkbox"></td>
+                                <td>@leaveInfo.LatestLeave.employee_id</td>
+                                <td>
+                                    @{ 
+                                        string imagePath = "/Assets/Pending.png";
+                                        string status = leaveInfo.LatestLeave.LeaveStatus.ToLower();
+
+
+                                        switch (status)
+                                        {
+                                            case "pending":
+                                                imagePath = "/Assets/Pending.png";
+                                                break;
+                                            case "rejected":
+                                                imagePath = "/Assets/Reject.png";
+                                                break;
+                                            case "approved":
+                                                imagePath = "/Assets/Approve.png";
+                                                break;
+                                            case "cancelled":
+                                                imagePath = "/Assets/Cancelled.png";
+                                                break;
+                                        }
+                                        }
+                                    <img src="@imagePath" alt="status" class="leavehistory_status" style="width:30px;height:30px;"/>
+                                    
+                                </td>
+                                @{ 
+                                    var empImagePath = "/Assets/EmpImages/" + leaveInfo.LatestLeave.employee_id + ".jpeg";
+                                    var empImageUrl = Url.Content(empImagePath) + "?" + DateTime.Now.Ticks;
+                                 }
+                                <td>
+                                    <div style="display: flex; align-items: center;">
+                                        @if (System.IO.File.Exists(Server.MapPath(empImagePath)))
+                                        {
+                                            <img class="userIcon" src="@empImageUrl" alt="Employee Image" />
+                                        }
+                                        else
+                                        {
+                                            if (!string.IsNullOrEmpty(leaveInfo.LatestLeave.employee_name))
+                                            {
+                                                string[] names = leaveInfo.LatestLeave.employee_name.Split(new char[] { ' ' }, StringSplitOptions.RemoveEmptyEntries);
+                                                if (names.Length > 0)
+                                                {
+                                                    string firstName = names[0];
+                                                    string lastName = names.Length > 1 ? names[names.Length - 1] : string.Empty;
+                                                    char firstLetterOfFirstName = char.ToUpper(firstName[0]);
+                                                    char firstLetterOfLastName = !string.IsNullOrEmpty(lastName) ? char.ToUpper(lastName[0]) : '\0';
+                                                    <div class="default-image-navbar">
+                                                        @firstLetterOfFirstName @firstLetterOfLastName
+                                                    </div>
+                                                }
+                                            }
+                                        }
+                                        <span style="margin-top: 0px; margin-right: 10px;">
+                                            @leaveInfo.LatestLeave.employee_name<br>
+                                            <span style="color: #3E78CF;">@leaveInfo.LatestLeave.OfficalEmailid</span>
+                                        </span>
+                                    </div>
+                                </td>
+                                <td>@leaveInfo.LatestLeave.leavesource</td>
+                                <td class="res-admin-leave-applieddate">
+                                    <div class="res-leave-his-date">
+                                        @(leaveInfo.LatestLeave.createddate.HasValue
                     ? leaveInfo.LatestLeave.createddate.Value.ToString("dd MMMM yyyy")
                     : "No Date Available")
-                                        </div>
-                                        <div class="res-leave-his-day mutedText">
-                                            @(leaveInfo.LatestLeave.createddate.HasValue
+                                    </div>
+                                    <div class="res-leave-his-day mutedText">
+                                        @(leaveInfo.LatestLeave.createddate.HasValue
                     ? leaveInfo.LatestLeave.createddate.Value.ToString("dddd")
                     : "No Date Available")
-                                        </div>
-                                    </td>
-                                    <td class="res-admin-leave-from">
-                                        <div class="res-leave-his-date">
-                                            @(leaveInfo.LatestLeave.Fromdate.HasValue
+                                    </div>
+                                </td>
+                                <td class="res-admin-leave-from">
+                                    <div class="res-leave-his-date">
+                                        @(leaveInfo.LatestLeave.Fromdate.HasValue
                     ? leaveInfo.LatestLeave.Fromdate.Value.ToString("dd MMMM yyyy")
                     : "No Date Available")
-                                        </div>
-                                        <div class="res-leave-his-day mutedText">
-                                            @(leaveInfo.LatestLeave.Fromdate.HasValue
+                                    </div>
+                                    <div class="res-leave-his-day mutedText">
+                                        @(leaveInfo.LatestLeave.Fromdate.HasValue
                     ? leaveInfo.LatestLeave.Fromdate.Value.ToString("dddd")
                     : "No Date Available")
-                                        </div>
-                                    </td>
-                                    <td class="res-admin-leave-to">
-                                        <div class="res-leave-his-date">
-                                            @(leaveInfo.LatestLeave.leavesource == "Hourly Permission" && leaveInfo.LatestLeave.Fromdate.HasValue
+                                    </div>
+                                </td>
+                                <td class="res-admin-leave-to">
+                                    <div class="res-leave-his-date">
+                                        @(leaveInfo.LatestLeave.leavesource == "Hourly Permission" && leaveInfo.LatestLeave.Fromdate.HasValue
                     ? leaveInfo.LatestLeave.Fromdate.Value.ToString("dd MMMM yyyy")
                     : leaveInfo.LatestLeave.Todate.HasValue
                         ? leaveInfo.LatestLeave.Todate.Value.ToString("dd MMMM yyyy")
                         : "No Date Available")
-                                        </div>
-                                        <div class="res-leave-his-day mutedText">
-                                            @(leaveInfo.LatestLeave.leavesource == "Hourly Permission" && leaveInfo.LatestLeave.Fromdate.HasValue
+                                    </div>
+                                    <div class="res-leave-his-day mutedText">
+                                        @(leaveInfo.LatestLeave.leavesource == "Hourly Permission" && leaveInfo.LatestLeave.Fromdate.HasValue
                     ? leaveInfo.LatestLeave.Fromdate.Value.ToString("dddd")
                     : leaveInfo.LatestLeave.Todate.HasValue
                         ? leaveInfo.LatestLeave.Todate.Value.ToString("dddd")
                         : "No Date Available")
-                                        </div>
-                                    </td>
-                                    <td>@leaveInfo.TotalLeaveDays</td>
-                                    <td>@leaveInfo.LatestLeave.Location</td>
-                                    <td class="admin-leavehistory-reasons"><span title="@leaveInfo.LatestLeave.leave_reason">@leaveInfo.LatestLeave.leave_reason</span></td>
-                                    <td style="display: none">@leaveInfo.LatestLeave.LeaveStatus</td>
-                                    <td style="display: none">@leaveInfo.LatestLeave.createdby</td>
-                                    <td style="display: none">@(leaveInfo.LatestLeave.createddate.HasValue ? leaveInfo.LatestLeave.createddate.Value.ToString("dd MMMM yyyy") : "No Date Available")</td>
-                                    <td style="display: none">@leaveInfo.LatestLeave.updatedby</td>
-                                    <td style="display: none">@(leaveInfo.LatestLeave.updateddate.HasValue ? leaveInfo.LatestLeave.updateddate.Value.ToString("dd MMMM yyyy") : "No Date Available")</td>
-                                    <td style="display: none"></td>
-                                </tr>
+                                    </div>
+                                </td>
+                                <td>@leaveInfo.TotalLeaveDays</td>
+                                <td>@leaveInfo.LatestLeave.Location</td>
+                                <td class="admin-leavehistory-reasons"><span title="@leaveInfo.LatestLeave.leave_reason">@leaveInfo.LatestLeave.leave_reason</span></td>
+                                <td style="display: none">@leaveInfo.LatestLeave.LeaveStatus</td>
+                                <td style="display: none">@leaveInfo.LatestLeave.createdby</td>
+                                <td style="display: none">@(leaveInfo.LatestLeave.createddate.HasValue ? leaveInfo.LatestLeave.createddate.Value.ToString("dd MMMM yyyy") : "No Date Available")</td>
+                                <td style="display: none">@leaveInfo.LatestLeave.updatedby</td>
+                                <td style="display: none">@(leaveInfo.LatestLeave.updateddate.HasValue ? leaveInfo.LatestLeave.updateddate.Value.ToString("dd MMMM yyyy") : "No Date Available")</td>
+                                <td style="display: none"></td>
+                            </tr>
                             }
 
 
