@@ -49,67 +49,88 @@
                     <div class="row">
                         @foreach (var subscriptions in Model.Subscriptions)
                         {
-                            <div class="col-6 col-xl-6 col-md-12 col-sm-12">
-                                <div class="subscriptioninfo-list-block">
-                                    <div class="subscriptioninfo-list-left">
-                                        <input type="checkbox" name="subscription-list-checkbox" id="subscription-list-checkbox" class="subscription-list-checkbox" value="@subscriptions.SubscriptionID">
-                                        <img src="~/Assets/EmpImages/1155.jpeg" />
-                                    </div>
-                                    <div class="subscriptioninfo-list-right">
-                                        <div class="subscriptioninfo-list-right-1 @subscriptions.SubscriptionStatusClass">
-                                            <span>@subscriptions.SubscriptionStatus</span>
-                                        </div>
-                                        <div class="subscriptioninfo-list-right-2 subscriptioninfo-list-title" onclick="redirectToSubscriptionHistory(@subscriptions.SubscriptionID)">
-                                            @subscriptions.SubscriptionName
-                                        </div>
+                        <div class="col-6 col-xl-6 col-md-12 col-sm-12">
+                            <div class="subscriptioninfo-list-block">
+                                @{
+                                    // Get the path from the configuration
+                                    var imagePath = System.Configuration.ConfigurationManager.AppSettings["TicketingFolderPath"];
 
-                                        <div class="subscriptioninfo-list-right-3">
-                                            <div class="subscriptioninfo-fields">
-                                                <label>Category</label>
-                                                <div class="subscriptioninfo-field-details" title="@subscriptions.Category">@subscriptions.Category</div>
-                                            </div>
-                                            <div class="subscriptioninfo-fields">
-                                                <label>Subscription ID</label>
-                                                <div class="subscriptioninfo-field-details">@subscriptions.SubscriptionID</div>
-                                            </div>
-                                            <div class="subscriptioninfo-fields">
-                                                <label>Purchase Date</label>
-                                                <div class="subscriptioninfo-field-details" title="@subscriptions.PurchaseDate">@subscriptions.PurchaseDate</div>
-                                            </div>
-                                            <div class="subscriptioninfo-fields">
-                                                <label>Renewal Date</label>
-                                                <div class="subscriptioninfo-field-details" title="@subscriptions.RenewalDate">@subscriptions.RenewalDate</div>
-                                            </div>
+                                    // Handle the case where SubscriptionLogo is null or empty
+                                    var logoImageURl = string.IsNullOrEmpty(subscriptions.SubscriptionLogo)
+                                                        ? Url.Content("~/Assets/DefaultImages/no-image.png") // Placeholder image if no logo
+                                                        : Path.Combine(imagePath, "Subscription", subscriptions.SubscriptionLogo); // Path to uploaded logo image
+                                }
+                                <div class="subscriptioninfo-list-left">
+                                    <input type="checkbox" name="subscription-list-checkbox" id="subscription-list-checkbox" class="subscription-list-checkbox" value="@subscriptions.SubscriptionID">
+
+                                    <!-- Display the actual subscription logo or a placeholder -->
+                                    <img src="@logoImageURl" alt="Subscription Logo" class="subscription-logo" />
+
+                                    <!-- Optionally display the file name if you still want to show it below the image -->
+                                    @if (!string.IsNullOrEmpty(subscriptions.SubscriptionLogo))
+                                    {
+                                        <span>@subscriptions.SubscriptionLogo</span>
+                                    }
+                                </div>
+
+                                <div class="subscriptioninfo-list-right">
+                                    <div class="subscriptioninfo-list-right-1 @subscriptions.SubscriptionStatusClass">
+                                        <span>@subscriptions.SubscriptionStatus</span>
+                                    </div>
+                                    <div class="subscriptioninfo-list-right-2 subscriptioninfo-list-title" onclick="redirectToSubscriptionHistory(@subscriptions.SubscriptionID)">
+                                        @subscriptions.SubscriptionName
+                                    </div>
+                                    <div class="subscriptioninfo-list-right-3">
+                                        <div class="subscriptioninfo-fields">
+                                            <label>Category</label>
+                                            <div class="subscriptioninfo-field-details" title="@subscriptions.Category">@subscriptions.Category</div>
                                         </div>
-                                        <div class="subscriptioninfo-list-right-4">
-                                            <div class="subscriptioninfo-fields">
-                                                <label>Amount</label>
-                                                <div class="subscriptioninfo-field-details">@subscriptions.Amount</div>
-                                            </div>
-                                            <div class="subscriptioninfo-fields">
-                                                <label>Payment Method</label>
-                                                <div class="subscriptioninfo-field-details">@subscriptions.PaymentMethod</div>
-                                            </div>
-                                            <div class="subscriptioninfo-fields">
-                                                <label>Vendor</label>
-                                                <div class="subscriptioninfo-field-details" title="@subscriptions.SubscriptionName">@subscriptions.SubscriptionName</div>
-                                            </div>
+                                        <div class="subscriptioninfo-fields">
+                                            <label>Subscription ID</label>
+                                            <div class="subscriptioninfo-field-details">@subscriptions.SubscriptionID</div>
                                         </div>
-                                        <div class="subscriptioninfo-action">
-                                            <div class="subscriptioninfo-edit-menu">
-                                                <i class="fas fa-ellipsis-v subscriptioninfo-edit" onclick="toggleSubscriptioninfoActionOptions(this)"></i>
-                                                <div class="subscriptioninfooptions" style="display:none">
-                                                    <a class="dropdown-item subscriptioninfo-edit" data-subid="@subscriptions.SubscriptionID">
-                                                        <i class="fas fa-pencil-alt subscriptioninfo-edit-icon"></i><span>Edit</span>
-                                                    </a>
-                                                    <a class="dropdown-item subscriptioninfo-delete" onclick="subscriptioninfodelete()" data-toggle="modal" data-target="#deleteConfirmationsubscription"><i class="fas fa-trash-alt subscriptioninfo-delete-icon"></i><span>Delete</span></a>
-                                                </div>
+                                        <div class="subscriptioninfo-fields">
+                                            <label>Purchase Date</label>
+                                            <div class="subscriptioninfo-field-details" title="@subscriptions.PurchaseDate">@subscriptions.PurchaseDate</div>
+                                        </div>
+                                        <div class="subscriptioninfo-fields">
+                                            <label>Renewal Date</label>
+                                            <div class="subscriptioninfo-field-details" title="@subscriptions.RenewalDate">@subscriptions.RenewalDate</div>
+                                        </div>
+                                    </div>
+                                    <div class="subscriptioninfo-list-right-4">
+                                        <div class="subscriptioninfo-fields">
+                                            <label>Amount</label>
+                                            <div class="subscriptioninfo-field-details">@subscriptions.Amount</div>
+                                        </div>
+                                        <div class="subscriptioninfo-fields">
+                                            <label>Payment Method</label>
+                                            <div class="subscriptioninfo-field-details">@subscriptions.PaymentMethod</div>
+                                        </div>
+                                        <div class="subscriptioninfo-fields">
+                                            <label>Vendor</label>
+                                            <div class="subscriptioninfo-field-details" title="@subscriptions.SubscriptionName">@subscriptions.SubscriptionName</div>
+                                        </div>
+                                    </div>
+                                    <div class="subscriptioninfo-action">
+                                        <div class="subscriptioninfo-edit-menu">
+                                            <i class="fas fa-ellipsis-v subscriptioninfo-edit" onclick="toggleSubscriptioninfoActionOptions(this)"></i>
+                                            <div class="subscriptioninfooptions" style="display:none">
+                                                <a class="dropdown-item subscriptioninfo-edit" data-subid="@subscriptions.SubscriptionID">
+                                                    <i class="fas fa-pencil-alt subscriptioninfo-edit-icon"></i><span>Edit</span>
+                                                </a>
+                                                <a class="dropdown-item subscriptioninfo-delete" onclick="prepareDelete(@subscriptions.SubscriptionID)" data-toggle="modal" data-target="#deleteConfirmationsubscription">
+                                                    <i class="fas fa-trash-alt subscriptioninfo-delete-icon"></i><span>Delete</span>
+                                                </a>
+
                                             </div>
                                         </div>
                                     </div>
                                 </div>
                             </div>
+                        </div>
                         }
+                    </div>
                         @*<div class="col-6 col-xl-6 col-md-12 col-sm-12">
                             <div class="subscriptioninfo-list-block">
                                 <div class="subscriptioninfo-list-left">

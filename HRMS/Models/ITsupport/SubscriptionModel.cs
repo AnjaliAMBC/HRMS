@@ -33,8 +33,9 @@ namespace HRMS.Models.ITsupport
         public string SubscriptionStatus { get; set; }
 
         public string SubscriptionStatusClass { get; set; }
-        public int LastSubscriptionID { get; set; }        
+        public string LastSubscriptionID { get; set; }
 
+        public string NewSubscriptionId { get; set; }
         public List<Subscription> Subscriptions { get; set; } = new List<Subscription>();
 
         public List<emp_info> ITDeptEmployees { get; set; } = new List<emp_info>();
@@ -65,15 +66,7 @@ namespace HRMS.Models.ITsupport
         public Subscription CurrentSubscription { get; set; }
 
         // Represents the latest subscription history
-        public SubscriptionHistory LatestHistory
-        {
-            get
-            {                
-                return History?.OrderByDescending(h => h.CreatedDate).FirstOrDefault();
-            }
-        }
-
-        // Represents the history of the subscription
+        public SubscriptionHistory LatestHistory { get; set; }        
         public List<SubscriptionHistory> History { get; set; }
     }
 

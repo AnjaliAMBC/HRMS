@@ -6,29 +6,34 @@ function toggleSubscriptioninfoActionOptions(element) {
     $(element).siblings('.subscriptioninfooptions').toggle();
 }
 
-function subscriptioninfodelete(id) {
-    $('#confirm-delete-btn').attr('onclick', 'confirmDeleteSubscription(' + id + ')');
+var deleteSubscriptionID;
+
+function prepareDelete(subscriptionID) {
+    deleteSubscriptionID = subscriptionID;
 }
 
-// Function to confirm and perform the deletion of a subscription
-function confirmDeleteSubscription(id) {
-    $.ajax({
-        url: '/Subscription/DeleteSubscription',
-        type: 'POST',
-        data: { id: id },
-        success: function (response) {
-            if (response.success) {
-                alert(response.message);
-                location.reload(); // Reload the page to reflect changes
-            } else {
-                alert(response.message);
+$('.delete-employee').on('click', function () {
+    if (deleteSubscriptionID) {
+        $.ajax({
+            url: '/Subscription/DeleteSubscription', // Adjust URL to match your delete endpoint
+            type: 'POST',
+            data: { id: deleteSubscriptionID },
+            success: function (response) {
+                if (response.success) {
+                    // Optionally, remove the deleted record from the UI
+                    $('input[name="subscription-list-checkbox"][value="' + deleteSubscriptionID + '"]').closest('.col-6').remove();
+                } else {
+                    alert('Failed to delete the subscription.');
+                }
+                $('#deleteConfirmationsubscription').modal('hide');
+            },
+            error: function () {
+                alert('An error occurred while deleting the subscription.');
+                $('#deleteConfirmationsubscription').modal('hide');
             }
-        },
-        error: function (xhr, status, error) {
-            alert('An error occurred: ' + xhr.responseText);
-        }
-    });}
-
+        });
+    }
+});
 
 function redirectToAddSubscription() {
     window.location.href = '/Subscription/AddSubscription';
@@ -39,14 +44,14 @@ function validateAndSubmitForm() {
     var isValid = true;
 
      
-    //$(form).find('input[required], select[required], textarea[required]').each(function () {
-    //    if (!this.checkValidity()) {
-    //        $(this).addClass('is-invalid');  // Add red border to invalid fields
-    //        isValid = false;
-    //    } else {
-    //        $(this).removeClass('is-invalid');  // Remove red border from valid fields
-    //    }
-    //});
+    $(form).find('input[required], select[required], textarea[required]').each(function () {
+        if (!this.checkValidity()) {
+            $(this).addClass('is-invalid');  // Add red border to invalid fields
+            isValid = false;
+        } else {
+            $(this).removeClass('is-invalid');  // Remove red border from valid fields
+        }
+    });
 
     if (isValid) {
         var formData = new FormData(); // Gather form data, including files
@@ -65,7 +70,7 @@ function validateAndSubmitForm() {
         formData.append("EditRecordID", $('#SubscriptionID').val());
 
         $.ajax({
-            url: '/Subscription/AddUpdateSubscription', // Ensure proper casing for URL         
+            url: '/Subscription/AddUpdateSubscription', 
             type: 'POST',
             data: formData,
             contentType: false,
