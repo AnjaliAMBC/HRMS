@@ -227,7 +227,11 @@
                         <div class="sidebar-submenu" style="@ticketigSidebarShow">
                             <ul>
                                 <li class="@highliateITTicketing"><a href="/adminticketing/itticketing"><span class="menu-bar-design-red"></span>IT Ticketing</a></li>
-                                <li class="@highliateHRTicketing"><a href="/adminticketing/hrticketing" class=""><span class="menu-bar-design-blue"></span>HR Ticketing</a></li>
+                                
+                                @if (currentContext.IsAdmin || currentContext.IsSuperAdmin)
+                                {
+                                    <li class="@highliateHRTicketing"><a href="/adminticketing/hrticketing" class=""><span class="menu-bar-design-blue"></span>HR Ticketing</a></li>
+                                }
                             </ul>
                         </div>
                     </li>
