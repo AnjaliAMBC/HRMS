@@ -286,6 +286,7 @@
             <PropertyRef Name="SubscriptionID" />
           </Key>
           <Property Name="SubscriptionID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="SubscriptiionNumber" Type="varchar" MaxLength="20" />
           <Property Name="SubscriptionName" Type="varchar" MaxLength="255" />
           <Property Name="SubscriptionLogo" Type="varchar" MaxLength="1000" />
           <Property Name="Category" Type="varchar" MaxLength="50" />
@@ -310,6 +311,7 @@
           </Key>
           <Property Name="HistoryID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="SubscriptionID" Type="int" Nullable="false" />
+          <Property Name="SubscriptiionNumber" Type="varchar" MaxLength="20" />
           <Property Name="SubscriptionName" Type="varchar" MaxLength="255" />
           <Property Name="SubscriptionLogo" Type="varchar" MaxLength="1000" />
           <Property Name="Category" Type="varchar" MaxLength="50" />
@@ -324,6 +326,7 @@
           <Property Name="License" Type="varchar" MaxLength="50" />
           <Property Name="UpdatedBy" Type="varchar" MaxLength="255" />
           <Property Name="UpadtedDate" Type="datetime" />
+          <Property Name="RecordeupdatedDate" Type="datetime" />
         </EntityType>
         <EntityType Name="tblambcholiday">
           <Key>
@@ -850,6 +853,7 @@ warning 6002: The table/view 'HRMS_PortalDev1.dbo.CheckInView' does not have a p
           <Property Name="UpdatedBy" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
           <Property Name="UpadtedDate" Type="DateTime" Precision="3" />
           <Property Name="SubscriptionStatusClass" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+          <Property Name="SubscriptiionNumber" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
         </EntityType>
         <EntityType Name="SubscriptionHistory">
           <Key>
@@ -871,6 +875,8 @@ warning 6002: The table/view 'HRMS_PortalDev1.dbo.CheckInView' does not have a p
           <Property Name="License" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
           <Property Name="UpdatedBy" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
           <Property Name="UpadtedDate" Type="DateTime" Precision="3" />
+          <Property Name="SubscriptiionNumber" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+          <Property Name="RecordeupdatedDate" Type="DateTime" Precision="3" />
         </EntityType>
       </Schema>
     </edmx:ConceptualModels>
@@ -1249,6 +1255,7 @@ warning 6002: The table/view 'HRMS_PortalDev1.dbo.CheckInView' does not have a p
           <EntitySetMapping Name="Subscriptions">
             <EntityTypeMapping TypeName="HRMS_EntityModel.Subscription">
               <MappingFragment StoreEntitySet="Subscription">
+                <ScalarProperty Name="SubscriptiionNumber" ColumnName="SubscriptiionNumber" />
                 <ScalarProperty Name="SubscriptionStatusClass" ColumnName="SubscriptionStatusClass" />
                 <ScalarProperty Name="UpadtedDate" ColumnName="UpadtedDate" />
                 <ScalarProperty Name="UpdatedBy" ColumnName="UpdatedBy" />
@@ -1273,6 +1280,8 @@ warning 6002: The table/view 'HRMS_PortalDev1.dbo.CheckInView' does not have a p
           <EntitySetMapping Name="SubscriptionHistories">
             <EntityTypeMapping TypeName="HRMS_EntityModel.SubscriptionHistory">
               <MappingFragment StoreEntitySet="SubscriptionHistory">
+                <ScalarProperty Name="RecordeupdatedDate" ColumnName="RecordeupdatedDate" />
+                <ScalarProperty Name="SubscriptiionNumber" ColumnName="SubscriptiionNumber" />
                 <ScalarProperty Name="UpadtedDate" ColumnName="UpadtedDate" />
                 <ScalarProperty Name="UpdatedBy" ColumnName="UpdatedBy" />
                 <ScalarProperty Name="License" ColumnName="License" />

@@ -30,5 +30,7 @@ namespace HRMS
         public string License { get; set; }
         public string UpdatedBy { get; set; }
         public Nullable<System.DateTime> UpadtedDate { get; set; }
+        public string SubscriptiionNumber { get; set; }
+        public Nullable<System.DateTime> RecordeupdatedDate { get; set; }
     }
 }

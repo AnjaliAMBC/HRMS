@@ -17,10 +17,19 @@
                     <div class="row navbar align-items-center mt-2">
                         <h4 class="header mb-0 text-right">Subscription Listing</h4>
                     </div>
-
                     <!-- Subscription Details Section -->
                     <div class="subscriptionlisting-header">
-                        <img src="@Model.CurrentSubscription.SubscriptionLogo" alt="Subscription Logo" />
+                        @{                           
+                            var imagePath = System.Configuration.ConfigurationManager.AppSettings["TicketingFolderPath"];
+
+                            var logoImageUrl = string.IsNullOrEmpty(Model.CurrentSubscription.SubscriptionLogo)
+                                                ? Url.Content("~/Assets/DefaultImages/no-image.png") // Placeholder if no image
+                                                : Path.Combine(imagePath, "Subscription", Model.CurrentSubscription.SubscriptionLogo); // Path to uploaded logo
+                        }
+
+                        <!-- Display the image -->
+                        <img src="@Url.Content(logoImageUrl)" alt="Subscription Logo" class="subscription-logo" />
+
                         <div class="subscriptionlisting-title">@Model.CurrentSubscription.SubscriptionName</div>
                     </div>
 
@@ -87,42 +96,48 @@
 
                         <!-- Subscription History Tab -->
                         <div class="tab-pane fade subscriptionlisting-history" id="tab2" role="tabpanel" aria-labelledby="tab2-link">
-                            @foreach (var history in Model.History)
+                            @if (Model.LatestHistory != null)
                             {
                                 <div class="subscriptionlisting-field-info">
                                     <label>Category</label>
-                                    <div class="subscriptioninfo-field-details">@history.Category</div>
+                                    <div class="subscriptioninfo-field-details">@Model.LatestHistory.Category</div>
                                 </div>
+
                                 <div class="subscriptionlisting-field-info">
                                     <label>Subscription</label>
-                                    <div class="subscriptioninfo-field-details">@history.SubscriptionID</div>
+                                    <div class="subscriptioninfo-field-details">@Model.LatestHistory.SubscriptionID</div>
                                 </div>
                                 <div class="subscriptionlisting-field-info">
                                     <label>Purchase Date</label>
-                                    <div class="subscriptioninfo-field-details">@history.PurchaseDate?.ToString("dd-MM-yyyy")</div>
+                                    <div class="subscriptioninfo-field-details">@Model.LatestHistory.PurchaseDate?.ToString("dd-MM-yyyy")</div>
                                 </div>
                                 <div class="subscriptionlisting-field-info">
                                     <label>License</label>
-                                    <div class="subscriptioninfo-field-details">@history.License</div>
+                                    <div class="subscriptioninfo-field-details">@Model.LatestHistory.License</div>
                                 </div>
                                 <div class="subscriptionlisting-field-info">
                                     <label>Last Renewal Date</label>
-                                    <div class="subscriptioninfo-field-details">@history.RenewalDate?.ToString("dd-MM-yyyy")</div>
+                                    <div class="subscriptioninfo-field-details">@Model.LatestHistory.RenewalDate?.ToString("dd-MM-yyyy")</div>
                                 </div>
                                 <div class="subscriptionlisting-field-info">
                                     <label>Amount</label>
-                                    <div class="subscriptioninfo-field-details">@history.Amount</div>
+                                    <div class="subscriptioninfo-field-details">@Model.LatestHistory.Amount</div>
                                 </div>
                                 <div class="subscriptionlisting-field-info">
                                     <label>Added By</label>
-                                    <div class="subscriptioninfo-field-details">@history.CreatedBy</div>
+                                    <div class="subscriptioninfo-field-details">@Model.LatestHistory.CreatedBy</div>
                                 </div>
                                 <div class="subscriptionlisting-field-info">
                                     <label>Added Date</label>
-                                    <div class="subscriptioninfo-field-details">@history.CreatedDate?.ToString("dd-MM-yyyy")</div>
+                                    <div class="subscriptioninfo-field-details">@Model.LatestHistory.CreatedDate?.ToString("dd-MM-yyyy")</div>
                                 </div>
                             }
-                        </div>
+            else
+            {
+                <p>No Data Available
+                            </p>
+            }
+                         </div>
                     </div>
                 </div>
             </div>

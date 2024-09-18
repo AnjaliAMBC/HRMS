@@ -1,7 +1,14 @@
 ﻿@model HRMS.Models.ITsupport.SubscriptionViewModel
+@{
+    var isEditRecord = false;
 
+    if (Model != null)
+    {
+        isEditRecord = Model.Editsubscription != null && Model.Editsubscription.SubscriptionID != 0;
+    }
+}
 <style>
- 
+
     .is-invalid {
         border-color: red !important;
     }
@@ -34,8 +41,14 @@
                                 <div class="col-lg-3 col-md-6">
                                     <div class="form-group subscriptionadd-tabs">
                                         <label for="SubscriptionID">Subscription ID*</label>
-                                        <input type="text" class="form-control" name="SubscriptionID" id="SubscriptionID" placeholder="Enter Subscription ID"
-                                               value="@Model.Editsubscription.SubscriptionID" required>
+                                        @if (!isEditRecord)
+                                        {
+                                            <input type="text" class="form-control" name="SubscriptionID" value="@Model.NewSubscriptionId" id="SubscriptionID" placeholder="Enter Subscription ID" required readonly>
+                                        }
+                                        else
+                                        {
+                                            <input type="text" class="form-control" name="SubscriptionID" value="@Model.Editsubscription.SubscriptiionNumber" id="SubscriptionID" placeholder="Enter Subscription ID" required readonly>
+                                        }
                                         <div class="invalid-feedback">Subscription ID is required.</div>
                                     </div>
                                 </div>
@@ -47,19 +60,32 @@
                                         <div class="invalid-feedback">Subscription Name is required.</div>
                                     </div>
                                 </div>
-
                                 <div class="col-lg-3 col-md-6">
                                     <div class="form-group subscriptionadd-tabs">
                                         <label for="SubscriptionLogo" style="width:100%;">Subscription Logo</label>
-                                        <div class="upload-btn-wrapper attach2wrapper">
+                                        <div class="upload-btn-wrapper sub2wrapper">
                                             <button class="btn subscriptionadd-upload-btn" type="button">Upload</button>
                                             <input type="file" class="form-control" name="SubscriptionLogo" id="SubscriptionLogo"
-                                                   accept=".jpeg,.png,.jpg,.pdf,.doc,.docx,.xls,.xlsx" onchange="displayFileName(this)">
+                                                   data-existingfile="@Model.Editsubscription.SubscriptionLogo" accept=".jpeg,.png,.jpg,.pdf,.doc,.docx,.xls,.xlsx">
                                         </div>
-                                        <!-- Add this span to display the file name -->
+
+                                        <!-- Display the file name after file selection -->
                                         <span id="file-name-display" style="margin-top: 5px; display: block;"></span>
+
+                                        <!-- Display the existing attached file as a clickable link if it exists -->
+                                        @if (!string.IsNullOrEmpty(@Model.Editsubscription.SubscriptionLogo))
+                                        {
+                                            <a class="itp_filepath sublogo-2" href="@Url.Content(Model.Editsubscription.SubscriptionLogo)" target="_blank">
+                                                @System.IO.Path.GetFileName(Model.Editsubscription.SubscriptionLogo)
+                                            </a>
+                                        }
+                                        else
+                                        {
+                                            <a class="itp_filepath sublogo-2" style="display:none;"></a>
+                                        }
                                     </div>
                                 </div>
+
 
                                 <div class="col-lg-3 col-md-6">
                                     <div class="form-group subscriptionadd-tabs">
@@ -133,7 +159,7 @@
                                 <div class="col-lg-6 col-md-6">
                                     <div class="form-group subscriptionadd-tabs">
                                         <label for="SubscriptionRemarks">Remarks</label>
-                                        <textarea rows="1" class="form-control" id="SubscriptionRemarks" name="SubscriptionRemarks" value="@Model.Editsubscription.Remarks"></textarea>
+                                        <textarea rows="1" class="form-control" id="SubscriptionRemarks" name="SubscriptionRemarks">@Model.Editsubscription.Remarks</textarea>
                                     </div>
                                 </div>
 
@@ -188,12 +214,14 @@
                     <span aria-hidden="true"></span>
                 </button>
             </div>
-            <div class="modal-body text-center">               
+            <div class="modal-body text-center">
+                <img src="/assets/correct.png" alt="Approved" style="width:120px;color:green;padding:20px">
                 <h6>Subscription Added Successfully</h6>
             </div>
         </div>
     </div>
 </div>
+
 
 <!-- Error Modal -->
 <div class="modal fade" id="subscriptionadd-error-popup" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
@@ -204,7 +232,8 @@
                     <span aria-hidden="true"></span>
                 </button>
             </div>
-            <div class="modal-body text-center">              
+            <div class="modal-body text-center">
+                <img src="/assets/Pending.png" alt="Approved" style="width:120px;color:green;padding:20px">
                 <h6 id="error-message">An error occurred</h6>
             </div>
         </div>
@@ -213,10 +242,43 @@
 
 <script>
     function displayFileName(input) {
-        var fileName = input.files.length > 0 ? input.files[0].name : '';
-
-        // Display the file name in the span
+        var fileName = input.files[0]?.name || '';
         document.getElementById('file-name-display').textContent = fileName;
     }
+
+    $(document).ready(function () {
+        // Handle file selection
+        $('#SubscriptionLogo').on('change', function () {
+            var isValid = AttchemnetValidation($(this), true, "sub2wrapper", "#SubscriptionLogo");
+            $(this).attr("data-existingfile", "");
+
+            if (isValid) {
+                var fileInput = $('#SubscriptionLogo');
+                var file = fileInput[0].files[0];
+
+                if (file) {
+                    var fileName = file.name;
+                    var fileUrl = URL.createObjectURL(file);
+
+                    // Update the display with the new file information
+                    $('#file-name-display').text(fileName);
+                    $('.sublogo-2').attr('href', fileUrl).text(fileName).show();
+
+                    // Optional: Clean up URL object if needed
+                    $(fileInput).on('change', function () {
+                        URL.revokeObjectURL(fileUrl);
+                    });
+                } else {
+                    $('#file-name-display').text('');
+                    $('.sublogo-2').hide();
+                }
+                console.log("Subscription Logo validation passed.");
+            } else {
+                console.log("Subscription Logo validation failed.");
+            }
+        });
+    });
+
+
 
 </script>

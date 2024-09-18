@@ -42,6 +42,21 @@ namespace HRMS.Controllers
                 model.Editsubscription = new Subscription();
             }
 
+            var lastsubscriptionId = _dbContext.Subscriptions
+                                                   .OrderByDescending(x => x.SubscriptionID)
+                                                   .FirstOrDefault();
+
+            if (lastsubscriptionId != null)
+            {
+                model.LastSubscriptionID = lastsubscriptionId.SubscriptiionNumber;
+                model.NewSubscriptionId = "S#" + (lastsubscriptionId.SubscriptionID + 1);
+            }
+            else
+            {
+                model.LastSubscriptionID = "NA";
+                model.NewSubscriptionId = "S#1";
+            }
+
             return View("~/Views/Itsupport/AddSubscription.cshtml", model);
         }
 
@@ -149,7 +164,6 @@ namespace HRMS.Controllers
             }
         }
 
-
         [HttpPost]
         public JsonResult DeleteSubscription(int id)
         {
@@ -165,7 +179,7 @@ namespace HRMS.Controllers
                 return Json(new { success = false, message = "Subscription not found." });
             }
         }
-
+       
         public ActionResult SubscriptionInfo()
         {
             var model = new SubscriptionViewModel();
@@ -199,19 +213,29 @@ namespace HRMS.Controllers
 
         public ActionResult SubscriptionHistory(int id)
         {
+            // Retrieve the current subscription based on ID
             var subscription = _dbContext.Subscriptions.Find(id);
+
+            // Retrieve all history records for the given subscription ID
             var subscriptionHistories = _dbContext.SubscriptionHistories
                 .Where(s => s.SubscriptionID == id)
+                .OrderByDescending(s => s.RecordeupdatedDate) // Order by the most recent update
                 .ToList();
 
+            // Identify the most recently updated record
+            var latestHistory = subscriptionHistories.FirstOrDefault();
+
+            // Create the view model
             var model = new SubscriptionDetailsViewModel
             {
                 CurrentSubscription = subscription,
-                History = subscriptionHistories
+                History = subscriptionHistories,
+                LatestHistory = latestHistory 
             };
 
             return View("~/Views/Itsupport/SubscriptionHistory.cshtml", model);
         }
+
 
         [HttpPost]
         public ActionResult ExportSubscriptionsToExcel(List<int> subscriptionIds)
@@ -250,7 +274,7 @@ namespace HRMS.Controllers
                 for (int i = 0; i < subscriptions.Count; i++)
                 {
                     var subscription = subscriptions[i];
-                    ws.Cells[i + 2, 1].Value = subscription.SubscriptionID;
+                    ws.Cells[i + 2, 1].Value = subscription.SubscriptiionNumber;
                     ws.Cells[i + 2, 2].Value = subscription.SubscriptionName;
                     ws.Cells[i + 2, 3].Value = subscription.PurchaseDate;
                     ws.Cells[i + 2, 4].Value = subscription.RenewalDate;

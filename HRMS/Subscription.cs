@@ -32,5 +32,6 @@ namespace HRMS
         public string UpdatedBy { get; set; }
         public Nullable<System.DateTime> UpadtedDate { get; set; }
         public string SubscriptionStatusClass { get; set; }
+        public string SubscriptiionNumber { get; set; }
     }
 }
