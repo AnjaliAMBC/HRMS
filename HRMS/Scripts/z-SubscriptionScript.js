@@ -53,7 +53,7 @@ function validateAndSubmitForm() {
     var form = document.getElementById('subscriptionadd-form');
     var isValid = true;
 
-     
+
     $(form).find('input[required], select[required], textarea[required]').each(function () {
         if (!this.checkValidity()) {
             $(this).addClass('is-invalid');  // Add red border to invalid fields
@@ -65,7 +65,7 @@ function validateAndSubmitForm() {
 
     if (isValid) {
         var formData = new FormData(); // Gather form data, including files
-        formData.append("SubscriptionID", $('#SubscriptionID').val());
+        formData.append("SubscriptionNumber", $('#SubscriptionID').val());
         formData.append("SubscriptionName", $('#SubscriptionName').val());
         formData.append("SubscriptionLogo", $('#SubscriptionLogo')[0].files[0]); // For file input
         formData.append("SubscriptionCategory", $('#SubscriptionCategory').val());
@@ -77,18 +77,20 @@ function validateAndSubmitForm() {
         formData.append("SubscriptionRemarks", $('#SubscriptionRemarks').val());
         formData.append("SubscriptionAddedBy", $('#SubscriptionAddedBy').val());
         formData.append("SubscriptionAddeddate", $('#SubscriptionAddeddate').val());
-        formData.append("EditRecordID", $('#SubscriptionID').val());
+        formData.append("EditRecordID", $('#SubscriptionID').val().replace("S#", ""));
+        formData.append("IsNewSubscription", $('.isnewsubscription').text());
+
 
         $.ajax({
-            url: '/Subscription/AddUpdateSubscription', 
+            url: '/Subscription/AddUpdateSubscription',
             type: 'POST',
             data: formData,
             contentType: false,
             processData: false,
             success: function (response) {
                 if (response.success) {
-                    $('#subscriptionadd-success-popup').modal('show');                    
-                        $('#subscriptionadd-success-popup').modal('hide');                                           
+                    $('#subscriptionadd-success-popup').modal('show');
+                    $('#subscriptionadd-success-popup').modal('hide');
                 } else {
                     $('#error-message').text('Failed to add subscription: ' + response.message);
                     $('#subscriptionadd-error-popup').modal('show');
@@ -126,12 +128,12 @@ function clearForm() {
 
 function exportSubscriptioninfo() {
     var selectedSubscriptions = [];
-    
+
     $('input[name="subscription-list-checkbox"]:checked').each(function () {
         selectedSubscriptions.push(parseInt($(this).val()));
     });
 
-    if (selectedSubscriptions.length > 0) {       
+    if (selectedSubscriptions.length > 0) {
         $.ajax({
             url: '/Subscription/ExportSubscriptionsToExcel',
             type: 'POST',

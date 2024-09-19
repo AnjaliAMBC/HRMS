@@ -436,31 +436,36 @@
                         }
 
 
-
                         $(document).off('click', '#exportLeaveHistory').on('click', '#exportLeaveHistory', function (event) {
                             event.preventDefault();
 
                             // Get the table element
                             var table = document.getElementById("adminleaveHistoryTable");
 
-                            // Extract table headers, skipping the checkbox column
+                            // Extract table headers, skipping the checkbox column and the "Status" column (6th column)
                             var headers = [];
                             for (var i = 1; i < table.rows[0].cells.length; i++) {
-                                headers.push(table.rows[0].cells[i].innerText);
+                                // Skip the "Status" column (assuming it is the 6th column, index 5)
+                                if (i !== 6) {
+                                    headers.push(table.rows[0].cells[i].innerText);
+                                }
                             }
 
                             // Insert new headers for Name and Email if not already present
                             if (!headers.includes("Name")) headers.splice(1, 0, "Name");
-                            if (!headers.includes("Email")) headers.splice(2, 0, "Email");
+                            if (!headers.includes("Email")) headers.splice(3, 0, "Email");
 
-                            // Extract table data for selected rows only
+                            // Extract table data for selected rows only, skipping the "Status" column (6th column)
                             var data = [];
                             for (var i = 1; i < table.rows.length; i++) {
                                 var checkbox = table.rows[i].cells[0].querySelector('input[type="checkbox"]');
                                 if (checkbox && checkbox.checked) {
                                     var row = [];
                                     for (var j = 1; j < table.rows[i].cells.length; j++) {
-                                        if (j === 2) {
+                                        // Skip the "Status" column (assuming it is the 6th column, index 5)
+                                        if (j === 2) continue;
+
+                                        if (j === 3) {
                                             // Extract name and email separately from the third cell
                                             var nameEmailCell = table.rows[i].cells[j];
                                             var name = nameEmailCell.querySelector("span").childNodes[0].textContent.trim();
@@ -503,6 +508,7 @@
                             // Export the workbook to Excel file
                             XLSX.writeFile(wb, "LeaveHistory.xlsx");
                         });
+
 
                     });
                 </script>

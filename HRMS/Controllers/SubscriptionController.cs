@@ -17,7 +17,7 @@ namespace HRMS.Controllers
     using static HRMS.Helpers.PartialViewHelper;
     public class SubscriptionController : Controller
     {
-        
+
         private readonly HRMS_EntityFramework _dbContext;
 
         public SubscriptionController()
@@ -31,7 +31,7 @@ namespace HRMS.Controllers
 
             model.ITDeptEmployees = _dbContext.emp_info.Where(x => x.Department == "IT").ToList();
 
-            model.Headline= "Add Subscription";
+            model.Headline = "Add Subscription";
             if (subid.HasValue)
             {
                 model.Headline = "Edit Subscription";
@@ -42,18 +42,23 @@ namespace HRMS.Controllers
                 {
                     return HttpNotFound();
                 }
-            }        
-            
+            }
+            else
+            {
+                model.IsNewSubscription = true;
+            }
+
             var lastsubscriptionId = _dbContext.Subscriptions
                                                    .OrderByDescending(x => x.SubscriptionID)
                                                    .FirstOrDefault();
 
-            if (lastsubscriptionId != null)            {
-                
+            if (lastsubscriptionId != null)
+            {
+
                 model.NewSubscriptionId = "S#" + (lastsubscriptionId.SubscriptionID + 1);
-                           }
+            }
             else
-            {                
+            {
                 model.NewSubscriptionId = "S#1";
             }
 
@@ -63,7 +68,7 @@ namespace HRMS.Controllers
         public JsonResult AddUpdateSubscription()
         {
             try
-            {                
+            {
                 var subscriptionName = Request.Form["SubscriptionName"];
                 HttpPostedFileBase file = Request.Files["SubscriptionLogo"];
                 var category = Request.Form["SubscriptionCategory"];
@@ -74,16 +79,17 @@ namespace HRMS.Controllers
                 var paymentMethod = Request.Form["SubscriptionPaymentMethod"];
                 var remarks = Request.Form["SubscriptionRemarks"];
                 var createdBy = Request.Form["SubscriptionAddedBy"];
-                var createdDate = Convert.ToDateTime(Request.Form["SubscriptionAddeddate"]);               
+                var createdDate = Convert.ToDateTime(Request.Form["SubscriptionAddeddate"]);
                 var subscriptionID = !string.IsNullOrWhiteSpace(Request.Form["EditRecordID"]) ? System.Convert.ToInt32(Request.Form["EditRecordID"]) : 0;
 
                 // Handle file upload
                 string logoFilePath = null;
+                string fileName = null;
                 if (file != null && file.ContentLength > 0)
                 {
                     if ((file.ContentType == "image/jpeg" || file.ContentType == "image/png") && file.ContentLength <= 2097152)
                     {
-                        var fileName = Path.GetFileName(file.FileName);
+                        fileName = Path.GetFileName(file.FileName);
                         var TicketingFolderPath = ConfigurationManager.AppSettings["TicketingFolderPath"];
                         var subscriptionFolderPath = Path.Combine(TicketingFolderPath, "Subscription");
                         logoFilePath = Path.Combine(subscriptionFolderPath, fileName);
@@ -96,12 +102,12 @@ namespace HRMS.Controllers
                 }
 
                 Subscription subscription;
-                if (subscriptionID == 0)
+                if (Request.Form["IsNewSubscription"] == "True")
                 {
                     subscription = new Subscription
                     {
                         SubscriptionName = subscriptionName,
-                        SubscriptionLogo = logoFilePath,
+                        SubscriptionLogo = fileName,
                         Category = category,
                         PurchaseDate = purchaseDate,
                         RenewalDate = renewalDate,
@@ -110,7 +116,8 @@ namespace HRMS.Controllers
                         PaymentMethod = paymentMethod,
                         Remarks = remarks,
                         CreatedBy = createdBy,
-                        CreatedDate = createdDate
+                        CreatedDate = createdDate,
+                        SubscriptiionNumber = Request.Form["SubscriptionNumber"]
                     };
 
                     _dbContext.Subscriptions.Add(subscription);
@@ -136,6 +143,7 @@ namespace HRMS.Controllers
                         Remarks = subscription.Remarks,
                         CreatedBy = subscription.CreatedBy,
                         CreatedDate = subscription.CreatedDate,
+                        SubscriptiionNumber = subscription.SubscriptiionNumber
                     };
 
                     _dbContext.SubscriptionHistories.Add(subscriptionHistory);
@@ -144,9 +152,12 @@ namespace HRMS.Controllers
                     subscription.License = license;
                     subscription.Amount = amount;
                     subscription.PaymentMethod = paymentMethod;
+                    subscription.SubscriptionLogo = fileName == null ? subscription.SubscriptionLogo : fileName;
                     subscription.Remarks = remarks;
                     subscription.CreatedBy = createdBy;
                     subscription.CreatedDate = createdDate;
+                    subscription.UpdatedBy = createdBy;
+                    subscription.UpadtedDate = DateTime.Now;
                     _dbContext.Entry(subscription).State = EntityState.Modified;
                 }
 
@@ -179,7 +190,7 @@ namespace HRMS.Controllers
                 return Json(new { success = false, message = "Subscription not found." });
             }
         }
-       
+
         public ActionResult SubscriptionInfo()
         {
             var model = new SubscriptionViewModel();
@@ -212,7 +223,7 @@ namespace HRMS.Controllers
                         var emailRequest = new EmailRequest()
                         {
                             Body = emailBody,
-                            ToEmail = ConfigurationManager.AppSettings["SubscriptionEmailsTo"], 
+                            ToEmail = ConfigurationManager.AppSettings["SubscriptionEmailsTo"],
                             Subject = "Subscription Renewal Reminder of " + subscription.SubscriptionName + " ",
                         };
 
@@ -250,7 +261,7 @@ namespace HRMS.Controllers
             {
                 CurrentSubscription = subscription,
                 History = subscriptionHistories,
-                LatestHistory = latestHistory 
+                LatestHistory = latestHistory
             };
 
             return View("~/Views/Itsupport/SubscriptionHistory.cshtml", model);
