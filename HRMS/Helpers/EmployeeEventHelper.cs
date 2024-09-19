@@ -51,7 +51,7 @@ namespace HRMS.Helpers
                 empLocation = empLocation.ToLowerInvariant();
             }
 
-            var today = DateTime.Today;
+            var today = empLocation == string.Empty ? new DateTime(DateTime.Now.Year, 1, 1) : DateTime.Today;
             var query = _dbContext.tblambcholidays
                 .Where(h => h.holiday_date >= today && h.region.ToLower().Contains(empLocation));
 

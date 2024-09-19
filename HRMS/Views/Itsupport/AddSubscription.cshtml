@@ -35,6 +35,7 @@
                     <div class="row navbar align-items-center mt-2">
                         <h4 class="header mb-0 text-right">@Model.Headline</h4>
                     </div>
+                    <div style="display:none" class="isnewsubscription">@Model.IsNewSubscription</div>
                     <form id="subscriptionadd-form" class="admin-subscriptionform needs-validation" novalidate>
                         <div class="container" style="margin-left: 5px">
                             <div class="row">
@@ -47,7 +48,7 @@
                                         }
                                         else
                                         {
-                                            <input type="text" class="form-control" name="SubscriptionID" value="@Model.Editsubscription.SubscriptionID" id="SubscriptionID" placeholder="Enter Subscription ID" required readonly>
+                                            <input type="text" class="form-control" name="SubscriptionID" value="@Model.Editsubscription.SubscriptiionNumber" id="SubscriptionID" placeholder="Enter Subscription ID" required readonly>
                                         }
                                         <div class="invalid-feedback">Subscription ID is required.</div>
                                     </div>
@@ -73,8 +74,9 @@
 
                                         @if (!string.IsNullOrEmpty(Model.Editsubscription.SubscriptionLogo))
                                         {
-                                            <a class="itp_filepath sublogo-2" href="@Url.Content(Model.Editsubscription.SubscriptionLogo)" target="_blank">
-                                                @System.IO.Path.GetFileName(Model.Editsubscription.SubscriptionLogo)
+                                            var imageParentFoler = System.Configuration.ConfigurationManager.AppSettings["TicketingFolderPath"];
+                                            <a class="itp_filepath sublogo-2" href="/ticketing/subscription/@Model.Editsubscription.SubscriptionLogo" target="_blank">
+                                                @Model.Editsubscription.SubscriptionLogo
                                             </a>
                                         }
                                         else
@@ -193,15 +195,15 @@
                                 <div class="col-lg-12 col-md-12 text-right">
                                     <button type="button" id="cancelButton" class="btn subscriptionadd-Cancel" onclick="clearForm()">Cancel</button>
                                     <button type="button" class="btn btn-primary subscriptionadd-Update" onclick="validateAndSubmitForm()">
-    @if (Model.Headline == "Edit Subscription")
-    {
-@:Update
-}
-else
-{
-@:Submit
-}
-</button>
+                                        @if (Model.Headline == "Edit Subscription")
+                                        {
+                                            @:Update
+                                        }
+                                        else
+                                        {
+                                            @:Submit
+                                        }
+                                    </button>
                                 </div>
                             </div>
                         </div>
@@ -244,10 +246,10 @@ else
                     <span aria-hidden="true">&times;</span>
                 </button>
             </div>
-            <div class="modal-body text-center">               
+            <div class="modal-body text-center">
                 <h6 id="error-message" style="color:red">An error occurred</h6>
             </div>
-            <div class="modal-footer">               
+            <div class="modal-footer">
                 <button type="button" class="btn btn-primary" data-dismiss="modal">Close</button>
             </div>
         </div>
@@ -256,16 +258,16 @@ else
 
 <script>
     $(document).ready(function () {
-        var existingFilePath = $('#SubscriptionLogo').data('existingfile');
+        //var existingFilePath = $('#SubscriptionLogo').data('existingfile');
 
-        if (existingFilePath) {
-            // Extract the file name from the existing file path
-            var existingFileName = existingFilePath.split('\\').pop().split('/').pop();
+        //if (existingFilePath) {
+        //    // Extract the file name from the existing file path
+        //    var existingFileName = existingFilePath.split('\\').pop().split('/').pop();
 
-            // Show only the file name, open in a new tab
-            $('#file-name-display').text(existingFileName);
-            $('.sublogo-2').attr('href', existingFilePath).text(existingFileName).attr('target', '_blank').show();
-        }
+        //    // Show only the file name, open in a new tab
+        //    $('#file-name-display').text(existingFileName);
+        //    $('.sublogo-2').attr('href', existingFilePath).text(existingFileName).attr('target', '_blank').show();
+        //}
 
         // When a new file is selected, update the link and show only the file name
         $('#SubscriptionLogo').on('change', function () {

@@ -43,7 +43,10 @@ namespace HRMS.Models.ITsupport
 
         public List<emp_info> ITDeptEmployees { get; set; } = new List<emp_info>();
         public Subscription Editsubscription { get; set; } = new Subscription();
-        
+
+
+        public bool IsNewSubscription { get; set; } = false;
+
     }
 
     public class SubscriptionUpdateViewModel
