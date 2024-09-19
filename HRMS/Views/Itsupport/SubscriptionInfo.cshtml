@@ -52,25 +52,15 @@
                         <div class="col-6 col-xl-6 col-md-12 col-sm-12">
                             <div class="subscriptioninfo-list-block">
                                 @{
-                                    // Get the path from the configuration
                                     var imagePath = System.Configuration.ConfigurationManager.AppSettings["TicketingFolderPath"];
-
-                                    // Handle the case where SubscriptionLogo is null or empty
-                                    var logoImageURl = string.IsNullOrEmpty(subscriptions.SubscriptionLogo)
-                                                        ? Url.Content("~/Assets/DefaultImages/no-image.png") // Placeholder image if no logo
-                                                        : Path.Combine(imagePath, "Subscription", subscriptions.SubscriptionLogo); // Path to uploaded logo image
+                                    var logoImageUrl = string.IsNullOrEmpty(subscriptions.SubscriptionLogo)
+                                        ? Url.Content("~/Assets/Subscription.png")
+                     : Url.Content(Path.Combine(imagePath, "Subscription", subscriptions.SubscriptionLogo));
                                 }
                                 <div class="subscriptioninfo-list-left">
                                     <input type="checkbox" name="subscription-list-checkbox" id="subscription-list-checkbox" class="subscription-list-checkbox" value="@subscriptions.SubscriptionID">
+                                    <img src="@logoImageUrl" alt="Subscription Logo" class="subscription-logo" />
 
-                                    <!-- Display the actual subscription logo or a placeholder -->
-                                    <img src="@logoImageURl" alt="Subscription Logo" class="subscription-logo" />
-
-                                    <!-- Optionally display the file name if you still want to show it below the image -->
-                                    @if (!string.IsNullOrEmpty(subscriptions.SubscriptionLogo))
-                                    {
-                                        <span>@subscriptions.SubscriptionLogo</span>
-                                    }
                                 </div>
 
                                 <div class="subscriptioninfo-list-right">
@@ -131,178 +121,10 @@
                         </div>
                         }
                     </div>
-                        @*<div class="col-6 col-xl-6 col-md-12 col-sm-12">
-                            <div class="subscriptioninfo-list-block">
-                                <div class="subscriptioninfo-list-left">
-                                    <input type="checkbox" name="subscription-list-checkbox" id="subscription-list-checkbox" class="subscription-list-checkbox">
-                                    <img src="~/Assets/EmpImages/1155.jpeg" />
-                                </div>
-                                <div class="subscriptioninfo-list-right">
-                                    <div class="subscriptioninfo-list-right-1 subscriptioninfo-list-due"></div>
-                                    <div class="subscriptioninfo-list-right-2 subscriptioninfo-list-title" onclick="redirectToSubscriptionHistory()">VONAGE</div>
-                                    <div class="subscriptioninfo-list-right-3">
-                                        <div class="subscriptioninfo-fields">
-                                            <label>Category</label>
-                                            <div class="subscriptioninfo-field-details">IT support</div>
-                                        </div>
-                                        <div class="subscriptioninfo-fields">
-                                            <label>Subscription ID</label>
-                                            <div class="subscriptioninfo-field-details">#4556</div>
-                                        </div>
-                                        <div class="subscriptioninfo-fields">
-                                            <label>Purchase Date</label>
-                                            <div class="subscriptioninfo-field-details">09-09-2024</div>
-                                        </div>
-                                        <div class="subscriptioninfo-fields">
-                                            <label>Renewal Date</label>
-                                            <div class="subscriptioninfo-field-details">09-09-2024</div>
-                                        </div>
-                                    </div>
-                                    <div class="subscriptioninfo-list-right-4">
-                                        <div class="subscriptioninfo-fields">
-                                            <label>Amount</label>
-                                            <div class="subscriptioninfo-field-details">2400</div>
-                                        </div>
-                                        <div class="subscriptioninfo-fields">
-                                            <label>Payment Method</label>
-                                            <div class="subscriptioninfo-field-details">Paid In Rupee</div>
-                                        </div>
-                                        <div class="subscriptioninfo-fields">
-                                            <label>Mode</label>
-                                            <div class="subscriptioninfo-field-details">Online</div>
-                                        </div>
-                                        <div class="subscriptioninfo-fields">
-                                            <label>Vendor</label>
-                                            <div class="subscriptioninfo-field-details">Vonage</div>
-                                        </div>
-                                    </div>
-                                    <div class="subscriptioninfo-action">
-                                        <div class="subscriptioninfo-edit-menu">
-                                            <i class="fas fa-ellipsis-v subscriptioninfo-edit" onclick="toggleSubscriptioninfoActionOptions(this)"></i>
-                                            <div class="subscriptioninfooptions" style="display:none">
-                                                <a class="dropdown-item subscriptioninfo-edit" onclick="subscriptioninfoedit(1)"><i class="fas fa-pencil-alt subscriptioninfo-edit-icon"></i><span>Edit</span></a>
-                                                <a class="dropdown-item subscriptioninfo-delete" onclick="subscriptioninfodelete(1)" data-toggle="modal" data-target="#deleteConfirmationsubscription"><i class="fas fa-trash-alt subscriptioninfo-delete-icon"></i><span>Delete</span></a>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-6 col-xl-6 col-md-12 col-sm-12">
-                            <div class="subscriptioninfo-list-block">
-                                <div class="subscriptioninfo-list-left">
-                                    <input type="checkbox" name="subscription-list-checkbox" id="subscription-list-checkbox" class="subscription-list-checkbox">
-                                    <img src="~/Assets/EmpImages/1155.jpeg" />
-                                </div>
-                                <div class="subscriptioninfo-list-right">
-                                    <div class="subscriptioninfo-list-right-1 subscriptioninfo-list-due"></div>
-                                    <div class="subscriptioninfo-list-right-2 subscriptioninfo-list-title" onclick="redirectToSubscriptionHistory()">VONAGE</div>
-                                    <div class="subscriptioninfo-list-right-3">
-                                        <div class="subscriptioninfo-fields">
-                                            <label>Category</label>
-                                            <div class="subscriptioninfo-field-details">IT support</div>
-                                        </div>
-                                        <div class="subscriptioninfo-fields">
-                                            <label>Subscription ID</label>
-                                            <div class="subscriptioninfo-field-details">#4556</div>
-                                        </div>
-                                        <div class="subscriptioninfo-fields">
-                                            <label>Purchase Date</label>
-                                            <div class="subscriptioninfo-field-details">09-09-2024</div>
-                                        </div>
-                                        <div class="subscriptioninfo-fields">
-                                            <label>Renewal Date</label>
-                                            <div class="subscriptioninfo-field-details">09-09-2024</div>
-                                        </div>
-                                    </div>
-                                    <div class="subscriptioninfo-list-right-4">
-                                        <div class="subscriptioninfo-fields">
-                                            <label>Amount</label>
-                                            <div class="subscriptioninfo-field-details">2400</div>
-                                        </div>
-                                        <div class="subscriptioninfo-fields">
-                                            <label>Payment Method</label>
-                                            <div class="subscriptioninfo-field-details">Paid In Rupee</div>
-                                        </div>
-                                        <div class="subscriptioninfo-fields">
-                                            <label>Mode</label>
-                                            <div class="subscriptioninfo-field-details">Online</div>
-                                        </div>
-                                        <div class="subscriptioninfo-fields">
-                                            <label>Vendor</label>
-                                            <div class="subscriptioninfo-field-details">Vonage</div>
-                                        </div>
-                                    </div>
-                                    <div class="subscriptioninfo-action">
-                                        <div class="subscriptioninfo-edit-menu">
-                                            <i class="fas fa-ellipsis-v subscriptioninfo-edit" onclick="toggleSubscriptioninfoActionOptions(this)"></i>
-                                            <div class="subscriptioninfooptions" style="display:none">
-                                                <a class="dropdown-item subscriptioninfo-edit" onclick="subscriptioninfoedit(1)"><i class="fas fa-pencil-alt subscriptioninfo-edit-icon"></i><span>Edit</span></a>
-                                                <a class="dropdown-item subscriptioninfo-delete" onclick="subscriptioninfodelete(1)" data-toggle="modal" data-target="#deleteConfirmationsubscription"><i class="fas fa-trash-alt subscriptioninfo-delete-icon"></i><span>Delete</span></a>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-6 col-xl-6 col-md-12 col-sm-12">
-                            <div class="subscriptioninfo-list-block">
-                                <div class="subscriptioninfo-list-left">
-                                    <input type="checkbox" name="subscription-list-checkbox" id="subscription-list-checkbox" class="subscription-list-checkbox">
-                                    <img src="~/Assets/EmpImages/1155.jpeg" />
-                                </div>
-                                <div class="subscriptioninfo-list-right">
-                                    <div class="subscriptioninfo-list-right-1 subscriptioninfo-list-expired"><span>Expired</span></div>
-                                    <div class="subscriptioninfo-list-right-2 subscriptioninfo-list-title" onclick="redirectToSubscriptionHistory()">VONAGE</div>
-                                    <div class="subscriptioninfo-list-right-3">
-                                        <div class="subscriptioninfo-fields">
-                                            <label>Category</label>
-                                            <div class="subscriptioninfo-field-details">IT support</div>
-                                        </div>
-                                        <div class="subscriptioninfo-fields">
-                                            <label>Subscription ID</label>
-                                            <div class="subscriptioninfo-field-details">#4556</div>
-                                        </div>
-                                        <div class="subscriptioninfo-fields">
-                                            <label>Purchase Date</label>
-                                            <div class="subscriptioninfo-field-details">09-09-2024</div>
-                                        </div>
-                                        <div class="subscriptioninfo-fields">
-                                            <label>Renewal Date</label>
-                                            <div class="subscriptioninfo-field-details">09-09-2024</div>
-                                        </div>
-                                    </div>
-                                    <div class="subscriptioninfo-list-right-4">
-                                        <div class="subscriptioninfo-fields">
-                                            <label>Amount</label>
-                                            <div class="subscriptioninfo-field-details">2400</div>
-                                        </div>
-                                        <div class="subscriptioninfo-fields">
-                                            <label>Payment Method</label>
-                                            <div class="subscriptioninfo-field-details">Paid In Rupee</div>
-                                        </div>
-                                        <div class="subscriptioninfo-fields">
-                                            <label>Mode</label>
-                                            <div class="subscriptioninfo-field-details">Online</div>
-                                        </div>
-                                        <div class="subscriptioninfo-fields">
-                                            <label>Vendor</label>
-                                            <div class="subscriptioninfo-field-details">Vonage</div>
-                                        </div>
-                                    </div>
-                                    <div class="subscriptioninfo-action">
-                                        <div class="subscriptioninfo-edit-menu">
-                                            <i class="fas fa-ellipsis-v subscriptioninfo-edit" onclick="toggleSubscriptioninfoActionOptions(this)"></i>
-                                            <div class="subscriptioninfooptions" style="display:none">
-                                                <a class="dropdown-item subscriptioninfo-edit" onclick="subscriptioninfoedit(1)"><i class="fas fa-pencil-alt subscriptioninfo-edit-icon"></i><span>Edit</span></a>
-                                                <a class="dropdown-item subscriptioninfo-delete" onclick="subscriptioninfodelete(1)" data-toggle="modal" data-target="#deleteConfirmationsubscription"><i class="fas fa-trash-alt subscriptioninfo-delete-icon"></i><span>Delete</span></a>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>*@
-                        <div class="modal fade" id="deleteConfirmationsubscription" tabindex="-1" role="dialog" aria-labelledby="deleteConfirmationModalsubscription" aria-hidden="true">
+                      
+                    
+                    
+                    <div class="modal fade" id="deleteConfirmationsubscription" tabindex="-1" role="dialog" aria-labelledby="deleteConfirmationModalsubscription" aria-hidden="true">
                             <div class="modal-dialog" role="document">
                                 <div class="modal-content">
                                     <div class="modal-header">
@@ -317,7 +139,7 @@
                                     </div>
                                     <div class="modal-footer">
                                         <button type="button" class="btn btn-secondary refresh-emptablist" data-dismiss="modal">Close</button>
-                                        <button type="button" class="btn btn-danger delete-employee">Delete</button>
+                                        <button type="button" class="btn btn-danger delete-Subscription">Delete</button>
                                     </div>
                                 </div>
                             </div>

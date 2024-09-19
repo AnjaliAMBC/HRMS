@@ -6,13 +6,23 @@ function toggleSubscriptioninfoActionOptions(element) {
     $(element).siblings('.subscriptioninfooptions').toggle();
 }
 
+
+$(document).on('click', '.addsubscription-close', function () {
+    window.location.href = '/Subscription/SubscriptionInfo';
+});
+
+$(document).on('click', '.addsubscription-cancel', function () {
+    window.location.href = window.location.href;
+})
+
+
 var deleteSubscriptionID;
 
 function prepareDelete(subscriptionID) {
     deleteSubscriptionID = subscriptionID;
 }
 
-$('.delete-employee').on('click', function () {
+$('.delete-Subscription').on('click', function () {
     if (deleteSubscriptionID) {
         $.ajax({
             url: '/Subscription/DeleteSubscription', // Adjust URL to match your delete endpoint
@@ -77,11 +87,8 @@ function validateAndSubmitForm() {
             processData: false,
             success: function (response) {
                 if (response.success) {
-                    $('#subscriptionadd-success-popup').modal('show');
-                    setTimeout(function () {
-                        $('#subscriptionadd-success-popup').modal('hide');
-                        location.reload(); 
-                    }, 3000);
+                    $('#subscriptionadd-success-popup').modal('show');                    
+                        $('#subscriptionadd-success-popup').modal('hide');                                           
                 } else {
                     $('#error-message').text('Failed to add subscription: ' + response.message);
                     $('#subscriptionadd-error-popup').modal('show');

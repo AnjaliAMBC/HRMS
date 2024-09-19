@@ -9,11 +9,15 @@ using System.IO;
 using System.Configuration;
 using OfficeOpenXml;
 using System.Data.Entity;
+using HRMS.Helpers;
+using HRMS.Models.Employee;
 
 namespace HRMS.Controllers
 {
+    using static HRMS.Helpers.PartialViewHelper;
     public class SubscriptionController : Controller
     {
+        
         private readonly HRMS_EntityFramework _dbContext;
 
         public SubscriptionController()
@@ -27,8 +31,10 @@ namespace HRMS.Controllers
 
             model.ITDeptEmployees = _dbContext.emp_info.Where(x => x.Department == "IT").ToList();
 
+            model.Headline= "Add Subscription";
             if (subid.HasValue)
             {
+                model.Headline = "Edit Subscription";
                 model.Editsubscription = _dbContext.Subscriptions
                                                    .FirstOrDefault(x => x.SubscriptionID == subid.Value);
 
@@ -36,24 +42,18 @@ namespace HRMS.Controllers
                 {
                     return HttpNotFound();
                 }
-            }
-            else
-            {
-                model.Editsubscription = new Subscription();
-            }
-
+            }        
+            
             var lastsubscriptionId = _dbContext.Subscriptions
                                                    .OrderByDescending(x => x.SubscriptionID)
                                                    .FirstOrDefault();
 
-            if (lastsubscriptionId != null)
-            {
-                model.LastSubscriptionID = lastsubscriptionId.SubscriptiionNumber;
+            if (lastsubscriptionId != null)            {
+                
                 model.NewSubscriptionId = "S#" + (lastsubscriptionId.SubscriptionID + 1);
-            }
+                           }
             else
-            {
-                model.LastSubscriptionID = "NA";
+            {                
                 model.NewSubscriptionId = "S#1";
             }
 
@@ -63,7 +63,7 @@ namespace HRMS.Controllers
         public JsonResult AddUpdateSubscription()
         {
             try
-            {
+            {                
                 var subscriptionName = Request.Form["SubscriptionName"];
                 HttpPostedFileBase file = Request.Files["SubscriptionLogo"];
                 var category = Request.Form["SubscriptionCategory"];
@@ -74,7 +74,7 @@ namespace HRMS.Controllers
                 var paymentMethod = Request.Form["SubscriptionPaymentMethod"];
                 var remarks = Request.Form["SubscriptionRemarks"];
                 var createdBy = Request.Form["SubscriptionAddedBy"];
-                var createdDate = Convert.ToDateTime(Request.Form["SubscriptionAddeddate"]);
+                var createdDate = Convert.ToDateTime(Request.Form["SubscriptionAddeddate"]);               
                 var subscriptionID = !string.IsNullOrWhiteSpace(Request.Form["EditRecordID"]) ? System.Convert.ToInt32(Request.Form["EditRecordID"]) : 0;
 
                 // Handle file upload
@@ -203,6 +203,26 @@ namespace HRMS.Controllers
                 {
                     subscription.SubscriptionStatus = $"Due in {daysUntilRenewal} Days";
                     subscription.SubscriptionStatusClass = "subscriptioninfo-list-due";
+
+
+                    if (daysUntilRenewal <= 15 && (subscription.EmailSendBool == false))
+                    {
+                        var emailBody = RenderPartialToString(this, "_SubscriptionReminderEmail", subscription, ViewData, TempData);
+
+                        var emailRequest = new EmailRequest()
+                        {
+                            Body = emailBody,
+                            ToEmail = ConfigurationManager.AppSettings["SubscriptionEmailsTo"], 
+                            Subject = "Subscription Renewal Reminder of " + subscription.SubscriptionName + " ",
+                        };
+
+                        EMailHelper.SendEmail(emailRequest);
+
+                        subscription.EmailSendBool = true;
+
+                        _dbContext.Entry(subscription).State = EntityState.Modified;
+                        _dbContext.SaveChanges();
+                    }
                 }
             }
 

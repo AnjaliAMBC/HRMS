@@ -304,6 +304,7 @@
           <Property Name="UpdatedBy" Type="varchar" MaxLength="255" />
           <Property Name="UpadtedDate" Type="datetime" />
           <Property Name="SubscriptionStatusClass" Type="varchar" MaxLength="255" />
+          <Property Name="EmailSendBool" Type="bit" />
         </EntityType>
         <EntityType Name="SubscriptionHistory">
           <Key>
@@ -854,6 +855,7 @@ warning 6002: The table/view 'HRMS_PortalDev1.dbo.CheckInView' does not have a p
           <Property Name="UpadtedDate" Type="DateTime" Precision="3" />
           <Property Name="SubscriptionStatusClass" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
           <Property Name="SubscriptiionNumber" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+          <Property Name="EmailSendBool" Type="Boolean" />
         </EntityType>
         <EntityType Name="SubscriptionHistory">
           <Key>
@@ -1255,6 +1257,7 @@ warning 6002: The table/view 'HRMS_PortalDev1.dbo.CheckInView' does not have a p
           <EntitySetMapping Name="Subscriptions">
             <EntityTypeMapping TypeName="HRMS_EntityModel.Subscription">
               <MappingFragment StoreEntitySet="Subscription">
+                <ScalarProperty Name="EmailSendBool" ColumnName="EmailSendBool" />
                 <ScalarProperty Name="SubscriptiionNumber" ColumnName="SubscriptiionNumber" />
                 <ScalarProperty Name="SubscriptionStatusClass" ColumnName="SubscriptionStatusClass" />
                 <ScalarProperty Name="UpadtedDate" ColumnName="UpadtedDate" />
