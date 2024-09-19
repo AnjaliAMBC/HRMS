@@ -18,5 +18,9 @@ namespace HRMS.Controllers
         {
             return View("~/Views/Itsupport/AddAsset.cshtml");
         }
+        public ActionResult AssetBulkImport()
+        {
+            return View("~/Views/Itsupport/AssetBulk.cshtml");
+        }      
     }
 }
