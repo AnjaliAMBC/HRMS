@@ -35,7 +35,10 @@ namespace HRMS.Models.ITsupport
         public string SubscriptionStatusClass { get; set; }
         public string LastSubscriptionID { get; set; }
 
+        public string Headline { get; set; }
         public string NewSubscriptionId { get; set; }
+
+        public bool EmailSent { get; set; } = false;
         public List<Subscription> Subscriptions { get; set; } = new List<Subscription>();
 
         public List<emp_info> ITDeptEmployees { get; set; } = new List<emp_info>();

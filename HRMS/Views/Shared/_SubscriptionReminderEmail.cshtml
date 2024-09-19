@@ -1,0 +1,21 @@
+﻿@model HRMS.Subscription
+
+<p>Dear IT Team,</p>
+
+<p>The following subscription is due for renewal in @Model.DaysUntilRenewal days:</p>
+<ul>
+    <li><strong>Subscription ID:</strong> @Model.SubscriptionID</li>
+    <li><strong>Subscription Name:</strong> @Model.SubscriptionName</li>
+    <li>
+        <strong>Renewal Date:</strong>
+        @if (Model.RenewalDate.HasValue)
+        {
+            @Model.RenewalDate.Value.ToString("dd-MM-yyyy")
+        }
+    </li>
+</ul>
+
+<p>Please ensure the necessary actions are taken.</p>
+
+<p>Thank you.</p>
+

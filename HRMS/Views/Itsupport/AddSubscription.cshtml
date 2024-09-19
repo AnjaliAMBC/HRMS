@@ -33,7 +33,7 @@
             <div class="admin-subscription-add">
                 <div class="container-fluid top admin-subscriptionadd">
                     <div class="row navbar align-items-center mt-2">
-                        <h4 class="header mb-0 text-right">Add Subscription</h4>
+                        <h4 class="header mb-0 text-right">@Model.Headline</h4>
                     </div>
                     <form id="subscriptionadd-form" class="admin-subscriptionform needs-validation" novalidate>
                         <div class="container" style="margin-left: 5px">
@@ -47,7 +47,7 @@
                                         }
                                         else
                                         {
-                                            <input type="text" class="form-control" name="SubscriptionID" value="@Model.Editsubscription.SubscriptiionNumber" id="SubscriptionID" placeholder="Enter Subscription ID" required readonly>
+                                            <input type="text" class="form-control" name="SubscriptionID" value="@Model.Editsubscription.SubscriptionID" id="SubscriptionID" placeholder="Enter Subscription ID" required readonly>
                                         }
                                         <div class="invalid-feedback">Subscription ID is required.</div>
                                     </div>
@@ -65,15 +65,13 @@
                                         <label for="SubscriptionLogo" style="width:100%;">Subscription Logo</label>
                                         <div class="upload-btn-wrapper sub2wrapper">
                                             <button class="btn subscriptionadd-upload-btn" type="button">Upload</button>
+
                                             <input type="file" class="form-control" name="SubscriptionLogo" id="SubscriptionLogo"
-                                                   data-existingfile="@Model.Editsubscription.SubscriptionLogo" accept=".jpeg,.png,.jpg,.pdf,.doc,.docx,.xls,.xlsx">
+                                                   data-existingfile="@Model.Editsubscription.SubscriptionLogo"
+                                                   accept=".jpeg,.png,.jpg,.pdf,.doc,.docx,.xls,.xlsx">
                                         </div>
 
-                                        <!-- Display the file name after file selection -->
-                                        <span id="file-name-display" style="margin-top: 5px; display: block;"></span>
-
-                                        <!-- Display the existing attached file as a clickable link if it exists -->
-                                        @if (!string.IsNullOrEmpty(@Model.Editsubscription.SubscriptionLogo))
+                                        @if (!string.IsNullOrEmpty(Model.Editsubscription.SubscriptionLogo))
                                         {
                                             <a class="itp_filepath sublogo-2" href="@Url.Content(Model.Editsubscription.SubscriptionLogo)" target="_blank">
                                                 @System.IO.Path.GetFileName(Model.Editsubscription.SubscriptionLogo)
@@ -81,10 +79,11 @@
                                         }
                                         else
                                         {
-                                            <a class="itp_filepath sublogo-2" style="display:none;"></a>
+                                            <a class="itp_filepath sublogo-2" style="display:none;" target="_blank"></a>
                                         }
                                     </div>
                                 </div>
+
 
 
                                 <div class="col-lg-3 col-md-6">
@@ -95,7 +94,6 @@
                                     </div>
                                 </div>
                             </div>
-
                             <div class="row">
                                 <div class="col-lg-3 col-md-6">
                                     <div class="form-group subscriptionadd-tabs">
@@ -168,7 +166,7 @@
                                     <div class="form-group subscriptionadd-tabs">
                                         <label for="SubscriptionAddedBy">Created By*</label>
                                         <select name="SubscriptionAddedBy" class="SubscriptionAddedBy form-control form-select" id="SubscriptionAddedBy" required>
-                                            <option value="" disabled selected hidden>Added By</option>
+                                            <option value="" disabled selected hidden>Created By</option>
                                             @foreach (var deptEmp in Model.ITDeptEmployees)
                                             {
                                                 var isSelected = Model.Editsubscription != null && Model.Editsubscription.CreatedBy == deptEmp.EmployeeName ? "selected" : "";
@@ -176,7 +174,7 @@
                                             }
                                         </select>
 
-                                        <div class="invalid-feedback">Added By is required.</div>
+                                        <div class="invalid-feedback">Created By is required.</div>
                                     </div>
                                 </div>
 
@@ -186,7 +184,7 @@
                                         <input type="date" class="form-control" name="SubscriptionAddeddate" id="SubscriptionAddeddate"
                                                value="@((Model.Editsubscription?.CreatedDate != DateTime.MinValue) ? Model.Editsubscription.CreatedDate?.ToString("yyyy-MM-dd") : "")"
                                                required>
-                                        <div class="invalid-feedback">Added Date is required.</div>
+                                        <div class="invalid-feedback">Created Date is required.</div>
                                     </div>
                                 </div>
                             </div>
@@ -194,7 +192,16 @@
                             <div class="row">
                                 <div class="col-lg-12 col-md-12 text-right">
                                     <button type="button" id="cancelButton" class="btn subscriptionadd-Cancel" onclick="clearForm()">Cancel</button>
-                                    <button type="button" class="btn btn-primary subscriptionadd-Update" onclick="validateAndSubmitForm()">Submit</button>
+                                    <button type="button" class="btn btn-primary subscriptionadd-Update" onclick="validateAndSubmitForm()">
+    @if (Model.Headline == "Edit Subscription")
+    {
+@:Update
+}
+else
+{
+@:Submit
+}
+</button>
                                 </div>
                             </div>
                         </div>
@@ -210,13 +217,17 @@
     <div class="modal-dialog" role="document">
         <div class="modal-content">
             <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">Add Subscription</h5>
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                    <span aria-hidden="true"></span>
+                    <span aria-hidden="true">&times;</span>
                 </button>
             </div>
             <div class="modal-body text-center">
-                <img src="/assets/correct.png" alt="Approved" style="width:120px;color:green;padding:20px">
-                <h6>Subscription Added Successfully</h6>
+                <h6 style="color:forestgreen">Subscription Added Successfully</h6>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary addsubscription-cancel" data-dismiss="modal">Cancel</button>
+                <button type="button" class="btn btn-primary addsubscription-close" data-dismiss="modal">Close</button>
             </div>
         </div>
     </div>
@@ -228,57 +239,57 @@
     <div class="modal-dialog" role="document">
         <div class="modal-content">
             <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">Error</h5>
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                    <span aria-hidden="true"></span>
+                    <span aria-hidden="true">&times;</span>
                 </button>
             </div>
-            <div class="modal-body text-center">
-                <img src="/assets/Pending.png" alt="Approved" style="width:120px;color:green;padding:20px">
-                <h6 id="error-message">An error occurred</h6>
+            <div class="modal-body text-center">               
+                <h6 id="error-message" style="color:red">An error occurred</h6>
+            </div>
+            <div class="modal-footer">               
+                <button type="button" class="btn btn-primary" data-dismiss="modal">Close</button>
             </div>
         </div>
     </div>
 </div>
 
 <script>
-    function displayFileName(input) {
-        var fileName = input.files[0]?.name || '';
-        document.getElementById('file-name-display').textContent = fileName;
-    }
-
     $(document).ready(function () {
-        // Handle file selection
+        var existingFilePath = $('#SubscriptionLogo').data('existingfile');
+
+        if (existingFilePath) {
+            // Extract the file name from the existing file path
+            var existingFileName = existingFilePath.split('\\').pop().split('/').pop();
+
+            // Show only the file name, open in a new tab
+            $('#file-name-display').text(existingFileName);
+            $('.sublogo-2').attr('href', existingFilePath).text(existingFileName).attr('target', '_blank').show();
+        }
+
+        // When a new file is selected, update the link and show only the file name
         $('#SubscriptionLogo').on('change', function () {
-            var isValid = AttchemnetValidation($(this), true, "sub2wrapper", "#SubscriptionLogo");
-            $(this).attr("data-existingfile", "");
+            var fileInput = $('#SubscriptionLogo');
+            var file = fileInput[0].files[0];
 
-            if (isValid) {
-                var fileInput = $('#SubscriptionLogo');
-                var file = fileInput[0].files[0];
+            if (file) {
+                var fileName = file.name;
+                var fileUrl = URL.createObjectURL(file);
 
-                if (file) {
-                    var fileName = file.name;
-                    var fileUrl = URL.createObjectURL(file);
+                // Update the link with the new file name, URL, and ensure it opens in a new tab
+                $('#file-name-display').text(fileName);
+                $('.sublogo-2').attr('href', fileUrl).text(fileName).attr('target', '_blank').show();
 
-                    // Update the display with the new file information
-                    $('#file-name-display').text(fileName);
-                    $('.sublogo-2').attr('href', fileUrl).text(fileName).show();
-
-                    // Optional: Clean up URL object if needed
-                    $(fileInput).on('change', function () {
-                        URL.revokeObjectURL(fileUrl);
-                    });
-                } else {
-                    $('#file-name-display').text('');
-                    $('.sublogo-2').hide();
-                }
-                console.log("Subscription Logo validation passed.");
+                // Clean up the URL object if a new file is selected again
+                $(fileInput).on('change', function () {
+                    URL.revokeObjectURL(fileUrl);
+                });
             } else {
-                console.log("Subscription Logo validation failed.");
+                // If no file is selected, hide the link
+                $('#file-name-display').text('');
+                $('.sublogo-2').hide();
             }
         });
     });
-
-
 
 </script>
