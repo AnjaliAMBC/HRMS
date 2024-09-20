@@ -109,7 +109,7 @@
                                 </div>
                                 <div class="subscriptionlisting-field-info">
                                     <label>Purchase Date</label>
-                                    <div class="subscriptioninfo-field-details">@Model.LatestHistory.PurchaseDate?.ToString("dd-MM-yyyy")</div>
+                                    <div class="subscriptioninfo-field-details">@(Model.LatestHistory.PurchaseDate.HasValue ? Model.LatestHistory.PurchaseDate.Value.ToString("dd-MM-yyyy") : "N/A")</div>
                                 </div>
                                 <div class="subscriptionlisting-field-info">
                                     <label>License</label>
@@ -117,7 +117,7 @@
                                 </div>
                                 <div class="subscriptionlisting-field-info">
                                     <label>Last Renewal Date</label>
-                                    <div class="subscriptioninfo-field-details">@Model.LatestHistory.RenewalDate?.ToString("dd-MM-yyyy")</div>
+                                    <div class="subscriptioninfo-field-details">@(Model.LatestHistory.RenewalDate.HasValue ? Model.LatestHistory.RenewalDate.Value.ToString("dd-MM-yyyy") : "N/A")</div>
                                 </div>
                                 <div class="subscriptionlisting-field-info">
                                     <label>Amount</label>
@@ -129,7 +129,11 @@
                                 </div>
                                 <div class="subscriptionlisting-field-info">
                                     <label>Added Date</label>
-                                    <div class="subscriptioninfo-field-details">@Model.LatestHistory.CreatedDate?.ToString("dd-MM-yyyy")</div>
+                                    <div class="subscriptioninfo-field-details">
+                                        @(Model.LatestHistory.CreatedDate.HasValue
+        ? Model.LatestHistory.CreatedDate.Value.ToString("dd-MM-yyyy")
+        : "N/A")
+                                    </div>
                                 </div>
                             }
             else
@@ -144,3 +148,4 @@
         </div>
     </div>
 </div>
+<script src="~/Scripts/z-SubscriptionScript.js"></script>

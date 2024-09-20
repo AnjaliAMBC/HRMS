@@ -2,6 +2,15 @@
 @{
     ViewBag.Title = "AddAsset";
 }
+<style>
+    .is-invalid {
+        border-color: red !important;
+    }
+
+    .is-valid {
+        border-color: green !important;
+    }
+</style>
 
 @Html.Partial("_NavBar")
 <div class="container-fluid">
@@ -36,7 +45,7 @@
                         <!-- Asset Info Tab -->
                         <div class="tab-pane fade assetadd-details show active" id="tab1" role="tabpanel" aria-labelledby="tab1-link">
                             <!-- Basic HTML Form -->
-                            <form id="Assetform1 assetadd-form" class="admin-assetform needs-validation" novalidate>
+                            <form id="tab1-form assetadd-form" class="admin-assetform needs-validation" novalidate">
                                 <div class="container" style="margin-left: 5px">
                                     <div class="row">
                                         <div class="col-lg-6 col-md-6 assetadd-main-left-block">
@@ -64,6 +73,7 @@
                                                             <option value="Monitor">Monitor</option>
                                                             <option value="Cpu">Cpu</option>
                                                             <option value="HeadPhone">HeadPhone</option>
+                                                            <option value="Charger">Charger</option>
                                                             <option value="Others">Others</option>
                                                         </select>
                                                         <div class="invalid-feedback">Asset Type is required.</div>
@@ -218,13 +228,11 @@
                                                 <p style="color: green; font-size: 13px;" id="assetadd-uploaded-file-text"></p>
                                             </div>
                                         </div>
-
-
                                     </div>
                                     <div class="row">
                                         <div class="col-lg-12 col-md-12 text-right">
                                             <button type="button" class="btn assetadd-Cancel">Cancel</button>
-                                            <button type="button" class="btn btn-primary assetadd-Update">Save</button>
+                                            <button type="button" class="btn btn-primary assetadd-Update saveandnext">Save and Next</button>
                                         </div>
                                     </div>
                                 </div>
@@ -235,7 +243,7 @@
                         <!-- Purchase Info Tab -->
                         <div class="tab-pane fade assetadd-purchaseinfo-details" id="tab2" role="tabpanel" aria-labelledby="tab2-link">
                             <!-- Basic HTML Form -->
-                            <form id="Assetform2 assetadd-purchaseinfo-form" class="admin-assetadd-purchaseinfo needs-validation" novalidate>
+                            <form id="tab2-form assetadd-purchaseinfo-form" class="admin-assetadd-purchaseinfo needs-validation" novalidate>
                                 <div class="container" style="margin-left: 5px">
                                     <div class="row">
                                         <div class="col-lg-5 col-md-5 assetadd-purchaseinfo-left-block-main">
@@ -271,17 +279,16 @@
                                     <div class="row">
                                         <div class="col-lg-12 col-md-12 text-right">
                                             <button type="button" class="btn assetadd-purchaseinfo-Cancel">Cancel</button>
-                                            <button type="button" class="btn btn-primary assetadd-purchaseinfo-Update">Save</button>
+                                            <button type="button" class="btn btn-primary assetadd-purchaseinfo-Update saveandnext">Save and Next</button>
                                         </div>
                                     </div>
                                 </div>
                             </form>
                         </div>
-
-                        <!-- Allocate Info Tab -->
+                                              
                         <div class="tab-pane fade assetadd-allocateinfo-details" id="tab3" role="tabpanel" aria-labelledby="tab3-link">
                             <!-- Basic HTML Form -->
-                            <form id="Assetform3 assetadd-allocateinfo-form" class="admin-assetadd-allocateinfo needs-validation" novalidate>
+                            <form id="tab3-form assetadd-allocateinfo-form" class="admin-assetadd-allocateinfo needs-validation" novalidate>
                                 <div class="container" style="margin-left: 5px">
                                     <div class="row">
                                         <div class="col-lg-8 col-md-6 assetadd-allocateinfo-left-block-main">
@@ -364,90 +371,163 @@
     </div>
 </div>
 
-
+<script src="~/Scripts/z-AssetScript.js"></script>
 <script>
-$(document).ready(function () {
-    $("#AssetImage").change(function (e) {
-        for (var i = 0; i < e.originalEvent.srcElement.files.length; i++) {
-            var file = e.originalEvent.srcElement.files[i];
-            var img = document.createElement("img");
-            var reader = new FileReader();
-            reader.onloadend = function () {
-                img.src = reader.result;
+    $(document).ready(function () {
+        $("#AssetImage").change(function (e) {
+            for (var i = 0; i < e.originalEvent.srcElement.files.length; i++) {
+                var file = e.originalEvent.srcElement.files[i];
+                var img = document.createElement("img");
+                var reader = new FileReader();
+                reader.onloadend = function () {
+                    img.src = reader.result;
+                }
+                reader.readAsDataURL(file);
+                $("#AssetImage").after(img);
+                $(".admin-asset-add .AssetType-block .upload-btn-wrapper img").after("<span class='uploaded-image-close'><i class='fa fa-times-circle' aria-hidden='true'></i></span>");
             }
-            reader.readAsDataURL(file);
-            $("#AssetImage").after(img);
-            $(".admin-asset-add .AssetType-block .upload-btn-wrapper img").after("<span class='uploaded-image-close'><i class='fa fa-times-circle' aria-hidden='true'></i></span>");
-        }
-    });
+        });
 
-    $("#AssetImage-1").change(function (e) {
-        for (var i = 0; i < e.originalEvent.srcElement.files.length; i++) {
-            var file = e.originalEvent.srcElement.files[i];
-            var img = document.createElement("img");
-            var reader = new FileReader();
-            reader.onloadend = function () {
-                img.src = reader.result;
+        $("#AssetImage-1").change(function (e) {
+            for (var i = 0; i < e.originalEvent.srcElement.files.length; i++) {
+                var file = e.originalEvent.srcElement.files[i];
+                var img = document.createElement("img");
+                var reader = new FileReader();
+                reader.onloadend = function () {
+                    img.src = reader.result;
+                }
+                reader.readAsDataURL(file);
+                $("#AssetImage-1").after(img);
+                $(".admin-asset-add .AssetType-block-1 .upload-btn-wrapper img").after("<span class='uploaded-image-close-1'><i class='fa fa-times-circle' aria-hidden='true'></i></span>");
             }
-            reader.readAsDataURL(file);
-            $("#AssetImage-1").after(img);
-            $(".admin-asset-add .AssetType-block-1 .upload-btn-wrapper img").after("<span class='uploaded-image-close-1'><i class='fa fa-times-circle' aria-hidden='true'></i></span>");
-        }
-    });
+        });
 
-    $("#AssetImage-2").change(function (e) {
-        for (var i = 0; i < e.originalEvent.srcElement.files.length; i++) {
-            var file = e.originalEvent.srcElement.files[i];
-            var img = document.createElement("img");
-            var reader = new FileReader();
-            reader.onloadend = function () {
-                img.src = reader.result;
+        $("#AssetImage-2").change(function (e) {
+            for (var i = 0; i < e.originalEvent.srcElement.files.length; i++) {
+                var file = e.originalEvent.srcElement.files[i];
+                var img = document.createElement("img");
+                var reader = new FileReader();
+                reader.onloadend = function () {
+                    img.src = reader.result;
+                }
+                reader.readAsDataURL(file);
+                $("#AssetImage-2").after(img);
+                $(".admin-asset-add .AssetType-block-2 .upload-btn-wrapper img").after("<span class='uploaded-image-close-2'><i class='fa fa-times-circle' aria-hidden='true'></i></span>");
             }
-            reader.readAsDataURL(file);
-            $("#AssetImage-2").after(img);
-            $(".admin-asset-add .AssetType-block-2 .upload-btn-wrapper img").after("<span class='uploaded-image-close-2'><i class='fa fa-times-circle' aria-hidden='true'></i></span>");
-        }
-    });
+        });
 
-    $("#AssetImage-3").change(function (e) {
-        for (var i = 0; i < e.originalEvent.srcElement.files.length; i++) {
-            var file = e.originalEvent.srcElement.files[i];
-            var img = document.createElement("img");
-            var reader = new FileReader();
-            reader.onloadend = function () {
-                img.src = reader.result;
+        $("#AssetImage-3").change(function (e) {
+            for (var i = 0; i < e.originalEvent.srcElement.files.length; i++) {
+                var file = e.originalEvent.srcElement.files[i];
+                var img = document.createElement("img");
+                var reader = new FileReader();
+                reader.onloadend = function () {
+                    img.src = reader.result;
+                }
+                reader.readAsDataURL(file);
+                $("#AssetImage-3").after(img);
+                $(".admin-asset-add .AssetType-block-3 .upload-btn-wrapper img").after("<span class='uploaded-image-close-3'><i class='fa fa-times-circle' aria-hidden='true'></i></span>");
             }
-            reader.readAsDataURL(file);
-            $("#AssetImage-3").after(img);
-            $(".admin-asset-add .AssetType-block-3 .upload-btn-wrapper img").after("<span class='uploaded-image-close-3'><i class='fa fa-times-circle' aria-hidden='true'></i></span>");
-        }
-    });
+        });
 
-    $(document).on("click", ".uploaded-image-close", function () {
-        $(".admin-asset-add .upload-btn-wrapper img").remove();
-        $(".admin-asset-add .upload-btn-wrapper .uploaded-image-close").remove();
-    });
+        $(document).on("click", ".uploaded-image-close", function () {
+            $(".admin-asset-add .upload-btn-wrapper img").remove();
+            $(".admin-asset-add .upload-btn-wrapper .uploaded-image-close").remove();
+        });
 
-    $(document).on("click", ".uploaded-image-close-1", function () {
-        $(".admin-asset-add .AssetType-block-1 .upload-btn-wrapper img").remove();
-        $(".admin-asset-add .AssetType-block-1 .upload-btn-wrapper .uploaded-image-close-1").remove();
-    });
+        $(document).on("click", ".uploaded-image-close-1", function () {
+            $(".admin-asset-add .AssetType-block-1 .upload-btn-wrapper img").remove();
+            $(".admin-asset-add .AssetType-block-1 .upload-btn-wrapper .uploaded-image-close-1").remove();
+        });
 
-    $(document).on("click", ".uploaded-image-close-2", function () {
-        $(".admin-asset-add .AssetType-block-2 .upload-btn-wrapper img").remove();
-        $(".admin-asset-add .AssetType-block-2 .upload-btn-wrapper .uploaded-image-close-2").remove();
-    });
+        $(document).on("click", ".uploaded-image-close-2", function () {
+            $(".admin-asset-add .AssetType-block-2 .upload-btn-wrapper img").remove();
+            $(".admin-asset-add .AssetType-block-2 .upload-btn-wrapper .uploaded-image-close-2").remove();
+        });
 
-    $(document).on("click", ".uploaded-image-close", function () {
-        $(".admin-asset-add .AssetType-block-3 .upload-btn-wrapper img").remove();
-        $(".admin-asset-add .AssetType-block-3 .upload-btn-wrapper .uploaded-image-close-3").remove();
+        $(document).on("click", ".uploaded-image-close", function () {
+            $(".admin-asset-add .AssetType-block-3 .upload-btn-wrapper img").remove();
+            $(".admin-asset-add .AssetType-block-3 .upload-btn-wrapper .uploaded-image-close-3").remove();
+        });
+
     });
-    
-});
 
     function handleAssetFileUpload(input) {
         var fileName = input.files[0].name;
         $('#assetadd-uploaded-file-info').show();
         $('#assetadd-uploaded-file-text').text(fileName);
     }
+
+    $(document).ready(function () {
+        // Custom form validation function
+        function validateForm(formId) {
+            var isValid = true;
+            var form = $(formId);  // jQuery object
+
+            // Loop through each input field and validate
+            form.find(':input').each(function () {
+                var $input = $(this);
+
+                // Skip validation for fields that are not required
+                if (!$input.prop('required')) {
+                    return true;
+                }
+
+                // Check if the input is valid based on its type
+                if ($input.is('select') && $input.val() === "") {
+                    $input.addClass('is-invalid');
+                    $input.siblings('.invalid-feedback').show();
+                    isValid = false;
+                } else if ($input.is('input[type="file"]') && !$input[0].files.length) {
+                    $input.addClass('is-invalid');
+                    $input.siblings('.invalid-feedback').show();
+                    isValid = false;
+                } else if ($input.is('input') && $input.val().trim() === "") {
+                    $input.addClass('is-invalid');
+                    $input.siblings('.invalid-feedback').show();
+                    isValid = false;
+                } else {
+                    $input.removeClass('is-invalid');
+                    $input.siblings('.invalid-feedback').hide();
+                }
+            });
+
+            // Add class to form if validation failed
+            if (!isValid) {
+                form.addClass('was-validated');
+            }
+
+            return isValid;
+        }
+
+        // Asset Information Form
+        $('.assetadd-Update').on('click', function () {
+            if (validateForm('#tab1-form')) {
+                console.log("Asset Information form is valid!");
+            }
+        });
+
+        // Purchase Information Form
+        $('.assetadd-purchaseinfo-Update').on('click', function () {
+            if (validateForm('#tab2-form')) {
+                console.log("Purchase Information form is valid!");
+            }
+        });
+
+        // Allocate Information Form
+        $('.assetadd-allocateinfo-Update').on('click', function () {
+            if (validateForm('#tab3-form')) {
+                console.log("Allocate Information form is valid!");
+            }
+        });
+
+        // Cancel buttons reset the form validation state
+        $('.assetadd-Cancel, .assetadd-purchaseinfo-Cancel').on('click', function () {
+            var form = $(this).closest('form')[0];
+            $(form).removeClass('was-validated').find(':input').removeClass('is-invalid');
+        });
+    });
+
+
+
 </script>
