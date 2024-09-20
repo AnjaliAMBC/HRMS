@@ -4154,6 +4154,14 @@ input[type=checkbox], input[type=radio] {
 
 /* asset add start */
 
+.res-admin-assetadd-tabs li a {
+    border: none !important;
+}
+
+.res-admin-assetadd-tabs li a.active {
+    border-bottom: 2px solid !important;
+}
+
 .admin-asset-add .assetadd-tabs label {
     font-size: 13px;
     margin-bottom: 0px;
@@ -4164,12 +4172,13 @@ input[type=checkbox], input[type=radio] {
     overflow: hidden;
     display: inline-block;
     width: 70%;
+    top: 13px;
 }
 
 .admin-asset-add .asset-upload-btn {
-    border: 1px solid #ced4da;
-    color: darkslategrey;
-    background-color: #fff;
+    border: 1px solid deepskyblue;
+    color: white;
+    background-color: deepskyblue;
     border-radius: 3px;
     font-size: 14px;
     width: 100%;
@@ -4199,12 +4208,96 @@ input[type=checkbox], input[type=radio] {
     padding: 5px;
 }
 
-.admin-asset-add .upload-btn-wrapper .uploaded-image-close {
+.admin-asset-add #assetadd-form .upload-btn-wrapper .uploaded-image-close,
+.admin-asset-add #assetadd-form .upload-btn-wrapper .uploaded-image-close-1,
+.admin-asset-add #assetadd-form .upload-btn-wrapper .uploaded-image-close-2,
+.admin-asset-add #assetadd-form .upload-btn-wrapper .uploaded-image-close-3 {
     position: fixed;
     margin-left: 47px;
     margin-top: -5px;
     font-size: 10px;
     cursor: pointer;
+}
+
+#assetadd-form,
+#assetadd-purchaseinfo-form,
+#assetadd-allocateinfo-form {
+    margin-top: 10px;
+    margin-bottom: 20px;
+}
+
+#assetadd-form .assetadd-main-left-block {
+    padding: 0;
+}
+
+.assetadd-left-block {
+    display: inline-block;
+}
+
+.assetadd-right-block {
+    display: inline-block;
+}
+
+#assetadd-form #assetadd-file-upload-input-label {
+    text-align: center;
+    font-size: 12px;
+    margin-top: 5px;
+}
+
+.asset-upload-btn i {
+    color: #fff;
+    font-size: 12px;
+    margin-right: 5px;
+}
+
+.admin-asset-add .assetadd-purchaseinfo-tabs label {
+    font-size: 13px;
+    margin-bottom: 0px;
+}
+
+.assetadd-left-block-main {
+    display: inline-block;
+    padding: 0;
+}
+
+.assetadd-purchaseinfo-left-block-main {
+    display: inline-block;
+    padding: 0;
+}
+
+.assetadd-allocateinfo-left-block-main {
+    display: inline-block;
+    padding: 0;
+}
+
+.assetadd-allocate-left-block {
+    padding: 0;
+}
+
+.admin-asset-add .assetadd-allocateinfo-tabs label {
+    font-size: 13px;
+    margin-bottom: 0px;
+}
+
+.assetadd-allocate-left-block {
+    display: inline-block;
+}
+
+.assetadd-allocate-right-block {
+    display: inline-block;
+    font-size: 14px;
+}
+
+.assetadd-allocate-right-block input {
+    display: inline-block;
+    width: 13px;
+    vertical-align: middle;
+    margin-right: 5px;
+    outline: none;
+}
+
+.assetadd-allocate-right-block span.AssetAllocate-AcknowledgeEmail {
+    display: inline-block;
 }
 
 /* asset add end */

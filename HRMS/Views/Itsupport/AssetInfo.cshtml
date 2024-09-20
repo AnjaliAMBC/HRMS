@@ -154,21 +154,7 @@
                             </div>
                         </div>
 
-                        <div class="col-xl-6 col-lg-6 navbarl1 col-sm-12 col-md-7 res-admin-assetinfo-header-right">
-                            <!-- Export -->
-                            <div class="col-xl-4 col-lg-3 navbarl1 col-sm-4 col-xs-12 col-md-4 res-admin-assetinfo-assettype p-0">
-                                <div class="form-group res-assettype">
-                                    <select class="form-control form-select" name="assetinfotype" id="assetinfo-type-dropdown" style="">
-                                        <option value="" disabled selected>Asset Type</option>
-                                        <option value="Laptop">Laptop</option>
-                                        <option value="Mouse">Mouse</option>
-                                        <option value="Keyboard">Keyboard</option>
-                                        <option value="MobilePhone">Mobile Phone</option>
-                                        <option value="UPS">UPS</option>
-                                        <option value="">All</option>
-                                    </select>
-                                </div>
-                            </div>
+                        <div class="col-xl-6 col-lg-6 navbarl1 col-sm-12 col-md-7 res-admin-assetinfo-header-right">                            
                             <div class="col-xl-3 col-lg-3 navbarl1 col-sm-4 col-xs-12 col-md-4 res-admin-assetinfo-status p-0">
                                 <div class="form-group res-assetinfo p-0">
                                     <select class="form-control form-select" name="assetinfostatus" id="assetinfo-status-dropdown" style="">
@@ -187,11 +173,13 @@
                                 </div>
                             </div>
                             <!-- Add asset dropdown -->
-                            <div class="col-lg-3 navbarl1 col-sm-6 col-md-6 res-admin-subscriptioninfo-add text-right">
+                            <div class="col-lg-4 navbarl1 col-sm-6 col-md-6 res-admin-assetinfo-add text-right">
                                 <div class="addingassetinfo form-group">
-                                    <button name="addassetinfo" class="addassetinfo btn btn-primary">
-                                        Add Asset
-                                    </button>
+                                    <select name="addasset" class="addasset form-control form-select" id="addassetinfo">
+                                        <option value="" disabled="" selected="" hidden="">Add Asset</option>
+                                        <option value="Addmanually" class="assetManually">+ Manually</option>
+                                        <option value="importuser" class="assetBulk">+ Bulk</option>
+                                    </select>
                                 </div>
                             </div>
                         </div>

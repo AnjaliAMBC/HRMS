@@ -14,141 +14,343 @@
                     <div class="row navbar align-items-center mt-2">
                         <h4 class="header mb-0 text-right">Add Asset</h4>
                     </div>
-                    <!-- Basic HTML Form -->
-                    <form id="assetadd-form" class="admin-assetform needs-validation" novalidate>
-                        <div class="container" style="margin-left: 5px">
-                            <div class="row">
-                                <div class="col-lg-3 col-md-6" style="padding-left: 0px;">
-                                    <div class="form-group assetadd-tabs">
-                                        <label for="AssetID">Asset ID*</label>
-                                        <input type="text" class="form-control" value="" name="AssetID" id="AssetID" placeholder="Enter Asset ID" required>
-                                        <div class="invalid-feedback">Asset ID is required.</div>
-                                    </div>
-                                </div>
-                                <div class="col-lg-3 col-md-6">
-                                    <div class="form-group assetadd-tabs">
-                                        <label for="AssetLocation">Location*</label>
-                                        <select name="AssetLocation" class="AssetLocation form-control form-select" id="AssetLocation" required>
-                                            <option value="" disabled selected hidden>Select Location</option>
-                                            <option value="222">dfds</option>
-                                        </select>
-                                        <div class="invalid-feedback">Location is required.</div>
-                                    </div>
-                                </div>
-                                <div class="col-lg-3 col-md-6">
-                                    <div class="form-group assetadd-tabs">
-                                        <label for="AssetAllocateStatus">Mode*</label>
-                                        <select name="AssetAllocateStatus" class="AssetAllocateStatus form-control form-select" id="AssetAllocateStatus" required>
-                                            <option value="" disabled selected hidden>Select Status</option>
-                                            <option value="222">dfds</option>
-                                        </select>
-                                        <div class="invalid-feedback">Allocate Status is required.</div>
-                                    </div>
-                                </div>
-                                <div class="col-lg-3 col-md-6">
-                                    <div class="form-group assetadd-tabs">
-                                        <label for="AssetType">Type*</label>
-                                        <select name="AssetType" class="AssetType form-control form-select" id="AssetType" required>
-                                            <option value="" disabled selected hidden>Select Type</option>
-                                            <option value="222">dfds</option>
-                                        </select>
-                                        <div class="invalid-feedback">Asset Type is required.</div>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="row">
-                                <div class="col-lg-3 col-md-6" style="padding-left: 0px;">
-                                    <div class="form-group assetadd-tabs">
-                                        <label for="AssetImage" style="width:100%;">Add Asset Image*</label>
-                                        <div class="upload-btn-wrapper attach1wrapper">
-                                            <button class="btn asset-upload-btn">Upload</button>
-                                            <input type="file"
-                                                   class="form-control"
-                                                   name="AssetImage"
-                                                   id="AssetImage"
-                                                   required
-                                                   accept=".jpeg,.png,.jpg" data-existingfile="">
+
+                    <div class="assetadd-tab-info">
+                        <ul class="nav nav-tabs res-admin-assetadd-tabs responsive-tabs" id="assetaddTab" role="tablist" style="font-size: 15px; width: 100%;">
+                            <li class="nav-item active" role="presentation">
+                                <a class="nav-link active" id="tab1-link" data-toggle="tab" href="#tab1" role="tab" aria-controls="tab1" aria-selected="true"><b>Asset Information</b></a>
+                            </li>
+                            <li class="nav-item" role="presentation">
+                                <a class="nav-link" id="tab2-link" data-toggle="tab" href="#tab2" role="tab" aria-controls="tab2" aria-selected="false"><b>Purchase Information</b></a>
+                            </li>
+                            <li class="nav-item" role="presentation">
+                                <a class="nav-link" id="tab3-link" data-toggle="tab" href="#tab3" role="tab" aria-controls="tab3" aria-selected="false"><b>Allocate Information</b></a>
+                            </li>
+                            <i class="fa fa-caret-up"></i>
+                            <i class="fa fa-caret-down"></i>
+                        </ul>
+                    </div>
+
+
+                    <div class="tab-content" id="assetadd-TabContent">
+                        <!-- Asset Info Tab -->
+                        <div class="tab-pane fade assetadd-details show active" id="tab1" role="tabpanel" aria-labelledby="tab1-link">
+                            <!-- Basic HTML Form -->
+                            <form id="assetadd-form" class="admin-assetform needs-validation" novalidate>
+                                <div class="container" style="margin-left: 5px">
+                                    <div class="row">
+                                        <div class="col-lg-6 col-md-6 assetadd-main-left-block">
+                                            <div class="col-lg-12 col-md-6 AssetID" style="padding-left:0px;">
+                                                <div class="col-lg-7 col-md-6">
+                                                    <div class="form-group assetadd-tabs">
+                                                        <label for="AssetID">Asset ID*</label>
+                                                        <input type="text" class="form-control" value="" name="AssetID" id="AssetID" placeholder="Enter Asset ID" required>
+                                                        <div class="invalid-feedback">Asset ID is required.</div>
+                                                    </div>
+                                                </div>
+                                                <div class="col-lg-4 col-md-4">
+                                                </div>
+                                            </div>
+
+                                            <div class="col-lg-12 col-md-6 AssetType-block" style="padding-left:0px;">
+                                                <div class="col-lg-7 col-md-6 assetadd-left-block">
+                                                    <div class="form-group assetadd-tabs">
+                                                        <label for="AssetType">Asset Type*</label>
+                                                        <select name="AssetType" class="AssetType form-control form-select" id="AssetType" required>
+                                                            <option value="" disabled selected hidden>Select Type</option>
+                                                            <option value="222">dfds</option>
+                                                        </select>
+                                                        <div class="invalid-feedback">Asset Type is required.</div>
+                                                    </div>
+                                                </div>
+                                                <div class="col-lg-4 col-md-4 assetadd-right-block">
+                                                    <div class="form-group assetadd-tabs">
+                                                        <div class="upload-btn-wrapper attach1wrapper">
+                                                            <button class="btn asset-upload-btn"><i class="fas fa-upload"></i>Upload</button>
+                                                            <input type="file"
+                                                                   class="form-control"
+                                                                   name="AssetImage"
+                                                                   id="AssetImage"
+                                                                   required
+                                                                   accept=".jpeg,.png,.jpg" data-existingfile="">
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+
+                                            <div class="col-lg-12 col-md-6 AssetType-block-1" style="padding-left:0px;">
+                                                <div class="col-lg-7 col-md-6 assetadd-left-block">
+                                                    <div class="form-group assetadd-tabs">
+                                                        <select name="AssetType-1" class="AssetType form-control form-select" id="AssetType-1" required>
+                                                            <option value="" disabled selected hidden>Select Type</option>
+                                                            <option value="222">dfds</option>
+                                                        </select>
+                                                        <div class="invalid-feedback">Asset Type is required.</div>
+                                                    </div>
+                                                </div>
+                                                <div class="col-lg-4 col-md-4 assetadd-right-block">
+                                                    <div class="form-group assetadd-tabs">
+                                                        <div class="upload-btn-wrapper attach1wrapper">
+                                                            <button class="btn asset-upload-btn"><i class="fas fa-upload"></i>Upload</button>
+                                                            <input type="file"
+                                                                   class="form-control"
+                                                                   name="AssetImage-1"
+                                                                   id="AssetImage-1"
+                                                                   required
+                                                                   accept=".jpeg,.png,.jpg" data-existingfile="">
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+
+                                            <div class="col-lg-12 col-md-6 AssetType-block-2" style="padding-left:0px;">
+                                                <div class="col-lg-7 col-md-6 assetadd-left-block">
+                                                    <div class="form-group assetadd-tabs">
+                                                        <select name="AssetType-2" class="AssetType form-control form-select" id="AssetType-2" required>
+                                                            <option value="" disabled selected hidden>Select Type</option>
+                                                            <option value="222">dfds</option>
+                                                        </select>
+                                                        <div class="invalid-feedback">Asset Type is required.</div>
+                                                    </div>
+                                                </div>
+                                                <div class="col-lg-4 col-md-4 assetadd-right-block">
+                                                    <div class="form-group assetadd-tabs">
+                                                        <div class="upload-btn-wrapper attach1wrapper">
+                                                            <button class="btn asset-upload-btn"><i class="fas fa-upload"></i>Upload</button>
+                                                            <input type="file"
+                                                                   class="form-control"
+                                                                   name="AssetImage-1"
+                                                                   id="AssetImage-2"
+                                                                   required
+                                                                   accept=".jpeg,.png,.jpg" data-existingfile="">
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+
+                                            <div class="col-lg-12 col-md-6 AssetType-block-3" style="padding-left:0px;">
+                                                <div class="col-lg-7 col-md-6 assetadd-left-block">
+                                                    <div class="form-group assetadd-tabs">
+                                                        <select name="AssetType-3" class="AssetType form-control form-select" id="AssetType-3" required>
+                                                            <option value="" disabled selected hidden>Select Type</option>
+                                                            <option value="222">dfds</option>
+                                                        </select>
+                                                        <div class="invalid-feedback">Asset Type is required.</div>
+                                                    </div>
+                                                </div>
+                                                <div class="col-lg-4 col-md-4 assetadd-right-block">
+                                                    <div class="form-group assetadd-tabs">
+                                                        <div class="upload-btn-wrapper attach1wrapper">
+                                                            <button class="btn asset-upload-btn"><i class="fas fa-upload"></i>Upload</button>
+                                                            <input type="file"
+                                                                   class="form-control"
+                                                                   name="AssetImage-1"
+                                                                   id="AssetImage-3"
+                                                                   required
+                                                                   accept=".jpeg,.png,.jpg" data-existingfile="">
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+
                                         </div>
-                                        <div class="invalid-feedback">Add Asset Image is required.</div>
+
+                                        <div class="col-lg-4 col-md-6 assetadd-main-mid-block">
+                                            <div class="col-lg-12 col-md-12">
+                                                <div class="form-group assetadd-tabs">
+                                                    <label for="AssetManufacture">Manufacture*</label>
+                                                    <input type="text" class="form-control" value="" name="AssetManufacture" id="AssetManufacture" placeholder="Enter Manufacture" required>
+                                                    <div class="invalid-feedback">Manufacture is required.</div>
+                                                </div>
+                                            </div>
+                                            <div class="col-lg-12 col-md-12">
+                                                <div class="form-group assetadd-tabs">
+                                                    <label for="AssetModel">Model*</label>
+                                                    <input type="text" class="form-control" value="" name="AssetModel" id="AssetModel" placeholder="Enter Model" required>
+                                                    <div class="invalid-feedback">Model is required.</div>
+                                                </div>
+                                            </div>
+                                            <div class="col-lg-12 col-md-12">
+                                                <div class="form-group assetadd-tabs">
+                                                    <label for="AssetBarcode">Barcode</label>
+                                                    <input type="text" class="form-control" value="" name="AssetBarcode" id="AssetBarcode" placeholder="Enter Barcode">
+                                                </div>
+                                            </div>
+                                            <div class="col-lg-12 col-md-12">
+                                                <div class="form-group assetadd-tabs">
+                                                    <label for="AssetRAM">RAM</label>
+                                                    <input type="text" class="form-control" value="" name="AssetRAM" id="AssetRAM" placeholder="Enter RAM">
+                                                </div>
+                                            </div>
+                                            <div class="col-lg-12 col-md-12">
+                                                <div class="form-group assetadd-tabs">
+                                                    <label for="AssetWarrentyStartDate">Warrenty Start Date*</label>
+                                                    <input type="date" class="form-control" name="AssetWarrentyStartDate" id="AssetWarrentyStartDate" required>
+                                                    <div class="invalid-feedback">Warrenty Start Date is required.</div>
+                                                </div>
+                                            </div>
+                                            <div class="col-lg-12 col-md-12">
+                                                <div class="form-group assetadd-tabs">
+                                                    <label for="AssetWarrentyEndDate">Warrenty End Date*</label>
+                                                    <input type="date" class="form-control" name="AssetWarrentyEndDate" id="AssetWarrentyEndDate" required>
+                                                    <div class="invalid-feedback">Warrenty End Date is required.</div>
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        <div class="col-lg-2 col-md-2 assetadd-main-right-block">
+                                            <div class="assetadd-file-upload" id="assetadd-file-upload-area" style="border: 1px solid #ced4da; padding: 20px; text-align: center; border-radius: 5px; margin-top: 23px;">
+                                                <label for="assetadd-file-upload-input" id="assetadd-file-upload-label" style="cursor: pointer;">
+                                                    <i class="fas fa-cloud-upload-alt fa-3x" style="color: #ced4da; "></i>
+                                                </label>
+                                                <input type="file" id="assetadd-file-upload-input" accept=".jpeg,.png,.jpg" onchange="handleAssetFileUpload(this)" style="display: none;">
+                                            </div>
+                                            <div class="assetadd-file-upload-input-label" id="assetadd-file-upload-input-label">
+                                                <label for="assetadd-file-upload-input-label">Upload File*</label>
+                                            </div>
+                                            <div class="assetadd-uploaded-file" id="assetadd-uploaded-file-info" style="display: none;">
+                                                <p style="color: green; font-size: 13px;" id="assetadd-uploaded-file-text"></p>
+                                            </div>
+                                        </div>
+
+
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-lg-12 col-md-12 text-right">
+                                            <button type="button" class="btn assetadd-Cancel">Cancel</button>
+                                            <button type="button" class="btn btn-primary assetadd-Update">Save</button>
+                                        </div>
                                     </div>
                                 </div>
-                                <div class="col-lg-3 col-md-6">
-                                    <div class="form-group assetadd-tabs">
-                                        <label for="AssetManufacture">Manufacture*</label>
-                                        <input type="text" class="form-control" value="" name="AssetManufacture" id="AssetManufacture" placeholder="Enter Manufacture" required>
-                                        <div class="invalid-feedback">Manufacture is required.</div>
-                                    </div>
-                                </div>
-                                <div class="col-lg-3 col-md-6">
-                                    <div class="form-group assetadd-tabs">
-                                        <label for="AssetModel">Model*</label>
-                                        <input type="text" class="form-control" value="" name="AssetModel" id="AssetModel" placeholder="Enter Model" required>
-                                        <div class="invalid-feedback">Model is required.</div>
-                                    </div>
-                                </div>
-                                <div class="col-lg-3 col-md-6">
-                                    <div class="form-group assetadd-tabs">
-                                        <label for="AssetServiceTag">Service Tag*</label>
-                                        <input type="text" class="form-control" value="" name="AssetServiceTag" id="AssetServiceTag" placeholder="Enter Service Tag" required>
-                                        <div class="invalid-feedback">Service Tag is required.</div>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="row">
-                                <div class="col-lg-3 col-md-6" style="padding-left: 0px;">
-                                    <div class="form-group assetadd-tabs">
-                                        <label for="AssetExpressCode">ExpressCode*</label>
-                                        <input type="text" class="form-control" value="" name="AssetExpressCode" id="AssetExpressCode" placeholder="Enter Express Code" required>
-                                        <div class="invalid-feedback">Express Code is required.</div>
-                                    </div>
-                                </div>
-                                <div class="col-lg-3 col-md-6">
-                                    <div class="form-group assetadd-tabs">
-                                        <label for="AssetBarcode">Barcode</label>
-                                        <input type="text" class="form-control" value="" name="AssetBarcode" id="AssetBarcode" placeholder="Enter Barcode">
-                                    </div>
-                                </div>
-                                <div class="col-lg-3 col-md-6">
-                                    <div class="form-group assetadd-tabs">
-                                        <label for="AssetRAM">RAM</label>
-                                        <input type="text" class="form-control" value="" name="AssetRAM" id="AssetRAM" placeholder="Enter RAM" >
-                                    </div>
-                                </div>
-                                <div class="col-lg-3 col-md-6">
-                                    <div class="form-group assetadd-tabs">
-                                        <label for="AssetWarrentyStartDate">Warrenty Start Date*</label>
-                                        <input type="date" class="form-control" name="AssetWarrentyStartDate" id="AssetWarrentyStartDate" required>
-                                        <div class="invalid-feedback">Warrenty Start Date is required.</div>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="row">
-                                <div class="col-lg-3 col-md-6" style="padding-left: 0px;">
-                                    <div class="form-group assetadd-tabs">
-                                        <label for="AssetWarrentyEndDate">Warrenty End Date*</label>
-                                        <input type="date" class="form-control" name="AssetWarrentyEndDate" id="AssetWarrentyEndDate" required>
-                                        <div class="invalid-feedback">Warrenty End Date is required.</div>
-                                    </div>
-                                </div>
-                                <div class="col-lg-3 col-md-6">
-                                    <div class="form-group assetadd-tabs">
-                                        <label for="AssetWarrentyStatus">Warrenty Status*</label>
-                                        <select name="AssetWarrentyStatus" class="AssetType form-control form-select" id="AssetWarrentyStatus" required>
-                                            <option value="" disabled selected hidden>Select Status</option>
-                                            <option value="222">dfds</option>
-                                        </select>
-                                        <div class="invalid-feedback">Warrenty Status is required.</div>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="row">
-                                <div class="col-lg-12 col-md-12 text-right">
-                                    <button type="button" class="btn assetadd-Cancel">Cancel</button>
-                                    <button type="button" class="btn btn-primary assetadd-Update">Submit</button>
-                                </div>
-                            </div>
+                            </form>
                         </div>
-                    </form>
+
+
+                        <!-- Purchase Info Tab -->
+                        <div class="tab-pane fade assetadd-purchaseinfo-details" id="tab2" role="tabpanel" aria-labelledby="tab2-link">
+                            <!-- Basic HTML Form -->
+                            <form id="assetadd-purchaseinfo-form" class="admin-assetadd-purchaseinfo needs-validation" novalidate>
+                                <div class="container" style="margin-left: 5px">
+                                    <div class="row">
+                                        <div class="col-lg-5 col-md-5 assetadd-purchaseinfo-left-block-main">
+                                            <div class="col-lg-12 col-md-12">
+                                                <div class="form-group assetadd-purchaseinfo-tabs">
+                                                    <label for="AssetPurchase-Vendorname">Vendor Name</label>
+                                                    <select name="AssetPurchase-Vendorname" class="AssetPurchase-Vendorname form-control form-select" id="AssetPurchase-Vendorname">
+                                                        <option value="" disabled selected hidden>Select Vendor</option>
+                                                        <option value="222">dfds</option>
+                                                    </select>
+                                                </div>
+                                            </div>
+                                            <div class="col-lg-12 col-md-12">
+                                                <div class="form-group assetadd-purchaseinfo-tabs">
+                                                    <label for="AssetPurchase-PONumber">PO Number</label>
+                                                    <input type="text" class="form-control" name="AssetPurchase-PONumber" id="AssetPurchase-PONumber" placeholder="Enter PO Number">
+                                                </div>
+                                            </div>
+                                            <div class="col-lg-12 col-md-12">
+                                                <div class="form-group assetadd-purchaseinfo-tabs">
+                                                    <label for="AssetPurchase-PurchaseDate">Purchase Date</label>
+                                                    <input type="date" class="form-control" name="AssetPurchase-PurchaseDate" id="AssetPurchase-PurchaseDate">
+                                                </div>
+                                            </div>
+                                            <div class="col-lg-12 col-md-12">
+                                                <div class="form-group assetadd-purchaseinfo-tabs">
+                                                    <label for="AssetPurchase-InvoiceDate">Invoice Date</label>
+                                                    <input type="date" class="form-control" name="AssetPurchase-InvoiceDate" id="AssetPurchase-InvoiceDate">
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-lg-12 col-md-12 text-right">
+                                            <button type="button" class="btn assetadd-purchaseinfo-Cancel">Cancel</button>
+                                            <button type="button" class="btn btn-primary assetadd-purchaseinfo-Update">Save</button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </form>
+                        </div>
+
+                        <!-- Allocate Info Tab -->
+                        <div class="tab-pane fade assetadd-allocateinfo-details" id="tab3" role="tabpanel" aria-labelledby="tab3-link">
+                            <!-- Basic HTML Form -->
+                            <form id="assetadd-allocateinfo-form" class="admin-assetadd-allocateinfo needs-validation" novalidate>
+                                <div class="container" style="margin-left: 5px">
+                                    <div class="row">
+                                        <div class="col-lg-8 col-md-6 assetadd-allocateinfo-left-block-main">
+                                            <div class="col-lg-12 col-md-12">
+                                                <div class="col-lg-6 col-md-12 assetadd-allocate-left-block">
+                                                    <div class="form-group assetadd-allocateinfo-tabs">
+                                                        <label for="AssetAllocate-Location">Location</label>
+                                                        <select name="AssetAllocate-Location" class="AssetLocation-Location form-control form-select" id="AssetLocation-Location">
+                                                            <option value="" disabled selected hidden>Select Location</option>
+                                                            <option value="222">dfds</option>
+                                                        </select>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="col-lg-12 col-md-12 assetadd-allocate-employee-field">
+                                                <div class="col-lg-6 col-md-12 assetadd-allocate-left-block">
+                                                    <div class="form-group assetadd-allocateinfo-tabs">
+                                                        <label for="AssetAllocate-Employee">Employee</label>
+                                                        <select name="AssetAllocate-Employee" class="AssetPurchase-Employee form-control form-select" id="AssetLocation-Employee">
+                                                            <option value="" disabled selected hidden>Select Employee</option>
+                                                            <option value="222">dfds</option>
+                                                        </select>
+                                                    </div>
+                                                </div>
+                                                <div class="col-lg-5 col-md-12 assetadd-allocate-right-block">
+                                                    <input type="checkbox" class="form-control" name="AssetAllocate-AcknowledgeEmail" id="AssetAllocate-AcknowledgeEmail" value="Send Acknowledge Email">
+                                                    <span class="AssetAllocate-AcknowledgeEmail">Send Acknowledge Email</span>
+                                                </div>
+                                            </div>
+                                            <div class="col-lg-12 col-md-12">
+                                                <div class="col-lg-6 col-md-12 assetadd-allocate-left-block">
+                                                    <div class="form-group assetadd-allocateinfo-tabs">
+                                                        <label for="AssetAllocate-AssignedBy">Assigned By</label>
+                                                        <select name="AssetAllocate-AssignedBy" class="AssetLocation-AssignedBy form-control form-select" id="AssetLocation-AssignedBy">
+                                                            <option value="" disabled selected hidden>Select Name</option>
+                                                            <option value="222">dfds</option>
+                                                        </select>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="col-lg-12 col-md-12">
+                                                <div class="col-lg-6 col-md-12 assetadd-allocate-left-block">
+                                                    <div class="form-group assetadd-allocateinfo-tabs">
+                                                        <label for="AssetAllocate-AssignedDate">Assigned Date</label>
+                                                        <input type="date" class="form-control" name="AssetAllocate-AssignedDate" id="AssetAllocate-AssignedDate">
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="col-lg-12 col-md-12">
+                                                <div class="col-lg-6 col-md-12 assetadd-allocate-left-block">
+                                                    <div class="form-group assetadd-allocateinfo-tabs">
+                                                        <label for="AssetAllocate-AllocateStatus">Allocate Status</label>
+                                                        <select name="AssetAllocate-AllocateStatus" class="AssetLocation-AllocateStatus form-control form-select" id="AssetLocation-AllocateStatus">
+                                                            <option value="" disabled selected hidden>Select Status</option>
+                                                            <option value="222">dfds</option>
+                                                        </select>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-lg-12 col-md-12 text-right">
+                                            <button type="button" class="btn assetadd-purchaseinfo-Cancel">Cancel</button>
+                                            <button type="button" class="btn btn-primary assetadd-purchaseinfo-Update">Save</button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </form>
+                        </div>
+
+
+
+
+                    </div>
 
                 </div>
             </div>
@@ -169,7 +371,49 @@ $(document).ready(function () {
             }
             reader.readAsDataURL(file);
             $("#AssetImage").after(img);
-            $(".admin-asset-add .upload-btn-wrapper img").after("<span class='uploaded-image-close'><i class='fa fa-times-circle' aria-hidden='true'></i></span>");
+            $(".admin-asset-add .AssetType-block .upload-btn-wrapper img").after("<span class='uploaded-image-close'><i class='fa fa-times-circle' aria-hidden='true'></i></span>");
+        }
+    });
+
+    $("#AssetImage-1").change(function (e) {
+        for (var i = 0; i < e.originalEvent.srcElement.files.length; i++) {
+            var file = e.originalEvent.srcElement.files[i];
+            var img = document.createElement("img");
+            var reader = new FileReader();
+            reader.onloadend = function () {
+                img.src = reader.result;
+            }
+            reader.readAsDataURL(file);
+            $("#AssetImage-1").after(img);
+            $(".admin-asset-add .AssetType-block-1 .upload-btn-wrapper img").after("<span class='uploaded-image-close-1'><i class='fa fa-times-circle' aria-hidden='true'></i></span>");
+        }
+    });
+
+    $("#AssetImage-2").change(function (e) {
+        for (var i = 0; i < e.originalEvent.srcElement.files.length; i++) {
+            var file = e.originalEvent.srcElement.files[i];
+            var img = document.createElement("img");
+            var reader = new FileReader();
+            reader.onloadend = function () {
+                img.src = reader.result;
+            }
+            reader.readAsDataURL(file);
+            $("#AssetImage-2").after(img);
+            $(".admin-asset-add .AssetType-block-2 .upload-btn-wrapper img").after("<span class='uploaded-image-close-2'><i class='fa fa-times-circle' aria-hidden='true'></i></span>");
+        }
+    });
+
+    $("#AssetImage-3").change(function (e) {
+        for (var i = 0; i < e.originalEvent.srcElement.files.length; i++) {
+            var file = e.originalEvent.srcElement.files[i];
+            var img = document.createElement("img");
+            var reader = new FileReader();
+            reader.onloadend = function () {
+                img.src = reader.result;
+            }
+            reader.readAsDataURL(file);
+            $("#AssetImage-3").after(img);
+            $(".admin-asset-add .AssetType-block-3 .upload-btn-wrapper img").after("<span class='uploaded-image-close-3'><i class='fa fa-times-circle' aria-hidden='true'></i></span>");
         }
     });
 
@@ -177,5 +421,27 @@ $(document).ready(function () {
         $(".admin-asset-add .upload-btn-wrapper img").remove();
         $(".admin-asset-add .upload-btn-wrapper .uploaded-image-close").remove();
     });
+
+    $(document).on("click", ".uploaded-image-close-1", function () {
+        $(".admin-asset-add .AssetType-block-1 .upload-btn-wrapper img").remove();
+        $(".admin-asset-add .AssetType-block-1 .upload-btn-wrapper .uploaded-image-close-1").remove();
+    });
+
+    $(document).on("click", ".uploaded-image-close-2", function () {
+        $(".admin-asset-add .AssetType-block-2 .upload-btn-wrapper img").remove();
+        $(".admin-asset-add .AssetType-block-2 .upload-btn-wrapper .uploaded-image-close-2").remove();
+    });
+
+    $(document).on("click", ".uploaded-image-close", function () {
+        $(".admin-asset-add .AssetType-block-3 .upload-btn-wrapper img").remove();
+        $(".admin-asset-add .AssetType-block-3 .upload-btn-wrapper .uploaded-image-close-3").remove();
+    });
+    
 });
+
+    function handleAssetFileUpload(input) {
+        var fileName = input.files[0].name;
+        $('#assetadd-uploaded-file-info').show();
+        $('#assetadd-uploaded-file-text').text(fileName);
+    }
 </script>
