@@ -9,6 +9,7 @@ using System.Collections.Generic;
 using System.Globalization;
 using System.IO;
 using System.Linq;
+using System.Net;
 using System.Web;
 using System.Web.Mvc;
 
@@ -541,6 +542,85 @@ namespace HRMS.Controllers
                 string excelName = $"LeaveHistory-{DateTime.Now.ToString("yyyyMMddHHmmssfff")}.xlsx";
 
                 return File(stream, "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet", excelName);
+            }
+        }
+        public ActionResult ExportLeaveHistory(List<string> selectedLeaveNos)
+        {
+            // Validate the input
+            if (selectedLeaveNos == null || !selectedLeaveNos.Any())
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest, "No leaves selected for export.");
+            }
+
+            // Retrieve the leave records based on selected leave numbers
+            var leaveRecords = _dbContext.con_leaveupdate
+                                    .Where(l => selectedLeaveNos.Contains(l.leaveuniqkey))
+                                    .ToList();
+
+            if (leaveRecords == null || !leaveRecords.Any())
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.NotFound, "No leave records found for the selected criteria.");
+            }
+
+            // Generate Excel file
+            using (var package = new ExcelPackage())
+            {
+                var worksheet = package.Workbook.Worksheets.Add("Leave History");
+
+                // Add header row
+                worksheet.Cells[1, 1].Value = "Leave No";
+                worksheet.Cells[1, 2].Value = "Employee Name";
+                worksheet.Cells[1, 3].Value = "Leave Type";
+                worksheet.Cells[1, 4].Value = "Leave Date";
+                worksheet.Cells[1, 5].Value = "From Date";
+                worksheet.Cells[1, 6].Value = "To Date";
+                worksheet.Cells[1, 7].Value = "Leave Reason";
+                worksheet.Cells[1, 8].Value = "Leave Days";
+                worksheet.Cells[1, 9].Value = "Leave Status";
+
+                // Apply styling to the header row
+                using (var range = worksheet.Cells[1, 1, 1, 9]) // Adjust column range if necessary
+                {
+                    range.Style.Fill.PatternType = OfficeOpenXml.Style.ExcelFillStyle.Solid;
+                    range.Style.Fill.BackgroundColor.SetColor(System.Drawing.Color.SkyBlue);
+                    range.Style.Font.Color.SetColor(System.Drawing.Color.White);
+                    range.Style.Font.Bold = true; // Optional: make the text bold
+                }
+
+                // Add leave data to Excel
+                int row = 2;
+                foreach (var leave in leaveRecords)
+                {
+                    worksheet.Cells[row, 1].Value = leave.leaveno;
+                    worksheet.Cells[row, 2].Value = leave.employee_name;
+                    worksheet.Cells[row, 3].Value = leave.leavecategory;
+                    worksheet.Cells[row, 4].Value = leave.leavedate?.ToString("yyyy-MM-dd");
+                    worksheet.Cells[row, 5].Value = leave.Fromdate?.ToString("yyyy-MM-dd"); 
+                    worksheet.Cells[row, 6].Value = leave.Todate?.ToString("yyyy-MM-dd"); 
+                    worksheet.Cells[row, 7].Value = leave.leave_reason;
+                    worksheet.Cells[row, 8].Value = leave.LeaveDays;
+                    worksheet.Cells[row, 9].Value = leave.LeaveStatus;
+                    row++;
+                }
+
+                worksheet.Cells[worksheet.Dimension.Address].AutoFitColumns();
+
+                // Set some document properties
+                package.Workbook.Properties.Title = "Leave History";
+                package.Workbook.Properties.Comments = "This report was generated using AMBC PRM application";
+
+                var stream = new MemoryStream();
+                package.SaveAs(stream);
+                stream.Position = 0;
+
+                // Log the size for debugging
+                if (stream.Length == 0)
+                {
+                    return new HttpStatusCodeResult(HttpStatusCode.InternalServerError, "The Excel file is empty.");
+                }
+
+                string fileName = "LeaveHistory_Selected.xlsx";
+                return File(stream, "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet", fileName);
             }
         }
 

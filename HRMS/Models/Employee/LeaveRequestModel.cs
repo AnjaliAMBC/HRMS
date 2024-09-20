@@ -91,6 +91,7 @@ namespace HRMS.Models.Employee
         public DateTime? Todate { get; set; }
         public decimal TotalLeaveDays { get; set; }
         public con_leaveupdate LatestLeave { get; set; }
+        public con_leaveupdate leaveno { get; set; }
     }
 
     public class LeaveBalanceCheckDates

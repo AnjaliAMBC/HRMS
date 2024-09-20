@@ -42,6 +42,8 @@ namespace HRMS.Models.Admin
 
         public List<DropdownItem> Departments = new List<DropdownItem>();
 
+        public List<int> SelectedLeaveIds { get; set; }
+
     }
 
     public class AdminLeaveEmpCalenderViewModel
