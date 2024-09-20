@@ -347,7 +347,7 @@ function AdminViewHistoryTable(fromDate, toDate) {
                 tableBody += `<tr>
                     <td><input type="checkbox"></td>
                     <td>${leaveInfo.LatestLeave.employee_id}</td>
-                    <td><img src="${statusImagePath}" alt="Leave Status" class="leaveStatusImage"></td>
+                    <td><img src="${statusImagePath}" alt="Leave Status" class="leaveStatusImage" style="width:30px;height:30px;"></td>
                      <td>
                         <div style="display: flex; align-items: center;">
                             <img class="userIcon" src="${empImageUrl}" alt="Employee Image" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';" />
