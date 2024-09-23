@@ -34,13 +34,25 @@ namespace HRMS.Controllers
             model.HydAssets = model.Assets.Where(x => x.AllocatedStatus == "Assigned" && x.Location == "Hyderabad").ToList().Count();
             model.MaduraiAssets = model.Assets.Where(x => x.AllocatedStatus == "Assigned" && x.Location == "Madurai").ToList().Count();
 
+            model.AssetModel.Employees = _dbContext.emp_info.Where(x => x.EmployeeStatus == "Active").ToList();
+            model.AssetModel.allVendors = _dbContext.VendorLists.Where(x => x.Status == "Approved").ToList();
 
             return View("~/Views/Itsupport/AssetInfo.cshtml", model);
         }
 
-        public ActionResult AddAsset()
+        public ActionResult AddAsset(string assetid = "")
         {
-            return View("~/Views/Itsupport/AddAsset.cshtml");
+            var model = new AssetModel();
+
+            model.Employees = _dbContext.emp_info.Where(x => x.EmployeeStatus == "Active").ToList();
+            model.allVendors = _dbContext.VendorLists.Where(x => x.Status == "Approved").ToList();
+            if (!string.IsNullOrWhiteSpace(assetid))
+            {
+                assetid = "Asset/01/#A4";
+                model.EditAssets = _dbContext.Assets.Where(x => x.AssetID == assetid).FirstOrDefault();
+            }
+
+            return View("~/Views/Itsupport/AddAsset.cshtml", model);
         }
 
         [HttpPost]
@@ -168,5 +180,11 @@ namespace HRMS.Controllers
         {
             return View("~/Views/Itsupport/AssetBulk.cshtml");
         }
+
+        public ActionResult AssetView()
+        {
+            return View("~/Views/Itsupport/AssetViewInfo.cshtml");
+        }
+
     }
 }

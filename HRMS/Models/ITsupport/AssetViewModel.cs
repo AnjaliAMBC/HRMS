@@ -18,6 +18,8 @@ namespace HRMS.Models.ITsupport
 
         public int MaduraiAssets { get; set; } = 0;
 
+        public AssetModel AssetModel = new AssetModel();
+
     }
 
     public class AssetViewModel
@@ -25,5 +27,11 @@ namespace HRMS.Models.ITsupport
         public Asset Asset { get; set; } = new Asset();
     }
 
+    public class AssetModel
+    {
+        public List<emp_info> Employees { get; set; } = new List<emp_info>();      
+        public List<VendorList> allVendors { get; set; } = new List<VendorList>();
 
+        public Asset EditAssets { get; set; } = new Asset();
+    }
 }
