@@ -1,76 +1,8 @@
-﻿
+﻿@model HRMS.Models.ITsupport.AssetListModel
 
 @Html.Partial("_NavBar")
-<script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
-<script type="text/javascript">
-    google.charts.load('current', { packages: ['corechart'] });
-    google.charts.setOnLoadCallback(drawChart);
 
-    function drawChart() {
-        var data = google.visualization.arrayToDataTable([
-            ['Asset Type', 'Number of Assets'],
-            ['Laptop', 150],
-            ['Keyboard', 50],
-            ['Mouse', 100],
-            ['Mobile Phone', 70],
-            ['UPS', 30]
-        ]);
-
-        var options = {
-            legend: { position: 'none' }, // Hide the default legend
-            chartArea: {
-                left:0,
-                top: 0,
-                width: '80%',
-                height: '90%'
-            },
-            
-        };
-
-        var chart = new google.visualization.PieChart(document.getElementById('piechart'));
-        chart.draw(data, options);
-
-        // Custom Legend Creation
-        createCustomLegend();
-    }
-
-    function createCustomLegend() {
-        const legendItems = [
-            { color: '#3366cc', label: 'Laptop' },
-            { color: '#dc3912', label: 'Keyboard' },
-            { color: '#ff9900', label: 'Mouse' },
-            { color: '#109618', label: 'Mobile Phone' },
-            { color: '#990099', label: 'UPS' }
-        ];
-
-        const legendContainer = document.getElementById('legend');
-        legendContainer.innerHTML = ''; // Clear existing content
-
-        legendItems.forEach(item => {
-            const legendItem = document.createElement('div');
-            legendItem.style.display = 'flex';
-            legendItem.style.alignItems = 'right';
-            legendItem.style.marginBottom = '10px';
-
-            const colorBox = document.createElement('div');
-            colorBox.style.width = '13px';
-            colorBox.style.height = '13px';
-            colorBox.style.backgroundColor = item.color;
-            colorBox.style.marginRight = '5px';
-            colorBox.style.marginTop = '2px';
-
-            const label = document.createElement('span');
-            label.textContent = item.label;
-            label.style.fontSize = '14px';
-
-            legendItem.appendChild(colorBox);
-            legendItem.appendChild(label);
-            legendContainer.appendChild(legendItem);
-        });
-    }
-</script>
 <style>
-   
 </style>
 <div class="container-fluid">
     <div class="hiddenadmindashboard" style="display: none"></div>
@@ -90,7 +22,7 @@
                                         </div>
                                         <div class="asset_listdetails_card">
                                             <p class="asset_itemslist">Total Asset</p>
-                                            <p class="asset_totallist">150</p>
+                                            <p class="asset_totallist">@Model.TotalAssets</p>
                                         </div>
                                     </div>
                                     <div class="col-lg-2 d-flex assetlist_cardset">
@@ -100,7 +32,7 @@
                                         </div>
                                         <div class="asset_listdetails_card">
                                             <p class="asset_itemslist">Asset In Use</p>
-                                            <p class="asset_totallist">145</p>
+                                            <p class="asset_totallist">@Model.AssetsInUse</p>
                                         </div>
                                     </div>
                                     <div class="col-lg-2 d-flex assetlist_cardset">
@@ -110,7 +42,7 @@
                                         </div>
                                         <div class="asset_listdetails_card">
                                             <p class="asset_itemslist"> Asset In Scrap</p>
-                                            <p class="asset_totallist">73</p>
+                                            <p class="asset_totallist">@Model.AssetsInScrap</p>
                                         </div>
                                     </div>
                                     <div class="col-lg-2 d-flex assetlist_cardset">
@@ -120,7 +52,7 @@
                                         </div>
                                         <div class="asset_listdetails_card">
                                             <p class="asset_itemslist">Hyd Asset</p>
-                                            <p class="asset_totallist">72</p>
+                                            <p class="asset_totallist">@Model.HydAssets</p>
                                         </div>
                                     </div>
                                     <div class="col-lg-2 d-flex assetlist_cardset">
@@ -130,22 +62,22 @@
                                         </div>
                                         <div class="asset_listdetails_card">
                                             <p class="asset_itemslist">Mdu Asset</p>
-                                            <p class="asset_totallist">72</p>
+                                            <p class="asset_totallist">@Model.MaduraiAssets</p>
                                         </div>
                                     </div>
-                                </div>                                
+                                </div>
                             </div>
                         </div>
 
                         @*<div class="col-lg-6 col-sm-12 col-md-6 col-12 pl-4">
-                            <div class="card">
-                                <p style="margin-top:10px;">Asset Type</p>
-                                <div class=" chart-legend-container">
-                                    <div id="piechart" style="height:172px;"></div>
-                                    <div id="legend"></div>
+                                <div class="card">
+                                    <p style="margin-top:10px;">Asset Type</p>
+                                    <div class=" chart-legend-container">
+                                        <div id="piechart" style="height:172px;"></div>
+                                        <div id="legend"></div>
+                                    </div>
                                 </div>
-                            </div>
-                        </div>*@
+                            </div>*@
                     </div>
                 </div>
                 <div class="container-fluid top admin-assetinfoview">
@@ -166,7 +98,7 @@
                             </div>
                         </div>
 
-                        <div class="col-xl-5 col-lg-5 navbarl1 col-sm-12 col-md-7 res-admin-assetinfo-header-right">                            
+                        <div class="col-xl-5 col-lg-5 navbarl1 col-sm-12 col-md-7 res-admin-assetinfo-header-right">
                             <div class="col-xl-4 col-lg-4 navbarl1 col-sm-4 col-xs-12 col-md-4 res-admin-assetinfo-status p-0">
                                 <div class="form-group res-assetinfo p-0">
                                     <select class="form-control form-select" name="assetinfostatus" id="assetinfo-status-dropdown" style="">
@@ -219,48 +151,36 @@
                             </tr>
                         </thead>
                         <tbody>
-                            <tr class="even">
-                                <td><input type="checkbox" class="Assetlist-check"></td>
-                                <td class="tdassetid"><span class="assetinfo-image-btn"><img src="/assets/image8.png" alt="PO" style="width:25px"></span><span style="margin-left: 5px; color: #3E78CF;">AMBC/MDU/#767</span></td>
-                                <td>1155 Test User</td>
-                                <td class="tdassetlocation">Madurai</td>
-                                <td>Assigned</td>                                
-                                <td>Aravind</td>
-                                <td>03-09-2024</td>
-                                <td style="text-align:center;">
-                                    <span class="assetinfo-list-edit">
-                                        <i class="fas fa-ellipsis-v asset-edit-dropdown" onclick="toggleAssetActionOptions(this)"></i>
-                                        <div class="asset-options" style="display:none">
-                                            <a class="dropdown-item emp-leave-edit" onclick="assetview(1)">View</a>
-                                            <a class="dropdown-item emp-leave-edit" onclick="assetedit(1)">Edit</a>
-                                            <a class="dropdown-item emp-leave-cancel" onclick="assetchangelog(1)">Change Log</a>
-                                            <a class="dropdown-item emp-leave-cancel" onclick="assettransfer(1)">Asset Transfer</a>
-                                            <a class="dropdown-item emp-leave-cancel" onclick="assetdelete(1)">Delete</a>
-                                        </div>
-                                    </span>
-                                </td>
-                            </tr>
-                            <tr class="odd">
-                                <td><input type="checkbox" class="Assetlist-check"></td>
-                                <td class="tdassetid"><span class="assetinfo-image-btn"><img src="/assets/image8.png" alt="PO" style="width:25px"></span><span style="margin-left: 5px; color: #3E78CF;">AMBC/MDU/#769</span></td>
-                                <td>1155 Test User</td>
-                                <td class="tdassetlocation">Madurai</td>
-                                <td>Assigned</td>
-                                <td>Aravind</td>
-                                <td>03-09-2024</td>
-                                <td style="text-align:center;">
-                                    <span class="assetinfo-list-edit">
-                                        <i class="fas fa-ellipsis-v asset-edit-dropdown" onclick="toggleAssetActionOptions(this)"></i>
-                                        <div class="asset-options" style="display:none">
-                                            <a class="dropdown-item emp-leave-edit" onclick="assetview(1)">View</a>
-                                            <a class="dropdown-item emp-leave-edit" onclick="assetedit(1)">Edit</a>
-                                            <a class="dropdown-item emp-leave-cancel" onclick="assetchangelog(1)">Change Log</a>
-                                            <a class="dropdown-item emp-leave-cancel" onclick="assettransfer(1)">Asset Transfer</a>
-                                            <a class="dropdown-item emp-leave-cancel" onclick="assetdelete(1)">Delete</a>
-                                        </div>
-                                    </span>
-                                </td>
-                            </tr>
+
+                            @foreach (var asset in Model.Assets)
+                            {
+                                var assetFolderID = asset.AssetID.Split('#')[1];
+                                var assetImageURL = "/ticketing/assets/" + assetFolderID + "/" + asset.AssetMainImage;
+
+                                <tr class="">
+                                    <td><input type="checkbox" class="Assetlist-check" data-assetid="@asset.AssetID"></td>
+                                    <td class="tdassetid"><span class="assetinfo-image-btn"><img src="@assetImageURL" alt="@asset.AssetID" style="width:25px"></span><span style="margin-left: 5px; color: #3E78CF;">@asset.AssetID</span></td>
+                                    <td>1155 @asset.AllocatedEmployeeName</td>
+                                    <td class="tdassetlocation">@asset.Location</td>
+                                    <td>@asset.AllocatedStatus</td>
+                                    <td>@asset.AssignedBy</td>
+                                    <td>@asset.AssignedDate</td>
+                                    <td style="text-align:center;">
+                                        <span class="assetinfo-list-edit">
+                                            <i class="fas fa-ellipsis-v asset-edit-dropdown" onclick="toggleAssetActionOptions(this)"></i>
+                                            <div class="asset-options" style="display:none">
+                                                <a class="dropdown-item emp-leave-edit" data-assetid="@asset.AssetID" onclick="assetview(1)">View</a>
+                                                <a class="dropdown-item emp-leave-edit" data-assetid="@asset.AssetID" onclick="assetedit(1)">Edit</a>
+                                                <a class="dropdown-item emp-leave-cancel" data-assetid="@asset.AssetID" onclick="assetchangelog(1)">Change Log</a>
+                                                <a class="dropdown-item emp-leave-cancel" data-assetid="@asset.AssetID" onclick="assettransfer(1)">Asset Transfer</a>
+                                                <a class="dropdown-item emp-leave-cancel" data-assetid="@asset.AssetID" onclick="assetdelete(1)">Delete</a>
+                                            </div>
+                                        </span>
+                                    </td>
+                                </tr>
+
+                            }
+
                         </tbody>
                     </table>
                 </div>
@@ -269,7 +189,6 @@
         </div>
     </div>
 </div>
-    </div>
 
 <script src="~/Scripts/z-AssetScript.js"></script>
 <script>

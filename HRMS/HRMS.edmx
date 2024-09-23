@@ -9,7 +9,7 @@
           <Key>
             <PropertyRef Name="AssetID" />
           </Key>
-          <Property Name="AssetID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="AssetID" Type="varchar" MaxLength="100" Nullable="false" />
           <Property Name="AllocatedEmployeeName" Type="varchar" MaxLength="255" />
           <Property Name="Location" Type="varchar" MaxLength="100" />
           <Property Name="AllocatedStatus" Type="varchar" MaxLength="50" Nullable="false" />
@@ -923,7 +923,7 @@ warning 6002: The table/view 'HRMS_PortalDev1.dbo.CheckInView' does not have a p
           <Key>
             <PropertyRef Name="AssetID" />
           </Key>
-          <Property Name="AssetID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="AssetID" Type="String" Nullable="false" MaxLength="100" FixedLength="false" Unicode="false" />
           <Property Name="AllocatedEmployeeName" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
           <Property Name="Location" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
           <Property Name="AllocatedStatus" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />

@@ -14,7 +14,7 @@ namespace HRMS
     
     public partial class Asset
     {
-        public int AssetID { get; set; }
+        public string AssetID { get; set; }
         public string AllocatedEmployeeName { get; set; }
         public string Location { get; set; }
         public string AllocatedStatus { get; set; }

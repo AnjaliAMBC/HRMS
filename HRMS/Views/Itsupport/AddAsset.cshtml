@@ -18,6 +18,20 @@
     .is-invalid .select2-container--default .select2-selection--single .select2-selection__rendered {
         color: red;
     }
+
+    input.is-invalid, select.is-invalid {
+        border-color: red;
+    }
+
+    .invalid-feedback {
+        display: none;
+        color: red;
+    }
+
+    input.is-invalid ~ .invalid-feedback,
+    select.is-invalid ~ .invalid-feedback {
+        display: block;
+    }
 </style>
 
 @Html.Partial("_NavBar")
@@ -53,7 +67,7 @@
                         <!-- Asset Info Tab -->
                         <div class="tab-pane fade assetadd-details show active" id="tab1" role="tabpanel" aria-labelledby="tab1-link">
                             <!-- Basic HTML Form -->
-                            <form id="tab1-form assetadd-form" class="admin-assetform needs-validation" novalidate">
+                            <form id="tab1-form assetadd-form" class="admin-assetform">
                                 <div class="container" style="margin-left: 5px">
                                     <div class="row">
                                         <div class="col-lg-6 col-md-6 assetadd-main-left-block">
@@ -97,6 +111,7 @@
                                                                    id="AssetImage"
                                                                    required
                                                                    accept=".jpeg,.png,.jpg" data-existingfile="">
+                                                            <div class="invalid-feedback">required.</div>
                                                         </div>
                                                     </div>
                                                 </div>
@@ -107,7 +122,14 @@
                                                     <div class="form-group assetadd-tabs">
                                                         <select name="AssetType-1" class="AssetType form-control form-select" id="AssetType-1" required>
                                                             <option value="" disabled selected hidden>Select Type</option>
-                                                            <option value="222">dfds</option>
+                                                            <option value="Laptop">Laptop</option>
+                                                            <option value="Mouse">Mouse</option>
+                                                            <option value="Keyboard">Keyboard</option>
+                                                            <option value="Monitor">Monitor</option>
+                                                            <option value="Cpu">Cpu</option>
+                                                            <option value="HeadPhone">HeadPhone</option>
+                                                            <option value="Charger">Charger</option>
+                                                            <option value="Others">Others</option>
                                                         </select>
                                                         <div class="invalid-feedback">Asset Type is required.</div>
                                                     </div>
@@ -122,6 +144,7 @@
                                                                    id="AssetImage-1"
                                                                    required
                                                                    accept=".jpeg,.png,.jpg" data-existingfile="">
+                                                            <div class="invalid-feedback">required.</div>
                                                         </div>
                                                     </div>
                                                 </div>
@@ -132,7 +155,14 @@
                                                     <div class="form-group assetadd-tabs">
                                                         <select name="AssetType-2" class="AssetType form-control form-select" id="AssetType-2" required>
                                                             <option value="" disabled selected hidden>Select Type</option>
-                                                            <option value="222">dfds</option>
+                                                            <option value="Laptop">Laptop</option>
+                                                            <option value="Mouse">Mouse</option>
+                                                            <option value="Keyboard">Keyboard</option>
+                                                            <option value="Monitor">Monitor</option>
+                                                            <option value="Cpu">Cpu</option>
+                                                            <option value="HeadPhone">HeadPhone</option>
+                                                            <option value="Charger">Charger</option>
+                                                            <option value="Others">Others</option>
                                                         </select>
                                                         <div class="invalid-feedback">Asset Type is required.</div>
                                                     </div>
@@ -147,6 +177,7 @@
                                                                    id="AssetImage-2"
                                                                    required
                                                                    accept=".jpeg,.png,.jpg" data-existingfile="">
+                                                            <div class="invalid-feedback">required.</div>
                                                         </div>
                                                     </div>
                                                 </div>
@@ -157,7 +188,14 @@
                                                     <div class="form-group assetadd-tabs">
                                                         <select name="AssetType-3" class="AssetType form-control form-select" id="AssetType-3" required>
                                                             <option value="" disabled selected hidden>Select Type</option>
-                                                            <option value="222">dfds</option>
+                                                            <option value="Laptop">Laptop</option>
+                                                            <option value="Mouse">Mouse</option>
+                                                            <option value="Keyboard">Keyboard</option>
+                                                            <option value="Monitor">Monitor</option>
+                                                            <option value="Cpu">Cpu</option>
+                                                            <option value="HeadPhone">HeadPhone</option>
+                                                            <option value="Charger">Charger</option>
+                                                            <option value="Others">Others</option>
                                                         </select>
                                                         <div class="invalid-feedback">Asset Type is required.</div>
                                                     </div>
@@ -172,6 +210,7 @@
                                                                    id="AssetImage-3"
                                                                    required
                                                                    accept=".jpeg,.png,.jpg" data-existingfile="">
+                                                            <div class="invalid-feedback">required.</div>
                                                         </div>
                                                     </div>
                                                 </div>
@@ -228,6 +267,7 @@
                                                     <i class="fas fa-cloud-upload-alt fa-3x" style="color: #ced4da; "></i>
                                                 </label>
                                                 <input type="file" id="assetadd-file-upload-input" accept=".jpeg,.png,.jpg" onchange="handleAssetFileUpload(this)" style="display: none;">
+                                                <div class="invalid-feedback">required.</div>
                                             </div>
                                             <div class="assetadd-file-upload-input-label" id="assetadd-file-upload-input-label">
                                                 <label for="assetadd-file-upload-input-label">Upload File*</label>
@@ -235,6 +275,7 @@
                                             <div class="assetadd-uploaded-file" id="assetadd-uploaded-file-info" style="display: none;">
                                                 <p style="color: green; font-size: 13px;" id="assetadd-uploaded-file-text"></p>
                                             </div>
+
                                         </div>
                                     </div>
                                     <div class="row">
@@ -293,7 +334,7 @@
                                 </div>
                             </form>
                         </div>
-                                              
+
                         <div class="tab-pane fade assetadd-allocateinfo-details" id="tab3" role="tabpanel" aria-labelledby="tab3-link">
                             <!-- Basic HTML Form -->
                             <form id="tab3-form assetadd-allocateinfo-form" class="admin-assetadd-allocateinfo needs-validation" novalidate>
@@ -351,8 +392,11 @@
                                                         <label for="AssetAllocate-AllocateStatus">Allocate Status</label>
                                                         <select name="AssetAllocate-AllocateStatus" class="AssetAllocate-AllocateStatus form-control form-select" id="AssetAllocate-AllocateStatus">
                                                             <option value="" disabled selected hidden>Select Status</option>
-                                                            <option value="222">dfds</option>
+                                                            <option value="Un-Assigned">Un-Assigned</option>
+                                                            <option value="Assigned">Assigned</option>
+                                                            <option value="Scrap">Scrap</option>
                                                         </select>
+                                                        <div class="invalid-feedback">Allocate Status is required.</div>
                                                     </div>
                                                 </div>
                                             </div>
@@ -360,7 +404,7 @@
                                                 <div class="col-lg-6 col-md-6 assetadd-allocate-left-block">
                                                     <div class="form-group assetadd-allocateinfo-tabs">
                                                         <label for="AssetAllocate-Remarks">Remarks</label>
-                                                        <textarea rows="1" class="form-control" id=""AssetAllocate-Remarks" name="AssetAllocate-Remarks"></textarea>
+                                                        <textarea rows="1" class="form-control" id="AssetAllocate-Remarks" AssetAllocate-Remarks" name="AssetAllocate-Remarks"></textarea>
                                                     </div>
                                                 </div>
                                             </div>
@@ -369,7 +413,7 @@
                                     <div class="row">
                                         <div class="col-lg-12 col-md-12 text-right">
                                             <button type="button" class="btn assetadd-purchaseinfo-Cancel">Cancel</button>
-                                            <button type="button" class="btn btn-primary assetadd-purchaseinfo-Update">Save</button>
+                                            <button type="button" class="btn btn-primary assetadd-Update-final">Save</button>
                                         </div>
                                     </div>
                                 </div>
@@ -475,76 +519,267 @@
         $('#assetadd-uploaded-file-text').text(fileName);
     }
 
+
+
     $(document).ready(function () {
-        // Custom form validation function
-        function validateForm(formId) {
-            var isValid = true;
-            var form = $(formId);  // jQuery object
+        $('.saveandnext').click(function (e) {
+            e.preventDefault();
+            let isValid = true;
 
-            // Loop through each input field and validate
-            form.find(':input').each(function () {
-                var $input = $(this);
+            // Asset ID validation
+            const assetID = $('#AssetID');
+            if (assetID.val().trim() === "") {
+                assetID.addClass('is-invalid');
+                isValid = false;
+            } else {
+                assetID.removeClass('is-invalid');
+            }
 
-                // Skip validation for fields that are not required
-                if (!$input.prop('required')) {
-                    return true;
-                }
+            // Manufacture validation
+            const manufacture = $('#AssetManufacture');
+            if (manufacture.val().trim() === "") {
+                manufacture.addClass('is-invalid');
+                isValid = false;
+            } else {
+                manufacture.removeClass('is-invalid');
+            }
 
-                // Check if the input is valid based on its type
-                if ($input.is('select') && $input.val() === "") {
-                    $input.addClass('is-invalid');
-                    $input.siblings('.invalid-feedback').show();
-                    isValid = false;
-                } else if ($input.is('input[type="file"]') && !$input[0].files.length) {
-                    $input.addClass('is-invalid');
-                    $input.siblings('.invalid-feedback').show();
-                    isValid = false;
-                } else if ($input.is('input') && $input.val().trim() === "") {
-                    $input.addClass('is-invalid');
-                    $input.siblings('.invalid-feedback').show();
-                    isValid = false;
-                } else {
-                    $input.removeClass('is-invalid');
-                    $input.siblings('.invalid-feedback').hide();
+            // Model validation
+            const model = $('#AssetModel');
+            if (model.val().trim() === "") {
+                model.addClass('is-invalid');
+                isValid = false;
+            } else {
+                model.removeClass('is-invalid');
+            }
+
+            // Warranty Start Date validation
+            const warrentyStartDate = $('#AssetWarrentyStartDate');
+            if (warrentyStartDate.val() === "") {
+                warrentyStartDate.addClass('is-invalid');
+                isValid = false;
+            } else {
+                warrentyStartDate.removeClass('is-invalid');
+            }
+
+            // Warranty End Date validation
+            const warrentyEndDate = $('#AssetWarrentyEndDate');
+            if (warrentyEndDate.val() === "") {
+                warrentyEndDate.addClass('is-invalid');
+                isValid = false;
+            } else {
+                warrentyEndDate.removeClass('is-invalid');
+            }
+
+
+            // Warranty End Date validation
+            const assetType = $('#AssetType');
+            if (assetType.val() === "" || assetType.val() == null) {
+                assetType.addClass('is-invalid');
+                isValid = false;
+            } else {
+                assetType.removeClass('is-invalid');
+            }
+            const assetImage = $('#AssetImage');
+            if (assetImage.val() === "") {
+                assetImage.addClass('is-invalid');
+                isValid = false;
+            } else {
+                assetImage.removeClass('is-invalid');
+            }
+
+            const assetType1 = $('#AssetType-1');
+            if (assetType1.val() === null || assetType1.val() === "") {
+                assetType1.addClass('is-invalid');
+                isValid = false;
+            } else {
+                assetType1.removeClass('is-invalid');
+            }
+            const assetImage1 = $('#AssetImage-1');
+            if (assetImage1.val() === "") {
+                assetImage1.addClass('is-invalid');
+                isValid = false;
+            } else {
+                assetImage1.removeClass('is-invalid');
+            }
+
+
+            const assetType2 = $('#AssetType-2');
+            if (assetType2.val() == null || assetType2.val() === "") {
+                assetType2.addClass('is-invalid');
+                isValid = false;
+            } else {
+                assetType2.removeClass('is-invalid');
+            }
+            const assetImage2 = $('#AssetImage-2');
+            if (assetImage2.val() === "") {
+                assetImage2.addClass('is-invalid');
+                isValid = false;
+            } else {
+                assetImage2.removeClass('is-invalid');
+            }
+
+
+            const assetType3 = $('#AssetType-3');
+            if (assetType3.val() == null || assetType3.val() === "") {
+                assetType3.addClass('is-invalid');
+                isValid = false;
+            } else {
+                assetType3.removeClass('is-invalid');
+            }
+            const assetImage3 = $('#AssetImage-3');
+            if (assetImage3.val() === "") {
+                assetImage3.addClass('is-invalid');
+                isValid = false;
+            } else {
+                assetImage3.removeClass('is-invalid');
+            }
+
+            const mainImage = $('#assetadd-file-upload-input');
+            if (mainImage.val() === "") {
+                mainImage.addClass('is-invalid');
+                isValid = false;
+            } else {
+                mainImage.removeClass('is-invalid');
+            }            
+
+            isValid = true;
+            // If form is valid, submit it
+            if (isValid) {
+                $('#tab2-link').click();
+            } else {
+                // Handle error, show a message or focus the first invalid element
+                $('html, body').animate({ scrollTop: $('.is-invalid:first').offset().top - 50 }, 500);
+            }
+        });
+        $('.assetadd-purchaseinfo-Update').click(function (e) {
+            e.preventDefault();
+            $('#tab3-link').click();
+        });
+
+        $('.assetadd-Update-final').click(function (e) {
+            e.preventDefault();
+            isValid = true;
+
+            const AllocateStatus = $('#AssetAllocate-AllocateStatus');
+            if (AllocateStatus.val() == null || AllocateStatus.val() === "") {
+                AllocateStatus.addClass('is-invalid');
+                isValid = false;
+            } else {
+                AllocateStatus.removeClass('is-invalid');
+            }
+
+            if (!isValid) {
+                return;
+            }
+
+
+            // Create a new FormData object
+            var formData = new FormData();
+
+            var assetID = $('#AssetID').val();
+            formData.append('AssetID', assetID);
+
+            var assetType = $('#AssetType').val();
+            formData.append('AssetType', assetType);
+
+            var fileInput1 = $('#AssetImage')[0].files[0];
+            formData.append('AssetImage', fileInput1);
+
+            var assetType1 = $('#AssetType-1').val();
+            formData.append('AssetType-1', assetType1);
+            var fileInput2 = $('#AssetImage-1')[0].files[0];
+            formData.append('AssetImage-1', fileInput2);
+
+
+            var assetType2 = $('#AssetType-2').val();
+            formData.append('AssetType-2', assetType2);
+            var fileInput3 = $('#AssetImage-2')[0].files[0];
+            formData.append('AssetImage-2', fileInput3);
+
+
+            var assetType3 = $('#AssetType-3').val();
+            formData.append('AssetType-3', assetType3);
+
+            var fileInput4 = $('#AssetImage-3')[0].files[0];
+            formData.append('AssetImage-3', fileInput4);
+
+            var mainImage = $('#assetadd-file-upload-input')[0].files[0];
+            formData.append('MainImage', mainImage);
+
+            var manufacture = $('#AssetManufacture').val();
+            formData.append('AssetManufacture', manufacture);
+
+            var model = $('#AssetModel').val();
+            formData.append('AssetModel', model);
+
+            var barcode = $('#AssetBarcode').val();
+            formData.append('AssetBarcode', barcode);
+
+            var ram = $('#AssetRAM').val();
+            formData.append('AssetRAM', ram);
+
+            var warrantyStartDate = $('#AssetWarrentyStartDate').val();
+            formData.append('AssetWarrentyStartDate', warrantyStartDate);
+
+            var warrantyEndDate = $('#AssetWarrentyEndDate').val();
+            formData.append('AssetWarrentyEndDate', warrantyEndDate);
+
+
+            var vendorName = $('#AssetPurchase-Vendorname').val();
+            formData.append('AssetPurchase-Vendorname', vendorName);
+
+            var poNumber = $('#AssetPurchase-PONumber').val();
+            formData.append('AssetPurchase-PONumber', poNumber);
+
+            var purchaseDate = $('#AssetPurchase-PurchaseDate').val();
+            formData.append('AssetPurchase-PurchaseDate', purchaseDate);
+
+            var invoiceDate = $('#AssetPurchase-InvoiceDate').val();
+            formData.append('AssetPurchase-InvoiceDate', invoiceDate);
+
+            var location = $('#AssetAllocate-Location').val();
+            formData.append('AssetAllocate-Location', location);
+
+            var employee = $('#AssetAllocate-Employee').val();
+            formData.append('AssetAllocate-Employee', employee);
+
+            var acknowledgeEmail = $('#AssetAllocate-AcknowledgeEmail').is(':checked') ? 'Yes' : 'No';
+            formData.append('AssetAllocate-AcknowledgeEmail', acknowledgeEmail);
+
+            var assignedBy = $('#AssetAllocate-AssignedBy').val();
+            formData.append('AssetAllocate-AssignedBy', assignedBy);
+
+            var assignedDate = $('#AssetAllocate-AssignedDate').val();
+            formData.append('AssetAllocate-AssignedDate', assignedDate);
+
+            var allocateStatus = $('#AssetAllocate-AllocateStatus').val();
+            formData.append('AssetAllocate-AllocateStatus', allocateStatus);
+
+            var remarks = $('#AssetAllocate-Remarks').val();
+            formData.append('AssetAllocate-Remarks', remarks);
+
+
+            // Send formData via AJAX
+            $.ajax({
+                url: '/asset/addassetallocation',  // Replace with your actual upload URL
+                type: 'POST',
+                data: formData,
+                processData: false,
+                contentType: false,
+                success: function (response) {
+                    // Handle success
+                    console.log('Form submitted successfully:', response);
+                },
+                error: function (xhr, status, error) {
+                    // Handle error
+                    console.error('Error submitting form:', error);
                 }
             });
-
-            // Add class to form if validation failed
-            if (!isValid) {
-                form.addClass('was-validated');
-            }
-
-            return isValid;
-        }
-
-        // Asset Information Form
-        $('.assetadd-Update').on('click', function () {
-            if (validateForm('#tab1-form')) {
-                console.log("Asset Information form is valid!");
-            }
         });
 
-        // Purchase Information Form
-        $('.assetadd-purchaseinfo-Update').on('click', function () {
-            if (validateForm('#tab2-form')) {
-                console.log("Purchase Information form is valid!");
-            }
-        });
 
-        // Allocate Information Form
-        $('.assetadd-allocateinfo-Update').on('click', function () {
-            if (validateForm('#tab3-form')) {
-                console.log("Allocate Information form is valid!");
-            }
-        });
 
-        // Cancel buttons reset the form validation state
-        $('.assetadd-Cancel, .assetadd-purchaseinfo-Cancel').on('click', function () {
-            var form = $(this).closest('form')[0];
-            $(form).removeClass('was-validated').find(':input').removeClass('is-invalid');
-        });
     });
-
-
 
 </script>
