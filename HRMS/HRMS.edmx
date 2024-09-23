@@ -5,43 +5,6 @@
     <!-- SSDL content -->
     <edmx:StorageModels>
     <Schema Namespace="HRMS_EntityModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
-        <EntityType Name="Assets">
-          <Key>
-            <PropertyRef Name="AssetID" />
-          </Key>
-          <Property Name="AssetID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-          <Property Name="AllocatedEmployeeName" Type="varchar" MaxLength="255" />
-          <Property Name="Location" Type="varchar" MaxLength="100" />
-          <Property Name="AllocatedStatus" Type="varchar" MaxLength="50" Nullable="false" />
-          <Property Name="AssignedBy" Type="varchar" MaxLength="255" />
-          <Property Name="AssignedDate" Type="datetime" />
-          <Property Name="Remarks" Type="varchar(max)" />
-          <Property Name="AssetType1" Type="varchar" MaxLength="100" Nullable="false" />
-          <Property Name="AssetType2" Type="varchar" MaxLength="100" />
-          <Property Name="AssetType3" Type="varchar" MaxLength="100" />
-          <Property Name="AssetType4" Type="varchar" MaxLength="100" />
-          <Property Name="AssetType5" Type="varchar" MaxLength="100" />
-          <Property Name="AssetType6" Type="varchar" MaxLength="100" />
-          <Property Name="Manufacturer" Type="varchar" MaxLength="255" />
-          <Property Name="Model" Type="varchar" MaxLength="255" />
-          <Property Name="BarCode" Type="varchar" MaxLength="255" />
-          <Property Name="RAM" Type="varchar" MaxLength="50" />
-          <Property Name="WarrantyStartDate" Type="datetime" />
-          <Property Name="WarrantyEndDate" Type="datetime" />
-          <Property Name="AssetMainImage" Type="varchar" MaxLength="1000" />
-          <Property Name="AssetType1Image" Type="varchar" MaxLength="1000" />
-          <Property Name="AssetType2Image" Type="varchar" MaxLength="1000" />
-          <Property Name="AssetType3Image" Type="varchar" MaxLength="1000" />
-          <Property Name="AssetType4Image" Type="varchar" MaxLength="1000" />
-          <Property Name="AssetType5Image" Type="varchar" MaxLength="1000" />
-          <Property Name="AssetType6Image" Type="varchar" MaxLength="1000" />
-          <Property Name="VendorName" Type="varchar" MaxLength="255" />
-          <Property Name="PONumber" Type="varchar" MaxLength="100" />
-          <Property Name="PurchaseDate" Type="datetime" />
-          <Property Name="InvoiceDate" Type="datetime" />
-          <Property Name="UpdatedBy" Type="varchar" MaxLength="255" />
-          <Property Name="UpdatedDate" Type="datetime" />
-        </EntityType>
         <EntityType Name="Client">
           <Key>
             <PropertyRef Name="Sno" />
@@ -450,7 +413,6 @@ warning 6002: The table/view 'HRMS_PortalDev1.dbo.CheckInView' does not have a p
           <Property Name="imagepath" Type="varchar" MaxLength="1000" />
         </EntityType>
         <EntityContainer Name="HRMS_EntityModelStoreContainer">
-          <EntitySet Name="Assets" EntityType="Self.Assets" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Client" EntityType="Self.Client" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Compoff" EntityType="Self.Compoff" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="con_leaveupdate" EntityType="Self.con_leaveupdate" Schema="dbo" store:Type="Tables" />
@@ -532,7 +494,6 @@ warning 6002: The table/view 'HRMS_PortalDev1.dbo.CheckInView' does not have a p
           <EntitySet Name="PurchaseRequests" EntityType="HRMS_EntityModel.PurchaseRequest" />
           <EntitySet Name="Subscriptions" EntityType="HRMS_EntityModel.Subscription" />
           <EntitySet Name="SubscriptionHistories" EntityType="HRMS_EntityModel.SubscriptionHistory" />
-          <EntitySet Name="Assets" EntityType="HRMS_EntityModel.Asset" />
         </EntityContainer>
         <EntityType Name="Client">
           <Key>
@@ -918,43 +879,6 @@ warning 6002: The table/view 'HRMS_PortalDev1.dbo.CheckInView' does not have a p
           <Property Name="UpadtedDate" Type="DateTime" Precision="3" />
           <Property Name="SubscriptiionNumber" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
           <Property Name="RecordeupdatedDate" Type="DateTime" Precision="3" />
-        </EntityType>
-        <EntityType Name="Asset">
-          <Key>
-            <PropertyRef Name="AssetID" />
-          </Key>
-          <Property Name="AssetID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="AllocatedEmployeeName" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
-          <Property Name="Location" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
-          <Property Name="AllocatedStatus" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
-          <Property Name="AssignedBy" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
-          <Property Name="AssignedDate" Type="DateTime" Precision="3" />
-          <Property Name="Remarks" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
-          <Property Name="AssetType1" Type="String" Nullable="false" MaxLength="100" FixedLength="false" Unicode="false" />
-          <Property Name="AssetType2" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
-          <Property Name="AssetType3" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
-          <Property Name="AssetType4" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
-          <Property Name="AssetType5" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
-          <Property Name="AssetType6" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
-          <Property Name="Manufacturer" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
-          <Property Name="Model" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
-          <Property Name="BarCode" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
-          <Property Name="RAM" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
-          <Property Name="WarrantyStartDate" Type="DateTime" Precision="3" />
-          <Property Name="WarrantyEndDate" Type="DateTime" Precision="3" />
-          <Property Name="AssetMainImage" Type="String" MaxLength="1000" FixedLength="false" Unicode="false" />
-          <Property Name="AssetType1Image" Type="String" MaxLength="1000" FixedLength="false" Unicode="false" />
-          <Property Name="AssetType2Image" Type="String" MaxLength="1000" FixedLength="false" Unicode="false" />
-          <Property Name="AssetType3Image" Type="String" MaxLength="1000" FixedLength="false" Unicode="false" />
-          <Property Name="AssetType4Image" Type="String" MaxLength="1000" FixedLength="false" Unicode="false" />
-          <Property Name="AssetType5Image" Type="String" MaxLength="1000" FixedLength="false" Unicode="false" />
-          <Property Name="AssetType6Image" Type="String" MaxLength="1000" FixedLength="false" Unicode="false" />
-          <Property Name="VendorName" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
-          <Property Name="PONumber" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
-          <Property Name="PurchaseDate" Type="DateTime" Precision="3" />
-          <Property Name="InvoiceDate" Type="DateTime" Precision="3" />
-          <Property Name="UpdatedBy" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
-          <Property Name="UpdatedDate" Type="DateTime" Precision="3" />
         </EntityType>
       </Schema>
     </edmx:ConceptualModels>
@@ -1377,44 +1301,6 @@ warning 6002: The table/view 'HRMS_PortalDev1.dbo.CheckInView' does not have a p
                 <ScalarProperty Name="SubscriptionName" ColumnName="SubscriptionName" />
                 <ScalarProperty Name="SubscriptionID" ColumnName="SubscriptionID" />
                 <ScalarProperty Name="HistoryID" ColumnName="HistoryID" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="Assets">
-            <EntityTypeMapping TypeName="HRMS_EntityModel.Asset">
-              <MappingFragment StoreEntitySet="Assets">
-                <ScalarProperty Name="UpdatedDate" ColumnName="UpdatedDate" />
-                <ScalarProperty Name="UpdatedBy" ColumnName="UpdatedBy" />
-                <ScalarProperty Name="InvoiceDate" ColumnName="InvoiceDate" />
-                <ScalarProperty Name="PurchaseDate" ColumnName="PurchaseDate" />
-                <ScalarProperty Name="PONumber" ColumnName="PONumber" />
-                <ScalarProperty Name="VendorName" ColumnName="VendorName" />
-                <ScalarProperty Name="AssetType6Image" ColumnName="AssetType6Image" />
-                <ScalarProperty Name="AssetType5Image" ColumnName="AssetType5Image" />
-                <ScalarProperty Name="AssetType4Image" ColumnName="AssetType4Image" />
-                <ScalarProperty Name="AssetType3Image" ColumnName="AssetType3Image" />
-                <ScalarProperty Name="AssetType2Image" ColumnName="AssetType2Image" />
-                <ScalarProperty Name="AssetType1Image" ColumnName="AssetType1Image" />
-                <ScalarProperty Name="AssetMainImage" ColumnName="AssetMainImage" />
-                <ScalarProperty Name="WarrantyEndDate" ColumnName="WarrantyEndDate" />
-                <ScalarProperty Name="WarrantyStartDate" ColumnName="WarrantyStartDate" />
-                <ScalarProperty Name="RAM" ColumnName="RAM" />
-                <ScalarProperty Name="BarCode" ColumnName="BarCode" />
-                <ScalarProperty Name="Model" ColumnName="Model" />
-                <ScalarProperty Name="Manufacturer" ColumnName="Manufacturer" />
-                <ScalarProperty Name="AssetType6" ColumnName="AssetType6" />
-                <ScalarProperty Name="AssetType5" ColumnName="AssetType5" />
-                <ScalarProperty Name="AssetType4" ColumnName="AssetType4" />
-                <ScalarProperty Name="AssetType3" ColumnName="AssetType3" />
-                <ScalarProperty Name="AssetType2" ColumnName="AssetType2" />
-                <ScalarProperty Name="AssetType1" ColumnName="AssetType1" />
-                <ScalarProperty Name="Remarks" ColumnName="Remarks" />
-                <ScalarProperty Name="AssignedDate" ColumnName="AssignedDate" />
-                <ScalarProperty Name="AssignedBy" ColumnName="AssignedBy" />
-                <ScalarProperty Name="AllocatedStatus" ColumnName="AllocatedStatus" />
-                <ScalarProperty Name="Location" ColumnName="Location" />
-                <ScalarProperty Name="AllocatedEmployeeName" ColumnName="AllocatedEmployeeName" />
-                <ScalarProperty Name="AssetID" ColumnName="AssetID" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
