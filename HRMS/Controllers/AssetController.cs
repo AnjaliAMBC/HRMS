@@ -1,5 +1,6 @@
 ﻿using HRMS.Helpers;
 using HRMS.Models;
+using HRMS.Models.ITsupport;
 using System;
 using System.Collections.Generic;
 using System.Configuration;
@@ -24,7 +25,17 @@ namespace HRMS.Controllers
         // GET: Asset
         public ActionResult AssetInfo()
         {
-            return View("~/Views/Itsupport/AssetInfo.cshtml");
+            var model = new AssetListModel();
+
+            model.Assets = _dbContext.Assets.ToList();
+            model.TotalAssets = model.Assets.Count();
+            model.AssetsInUse = model.Assets.Where(x => x.AllocatedStatus == "Assigned").ToList().Count();
+            model.AssetsInScrap = model.Assets.Where(x => x.AllocatedStatus == "Scrap").ToList().Count();
+            model.HydAssets = model.Assets.Where(x => x.AllocatedStatus == "Assigned" && x.Location == "Hyderabad").ToList().Count();
+            model.MaduraiAssets = model.Assets.Where(x => x.AllocatedStatus == "Assigned" && x.Location == "Madurai").ToList().Count();
+
+
+            return View("~/Views/Itsupport/AssetInfo.cshtml", model);
         }
 
         public ActionResult AddAsset()
@@ -136,7 +147,8 @@ namespace HRMS.Controllers
                     Directory.CreateDirectory(assetsFolderPath);
                 }
 
-                string assetFolderPath = Path.Combine(assetsFolderPath, assetID);
+                var assetFolderID = assetID.Split('#')[1];
+                string assetFolderPath = Path.Combine(assetsFolderPath, assetFolderID);
                 if (!Directory.Exists(assetFolderPath))
                 {
                     Directory.CreateDirectory(assetFolderPath);
