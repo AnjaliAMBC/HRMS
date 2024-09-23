@@ -10,6 +10,14 @@
     .is-valid {
         border-color: green !important;
     }
+
+    .is-invalid .select2-selection {
+        border-color: red;
+    }
+
+    .is-invalid .select2-container--default .select2-selection--single .select2-selection__rendered {
+        color: red;
+    }
 </style>
 
 @Html.Partial("_NavBar")
@@ -296,7 +304,7 @@
                                                 <div class="col-lg-6 col-md-12 assetadd-allocate-left-block">
                                                     <div class="form-group assetadd-allocateinfo-tabs">
                                                         <label for="AssetAllocate-Location">Location</label>
-                                                        <select name="AssetAllocate-Location" class="AssetLocation-Location form-control form-select" id="AssetLocation-Location">
+                                                        <select name="AssetAllocate-Location" class="AssetAllocate-Location form-control form-select" id="AssetAllocate-Location">
                                                             <option value="" disabled selected hidden>Select Location</option>
                                                             <option value="222">dfds</option>
                                                         </select>
@@ -307,7 +315,7 @@
                                                 <div class="col-lg-6 col-md-12 assetadd-allocate-left-block">
                                                     <div class="form-group assetadd-allocateinfo-tabs">
                                                         <label for="AssetAllocate-Employee">Employee</label>
-                                                        <select name="AssetAllocate-Employee" class="AssetPurchase-Employee form-control form-select" id="AssetLocation-Employee">
+                                                        <select name="AssetAllocate-Employee" class="AssetAllocate-Employee form-control form-select" id="AssetAllocate-Employee">
                                                             <option value="" disabled selected hidden>Select Employee</option>
                                                             <option value="222">dfds</option>
                                                         </select>
@@ -322,7 +330,7 @@
                                                 <div class="col-lg-6 col-md-12 assetadd-allocate-left-block">
                                                     <div class="form-group assetadd-allocateinfo-tabs">
                                                         <label for="AssetAllocate-AssignedBy">Assigned By</label>
-                                                        <select name="AssetAllocate-AssignedBy" class="AssetLocation-AssignedBy form-control form-select" id="AssetLocation-AssignedBy">
+                                                        <select name="AssetAllocate-AssignedBy" class="AssetAllocate-AssignedBy form-control form-select" id="AssetAllocate-AssignedBy">
                                                             <option value="" disabled selected hidden>Select Name</option>
                                                             <option value="222">dfds</option>
                                                         </select>
@@ -341,10 +349,18 @@
                                                 <div class="col-lg-6 col-md-12 assetadd-allocate-left-block">
                                                     <div class="form-group assetadd-allocateinfo-tabs">
                                                         <label for="AssetAllocate-AllocateStatus">Allocate Status</label>
-                                                        <select name="AssetAllocate-AllocateStatus" class="AssetLocation-AllocateStatus form-control form-select" id="AssetLocation-AllocateStatus">
+                                                        <select name="AssetAllocate-AllocateStatus" class="AssetAllocate-AllocateStatus form-control form-select" id="AssetAllocate-AllocateStatus">
                                                             <option value="" disabled selected hidden>Select Status</option>
                                                             <option value="222">dfds</option>
                                                         </select>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="col-lg-12 col-md-12">
+                                                <div class="col-lg-6 col-md-6 assetadd-allocate-left-block">
+                                                    <div class="form-group assetadd-allocateinfo-tabs">
+                                                        <label for="AssetAllocate-Remarks">Remarks</label>
+                                                        <textarea rows="1" class="form-control" id=""AssetAllocate-Remarks" name="AssetAllocate-Remarks"></textarea>
                                                     </div>
                                                 </div>
                                             </div>
@@ -374,6 +390,7 @@
 <script src="~/Scripts/z-AssetScript.js"></script>
 <script>
     $(document).ready(function () {
+        $('#AssetAllocate-Employee').select2();
         $("#AssetImage").change(function (e) {
             for (var i = 0; i < e.originalEvent.srcElement.files.length; i++) {
                 var file = e.originalEvent.srcElement.files[i];

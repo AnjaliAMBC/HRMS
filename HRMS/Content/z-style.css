@@ -4150,6 +4150,78 @@ input[type=checkbox], input[type=radio] {
     background-color: #f9f9f9 !important;
 }
 
+.asset-list-header .assetlist_cardset {
+    padding: 10px;
+    max-width: 18%;
+    flex: 0 0 18%;
+    border: 1px solid #ccc;
+    border-radius: 3px;
+    margin: 0 10px;
+}
+
+.asset-list-header .assetlist_cardset:nth-child(1) {
+    margin-left: 0px;
+}
+
+.asset-list-header .card {
+    border: none;
+}
+
+.asset-list-header .assetlist_cardset .asset_totallist {
+    font-size: 26px;
+    /*margin-top: 5px;*/
+    margin-bottom: 8px;
+}
+
+.admin-assetinfo-container .assetinfo-list-edit i.asset-edit-dropdown {
+    background: #ccc;
+    padding: 3px 6px;
+    border-radius: 2px;
+    text-align: center;
+    cursor: pointer;
+    font-size: 10px;
+}
+
+.admin-assetinfo-container .assetinfo-list-edit .asset-options {
+    position: absolute;
+    background: white;
+    box-shadow: 0px 1px 3px 1px #ccc;
+    text-align: left;
+    right: 20px;
+    cursor: pointer;
+    padding: 3px 0;
+    z-index: 1;
+}
+
+.admin-assetinfo-container .assetinfo-list-edit .asset-options a {
+    padding: 3px 10px;
+    color: #8693a1;
+}
+
+.admin-assetinfo-container .assetinfo-list-edit .asset-options i {
+    margin-right: 10px;
+    font-size: 10px;
+}
+
+.admin-assetinfo-container .asset_listdetails_card {
+    line-height: 1.5rem;
+}
+
+.admin-assetinfo-container .icon_assetlist {
+    border: 1px solid transparent;
+    border-radius: 50%;
+    width: 50px;
+    height: 50px;
+    text-align: center;
+    align-content: center;
+    margin: 0px 10px;
+}
+
+.admin-assetinfo-container .icon_assetlist img {
+    width: 50px;
+    height: 50px;
+}
+
 /* asset view end*/
 
 /* asset add start */
@@ -4300,7 +4372,20 @@ input[type=checkbox], input[type=radio] {
     display: inline-block;
 }
 
+.assetadd-allocate-employee-field .select2.select2-container {
+    width: 100% !important;
+}
+
 /* asset add end */
+
+/* asset bulk upload start */
+
+.res-asset-import {
+    margin: 0px;
+    padding-top: 2%;
+}
+
+/* asset bulk upload end */
 
 @supports (-webkit-backdrop-filter: none) or (-webkit-hyphens:auto) {
     #adminaddendancetable {
@@ -4321,26 +4406,7 @@ input[type=checkbox], input[type=radio] {
     margin-bottom: 0px;
 }
 
-.asset_totallist {
-    font-size: 30px;
-    font-weight: 600;
-}
-
-.asset_listdetails_card {
-    line-height: 1.5rem;
-}
-
-.icon_assetlist {
-    border: 1px solid transparent;
-    border-radius: 50%;
-    width: 50px;
-    height: 50px;
-    text-align: center;
-    align-content: center;
-    margin: 10px;
-}
-
-.icon_assetlist.icon1 {
+/*.icon_assetlist.icon1 {
     background-color: #FFF6D9;
 }
 
@@ -4354,11 +4420,7 @@ input[type=checkbox], input[type=radio] {
 
 .icon_assetlist.icon4 {
     background-color: #FCD9E4;
-}
-
-.assetlist_cardset {
-    padding: 20px;
-}
+}*/
 
 .admin-assetinfo-view .card {
     padding-right: 0px;
