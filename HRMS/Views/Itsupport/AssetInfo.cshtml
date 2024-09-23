@@ -104,7 +104,8 @@
                                     <select class="form-control form-select" name="assetinfostatus" id="assetinfo-status-dropdown" style="">
                                         <option value="" disabled selected>Allocate Status</option>
                                         <option value="Assigned">Assigned</option>
-                                        <option value="NotAssigned">Not Assigned</option>
+                                        <option value="Un-Assigned">Un-Assigned</option>
+                                        <option value="Scrap">Scrap</option>
                                         <option value="">All</option>
                                     </select>
                                 </div>
@@ -159,7 +160,7 @@
 
                                 <tr class="">
                                     <td><input type="checkbox" class="Assetlist-check" data-assetid="@asset.AssetID"></td>
-                                    <td class="tdassetid"><span class="assetinfo-image-btn"><img src="@assetImageURL" alt="@asset.AssetID" style="width:25px"></span><span style="margin-left: 5px; color: #3E78CF;">@asset.AssetID</span></td>
+                                    <td class="tdassetid"><span class="assetinfo-image-btn"><img src="@assetImageURL" alt="@asset.AssetID" style="width:25px"></span><span class="Asset-id-select" style="margin-left: 5px; color: #3E78CF;">@asset.AssetID</span></td>
                                     <td>1155 @asset.AllocatedEmployeeName</td>
                                     <td class="tdassetlocation">@asset.Location</td>
                                     <td>@asset.AllocatedStatus</td>
@@ -169,11 +170,10 @@
                                         <span class="assetinfo-list-edit">
                                             <i class="fas fa-ellipsis-v asset-edit-dropdown" onclick="toggleAssetActionOptions(this)"></i>
                                             <div class="asset-options" style="display:none">
-                                                <a class="dropdown-item emp-leave-edit" data-assetid="@asset.AssetID" onclick="assetview(1)">View</a>
-                                                <a class="dropdown-item emp-leave-edit" data-assetid="@asset.AssetID" onclick="assetedit(1)">Edit</a>
-                                                <a class="dropdown-item emp-leave-cancel" data-assetid="@asset.AssetID" onclick="assetchangelog(1)">Change Log</a>
-                                                <a class="dropdown-item emp-leave-cancel" data-assetid="@asset.AssetID" onclick="assettransfer(1)">Asset Transfer</a>
-                                                <a class="dropdown-item emp-leave-cancel" data-assetid="@asset.AssetID" onclick="assetdelete(1)">Delete</a>
+                                                <a class="dropdown-item emp-leave-edit asset-info-view" data-assetid="@asset.AssetID">View</a>
+                                                <a class="dropdown-item emp-leave-edit asset-info-edit" data-assetid="@asset.AssetID">Edit</a>                                            
+                                                <a class="dropdown-item emp-leave-cancel asset-info-transfer" data-assetid="@asset.AssetID">Asset Transfer</a>
+                                                <a class="dropdown-item emp-leave-cancel asset-info-delete" data-assetid="@asset.AssetID">Delete</a>
                                             </div>
                                         </span>
                                     </td>

@@ -1,6 +1,27 @@
-﻿
+﻿@model HRMS.Models.ITsupport.AssetModel
+
 @{
     ViewBag.Title = "AddAsset";
+
+    var assetTypes = new List<string>();
+    assetTypes.Add("Laptop");
+    assetTypes.Add("Mouse");
+    assetTypes.Add("HeadPhone");
+    assetTypes.Add("Keyboard");
+    assetTypes.Add("Monitor");
+    assetTypes.Add("Charger");
+    assetTypes.Add("Others");
+
+
+    var locations = new List<string>();
+    locations.Add("Hyderabad");
+    locations.Add("Madurai");
+
+
+    var AssignTypes = new List<string>();
+    AssignTypes.Add("Un-Assigned");
+    AssignTypes.Add("Assigned");
+    AssignTypes.Add("Scrap");
 }
 <style>
     .is-invalid {
@@ -67,7 +88,7 @@
                         <!-- Asset Info Tab -->
                         <div class="tab-pane fade assetadd-details show active" id="tab1" role="tabpanel" aria-labelledby="tab1-link">
                             <!-- Basic HTML Form -->
-                            <form id="tab1-form assetadd-form" class="admin-assetform">
+                            <form id="assetadd-form" class="admin-assetform">
                                 <div class="container" style="margin-left: 5px">
                                     <div class="row">
                                         <div class="col-lg-6 col-md-6 assetadd-main-left-block">
@@ -75,7 +96,7 @@
                                                 <div class="col-lg-7 col-md-6">
                                                     <div class="form-group assetadd-tabs">
                                                         <label for="AssetID">Asset ID*</label>
-                                                        <input type="text" class="form-control" value="" name="AssetID" id="AssetID" placeholder="Enter Asset ID" required>
+                                                        <input type="text" class="form-control" value="@Model.EditAssets.AssetID" name="AssetID" id="AssetID" placeholder="Enter Asset ID" required>
                                                         <div class="invalid-feedback">Asset ID is required.</div>
                                                     </div>
                                                 </div>
@@ -89,14 +110,11 @@
                                                         <label for="AssetType">Asset Type*</label>
                                                         <select name="AssetType" class="AssetType form-control form-select" id="AssetType" required>
                                                             <option value="" disabled selected hidden>Select Type</option>
-                                                            <option value="Laptop">Laptop</option>
-                                                            <option value="Mouse">Mouse</option>
-                                                            <option value="Keyboard">Keyboard</option>
-                                                            <option value="Monitor">Monitor</option>
-                                                            <option value="Cpu">Cpu</option>
-                                                            <option value="HeadPhone">HeadPhone</option>
-                                                            <option value="Charger">Charger</option>
-                                                            <option value="Others">Others</option>
+                                                            @foreach (var assetType in assetTypes)
+                                                            {
+                                                                var isAssetSelected = assetType == Model.EditAssets.AssetType1 ? "selected" : "";
+                                                                <option value="@assetType" @isAssetSelected>@assetType</option>
+                                                            }
                                                         </select>
                                                         <div class="invalid-feedback">Asset Type is required.</div>
                                                     </div>
@@ -111,6 +129,13 @@
                                                                    id="AssetImage"
                                                                    required
                                                                    accept=".jpeg,.png,.jpg" data-existingfile="">
+                                                            @if (!string.IsNullOrWhiteSpace(Model.EditAssets.AssetType1Image))
+                                                            {
+                                                                var assetFolderID = Model.EditAssets.AssetID.Split('#')[1];
+                                                                var assetImageURL = "/ticketing/assets/" + assetFolderID + "/" + Model.EditAssets.AssetType1Image;
+                                                                <img src="@assetImageURL" alt="Subscription Logo" class="edit-assettypeimage" />
+                                                            }
+
                                                             <div class="invalid-feedback">required.</div>
                                                         </div>
                                                     </div>
@@ -122,14 +147,11 @@
                                                     <div class="form-group assetadd-tabs">
                                                         <select name="AssetType-1" class="AssetType form-control form-select" id="AssetType-1" required>
                                                             <option value="" disabled selected hidden>Select Type</option>
-                                                            <option value="Laptop">Laptop</option>
-                                                            <option value="Mouse">Mouse</option>
-                                                            <option value="Keyboard">Keyboard</option>
-                                                            <option value="Monitor">Monitor</option>
-                                                            <option value="Cpu">Cpu</option>
-                                                            <option value="HeadPhone">HeadPhone</option>
-                                                            <option value="Charger">Charger</option>
-                                                            <option value="Others">Others</option>
+                                                            @foreach (var assetType in assetTypes)
+                                                            {
+                                                                var isAssetSelected2 = assetType == Model.EditAssets.AssetType2 ? "selected" : "";
+                                                                <option value="@assetType" @isAssetSelected2>@assetType</option>
+                                                            }
                                                         </select>
                                                         <div class="invalid-feedback">Asset Type is required.</div>
                                                     </div>
@@ -155,14 +177,11 @@
                                                     <div class="form-group assetadd-tabs">
                                                         <select name="AssetType-2" class="AssetType form-control form-select" id="AssetType-2" required>
                                                             <option value="" disabled selected hidden>Select Type</option>
-                                                            <option value="Laptop">Laptop</option>
-                                                            <option value="Mouse">Mouse</option>
-                                                            <option value="Keyboard">Keyboard</option>
-                                                            <option value="Monitor">Monitor</option>
-                                                            <option value="Cpu">Cpu</option>
-                                                            <option value="HeadPhone">HeadPhone</option>
-                                                            <option value="Charger">Charger</option>
-                                                            <option value="Others">Others</option>
+                                                            @foreach (var assetType in assetTypes)
+                                                            {
+                                                                var isAssetSelected3 = assetType == Model.EditAssets.AssetType3 ? "selected" : "";
+                                                                <option value="@assetType" @isAssetSelected3>@assetType</option>
+                                                            }
                                                         </select>
                                                         <div class="invalid-feedback">Asset Type is required.</div>
                                                     </div>
@@ -188,14 +207,11 @@
                                                     <div class="form-group assetadd-tabs">
                                                         <select name="AssetType-3" class="AssetType form-control form-select" id="AssetType-3" required>
                                                             <option value="" disabled selected hidden>Select Type</option>
-                                                            <option value="Laptop">Laptop</option>
-                                                            <option value="Mouse">Mouse</option>
-                                                            <option value="Keyboard">Keyboard</option>
-                                                            <option value="Monitor">Monitor</option>
-                                                            <option value="Cpu">Cpu</option>
-                                                            <option value="HeadPhone">HeadPhone</option>
-                                                            <option value="Charger">Charger</option>
-                                                            <option value="Others">Others</option>
+                                                            @foreach (var assetType in assetTypes)
+                                                            {
+                                                                var isAssetSelected4 = assetType == Model.EditAssets.AssetType4 ? "selected" : "";
+                                                                <option value="@assetType" @isAssetSelected4>@assetType</option>
+                                                            }
                                                         </select>
                                                         <div class="invalid-feedback">Asset Type is required.</div>
                                                     </div>
@@ -222,40 +238,58 @@
                                             <div class="col-lg-12 col-md-12">
                                                 <div class="form-group assetadd-tabs">
                                                     <label for="AssetManufacture">Manufacture*</label>
-                                                    <input type="text" class="form-control" value="" name="AssetManufacture" id="AssetManufacture" placeholder="Enter Manufacture" required>
+                                                    <input type="text" class="form-control" value="@Model.EditAssets.Manufacturer" name="AssetManufacture" id="AssetManufacture" placeholder="Enter Manufacture" required>
                                                     <div class="invalid-feedback">Manufacture is required.</div>
                                                 </div>
                                             </div>
                                             <div class="col-lg-12 col-md-12">
                                                 <div class="form-group assetadd-tabs">
                                                     <label for="AssetModel">Model*</label>
-                                                    <input type="text" class="form-control" value="" name="AssetModel" id="AssetModel" placeholder="Enter Model" required>
+                                                    <input type="text" class="form-control" value="@Model.EditAssets.Model" name="AssetModel" id="AssetModel" placeholder="Enter Model" required>
                                                     <div class="invalid-feedback">Model is required.</div>
                                                 </div>
                                             </div>
                                             <div class="col-lg-12 col-md-12">
                                                 <div class="form-group assetadd-tabs">
                                                     <label for="AssetBarcode">Barcode</label>
-                                                    <input type="text" class="form-control" value="" name="AssetBarcode" id="AssetBarcode" placeholder="Enter Barcode">
+                                                    <input type="text" class="form-control" value="@Model.EditAssets.BarCode" name="AssetBarcode" id="AssetBarcode" placeholder="Enter Barcode">
                                                 </div>
                                             </div>
                                             <div class="col-lg-12 col-md-12">
                                                 <div class="form-group assetadd-tabs">
                                                     <label for="AssetRAM">RAM</label>
-                                                    <input type="text" class="form-control" value="" name="AssetRAM" id="AssetRAM" placeholder="Enter RAM">
+                                                    <input type="text" class="form-control" value="@Model.EditAssets.RAM" name="AssetRAM" id="AssetRAM" placeholder="Enter RAM">
                                                 </div>
                                             </div>
                                             <div class="col-lg-12 col-md-12">
                                                 <div class="form-group assetadd-tabs">
                                                     <label for="AssetWarrentyStartDate">Warrenty Start Date*</label>
-                                                    <input type="date" class="form-control" name="AssetWarrentyStartDate" id="AssetWarrentyStartDate" required>
+
+                                                    @if (Model.EditAssets.WarrantyStartDate != DateTime.MinValue)
+                                                    {
+                                                        @Html.TextBoxFor(m => m.EditAssets.WarrantyStartDate, "{0:yyyy-MM-dd}", new { @type = "date", @class = "form-control", @id = "AssetWarrentyStartDate" })
+                                                    }
+                                                    else
+                                                    {
+                                                        <input type="date" class="form-control" id="AssetWarrentyStartDate" value="@Model.EditAssets.WarrantyStartDate">
+                                                    }
+
                                                     <div class="invalid-feedback">Warrenty Start Date is required.</div>
                                                 </div>
                                             </div>
                                             <div class="col-lg-12 col-md-12">
                                                 <div class="form-group assetadd-tabs">
                                                     <label for="AssetWarrentyEndDate">Warrenty End Date*</label>
-                                                    <input type="date" class="form-control" name="AssetWarrentyEndDate" id="AssetWarrentyEndDate" required>
+                                                    @if (Model.EditAssets.WarrantyEndDate != DateTime.MinValue)
+                                                    {
+                                                        @Html.TextBoxFor(m => m.EditAssets.WarrantyEndDate, "{0:yyyy-MM-dd}", new { @type = "date", @class = "form-control", @id = "AssetWarrentyEndDate" })
+                                                    }
+                                                    else
+                                                    {
+                                                        <input type="date" class="form-control" id="AssetWarrentyEndDate" value="@Model.EditAssets.WarrantyEndDate">
+                                                    }
+
+
                                                     <div class="invalid-feedback">Warrenty End Date is required.</div>
                                                 </div>
                                             </div>
@@ -292,7 +326,7 @@
                         <!-- Purchase Info Tab -->
                         <div class="tab-pane fade assetadd-purchaseinfo-details" id="tab2" role="tabpanel" aria-labelledby="tab2-link">
                             <!-- Basic HTML Form -->
-                            <form id="tab2-form assetadd-purchaseinfo-form" class="admin-assetadd-purchaseinfo needs-validation" novalidate>
+                            <form id="assetadd-purchaseinfo-form" class="admin-assetadd-purchaseinfo needs-validation" novalidate>
                                 <div class="container" style="margin-left: 5px">
                                     <div class="row">
                                         <div class="col-lg-5 col-md-5 assetadd-purchaseinfo-left-block-main">
@@ -301,26 +335,45 @@
                                                     <label for="AssetPurchase-Vendorname">Vendor Name</label>
                                                     <select name="AssetPurchase-Vendorname" class="AssetPurchase-Vendorname form-control form-select" id="AssetPurchase-Vendorname">
                                                         <option value="" disabled selected hidden>Select Vendor</option>
-                                                        <option value="222">dfds</option>
+                                                        @foreach (var vendor in Model.allVendors)
+                                                        {
+                                                            var isVendorSelected = vendor.VendorName == Model.EditAssets.VendorName ? "selected" : "";
+                                                            <option value="@vendor.VedorID" @isVendorSelected>@vendor.VendorName - @vendor.VedorID</option>
+                                                        }
                                                     </select>
                                                 </div>
                                             </div>
                                             <div class="col-lg-12 col-md-12">
                                                 <div class="form-group assetadd-purchaseinfo-tabs">
                                                     <label for="AssetPurchase-PONumber">PO Number</label>
-                                                    <input type="text" class="form-control" name="AssetPurchase-PONumber" id="AssetPurchase-PONumber" placeholder="Enter PO Number">
+                                                    <input type="text" class="form-control" value="@Model.EditAssets.PONumber" name="AssetPurchase-PONumber" id="AssetPurchase-PONumber" placeholder="Enter PO Number">
                                                 </div>
                                             </div>
                                             <div class="col-lg-12 col-md-12">
                                                 <div class="form-group assetadd-purchaseinfo-tabs">
                                                     <label for="AssetPurchase-PurchaseDate">Purchase Date</label>
-                                                    <input type="date" class="form-control" name="AssetPurchase-PurchaseDate" id="AssetPurchase-PurchaseDate">
+                                                    @if (Model.EditAssets.PurchaseDate != DateTime.MinValue)
+                                                    {
+                                                        @Html.TextBoxFor(m => m.EditAssets.PurchaseDate, "{0:yyyy-MM-dd}", new { @type = "date", @class = "form-control", @id = "AssetPurchase-PurchaseDate" })
+                                                    }
+                                                    else
+                                                    {
+                                                        <input type="date" class="form-control" id="AssetPurchase-PurchaseDate" value="@Model.EditAssets.PurchaseDate">
+                                                    }
+
                                                 </div>
                                             </div>
                                             <div class="col-lg-12 col-md-12">
                                                 <div class="form-group assetadd-purchaseinfo-tabs">
                                                     <label for="AssetPurchase-InvoiceDate">Invoice Date</label>
-                                                    <input type="date" class="form-control" name="AssetPurchase-InvoiceDate" id="AssetPurchase-InvoiceDate">
+                                                    @if (Model.EditAssets.InvoiceDate != DateTime.MinValue)
+                                                    {
+                                                        @Html.TextBoxFor(m => m.EditAssets.InvoiceDate, "{0:yyyy-MM-dd}", new { @type = "date", @class = "form-control", @id = "AssetPurchase-InvoiceDate" })
+                                                    }
+                                                    else
+                                                    {
+                                                        <input type="date" class="form-control" id="AssetPurchase-InvoiceDate" value="@Model.EditAssets.InvoiceDate">
+                                                    }
                                                 </div>
                                             </div>
                                         </div>
@@ -337,7 +390,7 @@
 
                         <div class="tab-pane fade assetadd-allocateinfo-details" id="tab3" role="tabpanel" aria-labelledby="tab3-link">
                             <!-- Basic HTML Form -->
-                            <form id="tab3-form assetadd-allocateinfo-form" class="admin-assetadd-allocateinfo needs-validation" novalidate>
+                            <form id="assetadd-allocateinfo-form" class="admin-assetadd-allocateinfo needs-validation" novalidate>
                                 <div class="container" style="margin-left: 5px">
                                     <div class="row">
                                         <div class="col-lg-8 col-md-6 assetadd-allocateinfo-left-block-main">
@@ -347,7 +400,13 @@
                                                         <label for="AssetAllocate-Location">Location</label>
                                                         <select name="AssetAllocate-Location" class="AssetAllocate-Location form-control form-select" id="AssetAllocate-Location">
                                                             <option value="" disabled selected hidden>Select Location</option>
-                                                            <option value="222">dfds</option>
+
+                                                            @foreach (var location in locations)
+                                                            {
+                                                                var isLocationSelected = location == Model.EditAssets.Location ? "selected" : "";
+                                                                <option value="@location" @isLocationSelected>@location</option>
+                                                            }
+
                                                         </select>
                                                     </div>
                                                 </div>
@@ -358,6 +417,14 @@
                                                         <label for="AssetAllocate-Employee">Employee</label>
                                                         <select name="AssetAllocate-Employee" class="AssetAllocate-Employee form-control form-select" id="AssetAllocate-Employee">
                                                             <option value="" disabled selected hidden>Select Employee</option>
+
+                                                            @foreach (var emp in Model.Employees)
+                                                            {
+                                                                var isEmployeeSelected = emp.EmployeeName == Model.EditAssets.AllocatedEmployeeName ? "selected" : "";
+                                                                <option value="@emp.EmployeeName" @isEmployeeSelected>@emp.EmployeeName</option>
+                                                            }
+
+
                                                             <option value="222">dfds</option>
                                                         </select>
                                                     </div>
@@ -373,7 +440,12 @@
                                                         <label for="AssetAllocate-AssignedBy">Assigned By</label>
                                                         <select name="AssetAllocate-AssignedBy" class="AssetAllocate-AssignedBy form-control form-select" id="AssetAllocate-AssignedBy">
                                                             <option value="" disabled selected hidden>Select Name</option>
-                                                            <option value="222">dfds</option>
+                                                            @foreach (var deptEmp in Model.Employees.Where(e => e.Department == "IT"))
+                                                            {
+                                                                var selected = !string.IsNullOrEmpty(Model.EditAssets?.AssignedBy) && (Model.EditAssets.AssignedBy == deptEmp.EmployeeName) ? "selected" : "";
+                                                                <option value="@deptEmp.EmployeeName" @selected>@deptEmp.EmployeeName</option>
+                                                            }
+
                                                         </select>
                                                     </div>
                                                 </div>
@@ -382,7 +454,14 @@
                                                 <div class="col-lg-6 col-md-12 assetadd-allocate-left-block">
                                                     <div class="form-group assetadd-allocateinfo-tabs">
                                                         <label for="AssetAllocate-AssignedDate">Assigned Date</label>
-                                                        <input type="date" class="form-control" name="AssetAllocate-AssignedDate" id="AssetAllocate-AssignedDate">
+                                                        @if (Model.EditAssets.AssignedDate != DateTime.MinValue)
+                                                        {
+                                                            @Html.TextBoxFor(m => m.EditAssets.AssignedDate, "{0:yyyy-MM-dd}", new { @type = "date", @class = "form-control", @id = "AssetAllocate-AssignedDate" })
+                                                        }
+                                                        else
+                                                        {
+                                                            <input type="date" class="form-control" id="AssetAllocate-AssignedDate" value="@Model.EditAssets.AssignedDate">
+                                                        }
                                                     </div>
                                                 </div>
                                             </div>
@@ -392,9 +471,13 @@
                                                         <label for="AssetAllocate-AllocateStatus">Allocate Status</label>
                                                         <select name="AssetAllocate-AllocateStatus" class="AssetAllocate-AllocateStatus form-control form-select" id="AssetAllocate-AllocateStatus">
                                                             <option value="" disabled selected hidden>Select Status</option>
-                                                            <option value="Un-Assigned">Un-Assigned</option>
-                                                            <option value="Assigned">Assigned</option>
-                                                            <option value="Scrap">Scrap</option>
+
+                                                            @foreach (var assignType in AssignTypes)
+                                                            {
+                                                                var isAssignTypeSelected = assignType == Model.EditAssets.AllocatedStatus ? "selected" : "";
+                                                                <option value="@assignType" @isAssignTypeSelected>@assignType</option>
+                                                            }
+
                                                         </select>
                                                         <div class="invalid-feedback">Allocate Status is required.</div>
                                                     </div>
@@ -404,7 +487,7 @@
                                                 <div class="col-lg-6 col-md-6 assetadd-allocate-left-block">
                                                     <div class="form-group assetadd-allocateinfo-tabs">
                                                         <label for="AssetAllocate-Remarks">Remarks</label>
-                                                        <textarea rows="1" class="form-control" id="AssetAllocate-Remarks" AssetAllocate-Remarks" name="AssetAllocate-Remarks"></textarea>
+                                                        <textarea rows="1" class="form-control" id="AssetAllocate-Remarks" AssetAllocate-Remarks" name="AssetAllocate-Remarks">@Model.EditAssets.Remarks</textarea>
                                                     </div>
                                                 </div>
                                             </div>
@@ -641,7 +724,7 @@
                 isValid = false;
             } else {
                 mainImage.removeClass('is-invalid');
-            }            
+            }
 
             isValid = true;
             // If form is valid, submit it
