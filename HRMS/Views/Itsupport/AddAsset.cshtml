@@ -133,7 +133,7 @@
                                                             {
                                                                 var assetFolderID = Model.EditAssets.AssetID.Split('#')[1];
                                                                 var assetImageURL = "/ticketing/assets/" + assetFolderID + "/" + Model.EditAssets.AssetType1Image;
-                                                                <img src="@assetImageURL" alt="Subscription Logo" class="edit-assettypeimage" />
+                                                              <a href="@assetImageURL" target="_blank"><img src="@assetImageURL" alt="Subscription Logo" class="edit-AssetType1Image" /></a>  
                                                             }
 
                                                             <div class="invalid-feedback">required.</div>
@@ -166,6 +166,12 @@
                                                                    id="AssetImage-1"
                                                                    required
                                                                    accept=".jpeg,.png,.jpg" data-existingfile="">
+                                                            @if (!string.IsNullOrWhiteSpace(Model.EditAssets.AssetType2Image))
+                                                            {
+                                                                var assetFolderID = Model.EditAssets.AssetID.Split('#')[1];
+                                                                var assetImageURL = "/ticketing/assets/" + assetFolderID + "/" + Model.EditAssets.AssetType2Image;
+                                                                <a href="@assetImageURL" target="_blank"><img src="@assetImageURL" alt="Subscription Logo" class="edit-AssetType1Image" /></a>
+                                                            }
                                                             <div class="invalid-feedback">required.</div>
                                                         </div>
                                                     </div>
@@ -196,6 +202,12 @@
                                                                    id="AssetImage-2"
                                                                    required
                                                                    accept=".jpeg,.png,.jpg" data-existingfile="">
+                                                            @if (!string.IsNullOrWhiteSpace(Model.EditAssets.AssetType3Image))
+                                                            {
+                                                                var assetFolderID = Model.EditAssets.AssetID.Split('#')[1];
+                                                                var assetImageURL = "/ticketing/assets/" + assetFolderID + "/" + Model.EditAssets.AssetType3Image;
+                                                                <a href="@assetImageURL" target="_blank"><img src="@assetImageURL" alt="Subscription Logo" class="edit-AssetType1Image" /></a>
+                                                            }
                                                             <div class="invalid-feedback">required.</div>
                                                         </div>
                                                     </div>
@@ -226,6 +238,12 @@
                                                                    id="AssetImage-3"
                                                                    required
                                                                    accept=".jpeg,.png,.jpg" data-existingfile="">
+                                                            @if (!string.IsNullOrWhiteSpace(Model.EditAssets.AssetType4Image))
+                                                            {
+                                                                var assetFolderID = Model.EditAssets.AssetID.Split('#')[1];
+                                                                var assetImageURL = "/ticketing/assets/" + assetFolderID + "/" + Model.EditAssets.AssetType4Image;
+                                                                <a href="@assetImageURL" target="_blank"><img src="@assetImageURL" alt="Subscription Logo" class="edit-AssetType1Image" /></a>
+                                                            }
                                                             <div class="invalid-feedback">required.</div>
                                                         </div>
                                                     </div>
@@ -301,11 +319,18 @@
                                                     <i class="fas fa-cloud-upload-alt fa-3x" style="color: #ced4da; "></i>
                                                 </label>
                                                 <input type="file" id="assetadd-file-upload-input" accept=".jpeg,.png,.jpg" onchange="handleAssetFileUpload(this)" style="display: none;">
+
                                                 <div class="invalid-feedback">required.</div>
                                             </div>
                                             <div class="assetadd-file-upload-input-label" id="assetadd-file-upload-input-label">
                                                 <label for="assetadd-file-upload-input-label">Upload File*</label>
                                             </div>
+                                            @if (!string.IsNullOrWhiteSpace(Model.EditAssets.AssetMainImage))
+                                            {
+                                                var assetFolderID = Model.EditAssets.AssetID.Split('#')[1];
+                                                var assetImageURL = "/ticketing/assets/" + assetFolderID + "/" + Model.EditAssets.AssetMainImage;
+                                              <a href="@assetImageURL" target="_blank"><img src="@assetImageURL" alt="Subscription Logo" class="edit-AssetType3Image" width="50" height="50" /></a>  
+                                            }
                                             <div class="assetadd-uploaded-file" id="assetadd-uploaded-file-info" style="display: none;">
                                                 <p style="color: green; font-size: 13px;" id="assetadd-uploaded-file-text"></p>
                                             </div>
