@@ -80,52 +80,64 @@
             <div class="admin-assetinfo-view">
                 <div class="container-fluid">
                     <div class="row">
-                        <div class="col-lg-6 col-sm-12 col-md-6 col-12 pl-3">
+                        <div class="col-lg-12 col-sm-12 col-md-6 col-12 pl-3 asset-list-header">
                             <div class="card">
                                 <div class="row">
-                                    <div class="col-lg-6 d-flex assetlist_cardset">
+                                    <div class="col-lg-2 d-flex assetlist_cardset">
                                         <div class="icon_assetlist icon1">
-                                            <i class="fa-solid fa-laptop" style="font-size:17px;"></i>
+                                            @*<i class="fa-solid fa-laptop" style="font-size:17px;"></i>*@
+                                            <img src="~/Assets/asset-icon-1.png">
                                         </div>
                                         <div class="asset_listdetails_card">
                                             <p class="asset_itemslist">Total Asset</p>
                                             <p class="asset_totallist">150</p>
                                         </div>
                                     </div>
-                                    <div class="col-lg-6 d-flex assetlist_cardset">
+                                    <div class="col-lg-2 d-flex assetlist_cardset">
                                         <div class="icon_assetlist icon2">
-                                            <i class="fa-solid fa-laptop" style="font-size:17px;"></i>
+                                            @*<i class="fa-solid fa-laptop" style="font-size:17px;"></i>*@
+                                            <img src="~/Assets/asset-icon-2.png">
                                         </div>
                                         <div class="asset_listdetails_card">
                                             <p class="asset_itemslist">Asset In Use</p>
                                             <p class="asset_totallist">145</p>
                                         </div>
                                     </div>
-                                </div>
-                                <div class="row">
-                                    <div class="col-lg-6 d-flex assetlist_cardset">
+                                    <div class="col-lg-2 d-flex assetlist_cardset">
                                         <div class="icon_assetlist icon3">
-                                            <i class="fa-solid fa-laptop" style="font-size:17px;"></i>
+                                            @*<i class="fa-solid fa-laptop" style="font-size:17px;"></i>*@
+                                            <img src="~/Assets/asset-icon-3.png">
                                         </div>
                                         <div class="asset_listdetails_card">
-                                            <p class="asset_itemslist"> Hyderabad Asset</p>
+                                            <p class="asset_itemslist"> Asset In Scrap</p>
                                             <p class="asset_totallist">73</p>
                                         </div>
                                     </div>
-                                    <div class="col-lg-6 d-flex assetlist_cardset">
+                                    <div class="col-lg-2 d-flex assetlist_cardset">
                                         <div class="icon_assetlist icon4">
-                                            <i class="fa-solid fa-laptop" style="font-size:17px;"></i>
+                                            @*<i class="fa-solid fa-laptop" style="font-size:17px;"></i>*@
+                                            <img src="~/Assets/asset-icon-4.png">
                                         </div>
                                         <div class="asset_listdetails_card">
-                                            <p class="asset_itemslist">Madurai Asset</p>
+                                            <p class="asset_itemslist">Hyd Asset</p>
                                             <p class="asset_totallist">72</p>
                                         </div>
                                     </div>
-                                </div>
+                                    <div class="col-lg-2 d-flex assetlist_cardset">
+                                        <div class="icon_assetlist icon4">
+                                            @*<i class="fa-solid fa-laptop" style="font-size:17px;"></i>*@
+                                            <img src="~/Assets/asset-icon-5.png">
+                                        </div>
+                                        <div class="asset_listdetails_card">
+                                            <p class="asset_itemslist">Mdu Asset</p>
+                                            <p class="asset_totallist">72</p>
+                                        </div>
+                                    </div>
+                                </div>                                
                             </div>
                         </div>
 
-                        <div class="col-lg-6 col-sm-12 col-md-6 col-12 pl-4">
+                        @*<div class="col-lg-6 col-sm-12 col-md-6 col-12 pl-4">
                             <div class="card">
                                 <p style="margin-top:10px;">Asset Type</p>
                                 <div class=" chart-legend-container">
@@ -133,17 +145,17 @@
                                     <div id="legend"></div>
                                 </div>
                             </div>
-                        </div>
+                        </div>*@
                     </div>
                 </div>
                 <div class="container-fluid top admin-assetinfoview">
                     <div class="row navbar align-items-center">
                         <!-- asset column -->
                         <div class="col-lg-2 col-md-5 topic d-flex res-admin-title">
-                            <h4 class="header mb-0 text-right">Asset Listing</h4>
+                            <h4 class="header mb-0 text-right">Asset List</h4>
                         </div>
                         <!-- Search box -->
-                        <div class="col-xl-3 col-lg-6 navbarl1 col-sm-12 col-md-7 res-admin-assetinfo-search">
+                        <div class="col-xl-4 col-lg-6 navbarl1 col-sm-12 col-md-7 res-admin-assetinfo-search">
                             <div class="search-container">
                                 <div class="input-group" style="border-radius: 20px;">
                                     <div class="input-group-prepend">
@@ -154,8 +166,8 @@
                             </div>
                         </div>
 
-                        <div class="col-xl-6 col-lg-6 navbarl1 col-sm-12 col-md-7 res-admin-assetinfo-header-right">                            
-                            <div class="col-xl-3 col-lg-3 navbarl1 col-sm-4 col-xs-12 col-md-4 res-admin-assetinfo-status p-0">
+                        <div class="col-xl-5 col-lg-5 navbarl1 col-sm-12 col-md-7 res-admin-assetinfo-header-right">                            
+                            <div class="col-xl-4 col-lg-4 navbarl1 col-sm-4 col-xs-12 col-md-4 res-admin-assetinfo-status p-0">
                                 <div class="form-group res-assetinfo p-0">
                                     <select class="form-control form-select" name="assetinfostatus" id="assetinfo-status-dropdown" style="">
                                         <option value="" disabled selected>Allocate Status</option>
@@ -165,7 +177,7 @@
                                     </select>
                                 </div>
                             </div>
-                            <div class="col-xl-1 col-lg-1  navbarl1 col-sm-2 col-md-2 res-admin-assetinfo-export p-0 text-right">
+                            <div class="col-xl-2 col-lg-2  navbarl1 col-sm-2 col-md-2 res-admin-assetinfo-export p-0 text-right">
                                 <div class="adminassetinfo-export" style="">
                                     <button type="button" class="btn assetinfo-export-btn pt-0" id="exportAssetinfo" onclick="exportAssetinfo()">
                                         <span class="assetinfo-export"><img src="/assets/Export.png" alt="Export" style=""></span>
@@ -173,12 +185,12 @@
                                 </div>
                             </div>
                             <!-- Add asset dropdown -->
-                            <div class="col-lg-4 navbarl1 col-sm-6 col-md-6 res-admin-assetinfo-add text-right">
+                            <div class="col-lg-5 navbarl1 col-sm-6 col-md-6 res-admin-assetinfo-add text-right">
                                 <div class="addingassetinfo form-group">
                                     <select name="addasset" class="addasset form-control form-select" id="addassetinfo">
                                         <option value="" disabled="" selected="" hidden="">Add Asset</option>
                                         <option value="Addmanually" class="assetManually">+ Manually</option>
-                                        <option value="importuser" class="assetBulk">+ Bulk</option>
+                                        <option value="BulkAsset" class="assetBulk">+ Bulk</option>
                                     </select>
                                 </div>
                             </div>
@@ -197,41 +209,57 @@
                         <thead style="background-color: #d8e6fb; border-radius: 10px;">
                             <tr>
                                 <th><input type="checkbox" id="Assetlist-selectAll"></th>
-                                <th style="text-align:center;">Asset Image</th>
                                 <th>Asset ID</th>
-                                <th>Asset Type</th>
-                                <th>Allocate Status</th>
+                                <th>Allocated To</th>
                                 <th>Location</th>
-                                <th>Added By</th>
-                                <th>Added Date</th>
-                                <th>W.End Date</th>
+                                <th>Allocate Status</th>
+                                <th>Assigned By</th>
+                                <th>Assigned Date</th>
                                 <th style="text-align:center;">Action</th>
                             </tr>
                         </thead>
                         <tbody>
                             <tr class="even">
                                 <td><input type="checkbox" class="Assetlist-check"></td>
-                                <td style="text-align:center;"><span class="assetinfo-image-btn"><img src="/assets/image8.png" alt="PO" style="width:25px"></span></td>
-                                <td class="tdassetid" style="color: #3E78CF;">MB/MDU/#1122</td>
-                                <td>Laptop</td>
-                                <td>Assigned</td>
+                                <td class="tdassetid"><span class="assetinfo-image-btn"><img src="/assets/image8.png" alt="PO" style="width:25px"></span><span style="margin-left: 5px; color: #3E78CF;">AMBC/MDU/#767</span></td>
+                                <td>1155 Test User</td>
                                 <td class="tdassetlocation">Madurai</td>
+                                <td>Assigned</td>                                
                                 <td>Aravind</td>
                                 <td>03-09-2024</td>
-                                <td>07-08-2025</td>
-                                <td style="text-align:center;"><span class="assetinfo-list-edit"><i class="fas fa-pencil-alt"></i></span></td>
+                                <td style="text-align:center;">
+                                    <span class="assetinfo-list-edit">
+                                        <i class="fas fa-ellipsis-v asset-edit-dropdown" onclick="toggleAssetActionOptions(this)"></i>
+                                        <div class="asset-options" style="display:none">
+                                            <a class="dropdown-item emp-leave-edit" onclick="assetview(1)">View</a>
+                                            <a class="dropdown-item emp-leave-edit" onclick="assetedit(1)">Edit</a>
+                                            <a class="dropdown-item emp-leave-cancel" onclick="assetchangelog(1)">Change Log</a>
+                                            <a class="dropdown-item emp-leave-cancel" onclick="assettransfer(1)">Asset Transfer</a>
+                                            <a class="dropdown-item emp-leave-cancel" onclick="assetdelete(1)">Delete</a>
+                                        </div>
+                                    </span>
+                                </td>
                             </tr>
                             <tr class="odd">
                                 <td><input type="checkbox" class="Assetlist-check"></td>
-                                <td style="text-align:center;"><span class="assetinfo-image-btn"><img src="/assets/image8.png" alt="PO" style="width:25px"></span></td>
-                                <td class="tdassetid" style="color: #3E78CF;">MB/MDU/#1122</td>
-                                <td>Laptop</td>
-                                <td>Assigned</td>
+                                <td class="tdassetid"><span class="assetinfo-image-btn"><img src="/assets/image8.png" alt="PO" style="width:25px"></span><span style="margin-left: 5px; color: #3E78CF;">AMBC/MDU/#769</span></td>
+                                <td>1155 Test User</td>
                                 <td class="tdassetlocation">Madurai</td>
+                                <td>Assigned</td>
                                 <td>Aravind</td>
                                 <td>03-09-2024</td>
-                                <td>07-08-2025</td>
-                                <td style="text-align:center;"><span class="assetinfo-list-edit"><i class="fas fa-pencil-alt"></i></span></td>
+                                <td style="text-align:center;">
+                                    <span class="assetinfo-list-edit">
+                                        <i class="fas fa-ellipsis-v asset-edit-dropdown" onclick="toggleAssetActionOptions(this)"></i>
+                                        <div class="asset-options" style="display:none">
+                                            <a class="dropdown-item emp-leave-edit" onclick="assetview(1)">View</a>
+                                            <a class="dropdown-item emp-leave-edit" onclick="assetedit(1)">Edit</a>
+                                            <a class="dropdown-item emp-leave-cancel" onclick="assetchangelog(1)">Change Log</a>
+                                            <a class="dropdown-item emp-leave-cancel" onclick="assettransfer(1)">Asset Transfer</a>
+                                            <a class="dropdown-item emp-leave-cancel" onclick="assetdelete(1)">Delete</a>
+                                        </div>
+                                    </span>
+                                </td>
                             </tr>
                         </tbody>
                     </table>
@@ -263,7 +291,11 @@
         }
     });
 
-
+    function toggleAssetActionOptions(iconElement) {
+        const optionsMenu = $(iconElement).next('.asset-options');
+        $('.asset-options').not(optionsMenu).hide(); // Hide any other open menus
+        optionsMenu.toggle(); // Toggle visibility of the clicked menu
+    }
 
 </script>
 
