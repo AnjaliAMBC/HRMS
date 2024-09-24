@@ -74,10 +74,18 @@ namespace HRMS
             var body = $@"
 <html>
     <body style='font-family: Arial, sans-serif;'>
-        <div style='overflow: auto; margin-bottom: 20px;'>
-            <img src='{logoURL}' alt='AMBC Logo' width='70' style='float: right; margin-left: 10px;'>
-            <p style='margin: 0; font-size: 18px;'>Hello All,</p>
-        </div>
+    <table width='100 %' cellpadding='0' cellspacing='0' border='0' style='background-color:#ffffff;'>
+        <tr>
+            <td style = 'padding: 15px 0;'>
+                <p style = 'margin: 0;'> Hi Team </p>
+            </td>
+            <td align = 'right' style = 'padding: 15px 0;'>
+                <a href = '{siteURL}' target = '_blank'>
+                    <img src = '{logoURL}' alt = 'AMBC Logo' width = '80' style = 'display: block;'>
+                </a>
+            </td>
+        </tr>
+    </table>
         <p style='font-size: 16px;'>Greetings of the day!</p>
         <div style='font-size: 16px;'>
             {holidayDescriptions}

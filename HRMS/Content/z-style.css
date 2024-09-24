@@ -4387,6 +4387,80 @@ input[type=checkbox], input[type=radio] {
 
 /* asset bulk upload end */
 
+/*  asset view start */
+
+.res-admin-assetview-tabs li a {
+    border: none !important;
+}
+
+.res-admin-assetview-tabs li a.active {
+    border-bottom: 2px solid !important;
+}
+
+.admin-asset-view #assetview-TabContent {
+    margin-top: 20px;
+}
+
+.admin-asset-view .assetview-purchaseinfo-tabs {
+    font-size: 13px;
+    margin-bottom: 0px;
+}
+
+.admin-asset-view .assetview-purchaseinfo-tabs label {
+    font-weight: bold;
+    margin-bottom: 0px;
+}
+
+.admin-asset-view .assetview-assettransfer-tabs {
+    font-size: 13px;
+    margin-bottom: 0px;
+}
+
+.admin-asset-view .assetview-assettransfer-tabs label {
+    font-weight: bold;
+    margin-bottom: 0px;
+}
+
+.admin-asset-view .assetview-assettransfer-tabs img {
+    width: 45px;
+    height: 45px;
+}
+
+.admin-asset-view .assetview-assettransfer-details .vertical-line {
+    margin: 0 22px;
+    border-left: 1px solid #ccc;
+    height: 45px;
+}
+
+.admin-asset-view .assetview-assettransfer-details .profile-pic {
+    max-width: 6%;
+    flex: 0 0 6%;
+}
+
+.admin-asset-view .assetview-allocateinfo-details .tree-structure .allocate-details.tree-root img {
+    border-radius: 50%;
+    width: 70px;
+    height: 70px;
+    object-fit: cover;
+}
+
+.admin-asset-view .assetview-allocateinfo-details .tree-structure .user-info,
+.admin-asset-view .assetview-allocateinfo-details .tree-structure .allocate-info {
+    margin-top: 7px;
+}
+
+.admin-asset-view .assetview-allocateinfo-details .tree-structure .allocate-info span {
+    color: gray;
+}
+
+.admin-asset-view .assetview-allocateinfo-details .tree-structure .allocate-details.tree-child img {
+    width: 70px;
+    height: 70px;
+    object-fit: cover;
+}
+
+/*  asset view end */
+
 @supports (-webkit-backdrop-filter: none) or (-webkit-hyphens:auto) {
     #adminaddendancetable {
         margin-top: 0px !important;
