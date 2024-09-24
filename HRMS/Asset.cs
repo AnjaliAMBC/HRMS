@@ -14,11 +14,14 @@ namespace HRMS
     
     public partial class Asset
     {
+        public int SNo { get; set; }
         public string AssetID { get; set; }
         public string AllocatedEmployeeName { get; set; }
+        public string AllocatedEmployeeID { get; set; }
         public string Location { get; set; }
         public string AllocatedStatus { get; set; }
         public string AssignedBy { get; set; }
+        public string AssignedByEmpID { get; set; }
         public Nullable<System.DateTime> AssignedDate { get; set; }
         public string Remarks { get; set; }
         public string AssetType1 { get; set; }
@@ -46,5 +49,7 @@ namespace HRMS
         public Nullable<System.DateTime> InvoiceDate { get; set; }
         public string UpdatedBy { get; set; }
         public Nullable<System.DateTime> UpdatedDate { get; set; }
+        public string CreatedBy { get; set; }
+        public Nullable<System.DateTime> CreatedDate { get; set; }
     }
 }

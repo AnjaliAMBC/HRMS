@@ -14,6 +14,6 @@ $(document).on('click', '.Asset-id-select', function () {
 });
 
 $(document).on('click', '.asset-info-edit', function () {
-    var assetid = $(this).attr("data-assetid");
-    window.location.href = '/asset/addasset?assetid=' + assetid;
+    var sno = $(this).attr("data-assetid");
+    window.location.href = '/asset/addasset?sno=' + sno;
 });

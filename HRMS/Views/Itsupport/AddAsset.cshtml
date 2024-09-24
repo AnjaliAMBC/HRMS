@@ -92,6 +92,7 @@
                                 <div class="container" style="margin-left: 5px">
                                     <div class="row">
                                         <div class="col-lg-6 col-md-6 assetadd-main-left-block">
+                                            <div class="assetserailnumber" style="display: none">@Model.EditAssets.SNo</div>
                                             <div class="col-lg-12 col-md-6 AssetID" style="padding-left:0px;">
                                                 <div class="col-lg-7 col-md-6">
                                                     <div class="form-group assetadd-tabs">
@@ -133,7 +134,7 @@
                                                             {
                                                                 var assetFolderID = Model.EditAssets.AssetID.Split('#')[1];
                                                                 var assetImageURL = "/ticketing/assets/" + assetFolderID + "/" + Model.EditAssets.AssetType1Image;
-                                                                <img src="@assetImageURL" alt="Subscription Logo" class="edit-assettypeimage" />
+                                                                <a href="@assetImageURL" target="_blank" class="edit-AssetType1Image"><img src="@assetImageURL" alt="Subscription Logo" class="edit-AssetType1Image" /></a>
                                                             }
 
                                                             <div class="invalid-feedback">required.</div>
@@ -166,6 +167,12 @@
                                                                    id="AssetImage-1"
                                                                    required
                                                                    accept=".jpeg,.png,.jpg" data-existingfile="">
+                                                            @if (!string.IsNullOrWhiteSpace(Model.EditAssets.AssetType2Image))
+                                                            {
+                                                                var assetFolderID = Model.EditAssets.AssetID.Split('#')[1];
+                                                                var assetImageURL = "/ticketing/assets/" + assetFolderID + "/" + Model.EditAssets.AssetType2Image;
+                                                                <a href="@assetImageURL" target="_blank" class="edit-AssetType2Image"><img src="@assetImageURL" alt="Subscription Logo" class="edit-AssetType2Image" /></a>
+                                                            }
                                                             <div class="invalid-feedback">required.</div>
                                                         </div>
                                                     </div>
@@ -196,6 +203,12 @@
                                                                    id="AssetImage-2"
                                                                    required
                                                                    accept=".jpeg,.png,.jpg" data-existingfile="">
+                                                            @if (!string.IsNullOrWhiteSpace(Model.EditAssets.AssetType3Image))
+                                                            {
+                                                                var assetFolderID = Model.EditAssets.AssetID.Split('#')[1];
+                                                                var assetImageURL = "/ticketing/assets/" + assetFolderID + "/" + Model.EditAssets.AssetType3Image;
+                                                                <a href="@assetImageURL" target="_blank" class="edit-AssetType3Image"><img src="@assetImageURL" alt="Subscription Logo" class="edit-AssetType3Image" /></a>
+                                                            }
                                                             <div class="invalid-feedback">required.</div>
                                                         </div>
                                                     </div>
@@ -226,6 +239,12 @@
                                                                    id="AssetImage-3"
                                                                    required
                                                                    accept=".jpeg,.png,.jpg" data-existingfile="">
+                                                            @if (!string.IsNullOrWhiteSpace(Model.EditAssets.AssetType4Image))
+                                                            {
+                                                                var assetFolderID = Model.EditAssets.AssetID.Split('#')[1];
+                                                                var assetImageURL = "/ticketing/assets/" + assetFolderID + "/" + Model.EditAssets.AssetType4Image;
+                                                                <a href="@assetImageURL" target="_blank" class="edit-AssetType4Image"><img src="@assetImageURL" alt="Subscription Logo" class="edit-AssetType4Image" /></a>
+                                                            }
                                                             <div class="invalid-feedback">required.</div>
                                                         </div>
                                                     </div>
@@ -301,11 +320,18 @@
                                                     <i class="fas fa-cloud-upload-alt fa-3x" style="color: #ced4da; "></i>
                                                 </label>
                                                 <input type="file" id="assetadd-file-upload-input" accept=".jpeg,.png,.jpg" onchange="handleAssetFileUpload(this)" style="display: none;">
+
                                                 <div class="invalid-feedback">required.</div>
                                             </div>
                                             <div class="assetadd-file-upload-input-label" id="assetadd-file-upload-input-label">
                                                 <label for="assetadd-file-upload-input-label">Upload File*</label>
                                             </div>
+                                            @if (!string.IsNullOrWhiteSpace(Model.EditAssets.AssetMainImage))
+                                            {
+                                                var assetFolderID = Model.EditAssets.AssetID.Split('#')[1];
+                                                var assetImageURL = "/ticketing/assets/" + assetFolderID + "/" + Model.EditAssets.AssetMainImage;
+                                                <a href="@assetImageURL" target="_blank" class="edit-AssetmainImage"><img src="@assetImageURL" alt="Subscription Logo" class="edit-AssetmainImage" width="50" height="50" /></a>
+                                            }
                                             <div class="assetadd-uploaded-file" id="assetadd-uploaded-file-info" style="display: none;">
                                                 <p style="color: green; font-size: 13px;" id="assetadd-uploaded-file-text"></p>
                                             </div>
@@ -519,6 +545,7 @@
     $(document).ready(function () {
         $('#AssetAllocate-Employee').select2();
         $("#AssetImage").change(function (e) {
+            $('.edit-AssetType1Image').hide();
             for (var i = 0; i < e.originalEvent.srcElement.files.length; i++) {
                 var file = e.originalEvent.srcElement.files[i];
                 var img = document.createElement("img");
@@ -533,6 +560,7 @@
         });
 
         $("#AssetImage-1").change(function (e) {
+            $('.edit-AssetType2Image').hide();
             for (var i = 0; i < e.originalEvent.srcElement.files.length; i++) {
                 var file = e.originalEvent.srcElement.files[i];
                 var img = document.createElement("img");
@@ -547,6 +575,7 @@
         });
 
         $("#AssetImage-2").change(function (e) {
+            $('.edit-AssetType3Image').hide();
             for (var i = 0; i < e.originalEvent.srcElement.files.length; i++) {
                 var file = e.originalEvent.srcElement.files[i];
                 var img = document.createElement("img");
@@ -561,6 +590,7 @@
         });
 
         $("#AssetImage-3").change(function (e) {
+            $('.edit-AssetType4Image').hide();
             for (var i = 0; i < e.originalEvent.srcElement.files.length; i++) {
                 var file = e.originalEvent.srcElement.files[i];
                 var img = document.createElement("img");
@@ -597,6 +627,7 @@
     });
 
     function handleAssetFileUpload(input) {
+        $('.edit-AssetmainImage').hide();
         var fileName = input.files[0].name;
         $('#assetadd-uploaded-file-info').show();
         $('#assetadd-uploaded-file-text').text(fileName);
@@ -759,6 +790,8 @@
 
             // Create a new FormData object
             var formData = new FormData();
+
+            formData.append('AssetSNo', $('.assetserailnumber').text());
 
             var assetID = $('#AssetID').val();
             formData.append('AssetID', assetID);
