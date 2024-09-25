@@ -29,9 +29,13 @@ namespace HRMS.Models.ITsupport
 
     public class AssetModel
     {
-        public List<emp_info> Employees { get; set; } = new List<emp_info>();      
+        public List<emp_info> Employees { get; set; } = new List<emp_info>();
         public List<VendorList> allVendors { get; set; } = new List<VendorList>();
 
         public Asset EditAssets { get; set; } = new Asset();
+
+        public List<emp_info> ITEmployees { get; set; } = new List<emp_info>();
+
+        public emp_info AllocatedEmpInfo { get; set; } = new emp_info();
     }
 }

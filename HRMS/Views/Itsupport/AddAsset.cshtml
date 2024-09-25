@@ -993,6 +993,51 @@
                 assetImage3.removeClass('is-invalid');
             }
 
+            const assetType4 = $('#AssetType-4');
+            if (assetType4.val() == null || assetType4.val() === "") {
+                //assetType4.addClass('is-invalid');
+                //isValid = false;
+            } else {
+                assetType4.removeClass('is-invalid');
+            }
+            const assetImage4 = $('#AssetImage-4');
+            if (assetImage4.val() === "") {
+                assetImage4.addClass('is-invalid');
+                isValid = false;
+            } else {
+                assetImage4.removeClass('is-invalid');
+            }
+
+            const assetType5 = $('#AssetType-5');
+            if (assetType5.val() == null || assetType5.val() === "") {
+                //assetType5.addClass('is-invalid');
+                //isValid = false;
+            } else {
+                assetType5.removeClass('is-invalid');
+            }
+            const assetImage5 = $('#AssetImage-5');
+            if (assetImage5.val() === "") {
+                assetImage5.addClass('is-invalid');
+                isValid = false;
+            } else {
+                assetImage5.removeClass('is-invalid');
+            }
+
+            const assetType6 = $('#AssetType-6');
+            if (assetType6.val() == null || assetType6.val() === "") {
+                //assetType6.addClass('is-invalid');
+                //isValid = false;
+            } else {
+                assetType6.removeClass('is-invalid');
+            }
+            const assetImage6 = $('#AssetImage-6');
+            if (assetImage6.val() === "") {
+                assetImage6.addClass('is-invalid');
+                isValid = false;
+            } else {
+                assetImage6.removeClass('is-invalid');
+            }
+
             const mainImage = $('#assetadd-file-upload-input');
             if (mainImage.val() === "") {
                 mainImage.addClass('is-invalid');
@@ -1042,7 +1087,6 @@
 
             var assetType = $('#AssetType').val();
             formData.append('AssetType', assetType);
-
             var fileInput1 = $('#AssetImage')[0].files[0];
             formData.append('AssetImage', fileInput1);
 
@@ -1060,9 +1104,24 @@
 
             var assetType3 = $('#AssetType-3').val();
             formData.append('AssetType-3', assetType3);
-
             var fileInput4 = $('#AssetImage-3')[0].files[0];
             formData.append('AssetImage-3', fileInput4);
+
+
+            var assetType4 = $('#AssetType-4').val();
+            formData.append('AssetType-4', assetType4);
+            var fileInput5 = $('#AssetImage-4')[0].files[0];
+            formData.append('AssetImage-4', fileInput5);
+
+            var assetType5 = $('#AssetType-5').val();
+            formData.append('AssetType-5', assetType5);
+            var fileInput6 = $('#AssetImage-5')[0].files[0];
+            formData.append('AssetImage-5', fileInput6);
+
+            var assetType6 = $('#AssetType-6').val();
+            formData.append('AssetType-6', assetType6);
+            var fileInput7 = $('#AssetImage-6')[0].files[0];
+            formData.append('AssetImage-6', fileInput7);
 
             var mainImage = $('#assetadd-file-upload-input')[0].files[0];
             formData.append('MainImage', mainImage);

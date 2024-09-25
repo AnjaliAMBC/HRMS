@@ -69,6 +69,18 @@ namespace HRMS.Controllers
                 string assetType1 = Request.Form["AssetType-1"];
                 string assetType2 = Request.Form["AssetType-2"];
                 string assetType3 = Request.Form["AssetType-3"];
+                string assetType4 = Request.Form["AssetType-4"];
+                string assetType5 = Request.Form["AssetType-5"];
+                string assetType6 = Request.Form["AssetType-6"];
+
+                string assetTypesno1 = Request.Form["AssetType-sno1"];
+                string assetTypesno2 = Request.Form["AssetType-sno2"];
+                string assetTypesno3 = Request.Form["AssetType-sno3"];
+                string assetTypesno4 = Request.Form["AssetType-sno4"];
+                string assetTypesno5 = Request.Form["AssetType-sno5"];
+                string assetTypesno6 = Request.Form["AssetType-sno6"];
+                string assetTypesno7 = Request.Form["AssetType-sno7"];
+
                 string manufacture = Request.Form["AssetManufacture"];
                 string model = Request.Form["AssetModel"];
                 string barcode = Request.Form["AssetBarcode"];
@@ -92,12 +104,20 @@ namespace HRMS.Controllers
                 HttpPostedFileBase assetImage2 = Request.Files["AssetImage-1"];
                 HttpPostedFileBase assetImage3 = Request.Files["AssetImage-2"];
                 HttpPostedFileBase assetImage4 = Request.Files["AssetImage-3"];
+                HttpPostedFileBase assetImage5 = Request.Files["AssetImage-4"];
+                HttpPostedFileBase assetImage6 = Request.Files["AssetImage-5"];
+                HttpPostedFileBase assetImage7 = Request.Files["AssetImage-6"];
+
                 HttpPostedFileBase mainImage = Request.Files["MainImage"];
 
                 string assetImage1Path = "";
                 string assetImage2Path = "";
                 string assetImage3Path = "";
                 string assetImage4Path = "";
+                string assetImage5Path = "";
+                string assetImage6Path = "";
+                string assetImage7Path = "";
+
                 string mainImagePath = "";
 
                 // Example of saving the files
@@ -117,6 +137,19 @@ namespace HRMS.Controllers
                 {
                     assetImage4Path = SaveFile(assetImage4, assetID);
                 }
+                if (assetImage5 != null)
+                {
+                    assetImage5Path = SaveFile(assetImage5, assetID);
+                }
+                if (assetImage6 != null)
+                {
+                    assetImage6Path = SaveFile(assetImage6, assetID);
+                }
+                if (assetImage7 != null)
+                {
+                    assetImage7Path = SaveFile(assetImage7, assetID);
+                }
+
                 if (mainImage != null)
                 {
                     mainImagePath = SaveFile(mainImage, assetID);
@@ -132,6 +165,18 @@ namespace HRMS.Controllers
                         AssetType2 = assetType1,
                         AssetType3 = assetType2,
                         AssetType4 = assetType3,
+                        AssetType5 = assetType4,
+                        AssetType6 = assetType5,
+                        //AssetType7 = assetType6,
+
+                        //AssetTypeSno1 = assetTypesno1,
+                        //AssetTypeSno2 = assetTypesno2,
+                        //AssetTypeSno3 = assetTypesno3,
+                        //AssetTypeSno4 = assetTypesno4,
+                        //AssetTypeSno5 = assetTypesno5,
+                        //AssetTypeSno6 = assetTypesno6,
+                        //AssetTypeSno7 = assetTypesno7,
+
                         Manufacturer = manufacture,
                         Model = model,
                         BarCode = barcode,
@@ -152,6 +197,10 @@ namespace HRMS.Controllers
                         AssetType2Image = assetImage2Path,
                         AssetType3Image = assetImage3Path,
                         AssetType4Image = assetImage4Path,
+                        AssetType5Image = assetImage5Path,
+                        AssetType6Image = assetImage5Path,
+                        //AssetType7Image = assetImage6Path,
+
                         AssetMainImage = mainImagePath,
                         CreatedBy = cuserContext.EmpInfo.EmployeeName,
                         CreatedDate = DateTime.Now
@@ -170,6 +219,20 @@ namespace HRMS.Controllers
                         existingAsset.AssetType2 = assetType1;
                         existingAsset.AssetType3 = assetType2;
                         existingAsset.AssetType4 = assetType3;
+
+                        existingAsset.AssetType5 = assetType4;
+                        existingAsset.AssetType6 = assetType5;
+                        //existingAsset.AssetType7 = assetType6;
+
+
+                        //existingAsset.AssetTypeSno1 = assetTypesno1,
+                        //existingAsset.AssetTypeSno2 = assetTypesno2,
+                        //existingAsset.AssetTypeSno3 = assetTypesno3,
+                        //existingAsset.AssetTypeSno4 = assetTypesno4,
+                        //existingAsset.AssetTypeSno5 = assetTypesno5,
+                        //existingAsset.AssetTypeSno6 = assetTypesno6,
+                        //existingAsset.AssetTypeSno7 = assetTypesno7,
+
                         existingAsset.Manufacturer = manufacture;
                         existingAsset.Model = model;
                         existingAsset.BarCode = barcode;
@@ -190,6 +253,11 @@ namespace HRMS.Controllers
                         existingAsset.AssetType2Image = string.IsNullOrWhiteSpace(assetImage2Path) ? existingAsset.AssetType2Image : assetImage2Path;
                         existingAsset.AssetType3Image = string.IsNullOrWhiteSpace(assetImage3Path) ? existingAsset.AssetType3Image : assetImage3Path;
                         existingAsset.AssetType4Image = string.IsNullOrWhiteSpace(assetImage4Path) ? existingAsset.AssetType4Image : assetImage4Path;
+
+                        existingAsset.AssetType5Image = string.IsNullOrWhiteSpace(assetImage5Path) ? existingAsset.AssetType5Image : assetImage5Path;
+                        existingAsset.AssetType6Image = string.IsNullOrWhiteSpace(assetImage6Path) ? existingAsset.AssetType6Image : assetImage6Path;
+                        //existingAsset.AssetType7Image = string.IsNullOrWhiteSpace(assetImage7Path) ? existingAsset.AssetType7Image : assetImage7Path;
+
                         existingAsset.AssetMainImage = string.IsNullOrWhiteSpace(mainImagePath) ? existingAsset.AssetMainImage : mainImagePath;
                         existingAsset.UpdatedBy = cuserContext.EmpInfo.EmployeeName;
                         existingAsset.UpdatedDate = DateTime.Now;
@@ -234,6 +302,25 @@ namespace HRMS.Controllers
                 return file.FileName;
             }
             return null;
+        }
+
+        public ActionResult AssetTransfer(int sno = 0)
+        {
+            var model = new AssetModel();
+
+            model.Employees = _dbContext.emp_info.Where(x => x.EmployeeStatus == "Active").ToList();
+            model.ITEmployees = model.Employees.Where(x => x.Department == "ÏT").ToList();
+            if (sno != 0)
+            {
+                model.EditAssets = _dbContext.Assets.Where(x => x.SNo == sno).FirstOrDefault();
+                if (model.EditAssets != null)
+                {
+                    model.AllocatedEmpInfo = model.Employees.Where(x => x.EmployeeID == model.EditAssets.AllocatedEmployeeID).FirstOrDefault();
+                }
+            }
+
+
+            return PartialView("~/Views/Itsupport/_AssetTransfer.cshtml", model);
         }
 
 
