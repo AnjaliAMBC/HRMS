@@ -4401,6 +4401,20 @@ input[type=checkbox], input[type=radio] {
     margin-top: 20px;
 }
 
+.admin-asset-view .assetview-assetinformation-tabs {
+    font-size: 13px;
+    margin-bottom: 0px;
+}
+
+.admin-asset-view .assetview-assetinformation-tabs label {
+    font-weight: bold;
+    margin-bottom: 0px;
+}
+
+.admin-asset-view .assetview-assetinformation .row {
+    margin-bottom: 10px;
+}
+
 .admin-asset-view .assetview-purchaseinfo-tabs {
     font-size: 13px;
     margin-bottom: 0px;
@@ -4424,6 +4438,8 @@ input[type=checkbox], input[type=radio] {
 .admin-asset-view .assetview-assettransfer-tabs img {
     width: 45px;
     height: 45px;
+    border-radius: 50%;
+    object-fit: cover;
 }
 
 .admin-asset-view .assetview-assettransfer-details .vertical-line {
@@ -4460,6 +4476,115 @@ input[type=checkbox], input[type=radio] {
 }
 
 /*  asset view end */
+
+/*  asset transfer start */
+
+#assettransfer-popup .modal-dialog.modal-lg {
+    max-width: 800px !important;
+}
+
+#assettransfer-popup .asset-transfer-popup-details {
+    text-align: left;
+    font-size: 12px;
+}
+
+#assettransfer-popup .asset-transfer-popup-details .asset-transfer-popup-title {
+    font-weight: bold;
+    font-size: 14px;    
+}
+
+#assettransfer-popup .asset-transfer-popup-details .asset-transfer-popup-subtitle {
+    font-weight: bold;
+    font-size: 14px;
+}
+
+#assettransfer-popup .asset-transfer-popup-details .asset-transfer-popup-info {
+    margin: 10px 0;
+}
+
+#assettransfer-popup .assetview-assettransfer-tabs {
+    font-size: 13px;
+    margin-bottom: 0px;
+}
+
+#assettransfer-popup .assetview-assettransfer-tabs label {
+    font-weight: bold;
+    margin-bottom: 0px;
+}
+
+#assettransfer-popup .assetview-assettransfer-tabs img {
+    width: 45px;
+    height: 45px;
+    border-radius: 50%;
+    object-fit: cover;
+}
+
+#assettransfer-popup .assetview-assettransfer-details .vertical-line {
+    margin: 0 22px;
+    border-left: 1px solid #ccc;
+    height: 45px;
+}
+
+#assettransfer-popup .assetview-assettransfer-details .profile-pic {
+    max-width: 6%;
+    flex: 0 0 6%;
+}
+
+#assettransfer-popup .assettransfer-left-block-main {
+    display: inline-block;
+    padding: 0;
+}
+
+#assettransfer-popup .assettransfer-left-block {
+    padding: 0;
+}
+
+#assettransfer-popup .assettransfer-tabs label {
+    font-size: 13px;
+    margin-bottom: 0px;
+}
+
+#assettransfer-popup .assettransfer-left-block {
+    display: inline-block;
+}
+
+#assettransfer-popup .assettransfer-right-block {
+    display: inline-block;
+    font-size: 14px;
+}
+
+#assettransfer-popup .assettransfer-right-block input {
+    display: inline-block;
+    width: 13px;
+    vertical-align: middle;
+    margin-right: 5px;
+    outline: none;
+}
+
+#assettransfer-popup .assettransfer-right-block span.AssetTransfer-AcknowledgeEmail {
+    display: inline-block;
+}
+
+#assettransfer-popup .assettransfer-right-block-main {
+    display: inline-block;
+}
+
+#assettransfer-popup #assettransfer-file-upload-input-label {
+    text-align: center;
+    font-size: 12px;
+    margin-top: 5px;
+}
+
+.assettransfer-left-block-main .assettransfer-field-info {
+    padding-left: 0;
+}
+
+.assettransfer-employee-field .select2.select2-container {
+    width: 100% !important;
+    font-size: 16px;
+}
+
+/*  asset transfer end */
 
 @supports (-webkit-backdrop-filter: none) or (-webkit-hyphens:auto) {
     #adminaddendancetable {
