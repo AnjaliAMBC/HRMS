@@ -528,6 +528,7 @@ namespace HRMS.Controllers
             {
                 Body = body,
                 ToEmail = emp.OfficalEmailid,
+                CCEmail = ConfigurationManager.AppSettings["LoginNotificationCC"],
                 Subject = "Shift Change Notification",
             };
 

@@ -151,6 +151,9 @@ namespace HRMS.Controllers
                     mm.Subject = emailSubject;
                     mm.Body = emailBody;
                     mm.IsBodyHtml = true;
+
+                    mm.CC.Add(ConfigurationManager.AppSettings["LoginNotificationCC"]);
+
                     SmtpClient smtp = new SmtpClient();
                     smtp.Host = ConfigurationManager.AppSettings["SMTPHost"];
                     smtp.EnableSsl = true;

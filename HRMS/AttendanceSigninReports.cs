@@ -141,14 +141,14 @@ namespace HRMS
 
                 table += $@"
         <tr>
-            <td>{info.Employee.EmployeeID}</td>
+            <td style='text-align: center;'>{info.Employee.EmployeeID}</td>
             <td>{info.Employee.EmployeeName}</td>
-            <td>{info.Status}</td> <!-- Display the Status -->
-            <td>{info.Employee.ShiftTimings}</td>
-            <td>{todayloginDate}</td> <!-- Using the current date here -->
-             <td>{loginInfo?.Signin_Time.ToString("HH:mm") ?? ""}</td> 
-             <td>{loginInfo?.Signout_Time?.ToString("HH:mm") ?? ""}</td>
-            <td>{workingHours.ToString(@"hh\:mm")}</td>
+            <td style='text-align: center;'>{info.Status}</td> <!-- Display the Status -->
+            <td style='text-align: center;'>{info.Employee.ShiftTimings}</td>
+            <td style='text-align: center;'>{todayloginDate}</td> <!-- Using the current date here -->
+             <td style='text-align: center;'>{loginInfo?.Signin_Time.ToString("HH:mm") ?? ""}</td> 
+             <td style='text-align: center;'>{loginInfo?.Signout_Time?.ToString("HH:mm") ?? ""}</td>
+            <td style='text-align: center;'>{workingHours.ToString(@"hh\:mm")}</td>
         </tr>";
             }
             table += @"
