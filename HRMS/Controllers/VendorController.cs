@@ -177,11 +177,7 @@ namespace HRMS.Controllers
             return Json(new { success = false, message = "Vendor not found." });
         }
 
-
-        public ActionResult ImportVendor()
-        {
-            return View("~/Views/Itsupport/VendorImport.cshtml");
-        }
+      
         public ActionResult ApproveVendor()
         {
             VendorViewModel model = ApproverVendorFromDB();
@@ -293,75 +289,96 @@ namespace HRMS.Controllers
         }
 
         [HttpPost]
-        public JsonResult ImportVendors()
+        public ActionResult ImportVendor(HttpPostedFileBase vendorExcelFile)
         {
-            try
+            if (vendorExcelFile != null && vendorExcelFile.ContentLength > 0)
             {
-                HttpPostedFileBase file = Request.Files[0];
-                if (file != null && file.ContentLength > 0)
+                try
                 {
-                    using (var package = new ExcelPackage(file.InputStream))
+                    
+                    if (vendorExcelFile.FileName.EndsWith(".xlsx") || vendorExcelFile.FileName.EndsWith(".xls"))
                     {
-                        ExcelWorksheet worksheet = package.Workbook.Worksheets.FirstOrDefault();
-                        if (worksheet == null)
+                        var vendors = new List<VendorList>();
+
+                        using (var package = new ExcelPackage(vendorExcelFile.InputStream))
                         {
-                            return Json(new { success = false, message = "Invalid file format." });
-                        }
+                            var worksheet = package.Workbook.Worksheets.FirstOrDefault();
 
-                        // Assuming that the first row contains headers
-                        var startRow = 2; // Data starts from the second row
-                        for (int row = startRow; row <= worksheet.Dimension.End.Row; row++)
-                        {
-
-                            int vendorId;
-                            bool isParsed = int.TryParse(worksheet.Cells[row, 1].Text, out vendorId);
-
-                            if (!isParsed)
+                            
+                            if (worksheet == null)
                             {
-                                // Handle the case where the value is not a valid integer
-                                // For example, log an error or skip the row
-                                continue;
+                                return Json(new { message = "Invalid Excel file. Please check the file and try again." });
                             }
-                            var vendorName = worksheet.Cells[row, 2].Text;
-                            var vendorEmail = worksheet.Cells[row, 3].Text;
-                            var vendorContact = worksheet.Cells[row, 4].Text;
-                            var vendorAddress = worksheet.Cells[row, 5].Text;
-                            var vendorGst = worksheet.Cells[row, 6].Text;
-                            var createdDate = DateTime.Parse(worksheet.Cells[row, 7].Text);
-                            var createdBy = worksheet.Cells[row, 8].Text;
 
-                            // Add your code to save each row data to the database
-                            // Example:
-                            VendorList vendor = new VendorList
+                            
+                            for (int row = 2; row <= worksheet.Dimension.End.Row; row++)
                             {
-                                VedorID = vendorId,
-                                VendorName = vendorName,
-                                VendorEmail = vendorEmail,
-                                VendorContact = vendorContact,
-                                VendorAddress = vendorAddress,
-                                VendorGST = vendorGst,
-                                CreatedDate = createdDate,
-                                CreatedBy = createdBy,
-                            };
+                                
+                                string vendorName = worksheet.Cells[row, 1].Value?.ToString().Trim();
+                                string vendorEmail = worksheet.Cells[row, 2].Value?.ToString().Trim();
+                                string vendorContact = worksheet.Cells[row, 3].Value?.ToString().Trim();
+                                string vendorAddress = worksheet.Cells[row, 4].Value?.ToString().Trim();
+                                string vendorGST = worksheet.Cells[row, 5].Value?.ToString().Trim();
+                                string createdBy = worksheet.Cells[row, 6].Value?.ToString().Trim();
+                                string createdDateString = worksheet.Cells[row, 7].Value?.ToString().Trim();
 
-                            // Save the vendor to the database
-                            _dbContext.VendorLists.Add(vendor); // Assuming _context is your database context
+                                
+                                DateTime createdDate;
+                                if (!DateTime.TryParse(createdDateString, out createdDate))
+                                {
+                                    createdDate = DateTime.Now; // Use current date if parsing fails
+                                }
+                                                               
+                                if (string.IsNullOrWhiteSpace(vendorName) || string.IsNullOrWhiteSpace(vendorEmail) ||
+                                    string.IsNullOrWhiteSpace(vendorContact) || string.IsNullOrWhiteSpace(vendorGST))
+                                {
+                                    continue; // Skip this row if any required field is missing
+                                }
+
+                                // Add the vendor to the list
+                                var vendor = new VendorList
+                                {
+                                    VendorName = vendorName,
+                                    VendorEmail = vendorEmail,
+                                    VendorContact = vendorContact,
+                                    VendorAddress = vendorAddress,
+                                    VendorGST = vendorGST,
+                                    CreatedBy = createdBy,
+                                    CreatedDate = createdDate
+                                };
+
+                                vendors.Add(vendor);
+                            }
+
+                            if (vendors.Count > 0)
+                            {
+                                // Save to the database
+                                _dbContext.VendorLists.AddRange(vendors);
+                                _dbContext.SaveChanges();
+
+                                return Json(new { message = "Vendors imported successfully!", success = true });
+                            }
+                            else
+                            {
+                                return Json(new { message = "No valid vendors found in the file. Please check the file and try again.", success = false });
+                            }
                         }
-
-                        _dbContext.SaveChanges();
                     }
-
-                    return Json(new { success = true });
+                    else
+                    {
+                        return Json(new { message = "Invalid file format. Please upload an Excel file.", success = false });
+                    }
                 }
-                else
+                catch (Exception ex)
                 {
-                    return Json(new { success = false, message = "No file uploaded." });
+                    return Json(new { message = "Error occurred while importing vendors: " + ex.Message, success = false });
                 }
             }
-            catch (Exception ex)
+            else
             {
-                return Json(new { success = false, message = ex.Message });
+                return Json(new { message = "Please upload a file.", success = false });
             }
         }
+
     }
 }

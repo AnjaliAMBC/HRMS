@@ -151,35 +151,47 @@ function downloadVendorTemplate() {
 $(document).on('click', '.btn-vendor-import-submit', function (event) {
     event.preventDefault();
 
+    // Check if a file is selected
     var fileInput = document.getElementById('vendor-file-upload-input');
+    if (!fileInput || fileInput.files.length === 0) {
+        alert("Please select a file to upload.");
+        return;
+    }
+
     var file = fileInput.files[0];
     var formData = new FormData();
     formData.append('file', file);
 
     $.ajax({
-        url: '/Vendor/ImportVendors',
+        url: '/Vendor/ImportVendor',
         type: 'POST',
         data: formData,
-        processData: false,
-        contentType: false,
+        processData: false, // Prevent jQuery from processing the data
+        contentType: false, // Prevent jQuery from setting the Content-Type header
         dataType: 'json',
         beforeSend: function () {
-            $('.show-progress').show();
+            $('.show-progress').show(); // Show progress indicator if any
         },
         success: function (response) {
-            $('#vendorImportSuccessModal').modal('show');
-            $('.vendor-success-message').text(response.Message);
-            $('.show-progress').hide();
+            if (response.success) { // Check if the response indicates success
+                $('#vendorImportSuccessModal').modal('show');
+                $('.vendor-success-message').text(response.message);
+            } else {
+                // Handle server-side errors here
+                alert(response.message || "An error occurred during import.");
+            }
         },
         error: function (xhr, status, error) {
             $('.show-progress').hide();
             console.error('Error uploading file:', error);
+            alert("An error occurred during file upload: " + error);
         },
         complete: function () {
-            $('.show-progress').hide();
+            $('.show-progress').hide(); // Hide progress indicator
         }
     });
 });
+
 
 function handleVendorFileUpload(input) {
     var fileName = input.files[0].name;
@@ -303,53 +315,6 @@ function exportVendor() {
 }
 
 
-//Vendor Import functionality 
-
-$(document).off('change', '#vendor-file-upload-input').on('change', '#vendor-file-upload-input', function (event) {
-    event.preventDefault();
-    var file = this.files[0];
-    formData = new FormData();
-    formData.append('file', file);
-
-    // Show selected file info
-    if (file) {
-        $('#vendor-uploaded-file-text').text("Selected file: " + file.name);
-        $('#vendor-uploaded-file-info').show();
-    }
-});
-
-$(document).on('click', '.btn-vendor-import-submit', function (event) {
-    event.preventDefault();
-    $.ajax({
-        url: '/vendor/importvendors',
-        type: 'POST',
-        data: formData,
-        processData: false,
-        contentType: false,
-        dataType: 'json',
-        beforeSend: function () {
-            $('.show-progress').show();
-        },
-        success: function (response) {
-            if (response.success) {
-                $('#vendorImportSuccessModal').modal('show');
-                $('.vendor-success-message').text("Vendors imported successfully!");
-                // Optionally, refresh the vendor table or other UI components
-            } else {
-                alert('Error: ' + response.message);
-            }
-            $('.show-progress').hide();
-        },
-        error: function (xhr, status, error) {
-            $('.show-progress').hide();
-            console.error('Error uploading file:', error);
-        },
-        complete: function () {
-            isSubmitting = false;
-            $('.show-progress').hide();
-        }
-    });
-});
 
 
 function approveVendor(vendorId) {
