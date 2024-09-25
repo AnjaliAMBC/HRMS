@@ -107,8 +107,8 @@
 
                                             <div class="col-lg-12 col-md-6 AssetType-block" style="padding-left:0px;">
                                                 <div class="col-lg-7 col-md-6 assetadd-left-block">
-                                                    <div class="form-group assetadd-tabs">
-                                                        <label for="AssetType">Asset Type*</label>
+                                                    <div class="form-group assetadd-tabs assetadd-type-main">
+                                                        <label for="AssetType">Asset Type* <i class="fa fa-plus-square" aria-hidden="true"></i></label>
                                                         <select name="AssetType" class="AssetType form-control form-select" id="AssetType" required>
                                                             <option value="" disabled selected hidden>Select Type</option>
                                                             @foreach (var assetType in assetTypes)
@@ -140,6 +140,14 @@
                                                             <div class="invalid-feedback">required.</div>
                                                         </div>
                                                     </div>
+                                                </div>
+                                                <div class="col-lg-7 col-md-6">
+                                                    <div class="form-group assetadd-tabs">
+                                                        <input type="text" class="form-control" value="" name="AssetSerialNumber" id="AssetSerialNumber" placeholder="Enter Serial Number" required>
+                                                        <div class="invalid-feedback">Serial Number is required.</div>
+                                                    </div>
+                                                </div>
+                                                <div class="col-lg-4 col-md-4">
                                                 </div>
                                             </div>
 
@@ -177,6 +185,14 @@
                                                         </div>
                                                     </div>
                                                 </div>
+                                                <div class="col-lg-7 col-md-6">
+                                                    <div class="form-group assetadd-tabs">
+                                                        <input type="text" class="form-control" value="" name="AssetSerialNumber-1" id="AssetSerialNumber-1" placeholder="Enter Serial Number" required>
+                                                        <div class="invalid-feedback">Serial Number is required.</div>
+                                                    </div>
+                                                </div>
+                                                <div class="col-lg-4 col-md-4">
+                                                </div>
                                             </div>
 
                                             <div class="col-lg-12 col-md-6 AssetType-block-2" style="padding-left:0px;">
@@ -199,7 +215,7 @@
                                                             <button class="btn asset-upload-btn"><i class="fas fa-upload"></i>Upload</button>
                                                             <input type="file"
                                                                    class="form-control"
-                                                                   name="AssetImage-1"
+                                                                   name="AssetImage-2"
                                                                    id="AssetImage-2"
                                                                    required
                                                                    accept=".jpeg,.png,.jpg" data-existingfile="">
@@ -212,6 +228,14 @@
                                                             <div class="invalid-feedback">required.</div>
                                                         </div>
                                                     </div>
+                                                </div>
+                                                <div class="col-lg-7 col-md-6">
+                                                    <div class="form-group assetadd-tabs">
+                                                        <input type="text" class="form-control" value="" name="AssetSerialNumber-2" id="AssetSerialNumber-2" placeholder="Enter Serial Number" required>
+                                                        <div class="invalid-feedback">Serial Number is required.</div>
+                                                    </div>
+                                                </div>
+                                                <div class="col-lg-4 col-md-4">
                                                 </div>
                                             </div>
 
@@ -235,7 +259,7 @@
                                                             <button class="btn asset-upload-btn"><i class="fas fa-upload"></i>Upload</button>
                                                             <input type="file"
                                                                    class="form-control"
-                                                                   name="AssetImage-1"
+                                                                   name="AssetImage-3"
                                                                    id="AssetImage-3"
                                                                    required
                                                                    accept=".jpeg,.png,.jpg" data-existingfile="">
@@ -248,6 +272,146 @@
                                                             <div class="invalid-feedback">required.</div>
                                                         </div>
                                                     </div>
+                                                </div>
+                                                <div class="col-lg-7 col-md-6">
+                                                    <div class="form-group assetadd-tabs">
+                                                        <input type="text" class="form-control" value="" name="AssetSerialNumber-3" id="AssetSerialNumber-3" placeholder="Enter Serial Number" required>
+                                                        <div class="invalid-feedback">Serial Number is required.</div>
+                                                    </div>
+                                                </div>
+                                                <div class="col-lg-4 col-md-4">
+                                                </div>
+                                            </div>
+
+                                            <div class="col-lg-12 col-md-6 AssetType-block-4" style="display: none; padding-left: 0px;">
+                                                <div class="col-lg-7 col-md-6 assetadd-left-block">
+                                                    <div class="form-group assetadd-tabs">
+                                                        <select name="AssetType-4" class="AssetType form-control form-select" id="AssetType-4" required>
+                                                            <option value="" disabled selected hidden>Select Type</option>
+                                                            @foreach (var assetType in assetTypes)
+                                                            {
+                                                                var isAssetSelected4 = assetType == Model.EditAssets.AssetType4 ? "selected" : "";
+                                                                <option value="@assetType" @isAssetSelected4>@assetType</option>
+                                                            }
+                                                        </select>
+                                                        <div class="invalid-feedback">Asset Type is required.</div>
+                                                    </div>
+                                                </div>
+                                                <div class="col-lg-4 col-md-4 assetadd-right-block">
+                                                    <div class="form-group assetadd-tabs">
+                                                        <div class="upload-btn-wrapper attach1wrapper">
+                                                            <button class="btn asset-upload-btn"><i class="fas fa-upload"></i>Upload</button>
+                                                            <input type="file"
+                                                                   class="form-control"
+                                                                   name="AssetImage-4"
+                                                                   id="AssetImage-4"
+                                                                   required
+                                                                   accept=".jpeg,.png,.jpg" data-existingfile="">
+                                                            @if (!string.IsNullOrWhiteSpace(Model.EditAssets.AssetType4Image))
+                                                            {
+                                                                var assetFolderID = Model.EditAssets.AssetID.Split('#')[1];
+                                                                var assetImageURL = "/ticketing/assets/" + assetFolderID + "/" + Model.EditAssets.AssetType4Image;
+                                                                <a href="@assetImageURL" target="_blank" class="edit-AssetType4Image"><img src="@assetImageURL" alt="Subscription Logo" class="edit-AssetType5Image" /></a>
+                                                            }
+                                                            <div class="invalid-feedback">required.</div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="col-lg-7 col-md-6">
+                                                    <div class="form-group assetadd-tabs">
+                                                        <input type="text" class="form-control" value="" name="AssetSerialNumber-4" id="AssetSerialNumber-4" placeholder="Enter Serial Number" required>
+                                                        <div class="invalid-feedback">Serial Number is required.</div>
+                                                    </div>
+                                                </div>
+                                                <div class="col-lg-4 col-md-4">
+                                                </div>
+                                            </div>
+
+                                            <div class="col-lg-12 col-md-6 AssetType-block-5" style="display:none;padding-left:0px;">
+                                                <div class="col-lg-7 col-md-6 assetadd-left-block">
+                                                    <div class="form-group assetadd-tabs">
+                                                        <select name="AssetType-5" class="AssetType form-control form-select" id="AssetType-5" required>
+                                                            <option value="" disabled selected hidden>Select Type</option>
+                                                            @foreach (var assetType in assetTypes)
+                                                            {
+                                                                var isAssetSelected4 = assetType == Model.EditAssets.AssetType4 ? "selected" : "";
+                                                                <option value="@assetType" @isAssetSelected4>@assetType</option>
+                                                            }
+                                                        </select>
+                                                        <div class="invalid-feedback">Asset Type is required.</div>
+                                                    </div>
+                                                </div>
+                                                <div class="col-lg-4 col-md-4 assetadd-right-block">
+                                                    <div class="form-group assetadd-tabs">
+                                                        <div class="upload-btn-wrapper attach1wrapper">
+                                                            <button class="btn asset-upload-btn"><i class="fas fa-upload"></i>Upload</button>
+                                                            <input type="file"
+                                                                   class="form-control"
+                                                                   name="AssetImage-5"
+                                                                   id="AssetImage-5"
+                                                                   required
+                                                                   accept=".jpeg,.png,.jpg" data-existingfile="">
+                                                            @if (!string.IsNullOrWhiteSpace(Model.EditAssets.AssetType4Image))
+                                                            {
+                                                                var assetFolderID = Model.EditAssets.AssetID.Split('#')[1];
+                                                                var assetImageURL = "/ticketing/assets/" + assetFolderID + "/" + Model.EditAssets.AssetType4Image;
+                                                                <a href="@assetImageURL" target="_blank" class="edit-AssetType4Image"><img src="@assetImageURL" alt="Subscription Logo" class="edit-AssetType6Image" /></a>
+                                                            }
+                                                            <div class="invalid-feedback">required.</div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="col-lg-7 col-md-6">
+                                                    <div class="form-group assetadd-tabs">
+                                                        <input type="text" class="form-control" value="" name="AssetSerialNumber-5" id="AssetSerialNumber-5" placeholder="Enter Serial Number" required>
+                                                        <div class="invalid-feedback">Serial Number is required.</div>
+                                                    </div>
+                                                </div>
+                                                <div class="col-lg-4 col-md-4">
+                                                </div>
+                                            </div>
+
+                                            <div class="col-lg-12 col-md-6 AssetType-block-6" style="display: none; padding-left: 0px;">
+                                                <div class="col-lg-7 col-md-6 assetadd-left-block">
+                                                    <div class="form-group assetadd-tabs">
+                                                        <select name="AssetType-6" class="AssetType form-control form-select" id="AssetType-6" required>
+                                                            <option value="" disabled selected hidden>Select Type</option>
+                                                            @foreach (var assetType in assetTypes)
+                                                            {
+                                                                var isAssetSelected4 = assetType == Model.EditAssets.AssetType4 ? "selected" : "";
+                                                                <option value="@assetType" @isAssetSelected4>@assetType</option>
+                                                            }
+                                                        </select>
+                                                        <div class="invalid-feedback">Asset Type is required.</div>
+                                                    </div>
+                                                </div>
+                                                <div class="col-lg-4 col-md-4 assetadd-right-block">
+                                                    <div class="form-group assetadd-tabs">
+                                                        <div class="upload-btn-wrapper attach1wrapper">
+                                                            <button class="btn asset-upload-btn"><i class="fas fa-upload"></i>Upload</button>
+                                                            <input type="file"
+                                                                   class="form-control"
+                                                                   name="AssetImage-6"
+                                                                   id="AssetImage-6"
+                                                                   required
+                                                                   accept=".jpeg,.png,.jpg" data-existingfile="">
+                                                            @if (!string.IsNullOrWhiteSpace(Model.EditAssets.AssetType4Image))
+                                                            {
+                                                                var assetFolderID = Model.EditAssets.AssetID.Split('#')[1];
+                                                                var assetImageURL = "/ticketing/assets/" + assetFolderID + "/" + Model.EditAssets.AssetType4Image;
+                                                                <a href="@assetImageURL" target="_blank" class="edit-AssetType4Image"><img src="@assetImageURL" alt="Subscription Logo" class="edit-AssetType7Image" /></a>
+                                                            }
+                                                            <div class="invalid-feedback">required.</div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="col-lg-7 col-md-6">
+                                                    <div class="form-group assetadd-tabs">
+                                                        <input type="text" class="form-control" value="" name="AssetSerialNumber-6" id="AssetSerialNumber-6" placeholder="Enter Serial Number" required>
+                                                        <div class="invalid-feedback">Serial Number is required.</div>
+                                                    </div>
+                                                </div>
+                                                <div class="col-lg-4 col-md-4">
                                                 </div>
                                             </div>
 
@@ -604,6 +768,51 @@
             }
         });
 
+        $("#AssetImage-4").change(function (e) {
+            $('.edit-AssetType5Image').hide();
+            for (var i = 0; i < e.originalEvent.srcElement.files.length; i++) {
+                var file = e.originalEvent.srcElement.files[i];
+                var img = document.createElement("img");
+                var reader = new FileReader();
+                reader.onloadend = function () {
+                    img.src = reader.result;
+                }
+                reader.readAsDataURL(file);
+                $("#AssetImage-4").after(img);
+                $(".admin-asset-add .AssetType-block-4 .upload-btn-wrapper img").after("<span class='uploaded-image-close-4'><i class='fa fa-times-circle' aria-hidden='true'></i></span>");
+            }
+        });
+
+        $("#AssetImage-5").change(function (e) {
+            $('.edit-AssetType6Image').hide();
+            for (var i = 0; i < e.originalEvent.srcElement.files.length; i++) {
+                var file = e.originalEvent.srcElement.files[i];
+                var img = document.createElement("img");
+                var reader = new FileReader();
+                reader.onloadend = function () {
+                    img.src = reader.result;
+                }
+                reader.readAsDataURL(file);
+                $("#AssetImage-5").after(img);
+                $(".admin-asset-add .AssetType-block-5 .upload-btn-wrapper img").after("<span class='uploaded-image-close-5'><i class='fa fa-times-circle' aria-hidden='true'></i></span>");
+            }
+        });
+
+        $("#AssetImage-6").change(function (e) {
+            $('.edit-AssetType7Image').hide();
+            for (var i = 0; i < e.originalEvent.srcElement.files.length; i++) {
+                var file = e.originalEvent.srcElement.files[i];
+                var img = document.createElement("img");
+                var reader = new FileReader();
+                reader.onloadend = function () {
+                    img.src = reader.result;
+                }
+                reader.readAsDataURL(file);
+                $("#AssetImage-6").after(img);
+                $(".admin-asset-add .AssetType-block-6 .upload-btn-wrapper img").after("<span class='uploaded-image-close-6'><i class='fa fa-times-circle' aria-hidden='true'></i></span>");
+            }
+        });
+
         $(document).on("click", ".uploaded-image-close", function () {
             $(".admin-asset-add .upload-btn-wrapper img").remove();
             $(".admin-asset-add .upload-btn-wrapper .uploaded-image-close").remove();
@@ -619,9 +828,44 @@
             $(".admin-asset-add .AssetType-block-2 .upload-btn-wrapper .uploaded-image-close-2").remove();
         });
 
-        $(document).on("click", ".uploaded-image-close", function () {
+        $(document).on("click", ".uploaded-image-close-3", function () {
             $(".admin-asset-add .AssetType-block-3 .upload-btn-wrapper img").remove();
             $(".admin-asset-add .AssetType-block-3 .upload-btn-wrapper .uploaded-image-close-3").remove();
+        });
+
+        $(document).on("click", ".uploaded-image-close-4", function () {
+            $(".admin-asset-add .AssetType-block-4 .upload-btn-wrapper img").remove();
+            $(".admin-asset-add .AssetType-block-4 .upload-btn-wrapper .uploaded-image-close-4").remove();
+        });
+
+        $(document).on("click", ".uploaded-image-close-5", function () {
+            $(".admin-asset-add .AssetType-block-5 .upload-btn-wrapper img").remove();
+            $(".admin-asset-add .AssetType-block-5 .upload-btn-wrapper .uploaded-image-close-5").remove();
+        });
+
+        $(document).on("click", ".uploaded-image-close-6", function () {
+            $(".admin-asset-add .AssetType-block-6 .upload-btn-wrapper img").remove();
+            $(".admin-asset-add .AssetType-block-6 .upload-btn-wrapper .uploaded-image-close-6").remove();
+        });
+
+
+        let clickCount = 0;
+
+        $('.assetadd-type-main i').click(function () {
+
+            // Increment click count
+            clickCount++;
+
+            // Show the appropriate div based on click count
+            if (clickCount === 1) {
+                $('.AssetType-block-4').show();
+            } else if (clickCount === 2) {
+                $('.AssetType-block-5').show();
+            } else if (clickCount === 3) {
+                $('.AssetType-block-6').show();
+                // Reset click count to cycle through the divs
+                //clickCount = 0;
+            }
         });
 
     });
