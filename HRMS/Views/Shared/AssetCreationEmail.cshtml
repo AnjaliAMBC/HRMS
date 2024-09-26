@@ -1,0 +1,126 @@
+﻿@model HRMS.Asset
+@{
+    var siteURL = System.Configuration.ConfigurationManager.AppSettings["siteURL"];
+    var logoURL = siteURL + "/Assets/AMBC_Logo.png";
+}
+
+<style>
+    body {
+        color: #333;
+        background-color: #ffffff;
+        margin: 0;
+        padding: 0;
+    }
+
+    .email-body {
+        background-color: #f4f4f4;
+        font-family: Calibri, Arial, sans-serif;
+        color: #333333;
+    }
+
+    .email-container {
+        width: 100%;
+        max-width: 600px;
+        margin: 0 auto;
+        padding: 0 20px;
+        background-color: #ffffff;
+        border: 1px solid #dddddd;
+        border-radius: 4px;
+    }
+
+    .email-header {
+        padding-bottom: 10px;
+        border-bottom: 1px solid #eeeeee;
+    }
+
+        .email-header h1 {
+            font-size: 24px;
+            color: #2c3e50;
+            margin: 0;
+        }
+
+    .email-content {
+        padding: 20px 0;
+    }
+
+    .email-footer {
+        padding-top: 20px;
+        border-top: 1px solid #eeeeee;
+        font-size: 12px;
+        color: #888888;
+        text-align: center;
+        margin-top: 20px;
+    }
+
+        .email-footer a {
+            color: #2693F8;
+            text-decoration: none;
+        }
+
+    .email-body a {
+        color: blue;
+        text-decoration: underline;
+    }
+
+    table {
+        width: 100%;
+        background-color: #ffffff;
+        margin-top: 10px;
+        border-collapse: collapse;
+    }
+
+    td {
+        padding: 5px 0;
+    }
+
+    strong {
+        color: #000;
+    }
+</style>
+
+@if (Model != null)
+{
+    <body class="email-body">
+        <div class="email-container">
+            <div class="email-header" style="text-align:center;">
+                <img src="@logoURL" alt="AMBC Logo" width="80" style="display: inline-block;">
+                <h1>Asset Allocation Confirmation</h1>
+            </div>
+            <div class="email-content">
+                <p>Dear @Model.AllocatedEmployeeName</p>
+                <p>Asset has been assigned successfully. Below are the details of the asset details:</p>
+
+                <table style="border: none;">
+                    <tr>
+                        <td><strong>Asset Name:</strong></td>
+                        <td>@Model.AssetType1</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Asset ID:</strong></td>
+                        <td>@Model.AssetID</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Location:</strong></td>
+                        <td>@Model.Location</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Transfer Date:</strong></td>
+                        <td>@Model.AssignedDate.Value.ToString("dd-MM-yyyy")</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Assigned By:</strong></td>
+                        <td>@Model.AssignedBy</td>
+                    </tr>
+                </table>
+
+                <p>Please ensure the asset is maintained in good condition as per company policies. If you face any issues with the asset, feel free to contact IT Support.</p>
+
+            </div>
+
+            <div class="email-footer">
+                <p>This is an automated email, please do not reply.</p>
+                <p>Automated mail from <a href="https://prm.ambctechnologies.com">https://prm.ambctechnologies.com</a></p>
+            </div>
+        </div>
+    </body>
+}

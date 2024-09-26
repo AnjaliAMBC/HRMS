@@ -8,6 +8,7 @@ using OfficeOpenXml.Style;
 using System;
 using System.Collections.Generic;
 using System.Configuration;
+using System.Data;
 using System.Drawing;
 using System.IO;
 using System.Linq;
@@ -86,7 +87,7 @@ namespace HRMS.Controllers
                 _dbContext.SaveChanges();
 
                 // Generate email body using the partial view
-                var emailBody = RenderPartialToString(this, "_VendorAddEmailNotification", vendor, ViewData, TempData);                
+                var emailBody = RenderPartialToString(this, "_VendorAddEmailNotification", vendor, ViewData, TempData);
 
                 var emailRequest = new EmailRequest()
                 {
@@ -165,7 +166,7 @@ namespace HRMS.Controllers
                 {
                     Body = emailBody,
                     ToEmail = ConfigurationManager.AppSettings["VendorEmailsTo"],
-                    CCEmail = ConfigurationManager.AppSettings["VendorEmailsCC"], 
+                    CCEmail = ConfigurationManager.AppSettings["VendorEmailsCC"],
                     Subject = emailSubject
                 };
 
@@ -177,7 +178,7 @@ namespace HRMS.Controllers
             return Json(new { success = false, message = "Vendor not found." });
         }
 
-      
+
         public ActionResult ApproveVendor()
         {
             VendorViewModel model = ApproverVendorFromDB();
@@ -287,96 +288,110 @@ namespace HRMS.Controllers
                 return File(stream, "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet", "SelectedVendors.xlsx");
             }
         }
+        [HttpGet]
+        public ActionResult ImportVendor()
+        {           
+            return View("~/Views/Itsupport/VendorImport.cshtml");
+        }
 
         [HttpPost]
-        public ActionResult ImportVendor(HttpPostedFileBase vendorExcelFile)
+        public JsonResult ImportVendors(HttpPostedFileBase file)
         {
-            if (vendorExcelFile != null && vendorExcelFile.ContentLength > 0)
+            var cuserContext = SiteContext.GetCurrentUserContext();
+            var model = new JsonResponse();
+
+            try
             {
-                try
+                // Check if a file is uploaded
+                if (file != null && file.ContentLength > 0)
                 {
-                    
-                    if (vendorExcelFile.FileName.EndsWith(".xlsx") || vendorExcelFile.FileName.EndsWith(".xls"))
+                    List<VendorList> vendorList = new List<VendorList>();
+
+                    using (ExcelPackage package = new ExcelPackage(file.InputStream))
                     {
-                        var vendors = new List<VendorList>();
+                        ExcelWorksheet worksheet = package.Workbook.Worksheets[1];
+                        DataTable dt = new DataTable();
 
-                        using (var package = new ExcelPackage(vendorExcelFile.InputStream))
+                        // Get column headers from the first row
+                        int colCount = worksheet.Dimension.End.Column;
+                        for (int col = 1; col <= colCount; col++)
                         {
-                            var worksheet = package.Workbook.Worksheets.FirstOrDefault();
+                            dt.Columns.Add(worksheet.Cells[1, col].Value.ToString());
+                        }
 
-                            
-                            if (worksheet == null)
+                        // Loop through each row starting from the second row
+                        int rowCount = worksheet.Dimension.End.Row;
+                        for (int row = 2; row <= rowCount; row++)
+                        {
+                            bool isEmptyRow = true;
+                            for (int col = 1; col <= colCount; col++)
                             {
-                                return Json(new { message = "Invalid Excel file. Please check the file and try again." });
-                            }
-
-                            
-                            for (int row = 2; row <= worksheet.Dimension.End.Row; row++)
-                            {
-                                
-                                string vendorName = worksheet.Cells[row, 1].Value?.ToString().Trim();
-                                string vendorEmail = worksheet.Cells[row, 2].Value?.ToString().Trim();
-                                string vendorContact = worksheet.Cells[row, 3].Value?.ToString().Trim();
-                                string vendorAddress = worksheet.Cells[row, 4].Value?.ToString().Trim();
-                                string vendorGST = worksheet.Cells[row, 5].Value?.ToString().Trim();
-                                string createdBy = worksheet.Cells[row, 6].Value?.ToString().Trim();
-                                string createdDateString = worksheet.Cells[row, 7].Value?.ToString().Trim();
-
-                                
-                                DateTime createdDate;
-                                if (!DateTime.TryParse(createdDateString, out createdDate))
+                                if (worksheet.Cells[row, col].Value != null)
                                 {
-                                    createdDate = DateTime.Now; // Use current date if parsing fails
+                                    isEmptyRow = false;
+                                    break;
                                 }
-                                                               
-                                if (string.IsNullOrWhiteSpace(vendorName) || string.IsNullOrWhiteSpace(vendorEmail) ||
-                                    string.IsNullOrWhiteSpace(vendorContact) || string.IsNullOrWhiteSpace(vendorGST))
-                                {
-                                    continue; // Skip this row if any required field is missing
-                                }
-
-                                // Add the vendor to the list
-                                var vendor = new VendorList
-                                {
-                                    VendorName = vendorName,
-                                    VendorEmail = vendorEmail,
-                                    VendorContact = vendorContact,
-                                    VendorAddress = vendorAddress,
-                                    VendorGST = vendorGST,
-                                    CreatedBy = createdBy,
-                                    CreatedDate = createdDate
-                                };
-
-                                vendors.Add(vendor);
                             }
 
-                            if (vendors.Count > 0)
+                            if (isEmptyRow)
                             {
-                                // Save to the database
-                                _dbContext.VendorLists.AddRange(vendors);
-                                _dbContext.SaveChanges();
+                                continue;
+                            }
 
-                                return Json(new { message = "Vendors imported successfully!", success = true });
-                            }
-                            else
+                            DataRow dataRow = dt.NewRow();
+                            for (int col = 1; col <= colCount; col++)
                             {
-                                return Json(new { message = "No valid vendors found in the file. Please check the file and try again.", success = false });
+                                dataRow[col - 1] = worksheet.Cells[row, col].Value;
                             }
+
+                            dt.Rows.Add(dataRow);
+
+                            // Map DataRow to Asset object
+                            VendorList vendor = new VendorList
+                            {
+                                VendorName = dataRow["VendorName"].ToString(),
+                                VendorEmail = dataRow["VendorEmail"].ToString(),
+                                VendorContact = dataRow["VendorContact"].ToString(),
+                                VendorAddress = dataRow["VendorAddress"].ToString(),
+                                VendorType = dataRow["VendorType"].ToString(),
+                                VendorGST = dataRow["VendorGST"].ToString(),
+                                ApprovedBy = dataRow["ApprovedBy"].ToString(),
+                                ApprovedDate = string.IsNullOrEmpty(dataRow["ApprovedDate"].ToString())
+                       ? (DateTime?)null
+                       : Convert.ToDateTime(dataRow["ApprovedDate"]),
+                                RejectedBy = dataRow["RejectedBy"].ToString(),
+                                RejectedDate = string.IsNullOrEmpty(dataRow["RejectedDate"].ToString())
+                       ? (DateTime?)null
+                       : Convert.ToDateTime(dataRow["RejectedDate"]),
+                                Status = dataRow["Status"].ToString(),
+                                ApproveRejectReason = dataRow["ApproveRejectReason"].ToString(),
+                                CreatedBy = cuserContext.EmpInfo.EmployeeName,
+                                CreatedDate = DateTime.Now
+                            };
+
+                            vendorList.Add(vendor);
                         }
                     }
-                    else
+
+                    if (vendorList.Count > 0)
                     {
-                        return Json(new { message = "Invalid file format. Please upload an Excel file.", success = false });
+                        using (var context = new HRMS_EntityFramework())
+                        {
+                            context.VendorLists.AddRange(vendorList);
+                            context.SaveChanges();
+
+                            model.Message = "Vendors imported successfully";
+                            model.StatusCode = 200;
+                        }
                     }
                 }
-                catch (Exception ex)
-                {
-                    return Json(new { message = "Error occurred while importing vendors: " + ex.Message, success = false });
-                }
+
+                return Json(model, JsonRequestBehavior.AllowGet);
             }
-            else
+            catch (Exception ex)
             {
-                return Json(new { message = "Please upload a file.", success = false });
+                model = ErrorHelper.CaptureError(ex);
+                return Json(model, JsonRequestBehavior.AllowGet);
             }
         }
 

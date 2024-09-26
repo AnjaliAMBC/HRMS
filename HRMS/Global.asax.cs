@@ -49,7 +49,6 @@ namespace HRMS
                 .Build();
 
 
-
             // Define the job and tie it to our ShiftNotificationJob class
             IJobDetail job2 = JobBuilder.Create<GenerateAndSendReportJob>()
                 .WithIdentity("dailycheckinreportjob", "group2")
@@ -57,10 +56,9 @@ namespace HRMS
 
             //Trigger the job to run every minute
             ITrigger trigger2 = TriggerBuilder.Create()
-            .WithIdentity("DailycheckinreportjobTrigger", "group2")
-            .WithCronSchedule("0 0 11,15 ? * MON-FRI") // Cron expression for 11 AM and 3 PM, Monday to Friday
-            .Build();
-
+               .WithIdentity("DailycheckinreportjobTrigger", "group2")
+               .WithCronSchedule("0 0 11,15,17 30 ? * MON-FRI") // Cron expression for 11 AM, 3 PM, and 5:30 PM
+               .Build();
 
             // Define the job and tie it to our ShiftNotificationJob class
             IJobDetail job3 = JobBuilder.Create<HolidayNotificationJob>()

@@ -105,6 +105,9 @@ function saveVendor() {
         url: '/vendor/addvendor',
         type: 'POST',
         data: vendor,
+        beforeSend: function () {
+            $('.show-progress').show(); // Show loader before the request is sent
+        },
         success: function (response) {
             if (response.StatusCode == 200) {
                 console.log(response.data);
@@ -118,9 +121,13 @@ function saveVendor() {
         error: function (error) {
             console.error(error);
             alert('An error occurred while saving the vendor. Please try again.');
+        },
+        complete: function () {
+            $('.show-progress').hide(); // Hide loader after request completes
         }
     });
 }
+
 
 // Button actions
 $(document).on('click', '.vendoradd-Cancel', function (event) {
@@ -139,7 +146,7 @@ $(document).on('click', '.vendoradd-Update', function (event) {
 
 function downloadVendorTemplate() {
     var link = document.createElement('a');
-    link.href = '/assets/templates/vendorimport.xlsx';
+    link.href = '/assets/templates/VendorImportTemplate.xlsx';
     link.download = 'VendorImportTemplate.xlsx';
     document.body.appendChild(link);
     link.click();
@@ -298,7 +305,10 @@ function exportVendor() {
         data: JSON.stringify({ selectedVendorIds: selectedVendorIds }),
         contentType: 'application/json; charset=utf-8',
         xhrFields: {
-            responseType: 'blob'
+            responseType: 'blob',
+        },
+        beforeSend: function () {
+            $('.show-progress').show(); // Show loader before the request is sent
         },
         success: function (data) {
             var blob = new Blob([data], { type: 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet' });
@@ -310,9 +320,13 @@ function exportVendor() {
         error: function (error) {
             console.error(error);
             alert('An error occurred while exporting vendors. Please try again.');
+        },
+        complete: function () {
+            $('.show-progress').hide(); // Hide loader after request completes
         }
     });
 }
+
 
 
 
@@ -515,4 +529,40 @@ function openVendorModal(vendorid) {
 
     generateModalFooter(vendorStatus);
 }
+
+
+$(document).on('click', '.btn-vendor-import-submit', function () {
+    var inputFile = document.getElementById('vendor-file-upload-input');
+    if (!inputFile.files.length) {
+        alert('Please select a file to upload');
+        return;
+    }
+
+    var formData = new FormData();
+    formData.append('file', inputFile.files[0]);
+
+    $.ajax({
+        url: '/vendor/importvendors',
+        type: 'POST',
+        data: formData,
+        processData: false,
+        contentType: false,
+        success: function (response) {
+            if (response.StatusCode == 200) {
+                $('#vendorImportSuccessModal').modal('show');
+                $('.vendor-success-message').text(response.Message);
+                $('.vendor-success-message').css('color', 'green');
+            } else {
+                $('#assetImportSuccessModal').modal('show');
+                $('.vendor-success-message').text(response.Message);
+                $('.vendor-success-message').css('color', 'red');
+            }
+        },
+        error: function (xhr, status, error) {
+            $('#vendorImportSuccessModal').modal('show');
+            $('.vendor-success-message').text(response.Message);
+            $('.vendor-success-message').css('color', 'red');
+        }
+    });
+});
 
