@@ -11,41 +11,65 @@
           </Key>
           <Property Name="SNo" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="AssetID" Type="varchar" MaxLength="255" Nullable="false" />
-          <Property Name="AllocatedEmployeeName" Type="nvarchar" MaxLength="255" />
-          <Property Name="AllocatedEmployeeID" Type="nvarchar" MaxLength="255" />
-          <Property Name="Location" Type="nvarchar" MaxLength="255" />
-          <Property Name="AllocatedStatus" Type="nvarchar" MaxLength="255" />
-          <Property Name="AssignedBy" Type="nvarchar" MaxLength="255" />
-          <Property Name="AssignedByEmpID" Type="nvarchar" MaxLength="255" />
+          <Property Name="AllocatedEmployeeName" Type="varchar" MaxLength="255" />
+          <Property Name="AllocatedEmployeeID" Type="varchar" MaxLength="255" />
+          <Property Name="Location" Type="varchar" MaxLength="255" />
+          <Property Name="AllocatedStatus" Type="varchar" MaxLength="100" />
+          <Property Name="AssignedBy" Type="varchar" MaxLength="255" />
+          <Property Name="AssignedByEmpID" Type="varchar" MaxLength="255" />
           <Property Name="AssignedDate" Type="datetime" />
-          <Property Name="Remarks" Type="nvarchar(max)" />
-          <Property Name="AssetType1" Type="nvarchar" MaxLength="255" />
-          <Property Name="AssetType2" Type="nvarchar" MaxLength="255" />
-          <Property Name="AssetType3" Type="nvarchar" MaxLength="255" />
-          <Property Name="AssetType4" Type="nvarchar" MaxLength="255" />
-          <Property Name="AssetType5" Type="nvarchar" MaxLength="255" />
-          <Property Name="AssetType6" Type="nvarchar" MaxLength="255" />
-          <Property Name="Manufacturer" Type="nvarchar" MaxLength="255" />
-          <Property Name="Model" Type="nvarchar" MaxLength="255" />
-          <Property Name="BarCode" Type="nvarchar" MaxLength="255" />
-          <Property Name="RAM" Type="nvarchar" MaxLength="255" />
+          <Property Name="Remarks" Type="varchar(max)" />
+          <Property Name="AssetType1" Type="varchar" MaxLength="100" Nullable="false" />
+          <Property Name="AssetSerialNo1" Type="varchar" MaxLength="255" />
+          <Property Name="AssetType2" Type="varchar" MaxLength="100" />
+          <Property Name="AssetSerialNo2" Type="varchar" MaxLength="255" />
+          <Property Name="AssetType3" Type="varchar" MaxLength="100" />
+          <Property Name="AssetSerialNo3" Type="varchar" MaxLength="255" />
+          <Property Name="AssetType4" Type="varchar" MaxLength="100" />
+          <Property Name="AssetSerialNo4" Type="varchar" MaxLength="255" />
+          <Property Name="AssetType5" Type="varchar" MaxLength="100" />
+          <Property Name="AssetSerialNo5" Type="varchar" MaxLength="255" />
+          <Property Name="AssetType6" Type="varchar" MaxLength="100" />
+          <Property Name="AssetSerialNo6" Type="varchar" MaxLength="255" />
+          <Property Name="AssetType7" Type="varchar" MaxLength="100" />
+          <Property Name="AssetSerialNo7" Type="varchar" MaxLength="255" />
+          <Property Name="Manufacturer" Type="varchar" MaxLength="255" />
+          <Property Name="Model" Type="varchar" MaxLength="255" />
+          <Property Name="BarCode" Type="varchar" MaxLength="255" />
+          <Property Name="RAM" Type="varchar" MaxLength="50" />
           <Property Name="WarrantyStartDate" Type="datetime" />
           <Property Name="WarrantyEndDate" Type="datetime" />
-          <Property Name="AssetMainImage" Type="nvarchar" MaxLength="255" />
-          <Property Name="AssetType1Image" Type="nvarchar" MaxLength="255" />
-          <Property Name="AssetType2Image" Type="nvarchar" MaxLength="255" />
-          <Property Name="AssetType3Image" Type="nvarchar" MaxLength="255" />
-          <Property Name="AssetType4Image" Type="nvarchar" MaxLength="255" />
-          <Property Name="AssetType5Image" Type="nvarchar" MaxLength="255" />
-          <Property Name="AssetType6Image" Type="nvarchar" MaxLength="255" />
-          <Property Name="VendorName" Type="nvarchar" MaxLength="255" />
-          <Property Name="PONumber" Type="nvarchar" MaxLength="255" />
+          <Property Name="AssetMainImage" Type="varchar" MaxLength="1000" />
+          <Property Name="AssetType1Image" Type="varchar" MaxLength="1000" />
+          <Property Name="AssetType2Image" Type="varchar" MaxLength="1000" />
+          <Property Name="AssetType3Image" Type="varchar" MaxLength="1000" />
+          <Property Name="AssetType4Image" Type="varchar" MaxLength="1000" />
+          <Property Name="AssetType5Image" Type="varchar" MaxLength="1000" />
+          <Property Name="AssetType6Image" Type="varchar" MaxLength="1000" />
+          <Property Name="AssetType7Image" Type="varchar" MaxLength="1000" />
+          <Property Name="VendorName" Type="varchar" MaxLength="255" />
+          <Property Name="PONumber" Type="varchar" MaxLength="100" />
           <Property Name="PurchaseDate" Type="datetime" />
           <Property Name="InvoiceDate" Type="datetime" />
-          <Property Name="UpdatedBy" Type="nvarchar" MaxLength="255" />
+          <Property Name="UpdatedBy" Type="varchar" MaxLength="255" />
           <Property Name="UpdatedDate" Type="datetime" />
-          <Property Name="CreatedBy" Type="nvarchar" MaxLength="255" />
+          <Property Name="CreatedBy" Type="varchar" MaxLength="255" />
           <Property Name="CreatedDate" Type="datetime" />
+        </EntityType>
+        <EntityType Name="AssetTransfer ">
+          <Key>
+            <PropertyRef Name="SNo" />
+          </Key>
+          <Property Name="SNo" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="AssetID" Type="varchar" MaxLength="255" Nullable="false" />
+          <Property Name="AllocatedEmpID" Type="varchar" MaxLength="255" />
+          <Property Name="AllocatedEmpName" Type="varchar" MaxLength="255" />
+          <Property Name="AssignedByEmpID" Type="varchar" MaxLength="255" />
+          <Property Name="AssignedByName" Type="varchar" MaxLength="255" />
+          <Property Name="AssignedDate" Type="datetime" />
+          <Property Name="Location" Type="varchar" MaxLength="255" />
+          <Property Name="CreatedDate" Type="datetime" />
+          <Property Name="CreatedBy" Type="varchar" MaxLength="255" />
         </EntityType>
         <EntityType Name="Client">
           <Key>
@@ -456,6 +480,7 @@ warning 6002: The table/view 'HRMS_PortalDev1.dbo.CheckInView' does not have a p
         </EntityType>
         <EntityContainer Name="HRMS_EntityModelStoreContainer">
           <EntitySet Name="Assets" EntityType="Self.Assets" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="AssetTransfer " EntityType="Self.AssetTransfer " Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Client" EntityType="Self.Client" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Compoff" EntityType="Self.Compoff" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="con_leaveupdate" EntityType="Self.con_leaveupdate" Schema="dbo" store:Type="Tables" />
@@ -538,6 +563,7 @@ warning 6002: The table/view 'HRMS_PortalDev1.dbo.CheckInView' does not have a p
           <EntitySet Name="Subscriptions" EntityType="HRMS_EntityModel.Subscription" />
           <EntitySet Name="SubscriptionHistories" EntityType="HRMS_EntityModel.SubscriptionHistory" />
           <EntitySet Name="Assets" EntityType="HRMS_EntityModel.Asset" />
+          <EntitySet Name="AssetTransfer_" EntityType="HRMS_EntityModel.AssetTransfer_" />
         </EntityContainer>
         <EntityType Name="Client">
           <Key>
@@ -930,41 +956,65 @@ warning 6002: The table/view 'HRMS_PortalDev1.dbo.CheckInView' does not have a p
           </Key>
           <Property Name="SNo" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="AssetID" Type="String" Nullable="false" MaxLength="255" FixedLength="false" Unicode="false" />
-          <Property Name="AllocatedEmployeeName" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
-          <Property Name="AllocatedEmployeeID" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
-          <Property Name="Location" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
-          <Property Name="AllocatedStatus" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
-          <Property Name="AssignedBy" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
-          <Property Name="AssignedByEmpID" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+          <Property Name="AllocatedEmployeeName" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+          <Property Name="AllocatedEmployeeID" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+          <Property Name="Location" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+          <Property Name="AllocatedStatus" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="AssignedBy" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+          <Property Name="AssignedByEmpID" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
           <Property Name="AssignedDate" Type="DateTime" Precision="3" />
-          <Property Name="Remarks" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
-          <Property Name="AssetType1" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
-          <Property Name="AssetType2" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
-          <Property Name="AssetType3" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
-          <Property Name="AssetType4" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
-          <Property Name="AssetType5" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
-          <Property Name="AssetType6" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
-          <Property Name="Manufacturer" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
-          <Property Name="Model" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
-          <Property Name="BarCode" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
-          <Property Name="RAM" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+          <Property Name="Remarks" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="AssetType1" Type="String" Nullable="false" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="AssetSerialNo1" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+          <Property Name="AssetType2" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="AssetSerialNo2" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+          <Property Name="AssetType3" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="AssetSerialNo3" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+          <Property Name="AssetType4" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="AssetSerialNo4" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+          <Property Name="AssetType5" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="AssetSerialNo5" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+          <Property Name="AssetType6" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="AssetSerialNo6" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+          <Property Name="AssetType7" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="AssetSerialNo7" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+          <Property Name="Manufacturer" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+          <Property Name="Model" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+          <Property Name="BarCode" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+          <Property Name="RAM" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
           <Property Name="WarrantyStartDate" Type="DateTime" Precision="3" />
           <Property Name="WarrantyEndDate" Type="DateTime" Precision="3" />
-          <Property Name="AssetMainImage" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
-          <Property Name="AssetType1Image" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
-          <Property Name="AssetType2Image" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
-          <Property Name="AssetType3Image" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
-          <Property Name="AssetType4Image" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
-          <Property Name="AssetType5Image" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
-          <Property Name="AssetType6Image" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
-          <Property Name="VendorName" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
-          <Property Name="PONumber" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+          <Property Name="AssetMainImage" Type="String" MaxLength="1000" FixedLength="false" Unicode="false" />
+          <Property Name="AssetType1Image" Type="String" MaxLength="1000" FixedLength="false" Unicode="false" />
+          <Property Name="AssetType2Image" Type="String" MaxLength="1000" FixedLength="false" Unicode="false" />
+          <Property Name="AssetType3Image" Type="String" MaxLength="1000" FixedLength="false" Unicode="false" />
+          <Property Name="AssetType4Image" Type="String" MaxLength="1000" FixedLength="false" Unicode="false" />
+          <Property Name="AssetType5Image" Type="String" MaxLength="1000" FixedLength="false" Unicode="false" />
+          <Property Name="AssetType6Image" Type="String" MaxLength="1000" FixedLength="false" Unicode="false" />
+          <Property Name="AssetType7Image" Type="String" MaxLength="1000" FixedLength="false" Unicode="false" />
+          <Property Name="VendorName" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+          <Property Name="PONumber" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
           <Property Name="PurchaseDate" Type="DateTime" Precision="3" />
           <Property Name="InvoiceDate" Type="DateTime" Precision="3" />
-          <Property Name="UpdatedBy" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+          <Property Name="UpdatedBy" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
           <Property Name="UpdatedDate" Type="DateTime" Precision="3" />
-          <Property Name="CreatedBy" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+          <Property Name="CreatedBy" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
           <Property Name="CreatedDate" Type="DateTime" Precision="3" />
+        </EntityType>
+        <EntityType Name="AssetTransfer_">
+          <Key>
+            <PropertyRef Name="SNo" />
+          </Key>
+          <Property Name="SNo" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="AssetID" Type="String" Nullable="false" MaxLength="255" FixedLength="false" Unicode="false" />
+          <Property Name="AllocatedEmpID" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+          <Property Name="AllocatedEmpName" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+          <Property Name="AssignedByEmpID" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+          <Property Name="AssignedByName" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+          <Property Name="AssignedDate" Type="DateTime" Precision="3" />
+          <Property Name="Location" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+          <Property Name="CreatedDate" Type="DateTime" Precision="3" />
+          <Property Name="CreatedBy" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
         </EntityType>
       </Schema>
     </edmx:ConceptualModels>
@@ -1401,6 +1451,7 @@ warning 6002: The table/view 'HRMS_PortalDev1.dbo.CheckInView' does not have a p
                 <ScalarProperty Name="PurchaseDate" ColumnName="PurchaseDate" />
                 <ScalarProperty Name="PONumber" ColumnName="PONumber" />
                 <ScalarProperty Name="VendorName" ColumnName="VendorName" />
+                <ScalarProperty Name="AssetType7Image" ColumnName="AssetType7Image" />
                 <ScalarProperty Name="AssetType6Image" ColumnName="AssetType6Image" />
                 <ScalarProperty Name="AssetType5Image" ColumnName="AssetType5Image" />
                 <ScalarProperty Name="AssetType4Image" ColumnName="AssetType4Image" />
@@ -1414,11 +1465,19 @@ warning 6002: The table/view 'HRMS_PortalDev1.dbo.CheckInView' does not have a p
                 <ScalarProperty Name="BarCode" ColumnName="BarCode" />
                 <ScalarProperty Name="Model" ColumnName="Model" />
                 <ScalarProperty Name="Manufacturer" ColumnName="Manufacturer" />
+                <ScalarProperty Name="AssetSerialNo7" ColumnName="AssetSerialNo7" />
+                <ScalarProperty Name="AssetType7" ColumnName="AssetType7" />
+                <ScalarProperty Name="AssetSerialNo6" ColumnName="AssetSerialNo6" />
                 <ScalarProperty Name="AssetType6" ColumnName="AssetType6" />
+                <ScalarProperty Name="AssetSerialNo5" ColumnName="AssetSerialNo5" />
                 <ScalarProperty Name="AssetType5" ColumnName="AssetType5" />
+                <ScalarProperty Name="AssetSerialNo4" ColumnName="AssetSerialNo4" />
                 <ScalarProperty Name="AssetType4" ColumnName="AssetType4" />
+                <ScalarProperty Name="AssetSerialNo3" ColumnName="AssetSerialNo3" />
                 <ScalarProperty Name="AssetType3" ColumnName="AssetType3" />
+                <ScalarProperty Name="AssetSerialNo2" ColumnName="AssetSerialNo2" />
                 <ScalarProperty Name="AssetType2" ColumnName="AssetType2" />
+                <ScalarProperty Name="AssetSerialNo1" ColumnName="AssetSerialNo1" />
                 <ScalarProperty Name="AssetType1" ColumnName="AssetType1" />
                 <ScalarProperty Name="Remarks" ColumnName="Remarks" />
                 <ScalarProperty Name="AssignedDate" ColumnName="AssignedDate" />
@@ -1428,6 +1487,22 @@ warning 6002: The table/view 'HRMS_PortalDev1.dbo.CheckInView' does not have a p
                 <ScalarProperty Name="Location" ColumnName="Location" />
                 <ScalarProperty Name="AllocatedEmployeeID" ColumnName="AllocatedEmployeeID" />
                 <ScalarProperty Name="AllocatedEmployeeName" ColumnName="AllocatedEmployeeName" />
+                <ScalarProperty Name="AssetID" ColumnName="AssetID" />
+                <ScalarProperty Name="SNo" ColumnName="SNo" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="AssetTransfer_">
+            <EntityTypeMapping TypeName="HRMS_EntityModel.AssetTransfer_">
+              <MappingFragment StoreEntitySet="AssetTransfer ">
+                <ScalarProperty Name="CreatedBy" ColumnName="CreatedBy" />
+                <ScalarProperty Name="CreatedDate" ColumnName="CreatedDate" />
+                <ScalarProperty Name="Location" ColumnName="Location" />
+                <ScalarProperty Name="AssignedDate" ColumnName="AssignedDate" />
+                <ScalarProperty Name="AssignedByName" ColumnName="AssignedByName" />
+                <ScalarProperty Name="AssignedByEmpID" ColumnName="AssignedByEmpID" />
+                <ScalarProperty Name="AllocatedEmpName" ColumnName="AllocatedEmpName" />
+                <ScalarProperty Name="AllocatedEmpID" ColumnName="AllocatedEmpID" />
                 <ScalarProperty Name="AssetID" ColumnName="AssetID" />
                 <ScalarProperty Name="SNo" ColumnName="SNo" />
               </MappingFragment>

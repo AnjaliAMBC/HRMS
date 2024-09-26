@@ -112,10 +112,15 @@
                 <td style="padding:3px 0; background-color: #B7CEF0; "><strong>Quotation</strong></td>
                 <td style="padding:3px 0;">@Model.QuotationPrice1.ToString("C")</td>
                 <td style="padding:3px 0;">
-                    @Model.QuotationPrice2.HasValue ? @Model.QuotationPrice2.Value.ToString("C", new System.Globalization.CultureInfo("en-IN")) : "N/A"
+                    @(Model.QuotationPrice2.HasValue
+        ? Model.QuotationPrice2.Value.ToString("C", new System.Globalization.CultureInfo("en-IN"))
+        : "N/A")
                 </td>
-
-                <td style="padding:3px 0;">@Model.QuotationPrice3.HasValue ? @Model.QuotationPrice3.Value.ToString("C", new System.Globalization.CultureInfo("en-IN")) : "N/A"</td>
+                <td style="padding:3px 0;">
+                    @(Model.QuotationPrice3.HasValue
+        ? Model.QuotationPrice3.Value.ToString("C", new System.Globalization.CultureInfo("en-IN"))
+        : "N/A")
+                </td>
             </tr>
         </table> 
 

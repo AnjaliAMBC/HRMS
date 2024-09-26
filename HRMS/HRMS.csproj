@@ -137,6 +137,9 @@
     <Compile Include="Asset.cs">
       <DependentUpon>HRMS.tt</DependentUpon>
     </Compile>
+    <Compile Include="AssetTransfer_.cs">
+      <DependentUpon>HRMS.tt</DependentUpon>
+    </Compile>
     <Compile Include="AttendanceSigninReports.cs" />
     <Compile Include="CheckInView.cs">
       <DependentUpon>HRMS.tt</DependentUpon>
@@ -222,6 +225,11 @@
       <DependentUpon>HRMS.tt</DependentUpon>
     </Compile>
     <Content Include="Assets\Approve.png" />
+    <Content Include="Assets\asset-icon-1.png" />
+    <Content Include="Assets\asset-icon-2.png" />
+    <Content Include="Assets\asset-icon-3.png" />
+    <Content Include="Assets\asset-icon-4.png" />
+    <Content Include="Assets\asset-icon-5.png" />
     <Content Include="Assets\Birthday.png" />
     <Content Include="Assets\Cancelled.png" />
     <Content Include="Assets\correct.png" />
@@ -509,6 +517,7 @@
     <Content Include="Views\Shared\_SubscriptionReminderEmail.cshtml" />
     <Content Include="Views\Itsupport\AssetBulk.cshtml" />
     <Content Include="Views\Itsupport\AssetViewInfo.cshtml" />
+    <Content Include="Views\Shared\AssetCreationEmail.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

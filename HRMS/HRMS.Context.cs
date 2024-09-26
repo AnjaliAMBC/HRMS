@@ -46,5 +46,6 @@ namespace HRMS
         public virtual DbSet<Subscription> Subscriptions { get; set; }
         public virtual DbSet<SubscriptionHistory> SubscriptionHistories { get; set; }
         public virtual DbSet<Asset> Assets { get; set; }
+        public virtual DbSet<AssetTransfer_> AssetTransfer_ { get; set; }
     }
 }

@@ -25,11 +25,19 @@ namespace HRMS
         public Nullable<System.DateTime> AssignedDate { get; set; }
         public string Remarks { get; set; }
         public string AssetType1 { get; set; }
+        public string AssetSerialNo1 { get; set; }
         public string AssetType2 { get; set; }
+        public string AssetSerialNo2 { get; set; }
         public string AssetType3 { get; set; }
+        public string AssetSerialNo3 { get; set; }
         public string AssetType4 { get; set; }
+        public string AssetSerialNo4 { get; set; }
         public string AssetType5 { get; set; }
+        public string AssetSerialNo5 { get; set; }
         public string AssetType6 { get; set; }
+        public string AssetSerialNo6 { get; set; }
+        public string AssetType7 { get; set; }
+        public string AssetSerialNo7 { get; set; }
         public string Manufacturer { get; set; }
         public string Model { get; set; }
         public string BarCode { get; set; }
@@ -43,6 +51,7 @@ namespace HRMS
         public string AssetType4Image { get; set; }
         public string AssetType5Image { get; set; }
         public string AssetType6Image { get; set; }
+        public string AssetType7Image { get; set; }
         public string VendorName { get; set; }
         public string PONumber { get; set; }
         public Nullable<System.DateTime> PurchaseDate { get; set; }
