@@ -88,11 +88,11 @@
                                     <td class="tdvendorid">@vendor.VedorID</td>
                                     <td class="tdvendorname">
                                         <div style="display: flex; align-items: center;">
-                                            <span style="margin-top: 0px; margin-right: 10px;">@vendor.VendorName<br><span style="color: #3E78CF;">@vendor.VendorEmail</span></span>
+                                            <span style="margin-top: 0px; margin-right: 10px;"><div title="@vendor.VendorName" class="t-vendorname">@vendor.VendorName</div><div  title="@vendor.VendorName" class="t-vendoremail" style="color: #3E78CF;">@vendor.VendorEmail</div></span>
                                         </div>
                                     </td>
                                     <td>@vendor.VendorContact</td>
-                                    <td>@vendor.VendorAddress</td>
+                                    <td title="@vendor.VendorAddress" class="tdvendoraddress">@vendor.VendorAddress</td>
                                     <td>
                                         @if (vendor.CreatedDate.HasValue)
                                         {
