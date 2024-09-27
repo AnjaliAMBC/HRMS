@@ -15,7 +15,7 @@ namespace HRMS
     public partial class VendorList
     {
         public int VedorID { get; set; }
-        public string VendorEmail { get; set; }
+        public string VendorName { get; set; }
         public string VendorEmail { get; set; }
         public string VendorContact { get; set; }
         public string VendorAddress { get; set; }
