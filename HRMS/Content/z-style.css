@@ -4357,11 +4357,12 @@ input[type=checkbox], input[type=radio] {
 }
 
 .admin-asset-add .upload-btn-wrapper {
-    position: relative;
-    overflow: hidden;
-    display: inline-block;
+    /*position: relative;
+    overflow: hidden;*/
+    /*display: inline-block;*/
     width: 70%;
     top: 13px;
+    position: initial;
 }
 
 .admin-asset-add .asset-upload-btn {
@@ -4377,10 +4378,14 @@ input[type=checkbox], input[type=radio] {
 
 .admin-asset-add .upload-btn-wrapper input[type=file] {
     font-size: 100px;
-    position: absolute;
+    /*position: absolute;*/
     left: 0;
     top: 0;
     opacity: 0;
+    float: left;
+    position: inherit;
+    margin-top: -40px;
+    height: 40px;
 }
 
 .admin-asset-add .add-asset-block {
@@ -4388,24 +4393,35 @@ input[type=checkbox], input[type=radio] {
     font-size: 17px;
 }
 
+.admin-asset-add .upload-btn-wrapper a {
+    float: left;
+    position: absolute;
+}
+
 .admin-asset-add .upload-btn-wrapper img {
-    position: fixed;
+    /*position: fixed;*/
     margin-left: 20px;
     height: 37px;
     width: 37px;
     border: 1px solid #ced4da;
     padding: 5px;
+    position: absolute;
+    left: auto;
 }
 
 .admin-asset-add #assetadd-form .upload-btn-wrapper .uploaded-image-close,
 .admin-asset-add #assetadd-form .upload-btn-wrapper .uploaded-image-close-1,
 .admin-asset-add #assetadd-form .upload-btn-wrapper .uploaded-image-close-2,
-.admin-asset-add #assetadd-form .upload-btn-wrapper .uploaded-image-close-3 {
-    position: fixed;
-    margin-left: 47px;
+.admin-asset-add #assetadd-form .upload-btn-wrapper .uploaded-image-close-3,
+.admin-asset-add #assetadd-form .upload-btn-wrapper .uploaded-image-close-4,
+.admin-asset-add #assetadd-form .upload-btn-wrapper .uploaded-image-close-5,
+.admin-asset-add #assetadd-form .upload-btn-wrapper .uploaded-image-close-6 {
+    /*position: fixed;*/
+    margin-left: 52px;
     margin-top: -5px;
     font-size: 10px;
     cursor: pointer;
+    position: absolute;
 }
 
 #assetadd-form,

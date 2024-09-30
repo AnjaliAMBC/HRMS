@@ -2,8 +2,11 @@
     display: none;
 }
 
-@media only screen and (min-width:0px) and (max-width:480px) {
+.mobile-view .sidebar {
+    height: 100% !important;
+}
 
+@media only screen and (min-width:0px) and (max-width:480px) {
     .col-sm-auto {
         -ms-flex: 0 0 auto;
         flex: 0 0 auto;
@@ -5630,10 +5633,23 @@
 
     /* asset add start */
 
-    .assetview-tab-info .responsive-tabs.nav-tabs i.fa {
+    .assetAdding-tab {
+        width: 79% !important;
+    }
+
+    .assetadd-tab-info .responsive-tabs.nav-tabs i.fa {
         position: absolute;
         top: 122px;
-        right: 6px;
+        right: 45px;
+    }
+
+    #assetadd-form .assetadd-main-mid-block {
+        padding-left: 0;
+    }
+
+    #assetadd-allocateinfo-form .assetadd-allocate-right-block {
+        padding-left: 0;
+        margin-top: -5px;
     }
 
     /* asset add end */
@@ -7471,9 +7487,9 @@
         padding: 0;
     }
 
-        .tablet-view .res-admin-assetinfo-search .search-container {
-            margin-left: 0px !important;
-        }
+    .tablet-view .res-admin-assetinfo-search .search-container {
+        margin-left: 0px !important;
+    }
 
     .tablet-view .res-assetinfo {
         padding: 0;
@@ -7488,7 +7504,7 @@
     }
 
     .tablet-view .res-admin-assetinfo-table {
-        margin-top: 70px;
+        margin-top: 60px;
     }
 
     .tablet-view .asset-list-header .assetlist_cardset {
@@ -7555,6 +7571,15 @@
         position: absolute;
         top: 122px;
         right: 45px;
+    }
+
+    #assetadd-allocateinfo-form .assetadd-allocate-right-block {
+        padding-left: 0;
+        margin-top: -5px;
+    }
+
+    #assetadd-form .assetadd-main-mid-block {
+        padding-left: 0;
     }
 
     /* asset add end */
@@ -7732,6 +7757,32 @@
     }
     /* purchase super admin end */
 
+    /* asset add start */
+
+    .assetAdding-tab {
+        width: 79% !important;
+    }
+
+    .assetadd-tab-info .responsive-tabs.nav-tabs i.fa {
+        position: absolute;
+        top: 122px;
+        right: 45px;
+    }
+
+    /* asset add end */
+
+    /* asset view start */
+
+    .assetView-tab {
+        width: 73% !important;
+    }
+
+    .assetview-tab-info .responsive-tabs.nav-tabs i.fa {
+        right: 70px;
+    }
+
+    /* asset view end */
+
 }
 
 /* iPad Air (Landscape) */
@@ -7907,6 +7958,65 @@
     }
     /* purchase super admin end */
 
+    /* asset listing start */
+
+    .tablet-view .res-admin-assetinfo-header-right {
+        padding-left: 0;
+        justify-content: left !important;
+    }
+
+    .tablet-view .res-admin-assetinfo-table {
+        margin-top: 60px;
+    }
+
+    .tablet-view .asset-list-header .assetlist_cardset {
+        max-width: 31%;
+        flex: 0 0 31%;
+        margin: 5px 10px;
+    }
+
+    .tablet-view .asset-list-header .assetlist_cardset:nth-child(1) {
+        margin-left: 10px;
+    }
+
+    #adminassetinfotable {
+        table-layout: fixed;
+    }
+
+    #adminassetinfotable thead th:nth-child(1) {
+        width: 20px !important;
+    }
+
+    #adminassetinfotable thead th:nth-child(2) {
+        width: 160px !important;
+    }
+
+    #adminassetinfotable thead th:nth-child(3) {
+        width: 185px !important;
+    }
+
+    #adminassetinfotable thead th:nth-child(4) {
+        width: 90px !important;
+    }
+
+    #adminassetinfotable thead th:nth-child(5) {
+        width: 105px !important;
+    }
+
+    #adminassetinfotable thead th:nth-child(6) {
+        width: 160px !important;
+    }
+
+    #adminassetinfotable thead th:nth-child(7) {
+        width: 100px !important;
+    }
+
+    #adminassetinfotable thead th:nth-child(8) {
+        width: 65px !important;
+    }
+
+    /* asset listing end */
+
 }
 
 /* iPad Pro (Portrait) */
@@ -8030,6 +8140,16 @@
     }
 
     /* subscription listing end */
+
+    /* asset add start */
+
+    .assetadd-tab-info .responsive-tabs.nav-tabs i.fa {
+        position: absolute;
+        top: 122px;
+        right: 80px;
+    }
+
+    /* asset add end */
 }
 
 /* iPad Pro (Landscape) */
