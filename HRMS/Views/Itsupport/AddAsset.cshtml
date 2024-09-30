@@ -22,6 +22,9 @@
     AssignTypes.Add("Un-Assigned");
     AssignTypes.Add("Assigned");
     AssignTypes.Add("Scrap");
+
+    var headline = !string.IsNullOrWhiteSpace(Model.EditAssets.AssetID) ? "Edit Asset" : "Add Asset";
+    var finalSubmitButtn = !string.IsNullOrWhiteSpace(Model.EditAssets.AssetID) ? "Update" : "Submit";
 }
 <style>
     .is-invalid {
@@ -64,7 +67,7 @@
             <div class="admin-asset-add">
                 <div class="container-fluid top admin-assetadd">
                     <div class="row navbar align-items-center mt-2">
-                        <h4 class="header mb-0 text-right">Add Asset</h4>
+                        <h4 class="header mb-0 text-right">@headline</h4>
                     </div>
 
                     <div class="assetadd-tab-info">
@@ -143,7 +146,7 @@
                                                 </div>
                                                 <div class="col-lg-7 col-md-7">
                                                     <div class="form-group assetadd-tabs">
-                                                        <input type="text" class="form-control" value="" name="AssetSerialNumber" id="AssetSerialNumber" placeholder="Enter Serial Number" required>
+                                                        <input type="text" class="form-control" value="@Model.EditAssets.AssetSerialNo1" name="AssetSerialNumber" id="AssetSerialNumber" placeholder="Enter Serial Number" required>
                                                         <div class="invalid-feedback">Serial Number is required.</div>
                                                     </div>
                                                 </div>
@@ -187,7 +190,7 @@
                                                 </div>
                                                 <div class="col-lg-7 col-md-7">
                                                     <div class="form-group assetadd-tabs">
-                                                        <input type="text" class="form-control" value="" name="AssetSerialNumber-1" id="AssetSerialNumber-1" placeholder="Enter Serial Number" required>
+                                                        <input type="text" class="form-control" value="@Model.EditAssets.AssetSerialNo2" name="AssetSerialNumber-1" id="AssetSerialNumber-1" placeholder="Enter Serial Number" required>
                                                         <div class="invalid-feedback">Serial Number is required.</div>
                                                     </div>
                                                 </div>
@@ -231,7 +234,7 @@
                                                 </div>
                                                 <div class="col-lg-7 col-md-7">
                                                     <div class="form-group assetadd-tabs">
-                                                        <input type="text" class="form-control" value="" name="AssetSerialNumber-2" id="AssetSerialNumber-2" placeholder="Enter Serial Number" required>
+                                                        <input type="text" class="form-control" value="@Model.EditAssets.AssetSerialNo3" name="AssetSerialNumber-2" id="AssetSerialNumber-2" placeholder="Enter Serial Number" required>
                                                         <div class="invalid-feedback">Serial Number is required.</div>
                                                     </div>
                                                 </div>
@@ -275,7 +278,7 @@
                                                 </div>
                                                 <div class="col-lg-7 col-md-7">
                                                     <div class="form-group assetadd-tabs">
-                                                        <input type="text" class="form-control" value="" name="AssetSerialNumber-3" id="AssetSerialNumber-3" placeholder="Enter Serial Number" required>
+                                                        <input type="text" class="form-control" value="@Model.EditAssets.AssetSerialNo4" name="AssetSerialNumber-3" id="AssetSerialNumber-3" placeholder="Enter Serial Number" required>
                                                         <div class="invalid-feedback">Serial Number is required.</div>
                                                     </div>
                                                 </div>
@@ -283,14 +286,22 @@
                                                 </div>
                                             </div>
 
-                                            <div class="col-lg-12 col-md-12 AssetType-block-4" style="display: none; padding-left: 0px;">
+                                            @{
+                                                var AssetType5Show = "display:none;";
+                                                if (Model.EditAssets.AssetType5 != "null" && !string.IsNullOrWhiteSpace(Model.EditAssets.AssetType5))
+                                                {
+                                                    AssetType5Show = "display:block;";
+                                                }
+                                            }
+
+                                            <div class="col-lg-12 col-md-12 AssetType-block-4" style="@AssetType5Show padding-left: 0px;">
                                                 <div class="col-lg-7 col-md-7 assetadd-left-block">
                                                     <div class="form-group assetadd-tabs">
                                                         <select name="AssetType-4" class="AssetType form-control form-select" id="AssetType-4" required>
                                                             <option value="" disabled selected hidden>Select Type</option>
                                                             @foreach (var assetType in assetTypes)
                                                             {
-                                                                var isAssetSelected4 = assetType == Model.EditAssets.AssetType4 ? "selected" : "";
+                                                                var isAssetSelected4 = assetType == Model.EditAssets.AssetType5 ? "selected" : "";
                                                                 <option value="@assetType" @isAssetSelected4>@assetType</option>
                                                             }
                                                         </select>
@@ -307,10 +318,10 @@
                                                                    id="AssetImage-4"
                                                                    required
                                                                    accept=".jpeg,.png,.jpg" data-existingfile="">
-                                                            @if (!string.IsNullOrWhiteSpace(Model.EditAssets.AssetType4Image))
+                                                            @if (!string.IsNullOrWhiteSpace(Model.EditAssets.AssetType5Image))
                                                             {
                                                                 var assetFolderID = Model.EditAssets.AssetID.Split('#')[1];
-                                                                var assetImageURL = "/ticketing/assets/" + assetFolderID + "/" + Model.EditAssets.AssetType4Image;
+                                                                var assetImageURL = "/ticketing/assets/" + assetFolderID + "/" + Model.EditAssets.AssetType5Image;
                                                                 <a href="@assetImageURL" target="_blank" class="edit-AssetType4Image"><img src="@assetImageURL" alt="Subscription Logo" class="edit-AssetType5Image" /></a>
                                                             }
                                                             <div class="invalid-feedback">required.</div>
@@ -319,7 +330,7 @@
                                                 </div>
                                                 <div class="col-lg-7 col-md-7">
                                                     <div class="form-group assetadd-tabs">
-                                                        <input type="text" class="form-control" value="" name="AssetSerialNumber-4" id="AssetSerialNumber-4" placeholder="Enter Serial Number" required>
+                                                        <input type="text" class="form-control" value="@Model.EditAssets.AssetSerialNo5" name="AssetSerialNumber-4" id="AssetSerialNumber-4" placeholder="Enter Serial Number" required>
                                                         <div class="invalid-feedback">Serial Number is required.</div>
                                                     </div>
                                                 </div>
@@ -327,14 +338,23 @@
                                                 </div>
                                             </div>
 
-                                            <div class="col-lg-12 col-md-12 AssetType-block-5" style="display:none;padding-left:0px;">
+
+                                            @{
+                                                var AssetType6Show = "display:none;";
+                                                if (Model.EditAssets.AssetType6 != "null" && !string.IsNullOrWhiteSpace(Model.EditAssets.AssetType6))
+                                                {
+                                                    AssetType6Show = "display:block;";
+                                                }
+                                            }
+
+                                            <div class="col-lg-12 col-md-12 AssetType-block-5" style="@AssetType6Show padding-left:0px;">
                                                 <div class="col-lg-7 col-md-7 assetadd-left-block">
                                                     <div class="form-group assetadd-tabs">
                                                         <select name="AssetType-5" class="AssetType form-control form-select" id="AssetType-5" required>
                                                             <option value="" disabled selected hidden>Select Type</option>
                                                             @foreach (var assetType in assetTypes)
                                                             {
-                                                                var isAssetSelected4 = assetType == Model.EditAssets.AssetType4 ? "selected" : "";
+                                                                var isAssetSelected4 = assetType == Model.EditAssets.AssetType6 ? "selected" : "";
                                                                 <option value="@assetType" @isAssetSelected4>@assetType</option>
                                                             }
                                                         </select>
@@ -351,10 +371,10 @@
                                                                    id="AssetImage-5"
                                                                    required
                                                                    accept=".jpeg,.png,.jpg" data-existingfile="">
-                                                            @if (!string.IsNullOrWhiteSpace(Model.EditAssets.AssetType4Image))
+                                                            @if (!string.IsNullOrWhiteSpace(Model.EditAssets.AssetType5Image))
                                                             {
                                                                 var assetFolderID = Model.EditAssets.AssetID.Split('#')[1];
-                                                                var assetImageURL = "/ticketing/assets/" + assetFolderID + "/" + Model.EditAssets.AssetType4Image;
+                                                                var assetImageURL = "/ticketing/assets/" + assetFolderID + "/" + Model.EditAssets.AssetType5Image;
                                                                 <a href="@assetImageURL" target="_blank" class="edit-AssetType4Image"><img src="@assetImageURL" alt="Subscription Logo" class="edit-AssetType6Image" /></a>
                                                             }
                                                             <div class="invalid-feedback">required.</div>
@@ -363,7 +383,7 @@
                                                 </div>
                                                 <div class="col-lg-7 col-md-7">
                                                     <div class="form-group assetadd-tabs">
-                                                        <input type="text" class="form-control" value="" name="AssetSerialNumber-5" id="AssetSerialNumber-5" placeholder="Enter Serial Number" required>
+                                                        <input type="text" class="form-control" value="@Model.EditAssets.AssetSerialNo6" name="AssetSerialNumber-5" id="AssetSerialNumber-5" placeholder="Enter Serial Number" required>
                                                         <div class="invalid-feedback">Serial Number is required.</div>
                                                     </div>
                                                 </div>
@@ -371,14 +391,21 @@
                                                 </div>
                                             </div>
 
-                                            <div class="col-lg-12 col-md-12 AssetType-block-6" style="display: none; padding-left: 0px;">
+                                            @{
+                                                var AssetType7Show = "display:none;";
+                                                if (Model.EditAssets.AssetType7 != "null" && !string.IsNullOrWhiteSpace(Model.EditAssets.AssetType7))
+                                                {
+                                                    AssetType7Show = "display:block;";
+                                                }
+                                            }
+                                            <div class="col-lg-12 col-md-12 AssetType-block-6" style="@AssetType7Show  padding-left: 0px;">
                                                 <div class="col-lg-7 col-md-7 assetadd-left-block">
                                                     <div class="form-group assetadd-tabs">
                                                         <select name="AssetType-6" class="AssetType form-control form-select" id="AssetType-6" required>
                                                             <option value="" disabled selected hidden>Select Type</option>
                                                             @foreach (var assetType in assetTypes)
                                                             {
-                                                                var isAssetSelected4 = assetType == Model.EditAssets.AssetType4 ? "selected" : "";
+                                                                var isAssetSelected4 = assetType == Model.EditAssets.AssetType7 ? "selected" : "";
                                                                 <option value="@assetType" @isAssetSelected4>@assetType</option>
                                                             }
                                                         </select>
@@ -395,10 +422,10 @@
                                                                    id="AssetImage-6"
                                                                    required
                                                                    accept=".jpeg,.png,.jpg" data-existingfile="">
-                                                            @if (!string.IsNullOrWhiteSpace(Model.EditAssets.AssetType4Image))
+                                                            @if (!string.IsNullOrWhiteSpace(Model.EditAssets.AssetType6Image))
                                                             {
                                                                 var assetFolderID = Model.EditAssets.AssetID.Split('#')[1];
-                                                                var assetImageURL = "/ticketing/assets/" + assetFolderID + "/" + Model.EditAssets.AssetType4Image;
+                                                                var assetImageURL = "/ticketing/assets/" + assetFolderID + "/" + Model.EditAssets.AssetType6Image;
                                                                 <a href="@assetImageURL" target="_blank" class="edit-AssetType4Image"><img src="@assetImageURL" alt="Subscription Logo" class="edit-AssetType7Image" /></a>
                                                             }
                                                             <div class="invalid-feedback">required.</div>
@@ -407,7 +434,7 @@
                                                 </div>
                                                 <div class="col-lg-7 col-md-7">
                                                     <div class="form-group assetadd-tabs">
-                                                        <input type="text" class="form-control" value="" name="AssetSerialNumber-6" id="AssetSerialNumber-6" placeholder="Enter Serial Number" required>
+                                                        <input type="text" class="form-control" value="@Model.EditAssets.AssetSerialNo7" name="AssetSerialNumber-6" id="AssetSerialNumber-6" placeholder="Enter Serial Number" required>
                                                         <div class="invalid-feedback">Serial Number is required.</div>
                                                     </div>
                                                 </div>
@@ -527,7 +554,7 @@
                                                         <option value="" disabled selected hidden>Select Vendor</option>
                                                         @foreach (var vendor in Model.allVendors)
                                                         {
-                                                            var isVendorSelected = vendor.VendorName == Model.EditAssets.VendorName ? "selected" : "";
+                                                            var isVendorSelected = vendor.VedorID == System.Convert.ToInt32(Model.EditAssets.VendorName) ? "selected" : "";
                                                             <option value="@vendor.VedorID" @isVendorSelected>@vendor.VendorName - @vendor.VedorID</option>
                                                         }
                                                     </select>
@@ -611,7 +638,7 @@
                                                             @foreach (var emp in Model.Employees)
                                                             {
                                                                 var isEmployeeSelected = emp.EmployeeName == Model.EditAssets.AllocatedEmployeeName ? "selected" : "";
-                                                                <option value="@emp.EmployeeName" @isEmployeeSelected>@emp.EmployeeName</option>
+                                                                <option value="@emp.EmployeeID" @isEmployeeSelected>@emp.EmployeeName</option>
                                                             }
 
 
@@ -630,10 +657,10 @@
                                                         <label for="AssetAllocate-AssignedBy">Assigned By</label>
                                                         <select name="AssetAllocate-AssignedBy" class="AssetAllocate-AssignedBy form-control form-select" id="AssetAllocate-AssignedBy">
                                                             <option value="" disabled selected hidden>Select Name</option>
-                                                            @foreach (var deptEmp in Model.Employees.Where(e => e.Department == "IT"))
+                                                            @foreach (var deptEmp in Model.ITEmployees)
                                                             {
-                                                                var selected = !string.IsNullOrEmpty(Model.EditAssets?.AssignedBy) && (Model.EditAssets.AssignedBy == deptEmp.EmployeeName) ? "selected" : "";
-                                                                <option value="@deptEmp.EmployeeName" @selected>@deptEmp.EmployeeName</option>
+                                                                var selected = Model.EditAssets.AssignedByEmpID == deptEmp.EmployeeID ? "selected" : "";
+                                                                <option value="@deptEmp.EmployeeID" @selected>@deptEmp.EmployeeName</option>
                                                             }
 
                                                         </select>
@@ -686,7 +713,7 @@
                                     <div class="row">
                                         <div class="col-lg-12 col-md-12 text-right">
                                             <button type="button" class="btn assetadd-purchaseinfo-Cancel">Cancel</button>
-                                            <button type="button" class="btn btn-primary assetadd-Update-final">Save</button>
+                                            <button type="button" class="btn btn-primary assetadd-Update-final">@finalSubmitButtn</button>
                                         </div>
                                     </div>
                                 </div>
@@ -703,6 +730,26 @@
         </div>
     </div>
 </div>
+
+
+<div class="modal fade" id="AssetmessageModal" tabindex="-1" role="dialog" aria-labelledby="assetmessageModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="assetmessageModalLabel">Add/Update Asset</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body" id="assetmodalMessage">
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary btn-asset-refreshpage">Close</button>
+            </div>
+        </div>
+    </div>
+</div>
+
 
 <script src="~/Scripts/z-AssetScript.js"></script>
 <script>
@@ -1046,7 +1093,6 @@
                 mainImage.removeClass('is-invalid');
             }
 
-            isValid = true;
             // If form is valid, submit it
             if (isValid) {
                 $('#tab2-link').click();
@@ -1089,39 +1135,46 @@
             formData.append('AssetType', assetType);
             var fileInput1 = $('#AssetImage')[0].files[0];
             formData.append('AssetImage', fileInput1);
+            formData.append('AssetSno1', $('#AssetSerialNumber').val());
 
             var assetType1 = $('#AssetType-1').val();
             formData.append('AssetType-1', assetType1);
             var fileInput2 = $('#AssetImage-1')[0].files[0];
             formData.append('AssetImage-1', fileInput2);
+            formData.append('AssetSno2', $('#AssetSerialNumber-1').val());
 
 
             var assetType2 = $('#AssetType-2').val();
             formData.append('AssetType-2', assetType2);
             var fileInput3 = $('#AssetImage-2')[0].files[0];
             formData.append('AssetImage-2', fileInput3);
+            formData.append('AssetSno3', $('#AssetSerialNumber-2').val());
 
 
             var assetType3 = $('#AssetType-3').val();
             formData.append('AssetType-3', assetType3);
             var fileInput4 = $('#AssetImage-3')[0].files[0];
             formData.append('AssetImage-3', fileInput4);
+            formData.append('AssetSno4', $('#AssetSerialNumber-3').val());
 
 
             var assetType4 = $('#AssetType-4').val();
             formData.append('AssetType-4', assetType4);
             var fileInput5 = $('#AssetImage-4')[0].files[0];
             formData.append('AssetImage-4', fileInput5);
+            formData.append('AssetSno5', $('#AssetSerialNumber-4').val());
 
             var assetType5 = $('#AssetType-5').val();
             formData.append('AssetType-5', assetType5);
             var fileInput6 = $('#AssetImage-5')[0].files[0];
             formData.append('AssetImage-5', fileInput6);
+            formData.append('AssetSno6', $('#AssetSerialNumber-5').val());
 
             var assetType6 = $('#AssetType-6').val();
             formData.append('AssetType-6', assetType6);
             var fileInput7 = $('#AssetImage-6')[0].files[0];
             formData.append('AssetImage-6', fileInput7);
+            formData.append('AssetSno7', $('#AssetSerialNumber-6').val());
 
             var mainImage = $('#assetadd-file-upload-input')[0].files[0];
             formData.append('MainImage', mainImage);
@@ -1162,12 +1215,15 @@
 
             var employee = $('#AssetAllocate-Employee').val();
             formData.append('AssetAllocate-Employee', employee);
+            formData.append('AssetAllocate-EmployeeName', $("#AssetAllocate-Employee option:selected").text());
+
 
             var acknowledgeEmail = $('#AssetAllocate-AcknowledgeEmail').is(':checked') ? 'Yes' : 'No';
             formData.append('AssetAllocate-AcknowledgeEmail', acknowledgeEmail);
 
             var assignedBy = $('#AssetAllocate-AssignedBy').val();
             formData.append('AssetAllocate-AssignedBy', assignedBy);
+            formData.append('AssetAllocate-AssignedByName', $("#AssetAllocate-AssignedBy option:selected").text());
 
             var assignedDate = $('#AssetAllocate-AssignedDate').val();
             formData.append('AssetAllocate-AssignedDate', assignedDate);
@@ -1186,19 +1242,32 @@
                 data: formData,
                 processData: false,
                 contentType: false,
+                beforeSend: function () {
+                    $('.show-progress').show(); // Show loader before the request starts
+                },
                 success: function (response) {
-                    // Handle success
-                    console.log('Form submitted successfully:', response);
+                    if (response.StatusCode == 200) {
+                        $('#AssetmessageModal').modal('show');
+                        $('#assetmodalMessage').text(response.Message);
+                        $('#assetmodalMessage').css('color', 'green');
+                        console.log('Form submitted successfully:', response);
+                    }
+                    else {
+                        $('#AssetmessageModal').modal('show');
+                        $('#assetmodalMessage').text(response.Message);
+                        $('#assetmodalMessage').css('color', 'red');
+                        $('.show-progress').hide();
+                    }
+
                 },
                 error: function (xhr, status, error) {
-                    // Handle error
-                    console.error('Error submitting form:', error);
+                    $('#AssetmessageModal').modal('show');
+                    $('#assetmodalMessage').text(response.Message);
+                    $('#assetmodalMessage').css('color', 'red');
+                    $('.show-progress').hide();
                 }
             });
         });
 
-
-
     });
-
 </script>
