@@ -80,11 +80,17 @@
                                             </div>
                                             <div class="subscriptioninfo-fields">
                                                 <label>Purchase Date</label>
-                                                <div class="subscriptioninfo-field-details" title="@subscriptions.PurchaseDate">@subscriptions.PurchaseDate</div>
+                                                <div class="subscriptioninfo-field-details" title="@(subscriptions.PurchaseDate.HasValue ? subscriptions.PurchaseDate.Value.ToString("dd-MM-yyyy") : "No Purchase Date")">
+                                                    @(subscriptions.PurchaseDate.HasValue ? subscriptions.PurchaseDate.Value.ToString("dd-MM-yyyy") : "No Purchase Date")
+                                                </div>
+
                                             </div>
                                             <div class="subscriptioninfo-fields">
                                                 <label>Renewal Date</label>
-                                                <div class="subscriptioninfo-field-details" title="@subscriptions.RenewalDate">@subscriptions.RenewalDate</div>
+                                                <div class="subscriptioninfo-field-details" title="@(subscriptions.RenewalDate.HasValue ? subscriptions.RenewalDate.Value.ToString("dd-MM-yyyy") : "No Renewal Date")">
+                                                    @(subscriptions.RenewalDate.HasValue ? subscriptions.RenewalDate.Value.ToString("dd-MM-yyyy") : "No Renewal Date")
+                                                </div>
+
                                             </div>
                                         </div>
                                         <div class="subscriptioninfo-list-right-4">
