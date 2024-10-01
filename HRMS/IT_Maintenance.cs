@@ -31,5 +31,7 @@ namespace HRMS
         public string ProblemCategory { get; set; }
         public string IssueFacing { get; set; }
         public bool NewAssetRequirement { get; set; }
+        public string UpdateBy { get; set; }
+        public Nullable<System.DateTime> UpdateDate { get; set; }
     }
 }

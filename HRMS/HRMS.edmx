@@ -256,6 +256,8 @@
           <Property Name="ProblemCategory" Type="nvarchar" MaxLength="100" />
           <Property Name="IssueFacing" Type="varchar" MaxLength="1000" />
           <Property Name="NewAssetRequirement" Type="bit" Nullable="false" />
+          <Property Name="UpdateBy" Type="varchar" MaxLength="255" />
+          <Property Name="UpdateDate" Type="datetime" />
         </EntityType>
         <EntityType Name="IT_Ticket">
           <Key>
@@ -1061,6 +1063,8 @@ warning 6002: The table/view 'HRMS_PortalDev1.dbo.CheckInView' does not have a p
           <Property Name="ProblemCategory" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
           <Property Name="IssueFacing" Type="String" MaxLength="1000" FixedLength="false" Unicode="false" />
           <Property Name="NewAssetRequirement" Type="Boolean" Nullable="false" />
+          <Property Name="UpdateBy" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+          <Property Name="UpdateDate" Type="DateTime" Precision="3" />
         </EntityType>
       </Schema>
     </edmx:ConceptualModels>
@@ -1557,6 +1561,8 @@ warning 6002: The table/view 'HRMS_PortalDev1.dbo.CheckInView' does not have a p
           <EntitySetMapping Name="IT_Maintenance">
             <EntityTypeMapping TypeName="HRMS_EntityModel.IT_Maintenance">
               <MappingFragment StoreEntitySet="IT_Maintenance">
+                <ScalarProperty Name="UpdateDate" ColumnName="UpdateDate" />
+                <ScalarProperty Name="UpdateBy" ColumnName="UpdateBy" />
                 <ScalarProperty Name="NewAssetRequirement" ColumnName="NewAssetRequirement" />
                 <ScalarProperty Name="IssueFacing" ColumnName="IssueFacing" />
                 <ScalarProperty Name="ProblemCategory" ColumnName="ProblemCategory" />
