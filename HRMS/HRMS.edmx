@@ -235,6 +235,28 @@
           <Property Name="IsLeaveRM" Type="bit" />
           <Property Name="IsReportingM" Type="bit" />
         </EntityType>
+        <EntityType Name="IT_Maintenance">
+          <Key>
+            <PropertyRef Name="Sno" />
+          </Key>
+          <Property Name="Sno" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="EmployeeID" Type="int" Nullable="false" />
+          <Property Name="EmployeeName" Type="varchar" MaxLength="255" Nullable="false" />
+          <Property Name="EmailId" Type="varchar" MaxLength="255" Nullable="false" />
+          <Property Name="MaintenanceDate" Type="date" Nullable="false" />
+          <Property Name="TimeIn" Type="time" Precision="7" />
+          <Property Name="TimeOut" Type="time" Precision="7" />
+          <Property Name="RescheduleDate" Type="date" />
+          <Property Name="AgentName" Type="varchar" MaxLength="255" />
+          <Property Name="Status" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="Notes" Type="varchar(max)" />
+          <Property Name="Acknowledge" Type="bit" />
+          <Property Name="Location" Type="varchar" MaxLength="100" />
+          <Property Name="IssueDate" Type="date" Nullable="false" />
+          <Property Name="ProblemCategory" Type="nvarchar" MaxLength="100" />
+          <Property Name="IssueFacing" Type="varchar" MaxLength="1000" />
+          <Property Name="NewAssetRequirement" Type="bit" Nullable="false" />
+        </EntityType>
         <EntityType Name="IT_Ticket">
           <Key>
             <PropertyRef Name="TicketNo" />
@@ -488,6 +510,7 @@ warning 6002: The table/view 'HRMS_PortalDev1.dbo.CheckInView' does not have a p
           <EntitySet Name="Designation" EntityType="Self.Designation" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="emp_info" EntityType="Self.emp_info" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="emplogin" EntityType="Self.emplogin" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="IT_Maintenance" EntityType="Self.IT_Maintenance" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="IT_Ticket" EntityType="Self.IT_Ticket" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="LeaveBalance" EntityType="Self.LeaveBalance" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="LeaveRM" EntityType="Self.LeaveRM" Schema="dbo" store:Type="Tables" />
@@ -564,6 +587,7 @@ warning 6002: The table/view 'HRMS_PortalDev1.dbo.CheckInView' does not have a p
           <EntitySet Name="SubscriptionHistories" EntityType="HRMS_EntityModel.SubscriptionHistory" />
           <EntitySet Name="Assets" EntityType="HRMS_EntityModel.Asset" />
           <EntitySet Name="AssetTransfer_" EntityType="HRMS_EntityModel.AssetTransfer_" />
+          <EntitySet Name="IT_Maintenance" EntityType="HRMS_EntityModel.IT_Maintenance" />
         </EntityContainer>
         <EntityType Name="Client">
           <Key>
@@ -1015,6 +1039,28 @@ warning 6002: The table/view 'HRMS_PortalDev1.dbo.CheckInView' does not have a p
           <Property Name="Location" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
           <Property Name="CreatedDate" Type="DateTime" Precision="3" />
           <Property Name="CreatedBy" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+        </EntityType>
+        <EntityType Name="IT_Maintenance">
+          <Key>
+            <PropertyRef Name="Sno" />
+          </Key>
+          <Property Name="Sno" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="EmployeeID" Type="Int32" Nullable="false" />
+          <Property Name="EmployeeName" Type="String" Nullable="false" MaxLength="255" FixedLength="false" Unicode="false" />
+          <Property Name="EmailId" Type="String" Nullable="false" MaxLength="255" FixedLength="false" Unicode="false" />
+          <Property Name="MaintenanceDate" Type="DateTime" Nullable="false" Precision="0" />
+          <Property Name="TimeIn" Type="Time" Precision="7" />
+          <Property Name="TimeOut" Type="Time" Precision="7" />
+          <Property Name="RescheduleDate" Type="DateTime" Precision="0" />
+          <Property Name="AgentName" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+          <Property Name="Status" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="Notes" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="Acknowledge" Type="Boolean" />
+          <Property Name="Location" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="IssueDate" Type="DateTime" Nullable="false" Precision="0" />
+          <Property Name="ProblemCategory" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="IssueFacing" Type="String" MaxLength="1000" FixedLength="false" Unicode="false" />
+          <Property Name="NewAssetRequirement" Type="Boolean" Nullable="false" />
         </EntityType>
       </Schema>
     </edmx:ConceptualModels>
@@ -1505,6 +1551,29 @@ warning 6002: The table/view 'HRMS_PortalDev1.dbo.CheckInView' does not have a p
                 <ScalarProperty Name="AllocatedEmpID" ColumnName="AllocatedEmpID" />
                 <ScalarProperty Name="AssetID" ColumnName="AssetID" />
                 <ScalarProperty Name="SNo" ColumnName="SNo" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="IT_Maintenance">
+            <EntityTypeMapping TypeName="HRMS_EntityModel.IT_Maintenance">
+              <MappingFragment StoreEntitySet="IT_Maintenance">
+                <ScalarProperty Name="NewAssetRequirement" ColumnName="NewAssetRequirement" />
+                <ScalarProperty Name="IssueFacing" ColumnName="IssueFacing" />
+                <ScalarProperty Name="ProblemCategory" ColumnName="ProblemCategory" />
+                <ScalarProperty Name="IssueDate" ColumnName="IssueDate" />
+                <ScalarProperty Name="Location" ColumnName="Location" />
+                <ScalarProperty Name="Acknowledge" ColumnName="Acknowledge" />
+                <ScalarProperty Name="Notes" ColumnName="Notes" />
+                <ScalarProperty Name="Status" ColumnName="Status" />
+                <ScalarProperty Name="AgentName" ColumnName="AgentName" />
+                <ScalarProperty Name="RescheduleDate" ColumnName="RescheduleDate" />
+                <ScalarProperty Name="TimeOut" ColumnName="TimeOut" />
+                <ScalarProperty Name="TimeIn" ColumnName="TimeIn" />
+                <ScalarProperty Name="MaintenanceDate" ColumnName="MaintenanceDate" />
+                <ScalarProperty Name="EmailId" ColumnName="EmailId" />
+                <ScalarProperty Name="EmployeeName" ColumnName="EmployeeName" />
+                <ScalarProperty Name="EmployeeID" ColumnName="EmployeeID" />
+                <ScalarProperty Name="Sno" ColumnName="Sno" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
