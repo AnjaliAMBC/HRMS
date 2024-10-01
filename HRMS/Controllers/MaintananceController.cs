@@ -9,11 +9,28 @@ namespace HRMS.Controllers
 {
     public class MaintananceController : Controller
     {
+        private readonly HRMS_EntityFramework _dbContext;
+
+        // Constructor to initialize database context
+        public MaintananceController()
+        {
+            _dbContext = new HRMS_EntityFramework(); // Replace YourDbContext with your actual DbContext class
+        }
+
         // GET: Maintanance
         public ActionResult MaintananceInfo()
         {
-            return View("~/Views/Itsupport/Maintanance.cshtml");
+            var model = new MaintananceModel();
+            model.Employees = _dbContext.emp_info.Where(x => x.EmployeeStatus == "Active").ToList();
+            return View("~/Views/Itsupport/Maintanance.cshtml", model);
         }
+
+        public JsonResult GetEmpBasedOnLocation(string Location)
+        {
+            var emmployees = _dbContext.emp_info.Where(x => x.EmployeeStatus == "Active" && x.Location == Location).ToList();
+            return Json(emmployees, JsonRequestBehavior.AllowGet);
+        }
+
         [HttpPost]
         //public JsonResult AddMaintenanceSchedule(Maintanance model)
         //{

@@ -1,4 +1,7 @@
-﻿@Html.Partial("_NavBar")
+﻿@model HRMS.Models.ITsupport.MaintananceModel
+
+
+@Html.Partial("_NavBar")
 @{
     ViewBag.Title = "Maintanance";
 }
@@ -192,10 +195,10 @@
                         <div class="col-lg-12 col-md-12">
                             <div class="form-group schedulemaintenance-tabs">
                                 <label class="form-check-label schedulemaintenance-radio1" for="schedulemaintenance-radio1">
-                                    <input type="radio" class="form-check-input" id="schedulemaintenance-radio1" name="schedulemaintenance-location" value="madurai" checked>Madurai
+                                    <input type="radio" class="form-check-input" id="schedulemaintenance-radio1" name="schedulemaintenance-location" value="Madurai" checked>Madurai
                                 </label>
                                 <label class="form-check-label schedulemaintenance-radio2" for="schedulemaintenance-radio2">
-                                    <input type="radio" class="form-check-input" id="schedulemaintenance-radio2" name="schedulemaintenance-location" value="hydrababd">Hydrabad
+                                    <input type="radio" class="form-check-input" id="schedulemaintenance-radio2" name="schedulemaintenance-location" value="Hyderabad">Hyderabad
                                 </label>
                             </div>
                         </div>
@@ -203,14 +206,12 @@
                             <div class="form-group schedulemaintenance-tabs">
                                 <label for="multiSelectDropdown">Select Employees</label>
                                 <select id="multiSelectDropdown" class="form-control" multiple="multiple">
-                                    <option value="1220">Deepa M 1220</option>
-                                    <option value="1090">Niranjana E 1090</option>
-                                    <option value="1108">Subhashini Baskaran 1108</option>
-                                    <option value="1132">Keerthika A 1132</option>
-                                    <option value="1142">Saravanan 1142</option>
-                                    <option value="1153">Gnana Sampath.P.S 1153</option>
-                                    <option value="1155">Sriram.V 1155</option>
-                                    <option value="1163">Rajesh Kumar. K 1163</option>
+                                    <option value="">Select Employees</option>
+                                    @foreach (var emp in Model.Employees)
+                                    {
+                                        <option data-emplocation="@emp.Location" data-empname="@emp.EmployeeName" value="@emp.EmployeeID">@emp.EmployeeName @emp.EmployeeID</option>
+
+                                    }
                                 </select>
                                 <!-- Display the selected names below the input field -->
                                 <div id="selectedNames" class="mt-2 text-muted"></div>
@@ -285,6 +286,27 @@
             });
         }
     });
+
+
+
+
+
+
+    $('input[name="schedulemaintenance-location"]').on('change', function () {
+        var selectedLocation = $(this).val(); // Get the value of the selected radio button
+
+        // Show all options first
+        $('#multiSelectDropdown option').show();
+
+        // Hide options that do not match the selected location
+        $('#multiSelectDropdown option').filter(function () {
+            return $(this).data('emplocation') !== selectedLocation; // Use data-emplocation attribute for filtering
+        }).hide();
+    });
+
+
+
+
 
     $(function () {
         $('#datetimepicker1').datetimepicker({
