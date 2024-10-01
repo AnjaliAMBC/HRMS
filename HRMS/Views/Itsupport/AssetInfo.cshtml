@@ -162,7 +162,7 @@
                             @foreach (var asset in Model.Assets)
                             {
                                 var assetFolderID = asset.AssetID.Split('#')[1];
-                                var assetImageURL = "/ticketing/assets/" + assetFolderID + "/" + asset.AssetMainImage;
+                                var assetImageURL = @System.Configuration.ConfigurationManager.AppSettings["TicketingAbsolutePath"] + "/assets/" + assetFolderID + "/" + asset.AssetMainImage;
                                 var assignedDate = @asset.AssignedDate.HasValue ? @asset.AssignedDate.Value.ToString("yyy-MM-dd") : "";
                                 <tr class="">
                                     <td><input type="checkbox" class="Assetlist-check" data-assetid="@asset.SNo"></td>

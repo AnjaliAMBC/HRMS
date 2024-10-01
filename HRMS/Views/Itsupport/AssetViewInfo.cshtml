@@ -376,7 +376,7 @@
 
                                                             @{
                                                                 var assetFolderID = Model.EditAssets.AssetID.Split('#')[1];
-                                                                var assetImageURL = "/ticketing/assets/" + assetFolderID + "/";
+                                                                var assetImageURL = @System.Configuration.ConfigurationManager.AppSettings["TicketingAbsolutePath"] + "/assets/" + assetFolderID + "/";
                                                             }
 
                                                             @if (!string.IsNullOrWhiteSpace(Model.EditAssets.AssetType1) && !string.IsNullOrWhiteSpace(Model.EditAssets.AssetSerialNo1))

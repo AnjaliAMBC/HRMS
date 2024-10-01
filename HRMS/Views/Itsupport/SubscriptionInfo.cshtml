@@ -54,7 +54,7 @@
                                     @{
                                         var logoImageUrl = string.IsNullOrEmpty(subscriptions.SubscriptionLogo)
                                             ? Url.Content("~/Assets/Subscription.png")
-                         : "/ticketing" + "/subscription/" + subscriptions.SubscriptionLogo;
+                         : @System.Configuration.ConfigurationManager.AppSettings["TicketingAbsolutePath"] + "/subscription/" + subscriptions.SubscriptionLogo;
                                     }
                                     <div class="subscriptioninfo-list-left">
                                         <input type="checkbox" name="subscription-list-checkbox" id="subscription-list-checkbox" class="subscription-list-checkbox" value="@subscriptions.SubscriptionID">

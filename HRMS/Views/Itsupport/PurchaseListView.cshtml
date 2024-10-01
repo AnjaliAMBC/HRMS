@@ -87,7 +87,7 @@
                                         <div style="display: flex; align-items: center;">
                                             <span style="margin-top: 0px; margin-right: 10px; line-height:1rem">
                                                 @purchserequest.VendorName1<br>
-                                                <a class="itp_filepath" href="/Ticketing/@Model.PurchasRequestFolderPath/@purchserequest.AttachFile1" target="_blank">@purchserequest.AttachFile1</a><br />
+                                                <a class="itp_filepath" href="/@System.Configuration.ConfigurationManager.AppSettings["TicketingAbsolutePath"]/@Model.PurchasRequestFolderPath/@purchserequest.AttachFile1" target="_blank">@purchserequest.AttachFile1</a><br />
 
                                                 @{
                                                     var vendor1Status = purchserequest.Vendor1Status;
@@ -107,7 +107,7 @@
                                                     @purchserequest.VendorName2<br>
                                                     @if (!string.IsNullOrWhiteSpace(@purchserequest.AttachFile2))
                                                     {
-                                                        <a class="itp_filepath" href="/Ticketing/@Model.PurchasRequestFolderPath/@purchserequest.AttachFile2" target="_blank">@purchserequest.AttachFile2</a><br />
+                                                        <a class="itp_filepath" href="/@System.Configuration.ConfigurationManager.AppSettings["TicketingAbsolutePath"]/@Model.PurchasRequestFolderPath/@purchserequest.AttachFile2" target="_blank">@purchserequest.AttachFile2</a><br />
                                                     }
 
                                                     @{
@@ -133,7 +133,7 @@
                                                     @purchserequest.VendorName3<br>
                                                     @if (!string.IsNullOrWhiteSpace(@purchserequest.AttachFile3))
                                                     {
-                                                        <a class="itp_filepath" href="/Ticketing/@Model.PurchasRequestFolderPath/@purchserequest.AttachFile3" target="_blank">@purchserequest.AttachFile3</a><br />
+                                                        <a class="itp_filepath" href="/@System.Configuration.ConfigurationManager.AppSettings["TicketingAbsolutePath"]/@Model.PurchasRequestFolderPath/@purchserequest.AttachFile3" target="_blank">@purchserequest.AttachFile3</a><br />
                                                     }
                                                     @{
                                                         var vendor3Status = @purchserequest.Vendor3Status;
