@@ -172,6 +172,9 @@
     <Compile Include="Helpers\TicketingHelper.cs" />
     <Compile Include="Helpers\VendorHelper.cs" />
     <Compile Include="HolidayNotificationJob.cs" />
+    <Compile Include="IT_Maintenance.cs">
+      <DependentUpon>HRMS.tt</DependentUpon>
+    </Compile>
     <Compile Include="IT_Ticket.cs">
       <DependentUpon>HRMS.tt</DependentUpon>
     </Compile>
@@ -186,6 +189,7 @@
     <Compile Include="Models\Admin\AdminDashView.cs" />
     <Compile Include="Models\Admin\AdminLeaveManagementModel.cs" />
     <Compile Include="Models\ITsupport\AssetViewModel.cs" />
+    <Compile Include="Models\ITsupport\MaintananceModel.cs" />
     <Compile Include="Models\ITsupport\PurchaseModel.cs" />
     <Compile Include="Models\ITsupport\SubscriptionModel.cs" />
     <Compile Include="Models\ITsupport\VendorModel.cs" />
@@ -388,6 +392,7 @@
     <Content Include="Scripts\z-custom.js" />
     <Content Include="Scripts\z-empleave.js" />
     <Content Include="Scripts\z-empTicketing.js" />
+    <Content Include="Scripts\Z-Maintanance.js" />
     <Content Include="Scripts\z-purchaseScript.js" />
     <Content Include="Scripts\z-raiseticket.js" />
     <Content Include="Scripts\z-SubscriptionScript.js" />
@@ -412,7 +417,8 @@
     <Content Include="Assets\Templates\ImportUserTemplate.xlsx" />
     <Content Include="Assets\Templates\ToalEMpLeavesTemplate.xlsx" />
     <Content Include="Assets\Templates\SampleLeaveHistoryImport.xlsx" />
-    <Content Include="Assets\Templates\VendorImport.xlsx" />
+    <Content Include="Assets\Templates\Sample Assets Import.xlsx" />
+    <Content Include="Assets\Templates\VendorImportTemplate.xlsx" />
     <None Include="Scripts\jquery-3.4.1.intellisense.js" />
     <Content Include="Scripts\jquery-3.4.1.js" />
     <Content Include="Scripts\jquery-3.4.1.min.js" />

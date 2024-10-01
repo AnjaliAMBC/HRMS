@@ -1,8 +1,52 @@
-﻿@Html.Partial("_NavBar")
+﻿@model HRMS.Models.ITsupport.MaintananceModel
+
+
+@Html.Partial("_NavBar")
 @{
     ViewBag.Title = "Maintanance";
 }
+<style>
+    /* Add a border and background color to the dropdown button */
+    button.multiselect {
+        border: 1px solid #ced4da; /* Default border color similar to other input fields */
+        background-color: #fff; /* White background for the dropdown */
+        border-radius: 4px; /* Rounded corners */
+        padding: 8px 12px; /* Padding for the button */
+        width: 100%; /* Full width */
+        text-align: left; /* Align text to the left */
+        box-shadow: none; /* Remove default button shadow */
+    }
 
+        /* Add hover effect to the dropdown button */
+        button.multiselect:hover {
+            border-color: #80bdff; /* Change border color on hover */
+            background-color: #f8f9fa; /* Light background on hover */
+        }
+
+    /* Style the multiselect dropdown itself */
+    ul.multiselect-container {
+        border: 1px solid #ced4da; /* Border for the dropdown menu */
+        border-radius: 4px; /* Rounded corners */
+        max-height: 200px; /* Limit dropdown height */
+        overflow-y: auto; /* Add scrolling when content overflows */
+        background-color: #fff; /* White background for the dropdown list */
+    }
+
+    /* Remove border and background for the selected names section */
+    #selectedNames {
+        margin-top: 10px;
+        padding: 0; /* Remove padding */
+        background-color: transparent; /* No background color */
+        font-size: 14px;
+        color: #333;
+    }
+
+    #selectedNames {
+        font-size: 14px;
+        color: #333;
+        margin-top: 10px;
+    }
+</style>
 <div class="container-fluid">
     <div class="hiddenadmindashboard" style="display: none"></div>
     @Html.Partial("_adminsidemenu")
@@ -29,7 +73,7 @@
                                             </button>
                                         </div>
                                     </div>
-                                    <div id="res-maintenance-filter-popup" class="res-maintenance-filter-popup" >
+                                    <div id="res-maintenance-filter-popup" class="res-maintenance-filter-popup">
                                         <div class="maintenance-filter-header-title">Filter based on year, month and location</div>
                                         <div class="maintenance-filter-header-body">
                                             <div class="maintenance-filter-fileds maintenance-filter-year">
@@ -86,10 +130,10 @@
                             </thead>
                             <tbody>
                                 <tr class="odd">
-                                    <td class="tdmaintenance-ename"><span class="maintenanceinfo-image-btn"><img src="~/Assets/EmpImages/1155.jpeg" alt="ename" ></span><span class="maintenance-id-select" data-assetid="name" >Name</span></td>
+                                    <td class="tdmaintenance-ename"><span class="maintenanceinfo-image-btn"><img src="~/Assets/EmpImages/1155.jpeg" alt="ename"></span><span class="maintenance-id-select" data-assetid="name">Name</span></td>
                                     <td>01 October 2024</td>
                                     <td class="tdmaintenancereschedule">01 October 2024</td>
-                                    <td><span class="maintenanceinfo-image-btn"><img src="~/Assets/EmpImages/1155.jpeg" alt="agentname" ></span><span class="maintenance-id-select" data-assetid="name" >Name</span></td>
+                                    <td><span class="maintenanceinfo-image-btn"><img src="~/Assets/EmpImages/1155.jpeg" alt="agentname"></span><span class="maintenance-id-select" data-assetid="name">Name</span></td>
                                     <td><div class="maintenance-status completed">Completed</div></td>
                                     <td>-</td>
                                     <td class="maintenancestatus-icon">
@@ -109,10 +153,10 @@
                                     </td>
                                 </tr>
                                 <tr class="even">
-                                    <td class="tdmaintenance-ename"><span class="maintenanceinfo-image-btn"><img src="~/Assets/EmpImages/1155.jpeg" alt="ename" ></span><span class="maintenance-id-select" data-assetid="name" >Name</span></td>
+                                    <td class="tdmaintenance-ename"><span class="maintenanceinfo-image-btn"><img src="~/Assets/EmpImages/1155.jpeg" alt="ename"></span><span class="maintenance-id-select" data-assetid="name">Name</span></td>
                                     <td>01 October 2024</td>
                                     <td class="tdmaintenancereschedule">01 October 2024</td>
-                                    <td><span class="maintenanceinfo-image-btn"><img src="~/Assets/EmpImages/1155.jpeg" alt="agentname" ></span><span class="maintenance-id-select" data-assetid="name" >Name</span></td>
+                                    <td><span class="maintenanceinfo-image-btn"><img src="~/Assets/EmpImages/1155.jpeg" alt="agentname"></span><span class="maintenance-id-select" data-assetid="name">Name</span></td>
                                     <td><div class="maintenance-status pending">Pending</div></td>
                                     <td>-</td>
                                     <td class="maintenancestatus-icon">
@@ -151,19 +195,27 @@
                         <div class="col-lg-12 col-md-12">
                             <div class="form-group schedulemaintenance-tabs">
                                 <label class="form-check-label schedulemaintenance-radio1" for="schedulemaintenance-radio1">
-                                    <input type="radio" class="form-check-input" id="schedulemaintenance-radio1" name="schedulemaintenance-location" value="madurai" checked>Madurai
+                                    <input type="radio" class="form-check-input" id="schedulemaintenance-radio1" name="schedulemaintenance-location" value="Madurai" checked>Madurai
                                 </label>
                                 <label class="form-check-label schedulemaintenance-radio2" for="schedulemaintenance-radio2">
-                                    <input type="radio" class="form-check-input" id="schedulemaintenance-radio2" name="schedulemaintenance-location" value="hydrababd">Hydrabad
+                                    <input type="radio" class="form-check-input" id="schedulemaintenance-radio2" name="schedulemaintenance-location" value="Hyderabad">Hyderabad
                                 </label>
                             </div>
                         </div>
                         <div class="col-lg-12 col-md-12">
                             <div class="form-group schedulemaintenance-tabs">
-                                <select name="ScheduleMaintenance-Employee" class="ScheduleMaintenance-Employee form-control form-select" id="ScheduleMaintenance-Employee">
-                                    <option value="" disabled selected hidden>Select Employee</option>
-                                    <option value="Test Name">Test Name</option>
+                                <label for="multiSelectDropdown">Select Employees</label>
+                                <select id="multiSelectDropdown" class="form-control" multiple="multiple">
+                                    <option value="">Select Employees</option>
+                                    @foreach (var emp in Model.Employees)
+                                    {
+                                        <option data-emplocation="@emp.Location" data-empname="@emp.EmployeeName" value="@emp.EmployeeID">@emp.EmployeeName @emp.EmployeeID</option>
+
+                                    }
                                 </select>
+                                <!-- Display the selected names below the input field -->
+                                <div id="selectedNames" class="mt-2 text-muted"></div>
+
                             </div>
                         </div>
                         <div class="col-lg-12 col-md-12">
@@ -202,7 +254,7 @@
                                 </div>
 
                             </div>
-                            
+
 
                         </div>
                     </div>
@@ -214,39 +266,105 @@
             </div>
         </div>
     </div>
+</div>
+<link href="https://cdnjs.cloudflare.com/ajax/libs/tempusdominus-bootstrap-4/5.0.1/css/tempusdominus-bootstrap-4.min.css" rel="stylesheet" />
+<script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.22.2/moment.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/tempusdominus-bootstrap-4/5.0.1/js/tempusdominus-bootstrap-4.min.js"></script>
+<script src="~/Scripts/Z-Maintanance.js"></script>
 
-    <link href="https://cdnjs.cloudflare.com/ajax/libs/tempusdominus-bootstrap-4/5.0.1/css/tempusdominus-bootstrap-4.min.css" rel="stylesheet" />
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.22.2/moment.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/tempusdominus-bootstrap-4/5.0.1/js/tempusdominus-bootstrap-4.min.js"></script>
-    <script>
-        $(document).ready(function () {
-            if (!$.fn.DataTable.isDataTable('#adminmaintenanceinfotable')) {
-                var table = $('#adminmaintenanceinfotable').DataTable({
-                    "responsive": true,
-                    "paging": true,
-                    "searching": false,
-                    "ordering": false,
-                    "info": true,
-                    "autoWidth": false,
-                    "lengthMenu": [[10, 20, 50, -1], [10, 20, 50, "All"]]
-                });
-            }
-        });
-
-        $(function () {
-            $('#datetimepicker1').datetimepicker({
-                format: 'HH:mm'
+<script>
+    $(document).ready(function () {
+        if (!$.fn.DataTable.isDataTable('#adminmaintenanceinfotable')) {
+            var table = $('#adminmaintenanceinfotable').DataTable({
+                "responsive": true,
+                "paging": true,
+                "searching": false,
+                "ordering": false,
+                "info": true,
+                "autoWidth": false,
+                "lengthMenu": [[10, 20, 50, -1], [10, 20, 50, "All"]]
             });
-            $('#datetimepicker2').datetimepicker({
-                format: 'HH:mm'
-            });
-        });
-
-        function toggleMaintenanceActionOptions(iconElement) {
-            const optionsMenu = $(iconElement).next('.maintenance-options');
-            $('.maintenance-options').not(optionsMenu).hide();
-            optionsMenu.toggle();
         }
+    });
 
-    </script>
+
+
+
+
+
+    $('input[name="schedulemaintenance-location"]').on('change', function () {
+        var selectedLocation = $(this).val(); // Get the value of the selected radio button
+
+        // Show all options first
+        $('#multiSelectDropdown option').show();
+
+        // Hide options that do not match the selected location
+        $('#multiSelectDropdown option').filter(function () {
+            return $(this).data('emplocation') !== selectedLocation; // Use data-emplocation attribute for filtering
+        }).hide();
+    });
+
+
+
+
+
+    $(function () {
+        $('#datetimepicker1').datetimepicker({
+            format: 'HH:mm'
+        });
+        $('#datetimepicker2').datetimepicker({
+            format: 'HH:mm'
+        });
+    });
+
+    function toggleMaintenanceActionOptions(iconElement) {
+        const optionsMenu = $(iconElement).next('.maintenance-options');
+        $('.maintenance-options').not(optionsMenu).hide();
+        optionsMenu.toggle();
+    }
+
+    $('#multiSelectDropdown').multiselect({
+        includeSelectAllOption: true,  // Option to select all
+        enableFiltering: true,         // Enables search filter
+        buttonWidth: '100%',           // Make the button full width
+        nonSelectedText: 'Select Employees', // Placeholder text
+        enableCaseInsensitiveFiltering: true, // Case insensitive search
+        maxHeight: 200,                // Dropdown max height
+        numberDisplayed: 0,            // Do not display any selected item in the button
+        buttonText: function (options, select) {
+            // Always show the placeholder text and hide selected names in input
+            if (options.length === 0) {
+                return 'Select Employees';
+            } else {
+                return 'Employees Selected';
+            }
+        },
+        onChange: function (option, checked) {
+            updateSelectedNames();  // Update names when an option is changed
+        },
+        onSelectAll: function () {
+            updateSelectedNames();  // Update names when "Select All" is used
+        },
+        onDeselectAll: function () {
+            updateSelectedNames();  // Update names when "Deselect All" is used
+        }
+    });
+
+    // Function to update the selected names below the input field
+    function updateSelectedNames() {
+        var selectedOptions = $('#multiSelectDropdown option:selected');  // Get all selected options
+        var selectedText = [];
+
+        selectedOptions.each(function () {
+            selectedText.push($(this).text());  // Extract text of each selected option
+        });
+
+        // Display the selected names below the input field
+        if (selectedText.length > 0) {
+            $('#selectedNames').html('Selected Employees: ' + selectedText.join(', '));
+        } else {
+            $('#selectedNames').html('No employees selected');
+        }
+    }
+</script>
 

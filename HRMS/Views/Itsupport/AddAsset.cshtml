@@ -6,10 +6,13 @@
     var assetTypes = new List<string>();
     assetTypes.Add("Laptop");
     assetTypes.Add("Mouse");
-    assetTypes.Add("HeadPhone");
+    assetTypes.Add("Headset");
     assetTypes.Add("Keyboard");
     assetTypes.Add("Monitor");
+    assetTypes.Add("CPU");
+    assetTypes.Add("Power Cable");
     assetTypes.Add("Charger");
+    assetTypes.Add("UPS");
     assetTypes.Add("Others");
 
 
@@ -136,7 +139,7 @@
                                                             @if (!string.IsNullOrWhiteSpace(Model.EditAssets.AssetType1Image))
                                                             {
                                                                 var assetFolderID = Model.EditAssets.AssetID.Split('#')[1];
-                                                                var assetImageURL = "/ticketing/assets/" + assetFolderID + "/" + Model.EditAssets.AssetType1Image;
+                                                                var assetImageURL = @System.Configuration.ConfigurationManager.AppSettings["TicketingAbsolutePath"] + "/assets/" + assetFolderID + "/" + Model.EditAssets.AssetType1Image;
                                                                 <a href="@assetImageURL" target="_blank" class="edit-AssetType1Image"><img src="@assetImageURL" alt="Subscription Logo" class="edit-AssetType1Image" /></a>
                                                             }
 
@@ -181,7 +184,7 @@
                                                             @if (!string.IsNullOrWhiteSpace(Model.EditAssets.AssetType2Image))
                                                             {
                                                                 var assetFolderID = Model.EditAssets.AssetID.Split('#')[1];
-                                                                var assetImageURL = "/ticketing/assets/" + assetFolderID + "/" + Model.EditAssets.AssetType2Image;
+                                                                var assetImageURL = @System.Configuration.ConfigurationManager.AppSettings["TicketingAbsolutePath"] + "/assets/" + assetFolderID + "/" + Model.EditAssets.AssetType2Image;
                                                                 <a href="@assetImageURL" target="_blank" class="edit-AssetType2Image"><img src="@assetImageURL" alt="Subscription Logo" class="edit-AssetType2Image" /></a>
                                                             }
                                                             <div class="invalid-feedback">required.</div>
@@ -225,7 +228,7 @@
                                                             @if (!string.IsNullOrWhiteSpace(Model.EditAssets.AssetType3Image))
                                                             {
                                                                 var assetFolderID = Model.EditAssets.AssetID.Split('#')[1];
-                                                                var assetImageURL = "/ticketing/assets/" + assetFolderID + "/" + Model.EditAssets.AssetType3Image;
+                                                                var assetImageURL = @System.Configuration.ConfigurationManager.AppSettings["TicketingAbsolutePath"] + "/assets/" + assetFolderID + "/" + Model.EditAssets.AssetType3Image;
                                                                 <a href="@assetImageURL" target="_blank" class="edit-AssetType3Image"><img src="@assetImageURL" alt="Subscription Logo" class="edit-AssetType3Image" /></a>
                                                             }
                                                             <div class="invalid-feedback">required.</div>
@@ -269,7 +272,7 @@
                                                             @if (!string.IsNullOrWhiteSpace(Model.EditAssets.AssetType4Image))
                                                             {
                                                                 var assetFolderID = Model.EditAssets.AssetID.Split('#')[1];
-                                                                var assetImageURL = "/ticketing/assets/" + assetFolderID + "/" + Model.EditAssets.AssetType4Image;
+                                                                var assetImageURL = @System.Configuration.ConfigurationManager.AppSettings["TicketingAbsolutePath"] + "/assets/" + assetFolderID + "/" + Model.EditAssets.AssetType4Image;
                                                                 <a href="@assetImageURL" target="_blank" class="edit-AssetType4Image"><img src="@assetImageURL" alt="Subscription Logo" class="edit-AssetType4Image" /></a>
                                                             }
                                                             <div class="invalid-feedback">required.</div>
@@ -321,7 +324,7 @@
                                                             @if (!string.IsNullOrWhiteSpace(Model.EditAssets.AssetType5Image))
                                                             {
                                                                 var assetFolderID = Model.EditAssets.AssetID.Split('#')[1];
-                                                                var assetImageURL = "/ticketing/assets/" + assetFolderID + "/" + Model.EditAssets.AssetType5Image;
+                                                                var assetImageURL = @System.Configuration.ConfigurationManager.AppSettings["TicketingAbsolutePath"] + "/assets/" + assetFolderID + "/" + Model.EditAssets.AssetType5Image;
                                                                 <a href="@assetImageURL" target="_blank" class="edit-AssetType4Image"><img src="@assetImageURL" alt="Subscription Logo" class="edit-AssetType5Image" /></a>
                                                             }
                                                             <div class="invalid-feedback">required.</div>
@@ -374,7 +377,7 @@
                                                             @if (!string.IsNullOrWhiteSpace(Model.EditAssets.AssetType5Image))
                                                             {
                                                                 var assetFolderID = Model.EditAssets.AssetID.Split('#')[1];
-                                                                var assetImageURL = "/ticketing/assets/" + assetFolderID + "/" + Model.EditAssets.AssetType5Image;
+                                                                var assetImageURL = @System.Configuration.ConfigurationManager.AppSettings["TicketingAbsolutePath"] + "/assets/" + assetFolderID + "/" + Model.EditAssets.AssetType5Image;
                                                                 <a href="@assetImageURL" target="_blank" class="edit-AssetType4Image"><img src="@assetImageURL" alt="Subscription Logo" class="edit-AssetType6Image" /></a>
                                                             }
                                                             <div class="invalid-feedback">required.</div>
@@ -425,7 +428,7 @@
                                                             @if (!string.IsNullOrWhiteSpace(Model.EditAssets.AssetType6Image))
                                                             {
                                                                 var assetFolderID = Model.EditAssets.AssetID.Split('#')[1];
-                                                                var assetImageURL = "/ticketing/assets/" + assetFolderID + "/" + Model.EditAssets.AssetType6Image;
+                                                                var assetImageURL = @System.Configuration.ConfigurationManager.AppSettings["TicketingAbsolutePath"] + "/assets/" + assetFolderID + "/" + Model.EditAssets.AssetType6Image;
                                                                 <a href="@assetImageURL" target="_blank" class="edit-AssetType4Image"><img src="@assetImageURL" alt="Subscription Logo" class="edit-AssetType7Image" /></a>
                                                             }
                                                             <div class="invalid-feedback">required.</div>
@@ -520,7 +523,7 @@
                                             @if (!string.IsNullOrWhiteSpace(Model.EditAssets.AssetMainImage))
                                             {
                                                 var assetFolderID = Model.EditAssets.AssetID.Split('#')[1];
-                                                var assetImageURL = "/ticketing/assets/" + assetFolderID + "/" + Model.EditAssets.AssetMainImage;
+                                                var assetImageURL = @System.Configuration.ConfigurationManager.AppSettings["TicketingAbsolutePath"] + "/assets/" + assetFolderID + "/" + Model.EditAssets.AssetMainImage;
                                                 <a href="@assetImageURL" target="_blank" class="edit-AssetmainImage"><img src="@assetImageURL" alt="Subscription Logo" class="edit-AssetmainImage" width="50" height="50" /></a>
                                             }
                                             <div class="assetadd-uploaded-file" id="assetadd-uploaded-file-info" style="display: none;">

@@ -173,7 +173,7 @@ $(document).on('click', '.btn-vendor-import-submit', function (event) {
         url: '/Vendor/ImportVendor',
         type: 'POST',
         data: formData,
-        processData: false, // Prevent jQuery from processing the data
+        processData: false, 
         contentType: false, // Prevent jQuery from setting the Content-Type header
         dataType: 'json',
         beforeSend: function () {
@@ -183,8 +183,7 @@ $(document).on('click', '.btn-vendor-import-submit', function (event) {
             if (response.success) { // Check if the response indicates success
                 $('#vendorImportSuccessModal').modal('show');
                 $('.vendor-success-message').text(response.message);
-            } else {
-                // Handle server-side errors here
+            } else {               
                 alert(response.message || "An error occurred during import.");
             }
         },

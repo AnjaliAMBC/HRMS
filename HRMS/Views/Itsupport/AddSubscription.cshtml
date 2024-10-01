@@ -75,7 +75,7 @@
                                         @if (!string.IsNullOrEmpty(Model.Editsubscription.SubscriptionLogo))
                                         {
                                             var imageParentFoler = System.Configuration.ConfigurationManager.AppSettings["TicketingFolderPath"];
-                                            <a class="itp_filepath sublogo-2" href="/ticketing/subscription/@Model.Editsubscription.SubscriptionLogo" target="_blank">
+                                            <a class="itp_filepath sublogo-2" href="@System.Configuration.ConfigurationManager.AppSettings["TicketingAbsolutePath"]/subscription/@Model.Editsubscription.SubscriptionLogo" target="_blank">
                                                 @Model.Editsubscription.SubscriptionLogo
                                             </a>
                                         }
