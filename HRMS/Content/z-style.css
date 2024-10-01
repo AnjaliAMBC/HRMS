@@ -4172,7 +4172,7 @@ input[type=checkbox], input[type=radio] {
 
 /* subscription listing end */
 
-/* asset view start*/
+/* asset list start*/
 
 .admin-assetinfo-container {
     margin-top: 0px;
@@ -4339,7 +4339,7 @@ input[type=checkbox], input[type=radio] {
     height: 50px;
 }
 
-/* asset view end*/
+/* asset list end*/
 
 /* asset add start */
 
@@ -4718,6 +4718,184 @@ input[type=checkbox], input[type=radio] {
 }
 
 /*  asset transfer end */
+
+/* monthly maintenance start */
+
+.admin-maintenanceinfo-container {
+    margin-top: 0px;
+}
+
+.admin-maintenanceinfo-view .res-admin-title {
+    padding: 0 0 0 3px;
+}
+
+.admin-maintenanceinfo-view .res-admin-maintenanceinfo-header-right {
+    justify-content: end;
+    display: flex;
+    padding-right: 0;
+    padding-top: 20px;
+}
+
+.admin-maintenanceinfo-view .res-admin-maintenanceinfo-status {
+    justify-content: end;
+    display: inline-block;
+    margin-top: 0px;
+}
+
+.admin-maintenanceinfo-view .res-admin-maintenanceinfo-add {
+    display: inline-block;
+}
+
+.addingmaintenanceinfo {
+    margin: 0px;
+    padding: 0px;
+}
+
+.addingmaintenanceinfo .addmaintenanceinfo {
+    border: 1px solid #ccc;
+    background-color: dodgerblue;
+    color: #fff;
+}
+
+.maintenanceinfo-image-btn img {
+    border-radius: 50%;
+    width: 30px;
+    height: 30px;
+    object-fit: cover;
+    margin-right: 7px;
+}
+
+#adminmaintenanceinfotable .maintenancestatus-icon {
+    text-align: center;
+}
+
+#adminmaintenanceinfotable .maintenance-status {
+    padding: 2px 9px;
+    color: #fff;
+    border-radius: 20px;
+    font-size: 11px;
+    text-align: center;
+    width: 75px;
+}
+
+#adminmaintenanceinfotable .maintenance-status.completed {
+    background: mediumspringgreen;
+}
+
+#adminmaintenanceinfotable .maintenance-status.pending {
+    background: blue;
+}
+
+#adminmaintenanceinfotable thead{
+    background-color: dodgerblue !important;
+    border-radius: 10px;
+    color: #fff;
+    font-weight: normal;
+    font-size: 14px;
+}
+
+#adminmaintenanceinfotable thead th:first-child {
+    border-top-left-radius: 3px;
+}
+
+#adminmaintenanceinfotable thead th:last-child {
+    border-top-right-radius: 3px;
+}
+
+#adminmaintenanceinfotable_length {
+    display: none;
+}
+
+#adminmaintenanceinfotable tbody tr:nth-child(even) {
+    background-color: lightblue !important;
+}
+
+#addmaintenanceinfo-popup .schedulemaintenance-tabs .form-check-label {
+    margin-left: 20px;
+}
+
+#addmaintenanceinfo-popup .schedulemaintenance-tabs .schedulemaintenance-radio1 {
+    margin-right: 20px;
+}
+
+#addmaintenanceinfo-popup .addmaintenanceinfo-header-title {
+    margin-bottom: 10px;
+    font-size: 20px;
+}
+
+#adminmaintenanceinfotable .maintenanceinfo-list-edit .maintenance-options {
+    position: absolute;
+    background: white;
+    box-shadow: 0px 1px 3px 1px #ccc;
+    text-align: left;
+    right: 20px;
+    cursor: pointer;
+    padding: 3px 0;
+    z-index: 1;
+}
+
+#adminmaintenanceinfotable .maintenanceinfo-list-edit .maintenance-options a {
+    padding: 3px 10px;
+    color: #8693a1;
+}
+
+.res-admin-maintenanceinfo-table {
+    margin-top: -20px;
+}
+
+.res-admin-maintenanceinfo-filter .advancetitle {
+    width: 20px;
+    display: inline;
+}
+
+.res-admin-maintenanceinfo-filter .admin-maintenanceinfo-button {
+    width: 20px;
+    display: inline-block;
+}
+
+#res-maintenance-filter-popup {
+    position: absolute;
+    z-index: 9;
+    width: 555%;
+    background: #fff;
+    right: 0;
+    border: 1px solid #ccc;
+    border-radius: 3px;
+    box-shadow: 0px 1px 3px 0px #000;
+    display: none;
+}
+
+#res-maintenance-filter-popup.show {
+    display: block !important;
+}
+
+.res-admin-maintenanceinfo-filter .maintenance-filter-fileds {
+    display: inline-block;
+    width: 22%;
+}
+
+#res-maintenance-filter-popup .maintenance-filter-header-title {
+    border-bottom: 1px solid #ccc;
+    padding: 7px 15px;
+    margin-bottom: 10px;
+}
+
+#res-maintenance-filter-popup .maintenance-filter-header-body {
+    padding: 5px 15px;
+}
+
+.res-maintenance-filter-submit {
+    display: inline-block;
+}
+
+.res-maintenance-filter-submit button {
+    padding: 7px 6px;
+    width: 59px;
+    margin-top: -1px;
+}
+
+
+/* monthly maintenance end */
 
 @supports (-webkit-backdrop-filter: none) or (-webkit-hyphens:auto) {
     #adminaddendancetable {
