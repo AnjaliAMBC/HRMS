@@ -31,7 +31,7 @@ namespace HRMS.Controllers
             return Json(emmployees, JsonRequestBehavior.AllowGet);
         }
 
-        [HttpPost]
+        /*[HttpPost]*/
         //public JsonResult AddMaintenanceSchedule(Maintanance model)
         //{
         //    // Assuming your DbContext is HRMS_EntityFramework, already defined
