@@ -46,6 +46,66 @@
         color: #333;
         margin-top: 10px;
     }
+
+    .modal.left .modal-dialog,
+    .modal.right .modal-dialog {
+        position: fixed;
+        margin: auto;
+        width: 320px;
+        height: 100%;
+        -webkit-transform: translate3d(0%, 0, 0);
+        -ms-transform: translate3d(0%, 0, 0);
+        -o-transform: translate3d(0%, 0, 0);
+        transform: translate3d(0%, 0, 0);
+    }
+
+    .modal.left .modal-content,
+    .modal.right .modal-content {
+        height: 100%;
+        overflow-y: auto;
+    }
+
+    .modal.left .modal-body,
+    .modal.right .modal-body {
+        padding: 15px 15px 80px;
+    }
+
+    /*Right*/
+    .modal.right.fade .modal-dialog {
+        right: 0px;
+        -webkit-transition: opacity 0.3s linear, right 0.3s ease-out;
+        -moz-transition: opacity 0.3s linear, right 0.3s ease-out;
+        -o-transition: opacity 0.3s linear, right 0.3s ease-out;
+        transition: opacity 0.3s linear, right 0.3s ease-out;
+    }
+
+    .modal.right.fade.in .modal-dialog {
+        right: 0;
+    }
+
+    .modal-dialog {
+        margin: 5% auto;
+    }
+
+    .select2-results__option .wrap:before {
+        font-family: fontAwesome;
+        color: #999;
+        content: "\f096";
+        width: 25px;
+        height: 25px;
+        padding-right: 10px;
+    }
+
+    .select2-results__option[aria-selected=true] .wrap:before {
+        content: "\f14a";
+    }
+
+    /* not required css */
+
+    .select2-multiple, .select2-multiple2 {
+        width: 50%
+    }
+
 </style>
 <div class="container-fluid">
     <div class="hiddenadmindashboard" style="display: none"></div>
@@ -147,7 +207,7 @@
                                             <i class="fas fa-ellipsis-v asset-edit-dropdown" onclick="toggleMaintenanceActionOptions(this)"></i>
                                             <div class="maintenance-options" style="display:none">
                                                 <a class="dropdown-item maintenance-info-view" data-assetid="1">View</a>
-                                                <a class="dropdown-item maintenance-info-reschedule" data-assetid="1">Reschedule</a>
+                                                <a class="dropdown-item maintenance-info-reschedule" data-assetid="1" class="btn btn-demo" data-toggle="modal" data-target="#RescheduleMaintenancePopup">Reschedule</a>
                                             </div>
                                         </span>
                                     </td>
@@ -170,7 +230,7 @@
                                             <i class="fas fa-ellipsis-v asset-edit-dropdown" onclick="toggleMaintenanceActionOptions(this)"></i>
                                             <div class="maintenance-options" style="display:none">
                                                 <a class="dropdown-item maintenance-info-view" data-assetid="1">View</a>
-                                                <a class="dropdown-item maintenance-info-edit" data-assetid="1">Reschedule</a>
+                                                <a class="dropdown-item maintenance-info-edit" data-assetid="1" class="btn btn-demo" data-toggle="modal" data-target="#RescheduleMaintenancePopup">Reschedule</a>
                                             </div>
                                         </span>
                                     </td>
@@ -184,6 +244,64 @@
         </div>
     </div>
 </div>
+
+<!-- Modal -->
+<div class="modal right fade" id="RescheduleMaintenancePopup" tabindex="-1" role="dialog" aria-labelledby="RescheduleMaintenancePopup">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title" id="reschedulemaintenance-header-title">Reschedule Maintenance</h4>
+                @*<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>*@
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><i class="fa fa-times-circle" aria-hidden="true"></i></button>
+            </div>
+            <div class="modal-body">
+                <div class="reschedulemaintenance-body-title">
+                    <span class="reschedulemaintenance-image-btn"><img src="~/Assets/EmpImages/1155.jpeg" alt="ename"></span><span class="reschedulemaintenance-id-select" data-assetid="name">Name</span>
+                </div>
+                <div class="maintenanceapprove-info">
+                    <div class="row">
+                            <div class="col-lg-12 col-md-12">
+                                <div class="form-group maintenanceapproved-tabs">
+                                    <label for="RescheduleMaintenance-Date">Maintenance Date</label>
+                                    <input type="text" class="form-control" id="RescheduleMaintenance-Date" value="02-10-2024" readonly>
+                                </div>
+                            </div>
+                            <div class="col-lg-12 col-md-12">
+                                <div class="form-group reschedulemaintenance-tabs">
+                                    <label for="RescheduleMaintenance-AgentName">Agent Name</label>
+                                    <select name="RescheduleMaintenance-AgentName" class="RescheduleMaintenance-AgentName form-control form-select" id="RescheduleMaintenance-AgentName">
+                                        <option value="" disabled selected hidden>Select Agent</option>
+                                        <option value="Test Name">Test Name</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="col-lg-12 col-md-12">
+                                <div class="form-group reschedulemaintenance-tabs">
+                                    <label for="RescheduleMaintenance-Reschedule">Reschedule Date</label>
+                                    <input type="date" class="form-control" id="RescheduleMaintenance-Reschedule" value="">
+                                </div>
+                            </div>
+                            <div class="col-lg-12 col-md-12">
+                                <div class="form-group reschedulemaintenance-tabs">
+                                    <label for="RescheduleMaintenance-Notes">Notes</label>
+                                    <textarea rows="3" class="form-control" id="RescheduleMaintenance-Notes" name="RescheduleMaintenance-Notes"></textarea>
+                                </div>
+                            </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-lg-12 col-md-12 text-right">
+                            <button type="button" class="btn btn-primary reschedulemaintenance-Update">Reschedule</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+        <!-- modal-content -->
+    </div>
+    <!-- modal-dialog -->
+</div>
+<!-- modal -->
 
 <div class="modal fade" id="addmaintenanceinfo-popup" tabindex="-1" role="dialog" aria-labelledby="addmaintenanceinfo-popup" aria-hidden="true">
     <div class="modal-dialog" role="document">
@@ -205,6 +323,15 @@
                         <div class="col-lg-12 col-md-12">
                             <div class="form-group schedulemaintenance-tabs">
                                 <label for="multiSelectDropdown">Select Employees</label>
+                                @*<select id="multiSelectDropdown2" class="select2-multiple2" multiple>
+                                    <option value="-1">ww</option>
+                                    <option value="bakirkoy">dd</option>
+                                    <option value="zeytinburnu">ff</option>
+                                    <option value="fatih">gh</option>
+                                    <option value="florya">tyy</option>
+                                    <option value="basaksehir">ttryr</option>
+                                </select>*@
+
                                 <select id="multiSelectDropdown" class="form-control" multiple="multiple">
                                     <option value="">Select Employees</option>
                                     @foreach (var emp in Model.Employees)
@@ -366,5 +493,64 @@
             $('#selectedNames').html('No employees selected');
         }
     }
+
+    jQuery(function ($) {
+        $.fn.select2.amd.require([
+            'select2/selection/single',
+            'select2/selection/placeholder',
+            'select2/selection/allowClear',
+            'select2/dropdown',
+            'select2/dropdown/search',
+            'select2/dropdown/attachBody',
+            'select2/utils'
+        ], function (SingleSelection, Placeholder, AllowClear, Dropdown, DropdownSearch, AttachBody, Utils) {
+
+            var SelectionAdapter = Utils.Decorate(
+                SingleSelection,
+                Placeholder
+            );
+
+            SelectionAdapter = Utils.Decorate(
+                SelectionAdapter,
+                AllowClear
+            );
+
+            var DropdownAdapter = Utils.Decorate(
+                Utils.Decorate(
+                    Dropdown,
+                    DropdownSearch
+                ),
+                AttachBody
+            );
+
+            var base_element = $('.select2-multiple2')
+            $(base_element).select2({
+                placeholder: 'Select multiple items',
+                selectionAdapter: SelectionAdapter,
+                dropdownAdapter: DropdownAdapter,
+                allowClear: true,
+                templateResult: function (data) {
+
+                    if (!data.id) { return data.text; }
+
+                    var $res = $('<div></div>');
+
+                    $res.text(data.text);
+                    $res.addClass('wrap');
+
+                    return $res;
+                },
+                templateSelection: function (data) {
+                    if (!data.id) { return data.text; }
+                    var selected = ($(base_element).val() || []).length;
+                    var total = $('option', $(base_element)).length;
+                    return "Selected " + selected + " of " + total;
+                }
+            })
+
+        });
+
+    });
+
 </script>
 

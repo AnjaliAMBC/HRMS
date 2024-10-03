@@ -1,7 +1,67 @@
-﻿
+﻿@Html.Partial("_NavBar")
 @{
     ViewBag.Title = "MaintananceApprovalView";
 }
 
-<h2>MaintananceApprovalView</h2>
+<div class="container-fluid">
+    <div class="hiddenadmindashboard" style="display: none"></div>
+    @Html.Partial("_adminsidemenu")
+    <div class="main-content container-fluid maintenanceapprove-tab" style="width: 84%">
+        <div class="content admin-maintenanceapprove-container" style="margin-left: -10px; ">
+            <div class="admin-maintenanceapprove-view">
+                <div class="container-fluid">
+                    <div class="maintenanceapprove-details">
+                        <div class="maintenanceapprove-header-title">
+                            <span class="maintenanceapprove-image-btn"><img src="~/Assets/EmpImages/1155.jpeg" alt="ename"></span><span class="maintenanceapprove-id-select" data-assetid="name">Name</span>
+                        </div>
+                        <div class="maintenanceapprove-info">
+                            <div class="row">
+                                <div class="col-lg-12 col-md-12 maintenanceapprove-left-block-main">
+                                    <div class="col-lg-6 col-md-6">
+                                        <div class="form-group maintenanceapproved-tabs">
+                                            <label for="MaintenanceApproved-Date">Maintenance Date</label>
+                                            <input type="date" class="form-control" id="MaintenanceApproved-Date" value="" readonly>
+                                        </div>
+                                    </div>
+                                    <div class="col-lg-6 col-md-6">
+                                        <div class="form-group maintenanceapproved-tabs">
+                                            <label for="MaintenanceApproved-Reschedule">Reschedule Date</label>
+                                            <input type="date" class="form-control" id="MaintenanceApproved-Reschedule" value="" readonly>
+                                        </div>
+                                    </div>
+                                    <div class="col-lg-6 col-md-6">
+                                        <div class="form-group maintenanceapproved-tabs">
+                                            <label for="MaintenanceApproved-AgentName">Agent Name</label>
+                                            <select name="MaintenanceApproved-AgentName" class="MaintenanceApproved-AgentName form-control form-select" id="MaintenanceApproved-AgentName" readonly>
+                                                <option value="" disabled selected hidden>Select Agent</option>
+                                                <option value="Test Name">Test Name</option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                    <div class="col-lg-6 col-md-6">
+                                        <div class="form-group maintenanceapproved-tabs">
+                                            <label for="MaintenanceApproved-Status">Status</label>
+                                            <select name="MaintenanceApproved-Status" class="MaintenanceApproved-Status form-control form-select" id="MaintenanceApproved-Status">
+                                                <option value="" disabled selected hidden>Select Agent</option>
+                                                <option value="Completed">Completed</option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                    <div class="col-lg-6 col-md-6">
+                                        <div class="form-group maintenanceapproved-tabs">
+                                            <label for="MaintenanceApproved-Notes">Notes</label>
+                                            <input type="text" class="form-control" id="MaintenanceApproved-Notes" value="" readonly>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
 
