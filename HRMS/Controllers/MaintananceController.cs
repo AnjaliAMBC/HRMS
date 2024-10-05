@@ -78,7 +78,7 @@ namespace HRMS.Controllers
 
             var startOfMonth = new DateTime(selectedYear, selectedMonth, 1);
             var endOfMonth = startOfMonth.AddMonths(1).AddDays(-1);
-          
+
             var data = _dbContext.IT_Maintenance
                .Where(r => r.MaintenanceDate >= startOfMonth && r.MaintenanceDate <= endOfMonth)
                .OrderByDescending(r => r.MaintenanceDate)
@@ -264,9 +264,36 @@ namespace HRMS.Controllers
             return employee != null ? employee.OfficalEmailid : string.Empty;
         }
 
-        public ActionResult EmpMaintananceHistory()
+        public ActionResult EmpMaintananceHistory(string empid)
         {
-            return View("~/Views/Itsupport/EmpMaintananceHistory.cshtml");
+            MaintananceModel model = new MaintananceModel();
+
+            int currentYear = DateTime.Now.Year;
+            DateTime startDate = new DateTime(currentYear, 1, 1);
+            DateTime endDate = new DateTime(currentYear, 12, 31);
+
+            model.Employees = _dbContext.emp_info.Where(x => x.EmployeeStatus == "Active").ToList();
+
+            model.monthlyschedules = _dbContext.IT_Maintenance
+           .Where(r => r.MaintenanceDate >= startDate && r.MaintenanceDate <= endDate && r.EmployeeID == empid)
+           .OrderByDescending(r => r.MaintenanceDate)
+           .ToList();
+            model.SelectedEmp = _dbContext.emp_info.Where(x => x.EmployeeID == empid).FirstOrDefault();
+
+
+            // Create a list to hold the years
+            List<int> years = new List<int>();
+
+            // Add the past 10 years
+            for (int i = -10; i <= 2; i++)
+            {
+                years.Add(currentYear + i);
+            }
+
+            model.Years = years;
+
+
+            return View("~/Views/Itsupport/EmpMaintananceHistory.cshtml", model);
         }
         public ActionResult MaintananceApproval(int sno)
         {
@@ -340,6 +367,89 @@ namespace HRMS.Controllers
                 jsonResponse.Message = "Error when Rescheduling Maintenace!";
             }
             return Json(jsonResponse, JsonRequestBehavior.AllowGet);
+        }
+
+
+        public ActionResult ExportToExcelMaintenanceByEmpHistory(int year = 0, string empid = "")
+        {
+            int currentYear = year != 0 ? year : DateTime.Now.Year;
+            DateTime startDate = new DateTime(currentYear, 1, 1);
+            DateTime endDate = new DateTime(currentYear, 12, 31);
+
+
+            var data = _dbContext.IT_Maintenance
+               .Where(r => r.MaintenanceDate >= startDate && r.MaintenanceDate <= endDate && r.EmployeeID == empid)
+               .OrderByDescending(r => r.MaintenanceDate)
+               .ToList();
+                      
+            using (var package = new ExcelPackage())
+            {
+                var worksheet = package.Workbook.Worksheets.Add("Maintenance History Data");
+
+                worksheet.Cells[1, 1].Value = "EmployeeID";
+                worksheet.Cells[1, 2].Value = "EmployeeName";
+                worksheet.Cells[1, 3].Value = "EmailId";
+                worksheet.Cells[1, 4].Value = "MaintenanceDate";
+                worksheet.Cells[1, 5].Value = "RescheduleDate";
+                worksheet.Cells[1, 6].Value = "AgentName";
+                worksheet.Cells[1, 7].Value = "Status";
+                worksheet.Cells[1, 8].Value = "Notes";
+                worksheet.Cells[1, 9].Value = "Acknowledge";
+                worksheet.Cells[1, 10].Value = "Location";
+                worksheet.Cells[1, 11].Value = "IssueDate";
+                worksheet.Cells[1, 12].Value = "ProblemCategory";
+                worksheet.Cells[1, 13].Value = "IssueFacing";
+                worksheet.Cells[1, 14].Value = "NewAssetRequirement";
+               
+                using (var headerRange = worksheet.Cells[1, 1, 1, 14])
+                {
+                    headerRange.Style.Fill.PatternType = OfficeOpenXml.Style.ExcelFillStyle.Solid;
+                    headerRange.Style.Fill.BackgroundColor.SetColor(System.Drawing.Color.SkyBlue);
+                    headerRange.Style.Font.Color.SetColor(System.Drawing.Color.White);
+                    headerRange.Style.Font.Bold = true;
+                }
+                               
+                for (int i = 0; i < data.Count; i++)
+                {
+                    worksheet.Cells[i + 2, 1].Value = data[i].EmployeeID ?? ""; 
+                    worksheet.Cells[i + 2, 2].Value = data[i].EmployeeName ?? ""; 
+                    worksheet.Cells[i + 2, 3].Value = data[i].EmailId ?? ""; 
+
+                    // MaintenanceDate
+                    worksheet.Cells[i + 2, 4].Value = data[i].MaintenanceDate.HasValue
+                                                       ? data[i].MaintenanceDate.Value.ToString("yyyy-MM-dd")
+                                                       : "";
+
+                    // RescheduleDate
+                    worksheet.Cells[i + 2, 5].Value = data[i].RescheduleDate.HasValue
+                                                       ? data[i].RescheduleDate.Value.ToString("yyyy-MM-dd")
+                                                       : "";
+
+                    worksheet.Cells[i + 2, 6].Value = data[i].AgentName ?? ""; 
+                    worksheet.Cells[i + 2, 7].Value = data[i].Status ?? ""; 
+                    worksheet.Cells[i + 2, 8].Value = data[i].Notes ?? ""; 
+                    worksheet.Cells[i + 2, 9].Value = data[i].Acknowledge ?? ""; 
+                    worksheet.Cells[i + 2, 10].Value = data[i].Location ?? "";
+
+                    // IssueDate
+                    worksheet.Cells[i + 2, 11].Value = data[i].IssueDate.HasValue
+                                                        ? data[i].IssueDate.Value.ToString("yyyy-MM-dd")
+                                                        : "";
+
+                    worksheet.Cells[i + 2, 12].Value = data[i].ProblemCategory ?? "";
+                    worksheet.Cells[i + 2, 13].Value = data[i].IssueFacing ?? ""; 
+                    worksheet.Cells[i + 2, 14].Value = data[i].NewAssetRequirement ?? ""; 
+                }
+                              
+                worksheet.Cells.AutoFitColumns();
+                               
+                var stream = new MemoryStream();
+                package.SaveAs(stream);
+                stream.Position = 0;
+
+                string excelFileName = "MaintenanceHistoryData.xlsx";
+                return File(stream, "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet", excelFileName);
+            }
         }
 
     }

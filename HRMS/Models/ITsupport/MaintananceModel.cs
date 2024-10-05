@@ -14,5 +14,9 @@ namespace HRMS.Models.ITsupport
 
         public IT_Maintenance EditableRecord = new IT_Maintenance();
 
+        public emp_info SelectedEmp { get; set; } = new emp_info();
+
+        public List<int> Years { get; set; } = new List<int>();
+
     }
 }

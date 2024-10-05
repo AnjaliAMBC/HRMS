@@ -36,12 +36,12 @@ namespace HRMS
             IScheduler scheduler = schedulerFactory.GetScheduler().Result;
             scheduler.Start().Wait();
 
-            // Define the job and tie it to our ShiftNotificationJob class
+            
             IJobDetail job = JobBuilder.Create<ShiftNotificationJob>()
                 .WithIdentity("shiftNotificationJob", "group1")
                 .Build();
 
-            // Trigger the job to run every minute
+           
             ITrigger trigger = TriggerBuilder.Create()
                 .WithIdentity("shiftNotificationTrigger", "group1")
                 .StartNow()
@@ -49,7 +49,7 @@ namespace HRMS
                 .Build();
 
 
-            // Define the job and tie it to our ShiftNotificationJob class
+           
             IJobDetail job2 = JobBuilder.Create<GenerateAndSendReportJob>()
                 .WithIdentity("dailycheckinreportjob", "group2")
                 .Build();

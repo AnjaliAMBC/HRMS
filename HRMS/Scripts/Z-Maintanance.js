@@ -6,11 +6,13 @@ $(document).on('click', '.maintenance-info-view', function (event) {
 });
 
 
-$(document).on('click', '.maintanace-emp-history', function (event) {
+
+$(document).on('click', '.maintanace-emp-history', function () {
     event.preventDefault();
-    var maintenacesno = $(this).attr("data-maintenancesno");
-    window.location.href = '/maintanance/maintananceapproval?sno=' + maintenacesno;
-});
+    var maintenaceempid = $(this).attr("data-maintenanceempid");
+    window.location.href = "/Maintanance/EmpMaintananceHistory?empid=" + maintenaceempid;
+})
+
 
 
 $(document).on('click', '.maintenance-updatestatus', function (event) {
@@ -256,6 +258,32 @@ $(document).on('click', '.maintenance-filter-export', function () {
         }
     });
 });
+
+
+$(document).on('click', '#exportmaintenancehistory', function () {
+    var year = $('#maintenancehistory-status-dropdown').val();
+    var empid = $('.maintenancehistory-id-select').attr("data-selectedempid");
+    $.ajax({
+        url: '/maintanance/exporttoexcelmaintenancebyemphistory',
+        type: 'GET',
+        data: { year: year, empid: empid },
+        xhrFields: {
+            responseType: 'blob'
+        },
+        success: function (data, status, xhr) {
+            var filename = xhr.getResponseHeader('Content-Disposition').split('filename=')[1].trim();
+            var blob = new Blob([data], { type: 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet' });
+            var link = document.createElement('a');
+            link.href = window.URL.createObjectURL(blob);
+            link.download = filename;
+            link.click();
+        },
+        error: function (xhr, status, error) {
+            console.log("Error: " + error);
+        }
+    });
+});
+
 
 
 
