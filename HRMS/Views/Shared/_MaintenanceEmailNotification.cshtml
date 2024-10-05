@@ -1,0 +1,28 @@
+﻿@model HRMS.IT_Maintenance
+
+
+<p>Dear @Model.EmployeeName,</p>
+
+<p>Your maintenance has been scheduled as follows:</p>
+
+<ul>
+    <li>Location: @Model.Location</li>
+    <li>
+        Date: @(Model.MaintenanceDate != null ? Model.MaintenanceDate.Value.ToString("MMMM dd, yyyy") : "Not Scheduled")
+    </li>
+    <li>Time In: @Model.TimeIn</li>
+    <li>Time Out: @Model.TimeOut</li>
+</ul>
+
+<p>Please be available for the scheduled maintenance.</p>
+
+<p>Best regards,<br>Maintenance Team</p>
+
+<!-- Add the email footer -->
+<div class="email-footer" style="margin-top: 20px; font-size: 12px; color: #666;">
+    <p style="margin: 0; background-color: #ffffff;">This is an automated email, please do not reply.</p>
+    <p style="margin: 0; background-color: #ffffff;">
+        Automated mail from
+        <a href="https://prm.ambctechnologies.com">https://prm.ambctechnologies.com</a>
+    </p>
+</div>

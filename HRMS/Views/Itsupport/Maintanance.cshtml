@@ -105,7 +105,6 @@
     .select2-multiple, .select2-multiple2 {
         width: 50%
     }
-
 </style>
 <div class="container-fluid">
     <div class="hiddenadmindashboard" style="display: none"></div>
@@ -134,29 +133,48 @@
                                         </div>
                                     </div>
                                     <div id="res-maintenance-filter-popup" class="res-maintenance-filter-popup">
+                                        <!-- Filter fields for year, month, and location -->
                                         <div class="maintenance-filter-header-title">Filter based on year, month and location</div>
                                         <div class="maintenance-filter-header-body">
                                             <div class="maintenance-filter-fileds maintenance-filter-year">
                                                 <select class="form-control form-select" name="maintenance-filter-year-dropdown" id="maintenance-filter-year-dropdown">
-                                                    <option value="" disabled selected>2024</option>
+                                                    <option value="" disabled selected>Select Year</option>
+                                                    <option value="2023">2023</option>
+                                                    <option value="2024">2024</option>
                                                     <option value="2025">2025</option>
+                                                    <option value="2026">2026</option>
+                                                    <option value="2027">2027</option>
+                                                    <option value="2028">2028</option>
                                                 </select>
                                             </div>
                                             <div class="maintenance-filter-fileds maintenance-filter-month">
                                                 <select class="form-control form-select" name="maintenance-filter-month-dropdown" id="maintenance-filter-month-dropdown">
-                                                    <option value="" disabled selected>Jan</option>
-                                                    <option value="Feb">Feb</option>
+                                                    <option value="" disabled selected>Select Month</option>
+                                                    <option value="1">Jan</option>
+                                                    <option value="2">Feb</option>
+                                                    <option value="3">Mar</option>
+                                                    <option value="4">Apr</option>
+                                                    <option value="5">May</option>
+                                                    <option value="6">Jun</option>
+                                                    <option value="7">Jul</option>
+                                                    <option value="8">Aug</option>
+                                                    <option value="9">Sep</option>
+                                                    <option value="10">Oct</option>
+                                                    <option value="11">Nov</option>
+                                                    <option value="12">Dec</option>
                                                 </select>
                                             </div>
-                                            <div class="maintenance-filter-fileds maintenance-filter-date">
-                                                <select class="form-control form-select" name="maintenance-filter-date-dropdown" id="maintenance-filter-date-dropdown">
-                                                    <option value="" disabled selected>All</option>
-                                                    <option value="1">1</option>
+                                            <div class="maintenance-filter-fileds maintenance-filter-location">
+                                                <select class="form-control form-select" name="maintenance-filter-location-dropdown" id="maintenance-filter-location-dropdown">
+                                                    <option value="" disabled selected>Select Location</option>
+                                                    <option value="Hyderabad">Hyderabad</option>
+                                                    <option value="Madurai">Madurai</option>
+                                                    <option value="All">All</option>
                                                 </select>
                                             </div>
                                             <div class="form-group align-items-center res-maintenance-filter-submit mr-2">
                                                 <button type="button" class="btn btn-sm btn-primary maintenance-filter-view">View</button>
-                                                <button type="button" class="btn btn-sm btn-primary  maintenance-filter-export">Export</button>
+                                                <button type="button" class="btn btn-sm btn-primary maintenance-filter-export">Export</button>
                                             </div>
                                         </div>
                                     </div>
@@ -189,54 +207,115 @@
                                 </tr>
                             </thead>
                             <tbody>
-                                <tr class="odd">
-                                    <td class="tdmaintenance-ename"><span class="maintenanceinfo-image-btn"><img src="~/Assets/EmpImages/1155.jpeg" alt="ename"></span><span class="maintenance-id-select" data-assetid="name">Name</span></td>
-                                    <td>01 October 2024</td>
-                                    <td class="tdmaintenancereschedule">01 October 2024</td>
-                                    <td><span class="maintenanceinfo-image-btn"><img src="~/Assets/EmpImages/1155.jpeg" alt="agentname"></span><span class="maintenance-id-select" data-assetid="name">Name</span></td>
-                                    <td><div class="maintenance-status completed">Completed</div></td>
-                                    <td>-</td>
-                                    <td class="maintenancestatus-icon">
-                                        <span class="maintenanceapproved-btn">
-                                            <img src="/assets/Approve.png" alt="Approved" style="width:25px" title="Approved by Mithun Sivaprakasam">
-                                            <div style="display:none">Approved</div>
-                                        </span>
-                                    </td>
-                                    <td style="text-align:center;">
-                                        <span class="maintenanceinfo-list-edit">
-                                            <i class="fas fa-ellipsis-v asset-edit-dropdown" onclick="toggleMaintenanceActionOptions(this)"></i>
-                                            <div class="maintenance-options" style="display:none">
-                                                <a class="dropdown-item maintenance-info-view" data-assetid="1">View</a>
-                                                <a class="dropdown-item maintenance-info-reschedule" data-assetid="1" class="btn btn-demo" data-toggle="modal" data-target="#RescheduleMaintenancePopup">Reschedule</a>
-                                            </div>
-                                        </span>
-                                    </td>
-                                </tr>
-                                <tr class="even">
-                                    <td class="tdmaintenance-ename"><span class="maintenanceinfo-image-btn"><img src="~/Assets/EmpImages/1155.jpeg" alt="ename"></span><span class="maintenance-id-select" data-assetid="name">Name</span></td>
-                                    <td>01 October 2024</td>
-                                    <td class="tdmaintenancereschedule">01 October 2024</td>
-                                    <td><span class="maintenanceinfo-image-btn"><img src="~/Assets/EmpImages/1155.jpeg" alt="agentname"></span><span class="maintenance-id-select" data-assetid="name">Name</span></td>
-                                    <td><div class="maintenance-status pending">Pending</div></td>
-                                    <td>-</td>
-                                    <td class="maintenancestatus-icon">
-                                        <span class="maintenanceapproved-btn">
-                                            <img src="/assets/Pending.png" alt="Approved" style="width:25px" title="Pending">
-                                            <div style="display:none">Approved</div>
-                                        </span>
-                                    </td>
-                                    <td style="text-align:center;">
-                                        <span class="maintenanceinfo-list-edit">
-                                            <i class="fas fa-ellipsis-v asset-edit-dropdown" onclick="toggleMaintenanceActionOptions(this)"></i>
-                                            <div class="maintenance-options" style="display:none">
-                                                <a class="dropdown-item maintenance-info-view" data-assetid="1">View</a>
-                                                <a class="dropdown-item maintenance-info-edit" data-assetid="1" class="btn btn-demo" data-toggle="modal" data-target="#RescheduleMaintenancePopup">Reschedule</a>
-                                            </div>
-                                        </span>
-                                    </td>
-                                </tr>
+                                @if (Model.monthlyschedules != null && Model.monthlyschedules.Count > 0)
+                                {
+                                    for (int i = 0; i < Model.monthlyschedules.Count; i++)
+                                    {
+                                        var schedule = Model.monthlyschedules[i];
+                                        var rowClass = i % 2 == 0 ? "even" : "odd";
+                                        <tr class="@rowClass">
+                                            <td class="tdmaintenance-ename">
+                                                <span class="maintenanceinfo-image-btn" value="@schedule.EmployeeID">
+                                                    @foreach (var emp in Model.Employees)
+                                                    {
+                                                        if (emp.EmployeeID == schedule.EmployeeID)
+                                                        {
+                                                            if (emp.imagepath != null && !string.IsNullOrWhiteSpace(emp.imagepath))
+                                                            {
+                                                                var empImageURl = System.Configuration.ConfigurationManager.AppSettings["EmpImagesFolder"] + "/" + emp.imagepath + "?" + System.DateTime.Now;
+                                                                <img src="@empImageURl" alt="Employee Image" class="userIcon">
+                                                            }
+                                                            else
+                                                            {
+                                                                // Default image logic using initials
+                                                                if (!string.IsNullOrEmpty(emp.EmployeeName))
+                                                                {
+                                                                    string[] names = emp.EmployeeName.Split(new char[] { ' ' }, StringSplitOptions.RemoveEmptyEntries);
+
+                                                                    if (names.Length > 0)
+                                                                    {
+                                                                        string firstName = names[0];
+                                                                        string lastName = names.Length > 1 ? names[names.Length - 1] : string.Empty;
+                                                                        char firstLetterOfFirstName = char.ToUpper(firstName[0]);
+                                                                        char firstLetterOfLastName = !string.IsNullOrEmpty(lastName) ? char.ToUpper(lastName[0]) : '\0';
+
+                                                                        <div class="default-image-navbar">
+                                                                            @firstLetterOfFirstName @firstLetterOfLastName
+                                                                        </div>
+                                                                    }
+                                                                }
+                                                            }
+                                                        }
+                                                    }
+                                                </span>
+                                                <span class="maintenance-id-select" data-assetid="name">@schedule.EmployeeName</span>
+                                            </td>
+                                            <td>@(schedule.MaintenanceDate.HasValue ? schedule.MaintenanceDate.Value.ToString("dd/MM/yyyy") : "N/A")</td>
+
+                                            <td class="tdmaintenancereschedule">
+                                                @(schedule.RescheduleDate.HasValue ? schedule.RescheduleDate.Value.ToString("dd/MM/yyyy") : "-")
+                                            </td>
+
+                                            <td>
+                                                <span class="maintenanceinfo-image-btn">
+                                                    <img src="~/Assets/EmpImages/1155.jpeg" alt="agentname">
+                                                </span>
+                                                <span class="maintenance-id-select" data-assetid="name">@schedule.AgentName</span>
+                                            </td>
+                                            <td><div class="maintenance-status completed">@schedule.Status</div></td>
+                                            <td>@schedule.Notes</td>
+                                            <td class="maintenancestatus-icon" style="text-align:center;">
+                                                <span class="maintenanceapproved-btn">
+                                                    @if (schedule.Acknowledge == "Yes")
+                                                    {
+                                                        <img src="/assets/Approve.png" alt="Approved" style="width:25px">
+                                                    }
+                                                    else
+                                                    {
+                                                        <img src="/assets/Pending.png" alt="Pending" style="width:25px">
+                                                    }
+                                                </span>
+                                            </td>
+                                            <td style="text-align:center;">
+                                                <span class="maintenanceinfo-list-edit">
+                                                    <i class="fas fa-ellipsis-v asset-edit-dropdown" onclick="toggleMaintenanceActionOptions(this)"></i>
+                                                    <div class="maintenance-options" style="display:none">
+                                                        <a class="dropdown-item maintenance-info-view" data-maintenancesno="@schedule.Sno">View</a>
+                                                        <a class="btn btn-demo dropdown-item maintenance-info-reschedule" data-maintenancesno="@schedule.Sno" data-toggle="modal" data-target="#RescheduleMaintenancePopup">Reschedule</a>
+                                                    </div>
+                                                </span>
+                                            </td>
+                                        </tr>
+                                    }
+                                }
                             </tbody>
                         </table>
+
+
+                        @*<tr class="even">
+                                <td class="tdmaintenance-ename"><span class="maintenanceinfo-image-btn"><img src="~/Assets/EmpImages/1155.jpeg" alt="ename"></span><span class="maintenance-id-select" data-assetid="name">Name</span></td>
+                                <td>01 October 2024</td>
+                                <td class="tdmaintenancereschedule">01 October 2024</td>
+                                <td><span class="maintenanceinfo-image-btn"><img src="~/Assets/EmpImages/1155.jpeg" alt="agentname"></span><span class="maintenance-id-select" data-assetid="name">Name</span></td>
+                                <td><div class="maintenance-status pending">Pending</div></td>
+                                <td>-</td>
+                                <td class="maintenancestatus-icon">
+                                    <span class="maintenanceapproved-btn">
+                                        <img src="/assets/Pending.png" alt="Approved" style="width:25px" title="Pending">
+                                        <div style="display:none">Approved</div>
+                                    </span>
+                                </td>
+                                <td style="text-align:center;">
+                                    <span class="maintenanceinfo-list-edit">
+                                        <i class="fas fa-ellipsis-v asset-edit-dropdown" onclick="toggleMaintenanceActionOptions(this)"></i>
+                                        <div class="maintenance-options" style="display:none">
+                                            <a class="dropdown-item maintenance-info-view" data-assetid="1">View</a>
+                                            <a class="btn btn-demo dropdown-item maintenance-info-edit" data-assetid="1" data-toggle="modal" data-target="#RescheduleMaintenancePopup">Reschedule</a>
+                                        </div>
+                                    </span>
+                                </td>
+                            </tr>*@
+
                     </div>
 
                 </div>
@@ -256,41 +335,49 @@
             </div>
             <div class="modal-body">
                 <div class="reschedulemaintenance-body-title">
-                    <span class="reschedulemaintenance-image-btn"><img src="~/Assets/EmpImages/1155.jpeg" alt="ename"></span><span class="reschedulemaintenance-id-select" data-assetid="name">Name</span>
+                    <span class="reschedulemaintenance-image-btn"><img src="" alt="ename"></span><span class="reschedulemaintenance-id-select" data-assetid="name">Name</span>
                 </div>
                 <div class="maintenanceapprove-info">
                     <div class="row">
-                            <div class="col-lg-12 col-md-12">
-                                <div class="form-group maintenanceapproved-tabs">
-                                    <label for="RescheduleMaintenance-Date">Maintenance Date</label>
-                                    <input type="text" class="form-control" id="RescheduleMaintenance-Date" value="02-10-2024" readonly>
-                                </div>
+                        <div class="col-lg-12 col-md-12">
+                            <div class="form-group maintenanceapproved-tabs">
+                                <label for="RescheduleMaintenance-Date">Maintenance Date</label>
+                                <input type="date" class="form-control" id="RescheduleMaintenance-Date" value="" readonly>
                             </div>
-                            <div class="col-lg-12 col-md-12">
-                                <div class="form-group reschedulemaintenance-tabs">
-                                    <label for="RescheduleMaintenance-AgentName">Agent Name</label>
-                                    <select name="RescheduleMaintenance-AgentName" class="RescheduleMaintenance-AgentName form-control form-select" id="RescheduleMaintenance-AgentName">
-                                        <option value="" disabled selected hidden>Select Agent</option>
-                                        <option value="Test Name">Test Name</option>
-                                    </select>
-                                </div>
+                        </div>
+                        <div class="col-lg-12 col-md-12">
+                            <div class="form-group reschedulemaintenance-tabs">
+                                <label for="RescheduleMaintenance-AgentName">Agent Name</label>
+                                <select name="RescheduleMaintenance-AgentName" class="RescheduleMaintenance-AgentName form-control form-select" id="RescheduleMaintenance-AgentName">
+                                    <option value="" disabled selected hidden>Select Agent</option>
+                                    @foreach (var agent in Model.ITEmployees)
+                                    {
+                                        <option value="@agent.EmployeeID">@agent.EmployeeName</option>
+                                    }
+
+                                </select>
                             </div>
-                            <div class="col-lg-12 col-md-12">
-                                <div class="form-group reschedulemaintenance-tabs">
-                                    <label for="RescheduleMaintenance-Reschedule">Reschedule Date</label>
-                                    <input type="date" class="form-control" id="RescheduleMaintenance-Reschedule" value="">
-                                </div>
+                        </div>
+                        <div class="col-lg-12 col-md-12">
+                            <div class="form-group reschedulemaintenance-tabs">
+                                <label for="RescheduleMaintenance-Reschedule">Reschedule Date</label>
+                                <input type="date" class="form-control" id="RescheduleMaintenance-Reschedule" value="">
                             </div>
-                            <div class="col-lg-12 col-md-12">
-                                <div class="form-group reschedulemaintenance-tabs">
-                                    <label for="RescheduleMaintenance-Notes">Notes</label>
-                                    <textarea rows="3" class="form-control" id="RescheduleMaintenance-Notes" name="RescheduleMaintenance-Notes"></textarea>
-                                </div>
+                        </div>
+                        <div class="col-lg-12 col-md-12">
+                            <div class="form-group reschedulemaintenance-tabs">
+                                <label for="RescheduleMaintenance-Notes">Notes</label>
+                                <textarea rows="3" class="form-control" id="RescheduleMaintenance-Notes" name="RescheduleMaintenance-Notes"></textarea>
                             </div>
+                        </div>
                     </div>
                     <div class="row">
                         <div class="col-lg-12 col-md-12 text-right">
-                            <button type="button" class="btn btn-primary reschedulemaintenance-Update">Reschedule</button>
+                            <button type="button" class="btn btn-primary reschedulemaintenance-Update" data-maintenancesno="">Reschedule</button>
+                        </div>
+                        <div class="col-lg-12 col-md-12 text-right">
+                            <!-- Message div for showing success or failure message -->
+                            <div id="MaintenancemodalMessage" class="mt-2" style="display:none;"></div>
                         </div>
                     </div>
                 </div>
@@ -323,24 +410,15 @@
                         <div class="col-lg-12 col-md-12">
                             <div class="form-group schedulemaintenance-tabs">
                                 <label for="multiSelectDropdown">Select Employees</label>
-                                @*<select id="multiSelectDropdown2" class="select2-multiple2" multiple>
-                                    <option value="-1">ww</option>
-                                    <option value="bakirkoy">dd</option>
-                                    <option value="zeytinburnu">ff</option>
-                                    <option value="fatih">gh</option>
-                                    <option value="florya">tyy</option>
-                                    <option value="basaksehir">ttryr</option>
-                                </select>*@
-
                                 <select id="multiSelectDropdown" class="form-control" multiple="multiple">
-                                    <option value="">Select Employees</option>
+
                                     @foreach (var emp in Model.Employees)
                                     {
-                                        <option data-emplocation="@emp.Location" data-empname="@emp.EmployeeName" value="@emp.EmployeeID">@emp.EmployeeName @emp.EmployeeID</option>
+                                        <option data-empemailid="@emp.OfficalEmailid" data-empname="@emp.EmployeeName" value="@emp.EmployeeID">@emp.EmployeeName @emp.EmployeeID</option>
 
                                     }
                                 </select>
-                                <!-- Display the selected names below the input field -->
+
                                 <div id="selectedNames" class="mt-2 text-muted"></div>
 
                             </div>
@@ -350,7 +428,10 @@
                                 <label for="ScheduleMaintenance-Agent">Agent</label>
                                 <select name="ScheduleMaintenance-Agent" class="ScheduleMaintenance-Employee form-control form-select" id="ScheduleMaintenance-Agent">
                                     <option value="" disabled selected hidden>Select Agent</option>
-                                    <option value="Test Name">Test Name</option>
+                                    @foreach (var employee in Model.ITEmployees)
+                                    {
+                                        <option value="@employee.EmployeeID">@employee.EmployeeName</option>
+                                    }
                                 </select>
                             </div>
                         </div>
@@ -379,16 +460,14 @@
                                         </div>
                                     </div>
                                 </div>
-
                             </div>
-
-
                         </div>
                     </div>
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn refresh-emptablist" data-dismiss="modal">Cancel</button>
-                    <button type="button" class="btn btn-primary delete-Subscription">Submit</button>
+                    <button type="button" class="btn btn-primary Add-Schedule-Maintanance">Submit</button>
+                    <span id="maintenanceMessage" class="ml-3" style="display:none;"></span>
                 </div>
             </div>
         </div>

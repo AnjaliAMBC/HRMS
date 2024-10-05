@@ -240,24 +240,25 @@
             <PropertyRef Name="Sno" />
           </Key>
           <Property Name="Sno" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-          <Property Name="EmployeeID" Type="int" Nullable="false" />
-          <Property Name="EmployeeName" Type="varchar" MaxLength="255" Nullable="false" />
-          <Property Name="EmailId" Type="varchar" MaxLength="255" Nullable="false" />
-          <Property Name="MaintenanceDate" Type="date" Nullable="false" />
+          <Property Name="EmployeeID" Type="varchar" MaxLength="50" />
+          <Property Name="EmployeeName" Type="varchar" MaxLength="255" />
+          <Property Name="EmailId" Type="varchar" MaxLength="255" />
+          <Property Name="MaintenanceDate" Type="date" />
           <Property Name="TimeIn" Type="time" Precision="7" />
           <Property Name="TimeOut" Type="time" Precision="7" />
           <Property Name="RescheduleDate" Type="date" />
           <Property Name="AgentName" Type="varchar" MaxLength="255" />
-          <Property Name="Status" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="Status" Type="varchar" MaxLength="50" />
           <Property Name="Notes" Type="varchar(max)" />
-          <Property Name="Acknowledge" Type="bit" />
+          <Property Name="Acknowledge" Type="varchar" MaxLength="100" />
           <Property Name="Location" Type="varchar" MaxLength="100" />
-          <Property Name="IssueDate" Type="date" Nullable="false" />
+          <Property Name="IssueDate" Type="date" />
           <Property Name="ProblemCategory" Type="nvarchar" MaxLength="100" />
           <Property Name="IssueFacing" Type="varchar" MaxLength="1000" />
-          <Property Name="NewAssetRequirement" Type="bit" Nullable="false" />
+          <Property Name="NewAssetRequirement" Type="varchar" MaxLength="100" />
           <Property Name="UpdateBy" Type="varchar" MaxLength="255" />
           <Property Name="UpdateDate" Type="datetime" />
+          <Property Name="AgentID" Type="varchar" MaxLength="50" />
         </EntityType>
         <EntityType Name="IT_Ticket">
           <Key>
@@ -1047,24 +1048,25 @@ warning 6002: The table/view 'HRMS_PortalDev1.dbo.CheckInView' does not have a p
             <PropertyRef Name="Sno" />
           </Key>
           <Property Name="Sno" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="EmployeeID" Type="Int32" Nullable="false" />
-          <Property Name="EmployeeName" Type="String" Nullable="false" MaxLength="255" FixedLength="false" Unicode="false" />
-          <Property Name="EmailId" Type="String" Nullable="false" MaxLength="255" FixedLength="false" Unicode="false" />
-          <Property Name="MaintenanceDate" Type="DateTime" Nullable="false" Precision="0" />
+          <Property Name="EmployeeID" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="EmployeeName" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+          <Property Name="EmailId" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+          <Property Name="MaintenanceDate" Type="DateTime" Precision="0" />
           <Property Name="TimeIn" Type="Time" Precision="7" />
           <Property Name="TimeOut" Type="Time" Precision="7" />
           <Property Name="RescheduleDate" Type="DateTime" Precision="0" />
           <Property Name="AgentName" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
-          <Property Name="Status" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="Status" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
           <Property Name="Notes" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
-          <Property Name="Acknowledge" Type="Boolean" />
+          <Property Name="Acknowledge" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
           <Property Name="Location" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
-          <Property Name="IssueDate" Type="DateTime" Nullable="false" Precision="0" />
+          <Property Name="IssueDate" Type="DateTime" Precision="0" />
           <Property Name="ProblemCategory" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
           <Property Name="IssueFacing" Type="String" MaxLength="1000" FixedLength="false" Unicode="false" />
-          <Property Name="NewAssetRequirement" Type="Boolean" Nullable="false" />
+          <Property Name="NewAssetRequirement" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
           <Property Name="UpdateBy" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
           <Property Name="UpdateDate" Type="DateTime" Precision="3" />
+          <Property Name="AgentID" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
         </EntityType>
       </Schema>
     </edmx:ConceptualModels>
@@ -1561,6 +1563,7 @@ warning 6002: The table/view 'HRMS_PortalDev1.dbo.CheckInView' does not have a p
           <EntitySetMapping Name="IT_Maintenance">
             <EntityTypeMapping TypeName="HRMS_EntityModel.IT_Maintenance">
               <MappingFragment StoreEntitySet="IT_Maintenance">
+                <ScalarProperty Name="AgentID" ColumnName="AgentID" />
                 <ScalarProperty Name="UpdateDate" ColumnName="UpdateDate" />
                 <ScalarProperty Name="UpdateBy" ColumnName="UpdateBy" />
                 <ScalarProperty Name="NewAssetRequirement" ColumnName="NewAssetRequirement" />

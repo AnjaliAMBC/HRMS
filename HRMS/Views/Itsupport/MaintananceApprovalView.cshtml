@@ -1,6 +1,13 @@
-﻿@Html.Partial("_NavBar")
+﻿@model HRMS.Models.ITsupport.MaintananceModel
+
+@Html.Partial("_NavBar")
 @{
     ViewBag.Title = "MaintananceApprovalView";
+
+    var statusList = new List<string>();
+    statusList.Add("Pending");
+    statusList.Add("Completed");
+
 }
 
 <div class="container-fluid">
@@ -20,13 +27,32 @@
                                     <div class="col-lg-6 col-md-6">
                                         <div class="form-group maintenanceapproved-tabs">
                                             <label for="MaintenanceApproved-Date">Maintenance Date</label>
-                                            <input type="date" class="form-control" id="MaintenanceApproved-Date" value="" readonly>
+
+                                            @if (Model.EditableRecord.MaintenanceDate != DateTime.MinValue)
+                                            {
+                                                @Html.TextBoxFor(m => m.EditableRecord.MaintenanceDate, "{0:yyyy-MM-dd}", new { @type = "date", @class = "form-control", @id = "MaintenanceApproved-Date" })
+                                            }
+                                            else
+                                            {
+                                                <input type="date" class="form-control" id="MaintenanceApproved-Date" value="@Model.EditableRecord.MaintenanceDate" readonly>
+                                            }
+
                                         </div>
                                     </div>
                                     <div class="col-lg-6 col-md-6">
                                         <div class="form-group maintenanceapproved-tabs">
                                             <label for="MaintenanceApproved-Reschedule">Reschedule Date</label>
-                                            <input type="date" class="form-control" id="MaintenanceApproved-Reschedule" value="" readonly>
+
+                                            @if (Model.EditableRecord.RescheduleDate != DateTime.MinValue)
+                                            {
+                                                @Html.TextBoxFor(m => m.EditableRecord.RescheduleDate, "{0:yyyy-MM-dd}", new { @type = "date", @class = "form-control", @id = "MaintenanceApproved-Reschedule" })
+                                            }
+                                            else
+                                            {
+                                                <input type="date" class="form-control" id="MaintenanceApproved-Reschedule" value="@Model.EditableRecord.RescheduleDate" readonly>
+                                            }
+
+
                                         </div>
                                     </div>
                                     <div class="col-lg-6 col-md-6">
@@ -34,7 +60,12 @@
                                             <label for="MaintenanceApproved-AgentName">Agent Name</label>
                                             <select name="MaintenanceApproved-AgentName" class="MaintenanceApproved-AgentName form-control form-select" id="MaintenanceApproved-AgentName" readonly>
                                                 <option value="" disabled selected hidden>Select Agent</option>
-                                                <option value="Test Name">Test Name</option>
+                                                @foreach (var itemep in Model.ITEmployees)
+                                                {
+                                                    var selectedEmpStatusItem = !string.IsNullOrEmpty(Model.EditableRecord.AgentID) && (Model.EditableRecord.AgentID == itemep.EmployeeID) ? "selected" : "";
+                                                    <option value="@itemep.EmployeeID" @selectedEmpStatusItem>@itemep.EmployeeName</option>
+                                                }
+
                                             </select>
                                         </div>
                                     </div>
@@ -43,14 +74,28 @@
                                             <label for="MaintenanceApproved-Status">Status</label>
                                             <select name="MaintenanceApproved-Status" class="MaintenanceApproved-Status form-control form-select" id="MaintenanceApproved-Status">
                                                 <option value="" disabled selected hidden>Select Agent</option>
-                                                <option value="Completed">Completed</option>
+
+                                                @foreach (var staus in statusList)
+                                                {
+                                                    var selectedStatusItem = !string.IsNullOrEmpty(Model.EditableRecord.Status) && (Model.EditableRecord.Status == staus) ? "selected" : "";
+
+                                                    <option value="@staus" @selectedStatusItem>@staus</option>
+                                                }
+
+
                                             </select>
                                         </div>
                                     </div>
                                     <div class="col-lg-6 col-md-6">
                                         <div class="form-group maintenanceapproved-tabs">
                                             <label for="MaintenanceApproved-Notes">Notes</label>
-                                            <input type="text" class="form-control" id="MaintenanceApproved-Notes" value="" readonly>
+                                            <input type="text" class="form-control" id="MaintenanceApproved-Notes" value="@Model.EditableRecord.Notes">
+                                        </div>
+                                    </div>
+
+                                    <div class="row">
+                                        <div class="col-lg-12 col-md-12 text-right">
+                                            <button type="button" class="btn btn-primary maintenance-updatestatus" data-maintenancesno="@Model.EditableRecord.Sno">Update</button>
                                         </div>
                                     </div>
                                 </div>
@@ -61,7 +106,27 @@
             </div>
         </div>
     </div>
+
+    <div class="modal fade" id="MaintenancemessageModal" tabindex="-1" role="dialog" aria-labelledby="MaintenancemessageModalLabel" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="MaintenancemessageModalLabel">Message</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body" id="MaintenancemodalMessage">
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary btn-close-refreshmaintenance">Close</button>
+                </div>
+            </div>
+        </div>
+    </div>
 </div>
+
+<script src="~/Scripts/Z-Maintanance.js"></script>
 
 
 

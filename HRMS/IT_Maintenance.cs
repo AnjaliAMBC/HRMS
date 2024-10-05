@@ -15,23 +15,24 @@ namespace HRMS
     public partial class IT_Maintenance
     {
         public int Sno { get; set; }
-        public int EmployeeID { get; set; }
+        public string EmployeeID { get; set; }
         public string EmployeeName { get; set; }
         public string EmailId { get; set; }
-        public System.DateTime MaintenanceDate { get; set; }
+        public Nullable<System.DateTime> MaintenanceDate { get; set; }
         public Nullable<System.TimeSpan> TimeIn { get; set; }
         public Nullable<System.TimeSpan> TimeOut { get; set; }
         public Nullable<System.DateTime> RescheduleDate { get; set; }
         public string AgentName { get; set; }
         public string Status { get; set; }
         public string Notes { get; set; }
-        public Nullable<bool> Acknowledge { get; set; }
+        public string Acknowledge { get; set; }
         public string Location { get; set; }
-        public System.DateTime IssueDate { get; set; }
+        public Nullable<System.DateTime> IssueDate { get; set; }
         public string ProblemCategory { get; set; }
         public string IssueFacing { get; set; }
-        public bool NewAssetRequirement { get; set; }
+        public string NewAssetRequirement { get; set; }
         public string UpdateBy { get; set; }
         public Nullable<System.DateTime> UpdateDate { get; set; }
+        public string AgentID { get; set; }
     }
 }
