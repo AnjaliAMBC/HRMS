@@ -19,7 +19,39 @@
                 <div class="container-fluid">
                     <div class="maintenanceapprove-details">
                         <div class="maintenanceapprove-header-title">
-                            <span class="maintenanceapprove-image-btn"><img src="~/Assets/EmpImages/1155.jpeg" alt="ename"></span><span class="maintenanceapprove-id-select" data-assetid="name">Name</span>
+                            <span class="maintenanceapprove-image-btn">
+                                @foreach (var emp in Model.Employees.Where(x => x.EmployeeID == Model.EditableRecord.EmployeeID))
+                                {
+
+                                    if (emp.imagepath != null && !string.IsNullOrWhiteSpace(emp.imagepath))
+                                    {
+                                        var empImageURl = System.Configuration.ConfigurationManager.AppSettings["EmpImagesFolder"] + "/" + emp.imagepath + "?" + System.DateTime.Now;
+                                        <img src="@empImageURl" alt="Employee Image" class="userIcon">
+                                    }
+                                    else
+                                    {
+                                        // Default image logic using initials
+                                        if (!string.IsNullOrEmpty(emp.EmployeeName))
+                                        {
+                                            string[] names = emp.EmployeeName.Split(new char[] { ' ' }, StringSplitOptions.RemoveEmptyEntries);
+
+                                            if (names.Length > 0)
+                                            {
+                                                string firstName = names[0];
+                                                string lastName = names.Length > 1 ? names[names.Length - 1] : string.Empty;
+                                                char firstLetterOfFirstName = char.ToUpper(firstName[0]);
+                                                char firstLetterOfLastName = !string.IsNullOrEmpty(lastName) ? char.ToUpper(lastName[0]) : '\0';
+
+                                                <div class="default-image-navbar">
+                                                    @firstLetterOfFirstName @firstLetterOfLastName
+                                                </div>
+                                            }
+                                        }
+
+                                    }
+                                }
+
+                            </span><span class="maintenanceapprove-id-select" data-assetid="name">@Model.EditableRecord.EmployeeName</span>
                         </div>
                         <div class="maintenanceapprove-info">
                             <div class="row">

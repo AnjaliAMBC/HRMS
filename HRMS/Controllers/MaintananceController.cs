@@ -8,6 +8,8 @@ using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 using Newtonsoft.Json;
+using OfficeOpenXml;
+using System.IO;
 
 namespace HRMS.Controllers
 {
@@ -24,23 +26,151 @@ namespace HRMS.Controllers
         }
 
 
-        public ActionResult MaintananceInfo()
+        public ActionResult MaintananceInfo(int year = 0, int month = 0, string location = "")
         {
-            var currentMonth = DateTime.Now.Month;
-            var currentYear = DateTime.Now.Year;
-
             MaintananceModel model = new MaintananceModel();
+
+            int currentYear = DateTime.Now.Year;
+            int currentMonth = DateTime.Now.Month;
+
+
+            int selectedYear = year != 0 ? year : currentYear;
+            int selectedMonth = month != 0 ? month : currentMonth;
+
+
+            var startOfMonth = new DateTime(selectedYear, selectedMonth, 1);
+            var endOfMonth = startOfMonth.AddMonths(1).AddDays(-1);
+
 
             model.ITEmployees = _dbContext.emp_info.Where(x => x.EmployeeStatus == "Active" && x.Department == "IT").ToList();
             model.Employees = _dbContext.emp_info.Where(x => x.EmployeeStatus == "Active").ToList();
 
-            var startOfMonth = new DateTime(currentYear, currentMonth, 1);
-            var endOfMonth = startOfMonth.AddMonths(1).AddDays(-1);
+
             model.monthlyschedules = _dbContext.IT_Maintenance
-                .Where(r => r.MaintenanceDate >= startOfMonth && r.MaintenanceDate <= endOfMonth).OrderByDescending(r => r.MaintenanceDate)
+                .Where(r => r.MaintenanceDate >= startOfMonth && r.MaintenanceDate <= endOfMonth)
+                .OrderByDescending(r => r.MaintenanceDate)
                 .ToList();
 
+
+            if (!string.IsNullOrWhiteSpace(location) && location != "All")
+            {
+                model.monthlyschedules = model.monthlyschedules
+                    .Where(s => s.Location == location)
+                    .ToList();
+            }
+
+            if (Request.IsAjaxRequest())
+            {
+                return PartialView("~/Views/Itsupport/_maintenanceinfotable.cshtml", model);
+            }
+
             return View("~/Views/Itsupport/Maintanance.cshtml", model);
+        }
+
+
+        public ActionResult ExportToExcelMaintenance(int year = 0, int month = 0, string location = "")
+        {
+            int currentYear = DateTime.Now.Year;
+            int currentMonth = DateTime.Now.Month;
+
+            int selectedYear = year != 0 ? year : currentYear;
+            int selectedMonth = month != 0 ? month : currentMonth;
+
+            var startOfMonth = new DateTime(selectedYear, selectedMonth, 1);
+            var endOfMonth = startOfMonth.AddMonths(1).AddDays(-1);
+          
+            var data = _dbContext.IT_Maintenance
+               .Where(r => r.MaintenanceDate >= startOfMonth && r.MaintenanceDate <= endOfMonth)
+               .OrderByDescending(r => r.MaintenanceDate)
+               .ToList();
+
+
+            if (!string.IsNullOrWhiteSpace(location) && location != "All")
+            {
+                data = data
+                    .Where(s => s.Location == location)
+                    .ToList();
+            }
+
+
+            // Generate Excel file using EPPlus
+            using (var package = new ExcelPackage())
+            {
+                var worksheet = package.Workbook.Worksheets.Add("Maintenance Data");
+
+                // Add Headers
+
+                // Set the headers in the first row
+                worksheet.Cells[1, 1].Value = "EmployeeID";
+                worksheet.Cells[1, 2].Value = "EmployeeName";
+                worksheet.Cells[1, 3].Value = "EmailId";
+                worksheet.Cells[1, 4].Value = "MaintenanceDate";
+                worksheet.Cells[1, 5].Value = "RescheduleDate";
+                worksheet.Cells[1, 6].Value = "AgentName";
+                worksheet.Cells[1, 7].Value = "Status";
+                worksheet.Cells[1, 8].Value = "Notes";
+                worksheet.Cells[1, 9].Value = "Acknowledge";
+                worksheet.Cells[1, 10].Value = "Location";
+                worksheet.Cells[1, 11].Value = "IssueDate";
+                worksheet.Cells[1, 12].Value = "ProblemCategory";
+                worksheet.Cells[1, 13].Value = "IssueFacing";
+                worksheet.Cells[1, 14].Value = "NewAssetRequirement";
+
+                // Apply styling to the header
+                using (var headerRange = worksheet.Cells[1, 1, 1, 14])
+                {
+                    headerRange.Style.Fill.PatternType = OfficeOpenXml.Style.ExcelFillStyle.Solid;
+                    headerRange.Style.Fill.BackgroundColor.SetColor(System.Drawing.Color.SkyBlue);
+                    headerRange.Style.Font.Color.SetColor(System.Drawing.Color.White);
+                    headerRange.Style.Font.Bold = true; // Optional: make the header bold
+                }
+
+                // Populate data starting from the second row
+                for (int i = 0; i < data.Count; i++)
+                {
+                    worksheet.Cells[i + 2, 1].Value = data[i].EmployeeID ?? ""; // EmployeeID
+                    worksheet.Cells[i + 2, 2].Value = data[i].EmployeeName ?? ""; // EmployeeName
+                    worksheet.Cells[i + 2, 3].Value = data[i].EmailId ?? ""; // EmailId
+
+                    // MaintenanceDate
+                    worksheet.Cells[i + 2, 4].Value = data[i].MaintenanceDate.HasValue
+                                                       ? data[i].MaintenanceDate.Value.ToString("yyyy-MM-dd")
+                                                       : "";
+
+                    // RescheduleDate
+                    worksheet.Cells[i + 2, 5].Value = data[i].RescheduleDate.HasValue
+                                                       ? data[i].RescheduleDate.Value.ToString("yyyy-MM-dd")
+                                                       : "";
+
+                    worksheet.Cells[i + 2, 6].Value = data[i].AgentName ?? ""; // AgentName
+                    worksheet.Cells[i + 2, 7].Value = data[i].Status ?? ""; // Status
+                    worksheet.Cells[i + 2, 8].Value = data[i].Notes ?? ""; // Notes
+                    worksheet.Cells[i + 2, 9].Value = data[i].Acknowledge ?? ""; // Acknowledge
+                    worksheet.Cells[i + 2, 10].Value = data[i].Location ?? ""; // Location
+
+                    // IssueDate
+                    worksheet.Cells[i + 2, 11].Value = data[i].IssueDate.HasValue
+                                                        ? data[i].IssueDate.Value.ToString("yyyy-MM-dd")
+                                                        : "";
+
+                    worksheet.Cells[i + 2, 12].Value = data[i].ProblemCategory ?? ""; // ProblemCategory
+                    worksheet.Cells[i + 2, 13].Value = data[i].IssueFacing ?? ""; // IssueFacing
+                    worksheet.Cells[i + 2, 14].Value = data[i].NewAssetRequirement ?? ""; // NewAssetRequirement
+                }
+
+
+                // Set column widths (optional)
+                worksheet.Cells.AutoFitColumns();
+
+                // Save the Excel package to a memory stream
+                var stream = new MemoryStream();
+                package.SaveAs(stream);
+                stream.Position = 0;
+
+                // Return the file for download
+                string excelFileName = "MaintenanceData.xlsx";
+                return File(stream, "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet", excelFileName);
+            }
         }
 
 
@@ -193,7 +323,7 @@ namespace HRMS.Controllers
                 var maintenanceItem = _dbContext.IT_Maintenance.Where(x => x.Sno == maintenanceData.Sno).FirstOrDefault();
 
                 if (maintenanceItem != null)
-                {                   
+                {
                     maintenanceItem.Notes = maintenanceData.Notes;
                     maintenanceItem.RescheduleDate = maintenanceData.RescheduleDate;
                     maintenanceItem.AgentID = maintenanceData.AgentID;
@@ -211,5 +341,6 @@ namespace HRMS.Controllers
             }
             return Json(jsonResponse, JsonRequestBehavior.AllowGet);
         }
+
     }
 }

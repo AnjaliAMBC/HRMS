@@ -5,6 +5,14 @@ $(document).on('click', '.maintenance-info-view', function (event) {
     window.location.href = '/maintanance/maintananceapproval?sno=' + maintenacesno;
 });
 
+
+$(document).on('click', '.maintanace-emp-history', function (event) {
+    event.preventDefault();
+    var maintenacesno = $(this).attr("data-maintenancesno");
+    window.location.href = '/maintanance/maintananceapproval?sno=' + maintenacesno;
+});
+
+
 $(document).on('click', '.maintenance-updatestatus', function (event) {
     event.preventDefault();
 
@@ -196,18 +204,59 @@ $(document).ready(function () {
 });
 
 $('#addmaintenanceinfo-popup').on('show.bs.modal', function () {
-    // Clear all selected options in the multi-select dropdown
     $('#multiSelectDropdown').val(null).trigger('change');
-
-    // Optionally, clear the selected names text display if needed
     $('#selectedNames').text('');
-
-    // Uncheck the radio buttons (unselect checkboxes/radio buttons)
     $('input[name="schedulemaintenance-location"]').prop('checked', false);
-
-    // Optionally, reset the default checked radio button (Madurai)
     $('#schedulemaintenance-radio1').prop('checked', true);
 });
+
+
+$('.maintenance-filter-view').on('click', function () {
+    var year = $('#maintenance-filter-year-dropdown').val();
+    var month = $('#maintenance-filter-month-dropdown').val();
+    var location = $('#maintenance-filter-location-dropdown').val();
+    $.ajax({
+        url: '/maintanance/maintananceinfo',
+        type: 'GET',
+        data: { year: year, month: month, location: location },
+        success: function (result) {
+            $('#adminmaintenanceinfotable').html($(result).find('#adminmaintenanceinfotable').html());
+            $(document).trigger('ajaxComplete');
+        },
+        error: function (xhr, status, error) {
+            console.log(error);
+        }
+    });
+});
+
+
+
+$(document).on('click', '.maintenance-filter-export', function () {
+    var year = $('#maintenance-filter-year-dropdown').val();
+    var month = $('#maintenance-filter-month-dropdown').val();
+    var location = $('#maintenance-filter-location-dropdown').val();
+
+    $.ajax({
+        url: '/maintanance/exporttoexcelmaintenance',
+        type: 'GET',
+        data: { year: year, month: month, location: location },
+        xhrFields: {
+            responseType: 'blob'
+        },
+        success: function (data, status, xhr) {
+            var filename = xhr.getResponseHeader('Content-Disposition').split('filename=')[1].trim();
+            var blob = new Blob([data], { type: 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet' });
+            var link = document.createElement('a');
+            link.href = window.URL.createObjectURL(blob);
+            link.download = filename;
+            link.click();
+        },
+        error: function (xhr, status, error) {
+            console.log("Error: " + error);
+        }
+    });
+});
+
 
 
 

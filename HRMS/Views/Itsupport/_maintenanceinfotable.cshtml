@@ -1,0 +1,189 @@
+﻿@model HRMS.Models.ITsupport.MaintananceModel
+
+<div class="res-admin-maintenanceinfo-table table-responsive">
+    <table id="adminmaintenanceinfotable" class="display" style="width: 100%;">
+        <thead style="background-color: #d8e6fb; border-radius: 10px;">
+            <tr>
+                <th>Employee Name</th>
+                <th>Maintenance Date</th>
+                <th>Reschedule</th>
+                <th>Agent Name</th>
+                <th>Status</th>
+                <th>Notes</th>
+                <th style="text-align:center;">Acknowledge</th>
+                <th style="text-align:center;">Action</th>
+            </tr>
+        </thead>
+        <tbody>
+            @if (Model.monthlyschedules != null && Model.monthlyschedules.Count > 0)
+            {
+                for (int i = 0; i < Model.monthlyschedules.Count; i++)
+                {
+                    var schedule = Model.monthlyschedules[i];
+                    var rowClass = i % 2 == 0 ? "even" : "odd";
+                    <tr class="@rowClass">
+                        <td class="tdmaintenance-ename">
+                            <span class="maintenanceinfo-image-btn" value="@schedule.EmployeeID">
+                                @foreach (var emp in Model.Employees.Where(x => x.EmployeeID == schedule.EmployeeID))
+                                {
+
+                                    if (emp.imagepath != null && !string.IsNullOrWhiteSpace(emp.imagepath))
+                                    {
+                                        var empImageURl = System.Configuration.ConfigurationManager.AppSettings["EmpImagesFolder"] + "/" + emp.imagepath + "?" + System.DateTime.Now;
+                                        <img src="@empImageURl" alt="Employee Image" class="userIcon">
+                                    }
+                                    else
+                                    {
+                                        // Default image logic using initials
+                                        if (!string.IsNullOrEmpty(emp.EmployeeName))
+                                        {
+                                            string[] names = emp.EmployeeName.Split(new char[] { ' ' }, StringSplitOptions.RemoveEmptyEntries);
+
+                                            if (names.Length > 0)
+                                            {
+                                                string firstName = names[0];
+                                                string lastName = names.Length > 1 ? names[names.Length - 1] : string.Empty;
+                                                char firstLetterOfFirstName = char.ToUpper(firstName[0]);
+                                                char firstLetterOfLastName = !string.IsNullOrEmpty(lastName) ? char.ToUpper(lastName[0]) : '\0';
+
+                                                <div class="default-image-navbar">
+                                                    @firstLetterOfFirstName @firstLetterOfLastName
+                                                </div>
+                                            }
+                                        }
+
+                                    }
+                                }
+                            </span>
+                            <span class="maintenance-id-select maintanace-emp-history" data-assetid="name">@schedule.EmployeeName</span>
+                        </td>
+                        <td>@(schedule.MaintenanceDate.HasValue ? schedule.MaintenanceDate.Value.ToString("dd/MM/yyyy") : "N/A")</td>
+
+                        <td class="tdmaintenancereschedule">
+                            @(schedule.RescheduleDate.HasValue ? schedule.RescheduleDate.Value.ToString("dd/MM/yyyy") : "-")
+                        </td>
+
+                        <td>
+                            <span class="maintenanceinfo-image-btn">                              
+
+                                @foreach (var emp in Model.Employees.Where(x => x.EmployeeID == schedule.AgentID))
+                                {
+
+                                    if (emp.imagepath != null && !string.IsNullOrWhiteSpace(emp.imagepath))
+                                    {
+                                        var empImageURl = System.Configuration.ConfigurationManager.AppSettings["EmpImagesFolder"] + "/" + emp.imagepath + "?" + System.DateTime.Now;
+                                        <img src="@empImageURl" alt="Employee Image" class="userIcon">
+                                    }
+                                    else
+                                    {
+                                        // Default image logic using initials
+                                        if (!string.IsNullOrEmpty(emp.EmployeeName))
+                                        {
+                                            string[] names = emp.EmployeeName.Split(new char[] { ' ' }, StringSplitOptions.RemoveEmptyEntries);
+
+                                            if (names.Length > 0)
+                                            {
+                                                string firstName = names[0];
+                                                string lastName = names.Length > 1 ? names[names.Length - 1] : string.Empty;
+                                                char firstLetterOfFirstName = char.ToUpper(firstName[0]);
+                                                char firstLetterOfLastName = !string.IsNullOrEmpty(lastName) ? char.ToUpper(lastName[0]) : '\0';
+
+                                                <div class="default-image-navbar">
+                                                    @firstLetterOfFirstName @firstLetterOfLastName
+                                                </div>
+                                            }
+                                        }
+
+                                    }
+                                }
+
+                            </span>
+                            <span class="maintenance-id-select" data-assetid="name">@schedule.AgentName</span>
+                        </td>
+                        <td><div class="maintenance-status completed">@schedule.Status</div></td>
+                        <td>@schedule.Notes</td>
+                        <td class="maintenancestatus-icon" style="text-align:center;">
+                            <span class="maintenanceapproved-btn">
+                                @if (schedule.Acknowledge == "Yes")
+                                {
+                                    <img src="/assets/Approve.png" alt="Approved" style="width:25px">
+                                }
+                                else
+                                {
+                                    <img src="/assets/Pending.png" alt="Pending" style="width:25px">
+                                }
+                            </span>
+                        </td>
+                        <td style="text-align:center;">
+                            <span class="maintenanceinfo-list-edit">
+                                <i class="fas fa-ellipsis-v asset-edit-dropdown" onclick="toggleMaintenanceActionOptions(this)"></i>
+                                <div class="maintenance-options" style="display:none">
+                                    <a class="dropdown-item maintenance-info-view" data-maintenancesno="@schedule.Sno">View</a>
+                                    <a class="btn btn-demo dropdown-item maintenance-info-reschedule" data-maintenancesno="@schedule.Sno" data-toggle="modal" data-target="#RescheduleMaintenancePopup">Reschedule</a>
+                                </div>
+                            </span>
+                        </td>
+                    </tr>
+                }
+            }
+        </tbody>
+    </table>
+
+
+    @*<tr class="even">
+            <td class="tdmaintenance-ename"><span class="maintenanceinfo-image-btn"><img src="~/Assets/EmpImages/1155.jpeg" alt="ename"></span><span class="maintenance-id-select" data-assetid="name">Name</span></td>
+            <td>01 October 2024</td>
+            <td class="tdmaintenancereschedule">01 October 2024</td>
+            <td><span class="maintenanceinfo-image-btn"><img src="~/Assets/EmpImages/1155.jpeg" alt="agentname"></span><span class="maintenance-id-select" data-assetid="name">Name</span></td>
+            <td><div class="maintenance-status pending">Pending</div></td>
+            <td>-</td>
+            <td class="maintenancestatus-icon">
+                <span class="maintenanceapproved-btn">
+                    <img src="/assets/Pending.png" alt="Approved" style="width:25px" title="Pending">
+                    <div style="display:none">Approved</div>
+                </span>
+            </td>
+            <td style="text-align:center;">
+                <span class="maintenanceinfo-list-edit">
+                    <i class="fas fa-ellipsis-v asset-edit-dropdown" onclick="toggleMaintenanceActionOptions(this)"></i>
+                    <div class="maintenance-options" style="display:none">
+                        <a class="dropdown-item maintenance-info-view" data-assetid="1">View</a>
+                        <a class="btn btn-demo dropdown-item maintenance-info-edit" data-assetid="1" data-toggle="modal" data-target="#RescheduleMaintenancePopup">Reschedule</a>
+                    </div>
+                </span>
+            </td>
+        </tr>*@
+
+</div>
+
+<script>
+
+    $(document).ready(function () {
+
+        function refreshDataTable() {
+            if ($.fn.DataTable.isDataTable('#adminmaintenanceinfotable')) {
+                $('#adminmaintenanceinfotable').DataTable().destroy();
+            }
+
+            $('#adminmaintenanceinfotable').DataTable({
+                "responsive": true,
+                "paging": true,
+                "searching": false,
+                "ordering": false,
+                "info": true,
+                "autoWidth": false,
+                "lengthMenu": [[10, 20, 50, -1], [10, 20, 50, "All"]]
+            });
+        }
+
+        refreshDataTable();
+
+        $(document).on('ajaxComplete', function () {
+            refreshDataTable();
+        });
+    });
+
+
+
+</script>
+
