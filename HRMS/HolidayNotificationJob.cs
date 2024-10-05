@@ -30,8 +30,10 @@ namespace HRMS
 
             // Fetch holidays that are exactly 10 days from today
             var upcomingHolidays = _dbContext.tblambcholidays
-                                             .Where(h => DbFunctions.DiffDays(today, h.holiday_date) == compoffEmailTriggerDuration)
-                                             .ToList();
+                                              .Where(h => DbFunctions.DiffDays(today, h.holiday_date) == compoffEmailTriggerDuration
+                 && (h.holiday_date.Value.DayOfWeek != DayOfWeek.Saturday
+                 && h.holiday_date.Value.DayOfWeek != DayOfWeek.Sunday))
+                  .ToList();
 
             // Fetch group email addresses from the configuration
             var groupEmailsConfig = ConfigurationManager.AppSettings["GroupEmails"].ToLowerInvariant();

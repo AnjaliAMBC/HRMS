@@ -161,29 +161,29 @@
 
                             @foreach (var asset in Model.Assets)
                             {
-                                var assetFolderID = asset.AssetID.Split('#')[1];
-                                var assetImageURL = @System.Configuration.ConfigurationManager.AppSettings["TicketingAbsolutePath"] + "/assets/" + assetFolderID + "/" + asset.AssetMainImage;
+                                //var assetFolderID = asset.AssetID.Split('#')[1];
+                                //var assetImageURL = @System.Configuration.ConfigurationManager.AppSettings["TicketingAbsolutePath"] + "/assets/" + assetFolderID + "/" + asset.AssetMainImage;
                                 var assignedDate = @asset.AssignedDate.HasValue ? @asset.AssignedDate.Value.ToString("yyy-MM-dd") : "";
-                                <tr class="">
-                                    <td><input type="checkbox" class="Assetlist-check" data-assetid="@asset.SNo"></td>
-                                    <td class="tdassetid"><span class="assetinfo-image-btn"><img src="@assetImageURL" alt="@asset.AssetID" style="width:25px"></span><span class="Asset-id-select" data-assetid="@asset.SNo" style="margin-left: 5px; color: #3E78CF;">@asset.AssetID</span></td>
-                                    <td>1155 @asset.AllocatedEmployeeName</td>
-                                    <td class="tdassetlocation">@asset.Location</td>
-                                    <td>@asset.AllocatedStatus</td>
-                                    <td>@asset.AssignedBy</td>
-                                    <td>@assignedDate</td>
-                                    <td style="text-align:center;">
-                                        <span class="assetinfo-list-edit">
-                                            <i class="fas fa-ellipsis-v asset-edit-dropdown" onclick="toggleAssetActionOptions(this)"></i>
-                                            <div class="asset-options" style="display:none">
-                                                <a class="dropdown-item emp-leave-edit asset-info-view" data-assetid="@asset.SNo">View</a>
-                                                <a class="dropdown-item emp-leave-edit asset-info-edit" data-assetid="@asset.SNo">Edit</a>
-                                                <a class="dropdown-item emp-leave-cancel asset-info-transfer" data-toggle="modal" data-target="#assettransfer-popup" data-assetid="@asset.SNo">Asset Transfer</a>
-                                                <a class="dropdown-item emp-leave-cancel asset-info-delete" data-assetid="@asset.SNo" data-assetname="@asset.AssetID">Delete</a>
-                                            </div>
-                                        </span>
-                                    </td>
-                                </tr>
+                            <tr class="">
+                                <td><input type="checkbox" class="Assetlist-check" data-assetid="@asset.SNo"></td>
+                                <td class="tdassetid"><span class="assetinfo-image-btn"><img src="~/Assets/asset-icon-5.png" alt="@asset.AssetID" style="width:25px"></span><span class="Asset-id-select" data-assetid="@asset.SNo" style="margin-left: 5px; color: #3E78CF;">@asset.AssetID</span></td>
+                                <td>@asset.AllocatedEmployeeID @asset.AllocatedEmployeeName</td>
+                                <td class="tdassetlocation">@asset.Location</td>                                
+                                <td>@asset.AllocatedStatus</td>
+                                <td>@asset.AssignedBy</td>
+                                <td>@assignedDate</td>
+                                <td style="text-align:center;">
+                                    <span class="assetinfo-list-edit">
+                                        <i class="fas fa-ellipsis-v asset-edit-dropdown" onclick="toggleAssetActionOptions(this)"></i>
+                                        <div class="asset-options" style="display:none">
+                                            <a class="dropdown-item emp-leave-edit asset-info-view" data-assetid="@asset.SNo">View</a>
+                                            <a class="dropdown-item emp-leave-edit asset-info-edit" data-assetid="@asset.SNo">Edit</a>
+                                            <a class="dropdown-item emp-leave-cancel asset-info-transfer" data-toggle="modal" data-target="#assettransfer-popup" data-assetid="@asset.SNo">Asset Transfer</a>
+                                            <a class="dropdown-item emp-leave-cancel asset-info-delete" data-assetid="@asset.SNo" data-assetname="@asset.AssetID">Delete</a>
+                                        </div>
+                                    </span>
+                                </td>
+                            </tr>
 
                             }
 

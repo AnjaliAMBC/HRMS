@@ -1,4 +1,6 @@
-﻿@Html.Partial("_NavBar")
+﻿@model HRMS.Models.ITsupport.MaintananceModel
+
+@Html.Partial("_NavBar")
 @{
     ViewBag.Title = "EmpMaintananceHistory";
 }
@@ -14,21 +16,55 @@
                         <div class="row navbar align-items-center">
                             <div class="col-lg-5 col-md-5 topic d-flex maintenancehistory-details">
                                 <div class="maintenancehistory-header-title">
-                                    <span class="maintenancehistory-image-btn"><img src="~/Assets/EmpImages/1155.jpeg" alt="ename"></span><span class="maintenancehistory-id-select" data-assetid="name">Name</span>
+                                    <span class="maintenancehistory-image-btn">
+                                        @foreach (var emp in Model.Employees.Where(x => x.EmployeeID == Model.SelectedEmp.EmployeeID))
+                                        {
+
+                                            if (emp.imagepath != null && !string.IsNullOrWhiteSpace(emp.imagepath))
+                                            {
+                                                var empImageURl = System.Configuration.ConfigurationManager.AppSettings["EmpImagesFolder"] + "/" + emp.imagepath + "?" + System.DateTime.Now;
+                                                <img src="@empImageURl" alt="Employee Image" class="userIcon">
+                                            }
+                                            else
+                                            {
+                                                // Default image logic using initials
+                                                if (!string.IsNullOrEmpty(emp.EmployeeName))
+                                                {
+                                                    string[] names = emp.EmployeeName.Split(new char[] { ' ' }, StringSplitOptions.RemoveEmptyEntries);
+
+                                                    if (names.Length > 0)
+                                                    {
+                                                        string firstName = names[0];
+                                                        string lastName = names.Length > 1 ? names[names.Length - 1] : string.Empty;
+                                                        char firstLetterOfFirstName = char.ToUpper(firstName[0]);
+                                                        char firstLetterOfLastName = !string.IsNullOrEmpty(lastName) ? char.ToUpper(lastName[0]) : '\0';
+
+                                                        <div class="default-image-navbar">
+                                                            @firstLetterOfFirstName @firstLetterOfLastName
+                                                        </div>
+                                                    }
+                                                }
+
+                                            }
+                                        }
+                                    </span><span class="maintenancehistory-id-select" data-selectedempid="@Model.SelectedEmp.EmployeeID">@Model.SelectedEmp.EmployeeName</span>
                                 </div>
                             </div>
                             <div class="col-xl-6 col-lg-5 navbarl1 col-sm-12 col-md-8 admin-maintenancehistory-header-right">
                                 <div class="col-xl-3 col-lg-3 navbarl1 col-sm-5 col-xs-12 col-md-4 res-admin-maintenancehistory-status p-0">
                                     <div class="form-group res-maintenancehistorylisting">
                                         <select class="form-control form-select" name="maintenancehistorystatus" id="maintenancehistory-status-dropdown" style="">
-                                            <option value="2024" disabled selected>2024</option>
-                                            <option value="2025">2025</option>
+                                            @foreach (var year in Model.Years)
+                                            {
+                                                var selectedyear = System.DateTime.Today.Year == year ? "selected" : "";
+                                                <option @selectedyear value="@year">@year</option>
+                                            }
                                         </select>
                                     </div>
                                 </div>
                                 <div class="col-xl-1 col-lg-1  navbarl1 col-sm-2 col-md-2 admin-maintenancehistory-export p-0">
                                     <div class="maintenancehistory-export" style="">
-                                        <button type="button" class="btn maintenancehistory-export-btn pt-0" id="exportmaintenancehistory" onclick="exportmaintenancehistory()">
+                                        <button type="button" class="btn maintenancehistory-export-btn pt-0" id="exportmaintenancehistory">
                                             <span class="maintenancehistorylist-export"><img src="/assets/Export.png" alt="Export" style=""></span>
                                         </button>
                                     </div>
@@ -50,32 +86,69 @@
                                 </tr>
                             </thead>
                             <tbody>
-                                <tr class="odd">
-                                    <td class="maintenancehistoryacknowledge-icon">
-                                        <span class="maintenancehistory-btn">
-                                            <img src="/assets/Approve.png" alt="Approved" style="width:25px" title="Approved by Mithun Sivaprakasam">
-                                            <div style="display:none">Approved</div>
-                                        </span>
-                                    </td>
-                                    <td class="tdmaintenancehistory-date">01 October 2024</td>
-                                    <td class="tdmaintenancehistory-changerequest">01 October 2024</td>
-                                    <td><span class="maintenancehistory-image-btn"><img src="~/Assets/EmpImages/1155.jpeg" alt="agentname"></span><span class="maintenance-id-select" data-assetid="name">Name</span></td>
-                                    <td><div class="maintenancehistory-status completed">Completed</div></td>
-                                    <td>Test Notes</td>
-                                </tr>
-                                <tr class="even">
-                                    <td class="maintenancehistoryacknowledge-icon">
-                                        <span class="maintenancehistory-btn">
-                                            <img src="/assets/Approve.png" alt="Approved" style="width:25px" title="Approved by Mithun Sivaprakasam">
-                                            <div style="display:none">Approved</div>
-                                        </span>
-                                    </td>
-                                    <td class="tdmaintenancehistory-date">01 October 2024</td>
-                                    <td class="tdmaintenancehistory-changerequest">01 October 2024</td>
-                                    <td><span class="maintenancehistory-image-btn"><img src="~/Assets/EmpImages/1155.jpeg" alt="agentname"></span><span class="maintenance-id-select" data-assetid="name">Name</span></td>
-                                    <td><div class="maintenancehistory-status completed">Completed</div></td>
-                                    <td>Test Notes</td>
-                                </tr>
+
+                                @for (int i = 0; i < Model.monthlyschedules.Count; i++)
+                                {
+                                    var maintenance = Model.monthlyschedules[i];
+                                    var rowClass = i % 2 == 0 ? "even" : "odd";
+
+                                    <tr class="@rowClass">
+                                        <td class="maintenancehistoryacknowledge-icon">
+                                            <span class="maintenancehistory-btn">
+
+                                                @if (maintenance.Acknowledge == "Yes")
+                                                {
+                                                    <img src="/assets/Approve.png" alt="Approved" style="width:25px">
+                                                }
+                                                else
+                                                {
+                                                    <img src="/assets/Pending.png" alt="Pending" style="width:25px">
+                                                }
+
+                                            </span>
+                                        </td>
+                                        <td class="tdmaintenancehistory-date">@(maintenance.MaintenanceDate.HasValue ? maintenance.MaintenanceDate.Value.ToString("dd/MM/yyyy") : "N/A")</td>
+                                        <td class="tdmaintenancehistory-changerequest">@(maintenance.RescheduleDate.HasValue ? maintenance.RescheduleDate.Value.ToString("dd/MM/yyyy") : "-")</td>
+                                        <td>
+                                            <span class="maintenancehistory-image-btn">
+                                                @foreach (var emp in Model.Employees.Where(x => x.EmployeeID == maintenance.AgentID))
+                                                {
+
+                                                    if (emp.imagepath != null && !string.IsNullOrWhiteSpace(emp.imagepath))
+                                                    {
+                                                        var empImageURl = System.Configuration.ConfigurationManager.AppSettings["EmpImagesFolder"] + "/" + emp.imagepath + "?" + System.DateTime.Now;
+                                                        <img src="@empImageURl" alt="Employee Image" class="userIcon">
+                                                    }
+                                                    else
+                                                    {
+                                                        // Default image logic using initials
+                                                        if (!string.IsNullOrEmpty(emp.EmployeeName))
+                                                        {
+                                                            string[] names = emp.EmployeeName.Split(new char[] { ' ' }, StringSplitOptions.RemoveEmptyEntries);
+
+                                                            if (names.Length > 0)
+                                                            {
+                                                                string firstName = names[0];
+                                                                string lastName = names.Length > 1 ? names[names.Length - 1] : string.Empty;
+                                                                char firstLetterOfFirstName = char.ToUpper(firstName[0]);
+                                                                char firstLetterOfLastName = !string.IsNullOrEmpty(lastName) ? char.ToUpper(lastName[0]) : '\0';
+
+                                                                <div class="default-image-navbar">
+                                                                    @firstLetterOfFirstName @firstLetterOfLastName
+                                                                </div>
+                                                            }
+                                                        }
+
+                                                    }
+                                                }
+                                            </span><span class="maintenance-id-select" data-assetid="name">@maintenance.AgentName</span>
+                                        </td>
+                                        <td><div class="maintenancehistory-status completed">@maintenance.Status</div></td>
+                                        <td>@maintenance.Notes</td>
+                                    </tr>
+                                }
+
+
                             </tbody>
                         </table>
                     </div>
@@ -101,3 +174,4 @@
         }
     });
 </script>
+<script src="~/Scripts/Z-Maintanance.js"></script>
