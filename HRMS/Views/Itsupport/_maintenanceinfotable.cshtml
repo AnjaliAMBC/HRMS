@@ -64,7 +64,7 @@
                         </td>
 
                         <td>
-                            <span class="maintenanceinfo-image-btn">                              
+                            <span class="maintenanceinfo-image-btn">
 
                                 @foreach (var emp in Model.Employees.Where(x => x.EmployeeID == schedule.AgentID))
                                 {
@@ -100,7 +100,16 @@
                             </span>
                             <span class="maintenance-id-select" data-assetid="name">@schedule.AgentName</span>
                         </td>
-                        <td><div class="maintenance-status completed">@schedule.Status</div></td>
+                        <td>
+                            @if (schedule.Status == "Completed")
+                            {
+                                <div class="maintenance-status completed">@schedule.Status</div>
+                            }
+                            else
+                            {
+                                <div class="maintenance-status pending">@schedule.Status</div>
+                            }
+                        </td>
                         <td>@schedule.Notes</td>
                         <td class="maintenancestatus-icon" style="text-align:center;">
                             <span class="maintenanceapproved-btn">
@@ -120,10 +129,10 @@
                                 <div class="maintenance-options" style="display:none">
                                     <a class="dropdown-item maintenance-info-view" data-maintenancesno="@schedule.Sno">View</a>
                                     @if (schedule.Status == "Pending")
-                    {
-                                <a class="btn btn-demo dropdown-item maintenance-info-reschedule" data-maintenancesno="@schedule.Sno" data-toggle="modal" data-target="#RescheduleMaintenancePopup">Reschedule</a>
-                    }
-                                    
+                                    {
+                                        <a class="btn btn-demo dropdown-item maintenance-info-reschedule" data-maintenancesno="@schedule.Sno" data-toggle="modal" data-target="#RescheduleMaintenancePopup">Reschedule</a>
+                                    }
+
                                 </div>
                             </span>
                         </td>
