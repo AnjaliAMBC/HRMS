@@ -1237,6 +1237,13 @@
             var remarks = $('#AssetAllocate-Remarks').val();
             formData.append('AssetAllocate-Remarks', remarks);
 
+            if ($("#isAgeSelected").is(':checked')) {
+                formData.append('sendack', "true");
+            }
+            else {
+                formData.append('sendack', "false");
+            }
+
 
             // Send formData via AJAX
             $.ajax({

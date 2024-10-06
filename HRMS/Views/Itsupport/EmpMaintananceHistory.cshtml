@@ -143,7 +143,16 @@
                                                 }
                                             </span><span class="maintenance-id-select" data-assetid="name">@maintenance.AgentName</span>
                                         </td>
-                                        <td><div class="maintenancehistory-status completed">@maintenance.Status</div></td>
+                                        <td>
+                                            @if (maintenance.Status == "Completed")
+                                            {
+                                                <div class="maintenancehistory-status completed">@maintenance.Status</div>
+                                            }
+                                            else
+                                            {
+                                                <div class="maintenancehistory-status pending">@maintenance.Status</div>
+                                            }
+                                        </td>
                                         <td>@maintenance.Notes</td>
                                     </tr>
                                 }

@@ -35,7 +35,7 @@ namespace HRMS.Controllers
         {
             var model = new AssetListModel();
 
-            model.Assets = _dbContext.Assets.ToList();
+            model.Assets = _dbContext.Assets.OrderByDescending(x => x.CreatedDate).ToList();
             model.TotalAssets = model.Assets.Count();
             model.AssetsInUse = model.Assets.Where(x => x.AllocatedStatus == "Assigned").ToList().Count();
             model.AssetsInScrap = model.Assets.Where(x => x.AllocatedStatus == "Scrap").ToList().Count();
@@ -234,35 +234,37 @@ namespace HRMS.Controllers
                         assetTransferModel.CreatedDate = DateTime.Now;
                     }
 
-
-                    // Prepare the email
-                    var emailSubject = $"Asset allocation Confirmation: [" + assetID + "]";
-                    var emailBody = RenderPartialToString(this, "AssetCreationEmail", assetModel, ViewData, TempData);
-
-                    var allocatedEmp = !string.IsNullOrWhiteSpace(employeeID) ?
-                         _dbContext.emp_info.Where(x => x.EmployeeID == employeeID).FirstOrDefault()
-                         : null;
-
-                    var toemail = "";
-
-                    if (allocatedEmp != null)
+                    if(Request.Form["sendack"] == "true")
                     {
-                        toemail = allocatedEmp.OfficalEmailid + "," + ConfigurationManager.AppSettings["AssetEmailTo"];
-                    }
-                    else
-                    {
-                        toemail = ConfigurationManager.AppSettings["AssetEmailTo"];
-                    }
+                        // Prepare the email
+                        var emailSubject = $"Asset allocation Confirmation: [" + assetID + "]";
+                        var emailBody = RenderPartialToString(this, "AssetCreationEmail", assetModel, ViewData, TempData);
 
-                    var emailRequest = new EmailRequest()
-                    {
-                        Body = emailBody,
-                        ToEmail = toemail,
-                        CCEmail = ConfigurationManager.AppSettings["AssetEmailCC"],
-                        Subject = emailSubject
-                    };
+                        var allocatedEmp = !string.IsNullOrWhiteSpace(employeeID) ?
+                             _dbContext.emp_info.Where(x => x.EmployeeID == employeeID).FirstOrDefault()
+                             : null;
 
-                    var sendNotification = EMailHelper.SendEmail(emailRequest);
+                        var toemail = "";
+
+                        if (allocatedEmp != null)
+                        {
+                            toemail = allocatedEmp.OfficalEmailid + "," + ConfigurationManager.AppSettings["AssetEmailTo"];
+                        }
+                        else
+                        {
+                            toemail = ConfigurationManager.AppSettings["AssetEmailTo"];
+                        }
+
+                        var emailRequest = new EmailRequest()
+                        {
+                            Body = emailBody,
+                            ToEmail = toemail,
+                            CCEmail = ConfigurationManager.AppSettings["AssetEmailCC"],
+                            Subject = emailSubject
+                        };
+
+                        var sendNotification = EMailHelper.SendEmail(emailRequest);
+                    }                    
 
                 }
                 else

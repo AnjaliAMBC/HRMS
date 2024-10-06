@@ -467,13 +467,13 @@ namespace HRMS.Controllers
                 // Add first three rows with custom information and color
                 worksheet.Cells[1, 1].Value = "From Date";
                 worksheet.Cells[1, 2].Value = dateStart.ToString("dd-MMM-yyyy");
-                worksheet.Cells[1, 1, 1, 2].Style.Fill.PatternType = OfficeOpenXml.Style.ExcelFillStyle.Solid;
+                worksheet.Cells[1, 1].Style.Fill.PatternType = OfficeOpenXml.Style.ExcelFillStyle.Solid;
                 worksheet.Cells[1, 1].Style.Fill.BackgroundColor.SetColor(headerColor);
                 worksheet.Cells[1, 1].Style.Font.Color.SetColor(fontColor);
 
                 worksheet.Cells[2, 1].Value = "To Date";
                 worksheet.Cells[2, 2].Value = dateEnd.ToString("dd-MMM-yyyy");
-                worksheet.Cells[2, 1, 2, 2].Style.Fill.PatternType = OfficeOpenXml.Style.ExcelFillStyle.Solid;
+                worksheet.Cells[2, 1].Style.Fill.PatternType = OfficeOpenXml.Style.ExcelFillStyle.Solid;
                 worksheet.Cells[2, 1].Style.Fill.BackgroundColor.SetColor(headerColor);
                 worksheet.Cells[2, 1].Style.Font.Color.SetColor(fontColor);
 
