@@ -92,42 +92,57 @@ $(document).on('click', '.maintenance-info-reschedule', function (event) {
     });
 });
 
-
 $(document).on('click', '.reschedulemaintenance-Update', function (event) {
     event.preventDefault();
-
     var maintenancesno = $(this).attr("data-maintenancesno");
+    var rescheduleDate = $('#RescheduleMaintenance-Reschedule').val();
+    var agentID = $('#RescheduleMaintenance-AgentName').val();
+    var agentName = $('#RescheduleMaintenance-AgentName option:selected').text();
+    var notes = $('#RescheduleMaintenance-Notes').val();
+    var isValid = true;
+    
+    $('#RescheduleMaintenance-Reschedule').removeClass('is-invalid');
+    $('#rescheduleDateError').remove();
+   
+    if (!rescheduleDate) {
+        isValid = false;
+       
+        $('#RescheduleMaintenance-Reschedule').addClass('is-invalid');
+        $('#RescheduleMaintenance-Reschedule').after('<span id="rescheduleDateError" class="text-danger">Reschedule Date is required</span>');
+    }
 
-    var maintenanceData = {
-        Sno: maintenancesno,
-        RescheduleDate: $('#RescheduleMaintenance-Reschedule').val(),
-        AgentID: $('#RescheduleMaintenance-AgentName').val(),
-        AgentName: $('#RescheduleMaintenance-AgentName option:selected').text(),
-        Notes: $('#RescheduleMaintenance-Notes').val()
-    };
+    if (isValid) {
+        var maintenanceData = {
+            Sno: maintenancesno,
+            RescheduleDate: rescheduleDate,
+            AgentID: agentID,
+            AgentName: agentName,
+            Notes: notes
+        };
 
-    $.ajax({
-        url: '/maintanance/reschedulemaintenance',
-        type: 'POST',
-        data: JSON.stringify(maintenanceData),
-        contentType: 'application/json',
-        success: function (response) {
-            var messageDiv = $('#MaintenancemodalMessage');
-            messageDiv.text(response.Message);
-            if (response.StatusCode === 200) {
-                messageDiv.css('color', 'green');
-            } else {
+        $.ajax({
+            url: '/maintanance/reschedulemaintenance',
+            type: 'POST',
+            data: JSON.stringify(maintenanceData),
+            contentType: 'application/json',
+            success: function (response) {
+                var messageDiv = $('#MaintenancemodalMessage');
+                messageDiv.text(response.Message);
+                if (response.StatusCode === 200) {
+                    messageDiv.css('color', 'green');
+                } else {
+                    messageDiv.css('color', 'red');
+                }
+                messageDiv.show();
+            },
+            error: function (xhr, status, error) {
+                var messageDiv = $('#MaintenancemodalMessage');
+                messageDiv.text('An unexpected error occurred!');
                 messageDiv.css('color', 'red');
+                messageDiv.show();
             }
-            messageDiv.show();
-        },
-        error: function (xhr, status, error) {
-            var messageDiv = $('#MaintenancemodalMessage');
-            messageDiv.text('An unexpected error occurred!');
-            messageDiv.css('color', 'red');
-            messageDiv.show();
-        }
-    });
+        });
+    }
 });
 
 
@@ -137,73 +152,100 @@ $(document).on('click', '.reschedulemaintenance-Update', function (event) {
 
 $(document).ready(function () {
     $('.Add-Schedule-Maintanance').click(function () {
+        var isValid = true; 
         var formData = new FormData();
+        
+        $('.error-message').remove();
+        $('.form-control, .form-check-input').removeClass('is-invalid');
+       
         var location = $('input[name="schedulemaintenance-location"]:checked').val();
-        formData.append('Location', location);
+        if (!location) {
+            isValid = false;
+            $('input[name="schedulemaintenance-location"]').parent().after('<span class="error-message text-danger">Please select a location.</span>');
+            $('input[name="schedulemaintenance-location"]').addClass('is-invalid');
+        } else {
+            formData.append('Location', location);
+        }
+        
+        if ($('#multiSelectDropdown option:selected').length === 0) {
+            isValid = false;
+            $('#multiSelectDropdown').after('<span class="error-message text-danger">Please select at least one employee.</span>');
+            $('#multiSelectDropdown').addClass('is-invalid');
+        } else {
+            $('#multiSelectDropdown option:selected').each(function () {
+                formData.append('EmployeeIDs', $(this).val());
+                formData.append('EmployeeNames', $(this).data('empname'));
+                formData.append('EmployeeEmails', $(this).data('empemailid'));
+            });
+        }
 
-        $('#multiSelectDropdown option:selected').each(function () {
-            formData.append('EmployeeIDs', $(this).val());
-            formData.append('EmployeeNames', $(this).data('empname'));
-            formData.append('EmployeeEmails', $(this).data('empemailid'));
-        });
-
-        var AgentName = $('#ScheduleMaintenance-Agent option:selected').text();
-        formData.append('AgentName', AgentName);
         var agentID = $('#ScheduleMaintenance-Agent').val();
-        formData.append('AgentID', agentID);
+        if (!agentID) {
+            isValid = false;
+            $('#ScheduleMaintenance-Agent').after('<span class="error-message text-danger">Please select an agent.</span>');
+            $('#ScheduleMaintenance-Agent').addClass('is-invalid');
+        } else {
+            formData.append('AgentID', agentID);
+            var AgentName = $('#ScheduleMaintenance-Agent option:selected').text();
+            formData.append('AgentName', AgentName);
+        }
+
         var date = $('#ScheduleMaintenance-Date').val();
-        formData.append('Date', date);
+        if (!date) {
+            isValid = false;
+            $('#ScheduleMaintenance-Date').after('<span class="error-message text-danger">Please select a date.</span>');
+            $('#ScheduleMaintenance-Date').addClass('is-invalid');
+        } else {
+            formData.append('Date', date);
+        }
+      
         var timeIn = $('#datetimepicker1').val();
         var timeOut = $('#datetimepicker2').val();
         formData.append('TimeIn', timeIn);
         formData.append('TimeOut', timeOut);
 
-        // AJAX call to the controller
-        $.ajax({
-            url: '/Maintanance/AddMaintenanceSchedule',
-            type: 'POST',
-            processData: false,
-            contentType: false,
-            data: formData,
-            beforeSend: function () {
-                $('.show-progress').show();
-            },
-            success: function (response) {
-                var messageSpan = $('#maintenanceMessage');
-                if (response.StatusCode == 200) {
+       
+        if (isValid) {       
+            $.ajax({
+                url: '/Maintanance/AddMaintenanceSchedule',
+                type: 'POST',
+                processData: false,
+                contentType: false,
+                data: formData,
+                beforeSend: function () {
+                    $('.show-progress').show();
+                },
+                success: function (response) {
+                    var messageSpan = $('#maintenanceMessage');
+                    if (response.StatusCode == 200) {
+                        messageSpan.text(response.Message).removeClass('text-danger').addClass('text-success').show();
 
-                    messageSpan.text(response.Message).removeClass('text-danger').addClass('text-success').show();
+                        setTimeout(function () {
+                            messageSpan.fadeOut();
+                        }, 5000);
 
-                    // Optional: Hide the message after a few seconds
-                    setTimeout(function () {
-                        messageSpan.fadeOut();
-                    }, 5000);
+                        $('#addmaintenanceinfo-popup').find('input, select').val('');
+                        $('#multiSelectDropdown option:selected').prop('selected', false);
+                    } else {
+                        messageSpan.text(response.Message).removeClass('text-success').addClass('text-danger').show();
 
-                    $('#addmaintenanceinfo-popup').find('input, select').val('');
-                    $('#multiSelectDropdown option:selected').prop('selected', false);
+                        setTimeout(function () {
+                            messageSpan.fadeOut();
+                        }, 5000);
+                    }
+
+                    $('.show-progress').hide();
+                },
+                error: function (error) {
+                    var messageSpan = $('#maintenanceMessage');
+                    messageSpan.text("An error occurred while scheduling maintenance.").removeClass('text-success').addClass('text-danger').show();
+                    $('.show-progress').hide();
                 }
-                else {
-                    messageSpan.text(response.Message).removeClass('text-success').addClass('text-danger').show();
-
-                    setTimeout(function () {
-                        messageSpan.fadeOut();
-                    }, 5000);
-
-                    $('#addmaintenanceinfo-popup').find('input, select').val('');
-                    $('#multiSelectDropdown option:selected').prop('selected', false);
-                }
-
-                $('.show-progress').hide();
-            },
-            error: function (error) {
-                var messageSpan = $('#maintenanceMessage');
-                // Show error message
-                messageSpan.text("An error occurred while scheduling maintenance.").removeClass('text-success').addClass('text-danger').show();
-                $('.show-progress').hide();
-            }
-        });
+            });
+        }
     });
 });
+
 
 $('#addmaintenanceinfo-popup').on('show.bs.modal', function () {
     $('#multiSelectDropdown').val(null).trigger('change');

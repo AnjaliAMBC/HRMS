@@ -214,9 +214,9 @@ namespace HRMS.Controllers
                             Location = location,
                             AgentID = agentID,
                             AgentName = agentName,
-                            MaintenanceDate = !string.IsNullOrWhiteSpace(date) ? DateTime.Parse(date) : DateTime.MinValue,
-                            TimeIn = TimeSpan.Parse(timeIn),
-                            TimeOut = TimeSpan.Parse(timeOut),
+                            MaintenanceDate = !string.IsNullOrWhiteSpace(date) ? DateTime.Parse(date) : (DateTime?)null,
+                            TimeIn = !string.IsNullOrWhiteSpace(timeIn) ? TimeSpan.Parse(timeIn) : (TimeSpan?)null,
+                            TimeOut = !string.IsNullOrWhiteSpace(timeOut) ? TimeSpan.Parse(timeOut) : (TimeSpan?)null,
                             Status = "Pending",
                         };
 
