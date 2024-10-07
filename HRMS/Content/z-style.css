@@ -3608,6 +3608,7 @@ input[type=checkbox], input[type=radio] {
     padding: 6px 10px;
     border-radius: .25rem;
     background-color: #e9ecef;
+    height: 38px;
 }
 
 /* purchase account edit end */
@@ -4744,6 +4745,7 @@ input[type=checkbox], input[type=radio] {
 
 .admin-maintenanceinfo-view .res-admin-maintenanceinfo-add {
     display: inline-block;
+    padding: 0;
 }
 
 .addingmaintenanceinfo {
@@ -4755,6 +4757,7 @@ input[type=checkbox], input[type=radio] {
     border: 1px solid #ccc;
     background-color: dodgerblue;
     color: #fff;
+    margin-top: -5px;
 }
 
 .maintenanceinfo-image-btn img {
@@ -4902,6 +4905,80 @@ input[type=checkbox], input[type=radio] {
     padding-left: 10px;
 }
 
+#addmaintenanceinfo-popup .schedulemaintenance-popup-info .schedulemaintenance-tabs .dropdown-toggle::after {
+    right: 12px;
+    position: absolute;
+    top: 18px;
+}
+
+#adminmaintenanceinfotable {
+    table-layout: fixed;
+}
+
+#adminmaintenanceinfotable thead th:nth-child(1) {
+    width: 150px;
+}
+
+#adminmaintenanceinfotable thead th:nth-child(2) {
+    width: 130px;
+}
+
+#adminmaintenanceinfotable thead th:nth-child(3) {
+    width: 130px;
+}
+
+#adminmaintenanceinfotable thead th:nth-child(4) {
+    width: 150px;
+}
+
+#adminmaintenanceinfotable thead th:nth-child(5) {
+    width: 100px;
+}
+
+#adminmaintenanceinfotable thead th:nth-child(6) {
+    width: 95px;
+}
+
+#adminmaintenanceinfotable thead th:nth-child(7) {
+    width: 100px;
+}
+
+#adminmaintenanceinfotable thead th:nth-child(8) {
+    width: 60px;
+}
+
+.maintenanceinfo-image-btn .default-image-navbar {
+    border-radius: 50%;
+    width: 30px;
+    height: 30px;
+    object-fit: cover;
+    margin-right: 7px;
+    display: inline-flex;
+}
+
+#adminmaintenanceinfotable .maintenanceinfo-notes span {
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    overflow: hidden;
+    width: 100px;
+    display: inline-block;
+}
+
+#addmaintenanceinfo-popup .modal-footer {
+    border: none;
+    padding-right: 0;
+}
+
+#adminmaintenanceinfotable .tdmaintenance-ename .maintanace-emp-history,
+#adminmaintenanceinfotable .tdmaintenance-agentname .maintenance-id-select {
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    overflow: hidden;
+    width: 71px;
+    display: inline-block;
+    vertical-align: middle;
+}
+
 /* monthly maintenance end */
 
 /* maintenance approve start */
@@ -5029,6 +5106,65 @@ input[type=checkbox], input[type=radio] {
 
 #maintenancehistorytable tbody tr:nth-child(even) {
     background-color: lightblue !important;
+}
+
+#maintenancehistorytable .tdmaintenancehistory-agentname .maintenance-id-select {
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    overflow: hidden;
+    width: 110px;
+    display: inline-block;
+    vertical-align: middle;
+}
+
+#maintenancehistorytable .tdmaintenancehistory-notes span {
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    overflow: hidden;
+    width: 190px;
+    display: inline-block;
+}
+
+.maintenancehistory-image-btn .default-image-navbar {
+    border-radius: 50%;
+    width: 30px;
+    height: 30px;
+    object-fit: cover;
+    margin-right: 7px;
+    display: inline-flex;
+}
+
+#maintenancehistorytable {
+    table-layout: fixed;
+}
+
+#maintenancehistory-status-dropdown {
+    width: 80px;
+}
+
+#maintenancehistorytable thead th:nth-child(1) {
+    width: 100px;
+    text-align: center;
+}
+
+#maintenancehistorytable thead th:nth-child(2) {
+    width: 130px;
+}
+
+#maintenancehistorytable thead th:nth-child(3) {
+    width: 140px;
+}
+
+#maintenancehistorytable thead th:nth-child(4) {
+    width: 150px;
+}
+
+#maintenancehistorytable thead th:nth-child(5) {
+    width: 70px;
+}
+
+#maintenancehistorytable thead th:nth-child(6) {
+    width: 200px;
 }
 
 /* maintenance history end */
