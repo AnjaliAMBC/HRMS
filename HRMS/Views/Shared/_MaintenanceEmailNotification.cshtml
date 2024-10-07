@@ -10,8 +10,8 @@
     <li>
         Date: @(Model.MaintenanceDate != null ? Model.MaintenanceDate.Value.ToString("MMMM dd, yyyy") : "Not Scheduled")
     </li>
-    <li>Time In: @Model.TimeIn</li>
-    <li>Time Out: @Model.TimeOut</li>
+    <li>Time In: @(Model.TimeIn.HasValue ? Model.TimeIn.ToString() : "N/A")</li>
+    <li>Time Out: @(Model.TimeOut.HasValue ? Model.TimeOut.ToString() : "N/A")</li>
 </ul>
 
 <p>Please be available for the scheduled maintenance.</p>
