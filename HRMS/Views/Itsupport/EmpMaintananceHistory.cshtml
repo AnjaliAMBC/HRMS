@@ -73,7 +73,7 @@
                         </div>
                     </div>
 
-                    <div class="res-maintenancehistory-table table-responsive">
+                    <span class="res-maintenancehistory-table table-responsive">
                         <table id="maintenancehistorytable" class="display" style="width: 100%;">
                             <thead style="background-color: #d8e6fb; border-radius: 10px;">
                                 <tr>
@@ -109,7 +109,7 @@
                                         </td>
                                         <td class="tdmaintenancehistory-date">@(maintenance.MaintenanceDate.HasValue ? maintenance.MaintenanceDate.Value.ToString("dd/MM/yyyy") : "N/A")</td>
                                         <td class="tdmaintenancehistory-changerequest">@(maintenance.RescheduleDate.HasValue ? maintenance.RescheduleDate.Value.ToString("dd/MM/yyyy") : "-")</td>
-                                        <td>
+                                        <td  class="tdmaintenancehistory-agentname">
                                             <span class="maintenancehistory-image-btn">
                                                 @foreach (var emp in Model.Employees.Where(x => x.EmployeeID == maintenance.AgentID))
                                                 {
@@ -141,7 +141,7 @@
 
                                                     }
                                                 }
-                                            </span><span class="maintenance-id-select" data-assetid="name">@maintenance.AgentName</span>
+                                            </span><span class="maintenance-id-select" title="@maintenance.AgentName" data-assetid="name">@maintenance.AgentName</span>
                                         </td>
                                         <td>
                                             @if (maintenance.Status == "Completed")
@@ -153,7 +153,7 @@
                                                 <div class="maintenancehistory-status pending">@maintenance.Status</div>
                                             }
                                         </td>
-                                        <td>@maintenance.Notes</td>
+                                        <td class="tdmaintenancehistory-notes"><span title="@maintenance.Notes">@maintenance.Notes</span></td>
                                     </tr>
                                 }
 

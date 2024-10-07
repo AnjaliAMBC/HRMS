@@ -55,7 +55,7 @@
                                     }
                                 }
                             </span>
-                            <span class="maintenance-id-select maintanace-emp-history" data-maintenanceempid="@schedule.EmployeeID">@schedule.EmployeeName</span>
+                            <span class="maintenance-id-select maintanace-emp-history" title="@schedule.EmployeeName" data-maintenanceempid="@schedule.EmployeeID">@schedule.EmployeeName</span>
                         </td>
                         <td>@(schedule.MaintenanceDate.HasValue ? schedule.MaintenanceDate.Value.ToString("dd/MM/yyyy") : "N/A")</td>
 
@@ -63,7 +63,7 @@
                             @(schedule.RescheduleDate.HasValue ? schedule.RescheduleDate.Value.ToString("dd/MM/yyyy") : "-")
                         </td>
 
-                        <td>
+                        <td class="tdmaintenance-agentname">
                             <span class="maintenanceinfo-image-btn">
 
                                 @foreach (var emp in Model.Employees.Where(x => x.EmployeeID == schedule.AgentID))
@@ -98,7 +98,7 @@
                                 }
 
                             </span>
-                            <span class="maintenance-id-select" data-assetid="name">@schedule.AgentName</span>
+                            <span class="maintenance-id-select" title="@schedule.AgentName" data-assetid="name">@schedule.AgentName</span>
                         </td>
                         <td>
                             @if (schedule.Status == "Completed")
@@ -110,7 +110,7 @@
                                 <div class="maintenance-status pending">@schedule.Status</div>
                             }
                         </td>
-                        <td>@schedule.Notes</td>
+                        <td class="maintenanceinfo-notes"><span title="@schedule.Notes">@schedule.Notes</span></td>
                         <td class="maintenancestatus-icon" style="text-align:center;">
                             <span class="maintenanceapproved-btn">
                                 @if (schedule.Acknowledge == "Yes")
