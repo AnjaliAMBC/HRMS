@@ -222,7 +222,7 @@
                                 <tr>
                                     <td><input type="checkbox" name="leaveCheckbox" value="@leaveInfo.LatestLeave.leaveuniqkey" /></td>
                                     <td>@leaveInfo.LatestLeave.employee_id</td>
-                                    <td>
+                                    <td >
                                         @{
                                             string imagePath = "/Assets/Pending.png";
                                             string status = leaveInfo.LatestLeave.LeaveStatus.ToLower();
@@ -244,7 +244,7 @@
                                                     break;
                                             }
                                         }
-                                        <img src="@imagePath" alt="status" class="leavehistory_status" style="width:30px;height:30px;" />
+                                        <img src="@imagePath" alt="status" class="leavehistory_status" style="width:28px;height:28px;margin-left:10%" />
 
                                     </td>
                                     @{
