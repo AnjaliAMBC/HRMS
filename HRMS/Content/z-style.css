@@ -3139,6 +3139,10 @@ input[type=checkbox], input[type=radio] {
     width: 310px;
 }
 
+#hr-vendorlisting-status-dropdown {
+    width: 108px;
+}
+
 /* vendor view end */
 
 /* vendor approval start */
@@ -3241,7 +3245,7 @@ input[type=checkbox], input[type=radio] {
 .itadmin-purchase-view .res-itadmin-purchase-export {
     justify-content: end;
     display: inline-block;
-    margin-top: 4px;
+    margin-top: 6px;
 }
 
 .PurchaseType {
@@ -3254,6 +3258,7 @@ input[type=checkbox], input[type=radio] {
 
 .itadmin-purchase-view .res-itadmin-purchase-add {
     display: inline-block;
+    margin-top: 2px;
 }
 
 .addingpurchase {
@@ -3297,7 +3302,7 @@ input[type=checkbox], input[type=radio] {
 }
 
 .res-itadmin-purchase-header-right {
-    padding-top: 20px;
+    /*padding-top: 20px;*/
 }
 
 #exportPurchase img {
@@ -3399,6 +3404,10 @@ input[type=checkbox], input[type=radio] {
     cursor:pointer;
 }
 
+.PurchaseListPage-View {
+    margin-top: 10px;
+}
+
 /* Purchase end */
 
 /* Purchase add start */
@@ -3436,6 +3445,10 @@ input[type=checkbox], input[type=radio] {
 .admin-purchase-add .add-vendor-block {
     margin-top: 10px;
     font-size: 17px;
+}
+
+.purchasevendor-add-details {
+    margin-bottom: 10px;
 }
 
 /* Purchase add end */
@@ -3486,7 +3499,7 @@ input[type=checkbox], input[type=radio] {
 .admin-purchaseaccount-view .res-admin-purchaseaccount-export {
     justify-content: end;
     display: inline-block;
-    margin-top: 4px;
+    margin-top: 5px;
 }
 
 .purchaseaccountType {
@@ -3542,7 +3555,7 @@ input[type=checkbox], input[type=radio] {
 }
 
 .res-admin-purchaseaccount-header-right {
-    padding-top: 20px;
+    /*padding-top: 20px;*/
 }
 
 #exportpurchaseaccount img {
@@ -3559,6 +3572,14 @@ input[type=checkbox], input[type=radio] {
 
 #exportPurchaseAccount img {
     height: 30px;
+}
+
+.PurchaseAccountListPage-View {
+    margin-top: 10px;
+}
+
+.res-admin-purchaseaccount-table #adminpurchaseaccounttable_wrapper {
+    padding-top: 5px;
 }
 
 /* purchase account end */
@@ -4781,13 +4802,13 @@ input[type=checkbox], input[type=radio] {
     width: 75px;
 }
 
-    #adminmaintenanceinfotable .maintenance-status.completed {
-        background: #34C7AC;
-    }
+#adminmaintenanceinfotable .maintenance-status.completed {
+    background: #34C7AC;
+}
 
-    #adminmaintenanceinfotable .maintenance-status.pending {
-        background: #26ABED;
-    }
+#adminmaintenanceinfotable .maintenance-status.pending {
+    background: #26ABED;
+}
 
 #adminmaintenanceinfotable thead {
     background-color: #267EC4 !important;
@@ -4859,7 +4880,7 @@ input[type=checkbox], input[type=radio] {
 #res-maintenance-filter-popup {
     position: absolute;
     z-index: 9;
-    width: 555%;
+    width: 715%;
     background: #fff;
     right: 0;
     border: 1px solid #ccc;
@@ -4874,7 +4895,7 @@ input[type=checkbox], input[type=radio] {
 
 .res-admin-maintenanceinfo-filter .maintenance-filter-fileds {
     display: inline-block;
-    width: 22%;
+    /*width: 22%;*/
 }
 
 #res-maintenance-filter-popup .maintenance-filter-header-title {
@@ -4977,6 +4998,10 @@ input[type=checkbox], input[type=radio] {
     width: 71px;
     display: inline-block;
     vertical-align: middle;
+}
+
+.admin-maintenanceinfoview {
+    /*padding-right: 0;*/
 }
 
 /* monthly maintenance end */

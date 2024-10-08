@@ -1784,6 +1784,7 @@
     .mobile-view .res-itadmin-purchase-header-right {
         padding-left: 0;
         justify-content: left !important;
+        margin-top: 10px;
     }
 
     .mobile-view .admin-purchase-view .res-admin-purchase-add {
@@ -1868,7 +1869,7 @@
     }
 
     .mobile-view .admin-purchaseaccount-container .res-admin-purchaseaccount-table {
-        margin-top: 90px;
+        margin-top: 65px;
     }
 
     .mobile-view .res-admin-purchaseaccount-search {
@@ -1882,6 +1883,7 @@
     .mobile-view .admin-purchaseaccount-view .res-admin-purchaseaccount-header-right {
         justify-content: left;
         padding-left: 0;
+        margin-top: 5px;
     }
 
     .mobile-view .admin-purchaseaccount-view .res-purchaseaccountlisting {
@@ -2512,7 +2514,7 @@
     }
 
     .res-itadmin-purchase-table {
-        margin-top: 70px !important;
+        margin-top: 55px !important;
     }
 
     .itadmin-purchase-view .res-itadmin-purchase-add {
@@ -2522,6 +2524,7 @@
 
     .itadmin-purchase-view .res-itadmin-purchase-header-right {
         justify-content: left !important;
+        margin-top: 10px;
     }
 
     .itadmin-purchase-view .res-itadmin-purchase-export {
@@ -3041,7 +3044,7 @@
     #res-maintenance-filter-popup {
         left: -40px;
         right: 0;
-        width: 210% !important;
+        width: 270% !important;
     }
 
     .res-admin-maintenanceinfo-filter .maintenance-filter-fileds {
@@ -8546,8 +8549,8 @@
     }
 
     .admin-maintenanceinfoview .res-admin-maintenanceinfo-filter {
-        max-width: 22% !important;
-        flex: 0 0 22% !important;
+        max-width: 25% !important;
+        flex: 0 0 25% !important;
     }
 
     .admin-maintenanceinfo-view .res-admin-maintenanceinfo-add {
@@ -9426,6 +9429,14 @@
     .addshiftcard .res-admin-addshift-submit {
         margin-right: 86px !important;
     }
+
+    .admin-assetinfo-view .res-admin-assetinfo-status {
+        max-width: 28%;
+    }
+
+    .admin-maintenanceinfo-view #res-maintenance-filter-popup {
+        width: 672%;
+    }
 }
 
 /* Media Query for Tablets Ipads portrait mode start */
@@ -9539,6 +9550,41 @@
     #purchaseaccount-form .container {
         max-width: 100%;
     }
+
+    .admin-subscriptioninfo-view .res-admin-subscriptioninfo-add {
+        max-width: 40%;
+    }
+
+    .admin-assetinfo-view .res-admin-assetinfo-status {
+        margin-right: -50px;
+    }
+
+    .admin-vendor-view .res-admin-vendor-status {
+        max-width: 28%;
+    }
+
+    .admin-vendor-view .res-admin-vendor-export {
+        max-width: 12%;
+    }
+
+    #vendor-form .container {
+        max-width: 100%;
+    }
+
+    #assetadd-purchaseinfo-form .container,
+    #assetadd-allocateinfo-form .container,
+    #assetadd-form .container {
+        max-width: 100%;
+    }
+
+    .admin-maintenanceinfo-view .res-admin-maintenanceinfo-add {
+        max-width: 33%;
+    }
+
+    .admin-maintenanceinfo-view #res-maintenance-filter-popup {
+        width: 580%;
+    }
+
 }
 
 @media only screen and (min-width:1920px) and (max-width: 2560px) {
@@ -9686,10 +9732,43 @@
         width: 89% !important;
     }
 
+    .admin-vendor-view .res-admin-vendor-status {
+        max-width: 24%;
+    }
+
+    .admin-vendor-view .res-admin-vendor-export {
+        max-width: 12%;
+    }
+
     #purchaseaccount-form .container {
         max-width: 100%;
     }
 
+    .admin-subscriptioninfo-view .res-admin-subscriptioninfo-add {
+        max-width: 30%;
+    }
+
+    .admin-assetinfo-view .res-admin-assetinfo-status {
+        margin-right: -100px;
+    }
+
+    #vendor-form .container {
+        max-width: 100%;
+    }
+
+    #assetadd-purchaseinfo-form .container,
+    #assetadd-allocateinfo-form .container,
+    #assetadd-form .container {
+        max-width: 100%;
+    }
+
+    .admin-maintenanceinfo-view .res-admin-maintenanceinfo-add {
+        max-width: 26%;
+    }
+
+    .admin-maintenanceinfo-view #res-maintenance-filter-popup {
+        width: 474%;
+    }
 }
 
 @media only screen and (min-width: 2047px) and (max-width: 2600px) {
