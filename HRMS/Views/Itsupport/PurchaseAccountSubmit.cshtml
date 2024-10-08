@@ -145,7 +145,7 @@
 
                                         <a style="@showPOAttachment" class="itp_filepath attchedfile-1" href="/purchase/@Model.PO" target="_blank">@Model.PO</a><br />
 
-                                        <small style="font-size: 12px; float: left; margin-top: -5px; color: #3E78CF; ">File supported PDF, DOCS of 2MB</small>
+                                        <small style="font-size: 12px; float: left; width: 100%; margin-top: -5px; color: #3E78CF; ">File supported PDF, DOCS of 2MB</small>
                                         <div class="invalid-feedback">Purchase Order is required.</div>
                                     </div>
                                 </div>
@@ -154,7 +154,7 @@
                                         <label for="PATaxInvoice" style="width:100%;">Tax Invoice</label>
                                         <div class="upload-btn-wrapper PATaxInvoiceOrderwrapper">
                                             <button class="btn taxinvoice-upload-btn">Upload</button>
-                                            <input type="file" value="" class="form-control" name="PATaxInvoice" id="PATaxInvoice" data-existingfile="@Model.TaxInvoice" required>
+                                            <input type="file" value="" class="form-control" name="PATaxInvoice" id="PATaxInvoice" data-existingfile="@Model.TaxInvoice">
                                         </div>
                                         @{
                                             var showTaxAttachment = "disaply:block";
@@ -166,8 +166,7 @@
                                         }
 
                                         <a style="@showPOAttachment" class="itp_filepath attchedfile-2" href="/purchase/@Model.TaxInvoice" target="_blank">@Model.TaxInvoice</a><br />
-                                        <small style="font-size: 12px; float: left; margin-top: -5px; color: #3E78CF; ">File supported PDF, DOCS of 2MB</small>
-                                        <div class="invalid-feedback">Tax Invoice is required.</div>
+                                        <small style="font-size: 12px; float: left; width: 100%; margin-top: -5px; color: #3E78CF; ">File supported PDF, DOCS of 2MB</small>                                       
                                     </div>
                                 </div>
                             </div>
@@ -259,25 +258,20 @@
     });
 
     $('#PATaxInvoice').on('change', function () {
-        var isValid = AttchemnetValidation($(this), true, "PATaxInvoiceOrderwrapper", "#PATaxInvoice");
+        // Removed validation for PATaxInvoice
         $(this).attr("data-existingfile", "");
-        if (isValid) {
-            var fileInput2 = $('#PATaxInvoice');
-            var file = fileInput2[0].files[0];
-            if (file) {
-                var fileName = file.name;
-                var fileUrl = URL.createObjectURL(file);
+        var fileInput2 = $('#PATaxInvoice');
+        var file = fileInput2[0].files[0];
+        if (file) {
+            var fileName = file.name;
+            var fileUrl = URL.createObjectURL(file);
 
-                $('.attchedfile-2').attr('href', fileUrl).text(fileName).show();
-            } else {
-                $('.attchedfile-2').hide();
-            }
-            console.log("Attach2 File validation passed.");
+            $('.attchedfile-2').attr('href', fileUrl).text(fileName).show();
         } else {
-            console.log("Attach2 validation failed.");
+            $('.attchedfile-2').hide();
         }
+        console.log("PATaxInvoice file uploaded.");
     });
-
 
     $(document).on('click', '.vendorpo-Submit', function () {
         event.preventDefault();
@@ -293,12 +287,7 @@
             isValid = false;
         }
 
-        var fileInput2 = $('#PATaxInvoice');
-        var AttchmentValidated2 = AttchemnetValidation(fileInput2, true, "PATaxInvoiceOrderwrapper", "#PATaxInvoice");
-
-        if (AttchmentValidated2 == false) {
-            isValid = false;
-        }
+        // Removed AttchemnetValidation for PATaxInvoice
 
         // If the form is valid, submit the form via AJAX
         if (isValid) {
@@ -333,6 +322,7 @@
             });
         }
     });
+
 
     $(document).on('click', '.btn-po-submit-close', function () {
         window.location.href = "/purchase/purchaseaccountadmin";

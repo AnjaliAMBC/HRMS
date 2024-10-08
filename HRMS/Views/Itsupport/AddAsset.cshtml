@@ -990,23 +990,30 @@
             }
             const assetImage = $('#AssetImage');
             if (assetImage.val() === "") {
-                assetImage.addClass('is-invalid');
-                isValid = false;
+                if ($('.edit-AssetType1Image').attr("href") == "") {
+                    assetImage.addClass('is-invalid');
+                    isValid = false;
+                }
+
             } else {
                 assetImage.removeClass('is-invalid');
             }
 
             const assetType1 = $('#AssetType-1');
             if (assetType1.val() === null || assetType1.val() === "") {
+
                 assetType1.addClass('is-invalid');
                 isValid = false;
+
             } else {
                 assetType1.removeClass('is-invalid');
             }
             const assetImage1 = $('#AssetImage-1');
             if (assetImage1.val() === "") {
-                assetImage1.addClass('is-invalid');
-                isValid = false;
+                if ($('.edit-AssetType2Image').attr("href") == "") {
+                    assetImage1.addClass('is-invalid');
+                    isValid = false;
+                }
             } else {
                 assetImage1.removeClass('is-invalid');
             }
@@ -1021,8 +1028,10 @@
             }
             const assetImage2 = $('#AssetImage-2');
             if (assetImage2.val() === "") {
-                assetImage2.addClass('is-invalid');
-                isValid = false;
+                if ($('.edit-AssetType3Image').attr("href") == "") {
+                    assetImage2.addClass('is-invalid');
+                    isValid = false;
+                }
             } else {
                 assetImage2.removeClass('is-invalid');
             }
@@ -1037,8 +1046,10 @@
             }
             const assetImage3 = $('#AssetImage-3');
             if (assetImage3.val() === "") {
-                assetImage3.addClass('is-invalid');
-                isValid = false;
+                if ($('.edit-AssetType4Image').attr("href") == "") {
+                    assetImage3.addClass('is-invalid');
+                    isValid = false;
+                }
             } else {
                 assetImage3.removeClass('is-invalid');
             }
@@ -1052,8 +1063,8 @@
             }
             const assetImage4 = $('#AssetImage-4');
             if (assetImage4.val() === "") {
-                assetImage4.addClass('is-invalid');
-                isValid = false;
+                //assetImage4.addClass('is-invalid');
+                /*  isValid = false;*/
             } else {
                 assetImage4.removeClass('is-invalid');
             }
@@ -1067,8 +1078,8 @@
             }
             const assetImage5 = $('#AssetImage-5');
             if (assetImage5.val() === "") {
-                assetImage5.addClass('is-invalid');
-                isValid = false;
+                //assetImage5.addClass('is-invalid');
+                //isValid = false;
             } else {
                 assetImage5.removeClass('is-invalid');
             }
@@ -1082,16 +1093,18 @@
             }
             const assetImage6 = $('#AssetImage-6');
             if (assetImage6.val() === "") {
-                assetImage6.addClass('is-invalid');
-                isValid = false;
+                //assetImage6.addClass('is-invalid');
+                //isValid = false;
             } else {
                 assetImage6.removeClass('is-invalid');
             }
 
             const mainImage = $('#assetadd-file-upload-input');
             if (mainImage.val() === "") {
-                mainImage.addClass('is-invalid');
-                isValid = false;
+                if ($('.edit-AssetmainImage').attr("href") == "") {
+                    mainImage.addClass('is-invalid');
+                    isValid = false;
+                }
             } else {
                 mainImage.removeClass('is-invalid');
             }

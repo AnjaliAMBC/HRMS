@@ -110,7 +110,7 @@
                                     <select class="form-control form-select" name="assetinfostatus" id="assetinfo-status-dropdown" style="">
                                         <option value="" disabled selected>Allocate Status</option>
                                         <option value="Assigned">Assigned</option>
-                                        <option value="Un-Assigned">Un-Assigned</option>
+                                        <option value="Unassigned">Un-Assigned</option>
                                         <option value="Scrap">Scrap</option>
                                         <option value="">All</option>
                                     </select>
@@ -166,7 +166,7 @@
                                 var assignedDate = @asset.AssignedDate.HasValue ? @asset.AssignedDate.Value.ToString("yyy-MM-dd") : "";
                             <tr class="">
                                 <td><input type="checkbox" class="Assetlist-check" data-assetid="@asset.SNo"></td>
-                                <td class="tdassetid"><span class="assetinfo-image-btn"><img src="~/Assets/asset-icon-5.png" alt="@asset.AssetID" style="width:25px"></span><span class="Asset-id-select" data-assetid="@asset.SNo" style="margin-left: 5px; color: #3E78CF;">@asset.AssetID</span></td>
+                                <td class="tdassetid"><span class="assetinfo-image-btn"><img src="~/Assets/image8.png" alt="@asset.AssetID" style="width:25px"></span><span class="Asset-id-select" data-assetid="@asset.SNo" style="margin-left: 5px; color: #3E78CF;">@asset.AssetID</span></td>
                                 <td>@asset.AllocatedEmployeeID @asset.AllocatedEmployeeName</td>
                                 <td class="tdassetlocation">@asset.Location</td>                                
                                 <td>@asset.AllocatedStatus</td>
@@ -207,7 +207,7 @@
                         <div class="row">
                             <div class="col-lg-1 col-md-1 profile-pic">
                                 <div class="form-group assetview-assettransfer-tabs">
-                                    <img src="~/Assets/EmpImages/1155.jpeg">
+                                    <img src="~/Assets/EmpImages/1155.jpeg" class="asseet-transfer-image">
                                 </div>
                             </div>
                             <div class="col-lg-3 col-md-3">
@@ -389,12 +389,17 @@
             });
 
             $(document).on('change', '#assetinfo-status-dropdown', function () {
-                var value = $(this).val();
-                var columnIndex = 4;
-                if (value === 'All') {
-                    table.column(columnIndex).search('').draw();
+                var value = $(this).val(); // Get the selected value
+                var columnIndex = 4; // The index of the Allocate Status column (zero-based)
+
+                console.log('Selected value for filtering:', value); // Debugging statement
+
+                // Use regular expression for exact match
+                if (value === '') {
+                    table.column(columnIndex).search('').draw(); // Show all rows
                 } else {
-                    table.column(columnIndex).search(value).draw();
+                    // Regular expression for exact match
+                    table.column(columnIndex).search('^' + value + '$', true, false).draw();
                 }
             });
 
@@ -412,6 +417,10 @@
         $('#assettransfer-uploaded-file-info').show();
         $('#assettransfer-uploaded-file-text').text(fileName);
     }
+
+    $('#Assetlist-selectAll').click(function () {
+        $('.Assetlist-check').prop('checked', this.checked);
+    });
 
     function exportAssetinfo() {
         var selectedAssetIds = [];

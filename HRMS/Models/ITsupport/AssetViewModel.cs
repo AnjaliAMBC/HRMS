@@ -19,6 +19,9 @@ namespace HRMS.Models.ITsupport
         public int MaduraiAssets { get; set; } = 0;
 
         public AssetModel AssetModel = new AssetModel();
+        public List<emp_info> Employees { get; set; } = new List<emp_info>();
+
+        public emp_info SelectedEmp { get; set; } = new emp_info();
 
     }
 

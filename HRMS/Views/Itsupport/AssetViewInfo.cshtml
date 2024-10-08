@@ -364,12 +364,16 @@
                                                     <div class="parent">
                                                         <div class="person female" style="border: none;">
                                                             <div class="name allocate-details tree-root">
-                                                                <img src="/assets/empimages/@Model.AllocatedEmpInfo.imagepath">
-                                                                <div class="user-info">
-                                                                    <div class="user-name">@Model.AllocatedEmpInfo.EmployeeName @Model.AllocatedEmpInfo.EmployeeID</div>
-                                                                    <div class="user-designation">@Model.AllocatedEmpInfo.Designation</div>
-                                                                    <div class="user-location">Location: @Model.AllocatedEmpInfo.Location</div>
-                                                                </div>
+                                                                @if (Model.AllocatedEmpInfo != null)
+                                                                {
+                                                                    <img src="/assets/empimages/@Model.AllocatedEmpInfo.imagepath">
+                                                                    <div class="user-info">
+                                                                        <div class="user-name">@Model.AllocatedEmpInfo.EmployeeName @Model.AllocatedEmpInfo.EmployeeID</div>
+                                                                        <div class="user-designation">@Model.AllocatedEmpInfo.Designation</div>
+                                                                        <div class="user-location">Location: @Model.AllocatedEmpInfo.Location</div>
+                                                                    </div>
+                                                                }
+
                                                             </div>
                                                         </div>
                                                         <ul>

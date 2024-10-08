@@ -262,7 +262,7 @@ namespace HRMS.Controllers
             var exportLeaveBalanceModel = new List<LeaveBalanceExport>();
 
             var currentYear = DateTime.Today.Year.ToString();
-            var employees = _dbContext.emp_info.ToList();
+            var employees = _dbContext.emp_info.Where(x => x.EmployeeStatus == "Active").ToList();
             var leaveTypes = new LeaveCalculator().LeaveCategories();
 
             foreach (var emp in employees)

@@ -58,6 +58,8 @@ $(document).on('click', '.asset-info-transfer', function (event) {
             $('.asseettrasfer-assign-olddate').text(FormattedTransferDate(data.EditAssets.AssignedDate));
             $('.asseettrasfer-assign-oldassignby').text(data.EditAssets.AssignedBy);
             $('.asset-transer-assesno').text(data.EditAssets.SNo);
+
+            $('.asseet-transfer-image').attr("src", "/assets/empimages/" + data.AllocatedEmpInfo.EmployeeID + ".jpeg")
         },
         error: function (xhr, status, error) {
             alert("An error occurred: " + error);

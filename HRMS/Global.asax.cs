@@ -57,23 +57,23 @@ namespace HRMS
             //Trigger the job to run every minute
             ITrigger trigger2 = TriggerBuilder.Create()
                .WithIdentity("DailycheckinreportjobTrigger", "group2")
-               .WithCronSchedule("0 0 11,15,17 30 ? * MON-FRI") // Cron expression for 11 AM, 3 PM, and 5:30 PM
+               .WithCronSchedule("0 0 11,15,17 30 ? * MON-FRI") 
                .Build();
 
             // Define the job and tie it to our ShiftNotificationJob class
-            IJobDetail job3 = JobBuilder.Create<HolidayNotificationJob>()
-                .WithIdentity("CompOffIntimationmailJob", "group3")
-                .Build();
+            //IJobDetail job3 = JobBuilder.Create<HolidayNotificationJob>()
+            //    .WithIdentity("CompOffIntimationmailJob", "group3")
+            //    .Build();
 
-            // Trigger the job to run every minute
-            ITrigger trigger3 = TriggerBuilder.Create()
-              .WithIdentity("CompOffIntimationmailJobTrigger", "group3")
-              .WithCronSchedule("0 0 10 * * ?")
-              .Build();
+           
+            //ITrigger trigger3 = TriggerBuilder.Create()
+            //  .WithIdentity("CompOffIntimationmailJobTrigger", "group3")
+            //  .WithCronSchedule("0 0 10 * * ?")
+            //  .Build();
 
             scheduler.ScheduleJob(job, trigger).Wait();
             scheduler.ScheduleJob(job2, trigger2).Wait();
-            scheduler.ScheduleJob(job3, trigger3).Wait();
+            //scheduler.ScheduleJob(job3, trigger3).Wait();
         }
     }
 }
