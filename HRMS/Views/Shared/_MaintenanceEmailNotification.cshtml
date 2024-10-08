@@ -1,28 +1,83 @@
 ﻿@model HRMS.IT_Maintenance
+@{
 
+    var siteURL = System.Configuration.ConfigurationManager.AppSettings["siteURL"];
+    var logoURL = siteURL + "/Assets/AMBC_Logo.png";
+}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <style>
+        table {
+            border-collapse: collapse;
+            margin-top: 20px;
+            border-color:transparent;
+        }
+       
+        p {
+            font-size: 14px;
+            color: #333;
+        }
 
-<p>Dear @Model.EmployeeName,</p>
+        .table_head td {
+            border: 1px solid transparent;
+        }
+        .table_body th,.table_body td,.table_body tr {
+            border: 1px solid transparent;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <table class="table_head" width="80%" cellpadding="0" cellspacing="0" border="0">
+            <tr>
+                <td style="padding: 15px 0; border: 1px solid transparent;">
+                    <p>Dear @Model.EmployeeName,</p>
+                </td>
+                <td align="right" style="padding: 15px 0; border: 1px solid transparent;">
+                    <a href="@siteURL" target="_blank">
+                        <img src="@logoURL" alt="AMBC Logo" width="80" style="display: block;">
+                    </a>
+                </td>
+            </tr>
+        </table>
 
-<p>Your maintenance has been scheduled as follows:</p>
+        <p>Your maintenance has been scheduled as follows:</p>
 
-<ul>
-    <li>Location: @Model.Location</li>
-    <li>
-        Date: @(Model.MaintenanceDate != null ? Model.MaintenanceDate.Value.ToString("MMMM dd, yyyy") : "Not Scheduled")
-    </li>
-    <li>Time In: @(Model.TimeIn.HasValue ? Model.TimeIn.ToString() : "N/A")</li>
-    <li>Time Out: @(Model.TimeOut.HasValue ? Model.TimeOut.ToString() : "N/A")</li>
-</ul>
+        <table class="table_body" width="40%" cellpadding="0" cellspacing="0" border="0" >
+            <tr>
+                <th style="border: 1px solid transparent; text-align: left; ">Location:</th>
+                <td style="border: 1px solid transparent; text-align: left; ">@Model.Location</td>
+            </tr>
+            <tr>
+                <th style="border: 1px solid transparent; text-align: left; ">Date:</th>
+                <td style="border: 1px solid transparent; text-align: left; ">@(Model.MaintenanceDate != null ? Model.MaintenanceDate.Value.ToString("MMMM dd, yyyy") : "Not Scheduled")</td>
+            </tr>
+            <tr>
+                <th style="border: 1px solid transparent; text-align: left; ">Time In:</th>
+                <td style="border: 1px solid transparent; text-align: left; ">@(Model.TimeIn.HasValue ? Model.TimeIn.ToString() : "N/A")</td>
+            </tr>
+            <tr>
+                <th style="border: 1px solid transparent; text-align: left; ">Time Out:</th>
+                <td style="border: 1px solid transparent; text-align: left; ">@(Model.TimeOut.HasValue ? Model.TimeOut.ToString() : "N/A")</td>
+            </tr>
+        </table>
 
-<p>Please be available for the scheduled maintenance.</p>
+        <p>Please be available for the scheduled maintenance.</p>
 
-<p>Best regards,<br>Maintenance Team</p>
+        <p>Best regards,<br>Maintenance Team</p>
 
-<!-- Add the email footer -->
-<div class="email-footer" style="margin-top: 20px; font-size: 12px; color: #666;">
-    <p style="margin: 0; background-color: #ffffff;">This is an automated email, please do not reply.</p>
-    <p style="margin: 0; background-color: #ffffff;">
-        Automated mail from
-        <a href="https://prm.ambctechnologies.com">https://prm.ambctechnologies.com</a>
-    </p>
-</div>
+        <!-- Add the email footer -->
+        <div class="email-footer" style="margin-top: 20px; font-size: 12px; color: #666;align-items:center;">
+            <p style="margin: 0; background-color: #ffffff;">This is an automated email, please do not reply.</p>
+            <p style="margin: 0; background-color: #ffffff;">
+                Automated mail from
+                <a href="https://prm.ambctechnologies.com">https://prm.ambctechnologies.com</a>
+            </p>
+        </div>
+
+    </div>
+</body>
+</html>
