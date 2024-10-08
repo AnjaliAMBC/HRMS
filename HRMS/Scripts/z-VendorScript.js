@@ -40,9 +40,8 @@ function validateForm() {
     }
 
     // Validate Vendor Contact
-    const vendorContact = $('#VendorContact');
-    const contactPattern = /^[0-9]{10}$/;
-    if (vendorContact.val() === "" || !contactPattern.test(vendorContact.val().trim())) {
+    const vendorContact = $('#VendorContact');   
+    if (vendorContact.val() === "") {
         vendorContact.addClass('is-invalid');
         isValid = false;
     } else {
@@ -153,50 +152,6 @@ function downloadVendorTemplate() {
     document.body.removeChild(link);
 }
 
-
-
-$(document).on('click', '.btn-vendor-import-submit', function (event) {
-    event.preventDefault();
-
-    // Check if a file is selected
-    var fileInput = document.getElementById('vendor-file-upload-input');
-    if (!fileInput || fileInput.files.length === 0) {
-        alert("Please select a file to upload.");
-        return;
-    }
-
-    var file = fileInput.files[0];
-    var formData = new FormData();
-    formData.append('file', file);
-
-    $.ajax({
-        url: '/Vendor/ImportVendor',
-        type: 'POST',
-        data: formData,
-        processData: false, 
-        contentType: false, // Prevent jQuery from setting the Content-Type header
-        dataType: 'json',
-        beforeSend: function () {
-            $('.show-progress').show(); // Show progress indicator if any
-        },
-        success: function (response) {
-            if (response.success) { // Check if the response indicates success
-                $('#vendorImportSuccessModal').modal('show');
-                $('.vendor-success-message').text(response.message);
-            } else {               
-                alert(response.message || "An error occurred during import.");
-            }
-        },
-        error: function (xhr, status, error) {
-            $('.show-progress').hide();
-            console.error('Error uploading file:', error);
-            alert("An error occurred during file upload: " + error);
-        },
-        complete: function () {
-            $('.show-progress').hide(); // Hide progress indicator
-        }
-    });
-});
 
 
 function handleVendorFileUpload(input) {
@@ -530,7 +485,8 @@ function openVendorModal(vendorid) {
 }
 
 
-$(document).on('click', '.btn-vendor-import-submit', function () {
+$(document).on('click', '.btn-vendor-import-submit', function (event) {
+    event.preventDefault();
     var inputFile = document.getElementById('vendor-file-upload-input');
     if (!inputFile.files.length) {
         alert('Please select a file to upload');

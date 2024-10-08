@@ -396,32 +396,72 @@
         $('.maintenance-options').not(optionsMenu).hide();
         optionsMenu.toggle();
     }
-
-    $('#multiSelectDropdown').multiselect({
-        includeSelectAllOption: true,  // Option to select all
-        enableFiltering: true,         // Enables search filter
-        buttonWidth: '100%',           // Make the button full width
-        nonSelectedText: 'Select Employees', // Placeholder text
-        enableCaseInsensitiveFiltering: true, // Case insensitive search
-        maxHeight: 200,                // Dropdown max height
-        numberDisplayed: 0,            // Do not display any selected item in the button
-        buttonText: function (options, select) {
-            // Always show the placeholder text and hide selected names in input
-            if (options.length === 0) {
-                return 'Select Employees';
-            } else {
-                return 'Employees Selected';
+    $(document).ready(function () {
+        // Initialize the multiselect dropdown
+        $('#multiSelectDropdown').multiselect({
+            includeSelectAllOption: true,
+            enableFiltering: true,
+            buttonWidth: '100%',
+            nonSelectedText: 'Select Employees',
+            enableCaseInsensitiveFiltering: true,
+            maxHeight: 200,
+            numberDisplayed: 0,
+            buttonText: function (options, select) {
+                if (options.length === 0) {
+                    return 'Select Employees';
+                } else {
+                    return 'Employees Selected';
+                }
+            },
+            onChange: function (option, checked) {
+                updateSelectedNames();  // Update names when an option is changed
+            },
+            onSelectAll: function () {
+                updateSelectedNames();  // Update names when "Select All" is used
+            },
+            onDeselectAll: function () {
+                updateSelectedNames();  // Update names when "Deselect All" is used
             }
-        },
-        onChange: function (option, checked) {
-            updateSelectedNames();  // Update names when an option is changed
-        },
-        onSelectAll: function () {
-            updateSelectedNames();  // Update names when "Select All" is used
-        },
-        onDeselectAll: function () {
-            updateSelectedNames();  // Update names when "Deselect All" is used
+        });
+
+        // Function to fetch employees based on the selected location
+        function fetchEmployees(location) {
+            $.ajax({
+                url: '/Maintanance/GetEmpBasedOnLocation',  // Replace with your actual action URL
+                type: 'GET',
+                data: { Location: location },
+                success: function (response) {
+                    // Clear the existing options in the multiselect
+                    $('#multiSelectDropdown').empty();
+
+                    // Populate the multiselect dropdown with employees
+                    $.each(response, function (index, employee) {
+                        $('#multiSelectDropdown').append(
+                            $('<option>', {
+                                value: employee.EmployeeID, // Replace with your actual Employee ID field
+                                text: employee.EmployeeName // Replace with your actual Employee Name field
+                            })
+                        );
+                    });
+
+                    // Rebuild the multiselect to reflect new data
+                    $('#multiSelectDropdown').multiselect('rebuild');
+                },
+                error: function (error) {
+                    console.log('Error fetching employees:', error);
+                }
+            });
         }
+
+        // Trigger the fetchEmployees function on radio button change
+        $('input[name="schedulemaintenance-location"]').on('change', function () {
+            var selectedLocation = $(this).val();  // Get the selected location value
+            fetchEmployees(selectedLocation);      // Fetch and update employees based on location
+        });
+
+        // Initial fetch on page load for the default checked radio button
+        var initialLocation = $('input[name="schedulemaintenance-location"]:checked').val();
+        fetchEmployees(initialLocation);
     });
 
     // Function to update the selected names below the input field

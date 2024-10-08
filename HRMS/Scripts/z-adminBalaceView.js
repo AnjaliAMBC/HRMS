@@ -214,6 +214,12 @@ $(document).on('click', '#updateleavebalanceButton', function () {
 function exportLeaveBalance() {
     $('.show-progress').show();
     window.location.href = "/adminleave/exportleavebalance";
+
+    setTimeout(function () {
+        $('.show-progress').hide();
+    }, 5000); // Hide the message after 3 seconds
+
+   
 }
 
 

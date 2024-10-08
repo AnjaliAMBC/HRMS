@@ -297,7 +297,6 @@ namespace HRMS.Controllers
         [HttpPost]
         public JsonResult ImportVendors(HttpPostedFileBase file)
         {
-            var cuserContext = SiteContext.GetCurrentUserContext();
             var model = new JsonResponse();
 
             try
@@ -346,26 +345,17 @@ namespace HRMS.Controllers
 
                             dt.Rows.Add(dataRow);
 
-                            // Map DataRow to Asset object
+                            // Map DataRow to VendorList object
                             VendorList vendor = new VendorList
                             {
+                                Status = "Pending",
                                 VendorName = dataRow["VendorName"].ToString(),
                                 VendorEmail = dataRow["VendorEmail"].ToString(),
                                 VendorContact = dataRow["VendorContact"].ToString(),
                                 VendorAddress = dataRow["VendorAddress"].ToString(),
                                 VendorType = dataRow["VendorType"].ToString(),
                                 VendorGST = dataRow["VendorGST"].ToString(),
-                                ApprovedBy = dataRow["ApprovedBy"].ToString(),
-                                ApprovedDate = string.IsNullOrEmpty(dataRow["ApprovedDate"].ToString())
-                       ? (DateTime?)null
-                       : Convert.ToDateTime(dataRow["ApprovedDate"]),
-                                RejectedBy = dataRow["RejectedBy"].ToString(),
-                                RejectedDate = string.IsNullOrEmpty(dataRow["RejectedDate"].ToString())
-                       ? (DateTime?)null
-                       : Convert.ToDateTime(dataRow["RejectedDate"]),
-                                Status = dataRow["Status"].ToString(),
-                                ApproveRejectReason = dataRow["ApproveRejectReason"].ToString(),
-                                CreatedBy = cuserContext.EmpInfo.EmployeeName,
+                                CreatedBy = dataRow["CreatedBy"].ToString(), // Reading CreatedBy from Excel
                                 CreatedDate = DateTime.Now
                             };
 

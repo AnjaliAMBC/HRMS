@@ -234,7 +234,7 @@ namespace HRMS.Controllers
                         assetTransferModel.CreatedDate = DateTime.Now;
                     }
 
-                    if(Request.Form["sendack"] == "true")
+                    if (Request.Form["sendack"] == "true")
                     {
                         // Prepare the email
                         var emailSubject = $"Asset allocation Confirmation: [" + assetID + "]";
@@ -264,7 +264,7 @@ namespace HRMS.Controllers
                         };
 
                         var sendNotification = EMailHelper.SendEmail(emailRequest);
-                    }                    
+                    }
 
                 }
                 else
@@ -590,7 +590,7 @@ namespace HRMS.Controllers
                                 AllocatedStatus = dataRow["AllocatedStatus"].ToString(),
                                 AssignedBy = dataRow["AssignedBy"].ToString(),
                                 AssignedByEmpID = dataRow["AssignedByEmpID"].ToString(),
-                                AssignedDate = dataRow["AssignedDate"] == DBNull.Value ? (DateTime?)null : Convert.ToDateTime(dataRow["AssignedDate"]),
+                                AssignedDate = string.IsNullOrWhiteSpace(dataRow["AssignedDate"].ToString()) ? (DateTime?)null : Convert.ToDateTime(dataRow["AssignedDate"]),
                                 Remarks = dataRow["Remarks"].ToString(),
                                 AssetType1 = dataRow["AssetType1"].ToString(),
                                 AssetSerialNo1 = dataRow["AssetSerialNo1"].ToString(),
@@ -610,12 +610,12 @@ namespace HRMS.Controllers
                                 Model = dataRow["Model"].ToString(),
                                 BarCode = dataRow["BarCode"].ToString(),
                                 RAM = dataRow["RAM"].ToString(),
-                                WarrantyStartDate = dataRow["WarrantyStartDate"] == DBNull.Value ? (DateTime?)null : Convert.ToDateTime(dataRow["WarrantyStartDate"]),
-                                WarrantyEndDate = dataRow["WarrantyEndDate"] == DBNull.Value ? (DateTime?)null : Convert.ToDateTime(dataRow["WarrantyEndDate"]),
+                                WarrantyStartDate = string.IsNullOrWhiteSpace(dataRow["WarrantyStartDate"].ToString()) ? (DateTime?)null : Convert.ToDateTime(dataRow["WarrantyStartDate"]),
+                                WarrantyEndDate = string.IsNullOrWhiteSpace(dataRow["WarrantyEndDate"].ToString()) ? (DateTime?)null : Convert.ToDateTime(dataRow["WarrantyEndDate"]),
                                 VendorName = dataRow["VendorName"].ToString(),
                                 PONumber = dataRow["PONumber"].ToString(),
-                                PurchaseDate = dataRow["PurchaseDate"] == DBNull.Value ? (DateTime?)null : Convert.ToDateTime(dataRow["PurchaseDate"]),
-                                InvoiceDate = dataRow["InvoiceDate"] == DBNull.Value ? (DateTime?)null : Convert.ToDateTime(dataRow["InvoiceDate"]),
+                                PurchaseDate = string.IsNullOrWhiteSpace(dataRow["PurchaseDate"].ToString()) ? (DateTime?)null : Convert.ToDateTime(dataRow["PurchaseDate"]),
+                                InvoiceDate = string.IsNullOrWhiteSpace(dataRow["InvoiceDate"].ToString()) ? (DateTime?)null : Convert.ToDateTime(dataRow["InvoiceDate"]),
                                 CreatedBy = cuserContext.EmpInfo.EmployeeName,
                                 CreatedDate = DateTime.Now
                             };

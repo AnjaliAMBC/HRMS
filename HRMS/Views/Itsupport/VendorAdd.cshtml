@@ -2,6 +2,7 @@
 
 @{
     var headline = Model != null && Model.EditVendor != null && Model.EditVendor.VedorID != 0 ? "Edit Vendor Details" : "Add Vendor Details";
+    var finalSubmitButtn = Model != null && Model.EditVendor != null && Model.EditVendor.VedorID != 0 ? "Update" : "Submit";
 }
 
 @Html.Partial("_NavBar")
@@ -56,7 +57,7 @@
                                     <div class="form-group vendoradd-tabs">
                                         <label for="VendorContact">Vendor Contact*</label>
                                         <input type="text" class="form-control" name="VendorContact" value="@Model.EditVendor.VendorContact" id="VendorContact" placeholder="Enter Contact number" required>
-                                        <div class="invalid-feedback">Please enter a valid 10-digit contact number.</div>
+                                        <div class="invalid-feedback">Please enter a valid contact number.</div>
                                     </div>
                                 </div>
                             </div>
@@ -70,7 +71,7 @@
                                 </div>
                                 <div class="col-lg-3 col-md-6">
                                     <div class="form-group vendoradd-tabs">
-                                        <label for="VendorType">Vendor Type</label>
+                                        <label for="VendorType">Vendor Type*</label>
                                         <div class="d-flex">
                                             <select name="VendorType" class="VendorType form-control form-select" id="VendorType" required>
                                                 <option value="" disabled selected hidden>Select Vendor Type</option>
@@ -136,7 +137,7 @@
                             <div class="row">
                                 <div class="col-lg-12 col-md-12 text-right">
                                     <button type="button" class="btn vendoradd-Cancel">Cancel</button>
-                                    <button type="button" class="btn btn-primary vendoradd-Update">Submit</button>
+                                    <button type="button" class="btn btn-primary vendoradd-Update">@finalSubmitButtn</button>
                                 </div>
                             </div>
                         </div>

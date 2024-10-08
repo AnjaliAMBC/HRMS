@@ -350,7 +350,7 @@ namespace HRMS.Controllers
                         }
                         context.SaveChanges();
                         model.StatusCode = 200;
-                        model.Message = "Submitted successfully!";
+                        model.Message = "Purchase Request Submitted successfully!";
                     }
                 }
             }
