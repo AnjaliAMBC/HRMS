@@ -222,7 +222,7 @@
                                 <tr>
                                     <td><input type="checkbox" name="leaveCheckbox" value="@leaveInfo.LatestLeave.leaveuniqkey" /></td>
                                     <td>@leaveInfo.LatestLeave.employee_id</td>
-                                    <td >
+                                    <td style="vertical-align: middle;">
                                         @{
                                             string imagePath = "/Assets/Pending.png";
                                             string status = leaveInfo.LatestLeave.LeaveStatus.ToLower();
@@ -276,7 +276,7 @@
                                             }
                                             <span style="margin-top: 0px; margin-right: 10px;">
                                                 @leaveInfo.LatestLeave.employee_name<br>
-                                                <span style="color: #3E78CF;">@leaveInfo.LatestLeave.OfficalEmailid</span>
+                                                <span style="color: #3E78CF; text-overflow: ellipsis; white-space: nowrap; overflow: hidden; width: 195px; display: block;" title="@leaveInfo.LatestLeave.OfficalEmailid">@leaveInfo.LatestLeave.OfficalEmailid</span>
                                             </span>
                                         </div>
                                     </td>
