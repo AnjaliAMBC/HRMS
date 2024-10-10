@@ -107,7 +107,7 @@ namespace HRMS.Controllers
             {
                 model.EmpInfo = formData;
 
-                _dbContext.emp_info.Add(formData);
+                var newEmployee = _dbContext.emp_info.Add(formData);
                 _dbContext.SaveChanges();
 
                 model.JsonResponse.Message = "Employee details added successfully!";
@@ -128,6 +128,76 @@ namespace HRMS.Controllers
 
                 _dbContext.emplogins.Add(empLoginInfo);
                 _dbContext.SaveChanges();
+
+
+                //Add leave balnce in case employee added as a full time employee without any probation
+                if (model.EmpInfo.EmployeeType == "Full-Time")
+                {
+                    var currentYear = DateTime.Now.Year.ToString();
+                    var empAvailableLeave = new AvailableLeaves();
+                    var empLeaveBalance = new LeaveBalance();
+
+                    var leaveTypes = new LeaveCalculator().LeaveCategories();
+
+                    var empLeaveBalanceInfo = _dbContext.LeaveBalances.Where(x => x.Year == currentYear && x.EmpID == formData.EmployeeID).FirstOrDefault();
+
+                    foreach (var leaveType in leaveTypes)
+                    {
+                        empAvailableLeave = new LeaveCalculator().CalculateAvailableLeaves(newEmployee, leaveType, true);
+
+                        if (leaveType.Type == "Earned Leave")
+                        {
+                            empLeaveBalance.Earned = empAvailableLeave.Available;
+                        }
+                        if (leaveType.Type == "Emergency Leave")
+                        {
+                            empLeaveBalance.Emergency = empAvailableLeave.Available;
+                        }
+                        if (leaveType.Type == "Sick Leave")
+                        {
+                            empLeaveBalance.Sick = empAvailableLeave.Available;
+                        }
+                        if (leaveType.Type == "Bereavement Leave")
+                        {
+                            empLeaveBalance.Bereavement = empAvailableLeave.Available;
+                        }
+                        if (leaveType.Type == "Hourly Permission")
+                        {
+                            empLeaveBalance.HourlyPermission = empAvailableLeave.Available;
+                        }
+                        if (leaveType.Type == "Marriage Leave")
+                        {
+                            empLeaveBalance.Marriage = empAvailableLeave.Available;
+                        }
+                        if (leaveType.Type == "Maternity Leave")
+                        {
+                            empLeaveBalance.Maternity = empAvailableLeave.Available;
+                        }
+                        if (leaveType.Type == "Paternity Leave")
+                        {
+                            empLeaveBalance.Paternity = empAvailableLeave.Available;
+                        }
+                        if (leaveType.Type == "Comp Off")
+                        {
+                            empLeaveBalance.CompOff = empAvailableLeave.Available;
+                        }
+                    }
+                    empLeaveBalance.EmpID = newEmployee.EmployeeID;
+                    empLeaveBalance.EmployeeName = newEmployee.EmployeeName;
+                    empLeaveBalance.Year = currentYear;
+
+                    //Add new entry
+                    _dbContext.LeaveBalances.Add(empLeaveBalance);
+
+                    //Delete old entry in case
+                    if(empLeaveBalanceInfo != null)
+                    {
+                        _dbContext.LeaveBalances.Remove(empLeaveBalanceInfo);
+                    }                  
+                    _dbContext.SaveChanges();
+
+
+                }
 
                 NewAccountCreateEmail(empLoginInfo);
             }
