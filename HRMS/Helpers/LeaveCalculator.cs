@@ -30,7 +30,7 @@ namespace HRMS.Helpers
             public int LeaveDays { get; set; }
         }
 
-        public AvailableLeaves CalculateAvailableLeaves(emp_info employee, LeavesCategory leaveType)
+        public AvailableLeaves CalculateAvailableLeaves(emp_info employee, LeavesCategory leaveType, bool IsDirectFullTimeemp = false)
         {
             var availableLeaves = new AvailableLeaves();
 
@@ -40,7 +40,7 @@ namespace HRMS.Helpers
             }
             else
             {
-                availableLeaves = CalculatePermanentLeaves(employee, leaveType);
+                availableLeaves = CalculatePermanentLeaves(employee, leaveType, IsDirectFullTimeemp);
             }
 
             return availableLeaves;
@@ -115,7 +115,7 @@ namespace HRMS.Helpers
             return availableLeaves;
         }
 
-        private AvailableLeaves CalculatePermanentLeaves(emp_info employee, LeavesCategory leaveType)
+        private AvailableLeaves CalculatePermanentLeaves(emp_info employee, LeavesCategory leaveType, bool IsDirectFullTimeemp = false)
         {
             var availableLeaves = new AvailableLeaves();
 
@@ -123,6 +123,7 @@ namespace HRMS.Helpers
 
             DateTime startDate = new DateTime(DateTime.Today.Year, 01, 01);
             DateTime endDate = new DateTime(DateTime.Today.Year, 12, 31);
+           
 
             if (leaveType.Type != "Bereavement Leave" && leaveType.Type != "Emergency Leave")
             {
@@ -130,6 +131,11 @@ namespace HRMS.Helpers
                 {
                     startDate = isEmployeeProbationInThisCurrentYear;
                 }
+            }
+
+            if (IsDirectFullTimeemp == true)
+            {
+                startDate = employee.DOJ;
             }
 
             if (leaveType.Type == "Hourly Permission")
