@@ -485,7 +485,8 @@ namespace HRMS.Controllers
                 if (model.EditAssets != null)
                 {
                     model.AssetTransfers = _dbContext.AssetTransfer_.Where(x => x.AssetID == model.EditAssets.AssetID).ToList();
-                    int venderNumber = System.Convert.ToInt32(model.EditAssets.VendorName);
+
+                    int venderNumber = !string.IsNullOrWhiteSpace(model.EditAssets.VendorName) && model.EditAssets.VendorName != "null" ? System.Convert.ToInt32(model.EditAssets.VendorName) : 0;
                     model.VendorInfo = _dbContext.VendorLists.Where(x => x.VedorID == venderNumber).FirstOrDefault();
 
                     foreach (var assetTransfer in model.AssetTransfers)

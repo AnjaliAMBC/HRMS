@@ -322,7 +322,11 @@
                                     <div class="col-lg-2 col-md-3">
                                         <div class="form-group assetview-purchaseinfo-tabs">
                                             <label for="AssetPurchase-VendorName">Vendor Name</label>
-                                            <div>@Model.VendorInfo.VendorName</div>
+                                            @if (Model.VendorInfo != null)
+                                            {
+                                                <div>@Model.VendorInfo.VendorName</div>
+                                            }
+
                                         </div>
                                     </div>
                                     <div class="col-lg-2 col-md-3">
