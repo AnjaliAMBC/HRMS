@@ -115,322 +115,173 @@
 </style>
 
 @Html.Partial("_NavBar")
-<div class="container-fluid emp-dashboard">
+<div class="container-fluid emp-dashboard emp-dashboard-horizon">
     @Html.Partial("_empsidemenu")
     <div class="main-content container-fluid" style="width: 84%">
         <div class="hiddenempdashboard"></div>
-        <div class="container-fluid mt-2 pl-0 employeedash">
-            <h4>Dashboard</h4>
-            <div class="row mt-4">
-                <div class="col-lg-4 col-md-6 emp-dash-block">
-                    <div class="card mb-3 dashcard_style my-card">
-                        <div class="card-header text-dark">Check In / Check Out</div>
-                        <div class="card-body chechin-body p-1 mt-3">
-                            <div class="container-fluid ">
-                                <div class="row">
-                                    <div class="day-date-time p-0 pl-2 col-md-8 col-sm-8">
-                                        <h5 id="dashday" class="mb-0"></h5> <!-- Display day here -->
-                                        <div id="dashcurrentDate" class="time-input smalltext"></div> <!-- Replace input with div -->
-                                        @{
-                                            var totalCheckInhours = Model.totalCheckedInTime;
-                                            var formattedCheckInTime = @checkInTime;
-                                        }
 
-                                        @if (!string.IsNullOrWhiteSpace(Model.totalCheckedInTime))
-                                        {
-                                            formattedCheckInTime = DateTime.MinValue;
-                                        }
-                                        @if (Model.totalCheckedInTime == "" && @Model.timerModel != null && @Model.timerModel.FormattedTime.ToString() != string.Empty)
-                                        {
-                                            totalCheckInhours = @Model.timerModel.FormattedTime.ToString();
-                                        }
-                                        <div id="checkinhoursminutes" data-signedindatetime="@formattedCheckInTime" style="color: #3E78CF; font-size : 35px">@totalCheckInhours</div>
-                                    </div>
-                                    <div class="in-out col-md-4 p-0 pr-1 col-sm-4">
-                                        <div class="check-time d-flex flex-column">
-                                            <span class="check-label smalltext mr-auto">Check In Time</span>
-
-                                            @if (string.IsNullOrWhiteSpace(starttimeWithAmPm))
-                                            {
-                                                <div class="isusercheckedin" style="display: none">false</div>
-                                                <div id="checkInTime" class="time-input mr-auto"><span style="font-size: small; display: none">@lastCheckinDate</span>00:00:00</div>
-                                            }
-                                            else
-                                            {
-                                                <div id="checkInTime" class="time-input mr-auto"><span style="font-size: small; display: none">@lastCheckinDate</span>@starttimeWithAmPm</div>
-                                                <div class="isusercheckedin" style="display: none">true</div>
-                                            }
-
-                                        </div>
-                                        <div class="check-time mt-2 d-flex flex-column res-emp-dash-checkout-time">
-                                            <span class="check-label smalltext mr-auto">Check Out Time</span>
-                                            @if (endtimeWithAmPm == null || string.IsNullOrWhiteSpace(endtimeWithAmPm))
-                                            {
-                                                <div class="isusercheckedout" style="display: none">false</div>
-                                                <div id="checkOutTime" class="time-input mr-auto">00:00:00</div>
-                                            }
-                                            else
-                                            {
-                                                <div class="isusercheckedout" style="display: none">true</div>
-                                                <div id="checkOutTime" class="time-input mr-auto">@endtimeWithAmPm</div>
-                                            }
-
-                                        </div>
-
-
-                                    </div>
-                                </div>
-                                <div class="row res-emp-dash-checkin-checkout">
-                                    <div class="dash-check-in-out col-md-8 col-sm-8">
-                                        <div class="current-time-display text-center ">
-                                            <div id="currentTime" class="current-time"></div>
-                                        </div>
-                                        <span class="showcheckinbuttonpostcheckout" style="display: none">@showCheckInButton</span>
-                                        <div class="button-container text-left total-hours">
-                                            <button class="btn btn-primary btn-checkin" style=" background-color: @buttonDeafultbgcolor !important; border: none !important;" data-checkinid="@loginID" @ButtonDisabled>@buttonText</button>
-                                        </div>
-                                    </div>
-                                    <div class="dash-check-in-out-time col-md-4 p-0 pr-1 col-sm-4">
-                                        <div class="checkinhours ">
-                                            <span class="totalhours smalltext">Current Time</span>
-                                            <div id="dashcurrentTime" class="current-time mb-2"></div>
-                                            @*<span class="totalhours smalltext">Total Hours</span>*@
-
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-
-
-
-
-                        </div>
+        <div class="dashboard-header-block">
+            <div class="dashboard-header-left">
+                <div class="dh-user-name">Hello Test User</div>
+                <div class="dh-welcome">Welcome to AMBC HRMS Portal</div>
+            </div>
+            <div class="dashboard-header-right">
+                <div class="dh-left">
+                    <div class="dh-date">Thursday, Oct 07 2024</div>
+                    <div class="dh-attendance">Mark Attendance</div>
+                    <div class="dh-time">01:01:11</div>
+                </div>
+                <div class="dh-right">
+                    <div class="dh-checkin">
+                        <label>Check In Time</label>
+                        <div class="dh-checkin-time">01:01:01</div>
                     </div>
-                    <div class="card mb-3 dashcard_style my-card">
-                        <div class="card-header text-dark">Job Referral</div>
-                        <div class="card-body scrollbar p-3">
-                            <p class="text-muted" style="margin-top: 80px; margin-left: 23%;">No data available..!!!</p>
-                            @*<div class="dashjob_description mb-3">
-                                    <h6 class="mb-0">Interior Designer</h6>
-                                    <small>Location: Bangalore | Posted on: 10/05/2024</small>
-                                </div>
-                                <div class="dashjob_description mb-3">
-                                    <h6 class="mb-0">Business Analyst </h6>
-                                    <small>Location: Madurai | Posted on: 10/05/2024</small>
-                                </div>
-                                <div class="dashjob_description mb-3">
-                                    <h6 class="mb-0">Jr. IT Recruiter</h6>
-                                    <small>Location: Madurai | Posted on: 10/05/2024</small>
-                                </div>*@
-                        </div>
-                    </div>
-                    <div class="card mb-3 dashcard_style my-card">
-                        <div class="card-header text-black emp-my-tickets-redirect" style="cursor: pointer;">
-                            My Tickets (@(Model.MyTickets != null ? Model.MyTickets.Count() : 0))
-                        </div>
-
-                        <div class="card-body scrollbar p-3 dashticket_description">
-                            @if (!Model.MyTickets?.Any() ?? true)
-                            {
-                                <div class="d-flex flex-column align-items-center justify-content-center">
-                                    <img src="~/Assets/Ticket.png" alt="No Birthdays" class="img-fluid mb-3" style="max-width: 135px; margin-top: 42px;">
-                                    <p class="text-muted">No tickets...!!</p>
-                                </div>
-                            }
-                            else
-                            {
-                                foreach (var myTicket in Model.MyTickets)
-                                {
-                                    <div class="emp-dash-ticket-info">
-                                        <div class="emp-dash-ticket-title">@myTicket.Subject</div>
-                                        <div class="emp-dash-ticket-desc">
-                                            <span class="dash-ticket-desc-left-block"><i class="fa fa-exclamation-circle" aria-hidden="true"></i><span>Priority - <span class="@HRMS.Helpers.TicketingHelper.GetMyticketDashPriorityColor(myTicket.Priority)">@myTicket.Priority</span></span></span>
-
-
-                                            @if (myTicket.Status == "Resolved")
-                                            {
-                                                <span class="dash-ticket-desc-right-block"><i class="fa fa-user" aria-hidden="true"></i><span>Resolved By: @myTicket.ResolvedByName</span></span>
-                                            }
-                                            else if (myTicket.Status == "Closed")
-                                            {
-                                                <span class="dash-ticket-desc-right-block"><i class="fa fa-user" aria-hidden="true"></i><span>Closed By: @myTicket.ResolvedByName</span></span>
-                                            }
-
-                                        </div>
-                                    </div>
-                                }
-                            }
-
-                        </div>
+                    <div class="dh-checkout">
+                        <label>Check Out Time</label>
+                        <div class="dh-checkout-time">01:01:01</div>
                     </div>
                 </div>
+            </div>
+        </div>
 
-                <div class="col-lg-4 col-md-6 emp-dash-block">
-                    <div class="card mb-3 dashcard_style my-card">
-                        <div class="card-header text-dark">Birthdays</div>
-                        <div class="card-body scrollbar p-2 mt-2">
-                            @if (!Model.Birthdays?.Any() ?? true)
-                            {
-                                <div class="d-flex flex-column align-items-center justify-content-center">
-                                    <img src="~/Assets/Birthday.png" alt="No Birthdays" class="img-fluid mb-3" style="max-width: 110px; margin-top: 42px;">
-                                    <p class="text-muted">No birthdays today...!!</p>
-                                </div> }
-                            else
-                            {
-                                <ul class="list-unstyled">
-                                    @foreach (var empBirthday in Model.Birthdays)
-                                    {
-                                        var empImageURl = System.Configuration.ConfigurationManager.AppSettings["EmpImagesFolder"] + "/" + empBirthday.imagePath + "?" + System.DateTime.Now;
-
-                                        <li class="media my-card-item">
-                                            <img src="@empImageURl" class="mr-3 rounded-circle" alt="Avatar" style="width: 40px; height: 40px;">
-                                            <div class="media-body dashbirthday_description">
-                                                <h6 class="mt-1 mb-0 empname">@empBirthday.EmpName</h6>
-                                                <p class="smalltext">@empBirthday.Designation</p>
-                                            </div>
-                                            <small style="display: none" class="empemail">@empBirthday.EmpEmail</small>
-                                        </li>
-                                    }
-                                </ul>}
-                        </div>
-                    </div>
-
-
-                    <div class="card mb-3 dashcard_style my-card">
-                        <div class="card-header text-dark">Anniversaries</div>
-                        <div class="card-body scrollbar p-1 mt-2">
-                            @if (!Model.AnniversaryModel?.Any() ?? true)
-                            {
-                                <div class="d-flex flex-column align-items-center justify-content-center">
-                                    <img src="~/Assets/WorkAnni.png" alt="No Birthdays" class="img-fluid mb-3" style="max-width: 135px; margin-top: 42px;">
-                                    <p class="text-muted">No anniversaries today...!!</p>
-                                </div>
-                            }
-                            else
-                            {
-
-                                <ul class="list-unstyled">
-                                    @foreach (var anniversary in Model.AnniversaryModel)
-                                    {
-                                        var birthdayEmpImageURL = System.Configuration.ConfigurationManager.AppSettings["EmpImagesFolder"] + "/" + anniversary.imagePath + "?" + System.DateTime.Now;
-
-                                        <li class="media">
-                                            <img src="@birthdayEmpImageURL" class="mr-3 rounded-circle" alt="Avatar" style="width: 40px; height: 40px;">
-                                            <div class="media-body dashanniversary_description">
-                                                <h6 class="mt-1 mb-0 empname">@anniversary.EmpName</h6>
-                                                <p class="smalltext">@anniversary.Designation</p>
-                                            </div>
-                                            <small style="display: none" class="empemail">@anniversary.EmpEmail</small>
-                                        </li>
-                                    }
-                                </ul>
-
-                            }
-                        </div>
-                    </div>
-                    <div class="card mb-3 dashcard_style my-card">
-                        <div class="card-header text-dark">Employee Handbook</div>
-                        <div class="card-body scrollbar d-flex flex-column">
-                            <!-- Note-taking section -->
-                            <p class="text-muted" style="margin-top: 80px; margin-left: 23%;">No data available..!!!</p>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="col-lg-4 col-md-12 emp-dash-block">
-                    <div class="card mb-3 my-card">
-
-                        <div class="card-header calendar-header text-dark">
-                            <div>
-                                <i class="fas fa-chevron-left chevron-icon ml-4" onclick="prevMonth()"></i>
-                            </div>
-                            <div>
-                                <h6 id="monthYear" class="mt-1 mb-0"></h6>
-                            </div>
-                            <div>
-                                <i class="fas fa-chevron-right chevron-icon mr-4" onclick="nextMonth()"></i>
+        <div class="dashboard-body-block">
+            <div class="row">
+                <div class="col-lg-12 col-md-12 col-sm-12 emp-dash-block-1">
+                    <div class="col-lg-4 col-md-6 col-sm-12 emp-dash-basic-info emp-dash-left-block">
+                        <div class="ed-blocks ed-birthday">
+                            <div class="ed-block-left ed-b-left"><img src="~/Assets/dashboard/birthday.png"></div>
+                            <div class="ed-block-right ed-b-right">
+                                <div class="ed-block-1 ed-b-birthday">Birthday</div>
+                                <div class="ed-block-2 ed-b-celebration">2 Celebration</div>
                             </div>
                         </div>
-                        <div class="card-body calendar-body p-0 emp-dashboard-calendar">
-                            <table class="table">
-                                <thead>
-                                    <tr>
-                                        <th scope="col">Mon</th>
-                                        <th scope="col">Tue</th>
-                                        <th scope="col">Wed</th>
-                                        <th scope="col">Thu</th>
-                                        <th scope="col">Fri</th>
-                                        <th scope="col">Sat</th>
-                                        <th scope="col">Sun</th>
-                                    </tr>
-                                </thead>
-                                <tbody id="calendarBody"></tbody>
-                            </table>
+                        <div class="ed-blocks ed-work-anniversary">
+                            <div class="ed-block-left ed-b-left"><img src="~/Assets/dashboard/work-anniversary.png"></div>
+                            <div class="ed-block-right ed-b-right">
+                                <div class="ed-block-1 ed-b-birthday">Work Anniversary</div>
+                                <div class="ed-block-2 ed-b-celebration">2 Celebration</div>
+                            </div>
+                        </div>
+                        <div class="ed-blocks ed-new-joiners">
+                            <div class="ed-block-left ed-b-left"><img src="~/Assets/dashboard/new-joiners.png"></div>
+                            <div class="ed-block-right ed-b-right">
+                                <div class="ed-block-1 ed-b-birthday">New Joiners</div>
+                                <div class="ed-block-2 ed-b-celebration">No New Joiners</div>
+                            </div>
                         </div>
                     </div>
-
-                    <div class="card mb-3 dashholiday_body my-card">
-                        <div class="card-header text-dark">Upcoming Holidays</div>
-                        <div class="card-body scrollbar ">
-                            <ul class="list-unstyled pl-0">
-                                @foreach (HRMS.Models.EmployeeEvent.UpcomingHoliday holiday in @Model.UpcomingHolidays)
-                                {
-                                    if (@holiday.HolidayDate != DateTime.MinValue)
-                                    {
-                                        <li style="cursor: pointer;">
-                                            <a class="dashhoiday_description Emp-CompOffRequest" data-leavenumber="@holiday.HolidayNo" data-location="@holiday.Region">
-                                                <h6 class="mb-0">@holiday.HolidayName</h6>
-                                                <p class="smalltext">@holiday.HolidayDate.ToString("dd MMMM dddd")</p>
-                                            </a>
-                                        </li>
-                                    }
-                                }
-
-                            </ul>
+                    <div class="col-lg-4 col-md-6 col-sm-12 emp-dash-basic-info emp-dash-middle-block emp-dash-attendance">
+                        <div class="emp-dash-block-header">
+                            <span class="header-title">Attendance</span>
                         </div>
+                        <div class="emp-dash-block-content">
+                            <canvas id="emp-dash-attendance" style="width:100%;max-width:100%"></canvas>
+                        </div>                        
                     </div>
-                </div>
-                <div class="col-lg-8 col-md-12 emp-dash-block">
-                    <div class="card mb-3 dashleaveslider my-card">
-                        <div class="card-header box_topic pl-2 py-1">
-                            Leaves
+                    <div class="col-lg-4 col-md-6 col-sm-12 emp-dash-basic-info emp-dash-right-block emp-dash-management">
+                        <div class="ed-blocks ed-learning-management">
+                            <div class="ed-block-left ed-b-left"><img src="~/Assets/dashboard/circum_laptop.png"></div>
+                            <div class="ed-block-right ed-b-right">
+                                <div class="ed-block-1 ed-b-learning-management">Learning Management System</div>
+                            </div>
                         </div>
-                        <div class="card-body box_body p-0 pt-4 pb-2">
-                            <div class="container text-center my-0 leave-container p-0">
-                                <div class="leaveslider-container">
-                                    <div class="leaveslider-wrapper">
-
-                                        @foreach (var leaveType in Model.LeavesTypeInfo.LeaveTypes)
-                                        {
-
-                                            foreach (var leave in leaveType.AvailableLeaves)
-                                            {
-                                                <div class="leaveslider-item">
-                                                    <div class="card">
-                                                        <div class="leave-icon @leave.DashBoardColorCode">@leave.ShortName</div>
-                                                        <h6 class="leave-title">@leave.Type</h6>
-                                                        <p class="leave-details">Available: @leave.Balance.ToString().Replace(".00", "").Replace(".0", "")</p>
-                                                        <p class="leave-details">Booked: @leave.Booked</p>
-                                                    </div>
-                                                </div>
-                                            }
-
-                                        }
-                                    </div>
-                                    <div class="leaveslider-control left" onclick="prevSlide()">
-                                        <i class="fa-solid fa-chevron-left"></i>
-                                    </div>
-                                    <div class="leaveslider-control right" onclick="nextSlide()">
-                                        <i class="fa-solid fa-chevron-right"></i>
-                                    </div>
-                                </div>
+                        <div class="ed-blocks ed-policies">
+                            <div class="ed-block-left ed-b-left"><img src="~/Assets/dashboard/fluent-mdl2_entitlement-policy.png"></div>
+                            <div class="ed-block-right ed-b-right">
+                                <div class="ed-block-1 ed-b-policies">Policies</div>
+                            </div>
+                        </div>
+                        <div class="ed-blocks ed-job-referal">
+                            <div class="ed-block-left ed-b-left"><img src="~/Assets/dashboard/hugeicons_job-share.png"></div>
+                            <div class="ed-block-right ed-b-right">
+                                <div class="ed-block-1 ed-b-job-referal">Job Referral</div>
                             </div>
                         </div>
                     </div>
                 </div>
             </div>
-            <span class="currentempname" style="display: none">@Model.EmpInfo.EmployeeName</span>
+
+            <div class="row">
+                <div class="col-lg-12 col-md-12 col-sm-12 emp-dash-block-2">
+                    <div class="col-lg-4 col-md-6 col-sm-12 emp-dash-basic-info emp-dash-upcoming-holidays">
+                        <div class="emp-dash-block-header">
+                            <span class="header-title">Upcoming Holidays</span>
+                            <span class="header-viewall">View All <i class="far fa-arrow-alt-circle-right"></i></span>
+                        </div>
+                        <div class="emp-dash-block-content">
+                            <div class="emp-dash-upcoming-holidays-block">
+                                <div class="emp-upcoming-left">
+                                    <div class="holiday-name">Independance Day</div>
+                                    <div class="holiday-date">15 Aug 24 Thursday</div>
+                                </div>
+                                <div class="emp-upcoming-right">
+                                    <i class="fas fa-chevron-right"></i>
+                                </div>
+                            </div>
+                            <div class="emp-dash-upcoming-holidays-block">
+                                <div class="emp-upcoming-left">
+                                    <div class="holiday-name">Independance Day</div>
+                                    <div class="holiday-date">15 Aug 24 Thursday</div>
+                                </div>
+                                <div class="emp-upcoming-right">
+                                    <i class="fas fa-chevron-right"></i>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-lg-4 col-md-6 col-sm-12 emp-dash-basic-info emp-dash-recent-tickets">
+                        <div class="emp-dash-block-header">
+                            <span class="header-title">Recent Tickets</span>
+                        </div>
+                        <div class="emp-dash-block-content">
+                            <div class="emp-dash-recent-tickets-block">
+                                <div class="emp-recent-tickets-left">
+                                    <div class="emp-ticket-navbar">IT</div>
+                                </div>
+                                <div class="emp-recent-tickets-right">
+                                    <div class="recent-tickets-title">System Not Working</div>
+                                    <div class="recent-tickets-info">
+                                        <span class="recent-tickets-info-left"><img src="/Assets/dashboard/iconoir-priority-high.png"><span class="emp-ticket-priority-label">Priority</span> - <span class="emp-ticket-priority-status priority-high">High</span></span>
+                                        <span class="recent-tickets-info-right"><img src="/Assets/ei_user.png"> <span class="emp-ticket-priority-label">Status</span> <span class="emp-ticket-priority-status status-pending">Pending</span></span>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="emp-dash-recent-tickets-block">
+                                <div class="emp-recent-tickets-left">
+                                    <div class="emp-ticket-navbar">IT</div>
+                                </div>
+                                <div class="emp-recent-tickets-right">
+                                    <div class="recent-tickets-title">System Not Working</div>
+                                    <div class="recent-tickets-info">
+                                        <span class="recent-tickets-info-left"><img src="/Assets/dashboard/iconoir-priority-high.png"><span class="emp-ticket-priority-label">Priority</span> - <span class="emp-ticket-priority-status priority-medium">Medium</span></span>
+                                        <span class="recent-tickets-info-right"><img src="/Assets/ei_user.png"> <span class="emp-ticket-priority-label">Status</span> <span class="emp-ticket-priority-status status-closed">Closed</span></span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-lg-4 col-md-6 col-sm-12 emp-dash-basic-info emp-dash-hours-spent">
+                        <div class="emp-dash-block-header">
+                            <span class="header-title">Upcoming Holidays</span>
+                            <span class="header-dropdown">
+                                <select name="emp-dash-hours-spent-yearly" id="emp-dash-hours-spent-yearly">
+                                    <option value="2024">2024</option>
+                                    <option value="2025">2025</option>
+                                </select>
+                            </span>
+                        </div>
+                        <div class="emp-dash-block-content">
+                            <canvas id="emp-dash-hours-spent" style="width:100%;max-width:100%"></canvas>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+
         </div>
+        
     </div>
     @Html.Partial("_compoff", Model.Employees)
 </div>
@@ -489,5 +340,69 @@
 
 </script>
 
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.4/Chart.js"></script>
+<script>
+    var xValues = ["Present", "Leave", "Absent"];
+    var yValues = [55, 20, 33];
+    var barColors = [
+        "#96CD5C",
+        "#C85353",
+        "#00B4F2"
+    ];
+
+    new Chart("emp-dash-attendance", { 
+        type: "doughnut",
+        data: {
+            labels: xValues,
+            datasets: [{
+                backgroundColor: barColors,
+                data: yValues
+            }]
+        },
+        options: {
+            legend: {
+                display: true,
+                position: 'bottom' // Set the legend to the bottom
+            }
+        }
+    });
 
 
+    var xValues = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug"];
+    var yValues = [290, 250, 245, 125, 10, 255, 160, 60];
+    var barColors = ["#9540ED", "#9540ED", "#9540ED", "#9540ED", "#9540ED", "#9540ED", "#9540ED", "#9540ED"];
+
+    new Chart("emp-dash-hours-spent", {
+        type: "bar",
+        data: {
+            labels: xValues,
+            datasets: [{
+                backgroundColor: barColors,
+                data: yValues,
+                borderWidth: 0 
+            }]
+        },
+        options: {
+            legend: {
+                display: false // Disable the legend
+            },
+            scales: {
+                xAxes: [{
+                    barPercentage: 0.5,  // Adjust the width of the bars
+                    categoryPercentage: 0.5, // Adjust the space between bars
+                    gridLines: {
+                        display: false // Remove gridlines on the x-axis
+                    }
+                }],
+                yAxes: [{
+                    ticks: {
+                        beginAtZero: true
+                    },
+                    gridLines: {
+                        display: false // Remove gridlines on the x-axis
+                    }
+                }]
+            }
+        }
+    });
+</script>
