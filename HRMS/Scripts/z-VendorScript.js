@@ -472,15 +472,14 @@ function openVendorModal(vendorid) {
     $('#modalVendorName').text("");
     $('#modalVendorContact').text("");
     $('#modalVendorAddress').text("");
-    $('#approvalReason').text("");
+    $('#approvalReason').val("");
 
     // Set the modal fields with the extracted data
     $('#modalVendorID').text(vendorID);
     $('#modalVendorName').text(vendorName);
     $('#modalVendorContact').text(vendorContact);
     $('#modalVendorAddress').text(vendorAddress);
-    $('#approvalReason').text(approveRejectReason);
-
+    $('#approvalReason').val(approveRejectReason);
     generateModalFooter(vendorStatus);
 }
 

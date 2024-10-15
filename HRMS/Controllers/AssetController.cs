@@ -41,7 +41,6 @@ namespace HRMS.Controllers
             model.AssetsInScrap = model.Assets.Where(x => x.AllocatedStatus == "Scrap").ToList().Count();
             model.HydAssets = model.Assets.Where(x => x.AllocatedStatus == "Assigned" && x.Location == "Hyderabad").ToList().Count();
             model.MaduraiAssets = model.Assets.Where(x => x.AllocatedStatus == "Assigned" && x.Location == "Madurai").ToList().Count();
-
             model.AssetModel.Employees = _dbContext.emp_info.Where(x => x.EmployeeStatus == "Active").ToList();
             model.AssetModel.allVendors = _dbContext.VendorLists.Where(x => x.Status == "Approved").ToList();
             model.AssetModel.ITEmployees = _dbContext.emp_info.Where(x => x.EmployeeStatus == "Active" && x.Department == "IT").ToList();
@@ -363,6 +362,25 @@ namespace HRMS.Controllers
             return null;
         }
 
+        [HttpGet]
+        public JsonResult GetEmployeesByLocation(string Location)
+        {
+            var emmployees = _dbContext.emp_info.Where(x => x.EmployeeStatus == "Active" && x.Location == Location).ToList();
+            return Json(emmployees, JsonRequestBehavior.AllowGet);
+        }
+
+        [HttpGet]
+        public JsonResult GetEmployeesByLocationAsset(string Location)
+        {
+            var employees = _dbContext.emp_info
+                             .Where(x => x.EmployeeStatus == "Active" && x.Location == Location)
+                             .Select(x => new { x.EmployeeID, x.EmployeeName })
+                             .ToList();
+
+            return Json(employees, JsonRequestBehavior.AllowGet);
+        }
+
+
         public ActionResult AssetTransfer(int sno = 0)
         {
             var model = new AssetModel();
@@ -419,6 +437,7 @@ namespace HRMS.Controllers
                         transerAssetRecord.AllocatedEmployeeName = assetTransferPostModel.allocatedempname;
                         transerAssetRecord.AssignedBy = assetTransferPostModel.assignedbyname;
                         transerAssetRecord.AssignedByEmpID = assetTransferPostModel.assignedbyname;
+                        transerAssetRecord.AllocatedStatus = "Assigned";
                         transerAssetRecord.Location = assetTransferPostModel.location;
                         transerAssetRecord.UpdatedBy = cuserContext.EmpInfo.EmployeeName;
                         transerAssetRecord.UpdatedDate = DateTime.Now;

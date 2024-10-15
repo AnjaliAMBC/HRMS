@@ -41,7 +41,15 @@ function FormattedTransferDate(dateString) {
 
 $(document).on('click', '.asset-info-transfer', function (event) {
     event.preventDefault();
+
+
+    // Clear the previous values in the modal fields
     $('.isassettransferred').text("");
+    $('#AssetTransfer-Location').val('').prop('selected', true);
+    $('#AssetTransfer-Employee').val('').prop('selected', true);
+    $('#AssetTransfer-AssignedBy').val('').prop('selected', true);
+    $('#AssetTransfer-TransferDate').val('');
+
     var sno = $(this).attr("data-assetid");
     $('#assettransfer-popup').modal('show');
     $.ajax({
@@ -52,14 +60,22 @@ $(document).on('click', '.asset-info-transfer', function (event) {
             data = $.parseJSON(response);
 
             $('.asset-transer-asseid').text(data.EditAssets.AssetID);
-            $('.asseettrasfer-assign-name').text(data.AllocatedEmpInfo.EmployeeName);
-            $('.asseettrasfer-assign-designation').text(data.AllocatedEmpInfo.Designation);
+            if (data.AllocatedEmpInfo != null) {
+                $('.asseettrasfer-assign-name').text(data.AllocatedEmpInfo.EmployeeName);
+                $('.asseettrasfer-assign-designation').text(data.AllocatedEmpInfo.Designation);
+                $('.asseet-transfer-image').attr("src", "/assets/empimages/" + data.AllocatedEmpInfo.EmployeeID + ".jpeg")
+            }
+            else {
+                $('.asseettrasfer-assign-name').text("NA");
+                $('.asseettrasfer-assign-designation').text("NA");
+                $('.asseet-transfer-image').attr("src", "/assets/asset-icon-3.png")
+            }
             $('.asseettrasfer-assign-location').text(data.EditAssets.Location);
             $('.asseettrasfer-assign-olddate').text(FormattedTransferDate(data.EditAssets.AssignedDate));
             $('.asseettrasfer-assign-oldassignby').text(data.EditAssets.AssignedBy);
             $('.asset-transer-assesno').text(data.EditAssets.SNo);
 
-            $('.asseet-transfer-image').attr("src", "/assets/empimages/" + data.AllocatedEmpInfo.EmployeeID + ".jpeg")
+          
         },
         error: function (xhr, status, error) {
             alert("An error occurred: " + error);
@@ -157,6 +173,34 @@ $(document).on('click', '.assettransfer-Transfer', function (event) {
     }
     else {
         $('#assettransfer-message').html(`<div class="alert alert-danger" style="color: red;">Please fill all required fields.</div>`);
+    }
+});
+
+
+$('#AssetTransfer-Location').on('change', function () {
+    var selectedLocation = $(this).val();
+
+    if (selectedLocation) {
+        $.ajax({
+            url: '/asset/getemployeesbylocation', 
+            type: 'GET',
+            data: { Location: selectedLocation },
+            success: function (employees) {
+                var employeeDropdown = $('#AssetTransfer-Employee');
+                employeeDropdown.empty(); // Clear existing options
+                employeeDropdown.append('<option value="">Select Employee</option>'); 
+
+                // Populate dropdown with filtered employees
+                employees.forEach(function (employee) {
+                    employeeDropdown.append(`<option value="${employee.EmployeeID}">${employee.EmployeeName}</option>`);
+                });
+            },
+            error: function (xhr, status, error) {
+                $('#assettransfer-message').html(`<div class="alert alert-danger" style="color: red;">An error occurred while loading employees: ${error}</div>`);
+            }
+        });
+    } else {
+        $('#AssetTransfer-Employee').empty().append('<option value="">Select Employee</option>'); 
     }
 });
 
