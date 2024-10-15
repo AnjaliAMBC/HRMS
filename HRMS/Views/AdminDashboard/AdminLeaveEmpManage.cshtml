@@ -386,8 +386,7 @@
                                     { "orderable": false, "targets": 2 },
                                     { "orderable": false, "targets": 3 },
                                     { "orderable": false, "targets": 4 },
-                                    { "orderable": false, "targets": 5 },
-                                    { "orderable": false, "targets": 6 },
+                                    { "orderable": false, "targets": 5 },                                    
                                 ]
                             });
                         }
@@ -414,10 +413,9 @@
                             if (location == "All") {
                                 location = "";
                             }
-                            $('#adminleaveTable-mgmt').DataTable().column(5).search(location).draw();
+                            // Correct the column index for Location (change from 5 to 4)
+                            $('#adminleaveTable-mgmt').DataTable().column(4).search(location).draw();
                         });
-
-
 
                         function toggleAdminLeaveApprovalActionOptions(iconElement) {
                             const optionsMenu = $(iconElement).next('.admin-leaveapprovaloptions');

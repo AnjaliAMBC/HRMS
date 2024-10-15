@@ -565,7 +565,7 @@ $(document).on('click', '.addemp-submit-btn', function () {
 
                     if (response.JsonResponse.StatusCode == 200) {
                         $(".addemp-message").css("color", "green");
-                        $(".addemp-message").text("The employee has been added successfully.");
+                        $(".addemp-message").text("The Employee has been added successfully.");
 
                         var forms = $('.tabs-view');
                         clearFormDataAndSelectFirstIndex(forms);

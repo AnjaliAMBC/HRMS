@@ -322,7 +322,11 @@
                                     <div class="col-lg-2 col-md-3">
                                         <div class="form-group assetview-purchaseinfo-tabs">
                                             <label for="AssetPurchase-VendorName">Vendor Name</label>
-                                            <div>@Model.VendorInfo.VendorName</div>
+                                            @if (Model.VendorInfo != null)
+                                            {
+                                                <div>@Model.VendorInfo.VendorName</div>
+                                            }
+
                                         </div>
                                     </div>
                                     <div class="col-lg-2 col-md-3">
@@ -520,7 +524,7 @@
                         <div class="tab-pane fade assetview-assettransfer-details" id="tab4" role="tabpanel" aria-labelledby="tab4-link">
                             <div class="container" style="margin-left: 5px">
 
-                                @foreach (var assetTransfer in Model.AssetTransfers.OrderByDescending(x => x.CreatedDate))
+                                @foreach (var assetTransfer in Model.AssetTransfers.OrderBy(x => x.CreatedDate))
                                 {
                                     var assetTransferEmp = Model.AssetTransferEmployees.Where(x => x.EmployeeID == assetTransfer.AllocatedEmpID).FirstOrDefault();
                                     var empImage = "/assets/EmpImages/" + assetTransferEmp.imagepath;
