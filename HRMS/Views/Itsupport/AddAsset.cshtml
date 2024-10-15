@@ -557,7 +557,12 @@
                                                         <option value="" disabled selected hidden>Select Vendor</option>
                                                         @foreach (var vendor in Model.allVendors)
                                                         {
-                                                            var isVendorSelected = vendor.VedorID == System.Convert.ToInt32(Model.EditAssets.VendorName) ? "selected" : "";
+                                                            var isVendorSelected = "";
+                                                            if (!string.IsNullOrWhiteSpace(Model.EditAssets.VendorName) && Model.EditAssets.VendorName != "null")
+                                                            {
+                                                                isVendorSelected = vendor.VedorID == System.Convert.ToInt32(Model.EditAssets.VendorName) ? "selected" : "";
+                                                            }
+
                                                             <option value="@vendor.VedorID" @isVendorSelected>@vendor.VendorName - @vendor.VedorID</option>
                                                         }
                                                     </select>
@@ -1316,5 +1321,5 @@
             });
         }
     }
-    
+
 </script>
