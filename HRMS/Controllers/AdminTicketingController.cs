@@ -137,7 +137,7 @@ namespace HRMS.Controllers
             worksheet.Cells["E2"].Value = "Status";
             worksheet.Cells["F2"].Value = "Created Date";
 
-           
+
 
             // Data rows
             int row = 3; // Start after filter criteria and header row
@@ -206,6 +206,9 @@ namespace HRMS.Controllers
         [HttpPost]
         public JsonResult UpdateTicketStatus(IT_Ticket ticketModel)
         {
+            var cuserContext = SiteContext.GetCurrentUserContext();
+            var notificationFromID = "";
+            var notificationFromName = "";
             try
             {
                 var ticket = _dbContext.IT_Ticket.FirstOrDefault(x => x.TicketNo == ticketModel.TicketNo);
@@ -225,6 +228,9 @@ namespace HRMS.Controllers
                             ticket.ResponseTime = (long)timeDifference.TotalSeconds;
                         }
 
+                        notificationFromID = ticketModel.Resolved_by;
+                        notificationFromName = ticketModel.ResolvedByName;
+
                     }
                     else if (ticket.Status == "Re-Open")
                     {
@@ -237,15 +243,42 @@ namespace HRMS.Controllers
                         ticket.AcknowledgeComments = ticketModel.AcknowledgeComments;
                         ticket.Closed_date = DateTime.Now;
                         ticket.ClosedByName = ticketModel.ResolvedByName;
+
+                        notificationFromID = ticketModel.Closedby;
+                        notificationFromName = ticketModel.ResolvedByName;
                     }
 
                     else if (ticket.isacknowledge == "true")
                     {
                         ticket.Closedby = ticketModel.Closedby;
                         ticket.AcknowledgeComments = ticketModel.AcknowledgeComments;
+
+                        notificationFromID = cuserContext.EmpInfo.EmployeeName;
+                        notificationFromName = cuserContext.EmpInfo.EmployeeID;
                     }
 
+
                     _dbContext.SaveChanges();
+
+                    if (ticket.Status != "Re-Open")
+                    {
+                        var newNotification = new Notification
+                        {
+                            NotificationDate = DateTime.Now,
+                            NotificationFromName = cuserContext.EmpInfo.EmployeeName,
+                            NotificationFromID = cuserContext.EmpInfo.EmployeeID,
+                            NotificationToName = ticket.EmployeeName,
+                            NotificationToID = ticket.EmployeeID,
+                            NotificationType = "Ticket",
+                            Status = ticket.isacknowledge == "true" ? "Acknowledged" : ticket.Status,
+                            ReferenceNumber = ticket.TicketNo.ToString(),
+                            Comments = "",
+                            CreatedDate = DateTime.Now
+                        };
+
+                        _dbContext.Notifications.Add(newNotification);
+                        _dbContext.SaveChanges();
+                    }
 
                     TicketingHelper.SendTicketConfirmationEmail(ticket);
                 }
@@ -253,7 +286,11 @@ namespace HRMS.Controllers
             }
             catch (Exception ex)
             {
-                return Json(new { success = false, message = ex.Message });
+                return Json(new
+                {
+                    success = false,
+                    message = ex.Message
+                });
             }
         }
 
@@ -262,11 +299,11 @@ namespace HRMS.Controllers
         {
             List<IT_Ticket> ticketsList = GetTicketsFilter(fromDate, toDate, status, location, closedBy, "IT");
 
-            
+
             ExcelPackage excelPackage = new ExcelPackage();
             var worksheet = excelPackage.Workbook.Worksheets.Add("Tickets");
 
-           
+
             worksheet.Cells["A1"].Value = "Employee ID";
             worksheet.Cells["B1"].Value = "Subject";
             worksheet.Cells["C1"].Value = "Priority";
@@ -287,9 +324,9 @@ namespace HRMS.Controllers
                 row++;
             }
 
-           
+
             worksheet.Cells.AutoFitColumns();
-            
+
             var memoryStream = new MemoryStream();
             excelPackage.SaveAs(memoryStream);
             memoryStream.Position = 0;

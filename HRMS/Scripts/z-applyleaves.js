@@ -473,6 +473,8 @@ $(document).on('click', '.btn-apply-empleave', function (event) {
 
                 showMessageModal(response.jsonResponse.Message, true, "");
 
+
+
             } else {
                 $('#modalMessage').removeClass('text-success').addClass('text-danger').text(response.jsonResponse.Message);
                 $('#messageModal').modal('show');

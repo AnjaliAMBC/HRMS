@@ -40,6 +40,8 @@ namespace HRMS.Controllers
         [HttpPost]
         public JsonResult RaiseTicket()
         {
+            var cuserContext = SiteContext.GetCurrentUserContext();
+
             try
             {
                 // Get individual form values from FormData
@@ -100,6 +102,25 @@ namespace HRMS.Controllers
                 var raisedTicket = _dbContext.IT_Ticket.Add(ticketModel);
                 _dbContext.SaveChanges();
 
+
+                var newNotification = new Notification
+                {
+                    NotificationDate = DateTime.Now,
+                    NotificationFromName = cuserContext.EmpInfo.EmployeeName,
+                    NotificationFromID = cuserContext.EmpInfo.EmployeeID,
+                    NotificationToName = employeeName,
+                    NotificationToID = employeeId,
+                    NotificationType = "Ticket",
+                    Status = "Submitted",
+                    ReferenceNumber = raisedTicket.TicketNo.ToString(),
+                    Comments = "",
+                    CreatedDate = DateTime.Now
+                };
+
+                _dbContext.Notifications.Add(newNotification);
+                _dbContext.SaveChanges();
+
+
                 TicketingHelper.SendTicketConfirmationEmail(raisedTicket);
                 return Json(new { success = true });
             }
@@ -117,6 +138,8 @@ namespace HRMS.Controllers
         [HttpPost]
         public JsonResult CancelTicket(int ticketName, string status)
         {
+            var cuserContext = SiteContext.GetCurrentUserContext();
+
             try
             {
                 var cancellTicket = _dbContext.IT_Ticket.Where(x => x.TicketNo == ticketName).FirstOrDefault();
@@ -124,6 +147,24 @@ namespace HRMS.Controllers
                 {
                     cancellTicket.Status = status;
                     _dbContext.SaveChanges();
+
+                    var newNotification = new Notification
+                    {
+                        NotificationDate = DateTime.Now,
+                        NotificationFromName = cuserContext.EmpInfo.EmployeeName,
+                        NotificationFromID = cuserContext.EmpInfo.EmployeeID,
+                        NotificationToName = cancellTicket.EmployeeName,
+                        NotificationToID = cancellTicket.EmployeeID,
+                        NotificationType = "Ticket",
+                        Status = status,
+                        ReferenceNumber = cancellTicket.TicketNo.ToString(),
+                        Comments = "",
+                        CreatedDate = DateTime.Now
+                    };
+
+                    _dbContext.Notifications.Add(newNotification);
+                    _dbContext.SaveChanges();
+
 
                     TicketingHelper.SendTicketConfirmationEmail(cancellTicket);
                 }
@@ -137,6 +178,9 @@ namespace HRMS.Controllers
 
         public JsonResult TicketStatusChangeByEmp(int ticketName, string status, string comments, string updateby, string updatebyID)
         {
+            var cuserContext = SiteContext.GetCurrentUserContext();
+
+
             try
             {
                 var ticket = _dbContext.IT_Ticket.Where(x => x.TicketNo == ticketName).FirstOrDefault();
@@ -161,6 +205,24 @@ namespace HRMS.Controllers
                     }
 
                     _dbContext.SaveChanges();
+
+                    var newNotification = new Notification
+                    {
+                        NotificationDate = DateTime.Now,
+                        NotificationFromName = cuserContext.EmpInfo.EmployeeName,
+                        NotificationFromID = cuserContext.EmpInfo.EmployeeID,
+                        NotificationToName = ticket.EmployeeName,
+                        NotificationToID = ticket.EmployeeID,
+                        NotificationType = "Ticket",
+                        Status = status,
+                        ReferenceNumber = ticket.TicketNo.ToString(),
+                        Comments = "",
+                        CreatedDate = DateTime.Now
+                    };
+
+                    _dbContext.Notifications.Add(newNotification);
+                    _dbContext.SaveChanges();
+
                     TicketingHelper.SendTicketConfirmationEmail(ticket);
                 }
                 return Json(new { success = true });

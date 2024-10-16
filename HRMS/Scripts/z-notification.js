@@ -11,7 +11,8 @@
         NotificationToName: button.data("notificationtoname"),
         NotificationToID: button.data("notificationtoid"),
         NotificationType: button.data("notificationtype"),
-        Comments: commentsField.val().trim()
+        Comments: commentsField.val().trim(),
+        Status: "Sent"
     };
 
 

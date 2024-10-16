@@ -327,7 +327,7 @@
           <Key>
             <PropertyRef Name="SNo" />
           </Key>
-          <Property Name="SNo" Type="int" Nullable="false" />
+          <Property Name="SNo" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="NotificationDate" Type="datetime" />
           <Property Name="NotificationFromName" Type="varchar" MaxLength="255" />
           <Property Name="NotificationFromID" Type="varchar" MaxLength="255" />
@@ -1090,7 +1090,7 @@ warning 6002: The table/view 'HRMS_PortalDev1.dbo.CheckInView' does not have a p
           <Key>
             <PropertyRef Name="SNo" />
           </Key>
-          <Property Name="SNo" Type="Int32" Nullable="false" />
+          <Property Name="SNo" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="NotificationDate" Type="DateTime" Precision="3" />
           <Property Name="NotificationFromName" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
           <Property Name="NotificationFromID" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />

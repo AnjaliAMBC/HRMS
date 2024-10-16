@@ -19,21 +19,21 @@ namespace HRMS.Controllers
         {
             try
             {
-                //var newNotification = new Notification
-                //{
-                //    NotificationDate = DateTime.Now,
-                //    NotificationFromName = model.NotificationFromName,
-                //    NotificationFromID = model.NotificationFromID,
-                //    NotificationToName = model.NotificationToName,
-                //    NotificationToID = model.NotificationToID,
-                //    NotificationType = model.NotificationType,
-                //    Status = "Sent", // Default status
-                //    Comments = model.Comments,
-                //    CreatedDate = DateTime.Now
-                //};
+                var newNotification = new Notification
+                {
+                    NotificationDate = DateTime.Now,
+                    NotificationFromName = model.NotificationFromName,
+                    NotificationFromID = model.NotificationFromID,
+                    NotificationToName = model.NotificationToName,
+                    NotificationToID = model.NotificationToID,
+                    NotificationType = model.NotificationType,
+                    Status = "Sent",
+                    Comments = model.Comments,
+                    CreatedDate = DateTime.Now
+                };
 
-                //_dbContext.Notifications.Add(newNotification);
-                //_dbContext.SaveChanges();
+                _dbContext.Notifications.Add(newNotification);
+                _dbContext.SaveChanges();
 
                 return Json(new { success = true, message = model.NotificationType + " message sent successfully!" });
             }
