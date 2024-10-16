@@ -90,7 +90,7 @@
         </ul>
         <ul class="navbar-nav ml-auto nav-right-block">
             <li class="header-notification">
-                <span class="nav-notification"><img src="~/Assets/clarity_notification-line.png" alt="Notification" class="img-notification"><span class="notification-count">3</span></span>
+                <span class="nav-notification" data-toggle="modal" data-target="#NotificationPopup"><img src="~/Assets/clarity_notification-line.png" alt="Notification" class="img-notification"><span class="notification-count">3</span></span>
             </li>
             <li class="nav-item" id="navbar-profile">
                 @{
@@ -148,6 +148,55 @@
     </div>
 
 </nav>
+
+<!-- Notification Modal -->
+<div class="modal right fade" id="NotificationPopup" tabindex="-1" role="dialog" aria-labelledby="NotificationPopup">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title" id="notification-header-title">Notification</h4>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><i class="fa fa-times-circle" aria-hidden="true"></i></button>
+            </div>
+            <div class="modal-body">
+                <div class="notification-list-blocks">
+                    <div class="notification-block">
+                        <div class="notification-block-left light-blue"><img src="/Assets/mail-icon.png"></div>
+                        <div class="notification-block-right">
+                            <div class="notification-block-info notification-info-title" title="Test notification data notification data dummy">Test notification data notification data dummy</div>
+                            <div class="notification-block-info notification-info-date">09 October 9:20 AM</div>
+                        </div>
+                    </div>
+                    <div class="notification-block">
+                        <div class="notification-block-left light-gray"><img src="/Assets/mail-icon.png"></div>
+                        <div class="notification-block-right">
+                            <div class="notification-block-info notification-info-title"  title="Test notification data notification data dummy">Test notification data</div>
+                            <div class="notification-block-info notification-info-date">09 October 9:20 AM</div>
+                        </div>
+                    </div>
+                    <div class="notification-block">
+                        <div class="notification-block-left light-green"><img src="/Assets/mail-icon.png"></div>
+                        <div class="notification-block-right">
+                            <div class="notification-block-info notification-info-title"  title="Test notification data notification data dummy">Test notification data</div>
+                            <div class="notification-block-info notification-info-date">09 October 9:20 AM</div>
+                        </div>
+                    </div>
+                    <div class="notification-block">
+                        <div class="notification-block-left light-red"><img src="/Assets/mail-icon.png"></div>
+                        <div class="notification-block-right">
+                            <div class="notification-block-info notification-info-title"  title="Test notification data notification data dummy">Test notification data</div>
+                            <div class="notification-block-info notification-info-date">09 October 9:20 AM</div>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+
+        </div>
+        <!-- modal-content -->
+    </div>
+    <!-- modal-dialog -->
+</div>
+<!--Notification  modal -->
 
 
 
