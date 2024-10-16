@@ -96,6 +96,10 @@ namespace HRMS.Controllers
               .Where(x => x.EmployeeID == model.EmpInfo.EmployeeID && DbFunctions.TruncateTime(x.Created_date) == DateTime.Today)
               .ToList();
 
+
+            model.NewJoiners = _dbContext.emp_info.Where(x => x.DOJ == DateTime.Today).ToList();
+
+
             return View("~/Views/EmployeeDashboard/EmpDash.cshtml", model);
         }
 

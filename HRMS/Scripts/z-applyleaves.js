@@ -537,18 +537,42 @@ $(document).on('change', '#HourPermission', function (event) {
 });
 
 
+//$(document).on('click', '.dashhoiday_description', function (e) {
+//    e.preventDefault();
+//    $('#Compreason').val("");
+//    var holidayName = $('.selectedholidayname').text($(this).find('h6').text());
+//    var holidayDate = $('#Compdate').val($(this).find('p').text());
+//    $('.selectedholidaynumber').text($(this).attr("data-leavenumber"));
+//    $('.selectedholidaylocation').text($(this).attr("data-location"));
+//    $('#compOffMessage').html("");
+//    $('#compOffMessage').hide();
+//    $('#CompemployeeName').removeClass("is-invalid");
+//    $("#compOffModal").modal('show');
+//});
+
+
 $(document).on('click', '.dashhoiday_description', function (e) {
     e.preventDefault();
-    $('#Compreason').val("");
-    var holidayName = $('.selectedholidayname').text($(this).find('h6').text());
-    var holidayDate = $('#Compdate').val($(this).find('p').text());
-    $('.selectedholidaynumber').text($(this).attr("data-leavenumber"));
-    $('.selectedholidaylocation').text($(this).attr("data-location"));
-    $('#compOffMessage').html("");
-    $('#compOffMessage').hide();
+    $('#Compreason').val("");  
+    
+    var holidayName = $(this).siblings('.emp-upcoming-left').find('.holiday-name').text();
+    var holidayDate = $(this).siblings('.emp-upcoming-left').find('.holiday-date').text();
+   
+    $('.selectedholidayname').text(holidayName);
+    $('#Compdate').val(holidayDate);
+   
+    var holidayNumber = $(this).attr("data-leavenumber");
+    var location = $(this).attr("data-location");
+    
+    $('.selectedholidaynumber').text(holidayNumber);
+    $('.selectedholidaylocation').text(location);
+   
+    $('#compOffMessage').html("").hide();
     $('#CompemployeeName').removeClass("is-invalid");
+
     $("#compOffModal").modal('show');
 });
+
 
 //$(document).on('click', '.Emp-CompOffRequest', function (e) {
 //    e.preventDefault();
