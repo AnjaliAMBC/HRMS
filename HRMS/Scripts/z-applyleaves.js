@@ -536,21 +536,6 @@ $(document).on('change', '#HourPermission', function (event) {
     $('#totalLeavesContainer').show();
 });
 
-
-//$(document).on('click', '.dashhoiday_description', function (e) {
-//    e.preventDefault();
-//    $('#Compreason').val("");
-//    var holidayName = $('.selectedholidayname').text($(this).find('h6').text());
-//    var holidayDate = $('#Compdate').val($(this).find('p').text());
-//    $('.selectedholidaynumber').text($(this).attr("data-leavenumber"));
-//    $('.selectedholidaylocation').text($(this).attr("data-location"));
-//    $('#compOffMessage').html("");
-//    $('#compOffMessage').hide();
-//    $('#CompemployeeName').removeClass("is-invalid");
-//    $("#compOffModal").modal('show');
-//});
-
-
 $(document).on('click', '.dashhoiday_description', function (e) {
     e.preventDefault();
     $('#Compreason').val("");  

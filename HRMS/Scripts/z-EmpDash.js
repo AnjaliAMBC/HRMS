@@ -40,10 +40,9 @@ $(document).on('click', '.btn-checkin', function (event) {
             success: function (response) {
                 if (response.JsonResponse.StatusCode == 200) {
                     $(".btn-checkin").text("Check Out");
-                    $(".btn-checkin").attr("data-checkinid", response.CheckInInfo.login_id);
-                    $(".btn-checkin").css("background-color", "");
-                    $(".btn-checkin").removeClass("btn-primary");
-                    $(".btn-checkin").addClass("important-bg");
+                    $(".btn-checkin").attr("data-checkinid", response.CheckInInfo.login_id);             
+                    $(".btn-checkin").removeClass("dh-attendance");
+                    $(".btn-checkin").addClass("checkputcolor");
                     var checkinTime = formatDateAndTime(new Date());
                     $('#checkinhoursminutes').attr('data-signedindatetime', checkinTime);
                     var currentTime = GetCurrentTime();
@@ -73,8 +72,9 @@ $(document).on('click', '.btn-checkin', function (event) {
 
                     var checkinTime = formatDateAndTime(new Date());
                     $('#checkinhoursminutes').attr('data-signedindatetime', checkinTime);
-                    $(".btn-checkin").css("background-color", "");
-                    $(".btn-checkin").addClass("btn-primary");
+                
+                    $(".btn-checkin").addClass("dh-attendance");
+                    $(".btn-checkin").addClass("checkputcolor");
 
                     var currentTime = GetCurrentTime();
                     $('#checkOutTime').html(currentTime);
@@ -398,9 +398,9 @@ function updateDashRunningTime() {
         hours = hours % 12;
         hours = hours ? hours : 12;
         var currentTime = hours.toString().padStart(2, '0') + ":" + minutes + ":" + seconds + " " + ampm;
-        document.getElementById("dashcurrentDate").textContent = currentDate.toLocaleDateString('en-IN', { timeZone: 'Asia/Kolkata', year: 'numeric', month: 'long', day: 'numeric' });
         document.getElementById("dashcurrentTime").textContent = currentTime;
-        document.getElementById("dashday").textContent = currentDate.toLocaleDateString('en-IN', { timeZone: 'Asia/Kolkata', weekday: 'long' }).toUpperCase() + ",";
+        document.getElementById("dashcurrentDate").textContent = currentDate.toLocaleDateString('en-IN', { timeZone: 'Asia/Kolkata', weekday: 'long', month: 'long', day: 'numeric', year: 'numeric' });       
+        //document.getElementById("dashday").textContent = currentDate.toLocaleDateString('en-IN', { timeZone: 'Asia/Kolkata', weekday: 'long' }).toUpperCase() + ",";
     }
 }
 
@@ -508,40 +508,51 @@ function parseCustomDate1(dateString) {
     return new Date(year, month - 1, day, hours, minutes, seconds);
 }
 
-
 function updateHoursTimer1() {
-
     var dashhoursElementElem = document.getElementById("checkinhoursminutes");
+    var checkInTime = document.getElementById("checkInTime").textContent; // Get the check-in time
+    var checkOutTime = document.getElementById("checkOutTime").textContent; // Get the check-out time
+
+    // Check if both check-in and check-out times are valid and not default
+    if (checkInTime !== '00:00:00' && checkOutTime !== '00:00:00') {
+        return; // Do not run the script if both times are valid
+    }
 
     if (dashhoursElementElem) {
         var signedInDateTimeStr = $('#checkinhoursminutes').attr('data-signedindatetime');
         var signedInDateTime = parseCustomDate1(signedInDateTimeStr);
 
+        // Check if user is checked in
         if ($('.isusercheckedin').text() == "true" && $('.isusercheckedout').text() == "false") {
             signedInDateTime = parseCustomDate1(signedInDateTimeStr);
         }
 
+        // Validate signedInDateTime
         if (signedInDateTime.toString() == 'Invalid Date' || signedInDateTimeStr.indexOf("01-01-0001") !== -1 || signedInDateTimeStr.indexOf("1/1/0001") !== -1) {
             return;
         }
 
-
+        // Calculate time difference
         var currentTime = new Date();
-
         var timeDifference = currentTime - signedInDateTime;
         var totalSeconds = Math.floor(timeDifference / 1000);
         var hours = Math.floor(totalSeconds / 3600);
         var minutes = Math.floor((totalSeconds % 3600) / 60);
         var seconds = totalSeconds % 60;
 
+        // Format the time
         var formattedHours = hours < 10 ? "0" + hours : hours.toString();
         var formattedMinutes = minutes < 10 ? "0" + minutes : minutes.toString();
         var formattedSeconds = seconds < 10 ? "0" + seconds : seconds.toString();
         var formattedTime = formattedHours + ":" + formattedMinutes + ":" + formattedSeconds;
-        $('#checkinhoursminutes').text(formattedTime);
 
+        // Update the check-in hours element
+        $('#checkinhoursminutes').text(formattedTime);
     }
 }
+
+
+
 
 //On page load
 if ($('.admin-leave-container').length > 0) {

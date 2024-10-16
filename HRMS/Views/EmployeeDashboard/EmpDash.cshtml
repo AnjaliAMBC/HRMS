@@ -86,8 +86,12 @@
     if ((Model.todayCheckInInfo.Signin_Time != null && Model.todayCheckInInfo.Signin_Time != DateTime.MinValue) && (Model.todayCheckInInfo.Signout_Time == DateTime.MinValue || Model.todayCheckInInfo.Signout_Time == null))
     {
         buttonText = "Check Out";
-        buttonDeafultbgcolor = "#C70000";
+        buttonDeafultbgcolor = "checkputcolor";
         ButtonDisabled = "";
+    }
+    else
+    {
+        buttonDeafultbgcolor = "dh-attendance";
     }
 
 }
@@ -152,6 +156,14 @@
     .modal-dialog {
         margin: 5% auto;
     }
+
+    .checkputcolor {
+        background: #C70000;
+        color: #fff;
+        padding: 5px 7px;
+        margin-top: 5px;
+        text-align: center;
+    }
 </style>
 
 @Html.Partial("_EmployeeNavbar")
@@ -165,19 +177,50 @@
                 <div class="dh-welcome">Welcome to AMBC HRMS Portal</div>
             </div>
             <div class="dashboard-header-right">
+
+                @{
+                    var totalCheckInhours = Model.totalCheckedInTime;
+                    var formattedCheckInTime = @checkInTime;
+                }
+
                 <div class="dh-left">
-                    <div class="dh-date">@DateTime.Now.ToString("dddd, MMM dd yyyy")</div>
-                    <div class="dh-attendance">Mark Attendance</div>
-                    <div class="dh-time">01:01:11</div>
+                    <div class="dh-date" id="dashcurrentDate">@DateTime.Now.ToString("dddd, MMM dd yyyy")</div>
+                    <div class="@buttonDeafultbgcolor btn-checkin" data-checkinid="@loginID" @ButtonDisabled>@buttonText</div>
+                    <div class="dh-time" id="checkinhoursminutes" data-signedindatetime="@formattedCheckInTime">@totalCheckInhours</div>
                 </div>
+
+
                 <div class="dh-right">
                     <div class="dh-checkin">
                         <label>Check In Time</label>
-                        <div class="dh-checkin-time">00:00:00</div>
+                        <div class="dh-checkin-time">
+                            @if (!string.IsNullOrWhiteSpace(starttimeWithAmPm))
+                            {
+                                <div class="isusercheckedin" style="display: none">false</div>
+                                <span id="checkInTime">@starttimeWithAmPm</span> }
+                            else
+                            {
+                                <div class="isusercheckedin" style="display: none">true</div>
+                                <span id="checkInTime">00:00:00</span>
+                            }
+                        </div>
                     </div>
                     <div class="dh-checkout">
                         <label>Check Out Time</label>
-                        <div class="dh-checkout-time">00:00:00</div>
+                        <div class="dh-checkout-time">
+                            @if (!string.IsNullOrWhiteSpace(endtimeWithAmPm))
+                            {
+                                <div class="isusercheckedout" style="display: none">false</div>
+                                <span id="checkOutTime">@endtimeWithAmPm</span> }
+                            else
+                            {
+                                <div class="isusercheckedout" style="display: none">true</div>
+                                <span id="checkOutTime">00:00:00</span>}
+                        </div>
+                    </div>
+                    <div class="dh-currenttime">
+                        <label>Current Time</label>
+                        <div class="dh-currenttime-display" id="dashcurrentTime">@DateTime.Now.ToString("HH:mm:ss")</div>
                     </div>
                 </div>
             </div>
@@ -300,30 +343,35 @@
                             <span class="header-title">Recent Tickets</span>
                         </div>
                         <div class="emp-dash-block-content">
-                            <div class="emp-dash-recent-tickets-block">
-                                <div class="emp-recent-tickets-left">
-                                    <div class="emp-ticket-navbar">IT</div>
-                                </div>
-                                <div class="emp-recent-tickets-right">
-                                    <div class="recent-tickets-title">System Not Working</div>
-                                    <div class="recent-tickets-info">
-                                        <span class="recent-tickets-info-left"><img src="/Assets/dashboard/iconoir-priority-high.png"><span class="emp-ticket-priority-label">Priority</span> - <span class="emp-ticket-priority-status priority-high">High</span></span>
-                                        <span class="recent-tickets-info-right"><img src="/Assets/ei_user.png"> <span class="emp-ticket-priority-label">Status</span> <span class="emp-ticket-priority-status status-pending">Pending</span></span>
+
+                            @foreach (var myTicket in Model.MyTickets)
+                            {
+                                <div class="emp-dash-recent-tickets-block">
+                                    <div class="emp-recent-tickets-left">
+                                        <div class="emp-ticket-navbar">@myTicket.TicketType</div>
+                                    </div>
+                                    <div class="emp-recent-tickets-right">
+                                        <div class="recent-tickets-title">@myTicket.Subject</div>
+                                        <div class="recent-tickets-info">
+                                            <span class="recent-tickets-info-left"><img src="/Assets/dashboard/iconoir-priority-high.png"><span class="emp-ticket-priority-label">Priority</span> - <span class="emp-ticket-priority-status @HRMS.Helpers.TicketingHelper.GetPriorityColor(myTicket.Priority)">@myTicket.Priority</span></span>
+                                            <span class="recent-tickets-info-right"><img src="/Assets/ei_user.png"> <span class="emp-ticket-priority-label">Status</span> <span class="emp-ticket-priority-status @HRMS.Helpers.TicketingHelper.GetTicketStatusCssClass(myTicket.Status)">@myTicket.Status</span></span>
+                                        </div>
                                     </div>
                                 </div>
-                            </div>
-                            <div class="emp-dash-recent-tickets-block">
-                                <div class="emp-recent-tickets-left">
-                                    <div class="emp-ticket-navbar">IT</div>
-                                </div>
-                                <div class="emp-recent-tickets-right">
-                                    <div class="recent-tickets-title">System Not Working</div>
-                                    <div class="recent-tickets-info">
-                                        <span class="recent-tickets-info-left"><img src="/Assets/dashboard/iconoir-priority-high.png"><span class="emp-ticket-priority-label">Priority</span> - <span class="emp-ticket-priority-status priority-medium">Medium</span></span>
-                                        <span class="recent-tickets-info-right"><img src="/Assets/ei_user.png"> <span class="emp-ticket-priority-label">Status</span> <span class="emp-ticket-priority-status status-closed">Closed</span></span>
+                            }
+
+                            @*<div class="emp-dash-recent-tickets-block">
+                                    <div class="emp-recent-tickets-left">
+                                        <div class="emp-ticket-navbar">IT</div>
                                     </div>
-                                </div>
-                            </div>
+                                    <div class="emp-recent-tickets-right">
+                                        <div class="recent-tickets-title">System Not Working</div>
+                                        <div class="recent-tickets-info">
+                                            <span class="recent-tickets-info-left"><img src="/Assets/dashboard/iconoir-priority-high.png"><span class="emp-ticket-priority-label">Priority</span> - <span class="emp-ticket-priority-status priority-medium">Medium</span></span>
+                                            <span class="recent-tickets-info-right"><img src="/Assets/ei_user.png"> <span class="emp-ticket-priority-label">Status</span> <span class="emp-ticket-priority-status status-closed">Closed</span></span>
+                                        </div>
+                                    </div>
+                                </div>*@
                         </div>
                     </div>
 
