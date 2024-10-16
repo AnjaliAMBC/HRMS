@@ -48,5 +48,6 @@ namespace HRMS
         public virtual DbSet<Asset> Assets { get; set; }
         public virtual DbSet<AssetTransfer_> AssetTransfer_ { get; set; }
         public virtual DbSet<IT_Maintenance> IT_Maintenance { get; set; }
+        public virtual DbSet<Notification> Notifications { get; set; }
     }
 }
