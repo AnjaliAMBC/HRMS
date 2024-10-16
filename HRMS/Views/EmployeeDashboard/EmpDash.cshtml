@@ -260,6 +260,20 @@
                     <div class="col-lg-4 col-md-6 col-sm-12 emp-dash-basic-info emp-dash-middle-block emp-dash-attendance">
                         <div class="emp-dash-block-header">
                             <span class="header-title">Attendance</span>
+
+                            <span class="header-dropdown">
+                                @{
+                                    var months = DateHelper.GetAllMonths();
+                                    var currentMonth = DateTime.Now.Month;
+
+                                }
+                                <select name="emp-dash-hours-spent-yearly" id="emp-dash-attedence-chart">
+                                    @foreach (var month in months)
+                                    {
+                                        <option value="@month.Number" @(month.Number == currentMonth ? "selected" : "")>@month.Name</option>
+                                    }
+                                </select>
+                            </span>
                         </div>
                         <div class="emp-dash-block-content">
                             <canvas id="emp-dash-attendance" style="width:100%;max-width:100%"></canvas>
@@ -293,7 +307,7 @@
                     <div class="col-lg-4 col-md-6 col-sm-12 emp-dash-basic-info emp-dash-upcoming-holidays">
                         <div class="emp-dash-block-header">
                             <span class="header-title">Upcoming Holidays</span>
-                            <span class="header-viewall">View All <i class="far fa-arrow-alt-circle-right"></i></span>
+                            <span class="header-viewall all-holidays-list">View All <i class="far fa-arrow-alt-circle-right"></i></span>
                         </div>
                         <div class="emp-dash-block-content">
 
@@ -638,30 +652,7 @@
 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.4/Chart.js"></script>
 <script>
-    var xValues = ["Present", "Leave", "Absent"];
-    var yValues = [55, 20, 33];
-    var barColors = [
-        "#96CD5C",
-        "#C85353",
-        "#00B4F2"
-    ];
 
-    new Chart("emp-dash-attendance", {
-        type: "doughnut",
-        data: {
-            labels: xValues,
-            datasets: [{
-                backgroundColor: barColors,
-                data: yValues
-            }]
-        },
-        options: {
-            legend: {
-                display: true,
-                position: 'bottom' // Set the legend to the bottom
-            }
-        }
-    });
 
 
     var xValues = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug"];
@@ -695,10 +686,19 @@
                         beginAtZero: true
                     },
                     gridLines: {
-                        display: false // Remove gridlines on the x-axis
+                        display: false
                     }
                 }]
             }
         }
     });
+
+
+    $(document).on('click', '.ed-policies', function () {
+        window.location.href = '/EmpDash/Policies';
+    });
+    $(document).on('click', '.all-holidays-list', function () {
+        window.location.href = '/EmpDash/Holidays';
+    });
+
 </script>

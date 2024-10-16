@@ -40,7 +40,7 @@ $(document).on('click', '.btn-checkin', function (event) {
             success: function (response) {
                 if (response.JsonResponse.StatusCode == 200) {
                     $(".btn-checkin").text("Check Out");
-                    $(".btn-checkin").attr("data-checkinid", response.CheckInInfo.login_id);             
+                    $(".btn-checkin").attr("data-checkinid", response.CheckInInfo.login_id);
                     $(".btn-checkin").removeClass("dh-attendance");
                     $(".btn-checkin").addClass("checkputcolor");
                     var checkinTime = formatDateAndTime(new Date());
@@ -72,7 +72,7 @@ $(document).on('click', '.btn-checkin', function (event) {
 
                     var checkinTime = formatDateAndTime(new Date());
                     $('#checkinhoursminutes').attr('data-signedindatetime', checkinTime);
-                
+
                     $(".btn-checkin").addClass("dh-attendance");
                     $(".btn-checkin").addClass("checkputcolor");
 
@@ -399,7 +399,7 @@ function updateDashRunningTime() {
         hours = hours ? hours : 12;
         var currentTime = hours.toString().padStart(2, '0') + ":" + minutes + ":" + seconds + " " + ampm;
         document.getElementById("dashcurrentTime").textContent = currentTime;
-        document.getElementById("dashcurrentDate").textContent = currentDate.toLocaleDateString('en-IN', { timeZone: 'Asia/Kolkata', weekday: 'long', month: 'long', day: 'numeric', year: 'numeric' });       
+        document.getElementById("dashcurrentDate").textContent = currentDate.toLocaleDateString('en-IN', { timeZone: 'Asia/Kolkata', weekday: 'long', month: 'long', day: 'numeric', year: 'numeric' });
         //document.getElementById("dashday").textContent = currentDate.toLocaleDateString('en-IN', { timeZone: 'Asia/Kolkata', weekday: 'long' }).toUpperCase() + ",";
     }
 }
@@ -579,3 +579,109 @@ document.addEventListener('DOMContentLoaded', function () {
         setInterval(updateHoursTimer1, 1000);
     }, 1000);
 });
+
+
+
+
+
+function getLeaveSummary(employeeId, location, month, year) {
+    $.ajax({
+        url: '/empdash/getattedencesummary',
+        type: 'GET',
+        dataType: 'json',
+        data: {
+            employeeId: employeeId,
+            location: location,
+            month: month,
+            year: year
+        },
+        success: function (data) {
+            console.log('Leave Summary:', data);
+            response = $.parseJSON(data);
+
+            $('#totalLeaves').text(response.TotalLeaves);
+            $('#totalPresent').text(response.TotalPresent);
+            $('#totalAbsent').text(response.TotalAbsent);
+
+            // Update chart
+            updateChart(response.TotalLeaves, response.TotalPresent, response.TotalAbsent);
+
+        },
+        error: function (xhr, status, error) {
+            console.error('Error fetching leave summary:', error);
+            alert('Failed to fetch leave summary. Please try again.');
+        }
+    });
+}
+
+function updateChart(present, leaves, absent) {
+    var xValues = ["Present", "Leave", "Absent"];
+    var yValues = [present, leaves, absent];
+    var barColors = [
+        "#96CD5C",
+        "#C85353",
+        "#00B4F2"
+    ];
+
+    // Destroy any existing chart instance before creating a new one (prevents duplication)
+    if (window.empDashAttendanceChart) {
+        window.empDashAttendanceChart.destroy();
+    }
+
+    // Create the chart
+    window.empDashAttendanceChart = new Chart("emp-dash-attendance", {
+        type: "doughnut",
+        data: {
+            labels: xValues,
+            datasets: [{
+                backgroundColor: barColors,
+                data: yValues
+            }]
+        },
+        options: {
+            legend: {
+                display: true,
+                position: 'bottom'
+            },
+            // Disable hover effects
+            hover: {
+                mode: null // Disable hover mode
+            },
+            // Disable animations if you want it to load instantly without hover effects
+            animation: {
+                duration: 0 // Disable animations on hover
+            }
+        }
+    });
+}
+
+
+
+
+$(document).ready(function () {
+    const employeeId = $('.loggedinempid').text().trim();
+    const location = $('.loggedinemplocation').text().trim();
+
+    const date = new Date();
+    const month = date.getMonth() + 1;
+    const year = date.getFullYear();
+
+    getLeaveSummary(employeeId, location, month, year);
+});
+
+
+
+$(document).on('change', '#emp-dash-attedence-chart', function (event) {
+    event.preventDefault();
+    const employeeId = $('.loggedinempid').text().trim();
+    const location = $('.loggedinemplocation').text().trim();
+
+    const date = new Date();
+    const month = $('#emp-dash-attedence-chart').val();
+    const year = date.getFullYear();
+
+    getLeaveSummary(employeeId, location, month, year);
+});
+
+
+

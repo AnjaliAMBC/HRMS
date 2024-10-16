@@ -1,4 +1,5 @@
-﻿using System;
+﻿using HRMS.Models;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
@@ -33,6 +34,16 @@ namespace HRMS.Helpers
             int minutes = timeDifference.Minutes;
 
             return $"{days} days {hours} hours {minutes} minutes";
+        }
+
+        public static List<MonthInfo> GetAllMonths()
+        {          
+            List<MonthInfo> months = new List<MonthInfo>();           
+            for (int i = 0; i < 12; i++)
+            {
+                months.Add(new MonthInfo(i + 1, new DateTime(1, i + 1, 1).ToString("MMMM")));
+            }
+            return months;
         }
     }
 }

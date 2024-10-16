@@ -212,6 +212,7 @@
     <Compile Include="ReminderLog.cs">
       <DependentUpon>HRMS.tt</DependentUpon>
     </Compile>
+    <Compile Include="Services\LeaveService.cs" />
     <Compile Include="ShiftNotificationJob.cs" />
     <Compile Include="Subscription.cs">
       <DependentUpon>HRMS.tt</DependentUpon>
@@ -533,6 +534,9 @@
     <Content Include="Views\Shared\_MaintenanceEmailNotification.cshtml" />
     <Content Include="Views\Itsupport\_maintenanceinfotable.cshtml" />
     <Content Include="Views\Shared\_EmployeeNavbar.cshtml" />
+    <Content Include="Views\EmployeeDashboard\PoliciesView.cshtml" />
+    <Content Include="Views\EmployeeDashboard\HolidaysListView.cshtml" />
+    <Content Include="Views\Shared\EmployeeFooter.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
