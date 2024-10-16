@@ -112,10 +112,50 @@
         cursor: pointer;
     }*/
 
+    .modal.left .modal-dialog,
+    .modal.right .modal-dialog {
+        position: fixed;
+        margin: auto;
+        width: 320px;
+        height: 100%;
+        -webkit-transform: translate3d(0%, 0, 0);
+        -ms-transform: translate3d(0%, 0, 0);
+        -o-transform: translate3d(0%, 0, 0);
+        transform: translate3d(0%, 0, 0);
+    }
+
+    .modal.left .modal-content,
+    .modal.right .modal-content {
+        height: 100%;
+        overflow-y: auto;
+    }
+
+    .modal.left .modal-body,
+    .modal.right .modal-body {
+        padding: 15px 15px 80px;
+    }
+
+    /*Right*/
+    .modal.right.fade .modal-dialog {
+        right: 0px;
+        -webkit-transition: opacity 0.3s linear, right 0.3s ease-out;
+        -moz-transition: opacity 0.3s linear, right 0.3s ease-out;
+        -o-transition: opacity 0.3s linear, right 0.3s ease-out;
+        transition: opacity 0.3s linear, right 0.3s ease-out;
+    }
+
+    .modal.right.fade.in .modal-dialog {
+        right: 0;
+    }
+
+    .modal-dialog {
+        margin: 5% auto;
+    }
+
 </style>
 
 @Html.Partial("_EmployeeNavbar")
-<div class="container-fluid emp-dashboard emp-dashboard-horizon">   
+<div class="container-fluid emp-dashboard emp-dashboard-horizon">
     <div class="main-content container-fluid" style="width: 84%">
         <div class="hiddenempdashboard"></div>
 
@@ -149,21 +189,21 @@
                     <div class="col-lg-4 col-md-6 col-sm-12 emp-dash-basic-info emp-dash-left-block">
                         <div class="ed-blocks ed-birthday">
                             <div class="ed-block-left ed-b-left"><img src="~/Assets/dashboard/birthday.png"></div>
-                            <div class="ed-block-right ed-b-right">
+                            <div class="ed-block-right ed-b-right" data-toggle="modal" data-target="#emp-dash-birthday-popup">
                                 <div class="ed-block-1 ed-b-birthday">Birthday</div>
                                 <div class="ed-block-2 ed-b-celebration">2 Celebration</div>
                             </div>
                         </div>
                         <div class="ed-blocks ed-work-anniversary">
                             <div class="ed-block-left ed-b-left"><img src="~/Assets/dashboard/work-anniversary.png"></div>
-                            <div class="ed-block-right ed-b-right">
+                            <div class="ed-block-right ed-b-right" data-toggle="modal" data-target="#emp-dash-workanniversary-popup">
                                 <div class="ed-block-1 ed-b-birthday">Work Anniversary</div>
                                 <div class="ed-block-2 ed-b-celebration">2 Celebration</div>
                             </div>
                         </div>
                         <div class="ed-blocks ed-new-joiners">
                             <div class="ed-block-left ed-b-left"><img src="~/Assets/dashboard/new-joiners.png"></div>
-                            <div class="ed-block-right ed-b-right">
+                            <div class="ed-block-right ed-b-right" data-toggle="modal" data-target="#emp-dash-newjoiner-popup">
                                 <div class="ed-block-1 ed-b-birthday">New Joiners</div>
                                 <div class="ed-block-2 ed-b-celebration">No New Joiners</div>
                             </div>
@@ -175,7 +215,7 @@
                         </div>
                         <div class="emp-dash-block-content">
                             <canvas id="emp-dash-attendance" style="width:100%;max-width:100%"></canvas>
-                        </div>                        
+                        </div>
                     </div>
                     <div class="col-lg-4 col-md-6 col-sm-12 emp-dash-basic-info emp-dash-right-block emp-dash-management">
                         <div class="ed-blocks ed-learning-management">
@@ -263,7 +303,7 @@
 
                     <div class="col-lg-4 col-md-6 col-sm-12 emp-dash-basic-info emp-dash-hours-spent">
                         <div class="emp-dash-block-header">
-                            <span class="header-title">Upcoming Holidays</span>
+                            <span class="header-title">Hours Spent</span>
                             <span class="header-dropdown">
                                 <select name="emp-dash-hours-spent-yearly" id="emp-dash-hours-spent-yearly">
                                     <option value="2024">2024</option>
@@ -279,10 +319,234 @@
                 </div>
             </div>
 
+            <div class="row">
+                <div class="col-lg-12 col-md-12 col-sm-12 emp-dash-block-3">
+                    <div class="col-lg-8 col-md-6 col-sm-12 emp-dash-basic-info emp-dash-leave"></div>
+                    <div class="col-lg-4 col-md-6 col-sm-12 emp-dash-basic-info emp-dash-calendar">
+                        <div class="emp-dash-block-header calendar-header">
+                            <div class="header-title">
+                                <h6 id="monthYear" class="mt-1 mb-0"></h6>
+                            </div>
+                            <div class="header-dropdown">
+                                <i class="fas fa-chevron-left chevron-icon ml-4" onclick="prevMonth()"></i>
+                                <i class="fas fa-chevron-right chevron-icon mr-1" onclick="nextMonth()"></i>
+                            </div>
+                        </div>
+                        <div class="emp-dash-block-content calendar-body">
+                            <table class="table">
+                                <thead>
+                                    <tr>
+                                        <th scope="col">Mon</th>
+                                        <th scope="col">Tue</th>
+                                        <th scope="col">Wed</th>
+                                        <th scope="col">Thu</th>
+                                        <th scope="col">Fri</th>
+                                        <th scope="col">Sat</th>
+                                        <th scope="col">Sun</th>
+                                    </tr>
+                                </thead>
+                                <tbody id="calendarBody"></tbody>
+                            </table>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+
+
         </div>
-        
+
     </div>
     @Html.Partial("_compoff", Model.Employees)
+
+
+    <div class="modal fade emp-dash-modal" id="emp-dash-birthday-popup" tabindex="-1" role="dialog" aria-labelledby="emp-dash-birthday-popup" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header" style="border-bottom:1px solid transparent;">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <i class="fa fa-times-circle" aria-hidden="true"></i>
+                        @*<span aria-hidden="true">&times;</span>*@
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <div class="emp-dash-modal-blocks">
+                        <div class="emp-dash-modal-header">
+                            <div class="emp-dash-modal-left">
+                                <div class="emp-dash-modal-navbar"><img src="/assets/empimages/1075.jpeg" class="asseet-transfer-image"></div>
+                            </div>
+                            <div class="emp-dash-modal-right">
+                                <div class="emp-dash-modal-title">Test User</div>
+                                <div class="emp-dash-modals-info">Graphic UI UX Designer</div>
+                            </div>
+                        </div>
+                        <div class="emp-dash-modal-body">
+                            <textarea class="emp-dash-modal-message" name="emp-dash-modal-message" rows="3" cols="50">Test data here</textarea>
+                        </div>
+                        <div class="emp-dash-modal-footer">
+                            <button type="button" class="btn btn-primary emp-dash-modal-send">Send</button>
+                        </div>
+                    </div>
+
+                    <div class="emp-dash-modal-blocks">
+                        <div class="emp-dash-modal-header">
+                            <div class="emp-dash-modal-left">
+                                <div class="emp-dash-modal-navbar">TR</div>
+                            </div>
+                            <div class="emp-dash-modal-right">
+                                <div class="emp-dash-modal-title">Test User</div>
+                                <div class="emp-dash-modals-info">Graphic UI UX Designer</div>
+                            </div>
+                        </div>
+                        <div class="emp-dash-modal-body">
+                            <textarea class="emp-dash-modal-message" name="emp-dash-modal-message" rows="3" cols="50">Test data here</textarea>
+                        </div>
+                        <div class="emp-dash-modal-footer">
+                            <button type="button" class="btn btn-primary emp-dash-modal-send">Send</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="modal fade emp-dash-modal" id="emp-dash-workanniversary-popup" tabindex="-1" role="dialog" aria-labelledby="emp-dash-workanniversary-popup" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header" style="border-bottom:1px solid transparent;">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <i class="fa fa-times-circle" aria-hidden="true"></i>
+                        @*<span aria-hidden="true">&times;</span>*@
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <div class="emp-dash-modal-blocks">
+                        <div class="emp-dash-modal-header">
+                            <div class="emp-dash-modal-left">
+                                <div class="emp-dash-modal-navbar"><img src="/assets/empimages/1075.jpeg" class="asseet-transfer-image"></div>
+                            </div>
+                            <div class="emp-dash-modal-right">
+                                <div class="emp-dash-modal-title">Dummy User</div>
+                                <div class="emp-dash-modals-info">IT Recruiter</div>
+                            </div>
+                        </div>
+                        <div class="emp-dash-modal-body">
+                            <textarea class="emp-dash-modal-message" name="emp-dash-modal-message" rows="3" cols="50">Test data here</textarea>
+                        </div>
+                        <div class="emp-dash-modal-footer">
+                            <button type="button" class="btn btn-primary emp-dash-modal-send">Send</button>
+                        </div>
+                    </div>
+
+                    <div class="emp-dash-modal-blocks">
+                        <div class="emp-dash-modal-header">
+                            <div class="emp-dash-modal-left">
+                                <div class="emp-dash-modal-navbar">TR</div>
+                            </div>
+                            <div class="emp-dash-modal-right">
+                                <div class="emp-dash-modal-title">Dummy User</div>
+                                <div class="emp-dash-modals-info">Senior Tester</div>
+                            </div>
+                        </div>
+                        <div class="emp-dash-modal-body">
+                            <textarea class="emp-dash-modal-message" name="emp-dash-modal-message" rows="3" cols="50">Test data here</textarea>
+                        </div>
+                        <div class="emp-dash-modal-footer">
+                            <button type="button" class="btn btn-primary emp-dash-modal-send">Send</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="modal fade emp-dash-modal" id="emp-dash-newjoiner-popup" tabindex="-1" role="dialog" aria-labelledby="emp-dash-newjoiner-popup" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header" style="border-bottom:1px solid transparent;">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <i class="fa fa-times-circle" aria-hidden="true"></i>
+                        @*<span aria-hidden="true">&times;</span>*@
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <div class="emp-dash-modal-blocks">
+                        <div class="emp-dash-modal-header">
+                            <div class="emp-dash-modal-left">
+                                <div class="emp-dash-modal-navbar"><img src="/assets/empimages/1075.jpeg" class="asseet-transfer-image"></div>
+                            </div>
+                            <div class="emp-dash-modal-right">
+                                <div class="emp-dash-modal-title">Bot User</div>
+                                <div class="emp-dash-modals-info">Developer</div>
+                            </div>
+                        </div>
+                        <div class="emp-dash-modal-body">
+                            <textarea class="emp-dash-modal-message" name="emp-dash-modal-message" rows="3" cols="50">Test data here</textarea>
+                        </div>
+                        <div class="emp-dash-modal-footer">
+                            <button type="button" class="btn btn-primary emp-dash-modal-send">Send</button>
+                        </div>
+                    </div>
+
+                    <div class="emp-dash-modal-blocks">
+                        <div class="emp-dash-modal-header">
+                            <div class="emp-dash-modal-left">
+                                <div class="emp-dash-modal-navbar">TR</div>
+                            </div>
+                            <div class="emp-dash-modal-right">
+                                <div class="emp-dash-modal-title">Bot User</div>
+                                <div class="emp-dash-modals-info">UX Designer</div>
+                            </div>
+                        </div>
+                        <div class="emp-dash-modal-body">
+                            <textarea class="emp-dash-modal-message" name="emp-dash-modal-message" rows="3" cols="50">Test data here</textarea>
+                        </div>
+                        <div class="emp-dash-modal-footer">
+                            <button type="button" class="btn btn-primary emp-dash-modal-send">Send</button>
+                        </div>
+                    </div>
+
+                    <div class="emp-dash-modal-blocks">
+                        <div class="emp-dash-modal-header">
+                            <div class="emp-dash-modal-left">
+                                <div class="emp-dash-modal-navbar">TR</div>
+                            </div>
+                            <div class="emp-dash-modal-right">
+                                <div class="emp-dash-modal-title">Dummy User</div>
+                                <div class="emp-dash-modals-info">Senior Tester</div>
+                            </div>
+                        </div>
+                        <div class="emp-dash-modal-body">
+                            <textarea class="emp-dash-modal-message" name="emp-dash-modal-message" rows="3" cols="50">Test data here</textarea>
+                        </div>
+                        <div class="emp-dash-modal-footer">
+                            <button type="button" class="btn btn-primary emp-dash-modal-send">Send</button>
+                        </div>
+                    </div>
+
+                    <div class="emp-dash-modal-blocks">
+                        <div class="emp-dash-modal-header">
+                            <div class="emp-dash-modal-left">
+                                <div class="emp-dash-modal-navbar"><img src="/assets/empimages/1075.jpeg" class="asseet-transfer-image"></div>
+                            </div>
+                            <div class="emp-dash-modal-right">
+                                <div class="emp-dash-modal-title">Dummy User</div>
+                                <div class="emp-dash-modals-info">IT Recruiter</div>
+                            </div>
+                        </div>
+                        <div class="emp-dash-modal-body">
+                            <textarea class="emp-dash-modal-message" name="emp-dash-modal-message" rows="3" cols="50">Test data here</textarea>
+                        </div>
+                        <div class="emp-dash-modal-footer">
+                            <button type="button" class="btn btn-primary emp-dash-modal-send">Send</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>    
+
+
 </div>
 
 <script src="~/Scripts/z-EmpDash.js"></script>

@@ -120,6 +120,84 @@
 
 /* header profile dropdown end */
 
+/* notification start */
+
+#NotificationPopup #notification-header-title {
+    font-size: 18px;
+}
+
+#NotificationPopup .modal-header button i {
+    font-size: 14px;
+}
+
+#NotificationPopup .modal-body {
+}
+
+#NotificationPopup .modal-body .notification-list-blocks {
+}
+
+#NotificationPopup .modal-body .notification-list-blocks .notification-block {
+    display: inline-block;
+    width: 100%;
+    margin-bottom: 10px;
+    border-bottom: 1px solid #ccc;
+    padding-bottom: 10px;
+}
+
+#NotificationPopup .modal-body .notification-list-blocks .notification-block .notification-block-left {
+    width: 12%;
+    display: inline-block;
+    border-radius: 44px;
+    text-align: center;
+    padding: 5px;
+    vertical-align: middle;
+    float: left;
+}
+
+#NotificationPopup .modal-body .notification-list-blocks .notification-block .notification-block-left.light-blue {
+    background: #C5E6F6;
+}
+
+#NotificationPopup .modal-body .notification-list-blocks .notification-block .notification-block-left.light-gray {
+    background: #E4E4E4;
+}
+
+#NotificationPopup .modal-body .notification-list-blocks .notification-block .notification-block-left.light-green {
+    background: #C2F3C2;
+}
+
+#NotificationPopup .modal-body .notification-list-blocks .notification-block .notification-block-left.light-red {
+    background: #C2F3C2;
+}
+
+#NotificationPopup .modal-body .notification-list-blocks .notification-block .notification-block-left img{
+    width: 21px;
+    height: 21px;
+}
+
+#NotificationPopup .modal-body .notification-list-blocks .notification-block .notification-block-right {
+    display: inline-block;
+    width: 70%;
+    padding: 0px 10px;
+}
+
+#NotificationPopup .modal-body .notification-list-blocks .notification-block .notification-block-right .notification-info-title {
+    font-size: 13px;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    overflow: hidden;
+    overflow-x: hidden;
+    overflow-y: hidden;
+    width: 230px;
+}
+
+#NotificationPopup .modal-body .notification-list-blocks .notification-block .notification-block-right .notification-info-date {
+    font-size: 12px;
+    color: gray;
+}
+
+/* notification end */
+
 /* emp dashboard start */
 
 .emp-dashboard-horizon {
@@ -243,6 +321,7 @@
     display: inline-block;
     width: 70%;
     padding: 0px 10px;
+    cursor: pointer;
 }
 
 .emp-dashboard-horizon .dashboard-body-block .emp-dash-block-1 .emp-dash-left-block .ed-block-right .ed-block-1 {
@@ -321,141 +400,289 @@
     background: #FF738B;
 }
 
-    .emp-dashboard-horizon .dashboard-body-block .emp-dash-block-2 {
-        margin-top: 20px;
-    }
+.emp-dashboard-horizon .dashboard-body-block .emp-dash-block-2 {
+    margin-top: 20px;
+}
 
-    .emp-dashboard-horizon .dashboard-body-block .emp-dash-basic-info {
-        float: left;
-    }
+.emp-dashboard-horizon .dashboard-body-block .emp-dash-basic-info {
+    float: left;
+}
 
-    .emp-dashboard-horizon .dashboard-body-block .emp-dash-basic-info .emp-dash-block-header .header-title {
-        width: 73%;
-        display: inline-block;
-    }
+.emp-dashboard-horizon .dashboard-body-block .emp-dash-basic-info .emp-dash-block-header .header-title {
+    width: 73%;
+    display: inline-block;
+}
 
-    .emp-dashboard-horizon .dashboard-body-block .emp-dash-basic-info .emp-dash-block-header .header-viewall {
-        width: 25%;
-        display: inline-block;
-        text-align: right;
-        font-size: 14px;
-    }
+.emp-dashboard-horizon .dashboard-body-block .emp-dash-basic-info .emp-dash-block-header .header-viewall {
+    width: 25%;
+    display: inline-block;
+    text-align: right;
+    font-size: 14px;
+}
 
-    .emp-dashboard-horizon .dashboard-body-block .emp-dash-upcoming-holidays .emp-dash-block-content {
-        width: 100%;
-        padding: 7px 15px;
-        height: 260px;
-    }
+.emp-dashboard-horizon .dashboard-body-block .emp-dash-upcoming-holidays .emp-dash-block-content {
+    width: 100%;
+    padding: 7px 15px;
+    height: 260px;
+}
 
-    .emp-dashboard-horizon .dashboard-body-block .emp-dash-upcoming-holidays .emp-dash-upcoming-holidays-block {
-        margin-bottom: 10px;
-    }
+.emp-dashboard-horizon .dashboard-body-block .emp-dash-upcoming-holidays .emp-dash-upcoming-holidays-block {
+    margin-bottom: 10px;
+}
 
-    .emp-dashboard-horizon .dashboard-body-block .emp-dash-upcoming-holidays .emp-dash-upcoming-holidays-block .emp-upcoming-left {
-        display: inline-block;
-        width: 90%;
-    }
+.emp-dashboard-horizon .dashboard-body-block .emp-dash-upcoming-holidays .emp-dash-upcoming-holidays-block .emp-upcoming-left {
+    display: inline-block;
+    width: 90%;
+}
 
-    .emp-dashboard-horizon .dashboard-body-block .emp-dash-upcoming-holidays .emp-dash-upcoming-holidays-block .holiday-name {
+.emp-dashboard-horizon .dashboard-body-block .emp-dash-upcoming-holidays .emp-dash-upcoming-holidays-block .holiday-name {
         
+}
+
+.emp-dashboard-horizon .dashboard-body-block .emp-dash-upcoming-holidays .emp-dash-upcoming-holidays-block .holiday-date {
+    font-size: 12px;
+    color: #8B8B8B;
+}
+
+.emp-dashboard-horizon .dashboard-body-block .emp-dash-upcoming-holidays .emp-dash-upcoming-holidays-block .emp-upcoming-right {
+    display: inline-block;
+    width: 8%;
+    text-align: right;
+    font-size: 12px;
+    vertical-align: top;
+    margin-top: 10px;
+}
+
+.emp-dashboard-horizon .dashboard-body-block .emp-dash-recent-tickets {
+    float: left;
+}
+
+.emp-dashboard-horizon .dashboard-body-block .emp-dash-recent-tickets .emp-dash-recent-tickets-block {
+    padding: 0 15px;
+    margin-bottom: 20px;
+}
+
+.emp-dashboard-horizon .dashboard-body-block .emp-dash-recent-tickets .emp-dash-recent-tickets-block .emp-recent-tickets-left {
+    width: 13%;
+    display: inline-block;
+    vertical-align: top;
+    margin-top: 5px;
+}
+
+.emp-dashboard-horizon .dashboard-body-block .emp-dash-recent-tickets .emp-dash-recent-tickets-block .emp-recent-tickets-left .emp-ticket-navbar {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    background-color: #FEF0ED;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: #C78B7F;
+    margin-right: 12px;
+    font-weight: bold;
+}
+
+.emp-dashboard-horizon .dashboard-body-block .emp-dash-recent-tickets .emp-dash-recent-tickets-block .emp-recent-tickets-right {
+    width: 80%;
+    display: inline-block;
+}
+
+
+.emp-dashboard-horizon .dashboard-body-block .emp-dash-recent-tickets .emp-recent-tickets-right .recent-tickets-title {
+}
+
+.emp-dashboard-horizon .dashboard-body-block .emp-dash-recent-tickets .emp-recent-tickets-right .recent-tickets-info {
+    font-size: 13px;
+}
+
+.emp-dashboard-horizon .dashboard-body-block .emp-dash-recent-tickets .emp-recent-tickets-right .recent-tickets-info .recent-tickets-info-left {
+    width: 48%;
+    display: inline-block;
+}
+
+.emp-dashboard-horizon .dashboard-body-block .emp-dash-recent-tickets .emp-recent-tickets-right .recent-tickets-info .recent-tickets-info-left img{
+    margin-right: 5px;
+}
+
+.emp-dashboard-horizon .dashboard-body-block .emp-dash-recent-tickets .emp-recent-tickets-right .recent-tickets-info .recent-tickets-info-left .emp-ticket-priority-status {
+    color: blue;
+}
+
+.emp-dashboard-horizon .dashboard-body-block .emp-dash-recent-tickets .emp-recent-tickets-right .recent-tickets-info .recent-tickets-info-right {
+    width: 48%;
+    display: inline-block;
+}
+
+.emp-dashboard-horizon .dashboard-body-block .emp-dash-recent-tickets .emp-recent-tickets-right .recent-tickets-info .recent-tickets-info-right .status-pending {
+    color: red;
+    font-weight: normal;
+}
+
+.emp-dashboard-horizon .dashboard-body-block .emp-dash-recent-tickets .emp-recent-tickets-right .recent-tickets-info .recent-tickets-info-right .status-closed {
+    color: green;
+}
+
+.emp-dashboard-horizon .dashboard-body-block .emp-dash-recent-tickets .emp-dash-block-content {
+    height: 260px;
+}
+
+.emp-dashboard-horizon .dashboard-body-block .emp-dash-basic-info .emp-dash-block-header .header-dropdown {
+    text-align: right;
+    width: 23%;
+    display: inline-block;
+}
+
+.emp-dashboard-horizon .dashboard-body-block .emp-dash-hours-spent .emp-dash-block-content {
+    height: 260px;
+}
+
+.emp-dashboard-horizon .dashboard-body-block .emp-dash-block-3 {
+    margin-top: 20px;
+}
+
+.emp-dashboard-horizon .dashboard-body-block .emp-dash-calendar {
+        
+}
+
+.emp-dashboard-horizon .dashboard-body-block .emp-dash-calendar .emp-dash-block-header .header-title {
+}
+
+.emp-dashboard-horizon .dashboard-body-block .emp-dash-calendar .emp-dash-block-header .header-dropdown {
+    text-align: right;
+    width: 23%;
+    display: inline-block;
+}
+
+.emp-dashboard-horizon .dashboard-body-block .emp-dash-calendar .emp-dash-block-header .header-dropdown i {
+    background: #65D6D6;
+    padding: 5px 7px;
+    font-size: 10px;
+    color: #fff;
+}
+
+.emp-dashboard-horizon .dashboard-body-block .emp-dash-calendar .emp-dash-block-content {
+    padding: 2px 0;
+}
+
+.emp-dashboard-horizon .dashboard-body-block .emp-dash-calendar .emp-dash-block-content .table thead th {
+    border-bottom: 0px solid #dee2e6;
+    font-weight: normal;
+}
+
+.emp-dashboard-horizon .dashboard-body-block .emp-dash-calendar .emp-dash-block-content .table td,
+.emp-dashboard-horizon .dashboard-body-block .emp-dash-calendar .emp-dash-block-content .table th {
+    border-top: 0px solid #dee2e6;
+}
+
+.emp-dashboard-horizon .dashboard-body-block .emp-dash-calendar .emp-dash-block-content .table .highlight-current {
+    background-color: #65D6D6;
+}
+
+.emp-dashboard-horizon .dashboard-body-block .emp-dash-calendar .emp-dash-block-content .table .highlight-festival {
+    /*background-color: #65D6D6;*/
+}
+
+.emp-dashboard-horizon .emp-dash-modal {
+
+}
+
+.emp-dashboard-horizon .emp-dash-modal .modal-header {
+    border-bottom: 1px solid transparent;
+}
+
+    .emp-dashboard-horizon .emp-dash-modal .modal-header button {
+        font-size: 14px;
+        z-index: 999;
     }
 
-    .emp-dashboard-horizon .dashboard-body-block .emp-dash-upcoming-holidays .emp-dash-upcoming-holidays-block .holiday-date {
-        font-size: 12px;
-        color: #8B8B8B;
+    .emp-dashboard-horizon .emp-dash-modal .modal-body {
+        margin-top: -40px;
+        max-height: 450px;
+        overflow-y: scroll;
     }
 
-    .emp-dashboard-horizon .dashboard-body-block .emp-dash-upcoming-holidays .emp-dash-upcoming-holidays-block .emp-upcoming-right {
-        display: inline-block;
-        width: 8%;
-        text-align: right;
-        font-size: 12px;
-        vertical-align: top;
-        margin-top: 10px;
-    }
+.emp-dashboard-horizon .emp-dash-modal .modal-body .emp-dash-modal-blocks {
+}
 
-    .emp-dashboard-horizon .dashboard-body-block .emp-dash-recent-tickets {
-        float: left;
-    }
+.emp-dashboard-horizon .emp-dash-modal .modal-body .emp-dash-modal-blocks .emp-dash-modal-header {
+}
 
-    .emp-dashboard-horizon .dashboard-body-block .emp-dash-recent-tickets .emp-dash-recent-tickets-block {
-        padding: 0 15px;
-        margin-bottom: 20px;
-    }
+                    .emp-dashboard-horizon .emp-dash-modal .modal-body .emp-dash-modal-blocks .emp-dash-modal-header .emp-dash-modal-left {
+                        width: 9%;
+                        display: inline-block;
+                        vertical-align: top;
+                    }
 
-    .emp-dashboard-horizon .dashboard-body-block .emp-dash-recent-tickets .emp-dash-recent-tickets-block .emp-recent-tickets-left {
-        width: 13%;
-        display: inline-block;
-        vertical-align: top;
-        margin-top: 5px;
-    }
+                        .emp-dashboard-horizon .emp-dash-modal .modal-body .emp-dash-modal-blocks .emp-dash-modal-header .emp-dash-modal-left .emp-dash-modal-navbar {
+                            width: 40px;
+                            height: 40px;
+                            border-radius: 50%;
+                            background-color: #FEF0ED;
+                            display: flex;
+                            justify-content: center;
+                            align-items: center;
+                            color: #C78B7F;
+                            margin-right: 12px;
+                            font-weight: bold;
+                        }
 
-    .emp-dashboard-horizon .dashboard-body-block .emp-dash-recent-tickets .emp-dash-recent-tickets-block .emp-recent-tickets-left .emp-ticket-navbar {
-        width: 40px;
-        height: 40px;
-        border-radius: 50%;
-        background-color: #FEF0ED;
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        color: #C78B7F;
-        margin-right: 12px;
-        font-weight: bold;
-    }
+                            .emp-dashboard-horizon .emp-dash-modal .modal-body .emp-dash-modal-blocks .emp-dash-modal-header .emp-dash-modal-left .emp-dash-modal-navbar img {
+                                border-radius: 50%;
+                                width: 40px;
+                                height: 40px;
+                                object-fit: cover;
+                            }
 
-    .emp-dashboard-horizon .dashboard-body-block .emp-dash-recent-tickets .emp-dash-recent-tickets-block .emp-recent-tickets-right {
-        width: 80%;
-        display: inline-block;
-    }
+                    .emp-dashboard-horizon .emp-dash-modal .modal-body .emp-dash-modal-blocks .emp-dash-modal-header .emp-dash-modal-right {
+                        display: inline-block;
+                        width: 80%;
+                        padding: 0px 6px;
+                    }
+
+                        .emp-dashboard-horizon .emp-dash-modal .modal-body .emp-dash-modal-blocks .emp-dash-modal-header .emp-dash-modal-right .emp-dash-modal-title {
+                            font-size: 14px;
+                        }
+
+                        .emp-dashboard-horizon .emp-dash-modal .modal-body .emp-dash-modal-blocks .emp-dash-modal-header .emp-dash-modal-right .emp-dash-modals-info {
+                            font-size: 12px;
+                            color: gray;
+                        }
+
+                        .emp-dashboard-horizon .emp-dash-modal .modal-body .emp-dash-modal-blocks .emp-dash-modal-body {
+                            
+                        }
+
+                            .emp-dashboard-horizon .emp-dash-modal .modal-body .emp-dash-modal-blocks .emp-dash-modal-body .emp-dash-modal-message {
+                                width: 100%;
+                                padding: 5px 10px;
+                                margin-top: 10px;
+                                margin-bottom: 5px;
+                                border: 1px solid #D9D9D9;
+                                color: #369479;
+                                background: #e7e7e7;
+                                border-radius: 3px;
+                                font-size: 14px;
+                                resize: none;
+                                outline: none;
+                            }
+
+                .emp-dashboard-horizon .emp-dash-modal .modal-body .emp-dash-modal-blocks .emp-dash-modal-footer {
+                    text-align: right;
+                }
+
+                .emp-dashboard-horizon .emp-dash-modal .modal-body .emp-dash-modal-blocks .emp-dash-modal-footer button{
+                    border-radius: 22px;
+                    padding: 4px 20px;
+                    font-size: 14px;
+                }
+
+                    .emp-dashboard-horizon .emp-dash-modal .modal-body .emp-dash-modal-blocks .emp-dash-modal-footer .emp-dash-modal-send {
+                        background: #8854D0;
+                    }
 
 
-    .emp-dashboard-horizon .dashboard-body-block .emp-dash-recent-tickets .emp-recent-tickets-right .recent-tickets-title {
-    }
 
-    .emp-dashboard-horizon .dashboard-body-block .emp-dash-recent-tickets .emp-recent-tickets-right .recent-tickets-info {
-        font-size: 13px;
-    }
 
-    .emp-dashboard-horizon .dashboard-body-block .emp-dash-recent-tickets .emp-recent-tickets-right .recent-tickets-info .recent-tickets-info-left {
-        width: 48%;
-        display: inline-block;
-    }
-
-    .emp-dashboard-horizon .dashboard-body-block .emp-dash-recent-tickets .emp-recent-tickets-right .recent-tickets-info .recent-tickets-info-left img{
-        margin-right: 5px;
-    }
-
-    .emp-dashboard-horizon .dashboard-body-block .emp-dash-recent-tickets .emp-recent-tickets-right .recent-tickets-info .recent-tickets-info-left .emp-ticket-priority-status {
-        color: blue;
-    }
-
-    .emp-dashboard-horizon .dashboard-body-block .emp-dash-recent-tickets .emp-recent-tickets-right .recent-tickets-info .recent-tickets-info-right {
-        width: 48%;
-        display: inline-block;
-    }
-
-    .emp-dashboard-horizon .dashboard-body-block .emp-dash-recent-tickets .emp-recent-tickets-right .recent-tickets-info .recent-tickets-info-right .status-pending {
-        color: red;
-        font-weight: normal;
-    }
-
-    .emp-dashboard-horizon .dashboard-body-block .emp-dash-recent-tickets .emp-recent-tickets-right .recent-tickets-info .recent-tickets-info-right .status-closed {
-        color: green;
-    }
-
-    .emp-dashboard-horizon .dashboard-body-block .emp-dash-recent-tickets .emp-dash-block-content {
-        height: 260px;
-    }
-
-    .emp-dashboard-horizon .dashboard-body-block .emp-dash-basic-info .emp-dash-block-header .header-dropdown {
-        text-align: right;
-        width: 23%;
-        display: inline-block;
-    }
-
-    .emp-dashboard-horizon .dashboard-body-block .emp-dash-hours-spent .emp-dash-block-content {
-        height: 260px;
-    }
 
 
 /* emp dashboard end */
