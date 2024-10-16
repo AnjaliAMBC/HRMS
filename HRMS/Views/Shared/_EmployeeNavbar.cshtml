@@ -1,5 +1,29 @@
-﻿
+﻿@using HRMS.Helpers
+
+@{
+    var currentContext = Session["SiteContext"] as HRMS.Models.SiteContextModel;
+}
+
+@{
+    var notifications = new List<Notification>();
+    using (var dbContext = new HRMS_EntityFramework())
+    {
+        var todayDate = DateTime.Today;
+
+        notifications = dbContext.Notifications
+                                 .Where(x => x.NotificationToID == currentContext.EmpInfo.EmployeeID &&
+                                             x.NotificationDate.HasValue &&
+                                             x.NotificationDate.Value.Year == todayDate.Year &&
+                                             x.NotificationDate.Value.Month == todayDate.Month &&
+                                             x.NotificationDate.Value.Day == todayDate.Day &&
+                                             (x.Status != "Submitted" && x.Status != "Open"))
+                                 .ToList();
+    }
+}
+
+        '
 <style>
+
     .navbar-nav .nav-item {
         position: relative;
     }
@@ -90,12 +114,10 @@
         </ul>
         <ul class="navbar-nav ml-auto nav-right-block">
             <li class="header-notification">
-                <span class="nav-notification" data-toggle="modal" data-target="#NotificationPopup"><img src="~/Assets/clarity_notification-line.png" alt="Notification" class="img-notification"><span class="notification-count">3</span></span>
+                <span class="nav-notification" data-toggle="modal" data-target="#NotificationPopup"><img src="~/Assets/clarity_notification-line.png" alt="Notification" class="img-notification"><span class="notification-count">@notifications.Count()</span></span>
             </li>
             <li class="nav-item" id="navbar-profile">
-                @{
-                    var currentContext = Session["SiteContext"] as HRMS.Models.SiteContextModel;
-                }
+
                 <div class="profile-image-container" onclick="toggleDropdown()">
                     @if (!string.IsNullOrWhiteSpace(currentContext.EmpInfo.imagepath))
                     {
@@ -159,34 +181,40 @@
             </div>
             <div class="modal-body">
                 <div class="notification-list-blocks">
-                    <div class="notification-block">
-                        <div class="notification-block-left light-blue"><img src="/Assets/mail-icon.png"></div>
-                        <div class="notification-block-right">
-                            <div class="notification-block-info notification-info-title" title="Test notification data notification data dummy">Test notification data notification data dummy</div>
-                            <div class="notification-block-info notification-info-date">09 October 9:20 AM</div>
+
+                    @foreach (var notification in notifications)
+                    {
+                        var formattedDate = notification.NotificationDate?.ToString("dd MMMM h:mm tt") ?? "";
+                        <div class="notification-block">
+                            <div class="notification-block-left light-blue"><img src="/Assets/mail-icon.png"></div>
+                            <div class="notification-block-right">
+                                <div class="notification-block-info notification-info-title" title="@NotificationHelper.GetNotificationTitle(notification)">@NotificationHelper.GetNotificationTitle(notification)</div>
+                                <div class="notification-block-info notification-info-date">@formattedDate</div>
+                            </div>
                         </div>
-                    </div>
-                    <div class="notification-block">
-                        <div class="notification-block-left light-gray"><img src="/Assets/mail-icon.png"></div>
-                        <div class="notification-block-right">
-                            <div class="notification-block-info notification-info-title"  title="Test notification data notification data dummy">Test notification data</div>
-                            <div class="notification-block-info notification-info-date">09 October 9:20 AM</div>
+                    }
+
+                    @*<div class="notification-block">
+                            <div class="notification-block-left light-gray"><img src="/Assets/mail-icon.png"></div>
+                            <div class="notification-block-right">
+                                <div class="notification-block-info notification-info-title" title="Test notification data notification data dummy">Test notification data</div>
+                                <div class="notification-block-info notification-info-date">09 October 9:20 AM</div>
+                            </div>
                         </div>
-                    </div>
-                    <div class="notification-block">
-                        <div class="notification-block-left light-green"><img src="/Assets/mail-icon.png"></div>
-                        <div class="notification-block-right">
-                            <div class="notification-block-info notification-info-title"  title="Test notification data notification data dummy">Test notification data</div>
-                            <div class="notification-block-info notification-info-date">09 October 9:20 AM</div>
+                        <div class="notification-block">
+                            <div class="notification-block-left light-green"><img src="/Assets/mail-icon.png"></div>
+                            <div class="notification-block-right">
+                                <div class="notification-block-info notification-info-title" title="Test notification data notification data dummy">Test notification data</div>
+                                <div class="notification-block-info notification-info-date">09 October 9:20 AM</div>
+                            </div>
                         </div>
-                    </div>
-                    <div class="notification-block">
-                        <div class="notification-block-left light-red"><img src="/Assets/mail-icon.png"></div>
-                        <div class="notification-block-right">
-                            <div class="notification-block-info notification-info-title"  title="Test notification data notification data dummy">Test notification data</div>
-                            <div class="notification-block-info notification-info-date">09 October 9:20 AM</div>
-                        </div>
-                    </div>
+                        <div class="notification-block">
+                            <div class="notification-block-left light-red"><img src="/Assets/mail-icon.png"></div>
+                            <div class="notification-block-right">
+                                <div class="notification-block-info notification-info-title" title="Test notification data notification data dummy">Test notification data</div>
+                                <div class="notification-block-info notification-info-date">09 October 9:20 AM</div>
+                            </div>
+                        </div>*@
                 </div>
 
             </div>

@@ -81,6 +81,8 @@ namespace HRMS.Controllers
 
         public ActionResult AjaxApplyLeave(LeaveRequestModel leaveRequest)
         {
+            var currentContext = Session["SiteContext"] as HRMS.Models.SiteContextModel;
+
             try
             {
                 if (leaveRequest == null ||
@@ -91,9 +93,9 @@ namespace HRMS.Controllers
                 {
                     return Json(leaveRequest, JsonRequestBehavior.AllowGet);
                 }
-                
+
                 if (leaveRequest.ActionType == "Update")
-                {                    
+                {
                     var existingLeaves = _dbContext.con_leaveupdate
                         .Where(l => l.LeaveRequestName == leaveRequest.EditRequestName)
                         .ToList();
@@ -232,6 +234,21 @@ namespace HRMS.Controllers
                     var sendNotification = EMailHelper.SendEmail(emailRequest);
                 }
 
+                var newNotification = new Notification
+                {
+                    NotificationDate = DateTime.Now,
+                    NotificationFromName = currentContext.EmpInfo.EmployeeName,
+                    NotificationFromID = currentContext.EmpInfo.EmployeeID,
+                    NotificationToName = leaveRequest.EmpName,
+                    NotificationToID = leaveRequest.EmpID,
+                    NotificationType = "Leave",
+                    Status = leaveRequest.ActionType == "Update" ? "Updated" : "Submitted",
+                    Comments = "",
+                    CreatedDate = DateTime.Now
+                };
+
+                _dbContext.Notifications.Add(newNotification);
+                _dbContext.SaveChanges();
 
                 return Json(leaveRequest, JsonRequestBehavior.AllowGet);
             }
@@ -245,7 +262,7 @@ namespace HRMS.Controllers
 
         public ActionResult GetAvailableLeaves(string empId, string leaveType)
         {
-            
+
             LeaveTypesBasedOnEmpViewModel empLeaveTypes = new LeaveCalculator().GetLeavesByEmp(empId);
             var availableLeaves = new AvailableLeaves();
 
@@ -253,7 +270,7 @@ namespace HRMS.Controllers
             {
                 availableLeaves = empLeaveTypes.LeaveTypes[0].AvailableLeaves.Where(x => x.Type == leaveType).FirstOrDefault();
             }
-                      
+
             return Json(availableLeaves, JsonRequestBehavior.AllowGet);
         }
 
@@ -287,6 +304,9 @@ namespace HRMS.Controllers
 
         public ActionResult EmpLeaveCancel(string leavenumber)
         {
+            var currentContext = Session["SiteContext"] as HRMS.Models.SiteContextModel;
+
+
             var jsonResponse = new JsonResponse();
 
             try
@@ -355,6 +375,23 @@ namespace HRMS.Controllers
 
                     jsonResponse.Message = "Leave cancelled and records updated successfully.";
                     jsonResponse.StatusCode = 200;
+
+
+                    var newNotification = new Notification
+                    {
+                        NotificationDate = DateTime.Now,
+                        NotificationFromName = currentContext.EmpInfo.EmployeeName,
+                        NotificationFromID = currentContext.EmpInfo.EmployeeID,
+                        NotificationToName = canLeaveItems[0].employee_name,
+                        NotificationToID = canLeaveItems[0].employee_id,
+                        NotificationType = "Leave",
+                        Status = "Cancelled",
+                        Comments = "",
+                        CreatedDate = DateTime.Now
+                    };
+
+                    _dbContext.Notifications.Add(newNotification);
+                    _dbContext.SaveChanges();
                 }
                 else
                 {
@@ -411,6 +448,22 @@ namespace HRMS.Controllers
 
                 var sendNotification = EMailHelper.SendEmail(emailRequest);
 
+                var newNotification = new Notification
+                {
+                    NotificationDate = DateTime.Now,
+                    NotificationFromName = cuserContext.EmpInfo.EmployeeName,
+                    NotificationFromID = cuserContext.EmpInfo.EmployeeID,
+                    NotificationToName = leaves[0].employee_name,
+                    NotificationToID = leaves[0].employee_id,
+                    NotificationType = "Leave",
+                    Status = "Approved",
+                    Comments = "",
+                    CreatedDate = DateTime.Now
+                };
+
+                _dbContext.Notifications.Add(newNotification);
+                _dbContext.SaveChanges();
+
 
                 return Json(new { success = true });
             }
@@ -443,6 +496,23 @@ namespace HRMS.Controllers
                 };
 
                 var sendNotification = EMailHelper.SendEmail(emailRequest);
+
+
+                var newNotification = new Notification
+                {
+                    NotificationDate = DateTime.Now,
+                    NotificationFromName = cuserContext.EmpInfo.EmployeeName,
+                    NotificationFromID = cuserContext.EmpInfo.EmployeeID,
+                    NotificationToName = leaves[0].employee_name,
+                    NotificationToID = leaves[0].employee_id,
+                    NotificationType = "Leave",
+                    Status = "Rejected",
+                    Comments = "",
+                    CreatedDate = DateTime.Now
+                };
+
+                _dbContext.Notifications.Add(newNotification);
+                _dbContext.SaveChanges();
 
                 return Json(new { success = true });
             }

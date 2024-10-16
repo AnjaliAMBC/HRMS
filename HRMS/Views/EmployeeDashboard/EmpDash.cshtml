@@ -1,5 +1,6 @@
 ﻿@model HRMS.Models.Employee.EmpDashBoardModel
 @using HRMS.Models
+@using HRMS.Helpers
 
 @{
     var loginID = 0;
@@ -85,8 +86,12 @@
     if ((Model.todayCheckInInfo.Signin_Time != null && Model.todayCheckInInfo.Signin_Time != DateTime.MinValue) && (Model.todayCheckInInfo.Signout_Time == DateTime.MinValue || Model.todayCheckInInfo.Signout_Time == null))
     {
         buttonText = "Check Out";
-        buttonDeafultbgcolor = "#C70000";
+        buttonDeafultbgcolor = "checkputcolor";
         ButtonDisabled = "";
+    }
+    else
+    {
+        buttonDeafultbgcolor = "dh-attendance";
     }
 
 }
@@ -152,6 +157,13 @@
         margin: 5% auto;
     }
 
+    .checkputcolor {
+        background: #C70000;
+        color: #fff;
+        padding: 5px 7px;
+        margin-top: 5px;
+        text-align: center;
+    }
 </style>
 
 @Html.Partial("_EmployeeNavbar")
@@ -161,23 +173,54 @@
 
         <div class="dashboard-header-block">
             <div class="dashboard-header-left">
-                <div class="dh-user-name">Hello Test User</div>
+                <div class="dh-user-name">Hello @Model.EmpInfo.EmployeeName</div>
                 <div class="dh-welcome">Welcome to AMBC HRMS Portal</div>
             </div>
             <div class="dashboard-header-right">
+
+                @{
+                    var totalCheckInhours = Model.totalCheckedInTime;
+                    var formattedCheckInTime = @checkInTime;
+                }
+
                 <div class="dh-left">
-                    <div class="dh-date">Thursday, Oct 07 2024</div>
-                    <div class="dh-attendance">Mark Attendance</div>
-                    <div class="dh-time">01:01:11</div>
+                    <div class="dh-date" id="dashcurrentDate">@DateTime.Now.ToString("dddd, MMM dd yyyy")</div>
+                    <div class="@buttonDeafultbgcolor btn-checkin" data-checkinid="@loginID" @ButtonDisabled>@buttonText</div>
+                    <div class="dh-time" id="checkinhoursminutes" data-signedindatetime="@formattedCheckInTime">@totalCheckInhours</div>
                 </div>
+
+
                 <div class="dh-right">
                     <div class="dh-checkin">
                         <label>Check In Time</label>
-                        <div class="dh-checkin-time">01:01:01</div>
+                        <div class="dh-checkin-time">
+                            @if (!string.IsNullOrWhiteSpace(starttimeWithAmPm))
+                            {
+                                <div class="isusercheckedin" style="display: none">false</div>
+                                <span id="checkInTime">@starttimeWithAmPm</span> }
+                            else
+                            {
+                                <div class="isusercheckedin" style="display: none">true</div>
+                                <span id="checkInTime">00:00:00</span>
+                            }
+                        </div>
                     </div>
                     <div class="dh-checkout">
                         <label>Check Out Time</label>
-                        <div class="dh-checkout-time">01:01:01</div>
+                        <div class="dh-checkout-time">
+                            @if (!string.IsNullOrWhiteSpace(endtimeWithAmPm))
+                            {
+                                <div class="isusercheckedout" style="display: none">false</div>
+                                <span id="checkOutTime">@endtimeWithAmPm</span> }
+                            else
+                            {
+                                <div class="isusercheckedout" style="display: none">true</div>
+                                <span id="checkOutTime">00:00:00</span>}
+                        </div>
+                    </div>
+                    <div class="dh-currenttime">
+                        <label>Current Time</label>
+                        <div class="dh-currenttime-display" id="dashcurrentTime">@DateTime.Now.ToString("HH:mm:ss")</div>
                     </div>
                 </div>
             </div>
@@ -191,27 +234,46 @@
                             <div class="ed-block-left ed-b-left"><img src="~/Assets/dashboard/birthday.png"></div>
                             <div class="ed-block-right ed-b-right" data-toggle="modal" data-target="#emp-dash-birthday-popup">
                                 <div class="ed-block-1 ed-b-birthday">Birthday</div>
-                                <div class="ed-block-2 ed-b-celebration">2 Celebration</div>
+                                <div class="ed-block-2 ed-b-celebration">
+                                    @(Model.Birthdays.Count() > 0 ? $"{Model.Birthdays.Count()} Celebration(s)" : "No birthdays today")
+                                </div>
                             </div>
                         </div>
                         <div class="ed-blocks ed-work-anniversary">
                             <div class="ed-block-left ed-b-left"><img src="~/Assets/dashboard/work-anniversary.png"></div>
                             <div class="ed-block-right ed-b-right" data-toggle="modal" data-target="#emp-dash-workanniversary-popup">
                                 <div class="ed-block-1 ed-b-birthday">Work Anniversary</div>
-                                <div class="ed-block-2 ed-b-celebration">2 Celebration</div>
+                                <div class="ed-block-2 ed-b-celebration">
+                                    @(Model.AnniversaryModel.Count() > 0 ? $"{Model.AnniversaryModel.Count()} Anniversary Celebration(s)" : "No anniversaries today")
+                                </div>
+
                             </div>
                         </div>
                         <div class="ed-blocks ed-new-joiners">
                             <div class="ed-block-left ed-b-left"><img src="~/Assets/dashboard/new-joiners.png"></div>
                             <div class="ed-block-right ed-b-right" data-toggle="modal" data-target="#emp-dash-newjoiner-popup">
                                 <div class="ed-block-1 ed-b-birthday">New Joiners</div>
-                                <div class="ed-block-2 ed-b-celebration">No New Joiners</div>
+                                <div class="ed-block-2 ed-b-celebration">   @(Model.NewJoiners.Count() > 0 ? $"{Model.NewJoiners.Count()} New Joiner(s)" : "No New Joiners")</div>
                             </div>
                         </div>
                     </div>
                     <div class="col-lg-4 col-md-6 col-sm-12 emp-dash-basic-info emp-dash-middle-block emp-dash-attendance">
                         <div class="emp-dash-block-header">
                             <span class="header-title">Attendance</span>
+
+                            <span class="header-dropdown">
+                                @{
+                                    var months = DateHelper.GetAllMonths();
+                                    var currentMonth = DateTime.Now.Month;
+
+                                }
+                                <select name="emp-dash-hours-spent-yearly" id="emp-dash-attedence-chart">
+                                    @foreach (var month in months)
+                                    {
+                                        <option value="@month.Number" @(month.Number == currentMonth ? "selected" : "")>@month.Name</option>
+                                    }
+                                </select>
+                            </span>
                         </div>
                         <div class="emp-dash-block-content">
                             <canvas id="emp-dash-attendance" style="width:100%;max-width:100%"></canvas>
@@ -245,27 +307,48 @@
                     <div class="col-lg-4 col-md-6 col-sm-12 emp-dash-basic-info emp-dash-upcoming-holidays">
                         <div class="emp-dash-block-header">
                             <span class="header-title">Upcoming Holidays</span>
-                            <span class="header-viewall">View All <i class="far fa-arrow-alt-circle-right"></i></span>
+                            <span class="header-viewall all-holidays-list">View All <i class="far fa-arrow-alt-circle-right"></i></span>
                         </div>
                         <div class="emp-dash-block-content">
-                            <div class="emp-dash-upcoming-holidays-block">
-                                <div class="emp-upcoming-left">
-                                    <div class="holiday-name">Independance Day</div>
-                                    <div class="holiday-date">15 Aug 24 Thursday</div>
+
+                            @foreach (HRMS.Models.EmployeeEvent.UpcomingHoliday holiday in @Model.UpcomingHolidays)
+                            {
+                                if (@holiday.HolidayDate != DateTime.MinValue)
+                                {
+                                    <div class="emp-dash-upcoming-holidays-block">
+                                        <div class="emp-upcoming-left">
+
+                                            <div class="holiday-name">@holiday.HolidayName</div>
+                                            <div class="holiday-date smalltext">@holiday.HolidayDate.ToString("dd MMMM dddd")</div>
+
+                                        </div>
+                                        <a class="dashhoiday_description Emp-CompOffRequest" data-leavenumber="@holiday.HolidayNo" data-location="@holiday.Region">
+                                            <div class="emp-upcoming-right">
+                                                <i class="fas fa-chevron-right"></i>
+                                            </div>
+                                        </a>
+                                    </div>
+                                }
+                            }
+
+                            @*<div class="emp-dash-upcoming-holidays-block">
+                                    <div class="emp-upcoming-left">
+                                        <div class="holiday-name">Independance Day</div>
+                                        <div class="holiday-date">15 Aug 24 Thursday</div>
+                                    </div>
+                                    <div class="emp-upcoming-right">
+                                        <i class="fas fa-chevron-right"></i>
+                                    </div>
                                 </div>
-                                <div class="emp-upcoming-right">
-                                    <i class="fas fa-chevron-right"></i>
-                                </div>
-                            </div>
-                            <div class="emp-dash-upcoming-holidays-block">
-                                <div class="emp-upcoming-left">
-                                    <div class="holiday-name">Independance Day</div>
-                                    <div class="holiday-date">15 Aug 24 Thursday</div>
-                                </div>
-                                <div class="emp-upcoming-right">
-                                    <i class="fas fa-chevron-right"></i>
-                                </div>
-                            </div>
+                                <div class="emp-dash-upcoming-holidays-block">
+                                    <div class="emp-upcoming-left">
+                                        <div class="holiday-name">Independance Day</div>
+                                        <div class="holiday-date">15 Aug 24 Thursday</div>
+                                    </div>
+                                    <div class="emp-upcoming-right">
+                                        <i class="fas fa-chevron-right"></i>
+                                    </div>
+                                </div>*@
                         </div>
                     </div>
 
@@ -274,30 +357,35 @@
                             <span class="header-title">Recent Tickets</span>
                         </div>
                         <div class="emp-dash-block-content">
-                            <div class="emp-dash-recent-tickets-block">
-                                <div class="emp-recent-tickets-left">
-                                    <div class="emp-ticket-navbar">IT</div>
-                                </div>
-                                <div class="emp-recent-tickets-right">
-                                    <div class="recent-tickets-title">System Not Working</div>
-                                    <div class="recent-tickets-info">
-                                        <span class="recent-tickets-info-left"><img src="/Assets/dashboard/iconoir-priority-high.png"><span class="emp-ticket-priority-label">Priority</span> - <span class="emp-ticket-priority-status priority-high">High</span></span>
-                                        <span class="recent-tickets-info-right"><img src="/Assets/ei_user.png"> <span class="emp-ticket-priority-label">Status</span> <span class="emp-ticket-priority-status status-pending">Pending</span></span>
+
+                            @foreach (var myTicket in Model.MyTickets)
+                            {
+                                <div class="emp-dash-recent-tickets-block">
+                                    <div class="emp-recent-tickets-left">
+                                        <div class="emp-ticket-navbar">@myTicket.TicketType</div>
+                                    </div>
+                                    <div class="emp-recent-tickets-right">
+                                        <div class="recent-tickets-title">@myTicket.Subject</div>
+                                        <div class="recent-tickets-info">
+                                            <span class="recent-tickets-info-left"><img src="/Assets/dashboard/iconoir-priority-high.png"><span class="emp-ticket-priority-label">Priority</span> - <span class="emp-ticket-priority-status @HRMS.Helpers.TicketingHelper.GetPriorityColor(myTicket.Priority)">@myTicket.Priority</span></span>
+                                            <span class="recent-tickets-info-right"><img src="/Assets/ei_user.png"> <span class="emp-ticket-priority-label">Status</span> <span class="emp-ticket-priority-status @HRMS.Helpers.TicketingHelper.GetTicketStatusCssClass(myTicket.Status)">@myTicket.Status</span></span>
+                                        </div>
                                     </div>
                                 </div>
-                            </div>
-                            <div class="emp-dash-recent-tickets-block">
-                                <div class="emp-recent-tickets-left">
-                                    <div class="emp-ticket-navbar">IT</div>
-                                </div>
-                                <div class="emp-recent-tickets-right">
-                                    <div class="recent-tickets-title">System Not Working</div>
-                                    <div class="recent-tickets-info">
-                                        <span class="recent-tickets-info-left"><img src="/Assets/dashboard/iconoir-priority-high.png"><span class="emp-ticket-priority-label">Priority</span> - <span class="emp-ticket-priority-status priority-medium">Medium</span></span>
-                                        <span class="recent-tickets-info-right"><img src="/Assets/ei_user.png"> <span class="emp-ticket-priority-label">Status</span> <span class="emp-ticket-priority-status status-closed">Closed</span></span>
+                            }
+
+                            @*<div class="emp-dash-recent-tickets-block">
+                                    <div class="emp-recent-tickets-left">
+                                        <div class="emp-ticket-navbar">IT</div>
                                     </div>
-                                </div>
-                            </div>
+                                    <div class="emp-recent-tickets-right">
+                                        <div class="recent-tickets-title">System Not Working</div>
+                                        <div class="recent-tickets-info">
+                                            <span class="recent-tickets-info-left"><img src="/Assets/dashboard/iconoir-priority-high.png"><span class="emp-ticket-priority-label">Priority</span> - <span class="emp-ticket-priority-status priority-medium">Medium</span></span>
+                                            <span class="recent-tickets-info-right"><img src="/Assets/ei_user.png"> <span class="emp-ticket-priority-label">Status</span> <span class="emp-ticket-priority-status status-closed">Closed</span></span>
+                                        </div>
+                                    </div>
+                                </div>*@
                         </div>
                     </div>
 
@@ -370,41 +458,40 @@
                     </button>
                 </div>
                 <div class="modal-body">
-                    <div class="emp-dash-modal-blocks">
-                        <div class="emp-dash-modal-header">
-                            <div class="emp-dash-modal-left">
-                                <div class="emp-dash-modal-navbar"><img src="/assets/empimages/1075.jpeg" class="asseet-transfer-image"></div>
-                            </div>
-                            <div class="emp-dash-modal-right">
-                                <div class="emp-dash-modal-title">Test User</div>
-                                <div class="emp-dash-modals-info">Graphic UI UX Designer</div>
-                            </div>
-                        </div>
-                        <div class="emp-dash-modal-body">
-                            <textarea class="emp-dash-modal-message" name="emp-dash-modal-message" rows="3" cols="50">Test data here</textarea>
-                        </div>
-                        <div class="emp-dash-modal-footer">
-                            <button type="button" class="btn btn-primary emp-dash-modal-send">Send</button>
-                        </div>
-                    </div>
 
-                    <div class="emp-dash-modal-blocks">
-                        <div class="emp-dash-modal-header">
-                            <div class="emp-dash-modal-left">
-                                <div class="emp-dash-modal-navbar">TR</div>
+                    @foreach (var birthdayEmp in Model.Birthdays)
+                    {
+                        <div class="emp-dash-modal-blocks">
+                            <div class="emp-dash-modal-header">
+                                <div class="emp-dash-modal-left">
+                                    @{
+                                        var empBirthdayDisplay = EmployeeHelper.GetEmployeeDisplayInfo(birthdayEmp.Empid, birthdayEmp.EmpInfo);
+                                    }
+
+                                    @if (!string.IsNullOrWhiteSpace(empBirthdayDisplay.ImageSrc))
+                                    {
+                                        <div class="emp-dash-modal-navbar"><img src="@empBirthdayDisplay.ImageSrc" alt="Employee Image" class="asseet-transfer-image"></div>
+                                    }
+                                    else
+                                    {
+                                        <div class="emp-dash-modal-navbar">@empBirthdayDisplay.EmpShortName</div>
+                                    }
+
+                                </div>
+                                <div class="emp-dash-modal-right">
+                                    <div class="emp-dash-modal-title">@empBirthdayDisplay.EmpInfo.EmployeeName</div>
+                                    <div class="emp-dash-modals-info">@empBirthdayDisplay.EmpInfo.Designation</div>
+                                </div>
                             </div>
-                            <div class="emp-dash-modal-right">
-                                <div class="emp-dash-modal-title">Test User</div>
-                                <div class="emp-dash-modals-info">Graphic UI UX Designer</div>
+                            <div class="emp-dash-modal-body">
+                                <textarea class="emp-dash-modal-message" name="emp-dash-modal-message" rows="3" cols="50" placeholder="Wish here..."></textarea>
+                                <div class="message-feedback" style="display: none;"></div>
+                            </div>
+                            <div class="emp-dash-modal-footer">
+                                <button type="button" class="btn btn-primary emp-dash-modal-send" data-notificationtype="Birthday" data-notificationtoid="@empBirthdayDisplay.EmpInfo.EmployeeID" data-notificationtoname="@empBirthdayDisplay.EmpInfo.EmployeeName">Send</button>
                             </div>
                         </div>
-                        <div class="emp-dash-modal-body">
-                            <textarea class="emp-dash-modal-message" name="emp-dash-modal-message" rows="3" cols="50">Test data here</textarea>
-                        </div>
-                        <div class="emp-dash-modal-footer">
-                            <button type="button" class="btn btn-primary emp-dash-modal-send">Send</button>
-                        </div>
-                    </div>
+                    }
                 </div>
             </div>
         </div>
@@ -420,41 +507,39 @@
                     </button>
                 </div>
                 <div class="modal-body">
-                    <div class="emp-dash-modal-blocks">
-                        <div class="emp-dash-modal-header">
-                            <div class="emp-dash-modal-left">
-                                <div class="emp-dash-modal-navbar"><img src="/assets/empimages/1075.jpeg" class="asseet-transfer-image"></div>
-                            </div>
-                            <div class="emp-dash-modal-right">
-                                <div class="emp-dash-modal-title">Dummy User</div>
-                                <div class="emp-dash-modals-info">IT Recruiter</div>
-                            </div>
-                        </div>
-                        <div class="emp-dash-modal-body">
-                            <textarea class="emp-dash-modal-message" name="emp-dash-modal-message" rows="3" cols="50">Test data here</textarea>
-                        </div>
-                        <div class="emp-dash-modal-footer">
-                            <button type="button" class="btn btn-primary emp-dash-modal-send">Send</button>
-                        </div>
-                    </div>
+                    @foreach (var anniversaryEmp in Model.AnniversaryModel)
+                    {
+                        <div class="emp-dash-modal-blocks">
+                            <div class="emp-dash-modal-header">
+                                <div class="emp-dash-modal-left">
+                                    @{
+                                        var empAnniversaryDisplay = EmployeeHelper.GetEmployeeDisplayInfo(anniversaryEmp.Empid, anniversaryEmp.EmpInfo);
+                                    }
 
-                    <div class="emp-dash-modal-blocks">
-                        <div class="emp-dash-modal-header">
-                            <div class="emp-dash-modal-left">
-                                <div class="emp-dash-modal-navbar">TR</div>
+                                    @if (!string.IsNullOrWhiteSpace(empAnniversaryDisplay.ImageSrc))
+                                    {
+                                        <div class="emp-dash-modal-navbar"><img src="@empAnniversaryDisplay.ImageSrc" alt="Employee Image" class="asseet-transfer-image"></div>
+                                    }
+                                    else
+                                    {
+                                        <div class="emp-dash-modal-navbar">@empAnniversaryDisplay.EmpShortName</div>
+                                    }
+                                </div>
+                                <div class="emp-dash-modal-right">
+                                    <div class="emp-dash-modal-title">@empAnniversaryDisplay.EmpInfo.EmployeeName</div>
+                                    <div class="emp-dash-modals-info">@empAnniversaryDisplay.EmpInfo.Designation</div>
+                                </div>
                             </div>
-                            <div class="emp-dash-modal-right">
-                                <div class="emp-dash-modal-title">Dummy User</div>
-                                <div class="emp-dash-modals-info">Senior Tester</div>
+                            <div class="emp-dash-modal-body">
+                                <textarea class="emp-dash-modal-message" name="emp-dash-modal-message" rows="3" cols="50" placeholder="Wish here..."></textarea>
+                                <div class="message-feedback" style="display: none;"></div>
+                            </div>
+                            <div class="emp-dash-modal-footer">
+                                <button type="button" data-notificationtype="Anniversary" data-notificationtoid="@empAnniversaryDisplay.EmpInfo.EmployeeID" data-notificationtoname="@empAnniversaryDisplay.EmpInfo.EmployeeName" class="btn btn-primary emp-dash-modal-send">Send</button>
                             </div>
                         </div>
-                        <div class="emp-dash-modal-body">
-                            <textarea class="emp-dash-modal-message" name="emp-dash-modal-message" rows="3" cols="50">Test data here</textarea>
-                        </div>
-                        <div class="emp-dash-modal-footer">
-                            <button type="button" class="btn btn-primary emp-dash-modal-send">Send</button>
-                        </div>
-                    </div>
+                    }
+
                 </div>
             </div>
         </div>
@@ -470,88 +555,50 @@
                     </button>
                 </div>
                 <div class="modal-body">
-                    <div class="emp-dash-modal-blocks">
-                        <div class="emp-dash-modal-header">
-                            <div class="emp-dash-modal-left">
-                                <div class="emp-dash-modal-navbar"><img src="/assets/empimages/1075.jpeg" class="asseet-transfer-image"></div>
-                            </div>
-                            <div class="emp-dash-modal-right">
-                                <div class="emp-dash-modal-title">Bot User</div>
-                                <div class="emp-dash-modals-info">Developer</div>
-                            </div>
-                        </div>
-                        <div class="emp-dash-modal-body">
-                            <textarea class="emp-dash-modal-message" name="emp-dash-modal-message" rows="3" cols="50">Test data here</textarea>
-                        </div>
-                        <div class="emp-dash-modal-footer">
-                            <button type="button" class="btn btn-primary emp-dash-modal-send">Send</button>
-                        </div>
-                    </div>
+                    @foreach (var newJoinerEmp in Model.NewJoiners)
+                    {
+                        <div class="emp-dash-modal-blocks">
+                            <div class="emp-dash-modal-header">
+                                <div class="emp-dash-modal-left">
+                                    @{
+                                        var empNewJoinerDisplay = EmployeeHelper.GetEmployeeDisplayInfo(newJoinerEmp.EmployeeID, newJoinerEmp);
+                                    }
 
-                    <div class="emp-dash-modal-blocks">
-                        <div class="emp-dash-modal-header">
-                            <div class="emp-dash-modal-left">
-                                <div class="emp-dash-modal-navbar">TR</div>
+                                    @if (!string.IsNullOrWhiteSpace(empNewJoinerDisplay.ImageSrc))
+                                    {
+                                        <div class="emp-dash-modal-navbar"><img src="@empNewJoinerDisplay.ImageSrc" alt="Employee Image" class="asseet-transfer-image"></div>
+                                    }
+                                    else
+                                    {
+                                        <div class="emp-dash-modal-navbar">@empNewJoinerDisplay.EmpShortName</div>
+                                    }
+                                </div>
+                                <div class="emp-dash-modal-right">
+                                    <div class="emp-dash-modal-title">@empNewJoinerDisplay.EmpInfo.EmployeeName</div>
+                                    <div class="emp-dash-modals-info">@empNewJoinerDisplay.EmpInfo.Designation</div>
+                                </div>
                             </div>
-                            <div class="emp-dash-modal-right">
-                                <div class="emp-dash-modal-title">Bot User</div>
-                                <div class="emp-dash-modals-info">UX Designer</div>
+                            <div class="emp-dash-modal-body">
+                                <textarea class="emp-dash-modal-message" name="emp-dash-modal-message" rows="3" cols="50" placeholder="Wish here..."></textarea>
+                                <div class="message-feedback" style="display: none;"></div>
+                            </div>
+                            <div class="emp-dash-modal-footer">
+                                <button type="button" class="btn btn-primary emp-dash-modal-send" data-notificationtype="NewJoining" data-notificationtoid="@empNewJoinerDisplay.EmpInfo.EmployeeID" data-notificationtoname="@empNewJoinerDisplay.EmpInfo.EmployeeName">Send</button>
                             </div>
                         </div>
-                        <div class="emp-dash-modal-body">
-                            <textarea class="emp-dash-modal-message" name="emp-dash-modal-message" rows="3" cols="50">Test data here</textarea>
-                        </div>
-                        <div class="emp-dash-modal-footer">
-                            <button type="button" class="btn btn-primary emp-dash-modal-send">Send</button>
-                        </div>
-                    </div>
+                    }
 
-                    <div class="emp-dash-modal-blocks">
-                        <div class="emp-dash-modal-header">
-                            <div class="emp-dash-modal-left">
-                                <div class="emp-dash-modal-navbar">TR</div>
-                            </div>
-                            <div class="emp-dash-modal-right">
-                                <div class="emp-dash-modal-title">Dummy User</div>
-                                <div class="emp-dash-modals-info">Senior Tester</div>
-                            </div>
-                        </div>
-                        <div class="emp-dash-modal-body">
-                            <textarea class="emp-dash-modal-message" name="emp-dash-modal-message" rows="3" cols="50">Test data here</textarea>
-                        </div>
-                        <div class="emp-dash-modal-footer">
-                            <button type="button" class="btn btn-primary emp-dash-modal-send">Send</button>
-                        </div>
-                    </div>
-
-                    <div class="emp-dash-modal-blocks">
-                        <div class="emp-dash-modal-header">
-                            <div class="emp-dash-modal-left">
-                                <div class="emp-dash-modal-navbar"><img src="/assets/empimages/1075.jpeg" class="asseet-transfer-image"></div>
-                            </div>
-                            <div class="emp-dash-modal-right">
-                                <div class="emp-dash-modal-title">Dummy User</div>
-                                <div class="emp-dash-modals-info">IT Recruiter</div>
-                            </div>
-                        </div>
-                        <div class="emp-dash-modal-body">
-                            <textarea class="emp-dash-modal-message" name="emp-dash-modal-message" rows="3" cols="50">Test data here</textarea>
-                        </div>
-                        <div class="emp-dash-modal-footer">
-                            <button type="button" class="btn btn-primary emp-dash-modal-send">Send</button>
-                        </div>
-                    </div>
                 </div>
             </div>
         </div>
-    </div>    
+    </div>
 
 
 </div>
 
 <script src="~/Scripts/z-EmpDash.js"></script>
 <script src="~/Scripts/z-empleave.js"></script>
-
+<script src="~/Scripts/z-notification.js"></script>
 <script>
     let currentIndex = 0;
 
@@ -605,30 +652,7 @@
 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.4/Chart.js"></script>
 <script>
-    var xValues = ["Present", "Leave", "Absent"];
-    var yValues = [55, 20, 33];
-    var barColors = [
-        "#96CD5C",
-        "#C85353",
-        "#00B4F2"
-    ];
 
-    new Chart("emp-dash-attendance", { 
-        type: "doughnut",
-        data: {
-            labels: xValues,
-            datasets: [{
-                backgroundColor: barColors,
-                data: yValues
-            }]
-        },
-        options: {
-            legend: {
-                display: true,
-                position: 'bottom' // Set the legend to the bottom
-            }
-        }
-    });
 
 
     var xValues = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug"];
@@ -642,7 +666,7 @@
             datasets: [{
                 backgroundColor: barColors,
                 data: yValues,
-                borderWidth: 0 
+                borderWidth: 0
             }]
         },
         options: {
@@ -662,10 +686,19 @@
                         beginAtZero: true
                     },
                     gridLines: {
-                        display: false // Remove gridlines on the x-axis
+                        display: false
                     }
                 }]
             }
         }
     });
+
+
+    $(document).on('click', '.ed-policies', function () {
+        window.location.href = '/EmpDash/Policies';
+    });
+    $(document).on('click', '.all-holidays-list', function () {
+        window.location.href = '/EmpDash/Holidays';
+    });
+
 </script>

@@ -155,6 +155,7 @@
     <Compile Include="Controllers\EmpLeaveController.cs" />
     <Compile Include="Controllers\EmpTicketingController.cs" />
     <Compile Include="Controllers\MaintananceController.cs" />
+    <Compile Include="Controllers\NotificationController.cs" />
     <Compile Include="Controllers\ProfileController.cs" />
     <Compile Include="Controllers\PurchaseController.cs" />
     <Compile Include="Controllers\SubscriptionController.cs" />
@@ -168,6 +169,7 @@
     <Compile Include="Helpers\DateHelper.cs" />
     <Compile Include="Helpers\EMailHelper.cs" />
     <Compile Include="Helpers\LeaveCalculator.cs" />
+    <Compile Include="Helpers\NotificationHelper.cs" />
     <Compile Include="Helpers\SuperAdminHelper.cs" />
     <Compile Include="Helpers\TicketingHelper.cs" />
     <Compile Include="Helpers\VendorHelper.cs" />
@@ -188,6 +190,7 @@
     <Compile Include="Models\Admin\AdminAttendanceModel.cs" />
     <Compile Include="Models\Admin\AdminDashView.cs" />
     <Compile Include="Models\Admin\AdminLeaveManagementModel.cs" />
+    <Compile Include="Models\Employee\EmpModel.cs" />
     <Compile Include="Models\ITsupport\AssetViewModel.cs" />
     <Compile Include="Models\ITsupport\MaintananceModel.cs" />
     <Compile Include="Models\ITsupport\PurchaseModel.cs" />
@@ -200,15 +203,20 @@
     <Compile Include="Models\Employee\EmpDashBoardModel.cs" />
     <Compile Include="Models\Employee\EmpLeaveModel.cs" />
     <Compile Include="Models\Employee\LeaveRequestModel.cs" />
+    <Compile Include="Models\NotificationModel.cs" />
     <Compile Include="Models\TicketDetailsViewModel.cs" />
     <Compile Include="Models\TicketingModel.cs" />
     <Compile Include="Models\TimerModel.cs" />
+    <Compile Include="Notification.cs">
+      <DependentUpon>HRMS.tt</DependentUpon>
+    </Compile>
     <Compile Include="PurchaseRequest.cs">
       <DependentUpon>HRMS.tt</DependentUpon>
     </Compile>
     <Compile Include="ReminderLog.cs">
       <DependentUpon>HRMS.tt</DependentUpon>
     </Compile>
+    <Compile Include="Services\LeaveService.cs" />
     <Compile Include="ShiftNotificationJob.cs" />
     <Compile Include="Subscription.cs">
       <DependentUpon>HRMS.tt</DependentUpon>
@@ -393,6 +401,7 @@
     <Content Include="Scripts\z-empleave.js" />
     <Content Include="Scripts\z-empTicketing.js" />
     <Content Include="Scripts\Z-Maintanance.js" />
+    <Content Include="Scripts\z-notification.js" />
     <Content Include="Scripts\z-purchaseScript.js" />
     <Content Include="Scripts\z-raiseticket.js" />
     <Content Include="Scripts\z-SubscriptionScript.js" />
@@ -529,10 +538,14 @@
     <Content Include="Views\Shared\_MaintenanceEmailNotification.cshtml" />
     <Content Include="Views\Itsupport\_maintenanceinfotable.cshtml" />
     <Content Include="Views\Shared\_EmployeeNavbar.cshtml" />
+    <Content Include="Views\EmployeeDashboard\PoliciesView.cshtml" />
+    <Content Include="Views\EmployeeDashboard\HolidaysListView.cshtml" />
+    <Content Include="Views\Shared\EmployeeFooter.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
     <Folder Include="Views\Maintanance\" />
+    <Folder Include="Views\Notification\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="fonts\glyphicons-halflings-regular.woff2" />

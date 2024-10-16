@@ -323,6 +323,22 @@
           <Property Name="Sno" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="LocationName" Type="varchar" MaxLength="255" />
         </EntityType>
+        <EntityType Name="Notifications">
+          <Key>
+            <PropertyRef Name="SNo" />
+          </Key>
+          <Property Name="SNo" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="NotificationDate" Type="datetime" />
+          <Property Name="NotificationFromName" Type="varchar" MaxLength="255" />
+          <Property Name="NotificationFromID" Type="varchar" MaxLength="255" />
+          <Property Name="NotificationToName" Type="varchar" MaxLength="255" />
+          <Property Name="NotificationToID" Type="varchar" MaxLength="50" />
+          <Property Name="NotificationType" Type="varchar" MaxLength="100" />
+          <Property Name="ReferenceNumber" Type="varchar" MaxLength="255" />
+          <Property Name="Status" Type="varchar" MaxLength="50" />
+          <Property Name="Comments" Type="varchar" MaxLength="1000" />
+          <Property Name="CreatedDate" Type="datetime" />
+        </EntityType>
         <EntityType Name="PurchaseRequest">
           <Key>
             <PropertyRef Name="PurchaseRequestID" />
@@ -518,6 +534,7 @@ warning 6002: The table/view 'HRMS_PortalDev1.dbo.CheckInView' does not have a p
           <EntitySet Name="LeaveBalance" EntityType="Self.LeaveBalance" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="LeaveRM" EntityType="Self.LeaveRM" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Location" EntityType="Self.Location" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Notifications" EntityType="Self.Notifications" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="PurchaseRequest" EntityType="Self.PurchaseRequest" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="ReminderLogs" EntityType="Self.ReminderLogs" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Subscription" EntityType="Self.Subscription" Schema="dbo" store:Type="Tables" />
@@ -591,6 +608,7 @@ warning 6002: The table/view 'HRMS_PortalDev1.dbo.CheckInView' does not have a p
           <EntitySet Name="Assets" EntityType="HRMS_EntityModel.Asset" />
           <EntitySet Name="AssetTransfer_" EntityType="HRMS_EntityModel.AssetTransfer_" />
           <EntitySet Name="IT_Maintenance" EntityType="HRMS_EntityModel.IT_Maintenance" />
+          <EntitySet Name="Notifications" EntityType="HRMS_EntityModel.Notification" />
         </EntityContainer>
         <EntityType Name="Client">
           <Key>
@@ -1067,6 +1085,22 @@ warning 6002: The table/view 'HRMS_PortalDev1.dbo.CheckInView' does not have a p
           <Property Name="UpdateBy" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
           <Property Name="UpdateDate" Type="DateTime" Precision="3" />
           <Property Name="AgentID" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+        </EntityType>
+        <EntityType Name="Notification">
+          <Key>
+            <PropertyRef Name="SNo" />
+          </Key>
+          <Property Name="SNo" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="NotificationDate" Type="DateTime" Precision="3" />
+          <Property Name="NotificationFromName" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+          <Property Name="NotificationFromID" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+          <Property Name="NotificationToName" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+          <Property Name="NotificationToID" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="NotificationType" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="ReferenceNumber" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+          <Property Name="Status" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="Comments" Type="String" MaxLength="1000" FixedLength="false" Unicode="false" />
+          <Property Name="CreatedDate" Type="DateTime" Precision="3" />
         </EntityType>
       </Schema>
     </edmx:ConceptualModels>
@@ -1583,6 +1617,23 @@ warning 6002: The table/view 'HRMS_PortalDev1.dbo.CheckInView' does not have a p
                 <ScalarProperty Name="EmployeeName" ColumnName="EmployeeName" />
                 <ScalarProperty Name="EmployeeID" ColumnName="EmployeeID" />
                 <ScalarProperty Name="Sno" ColumnName="Sno" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Notifications">
+            <EntityTypeMapping TypeName="HRMS_EntityModel.Notification">
+              <MappingFragment StoreEntitySet="Notifications">
+                <ScalarProperty Name="CreatedDate" ColumnName="CreatedDate" />
+                <ScalarProperty Name="Comments" ColumnName="Comments" />
+                <ScalarProperty Name="Status" ColumnName="Status" />
+                <ScalarProperty Name="ReferenceNumber" ColumnName="ReferenceNumber" />
+                <ScalarProperty Name="NotificationType" ColumnName="NotificationType" />
+                <ScalarProperty Name="NotificationToID" ColumnName="NotificationToID" />
+                <ScalarProperty Name="NotificationToName" ColumnName="NotificationToName" />
+                <ScalarProperty Name="NotificationFromID" ColumnName="NotificationFromID" />
+                <ScalarProperty Name="NotificationFromName" ColumnName="NotificationFromName" />
+                <ScalarProperty Name="NotificationDate" ColumnName="NotificationDate" />
+                <ScalarProperty Name="SNo" ColumnName="SNo" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

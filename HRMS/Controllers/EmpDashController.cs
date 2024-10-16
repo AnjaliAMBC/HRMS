@@ -13,6 +13,7 @@ namespace HRMS.Controllers
 {
     using Helpers;
     using HRMS.Models;
+    using HRMS.Services;
     using System.Data.Entity;
     using System.Globalization;
 
@@ -95,6 +96,10 @@ namespace HRMS.Controllers
             model.MyTickets = _dbContext.IT_Ticket
               .Where(x => x.EmployeeID == model.EmpInfo.EmployeeID && DbFunctions.TruncateTime(x.Created_date) == DateTime.Today)
               .ToList();
+
+
+            model.NewJoiners = _dbContext.emp_info.Where(x => x.DOJ == DateTime.Today).ToList();
+
 
             return View("~/Views/EmployeeDashboard/EmpDash.cshtml", model);
         }
@@ -185,6 +190,24 @@ namespace HRMS.Controllers
             }
 
             return Json(null, JsonRequestBehavior.AllowGet);
+
+        }
+
+        public ActionResult Policies()
+        {
+            return View("/Views/EmployeeDashboard/PoliciesView.cshtml");
+        }
+        public ActionResult Holidays()
+        {
+            return View("/Views/EmployeeDashboard/HolidaysListView.cshtml");
+        }
+
+
+        public JsonResult GetAttedenceSummary(string employeeId, string location, int month, int year)
+        {
+            var leaveService = new LeaveService(_dbContext);
+            string jsonResult = leaveService.GetLeaveSummary(employeeId, location, month, year);
+            return Json(jsonResult, JsonRequestBehavior.AllowGet);
 
         }
     }
