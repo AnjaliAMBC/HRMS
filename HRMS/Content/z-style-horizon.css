@@ -78,6 +78,20 @@
 
 /* header end */
 
+
+/* footer start */
+
+.emp-copyrights-ambc-footer {
+    text-align: center;
+    font-size: 14px;
+    background: #267EC4;
+    display: block;
+    padding: 10px 0px;
+    color: #fff;
+}
+
+/* footer end */
+
 /* header profile dropdown start */
 
 .horizon-design .profile-dropdown {
@@ -211,7 +225,7 @@
 .emp-dashboard-horizon .main-content {
     width: 100% !important;
     margin-left: 0 !important;
-    padding: 55px 0px !important;
+    padding: 32px 0px !important;
 }
 
 .emp-dashboard-horizon .dashboard-header-block {
@@ -226,7 +240,7 @@
     width: 70%;
     display: inline-block;
     vertical-align: middle;
-    margin-top: 25px;
+    margin-top: 35px;
 }
 
 .emp-dashboard-horizon .dashboard-header-block .dashboard-header-left .dh-user-name {
@@ -243,7 +257,7 @@
     display: inline-block;
     width: 25%;
     background: #fff;
-    padding: 16px 25px;
+    padding: 16px 25px 16px 15px;
     border-radius: 0 18px 0px 0px;
     border-left: 8px solid #6DB8FF;
     float: right;
@@ -253,6 +267,7 @@
     display: inline-block;
     width: 57%;
     margin-right: 10px;
+    margin-top: 18px;
 }
 
 .emp-dashboard-horizon .dashboard-header-block .dashboard-header-right .dh-left .dh-date {
@@ -266,6 +281,9 @@
     padding: 5px 7px;
     margin-top: 5px;
     text-align: center;
+    margin-bottom: 5px;
+    width: 75%;
+    cursor: pointer;
 }
 
 .emp-dashboard-horizon .dashboard-header-block .dashboard-header-right .dh-left .dh-time {
@@ -282,17 +300,22 @@
 }
 
 .emp-dashboard-horizon .dashboard-header-block .dashboard-header-right .dh-right .dh-checkin {
-    margin-bottom: 15px;
+    margin-bottom: 10px;
+}
+
+.emp-dashboard-horizon .dashboard-header-block .dashboard-header-right .dh-right .dh-checkout {
+    margin-bottom: 10px;
 }
 
 .emp-dashboard-horizon .dashboard-header-block .dashboard-header-right .dh-right label {
     margin-bottom: 0px;
 }
 
-.emp-dashboard-horizon .dashboard-header-block .dashboard-header-right .dh-right .dh-checkin-time,
-.emp-dashboard-horizon .dashboard-header-block .dashboard-header-right .dh-right .dh-checkout-time {
-    color: #1C88D6;
-}
+    .emp-dashboard-horizon .dashboard-header-block .dashboard-header-right .dh-right .dh-checkin-time,
+    .emp-dashboard-horizon .dashboard-header-block .dashboard-header-right .dh-right .dh-checkout-time,
+    .emp-dashboard-horizon .dashboard-header-block .dashboard-header-right .dh-right .dh-currenttime-display {
+        color: #1C88D6;
+    }
 
 .emp-dashboard-horizon .dashboard-body-block {
     padding: 30px 30px;
@@ -349,25 +372,25 @@
     float: left;
 }
 
-    .emp-dashboard-horizon .dashboard-body-block .emp-dash-basic-info .emp-dash-block-header {
-        border: 0.3px solid #b5dcf5;
-        background: #DDEDFA;
-        padding: 7px 15px;
-    }
+.emp-dashboard-horizon .dashboard-body-block .emp-dash-basic-info .emp-dash-block-header {
+    border: 0.3px solid #b5dcf5;
+    background: #DDEDFA;
+    padding: 7px 15px;
+}
 
-    .emp-dashboard-horizon .dashboard-body-block .emp-dash-block-content {
-        border: 1px solid #ccc;
-        border-top: 0px solid #ccc;
-        padding: 15px 0;
-        height: 240px;
-    }
+.emp-dashboard-horizon .dashboard-body-block .emp-dash-block-content {
+    border: 1px solid #ccc;
+    border-top: 0px solid #ccc;
+    padding: 15px 0;
+    height: 240px;
+}
 
 .emp-dashboard-horizon .dashboard-body-block .emp-dash-management {
 }
 
 .emp-dashboard-horizon .dashboard-body-block .emp-dash-management .ed-blocks {
     border: 0.3px solid #ccc;
-    padding: 27px 20px;
+    padding: 30px 20px;
     margin-bottom: 5px;
 }
 
@@ -418,6 +441,11 @@
     display: inline-block;
     text-align: right;
     font-size: 14px;
+}
+
+.emp-dashboard-horizon .dashboard-body-block .emp-dash-attendance #emp-dash-attedence-chart {
+    border: 1px solid #ccc;
+    color: #524f4f;
 }
 
 .emp-dashboard-horizon .dashboard-body-block .emp-dash-upcoming-holidays .emp-dash-block-content {
@@ -575,11 +603,11 @@
 }
 
 .emp-dashboard-horizon .dashboard-body-block .emp-dash-calendar .emp-dash-block-content .table .highlight-current {
-    background-color: #65D6D6;
+    background-color: #c6e3e3;
 }
 
 .emp-dashboard-horizon .dashboard-body-block .emp-dash-calendar .emp-dash-block-content .table .highlight-festival {
-    /*background-color: #65D6D6;*/
+    background-color: #65D6D6;
 }
 
 .emp-dashboard-horizon .emp-dash-modal {
@@ -590,16 +618,16 @@
     border-bottom: 1px solid transparent;
 }
 
-    .emp-dashboard-horizon .emp-dash-modal .modal-header button {
-        font-size: 14px;
-        z-index: 999;
-    }
+.emp-dashboard-horizon .emp-dash-modal .modal-header button {
+    font-size: 14px;
+    z-index: 999;
+}
 
-    .emp-dashboard-horizon .emp-dash-modal .modal-body {
-        margin-top: -40px;
-        max-height: 450px;
-        overflow-y: scroll;
-    }
+.emp-dashboard-horizon .emp-dash-modal .modal-body {
+    margin-top: -40px;
+    max-height: 450px;
+    overflow-y: scroll;
+}
 
 .emp-dashboard-horizon .emp-dash-modal .modal-body .emp-dash-modal-blocks {
 }
@@ -607,82 +635,191 @@
 .emp-dashboard-horizon .emp-dash-modal .modal-body .emp-dash-modal-blocks .emp-dash-modal-header {
 }
 
-                    .emp-dashboard-horizon .emp-dash-modal .modal-body .emp-dash-modal-blocks .emp-dash-modal-header .emp-dash-modal-left {
-                        width: 9%;
-                        display: inline-block;
-                        vertical-align: top;
-                    }
+.emp-dashboard-horizon .emp-dash-modal .modal-body .emp-dash-modal-blocks .emp-dash-modal-header .emp-dash-modal-left {
+    width: 9%;
+    display: inline-block;
+    vertical-align: top;
+}
 
-                        .emp-dashboard-horizon .emp-dash-modal .modal-body .emp-dash-modal-blocks .emp-dash-modal-header .emp-dash-modal-left .emp-dash-modal-navbar {
-                            width: 40px;
-                            height: 40px;
-                            border-radius: 50%;
-                            background-color: #FEF0ED;
-                            display: flex;
-                            justify-content: center;
-                            align-items: center;
-                            color: #C78B7F;
-                            margin-right: 12px;
-                            font-weight: bold;
-                        }
+.emp-dashboard-horizon .emp-dash-modal .modal-body .emp-dash-modal-blocks .emp-dash-modal-header .emp-dash-modal-left .emp-dash-modal-navbar {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    background-color: #FEF0ED;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: #C78B7F;
+    margin-right: 12px;
+    font-weight: bold;
+}
 
-                            .emp-dashboard-horizon .emp-dash-modal .modal-body .emp-dash-modal-blocks .emp-dash-modal-header .emp-dash-modal-left .emp-dash-modal-navbar img {
-                                border-radius: 50%;
-                                width: 40px;
-                                height: 40px;
-                                object-fit: cover;
-                            }
+.emp-dashboard-horizon .emp-dash-modal .modal-body .emp-dash-modal-blocks .emp-dash-modal-header .emp-dash-modal-left .emp-dash-modal-navbar img {
+    border-radius: 50%;
+    width: 40px;
+    height: 40px;
+    object-fit: cover;
+}
 
-                    .emp-dashboard-horizon .emp-dash-modal .modal-body .emp-dash-modal-blocks .emp-dash-modal-header .emp-dash-modal-right {
-                        display: inline-block;
-                        width: 80%;
-                        padding: 0px 6px;
-                    }
+.emp-dashboard-horizon .emp-dash-modal .modal-body .emp-dash-modal-blocks .emp-dash-modal-header .emp-dash-modal-right {
+    display: inline-block;
+    width: 80%;
+    padding: 0px 6px;
+}
 
-                        .emp-dashboard-horizon .emp-dash-modal .modal-body .emp-dash-modal-blocks .emp-dash-modal-header .emp-dash-modal-right .emp-dash-modal-title {
-                            font-size: 14px;
-                        }
+.emp-dashboard-horizon .emp-dash-modal .modal-body .emp-dash-modal-blocks .emp-dash-modal-header .emp-dash-modal-right .emp-dash-modal-title {
+    font-size: 14px;
+}
 
-                        .emp-dashboard-horizon .emp-dash-modal .modal-body .emp-dash-modal-blocks .emp-dash-modal-header .emp-dash-modal-right .emp-dash-modals-info {
-                            font-size: 12px;
-                            color: gray;
-                        }
+.emp-dashboard-horizon .emp-dash-modal .modal-body .emp-dash-modal-blocks .emp-dash-modal-header .emp-dash-modal-right .emp-dash-modals-info {
+    font-size: 12px;
+    color: gray;
+}
 
-                        .emp-dashboard-horizon .emp-dash-modal .modal-body .emp-dash-modal-blocks .emp-dash-modal-body {
+.emp-dashboard-horizon .emp-dash-modal .modal-body .emp-dash-modal-blocks .emp-dash-modal-body {
                             
-                        }
+}
 
-                            .emp-dashboard-horizon .emp-dash-modal .modal-body .emp-dash-modal-blocks .emp-dash-modal-body .emp-dash-modal-message {
-                                width: 100%;
-                                padding: 5px 10px;
-                                margin-top: 10px;
-                                margin-bottom: 5px;
-                                border: 1px solid #D9D9D9;
-                                color: #369479;
-                                background: #e7e7e7;
-                                border-radius: 3px;
-                                font-size: 14px;
-                                resize: none;
-                                outline: none;
-                            }
+.emp-dashboard-horizon .emp-dash-modal .modal-body .emp-dash-modal-blocks .emp-dash-modal-body .emp-dash-modal-message {
+    width: 100%;
+    padding: 5px 10px;
+    margin-top: 10px;
+    margin-bottom: 5px;
+    border: 1px solid #D9D9D9;
+    color: #369479;
+    background: #e7e7e7;
+    border-radius: 3px;
+    font-size: 14px;
+    resize: none;
+    outline: none;
+}
 
-                .emp-dashboard-horizon .emp-dash-modal .modal-body .emp-dash-modal-blocks .emp-dash-modal-footer {
-                    text-align: right;
-                }
+.emp-dashboard-horizon .emp-dash-modal .modal-body .emp-dash-modal-blocks .emp-dash-modal-footer {
+    text-align: right;
+}
 
-                .emp-dashboard-horizon .emp-dash-modal .modal-body .emp-dash-modal-blocks .emp-dash-modal-footer button{
-                    border-radius: 22px;
-                    padding: 4px 20px;
-                    font-size: 14px;
-                }
+.emp-dashboard-horizon .emp-dash-modal .modal-body .emp-dash-modal-blocks .emp-dash-modal-footer button{
+    border-radius: 22px;
+    padding: 4px 20px;
+    font-size: 14px;
+}
 
-                    .emp-dashboard-horizon .emp-dash-modal .modal-body .emp-dash-modal-blocks .emp-dash-modal-footer .emp-dash-modal-send {
-                        background: #8854D0;
-                    }
-
-
+.emp-dashboard-horizon .emp-dash-modal .modal-body .emp-dash-modal-blocks .emp-dash-modal-footer .emp-dash-modal-send {
+    background: #8854D0;
+}
 
 
+.emp-dashboard-horizon .emp-dash-hr-announcements {
+    
+}
+
+.emp-dashboard-horizon .emp-dash-hr-announcements .emp-dash-block-content {
+    padding: 20px 17px;
+}
+
+.emp-dashboard-horizon .emp-dash-hr-announcements .emp-dash-block-content .ed-hr-announcements-left {
+    margin-bottom: 10px;
+    width: 54%;
+    font-size: 13px;
+    margin-right: 10px;
+    display: inline-block;
+}
+
+.emp-dashboard-horizon .emp-dash-hr-announcements .emp-dash-block-content .ed-hr-announcements-left p {
+    margin-bottom: 10px;
+}
+
+.emp-dashboard-horizon .emp-dash-hr-announcements .emp-dash-block-content .ed-hr-announcements-left .ed-hr-announcements-view {
+    background: #6669db;
+    display: inline-block;
+    padding: 5px 15px;
+    border-radius: 15px;
+    color: #fff;
+    cursor:pointer;
+}
+
+.emp-dashboard-horizon .emp-dash-hr-announcements .emp-dash-block-content .ed-hr-announcements-right {
+    width: 40%;
+    display: inline-block;
+    vertical-align: top;
+    margin-left: 5px;
+}
+
+.emp-dashboard-horizon .emp-dash-hr-announcements .emp-dash-block-content .ed-hr-announcements-right img {
+    width: 100%;
+}
+
+
+.emp-dashboard-horizon #emp-dash-hr-announcement-popup .modal-lg {
+    max-width: 630px;
+}
+
+.emp-dashboard-horizon #emp-dash-hr-announcement-popup .modal-header button {
+    font-size: 14px;
+    z-index: 999;
+}
+
+.emp-dashboard-horizon #emp-dash-hr-announcement-popup .modal-body{
+    margin-top: -15px;
+}
+
+.emp-dashboard-horizon #emp-dash-hr-announcement-popup .ed-hr-announcements-left {
+    margin-bottom: 10px;
+    width: 50%;
+    font-size: 13px;
+    margin-right: 10px;
+    display: inline-block;
+}
+
+.emp-dashboard-horizon #emp-dash-hr-announcement-popup .ed-hr-announcements-left p {
+    margin-bottom: 10px;
+}
+
+.emp-dashboard-horizon #emp-dash-hr-announcement-popup .ed-hr-announcements-left .ed-hr-announcements-view {
+    background: #6669db;
+    display: inline-block;
+    padding: 5px 15px;
+    border-radius: 15px;
+    color: #fff;
+    cursor: pointer;
+}
+
+.emp-dashboard-horizon #emp-dash-hr-announcement-popup .ed-hr-announcements-right {
+    width: 46%;
+    display: inline-block;
+    vertical-align: top;
+    margin-left: 5px;
+}
+
+.emp-dashboard-horizon #emp-dash-hr-announcement-popup .ed-hr-announcements-right img {
+    width: 100%;
+}
+
+.emp-dashboard-horizon .emp-dash-leave .emp-dash-block-content {
+    padding: 15px 15px;
+}
+
+.emp-dashboard-horizon .emp-dash-leave .emp-dash-block-content .leave-icon {
+    width: 65px;
+    height: 65px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 0px;
+    margin: 0 auto 10px;
+    font-size: 1.5rem;
+    color: #fff;
+}
+
+.emp-dashboard-horizon .emp-dash-leave .emp-dash-block-content .leave-title {
+    font-size: 13px;
+    font-weight: bold;
+    margin-bottom: 0px;
+}
+
+.emp-dashboard-horizon .emp-dash-leave .emp-dash-block-content .leave-container {
+    margin-top: 24px !important;
+}
 
 
 /* emp dashboard end */
