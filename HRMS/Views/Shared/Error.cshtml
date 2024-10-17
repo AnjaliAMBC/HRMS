@@ -1,493 +1,88 @@
-﻿@model HRMS.Models.Employee.EmpDashBoardModel
-@using HRMS.Models
+﻿@model System.Exception
 
-@{
-    var loginID = 0;
-    var buttonText = "Check In";
-    DateTime checkInTime = DateTime.MinValue;
-    DateTime? checkOutTime = DateTime.MinValue;
-
-    string starttimeWithAmPm = "";
-    string endtimeWithAmPm = "00:00:00";
-
-    string lastCheckinDate = "";
-    bool showCheckInButton = false;
-
-    bool previousdayortodaycheckinexist = false;
-
-    var buttonDeafultbgcolor = "#3E78CF";
-
-
-    if (Model.empLastDayCheckInDetails != null && !Model.empLastDayCheckInDetails.IsSignedOutOnLastCheckInDate && Model.empLastDayCheckInDetails.LoginID != 0)
-    {
-        buttonText = "Check Out";
-        loginID = Model.empLastDayCheckInDetails.LoginID;
-
-        checkInTime = Model.empLastDayCheckInDetails.SignInTime;
-        checkOutTime = Model.empLastDayCheckInDetails.SignOutTime;
-
-        lastCheckinDate = checkInTime.ToString("dd/MM/yyyy");
-        starttimeWithAmPm = checkInTime.ToString("hh:mm tt", System.Globalization.CultureInfo.InvariantCulture);
-        showCheckInButton = true;
-        previousdayortodaycheckinexist = true;
-        buttonDeafultbgcolor = "#C70000";
-    }
-
-    var ButtonDisabled = "";
-
-    if (Model.empLastDayCheckInDetails.SignInTime == DateTime.MinValue && Model.todayCheckInInfo != null && Model.todayCheckInInfo.login_id != 0)
-    {
-        loginID = Model.todayCheckInInfo.login_id;
-        buttonText = "Check Out";
-        checkInTime = Model.todayCheckInInfo.Signin_Time;
-        checkOutTime = Model.todayCheckInInfo.Signout_Time;
-
-        if ((checkOutTime != null && checkOutTime != DateTime.MinValue) || Model.IsOnLeave == true)
-        {
-            buttonText = "Check In";
-            ButtonDisabled = "disabled";
-        }
-        else
-        {
-            buttonDeafultbgcolor = "#C70000";
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Error</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f9f9f9;
+            color: #333;
+            text-align: center;
+            padding: 50px;
         }
 
-        starttimeWithAmPm = checkInTime.ToString("hh:mm:ss tt", System.Globalization.CultureInfo.InvariantCulture);
-        endtimeWithAmPm = checkOutTime?.ToString("hh:mm:ss tt", System.Globalization.CultureInfo.InvariantCulture);
-        previousdayortodaycheckinexist = true;
-    }
-
-    if (Model.IsOnLeave == true && previousdayortodaycheckinexist == false)
-    {
-        if (Model.empLeaveInfo != null && (Model.empLeaveInfo.LeaveStatus == "Cancelled" || Model.empLeaveInfo.LeaveStatus == "Rejected"))
-        {
-            //Do nothing
+        .error-container {
+            max-width: 600px;
+            margin: 0 auto;
+            background: #fff;
+            padding: 30px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            border-radius: 8px;
         }
-        else
-        {
-            buttonText = "Check In";
-            if (Model.empLeaveInfo != null && (Model.empLeaveInfo.DayType == "halfDay" || Model.empLeaveInfo.DayType == ""))
-            {
-                ButtonDisabled = "";
+
+        .logo {
+            width: 100px;
+            margin-bottom: 20px;
+        }
+
+        h1 {
+            font-size: 24px;
+            margin-bottom: 20px;
+        }
+
+        p {
+            font-size: 18px;
+            line-height: 1.6;
+        }
+
+        a.button {
+            display: inline-block;
+            padding: 10px 20px;
+            margin-top: 20px;
+            background-color: #007BFF;
+            color: #fff;
+            text-decoration: none;
+            border-radius: 5px;
+            transition: background-color 0.3s;
+        }
+
+            a.button:hover {
+                background-color: #0056b3;
             }
-            else
-            {
-                ButtonDisabled = "disabled";
-            }
+
+        .error-details {
+            display: none; /* Hide the error details by default */
+            font-size: 14px;
+            margin-top: 20px;
+            padding: 10px;
+            border: 1px solid #ccc;
+            background-color: #f8f8f8;
+            border-radius: 5px;
+            text-align: left;
+            white-space: pre-wrap; /* Preserve whitespace */
         }
+    </style>
+</head>
+<body>
+    <div class="error-container">
+        <img src="~/Assets/AMBC_Logo.png" alt="Logo" class="logo" />
+        <h1>Oops! Something went wrong.</h1>
+        <p>We encountered an unexpected error. Please try again later or contact support if the problem persists.</p>
+        <a href="~/Account/Login" class="button">Login Again</a>
 
-    }
+        <!-- Hidden Error Details -->
+        <div class="error-details">
+            <strong>Error Message:</strong>
+            @Model.Message
 
-    var currentUserSession = Session["SiteContext"] as HRMS.Models.SiteContextModel;
-
-    buttonDeafultbgcolor = buttonText == "Check In" ? "#3E78CF" : "#C70000";
-
-    if ((Model.todayCheckInInfo.Signin_Time != null && Model.todayCheckInInfo.Signin_Time != DateTime.MinValue) && (Model.todayCheckInInfo.Signout_Time == DateTime.MinValue || Model.todayCheckInInfo.Signout_Time == null))
-    {
-        buttonText = "Check Out";
-        buttonDeafultbgcolor = "#C70000";
-        ButtonDisabled = "";
-    }
-
-}
-
-<style>
-
-    /*.emp-imgs {
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        position: relative;
-    }
-
-        .emp-imgs img {
-            max-width: 100%;
-            height: auto;*/ /* Ensures the image maintains its aspect ratio */
-    /*}
-
-    .img-edit-icon {
-        position: absolute;
-        top: 10px;
-        right: 10px;
-        cursor: pointer;
-    }*/
-
-</style>
-
-@Html.Partial("_NavBar")
-<div class="container-fluid emp-dashboard">
-    @Html.Partial("_empsidemenu")
-    <div class="main-content container-fluid" style="width: 84%">
-        <div class="hiddenempdashboard"></div>
-        <div class="container-fluid mt-2 pl-0 employeedash">
-            <h4>Dashboard</h4>
-            <div class="row mt-4">
-                <div class="col-lg-4 col-md-6 emp-dash-block">
-                    <div class="card mb-3 dashcard_style my-card">
-                        <div class="card-header text-dark">Check In / Check Out</div>
-                        <div class="card-body chechin-body p-1 mt-3">
-                            <div class="container-fluid ">
-                                <div class="row">
-                                    <div class="day-date-time p-0 pl-2 col-md-8 col-sm-8">
-                                        <h5 id="dashday" class="mb-0"></h5> <!-- Display day here -->
-                                        <div id="dashcurrentDate" class="time-input smalltext"></div> <!-- Replace input with div -->
-                                        @{
-                                            var totalCheckInhours = Model.totalCheckedInTime;
-                                            var formattedCheckInTime = @checkInTime;
-                                        }
-
-                                        @if (!string.IsNullOrWhiteSpace(Model.totalCheckedInTime))
-                                        {
-                                            formattedCheckInTime = DateTime.MinValue;
-                                        }
-                                        @if (Model.totalCheckedInTime == "" && @Model.timerModel != null && @Model.timerModel.FormattedTime.ToString() != string.Empty)
-                                        {
-                                            totalCheckInhours = @Model.timerModel.FormattedTime.ToString();
-                                        }
-                                        <div id="checkinhoursminutes" data-signedindatetime="@formattedCheckInTime" style="color: #3E78CF; font-size : 35px">@totalCheckInhours</div>
-                                    </div>
-                                    <div class="in-out col-md-4 p-0 pr-1 col-sm-4">
-                                        <div class="check-time d-flex flex-column">
-                                            <span class="check-label smalltext mr-auto">Check In Time</span>
-
-                                            @if (string.IsNullOrWhiteSpace(starttimeWithAmPm))
-                                            {
-                                                <div class="isusercheckedin" style="display: none">false</div>
-                                                <div id="checkInTime" class="time-input mr-auto"><span style="font-size: small; display: none">@lastCheckinDate</span>00:00:00</div>
-                                            }
-                                            else
-                                            {
-                                                <div id="checkInTime" class="time-input mr-auto"><span style="font-size: small; display: none">@lastCheckinDate</span>@starttimeWithAmPm</div>
-                                                <div class="isusercheckedin" style="display: none">true</div>
-                                            }
-
-                                        </div>
-                                        <div class="check-time mt-2 d-flex flex-column res-emp-dash-checkout-time">
-                                            <span class="check-label smalltext mr-auto">Check Out Time</span>
-                                            @if (endtimeWithAmPm == null || string.IsNullOrWhiteSpace(endtimeWithAmPm))
-                                            {
-                                                <div class="isusercheckedout" style="display: none">false</div>
-                                                <div id="checkOutTime" class="time-input mr-auto">00:00:00</div>
-                                            }
-                                            else
-                                            {
-                                                <div class="isusercheckedout" style="display: none">true</div>
-                                                <div id="checkOutTime" class="time-input mr-auto">@endtimeWithAmPm</div>
-                                            }
-
-                                        </div>
-
-
-                                    </div>
-                                </div>
-                                <div class="row res-emp-dash-checkin-checkout">
-                                    <div class="dash-check-in-out col-md-8 col-sm-8">
-                                        <div class="current-time-display text-center ">
-                                            <div id="currentTime" class="current-time"></div>
-                                        </div>
-                                        <span class="showcheckinbuttonpostcheckout" style="display: none">@showCheckInButton</span>
-                                        <div class="button-container text-left total-hours">
-                                            <button class="btn btn-primary btn-checkin" style=" background-color: @buttonDeafultbgcolor !important; border: none !important;" data-checkinid="@loginID" @ButtonDisabled>@buttonText</button>
-                                        </div>
-                                    </div>
-                                    <div class="dash-check-in-out-time col-md-4 p-0 pr-1 col-sm-4">
-                                        <div class="checkinhours ">
-                                            <span class="totalhours smalltext">Current Time</span>
-                                            <div id="dashcurrentTime" class="current-time mb-2"></div>
-                                            @*<span class="totalhours smalltext">Total Hours</span>*@
-
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-
-
-
-
-                        </div>
-                    </div>
-                    <div class="card mb-3 dashcard_style my-card">
-                        <div class="card-header text-dark">Job Referral</div>
-                        <div class="card-body scrollbar p-3">
-                            <p class="text-muted" style="margin-top: 80px; margin-left: 23%;">No data available..!!!</p>
-                            @*<div class="dashjob_description mb-3">
-                                    <h6 class="mb-0">Interior Designer</h6>
-                                    <small>Location: Bangalore | Posted on: 10/05/2024</small>
-                                </div>
-                                <div class="dashjob_description mb-3">
-                                    <h6 class="mb-0">Business Analyst </h6>
-                                    <small>Location: Madurai | Posted on: 10/05/2024</small>
-                                </div>
-                                <div class="dashjob_description mb-3">
-                                    <h6 class="mb-0">Jr. IT Recruiter</h6>
-                                    <small>Location: Madurai | Posted on: 10/05/2024</small>
-                                </div>*@
-                        </div>
-                    </div>
-                    <div class="card mb-3 dashcard_style my-card">
-                        <div class="card-header text-black emp-my-tickets-redirect" style="cursor: pointer;">
-                            My Tickets (@(Model.MyTickets != null ? Model.MyTickets.Count() : 0))
-                        </div>
-
-                        <div class="card-body scrollbar p-3 dashticket_description">
-                            @if (!Model.MyTickets?.Any() ?? true)
-                            {
-                                <div class="d-flex flex-column align-items-center justify-content-center">
-                                    <img src="~/Assets/Ticket.png" alt="No Birthdays" class="img-fluid mb-3" style="max-width: 135px; margin-top: 42px;">
-                                    <p class="text-muted">No tickets...!!</p>
-                                </div>
-                            }
-                            else
-                            {
-                                foreach (var myTicket in Model.MyTickets)
-                                {
-                                    <div class="emp-dash-ticket-info">
-                                        <div class="emp-dash-ticket-title">@myTicket.Subject</div>
-                                        <div class="emp-dash-ticket-desc">
-                                            <span class="dash-ticket-desc-left-block"><i class="fa fa-exclamation-circle" aria-hidden="true"></i><span>Priority - <span class="@HRMS.Helpers.TicketingHelper.GetMyticketDashPriorityColor(myTicket.Priority)">@myTicket.Priority</span></span></span>
-
-
-                                            @if (myTicket.Status == "Resolved")
-                                            {
-                                                <span class="dash-ticket-desc-right-block"><i class="fa fa-user" aria-hidden="true"></i><span>Resolved By: @myTicket.ResolvedByName</span></span>
-                                            }
-                                            else if (myTicket.Status == "Closed")
-                                            {
-                                                <span class="dash-ticket-desc-right-block"><i class="fa fa-user" aria-hidden="true"></i><span>Closed By: @myTicket.ResolvedByName</span></span>
-                                            }
-
-                                        </div>
-                                    </div>
-                                }
-                            }
-
-                        </div>
-                    </div>
-                </div>
-
-                <div class="col-lg-4 col-md-6 emp-dash-block">
-                    <div class="card mb-3 dashcard_style my-card">
-                        <div class="card-header text-dark">Birthdays</div>
-                        <div class="card-body scrollbar p-2 mt-2">
-                            @if (!Model.Birthdays?.Any() ?? true)
-                            {
-                                <div class="d-flex flex-column align-items-center justify-content-center">
-                                    <img src="~/Assets/Birthday.png" alt="No Birthdays" class="img-fluid mb-3" style="max-width: 110px; margin-top: 42px;">
-                                    <p class="text-muted">No birthdays today...!!</p>
-                                </div> }
-                            else
-                            {
-                                <ul class="list-unstyled">
-                                    @foreach (var empBirthday in Model.Birthdays)
-                                    {
-                                        var empImageURl = System.Configuration.ConfigurationManager.AppSettings["EmpImagesFolder"] + "/" + empBirthday.imagePath + "?" + System.DateTime.Now;
-
-                                        <li class="media my-card-item">
-                                            <img src="@empImageURl" class="mr-3 rounded-circle" alt="Avatar" style="width: 40px; height: 40px;">
-                                            <div class="media-body dashbirthday_description">
-                                                <h6 class="mt-1 mb-0 empname">@empBirthday.EmpName</h6>
-                                                <p class="smalltext">@empBirthday.Designation</p>
-                                            </div>
-                                            <small style="display: none" class="empemail">@empBirthday.EmpEmail</small>
-                                        </li>
-                                    }
-                                </ul>}
-                        </div>
-                    </div>
-
-
-                    <div class="card mb-3 dashcard_style my-card">
-                        <div class="card-header text-dark">Anniversaries</div>
-                        <div class="card-body scrollbar p-1 mt-2">
-                            @if (!Model.AnniversaryModel?.Any() ?? true)
-                            {
-                                <div class="d-flex flex-column align-items-center justify-content-center">
-                                    <img src="~/Assets/WorkAnni.png" alt="No Birthdays" class="img-fluid mb-3" style="max-width: 135px; margin-top: 42px;">
-                                    <p class="text-muted">No anniversaries today...!!</p>
-                                </div>
-                            }
-                            else
-                            {
-
-                                <ul class="list-unstyled">
-                                    @foreach (var anniversary in Model.AnniversaryModel)
-                                    {
-                                        var birthdayEmpImageURL = System.Configuration.ConfigurationManager.AppSettings["EmpImagesFolder"] + "/" + anniversary.imagePath + "?" + System.DateTime.Now;
-
-                                        <li class="media">
-                                            <img src="@birthdayEmpImageURL" class="mr-3 rounded-circle" alt="Avatar" style="width: 40px; height: 40px;">
-                                            <div class="media-body dashanniversary_description">
-                                                <h6 class="mt-1 mb-0 empname">@anniversary.EmpName</h6>
-                                                <p class="smalltext">@anniversary.Designation</p>
-                                            </div>
-                                            <small style="display: none" class="empemail">@anniversary.EmpEmail</small>
-                                        </li>
-                                    }
-                                </ul>
-
-                            }
-                        </div>
-                    </div>
-                    <div class="card mb-3 dashcard_style my-card">
-                        <div class="card-header text-dark">Employee Handbook</div>
-                        <div class="card-body scrollbar d-flex flex-column">
-                            <!-- Note-taking section -->
-                            <p class="text-muted" style="margin-top: 80px; margin-left: 23%;">No data available..!!!</p>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="col-lg-4 col-md-12 emp-dash-block">
-                    <div class="card mb-3 my-card">
-
-                        <div class="card-header calendar-header text-dark">
-                            <div>
-                                <i class="fas fa-chevron-left chevron-icon ml-4" onclick="prevMonth()"></i>
-                            </div>
-                            <div>
-                                <h6 id="monthYear" class="mt-1 mb-0"></h6>
-                            </div>
-                            <div>
-                                <i class="fas fa-chevron-right chevron-icon mr-4" onclick="nextMonth()"></i>
-                            </div>
-                        </div>
-                        <div class="card-body calendar-body p-0 emp-dashboard-calendar">
-                            <table class="table">
-                                <thead>
-                                    <tr>
-                                        <th scope="col">Mon</th>
-                                        <th scope="col">Tue</th>
-                                        <th scope="col">Wed</th>
-                                        <th scope="col">Thu</th>
-                                        <th scope="col">Fri</th>
-                                        <th scope="col">Sat</th>
-                                        <th scope="col">Sun</th>
-                                    </tr>
-                                </thead>
-                                <tbody id="calendarBody"></tbody>
-                            </table>
-                        </div>
-                    </div>
-
-                    <div class="card mb-3 dashholiday_body my-card">
-                        <div class="card-header text-dark">Upcoming Holidays</div>
-                        <div class="card-body scrollbar ">
-                            <ul class="list-unstyled pl-0">
-                                @foreach (HRMS.Models.EmployeeEvent.UpcomingHoliday holiday in @Model.UpcomingHolidays)
-                                {
-                                    if (@holiday.HolidayDate != DateTime.MinValue)
-                                    {
-                                        <li style="cursor: pointer;">
-                                            <a class="dashhoiday_description Emp-CompOffRequest" data-leavenumber="@holiday.HolidayNo" data-location="@holiday.Region">
-                                                <h6 class="mb-0">@holiday.HolidayName</h6>
-                                                <p class="smalltext">@holiday.HolidayDate.ToString("dd MMMM dddd")</p>
-                                            </a>
-                                        </li>
-                                    }
-                                }
-
-                            </ul>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-lg-8 col-md-12 emp-dash-block">
-                    <div class="card mb-3 dashleaveslider my-card">
-                        <div class="card-header box_topic pl-2 py-1">
-                            Leaves
-                        </div>
-                        <div class="card-body box_body p-0 pt-4 pb-2">
-                            <div class="container text-center my-0 leave-container p-0">
-                                <div class="leaveslider-container">
-                                    <div class="leaveslider-wrapper">
-
-                                        @foreach (var leaveType in Model.LeavesTypeInfo.LeaveTypes)
-                                        {
-
-                                            foreach (var leave in leaveType.AvailableLeaves)
-                                            {
-                                                <div class="leaveslider-item">
-                                                    <div class="card">
-                                                        <div class="leave-icon @leave.DashBoardColorCode">@leave.ShortName</div>
-                                                        <h6 class="leave-title">@leave.Type</h6>
-                                                        <p class="leave-details">Available: @leave.Balance.ToString().Replace(".00", "").Replace(".0", "")</p>
-                                                        <p class="leave-details">Booked: @leave.Booked</p>
-                                                    </div>
-                                                </div>
-                                            }
-
-                                        }
-                                    </div>
-                                    <div class="leaveslider-control left" onclick="prevSlide()">
-                                        <i class="fa-solid fa-chevron-left"></i>
-                                    </div>
-                                    <div class="leaveslider-control right" onclick="nextSlide()">
-                                        <i class="fa-solid fa-chevron-right"></i>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <span class="currentempname" style="display: none">@Model.EmpInfo.EmployeeName</span>
+            @if (Model.InnerException != null)
+            {
+                <strong>Inner Exception:</strong>
+                @Model.InnerException.Message}
         </div>
+
     </div>
-    @Html.Partial("_compoff", Model.Employees)
-</div>
-
-<script src="~/Scripts/z-EmpDash.js"></script>
-<script src="~/Scripts/z-empleave.js"></script>
-
-<script>
-    let currentIndex = 0;
-
-    function updateleaveslider() {
-        const leavesliderWrapper = document.querySelector('.leaveslider-wrapper');
-        const items = document.querySelectorAll('.leaveslider-item');
-        const itemWidth = items[0].getBoundingClientRect().width;
-        const totalItems = items.length;
-        const visibleItems = Math.floor(document.querySelector('.leaveslider-container').clientWidth / itemWidth);
-
-        if (currentIndex >= totalItems - visibleItems) {
-            currentIndex = totalItems - visibleItems;
-        }
-
-        if (currentIndex < 0) {
-            currentIndex = 0;
-        }
-
-        leavesliderWrapper.style.transform = `translateX(-${currentIndex * itemWidth}px)`;
-    }
-
-    function nextSlide() {
-        currentIndex++;
-        if (currentIndex >= document.querySelectorAll('.leaveslider-item').length) {
-            currentIndex = 0; // Loop back to the first item
-        }
-        updateleaveslider();
-    }
-
-    function prevSlide() {
-        currentIndex--;
-        if (currentIndex < 0) {
-            currentIndex = document.querySelectorAll('.leaveslider-item').length - 1; // Loop back to the last item
-        }
-        updateleaveslider();
-    }
-
-    window.addEventListener('resize', updateleaveslider);
-    window.addEventListener('load', () => {
-        updateleaveslider();
-
-        // Start automatic sliding
-        /*setInterval(nextSlide, slideInterval);*/
-    });
-
-
-
-
-
-</script>
-
-
-
+</body>
+</html>

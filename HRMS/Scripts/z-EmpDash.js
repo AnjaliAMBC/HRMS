@@ -44,7 +44,7 @@ $(document).on('click', '.btn-checkin', function (event) {
                     $(".btn-checkin").removeClass("dh-attendance");
                     $(".btn-checkin").addClass("checkputcolor");
                     var checkinTime = formatDateAndTime(new Date());
-                    $('#checkinhoursminutes').attr('data-signedindatetime', checkinTime);
+                    $('#dh-checkinhoursminutes').attr('data-signedindatetime', checkinTime);
                     var currentTime = GetCurrentTime();
                     $('#checkInTime').html(currentTime);
 
@@ -71,7 +71,7 @@ $(document).on('click', '.btn-checkin', function (event) {
                     $('.btn-checkin').prop('disabled', true);
 
                     var checkinTime = formatDateAndTime(new Date());
-                    $('#checkinhoursminutes').attr('data-signedindatetime', checkinTime);
+                    $('#dh-checkinhoursminutes').attr('data-signedindatetime', checkinTime);
 
                     $(".btn-checkin").addClass("dh-attendance");
                     $(".btn-checkin").addClass("checkputcolor");
@@ -81,14 +81,14 @@ $(document).on('click', '.btn-checkin', function (event) {
 
                     if ($('.showcheckinbuttonpostcheckout').text() == "True") {
                         $('.btn-checkin').removeAttr('disabled');
-                        $('#checkinhoursminutes').attr('data-signedindatetime', "");
-                        $('#checkinhoursminutes').html("");
+                        $('#dh-checkinhoursminutes').attr('data-signedindatetime', "");
+                        $('#dh-checkinhoursminutes').html("");
                         $('#checkOutTime').html("");
                         $('#checkInTime').html("");
                         $('.showcheckinbuttonpostcheckout').text('False');
                     }
                     else {
-                        $('#checkinhoursminutes').attr('data-signedindatetime', "");
+                        $('#dh-checkinhoursminutes').attr('data-signedindatetime', "");
                     }
 
                 } else {
@@ -387,7 +387,7 @@ function toggleCheck() {
 
 
 function updateDashRunningTime() {
-    var dashcurrentDateElem = document.getElementById("dashcurrentDate");
+    var dashcurrentDateElem = document.getElementById("dh-dashcurrentDate");
     if (dashcurrentDateElem) {
         var currentDate = new Date();
         var hours = currentDate.getHours();
@@ -398,8 +398,8 @@ function updateDashRunningTime() {
         hours = hours % 12;
         hours = hours ? hours : 12;
         var currentTime = hours.toString().padStart(2, '0') + ":" + minutes + ":" + seconds + " " + ampm;
-        document.getElementById("dashcurrentTime").textContent = currentTime;
-        document.getElementById("dashcurrentDate").textContent = currentDate.toLocaleDateString('en-IN', { timeZone: 'Asia/Kolkata', weekday: 'long', month: 'long', day: 'numeric', year: 'numeric' });
+        document.getElementById("dh-dashcurrentTime").textContent = currentTime;
+        document.getElementById("dh-dashcurrentDate").textContent = currentDate.toLocaleDateString('en-IN', { timeZone: 'Asia/Kolkata', weekday: 'long', month: 'long', day: 'numeric', year: 'numeric' });
         //document.getElementById("dashday").textContent = currentDate.toLocaleDateString('en-IN', { timeZone: 'Asia/Kolkata', weekday: 'long' }).toUpperCase() + ",";
     }
 }
@@ -509,7 +509,7 @@ function parseCustomDate1(dateString) {
 }
 
 function updateHoursTimer1() {
-    var dashhoursElementElem = document.getElementById("checkinhoursminutes");
+    var dashhoursElementElem = document.getElementById("dh-checkinhoursminutes");
     var checkInTime = document.getElementById("checkInTime").textContent; // Get the check-in time
     var checkOutTime = document.getElementById("checkOutTime").textContent; // Get the check-out time
 
@@ -519,7 +519,7 @@ function updateHoursTimer1() {
     }
 
     if (dashhoursElementElem) {
-        var signedInDateTimeStr = $('#checkinhoursminutes').attr('data-signedindatetime');
+        var signedInDateTimeStr = $('#dh-checkinhoursminutes').attr('data-signedindatetime');
         var signedInDateTime = parseCustomDate1(signedInDateTimeStr);
 
         // Check if user is checked in
@@ -547,7 +547,7 @@ function updateHoursTimer1() {
         var formattedTime = formattedHours + ":" + formattedMinutes + ":" + formattedSeconds;
 
         // Update the check-in hours element
-        $('#checkinhoursminutes').text(formattedTime);
+        $('#dh-checkinhoursminutes').text(formattedTime);
     }
 }
 
@@ -604,7 +604,7 @@ function getLeaveSummary(employeeId, location, month, year) {
             $('#totalAbsent').text(response.TotalAbsent);
 
             // Update chart
-            updateChart(response.TotalLeaves, response.TotalPresent, response.TotalAbsent);
+            updateChart(response.TotalPresent, response.TotalLeaves, response.TotalAbsent);
 
         },
         error: function (xhr, status, error) {
