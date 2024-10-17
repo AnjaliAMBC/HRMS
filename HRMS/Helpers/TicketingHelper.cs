@@ -14,11 +14,11 @@ namespace HRMS.Helpers
             switch (priority.ToLower())
             {
                 case "high":
-                    return "res-emp-ticketlisting-color-red";
+                    return "priority-high";
                 case "mid":
-                    return "res-emp-ticketlisting-color-orange";
+                    return "priority-medium";
                 case "low":
-                    return "res-emp-ticketlisting-color-green";
+                    return "priority-low";
                 default:
                     return ""; // Default or unknown priority
             }
@@ -30,9 +30,9 @@ namespace HRMS.Helpers
             switch (status.ToLower())
             {
                 case "open":
-                    return "ithrticket-status-open";
+                    return "status-pending";
                 case "closed":
-                    return "ithrticket-status-closed";
+                    return "status-closed";
                 case "resolved":
                     return "ticket-status-pending";
                 case "re-open":

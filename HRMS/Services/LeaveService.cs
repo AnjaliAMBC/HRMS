@@ -41,7 +41,7 @@ namespace HRMS.Services
                 .Where(h => h.holiday_date.HasValue &&
                             h.holiday_date.Value.Month == month &&
                             h.holiday_date.Value.Year == year &&
-                            h.region == location)
+                            h.region.Contains(location))
                 .ToList();
 
             var daysInMonth = DateTime.DaysInMonth(year, month);
