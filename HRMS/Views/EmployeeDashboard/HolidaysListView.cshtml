@@ -3,5 +3,131 @@
     ViewBag.Title = "HolidaysListView";
 }
 
-<h2>HolidaysListView</h2>
+@Html.Partial("_EmployeeNavbar")
+<div class="container-fluid emp-upcomingholidays-list-horizon">
+    <div class="main-content container-fluid">
+        <div class="content employee-upcomingholiday">
+            <div class="emp-upcomingholidays-container">
+                <div class="row res-emp-upcomingholidays-header">
+                    <div class="col-lg-3 res-emp-upcomingholidays-title">
+                        <h4>Upcoming Holidays</h4>
+                    </div>
+                </div>
+            </div>
 
+            <div class="emp-upcomingholidays-details" id="empUpcomingHolidays">
+                <div class="res-emp-upcomingholidays-listing-table table-responsive">
+                    <table class="table table-emp-upcomingholidays-listing" id="empupcomingholidaysTable" style="font-size:14px;">
+                        <thead>
+                            <tr>
+                                <th>Holidays</th>
+                                <th>Date</th>
+                                <th>Day</th>
+                                <th class="emp-upcomingholidays-table-last">Action</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr class="odd">
+                                <td>New Year's Day</td>
+                                <td>01-01-2024</td>
+                                <td>Monday</td>
+                                <td class="emp-upcomingholidays-table-last">
+                                    <div class="emp-upcomingholidays-action">
+                                        <i data-toggle="modal" data-target="#compOffModal" class="fas fa-chevron-right"></i>
+                                    </div>
+                                </td>
+                            </tr>
+                            <tr class="even">
+                                <td>New Year's Day</td>
+                                <td>01-01-2024</td>
+                                <td>Monday</td>
+                                <td class="emp-upcomingholidays-table-last">
+                                    <div class="emp-upcomingholidays-action">
+                                        <i data-toggle="modal" data-target="#compOffModal" class="fas fa-chevron-right"></i>
+                                    </div>
+                                </td>
+                            </tr>
+                            <tr class="odd">
+                                <td>New Year's Day</td>
+                                <td>01-01-2024</td>
+                                <td>Monday</td>
+                                <td class="emp-upcomingholidays-table-last">
+                                    <div class="emp-upcomingholidays-action">
+                                        <i data-toggle="modal" data-target="#compOffModal" class="fas fa-chevron-right"></i>
+                                    </div>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
+
+        </div>
+    </div>
+
+    <div class="modal fade" id="compOffModal" tabindex="-1" aria-labelledby="compOffModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="compOffModalLabel">Compensatory Off Request</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <i class="far fa-times-circle"></i>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <form>
+                        <div class="form-group admindashcompempname">
+                            <label for="CompemployeeName">Employee Name</label>
+                            <select class="form-control" id="CompemployeeName" disabled>
+                                <option selected disabled>Select Employee Name</option>                                
+                                <option value="1011" data-emplocation="Madurai" data-empemail="test@ss.com">Test User</option>                                
+                            </select>
+                            <div class="invalid-feedback">Employee Name is mandatory.</div>
+                        </div>
+                        <div class="form-group">
+                            <label for="Compdate">Date</label>
+                            <input type="text" class="form-control" id="Compdate" value="" readonly>
+                        </div>
+                        <div class="form-group">
+                            <label for="Compreason">Reason</label>
+                            <textarea class="form-control" id="Compreason" rows="3"></textarea>
+                        </div>
+
+                        <div class="selectedholidayname" style="display: none"></div>
+                        <div class="selectedholidaynumber" style="display: none"></div>
+                        <div class="selectedholidaylocation" style="display: none"></div>
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    <div id="compOffMessage" class="alert" style="display:none;"></div>
+                    <br />
+                    <button type="button" class="btn " data-dismiss="modal">Close</button>
+                    <button type="button" class="btn btn-primary compoff-submit">Submit</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</div>
+
+@Html.Partial("EmployeeFooter")
+
+<script>
+    $(document).ready(function () {
+        if (!$.fn.DataTable.isDataTable('#empupcomingholidaysTable')) {
+            $('#empupcomingholidaysTable').DataTable({
+                "paging": false,
+                "searching": false,
+                "ordering": false,
+                "info": false,
+                "autoWidth": false,
+                "lengthMenu": [[7, 14, 21, -1], [7, 14, 21, "All"]],
+                "columnDefs": [
+                    { "orderable": false, "targets": 1 },
+                    { "orderable": false, "targets": 3 }
+                ]
+            });
+        }
+    });
+</script>

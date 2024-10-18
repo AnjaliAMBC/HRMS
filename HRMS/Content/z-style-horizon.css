@@ -1,5 +1,9 @@
 /* signin start */
 
+.login-page-horizon {
+    height: 100vh;
+}
+
 .login-page-horizon .login-container {
     padding: 30px 35px;
 }
@@ -20,13 +24,30 @@
 
 .login-page-horizon .logininput {
     width: 100% !important;
+    max-width: 100% !important;
 }
 
 .login-page-horizon .toggle-password {
     right: 20px;
 }
 
+.login-page-horizon #loginForm .password-label .align-items-center {
+    justify-content: space-between;
+}
+
+    .login-page-horizon .login-container {
+        border-radius: 5px;
+    }
+
 /* signin end */
+
+/* forgot password start */
+
+#ForgotEmailID {
+    max-width: 100%;
+}
+
+/* forgot password end */
 
 /* header start */
 
@@ -216,6 +237,7 @@
 
 .emp-dashboard-horizon {
     padding: 0 0 !important;
+    background: #efefef;
 }
 
 .emp-dashboard-horizon #left-side-menu-normal {
@@ -324,11 +346,12 @@
 .emp-dashboard-horizon .dashboard-body-block .emp-dash-block-1 .emp-dash-left-block {
 }
 
-.emp-dashboard-horizon .dashboard-body-block .emp-dash-block-1 .emp-dash-left-block .ed-blocks {
-    border: 0.3px solid #ccc;
-    padding: 22px 15px;
-    margin-bottom: 5px;
-}
+    .emp-dashboard-horizon .dashboard-body-block .emp-dash-block-1 .emp-dash-left-block .ed-blocks {
+        border: 0.3px solid #ccc;
+        padding: 22px 15px;
+        margin-bottom: 5px;
+        background: #fff;
+    }
 
 .emp-dashboard-horizon .dashboard-body-block .emp-dash-block-1 .emp-dash-left-block .ed-block-left {
     width: 13%;
@@ -378,12 +401,13 @@
     padding: 7px 15px;
 }
 
-.emp-dashboard-horizon .dashboard-body-block .emp-dash-block-content {
-    border: 1px solid #ccc;
-    border-top: 0px solid #ccc;
-    padding: 15px 0;
-    height: 240px;
-}
+    .emp-dashboard-horizon .dashboard-body-block .emp-dash-block-content {
+        border: 1px solid #ccc;
+        border-top: 0px solid #ccc;
+        padding: 15px 0;
+        height: 240px;
+        background: #fff;
+    }
 
 .emp-dashboard-horizon .dashboard-body-block .emp-dash-management {
 }
@@ -441,6 +465,7 @@
     display: inline-block;
     text-align: right;
     font-size: 14px;
+    cursor: pointer;
 }
 
 .emp-dashboard-horizon .dashboard-body-block .emp-dash-attendance #emp-dash-attedence-chart {
@@ -479,6 +504,7 @@
     font-size: 12px;
     vertical-align: top;
     margin-top: 10px;
+    cursor: pointer;
 }
 
 .emp-dashboard-horizon .dashboard-body-block .emp-dash-recent-tickets {
@@ -572,6 +598,12 @@
         
 }
 
+.emp-dashboard-horizon .dashboard-body-block .emp-dash-calendar table.table{
+    border-collapse: separate;
+    border-spacing: 5px 0;
+    table-layout: fixed;
+}
+
 .emp-dashboard-horizon .dashboard-body-block .emp-dash-calendar .emp-dash-block-header .header-title {
 }
 
@@ -590,6 +622,7 @@
 
 .emp-dashboard-horizon .dashboard-body-block .emp-dash-calendar .emp-dash-block-content {
     padding: 2px 0;
+    height: 255px;
 }
 
 .emp-dashboard-horizon .dashboard-body-block .emp-dash-calendar .emp-dash-block-content .table thead th {
@@ -797,6 +830,7 @@
 
 .emp-dashboard-horizon .emp-dash-leave .emp-dash-block-content {
     padding: 15px 15px;
+    height: 255px;
 }
 
 .emp-dashboard-horizon .emp-dash-leave .emp-dash-block-content .leave-icon {
@@ -818,8 +852,88 @@
 }
 
 .emp-dashboard-horizon .emp-dash-leave .emp-dash-block-content .leave-container {
-    margin-top: 24px !important;
+    margin-top: 35px !important;
 }
 
-
 /* emp dashboard end */
+
+/* emp upcoimg holidays start */
+
+.emp-upcomingholidays-list-horizon {
+    background: #efefef;
+    height: 100vh;
+}
+
+.emp-upcomingholidays-list-horizon .main-content {
+    margin-left: 0;
+    /*padding-top: 0px;
+    margin-top: 50px;*/
+}
+
+.emp-upcomingholidays-list-horizon #empUpcomingHolidays {
+    background: #fff;
+    padding: 10px;
+}
+
+.emp-upcomingholidays-list-horizon #empupcomingholidaysTable thead th:first-child {
+    border-top-left-radius: 5px;
+}
+
+.emp-upcomingholidays-list-horizon #empupcomingholidaysTable thead th:last-child {
+    border-top-right-radius: 5px;
+}
+
+.emp-upcomingholidays-list-horizon #empupcomingholidaysTable th {
+    background-color: #267EC4 !important;
+    color: #fff;
+    font-weight: normal;
+}
+
+.emp-upcomingholidays-list-horizon #empupcomingholidaysTable tbody {
+    border-left: 1px solid #ccc;
+    border-right: 1px solid #ccc;
+}
+
+.emp-upcomingholidays-list-horizon #empupcomingholidaysTable tbody tr {
+    background-color: #ffffff;
+    border-bottom: 1px solid #ccc;
+}
+
+.emp-upcomingholidays-list-horizon #empupcomingholidaysTable tbody tr:nth-child(even) {
+    background-color: #EBFAFF !important;
+}
+
+.emp-upcomingholidays-list-horizon #empupcomingholidaysTable thead th,
+.emp-upcomingholidays-list-horizon #empupcomingholidaysTable tbody td {
+    border: none;
+    padding: 10px 75px;
+}
+
+.emp-upcomingholidays-list-horizon #empupcomingholidaysTable .emp-upcomingholidays-table-last {
+    text-align: right;
+}
+
+.emp-upcomingholidays-list-horizon #empupcomingholidaysTable tbody .emp-upcomingholidays-table-last {
+    padding-right: 100px;
+}
+
+.emp-upcomingholidays-list-horizon #empupcomingholidaysTable tbody .emp-upcomingholidays-table-last i {
+    cursor: pointer;
+
+}
+
+#compOffModal .modal-header button {
+    font-size: 14px;
+}
+
+#compOffModal .modal-footer {
+    border-top: 0px;
+    padding-top: 0px;
+}
+
+#compOffModal .modal-footer button{
+    padding: 5px 15px;
+    border-radius: 30px;
+}
+
+/* emp upcoimg holidays end */
