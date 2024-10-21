@@ -40,4 +40,11 @@ namespace HRMS.Models.Employee
 
         public JsonResponse JsonResponse { get; set; } = new JsonResponse();
     }
+
+    public class HolidayModel
+    {
+        public List<HRMS.tblambcholiday> Holidays { get; set; } = new List<tblambcholiday>();
+
+        public List<emp_info> Employees { get; set; } = new List<emp_info>();
+    }
 }
