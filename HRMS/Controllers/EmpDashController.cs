@@ -199,7 +199,21 @@ namespace HRMS.Controllers
         }
         public ActionResult Holidays()
         {
-            return View("/Views/EmployeeDashboard/HolidaysListView.cshtml");
+            var model = new HolidayModel();
+
+            var cuserContext = SiteContext.GetCurrentUserContext();
+            var employeeLocation = cuserContext.EmpInfo.Location;
+            var holidayList = _dbContext.tblambcholidays.ToList();
+
+            var filteredHolidays = holidayList
+       .Where(x => x.region.Split(',').Select(r => r.Trim().ToLower()).Contains(employeeLocation.ToLower())) // Filter in-memory
+       .OrderBy(x => x.holiday_date) // Sort holidays by date
+       .ToList();
+
+            model.Holidays = filteredHolidays;
+            model.Employees = _dbContext.emp_info.Where(x => x.EmployeeStatus == "Active").ToList();
+
+            return View("/Views/EmployeeDashboard/HolidaysListView.cshtml", model);
         }
 
 

@@ -1,4 +1,5 @@
-﻿
+﻿@model HRMS.Models.Employee.HolidayModel
+
 @{
     ViewBag.Title = "HolidaysListView";
 }
@@ -27,36 +28,24 @@
                             </tr>
                         </thead>
                         <tbody>
-                            <tr class="odd">
-                                <td>New Year's Day</td>
-                                <td>01-01-2024</td>
-                                <td>Monday</td>
-                                <td class="emp-upcomingholidays-table-last">
-                                    <div class="emp-upcomingholidays-action">
-                                        <i data-toggle="modal" data-target="#compOffModal" class="fas fa-chevron-right"></i>
-                                    </div>
-                                </td>
-                            </tr>
-                            <tr class="even">
-                                <td>New Year's Day</td>
-                                <td>01-01-2024</td>
-                                <td>Monday</td>
-                                <td class="emp-upcomingholidays-table-last">
-                                    <div class="emp-upcomingholidays-action">
-                                        <i data-toggle="modal" data-target="#compOffModal" class="fas fa-chevron-right"></i>
-                                    </div>
-                                </td>
-                            </tr>
-                            <tr class="odd">
-                                <td>New Year's Day</td>
-                                <td>01-01-2024</td>
-                                <td>Monday</td>
-                                <td class="emp-upcomingholidays-table-last">
-                                    <div class="emp-upcomingholidays-action">
-                                        <i data-toggle="modal" data-target="#compOffModal" class="fas fa-chevron-right"></i>
-                                    </div>
-                                </td>
-                            </tr>
+                            @foreach (var holiday in Model.Holidays)
+                            {
+                                <tr class="odd">
+                                    <td>@holiday.holiday_name</td>
+                                    <td>@holiday.holiday_date.Value.ToString("dd-MM-yyyy")</td>
+                                    <td>@holiday.holiday_date.Value.ToString("dddd")</td>
+                                    <td class="emp-upcomingholidays-table-last">
+                                        <div class="emp-upcomingholidays-action">
+                                            <a class="dashhoiday_description Emp-CompOffRequest"
+                                               data-leavenumber="@holiday.holidayno"
+                                               data-location="@holiday.region">
+                                                <i class="fas fa-chevron-right"></i>
+                                            </a>
+                                        </div>
+                                    </td>
+                                </tr>
+                            }
+                                                      
                         </tbody>
                     </table>
                 </div>
@@ -66,48 +55,50 @@
         </div>
     </div>
 
-    <div class="modal fade" id="compOffModal" tabindex="-1" aria-labelledby="compOffModalLabel" aria-hidden="true">
-        <div class="modal-dialog">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title" id="compOffModalLabel">Compensatory Off Request</h5>
-                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                        <i class="far fa-times-circle"></i>
-                    </button>
-                </div>
-                <div class="modal-body">
-                    <form>
-                        <div class="form-group admindashcompempname">
-                            <label for="CompemployeeName">Employee Name</label>
-                            <select class="form-control" id="CompemployeeName" disabled>
-                                <option selected disabled>Select Employee Name</option>                                
-                                <option value="1011" data-emplocation="Madurai" data-empemail="test@ss.com">Test User</option>                                
-                            </select>
-                            <div class="invalid-feedback">Employee Name is mandatory.</div>
-                        </div>
-                        <div class="form-group">
-                            <label for="Compdate">Date</label>
-                            <input type="text" class="form-control" id="Compdate" value="" readonly>
-                        </div>
-                        <div class="form-group">
-                            <label for="Compreason">Reason</label>
-                            <textarea class="form-control" id="Compreason" rows="3"></textarea>
-                        </div>
+    @Html.Partial("_compoff", Model.Employees)
 
-                        <div class="selectedholidayname" style="display: none"></div>
-                        <div class="selectedholidaynumber" style="display: none"></div>
-                        <div class="selectedholidaylocation" style="display: none"></div>
-                    </form>
-                </div>
-                <div class="modal-footer">
-                    <div id="compOffMessage" class="alert" style="display:none;"></div>
-                    <br />
-                    <button type="button" class="btn " data-dismiss="modal">Close</button>
-                    <button type="button" class="btn btn-primary compoff-submit">Submit</button>
+    @*<div class="modal fade" id="compOffModal" tabindex="-1" aria-labelledby="compOffModalLabel" aria-hidden="true">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="compOffModalLabel">Compensatory Off Request</h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <i class="far fa-times-circle"></i>
+                        </button>
+                    </div>
+                    <div class="modal-body">
+                        <form>
+                            <div class="form-group admindashcompempname">
+                                <label for="CompemployeeName">Employee Name</label>
+                                <select class="form-control" id="CompemployeeName" disabled>
+                                    <option selected disabled>Select Employee Name</option>
+                                    <option value="1011" data-emplocation="Madurai" data-empemail="test@ss.com">Test User</option>
+                                </select>
+                                <div class="invalid-feedback">Employee Name is mandatory.</div>
+                            </div>
+                            <div class="form-group">
+                                <label for="Compdate">Date</label>
+                                <input type="text" class="form-control" id="Compdate" value="" readonly>
+                            </div>
+                            <div class="form-group">
+                                <label for="Compreason">Reason</label>
+                                <textarea class="form-control" id="Compreason" rows="3"></textarea>
+                            </div>
+
+                            <div class="selectedholidayname" style="display: none"></div>
+                            <div class="selectedholidaynumber" style="display: none"></div>
+                            <div class="selectedholidaylocation" style="display: none"></div>
+                        </form>
+                    </div>
+                    <div class="modal-footer">
+                        <div id="compOffMessage" class="alert" style="display:none;"></div>
+                        <br />
+                        <button type="button" class="btn " data-dismiss="modal">Close</button>
+                        <button type="button" class="btn btn-primary compoff-submit">Submit</button>
+                    </div>
                 </div>
             </div>
-        </div>
-    </div>
+        </div>*@
 
 </div>
 

@@ -1,45 +1,65 @@
 ﻿$('.compoff-submit').click(function () {
-    var employeeID = $('#CompemployeeName').val();
-    var empName = $("#CompemployeeName option:selected").text();
-    var empEmail = $("#CompemployeeName option:selected").attr("data-empemail");
-    var empLocation = $("#CompemployeeName option:selected").attr("data-emplocation");
+    var employeeID = $('#CompemployeeName').prop('disabled') ? $('#hiddenEmpID').val() : $('#CompemployeeName').val();
+    var empName = $("#CompemployeeName").prop('disabled') ? $('.loggedinempname').text() : $("#CompemployeeName option:selected").text();
+    var empEmail = $("#CompemployeeName").prop('disabled') ? $('#hiddenEmpEmail').val() : $("#CompemployeeName option:selected").attr("data-empemail");
+    var empLocation = $("#CompemployeeName").prop('disabled') ? $('#hiddenEmpLocation').val() : $("#CompemployeeName option:selected").attr("data-emplocation");
 
     var compOffDate = $('#Compdate').val();
     var reason = $('#Compreason').val();
     var submittedUser = $('.loggedinempname').text();
-    var selectedholidayname = $('.selectedholidayname').text();
+    var selectedHolidayName = $('.selectedholidayname').text();
     var selectedHolidayNumber = $('.selectedholidaynumber').text();
     var selectedHolidayLocation = $('.selectedholidaylocation').text();
 
     // Validation
-    if (!employeeID) {
+    var isValid = true;
+
+    // Validate Employee Name
+    if (!employeeID || employeeID === "Select Employee Name") {
         $('#CompemployeeName').addClass('is-invalid');
         if ($('#CompemployeeName').next('.invalid-feedback').length === 0) {
             $('#CompemployeeName').after('<div class="invalid-feedback">Employee Name is mandatory.</div>');
         }
-        return;
+        isValid = false;
     } else {
         $('#CompemployeeName').removeClass('is-invalid');
         $('#CompemployeeName').next('.invalid-feedback').remove();
     }
 
+    // Validate Date and Reason
+    if (!compOffDate) {
+        $('#Compdate').addClass('is-invalid');
+        isValid = false;
+    }
+    if (!reason) {
+        $('#Compreason').addClass('is-invalid');
+        isValid = false;
+    }
+
+    if (!isValid) {
+        return;
+    }
+
+    // Proceed with AJAX request
     $.ajax({
         type: "POST",
-        url: '/Compoff/submitcompOff', // Adjust the URL to match your controller and action
+        url: '/Compoff/submitcompOff',
         data: {
             employeeID: employeeID,
             empName: empName,
             compOffDate: compOffDate,
             reason: reason,
             submittedUser: submittedUser,
-            holidayname: selectedholidayname,
+            holidayname: selectedHolidayName,
             holidynumber: parseInt(selectedHolidayNumber),
-            holidaylocation: empLocation,
+            holidaylocation: selectedHolidayLocation,
             empEmail: empEmail
         },
         success: function (response) {
-            if (response.StatusCode == 200) {
+            if (response.StatusCode === 200) {
                 $('#Compreason').val("");
+                $('#CompemployeeName').val("Select Employee Name");
+                $('#Compdate').val("");
                 $('#compOffMessage').removeClass('alert-danger').addClass('alert-success').html(response.Message).show();
             } else {
                 $('#compOffMessage').removeClass('alert-success').addClass('alert-danger').html(response.Message).show();

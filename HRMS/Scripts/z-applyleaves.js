@@ -540,23 +540,44 @@ $(document).on('change', '#HourPermission', function (event) {
 
 $(document).on('click', '.dashhoiday_description', function (e) {
     e.preventDefault();
-    $('#Compreason').val("");  
-    
-    var holidayName = $(this).siblings('.emp-upcoming-left').find('.holiday-name').text();
-    var holidayDate = $(this).siblings('.emp-upcoming-left').find('.holiday-date').text();
-   
-    $('.selectedholidayname').text(holidayName);
-    $('#Compdate').val(holidayDate);
-   
-    var holidayNumber = $(this).attr("data-leavenumber");
-    var location = $(this).attr("data-location");
-    
+
+    $('#Compreason').val(""); 
+
+    // Fetch data from clicked element and its siblings or parent elements
+    var holidayName = '';
+    var holidayDate = '';
+    var holidayNumber = $(this).data("leavenumber");
+    var location = $(this).data("location");
+
+    if ($(this).closest('.emp-dash-upcoming-holidays-block').length) {
+        // If clicked element is from the dashboard holiday block
+        holidayName = $(this).siblings('.emp-upcoming-left').find('.holiday-name').text();
+        holidayDate = $(this).siblings('.emp-upcoming-left').find('.holiday-date').text();
+    } else {
+        // If clicked element is from the table row
+        var $row = $(this).closest('tr');
+        holidayName = $row.find('td:nth-child(1)').text(); // Holiday name from 1st column
+        holidayDate = $row.find('td:nth-child(2)').text(); // Holiday date from 2nd column
+    }
+
+    $('.selectedholidayname').text(holidayName);  // Set hidden div value
+    $('#Compdate').val(holidayDate);  // Set date in the input field
+
+    // Set the hidden fields for holiday number and location
     $('.selectedholidaynumber').text(holidayNumber);
     $('.selectedholidaylocation').text(location);
-   
+
+    // Optionally, ensure the selected employee's name remains selected
+    var empName = $('#CompemployeeName option:selected').text();
+    if (empName) {
+        $('#CompemployeeName').val(empName);  // Make sure the employee name remains selected if it's there
+    }
+
+    // Hide any previous messages and reset invalid field
     $('#compOffMessage').html("").hide();
     $('#CompemployeeName').removeClass("is-invalid");
 
+    // Show the modal
     $("#compOffModal").modal('show');
 });
 
