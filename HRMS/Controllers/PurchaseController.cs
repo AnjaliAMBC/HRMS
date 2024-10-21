@@ -57,7 +57,7 @@ namespace HRMS.Controllers
             }
 
             model.Assettypes = _dbContext.VendorTypes.ToList();
-            model.allVendors = _dbContext.VendorLists.Where(x=>x.Status== "Approved").ToList();
+            model.allVendors = _dbContext.VendorLists.Where(x => x.Status == "Approved").ToList();
             model.ITDeptEmployees = _dbContext.emp_info.Where(x => x.Department == "IT").ToList();
             var lastPurchaseRequestId = _dbContext.PurchaseRequests
                                                    .OrderByDescending(x => x.PurchaseRequestID)
@@ -108,7 +108,7 @@ namespace HRMS.Controllers
                 }
 
 
-                decimal vendor1Quotation = System.Convert.ToDecimal(Request.Form["Vendor1quotation"]);
+                string vendor1Quotation = Request.Form["Vendor1quotation"]?.Trim();
                 string vendorName2 = Request.Form["Vendorname2"];
                 string vendor2idlastpart = "0";
                 if (vendorName2 != "Select Vendor Name")
@@ -131,7 +131,9 @@ namespace HRMS.Controllers
                 }
 
 
-                decimal vendor2Quotation = !string.IsNullOrWhiteSpace(Request.Form["Vendor2quotation"]) ? System.Convert.ToDecimal(Request.Form["Vendor2quotation"]) : 0;
+                string vendor2Quotation = !string.IsNullOrWhiteSpace(Request.Form["Vendor2quotation"]) ?
+                           Request.Form["Vendor2quotation"].Trim() : "0";
+
                 string vendorName3 = Request.Form["Vendorname3"];
                 string vendor3idlastpart = "0";
                 if (vendorName3 != "Select Vendor Name")
@@ -154,7 +156,9 @@ namespace HRMS.Controllers
                     vendor3Emails = vendor3.VendorEmail;
                 }
 
-                decimal vendor3Quotation = !string.IsNullOrWhiteSpace(Request.Form["Vendor3quotation"]) ? System.Convert.ToDecimal(Request.Form["Vendor3quotation"]) : 0;
+                string vendor3Quotation = !string.IsNullOrWhiteSpace(Request.Form["Vendor3quotation"]) ?
+                           Request.Form["Vendor3quotation"].Trim() : "0";
+
 
                 HttpPostedFileBase fileInput1 = Request.Files["AttachFile-1"];
                 HttpPostedFileBase fileInput2 = Request.Files["AttachFile-2"];
@@ -277,17 +281,17 @@ namespace HRMS.Controllers
                     model.StatusCode = 200;
                     model.Message = "Purchase request created successfully!";
 
-                    var emailBody = RenderPartialToString(this, "_PurchaseAddEmailNotification", purchaseRequest, ViewData, TempData);
+                    //var emailBody = RenderPartialToString(this, "_PurchaseAddEmailNotification", purchaseRequest, ViewData, TempData);
 
-                    var emailRequest = new EmailRequest()
-                    {
-                        Body = emailBody,
-                        ToEmail = ConfigurationManager.AppSettings["VendorEmailsTo"],
-                        CCEmail = ConfigurationManager.AppSettings["VendorEmailsCC"],
-                        Subject = "New Purchase Request Created",
-                    };
+                    //var emailRequest = new EmailRequest()
+                    //{
+                    //    Body = emailBody,
+                    //    ToEmail = ConfigurationManager.AppSettings["VendorEmailsTo"],
+                    //    CCEmail = ConfigurationManager.AppSettings["VendorEmailsCC"],
+                    //    Subject = "New Purchase Request Created",
+                    //};
 
-                    EMailHelper.SendEmail(emailRequest);
+                    //EMailHelper.SendEmail(emailRequest);
 
                     return Json(model, JsonRequestBehavior.AllowGet);
                 }
@@ -297,8 +301,8 @@ namespace HRMS.Controllers
                 model = ErrorHelper.CaptureError(ex);
                 return Json(model, JsonRequestBehavior.AllowGet);
             }
-            
-            
+
+
         }
 
         [HttpPost]
@@ -333,8 +337,8 @@ namespace HRMS.Controllers
                         {
                             fileInput2Name = Path.GetFileName(fileInput2.FileName);
                             purchaseRequest.TaxInvoice = fileInput2Name;
-                        }                  
-                        
+                        }
+
 
                         if (fileInput1 != null)
                         {

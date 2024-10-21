@@ -128,17 +128,12 @@
 
                                 <div class="col-lg-3 col-md-6">
                                     <div class="form-group subscriptionadd-tabs">
-                                        <label for="SubscriptionRenewaldate">Renewal Date*</label>
-                                        @if (Model.Editsubscription.RenewalDate != DateTime.MinValue)
-                                        {
-                                            @Html.TextBoxFor(m => m.Editsubscription.RenewalDate, "{0:yyyy-MM-dd}", new { @type = "date", @class = "form-control", @id = "SubscriptionRenewaldate", required = true }) }
-                                        else
-                                        {
-                                            <input type="date" class="form-control" name="SubscriptionRenewaldate" id="SubscriptionRenewaldate" value="@Model.Editsubscription.RenewalDate" required>
-                                        }
-                                        <div class="invalid-feedback">Renewal Date is required.</div>
+                                        <label for="SubscriptionRenewaldate">Renewal Date</label>
+                                        @Html.TextBoxFor(m => m.Editsubscription.RenewalDate, "{0:yyyy-MM-dd}", new { @type = "date", @class = "form-control", @id = "SubscriptionRenewaldate" })
                                     </div>
                                 </div>
+
+
 
                                 <div class="col-lg-3 col-md-6">
                                     <div class="form-group subscriptionadd-tabs">
@@ -150,10 +145,14 @@
                                             <option value="Upi Payment" @(Model.Editsubscription.PaymentMethod == "Upi Payment" ? "selected" : "")>Upi Payment</option>
                                             <option value="Net Banking" @(Model.Editsubscription.PaymentMethod == "Net Banking" ? "selected" : "")>Net Banking</option>
                                             <option value="Cash" @(Model.Editsubscription.PaymentMethod == "Cash" ? "selected" : "")>Cash</option>
+                                            <option value="Online" @(Model.Editsubscription.PaymentMethod == "Online" ? "selected" : "")>Online</option>
+                                            <option value="Vendor Payment" @(Model.Editsubscription.PaymentMethod == "Vendor Payment" ? "selected" : "")>Vendor Payment</option>
                                             <option value="Others" @(Model.Editsubscription.PaymentMethod == "Others" ? "selected" : "")>Others</option>
+
                                         </select>
                                     </div>
                                 </div>
+
 
 
                                 <div class="col-lg-6 col-md-6">

@@ -16,12 +16,13 @@ namespace HRMS
     {
         public int HistoryID { get; set; }
         public int SubscriptionID { get; set; }
+        public string SubscriptiionNumber { get; set; }
         public string SubscriptionName { get; set; }
         public string SubscriptionLogo { get; set; }
         public string Category { get; set; }
         public Nullable<System.DateTime> PurchaseDate { get; set; }
         public Nullable<System.DateTime> RenewalDate { get; set; }
-        public Nullable<decimal> Amount { get; set; }
+        public string Amount { get; set; }
         public string PaymentMethod { get; set; }
         public string Remarks { get; set; }
         public string SubscriptionStatus { get; set; }
@@ -30,7 +31,6 @@ namespace HRMS
         public string License { get; set; }
         public string UpdatedBy { get; set; }
         public Nullable<System.DateTime> UpadtedDate { get; set; }
-        public string SubscriptiionNumber { get; set; }
         public Nullable<System.DateTime> RecordeupdatedDate { get; set; }
     }
 }

@@ -18,7 +18,7 @@ namespace HRMS.Models.ITsupport
         public string SubscriptionCategory { get; set; }
         public string License { get; set; }
         public DateTime? SubscriptionPurchasedate { get; set; }
-        public decimal? SubscriptionAmount { get; set; }  // Optional
+        public string SubscriptionAmount { get; set; }  // Optional
         public DateTime? SubscriptionRenewaldate { get; set; }
         public string SubscriptionPaymentMethod { get; set; }  // Optional
         public string SubscriptionRemarks { get; set; }  // Optional

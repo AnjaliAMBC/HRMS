@@ -42,11 +42,11 @@ namespace HRMS
         public virtual DbSet<ReminderLog> ReminderLogs { get; set; }
         public virtual DbSet<VendorList> VendorLists { get; set; }
         public virtual DbSet<VendorType> VendorTypes { get; set; }
-        public virtual DbSet<PurchaseRequest> PurchaseRequests { get; set; }
-        public virtual DbSet<Subscription> Subscriptions { get; set; }
-        public virtual DbSet<SubscriptionHistory> SubscriptionHistories { get; set; }
         public virtual DbSet<Asset> Assets { get; set; }
         public virtual DbSet<AssetTransfer_> AssetTransfer_ { get; set; }
         public virtual DbSet<IT_Maintenance> IT_Maintenance { get; set; }
+        public virtual DbSet<Subscription> Subscriptions { get; set; }
+        public virtual DbSet<SubscriptionHistory> SubscriptionHistories { get; set; }
+        public virtual DbSet<PurchaseRequest> PurchaseRequests { get; set; }
     }
 }
