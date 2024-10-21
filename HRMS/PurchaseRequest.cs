@@ -21,17 +21,17 @@ namespace HRMS
         public int VendorID1 { get; set; }
         public string VendorName1 { get; set; }
         public string VendorEmail1 { get; set; }
-        public decimal QuotationPrice1 { get; set; }
+        public string QuotationPrice1 { get; set; }
         public string AttachFile1 { get; set; }
         public Nullable<int> VendorID2 { get; set; }
         public string VendorName2 { get; set; }
         public string VendorEmail2 { get; set; }
-        public Nullable<decimal> QuotationPrice2 { get; set; }
+        public string QuotationPrice2 { get; set; }
         public string AttachFile2 { get; set; }
         public Nullable<int> VendorID3 { get; set; }
         public string VendorName3 { get; set; }
         public string VendorEmail3 { get; set; }
-        public Nullable<decimal> QuotationPrice3 { get; set; }
+        public string QuotationPrice3 { get; set; }
         public string AttachFile3 { get; set; }
         public string Status { get; set; }
         public string ApprovedBy { get; set; }
