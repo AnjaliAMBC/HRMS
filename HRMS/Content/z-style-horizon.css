@@ -861,7 +861,7 @@
 
 .emp-upcomingholidays-list-horizon {
     background: #efefef;
-    height: 100vh;
+    /*height: 100vh;*/
 }
 
 .emp-upcomingholidays-list-horizon .main-content {
@@ -1013,7 +1013,7 @@ margin-top: 50px;*/
     margin-top: 15px;
 }
 
-.emp-selfservice-list-horizon .emp-selfservice-details .emp-ss-details-block2 .res-admin-emp-tabs {
+.emp-selfservice-list-horizon .emp-selfservice-details .emp-ss-details-block2 .res-emp-ss-tabs {
     border-bottom: none;
 }
 
@@ -1122,4 +1122,123 @@ box-shadow: 0 0 5px rgba(0, 0, 0, 0.3);*/
     border-radius: 30px;
 }
 
+.emp-selfservice-list-horizon .emp-ss-assetview .tree-structure .allocate-details.tree-child img {
+    width: 70px;
+    height: 70px;
+    object-fit: cover;
+    margin-bottom: 10px;
+}
+
+.emp-selfservice-list-horizon .emp-ss-assetview .tree-structure .allocate-info span {
+    color: gray;
+}
+
+.emp-selfservice-list-horizon .emp-ss-monthlymaintenanceview .emp-ss-mm-year {
+    display: flex;
+    justify-content: space-between;
+    margin: 0 20px;
+}
+
+.emp-selfservice-list-horizon .emp-ss-monthlymaintenanceview .mm-year-dropdown {
+    position: relative;
+    display: inline-block;
+}
+
+.emp-selfservice-list-horizon #empmaintenanceinfotable thead th:first-child {
+    border-top-left-radius: 5px;
+}
+
+.emp-selfservice-list-horizon #empmaintenanceinfotable thead th:last-child {
+    border-top-right-radius: 5px;
+}
+
+.emp-selfservice-list-horizon #empmaintenanceinfotable thead th {
+    color: #fff;
+    font-weight: normal;
+}
+
+.emp-selfservice-list-horizon .emp-maintenanceinfo-image-btn .default-image-navbar {
+    border-radius: 50%;
+    width: 30px;
+    height: 30px;
+    object-fit: cover;
+    margin-right: 7px;
+    display: inline-flex;
+}
+
+.emp-selfservice-list-horizon .emp-maintenanceinfo-image-btn img {
+    border-radius: 50%;
+    width: 30px;
+    height: 30px;
+    object-fit: cover;
+    margin-right: 7px;
+}
+
+.emp-selfservice-list-horizon #empmaintenanceinfotable .emp-maintenance-id-select {
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    overflow: hidden;
+    width: 71px;
+    display: inline-block;
+    vertical-align: middle;
+}
+
+.emp-selfservice-list-horizon #empmaintenanceinfotable .emp-maintenance-status {
+    padding: 2px 9px;
+    color: #fff;
+    border-radius: 20px;
+    font-size: 11px;
+    text-align: center;
+    width: 75px;
+}
+
+.emp-selfservice-list-horizon #empmaintenanceinfotable .emp-maintenance-status.completed {
+    background: #34C7AC;
+}
+
+.emp-selfservice-list-horizon #empmaintenanceinfotable .emp-maintenance-status.pending {
+    background: #26ABED;
+}
+
+.emp-selfservice-list-horizon #empmaintenanceinfotable .emp-maintenanceinfo-list-edit .emp-maintenance-options {
+    position: absolute;
+    background: white;
+    box-shadow: 0px 1px 3px 1px #ccc;
+    text-align: left;
+    right: 20px;
+    cursor: pointer;
+    padding: 3px 0;
+    z-index: 1;
+}
+
+.emp-selfservice-list-horizon #empmaintenanceinfotable .emp-maintenanceinfo-list-edit .emp-maintenance-options a {
+    padding: 3px 10px;
+    color: #8693a1;
+}
+
+.emp-selfservice-list-horizon #empmaintenanceinfotable tbody {
+    border-left: 1px solid #ccc;
+    border-right: 1px solid #ccc;
+}
+
+.emp-selfservice-list-horizon #empmaintenanceinfotable tbody tr {
+    background-color: #ffffff;
+    border-bottom: 1px solid #ccc;
+}
+
+.emp-selfservice-list-horizon #empmaintenanceinfotable tbody tr:nth-child(even) {
+    background-color: #EBFAFF !important;
+}
+
+#RescheduleEmpMaintenancePopup #reschedulemaintenance-header-title {
+    font-size: 18px;
+}
+#RescheduleEmpMaintenancePopup .modal-header button {
+    font-size: 14px;
+}
+
+#RescheduleEmpMaintenancePopup .maintenanceapprove-info .text-right button {
+    padding: 5px 15px;
+    border-radius: 30px;
+}
 /* emp self service end */
