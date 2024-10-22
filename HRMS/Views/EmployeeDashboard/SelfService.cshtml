@@ -257,19 +257,61 @@
                     <div class="col-lg-7 emp-selfservice-details-left">
                         <div class="emp-ss-details-block1">
                             <div class="emp-ss-details-block1-left">
+
+                                @if (!string.IsNullOrWhiteSpace(Model.EmpInfo.imagepath))
+                                {
+                                    var empImageURl = System.Configuration.ConfigurationManager.AppSettings["EmpImagesFolder"] + "/" + Model.EmpInfo.imagepath + "?" + System.DateTime.Now;
+                                    <img src="@empImageURl" alt="Employee Image" class="emp-profileimage">
+                                }
+                                else
+                                {
+                                    <img src="" alt="Employee Image" class="emp-profileimage" style="display: none">
+                                    // Split the full name into first name and last name
+                                    string[] names = Model.EmpInfo.EmployeeName.Split(new char[] { ' ' }, StringSplitOptions.RemoveEmptyEntries);
+
+                                    // Ensure we have at least one name
+                                    if (names.Length > 0)
+                                    {
+                                        // Get the first name
+                                        string firstName = names[0];
+
+                                        // Get the last name if available
+                                        string lastName = names.Length > 1 ? names[names.Length - 1] : string.Empty;
+
+                                        // Extract the first letters
+                                        char firstLetterOfFirstName = firstName[0];
+                                        char firstLetterOfLastName = !string.IsNullOrEmpty(lastName) ? lastName[0] : '\0';
+
+                                        // Convert to uppercase if needed
+                                        firstLetterOfFirstName = char.ToUpper(firstLetterOfFirstName);
+                                        firstLetterOfLastName = char.ToUpper(firstLetterOfLastName);
+
+                                        // Output the first letters
+                                        Console.WriteLine($"First letter of first name: {firstLetterOfFirstName}");
+                                        Console.WriteLine($"First letter of last name: {firstLetterOfLastName}");
+
+                                        <div class="default-image">@firstLetterOfFirstName @firstLetterOfLastName</div>
+
+                                    }
+                                }
+                            <div class="img-edit-icon"><span><i class="fas fa-camera"></i></span></div>
+                                <input type="file" id="imageInput" style="display: none;">
+
+                            </div>
+                            @*<div class="emp-ss-details-block1-left">
                                 <img src="~/Assets/EmpImages/1075.jpeg">
                                 <div class="img-edit-icon"><span><i class="fas fa-camera"></i></span></div>
                                 <input type="file" id="imageInput" style="display: none;">
-                            </div>
+                            </div>*@
                             <div class="emp-ss-details-block1-right">
                                 <div class="emp-ss-details-user-info-1">
-                                    <div class="emp-ss-details-username">Test User</div>
-                                    <div class="emp-ss-details-designation color-gray">Test Design</div>
-                                    <div class="emp-ss-details-category color-gray">Digital Marketing</div>
+                                    <div class="emp-ss-details-username">@Model.EmpInfo.EmployeeName</div>
+                                    <div class="emp-ss-details-designation color-gray">@Model.EmpInfo.Designation</div>
+                                    <div class="emp-ss-details-category color-gray">@Model.EmpInfo.Department</div>
                                 </div>
                                 <div class="emp-ss-details-user-info-2">
-                                    <div class="emp-ss-details-empid">Employee ID: 1100</div>
-                                    <div class="emp-ss-details-dob color-gray">Date of Join: 01-01-2024</div>
+                                    <div class="emp-ss-details-empid">Employee ID: @Model.EmpInfo.EmployeeID</div>
+                                    <div class="emp-ss-details-dob color-gray">Date of Join: @Model.EmpInfo.DOJ.ToString("dd-MM-yyyy")</div>
                                 </div>
                             </div>
                         </div>
@@ -295,23 +337,23 @@
                         <div class="emp-ss-details-block3">
                             <div class="emp-ss-details-right-left emp-ss-details-phone">
                                 <span class="col-lg-4 emp-ss-details-left-block">Phone:</span>
-                                <span class="col-lg-8 emp-ss-details-right-block" style="color: #267EC4;">+91 090909090</span>
+                                <span class="col-lg-8 emp-ss-details-right-block" style="color: #267EC4;">@Model.EmpInfo.MobileNumber</span>
                             </div>
                             <div class="emp-ss-details-right-left emp-ss-details-email">
                                 <span class="col-lg-4 emp-ss-details-left-block">Email:</span>
-                                <span class="col-lg-8 emp-ss-details-right-block" style="color: #267EC4;">test@ambconline.com</span>
+                                <span class="col-lg-8 emp-ss-details-right-block" style="color: #267EC4;">@Model.EmpInfo.OfficalEmailid</span>
                             </div>
                             <div class="emp-ss-details-right-left emp-ss-details-shift">
                                 <span class="col-lg-4 emp-ss-details-left-block">Shift Timing:</span>
-                                <span class="col-lg-8 emp-ss-details-right-block color-gray">09:30 - 18:30</span>
+                                <span class="col-lg-8 emp-ss-details-right-block color-gray">@Model.EmpInfo.ShiftTimings</span>
                             </div>
                             <div class="emp-ss-details-right-left emp-ss-details-location">
                                 <span class="col-lg-4 emp-ss-details-left-block">Location:</span>
-                                <span class="col-lg-8 emp-ss-details-right-block color-gray">Madurai</span>
+                                <span class="col-lg-8 emp-ss-details-right-block color-gray">@Model.EmpInfo.Location</span>
                             </div>
                             <div class="emp-ss-details-right-left emp-ss-details-emptype">
                                 <span class="col-lg-4 emp-ss-details-left-block">Employee Type:</span>
-                                <span class="col-lg-8 emp-ss-details-right-block color-gray">Full-Time</span>
+                                <span class="col-lg-8 emp-ss-details-right-block color-gray">@Model.EmpInfo.EmployeeType</span>
                             </div>
                         </div>
                         <div class="emp-ss-details-block4">
@@ -561,10 +603,19 @@
                                                                     <div class="name allocate-details tree-child">
                                                                         <img src="~/Assets/EmpImages/1020.jpeg">
                                                                         <div class="allocate-info">
-                                                                            <div class="model"><span>Model</span> Dell</div>
-                                                                            <div class="assetid"><span>Asset ID</span> AMBC/MDU/#0077</div>
-                                                                            <div class="allocatedby"><span>Allocated By</span> Test User</div>
-                                                                            <div class="allocateddate"><span>Allocated Date</span> 09-10-2024</div>
+                                                                            <div class="model"><span>Asset Name</span> @Model.empAsset.AssetType1</div>
+                                                                            <div class="assetid"><span>Asset ID</span> @Model.empAsset.AssetID</div>
+                                                                            <div class="allocatedby"><span>Allocated By</span> @Model.empAsset.AssignedBy</div>
+                                                                            <div class="allocateddate">
+                                                                                <span>Allocated Date</span>@if (Model.empAsset.AssignedDate.HasValue)
+                                                                                {
+                                                                                    @Model.empAsset.AssignedDate.Value.ToString("dd-MM-yyyy")
+                                                                                }
+                                                                                else
+                                                                                {
+                                                                                    <span>No Date</span>
+                                                                                }
+                                                                            </div>
                                                                         </div>
                                                                     </div>
                                                                 </div>
@@ -576,10 +627,19 @@
                                                                     <div class="name allocate-details tree-child">
                                                                         <img src="~/Assets/EmpImages/1020.jpeg">
                                                                         <div class="allocate-info">
-                                                                            <div class="model"><span>Model</span> Dell</div>
-                                                                            <div class="assetid"><span>Asset ID</span> AMBC/MDU/#0077</div>
-                                                                            <div class="allocatedby"><span>Allocated By</span> Test User</div>
-                                                                            <div class="allocateddate"><span>Allocated Date</span> 09-10-2024</div>
+                                                                            <div class="model"><span>Asset Name</span> @Model.empAsset.AssetType2</div>
+                                                                            <div class="assetid"><span>Asset ID</span> @Model.empAsset.AssetID</div>
+                                                                            <div class="allocatedby"><span>Allocated By</span> @Model.empAsset.AssignedBy</div>
+                                                                            <div class="allocateddate">
+                                                                                <span>Allocated Date</span>@if (Model.empAsset.AssignedDate.HasValue)
+                                                                                {
+                                                                                    @Model.empAsset.AssignedDate.Value.ToString("dd-MM-yyyy")
+                                                                                }
+                                                                                else
+                                                                                {
+                                                                                    <span>No Date</span>
+                                                                                }
+                                                                            </div>
                                                                         </div>
                                                                     </div>
                                                                 </div>
@@ -591,10 +651,19 @@
                                                                     <div class="name allocate-details tree-child">
                                                                         <img src="~/Assets/EmpImages/1020.jpeg">
                                                                         <div class="allocate-info">
-                                                                            <div class="model"><span>Model</span> Dell</div>
-                                                                            <div class="assetid"><span>Asset ID</span> AMBC/MDU/#0077</div>
-                                                                            <div class="allocatedby"><span>Allocated By</span> Test User</div>
-                                                                            <div class="allocateddate"><span>Allocated Date</span> 09-10-2024</div>
+                                                                            <div class="model"><span>Asset Name</span> @Model.empAsset.AssetType3</div>
+                                                                            <div class="assetid"><span>Asset ID</span> @Model.empAsset.AssetID</div>
+                                                                            <div class="allocatedby"><span>Allocated By</span> @Model.empAsset.AssignedBy</div>
+                                                                            <div class="allocateddate">
+                                                                                <span>Allocated Date</span>@if (Model.empAsset.AssignedDate.HasValue)
+                                                                                {
+                                                                                    @Model.empAsset.AssignedDate.Value.ToString("dd-MM-yyyy")
+                                                                                }
+                                                                                else
+                                                                                {
+                                                                                    <span>No Date</span>
+                                                                                }
+                                                                            </div>
                                                                         </div>
                                                                     </div>
                                                                 </div>
@@ -606,17 +675,49 @@
                                                                     <div class="name allocate-details tree-child">
                                                                         <img src="~/Assets/EmpImages/1020.jpeg">
                                                                         <div class="allocate-info">
-                                                                            <div class="model"><span>Model</span> Dell</div>
-                                                                            <div class="assetid"><span>Asset ID</span> AMBC/MDU/#0077</div>
-                                                                            <div class="allocatedby"><span>Allocated By</span> Test User</div>
-                                                                            <div class="allocateddate"><span>Allocated Date</span> 09-10-2024</div>
+                                                                            <div class="model"><span>Asset Name</span> @Model.empAsset.AssetType4</div>
+                                                                            <div class="assetid"><span>Asset ID</span> @Model.empAsset.AssetID</div>
+                                                                            <div class="allocatedby"><span>Allocated By</span> @Model.empAsset.AssignedBy</div>
+                                                                            <div class="allocateddate">
+                                                                                <span>Allocated Date</span>@if (Model.empAsset.AssignedDate.HasValue)
+                                                                                {
+                                                                                    @Model.empAsset.AssignedDate.Value.ToString("dd-MM-yyyy")
+                                                                                }
+                                                                                else
+                                                                                {
+                                                                                    <span>No Date</span>
+                                                                                }
+                                                                            </div>
                                                                         </div>
                                                                     </div>
                                                                 </div>
                                                             </div>
                                                         </li>
 
-
+                                                        <li>
+                                                            <div class="family" style="width: 172px">
+                                                                <div class="person child male">
+                                                                    <div class="name allocate-details tree-child">
+                                                                        <img src="~/Assets/EmpImages/1020.jpeg">
+                                                                        <div class="allocate-info">
+                                                                            <div class="model"><span>Asset Name</span> @Model.empAsset.AssetType5</div>
+                                                                            <div class="assetid"><span>Asset ID</span> @Model.empAsset.AssetID</div>
+                                                                            <div class="allocatedby"><span>Allocated By</span> @Model.empAsset.AssignedBy</div>
+                                                                            <div class="allocateddate">
+                                                                                <span>Allocated Date</span>@if (Model.empAsset.AssignedDate.HasValue)
+                                                                                {
+                                                                                    @Model.empAsset.AssignedDate.Value.ToString("dd-MM-yyyy")
+                                                                                }
+                                                                                else
+                                                                                {
+                                                                                    <span>No Date</span>
+                                                                                }
+                                                                            </div>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </li>
                                                     </ul>
                                                 </div>
                                             </div>
@@ -879,6 +980,10 @@
         optionsMenu.toggle();
     }
 
+
+    $(document).on('click', '.emp-maintenance-info-view', function () {
+        window.location.href = '/EmployeeDashboard/MaintananceAck';
+    });
 
 </script>
 

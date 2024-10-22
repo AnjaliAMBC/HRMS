@@ -211,8 +211,8 @@ $(document).ready(function () {
                     newImageUrl += '?' + timestamp;
 
                     // Self service page image update
-                    $('.emp-imageurl').attr('src', newImageUrl);
-                    $('.emp-imageurl').show();
+                    $('.emp-profileimage').attr('src', newImageUrl);
+                    $('.emp-profileimage').show();
                     $('.default-image').hide();
 
                     // Navbar image update
