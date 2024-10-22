@@ -11,6 +11,8 @@ namespace HRMS.Models.Employee
     {
         public List<AnniversaryModel> AnniversaryModel { get; set; } = new List<AnniversaryModel>();
         public List<BirthdayModel> Birthdays { get; set; } = new List<BirthdayModel>();
+
+        public List<emp_info> NewJoiners { get; set; } = new List<emp_info>();
         public List<UpcomingHoliday> UpcomingHolidays { get; set; } = new List<UpcomingHoliday>();
         public tbld_ambclogininformation todayCheckInInfo { get; set; } = new tbld_ambclogininformation();
         public CheckInDetails empLastDayCheckInDetails { get; set; } = new CheckInDetails();
@@ -37,5 +39,12 @@ namespace HRMS.Models.Employee
         public string FromEmail { get; set; }
 
         public JsonResponse JsonResponse { get; set; } = new JsonResponse();
+    }
+
+    public class HolidayModel
+    {
+        public List<HRMS.tblambcholiday> Holidays { get; set; } = new List<tblambcholiday>();
+
+        public List<emp_info> Employees { get; set; } = new List<emp_info>();
     }
 }

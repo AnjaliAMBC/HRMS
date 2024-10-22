@@ -29,8 +29,6 @@ namespace HRMS.Controllers
             var cuserContext = SiteContext.GetCurrentUserContext();
             model.EmpInfo = cuserContext.EmpInfo;
             model.LoginInfo = cuserContext.LoginInfo;
-
-
             return View("~/Views/EmployeeDashboard/Dashboard.cshtml", model);
         }
 

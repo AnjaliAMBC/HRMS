@@ -9,26 +9,20 @@
     <div class="modal-dialog">
         <div class="modal-content">
             <div class="modal-header">
-                <h5 class="modal-title" id="compOffModalLabel">CompOff Request</h5>
+                <h5 class="modal-title" id="compOffModalLabel">Compensatory Off Request</h5>
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                    <span aria-hidden="true">&times;</span>
+                    <i class="far fa-times-circle"></i>
                 </button>
             </div>
             <div class="modal-body">
                 <form>
                     <div class="form-group admindashcompempname">
                         <label for="CompemployeeName">Employee Name</label>
-                        @{ var isdiabled = "disabled";
-                            var selectedempID = "";
-                            if (currentUserSession.IsAdmin)
-                            {
-                                isdiabled = "";
-                            }
-                            else
-                            {
-                                selectedempID = currentUserSession.EmpInfo.EmployeeID;
-                            } }
-                        <select class="form-control" id="CompemployeeName" @isdiabled>
+                        @{
+                            var isDisabled = currentUserSession.IsAdmin ? "" : "disabled";
+                            var selectedempID = currentUserSession.IsAdmin ? "" : currentUserSession.EmpInfo.EmployeeID;
+                        }
+                        <select class="form-control" id="CompemployeeName" @isDisabled>
                             <option selected disabled>Select Employee Name</option>
                             @foreach (var emp in Model)
                             {
@@ -37,7 +31,15 @@
                             }
                         </select>
                         <div class="invalid-feedback">Employee Name is mandatory.</div>
+
+                        <!-- Hidden input to store Employee ID if dropdown is disabled -->
+                        @if (!currentUserSession.IsAdmin)
+                        {
+                    <input type="hidden" id="hiddenEmpID" value="@selectedempID" />
+                                    <input type="hidden" id="hiddenEmpEmail" value="@currentUserSession.EmpInfo.OfficalEmailid" />
+                                                    <input type="hidden" id="hiddenEmpLocation" value="@currentUserSession.EmpInfo.Location" />}
                     </div>
+
                     <div class="form-group">
                         <label for="Compdate">Date</label>
                         <input type="text" class="form-control" id="Compdate" value="" readonly>
@@ -47,6 +49,7 @@
                         <textarea class="form-control" id="Compreason" rows="3"></textarea>
                     </div>
 
+                    <!-- Hidden holiday details -->
                     <div class="selectedholidayname" style="display: none"></div>
                     <div class="selectedholidaynumber" style="display: none"></div>
                     <div class="selectedholidaylocation" style="display: none"></div>
@@ -55,14 +58,15 @@
             <div class="modal-footer">
                 <div id="compOffMessage" class="alert" style="display:none;"></div>
                 <br />
-                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                <button type="button" class="btn" data-dismiss="modal">Close</button>
                 <button type="button" class="btn btn-primary compoff-submit">Submit</button>
             </div>
         </div>
     </div>
 </div>
+
 <script>
-$(document).ready(function() {
-    $('#CompemployeeName').select2();
-});
+    $(document).ready(function () {
+        $('#CompemployeeName').select2();
+    });
 </script>

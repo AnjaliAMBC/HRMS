@@ -40,12 +40,12 @@ namespace HRMS
                     .ToList() // Execute the query in SQL
                     .Where(emp =>
                     {
-                    // Check if the employee is on leave
-                    bool isOnLeave = dbContext.con_leaveupdate.Any(l => l.employee_id == emp.EmployeeID && l.leavedate == DateTime.Today);
+                        // Check if the employee is on leave
+                        bool isOnLeave = dbContext.con_leaveupdate.Any(l => l.employee_id == emp.EmployeeID && l.leavedate == DateTime.Today);
                         if (isOnLeave) return false;
 
-                    // Check if today is a public holiday
-                    bool isPublicHoliday = dbContext.tblambcholidays.Any(ph => ph.holiday_date == DateTime.Today);
+                        // Check if today is a public holiday
+                        bool isPublicHoliday = dbContext.tblambcholidays.Any(ph => ph.holiday_date == DateTime.Today);
                         if (isPublicHoliday) return false;
 
                         bool empSignInExists = employeeSignIns.Any(x => x.Employee_Code == emp.EmployeeID);
@@ -66,7 +66,7 @@ namespace HRMS
                                     ReminderType = "CheckIn"
                                 });
                                 dbContext.SaveChanges(); // Save changes immediately
-                            return true;
+                                return true;
                             }
                         }
                         return false;
@@ -77,12 +77,12 @@ namespace HRMS
                     .ToList() // Execute the query in SQL
                     .Where(emp =>
                     {
-                    // Check if the employee is on leave
-                    bool isOnLeave = dbContext.con_leaveupdate.Any(l => l.employee_id == emp.EmployeeID && l.leavedate == DateTime.Today);
+                        // Check if the employee is on leave
+                        bool isOnLeave = dbContext.con_leaveupdate.Any(l => l.employee_id == emp.EmployeeID && l.leavedate == DateTime.Today);
                         if (isOnLeave) return false;
 
-                    // Check if today is a public holiday
-                    bool isPublicHoliday = dbContext.tblambcholidays.Any(ph => ph.holiday_date == DateTime.Today);
+                        // Check if today is a public holiday
+                        bool isPublicHoliday = dbContext.tblambcholidays.Any(ph => ph.holiday_date == DateTime.Today);
                         if (isPublicHoliday) return false;
 
                         bool empSignOutExists = employeeSignIns.Any(x => x.Employee_Code == emp.EmployeeID && x.Signout_Time.HasValue);
@@ -103,7 +103,7 @@ namespace HRMS
                                     ReminderType = "CheckOut"
                                 });
                                 dbContext.SaveChanges(); // Save changes immediately
-                            return true;
+                                return true;
                             }
                         }
                         return false;
@@ -163,6 +163,23 @@ namespace HRMS
                         };
 
                         var sendNotification = EMailHelper.SendEmail(emailRequest);
+
+
+                        var newNotification = new Notification
+                        {
+                            NotificationDate = DateTime.Now,
+                            NotificationFromName = "System",
+                            NotificationFromID = "System",
+                            NotificationToName = checkinEmp.EmployeeName,
+                            NotificationToID = checkinEmp.EmployeeID,
+                            NotificationType = "CheckIn",
+                            Status = "Remainder",
+                            Comments = "",
+                            CreatedDate = DateTime.Now
+                        };
+
+                        _dbContext.Notifications.Add(newNotification);
+                        _dbContext.SaveChanges();
                     }
                 }
 
@@ -216,6 +233,22 @@ namespace HRMS
                         };
 
                         var sendNotification = EMailHelper.SendEmail(emailRequest);
+
+                        var newNotification = new Notification
+                        {
+                            NotificationDate = DateTime.Now,
+                            NotificationFromName = "System",
+                            NotificationFromID = "System",
+                            NotificationToName = checkoutEmp.EmployeeName,
+                            NotificationToID = checkoutEmp.EmployeeID,
+                            NotificationType = "CheckOut",
+                            Status = "Remainder",
+                            Comments = "",
+                            CreatedDate = DateTime.Now
+                        };
+
+                        _dbContext.Notifications.Add(newNotification);
+                        _dbContext.SaveChanges();
                     }
                 }
             }

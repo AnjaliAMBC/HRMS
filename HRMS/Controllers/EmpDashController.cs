@@ -13,6 +13,7 @@ namespace HRMS.Controllers
 {
     using Helpers;
     using HRMS.Models;
+    using HRMS.Services;
     using System.Data.Entity;
     using System.Globalization;
 
@@ -95,6 +96,10 @@ namespace HRMS.Controllers
             model.MyTickets = _dbContext.IT_Ticket
               .Where(x => x.EmployeeID == model.EmpInfo.EmployeeID && DbFunctions.TruncateTime(x.Created_date) == DateTime.Today)
               .ToList();
+
+
+            model.NewJoiners = _dbContext.emp_info.Where(x => x.DOJ == DateTime.Today).ToList();
+
 
             return View("~/Views/EmployeeDashboard/EmpDash.cshtml", model);
         }
@@ -185,6 +190,38 @@ namespace HRMS.Controllers
             }
 
             return Json(null, JsonRequestBehavior.AllowGet);
+
+        }
+
+        public ActionResult Policies()
+        {
+            return View("/Views/EmployeeDashboard/PoliciesView.cshtml");
+        }
+        public ActionResult Holidays()
+        {
+            var model = new HolidayModel();
+
+            var cuserContext = SiteContext.GetCurrentUserContext();
+            var employeeLocation = cuserContext.EmpInfo.Location;
+            var holidayList = _dbContext.tblambcholidays.ToList();
+
+            var filteredHolidays = holidayList
+       .Where(x => x.region.Split(',').Select(r => r.Trim().ToLower()).Contains(employeeLocation.ToLower())) // Filter in-memory
+       .OrderBy(x => x.holiday_date) // Sort holidays by date
+       .ToList();
+
+            model.Holidays = filteredHolidays;
+            model.Employees = _dbContext.emp_info.Where(x => x.EmployeeStatus == "Active").ToList();
+
+            return View("/Views/EmployeeDashboard/HolidaysListView.cshtml", model);
+        }
+
+
+        public JsonResult GetAttedenceSummary(string employeeId, string location, int month, int year)
+        {
+            var leaveService = new LeaveService(_dbContext);
+            string jsonResult = leaveService.GetLeaveSummary(employeeId, location, month, year);
+            return Json(jsonResult, JsonRequestBehavior.AllowGet);
 
         }
     }

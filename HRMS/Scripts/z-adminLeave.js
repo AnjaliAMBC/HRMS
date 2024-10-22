@@ -337,7 +337,8 @@ function ApproveLeaveRequest(leaveName, element) {
     });
 }
 
-$('.btn_approve').click(function () {
+
+$(document).off('click', '.btn_approve').on('click', '.btn_approve', function (event) {
     var leaveName = $(this).data('leavename');
     ApproveLeaveRequest(leaveName, $(this))
 });
@@ -357,7 +358,8 @@ function RejectLeaveRequest(leaveName, element) {
     });
 }
 
-$('.btn_reject').click(function () {
+
+$(document).off('click', '.btn_reject').on('click', '.btn_reject', function (event) {
     var leaveName = $(this).data('leavename');
     RejectLeaveRequest(leaveName, $(this));
 });

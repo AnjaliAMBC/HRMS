@@ -13,6 +13,7 @@ namespace HRMS.Models
             public string Designation { get; set; }
             public DateTime JoiningDate { get; set; }
             public string imagePath { get; set; }
+            public emp_info EmpInfo { get; set; }
         }
         public class BirthdayModel
         {
@@ -22,6 +23,7 @@ namespace HRMS.Models
             public DateTime BirthDate { get; set; }
             public string imagePath { get; set; }
             public string EmpEmail { get; set; }
+            public emp_info EmpInfo { get; set; }
         }
         public class UpcomingHoliday
         {

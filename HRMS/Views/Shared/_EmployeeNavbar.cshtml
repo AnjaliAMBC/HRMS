@@ -1,0 +1,261 @@
+﻿@using HRMS.Helpers
+
+@{
+    var currentContext = Session["SiteContext"] as HRMS.Models.SiteContextModel;
+}
+
+@{
+    var notifications = new List<Notification>();
+    using (var dbContext = new HRMS_EntityFramework())
+    {
+        var todayDate = DateTime.Today;
+
+        notifications = dbContext.Notifications
+                                 .Where(x => x.NotificationToID == currentContext.EmpInfo.EmployeeID &&
+                                             x.NotificationDate.HasValue &&
+                                             x.NotificationDate.Value.Year == todayDate.Year &&
+                                             x.NotificationDate.Value.Month == todayDate.Month &&
+                                             x.NotificationDate.Value.Day == todayDate.Day &&
+                                             (x.Status != "Submitted" && x.Status != "Open"))
+                                 .ToList();
+    }
+}
+
+        '
+<style>
+
+    .navbar-nav .nav-item {
+        position: relative;
+    }
+
+    .sign-out {
+        text-decoration: underline;
+    }
+
+    .profile-image-container {
+        width: 45px;
+        height: 45px;
+        border-radius: 50%;
+        overflow: hidden;
+        margin-right: 10px;
+        cursor: pointer;
+    }
+
+        .profile-image-container img {
+            border-radius: 50%;
+            width: 45px;
+            height: 45px;
+            object-fit: cover;
+        }
+
+    .profile-dropdown {
+        display: none;
+        position: absolute;
+        top: 61px;
+        right: 25px;
+        width: 292px;
+        border: 1px solid rgb(83 108 135 / 50%);
+        background-color: white;
+        box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        border-radius: 5px;
+        padding: 20px;
+        text-align: center;
+        z-index: 1000;
+    }
+
+        .profile-dropdown h4 {
+            margin: 0 0 10px;
+        }
+
+        .profile-dropdown p {
+            margin: 5px 0;
+        }
+
+        .profile-dropdown .btn {
+            display: block;
+            width: 100%;
+            margin: 10px 0;
+        }
+
+    .header-notification {
+        margin: 12px 27px 0px 0px;
+        cursor: pointer;
+    }
+
+
+    .sign-out {
+        text-decoration: none;
+        font-size: 14px;
+    }
+</style>
+
+<nav class="navbar navbar-expand-md navbar-light bg-light fixed-top horizon-design" style="box-shadow: 0 0 5px 2px rgba(0, 0, 0, .3); height: 55px;">
+    <a class="navbar-brand" href="#"><img src="~/Assets/AMBC_Logo.png" alt="logo" class="logo-img" /></a>
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#left-side-menu" aria-controls="left-side-menu" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarNav">
+        <ul class="navbar-nav mr-auto nav-center-block">
+            <li class="nav-item active">
+                <a class="nav-link" href="/empDash/index">Dashboard <span class="sr-only">(current)</span></a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="/employeedashboard/selfservice">Employee</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="/EmpAttendance/Index">Attendance</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="/EmpLeave/Index">Leave</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="/EmpTicketing/Index">Ticketing</a>
+            </li>
+        </ul>
+        <ul class="navbar-nav ml-auto nav-right-block">
+            <li class="header-notification">
+                <span class="nav-notification" data-toggle="modal" data-target="#NotificationPopup"><img src="~/Assets/clarity_notification-line.png" alt="Notification" class="img-notification"><span class="notification-count">@notifications.Count()</span></span>
+            </li>
+            <li class="nav-item" id="navbar-profile">
+
+                <div class="profile-image-container" onclick="toggleDropdown()">
+                    @if (!string.IsNullOrWhiteSpace(currentContext.EmpInfo.imagepath))
+                    {
+                        var empImageURl = System.Configuration.ConfigurationManager.AppSettings["EmpImagesFolder"] + "/" + currentContext.EmpInfo.imagepath + "?" + System.DateTime.Now;
+                        <img src="@empImageURl" alt="Employee Image" class="profile img-fluid nav-image-profile">
+                    }
+                    else
+                    {
+                        string[] names = currentContext.EmpInfo.EmployeeName.Split(new char[] { ' ' }, StringSplitOptions.RemoveEmptyEntries);
+                        if (names.Length > 0)
+                        {
+                            string firstName = names[0];
+                            string lastName = names.Length > 1 ? names[names.Length - 1] : string.Empty;
+                            char firstLetterOfFirstName = char.ToUpper(firstName[0]);
+                            char firstLetterOfLastName = !string.IsNullOrEmpty(lastName) ? char.ToUpper(lastName[0]) : '\0';
+                            <div class="default-image-navbar">@firstLetterOfFirstName@firstLetterOfLastName</div>
+                            <img src="" alt="Employee Image" class="profile img-fluid nav-image-profile" style="display: none">
+                        }
+                    }
+                </div>
+            </li>
+        </ul>
+    </div>
+
+    <div id="profileDropdown" class="profile-dropdown">
+        <div class="profile-dropdown-info">
+            <h6 class="loggedinempname">@currentContext.EmpInfo.EmployeeName</h6>
+            <div class="loggedinempid">@currentContext.EmpInfo.EmployeeID</div>
+            <div class="loggedinempemail" style="display:none;">@currentContext.EmpInfo.OfficalEmailid</div>
+            <div class="loggedinemplocation" style="display:none;">@currentContext.EmpInfo.Location</div>
+        </div>
+        <div class="loginempisadmin" style="display: none">@currentContext.IsAdmin</div>
+        <div class="loginempissuperadmin" style="display: none">@currentContext.IsSuperAdmin</div>
+        <div class="loginempisitadmin" style="display: none">@currentContext.IsITAdmin</div>
+        @*<div class="loggedinempjoiningdate">@currentContext.EmpInfo.DOJ</div>*@
+        <p class="header-profile-email" style="color: #3E78CF; font-size:14px;">@currentContext.EmpInfo.OfficalEmailid</p>
+        <p class="header-profile-designation" style="color: #343a40;">@currentContext.EmpInfo.Designation</p>
+
+        @if (!currentContext.IsAdmin)
+        {
+            <button class="view-profile-btn btn" onclick="viewProfile()" style="width: 38%; background-color: #EEF4FF; margin-left: 74px; font-size: 12px; border: 1px solid #7E7E7E"><img src="~/Assets/ei_user.png" />My Profile</button>
+        }
+
+        <a href="#" class="sign-out" onclick="signOut()" style="color: #F8284A; display: flex; align-items: center; margin-left: 34%;">
+            <i class="fas fa-sign-out-alt" style="margin-right: 5px;"></i>Sign Out
+        </a>
+        <form id="logoutForm" action="@Url.Action("Logout", "Profile")" method="post">
+            @Html.AntiForgeryToken()
+        </form>
+    </div>
+
+</nav>
+
+<!-- Notification Modal -->
+<div class="modal right fade" id="NotificationPopup" tabindex="-1" role="dialog" aria-labelledby="NotificationPopup">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title" id="notification-header-title">Notification</h4>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><i class="fa fa-times-circle" aria-hidden="true"></i></button>
+            </div>
+            <div class="modal-body">
+                <div class="notification-list-blocks">
+
+                    @foreach (var notification in notifications)
+                    {
+                        var formattedDate = notification.NotificationDate?.ToString("dd MMMM h:mm tt") ?? "";
+                        <div class="notification-block">
+                            <div class="notification-block-left light-blue"><img src="/Assets/mail-icon.png"></div>
+                            <div class="notification-block-right">
+                                <div class="notification-block-info notification-info-title" title="@NotificationHelper.GetNotificationTitle(notification)">@NotificationHelper.GetNotificationTitle(notification)</div>
+                                <div class="notification-block-info notification-info-date">@formattedDate</div>
+                            </div>
+                        </div>
+                    }
+
+                    @*<div class="notification-block">
+                            <div class="notification-block-left light-gray"><img src="/Assets/mail-icon.png"></div>
+                            <div class="notification-block-right">
+                                <div class="notification-block-info notification-info-title" title="Test notification data notification data dummy">Test notification data</div>
+                                <div class="notification-block-info notification-info-date">09 October 9:20 AM</div>
+                            </div>
+                        </div>
+                        <div class="notification-block">
+                            <div class="notification-block-left light-green"><img src="/Assets/mail-icon.png"></div>
+                            <div class="notification-block-right">
+                                <div class="notification-block-info notification-info-title" title="Test notification data notification data dummy">Test notification data</div>
+                                <div class="notification-block-info notification-info-date">09 October 9:20 AM</div>
+                            </div>
+                        </div>
+                        <div class="notification-block">
+                            <div class="notification-block-left light-red"><img src="/Assets/mail-icon.png"></div>
+                            <div class="notification-block-right">
+                                <div class="notification-block-info notification-info-title" title="Test notification data notification data dummy">Test notification data</div>
+                                <div class="notification-block-info notification-info-date">09 October 9:20 AM</div>
+                            </div>
+                        </div>*@
+                </div>
+
+            </div>
+
+        </div>
+        <!-- modal-content -->
+    </div>
+    <!-- modal-dialog -->
+</div>
+<!--Notification  modal -->
+
+
+
+<script>
+    function toggleDropdown1() {
+        var dropdown = document.getElementById('profileDropdown');
+        dropdown.style.display = dropdown.style.display === 'block' ? 'none' : 'block';
+    }
+
+    function viewProfile() {
+        window.location.href = "/employeedashboard/selfservice";
+        return false;
+        //$('.emp-selfservice').click();
+    }
+
+    function signOut() {
+        document.getElementById('logoutForm').submit();
+    }
+
+    // Close the dropdown if clicked outside
+    window.onclick = function (event) {
+        if (!document.getElementById('navbar-profile').contains(event.target)) {
+            document.getElementById('profileDropdown').style.display = 'none';
+        }
+    }
+
+    // Using jQuery to handle the click event
+    $(document).ready(function () {
+        $('.profile-image-container').on('click', function () {
+            toggleDropdown1();
+        });
+    });
+</script>
+

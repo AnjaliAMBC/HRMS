@@ -27,6 +27,9 @@ namespace HRMS.Helpers
                 imagePath = e.imagepath,
                 years = today.Year - e.DOJ.Year,
                 EmpEmail = e.OfficalEmailid,
+                Empid = e.EmployeeID,
+                EmpInfo = e
+
             }).ToList();
 
             return anniversaries;
@@ -39,7 +42,9 @@ namespace HRMS.Helpers
                 EmpName = e.EmployeeName,
                 imagePath = e.imagepath,
                 Designation = e.Designation,
-                EmpEmail = e.OfficalEmailid
+                EmpEmail = e.OfficalEmailid,
+                Empid = e.EmployeeID,
+                EmpInfo = e
             }).ToList();
 
             return birthdays;
