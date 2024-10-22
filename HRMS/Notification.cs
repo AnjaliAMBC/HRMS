@@ -25,5 +25,9 @@ namespace HRMS
         public string Status { get; set; }
         public string Comments { get; set; }
         public Nullable<System.DateTime> CreatedDate { get; set; }
+        public string ReplyFrom { get; set; }
+        public string ReplyTo { get; set; }
+        public string ReplyComments { get; set; }
+        public Nullable<System.DateTime> Notification_replyDate { get; set; }
     }
 }
