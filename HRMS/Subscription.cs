@@ -15,12 +15,13 @@ namespace HRMS
     public partial class Subscription
     {
         public int SubscriptionID { get; set; }
+        public string SubscriptiionNumber { get; set; }
         public string SubscriptionName { get; set; }
         public string SubscriptionLogo { get; set; }
         public string Category { get; set; }
         public Nullable<System.DateTime> PurchaseDate { get; set; }
         public Nullable<System.DateTime> RenewalDate { get; set; }
-        public Nullable<decimal> Amount { get; set; }
+        public string Amount { get; set; }
         public string PaymentMethod { get; set; }
         public string Remarks { get; set; }
         public string SubscriptionStatus { get; set; }
@@ -32,7 +33,6 @@ namespace HRMS
         public string UpdatedBy { get; set; }
         public Nullable<System.DateTime> UpadtedDate { get; set; }
         public string SubscriptionStatusClass { get; set; }
-        public string SubscriptiionNumber { get; set; }
         public Nullable<bool> EmailSendBool { get; set; }
     }
 }

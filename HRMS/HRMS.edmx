@@ -338,6 +338,10 @@
           <Property Name="Status" Type="varchar" MaxLength="50" />
           <Property Name="Comments" Type="varchar" MaxLength="1000" />
           <Property Name="CreatedDate" Type="datetime" />
+          <Property Name="ReplyFrom" Type="varchar" MaxLength="255" />
+          <Property Name="ReplyTo" Type="varchar" MaxLength="255" />
+          <Property Name="ReplyComments" Type="varchar" MaxLength="1000" />
+          <Property Name="Notification replyDate" Type="datetime" />
         </EntityType>
         <EntityType Name="PurchaseRequest">
           <Key>
@@ -349,18 +353,18 @@
           <Property Name="RequiredOn" Type="date" />
           <Property Name="VendorID1" Type="int" Nullable="false" />
           <Property Name="VendorName1" Type="varchar" MaxLength="300" Nullable="false" />
-          <Property Name="VendorEmail1" Type="varchar" MaxLength="50" Nullable="false" />
-          <Property Name="QuotationPrice1" Type="decimal" Precision="18" Scale="2" Nullable="false" />
+          <Property Name="VendorEmail1" Type="varchar" MaxLength="100" Nullable="false" />
+          <Property Name="QuotationPrice1" Type="varchar" MaxLength="100" />
           <Property Name="AttachFile1" Type="varchar(max)" Nullable="false" />
           <Property Name="VendorID2" Type="int" />
           <Property Name="VendorName2" Type="varchar" MaxLength="300" />
-          <Property Name="VendorEmail2" Type="varchar" MaxLength="50" />
-          <Property Name="QuotationPrice2" Type="decimal" Precision="18" Scale="2" />
+          <Property Name="VendorEmail2" Type="varchar" MaxLength="100" />
+          <Property Name="QuotationPrice2" Type="varchar" MaxLength="100" />
           <Property Name="AttachFile2" Type="varchar(max)" />
           <Property Name="VendorID3" Type="int" />
           <Property Name="VendorName3" Type="varchar" MaxLength="300" />
-          <Property Name="VendorEmail3" Type="varchar" MaxLength="50" />
-          <Property Name="QuotationPrice3" Type="decimal" Precision="18" Scale="2" />
+          <Property Name="VendorEmail3" Type="varchar" MaxLength="100" />
+          <Property Name="QuotationPrice3" Type="varchar" MaxLength="100" />
           <Property Name="AttachFile3" Type="varchar(max)" />
           <Property Name="Status" Type="varchar" MaxLength="50" />
           <Property Name="ApprovedBy" Type="varchar" MaxLength="100" />
@@ -399,7 +403,7 @@
           <Property Name="Category" Type="varchar" MaxLength="50" />
           <Property Name="PurchaseDate" Type="datetime" />
           <Property Name="RenewalDate" Type="datetime" />
-          <Property Name="Amount" Type="decimal" Precision="18" Scale="2" />
+          <Property Name="Amount" Type="varchar" MaxLength="100" />
           <Property Name="PaymentMethod" Type="varchar" MaxLength="100" />
           <Property Name="Remarks" Type="varchar(max)" />
           <Property Name="SubscriptionStatus" Type="varchar" MaxLength="100" />
@@ -425,7 +429,7 @@
           <Property Name="Category" Type="varchar" MaxLength="50" />
           <Property Name="PurchaseDate" Type="datetime" />
           <Property Name="RenewalDate" Type="datetime" />
-          <Property Name="Amount" Type="decimal" Precision="18" Scale="2" />
+          <Property Name="Amount" Type="varchar" MaxLength="100" />
           <Property Name="PaymentMethod" Type="varchar" MaxLength="100" />
           <Property Name="Remarks" Type="varchar(max)" />
           <Property Name="SubscriptionStatus" Type="varchar" MaxLength="100" />
@@ -602,13 +606,13 @@ warning 6002: The table/view 'HRMS_PortalDev1.dbo.CheckInView' does not have a p
           <EntitySet Name="ReminderLogs" EntityType="HRMS_EntityModel.ReminderLog" />
           <EntitySet Name="VendorLists" EntityType="HRMS_EntityModel.VendorList" />
           <EntitySet Name="VendorTypes" EntityType="HRMS_EntityModel.VendorType" />
-          <EntitySet Name="PurchaseRequests" EntityType="HRMS_EntityModel.PurchaseRequest" />
-          <EntitySet Name="Subscriptions" EntityType="HRMS_EntityModel.Subscription" />
-          <EntitySet Name="SubscriptionHistories" EntityType="HRMS_EntityModel.SubscriptionHistory" />
           <EntitySet Name="Assets" EntityType="HRMS_EntityModel.Asset" />
           <EntitySet Name="AssetTransfer_" EntityType="HRMS_EntityModel.AssetTransfer_" />
           <EntitySet Name="IT_Maintenance" EntityType="HRMS_EntityModel.IT_Maintenance" />
           <EntitySet Name="Notifications" EntityType="HRMS_EntityModel.Notification" />
+          <EntitySet Name="PurchaseRequests" EntityType="HRMS_EntityModel.PurchaseRequest" />
+          <EntitySet Name="Subscriptions" EntityType="HRMS_EntityModel.Subscription" />
+          <EntitySet Name="SubscriptionHistories" EntityType="HRMS_EntityModel.SubscriptionHistory" />
         </EntityContainer>
         <EntityType Name="Client">
           <Key>
@@ -907,94 +911,6 @@ warning 6002: The table/view 'HRMS_PortalDev1.dbo.CheckInView' does not have a p
           <Property Name="Sno" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="VendorType1" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
         </EntityType>
-        <EntityType Name="PurchaseRequest">
-          <Key>
-            <PropertyRef Name="PurchaseRequestID" />
-          </Key>
-          <Property Name="PurchaseRequestID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="AssetType" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
-          <Property Name="RequestedBy" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
-          <Property Name="RequiredOn" Type="DateTime" Precision="0" />
-          <Property Name="VendorID1" Type="Int32" Nullable="false" />
-          <Property Name="VendorName1" Type="String" Nullable="false" MaxLength="300" FixedLength="false" Unicode="false" />
-          <Property Name="VendorEmail1" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
-          <Property Name="QuotationPrice1" Type="Decimal" Nullable="false" Precision="18" Scale="2" />
-          <Property Name="AttachFile1" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="false" />
-          <Property Name="VendorID2" Type="Int32" />
-          <Property Name="VendorName2" Type="String" MaxLength="300" FixedLength="false" Unicode="false" />
-          <Property Name="VendorEmail2" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
-          <Property Name="QuotationPrice2" Type="Decimal" Precision="18" Scale="2" />
-          <Property Name="AttachFile2" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
-          <Property Name="VendorID3" Type="Int32" />
-          <Property Name="VendorName3" Type="String" MaxLength="300" FixedLength="false" Unicode="false" />
-          <Property Name="VendorEmail3" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
-          <Property Name="QuotationPrice3" Type="Decimal" Precision="18" Scale="2" />
-          <Property Name="AttachFile3" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
-          <Property Name="Status" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
-          <Property Name="ApprovedBy" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
-          <Property Name="ApprovedDate" Type="DateTime" Precision="3" />
-          <Property Name="RejectedBy" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
-          <Property Name="RejectedDate" Type="DateTime" Precision="3" />
-          <Property Name="PO" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
-          <Property Name="TaxInvoice" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
-          <Property Name="CreatedBy" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
-          <Property Name="CreatedDate" Type="DateTime" Precision="3" />
-          <Property Name="UpdatedBy" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
-          <Property Name="UpdatedDate" Type="DateTime" Precision="3" />
-          <Property Name="PRNumber" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
-          <Property Name="Vendor1Status" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
-          <Property Name="Vendor2Status" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
-          <Property Name="Vendor3Status" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
-          <Property Name="FinalStatus" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
-        </EntityType>
-        <EntityType Name="Subscription">
-          <Key>
-            <PropertyRef Name="SubscriptionID" />
-          </Key>
-          <Property Name="SubscriptionID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="SubscriptionName" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
-          <Property Name="SubscriptionLogo" Type="String" MaxLength="1000" FixedLength="false" Unicode="false" />
-          <Property Name="Category" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
-          <Property Name="PurchaseDate" Type="DateTime" Precision="3" />
-          <Property Name="RenewalDate" Type="DateTime" Precision="3" />
-          <Property Name="Amount" Type="Decimal" Precision="18" Scale="2" />
-          <Property Name="PaymentMethod" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
-          <Property Name="Remarks" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
-          <Property Name="SubscriptionStatus" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
-          <Property Name="CreatedBy" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
-          <Property Name="CreatedDate" Type="DateTime" Precision="3" />
-          <Property Name="License" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
-          <Property Name="SubscriptionFrequency" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
-          <Property Name="DaysUntilRenewal" Type="Int32" />
-          <Property Name="UpdatedBy" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
-          <Property Name="UpadtedDate" Type="DateTime" Precision="3" />
-          <Property Name="SubscriptionStatusClass" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
-          <Property Name="SubscriptiionNumber" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
-          <Property Name="EmailSendBool" Type="Boolean" />
-        </EntityType>
-        <EntityType Name="SubscriptionHistory">
-          <Key>
-            <PropertyRef Name="HistoryID" />
-          </Key>
-          <Property Name="HistoryID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="SubscriptionID" Type="Int32" Nullable="false" />
-          <Property Name="SubscriptionName" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
-          <Property Name="SubscriptionLogo" Type="String" MaxLength="1000" FixedLength="false" Unicode="false" />
-          <Property Name="Category" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
-          <Property Name="PurchaseDate" Type="DateTime" Precision="3" />
-          <Property Name="RenewalDate" Type="DateTime" Precision="3" />
-          <Property Name="Amount" Type="Decimal" Precision="18" Scale="2" />
-          <Property Name="PaymentMethod" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
-          <Property Name="Remarks" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
-          <Property Name="SubscriptionStatus" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
-          <Property Name="CreatedBy" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
-          <Property Name="CreatedDate" Type="DateTime" Precision="3" />
-          <Property Name="License" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
-          <Property Name="UpdatedBy" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
-          <Property Name="UpadtedDate" Type="DateTime" Precision="3" />
-          <Property Name="SubscriptiionNumber" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
-          <Property Name="RecordeupdatedDate" Type="DateTime" Precision="3" />
-        </EntityType>
         <EntityType Name="Asset">
           <Key>
             <PropertyRef Name="SNo" />
@@ -1101,6 +1017,98 @@ warning 6002: The table/view 'HRMS_PortalDev1.dbo.CheckInView' does not have a p
           <Property Name="Status" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
           <Property Name="Comments" Type="String" MaxLength="1000" FixedLength="false" Unicode="false" />
           <Property Name="CreatedDate" Type="DateTime" Precision="3" />
+          <Property Name="ReplyFrom" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+          <Property Name="ReplyTo" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+          <Property Name="ReplyComments" Type="String" MaxLength="1000" FixedLength="false" Unicode="false" />
+          <Property Name="Notification_replyDate" Type="DateTime" Precision="3" />
+        </EntityType>
+        <EntityType Name="PurchaseRequest">
+          <Key>
+            <PropertyRef Name="PurchaseRequestID" />
+          </Key>
+          <Property Name="PurchaseRequestID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="AssetType" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="RequestedBy" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="RequiredOn" Type="DateTime" Precision="0" />
+          <Property Name="VendorID1" Type="Int32" Nullable="false" />
+          <Property Name="VendorName1" Type="String" Nullable="false" MaxLength="300" FixedLength="false" Unicode="false" />
+          <Property Name="VendorEmail1" Type="String" Nullable="false" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="QuotationPrice1" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="AttachFile1" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="VendorID2" Type="Int32" />
+          <Property Name="VendorName2" Type="String" MaxLength="300" FixedLength="false" Unicode="false" />
+          <Property Name="VendorEmail2" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="QuotationPrice2" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="AttachFile2" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="VendorID3" Type="Int32" />
+          <Property Name="VendorName3" Type="String" MaxLength="300" FixedLength="false" Unicode="false" />
+          <Property Name="VendorEmail3" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="QuotationPrice3" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="AttachFile3" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="Status" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="ApprovedBy" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="ApprovedDate" Type="DateTime" Precision="3" />
+          <Property Name="RejectedBy" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="RejectedDate" Type="DateTime" Precision="3" />
+          <Property Name="PO" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="TaxInvoice" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="CreatedBy" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="CreatedDate" Type="DateTime" Precision="3" />
+          <Property Name="UpdatedBy" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="UpdatedDate" Type="DateTime" Precision="3" />
+          <Property Name="PRNumber" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="Vendor1Status" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="Vendor2Status" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="Vendor3Status" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="FinalStatus" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+        </EntityType>
+        <EntityType Name="Subscription">
+          <Key>
+            <PropertyRef Name="SubscriptionID" />
+          </Key>
+          <Property Name="SubscriptionID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="SubscriptiionNumber" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+          <Property Name="SubscriptionName" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+          <Property Name="SubscriptionLogo" Type="String" MaxLength="1000" FixedLength="false" Unicode="false" />
+          <Property Name="Category" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="PurchaseDate" Type="DateTime" Precision="3" />
+          <Property Name="RenewalDate" Type="DateTime" Precision="3" />
+          <Property Name="Amount" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="PaymentMethod" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="Remarks" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="SubscriptionStatus" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="CreatedBy" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+          <Property Name="CreatedDate" Type="DateTime" Precision="3" />
+          <Property Name="License" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="SubscriptionFrequency" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="DaysUntilRenewal" Type="Int32" />
+          <Property Name="UpdatedBy" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+          <Property Name="UpadtedDate" Type="DateTime" Precision="3" />
+          <Property Name="SubscriptionStatusClass" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+          <Property Name="EmailSendBool" Type="Boolean" />
+        </EntityType>
+        <EntityType Name="SubscriptionHistory">
+          <Key>
+            <PropertyRef Name="HistoryID" />
+          </Key>
+          <Property Name="HistoryID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="SubscriptionID" Type="Int32" Nullable="false" />
+          <Property Name="SubscriptiionNumber" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+          <Property Name="SubscriptionName" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+          <Property Name="SubscriptionLogo" Type="String" MaxLength="1000" FixedLength="false" Unicode="false" />
+          <Property Name="Category" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="PurchaseDate" Type="DateTime" Precision="3" />
+          <Property Name="RenewalDate" Type="DateTime" Precision="3" />
+          <Property Name="Amount" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="PaymentMethod" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="Remarks" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="SubscriptionStatus" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="CreatedBy" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+          <Property Name="CreatedDate" Type="DateTime" Precision="3" />
+          <Property Name="License" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="UpdatedBy" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+          <Property Name="UpadtedDate" Type="DateTime" Precision="3" />
+          <Property Name="RecordeupdatedDate" Type="DateTime" Precision="3" />
         </EntityType>
       </Schema>
     </edmx:ConceptualModels>
@@ -1435,97 +1443,6 @@ warning 6002: The table/view 'HRMS_PortalDev1.dbo.CheckInView' does not have a p
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
-          <EntitySetMapping Name="PurchaseRequests">
-            <EntityTypeMapping TypeName="HRMS_EntityModel.PurchaseRequest">
-              <MappingFragment StoreEntitySet="PurchaseRequest">
-                <ScalarProperty Name="FinalStatus" ColumnName="FinalStatus" />
-                <ScalarProperty Name="Vendor3Status" ColumnName="Vendor3Status" />
-                <ScalarProperty Name="Vendor2Status" ColumnName="Vendor2Status" />
-                <ScalarProperty Name="Vendor1Status" ColumnName="Vendor1Status" />
-                <ScalarProperty Name="PRNumber" ColumnName="PRNumber" />
-                <ScalarProperty Name="UpdatedDate" ColumnName="UpdatedDate" />
-                <ScalarProperty Name="UpdatedBy" ColumnName="UpdatedBy" />
-                <ScalarProperty Name="CreatedDate" ColumnName="CreatedDate" />
-                <ScalarProperty Name="CreatedBy" ColumnName="CreatedBy" />
-                <ScalarProperty Name="TaxInvoice" ColumnName="TaxInvoice" />
-                <ScalarProperty Name="PO" ColumnName="PO" />
-                <ScalarProperty Name="RejectedDate" ColumnName="RejectedDate" />
-                <ScalarProperty Name="RejectedBy" ColumnName="RejectedBy" />
-                <ScalarProperty Name="ApprovedDate" ColumnName="ApprovedDate" />
-                <ScalarProperty Name="ApprovedBy" ColumnName="ApprovedBy" />
-                <ScalarProperty Name="Status" ColumnName="Status" />
-                <ScalarProperty Name="AttachFile3" ColumnName="AttachFile3" />
-                <ScalarProperty Name="QuotationPrice3" ColumnName="QuotationPrice3" />
-                <ScalarProperty Name="VendorEmail3" ColumnName="VendorEmail3" />
-                <ScalarProperty Name="VendorName3" ColumnName="VendorName3" />
-                <ScalarProperty Name="VendorID3" ColumnName="VendorID3" />
-                <ScalarProperty Name="AttachFile2" ColumnName="AttachFile2" />
-                <ScalarProperty Name="QuotationPrice2" ColumnName="QuotationPrice2" />
-                <ScalarProperty Name="VendorEmail2" ColumnName="VendorEmail2" />
-                <ScalarProperty Name="VendorName2" ColumnName="VendorName2" />
-                <ScalarProperty Name="VendorID2" ColumnName="VendorID2" />
-                <ScalarProperty Name="AttachFile1" ColumnName="AttachFile1" />
-                <ScalarProperty Name="QuotationPrice1" ColumnName="QuotationPrice1" />
-                <ScalarProperty Name="VendorEmail1" ColumnName="VendorEmail1" />
-                <ScalarProperty Name="VendorName1" ColumnName="VendorName1" />
-                <ScalarProperty Name="VendorID1" ColumnName="VendorID1" />
-                <ScalarProperty Name="RequiredOn" ColumnName="RequiredOn" />
-                <ScalarProperty Name="RequestedBy" ColumnName="RequestedBy" />
-                <ScalarProperty Name="AssetType" ColumnName="AssetType" />
-                <ScalarProperty Name="PurchaseRequestID" ColumnName="PurchaseRequestID" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="Subscriptions">
-            <EntityTypeMapping TypeName="HRMS_EntityModel.Subscription">
-              <MappingFragment StoreEntitySet="Subscription">
-                <ScalarProperty Name="EmailSendBool" ColumnName="EmailSendBool" />
-                <ScalarProperty Name="SubscriptiionNumber" ColumnName="SubscriptiionNumber" />
-                <ScalarProperty Name="SubscriptionStatusClass" ColumnName="SubscriptionStatusClass" />
-                <ScalarProperty Name="UpadtedDate" ColumnName="UpadtedDate" />
-                <ScalarProperty Name="UpdatedBy" ColumnName="UpdatedBy" />
-                <ScalarProperty Name="DaysUntilRenewal" ColumnName="DaysUntilRenewal" />
-                <ScalarProperty Name="SubscriptionFrequency" ColumnName="SubscriptionFrequency" />
-                <ScalarProperty Name="License" ColumnName="License" />
-                <ScalarProperty Name="CreatedDate" ColumnName="CreatedDate" />
-                <ScalarProperty Name="CreatedBy" ColumnName="CreatedBy" />
-                <ScalarProperty Name="SubscriptionStatus" ColumnName="SubscriptionStatus" />
-                <ScalarProperty Name="Remarks" ColumnName="Remarks" />
-                <ScalarProperty Name="PaymentMethod" ColumnName="PaymentMethod" />
-                <ScalarProperty Name="Amount" ColumnName="Amount" />
-                <ScalarProperty Name="RenewalDate" ColumnName="RenewalDate" />
-                <ScalarProperty Name="PurchaseDate" ColumnName="PurchaseDate" />
-                <ScalarProperty Name="Category" ColumnName="Category" />
-                <ScalarProperty Name="SubscriptionLogo" ColumnName="SubscriptionLogo" />
-                <ScalarProperty Name="SubscriptionName" ColumnName="SubscriptionName" />
-                <ScalarProperty Name="SubscriptionID" ColumnName="SubscriptionID" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="SubscriptionHistories">
-            <EntityTypeMapping TypeName="HRMS_EntityModel.SubscriptionHistory">
-              <MappingFragment StoreEntitySet="SubscriptionHistory">
-                <ScalarProperty Name="RecordeupdatedDate" ColumnName="RecordeupdatedDate" />
-                <ScalarProperty Name="SubscriptiionNumber" ColumnName="SubscriptiionNumber" />
-                <ScalarProperty Name="UpadtedDate" ColumnName="UpadtedDate" />
-                <ScalarProperty Name="UpdatedBy" ColumnName="UpdatedBy" />
-                <ScalarProperty Name="License" ColumnName="License" />
-                <ScalarProperty Name="CreatedDate" ColumnName="CreatedDate" />
-                <ScalarProperty Name="CreatedBy" ColumnName="CreatedBy" />
-                <ScalarProperty Name="SubscriptionStatus" ColumnName="SubscriptionStatus" />
-                <ScalarProperty Name="Remarks" ColumnName="Remarks" />
-                <ScalarProperty Name="PaymentMethod" ColumnName="PaymentMethod" />
-                <ScalarProperty Name="Amount" ColumnName="Amount" />
-                <ScalarProperty Name="RenewalDate" ColumnName="RenewalDate" />
-                <ScalarProperty Name="PurchaseDate" ColumnName="PurchaseDate" />
-                <ScalarProperty Name="Category" ColumnName="Category" />
-                <ScalarProperty Name="SubscriptionLogo" ColumnName="SubscriptionLogo" />
-                <ScalarProperty Name="SubscriptionName" ColumnName="SubscriptionName" />
-                <ScalarProperty Name="SubscriptionID" ColumnName="SubscriptionID" />
-                <ScalarProperty Name="HistoryID" ColumnName="HistoryID" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
           <EntitySetMapping Name="Assets">
             <EntityTypeMapping TypeName="HRMS_EntityModel.Asset">
               <MappingFragment StoreEntitySet="Assets">
@@ -1623,6 +1540,10 @@ warning 6002: The table/view 'HRMS_PortalDev1.dbo.CheckInView' does not have a p
           <EntitySetMapping Name="Notifications">
             <EntityTypeMapping TypeName="HRMS_EntityModel.Notification">
               <MappingFragment StoreEntitySet="Notifications">
+                <ScalarProperty Name="Notification_replyDate" ColumnName="Notification replyDate" />
+                <ScalarProperty Name="ReplyComments" ColumnName="ReplyComments" />
+                <ScalarProperty Name="ReplyTo" ColumnName="ReplyTo" />
+                <ScalarProperty Name="ReplyFrom" ColumnName="ReplyFrom" />
                 <ScalarProperty Name="CreatedDate" ColumnName="CreatedDate" />
                 <ScalarProperty Name="Comments" ColumnName="Comments" />
                 <ScalarProperty Name="Status" ColumnName="Status" />
@@ -1634,6 +1555,97 @@ warning 6002: The table/view 'HRMS_PortalDev1.dbo.CheckInView' does not have a p
                 <ScalarProperty Name="NotificationFromName" ColumnName="NotificationFromName" />
                 <ScalarProperty Name="NotificationDate" ColumnName="NotificationDate" />
                 <ScalarProperty Name="SNo" ColumnName="SNo" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="PurchaseRequests">
+            <EntityTypeMapping TypeName="HRMS_EntityModel.PurchaseRequest">
+              <MappingFragment StoreEntitySet="PurchaseRequest">
+                <ScalarProperty Name="FinalStatus" ColumnName="FinalStatus" />
+                <ScalarProperty Name="Vendor3Status" ColumnName="Vendor3Status" />
+                <ScalarProperty Name="Vendor2Status" ColumnName="Vendor2Status" />
+                <ScalarProperty Name="Vendor1Status" ColumnName="Vendor1Status" />
+                <ScalarProperty Name="PRNumber" ColumnName="PRNumber" />
+                <ScalarProperty Name="UpdatedDate" ColumnName="UpdatedDate" />
+                <ScalarProperty Name="UpdatedBy" ColumnName="UpdatedBy" />
+                <ScalarProperty Name="CreatedDate" ColumnName="CreatedDate" />
+                <ScalarProperty Name="CreatedBy" ColumnName="CreatedBy" />
+                <ScalarProperty Name="TaxInvoice" ColumnName="TaxInvoice" />
+                <ScalarProperty Name="PO" ColumnName="PO" />
+                <ScalarProperty Name="RejectedDate" ColumnName="RejectedDate" />
+                <ScalarProperty Name="RejectedBy" ColumnName="RejectedBy" />
+                <ScalarProperty Name="ApprovedDate" ColumnName="ApprovedDate" />
+                <ScalarProperty Name="ApprovedBy" ColumnName="ApprovedBy" />
+                <ScalarProperty Name="Status" ColumnName="Status" />
+                <ScalarProperty Name="AttachFile3" ColumnName="AttachFile3" />
+                <ScalarProperty Name="QuotationPrice3" ColumnName="QuotationPrice3" />
+                <ScalarProperty Name="VendorEmail3" ColumnName="VendorEmail3" />
+                <ScalarProperty Name="VendorName3" ColumnName="VendorName3" />
+                <ScalarProperty Name="VendorID3" ColumnName="VendorID3" />
+                <ScalarProperty Name="AttachFile2" ColumnName="AttachFile2" />
+                <ScalarProperty Name="QuotationPrice2" ColumnName="QuotationPrice2" />
+                <ScalarProperty Name="VendorEmail2" ColumnName="VendorEmail2" />
+                <ScalarProperty Name="VendorName2" ColumnName="VendorName2" />
+                <ScalarProperty Name="VendorID2" ColumnName="VendorID2" />
+                <ScalarProperty Name="AttachFile1" ColumnName="AttachFile1" />
+                <ScalarProperty Name="QuotationPrice1" ColumnName="QuotationPrice1" />
+                <ScalarProperty Name="VendorEmail1" ColumnName="VendorEmail1" />
+                <ScalarProperty Name="VendorName1" ColumnName="VendorName1" />
+                <ScalarProperty Name="VendorID1" ColumnName="VendorID1" />
+                <ScalarProperty Name="RequiredOn" ColumnName="RequiredOn" />
+                <ScalarProperty Name="RequestedBy" ColumnName="RequestedBy" />
+                <ScalarProperty Name="AssetType" ColumnName="AssetType" />
+                <ScalarProperty Name="PurchaseRequestID" ColumnName="PurchaseRequestID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Subscriptions">
+            <EntityTypeMapping TypeName="HRMS_EntityModel.Subscription">
+              <MappingFragment StoreEntitySet="Subscription">
+                <ScalarProperty Name="EmailSendBool" ColumnName="EmailSendBool" />
+                <ScalarProperty Name="SubscriptionStatusClass" ColumnName="SubscriptionStatusClass" />
+                <ScalarProperty Name="UpadtedDate" ColumnName="UpadtedDate" />
+                <ScalarProperty Name="UpdatedBy" ColumnName="UpdatedBy" />
+                <ScalarProperty Name="DaysUntilRenewal" ColumnName="DaysUntilRenewal" />
+                <ScalarProperty Name="SubscriptionFrequency" ColumnName="SubscriptionFrequency" />
+                <ScalarProperty Name="License" ColumnName="License" />
+                <ScalarProperty Name="CreatedDate" ColumnName="CreatedDate" />
+                <ScalarProperty Name="CreatedBy" ColumnName="CreatedBy" />
+                <ScalarProperty Name="SubscriptionStatus" ColumnName="SubscriptionStatus" />
+                <ScalarProperty Name="Remarks" ColumnName="Remarks" />
+                <ScalarProperty Name="PaymentMethod" ColumnName="PaymentMethod" />
+                <ScalarProperty Name="Amount" ColumnName="Amount" />
+                <ScalarProperty Name="RenewalDate" ColumnName="RenewalDate" />
+                <ScalarProperty Name="PurchaseDate" ColumnName="PurchaseDate" />
+                <ScalarProperty Name="Category" ColumnName="Category" />
+                <ScalarProperty Name="SubscriptionLogo" ColumnName="SubscriptionLogo" />
+                <ScalarProperty Name="SubscriptionName" ColumnName="SubscriptionName" />
+                <ScalarProperty Name="SubscriptiionNumber" ColumnName="SubscriptiionNumber" />
+                <ScalarProperty Name="SubscriptionID" ColumnName="SubscriptionID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="SubscriptionHistories">
+            <EntityTypeMapping TypeName="HRMS_EntityModel.SubscriptionHistory">
+              <MappingFragment StoreEntitySet="SubscriptionHistory">
+                <ScalarProperty Name="RecordeupdatedDate" ColumnName="RecordeupdatedDate" />
+                <ScalarProperty Name="UpadtedDate" ColumnName="UpadtedDate" />
+                <ScalarProperty Name="UpdatedBy" ColumnName="UpdatedBy" />
+                <ScalarProperty Name="License" ColumnName="License" />
+                <ScalarProperty Name="CreatedDate" ColumnName="CreatedDate" />
+                <ScalarProperty Name="CreatedBy" ColumnName="CreatedBy" />
+                <ScalarProperty Name="SubscriptionStatus" ColumnName="SubscriptionStatus" />
+                <ScalarProperty Name="Remarks" ColumnName="Remarks" />
+                <ScalarProperty Name="PaymentMethod" ColumnName="PaymentMethod" />
+                <ScalarProperty Name="Amount" ColumnName="Amount" />
+                <ScalarProperty Name="RenewalDate" ColumnName="RenewalDate" />
+                <ScalarProperty Name="PurchaseDate" ColumnName="PurchaseDate" />
+                <ScalarProperty Name="Category" ColumnName="Category" />
+                <ScalarProperty Name="SubscriptionLogo" ColumnName="SubscriptionLogo" />
+                <ScalarProperty Name="SubscriptionName" ColumnName="SubscriptionName" />
+                <ScalarProperty Name="SubscriptiionNumber" ColumnName="SubscriptiionNumber" />
+                <ScalarProperty Name="SubscriptionID" ColumnName="SubscriptionID" />
+                <ScalarProperty Name="HistoryID" ColumnName="HistoryID" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
