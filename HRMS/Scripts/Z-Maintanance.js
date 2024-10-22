@@ -326,6 +326,12 @@ $(document).on('click', '#exportmaintenancehistory', function () {
     });
 });
 
+$(document).on('click', '.refresh-scheduletablelist', function () {
+    window.location.href = "/maintanance/maintananceInfo";
+    return false;
+});
+
+
 
 
 

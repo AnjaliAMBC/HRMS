@@ -38,7 +38,10 @@ namespace HRMS.Controllers
             if (Session["SiteContext"] != null)
             {
                 var siteContext = Session["SiteContext"] as SiteContextModel;
-                model.EmpInfo = siteContext.EmpInfo;
+                var employeeid = siteContext.EmpInfo.EmployeeID;
+                model.empAsset = _dbContext.Assets.Where(x => x.AllocatedEmployeeID == employeeid).FirstOrDefault();               
+                model.empMaintanance = _dbContext.IT_Maintenance.Where(x=>x.EmployeeID==employeeid).ToList();
+                model.EmpInfo = siteContext.EmpInfo;                
                 model.LoginInfo = siteContext.LoginInfo;
                 return View("~/Views/EmployeeDashboard/SelfService.cshtml", model);
             }
@@ -127,6 +130,9 @@ namespace HRMS.Controllers
                 return Json(model, JsonRequestBehavior.AllowGet);
             }
         }
-
+        public ActionResult MaintananceAck()
+        {
+            return View("/Views/EmployeeDashboard/EmpMaintananceAcknowledge.cshtml");
+        }
     }
 }

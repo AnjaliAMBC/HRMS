@@ -206,11 +206,14 @@ namespace HRMS.Controllers
                 {
                     for (int i = 0; i < employeeIDs.Length; i++)
                     {
+                        var empID = employeeIDs[i];
+                        var employee = _dbContext.emp_info.Where(x => x.EmployeeID == empID).FirstOrDefault();
+
                         var maintenance = new IT_Maintenance
                         {
-                            EmployeeID = employeeIDs[i],
-                            EmployeeName = employeeNames[i],
-                            EmailId = employeeEmails[i],
+                            EmployeeID = employee.EmployeeID,
+                            EmployeeName = employee.EmployeeName,
+                            EmailId = employee.OfficalEmailid,
                             Location = location,
                             AgentID = agentID,
                             AgentName = agentName,
