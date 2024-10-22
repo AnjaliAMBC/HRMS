@@ -72,10 +72,26 @@ namespace HRMS.Controllers
                 var subscriptionName = Request.Form["SubscriptionName"];
                 HttpPostedFileBase file = Request.Files["SubscriptionLogo"];
                 var category = Request.Form["SubscriptionCategory"];
-                var purchaseDate = Convert.ToDateTime(Request.Form["SubscriptionPurchasedate"]);
-                var renewalDate = DateTime.Parse(Request.Form["SubscriptionRenewaldate"]);
-                var license = Request.Form["SubscriptionLicense"];
-                var amount = !string.IsNullOrWhiteSpace(Request.Form["SubscriptionAmount"]) ? System.Convert.ToDecimal(Request.Form["SubscriptionAmount"]) : 0;
+                DateTime purchaseDate;
+                if (!DateTime.TryParse(Request.Form["SubscriptionPurchasedate"], out purchaseDate))
+                {
+                    return Json(new { success = false, message = "Invalid purchase date." });
+                }
+
+                DateTime? renewalDate = null; // Nullable DateTime
+                if (!string.IsNullOrWhiteSpace(Request.Form["SubscriptionRenewaldate"]))
+                {
+                    DateTime parsedRenewalDate;
+                    if (!DateTime.TryParse(Request.Form["SubscriptionRenewaldate"], out parsedRenewalDate))
+                    {
+                        return Json(new { success = false, message = "Invalid renewal date." });
+                    }
+                    renewalDate = parsedRenewalDate;
+                }
+
+                var license = Request.Form["SubscriptionLicense"];           
+                string amount = !string.IsNullOrWhiteSpace(Request.Form["SubscriptionAmount"]) ? Request.Form["SubscriptionAmount"].Trim() // Keep as string
+    : string.Empty;
                 var paymentMethod = Request.Form["SubscriptionPaymentMethod"];
                 var remarks = Request.Form["SubscriptionRemarks"];
                 var createdBy = Request.Form["SubscriptionAddedBy"];
@@ -199,40 +215,48 @@ namespace HRMS.Controllers
 
             foreach (var subscription in subscriptions)
             {
-                var daysUntilRenewal = (subscription.RenewalDate.HasValue)
-                    ? (subscription.RenewalDate.Value - DateTime.Now).Days
-                    : 0;
-
-                subscription.DaysUntilRenewal = daysUntilRenewal;
-
-                if (daysUntilRenewal < 0)
+                if (!subscription.RenewalDate.HasValue) // No renewal date case
                 {
-                    subscription.SubscriptionStatus = "Expired";
-                    subscription.SubscriptionStatusClass = "subscriptioninfo-list-expired";
+                    subscription.SubscriptionStatus = "No Expiration";
+                    subscription.SubscriptionStatusClass = "subscriptioninfo-list-no-expiration"; // Add a class if needed
                 }
-                else if (daysUntilRenewal <= 30)
+                else
                 {
-                    subscription.SubscriptionStatus = $"Due in {daysUntilRenewal} Days";
-                    subscription.SubscriptionStatusClass = "subscriptioninfo-list-due";
+                    // If renewal date exists, calculate the days until renewal
+                    var daysUntilRenewal = (subscription.RenewalDate.Value - DateTime.Now).Days;
+                    subscription.DaysUntilRenewal = daysUntilRenewal;
 
-
-                    if (daysUntilRenewal <= 15 && (subscription.EmailSendBool == false))
+                    if (daysUntilRenewal < 0)
                     {
-                        var emailBody = RenderPartialToString(this, "_SubscriptionReminderEmail", subscription, ViewData, TempData);
+                        // Expired case
+                        subscription.SubscriptionStatus = "Expired";
+                        subscription.SubscriptionStatusClass = "subscriptioninfo-list-expired";
+                    }
+                    else if (daysUntilRenewal <= 30)
+                    {
+                        // Due soon case
+                        subscription.SubscriptionStatus = $"Due in {daysUntilRenewal} Days";
+                        subscription.SubscriptionStatusClass = "subscriptioninfo-list-due";
 
-                        var emailRequest = new EmailRequest()
+                        // If it's due in 15 or fewer days and no email has been sent
+                        if (daysUntilRenewal <= 15 && !(subscription.EmailSendBool ?? false)) // Handle nullable bool
                         {
-                            Body = emailBody,
-                            ToEmail = ConfigurationManager.AppSettings["SubscriptionEmailsTo"],
-                            Subject = "Subscription Renewal Reminder of " + subscription.SubscriptionName + " ",
-                        };
+                            var emailBody = RenderPartialToString(this, "_SubscriptionReminderEmail", subscription, ViewData, TempData);
 
-                        EMailHelper.SendEmail(emailRequest);
+                            var emailRequest = new EmailRequest()
+                            {
+                                Body = emailBody,
+                                ToEmail = ConfigurationManager.AppSettings["SubscriptionEmailsTo"],
+                                Subject = "Subscription Renewal Reminder of " + subscription.SubscriptionName,
+                            };
 
-                        subscription.EmailSendBool = true;
+                            EMailHelper.SendEmail(emailRequest);
 
-                        _dbContext.Entry(subscription).State = EntityState.Modified;
-                        _dbContext.SaveChanges();
+                            subscription.EmailSendBool = true;
+
+                            _dbContext.Entry(subscription).State = EntityState.Modified;
+                            _dbContext.SaveChanges();
+                        }
                     }
                 }
             }
@@ -241,6 +265,7 @@ namespace HRMS.Controllers
 
             return View("~/Views/Itsupport/SubscriptionInfo.cshtml", model);
         }
+
 
         public ActionResult SubscriptionHistory(int id)
         {
