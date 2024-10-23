@@ -44,7 +44,7 @@
                                     <div class="psa-block purchasesuperapproval-files-info">
                                         <div class="psalabel files-label">Files</div>
                                         <div class="files-pdf color-blue">
-                                            <a class="itp_filepath" href="/purchase/@Model.AttachFile1" target="_blank">@Model.AttachFile1</a><br />
+                                            <a class="itp_filepath" href="@System.Configuration.ConfigurationManager.AppSettings["TicketingAbsolutePath"]/purchase/@Model.AttachFile1" target="_blank">@Model.AttachFile1</a><br />
                                         </div>
                                     </div>
                                     <div class="psa-block purchasesuperapproval-requesteddate-info">
@@ -86,7 +86,7 @@
                                         <div class="psa-block purchasesuperapproval-files-info">
                                             <div class="psalabel files-label">Files</div>
                                             <div class="files-pdf color-blue">
-                                                <a class="itp_filepath" href="/purchase/@Model.AttachFile2" target="_blank">@Model.AttachFile2</a><br />
+                                                <a class="itp_filepath" href="@System.Configuration.ConfigurationManager.AppSettings["TicketingAbsolutePath"]/purchase/@Model.AttachFile2" target="_blank">@Model.AttachFile2</a><br />
                                             </div>
                                         </div>
                                         <div class="psa-block purchasesuperapproval-requesteddate-info">
@@ -130,7 +130,7 @@
                                         <div class="psa-block purchasesuperapproval-files-info">
                                             <div class="psalabel files-label">Files</div>
                                             <div class="files-pdf color-blue">
-                                                <a class="itp_filepath" href="/purchase/@Model.AttachFile3" target="_blank">@Model.AttachFile3</a><br />
+                                                <a class="itp_filepath" href="@System.Configuration.ConfigurationManager.AppSettings["TicketingAbsolutePath"]/purchase/@Model.AttachFile3" target="_blank">@Model.AttachFile3</a><br />
                                             </div>
                                         </div>
                                         <div class="psa-block purchasesuperapproval-requesteddate-info">
@@ -148,7 +148,7 @@
                                     </div>
                                 </div>
                             </div>
-                                            }
+                        }
                     </div>
 
                     @{
@@ -230,6 +230,7 @@
         </div>
     </div>
 </div>
+@Html.Partial("CommonModalPopups")
 
 <script>
     $(document).ready(function () {
@@ -269,7 +270,6 @@
             }
         }
 
-
         if ($('.vendor-pr-status').text() != "Pending") {
             updateButtonStates($('.vendor-pr-status').text());
             $('.purchasesuperapproval-check').prop('disabled', true);
@@ -277,7 +277,6 @@
         else {
             $('.purchasesuperapproval-check').prop('disabled', false);
         }
-
 
         $(document).on('click', '.psaadd-change-status', function () {
             $('.purchasesuperapproval-check').prop('disabled', false);
@@ -289,15 +288,15 @@
             $(this).prop('checked', true);
         });
 
-
-
+        // Approve button click event with validation
         $('.psaadd-approve').on('click', function () {
             var selectedVendor = $('.purchasesuperapproval-check:checked').data('selectedvendor');
             var purchaseId = $('.vendor-pr-number').text();
 
-            if (!selectedVendor) {
+            // Validation: Check if no checkbox is selected
+            if (selectedVendor == undefined) {
                 showMessageModal("Please select at least one vendor before approving.", false, "closepopuponly");
-                return;
+                return; // Stop further execution if validation fails
             }
 
             var requestData = {
@@ -329,9 +328,16 @@
             });
         });
 
-        // Reject button click event
+        // Reject button click event with validation
         $('.psaadd-reject').on('click', function () {
+            var selectedVendor = $('.purchasesuperapproval-check:checked').data('selectedvendor');
             var purchaseId = $('.vendor-pr-number').text();
+
+            // Validation: Check if no checkbox is selected
+            if (!selectedVendor) {
+                showMessageModal("Please select at least one vendor before rejecting.", false, "closepopuponly");
+                return; // Stop further execution if validation fails
+            }
 
             var requestData = {
                 purchaseId: purchaseId,
@@ -353,7 +359,6 @@
                         $('.modal-message').css("color", "red");
                         $('.modal-message').text(response.message);
                         $('#successModal').modal('show');
-
                     } else {
                         $('.modal-message').text(response.message);
                         $('#errorModal').modal('show');
@@ -364,8 +369,6 @@
                 }
             });
         });
-
-
     });
 
 
