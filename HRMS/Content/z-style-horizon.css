@@ -212,7 +212,7 @@
 
 #NotificationPopup .modal-body .notification-list-blocks .notification-block .notification-block-right {
     display: inline-block;
-    width: 70%;
+    width: 88%;
     padding: 0px 10px;
 }
 
@@ -229,9 +229,146 @@
 #NotificationPopup .modal-body .notification-list-blocks .notification-block .notification-block-right .notification-info-date {
     font-size: 12px;
     color: gray;
+    display: flex;
+    justify-content: space-between;
+}
+
+#NotificationPopup .modal-body .notification-list-blocks .notification-block .notification-block-right .notification-info-date .notification-reply {
+    border-radius: 15px;
+    border: 1px solid #267EC4;
+    padding: 0 10px;
+    color: #267EC4;
+    cursor: pointer;
 }
 
 /* notification end */
+
+/* notification reply start */
+
+#NotificationReplyPopup .modal-dialog {
+    right: 316px;
+    box-shadow: 3px 2px 5px 1px #ccc;
+}
+
+#NotificationReplyPopup .modal-dialog .modal-header {
+    border: none;
+}
+
+#NotificationReplyPopup .notificationreply-list-blocks {
+}
+
+#NotificationReplyPopup .notificationreply-list-blocks .notificationreply-receiver {
+}
+
+#NotificationReplyPopup .notificationreply-list-blocks .notificationreply-receiver .notificationreply-receiver-left {
+    width: 18%;
+    display: inline-block;
+    vertical-align: top;
+}
+
+#NotificationReplyPopup .notificationreply-list-blocks .notificationreply-receiver .notificationreply-receiver-left img {
+    border-radius: 50%;
+    width: 45px;
+    height: 45px;
+    object-fit: cover;
+    margin-right: 7px;
+}
+
+#NotificationReplyPopup .notificationreply-list-blocks .notificationreply-receiver .notificationreply-receiver-right {
+    display: inline-block;
+    width: 80%;
+    font-size: 14px;
+}
+
+#NotificationReplyPopup .notificationreply-list-blocks .notificationreply-receiver .notificationreply-receiver-right .receiver-userinfo {
+    margin-top: 7px;
+}
+
+#NotificationReplyPopup .notificationreply-list-blocks .notificationreply-receiver .notificationreply-receiver-right .receiver-userinfo .receiver-name {
+    line-height: 1;
+}
+
+#NotificationReplyPopup .notificationreply-list-blocks .notificationreply-receiver .notificationreply-receiver-right .receiver-userinfo .receiver-date {
+    color: gray;
+}
+
+#NotificationReplyPopup .notificationreply-list-blocks .notificationreply-receiver .notificationreply-receiver-right .receiver-message {
+    background: #EBF3FE;
+    padding: 2px 5px;
+    border-radius: 3px;
+    margin: 10px 0 0 0;
+}
+
+#NotificationReplyPopup .notificationreply-list-blocks .notificationreply-receiver .notificationreply-receiver-right .receiver-like {
+    color: gray;
+    cursor: pointer;
+    outline: none;
+}
+
+#NotificationReplyPopup .notificationreply-list-blocks .notificationreply-receiver .notificationreply-receiver-right .receiver-like span{
+    font-size: 12px;
+}
+
+#NotificationReplyPopup .notificationreply-list-blocks .notificationreply-sender {
+}
+
+#NotificationReplyPopup .notificationreply-list-blocks .notificationreply-sender .notificationreply-sender-left {
+    display: inline-block;
+    width: 80%;
+    font-size: 14px;
+    padding-right: 5px;
+}
+
+#NotificationReplyPopup .notificationreply-list-blocks .notificationreply-sender .notificationreply-sender-left .sender-userinfo {
+    margin-top: 7px;
+    text-align: right;
+}
+
+#NotificationReplyPopup .notificationreply-list-blocks .notificationreply-sender .notificationreply-sender-left .sender-userinfo .sender-name {
+    line-height: 1;
+}
+
+#NotificationReplyPopup .notificationreply-list-blocks .notificationreply-sender .notificationreply-sender-left .sender-userinfo .sender-date {
+    color: gray;
+}
+
+#NotificationReplyPopup .notificationreply-list-blocks .notificationreply-sender .notificationreply-sender-left textarea {
+    width: 100%;
+    border: 0.5px solid #c5c5c5;
+    margin: 10px 0 0 0;
+    outline: none;
+    padding: 2px 5px;
+    border-radius: 3px;
+    }
+
+#NotificationReplyPopup .notificationreply-list-blocks .notificationreply-sender .notificationreply-sender-left .sender-send {
+    margin-top: 5px;
+}
+
+#NotificationReplyPopup .notificationreply-list-blocks .notificationreply-sender .notificationreply-sender-left .sender-send-btn {
+    display: inline-block;
+    background: #267EC4;
+    padding: 3px 15px;
+    border-radius: 15px;
+    color: #fff;
+    cursor:pointer;
+}
+
+#NotificationReplyPopup .notificationreply-list-blocks .notificationreply-sender .notificationreply-sender-right {
+    width: 18%;
+    display: inline-block;
+    vertical-align: top;
+}
+
+#NotificationReplyPopup .notificationreply-list-blocks .notificationreply-sender .notificationreply-sender-right img {
+    border-radius: 50%;
+    width: 45px;
+    height: 45px;
+    object-fit: cover;
+    margin-right: 7px;
+}
+
+/* notification reply end */
 
 /* emp dashboard start */
 
@@ -947,8 +1084,9 @@
 
 .emp-selfservice-list-horizon .main-content {
     margin-left: 0;
+    width: 100% !important;
     /*padding-top: 0px;
-margin-top: 50px;*/
+    margin-top: 50px;*/
 }
 
 .emp-selfservice-list-horizon .emp-selfservice-details {
@@ -1242,3 +1380,48 @@ box-shadow: 0 0 5px rgba(0, 0, 0, 0.3);*/
     border-radius: 30px;
 }
 /* emp self service end */
+
+/* emp maintenance acknowledge start */
+
+.emp-maintenanceacknowledge-list-horizon {
+    background: #efefef;
+    height: 100vh;
+}
+
+.emp-maintenanceacknowledge-list-horizon .main-content {
+    margin-left: 0;
+    padding-bottom: 20px;
+}
+
+.emp-maintenanceacknowledge-list-horizon .maintenanceacknowledge-header-title {
+    margin-bottom: 20px;
+    border-bottom: 1px solid #ccc;
+    padding-bottom: 20px;
+    padding-top: 10px;
+}
+
+.emp-maintenanceacknowledge-list-horizon .maintenanceacknowledge-image-btn img {
+    border-radius: 50%;
+    width: 42px;
+    height: 42px;
+    object-fit: cover;
+    margin-right: 7px;
+}
+
+.emp-maintenanceacknowledge-list-horizon .maintenanceacknowledge-id-select {
+    font-size: 18px;
+}
+
+.emp-maintenanceacknowledge-list-horizon #empMaintenanceAcknowledge {
+    background: #fff;
+    padding: 10px 20px;
+    height: 520px;
+    box-shadow: 0px 3px 3px 1px #ccc;
+}
+
+.emp-maintenanceacknowledge-list-horizon #empMaintenanceAcknowledge .maintenanceacknowledge-info .emp-maintenanceacknowledge-submit {
+    padding: 5px 25px;
+    border-radius: 20px;
+}
+
+/* emp maintenance acknowledge end */
