@@ -75,6 +75,12 @@
     }
 </style>
 
+@{   
+    string startDateFormatted = Model.startWeek.ToString("dddd MMMM dd yyyy");
+    string endDateFormatted = Model.EndWeek.ToString("dddd MMMM dd yyyy");
+
+}
+
 <div class="container-fluid emp-attendance-list-horizon">
     <div class="main-content container-fluid">
         <div class="content employee-attendance">
@@ -87,15 +93,7 @@
             </div>
 
             <div class="emp-attendance-details attendance-nav" id="empAttendance">
-                @{
 
-                    // Format the dates
-                    @*string startDateFormatted = Model.startWeek.ToString("dd MMMM yyyy");
-                    string endDateFormatted = Model.EndWeek.ToString("dd MMMM yyyy");*@
-                    string startDateFormatted = Model.startWeek.ToString("dddd MMMM dd yyyy");
-                    string endDateFormatted = Model.EndWeek.ToString("dddd MMMM dd yyyy");
-
-                }
                 <div class="att-div">
                     <div>
                         <div id="week-slider" class="left-right-icon">
@@ -231,8 +229,6 @@
                                         }
 
                                     }
-
-
                                     <tr>
                                         <th scope="row">@isCheckInExists.Login_date.ToString("dd MMMM yyyy") <br><span class="fntblur">@isCheckInExists.Login_date.ToString("dddd", System.Globalization.CultureInfo.InvariantCulture)</span></th>
 
@@ -300,7 +296,6 @@
 
                                         <td class="bar-wd">00h:00m</td>
                                         <td><button class="@buttonColor" style="pointer-events:none">@attedenceType</button></td>
-
                                     </tr>
                                 }
                             }
