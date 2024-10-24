@@ -87,7 +87,9 @@
         font-size: 14px;
     }
 </style>
-
+@{
+    var pageUrlPath = Request.Url.AbsolutePath.ToLowerInvariant();
+}
 <nav class="navbar navbar-expand-md navbar-light bg-light fixed-top horizon-design" style="box-shadow: 0 0 5px 2px rgba(0, 0, 0, .3); height: 55px;">
     <a class="navbar-brand" href="#"><img src="~/Assets/AMBC_Logo.png" alt="logo" class="logo-img" /></a>
     <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#left-side-menu" aria-controls="left-side-menu" aria-expanded="false" aria-label="Toggle navigation">
@@ -95,13 +97,13 @@
     </button>
     <div class="collapse navbar-collapse" id="navbarNav">
         <ul class="navbar-nav mr-auto nav-center-block">
-            <li class="nav-item active">
+            <li class="nav-item @(pageUrlPath == "/empdash/index" ? "active" : "")">
                 <a class="nav-link" href="/empDash/index">Dashboard <span class="sr-only">(current)</span></a>
             </li>
             <li class="nav-item">
                 <a class="nav-link" href="/employeedashboard/selfservice">Employee</a>
             </li>
-            <li class="nav-item">
+            <li class="nav-item @(pageUrlPath == "/empattendance/index" ? "active" : "")">
                 <a class="nav-link" href="/EmpAttendance/Index">Attendance</a>
             </li>
             <li class="nav-item">
@@ -193,27 +195,27 @@
                         </div>
                     }
 
-                   @*<div class="notification-block">
-                        <div class="notification-block-left light-gray"><img src="/Assets/mail-icon.png"></div>
-                        <div class="notification-block-right">
-                            <div class="notification-block-info notification-info-title" title="Test notification data notification data dummy">Test notification data</div>
-                            <div class="notification-block-info notification-info-date"><span class="notification-date">09 October 9:20 AM</span> <span data-toggle="modal" data-target="#NotificationReplyPopup" class="notification-reply">Reply</span></div>
+                    @*<div class="notification-block">
+                            <div class="notification-block-left light-gray"><img src="/Assets/mail-icon.png"></div>
+                            <div class="notification-block-right">
+                                <div class="notification-block-info notification-info-title" title="Test notification data notification data dummy">Test notification data</div>
+                                <div class="notification-block-info notification-info-date"><span class="notification-date">09 October 9:20 AM</span> <span data-toggle="modal" data-target="#NotificationReplyPopup" class="notification-reply">Reply</span></div>
+                            </div>
                         </div>
-                    </div>
-                    <div class="notification-block">
-                        <div class="notification-block-left light-green"><img src="/Assets/mail-icon.png"></div>
-                        <div class="notification-block-right">
-                            <div class="notification-block-info notification-info-title" title="Test notification data notification data dummy">Test notification data</div>
-                            <div class="notification-block-info notification-info-date">09 October 9:20 AM</div>
+                        <div class="notification-block">
+                            <div class="notification-block-left light-green"><img src="/Assets/mail-icon.png"></div>
+                            <div class="notification-block-right">
+                                <div class="notification-block-info notification-info-title" title="Test notification data notification data dummy">Test notification data</div>
+                                <div class="notification-block-info notification-info-date">09 October 9:20 AM</div>
+                            </div>
                         </div>
-                    </div>
-                    <div class="notification-block">
-                        <div class="notification-block-left light-red"><img src="/Assets/mail-icon.png"></div>
-                        <div class="notification-block-right">
-                            <div class="notification-block-info notification-info-title" title="Test notification data notification data dummy">Test notification data</div>
-                            <div class="notification-block-info notification-info-date">09 October 9:20 AM</div>
-                        </div>
-                    </div>*@
+                        <div class="notification-block">
+                            <div class="notification-block-left light-red"><img src="/Assets/mail-icon.png"></div>
+                            <div class="notification-block-right">
+                                <div class="notification-block-info notification-info-title" title="Test notification data notification data dummy">Test notification data</div>
+                                <div class="notification-block-info notification-info-date">09 October 9:20 AM</div>
+                            </div>
+                        </div>*@
                 </div>
 
             </div>
@@ -224,8 +226,6 @@
     <!-- modal-dialog -->
 </div>
 <!--Notification  modal -->
-
-
 <!-- Notification reply Modal -->
 <div class="modal right fade" id="NotificationReplyPopup" tabindex="-1" role="dialog" aria-labelledby="NotificationReplyPopup">
     <div class="modal-dialog" role="document">
