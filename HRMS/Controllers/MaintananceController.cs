@@ -149,8 +149,8 @@ namespace HRMS.Controllers
                     worksheet.Cells[i + 2, 10].Value = data[i].Location ?? ""; // Location
 
                     // IssueDate
-                    worksheet.Cells[i + 2, 11].Value = data[i].IssueDate.HasValue
-                                                        ? data[i].IssueDate.Value.ToString("yyyy-MM-dd")
+                    worksheet.Cells[i + 2, 11].Value = data[i].AcknowledgeDate.HasValue
+                                                        ? data[i].AcknowledgeDate.Value.ToString("yyyy-MM-dd")
                                                         : "";
 
                     worksheet.Cells[i + 2, 12].Value = data[i].ProblemCategory ?? ""; // ProblemCategory
@@ -435,8 +435,8 @@ namespace HRMS.Controllers
                     worksheet.Cells[i + 2, 10].Value = data[i].Location ?? "";
 
                     // IssueDate
-                    worksheet.Cells[i + 2, 11].Value = data[i].IssueDate.HasValue
-                                                        ? data[i].IssueDate.Value.ToString("yyyy-MM-dd")
+                    worksheet.Cells[i + 2, 11].Value = data[i].AcknowledgeDate.HasValue
+                                                        ? data[i].AcknowledgeDate.Value.ToString("yyyy-MM-dd")
                                                         : "";
 
                     worksheet.Cells[i + 2, 12].Value = data[i].ProblemCategory ?? "";
