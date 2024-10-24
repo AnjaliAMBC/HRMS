@@ -68,8 +68,8 @@
     color: #4B5675;
 }
 
-.horizon-design #navbarNav .nav-center-block li.active a{
-    color: #000;
+.horizon-design #navbarNav .nav-center-block li.active a {
+    color: #267EC4;
 }
 
 .horizon-design #navbarNav .header-notification .nav-notification {
@@ -118,6 +118,7 @@
 .horizon-design .profile-dropdown {
     text-align: left;
     width: 240px !important;
+    margin-top: -7px;
 }
 
 .horizon-design .profile-dropdown .header-profile-email {
@@ -126,7 +127,9 @@
 }
 
 .horizon-design .profile-dropdown .header-profile-designation {
-    display: none;
+    /*display: none;*/
+    color: #828282 !important;
+    font-size: 14px;
 }
 
 .horizon-design .profile-dropdown .view-profile-btn {
@@ -414,7 +417,7 @@
 
 .emp-dashboard-horizon .dashboard-header-block .dashboard-header-right {
     display: inline-block;
-    width: 25%;
+    width: 28%;
     background: #fff;
     padding: 16px 25px 16px 15px;
     border-radius: 0 18px 0px 0px;
@@ -470,11 +473,11 @@
     margin-bottom: 0px;
 }
 
-    .emp-dashboard-horizon .dashboard-header-block .dashboard-header-right .dh-right .dh-checkin-time,
-    .emp-dashboard-horizon .dashboard-header-block .dashboard-header-right .dh-right .dh-checkout-time,
-    .emp-dashboard-horizon .dashboard-header-block .dashboard-header-right .dh-right .dh-currenttime-display {
-        color: #1C88D6;
-    }
+.emp-dashboard-horizon .dashboard-header-block .dashboard-header-right .dh-right .dh-checkin-time,
+.emp-dashboard-horizon .dashboard-header-block .dashboard-header-right .dh-right .dh-checkout-time,
+.emp-dashboard-horizon .dashboard-header-block .dashboard-header-right .dh-right .dh-currenttime-display {
+    color: #1C88D6;
+}
 
 .emp-dashboard-horizon .dashboard-body-block {
     padding: 30px 30px;
@@ -483,12 +486,12 @@
 .emp-dashboard-horizon .dashboard-body-block .emp-dash-block-1 .emp-dash-left-block {
 }
 
-    .emp-dashboard-horizon .dashboard-body-block .emp-dash-block-1 .emp-dash-left-block .ed-blocks {
-        border: 0.3px solid #ccc;
-        padding: 22px 15px;
-        margin-bottom: 5px;
-        background: #fff;
-    }
+.emp-dashboard-horizon .dashboard-body-block .emp-dash-block-1 .emp-dash-left-block .ed-blocks {
+    border: 0.3px solid #ccc;
+    padding: 22px 15px;
+    margin-bottom: 5px;
+    background: #fff;
+}
 
 .emp-dashboard-horizon .dashboard-body-block .emp-dash-block-1 .emp-dash-left-block .ed-block-left {
     width: 13%;
@@ -538,20 +541,20 @@
     padding: 7px 15px;
 }
 
-    .emp-dashboard-horizon .dashboard-body-block .emp-dash-block-content {
-        border: 1px solid #ccc;
-        border-top: 0px solid #ccc;
-        padding: 15px 0;
-        height: 240px;
-        background: #fff;
-    }
+.emp-dashboard-horizon .dashboard-body-block .emp-dash-block-content {
+    border: 1px solid #ccc;
+    border-top: 0px solid #ccc;
+    padding: 15px 0;
+    height: 240px;
+    background: #fff;
+}
 
 .emp-dashboard-horizon .dashboard-body-block .emp-dash-management {
 }
 
 .emp-dashboard-horizon .dashboard-body-block .emp-dash-management .ed-blocks {
     border: 0.3px solid #ccc;
-    padding: 30px 20px;
+    padding: 25px 20px;
     margin-bottom: 5px;
 }
 
@@ -561,7 +564,7 @@
 }
 
 .emp-dashboard-horizon .dashboard-body-block .emp-dash-management .ed-blocks .ed-block-left img {
-    width: 35px;
+    width: 45px;
 }
 
 .emp-dashboard-horizon .dashboard-body-block .emp-dash-management .ed-blocks .ed-block-right {
@@ -737,8 +740,13 @@
 
 .emp-dashboard-horizon .dashboard-body-block .emp-dash-calendar table.table{
     border-collapse: separate;
-    border-spacing: 5px 0;
+    border-spacing: 5px 4px;
     table-layout: fixed;
+}
+
+.emp-dash-calendar .calendar-body th,
+.emp-dash-calendar .calendar-body td {
+    padding: 6px 3px;
 }
 
 .emp-dashboard-horizon .dashboard-body-block .emp-dash-calendar .emp-dash-block-header .header-title {
@@ -999,6 +1007,7 @@
 .emp-upcomingholidays-list-horizon {
     background: #efefef;
     /*height: 100vh;*/
+    padding-bottom: 25px;
 }
 
 .emp-upcomingholidays-list-horizon .main-content {
@@ -1425,3 +1434,54 @@ box-shadow: 0 0 5px rgba(0, 0, 0, 0.3);*/
 }
 
 /* emp maintenance acknowledge end */
+
+/* emp attendance start */
+
+.emp-attendance-list-horizon {
+    background: #efefef;
+    /*height: 100vh;*/
+    padding-bottom: 25px;
+}
+
+.emp-attendance-list-horizon .main-content {
+    margin-left: 0;
+    width: 100% !important;
+}
+
+.emp-attendance-list-horizon #empAttendance {
+    background: #fff;
+    padding: 20px 40px;
+    margin-left: 0;
+}
+
+.emp-attendance-list-horizon .attendance-nav .attendance-find {
+    padding: 0 20px;
+    border-radius: 20px;
+    background: #267EC4;
+}
+
+.emp-attendance-list-horizon .attendence-thead th {
+    background-color: #267EC4 !important;
+    color: #fff;
+    font-weight: normal;
+}
+
+.emp-attendance-list-horizon thead.attendence-thead th:first-child {
+    border-top-left-radius: 5px;
+    padding-left: 25px;
+}
+
+.emp-attendance-list-horizon thead.attendence-thead th:last-child {
+    border-top-right-radius: 5px;
+}
+
+.emp-attendance-list-horizon tbody.empatt-body .fntblur {
+    color: gray;
+    font-weight: normal;
+}
+
+.emp-attendance-list-horizon tbody.empatt-body th:first-child {
+    padding-left: 25px;
+}
+
+/* emp attendance end */
