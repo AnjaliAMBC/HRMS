@@ -18,8 +18,9 @@
     position: absolute;
     bottom: 10px;
     text-align: center;
-    width: 82%;
+    width: 100%;
     font-size: 12px;
+    left: 0px;
 }
 
 .login-page-horizon .logininput {
@@ -1485,3 +1486,359 @@ box-shadow: 0 0 5px rgba(0, 0, 0, 0.3);*/
 }
 
 /* emp attendance end */
+
+/* emp leave start */
+
+.emp-leave-list-horizon {
+    background: #efefef;
+    /*height: 100vh;*/
+    padding-bottom: 25px;
+}
+
+.emp-leave-list-horizon .main-content {
+    margin-left: 0;
+    width: 100% !important;
+}
+
+.emp-leave-list-horizon #empLeave {
+    background: #fff;
+    padding: 20px 40px;
+    margin-left: 0;
+}
+
+.emp-leave-list-horizon .res-emp-carousel {
+    padding: 0 20px;
+}
+
+.emp-leave-list-horizon #leaveCarousel .emp-leave-carousel-blocks {
+}
+
+.emp-leave-list-horizon #leaveCarousel .tracker-card {
+    border: 1px solid #ccc;
+    margin: 0 10px;
+    padding: 0;
+    padding-bottom: 15px;
+}
+
+.emp-leave-list-horizon #leaveCarousel .tracker-card .tracker-title {
+    text-align: center;
+    background: #ccc;
+    padding: 7px 3px;
+    font-size: 14px;
+    text-transform: uppercase;
+    color: #fff;
+}
+
+.emp-leave-list-horizon #leaveCarousel .tracker-card .tracker-details {
+    text-align: center;
+    color: #000;
+}
+
+.emp-leave-list-horizon #leaveCarousel .emp-leave-icon {
+    text-align: center;
+    width: 100%;
+    display: inline-block;
+    margin: 20px 0px;
+}
+
+.emp-leave-list-horizon #leaveCarousel .emp-leave-icon img {
+    width: 40px;
+    height: 40px;
+}
+
+.emp-leave-list-horizon #leaveCarousel .carousel-leave-inner {
+    width: 112% !important;
+    margin-left: 30px;
+}
+
+.emp-leave-list-horizon #leaveCarousel .btn_prevleave {
+    background-color: transparent;
+    width: 24px;
+    height: 24px;
+    top: 40%;
+    border-radius: 50%;
+    border: 1px solid black;
+    font-size: 10px;
+}
+
+.emp-leave-list-horizon #leaveCarousel .btn_nxtleave {
+    width: 24px;
+    height: 24px;
+    top: 40%;
+    border: 1px solid black;
+    font-size: 10px;
+}
+
+.emp-leave-list-horizon #leaveCarousel .sick_border .tracker-title {
+    background: #47B2F7;
+}
+
+.emp-leave-list-horizon #leaveCarousel .mar_border .tracker-title {
+    background: #B38BDC;
+}
+
+.emp-leave-list-horizon #leaveCarousel .hou_border .tracker-title {
+    background: #F35F8C;
+}
+
+.emp-leave-list-horizon #leaveCarousel .bev_border .tracker-title {
+    background: #948078;
+}
+
+.emp-leave-list-horizon #leaveCarousel .mat_border .tracker-title {
+    background: #B38BDC;
+}
+
+.emp-leave-list-horizon #leaveCarousel .com_border .tracker-title {
+    background: #B38BDC;
+}
+
+.emp-leave-list-horizon #leaveCarousel .ear_border .tracker-title {
+    background: #2ECC87;
+}
+
+.emp-leave-list-horizon #leaveCarousel .pat_border .tracker-title {
+    background: #2ECC87;
+}
+
+.emp-leave-list-horizon #leaveCarousel .emr_border .tracker-title {
+    background: #3DC2C8;
+}
+
+
+.emp-leave-list-horizon .emp-leave-details .res-emp-apply {
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    margin: 0 0px 0px 25px;
+    max-width: 14%;
+    padding: 0;
+}
+
+.emp-leave-list-horizon .emp-leave-details .res-emp-apply .emp-leave-action {
+    text-align: center;
+    background: #267EC4;
+    padding: 7px 3px;
+    font-size: 14px;
+    text-transform: uppercase;
+    color: #fff;
+    width: 100%;
+}
+
+.emp-leave-list-horizon .emp-leave-details .res-emp-apply .applyleave_btn {
+    margin: 10px 0;
+    width: 100%;
+    text-align: center;
+}
+
+.emp-leave-list-horizon .emp-leave-details .res-emp-apply .applyleave_btn button {
+    padding: 5px 30px;
+    border-radius: 25px;
+    font-size: 12px;
+}
+
+.emp-leave-list-horizon .emp-leave-details .res-emp-apply .emp-leave-cal-history {
+    border: 1px solid #eee;
+    font-size: 12px;
+    padding: 0 0px;
+    width: 75%;
+    margin: 10px 26px;
+    border-radius: 3px;
+}
+
+.emp-leave-list-horizon .emp-leave-details .res-emp-apply .emp-leave-cal-history .active {
+    background: #ccc;
+}
+
+.emp-leave-list-horizon .emp-leave-details .res-emp-apply .emp-leave-cal-history i {
+    color: #000 !important;
+}
+
+.emp-leave-list-horizon .emp-leave-details .res-emp-apply .emp-leave-cal-history a {
+    color: #000;
+    text-decoration: none !important;
+}
+
+.emp-leave-list-horizon .emp-leave-details .res-emp-apply .emp-leave-cal-history .leavecalendar_btn {
+    padding: 5px 12px;
+}
+
+.emp-leave-list-horizon .emp-leave-details .res-emp-apply .emp-leave-cal-history .leavehistory_btn {
+    padding: 5px 12px;
+}
+
+.emp-leave-list-horizon .emp-leave-details .res-emp-apply .emp-leave-cal-history .leavecalendar_btn.active {
+    background: #D6E2F3;
+}
+
+.emp-leave-list-horizon .emp-leave-details .res-emp-apply .emp-leave-cal-history .leavehistory_btn.active {
+    background: #D6E2F3;
+}
+
+.emp-leave-list-horizon .emp-leave-info-block-all {
+    margin: 15px 0;
+    display: inline-block;
+}
+
+.emp-leave-list-horizon .emp-leave-details .emp-leave-info-block-all .res-admin-empleave-tabs {
+    border-bottom: none;
+}
+
+.emp-leave-list-horizon .emp-leave-info-block-all .nav-tabs .nav-item {
+    padding: 0 10px;
+}
+
+.emp-leave-list-horizon .emp-leave-info-block-all .nav-tabs .nav-item.show .nav-link,
+.emp-leave-list-horizon .emp-leave-info-block-all .nav-tabs .nav-link {
+    border: 0px;
+    color: #525252;
+}
+
+.emp-leave-list-horizon .emp-leave-info-block-all .nav-tabs .nav-item.show .nav-link,
+.emp-leave-list-horizon .emp-leave-info-block-all .nav-tabs .nav-link.active {
+    color: #000;
+    border-bottom: 2px solid #267EC4;
+}
+
+.emp-leave-list-horizon #leaveHistoryTable th {
+    background-color: #267EC4 !important;
+    color: #fff;
+    font-weight: normal;
+}
+
+.emp-leave-list-horizon #leaveHistoryTable tbody tr {
+    background-color: #ffffff;
+    border-bottom: 1px solid #ccc;
+}
+
+.emp-leave-list-horizon #leaveHistoryTable tbody tr:nth-child(even) {
+    background-color: #EBFAFF !important;
+}
+
+.emp-leave-list-horizon #leaveHistoryTable thead th:first-child {
+    border-top-left-radius: 5px;
+}
+
+.emp-leave-list-horizon #leaveHistoryTable thead th:last-child {
+    border-top-right-radius: 5px;
+}
+
+.emp-leave-list-horizon #leaveHistoryTable thead th, 
+.emp-leave-list-horizon #leaveHistoryTable tbody td {
+    border: none;
+    /*padding: 10px 75px;*/
+}
+
+.emp-leave-list-horizon #leaveHistoryTable tbody {
+    border-left: 1px solid #ccc;
+    border-right: 1px solid #ccc;
+}
+
+
+.emp-leave-list-horizon #empleaveCompOffTable th {
+    background-color: #267EC4 !important;
+    color: #fff;
+    font-weight: normal;
+}
+
+.emp-leave-list-horizon #empleaveCompOffTable tbody tr {
+    background-color: #ffffff;
+    border-bottom: 1px solid #ccc;
+}
+
+.emp-leave-list-horizon #empleaveCompOffTable tbody tr:nth-child(even) {
+    background-color: #EBFAFF !important;
+}
+
+    .emp-leave-list-horizon #empleaveCompOffTable thead th:first-child {
+        border-top-left-radius: 5px;
+        text-align: center;
+    }
+
+.emp-leave-list-horizon #empleaveCompOffTable thead th:last-child {
+    border-top-right-radius: 5px;
+    text-align: center;
+}
+
+.emp-leave-list-horizon #empleaveCompOffTable thead th,
+.emp-leave-list-horizon #empleaveCompOffTable tbody td {
+    border: none;
+    /*padding: 10px 75px;*/
+}
+
+.emp-leave-list-horizon #empleaveCompOffTable tbody {
+    border-left: 1px solid #ccc;
+    border-right: 1px solid #ccc;
+}
+
+.emp-leave-list-horizon .leave-history #empleaveCompOffTable .commentSec p {
+    min-height: 0;
+}
+
+.emp-leave-list-horizon .leave-history #empleaveCompOffTable .compoff-status {
+    text-align: center;
+}
+
+.emp-leave-list-horizon .leave-history #empleaveCompOffTable .compoff-status img {
+    width: 25px;
+    height: 25px;
+    margin-top: 7px;
+}
+
+.emp-leave-list-horizon .leave-history #empleaveCompOffTable .compoff-actions {
+    text-align: center;
+}
+
+.emp-leave-list-horizon .leave-history #empleaveCompOffTable .compoff-actions i {
+    margin-top: 12px;
+    color: #828282;
+}
+
+.emp-leave-list-horizon #empleaveCompOffTable .emp-compoffs a.dropdown-item {
+    background: #fff;
+    text-align: left;
+    cursor: pointer;
+}
+
+.emp-leave-list-horizon #empleaveCompOffTable .emp-compoffs {
+    z-index: 9;
+}
+
+#confirmCancelModal .modal-header {
+    border-bottom: 0;
+}
+
+#confirmCancelModal .modal-header button {
+    font-size: 14px;
+}
+
+#confirmCancelModal .modal-body {
+    font-size: 18px;
+    padding: 0 15px 15px 20px;
+}
+
+#confirmCancelModal .modal-footer {
+    border-top: 0;
+}
+
+#confirmCancelModal .modal-footer  button{
+    color: #fff;
+    padding: 2px 18px;
+    border-radius: 15px;
+}
+
+#confirmCancelModal .modal-footer .btn {
+    background: #A7A7A7;
+    border: none;
+}
+
+#confirmCancelModal .modal-footer #confirmCancelButton {
+    background: #8854D0;
+}
+
+#confirmCancelModal .modal-sm {
+    max-width: 300px;
+}
+
+/* emp leave end */
+
+
