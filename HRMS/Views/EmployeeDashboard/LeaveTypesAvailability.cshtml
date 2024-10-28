@@ -9,19 +9,21 @@
     {
         var activeClass = index == 1 ? "active" : "";
         <div class="carousel-item carousel-leave-item @activeClass">
-            <div class="col-md-2 m-0">
+            <div class="col-md-2 m-0 emp-leave-carousel-blocks">
                 <div class="card card-body tracker-card @availabilty.ColorCode">
                     <h6 class="tracker-title">@availabilty.Type</h6>
 
                     @if (@availabilty.Type == "Hourly Permission")
                     {
-                        <p class="tracker-details">Available: @availabilty.Balance.ToString().Replace(".00", "") Hours</p>
-                        <p class="tracker-details">Booked: @availabilty.Booked.ToString().Replace(".00", "") Hours</p>
+                        <div class="emp-leave-icon"><img src="~/Assets/leave/hourly-permission.png"></div>
+                        <p class="tracker-details">Available @availabilty.Balance.ToString().Replace(".00", "") Hours</p>
+                        <p class="tracker-details">Booked @availabilty.Booked.ToString().Replace(".00", "") Hours</p>
                     }
                     else
                     {
-                        <p class="tracker-details">Available: @availabilty.Balance.ToString().Replace(".00", "") Days</p>
-                        <p class="tracker-details">Booked: @availabilty.Booked.ToString().Replace(".00", "") Days</p>
+                        <div class="emp-leave-icon"><img src="~/Assets/leave/earned.png"></div>
+                        <p class="tracker-details">Available @availabilty.Balance.ToString().Replace(".00", "") Days</p>
+                        <p class="tracker-details">Booked @availabilty.Booked.ToString().Replace(".00", "") Days</p>
                     }
                 </div>
             </div>

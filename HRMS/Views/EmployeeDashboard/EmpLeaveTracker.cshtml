@@ -56,49 +56,66 @@
         display: none;
     }
 </style>
-@Html.Partial("_NavBar")
-<div class="container-fluid emp-leave">
-    @Html.Partial("_empsidemenu")
-    <div class="main-content container-fluid" style="width: 84%">
-        <div class="hiddenempdashboard" style="display: none"></div>
-        <div class="content leave-dashboard-data" style="margin-top: 3%; margin-left: 2% ">
-            <div class="empleave-container">
-
-                <style>
-                    .weekend-background {
-                        color: gray;
-                    }
-                </style>
-                <div class="container-fluid">
-                    <div class="row res-emp-leave-title">
-                        <h4 class="tracker_topic mt-3 ml-3">Leave Tracker</h4>
+@Html.Partial("_EmployeeNavbar")
+<div class="container-fluid emp-leave-list-horizon">
+    <div class="main-content container-fluid">
+        <div class="content employee-leave">
+            <div class="emp-leave-container">
+                <div class="row res-emp-leave-header">
+                    <div class="col-lg-3 res-emp-leave-title">
+                        <h4>Leave</h4>
                     </div>
-                    <div class="row mt-3 res-emp-carousel">
-                        <div class="col-10 col-sm-10 col-md-7 col-lg-10 col-xl-10 col-xxl-10 p-sm-0 res-emp-carousel-block">
-                            <!---Leave carousel top----->
-                            <div class="row mx-auto my-auto">
-                                <div id="leaveCarousel" class="carousel slide w-100" data-ride="carousel">
-                                    <div class="carousel-inner carousel-leave-inner w-100 tracker-100" role="listbox">
+                </div>
+            </div>
 
-                                    </div>
+            <div class="emp-leave-details" id="empLeave">
 
-                                    <a class="carousel-control-next btn_nxtleave" href="#leaveCarousel" role="button" data-slide="next">
-                                        <i class="fa-solid fa-chevron-right"></i>
-                                        <span class="sr-only">Next</span>
-                                    </a>
+                <div class="row mt-3 res-emp-carousel">
+                    <div class="col-10 col-sm-10 col-md-7 col-lg-10 col-xl-10 col-xxl-10 p-sm-0 res-emp-carousel-block">
+                        <!---Leave carousel top----->
+                        <div class="row mx-auto my-auto">
+                            <div id="leaveCarousel" class="carousel slide w-100" data-ride="carousel">
+
+                                <a class="carousel-control-prev btn_prevleave" href="#leaveCarousel" role="button" data-slide="prev">
+                                    <i class="fa-solid fa-chevron-left"></i>
+                                    <span class="sr-only">Previous</span>
+                                </a>
+
+                                <div class="carousel-inner carousel-leave-inner w-100 tracker-100" role="listbox">
+
                                 </div>
+
+                                <a class="carousel-control-next btn_nxtleave" href="#leaveCarousel" role="button" data-slide="next">
+                                    <i class="fa-solid fa-chevron-right"></i>
+                                    <span class="sr-only">Next</span>
+                                </a>
                             </div>
                         </div>
-                        <div class="col-2 col-sm-12 col-md-4 col-lg-2 col-xl-2 col-xxl-2 d-flex flex-column align-items-center res-emp-apply">
-                            <div class="applyleave_btn">
-                                <button class="btn btn-primary btn-apply-leave">Apply Leave</button>
+                    </div>
+                    <div class="col-2 col-sm-12 col-md-4 col-lg-2 col-xl-2 col-xxl-2 d-flex flex-column align-items-center res-emp-apply">
+                        <h6 class="emp-leave-action">Leave Action</h6>
+                        <div class="applyleave_btn">
+                            <button class="btn btn-primary btn-apply-leave">Apply Leave</button>
+                        </div>
+                        <div class="emp-leave-cal-history">
+                            <div class="leavecalendar_btn d-flex active">
+                                <i class="far fa-calendar icon-leave mt-1 mr-1"></i>
+                                <a href="#" class="calendar_btn">Leave Calendar</a>
                             </div>
-                            <div class="leavehistory_btn d-flex mt-2 mb-1">
+                            <div class="leavehistory_btn d-flex ">
                                 <i class="fa-solid fa-clock-rotate-left icon-leave mt-1 mr-1"></i>
                                 <a href="#" class="history_btn">Leave History</a>
                             </div>
                         </div>
                     </div>
+                </div>
+
+
+
+
+
+                <div class="container-fluid emp-leave-info-block-all">
+
                     <div class="card empleave-card mb-3">
                         <div class="card-header empleave-card-header empleave-calendar-header text-dark mt-2">
                             <i class="fas fa-chevron-left empleave-chevron-icon" onclick="prevLeaveMonth()"></i>
@@ -125,12 +142,12 @@
 
                     <div class="leave-history mt-2" style="display: none; margin-bottom: 20px;">
 
-                        <ul class="nav nav-tabs res-admin-empleave-tabs responsive-tabs" id="myTab" role="tablist" style="background-color: #d8e6fb; font-size: 15px; width: 100%; border-radius: 10px 10px 0px 0px;">
+                        <ul class="nav nav-tabs res-admin-empleave-tabs responsive-tabs" id="myTab" role="tablist" style="font-size: 15px; width: 100%;">
                             <li class="nav-item active" role="presentation">
-                                <a class="nav-link active" id="tab1-link" data-toggle="tab" href="#empLeaveHistoryTab1" role="tab" aria-controls="empLeaveHistoryTab1" aria-selected="true"><b>Leave History</b></a>
+                                <a class="nav-link active" id="tab1-link" data-toggle="tab" href="#empLeaveHistoryTab1" role="tab" aria-controls="empLeaveHistoryTab1" aria-selected="true">Leave History</a>
                             </li>
                             <li class="nav-item" role="presentation">
-                                <a class="nav-link" id="tab2-link" data-toggle="tab" href="#empComponsatoryOffTab2" role="tab" aria-controls="empComponsatoryOffTab2" aria-selected="false"><b>Compensatory Off</b></a>
+                                <a class="nav-link" id="tab2-link" data-toggle="tab" href="#empComponsatoryOffTab2" role="tab" aria-controls="empComponsatoryOffTab2" aria-selected="false">Compensatory Off</a>
                             </li>
                             <i class="fa fa-caret-up"></i>
                             <i class="fa fa-caret-down"></i>
@@ -151,7 +168,7 @@
                                             years.Add(currentYear - i);
                                         }
                                     }
-                                    <div class="year-dropdown">
+                                    @*<div class="year-dropdown">
 
                                         <select class="form-control" id="leavehistoryyear">
 
@@ -160,26 +177,19 @@
                                                 <option value="@year">@year</option>
                                             }
                                         </select>
-                                    </div>
-
-                                    <!--<div class="year-dropdown">
-                                    <div class="year-dropdown-select" id="leaveYearSelected" onclick="toggleLeaveYearOptions()">Year</div>
-                                    <div class="year-dropdown-options" id="leaveYearOptions">-->
-                                    <!-- Year options will be dynamically populated here -->
-                                    <!--</div>
-                                    </div>-->
+                                    </div>*@
                                 </div>
 
                                 <div class="table-responsive">
                                     <table id="leaveHistoryTable" class="table leave-history-table">
-                                        <thead style="display: none">
+                                        <thead>
                                             <tr>
+                                                <th>Status</th>
+                                                <th>Leave Type</th>
                                                 <th>Date</th>
                                                 <th>Day(s)</th>
-                                                <th>Leave Type</th>
-                                                <th>Status</th>
                                                 <th>Reason</th>
-                                                <th></th>
+                                                <th>Action</th>
                                             </tr>
                                         </thead>
                                         <tbody>
@@ -193,15 +203,13 @@
                                 </div>
                                 <div class="table-responsive">
                                     <table id="empleaveCompOffTable" class="table empleave-compoff-table mt-4">
-                                        <thead style="display: none">
+                                        <thead>
                                             <tr>
-                                                <th>Emp ID</th>
-                                                <th>Emp Name</th>
+                                                <th>Status</th>
                                                 <th>Requested Date</th>
                                                 <th>Work Date</th>
-                                                <th>Status</th>
-                                                <th>Reason</th>
-                                                <th></th>
+                                                <th>Description</th>
+                                                <th>Action</th>
                                             </tr>
                                         </thead>
                                         <tbody>
@@ -216,6 +224,35 @@
                     </div>
                 </div>
 
+
+
+
+
+
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+
+
+
+<div class="container-fluid emp-leave">
+    
+    <div class="main-content container-fluid" style="width: 84%">
+        <div class="hiddenempdashboard" style="display: none"></div>
+        <div class="content leave-dashboard-data" style="margin-top: 3%; margin-left: 2% ">
+            <div class="empleave-container">
+
+                <style>
+                    .weekend-background {
+                        color: gray;
+                    }
+                </style>
+                
+
             </div>
         </div>
     </div>
@@ -227,20 +264,20 @@
 
 <!-- Confirmation Modal -->
 <div id="confirmCancelModal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="confirmCancelModalLabel" aria-hidden="true">
-    <div class="modal-dialog" role="document">
+    <div class="modal-dialog modal-sm" role="document">
         <div class="modal-content">
             <div class="modal-header">
-                <h5 class="modal-title" id="confirmCancelModalLabel">Confirm Cancel Leave</h5>
+                <h5 class="modal-title" id="confirmCancelModalLabel" style="display:none;">Confirm Cancel Leave</h5>
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                    <span aria-hidden="true">&times;</span>
+                    <i class="far fa-times-circle"></i>
                 </button>
             </div>
             <div class="modal-body">
-                Are you sure you want to cancel this leave?
+                Are you sure you want to cancel leave request?
             </div>
             <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                <button type="button" class="btn btn-danger" id="confirmCancelButton">Cancel Leave</button>
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">No</button>
+                <button type="button" class="btn" id="confirmCancelButton">Yes</button>
             </div>
         </div>
     </div>

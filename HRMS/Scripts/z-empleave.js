@@ -494,9 +494,13 @@ function GetEmpLeaveHistory() {
                 const toDay = formatJSONDateDay(item.Todate);
 
                 var today = new Date();
-                const dateDisplay = fromDate === toDate || item.LatestLeave.leavesource == "Hourly Permission"
+                /*const dateDisplay = fromDate === toDate || item.LatestLeave.leavesource == "Hourly Permission"
                     ? `<p class="mb-0 fontWtMedium">${fromDate}</p><span class="mutedText">${fromDay}</span>`
-                    : `<p class="mb-0 fontWtMedium">${fromDate} - ${toDate}</p><span class="mutedText">${fromDay} - ${toDay}</span>`;
+                    : `<p class="mb-0 fontWtMedium">${fromDate} - ${toDate}</p><span class="mutedText">${fromDay} - ${toDay}</span>`;*/
+
+                const dateDisplay = fromDate === toDate || item.LatestLeave.leavesource == "Hourly Permission"
+                    ? `<p class="mb-0 fontWtMedium">${fromDate}</p>`
+                    : `<p class="mb-0 fontWtMedium">${fromDate}</p><span class="mutedText">${fromDay}</span>`;
 
                 const leaveStatus = item.LatestLeave.LeaveStatus.toLowerCase();
                 const statusClass = leaveStatus === 'approved' ? 'status-approved' :
@@ -516,7 +520,7 @@ function GetEmpLeaveHistory() {
         </div>` : '';
                 } else {
                     leaveActions = (leaveStatus === 'pending') ? `
-        <i class="fas fa-ellipsis-h leave-edit-history" onclick="toggleLeaveActionOptions(this)"></i>
+        <i class="fas fa-ellipsis-v leave-edit-history" onclick="toggleLeaveActionOptions(this)"></i>
         <div class="emp-leaveoptions" style="display:none">
             <a class="dropdown-item emp-leave-edit" onclick="empleaveedit($(this))" data-leavename='${item.LatestLeave.LeaveRequestName}'>Edit</a>
             <a class="dropdown-item emp-leave-cancel" onclick="empleavecancel($(this))" data-leavename='${item.LatestLeave.LeaveRequestName}'>Cancel</a>
@@ -526,24 +530,20 @@ function GetEmpLeaveHistory() {
 
                 return `
                     <tr class="rowBorder">
+                        <td class="fontSmall">
+                            <span class="fontWtMedium ${statusClass}">${item.LatestLeave.LeaveStatus}</span>
+                        </td>
+                        <td class="fontSmall dataMinWidth">
+                            <span class="fontWtbold">${item.LatestLeave.leavesource}</span>
+                        </td>
                         <td class="fontSmall dataMinWidth dateMaxWidth">
                             ${dateDisplay}
                         </td>
                         <td class="fontSmall">
-                            <div class="mutedText">Day(s)</div>
                             <span class="fontWtMedium">${item.TotalLeaveDays}</span>
-                        </td>
-                        <td class="fontSmall dataMinWidth">
-                            <div class="mutedText">Leave Type</div>
-                            <span class="fontWtbold" style="font-weight:bold;">${item.LatestLeave.leavesource}</span>
-                        </td>
-                        <td class="fontSmall">
-                            <div class="mutedText">Status</div>
-                            <span class="fontWtMedium ${statusClass}">${item.LatestLeave.LeaveStatus}</span>
-                        </td>
+                        </td>                                              
                         <td style="width: 420px;" class="fontSmall commentSec">
                             <div class="dFlex d-flex">
-                                <i class="fa-solid fa-message chatIcon mt-1 mr-2"></i>
                                 <p title="${item.LatestLeave.leave_reason}">${item.LatestLeave.leave_reason}</p>
                             </div>                            
                         </td>
@@ -610,37 +610,35 @@ function GetCompOffHistory() {
                             leaveStatus === 'pending' ? 'compoff-status-pending' : '';
 
                 const leaveActions = (leaveStatus === 'pending') ? `
-                    <i class="fas fa-ellipsis-h" onclick="toggleEmpCompoffActionOptions(this)"></i>
-                    <div class="emp-compoffs" style="display:none">                       
+                    <i class="fas fa-ellipsis-v" onclick="toggleEmpCompoffActionOptions(this)"></i>
+                    <div class="emp-compoffs" style="display:none">
+                        <a href="#" class="dropdown-item statusBtn editLeavecompoffBtn" data-leavename="Edit" data-compoffnum="${item.Compoff_no}">Edit</a>
                         <a href="" class="dropdown-item statusBtn cancelLeavecompoffBtn" data-leavename="Cancel" data-compoffnum="${item.Compoff_no}">Cancel</a>                       
                     </div>` : '';
 
+                /*<td style="display:none">${item.EmployeeID}</td>
+                <td style="display:none">${item.EmployeeName}</td>*/
+
                 return `
                    <tr>
-                <td style="display:none">${item.EmployeeID}</td>
-                <td style="display:none">${item.EmployeeName}</td>
-                <td>
-                    <div class="mutedText">Requested Date</div>
-                    <span class="fontWtMedium">${requestedDate}</span>
-                </td>
-                <td>
-                     <div class="mutedText">Work Date</div>
-                     <span class="fontWtMedium">${workDate}</span>
-                </td>
-                <td class="compoff-status">
-                    <div class="mutedText">Status</div>
-                    <span class="fontWtMedium ${statusClass}">${item.addStatus}</span>
-                </td>                
-                <td style="width: 420px;" class="fontSmall commentSec">
-                    <div class="dFlex d-flex">
-                        <i class="fa-solid fa-message chatIcon mt-1 mr-2"></i>
-                        <p title="${item.Reason}">${item.Reason}</p>
-                    </div>
-                </td>
-                <td class="fontSmall position-relative compoff-actions">
-                    ${leaveActions}
-                </td>
-            </tr>
+                    <td class="compoff-status">
+                        <span class="fontWtMedium ${statusClass}" title="${item.addStatus}"><img src="/Assets/Approve.png"></span>
+                    </td>
+                    <td>
+                        <span class="fontWtMedium"><div class="emp-compoff-date">${requestedDate}</div><div class="emp-compoff-day">Thursday</div></span>
+                    </td>
+                    <td>
+                         <span class="fontWtMedium"><div class="emp-compoff-date">${workDate}</div><div class="emp-compoff-day">Friday</div></span>
+                    </td>                    
+                    <td style="width: 420px;" class="fontSmall commentSec">
+                        <div class="dFlex d-flex">
+                            <p title="${item.Reason}">${item.Reason}</p>
+                        </div>
+                    </td>
+                    <td class="fontSmall position-relative compoff-actions">
+                        ${leaveActions}
+                    </td>
+                </tr>
                 `;
             }).join('');
 
@@ -794,7 +792,7 @@ $(document).on('click', '.emp-leave-edit', function (event) {
     window.location.href = '/empLeave/EditLeave?leavenumber=' + leaveNum;
 });
 
-$(document).on('click', '.history_btn', function (event) {
+/*$(document).on('click', '.history_btn', function (event) {
     event.preventDefault();
     var historyBtn = document.querySelector('.history_btn');
     var leaveHistory = document.querySelector('.leave-history');
@@ -817,6 +815,30 @@ $(document).on('click', '.history_btn', function (event) {
         cardDiv.style.display = 'block';
         leaveHistory.style.display = 'none';
     }
+});*/
+
+$(document).on('click', '.history_btn', function (event) {
+    event.preventDefault();
+    var leaveHistory = document.querySelector('.leave-history');
+    var cardDiv = document.querySelector('.empleave-card');
+    $(".leavecalendar_btn").removeClass("active");
+    $(".leavehistory_btn").addClass("active");
+    cardDiv.style.display = 'none';
+    leaveHistory.style.display = 'block';
+    GetEmpLeaveHistory();
+    GetCompOffHistory();
+
+});
+
+$(document).on('click', '.calendar_btn', function (event) {
+    event.preventDefault();
+    var leaveHistory = document.querySelector('.leave-history');
+    var cardDiv = document.querySelector('.empleave-card');
+    $(".leavecalendar_btn").addClass("active");
+    $(".leavehistory_btn").removeClass("active");
+    cardDiv.style.display = 'block';
+    leaveHistory.style.display = 'none';
+
 });
 
 $(document).ready(function () {
