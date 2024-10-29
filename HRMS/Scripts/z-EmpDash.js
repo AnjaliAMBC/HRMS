@@ -112,29 +112,21 @@ function formatDate(date) {
 
 function GetAttendenceInfo(startDate, endDate) {
     $.ajax({
-        url: "/empattendance/index",
-        type: 'POST',
-        dataType: 'html',
+        url: "/empattendance/getAttedenceInfo",
+        type: 'GET',
         data: {
             startDate: startDate,
             endDate: endDate
         },
         success: function (response) {
-            $('.emp-dashboard-data').html("");
-            $('.selfservice-dashboard-data').html("");
-            $('.leave-dashboard-data').html("");
-            $('.myrequest-dashboard-data').html("");
-            $("#empAttendance").html(response);
-            $("#empAttendance").show();  
-            $('.emp-dashboard-data').hide();
-            $('.selfservice-dashboard-data').hide();
-            $('.leave-dashboard-data').hide();
-            $('.myrequest-dashboard-data').hide();
+            // Update the maintenance records section with the new data
+            $('.EmpAttedenceTableRows-div').html('');
+            $('.EmpAttedenceTableRows-div').html(response);
         },
         error: function (xhr, status, error) {
             console.error('Error fetching attendance info:', error);
         },
-        complete: function () {          
+        complete: function () {
         }
     });
 }
@@ -153,19 +145,19 @@ $(function () {
     $("#week-start").text(startDate.toDateString());
     $("#week-end").text(endDate.toDateString());
 
-   
+
     $(document).on('click', '.left-btn', function (event) {
         startDate.setDate(startDate.getDate() - 7);
         endDate.setDate(endDate.getDate() - 7);
         updateWeekDates(startDate, endDate);
     });
-        
+
     $(document).on('click', '.right-btn', function (event) {
         startDate.setDate(startDate.getDate() + 7);
         endDate.setDate(endDate.getDate() + 7);
         updateWeekDates(startDate, endDate);
     });
-        
+
     function updateWeekDates(start, end) {
         $("#week-start").text(formatDate(start));
         $("#week-end").text(formatDate(end));
@@ -175,7 +167,7 @@ $(function () {
     }
 });
 
-function formatDateenUS(inputDate) {   
+function formatDateenUS(inputDate) {
     var date = new Date(inputDate);
     return date.toLocaleDateString('en-GB', { day: '2-digit', month: 'long', year: 'numeric' });
 }

@@ -12,27 +12,34 @@ namespace HRMS.Controllers
     using Helpers;
     public class EmpAttendanceController : BaseController
     {
-         private readonly HRMS_EntityFramework _dbContext;
-        
+        private readonly HRMS_EntityFramework _dbContext;
+
         public EmpAttendanceController()
         {
-            _dbContext = new HRMS_EntityFramework(); 
+            _dbContext = new HRMS_EntityFramework();
         }
-       
+
         public ActionResult Index(string startdate, string endDate)
         {
             if (startdate == "Invalid Date" || endDate == "Invalid Date")
             {
                 return null;
             }
+            EmpAttedenceModel model = GetAttedenceDetails(startdate, endDate);
+
+            return View("~/Views/EmployeeDashboard/EmpAttendance.cshtml", model);
+        }
+
+        private EmpAttedenceModel GetAttedenceDetails(string startdate, string endDate)
+        {
             var model = new EmpAttedenceModel();
             var cuserContext = SiteContext.GetCurrentUserContext();
 
             DateTime currentDate = DateTime.Today;
             DayOfWeek currentDayOfWeek = currentDate.DayOfWeek;
-           
+
             model.startWeek = currentDate.AddDays(-(int)currentDayOfWeek + (int)DayOfWeek.Monday);
-            
+
             model.EndWeek = model.startWeek.AddDays(6);
 
             if (!string.IsNullOrWhiteSpace(startdate) && !string.IsNullOrWhiteSpace(endDate))
@@ -53,11 +60,21 @@ namespace HRMS.Controllers
             {
                 model.Leaves = selectedDateLeaves;
             }
-           
+
             List<DateTime> allDates = DateHelper.GetAllDates(model.startWeek, model.EndWeek);
             model.AllDates = allDates;
+            return model;
+        }
 
-            return View("~/Views/EmployeeDashboard/EmpAttendance.cshtml", model);
+        public ActionResult GetAttedenceInfo(string startdate, string endDate)
+        {
+            if (startdate == "Invalid Date" || endDate == "Invalid Date")
+            {
+                return null;
+            }
+
+            EmpAttedenceModel model = GetAttedenceDetails(startdate, endDate);
+            return PartialView("~/Views/EmployeeDashboard/_EmpAttendanceTableRows.cshtml", model);
         }
     }
 }

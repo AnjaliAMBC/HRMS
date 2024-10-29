@@ -31,7 +31,7 @@
         starttimeWithAmPm = checkInTime.ToString("hh:mm tt", System.Globalization.CultureInfo.InvariantCulture);
         showCheckInButton = true;
         previousdayortodaycheckinexist = true;
-        buttonDeafultbgcolor = "#C70000";
+        buttonDeafultbgcolor = "checkputcolor";
     }
 
     var ButtonDisabled = "";
@@ -50,7 +50,7 @@
         }
         else
         {
-            buttonDeafultbgcolor = "#C70000";
+            buttonDeafultbgcolor = "checkputcolor";
         }
 
         starttimeWithAmPm = checkInTime.ToString("hh:mm:ss tt", System.Globalization.CultureInfo.InvariantCulture);
@@ -81,8 +81,6 @@
 
     var currentUserSession = Session["SiteContext"] as HRMS.Models.SiteContextModel;
 
-    buttonDeafultbgcolor = buttonText == "Check In" ? "#3E78CF" : "#C70000";
-
     if ((Model.todayCheckInInfo.Signin_Time != null && Model.todayCheckInInfo.Signin_Time != DateTime.MinValue) && (Model.todayCheckInInfo.Signout_Time == DateTime.MinValue || Model.todayCheckInInfo.Signout_Time == null))
     {
         buttonText = "Check Out";
@@ -93,6 +91,8 @@
     {
         buttonDeafultbgcolor = "dh-attendance";
     }
+
+    buttonDeafultbgcolor = buttonText == "Check In" ? "dh-attendance" : "checkputcolor";
 
 }
 
@@ -163,6 +163,7 @@
         padding: 5px 7px;
         margin-top: 5px;
         text-align: center;
+        cursor: pointer;
     }
 </style>
 
@@ -683,7 +684,7 @@
 
 <script src="~/Scripts/z-EmpDash.js"></script>
 <script src="~/Scripts/z-empleave.js"></script>
-<script src="~/Scripts/z-notification.js"></script>
+
 <script>
     let currentIndex = 0;
 

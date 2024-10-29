@@ -342,6 +342,7 @@
           <Property Name="ReplyTo" Type="varchar" MaxLength="255" />
           <Property Name="ReplyComments" Type="varchar" MaxLength="1000" />
           <Property Name="Notification replyDate" Type="datetime" />
+          <Property Name="RepiedSno" Type="int" />
         </EntityType>
         <EntityType Name="PurchaseRequest">
           <Key>
@@ -996,6 +997,7 @@ warning 6002: The table/view 'HRMS_PortalDev1.dbo.CheckInView' does not have a p
           <Property Name="ReplyTo" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
           <Property Name="ReplyComments" Type="String" MaxLength="1000" FixedLength="false" Unicode="false" />
           <Property Name="Notification_replyDate" Type="DateTime" Precision="3" />
+          <Property Name="RepiedSno" Type="Int32" />
         </EntityType>      
         <EntityType Name="Subscription">
           <Key>
@@ -1514,6 +1516,7 @@ warning 6002: The table/view 'HRMS_PortalDev1.dbo.CheckInView' does not have a p
           <EntitySetMapping Name="Notifications">
             <EntityTypeMapping TypeName="HRMS_EntityModel.Notification">
               <MappingFragment StoreEntitySet="Notifications">
+                <ScalarProperty Name="RepiedSno" ColumnName="RepiedSno" />
                 <ScalarProperty Name="Notification_replyDate" ColumnName="Notification replyDate" />
                 <ScalarProperty Name="ReplyComments" ColumnName="ReplyComments" />
                 <ScalarProperty Name="ReplyTo" ColumnName="ReplyTo" />

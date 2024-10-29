@@ -67,15 +67,37 @@ namespace HRMS.Helpers
                     break;
 
                 case "Birthday":
-                    title = $"Birthday wish from {notification.NotificationFromName}!";
+                    if (notification.RepiedSno != 0)
+                    {
+                        title = $"{notification.Comments} from {notification.NotificationFromName}!";
+                    }
+                    else
+                    {
+                        title = $"Birthday wish from {notification.NotificationFromName}!";
+                    }
+
                     break;
 
                 case "Anniversary":
-                    title = $"Anniversary wish from {notification.NotificationFromName}!";
+                    if (notification.RepiedSno != 0)
+                    {
+                        title = $"{notification.Comments} from {notification.NotificationFromName}!";
+                    }
+                    else
+                    {
+                        title = $"Anniversary wish from {notification.NotificationFromName}!";
+                    }
                     break;
 
                 case "New Join":
-                    title = $"Welcome to the team from {notification.NotificationFromName}!";
+                    if (notification.RepiedSno != 0)
+                    {
+                        title = $"{notification.Comments} from {notification.NotificationFromName}!";
+                    }
+                    else
+                    {
+                        title = $"Welcome to the team from {notification.NotificationFromName}!";
+                    }
                     break;
 
                 case "Reminder":

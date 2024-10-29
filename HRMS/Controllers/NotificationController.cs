@@ -42,5 +42,19 @@ namespace HRMS.Controllers
                 return Json(new { success = false, message = "Error sending message: " + ex.Message });
             }
         }
+
+        public ActionResult Getnotificationdetails(int sno)
+        {
+            try
+            {
+                var replyNotification = _dbContext.Notifications.Where(x => x.SNo == sno).FirstOrDefault();
+                return PartialView("~/Views/EmployeeDashboard/_EmpNotificationReply.cshtml", replyNotification);
+            }
+            catch (Exception ex)
+            {
+                return Json(new { success = false, message = "Error sending message: " + ex.Message });
+            }
+        }
+
     }
 }

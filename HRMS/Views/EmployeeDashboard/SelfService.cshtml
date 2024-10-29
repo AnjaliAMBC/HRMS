@@ -599,163 +599,173 @@
                                                     <ul>
                                                         @if (Model.empAsset != null)
                                                         {
-                                                           
-                                                            <li>
-                                                                <div class="family" style="width: 172px">
-                                                                    <div class="person child male">
-                                                                        <div class="name allocate-details tree-child">
-                                                                            @if (!string.IsNullOrWhiteSpace(Model.empAsset.AssetType1Image))
-                                                                            {
-                                                                                var ticketingFolderPath = System.Configuration.ConfigurationManager.AppSettings["TicketingFolderPath"]?.Replace("\\", "/");
+                                                            if (!string.IsNullOrWhiteSpace(Model.empAsset.AssetType1) && Model.empAsset.AssetType1 != "null")
+                                                            {
+                                                                <li>
+                                                                    <div class="family" style="width: 172px">
+                                                                        <div class="person child male">
+                                                                            <div class="name allocate-details tree-child">
+                                                                                @if (!string.IsNullOrWhiteSpace(Model.empAsset.AssetType1Image))
+                                                                                {
 
-                                                                                // Split the AssetID by '#' and check if there are enough parts
-                                                                                var assetIDParts = Model.empAsset.AssetID.Split('#');
-                                                                                var assetFolderID = assetIDParts.Length > 1 ? assetIDParts[1] : string.Empty; // Extracting assetFolderID
+                                                                                    // Split the AssetID by '#' and check if there are enough parts
+                                                                                    var assetIDParts = Model.empAsset.AssetID.Split('#');
+                                                                                    var assetFolderID = assetIDParts.Length > 1 ? assetIDParts[1] : string.Empty; // Extracting assetFolderID
 
-                                                                                // Construct the asset image URL
-                                                                                var assetImageURL = $"{ticketingFolderPath}/Assets/{assetFolderID}/{Model.empAsset.AssetType1Image}";
+                                                                                    // Construct the asset image URL
+                                                                                    var assetImageURL = $"{System.Configuration.ConfigurationManager.AppSettings["TicketingAbsolutePath"]}/Assets/{assetFolderID}/{Model.empAsset.AssetType1Image}";
 
 
-                                                                                <img src="@assetImageURL" alt="Asset Image" class="asset-profileimage"> }
-                                                                            else // Fallback image if asset image is not available
-                                                                            {
-                                                                                <img src="~/Assets/01_Laptop.png" alt="Default Asset Image" />}
-                                                                            <div class="allocate-info">
-                                                                                <div class="model"><span>Asset Name</span> @Model.empAsset.AssetType1</div>
-                                                                                <div class="assetid"><span>Asset ID</span> @Model.empAsset.AssetID</div>
-                                                                                <div class="allocatedby"><span>Allocated By</span> @Model.empAsset.AssignedBy</div>
-                                                                                <div class="allocateddate">
-                                                                                    <span>Allocated Date</span>@if (Model.empAsset.AssignedDate.HasValue)
-                                                                                    {
-                                                                                        @Model.empAsset.AssignedDate.Value.ToString("dd-MM-yyyy")
-                                                                                    }
-                                                                                    else
-                                                                                    {
-                                                                                        <span>No Date</span>
-                                                                                    }
+                                                                                    <img src="@assetImageURL" alt="Asset Image" class="asset-profileimage">
+                                                                                }
+                                                                                else // Fallback image if asset image is not available
+                                                                                {
+                                                                                    <img src="~/Assets/01_Laptop.png" alt="Default Asset Image" />
+                                                                                }
+
+                                                                                <div class="allocate-info">
+                                                                                    <div class="model"><span>Asset Name</span> @Model.empAsset.AssetType1</div>
+                                                                                    <div class="assetid"><span>Asset ID</span> @Model.empAsset.AssetID</div>
+                                                                                    <div class="allocatedby"><span>Allocated By</span> @Model.empAsset.AssignedBy</div>
+                                                                                    <div class="allocateddate">
+                                                                                        <span>Allocated Date</span>@if (Model.empAsset.AssignedDate.HasValue)
+                                                                                        {
+                                                                                            @Model.empAsset.AssignedDate.Value.ToString("dd-MM-yyyy")
+                                                                                        }
+                                                                                        else
+                                                                                        {
+                                                                                            <span>No Date</span>
+                                                                                        }
+                                                                                    </div>
                                                                                 </div>
                                                                             </div>
                                                                         </div>
                                                                     </div>
-                                                                </div>
-                                                            </li>
-                                                            <li>
-                                                                <div class="family" style="width: 172px">
-                                                                    <div class="person child male">
-                                                                        <div class="name allocate-details tree-child">
-                                                                            @if (!string.IsNullOrWhiteSpace(Model.empAsset.AssetType2Image))
-                                                                            {
-                                                                                var ticketingFolderPath = System.Configuration.ConfigurationManager.AppSettings["TicketingFolderPath"]?.Replace("\\", "/");
+                                                                </li>
+                                                            }
+                                                            if (!string.IsNullOrWhiteSpace(Model.empAsset.AssetType2) && Model.empAsset.AssetType2 != "null")
+                                                            {
+                                                                <li>
+                                                                    <div class="family" style="width: 172px">
+                                                                        <div class="person child male">
+                                                                            <div class="name allocate-details tree-child">
+                                                                                @if (!string.IsNullOrWhiteSpace(Model.empAsset.AssetType2Image))
+                                                                                {
 
-                                                                                // Split the AssetID by '#' and check if there are enough parts
-                                                                                var assetIDParts = Model.empAsset.AssetID.Split('#');
-                                                                                var assetFolderID = assetIDParts.Length > 1 ? assetIDParts[1] : string.Empty; // Extracting assetFolderID
 
-                                                                                // Construct the asset image URL
-                                                                                var assetImageURL = $"{ticketingFolderPath}/Assets/{assetFolderID}/{Model.empAsset.AssetType2Image}";
+                                                                                    // Split the AssetID by '#' and check if there are enough parts
+                                                                                    var assetIDParts = Model.empAsset.AssetID.Split('#');
+                                                                                    var assetFolderID = assetIDParts.Length > 1 ? assetIDParts[1] : string.Empty; // Extracting assetFolderID
 
-                                                                                <img src="@assetImageURL" alt="Asset Image" class="asset-profileimage"> }
-                                                                            else
-                                                                            {
-                                                                                <img src="~~/Assets/01_Mouse.png" alt="Mouse" />}
+                                                                                    // Construct the asset image URL
+                                                                                    var assetImageURL = $"{System.Configuration.ConfigurationManager.AppSettings["TicketingAbsolutePath"]}/Assets/{assetFolderID}/{Model.empAsset.AssetType2Image}";
 
-                                                                            <div class="allocate-info">
-                                                                                <div class="model"><span>Asset Name</span> @Model.empAsset.AssetType2</div>
-                                                                                <div class="assetid"><span>Asset ID</span> @Model.empAsset.AssetID</div>
-                                                                                <div class="allocatedby"><span>Allocated By</span> @Model.empAsset.AssignedBy</div>
-                                                                                <div class="allocateddate">
-                                                                                    <span>Allocated Date</span>@if (Model.empAsset.AssignedDate.HasValue)
-                                                                                    {
-                                                                                        @Model.empAsset.AssignedDate.Value.ToString("dd-MM-yyyy")
-                                                                                    }
-                                                                                    else
-                                                                                    {
-                                                                                        <span>No Date</span>
-                                                                                    }
+                                                                                    <img src="@assetImageURL" alt="Asset Image" class="asset-profileimage"> }
+                                                                                else
+                                                                                {
+                                                                                    <img src="~/Assets/01_Mouse.png" alt="Mouse" />}
+
+                                                                                <div class="allocate-info">
+                                                                                    <div class="model"><span>Asset Name</span> @Model.empAsset.AssetType2</div>
+                                                                                    <div class="assetid"><span>Asset ID</span> @Model.empAsset.AssetID</div>
+                                                                                    <div class="allocatedby"><span>Allocated By</span> @Model.empAsset.AssignedBy</div>
+                                                                                    <div class="allocateddate">
+                                                                                        <span>Allocated Date</span>@if (Model.empAsset.AssignedDate.HasValue)
+                                                                                        {
+                                                                                            @Model.empAsset.AssignedDate.Value.ToString("dd-MM-yyyy")
+                                                                                        }
+                                                                                        else
+                                                                                        {
+                                                                                            <span>No Date</span>
+                                                                                        }
+                                                                                    </div>
                                                                                 </div>
                                                                             </div>
                                                                         </div>
                                                                     </div>
-                                                                </div>
-                                                            </li>
-                                                            <li>
-                                                                <div class="family" style="width: 172px">
-                                                                    <div class="person child male">
-                                                                        <div class="name allocate-details tree-child">
-                                                                            @if (!string.IsNullOrWhiteSpace(Model.empAsset.AssetType3Image))
-                                                                            {
-                                                                                var ticketingFolderPath = System.Configuration.ConfigurationManager.AppSettings["TicketingFolderPath"]?.Replace("\\", "/");
+                                                                </li>
+                                                            }
+                                                            if (!string.IsNullOrWhiteSpace(Model.empAsset.AssetType3) && Model.empAsset.AssetType3 != "null")
+                                                            {
+                                                                <li>
+                                                                    <div class="family" style="width: 172px">
+                                                                        <div class="person child male">
+                                                                            <div class="name allocate-details tree-child">
+                                                                                @if (!string.IsNullOrWhiteSpace(Model.empAsset.AssetType3Image))
+                                                                                {
 
-                                                                                // Split the AssetID by '#' and check if there are enough parts
-                                                                                var assetIDParts = Model.empAsset.AssetID.Split('#');
-                                                                                var assetFolderID = assetIDParts.Length > 1 ? assetIDParts[1] : string.Empty; // Extracting assetFolderID
+                                                                                    // Split the AssetID by '#' and check if there are enough parts
+                                                                                    var assetIDParts = Model.empAsset.AssetID.Split('#');
+                                                                                    var assetFolderID = assetIDParts.Length > 1 ? assetIDParts[1] : string.Empty; // Extracting assetFolderID
 
-                                                                                // Construct the asset image URL
-                                                                                var assetImageURL = $"{ticketingFolderPath}/Assets/{assetFolderID}/{Model.empAsset.AssetType3Image}";
+                                                                                    // Construct the asset image URL
+                                                                                    var assetImageURL = $"{System.Configuration.ConfigurationManager.AppSettings["TicketingAbsolutePath"]}/Assets/{assetFolderID}/{Model.empAsset.AssetType3Image}";
 
-                                                                                <img src="@assetImageURL" alt="Asset Image" class="asset-profileimage"> }
-                                                                            else
-                                                                            {
-                                                                                <img src="~~/Assets/01_Mouse.png" alt="Mouse" />}
-                                                                            <div class="allocate-info">
-                                                                                <div class="model"><span>Asset Name</span> @Model.empAsset.AssetType3</div>
-                                                                                <div class="assetid"><span>Asset ID</span> @Model.empAsset.AssetID</div>
-                                                                                <div class="allocatedby"><span>Allocated By</span> @Model.empAsset.AssignedBy</div>
-                                                                                <div class="allocateddate">
-                                                                                    <span>Allocated Date</span>@if (Model.empAsset.AssignedDate.HasValue)
-                                                                                    {
-                                                                                        @Model.empAsset.AssignedDate.Value.ToString("dd-MM-yyyy")
-                                                                                    }
-                                                                                    else
-                                                                                    {
-                                                                                        <span>No Date</span>
-                                                                                    }
+                                                                                    <img src="@assetImageURL" alt="Asset Image" class="asset-profileimage" width="80"> }
+                                                                                else
+                                                                                {
+                                                                                    <img src="~/Assets/01_Mouse.png" alt="Mouse" />}
+                                                                                <div class="allocate-info">
+                                                                                    <div class="model"><span>Asset Name</span> @Model.empAsset.AssetType3</div>
+                                                                                    <div class="assetid"><span>Asset ID</span> @Model.empAsset.AssetID</div>
+                                                                                    <div class="allocatedby"><span>Allocated By</span> @Model.empAsset.AssignedBy</div>
+                                                                                    <div class="allocateddate">
+                                                                                        <span>Allocated Date</span>@if (Model.empAsset.AssignedDate.HasValue)
+                                                                                        {
+                                                                                            @Model.empAsset.AssignedDate.Value.ToString("dd-MM-yyyy")
+                                                                                        }
+                                                                                        else
+                                                                                        {
+                                                                                            <span>No Date</span>
+                                                                                        }
+                                                                                    </div>
                                                                                 </div>
                                                                             </div>
                                                                         </div>
                                                                     </div>
-                                                                </div>
-                                                            </li>
+                                                                </li>
+                                                            }
+                                                            if (!string.IsNullOrWhiteSpace(Model.empAsset.AssetType4) && Model.empAsset.AssetType4 != "null")
+                                                            {
+                                                                <li>
+                                                                    <div class="family" style="width: 172px">
+                                                                        <div class="person child male">
+                                                                            <div class="name allocate-details tree-child">
+                                                                                @if (!string.IsNullOrWhiteSpace(Model.empAsset.AssetType4Image))
+                                                                                {
 
-                                                            <li>
-                                                                <div class="family" style="width: 172px">
-                                                                    <div class="person child male">
-                                                                        <div class="name allocate-details tree-child">
-                                                                            @if (!string.IsNullOrWhiteSpace(Model.empAsset.AssetType4Image))
-                                                                            {
-                                                                                var ticketingFolderPath = System.Configuration.ConfigurationManager.AppSettings["TicketingFolderPath"]?.Replace("\\", "/");
+                                                                                    // Split the AssetID by '#' and check if there are enough parts
+                                                                                    var assetIDParts = Model.empAsset.AssetID.Split('#');
+                                                                                    var assetFolderID = assetIDParts.Length > 1 ? assetIDParts[1] : string.Empty; // Extracting assetFolderID
 
-                                                                                // Split the AssetID by '#' and check if there are enough parts
-                                                                                var assetIDParts = Model.empAsset.AssetID.Split('#');
-                                                                                var assetFolderID = assetIDParts.Length > 1 ? assetIDParts[1] : string.Empty; // Extracting assetFolderID
+                                                                                    // Construct the asset image URL
+                                                                                    var assetImageURL = $"{System.Configuration.ConfigurationManager.AppSettings["TicketingAbsolutePath"]}/Assets/{assetFolderID}/{Model.empAsset.AssetType4Image}";
 
-                                                                                // Construct the asset image URL
-                                                                                var assetImageURL = $"{ticketingFolderPath}/Assets/{assetFolderID}/{Model.empAsset.AssetType4Image}";
-
-                                                                                <img src="@assetImageURL" alt="Asset Image" class="asset-profileimage"> }
-                                                                            else
-                                                                            {
-                                                                                <img src="~~/Assets/01_Mouse.png" alt="Mouse" />}
-                                                                            <div class="allocate-info">
-                                                                                <div class="model"><span>Asset Name</span> @Model.empAsset.AssetType4</div>
-                                                                                <div class="assetid"><span>Asset ID</span> @Model.empAsset.AssetID</div>
-                                                                                <div class="allocatedby"><span>Allocated By</span> @Model.empAsset.AssignedBy</div>
-                                                                                <div class="allocateddate">
-                                                                                    <span>Allocated Date</span>@if (Model.empAsset.AssignedDate.HasValue)
-                                                                                    {
-                                                                                        @Model.empAsset.AssignedDate.Value.ToString("dd-MM-yyyy")
-                                                                                    }
-                                                                                    else
-                                                                                    {
-                                                                                        <span>No Date</span>
-                                                                                    }
+                                                                                    <img src="@assetImageURL" alt="Asset Image" class="asset-profileimage"> }
+                                                                                else
+                                                                                {
+                                                                                    <img src="~/Assets/01_Mouse.png" alt="Mouse" />}
+                                                                                <div class="allocate-info">
+                                                                                    <div class="model"><span>Asset Name</span> @Model.empAsset.AssetType4</div>
+                                                                                    <div class="assetid"><span>Asset ID</span> @Model.empAsset.AssetID</div>
+                                                                                    <div class="allocatedby"><span>Allocated By</span> @Model.empAsset.AssignedBy</div>
+                                                                                    <div class="allocateddate">
+                                                                                        <span>Allocated Date</span>@if (Model.empAsset.AssignedDate.HasValue)
+                                                                                        {
+                                                                                            @Model.empAsset.AssignedDate.Value.ToString("dd-MM-yyyy")
+                                                                                        }
+                                                                                        else
+                                                                                        {
+                                                                                            <span>No Date</span>
+                                                                                        }
+                                                                                    </div>
                                                                                 </div>
                                                                             </div>
                                                                         </div>
                                                                     </div>
-                                                                </div>
-                                                            </li>
-                                                            if (!string.IsNullOrWhiteSpace(Model.empAsset.AssetType4?.Trim()))
+                                                                </li>
+                                                            }
+                                                            if (!string.IsNullOrWhiteSpace(Model.empAsset.AssetType5) && Model.empAsset.AssetType5 != "null")
                                                             {
                                                                 <li>
                                                                     <div class="family" style="width: 172px">
@@ -763,18 +773,20 @@
                                                                             <div class="name allocate-details tree-child">
                                                                                 @if (!string.IsNullOrWhiteSpace(Model.empAsset.AssetType5Image))
                                                                                 {
-                                                                                    var ticketingFolderPath = System.Configuration.ConfigurationManager.AppSettings["TicketingFolderPath"]?.Replace("\\", "/");
 
                                                                                     // Split the AssetID by '#' and check if there are enough parts
                                                                                     var assetIDParts = Model.empAsset.AssetID.Split('#');
                                                                                     var assetFolderID = assetIDParts.Length > 1 ? assetIDParts[1] : string.Empty; // Extracting assetFolderID
 
                                                                                     // Construct the asset image URL
-                                                                                    var assetImageURL = $"{ticketingFolderPath}/Assets/{assetFolderID}/{Model.empAsset.AssetType5Image}";
-                                                                                    <img src="@assetImageURL" alt="Asset Image" class="asset-profileimage"> }
+                                                                                    var assetImageURL = $"{System.Configuration.ConfigurationManager.AppSettings["TicketingAbsolutePath"]}/Assets/{assetFolderID}/{Model.empAsset.AssetType5Image}";
+                                                                                    <img src="@assetImageURL" alt="Asset Image" class="asset-profileimage">
+                                                                                }
+
                                                                                 else
                                                                                 {
-                                                                                    <img src="~~/Assets/01_Mouse.png" alt="Mouse" />}
+                                                                                    <img src="~/Assets/01_Mouse.png" alt="Mouse" />
+                                                                                }
                                                                                 <div class="allocate-info">
                                                                                     <div class="model"><span>Asset Name</span> @Model.empAsset.AssetType5</div>
                                                                                     <div class="assetid"><span>Asset ID</span> @Model.empAsset.AssetID</div>
@@ -839,66 +851,6 @@
                         <div class="MaintenanceTableRows-div">
                             @Html.Partial("_MaintenanceTableRows", Model)
                         </div>
-
-
-                        @*<div class="res-emp-maintenanceinfo-table table-responsive">
-                                <table id="empmaintenanceinfotable" class="display" style="width: 100%;">
-                                    <thead style="background-color: #3E78CF; border-radius: 10px;">
-                                        <tr>
-                                            <th style="text-align:center;">Acknowledge</th>
-                                            <th>Date</th>
-                                            <th>Agent Name</th>
-                                            <th>Change Request Date</th>
-                                            <th>Status</th>
-                                            <th style="text-align:center;">Action</th>
-                                        </tr>
-                                    </thead>
-                                    <tbody>
-                                        <tr class="odd">
-                                            <td class="emp-maintenancestatus-icon" style="text-align:center;">
-                                                <span class="emp-maintenanceapproved-btn">
-                                                    <img src="/assets/Pending.png" alt="Pending" style="width:25px" title="Pending">
-                                                    <div style="display:none">Pending</div>
-                                                </span>
-                                            </td>
-                                            <td>01 October 2024</td>
-                                            <td><span class="emp-maintenanceinfo-image-btn"><img src="~/Assets/EmpImages/1155.jpeg" alt="agentname"></span><span class="emp-maintenance-id-select" data-assetid="name">Name</span></td>
-                                            <td>01 October 2024</td>
-                                            <td><div class="emp-maintenance-status pending">Pending</div></td>
-                                            <td style="text-align:center;">
-                                                <span class="emp-maintenanceinfo-list-edit">
-                                                    <i class="fas fa-ellipsis-v asset-edit-dropdown" onclick="toggleEmpMaintenanceActionOptions(this)"></i>
-                                                    <div class="emp-maintenance-options" style="display:none">
-                                                        <a class="btn btn-demo dropdown-item emp-maintenance-info-edit" data-assetid="1" data-toggle="modal" data-target="#RescheduleEmpMaintenancePopup">Reschedule</a>
-                                                        <a class="dropdown-item emp-maintenance-info-view" data-assetid="1">Acknowledge</a>
-                                                    </div>
-                                                </span>
-                                            </td>
-                                        </tr>
-                                        <tr class="even">
-                                            <td class="emp-maintenancestatus-icon" style="text-align:center;">
-                                                <span class="emp-maintenanceapproved-btn">
-                                                    <img src="/assets/Approve.png" alt="Approved" style="width:25px" title="Approved">
-                                                    <div style="display:none">Approved</div>
-                                                </span>
-                                            </td>
-                                            <td>01 October 2024</td>
-                                            <td><span class="emp-maintenanceinfo-image-btn"><img src="~/Assets/EmpImages/1155.jpeg" alt="agentname"></span><span class="emp-maintenance-id-select" data-assetid="name">Name</span></td>
-                                            <td>01 October 2024</td>
-                                            <td><div class="emp-maintenance-status completed">Completed</div></td>
-                                            <td style="text-align:center;">
-                                                <span class="emp-maintenanceinfo-list-edit">
-                                                    <i class="fas fa-ellipsis-v asset-edit-dropdown" onclick="toggleEmpMaintenanceActionOptions(this)"></i>
-                                                    <div class="emp-maintenance-options" style="display:none">
-                                                        <a class="btn btn-demo dropdown-item emp-maintenance-info-edit" data-assetid="1" data-toggle="modal" data-target="#RescheduleEmpMaintenancePopup">Reschedule</a>
-                                                        <a class="dropdown-item emp-maintenance-info-view" data-assetid="1">Acknowledge</a>
-                                                    </div>
-                                                </span>
-                                            </td>
-                                        </tr>
-                                    </tbody>
-                                </table>
-                            </div>*@
 
 
                     </div>
@@ -1064,56 +1016,9 @@
     }
 
 
-    $(document).on('click', '.emp-maintenance-info-view', function () { 
-        var maintananceNo = $(this).data('maintenancesno');                
+    $(document).on('click', '.emp-maintenance-info-view', function () {
+        var maintananceNo = $(this).data('maintenancesno');
         window.location.href = '/EmployeeDashboard/MaintananceAck?Sno=' + maintananceNo;
-    });
-
-
-    // Employee side Re-schecdule 
-
-    $(document).on('click', '.emp-maintenance-info-edit', function () {
-        var maintenanceSno = $(this).data('assetid');
-        $('#RescheduleMaintenancePopup').find('.reschedulemaintenance-id-select').text(maintenanceSno);
-        $('#RescheduleMaintenancePopup').find('.reschedulemaintenance-Update').data('maintenancesno', maintenanceSno);    
-        $('#RescheduleMaintenancePopup').modal('show');
-    });
-
-    $(document).on('click', '.reschedulemaintenance-Update', function () {
-        var maintenanceSno = $(this).data('maintenancesno');
-        var rescheduleDate = $('#RescheduleMaintenance-Reschedule').val();
-        var agentName = $('#RescheduleMaintenance-AgentName').val();
-        var notes = $('#RescheduleMaintenance-Notes').val();
-
-        // Make sure fields are filled before making the request
-        if (rescheduleDate === "" || agentName === null) {
-            alert("Please fill out all fields.");
-            return;
-        }
-
-        // AJAX request to the server
-        $.ajax({
-            url: '/EmployeeDashboard/RescheduleMaintenance',
-            type: 'POST',
-            data: {
-                maintenanceSno: maintenanceSno,
-                rescheduleDate: rescheduleDate,
-                agentName: agentName,
-                notes: notes
-            },
-            success: function (response) {
-                if (response.success) {
-                    $('#MaintenancemodalMessage').text("Maintenance successfully rescheduled.").show();
-                    $('#RescheduleMaintenancePopup').modal('hide');
-                    // Optionally refresh the table or perform any other action
-                } else {
-                    $('#MaintenancemodalMessage').text("Error: " + response.message).show();
-                }
-            },
-            error: function () {
-                $('#MaintenancemodalMessage').text("An error occurred while rescheduling maintenance.").show();
-            }
-        });
     });
 
 </script>
