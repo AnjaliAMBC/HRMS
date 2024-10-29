@@ -1281,10 +1281,14 @@ box-shadow: 0 0 5px rgba(0, 0, 0, 0.3);*/
     color: gray;
 }
 
+.emp-selfservice-list-horizon .emp-ss-monthlymaintenanceview {
+    margin: 0 20px;
+}
+
 .emp-selfservice-list-horizon .emp-ss-monthlymaintenanceview .emp-ss-mm-year {
     display: flex;
     justify-content: space-between;
-    margin: 0 20px;
+    margin-bottom: 10px;
 }
 
 .emp-selfservice-list-horizon .emp-ss-monthlymaintenanceview .mm-year-dropdown {
@@ -1716,16 +1720,19 @@ box-shadow: 0 0 5px rgba(0, 0, 0, 0.3);*/
 
 .emp-leave-list-horizon #leaveHistoryTable thead th:first-child {
     border-top-left-radius: 5px;
+    text-align: center;
 }
 
 .emp-leave-list-horizon #leaveHistoryTable thead th:last-child {
     border-top-right-radius: 5px;
+    text-align: center;
 }
 
-.emp-leave-list-horizon #leaveHistoryTable thead th, 
+.emp-leave-list-horizon #leaveHistoryTable thead th,
 .emp-leave-list-horizon #leaveHistoryTable tbody td {
     border: none;
     /*padding: 10px 75px;*/
+    vertical-align: middle
 }
 
 .emp-leave-list-horizon #leaveHistoryTable tbody {
@@ -1733,6 +1740,27 @@ box-shadow: 0 0 5px rgba(0, 0, 0, 0.3);*/
     border-right: 1px solid #ccc;
 }
 
+.emp-leave-list-horizon #leaveHistoryTable .empleave-status,
+.emp-leave-list-horizon #leaveHistoryTable .position-relative {
+    text-align: center;
+}
+
+.emp-leave-list-horizon .leave-edit-history {
+    border: none;
+}
+
+.emp-leave-list-horizon .leave-history #leaveHistoryTable .commentSec p {
+    margin-bottom: 0;
+}
+
+.emp-leave-list-horizon .leave-history #leaveHistoryTable .empleave-status img {
+    width: 25px;
+    height: 25px;
+}
+
+.emp-leave-list-horizon #leaveHistoryTable .emp-leaveoptions {
+    text-align: left;
+}
 
 .emp-leave-list-horizon #empleaveCompOffTable th {
     background-color: #267EC4 !important;
@@ -1840,5 +1868,72 @@ box-shadow: 0 0 5px rgba(0, 0, 0, 0.3);*/
 }
 
 /* emp leave end */
+
+/* emp apply leave start */
+
+.emp-applyleave-horizon .emp-apply-leave-reason label {
+    width: 100%;
+}
+
+.emp-applyleave-horizon .emp-apply-leave-reason label .emp-apply-leave-reason-left {
+    float: left;
+}
+
+.emp-applyleave-horizon .emp-apply-leave-reason label .emp-apply-leave-reason-right {
+    float: right;
+}
+
+.emp-applyleave-horizon .emp-leave-apply-form #leaveForm .btn-apply-empleave {
+    padding: 5px 30px;
+    border-radius: 25px;
+}
+
+.emp-applyleave-horizon.emp-leave .leave-dashboard-data .balance-section-wrapper .res-emp-apply-leave .balance-section {
+    background: #D9D9D9;
+}
+
+.leave-dashboard-data .apply-leave-form {
+    justify-content: space-between;
+}
+
+.emp-applyleave-horizon .dayleave-type-container .form-check {
+    margin-right: 35px;
+}
+
+.emp-applyleave-horizon #leaveForm #dayTypeContainer {
+    margin-bottom: 0;
+}
+
+.emp-applyleave-horizon .totalLeavesContainer {
+    margin-bottom: 10px;
+    font-size: 14px;
+}
+
+.emp-applyleave-horizon .totalLeavesContainer #totalLeaves {
+    font-style: italic;
+}
+
+.emp-applyleave-horizon .apply-date-section .form-group {
+    width: 48%;
+    flex: initial;
+}
+
+.emp-applyleave-horizon .time-section {
+    display: flex;
+    justify-content: space-between;
+}
+
+.emp-applyleave-horizon .time-section .form-group {
+    display: inline-block;
+    width: 48%;
+}
+
+.emp-applyleave-horizon .time-section .start-time-section {
+}
+
+.emp-applyleave-horizon .time-section .end-time-section {
+}
+
+/* emp apply leave end */
 
 

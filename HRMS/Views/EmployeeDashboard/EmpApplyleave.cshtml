@@ -11,7 +11,7 @@
 
     var isEditRecord = !string.IsNullOrWhiteSpace(Model.Leaves) && Model.Leaves != "[]" ? "true" : "false";
 
-    var buttonText = !string.IsNullOrWhiteSpace(Model.Leaves) && Model.Leaves != "[]" ? "Update" : "Submit";
+    var buttonText = !string.IsNullOrWhiteSpace(Model.Leaves) && Model.Leaves != "[]" ? "Update" : "Apply";
 
     var hideDivStyle = currentUserSession != null && !currentUserSession.IsAdmin ? "display:none;" : "";
 }
@@ -65,7 +65,7 @@
                     </div>
                     <div class="apply-date-section">
                         <div class="form-group">
-                            <label for="fromleaveDate">From Date*</label>
+                            <label for="fromleaveDate">Start Date*</label>
 
                             @if (Model.EditLeaveInfo != null && Model.EditLeaveInfo.Fromdate != DateTime.MinValue)
                             {
@@ -78,7 +78,7 @@
                             <span class="error-message" id="fromleaveDate-error"></span>
                         </div>
                         <div class="form-group to-date-group">
-                            <label for="toleaveDate">To Date*</label>
+                            <label for="toleaveDate">End Date*</label>
 
                             @if (Model.EditLeaveInfo != null && Model.EditLeaveInfo.Todate != DateTime.MinValue)
                             {
@@ -91,23 +91,38 @@
                             <span class="error-message" id="toleaveDate-error"></span>
                         </div>
                     </div>
-                    <div class="form-group time-section" style="display: none">
-                        <label for="HourPermission" class="hour_label">Hour Permission*</label>
-                        <select class="form-control" id="HourPermission">
-                            <option selected disabled>Select Hours</option>
+                    @*<div class="form-group time-section" style="display: none">
+                            <label for="HourPermission" class="hour_label">Hour Permission*</label>
+                            <select class="form-control" id="HourPermission">
+                                <option selected disabled>Select Hours</option>
 
-                            @{
-                                decimal selectedHourPermission = Model.EditLeaveInfo != null && Model.EditLeaveInfo.leavesource == "Hourly Permission" ? Model.EditLeaveInfo.LeaveDays : 0;
-                            }
-                            @foreach (var hourPermission in Model.HourlyPermissions)
-                            {
-                                var permissionHourString = hourPermission.Split(' ')[0];
-                                decimal permissionHour = decimal.Parse(permissionHourString);
-                                var selected = permissionHour == selectedHourPermission ? "selected" : "";
-                                <option @selected value="@permissionHour">@hourPermission</option>
-                            }
-                        </select>
-                        <span class="error-message" id="HourPermission-error"></span>
+                                @{
+                                    decimal selectedHourPermission = Model.EditLeaveInfo != null && Model.EditLeaveInfo.leavesource == "Hourly Permission" ? Model.EditLeaveInfo.LeaveDays : 0;
+                                }
+                                @foreach (var hourPermission in Model.HourlyPermissions)
+                                {
+                                    var permissionHourString = hourPermission.Split(' ')[0];
+                                    decimal permissionHour = decimal.Parse(permissionHourString);
+                                    var selected = permissionHour == selectedHourPermission ? "selected" : "";
+                                    <option @selected value="@permissionHour">@hourPermission</option>
+                                }
+                            </select>
+                            <span class="error-message" id="HourPermission-error"></span>
+                        </div>*@
+                    <div class="time-section" style="display: none">
+                        <div class="form-group start-time-section">
+                            <label for="StartTime" class="StartTime">Start Time*</label>
+                            <div class="input-group date">
+                                <input type="text" class="form-control datetimepicker-input" id="datetimepicker1" data-toggle="datetimepicker" data-target="#datetimepicker1" placeholder="Selet Time" />
+                            </div>
+                        </div>
+                        <div class="form-group end-time-section">
+                            <label for="EndTime" class="EndTime">End Time*</label>
+                            <div class="input-group date">
+                                <input type="text" class="form-control datetimepicker-input" id="datetimepicker2" data-toggle="datetimepicker" data-target="#datetimepicker2" placeholder="Select Time" />
+                            </div>
+                        </div>
+                        
                     </div>
                     <div class="form-group" id="dayTypeLabel" style="display: none">
                         <label>Day Type*</label>
@@ -131,8 +146,8 @@
                         <div style="display: none" id="defaultteamEmail">@leaveDefaultEmails</div>
                         <span class="error-message" id="teamEmail-error"></span>
                     </div>
-                    <div class="form-group">
-                        <label for="reason">Reason</label>
+                    <div class="form-group emp-apply-leave-reason">
+                        <label for="reason"><span class="emp-apply-leave-reason-left">Reason</span><span class="emp-apply-leave-reason-right"><input type="checkbox" id="leave-send-reason" name="leave-send-reason" value=""><span style="margin-left:5px;">Send reasons to team</span></span></label>
                         @{
                             var leave_reason = @Model.EditLeaveInfo != null && !string.IsNullOrWhiteSpace(Model.EditLeaveInfo.leave_reason) ? Model.EditLeaveInfo.leave_reason : "";
                         }
@@ -176,5 +191,13 @@
     $(document).ready(function () {
         $('#leaveempname').select2();
         /*   $('#leaveType').select2();*/
+    });
+    $(function () {
+        $('#datetimepicker1').datetimepicker({
+            format: 'HH:mm'
+        });
+        $('#datetimepicker2').datetimepicker({
+            format: 'HH:mm'
+        });
     });
 </script>
