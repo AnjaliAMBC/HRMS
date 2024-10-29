@@ -78,83 +78,86 @@
                         <tbody>
                             @foreach (var purchserequest in Model.PurchaseRequests)
                             {
-                                <tr>
-                                    <td><input type="checkbox" class="purchaseitadmin-check"></td>
-                                    <td class="itprequestno" data-purchaseid="@purchserequest.PurchaseRequestID">@purchserequest.PRNumber</td>
-                                    <td class="itpassettype">@purchserequest.AssetType</td>
-                                    <td>@purchserequest.RequestedBy</td>
-                                    <td class="itpvendor1 table-itp-vendor-info">
+                            <tr>
+                                <td><input type="checkbox" class="purchaseitadmin-check"></td>
+                                <td class="itprequestno" data-purchaseid="@purchserequest.PurchaseRequestID">@purchserequest.PRNumber</td>
+                                <td class="itpassettype">@purchserequest.AssetType</td>
+                                <td>@purchserequest.RequestedBy</td>
+                                <td class="itpvendor1 table-itp-vendor-info">
+                                    <div style="display: flex; align-items: center;">
+                                        <span style="margin-top: 0px; margin-right: 10px; line-height:1rem">
+                                            @purchserequest.VendorName1<br>
+                                            <a class="itp_filepath" href="/@System.Configuration.ConfigurationManager.AppSettings["TicketingAbsolutePath"]/@Model.PurchasRequestFolderPath/@purchserequest.AttachFile1" target="_blank">@purchserequest.AttachFile1</a><br />
+
+                                            @{
+                                                var vendor1Status = purchserequest.Vendor1Status;
+                                                var status1Class = string.IsNullOrEmpty(vendor1Status) ? "pending" : vendor1Status.ToLowerInvariant();
+                                                var status1Name = string.IsNullOrEmpty(vendor1Status) ? "Pending" : vendor1Status;
+                                            }
+                                            <span class="@status1Class">@status1Name</span>
+                                        </span>
+                                    </div>
+                                </td>
+
+                                @if (purchserequest.VendorID2 != 0)
+                                {
+                                    <td class="itpvendor2 table-itp-vendor-info">
                                         <div style="display: flex; align-items: center;">
-                                            <span style="margin-top: 0px; margin-right: 10px; line-height:1rem">
-                                                @purchserequest.VendorName1<br>
-                                                <a class="itp_filepath" href="/@System.Configuration.ConfigurationManager.AppSettings["TicketingAbsolutePath"]/@Model.PurchasRequestFolderPath/@purchserequest.AttachFile1" target="_blank">@purchserequest.AttachFile1</a><br />
+                                            <span style="margin-top: 0px; margin-right: 10px; line-height: 1rem">
+                                                @purchserequest.VendorName2<br>
+                                                @if (!string.IsNullOrWhiteSpace(@purchserequest.AttachFile2))
+                                                {
+                                                    <a class="itp_filepath" href="/@System.Configuration.ConfigurationManager.AppSettings["TicketingAbsolutePath"]/@Model.PurchasRequestFolderPath/@purchserequest.AttachFile2" target="_blank">@purchserequest.AttachFile2</a><br />
+                                                }
 
                                                 @{
-                                                    var vendor1Status = purchserequest.Vendor1Status;
-                                                    var status1Class = string.IsNullOrEmpty(vendor1Status) ? "pending" : vendor1Status.ToLowerInvariant();
-                                                    var status1Name = string.IsNullOrEmpty(vendor1Status) ? "Pending" : vendor1Status;
+                                                    var vendor2Status = purchserequest.Vendor2Status;
+                                                    var status2Class = string.IsNullOrEmpty(vendor2Status) ? "pending" : vendor2Status.ToLowerInvariant();
+                                                    var status2Name = string.IsNullOrEmpty(vendor2Status) ? "Pending" : vendor2Status;
                                                 }
-                                                <span class="@status1Class">@status1Name</span>
+
+                                                <span class="@status2Class">@status2Name</span>
                                             </span>
                                         </div>
                                     </td>
-
-                                    @if (purchserequest.VendorID2 != 0)
+                                }
+                                else
+                                {
+                                    <td>N/A</td>
+                                }
+                                @if (purchserequest.VendorID3 != 0)
+                                {
+                                    <td class="itpvendor3 table-itp-vendor-info">
+                                        <div style="display: flex; align-items: center;">
+                                            <span style="margin-top: 0px; margin-right: 10px; line-height: 1rem">
+                                                @purchserequest.VendorName3<br>
+                                                @if (!string.IsNullOrWhiteSpace(@purchserequest.AttachFile3))
+                                                {
+                                                    <a class="itp_filepath" href="/@System.Configuration.ConfigurationManager.AppSettings["TicketingAbsolutePath"]/@Model.PurchasRequestFolderPath/@purchserequest.AttachFile3" target="_blank">@purchserequest.AttachFile3</a><br />
+                                                }
+                                                @{
+                                                    var vendor3Status = @purchserequest.Vendor3Status;
+                                                    var status3Class = string.IsNullOrEmpty(vendor3Status) ? "pending" : vendor3Status.ToLowerInvariant();
+                                                    var status3Name = string.IsNullOrEmpty(vendor3Status) ? "Pending" : vendor3Status;
+                                                }
+                                                <span class="@status3Class">@status3Name</span>
+                                            </span>
+                                        </div>
+                                    </td>
+                                }
+                                else
+                                {
+                                    <td>N/A</td>
+                                }
+                                <td style="text-align:center;">
+                                    @if (purchserequest.FinalStatus != "Approved" && purchserequest.FinalStatus != "Rejected")
                                     {
-                                        <td class="itpvendor2 table-itp-vendor-info">
-                                            <div style="display: flex; align-items: center;">
-                                                <span style="margin-top: 0px; margin-right: 10px; line-height: 1rem">
-                                                    @purchserequest.VendorName2<br>
-                                                    @if (!string.IsNullOrWhiteSpace(@purchserequest.AttachFile2))
-                                                    {
-                                                        <a class="itp_filepath" href="/@System.Configuration.ConfigurationManager.AppSettings["TicketingAbsolutePath"]/@Model.PurchasRequestFolderPath/@purchserequest.AttachFile2" target="_blank">@purchserequest.AttachFile2</a><br />
-                                                    }
-
-                                                    @{
-                                                        var vendor2Status = purchserequest.Vendor2Status;
-                                                        var status2Class = string.IsNullOrEmpty(vendor2Status) ? "pending" : vendor2Status.ToLowerInvariant();
-                                                        var status2Name = string.IsNullOrEmpty(vendor2Status) ? "Pending" : vendor2Status;
-                                                    }
-
-                                                    <span class="@status2Class">@status2Name</span>
-                                                </span>
-                                            </div>
-                                        </td>
-                                    }
-                                    else
-                                    {
-                                        <td>N/A</td>
-                                    }
-                                    @if (purchserequest.VendorID3 != 0)
-                                    {
-                                        <td class="itpvendor3 table-itp-vendor-info">
-                                            <div style="display: flex; align-items: center;">
-                                                <span style="margin-top: 0px; margin-right: 10px; line-height: 1rem">
-                                                    @purchserequest.VendorName3<br>
-                                                    @if (!string.IsNullOrWhiteSpace(@purchserequest.AttachFile3))
-                                                    {
-                                                        <a class="itp_filepath" href="/@System.Configuration.ConfigurationManager.AppSettings["TicketingAbsolutePath"]/@Model.PurchasRequestFolderPath/@purchserequest.AttachFile3" target="_blank">@purchserequest.AttachFile3</a><br />
-                                                    }
-                                                    @{
-                                                        var vendor3Status = @purchserequest.Vendor3Status;
-                                                        var status3Class = string.IsNullOrEmpty(vendor3Status) ? "pending" : vendor3Status.ToLowerInvariant();
-                                                        var status3Name = string.IsNullOrEmpty(vendor3Status) ? "Pending" : vendor3Status;
-                                                    }
-                                                    <span class="@status3Class">@status3Name</span>
-                                                </span>
-                                            </div>
-                                        </td>
-                                    }
-                                    else
-                                    {
-                                        <td>N/A</td>
-                                    }
-                                    <td style="text-align:center;">
                                         <span class="purchaseitadmin-approval-edit" data-purchaseid="@purchserequest.PurchaseRequestID">
                                             <i class="fas fa-pencil-alt"></i>
                                         </span>
-                                    </td>
-                                </tr>
+                                    }
+                                </td>
+                            </tr>
                             }
 
                         </tbody>

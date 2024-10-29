@@ -1,5 +1,10 @@
 ﻿@model HRMS.Models.ITsupport.VendorViewModel
-
+<style>
+    .vendor-list-edit.disabled i {
+        color: gray;
+        cursor: not-allowed;
+    }
+</style>
 @Html.Partial("_NavBar")
 <div class="container-fluid">
     <div class="hiddenadmindashboard" style="display: none"></div>
@@ -83,36 +88,46 @@
                         <tbody>
                             @foreach (var vendor in Model.Allvendors)
                             {
-                                <tr class="odd">
-                                    <td><input type="checkbox" class="vendor-check"></td>
-                                    <td class="tdvendorid">@vendor.VedorID</td>
-                                    <td class="tdvendorname">
-                                        <div style="display: flex; align-items: center;">
-                                            <span style="margin-top: 0px; margin-right: 10px;"><div title="@vendor.VendorName" class="t-vendorname">@vendor.VendorName</div><div  title="@vendor.VendorName" class="t-vendoremail" style="color: #3E78CF;">@vendor.VendorEmail</div></span>
-                                        </div>
-                                    </td>
-                                    <td class="tdvendorcontact" title="@vendor.VendorContact">@vendor.VendorContact</td>
-                                    <td title="@vendor.VendorAddress" class="tdvendoraddress">@vendor.VendorAddress</td>
-                                    <td>
-                                        @if (vendor.CreatedDate.HasValue)
-                                        {
-                                            @vendor.CreatedDate.Value.ToString("dd-MM-yyyy")
-                                        }
-                                    </td>
+                            <tr class="odd">
+                                <td><input type="checkbox" class="vendor-check"></td>
+                                <td class="tdvendorid">@vendor.VedorID</td>
+                                <td class="tdvendorname">
+                                    <div style="display: flex; align-items: center;">
+                                        <span style="margin-top: 0px; margin-right: 10px;"><div title="@vendor.VendorName" class="t-vendorname">@vendor.VendorName</div><div title="@vendor.VendorName" class="t-vendoremail" style="color: #3E78CF;">@vendor.VendorEmail</div></span>
+                                    </div>
+                                </td>
+                                <td class="tdvendorcontact" title="@vendor.VendorContact">@vendor.VendorContact</td>
+                                <td title="@vendor.VendorAddress" class="tdvendoraddress">@vendor.VendorAddress</td>
+                                <td>
+                                    @if (vendor.CreatedDate.HasValue)
+                                    {
+                                        @vendor.CreatedDate.Value.ToString("dd-MM-yyyy")
+                                    }
+                                </td>
 
-                                    <td>@vendor.CreatedBy</td>
-                                    <td>
-                                        <span class="sadmin-vendorapproved-btn">
-                                            <img src="/assets/@(vendor.Status == "Approved" ? "Approve.png" : vendor.Status == "Rejected" ? "Reject.png" : "Pending.png")"
-                                                 alt="@vendor.Status"
-                                                 style="width:25px"
-                                                 title="@(vendor.Status == "Approved" ? "Approved by " + vendor.ApprovedBy : vendor.Status == "Rejected" ? "Rejected by " + vendor.RejectedBy : "Pending")">
-                                            <div style="display:none">@vendor.Status</div>
-                                        </span>
-                                    </td>
-
-                                    <td><span class="vendor-list-edit" data-vendorid="@vendor.VedorID"><i class="fas fa-pencil-alt"></i></span></td>
-                                </tr>
+                                <td>@vendor.CreatedBy</td>
+                                <td>
+                                    <span class="sadmin-vendorapproved-btn">
+                                        <img src="/assets/@(vendor.Status == "Approved" ? "Approve.png" : vendor.Status == "Rejected" ? "Reject.png" : "Pending.png")"
+                                             alt="@vendor.Status"
+                                             style="width:25px"
+                                             title="@(vendor.Status == "Approved" ? "Approved by " + vendor.ApprovedBy : vendor.Status == "Rejected" ? "Rejected by " + vendor.RejectedBy : "Pending")">
+                                        <div style="display:none">@vendor.Status</div>
+                                    </span>
+                                </td>
+                                <td>
+                                    @if (vendor.Status != "Approved" && vendor.Status != "Rejected")
+                                    {
+                                <span class="vendor-list-edit" data-vendorid="@vendor.VedorID">
+                                    <i class="fas fa-pencil-alt"></i>
+                                </span> }
+                                                else
+                                                {
+                                <span class="vendor-list-edit disabled" data-vendorid="@vendor.VedorID" title="Editing Disabled">
+                                    <i class="fas fa-pencil-alt" style="color: gray; cursor: not-allowed;"></i>
+                                </span>}
+                                </td>
+                            </tr>
                             }
                             @*<tr class="even">
                                     <td><input type="checkbox" class="vendor-check"></td>
