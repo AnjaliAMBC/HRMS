@@ -55,6 +55,9 @@ namespace HRMS.Controllers
                 model.EmpInfo = siteContext.EmpInfo;
                 model.LoginInfo = siteContext.LoginInfo;
 
+
+                model.ITEmployees = _dbContext.emp_info.Where(x => x.Department == "IT").ToList();
+
                 return View("~/Views/EmployeeDashboard/SelfService.cshtml", model);
             }
 
@@ -201,6 +204,10 @@ namespace HRMS.Controllers
 
                 if (maintenanceRecord != null)
                 {
+                    if (maintenanceRecord.AcknowledgeDate != null && maintenanceRecord.AcknowledgeDate != DateTime.MinValue)
+                    {
+                        return Json(new { success = true, message = "You've already acknowledged!" });
+                    }
                     // Update the fields with the provided values
                     maintenanceRecord.AcknowledgeDate = string.IsNullOrEmpty(AcknowledgeDate)
                         ? (DateTime?)null
@@ -213,14 +220,14 @@ namespace HRMS.Controllers
                     // Save changes to the database
                     context.SaveChanges();
 
-                    return Json(new { success = true }); // Return a success message
+                    return Json(new { success = true, message = "Maintenance successfully acknowledged!" }); // Return a success message
                 }
                 else
                 {
-                    return Json(new { success = false, message = "Record not found." }); // Handle record not found
+                    return Json(new { success = false, message = "No record found." }); // Handle record not found
                 }
             }
-        }      
+        }
 
     }
 }

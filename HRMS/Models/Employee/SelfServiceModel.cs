@@ -7,6 +7,8 @@ namespace HRMS.Models.Employee
         public Asset empAsset { get; set; } = new Asset(); // Changed to List
         public List<IT_Maintenance> empMaintanance { get; set; } = new List<IT_Maintenance>();
 
+        public IT_Maintenance empmaintananceRecord = new IT_Maintenance();
+
         public List<emp_info> ITEmployees { get; set; } = new List<emp_info>();
 
         public IT_Maintenance EditableRecord = new IT_Maintenance();

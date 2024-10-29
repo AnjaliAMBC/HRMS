@@ -224,5 +224,58 @@ namespace HRMS.Controllers
             return Json(jsonResult, JsonRequestBehavior.AllowGet);
 
         }
+
+        [HttpPost]
+        public JsonResult SaveNotificationReply()
+        {
+            try
+            {
+                // Parse the parameters from the request
+                var sno = int.Parse(Request.Form["SNo"]);
+                var replyComments = Request.Form["ReplyComments"];
+                var replyFrom = Request.Form["ReplyFrom"];
+                var replyTo = Request.Form["ReplyTo"];
+
+                // Validate input
+                if (string.IsNullOrWhiteSpace(replyComments))
+                {
+                    return Json(new { success = false, message = "Reply comments cannot be empty." });
+                }
+
+                var notification = _dbContext.Notifications.FirstOrDefault(n => n.RepiedSno == sno);
+                if (notification == null)
+                {
+                    var oldNotificationInfo = _dbContext.Notifications.FirstOrDefault(n => n.SNo == sno);
+
+                    var newNotification = new Notification
+                    {
+                        NotificationDate = DateTime.Now,
+                        NotificationFromName = oldNotificationInfo.NotificationToName,
+                        NotificationFromID = oldNotificationInfo.NotificationToID,
+                        NotificationToName = oldNotificationInfo.NotificationFromName,
+                        NotificationToID = oldNotificationInfo.NotificationFromID,
+                        NotificationType = oldNotificationInfo.NotificationType,
+                        Status = "Sent",
+                        Comments = replyComments,
+                        RepiedSno = sno,
+                        CreatedDate = DateTime.Now
+                    };
+
+                    _dbContext.Notifications.Add(newNotification);
+                    _dbContext.SaveChanges();
+
+                    return Json(new { success = true });
+                }
+                return Json(new { success = false, message = "Notification not found." });
+            }
+            catch (Exception ex)
+            {
+                // Log the exception (consider using a logging library)
+                // For example: _logger.LogError(ex, "An error occurred while saving notification reply.");
+
+                return Json(new { success = false, message = "An error occurred while processing your request." });
+            }
+        }
+
     }
 }

@@ -2,7 +2,7 @@
 
 
 <div class="res-emp-maintenanceinfo-table table-responsive">
-    <table id="empmaintenanceinfotable" class="display" style="width: 100%;">
+    <table id="empmaintenanceinfotable" class="table display" style="width: 100%;">
         <thead style="background-color: #3E78CF; border-radius: 10px;">
             <tr>
                 <th style="text-align:center;">Acknowledge</th>
@@ -57,8 +57,13 @@
                             <span class="emp-maintenanceinfo-list-edit">
                                 <i class="fas fa-ellipsis-v asset-edit-dropdown" onclick="toggleEmpMaintenanceActionOptions(this)"></i>
                                 <div class="emp-maintenance-options" style="display:none">
-                                    <a class="btn btn-demo dropdown-item emp-maintenance-info-edit" data-assetid="@maintenance.Sno" data-toggle="modal" data-target="#RescheduleEmpMaintenancePopup">Reschedule</a>
+                                    @if (maintenance.Status != "Completed")
+                                    {
+                                        <a class="btn btn-demo dropdown-item maintenance-info-reschedule" data-maintenancesno="@maintenance.Sno" data-toggle="modal" data-target="#RescheduleEmpMaintenancePopup">Reschedule</a>
+                                    }
+
                                     <a class="dropdown-item emp-maintenance-info-view" data-maintenancesno="@maintenance.Sno">Acknowledge</a>
+
                                 </div>
                             </span>
                         </td>

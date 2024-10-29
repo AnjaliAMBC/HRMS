@@ -861,35 +861,10 @@ $(document).ready(function () {
 //Leave Tracker apply leave
 $(document).on('click', '.btn-apply-leave', function (event) {
     event.preventDefault();
-    /*   HighlightEmpActiveLink($(this));*/
-    $.ajax({
-        url: '/EmpLeave/empapplyleave',
-        type: 'POST',
-        dataType: 'html',
-        success: function (response) {
-            $(".hiddenempdashboard").html("");
-            $(".emp-dashboard-data").html("");
-            $(".selfservice-dashboard-data").html("");
-            $(".attedance-dashboard-data").html("");
-            $(".leave-dashboard-data").html("");
-            $(".myrequest-dashboard-data").html("");
-            $(".hiddenempdashboard").html(response);
-            var formContent = $(".hiddenempdashboard").find(".employeeleaveapply-view").html();
-            $(".leave-dashboard-data").html(formContent);
-            $('.leave-dashboard-data').show();
-            $('.attedance-dashboard-data').hide();
-            $('.emp-dashboard-data').hide();
-            $('.selfservice-dashboard-data').hide();
-            $('.myrequest-dashboard-data').hide();
-            $(".hiddenempdashboard").html("");
-            $('.div-leave-empname').hide();
-        },
-        error: function (xhr, status, error) {
-            var err = eval("(" + xhr.responseText + ")");
-        }
-    });
-});
 
+    // Redirect to the leave application page
+    window.location.href = '/EmpLeave/empapplyleave';
+});
 
 $(document).on('change', '#leavehistoryyear', function () {
     GetEmpLeaveHistory();

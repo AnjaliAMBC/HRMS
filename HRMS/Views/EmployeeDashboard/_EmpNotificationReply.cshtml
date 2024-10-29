@@ -1,0 +1,95 @@
+﻿@model HRMS.Notification
+
+@using HRMS.Helpers
+
+<style>
+
+    .modal.right.show {
+        display: flex;
+        align-items: start;
+    }
+
+    /* Adjust the width and position for NotificationPopup */
+    #NotificationPopup {
+        width: 40%;
+        position: fixed;
+        right: 60%;
+    }
+
+    /* Adjust the width and position for NotificationReplyPopup */
+    #NotificationReplyPopup {
+        width: 40%;
+        position: fixed;
+        right: 20%;
+    }
+</style>
+
+<!--Notification  modal -->
+<!-- Notification reply Modal -->
+<div class="modal right fade" id="NotificationReplyPopup" data-sno="@Model.SNo" tabindex="-1" role="dialog" aria-labelledby="NotificationReplyPopup">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">Reply</h5>
+            </div>
+            <div class="modal-body">
+                <div class="notificationreply-list-blocks">
+                    <div class="notificationreply-receiver">
+                        <div class="notificationreply-receiver-left">
+                            @{
+                                var fromEmpDisplay = EmployeeHelper.GetEmployeeDisplayInfo(Model.NotificationFromID);
+                            }
+
+                            @if (!string.IsNullOrWhiteSpace(fromEmpDisplay.ImageSrc))
+                            {
+                                <img src="@fromEmpDisplay.ImageSrc">
+                            }
+                            else
+                            {
+                                <div class="">@fromEmpDisplay.EmpShortName</div>
+                            }
+                        </div>
+                        <div class="notificationreply-receiver-right">
+                            <div class="receiver-userinfo">
+                                <div class="receiver-name">@Model.NotificationFromName</div>
+                                <div class="receiver-date">@Model.NotificationDate</div>
+                            </div>
+                            <div class="receiver-message">@Model.Comments</div>
+                            @*<div class="receiver-like"><i class="far fa-thumbs-up" aria-hidden="true"></i> <span>Like</span></div>*@
+                        </div>
+                    </div>
+                    <div class="notificationreply-sender">
+                        <div class="notificationreply-sender-left">
+                            <div class="sender-userinfo">
+                                <div class="sender-name">@Model.NotificationToName</div>
+                                <div class="sender-date">@Model.Notification_replyDate</div>
+                            </div>
+                            <textarea id="sender-message" name="sender-message" rows="3" cols="50"></textarea>
+                            <div class="sender-send text-right"><div class="sender-send-btn">Send</div></div>
+                            <span class="replysent-msg"></span>
+                        </div>
+                        <div class="notificationreply-sender-right">
+                            @{
+                                var toEmpDisplay = EmployeeHelper.GetEmployeeDisplayInfo(Model.NotificationToID);
+                            }
+
+                            @if (!string.IsNullOrWhiteSpace(toEmpDisplay.ImageSrc))
+                            {
+                                <img src="@toEmpDisplay.ImageSrc">
+                            }
+                            else
+                            {
+                                <div class="">@toEmpDisplay.EmpShortName</div>
+                            }
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+        <!-- modal-content -->
+    </div>
+    <!-- modal-dialog -->
+</div>
+
+<!--Notification reply  modal -->

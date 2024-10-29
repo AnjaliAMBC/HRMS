@@ -1,7 +1,7 @@
 ﻿$(document).on("click", ".emp-dash-modal-send", function () {
     var button = $(this);
     var modal = button.closest(".emp-dash-modal-blocks");
-    var feedback = modal.find(".message-feedback"); 
+    var feedback = modal.find(".message-feedback");
     var commentsField = modal.find(".emp-dash-modal-message");
 
 
@@ -52,3 +52,85 @@
         }
     });
 });
+
+$(document).on("click", ".notification-reply", function () {
+    var sno = $(this).data('sno');
+    $('#NotificationReplyPopup').attr('data-sno', sno);
+    $('#NotificationReplyPopup #sender-message').val("");
+
+    // Check if the modal is already open
+    if ($('#NotificationReplyPopup').hasClass('show')) {
+        // Hide the modal, then load data and reopen once hidden
+        $('#NotificationReplyPopup').modal("hide").on('hidden.bs.modal', function () {
+            loadNotificationReplyData(sno);  // Load data after hiding
+        });
+    } else {
+        loadNotificationReplyData(sno); // Load data directly if modal is closed
+    }
+});
+
+function loadNotificationReplyData(sno) {
+    $.ajax({
+        url: '/notification/getnotificationdetails',
+        type: 'GET',
+        data: { sno: sno },
+        success: function (data) {
+            // Update the content
+            $('.empNotificationReply-div').html(data);
+
+            // Reopen the modal with updated content
+            $('#NotificationReplyPopup').modal("show");
+        },
+        error: function (xhr, status, error) {
+            console.error(error);
+            alert('An error occurred while retrieving the notification details.');
+        }
+    });
+}
+
+
+
+$(document).on("click", ".sender-send-btn", function () {
+    var sno = $('#NotificationReplyPopup').attr('data-sno'); // Get sno from the modal's data
+    var replyComments = $('#NotificationReplyPopup #sender-message').val(); // Get the value from the textarea
+    var replyFrom = $(this).closest('.notificationreply-sender').find('.sender-name').text(); // Get reply from name
+    var replyTo = $(this).closest('.notificationreply-receiver').find('.receiver-name').text(); // Get reply to name
+
+    if (!replyComments) {
+        alert("Reply message cannot be empty.");
+        return;
+    }
+
+    var formData = new FormData();
+    formData.append("SNo", sno);
+    formData.append("ReplyComments", replyComments);
+    formData.append("ReplyFrom", replyFrom);
+    formData.append("ReplyTo", replyTo);
+
+    $.ajax({
+        url: '/empdash/savenotificationreply',
+        type: 'POST',
+        data: formData,
+        contentType: false,
+        processData: false,
+        success: function (response) {
+            if (response.success) {
+                // Show success message and fade it out
+                $('#NotificationReplyPopup .replysent-msg').text("Reply sent successfully..!!").show();
+                setTimeout(function () {
+                    $('#NotificationReplyPopup .replysent-msg').fadeOut();
+                }, 3000);
+
+                // Optionally clear the reply message textarea
+                $('#NotificationReplyPopup #sender-message').val('');
+            } else {
+                alert(response.message || "Failed to save reply.");
+            }
+        },
+        error: function () {
+            alert("An error occurred while saving the reply.");
+        }
+    });
+});
+
+

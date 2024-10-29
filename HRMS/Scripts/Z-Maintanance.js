@@ -363,11 +363,11 @@ $(document).on('click', '.emp-maintenanceacknowledge-submit', function () {
 
             // Check if the response indicates success or error
             if (response.success) {
-                $('#responseModalLabel').text('Success').addClass('success-message');
-                $('#responseModalBody').text('Successfully acknowledged the maintenance.');
+                $('#responseModalLabel').text('Success');
+                $('#responseModalBody').text(response.message).addClass('success-message');;
             } else {
-                $('#responseModalLabel').text('Error').addClass('error-message');
-                $('#responseModalBody').text(response.message || 'An error occurred while submitting the data.');
+                $('#responseModalLabel').text('Error');
+                $('#responseModalBody').text(response.message || 'An error occurred while submitting the data.').addClass('error-message');
             }
             $('#responseModal').modal('show');
         },
@@ -402,4 +402,9 @@ $(document).on('change', '#emp-mm-year', function () {
             alert('An error occurred while filtering the maintenance data.');
         }
     });
+});
+
+
+$(document).on('click', '.mainaknowledge-close', function () {
+    window.location.href = "/employeedashboard/selfservice";
 });

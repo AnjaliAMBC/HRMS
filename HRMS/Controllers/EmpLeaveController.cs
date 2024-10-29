@@ -76,7 +76,7 @@ namespace HRMS.Controllers
                 "2 Hours"
             };
 
-            return PartialView("~/Views/EmployeeDashboard/EmpApplyleave.cshtml", applyleaveModel);
+            return View("~/Views/EmployeeDashboard/EmpApplyleave.cshtml", applyleaveModel);
         }
 
         public ActionResult AjaxApplyLeave(LeaveRequestModel leaveRequest)
