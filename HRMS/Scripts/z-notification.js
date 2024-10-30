@@ -54,6 +54,8 @@
 });
 
 $(document).on("click", ".notification-reply", function () {
+    //$('.modal-backdrop:gt(0)').remove();
+    $('.modal-backdrop').not(':first').remove();
     var sno = $(this).data('sno');
     $('#NotificationReplyPopup').attr('data-sno', sno);
     $('#NotificationReplyPopup #sender-message').val("");
@@ -67,6 +69,11 @@ $(document).on("click", ".notification-reply", function () {
     } else {
         loadNotificationReplyData(sno); // Load data directly if modal is closed
     }
+});
+
+$(document).on("click", "#NotificationPopup .modal-header button", function () {
+    $('#NotificationReplyPopup').hide();
+    $('.modal-backdrop').remove();
 });
 
 function loadNotificationReplyData(sno) {
