@@ -15,177 +15,199 @@
 
     var hideDivStyle = currentUserSession != null && !currentUserSession.IsAdmin ? "display:none;" : "";
 }
+@Html.Partial("_EmployeeNavbar")
 
-<div class="employeeleaveapply-view">
-    <style>
-        .error-message {
-            color: red;
-            display: none; /* Hidden by default */
-        }
+<style>
+    .error-message {
+        color: red;
+        display: none; /* Hidden by default */
+    }
 
-        .input-error, .input-error select {
-            border-color: red !important;
-        }
-    </style>
+    .input-error, .input-error select {
+        border-color: red !important;
+    }
+</style>
 
-    <div class="container emp-leave-apply-form">
-        <div class="row">
-            <div class="col-lg-5 col-md-11 popup-form">
-                <form id="leaveForm">
-                    <div class="form-group">
-                        <h4 class="mb-4 leave-pagetitle">@pageTitle</h4>
-                        <div class="form-group div-leave-empname" style="@hideDivStyle">
-                            <label for="leaveempname" class="leave_label">Employee Name*</label>
-                            <select class="form-control" id="leaveempname">
-                                <option selected disabled>Select Employee Name</option>
-                                @{
-                                    var selectedempID = currentUserSession.EmpInfo.EmployeeID; ;
-                                }
-                                @foreach (var emp in Model.employees)
-                                {
-                                    var selected = !currentUserSession.IsAdmin && emp.EmployeeID == selectedempID ? "selected" : "";
-                                    <option @selected value="@emp.EmployeeID" data-empname="@emp.EmployeeName" data-emplocation="@emp.Location" data-empemail="@emp.OfficalEmailid" data-designation="@emp.Designation" data-department="@emp.Department">@emp.EmployeeName @emp.EmployeeID</option>
-                                }
-                            </select>
-                            <span class="error-message" id="leaveempname-error"></span>
-                        </div>
-                        <label for="leaveType" class="leave_label">Leave Type*</label>
-                        <select class="form-control" id="leaveType" @isLeaveTypeDisabled>
-                            <option selected disabled>Select Leave Type</option>
-                            @{
-                                var selectedLeaveType = Model.EditLeaveInfo != null ? Model.EditLeaveInfo.leavesource : "";
-                            }
-                            @foreach (var leavetype in Model.leaveTypes)
-                            {
-                                var selected = leavetype == selectedLeaveType ? "selected" : "";
-                                <option @selected value="@leavetype">@leavetype</option>
-                            }
-                        </select>
-                        <span class="error-message" id="leaveType-error"></span>
+<div class="container-fluid emp-leave emp-applyleave-horizon">
+    <div class="main-content container-fluid">
+        <div class="content employee-applyleave">
+            <div class="emp-applyleave-container">
+                <div class="row res-emp-applyleave-header">
+                    <div class="col-lg-3 res-emp-applyleave-title">
+                        <h4 class="leave-pagetitle">@pageTitle</h4>
                     </div>
-                    <div class="apply-date-section">
-                        <div class="form-group">
-                            <label for="fromleaveDate">Start Date*</label>
-
-                            @if (Model.EditLeaveInfo != null && Model.EditLeaveInfo.Fromdate != DateTime.MinValue)
-                            {
-                                @Html.TextBoxFor(m => m.EditLeaveInfo.Fromdate, "{0:yyyy-MM-dd}", new { @type = "date", @class = "form-control", @id = "fromleaveDate" })
-                            }
-                            else
-                            {
-                                <input type="date" class="form-control" id="fromleaveDate">
-                            }
-                            <span class="error-message" id="fromleaveDate-error"></span>
-                        </div>
-                        <div class="form-group to-date-group">
-                            <label for="toleaveDate">End Date*</label>
-
-                            @if (Model.EditLeaveInfo != null && Model.EditLeaveInfo.Todate != DateTime.MinValue)
-                            {
-                                @Html.TextBoxFor(m => m.EditLeaveInfo.Todate, "{0:yyyy-MM-dd}", new { @type = "date", @class = "form-control", @id = "toleaveDate" })
-                            }
-                            else
-                            {
-                                <input type="date" class="form-control custom-disabled" id="toleaveDate">
-                            }
-                            <span class="error-message" id="toleaveDate-error"></span>
-                        </div>
-                    </div>
-                    @*<div class="form-group time-section" style="display: none">
-                            <label for="HourPermission" class="hour_label">Hour Permission*</label>
-                            <select class="form-control" id="HourPermission">
-                                <option selected disabled>Select Hours</option>
-
-                                @{
-                                    decimal selectedHourPermission = Model.EditLeaveInfo != null && Model.EditLeaveInfo.leavesource == "Hourly Permission" ? Model.EditLeaveInfo.LeaveDays : 0;
-                                }
-                                @foreach (var hourPermission in Model.HourlyPermissions)
-                                {
-                                    var permissionHourString = hourPermission.Split(' ')[0];
-                                    decimal permissionHour = decimal.Parse(permissionHourString);
-                                    var selected = permissionHour == selectedHourPermission ? "selected" : "";
-                                    <option @selected value="@permissionHour">@hourPermission</option>
-                                }
-                            </select>
-                            <span class="error-message" id="HourPermission-error"></span>
-                        </div>*@
-                    <div class="time-section" style="display: none">
-                        <div class="form-group start-time-section">
-                            <label for="StartTime" class="StartTime">Start Time*</label>
-                            <div class="input-group date">
-                                <input type="text" class="form-control datetimepicker-input" id="datetimepicker1" data-toggle="datetimepicker" data-target="#datetimepicker1" placeholder="Selet Time" />
-                            </div>
-                        </div>
-                        <div class="form-group end-time-section">
-                            <label for="EndTime" class="EndTime">End Time*</label>
-                            <div class="input-group date">
-                                <input type="text" class="form-control datetimepicker-input" id="datetimepicker2" data-toggle="datetimepicker" data-target="#datetimepicker2" placeholder="Select Time" />
-                            </div>
-                        </div>
-
-                    </div>
-                    <div class="form-group" id="dayTypeLabel" style="display: none">
-                        <label>Day Type*</label>
-                    </div>
-                    <div id="dayTypeContainer" style="display: none"></div>
-                    <div id="editleaves" style="display: none">@Model.Leaves</div>
-                    @{
-                        var LeaveRequestName = @Model.EditLeaveInfo != null && !string.IsNullOrWhiteSpace(Model.EditLeaveInfo.LeaveRequestName) ? Model.EditLeaveInfo.LeaveRequestName : "";
-                    }
-                    <div id="editleaverequestname" style="display: none">@LeaveRequestName</div>
-                    <div id="totalLeavesContainer" class=""></div>
-                    <div id="totalLeavesNumber" class="" style="display: none"></div>
-                    <div id="isedirecord" style="display: none">@isEditRecord</div>
-                    <div class="form-group">
-                        <label for="teamEmail">Team Email <span style="font-size: smaller">(add with comma separator)</span></label>
-
-                        @{
-                            var teamEmails = @Model.EditLeaveInfo != null && !string.IsNullOrWhiteSpace(Model.EditLeaveInfo.TeamEmails) ? Model.EditLeaveInfo.TeamEmails : "";
-                        }
-                        <input type="text" value="@teamEmails" class="form-control" id="teamEmail">
-                        <div style="display: none" id="defaultteamEmail">@leaveDefaultEmails</div>
-                        <span class="error-message" id="teamEmail-error"></span>
-                    </div>
-                    <div class="form-group emp-apply-leave-reason">
-                        <label for="reason"><span class="emp-apply-leave-reason-left">Reason</span><span class="emp-apply-leave-reason-right"><input type="checkbox" id="leave-send-reason" name="leave-send-reason" value=""><span style="margin-left:5px;">Send reasons to team</span></span></label>
-                        @{
-                            var leave_reason = @Model.EditLeaveInfo != null && !string.IsNullOrWhiteSpace(Model.EditLeaveInfo.leave_reason) ? Model.EditLeaveInfo.leave_reason : "";
-                        }
-                        <textarea class="form-control" id="reason">@leave_reason</textarea>
-                        <span class="error-message" id="reason-error"></span>
-                    </div>
-                    <div class="form-group">
-                        <label for="BackupName">Backup Resource Name*</label>
-                        @{
-                            var BackupResource_Name = @Model.EditLeaveInfo != null && !string.IsNullOrWhiteSpace(Model.EditLeaveInfo.BackupResource_Name) ? Model.EditLeaveInfo.BackupResource_Name : "";
-                        }
-                        <input type="text" class="form-control" id="BackupName" value="@BackupResource_Name">
-                        <span class="error-message" id="BackupName-error"></span>
-                    </div>
-                    <div class="form-group">
-                        <label for="BackupNo">Contact Number (In case of Emergency)*</label>
-                        @{
-                            var EmergencyContact_no = @Model.EditLeaveInfo != null && !string.IsNullOrWhiteSpace(Model.EditLeaveInfo.EmergencyContact_no) ? Model.EditLeaveInfo.EmergencyContact_no : "";
-                        }
-                        <input type="text" class="form-control" id="BackupNo" value="@EmergencyContact_no" inputmode="numeric" pattern="[0-9]*" oninput="this.value = this.value.replace(/[^0-9]/g, '');">
-                        <span class="error-message" id="BackupNo-error"></span>
-                    </div>
-                    <span class="error-message-showerror" style="display: none; color: red"></span>
-                    <div class="apply-leave-submit-block">
-                        <button type="button" class="btn btn-applyleave-cancel mb-4">Cancel</button>
-                        <button type="submit" class="btn btn-primary btn-apply-empleave mb-4">@buttonText</button>
-                    </div>
-                </form>
-            </div>
-            <div class="col-lg-6 col-md-12">
-                <div class="balance-section-wrapper" style="display: none">
                 </div>
             </div>
+
+
+            <div class="employeeleaveapply-view" id="empApplyLeaveFields">
+                <div class="container1 emp-leave-apply-form">
+                    <div class="row">
+                        <div class="col-lg-5 col-md-11 popup-form">
+                            <form id="leaveForm">
+                                <div class="form-group">
+                                    <div class="form-group div-leave-empname" style="@hideDivStyle">
+                                        <label for="leaveempname" class="leave_label">Employee Name*</label>
+                                        <select class="form-control" id="leaveempname">
+                                            <option selected disabled>Select Employee Name</option>
+                                            @{
+                                                var selectedempID = currentUserSession.EmpInfo.EmployeeID; ;
+                                            }
+                                            @foreach (var emp in Model.employees)
+                                            {
+                                                var selected = !currentUserSession.IsAdmin && emp.EmployeeID == selectedempID ? "selected" : "";
+                                                <option @selected value="@emp.EmployeeID" data-empname="@emp.EmployeeName" data-emplocation="@emp.Location" data-empemail="@emp.OfficalEmailid" data-designation="@emp.Designation" data-department="@emp.Department">@emp.EmployeeName @emp.EmployeeID</option>
+                                            }
+                                        </select>
+                                        <span class="error-message" id="leaveempname-error"></span>
+                                    </div>
+                                    <label for="leaveType" class="leave_label">Select Leave Type*</label>
+                                    <select class="form-control" id="leaveType" @isLeaveTypeDisabled>
+                                        <option selected disabled>Select Leave Type</option>
+                                        @{
+                                            var selectedLeaveType = Model.EditLeaveInfo != null ? Model.EditLeaveInfo.leavesource : "";
+                                        }
+                                        @foreach (var leavetype in Model.leaveTypes)
+                                        {
+                                            var selected = leavetype == selectedLeaveType ? "selected" : "";
+                                            <option @selected value="@leavetype">@leavetype</option>
+                                        }
+                                    </select>
+                                    <span class="error-message" id="leaveType-error"></span>
+                                </div>
+                                <div class="apply-date-section">
+                                    <div class="form-group">
+                                        <label for="fromleaveDate">Start Date*</label>
+
+                                        @if (Model.EditLeaveInfo != null && Model.EditLeaveInfo.Fromdate != DateTime.MinValue)
+                                        {
+                                            @Html.TextBoxFor(m => m.EditLeaveInfo.Fromdate, "{0:yyyy-MM-dd}", new { @type = "date", @class = "form-control", @id = "fromleaveDate" })
+                                        }
+                                        else
+                                        {
+                                            <input type="date" class="form-control" id="fromleaveDate">
+                                        }
+                                        <span class="error-message" id="fromleaveDate-error"></span>
+                                    </div>
+                                    <div class="form-group to-date-group">
+                                        <label for="toleaveDate">End Date*</label>
+
+                                        @if (Model.EditLeaveInfo != null && Model.EditLeaveInfo.Todate != DateTime.MinValue)
+                                        {
+                                            @Html.TextBoxFor(m => m.EditLeaveInfo.Todate, "{0:yyyy-MM-dd}", new { @type = "date", @class = "form-control", @id = "toleaveDate" })
+                                        }
+                                        else
+                                        {
+                                            <input type="date" class="form-control custom-disabled" id="toleaveDate">
+                                        }
+                                        <span class="error-message" id="toleaveDate-error"></span>
+                                    </div>
+                                </div>
+                                @*<div class="form-group time-section" style="display: none">
+                                        <label for="HourPermission" class="hour_label">Hour Permission*</label>
+                                        <select class="form-control" id="HourPermission">
+                                            <option selected disabled>Select Hours</option>
+
+                                            @{
+                                                decimal selectedHourPermission = Model.EditLeaveInfo != null && Model.EditLeaveInfo.leavesource == "Hourly Permission" ? Model.EditLeaveInfo.LeaveDays : 0;
+                                            }
+                                            @foreach (var hourPermission in Model.HourlyPermissions)
+                                            {
+                                                var permissionHourString = hourPermission.Split(' ')[0];
+                                                decimal permissionHour = decimal.Parse(permissionHourString);
+                                                var selected = permissionHour == selectedHourPermission ? "selected" : "";
+                                                <option @selected value="@permissionHour">@hourPermission</option>
+                                            }
+                                        </select>
+                                        <span class="error-message" id="HourPermission-error"></span>
+                                    </div>*@
+                                <div class="time-section" style="display: none">
+                                    <div class="form-group start-time-section">
+                                        <label for="StartTime" class="StartTime">Start Time*</label>
+                                        <div class="input-group date">
+                                            <input type="text" class="form-control datetimepicker-input" id="datetimepicker1" data-toggle="datetimepicker" data-target="#datetimepicker1" placeholder="Selet Time" />
+                                        </div>
+                                    </div>
+                                    <div class="form-group end-time-section">
+                                        <label for="EndTime" class="EndTime">End Time*</label>
+                                        <div class="input-group date">
+                                            <input type="text" class="form-control datetimepicker-input" id="datetimepicker2" data-toggle="datetimepicker" data-target="#datetimepicker2" placeholder="Select Time" />
+                                        </div>
+                                    </div>
+
+                                </div>
+                                <div class="form-group" id="dayTypeLabel" style="display: none">
+                                    <label>Day Type*</label>
+                                </div>
+                                <div id="dayTypeContainer" style="display: none"></div>
+                                <div id="editleaves" style="display: none">@Model.Leaves</div>
+                                @{
+                                    var LeaveRequestName = @Model.EditLeaveInfo != null && !string.IsNullOrWhiteSpace(Model.EditLeaveInfo.LeaveRequestName) ? Model.EditLeaveInfo.LeaveRequestName : "";
+                                }
+                                <div id="editleaverequestname" style="display: none">@LeaveRequestName</div>
+                                <div id="totalLeavesContainer" class=""></div>
+                                <div id="totalLeavesNumber" class="" style="display: none"></div>
+                                <div id="isedirecord" style="display: none">@isEditRecord</div>
+                                <div class="form-group">
+                                    <label for="teamEmail">Team Email <span style="font-size: smaller">(add with comma separator)</span></label>
+
+                                    @{
+                                        var teamEmails = @Model.EditLeaveInfo != null && !string.IsNullOrWhiteSpace(Model.EditLeaveInfo.TeamEmails) ? Model.EditLeaveInfo.TeamEmails : "";
+                                    }
+                                    <input type="text" value="@teamEmails" class="form-control" id="teamEmail">
+                                    <div style="display: none" id="defaultteamEmail">@leaveDefaultEmails</div>
+                                    <span class="error-message" id="teamEmail-error"></span>
+                                </div>
+                                <div class="form-group emp-apply-leave-reason">
+                                    <label for="reason"><span class="emp-apply-leave-reason-left">Reason</span><span class="emp-apply-leave-reason-right"><input type="checkbox" id="leave-send-reason" name="leave-send-reason" value=""><span style="margin-left:5px;">Send reasons to team</span></span></label>
+                                    @{
+                                        var leave_reason = @Model.EditLeaveInfo != null && !string.IsNullOrWhiteSpace(Model.EditLeaveInfo.leave_reason) ? Model.EditLeaveInfo.leave_reason : "";
+                                    }
+                                    <textarea class="form-control" id="reason">@leave_reason</textarea>
+                                    <span class="error-message" id="reason-error"></span>
+                                </div>
+                                <div class="form-group">
+                                    <label for="BackupName">Backup Resource Name*</label>
+                                    @{
+                                        var BackupResource_Name = @Model.EditLeaveInfo != null && !string.IsNullOrWhiteSpace(Model.EditLeaveInfo.BackupResource_Name) ? Model.EditLeaveInfo.BackupResource_Name : "";
+                                    }
+                                    <input type="text" class="form-control" id="BackupName" value="@BackupResource_Name">
+                                    <span class="error-message" id="BackupName-error"></span>
+                                </div>
+                                <div class="form-group">
+                                    <label for="BackupNo">Contact Number (In case of Emergency)*</label>
+                                    @{
+                                        var EmergencyContact_no = @Model.EditLeaveInfo != null && !string.IsNullOrWhiteSpace(Model.EditLeaveInfo.EmergencyContact_no) ? Model.EditLeaveInfo.EmergencyContact_no : "";
+                                    }
+                                    <input type="text" class="form-control" id="BackupNo" value="@EmergencyContact_no" inputmode="numeric" pattern="[0-9]*" oninput="this.value = this.value.replace(/[^0-9]/g, '');">
+                                    <span class="error-message" id="BackupNo-error"></span>
+                                </div>
+                                <span class="error-message-showerror" style="display: none; color: red"></span>
+                                <div class="apply-leave-submit-block">
+                                    <button type="button" class="btn btn-applyleave-cancel mb-4">Cancel</button>
+                                    <button type="submit" class="btn btn-primary btn-apply-empleave mb-4">@buttonText</button>
+                                </div>
+                            </form>
+                        </div>
+                        <div class="col-lg-6 col-md-12">
+                            <div class="balance-section-wrapper" style="display: none">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                @Html.Partial("CommonModalPopups")
+            </div>
+
+
+
+
         </div>
     </div>
-
-    @Html.Partial("CommonModalPopups")
 </div>
+
+@Html.Partial("EmployeeFooter")
+
 <!-- Moment.js (required for Tempus Dominus) -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.29.1/moment.min.js"></script>
 

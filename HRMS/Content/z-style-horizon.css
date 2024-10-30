@@ -430,7 +430,7 @@
     display: inline-block;
     width: 57%;
     margin-right: 10px;
-    margin-top: 18px;
+    margin-top: 12px;
 }
 
 .emp-dashboard-horizon .dashboard-header-block .dashboard-header-right .dh-left .dh-date {
@@ -1008,7 +1008,7 @@
 .emp-upcomingholidays-list-horizon {
     background: #efefef;
     /*height: 100vh;*/
-    padding-bottom: 25px;
+    padding: 0 25px 25px 25px;
 }
 
 .emp-upcomingholidays-list-horizon .main-content {
@@ -1090,6 +1090,7 @@
 .emp-selfservice-list-horizon {
     background: #efefef;
     /*height: 100vh;*/
+    padding: 0 25px;
 }
 
 .emp-selfservice-list-horizon .main-content {
@@ -1445,7 +1446,7 @@ box-shadow: 0 0 5px rgba(0, 0, 0, 0.3);*/
 .emp-attendance-list-horizon {
     background: #efefef;
     /*height: 100vh;*/
-    padding-bottom: 25px;
+    padding: 0 25px 25px 25px;
 }
 
 .emp-attendance-list-horizon .main-content {
@@ -1496,7 +1497,7 @@ box-shadow: 0 0 5px rgba(0, 0, 0, 0.3);*/
 .emp-leave-list-horizon {
     background: #efefef;
     /*height: 100vh;*/
-    padding-bottom: 25px;
+    padding: 0 25px 25px 25px;
 }
 
 .emp-leave-list-horizon .main-content {
@@ -1616,6 +1617,7 @@ box-shadow: 0 0 5px rgba(0, 0, 0, 0.3);*/
     margin: 0 0px 0px 25px;
     max-width: 14%;
     padding: 0;
+    background: #fff;
 }
 
 .emp-leave-list-horizon .emp-leave-details .res-emp-apply .emp-leave-action {
@@ -1871,6 +1873,26 @@ box-shadow: 0 0 5px rgba(0, 0, 0, 0.3);*/
 
 /* emp apply leave start */
 
+.emp-applyleave-horizon {
+    background: #efefef;
+    /* height: 100vh; */
+    padding-bottom: 25px;
+}
+
+.emp-applyleave-horizon .main-content {
+    margin-left: 0;
+    padding: 45px 25px 5px 25px;
+}
+
+.emp-applyleave-horizon #empApplyLeaveFields {
+    background: #fff;
+    padding: 10px;
+}
+
+.emp-applyleave-horizon #empApplyLeaveFields .emp-leave-apply-form {
+    padding: 15px 20px;
+}
+
 .emp-applyleave-horizon .emp-apply-leave-reason label {
     width: 100%;
 }
@@ -1888,11 +1910,29 @@ box-shadow: 0 0 5px rgba(0, 0, 0, 0.3);*/
     border-radius: 25px;
 }
 
-.emp-applyleave-horizon.emp-leave .leave-dashboard-data .balance-section-wrapper .res-emp-apply-leave .balance-section {
+.emp-applyleave-horizon.emp-leave .balance-section-wrapper .res-emp-apply-leave .balance-section {
     background: #D9D9D9;
+    width: 66%;
+    padding: 10px 10px;
+    border-radius: 3px;
 }
 
-.leave-dashboard-data .apply-leave-form {
+.emp-applyleave-horizon.emp-leave #empApplyLeaveFields .balance-section-wrapper .leave-apply-info-block {
+}
+
+.emp-applyleave-horizon.emp-leave #empApplyLeaveFields .balance-section-wrapper .leave-apply-info-block .res-leave-apply-left {
+    float: left;
+}
+
+.emp-applyleave-horizon.emp-leave #empApplyLeaveFields .balance-section-wrapper .leave-apply-info-block .res-leave-apply-right {
+    float: left;
+}
+
+.emp-applyleave-horizon.emp-leave #leaveForm #dayTypeLabel {
+    margin-bottom: 0;
+}
+
+.emp-applyleave-horizon.emp-leave #leaveForm .apply-leave-form {
     justify-content: space-between;
 }
 
@@ -1904,12 +1944,12 @@ box-shadow: 0 0 5px rgba(0, 0, 0, 0.3);*/
     margin-bottom: 0;
 }
 
-.emp-applyleave-horizon .totalLeavesContainer {
+.emp-applyleave-horizon #totalLeavesContainer {
     margin-bottom: 10px;
     font-size: 14px;
 }
 
-.emp-applyleave-horizon .totalLeavesContainer #totalLeaves {
+.emp-applyleave-horizon #totalLeavesContainer #totalLeaves {
     font-style: italic;
 }
 
@@ -1933,6 +1973,8 @@ box-shadow: 0 0 5px rgba(0, 0, 0, 0.3);*/
 
 .emp-applyleave-horizon .time-section .end-time-section {
 }
+
+
 
 /* emp apply leave end */
 
