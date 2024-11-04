@@ -21,7 +21,7 @@
                     <tr class="@(maintenance.Status == "Pending" ? "odd" : "even")">
                         <td class="emp-maintenancestatus-icon" style="text-align:center;">
                             <span class="emp-maintenanceapproved-btn">
-                                @if (string.IsNullOrEmpty(maintenance.Acknowledge) || maintenance.Acknowledge == "No")
+                                @if (string.IsNullOrEmpty(maintenance.Acknowledge) || maintenance.Acknowledge == "No" || maintenance.Acknowledge == "null")
                                 {
                                     <img src="/assets/Pending.png" alt="Pending" style="width:25px" title="Pending"> }
                                 else if (maintenance.Acknowledge == "Yes")
@@ -61,9 +61,10 @@
                                     {
                                         <a class="btn btn-demo dropdown-item maintenance-info-reschedule" data-maintenancesno="@maintenance.Sno" data-toggle="modal" data-target="#RescheduleEmpMaintenancePopup">Reschedule</a>
                                     }
-
-                                    <a class="dropdown-item emp-maintenance-info-view" data-maintenancesno="@maintenance.Sno">Acknowledge</a>
-
+                                    @if (maintenance.Status == "Completed")
+                                    { 
+                                        <a class="dropdown-item emp-maintenance-info-view" data-maintenancesno="@maintenance.Sno">Acknowledge</a>
+                                    }
                                 </div>
                             </span>
                         </td>

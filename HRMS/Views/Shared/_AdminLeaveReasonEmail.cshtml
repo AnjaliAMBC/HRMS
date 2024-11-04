@@ -1,4 +1,5 @@
-﻿@model List<con_leaveupdate>
+﻿
+@model List<con_leaveupdate>
 
 @{
     var siteURL = System.Configuration.ConfigurationManager.AppSettings["siteURL"];
@@ -73,7 +74,8 @@
                     <strong>Date:</strong> @(leaveUpdate.Fromdate?.ToString("dd-MM-yyyy") ?? "N/A")<br />
                 }
                 <strong>Submitted By:</strong> @leaveUpdate.createdby<br />
-                <strong>Leave Type:</strong> @leaveUpdate.leavesource<br />            
+                <strong>Leave Type:</strong> @leaveUpdate.leavesource<br />
+                <strong>Reason:</strong> @leaveUpdate.leave_reason
             </p>
             <p>Please update your leave info in your client calendar and upcoming out-of-office in your signature.</p>
             <p><strong>Note:</strong> All ‘Earned Leaves’ require 2 weeks’ notice to get approval from the management and clients.</p>

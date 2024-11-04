@@ -476,103 +476,30 @@ function formatJSONDateDay(jsonDate) {
 //    });
 //}
 
-
 function GetEmpLeaveHistory() {
+    const empId = $('.loggedinempid').text();
+    let year = $('#leavehistoryyear').val();
+    if (!year) {
+        const currentYear = new Date().getFullYear();
+        year = currentYear;
+    }
+    console.log("Employee ID:", empId);
+    console.log("Year:", year);
+
     $.ajax({
         url: '/empLeave/EmpLeaveHistory',
-        type: 'POST',
-        dataType: 'json',
+        type: 'GET',
+        dataType: 'html',
         data: {
-            empId: $('.loggedinempid').text(),
-            year: $('#leavehistoryyear').val()
+            empId: empId,
+            year: year
         },
         success: function (response) {
-            let tableRows = response.map(item => {
-                const fromDate = formatJSONDate(item.Fromdate);
-                const toDate = formatJSONDate(item.Todate);
-                const fromDay = formatJSONDateDay(item.Fromdate);
-                const toDay = formatJSONDateDay(item.Todate);
-
-                var today = new Date();
-                /*const dateDisplay = fromDate === toDate || item.LatestLeave.leavesource == "Hourly Permission"
-                    ? `<p class="mb-0 fontWtMedium">${fromDate}</p><span class="mutedText">${fromDay}</span>`
-                    : `<p class="mb-0 fontWtMedium">${fromDate} - ${toDate}</p><span class="mutedText">${fromDay} - ${toDay}</span>`;*/
-
-                const dateDisplay = fromDate === toDate || item.LatestLeave.leavesource == "Hourly Permission"
-                    ? `<p class="mb-0 fontWtMedium">${fromDate}</p>`
-                    : `<p class="mb-0 fontWtMedium">${fromDate}</p><span class="mutedText">${fromDay}</span>`;
-
-                const leaveStatus = item.LatestLeave.LeaveStatus.toLowerCase();
-                const statusClass = leaveStatus === 'approved' ? 'status-approved' :
-                    leaveStatus === 'cancelled' || leaveStatus === 'rejected' ? 'status-cancelled' :
-                        leaveStatus === 'pending' ? 'status-pending' : '';
-
-                let leaveActions;
-
-                var fromDateInDateFormat = new Date(fromDate);
-
-                // Determine the leave actions to show based on the date comparison
-                if (today > fromDateInDateFormat) {
-                    leaveActions = (leaveStatus === 'pending') ? `
-        <i class="fas fa-ellipsis-h leave-edit-history" onclick="toggleLeaveActionOptions(this)"></i>
-        <div class="emp-leaveoptions" style="display:none">
-            <a class="dropdown-item emp-leave-edit" onclick="empleaveedit($(this))" data-leavename='${item.LatestLeave.LeaveRequestName}'>Edit</a>
-        </div>` : '';
-                } else {
-                    leaveActions = (leaveStatus === 'pending') ? `
-        <i class="fas fa-ellipsis-v leave-edit-history" onclick="toggleLeaveActionOptions(this)"></i>
-        <div class="emp-leaveoptions" style="display:none">
-            <a class="dropdown-item emp-leave-edit" onclick="empleaveedit($(this))" data-leavename='${item.LatestLeave.LeaveRequestName}'>Edit</a>
-            <a class="dropdown-item emp-leave-cancel" onclick="empleavecancel($(this))" data-leavename='${item.LatestLeave.LeaveRequestName}'>Cancel</a>
-        </div>` : '';
-                }
-
-
-                return `
-                    <tr class="rowBorder">
-                        <td class="fontSmall">
-                            <span class="fontWtMedium ${statusClass}">${item.LatestLeave.LeaveStatus}</span>
-                        </td>
-                        <td class="fontSmall dataMinWidth">
-                            <span class="fontWtbold">${item.LatestLeave.leavesource}</span>
-                        </td>
-                        <td class="fontSmall dataMinWidth dateMaxWidth">
-                            ${dateDisplay}
-                        </td>
-                        <td class="fontSmall">
-                            <span class="fontWtMedium">${item.TotalLeaveDays}</span>
-                        </td>                                              
-                        <td style="width: 420px;" class="fontSmall commentSec">
-                            <div class="dFlex d-flex">
-                                <p title="${item.LatestLeave.leave_reason}">${item.LatestLeave.leave_reason}</p>
-                            </div>                            
-                        </td>
-                        <td class="fontSmall position-relative">
-                            ${leaveActions}
-                        </td>
-                    </tr>
-                `;
-            }).join('');
-
-            $('#leaveHistoryTable tbody').html(tableRows);
-
-            if (!$.fn.DataTable.isDataTable('#leaveHistoryTable')) {
-                $('#leaveHistoryTable').DataTable({
-                    "paging": true,
-                    "searching": true,
-                    "ordering": false,
-                    "info": true,
-                    "autoWidth": false,
-                    "lengthMenu": [[7, 14, 21, -1], [7, 14, 21, "All"]],
-                    "columnDefs": [
-                        { "orderable": false, "targets": 1 }, // Disable ordering on the Checkin-Check-Out column
-                        { "orderable": false, "targets": 3 }  // Disable ordering on the Status column
-                    ]
-                });
-            }
+            console.log("Success:", response);
+            $('.leave-history-table-div').html(response);
         },
         error: function (xhr, status, error) {
-            console.error(error);
+            console.error("Error:", error);
         }
     });
 }
@@ -587,78 +514,32 @@ function toggleEmpCompoffActionOptions(iconElement) {
 
 
 function GetCompOffHistory() {
+    // Get the current year
+    const currentYear = new Date().getFullYear();
+
+    // Get values from the input fields
+    let fromDate = $('#fromDate').val();
+    let toDate = $('#toDate').val();
+
+    // Check if fromDate and toDate are null or undefined, and set them to year start and end
+    if (!fromDate) {
+        fromDate = `${currentYear}-01-01`; // January 1st of the current year
+    }
+
+    if (!toDate) {
+        toDate = `${currentYear}-12-31`; // December 31st of the current year
+    }
+
     $.ajax({
         url: '/adminleave/EmployeeLeaveCompensatoryOff',
         type: 'GET',
-        dataType: 'json',
         data: {
-            fromDate: $('#fromDate').val(),
-            todate: $('#toDate').val(),
+            fromDate: fromDate,
+            toDate: toDate,
             empID: $('.loggedinempid').text()
         },
         success: function (response) {
-            var json = $.parseJSON(response);
-            let tableRows = json.CompOffs.map(item => {
-                const requestedDate = item.createddate ? new Date(item.createddate).toLocaleDateString('en-GB', { day: 'numeric', month: 'long', year: 'numeric' }) : "";
-                const workDate = item.CampOffDate ? new Date(item.CampOffDate).toLocaleDateString('en-GB', { day: 'numeric', month: 'long', year: 'numeric' }) : "";
-
-                const leaveStatus = item.addStatus.toLowerCase();
-
-                const statusClass = leaveStatus === 'approved' ? 'compoff-status-approved' :
-                    leaveStatus === 'rejected' ? 'compoff-status-rejected' :
-                        leaveStatus === 'cancelled' ? 'compoff-status-cancelled' :
-                            leaveStatus === 'pending' ? 'compoff-status-pending' : '';
-
-                const leaveActions = (leaveStatus === 'pending') ? `
-                    <i class="fas fa-ellipsis-v" onclick="toggleEmpCompoffActionOptions(this)"></i>
-                    <div class="emp-compoffs" style="display:none">
-                        <a href="#" class="dropdown-item statusBtn editLeavecompoffBtn" data-leavename="Edit" data-compoffnum="${item.Compoff_no}">Edit</a>
-                        <a href="" class="dropdown-item statusBtn cancelLeavecompoffBtn" data-leavename="Cancel" data-compoffnum="${item.Compoff_no}">Cancel</a>                       
-                    </div>` : '';
-
-                /*<td style="display:none">${item.EmployeeID}</td>
-                <td style="display:none">${item.EmployeeName}</td>*/
-
-                return `
-                   <tr>
-                    <td class="compoff-status">
-                        <span class="fontWtMedium ${statusClass}" title="${item.addStatus}"><img src="/Assets/Approve.png"></span>
-                    </td>
-                    <td>
-                        <span class="fontWtMedium"><div class="emp-compoff-date">${requestedDate}</div><div class="emp-compoff-day">Thursday</div></span>
-                    </td>
-                    <td>
-                         <span class="fontWtMedium"><div class="emp-compoff-date">${workDate}</div><div class="emp-compoff-day">Friday</div></span>
-                    </td>                    
-                    <td style="width: 420px;" class="fontSmall commentSec">
-                        <div class="dFlex d-flex">
-                            <p title="${item.Reason}">${item.Reason}</p>
-                        </div>
-                    </td>
-                    <td class="fontSmall position-relative compoff-actions">
-                        ${leaveActions}
-                    </td>
-                </tr>
-                `;
-            }).join('');
-
-            $('#empleaveCompOffTable tbody').html(tableRows);
-
-            if (!$.fn.DataTable.isDataTable('#empleaveCompOffTable')) {
-                $('#empleaveCompOffTable').DataTable({
-                    "paging": true,
-                    "searching": false,
-                    "ordering": true,
-                    "info": true,
-                    "autoWidth": false,
-                    "lengthMenu": [[7, 14, 21, -1], [7, 14, 21, "All"]],
-                    "columnDefs": [
-                        { "orderable": true, "targets": 0 },
-                        { "orderable": true, "targets": 2 },
-                        { "orderable": true, "targets": 3 }
-                    ]
-                });
-            }
+            $('#empComponsatoryOffTab2').html(response);
         },
         error: function (xhr, status, error) {
             console.error(error);
@@ -668,18 +549,39 @@ function GetCompOffHistory() {
 
 
 
+$(document).ready(function () {
+    // Close the menu if clicking outside of it
+    $(document).on('click', function (event) {
+        if (!$(event.target).closest('.leave-edit-history').length && !$(event.target).closest('.emp-leaveoptions').length) {
+            $('.emp-leaveoptions').hide();
+        }
+    });
+});
+
 function toggleLeaveActionOptions(iconElement) {
     const optionsMenu = $(iconElement).next('.emp-leaveoptions');
-    $('.emp-leaveoptions').not(optionsMenu).hide(); // Hide any other open menus
-    optionsMenu.toggle(); // Toggle visibility of the clicked menu
+
+    // Hide other open menus before showing the selected one
+    $('.emp-leaveoptions').not(optionsMenu).hide();
+
+    // Toggle visibility of the clicked menu
+    optionsMenu.toggle();
+
+    // Stop propagation to prevent the document click from immediately closing the menu
+    event.stopPropagation();
 }
+
+
 
 
 
 function empleaveedit(currentthis) {
     var leaveName = currentthis.attr("data-leavename");
 
-    AddEditLeaves(leaveName);
+    window.location.href = "/empleave/empApplyLeave?leaveRequestName=" + leaveName;
+    return;
+
+    // AddEditLeaves(leaveName);
 
     //$.ajax({
     //    url: '/empLeave/empleaveedit',
@@ -782,15 +684,15 @@ $(document).on('click', '.emp-leave-cancel', function (event) {
 
 });
 
-// Edit leave event
-$(document).on('click', '.emp-leave-edit', function (event) {
-    event.preventDefault();
-    var leaveNum = $(this).attr("data-leavenum");
-    // Handle the edit functionality here
-    // You can either open a modal or redirect to an edit page
-    // For example:
-    window.location.href = '/empLeave/EditLeave?leavenumber=' + leaveNum;
-});
+//// Edit leave event
+//$(document).on('click', '.emp-leave-edit', function (event) {
+//    event.preventDefault();
+//    var leaveNum = $(this).attr("data-leavenum");
+//    // Handle the edit functionality here
+//    // You can either open a modal or redirect to an edit page
+//    // For example:
+//    window.location.href = '/empLeave/EditLeave?leavenumber=' + leaveNum;
+//});
 
 /*$(document).on('click', '.history_btn', function (event) {
     event.preventDefault();
