@@ -10,161 +10,159 @@
     }
 </style>
 
-@Html.Partial("_NavBar")
-<div class="container-fluid emp-Ticket-view">
-    @Html.Partial("_empsidemenu")
-    <div class="main-content container-fluid" style="width: 84%">
-        <div class="hiddenempdashboard" style="display:none"></div>
-        <div class="content employee-Ticketing myrequest-dashboard-data" style="margin-top: 20px;">
-            <div class="empTicketing-container">
-                <div class="row res-emp-tickethistory-header">
-                    <div class="col-lg-3 res-emp-tickethistory-title">
-                        <h4>Ticket History</h4>
-                    </div>
-                    <div class="col-lg-6 res-emp-tickethistory-mid">
+@Html.Partial("_EmployeeNavbar")
 
-                    </div>
-                    <div class="col-lg-3 res-emp-tickethistory-right">
-                        <button type="button" class="btn btn-primary btn-empRaiseTicket">Raise Ticket</button>
+<div class="emp-ticketing-horizon">
+    <div class="container-fluid emp-ticketing-horizon-header">
+        <div class="main-content container-fluid">
+            <div class="content employee-ticketing">
+                <div class="emp-ticketing-container">
+                    <div class="res-emp-ticketing-header">
+                        <div class="res-emp-ticketing-title">
+                            <h3 class="ticketing-pagetitle">Ticketing</h3>
+                        </div>
                     </div>
                 </div>
 
             </div>
-            <div class="empleave-ticket-history" id="empTicketHistory">
-                <div class="res-emp-ticket-listing-table table-responsive">
-                    <table class="table table-emp-ticket-listing" id="empticketlistingTable" style="font-size:14px;">
-                        <thead style="background-color: #EEF4FF; border-radius: 10px; display: none">
-                            <tr>
-                                <th>Emp-ID</th>
-                                <th>Priority</th>
-                                <th>Location</th>
-                                <th>Status</th>
-                                <th>Action</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            @foreach (var ticket in Model.empTickets)
-                            {
-                                <tr data-ticketnum="@ticket.TicketNo">
-                                    <td style="width: 300px">
-                                        <div class="res-emp-ticketlisting-user-details" style="display: flex; align-items: center;">
-                                            <i class="emp-ticket-msg-icon fa-regular fa-message"></i>
-                                            <span style="margin-top: 0px; margin-right: 10px;">
-                                                <div class="emp-ticketing-listing-title" style="font-weight: 700;" title="@ticket.Subject" data-ticketnum="@ticket.TicketNo">@ticket.Subject</div>
-                                                <div class="emp-ticketing-listing-details">
-                                                    <span class="emp-ticket-id">#@ticket.TicketNo</span>
-                                                    <span class="emp-ticket-info"><i class="fa-solid fa-folder" aria-hidden="true"></i> @ticket.TicketType - @ticket.Category</span>
-                                                </div>
-                                            </span>
-                                        </div>
-                                    </td>
-                                    <td style="width: 300px" class="res-emp-ticketlisting-priority">
-                                        @*@if (ticket.Closed_date.HasValue)
-                                            {
-                                                TimeSpan responseTime = ticket.Closed_date.Value - ticket.Created_date.Value;
-                                                <div class="emp-ticketing-response-time">
-                                                    Response Time @responseTime.TotalHours.ToString("0.00") Hr
-                                                </div>
-                                            }*@
+        </div>
+    </div>
 
-                                        @{
-                                            TimeSpan responseTime = new TimeSpan();
-                                            int totalHours = 0;
-                                            int totalMinutes = 0;
-                                            var isVisible = "visibility: hidden;";
-                                        }
+    <div class="container-fluid emp-Ticket-view">
+        <div class="main-content container-fluid">
+            <div class="hiddenempdashboard" style="display:none"></div>
+            <div class="content employee-Ticketing myrequest-dashboard-data" style="margin-top: 20px;">
+                <div class="empTicketing-container">
+                    <div class="row res-emp-tickethistory-header">
+                        <div class="col-lg-3 res-emp-tickethistory-title">
+                            <h4>Ticket History</h4>
+                        </div>
+                        <div class="col-lg-6 res-emp-tickethistory-mid">
 
-                                        @if (ticket.ResponseTime != null && ticket.ResponseTime.HasValue)
-                                        {
-                                            responseTime = TimeSpan.FromSeconds(ticket.ResponseTime.Value);
-                                            totalHours = (int)responseTime.TotalHours;
-                                            totalMinutes = responseTime.Minutes;
-                                            isVisible = "";
-                                        }
+                        </div>
+                        <div class="col-lg-3 res-emp-tickethistory-right">
+                            <span class="empticketing-dropdown">
+                                <select name="data" id="data">
+                                    <option value="1">All</option>
+                                    <option value="Test">Test</option>
+                                    <option value="Test2">Test2</option>
+                                </select>
+                            </span>
+                            <button type="button" class="btn btn-primary btn-empRaiseTicket">Raise Ticket</button>
+                        </div>
+                    </div>
 
-                                        <div style="@isVisible" class="emp-ticketing-response-time">
-                                            Response Time: @totalHours.ToString("00"):@totalMinutes.ToString("00") Hr
-                                        </div>
-
-                                        <div class="emp-ticketing-priority-date">
-                                            <span class="emp-ticket-prioritylevel">
-                                                <span class="res-emp-ticketlisting-color @HRMS.Helpers.TicketingHelper.GetPriorityColor(ticket.Priority)"></span>
-                                                <span class="res-emp-ticketlisting-priority-status">@ticket.Priority</span>
-                                            </span>
-                                            <span class="res-emp-ticketlisting-date">
-                                                <i class="fa-solid fa-clock" aria-hidden="true"></i>
-                                                @if (ticket.Created_date.HasValue)
-                                                {
-                                                    <span class="res-empticketlisting-priority-status">@ticket.Created_date.Value.ToString("dd MMM yyyy, ddd hh:mmtt")</span>
-                                                }
-                                                else
-                                                {
-                                                    <span class="res-empticketlisting-priority-status">Date Not Available</span>
-                                                }
-                                            </span>
-
-                                        </div>
-                                    </td>
-                                    <td style="width: 250px" class="res-emp-ticketlisting-location-info">
-                                        <div class="emp-ticketing-empty-block"></div>
-                                        @*@if (ticket.Status == "Open")
-                                            {
-                                                <div class="emp-ticketing-listing-openedby">Open By: <span>@ticket.EmployeeName</span></div>
-                                            }
-                                            else if (ticket.Status == "ReOpen")
-                                            {
-                                                <div class="emp-ticketing-listing-reopenedby">Re-Open By: <span>@ticket.EmployeeName</span></div>
-                                            }
-                                            else if (ticket.Status == "Resolved")
-                                            {*@
-
-                                    <div class="emp-ticketing-listing-closedby">
-                                        <span>Resolved By:</span>
-
-                                        @{ if (!string.IsNullOrWhiteSpace(ticket.ResolvedByName))
-                                            {
-                                                <label title="@ticket.ResolvedByName">@ticket.ResolvedByName</label>
-                                            }
-                                            else
-                                            {
-                                                <label title="@ticket.ClosedByName">@ticket.ClosedByName</label>
-                                            } }
-
-                                    </div>
-
-                                        @*}
-                                            else if (ticket.Status == "Closed")
-                                            {
-                                                <div class="emp-ticketing-listing-closedby">Closed By: <span>@ticket.ResolvedByName</span></div>
-                                            }*@
-                                    </td>
-
-                                    <td style="width: 100px" class="res-emp-ticketlisting-status">
-                                        <div class="emp-ticketing-empty-block"></div>
-                                        <div class="res-empticketlisting-status-level @HRMS.Helpers.TicketingHelper.GetTicketStatusCssClass(ticket.Status)" style="cursor:pointer">@ticket.Status</div>
-                                    </td>
-
-                                    @{
-                                        var ticketStatus = ticket.Status == "Open" ? "display: block" : "display: none";
-                                    }
-                                    <td class="fontSmall position-relative" style="@ticketStatus">
-                                        <i class="fas fa-ellipsis-h emp-ticket-edit-history" onclick="toggleLeaveTicketHistoryActionOptions(this)"></i>
-                                        <div class="emp-tickethistoryoptions" style="display:none">
-                                            @*<a class="dropdown-item emp-tickethistory-edit" onclick="emptickethistoryedit($(this))" data-ticketname="@ticket.TicketNo">Edit</a>*@
-                                            <a class="dropdown-item emp-tickethistory-cancel" onclick="emptickethistorycancel($(this))" data-ticketname="@ticket.TicketNo">Cancel</a>
-                                        </div>
-                                    </td>
+                </div>
+                <div class="empleave-ticket-history" id="empTicketHistory">
+                    <div class="res-emp-ticket-listing-table table-responsive">
+                        <table class="table table-emp-ticket-listing" id="empticketlistingTable" style="font-size: 14px; border-collapse: separate; border-spacing: 0 15px;">
+                            <thead style="background-color: #EEF4FF; border-radius: 10px; display: none">
+                                <tr>
+                                    <th>Emp-ID</th>
+                                    @*<th>Priority</th>
+                                        <th>Location</th>*@
+                                    <th>Action</th>
+                                    <th>Status</th>
                                 </tr>
-                            }
-                        </tbody>
-                    </table>
+                            </thead>
+                            <tbody>
+                                @foreach (var ticket in Model.empTickets)
+                                {
+                                    <tr data-ticketnum="@ticket.TicketNo">
+                                        <td style="width: 840px;">
+                                            @{
+                                                TimeSpan responseTime = new TimeSpan();
+                                                int totalHours = 0;
+                                                int totalMinutes = 0;
+                                                var isVisible = "visibility: hidden;";
+                                            }
+                                            @if (ticket.ResponseTime != null && ticket.ResponseTime.HasValue)
+                                            {
+                                                responseTime = TimeSpan.FromSeconds(ticket.ResponseTime.Value);
+                                                totalHours = (int)responseTime.TotalHours;
+                                                totalMinutes = responseTime.Minutes;
+                                                isVisible = "";
+                                            }
+                                            <div class="res-emp-ticketlisting-user-details" style="display: flex; align-items: center; margin-left: 20px;">
+                                                <i class="emp-ticket-msg-icon fa-regular fa-message"></i>
+                                                <span style="margin-top: 15px; margin-right: 10px;">
+                                                    <div class="emp-ticketing-listing-title" style="font-weight: 700;" title="@ticket.Subject" data-ticketnum="@ticket.TicketNo">@ticket.Subject</div>
+                                                    <div class="emp-ticketing-listing-details">
+                                                        <span class="emp-ticket-id">#@ticket.TicketNo</span>
+                                                        <span class="emp-ticket-info"><img style="margin-top: -2px; width: 20px;" src="~/Assets/category-light.png"> @ticket.TicketType - @ticket.Category</span>
+
+                                                        <span class="emp-ticketing-priority-date">
+                                                            <span class="emp-ticket-prioritylevel">
+                                                                <span class="res-emp-ticketlisting-color @HRMS.Helpers.TicketingHelper.GetPriorityColor(ticket.Priority)"></span>
+                                                                <span class="res-emp-ticketlisting-priority-status">@ticket.Priority</span>
+                                                            </span>
+                                                            <span class="res-emp-ticketlisting-date">
+                                                                <i class="far fa-calendar-alt" aria-hidden="true"></i>
+                                                                @if (ticket.Created_date.HasValue)
+                                                                {
+                                                                    <span class="res-empticketlisting-priority-status">@ticket.Created_date.Value.ToString("dd MMM yyyy, ddd hh:mmtt")</span>
+                                                                }
+                                                                else
+                                                                {
+                                                                    <span class="res-empticketlisting-priority-status">Date Not Available</span>
+                                                                }
+                                                            </span>
+                                                        </span>
+                                                        <span style="@isVisible" class="emp-ticketing-response-time">
+                                                            Response Time: @totalHours.ToString("00"):@totalMinutes.ToString("00") Hr
+                                                        </span>
+
+                                                    </div>
+                                                </span>
+                                            </div>
+                                        </td>
+                                        @{
+                                            var ticketStatus = ticket.Status == "Open" ? "display: block" : "display: none";
+                                        }
+                                        <td class="fontSmall position-relative" style="width:25px;@ticketStatus">
+                                            <i class="fas fa-ellipsis-v emp-ticket-edit-history" onclick="toggleLeaveTicketHistoryActionOptions(this)"></i>
+                                            <div class="emp-tickethistoryoptions" style="display:none">
+                                                <a class="dropdown-item emp-tickethistory-edit" onclick="emptickethistoryedit($(this))" data-ticketname="@ticket.TicketNo">Edit</a>
+                                                <a class="dropdown-item emp-tickethistory-cancel" onclick="emptickethistorycancel($(this))" data-ticketname="@ticket.TicketNo">Cancel</a>
+                                            </div>
+                                        </td>
+                                        <td style="width: 350px; border-left: 1px solid #ccc; " class="res-emp-ticketlisting-location-info">
+                                            @*<div class="emp-ticketing-empty-block"></div>*@
+                                            <div class="emp-ticketing-listing-closedby">
+                                                <div>Resolved By</div>
+
+                                                @{ if (!string.IsNullOrWhiteSpace(ticket.ResolvedByName))
+                                                    {
+                                                        <label title="@ticket.ResolvedByName"><img src="/Assets/ei_user.png"> @ticket.ResolvedByName</label>
+                                                    }
+                                                    else
+                                                    {
+                                                        <label title="@ticket.ClosedByName"><img src="/Assets/ei_user.png"> @ticket.ClosedByName</label>
+                                                    } }
+
+                                            </div>
+                                            <div class="res-empticketlisting-status-level @HRMS.Helpers.TicketingHelper.GetTicketStatusCssClass(ticket.Status)" style="cursor:pointer"> <img src="~/Assets/resolved.png"> <span class="empticketing-satus">@ticket.Status</span></div>
+
+                                        </td>
+                                    </tr>
+                                }
+                            </tbody>
+                        </table>
+                    </div>
+
                 </div>
 
             </div>
-
         </div>
     </div>
 </div>
+
+
+@Html.Partial("EmployeeFooter")
+
+
+
+
 
 <!-- Confirmation Modal -->
 <div id="empTicketConfirmCancelModal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="empTicketConfirmCancelModal" aria-hidden="true">
