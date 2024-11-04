@@ -346,8 +346,8 @@ namespace HRMS.Controllers
         public ActionResult EmployeeLeaveCompensatoryOff(string fromDate, string todate, string empID)
         {
             CompOffModel model = GetCompoffsByFromandTodate(fromDate, todate, empID);
-            var json = JsonConvert.SerializeObject(model);
-            return Json(json, JsonRequestBehavior.AllowGet);
+            //var json = JsonConvert.SerializeObject(model);
+            return PartialView("~/Views/EmployeeDashboard/_EmpCompOff.cshtml", model);
         }
 
         private CompOffModel GetCompoffsByFromandTodate(string fromDate, string todate, string empID)
@@ -595,8 +595,8 @@ namespace HRMS.Controllers
                     worksheet.Cells[row, 2].Value = leave.employee_name;
                     worksheet.Cells[row, 3].Value = leave.leavecategory;
                     worksheet.Cells[row, 4].Value = leave.leavedate?.ToString("yyyy-MM-dd");
-                    worksheet.Cells[row, 5].Value = leave.Fromdate?.ToString("yyyy-MM-dd"); 
-                    worksheet.Cells[row, 6].Value = leave.Todate?.ToString("yyyy-MM-dd"); 
+                    worksheet.Cells[row, 5].Value = leave.Fromdate?.ToString("yyyy-MM-dd");
+                    worksheet.Cells[row, 6].Value = leave.Todate?.ToString("yyyy-MM-dd");
                     worksheet.Cells[row, 7].Value = leave.leave_reason;
                     worksheet.Cells[row, 8].Value = leave.LeaveDays;
                     worksheet.Cells[row, 9].Value = leave.LeaveStatus;

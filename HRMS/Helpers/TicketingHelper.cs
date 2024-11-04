@@ -34,7 +34,7 @@ namespace HRMS.Helpers
                 case "closed":
                     return "status-closed";
                 case "resolved":
-                    return "ticket-status-pending";
+                    return "status-resolved";
                 case "re-open":
                     return "ticket-status-re-open";
                 case "cancelled":

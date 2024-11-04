@@ -6,6 +6,7 @@ using System.Collections.Generic;
 using System.Configuration;
 using System.IO;
 using System.Linq;
+using System.Net;
 using System.Web;
 using System.Web.Mvc;
 
@@ -34,9 +35,12 @@ namespace HRMS.Controllers
         public ActionResult EmpTicketRaise()
         {
 
-            return PartialView("~/Views/EmployeeDashboard/EmpRaiseTicket.cshtml");
+            return View("~/Views/EmployeeDashboard/EmpRaiseTicket.cshtml");
         }
-
+        public ActionResult EmpTicketView()
+        {       
+            return View("~/Views/EmployeeDashboard/EmpTicketView.cshtml");
+        }
         [HttpPost]
         public JsonResult RaiseTicket()
         {
@@ -232,5 +236,6 @@ namespace HRMS.Controllers
                 return Json(new { success = false, message = ex.Message });
             }
         }
+       
     }
 }
