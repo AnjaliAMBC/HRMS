@@ -1925,21 +1925,49 @@ box-shadow: 0 0 5px rgba(0, 0, 0, 0.3);*/
 }
 
 .emp-applyleave-horizon.emp-leave .balance-section-wrapper .res-emp-apply-leave .balance-section {
-    background: #D9D9D9;
+    /*background: #D9D9D9;
     width: 66%;
     padding: 10px 10px;
-    border-radius: 3px;
+    border-radius: 3px;*/
+}
+
+.emp-applyleave-horizon.emp-leave #empApplyLeaveFields .balance-section-wrapper .emp-apply-leave-title {
+    display: inline-block;
+    margin-left: -5px;
+    margin-bottom: 10px;
 }
 
 .emp-applyleave-horizon.emp-leave #empApplyLeaveFields .balance-section-wrapper .leave-apply-info-block {
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    padding: 15px 15px;
+    margin: 0 10px;
+    max-width: 28%;
 }
 
 .emp-applyleave-horizon.emp-leave #empApplyLeaveFields .balance-section-wrapper .leave-apply-info-block .res-leave-apply-left {
     float: left;
+    padding: 0;
+}
+
+.emp-applyleave-horizon.emp-leave #empApplyLeaveFields .balance-section-wrapper .leave-apply-info-block .res-leave-apply-left div {
+    background: #267EC4;
+    width: 45px;
+    border-radius: 25px;
+    height: 45px;
+    text-align: center;
+    padding-top: 7px;
+    color: #fff;
 }
 
 .emp-applyleave-horizon.emp-leave #empApplyLeaveFields .balance-section-wrapper .leave-apply-info-block .res-leave-apply-right {
     float: left;
+    line-height: normal;
+    margin-top: 3px;
+}
+
+.emp-applyleave-horizon.emp-leave #empApplyLeaveFields .balance-section-wrapper .leave-apply-info-block .res-leave-apply-right span {
+    font-size: 15px;
 }
 
 .emp-applyleave-horizon.emp-leave #leaveForm #dayTypeLabel {
@@ -2131,6 +2159,176 @@ box-shadow: 0 0 5px rgba(0, 0, 0, 0.3);*/
 .emp-ticketing-horizon #empticketlistingTable .emp-ticketing-listing-closedby div {
     font-size: 12px;
 }
+
+.emp-ticketing-horizon #empticketlistingTable .emp-tickethistoryoptions {
+    width: auto;
+}
+
+#empTicketCommentsModal .modal-header {
+    padding: 0;
+    margin-bottom: 10px;
+}
+
+#empTicketCommentsModal #TicketConfirmCancelModalLabel {
+    font-size: 16px;
+}
+
+#empTicketCommentsModal .modal-header button {
+    font-size: 14px;
+}
+
+#empTicketCommentsModal .emp-ticketing-commentbox-popup .emp-tickethistory-comment-submit button {
+    padding: 5px 25px;
+    border-radius: 20px;
+}
+
+#empTicketConfirmCancelModal .modal-sm {
+    max-width: 300px;
+}
+
+#empTicketConfirmCancelModal .modal-body {
+    font-size: 18px;
+    padding: 0 15px 15px 20px;
+}
+
+#empTicketConfirmCancelModal .modal-header {
+    border-bottom: 0;
+}
+
+#empTicketConfirmCancelModal .modal-header button {
+    font-size: 14px;
+}
+
+#empTicketConfirmCancelModal .modal-body {
+    font-size: 18px;
+    padding: 0 15px 15px 20px;
+}
+
+#empTicketConfirmCancelModal .modal-footer {
+    border-top: 0;
+}
+
+#empTicketConfirmCancelModal .modal-footer button {
+    padding: 5px 25px;
+    border-radius: 20px;
+}
+
+#empTicketConfirmCancelModal .modal-footer .btn {
+    background: #A7A7A7;
+    border: none;
+}
+
+#empTicketConfirmCancelModal .modal-footer #empTicketConfirmCancelButton {
+    background: #8854D0;
+    color: #fff;
+}
+
 /* emp ticketing end */
+
+/* emp raise ticketing start */
+
+.emp-ticketing-raise-horizon {
+    background: #efefef;
+    /* height: 100vh; */
+    padding-bottom: 25px;
+}
+
+.emp-ticketing-raise-horizon .main-content {
+    margin-left: 0;
+    padding: 45px 25px 5px 25px;
+    width: 100% !important;
+}
+
+.emp-ticketing-raise-horizon #empRaiseTicketingFields {
+    background: #fff;
+    padding: 10px;
+}
+
+.emp-ticketing-raise-horizon #empRaiseTicketingFields .emp-raiseticketing-upload-icon {
+    display: inline-block;
+    width: 15%;
+    vertical-align: top;
+}
+
+.emp-ticketing-raise-horizon #empRaiseTicketingFields .emp-raiseticketing-upload-icon img {
+    width: 55px;
+}
+
+.emp-ticketing-raise-horizon #empRaiseTicketingFields .emp-raiseticketing-upload-btn {
+    display: inline-block;
+    width: 80%;
+    vertical-align: text-top;
+    margin-left: 10px;
+}
+
+.emp-ticketing-raise-horizon .emp-ticket-raise-popup-form #emp-ticket-raise-Form .form-group {
+    padding-left: 0px;
+}
+
+.emp-ticketing-raise-horizon .emp-ticket-raise-popup-form #emp-ticket-raise-Form .emp-raiseticket-attach-label {
+    border: 0px solid #b3b3b3;
+    color: #0066B1;
+    background-color: transparent;
+    font-size: 12px;
+    padding: 0;
+    text-decoration: underline;
+}
+
+.emp-ticketing-raise-horizon .emp-ticket-raise-popup-form #emp-ticket-raise-Form .emp-raiseticket-attach-file-upload-size {
+    font-size: 12px;
+    margin-top: -6px;
+    color: #6B6B6B;
+}
+
+.emp-ticketing-raise-horizon #emp-ticket-raise-Form .emp-raiseticketing-upload-left {
+    float: left;
+    border: 1px solid #ced4da;
+    padding: 10px 10px;
+    border-radius: 3px;
+    max-width: 74%;
+}
+
+.emp-ticketing-raise-horizon #emp-ticket-raise-Form .emp-raiseticketing-upload-right {
+    display: inline-block;
+}
+
+.emp-ticketing-raise-horizon #emp-ticket-raise-Form .emp-raiseticketing-upload-right img {
+    height: 50px;
+    width: auto;
+}
+
+.emp-ticketing-raise-horizon #emp-ticket-raise-Form .emp-raiseticketing-upload-right .emp-raiseticket-uploaded-image-close {
+    font-size: 10px;
+    cursor: pointer;
+    position: absolute;
+    color: #F8284A;
+    margin-left: -5px;
+    margin-top: -5px;
+}
+
+.emp-ticketing-raise-horizon #emp-ticket-raise-Form .emp-raiseticketing-upload-field {
+    display: inline-block;
+}
+
+.emp-ticketing-raise-horizon #emp-ticket-raise-Form .btn-apply-emp-raiseticket-submit {
+    padding: 5px 25px;
+    border-radius: 20px;
+}
+
+/* emp raise ticketing end */
+
+/* emp view ticketing start */
+
+.emp-ticketing-view-horizon .emp-ticket-raise-popup-form {
+    display: inline-block;
+}
+
+.emp-ticketing-view-horizon .emp-view-ticketing-block {
+    display: inline-block;
+    vertical-align: top;
+    margin-top: 20px;
+}
+
+/* emp view ticketing end */
 
 

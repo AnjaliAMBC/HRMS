@@ -3,5 +3,150 @@
     ViewBag.Title = "EmpTicketView";
 }
 
-<h2>EmpTicketView</h2>
+@model HRMS.Models.TicketingModel
+
+<style>
+    .error-message {
+        color: red;
+    }
+
+    .form-control.error {
+        border-color: red;
+    }
+</style>
+@Html.Partial("_EmployeeNavbar")
+
+
+<div class="container-fluid emp-ticketing-raise-horizon emp-ticketing-view-horizon">
+    <div class="main-content container-fluid">
+        <div class="content employee-raiseticketing">
+            <div class="emp-raiseticketing-container">
+                <div class="row res-emp-raiseticketing-header">
+                    <div class="col-lg-3 res-emp-raiseticketing-title">
+                        <h4 class="raiseticketing-pagetitle">View Ticket</h4>
+                    </div>
+                </div>
+            </div>
+
+            <div class="EmpTicket-raise-container" id="empRaiseTicketingFields">
+                <div class="col-lg-6 col-md-11 emp-ticket-raise-popup-form">
+                    <form id="emp-ticket-raise-Form">
+                        <div class="form-group">
+                            <div class="col-lg-9 form-group div-emp-raiseticket-ticketype">
+                                <label for="emp-raiseticket-ticketype" class="emp-raiseticket-label">Ticket Type*</label>
+                                <select class="form-control" id="emp-raiseticket-ticketype">
+                                    <option selected="" disabled="">Select IT or HR</option>
+                                    <option value="IT" selected>IT</option>
+                                    <option value="HR">HR</option>
+                                </select>
+                                <span class="error-message" id="emp-raiseticket-ticketype-error"></span>
+                            </div>
+                            <div class="col-lg-9 form-group div-emp-raiseticket-category" id="category-div">
+                                <label for="emp-raiseticket-category" class="emp-raiseticket-label">Category*</label>
+                                <select class="form-control" id="emp-raiseticket-itcategory">
+                                    <option selected="" disabled="">Select Category</option>
+                                    <option value="Hardware">Hardware</option>
+                                    <option value="Software" selected>Software</option>
+                                    <option value="Network">Network</option>
+                                    <option value="Others">Others</option>
+                                </select>
+                                <select class="form-control" id="emp-raiseticket-hrcategory" style="display: none;">
+                                    <option selected="" disabled="">Select Category</option>
+                                    <option value="Recruitment">Recruitment</option>
+                                    <option value="Payroll">Payroll</option>
+                                    <option value="Benefits">Benefits</option>
+                                    <option value="PF">PF</option>
+                                    <option value="Leaves">Leaves</option>
+                                    <option value="Others">Others</option>
+                                </select>
+                                <span class="error-message" id="emp-raiseticket-category-error"></span>
+                            </div>
+                            <div class="col-lg-9 form-group">
+                                <label for="emp-raiseticket-subject">Subject*</label>
+                                <input type="text" value="Test data" class="form-control" id="emp-raiseticket-subject" placeholder="Enter Subject">
+                                <span class="error-message" id="emp-raiseticket-subject-error"></span>
+                            </div>
+                            <div class="col-lg-9 form-group">
+                                <label for="emp-raiseticket-description">Description*</label>
+                                <textarea class="form-control" id="emp-raiseticket-description">Test data</textarea>
+                                <span class="error-message" id="emp-raiseticket-description-error"></span>
+                            </div>
+                            <div class="col-lg-12 form-group emp-raiseticketing-upload-field">
+                                <div class="col-lg-9 emp-raiseticketing-upload-left">
+                                    <span class="emp-raiseticketing-upload-icon"><img src="~/Assets/upload-icon.png"></span>
+                                    <span class="emp-raiseticketing-upload-btn">
+                                        <span class="emp-raiseticket-attach-upload-btn-wrapper">
+                                            <button type="button" class="btn emp-raiseticket-attach-label">Upload file</button>
+                                            <input type="file" id="emp-raiseticket-attach-file-upload" name="emp-raiseticket-attach-file-upload" accept="image/jpeg, image/png">
+                                            <span class="emp-raiseticket-file-name"></span>
+                                        </span>
+                                        <div class="emp-raiseticket-attach-file-upload-size">Only JPEG, PNG with max size of 2MB</div>
+                                    </span>
+                                    <span class="error-message" id="emp-raiseticket-attach-error"></span>
+                                </div>
+                                <div class="col-lg-3 emp-raiseticketing-upload-right"></div>
+                            </div>
+                            <div class="col-lg-9 form-group div-emp-raiseticket-priority">
+                                <label for="emp-raiseticket-priority" class="emp-raiseticket-priority-label">Priority*</label>
+                                <select class="form-control" id="emp-raiseticket-priority">
+                                    <option selected="" disabled="">Select Priority</option>
+                                    <option value="High">High</option>
+                                    <option value="Mid" selected>Mid</option>
+                                    <option value="Low">Low</option>
+                                </select>
+                                <span class="error-message" id="emp-raiseticket-priority-error"></span>
+                            </div>
+                            <div class="col-lg-9 emp-raiseticket-submit">
+                                <button type="button" class="btn btn-apply-emp-raiseticket-cancel mb-4">Cancel</button>
+                                <button type="button" class="btn btn-primary btn-apply-emp-raiseticket-submit mb-4" disabled>Update</button>
+                            </div>
+                        </div>
+                    </form>
+
+
+                    <!-- Modal for success message -->
+                    @Html.Partial("CommonModalPopups")
+
+                </div>
+
+                <div class="col-lg-5 emp-view-ticketing-block">
+                    <div class="admin-it-ticketing-commentbox-list">
+                        <div class="col-lg-1 col-md-1 col-sm-2 admin-it-ticketing-commentbox-left">
+                            <img class="userIcon" src="~/Assets/EmpImages/1075.jpeg">
+                            <div class="vl"></div>
+                        </div>
+                        <span class="col-lg-7 col-md-7 col-sm-5 admin-it-ticketing-commentbox-mid">
+                            <div class="admin-it-ticketing-commentbox-userinfo">1122 Test User</div>
+                            <div class="admin-it-ticketing-commentbox-status">Tickets Reopen</div>
+                            <div class="admin-it-ticketing-commentbox-desc" title="This is to inform, my tickets are not solved. Kindly do the needfull.">This is to inform, my tickets are not solved. Kindly do the needfull.</div>
+                        </span>
+                        <span class="col-lg-2 col-md-2 col-sm-2 admin-it-ticketing-commentbox-right">
+                            <div class="admin-it-ticketing-commentbox-date">09 July 2024</div>
+                        </span>
+                    </div>
+                    <div class="admin-it-ticketing-commentbox-list">
+                        <div class="col-lg-1 col-md-1 col-sm-2 admin-it-ticketing-commentbox-left">
+                            <img class="userIcon" src="~/Assets/EmpImages/1261.jpeg">
+                            <div class="vl"></div>
+                        </div>
+                        <span class="col-lg-7 col-md-7 col-sm-5 admin-it-ticketing-commentbox-mid">
+                            <div class="admin-it-ticketing-commentbox-userinfo">1122 Test User</div>
+                            <div class="admin-it-ticketing-commentbox-status">Tickets Acknowledge</div>
+                            <div class="admin-it-ticketing-commentbox-desc" title="This is to acknowledge, that my tickets has been solved. Thanks for quick time support.">This is to acknowledge, that my tickets has been solved. Thanks for quick time support.</div>
+                        </span>
+                        <span class="col-lg-2 col-md-2 col-sm-2 admin-it-ticketing-commentbox-right">
+                            <div class="admin-it-ticketing-commentbox-date">09 July 2024</div>
+                        </span>
+                    </div>
+                </div>
+
+
+            </div>
+
+
+        </div>
+    </div>
+</div>
+@Html.Partial("EmployeeFooter")
+
 

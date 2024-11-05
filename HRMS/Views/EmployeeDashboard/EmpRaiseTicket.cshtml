@@ -1,92 +1,149 @@
 ﻿@model HRMS.Models.TicketingModel
 
-<div class="EmpTicket-raise-container">
-    <style>
-        .error-message {
-            color: red;
-        }
+<style>
+    .error-message {
+        color: red;
+    }
 
-        .form-control.error {
-            border-color: red;
-        }
-    </style>
+    .form-control.error {
+        border-color: red;
+    }
+</style>
+@Html.Partial("_EmployeeNavbar")
 
-    <div class="col-lg-5 col-md-11 emp-ticket-raise-popup-form">
-        <form id="emp-ticket-raise-Form">
-            <div class="form-group">
-                <h4 class="mb-4 ticketing-pagetitle">Raise Ticket</h4>
-                <div class="form-group div-emp-raiseticket-ticketype">
-                    <label for="emp-raiseticket-ticketype" class="emp-raiseticket-label">Ticket Type*</label>
-                    <select class="form-control" id="emp-raiseticket-ticketype">
-                        <option selected="" disabled="">Select IT or HR</option>
-                        <option value="IT">IT</option>
-                        <option value="HR">HR</option>
-                    </select>
-                    <span class="error-message" id="emp-raiseticket-ticketype-error"></span>
-                </div>
-                <div class="form-group div-emp-raiseticket-category" id="category-div" style="display: none">
-                    <label for="emp-raiseticket-category" class="emp-raiseticket-label">Category*</label>
-                    <select class="form-control" id="emp-raiseticket-itcategory" style="display: none;">
-                        <option selected="" disabled="">Select Category</option>
-                        <option value="Hardware">Hardware</option>
-                        <option value="Software">Software</option>
-                        <option value="Network">Network</option>
-                        <option value="Others">Others</option>
-                    </select>
-                    <select class="form-control" id="emp-raiseticket-hrcategory" style="display: none;">
-                        <option selected="" disabled="">Select Category</option>
-                        <option value="Recruitment">Recruitment</option>
-                        <option value="Payroll">Payroll</option>
-                        <option value="Benefits">Benefits</option>
-                        <option value="PF">PF</option>
-                        <option value="Leaves">Leaves</option>
-                        <option value="Others">Others</option>
-                    </select>
-                    <span class="error-message" id="emp-raiseticket-category-error"></span>
-                </div>
-                <div class="form-group">
-                    <label for="emp-raiseticket-subject">Subject*</label>
-                    <input type="text" value="" class="form-control" id="emp-raiseticket-subject" placeholder="Enter Subject">
-                    <span class="error-message" id="emp-raiseticket-subject-error"></span>
-                </div>
-                <div class="form-group">
-                    <label for="emp-raiseticket-description">Description*</label>
-                    <textarea class="form-control" id="emp-raiseticket-description"></textarea>
-                    <span class="error-message" id="emp-raiseticket-description-error"></span>
-                </div>
-                <div class="form-group">
-                    <label for="emp-raiseticket-attach">Attach File</label>
-                    <span class="emp-raiseticket-attach-upload-btn-wrapper">
-                        <button type="button" class="btn emp-raiseticket-attach-label">Upload a file</button>
-                        <input type="file" id="emp-raiseticket-attach-file-upload" name="emp-raiseticket-attach-file-upload" accept="image/jpeg, image/png">
-                        <span class="emp-raiseticket-file-name"></span>
-                    </span>
-                    <div class="emp-raiseticket-attach-file-upload-size">Only JPEG, PNG with max size of 2MB</div>
-                    <span class="error-message" id="emp-raiseticket-attach-error"></span>
-                </div>
-                <div class="form-group div-emp-raiseticket-priority">
-                    <label for="emp-raiseticket-priority" class="emp-raiseticket-priority-label">Priority*</label>
-                    <select class="form-control" id="emp-raiseticket-priority">
-                        <option selected="" disabled="">Select Priority</option>
-                        <option value="High">High</option>
-                        <option value="Mid">Mid</option>
-                        <option value="Low">Low</option>
-                    </select>
-                    <span class="error-message" id="emp-raiseticket-priority-error"></span>
-                </div>
-                <div class="emp-raiseticket-submit">
-                    <button type="button" class="btn btn-apply-emp-raiseticket-cancel mb-4">Cancel</button>
-                    <button type="button" class="btn btn-primary btn-apply-emp-raiseticket-submit mb-4">Raise</button>
+
+<div class="container-fluid emp-ticketing-raise-horizon">
+    <div class="main-content container-fluid">
+        <div class="content employee-raiseticketing">
+            <div class="emp-raiseticketing-container">
+                <div class="row res-emp-raiseticketing-header">
+                    <div class="col-lg-3 res-emp-raiseticketing-title">
+                        <h4 class="raiseticketing-pagetitle">Raise Ticket</h4>
+                    </div>
                 </div>
             </div>
-        </form>
+
+            <div class="EmpTicket-raise-container" id="empRaiseTicketingFields">
+                <div class="col-lg-6 col-md-11 emp-ticket-raise-popup-form">
+                    <form id="emp-ticket-raise-Form">
+                        <div class="form-group">
+                            <div class="col-lg-9 form-group div-emp-raiseticket-ticketype">
+                                <label for="emp-raiseticket-ticketype" class="emp-raiseticket-label">Ticket Type*</label>
+                                <select class="form-control" id="emp-raiseticket-ticketype">
+                                    <option selected="" disabled="">Select IT or HR</option>
+                                    <option value="IT">IT</option>
+                                    <option value="HR">HR</option>
+                                </select>
+                                <span class="error-message" id="emp-raiseticket-ticketype-error"></span>
+                            </div>
+                            <div class="col-lg-9 form-group div-emp-raiseticket-category" id="category-div" style="display: none">
+                                <label for="emp-raiseticket-category" class="emp-raiseticket-label">Category*</label>
+                                <select class="form-control" id="emp-raiseticket-itcategory" style="display: none;">
+                                    <option selected="" disabled="">Select Category</option>
+                                    <option value="Hardware">Hardware</option>
+                                    <option value="Software">Software</option>
+                                    <option value="Network">Network</option>
+                                    <option value="Others">Others</option>
+                                </select>
+                                <select class="form-control" id="emp-raiseticket-hrcategory" style="display: none;">
+                                    <option selected="" disabled="">Select Category</option>
+                                    <option value="Recruitment">Recruitment</option>
+                                    <option value="Payroll">Payroll</option>
+                                    <option value="Benefits">Benefits</option>
+                                    <option value="PF">PF</option>
+                                    <option value="Leaves">Leaves</option>
+                                    <option value="Others">Others</option>
+                                </select>
+                                <span class="error-message" id="emp-raiseticket-category-error"></span>
+                            </div>
+                            <div class="col-lg-9 form-group">
+                                <label for="emp-raiseticket-subject">Subject*</label>
+                                <input type="text" value="" class="form-control" id="emp-raiseticket-subject" placeholder="Enter Subject">
+                                <span class="error-message" id="emp-raiseticket-subject-error"></span>
+                            </div>
+                            <div class="col-lg-9 form-group">
+                                <label for="emp-raiseticket-description">Description*</label>
+                                <textarea class="form-control" id="emp-raiseticket-description"></textarea>
+                                <span class="error-message" id="emp-raiseticket-description-error"></span>
+                            </div>
+                            @*<div class="form-group">
+                                <label for="emp-raiseticket-attach">Attach File</label>
+                                <span class="emp-raiseticket-attach-upload-btn-wrapper">
+                                    <button type="button" class="btn emp-raiseticket-attach-label">Upload a file</button>
+                                    <input type="file" id="emp-raiseticket-attach-file-upload" name="emp-raiseticket-attach-file-upload" accept="image/jpeg, image/png">
+                                    <span class="emp-raiseticket-file-name"></span>
+                                </span>
+                                <div class="emp-raiseticket-attach-file-upload-size">Only JPEG, PNG with max size of 2MB</div>
+                                <span class="error-message" id="emp-raiseticket-attach-error"></span>
+                            </div>*@
+                            <div class="col-lg-12 form-group emp-raiseticketing-upload-field">
+                                <div class="col-lg-9 emp-raiseticketing-upload-left">
+                                    <span class="emp-raiseticketing-upload-icon"><img src="~/Assets/upload-icon.png"></span>
+                                    <span class="emp-raiseticketing-upload-btn">
+                                        <span class="emp-raiseticket-attach-upload-btn-wrapper">
+                                            <button type="button" class="btn emp-raiseticket-attach-label">Upload file</button>
+                                            <input type="file" id="emp-raiseticket-attach-file-upload" name="emp-raiseticket-attach-file-upload" accept="image/jpeg, image/png">
+                                            <span class="emp-raiseticket-file-name"></span>
+                                        </span>
+                                        <div class="emp-raiseticket-attach-file-upload-size">Only JPEG, PNG with max size of 2MB</div>
+                                    </span>
+                                    <span class="error-message" id="emp-raiseticket-attach-error"></span>
+                                </div>
+                                <div class="col-lg-3 emp-raiseticketing-upload-right"></div>
+                            </div>
+                            <div class="col-lg-9 form-group div-emp-raiseticket-priority">
+                                <label for="emp-raiseticket-priority" class="emp-raiseticket-priority-label">Priority*</label>
+                                <select class="form-control" id="emp-raiseticket-priority">
+                                    <option selected="" disabled="">Select Priority</option>
+                                    <option value="High">High</option>
+                                    <option value="Mid">Mid</option>
+                                    <option value="Low">Low</option>
+                                </select>
+                                <span class="error-message" id="emp-raiseticket-priority-error"></span>
+                            </div>
+                            <div class="col-lg-9 emp-raiseticket-submit">
+                                <button type="button" class="btn btn-apply-emp-raiseticket-cancel mb-4">Cancel</button>
+                                <button type="button" class="btn btn-primary btn-apply-emp-raiseticket-submit mb-4">Raise</button>
+                            </div>
+                        </div>
+                    </form>
 
 
-        <!-- Modal for success message -->
-        @Html.Partial("CommonModalPopups")
+                    <!-- Modal for success message -->
+                    @Html.Partial("CommonModalPopups")
 
+                </div>
+            </div>
+
+
+        </div>
     </div>
 </div>
-
-
+@Html.Partial("EmployeeFooter")
 <script src="~/Scripts/z-raiseticket.js"></script>
+
+<script>
+    $(document).ready(function () {
+        $("#emp-raiseticket-attach-file-upload").change(function (e) {
+            @*$('.edit-AssetType1Image').hide();*@
+            $('#emp-ticket-raise-Form .emp-raiseticketing-upload-right').empty();
+            for (var i = 0; i < e.originalEvent.srcElement.files.length; i++) {
+                var file = e.originalEvent.srcElement.files[i];
+                var img = document.createElement("img");
+                var reader = new FileReader();
+                reader.onloadend = function () {
+                    img.src = reader.result;
+                }
+                reader.readAsDataURL(file);
+                $("#emp-ticket-raise-Form .emp-raiseticketing-upload-right").append(img);
+                $("#emp-ticket-raise-Form .emp-raiseticketing-upload-right").append("<span class='emp-raiseticket-uploaded-image-close'><i class='fa fa-times-circle' aria-hidden='true'></i></span>");
+            }
+        });
+
+        $(document).on("click", ".emp-raiseticket-uploaded-image-close", function () {
+            $('#emp-ticket-raise-Form .emp-raiseticket-file-name').empty();
+            $('#emp-ticket-raise-Form .emp-raiseticketing-upload-right').empty();
+        });
+
+    });
+</script>
