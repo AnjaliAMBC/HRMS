@@ -42,7 +42,7 @@ namespace HRMS.Controllers
         {
             return View("~/Views/EmployeeDashboard/EmpLeaveTracker.cshtml");
         }
-        public ActionResult EmpApplyLeave(string leaveRequestName)
+        public ActionResult EmpApplyLeave(string leaveRequestName, bool isAdmin = false)
         {
             var applyleaveModel = new ApplyLeaveViewModel();
 
@@ -75,6 +75,12 @@ namespace HRMS.Controllers
                 "1.5 Hours",
                 "2 Hours"
             };
+
+            if (isAdmin)
+            {
+                applyleaveModel.IsFromAdmin = true;
+                return PartialView("~/Views/EmployeeDashboard/EmpApplyleave.cshtml", applyleaveModel);
+            }
 
             return View("~/Views/EmployeeDashboard/EmpApplyleave.cshtml", applyleaveModel);
         }

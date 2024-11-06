@@ -324,7 +324,7 @@ $('#datetimepicker2').on('change', function () {
             // If the time difference is not valid, clear the total hours
             $('#totalLeaveHours').text('');
             showError('datetimepicker2', 'Time difference must be 30 minutes, 1 hour, 1.5 hours, or 2 hours.');
-           
+
         }
     } else {
         $('#totalLeaveHours').text('');
@@ -577,24 +577,39 @@ $(document).on('click', '.btn-apply-empleave', function (event) {
                 // Clear form fields
                 ClearApplyLeaveFormFields();
 
-                $('#modalMessage').removeClass('text-danger').addClass('text-success').text(response.jsonResponse.Message);
-                $('#leavemessageModal').modal('show');
-
-                showMessageModal(response.jsonResponse.Message, true, "");
-
+                if ($('.loginempisadmin').text() != "True") {
+                    $('#modalMessage').removeClass('text-danger').addClass('text-success').text(response.jsonResponse.Message);
+                    $('#leavemessageModal').modal('show');
+                }
+                else {
+                    $('#modalMessage').removeClass('text-danger').addClass('text-success').text(response.jsonResponse.Message);
+                    $('#adminleavemessageModal').modal('show');
+                }
 
 
             } else {
-                $('#modalMessage').removeClass('text-success').addClass('text-danger').text(response.jsonResponse.Message);
-                $('#leavemessageModal').modal('show');
-                showMessageModal(response.jsonResponse.Message, false, "closepopuponly");
+                if ($('.loginempisadmin').text() != "True") {
+                    $('#modalMessage').removeClass('text-success').addClass('text-danger').text(response.jsonResponse.Message);
+                    $('#leavemessageModal').modal('show');
+                }
+                else {
+                    $('#modalMessage').removeClass('text-success').addClass('text-danger').text(response.jsonResponse.Message);
+                    $('#adminleavemessageModal').modal('show');
+                }
+
             }
         },
         error: function (error) {
             console.error('Error:', error);
             // Show error message in modal
-            $('#modalMessage').removeClass('text-success').addClass('text-danger').text('An error occurred while submitting the leave request.');
-            $('#leavemessageModal').modal('show');
+            if ($('.loginempisadmin').text() != "True") {
+                $('#modalMessage').removeClass('text-success').addClass('text-danger').text('An error occurred while submitting the leave request.');
+                $('#leavemessageModal').modal('show');
+            }
+            else {
+                $('#modalMessage').removeClass('text-success').addClass('text-danger').text('An error occurred while submitting the leave request.');
+                $('#adminleavemessageModal').modal('show');
+            }
         },
         complete: function () {
             $('.show-progress').hide();
@@ -725,6 +740,11 @@ $(document).on('click', '.btn-applyleave-cancel', function (e) {
 
 $(document).on('click', '.btn-leaveclose-refreshpage', function () {
     window.location.href = "/empLeave/index";
+    return;
+});
+
+$(document).on('click', '.btn-leavecloseadmin-refreshpage', function () {
+    window.location.href = "/adminleave/index";
     return;
 });
 

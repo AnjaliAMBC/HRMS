@@ -50,6 +50,8 @@ namespace HRMS.Models.Employee
 
         public List<string> HourlyPermissions = new List<string>();
 
+        public bool IsFromAdmin { get; set; } = false;
+
     }
 
 
