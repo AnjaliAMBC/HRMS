@@ -578,7 +578,7 @@ function toggleLeaveActionOptions(iconElement) {
 function empleaveedit(currentthis) {
     var leaveName = currentthis.attr("data-leavename");
 
-    window.location.href = "/empleave/empApplyLeave?leaveRequestName=" + leaveName;
+    window.location.href = "/empleave/empapplyleave?leaveRequestName=" + leaveName;
     return;
 
     // AddEditLeaves(leaveName);
@@ -765,7 +765,8 @@ $(document).on('click', '.btn-apply-leave', function (event) {
     event.preventDefault();
 
     // Redirect to the leave application page
-    window.location.href = '/EmpLeave/empapplyleave';
+    window.location.href = '/empLeave/empapplyleave';
+    return;
 });
 
 $(document).on('change', '#leavehistoryyear', function () {

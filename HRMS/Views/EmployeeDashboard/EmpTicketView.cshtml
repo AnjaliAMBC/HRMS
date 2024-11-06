@@ -1,9 +1,5 @@
-﻿
-@{
-    ViewBag.Title = "EmpTicketView";
-}
+﻿@model HRMS.Models.TicketingModel
 
-@model HRMS.Models.TicketingModel
 
 <style>
     .error-message {
@@ -32,77 +28,101 @@
                 <div class="col-lg-6 col-md-11 emp-ticket-raise-popup-form">
                     <form id="emp-ticket-raise-Form">
                         <div class="form-group">
+                            <!-- Ticket Type -->
                             <div class="col-lg-9 form-group div-emp-raiseticket-ticketype">
                                 <label for="emp-raiseticket-ticketype" class="emp-raiseticket-label">Ticket Type*</label>
-                                <select class="form-control" id="emp-raiseticket-ticketype">
-                                    <option selected="" disabled="">Select IT or HR</option>
-                                    <option value="IT" selected>IT</option>
-                                    <option value="HR">HR</option>
+                                <select class="form-control" id="emp-raiseticket-ticketype" name="TicketType" disabled>
+                                    <option disabled>Select IT or HR</option>
+                                    <option value="IT" @(Model.ticketinfo.TicketType == "IT" ? "selected" : "")>IT</option>
+                                    <option value="HR" @(Model.ticketinfo.TicketType == "HR" ? "selected" : "")>HR</option>
                                 </select>
                                 <span class="error-message" id="emp-raiseticket-ticketype-error"></span>
                             </div>
+
+                            <!-- Category based on Ticket Type -->
                             <div class="col-lg-9 form-group div-emp-raiseticket-category" id="category-div">
                                 <label for="emp-raiseticket-category" class="emp-raiseticket-label">Category*</label>
-                                <select class="form-control" id="emp-raiseticket-itcategory">
-                                    <option selected="" disabled="">Select Category</option>
-                                    <option value="Hardware">Hardware</option>
-                                    <option value="Software" selected>Software</option>
-                                    <option value="Network">Network</option>
-                                    <option value="Others">Others</option>
-                                </select>
-                                <select class="form-control" id="emp-raiseticket-hrcategory" style="display: none;">
-                                    <option selected="" disabled="">Select Category</option>
-                                    <option value="Recruitment">Recruitment</option>
-                                    <option value="Payroll">Payroll</option>
-                                    <option value="Benefits">Benefits</option>
-                                    <option value="PF">PF</option>
-                                    <option value="Leaves">Leaves</option>
-                                    <option value="Others">Others</option>
-                                </select>
+                                @if (Model.ticketinfo.TicketType == "IT")
+                                {
+                                    <select class="form-control" id="emp-raiseticket-itcategory" name="Category" disabled>
+                                        <option disabled>Select Category</option>
+                                        <option value="Hardware" @(Model.ticketinfo.Category == "Hardware" ? "selected" : "")>Hardware</option>
+                                        <option value="Software" @(Model.ticketinfo.Category == "Software" ? "selected" : "")>Software</option>
+                                        <option value="Network" @(Model.ticketinfo.Category == "Network" ? "selected" : "")>Network</option>
+                                        <option value="Others" @(Model.ticketinfo.Category == "Others" ? "selected" : "")>Others</option>
+                                    </select>
+                                }
+                                else if (Model.ticketinfo.TicketType == "HR")
+                                {
+                                    <select class="form-control" id="emp-raiseticket-hrcategory" name="Category" disabled>
+                                        <option disabled>Select Category</option>
+                                        <option value="Recruitment" @(Model.ticketinfo.Category == "Recruitment" ? "selected" : "")>Recruitment</option>
+                                        <option value="Payroll" @(Model.ticketinfo.Category == "Payroll" ? "selected" : "")>Payroll</option>
+                                        <option value="Benefits" @(Model.ticketinfo.Category == "Benefits" ? "selected" : "")>Benefits</option>
+                                        <option value="PF" @(Model.ticketinfo.Category == "PF" ? "selected" : "")>PF</option>
+                                        <option value="Leaves" @(Model.ticketinfo.Category == "Leaves" ? "selected" : "")>Leaves</option>
+                                        <option value="Others" @(Model.ticketinfo.Category == "Others" ? "selected" : "")>Others</option>
+                                    </select>
+                                }
                                 <span class="error-message" id="emp-raiseticket-category-error"></span>
                             </div>
+
+                            <!-- Subject -->
                             <div class="col-lg-9 form-group">
                                 <label for="emp-raiseticket-subject">Subject*</label>
-                                <input type="text" value="Test data" class="form-control" id="emp-raiseticket-subject" placeholder="Enter Subject">
+                                <input type="text" class="form-control" id="emp-raiseticket-subject" name="Subject"
+                                       placeholder="Enter Subject" value="@Model.ticketinfo.Subject" readonly>
                                 <span class="error-message" id="emp-raiseticket-subject-error"></span>
                             </div>
+
+                            <!-- Description -->
                             <div class="col-lg-9 form-group">
                                 <label for="emp-raiseticket-description">Description*</label>
-                                <textarea class="form-control" id="emp-raiseticket-description">Test data</textarea>
+                                <textarea class="form-control" id="emp-raiseticket-description" name="Description" readonly>@Model.ticketinfo.Description</textarea>
                                 <span class="error-message" id="emp-raiseticket-description-error"></span>
                             </div>
+
+                            <!-- File Upload (Display file name if any) -->
                             <div class="col-lg-12 form-group emp-raiseticketing-upload-field">
                                 <div class="col-lg-9 emp-raiseticketing-upload-left">
-                                    <span class="emp-raiseticketing-upload-icon"><img src="~/Assets/upload-icon.png"></span>
+                                    <span class="emp-raiseticketing-upload-icon">
+                                        <img src="~/Assets/upload-icon.png">
+                                    </span>
                                     <span class="emp-raiseticketing-upload-btn">
                                         <span class="emp-raiseticket-attach-upload-btn-wrapper">
-                                            <button type="button" class="btn emp-raiseticket-attach-label">Upload file</button>
-                                            <input type="file" id="emp-raiseticket-attach-file-upload" name="emp-raiseticket-attach-file-upload" accept="image/jpeg, image/png">
-                                            <span class="emp-raiseticket-file-name"></span>
+                                            <button type="button" class="btn emp-raiseticket-attach-label" disabled>Upload file</button>
+                                            <input type="file" id="emp-raiseticket-attach-file-upload" name="Attachment" accept="image/jpeg, image/png">
                                         </span>
                                         <div class="emp-raiseticket-attach-file-upload-size">Only JPEG, PNG with max size of 2MB</div>
                                     </span>
                                     <span class="error-message" id="emp-raiseticket-attach-error"></span>
                                 </div>
                                 <div class="col-lg-3 emp-raiseticketing-upload-right"></div>
+                                @if (!string.IsNullOrEmpty(Model.ticketinfo.AttatchimageFile))
+                                {
+                                    <a href="@Url.Content(Model.ticketinfo.AttatchimageFile)" target="_blank" rel="noopener noreferrer" class="emp-raiseticket-file-name">@Model.ticketinfo.AttatchimageFile</a>
+
+                                }
                             </div>
+                            <!-- Priority -->
                             <div class="col-lg-9 form-group div-emp-raiseticket-priority">
                                 <label for="emp-raiseticket-priority" class="emp-raiseticket-priority-label">Priority*</label>
-                                <select class="form-control" id="emp-raiseticket-priority">
-                                    <option selected="" disabled="">Select Priority</option>
-                                    <option value="High">High</option>
-                                    <option value="Mid" selected>Mid</option>
-                                    <option value="Low">Low</option>
+                                <select class="form-control" id="emp-raiseticket-priority" name="Priority" disabled>
+                                    <option disabled>Select Priority</option>
+                                    <option value="High" @(Model.ticketinfo.Priority == "High" ? "selected" : "")>High</option>
+                                    <option value="Mid" @(Model.ticketinfo.Priority == "Mid" ? "selected" : "")>Mid</option>
+                                    <option value="Low" @(Model.ticketinfo.Priority == "Low" ? "selected" : "")>Low</option>
                                 </select>
                                 <span class="error-message" id="emp-raiseticket-priority-error"></span>
                             </div>
+
+                            <!-- Submit Button -->
                             <div class="col-lg-9 emp-raiseticket-submit">
                                 <button type="button" class="btn btn-apply-emp-raiseticket-cancel mb-4">Cancel</button>
-                                <button type="button" class="btn btn-primary btn-apply-emp-raiseticket-submit mb-4" disabled>Update</button>
+                                <button type="submit" class="btn btn-primary btn-apply-emp-raiseticket-submit mb-4" disabled>Update</button>
                             </div>
                         </div>
                     </form>
-
 
                     <!-- Modal for success message -->
                     @Html.Partial("CommonModalPopups")
@@ -121,7 +141,7 @@
                             <div class="admin-it-ticketing-commentbox-desc" title="This is to inform, my tickets are not solved. Kindly do the needfull.">This is to inform, my tickets are not solved. Kindly do the needfull.</div>
                         </span>
                         <span class="col-lg-2 col-md-2 col-sm-2 admin-it-ticketing-commentbox-right">
-                            <div class="admin-it-ticketing-commentbox-date">09 July 2024</div>
+                            <div class="admin-it-ticketing-commentbox-date"></div>
                         </span>
                     </div>
                     <div class="admin-it-ticketing-commentbox-list">

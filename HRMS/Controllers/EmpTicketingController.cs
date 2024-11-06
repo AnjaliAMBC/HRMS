@@ -30,6 +30,12 @@ namespace HRMS.Controllers
 
             var employeeTickets = _dbContext.IT_Ticket.Where(t => t.EmployeeID == employeeId).OrderByDescending(x => x.Created_date).ToList();
             model.empTickets = employeeTickets;
+
+            if (employeeTickets.Any())
+            {
+                model.ticketinfo = employeeTickets.First();
+            }
+
             return View("~/Views/EmployeeDashboard/EmpTicketing.cshtml", model);
         }
         public ActionResult EmpTicketRaise()
@@ -38,9 +44,22 @@ namespace HRMS.Controllers
             return View("~/Views/EmployeeDashboard/EmpRaiseTicket.cshtml");
         }
         public ActionResult EmpTicketView()
-        {       
-            return View("~/Views/EmployeeDashboard/EmpTicketView.cshtml");
+        {
+            var model = new TicketingModel(); // Instantiate the model
+            var cuserContext = SiteContext.GetCurrentUserContext();
+            var employeeId = cuserContext.EmpInfo.EmployeeID;           
+                        
+            var employeeTickets = _dbContext.IT_Ticket
+                                    .Where(t => t.EmployeeID == employeeId)
+                                    .OrderByDescending(x => x.Created_date)
+                                    .ToList();
+            model.empTickets = employeeTickets;
+            model.ticketinfo = employeeTickets.FirstOrDefault() ?? new IT_Ticket();
+
+            
+            return View("~/Views/EmployeeDashboard/EmpTicketView.cshtml", model);
         }
+
         [HttpPost]
         public JsonResult RaiseTicket()
         {
