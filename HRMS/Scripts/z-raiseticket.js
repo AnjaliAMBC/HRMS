@@ -80,7 +80,8 @@ $(document).off('click', '.btn-apply-emp-raiseticket-submit').on('click', '.btn-
         formData.append('Status', 'Open');
         formData.append('Location', $('.loggedinemplocation').text());
         formData.append('File', $('#emp-raiseticket-attach-file-upload')[0].files[0]);
-
+        formData.append('IsEditRecord', $('.iseditablerecorddiv').text());
+        formData.append('EdiatbleRecordNumber', $('.editablerecordticketnumber').text());
         $.ajax({
             url: '/empticketing/raiseticket',
             type: 'POST',
@@ -91,8 +92,8 @@ $(document).off('click', '.btn-apply-emp-raiseticket-submit').on('click', '.btn-
                 $('.show-progress').show();
             },
             success: function (response) {
-                $('#messageModal .modal-body').html('<p  style="color: green;">Ticket has been raised successfully.</p>');
-                $('#messageModal').modal('show');
+                $('#TicketingmessageModal .modal-body').html('<p  style="color: green;">' + response.message + '</p>');
+                $('#TicketingmessageModal').modal('show');
 
                 $('#emp-ticket-raise-Form')[0].reset();
                 $('#category-div').hide();
@@ -120,6 +121,7 @@ $(document).on('click', '.btn-apply-emp-raiseticket-cancel', function (event) {
 
 $(document).on('change', '#emp-raiseticket-attach-file-upload', function (event) {
     var fileName = $(this).val().split('\\').pop();
+    $('.ticketing_filepath').hide();
     $('.emp-raiseticket-file-name').text(fileName);
     $('.emp-raiseticket-attach-label').removeClass('error');
     $('#emp-raiseticket-attach-error').text('');
@@ -338,6 +340,22 @@ $(document).on('click', '.btn-apply-emp-tickethistory-comment-reopen, .btn-apply
         $('#empTicketCommentsModal .modal-body').html('<p>Ticket information is missing. Please try again.</p>');
     }
 });
+
+
+$(document).on('click', '.emp-tickethistory-edit', function (event) {
+    var ticketName = $(this).attr('data-ticketname');
+    window.location.href = "/empticketing/empticketraise?ticketnumber=" + ticketName;
+    return;
+
+});
+
+$(document).on('click', '.btn-closeticketing-refreshpage', function (event) {
+
+    window.location.href = "/empticketing/index";
+    return;
+
+});
+
 
 
 
