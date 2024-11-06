@@ -124,8 +124,7 @@
                                             <div class="emp-tickethistoryoptions" style="display:none">
                                                 @if (ticket.Status == "Open" || ticket.Status == "Re-Open")
                                                 {
-                                                    <a class="dropdown-item emp-tickethistory-edit"
-                                                       onclick="emptickethistoryedit($(this))"
+                                                    <a class="dropdown-item emp-tickethistory-edit"                                                     
                                                        data-ticketname="@ticket.TicketNo">Edit</a>
                                                     <a class="dropdown-item emp-tickethistory-cancel"
                                                        onclick="emptickethistorycancel($(this))"
