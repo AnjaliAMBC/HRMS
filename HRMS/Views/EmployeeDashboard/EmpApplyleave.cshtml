@@ -104,23 +104,23 @@
                                     </div>
                                 </div>
                                 @*<div class="form-group time-section" style="display: none">
-                                        <label for="HourPermission" class="hour_label">Hour Permission*</label>
-                                        <select class="form-control" id="HourPermission">
-                                            <option selected disabled>Select Hours</option>
+                            <label for="HourPermission" class="hour_label">Hour Permission*</label>
+                            <select class="form-control" id="HourPermission">
+                                <option selected disabled>Select Hours</option>
 
-                                            @{
-                                                decimal selectedHourPermission = Model.EditLeaveInfo != null && Model.EditLeaveInfo.leavesource == "Hourly Permission" ? Model.EditLeaveInfo.LeaveDays : 0;
-                                            }
-                                            @foreach (var hourPermission in Model.HourlyPermissions)
-                                            {
-                                                var permissionHourString = hourPermission.Split(' ')[0];
-                                                decimal permissionHour = decimal.Parse(permissionHourString);
-                                                var selected = permissionHour == selectedHourPermission ? "selected" : "";
-                                                <option @selected value="@permissionHour">@hourPermission</option>
-                                            }
-                                        </select>
-                                        <span class="error-message" id="HourPermission-error"></span>
-                                    </div>*@
+                                @{
+                                    decimal selectedHourPermission = Model.EditLeaveInfo != null && Model.EditLeaveInfo.leavesource == "Hourly Permission" ? Model.EditLeaveInfo.LeaveDays : 0;
+                                }
+                                @foreach (var hourPermission in Model.HourlyPermissions)
+                                {
+                                    var permissionHourString = hourPermission.Split(' ')[0];
+                                    decimal permissionHour = decimal.Parse(permissionHourString);
+                                    var selected = permissionHour == selectedHourPermission ? "selected" : "";
+                                    <option @selected value="@permissionHour">@hourPermission</option>
+                                }
+                            </select>
+                            <span class="error-message" id="HourPermission-error"></span>
+                        </div>*@
                                 <div class="time-section" style="display: none">
                                     <div class="form-group start-time-section">
                                         <label for="StartTime" class="StartTime">Start Time*</label>
@@ -196,7 +196,28 @@
                     </div>
                 </div>
 
-                @Html.Partial("CommonModalPopups")
+
+                <div class="modal fade" id="leavemessageModal" tabindex="-1" role="dialog" aria-labelledby="messageModalLabel" aria-hidden="true">
+                    <div class="modal-dialog" role="document">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <h5 class="modal-title" id="messageModalLabel">Message</h5>
+                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                    <span aria-hidden="true">&times;</span>
+                                </button>
+                            </div>
+                            <div class="modal-body" id="modalMessage">
+                            </div>
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-secondary btn-leaveclose-refreshpage">Close</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+
+
+
             </div>
 
 
@@ -227,10 +248,29 @@
         });
         $('#datetimepicker2').datetimepicker({
             format: 'HH:mm'
-        });
+        });     
 
 
-        $('#leaveType').val("Sick Leave").trigger('change');
+
+        // Function to get query string parameter by name
+        function getLeaveQueryStringParameter(name) {
+            const urlParams = new URLSearchParams(window.location.search);
+            return urlParams.get(name);
+        }
+
+
+        if ($('#isedirecord').text() == "true") {
+            const leaveRequestName = getLeaveQueryStringParameter('leaveRequestName');
+
+            $('#dayTypeContainer').show();
+            $('#totalLeavesContainer').show();
+
+            generateDayTypeRows(leaveRequestName);
+
+          
+        }
+
+        //$('#leaveType').val("Sick Leave").trigger('change');
 
     });
 </script>

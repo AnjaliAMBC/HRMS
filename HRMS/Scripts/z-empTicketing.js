@@ -7,8 +7,8 @@ $(document).on('click', '.btn-empRaiseTicket', function (event) {
 
 $(document).on('click', '.emp-ticketing-listing-title', function (event) {
     event.preventDefault();
-
-    window.location.href = '/empticketing/EmpTicketView';
+    const ticketNumber = $(this).data('ticketnum');
+    window.location.href = `/empticketing/EmpTicketView?ticketNumber=${ticketNumber}`;
 });
 
 

@@ -36,8 +36,8 @@
             if (leaverequestname != undefined && leaverequestname != "" && $('#leaveType').val() == "Hourly Permission") {
                 $('.time-section').show();
                 $('.apply-date-section').hide();
-            }           
-            
+            }
+
             $(".hiddenadmindashboard").html("");
             $(".hiddenempdashboard").html("");
 
@@ -47,7 +47,7 @@
                 $('#dayTypeContainer').show();
                 $('#totalLeavesContainer').show();
                 $('.balance-section-wrapper').show();
-                generateDayTypeRows(leaverequestname);            
+                generateDayTypeRows(leaverequestname);
             }
 
             generateBalanceSection();

@@ -28,7 +28,7 @@ function generateBalanceSection() {
             var balanceSectionHTML = `
             <div class="ml-4 res-emp-apply-leave" style="margin-top:25px;">
                 <div class="balance-section mt-4 ml-4">
-                    <div class="emp-apply-leave-title">Earned Leave</div>
+                    <div class="emp-apply-leave-title">${leaveType}</div>
                     <div class="row" style="line-height:2;">
                         <div class="col-md-4 leave-apply-info-block">
                             <div class="col-md-3 res-leave-apply-left">
@@ -58,45 +58,78 @@ function generateBalanceSection() {
                 </div>
             </div>`;
 
-            
+
             $('.balance-section-wrapper').html(balanceSectionHTML);
 
             if ($('#isedirecord').text() == "true") {
+                //calculateTotalLeaves();
+
                 var editableRecordLeaves = $('#totalLeavesNumber').text();
                 var existingAvailableLeaveBalance = $('.available-balance').text();
-                var bookedLeaves = $('.booked-leaves').text();
 
-                
+                // Convert them to numbers (assuming they are numeric)
                 var totalLeaves = parseFloat(editableRecordLeaves) || 0;
                 var availableLeaveBalance = parseFloat(existingAvailableLeaveBalance) || 0;
+
+                // Combine the two values
+                var combinedTotal = totalLeaves + availableLeaveBalance;
+                $('.available-balance').text(combinedTotal);
+
+
+                var bookedLeaves = $('.booked-leaves').text();
                 var totalBookedLeaves = parseFloat(bookedLeaves) || 0;
-                                
-                var isHourlyPermission = $('#leaveType').val() === 'Hourly Permission';
-                var hourPermission = parseFloat($('#HourPermission').val()) || 0; 
 
-                if (isHourlyPermission && hourPermission > 0) {                   
-                    var totalLeaveHours = hourPermission;  
-                    
-                    var combinedTotalHours = availableLeaveBalance + totalLeaveHours;
-                    $('.available-balance').text(combinedTotalHours.toFixed(2));  
+                var combinedBookedLeaves = totalBookedLeaves - totalLeaves;
+                $('.booked-leaves').text(combinedBookedLeaves)
 
-                    var combinedBookedHours = totalBookedLeaves - totalLeaveHours;
-                    $('.booked-leaves').text(combinedBookedHours.toFixed(2));  
-                } else {
-                    // For regular leaves (in days)
-                    var combinedTotal = totalLeaves + availableLeaveBalance;
-                    $('.available-balance').text(combinedTotal.toFixed(2));  
+                $('.balance-section-wrapper').show();
 
-                    var combinedBookedLeaves = totalBookedLeaves - totalLeaves;
-                    $('.booked-leaves').text(combinedBookedLeaves.toFixed(2)); 
-                }
             }
+
+
+            //if ($('#isedirecord').text() == "true") {
+
+
+            //    var editableRecordLeaves = $('#totalLeavesNumber').text();
+            //    var existingAvailableLeaveBalance = $('.available-balance').text();
+            //    var bookedLeaves = $('.booked-leaves').text();
+
+
+            //    var totalLeaves = parseFloat(editableRecordLeaves) || 0;
+            //    var availableLeaveBalance = parseFloat(existingAvailableLeaveBalance) || 0;
+            //    var totalBookedLeaves = parseFloat(bookedLeaves) || 0;
+
+            //    var isHourlyPermission = $('#leaveType').val() === 'Hourly Permission';
+            //    var hourPermission = parseFloat($('#HourPermission').val()) || 0; 
+
+            //    if (isHourlyPermission && hourPermission > 0) {                   
+            //        var totalLeaveHours = hourPermission;  
+
+            //        var combinedTotalHours = availableLeaveBalance + totalLeaveHours;
+            //        $('.available-balance').text(combinedTotalHours.toFixed(2));  
+
+            //        var combinedBookedHours = totalBookedLeaves - totalLeaveHours;
+            //        $('.booked-leaves').text(combinedBookedHours.toFixed(2));  
+            //    } else {
+            //        // For regular leaves (in days)
+            //        var combinedTotal = totalLeaves + availableLeaveBalance;
+            //        $('.available-balance').text(combinedTotal.toFixed(2));  
+
+            //        var combinedBookedLeaves = totalBookedLeaves - totalLeaves;
+            //        $('.booked-leaves').text(combinedBookedLeaves.toFixed(2));
+
+            //        $('.balance-section-wrapper').show();
+
+            //    }
+            //}
         },
         error: function () {
             alert("Error occurred while fetching available leaves.");
         }
     });
 }
+
+
 
 // Function to generate day type rows
 function generateDayTypeRows(leaverequestname) {
@@ -214,6 +247,10 @@ function generateDayTypeRows(leaverequestname) {
                         // Calculate total leaves when day type rows are generated
                         calculateTotalLeaves();
 
+                        if ($('#isedirecord').text() == "true" && leaverequestname != undefined) {
+                            generateBalanceSection();
+                        }
+
 
                     },
                     error: function () {
@@ -236,6 +273,8 @@ function generateDayTypeRows(leaverequestname) {
         // Clear the total leaves container if dates are not selected
         totalLeavesContainer.empty();
     }
+
+   
 }
 
 
@@ -256,6 +295,9 @@ $(document).on('change', '#fromleaveDate', function (event) {
 });
 
 
+
+
+
 $(document).on('change', '#toleaveDate', function (event) {
 
     var fromDate = $('#fromleaveDate').val();
@@ -270,7 +312,9 @@ $(document).on('change', '#toleaveDate', function (event) {
 
     $('#dayTypeContainer').show();
     $('#totalLeavesContainer').show();
+
     generateDayTypeRows();
+
 });
 
 function ClearApplyLeaveFormFields() {
@@ -470,7 +514,7 @@ $(document).on('click', '.btn-apply-empleave', function (event) {
                 ClearApplyLeaveFormFields();
 
                 $('#modalMessage').removeClass('text-danger').addClass('text-success').text(response.jsonResponse.Message);
-                $('#messageModal').modal('show');
+                $('#leavemessageModal').modal('show');
 
                 showMessageModal(response.jsonResponse.Message, true, "");
 
@@ -478,7 +522,7 @@ $(document).on('click', '.btn-apply-empleave', function (event) {
 
             } else {
                 $('#modalMessage').removeClass('text-success').addClass('text-danger').text(response.jsonResponse.Message);
-                $('#messageModal').modal('show');
+                $('#leavemessageModal').modal('show');
                 showMessageModal(response.jsonResponse.Message, false, "closepopuponly");
             }
         },
@@ -486,7 +530,7 @@ $(document).on('click', '.btn-apply-empleave', function (event) {
             console.error('Error:', error);
             // Show error message in modal
             $('#modalMessage').removeClass('text-success').addClass('text-danger').text('An error occurred while submitting the leave request.');
-            $('#messageModal').modal('show');
+            $('#leavemessageModal').modal('show');
         },
         complete: function () {
             $('.show-progress').hide();
@@ -497,6 +541,13 @@ $(document).on('click', '.btn-apply-empleave', function (event) {
 
 
 $(document).off('change', '#leaveType').on('change', '#leaveType', function (event) {
+
+    $('#fromleaveDate').val('');
+    $('#toleaveDate').val('');
+    $('#dayTypeContainer').empty();
+    $('#dayTypeLabel').hide();
+    $('#totalLeavesContainer').empty();
+
 
     $('.error-message-showerror').html("");
     $('.error-message-showerror').hide();
@@ -520,11 +571,7 @@ $(document).off('change', '#leaveType').on('change', '#leaveType', function (eve
         generateDayTypeRows(); // Ensure that the day type rows are generated based on selected dates
     }
 
-    $('#fromleaveDate').val('');
-    $('#toleaveDate').val('');
-    $('#dayTypeContainer').empty();
-    $('#dayTypeLabel').hide();
-    $('#totalLeavesContainer').empty();
+
 });
 
 
@@ -542,7 +589,7 @@ $(document).on('change', '#HourPermission', function (event) {
 $(document).on('click', '.dashhoiday_description', function (e) {
     e.preventDefault();
 
-    $('#Compreason').val(""); 
+    $('#Compreason').val("");
 
     // Fetch data from clicked element and its siblings or parent elements
     var holidayName = '';
@@ -607,4 +654,11 @@ $(document).on('click', '.btn-applyleave-cancel', function (e) {
     ClearApplyLeaveFormFields();
 });
 
+
+
+
+$(document).on('click', '.btn-leaveclose-refreshpage', function () {
+    window.location.href = "/empLeave/index";
+    return;
+});
 
