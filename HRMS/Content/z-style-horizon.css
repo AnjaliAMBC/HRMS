@@ -117,7 +117,7 @@
 /* header profile dropdown start */
 
 .horizon-design .profile-dropdown {
-    text-align: left;
+    text-align: center;
     width: 240px !important;
     margin-top: -7px;
 }
@@ -134,13 +134,15 @@
 }
 
 .horizon-design .profile-dropdown .view-profile-btn {
-    width: auto !important;
-    background-color: transparent !important;
+    width: 100% !important;
+    background-color: #267EC4 !important;
     font-size: 12px;
     border: 0px solid #7E7E7E !important;
-    text-align: left;
-    padding: 0;
+    text-align: center;
+    padding: 6px 0px;
     margin-left: 0 !important;
+    color: #fff;
+    border-radius: 0;
 }
 
 .horizon-design .profile-dropdown .sign-out {
@@ -400,7 +402,7 @@
 
 .emp-dashboard-horizon .dashboard-header-block .dashboard-header-left {
     color: #fff;
-    width: 70%;
+    width: 67%;
     display: inline-block;
     vertical-align: middle;
     margin-top: 35px;
@@ -418,7 +420,7 @@
 
 .emp-dashboard-horizon .dashboard-header-block .dashboard-header-right {
     display: inline-block;
-    width: 28%;
+    width: 31%;
     background: #fff;
     padding: 16px 25px 16px 15px;
     border-radius: 0 18px 0px 0px;
@@ -459,7 +461,7 @@
     width: 33%;
     margin-left: 10px;
     font-size: 12px;
-    vertical-align: top;
+    /*vertical-align: top;*/
 }
 
 .emp-dashboard-horizon .dashboard-header-block .dashboard-header-right .dh-right .dh-checkin {
@@ -1003,7 +1005,7 @@
 
 /* emp dashboard end */
 
-/* emp upcoimg holidays start */
+/* emp upcoming holidays start */
 
 .emp-upcomingholidays-list-horizon {
     background: #efefef;
@@ -1083,7 +1085,7 @@
     border-radius: 30px;
 }
 
-/* emp upcoimg holidays end */
+/* emp upcoming holidays end */
 
 /* emp self service start */
 
@@ -1490,6 +1492,11 @@ box-shadow: 0 0 5px rgba(0, 0, 0, 0.3);*/
     padding-left: 25px;
 }
 
+.emp-attendance-list-horizon .empatt-body tr:nth-child(1) th,
+.emp-attendance-list-horizon .empatt-body tr:nth-child(1) td {
+    padding-top: 20px !important;
+}
+
 /* emp attendance end */
 
 /* emp leave start */
@@ -1681,7 +1688,7 @@ box-shadow: 0 0 5px rgba(0, 0, 0, 0.3);*/
 }
 
 .emp-leave-list-horizon .emp-leave-info-block-all {
-    margin: 15px 0;
+    margin: 25px 0 0 0;
     display: inline-block;
 }
 
@@ -1880,6 +1887,48 @@ box-shadow: 0 0 5px rgba(0, 0, 0, 0.3);*/
     font-size: 14px;
     padding: 5px 10px;
     border-radius: 4px;
+}*/
+
+.emp-leave-list-horizon .empleave-calendar-header {
+    margin-right: 0;
+}
+
+.emp-leave-list-horizon .empleave-calendar-header #empleave-monthYear {
+    font-size: 12px;
+}
+
+.emp-leave-list-horizon .empleave-calendar-header .empleave-chevron-icon {
+    font-size: 12px;
+    color: #8B8B8B;
+}
+
+.emp-leave-list-horizon .emp-leave-info-block-all .emp-leave-calendar-title {
+    display: inline-flex;
+    margin-bottom: -29px;
+    margin-left: 16px;
+    font-weight: bold;
+    font-size: 14px;
+}
+
+.emp-leave-list-horizon .empleave-calendar-body .highlight-festival-leave div {
+    margin-top: 15px;
+}
+
+.emp-leave-list-horizon .empleave-calendar-body thead th {
+    background: #ECEDEE;
+    border: 1px solid #ccc;
+}
+
+.emp-leave-list-horizon .empleave-calendar-body thead th:first-child {
+    border-top-left-radius: 0px;
+}
+
+.emp-leave-list-horizon .empleave-calendar-body thead th:last-child {
+    border-top-right-radius: 0px;
+}
+
+/*.emp-leave-list-horizon .empleave-calendar-table tbody tr {
+    border: 1px solid #ccc;
 }*/
 
 /* emp leave end */
