@@ -45,5 +45,7 @@ namespace HRMS
         public Nullable<System.DateTime> approvedbydate { get; set; }
         public string rejectedbyname { get; set; }
         public Nullable<System.DateTime> rejectedbydate { get; set; }
+        public Nullable<System.TimeSpan> StartTime { get; set; }
+        public Nullable<System.TimeSpan> EndTime { get; set; }
     }
 }

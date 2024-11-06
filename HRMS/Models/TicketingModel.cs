@@ -12,5 +12,7 @@ namespace HRMS.Models
         public List<emp_info> itEmployees { get; set; } = new List<emp_info>();
 
         public IT_Ticket ticketinfo = new IT_Ticket();
+
+        public bool IsEditRecord = false;
     }
 }
