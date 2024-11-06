@@ -31,6 +31,8 @@ namespace HRMS.Models.Employee
         public string Department { get; set; }
         public System.TimeSpan StartTime { get; set; }
         public System.TimeSpan EndTime { get; set; }
+
+        public bool SendReasontoteamChecked { get; set } = false;
     }
 
     public class DayTypeEntry

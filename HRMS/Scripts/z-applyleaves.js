@@ -383,6 +383,8 @@ $(document).on('click', '.btn-apply-empleave', function (event) {
     let startTime = $('#datetimepicker1').val();
     let endTime = $('#datetimepicker2').val();
 
+    let sendReasontoteamChecked = $('#leave-send-reason').is(':checked');
+
     let isValid = true;
 
 
@@ -560,7 +562,8 @@ $(document).on('click', '.btn-apply-empleave', function (event) {
         Department: department,
         Designation: designation,
         StartTime: startTime,
-        EndTime: endTime
+        EndTime: endTime,
+        SendReasontoteamChecked: sendReasontoteamChecked
     };
 
     $.ajax({
