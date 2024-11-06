@@ -137,6 +137,8 @@
           <Property Name="approvedbydate" Type="datetime" />
           <Property Name="rejectedbyname" Type="nvarchar" MaxLength="500" />
           <Property Name="rejectedbydate" Type="datetime" />
+          <Property Name="StartTime" Type="time" Precision="7" />
+          <Property Name="EndTime" Type="time" Precision="7" />
         </EntityType>
         <EntityType Name="Department">
           <Key>
@@ -837,6 +839,8 @@ warning 6002: The table/view 'HRMS_PortalDev1.dbo.CheckInView' does not have a p
           <Property Name="approvedbydate" Type="DateTime" Precision="3" />
           <Property Name="rejectedbyname" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
           <Property Name="rejectedbydate" Type="DateTime" Precision="3" />
+          <Property Name="StartTime" Type="Time" Precision="7" />
+          <Property Name="EndTime" Type="Time" Precision="7" />
         </EntityType>
         <EntityType Name="Location">
           <Key>
@@ -1332,6 +1336,8 @@ warning 6002: The table/view 'HRMS_PortalDev1.dbo.CheckInView' does not have a p
           <EntitySetMapping Name="con_leaveupdate">
             <EntityTypeMapping TypeName="HRMS_EntityModel.con_leaveupdate">
               <MappingFragment StoreEntitySet="con_leaveupdate">
+                <ScalarProperty Name="EndTime" ColumnName="EndTime" />
+                <ScalarProperty Name="StartTime" ColumnName="StartTime" />
                 <ScalarProperty Name="rejectedbydate" ColumnName="rejectedbydate" />
                 <ScalarProperty Name="rejectedbyname" ColumnName="rejectedbyname" />
                 <ScalarProperty Name="approvedbydate" ColumnName="approvedbydate" />

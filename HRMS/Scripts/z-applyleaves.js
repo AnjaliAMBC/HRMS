@@ -62,66 +62,46 @@ function generateBalanceSection() {
             $('.balance-section-wrapper').html(balanceSectionHTML);
 
             if ($('#isedirecord').text() == "true") {
-                //calculateTotalLeaves();
-
-                var editableRecordLeaves = $('#totalLeavesNumber').text();
-                var existingAvailableLeaveBalance = $('.available-balance').text();
-
-                // Convert them to numbers (assuming they are numeric)
-                var totalLeaves = parseFloat(editableRecordLeaves) || 0;
-                var availableLeaveBalance = parseFloat(existingAvailableLeaveBalance) || 0;
-
-                // Combine the two values
-                var combinedTotal = totalLeaves + availableLeaveBalance;
-                $('.available-balance').text(combinedTotal);
 
 
-                var bookedLeaves = $('.booked-leaves').text();
-                var totalBookedLeaves = parseFloat(bookedLeaves) || 0;
+                if (leaveType == "Hourly Permission") {
+                    var editRecordBookedHours = $('.currentrecordbookedhours').attr("data-bookedhours");
+                    var totalBookedHours = $('.booked-leaves').text();
+                    var totalAvailableHours = $('.available-balance').text();
 
-                var combinedBookedLeaves = totalBookedLeaves - totalLeaves;
-                $('.booked-leaves').text(combinedBookedLeaves)
+                    var alterBookedHurs = parseFloat(totalBookedHours) - parseFloat(editRecordBookedHours);
+                    $('.booked-leaves').text(alterBookedHurs);
 
-                $('.balance-section-wrapper').show();
+                    var alterTotalAvailableBalance = parseFloat(totalAvailableHours) + parseFloat(editRecordBookedHours);
+                    $('.available-balance').text(alterTotalAvailableBalance);
+
+                    $('.balance-section-wrapper').show();
+                }
+
+                else {
+
+                    var editableRecordLeaves = $('#totalLeavesNumber').text();
+                    var existingAvailableLeaveBalance = $('.available-balance').text();
+
+                    // Convert them to numbers (assuming they are numeric)
+                    var totalLeaves = parseFloat(editableRecordLeaves) || 0;
+                    var availableLeaveBalance = parseFloat(existingAvailableLeaveBalance) || 0;
+
+                    // Combine the two values
+                    var combinedTotal = totalLeaves + availableLeaveBalance;
+                    $('.available-balance').text(combinedTotal);
+
+
+                    var bookedLeaves = $('.booked-leaves').text();
+                    var totalBookedLeaves = parseFloat(bookedLeaves) || 0;
+
+                    var combinedBookedLeaves = totalBookedLeaves - totalLeaves;
+                    $('.booked-leaves').text(combinedBookedLeaves)
+
+                    $('.balance-section-wrapper').show();
+                }
 
             }
-
-
-            //if ($('#isedirecord').text() == "true") {
-
-
-            //    var editableRecordLeaves = $('#totalLeavesNumber').text();
-            //    var existingAvailableLeaveBalance = $('.available-balance').text();
-            //    var bookedLeaves = $('.booked-leaves').text();
-
-
-            //    var totalLeaves = parseFloat(editableRecordLeaves) || 0;
-            //    var availableLeaveBalance = parseFloat(existingAvailableLeaveBalance) || 0;
-            //    var totalBookedLeaves = parseFloat(bookedLeaves) || 0;
-
-            //    var isHourlyPermission = $('#leaveType').val() === 'Hourly Permission';
-            //    var hourPermission = parseFloat($('#HourPermission').val()) || 0; 
-
-            //    if (isHourlyPermission && hourPermission > 0) {                   
-            //        var totalLeaveHours = hourPermission;  
-
-            //        var combinedTotalHours = availableLeaveBalance + totalLeaveHours;
-            //        $('.available-balance').text(combinedTotalHours.toFixed(2));  
-
-            //        var combinedBookedHours = totalBookedLeaves - totalLeaveHours;
-            //        $('.booked-leaves').text(combinedBookedHours.toFixed(2));  
-            //    } else {
-            //        // For regular leaves (in days)
-            //        var combinedTotal = totalLeaves + availableLeaveBalance;
-            //        $('.available-balance').text(combinedTotal.toFixed(2));  
-
-            //        var combinedBookedLeaves = totalBookedLeaves - totalLeaves;
-            //        $('.booked-leaves').text(combinedBookedLeaves.toFixed(2));
-
-            //        $('.balance-section-wrapper').show();
-
-            //    }
-            //}
         },
         error: function () {
             alert("Error occurred while fetching available leaves.");
@@ -272,9 +252,12 @@ function generateDayTypeRows(leaverequestname) {
         dayTypeLabel.hide();
         // Clear the total leaves container if dates are not selected
         totalLeavesContainer.empty();
+
+        if ($('#leaveType').val() == "Hourly Permission") {
+            generateBalanceSection();
+        }
     }
 
-   
 }
 
 
@@ -317,11 +300,43 @@ $(document).on('change', '#toleaveDate', function (event) {
 
 });
 
+// On End Time change
+$('#datetimepicker2').on('change', function () {
+    var startTime = $('#datetimepicker1').val(); // Start time value
+    var endTime = $('#datetimepicker2').val(); // End time value
+
+    if (startTime && endTime) {
+        // Create Date objects with a fixed date for comparison
+        var startDate = new Date('1970-01-01T' + startTime);
+        var endDate = new Date('1970-01-01T' + endTime);
+
+        // Calculate the time difference in minutes
+        var timeDifference = (endDate - startDate) / (1000 * 60); // Time difference in minutes
+
+        // Define valid time intervals in minutes
+        var validTimeIntervals = [30, 60, 90, 120]; // 0.5 hours, 1 hour, 1.5 hours, 2 hours
+
+        // Check if the time difference is a valid value
+        if (validTimeIntervals.includes(timeDifference)) {
+            // Update the total leave hours
+            $('.spanleavehours').text(timeDifference / 60); // Convert minutes to hours
+        } else {
+            // If the time difference is not valid, clear the total hours
+            $('#totalLeaveHours').text('');
+            showError('datetimepicker2', 'Time difference must be 30 minutes, 1 hour, 1.5 hours, or 2 hours.');
+           
+        }
+    } else {
+        $('#totalLeaveHours').text('');
+    }
+});
+
+
 function ClearApplyLeaveFormFields() {
     $('#leaveType').val($('#leaveType option:first').val());
     $('#fromleaveDate').val('');
     $('#toleaveDate').val('');
-    $('#HourPermission').val('');
+    /* $('#HourPermission').val('');*/
     $('#teamEmail').val('');
     //$('#teamEmail').val($('#defaultteamEmail').text());
     $('#reason').val('');
@@ -338,6 +353,13 @@ function ClearApplyLeaveFormFields() {
     $('.time-section').hide();
 }
 
+function showError(elementId, message) {
+    let errorElement = $('#' + elementId + '-error');
+    errorElement.text(message);
+    errorElement.show();
+    $('#' + elementId).addClass('input-error');
+}
+
 $(document).on('click', '.btn-apply-empleave', function (event) {
     event.preventDefault();
     $('.error-message-showerror').hide();
@@ -345,7 +367,7 @@ $(document).on('click', '.btn-apply-empleave', function (event) {
     let leaveType = $('#leaveType').val();
     let fromDate = $('#fromleaveDate').val();
     let toDate = $('#toleaveDate').val();
-    let hourPermission = $('#HourPermission').val();
+    let hourPermission = false;
     let teamEmail = $('#teamEmail').val();
     let reason = $('#reason').val();
     let EmpID = $("#leaveempname option:selected").val();
@@ -358,14 +380,12 @@ $(document).on('click', '.btn-apply-empleave', function (event) {
     let department = $("#leaveempname option:selected").attr("data-department");
     let designation = $("#leaveempname option:selected").attr("data-designation");
 
+    let startTime = $('#datetimepicker1').val();
+    let endTime = $('#datetimepicker2').val();
+
     let isValid = true;
 
-    function showError(elementId, message) {
-        let errorElement = $('#' + elementId + '-error');
-        errorElement.text(message);
-        errorElement.show();
-        $('#' + elementId).addClass('input-error');
-    }
+
 
     $('.error-message').hide(); // Hide all error messages at the start
     $('.input-error').removeClass('input-error'); // Remove error highlight at the start
@@ -376,15 +396,57 @@ $(document).on('click', '.btn-apply-empleave', function (event) {
     }
 
     if (leaveType === "Hourly Permission") {
+
+        hourPermission = true;
+
+        // 1. Validate From Date
         if (!fromDate) {
             isValid = false;
             showError('fromleaveDate', 'From Date is required.');
         }
-        if (!hourPermission || hourPermission === "Select Hours") {
+
+        // 2. Validate Start Time and End Time
+        if (!startTime) {
             isValid = false;
-            showError('HourPermission', 'Hour Permission is required for Hourly Permission leave.');
+            showError('datetimepicker1', 'Start Time is required.');
         }
-    } else {
+        if (!endTime) {
+            isValid = false;
+            showError('datetimepicker2', 'End Time is required.');
+        }
+
+        // 3. Ensure End Time is greater than Start Time
+        if (startTime && endTime && new Date(`1970-01-01 ${endTime}`) <= new Date(`1970-01-01 ${startTime}`)) {
+            isValid = false;
+            showError('datetimepicker2', 'End Time must be greater than Start Time.');
+        }
+
+        // 4. Calculate Time Difference in Minutes
+        if (startTime && endTime) {
+            var startTimeDate = new Date(`1970-01-01 ${startTime}`);
+            var endTimeDate = new Date(`1970-01-01 ${endTime}`);
+            var timeDifferenceInMinutes = (endTimeDate - startTimeDate) / (1000 * 60); // in minutes
+
+            // 5. Validate if Time Difference is Valid (30 mins, 1 hour, 1.5 hours, or 2 hours)
+            var allowedTimeDifferences = [30, 60, 90, 120]; // 30 mins, 1 hour, 1.5 hours, 2 hours
+            if (allowedTimeDifferences.indexOf(timeDifferenceInMinutes) === -1) {
+                isValid = false;
+                showError('datetimepicker2', 'Time difference must be 30 minutes, 1 hour, 1.5 hours, or 2 hours.');
+            }
+
+            // 6. Validate Against Available Balance
+            var availableBalanceInHours = parseFloat($('.available-balance').text()) || 0;
+            var availableBalanceInMinutes = availableBalanceInHours * 60; // Convert hours to minutes
+
+            if (timeDifferenceInMinutes > availableBalanceInMinutes) {
+                isValid = false;
+                showError('datetimepicker2', 'Total time difference exceeds available balance.');
+            }
+        }
+    }
+
+
+    else {
         if (!fromDate) {
             isValid = false;
             showError('fromleaveDate', 'From Date is required.');
@@ -496,7 +558,9 @@ $(document).on('click', '.btn-apply-empleave', function (event) {
         ActionType: $('.btn-apply-empleave').text(),
         EditRequestName: $('#editleaverequestname').text(),
         Department: department,
-        Designation: designation
+        Designation: designation,
+        StartTime: startTime,
+        EndTime: endTime
     };
 
     $.ajax({
@@ -556,7 +620,7 @@ $(document).off('change', '#leaveType').on('change', '#leaveType', function (eve
     var selectedLeaveType = $(this).val();
     generateBalanceSection(selectedLeaveType);
 
-    $('#HourPermission').val($('#HourPermission option:first').val());
+    //$('#HourPermission').val($('#HourPermission option:first').val());
 
     if ($(this).val() === 'Hourly Permission') { // Hourly Permission
         $('.to-date-group').hide();
@@ -564,9 +628,11 @@ $(document).off('change', '#leaveType').on('change', '#leaveType', function (eve
         $('#dayTypeContainer').hide();
         $('#totalLeavesContainer').hide();
         $('.time-section').show();
+        $('.currentrecordbookedhours').show();
     } else {
         $('.to-date-group').show();
         $('.time-section').hide();
+        $('.currentrecordbookedhours').hide();
         $('.apply-date-section').show();
         generateDayTypeRows(); // Ensure that the day type rows are generated based on selected dates
     }
@@ -580,11 +646,11 @@ $(document).on('change', '#leaveempname', function (event) {
     $('.balance-section-wrapper').empty();
 });
 
-$(document).on('change', '#HourPermission', function (event) {
-    $('#totalLeavesContainer').html('<div>Total time: <span id="totalLeaves">' + $("#HourPermission option:selected").text() + '</span></div>');
-    //$('#totalLeaves').text($(this).val());
-    $('#totalLeavesContainer').show();
-});
+//$(document).on('change', '#HourPermission', function (event) {
+//    $('#totalLeavesContainer').html('<div>Total time: <span id="totalLeaves">' + $("#HourPermission option:selected").text() + '</span></div>');
+//    //$('#totalLeaves').text($(this).val());
+//    $('#totalLeavesContainer').show();
+//});
 
 $(document).on('click', '.dashhoiday_description', function (e) {
     e.preventDefault();

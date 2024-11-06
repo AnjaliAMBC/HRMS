@@ -79,6 +79,18 @@ namespace HRMS.Controllers
             return View("~/Views/EmployeeDashboard/EmpApplyleave.cshtml", applyleaveModel);
         }
 
+        public double CalculateTimeDifferenceInHours(TimeSpan StartTime, TimeSpan EndTime)
+        {
+            // Calculate the difference between EndTime and StartTime
+            TimeSpan timeDifference = EndTime - StartTime;
+
+            // Convert the difference to hours as a double
+            double hoursDifference = timeDifference.TotalMinutes / 60;
+
+            return hoursDifference;
+        }
+
+
         public ActionResult AjaxApplyLeave(LeaveRequestModel leaveRequest)
         {
             var currentContext = Session["SiteContext"] as HRMS.Models.SiteContextModel;
@@ -89,7 +101,7 @@ namespace HRMS.Controllers
                     string.IsNullOrEmpty(leaveRequest.LeaveType) ||
                     string.IsNullOrEmpty(leaveRequest.FromDate) ||
                     string.IsNullOrEmpty(leaveRequest.TeamEmail) ||
-                    (leaveRequest.DayTypeEntries == null && string.IsNullOrEmpty(leaveRequest.hourPermission)))
+                    (leaveRequest.DayTypeEntries == null && leaveRequest.hourPermission == false))
                 {
                     return Json(leaveRequest, JsonRequestBehavior.AllowGet);
                 }
@@ -108,6 +120,12 @@ namespace HRMS.Controllers
                 }
 
                 var leaves = new List<con_leaveupdate>();
+                double leaveDays = 0;
+
+                if (leaveRequest.LeaveType == "Hourly Permission")
+                {
+                    leaveDays = CalculateTimeDifferenceInHours(leaveRequest.StartTime, leaveRequest.EndTime);
+                }
 
                 if (leaveRequest.DayTypeEntries != null && leaveRequest.DayTypeEntries.Count() > 0)
                 {
@@ -140,7 +158,9 @@ namespace HRMS.Controllers
                             updateddate = DateTime.Now,
                             Designation = leaveRequest.Designation,
                             Department = leaveRequest.Department,
-                            TeamEmails = leaveRequest.TeamEmail
+                            TeamEmails = leaveRequest.TeamEmail,
+                            StartTime = leaveRequest.StartTime,
+                            EndTime = leaveRequest.EndTime
 
                         });
                     }
@@ -161,7 +181,7 @@ namespace HRMS.Controllers
                         HalfDayCategory = "",
                         BackupResource_Name = leaveRequest.BackupResource_Name,
                         EmergencyContact_no = leaveRequest.EmergencyContact_no,
-                        LeaveDays = System.Convert.ToDecimal(leaveRequest.hourPermission),
+                        LeaveDays = (decimal)leaveDays,
                         LeaveStatus = "Pending",
                         Fromdate = Convert.ToDateTime(leaveRequest.FromDate),
                         Todate = Convert.ToDateTime(leaveRequest.ToDate),
@@ -174,7 +194,9 @@ namespace HRMS.Controllers
                         updateddate = DateTime.Now,
                         Designation = leaveRequest.Designation,
                         Department = leaveRequest.Department,
-                        TeamEmails = leaveRequest.TeamEmail
+                        TeamEmails = leaveRequest.TeamEmail,
+                        StartTime = leaveRequest.StartTime,
+                        EndTime = leaveRequest.EndTime
                     });
                 }
 

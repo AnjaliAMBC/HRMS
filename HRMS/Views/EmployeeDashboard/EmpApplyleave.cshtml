@@ -89,7 +89,17 @@
                                         }
                                         <span class="error-message" id="fromleaveDate-error"></span>
                                     </div>
-                                    <div class="form-group to-date-group">
+
+
+                                    @{
+                                        var showTodate = "display: block";
+
+                                        if (isEditRecord == "true" && Model.EditLeaveInfo.leavesource == "Hourly Permission")
+                                        {
+                                            showTodate = "display: none";
+                                        }
+                                    }
+                                    <div class="form-group to-date-group" style="@showTodate">
                                         <label for="toleaveDate">End Date*</label>
 
                                         @if (Model.EditLeaveInfo != null && Model.EditLeaveInfo.Todate != DateTime.MinValue)
@@ -104,36 +114,77 @@
                                     </div>
                                 </div>
                                 @*<div class="form-group time-section" style="display: none">
-                            <label for="HourPermission" class="hour_label">Hour Permission*</label>
-                            <select class="form-control" id="HourPermission">
-                                <option selected disabled>Select Hours</option>
+                                        <label for="HourPermission" class="hour_label">Hour Permission*</label>
+                                        <select class="form-control" id="HourPermission">
+                                            <option selected disabled>Select Hours</option>
+
+                                            @{
+                                                decimal selectedHourPermission = Model.EditLeaveInfo != null && Model.EditLeaveInfo.leavesource == "Hourly Permission" ? Model.EditLeaveInfo.LeaveDays : 0;
+                                            }
+                                            @foreach (var hourPermission in Model.HourlyPermissions)
+                                            {
+                                                var permissionHourString = hourPermission.Split(' ')[0];
+                                                decimal permissionHour = decimal.Parse(permissionHourString);
+                                                var selected = permissionHour == selectedHourPermission ? "selected" : "";
+                                                <option @selected value="@permissionHour">@hourPermission</option>
+                                            }
+                                        </select>
+                                        <span class="error-message" id="HourPermission-error"></span>
+                                    </div>*@
 
                                 @{
-                                    decimal selectedHourPermission = Model.EditLeaveInfo != null && Model.EditLeaveInfo.leavesource == "Hourly Permission" ? Model.EditLeaveInfo.LeaveDays : 0;
+                                    var showHourlyTimeSectiondate = "display: none";
+
+                                    if (isEditRecord == "true" && Model.EditLeaveInfo.leavesource == "Hourly Permission")
+                                    {
+                                        showHourlyTimeSectiondate = "display: block";
+                                    }
                                 }
-                                @foreach (var hourPermission in Model.HourlyPermissions)
-                                {
-                                    var permissionHourString = hourPermission.Split(' ')[0];
-                                    decimal permissionHour = decimal.Parse(permissionHourString);
-                                    var selected = permissionHour == selectedHourPermission ? "selected" : "";
-                                    <option @selected value="@permissionHour">@hourPermission</option>
-                                }
-                            </select>
-                            <span class="error-message" id="HourPermission-error"></span>
-                        </div>*@
-                                <div class="time-section" style="display: none">
+
+                                <div class="time-section" style="@showHourlyTimeSectiondate">
                                     <div class="form-group start-time-section">
-                                        <label for="StartTime" class="StartTime">Start Time*</label>
-                                        <div class="input-group date">
-                                            <input type="text" class="form-control datetimepicker-input" id="datetimepicker1" data-toggle="datetimepicker" data-target="#datetimepicker1" placeholder="Selet Time" />
-                                        </div>
+                                        <label for="StartTime">Start Time*</label>
+                                        @if (Model.EditLeaveInfo != null && Model.EditLeaveInfo.StartTime.HasValue)
+                                        {
+                                            @Html.TextBoxFor(m => m.EditLeaveInfo.StartTime, "{0:hh\\:mm}", new { @type = "time", @class = "form-control", @id = "datetimepicker1", @placeholder = "Select Time" })
+                                        }
+                                        else
+                                        {
+                                            <input type="time" class="form-control custom-disabled" id="datetimepicker1">
+                                        }
+
+                                        <span class="error-message" id="datetimepicker1-error" style="font-size: 10px"></span>
                                     </div>
+
                                     <div class="form-group end-time-section">
-                                        <label for="EndTime" class="EndTime">End Time*</label>
-                                        <div class="input-group date">
-                                            <input type="text" class="form-control datetimepicker-input" id="datetimepicker2" data-toggle="datetimepicker" data-target="#datetimepicker2" placeholder="Select Time" />
-                                        </div>
+                                        <label for="EndTime">End Time*</label>
+                                        @if (Model.EditLeaveInfo != null && Model.EditLeaveInfo.EndTime.HasValue)
+                                        {
+                                            @Html.TextBoxFor(m => m.EditLeaveInfo.EndTime, "{0:hh\\:mm}", new { @type = "time", @class = "form-control", @id = "datetimepicker2", @placeholder = "Select Time" })
+                                        }
+                                        else
+                                        {
+                                            <input type="time" class="form-control custom-disabled" id="datetimepicker2">
+                                        }
+                                        <span class="error-message" id="datetimepicker2-error" style="font-size: 10px"></span>
                                     </div>
+
+
+                                </div>
+                                @{
+                                    var currentlyBookedHours = "0";
+                                }
+
+                                @if (Model != null && Model.EditLeaveInfo != null)
+                                {
+                                    currentlyBookedHours = @Model.EditLeaveInfo.LeaveDays.ToString();
+                                }
+                                <div class="currentrecordbookedhours" data-bookedhours="@currentlyBookedHours" style="@showHourlyTimeSectiondate">
+                                    Total Hours: <span class="spanleavehours">@currentlyBookedHours</span>
+                                </div>
+
+
+                                <div>
 
                                 </div>
                                 <div class="form-group" id="dayTypeLabel" style="display: none">
@@ -248,7 +299,7 @@
         });
         $('#datetimepicker2').datetimepicker({
             format: 'HH:mm'
-        });     
+        });
 
 
 
@@ -267,7 +318,7 @@
 
             generateDayTypeRows(leaveRequestName);
 
-          
+
         }
 
         //$('#leaveType').val("Sick Leave").trigger('change');
