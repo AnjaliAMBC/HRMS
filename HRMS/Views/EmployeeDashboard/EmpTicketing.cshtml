@@ -154,7 +154,7 @@
                                                     } }
 
                                             </div>
-                                            <div class="res-empticketlisting-status-level @HRMS.Helpers.TicketingHelper.GetTicketStatusCssClass(ticket.Status)">
+                                            <div class="res-empticketlisting-status-level @HRMS.Helpers.TicketingHelper.GetTicketStatusEmpClass(ticket.Status)">
                                                 @if (ticket.isacknowledge == "true" && ticket.Status == "Closed")
                                                 {
                                                     <img src="~/Assets/resolved.png" alt="Resolved">

@@ -14,27 +14,44 @@ namespace HRMS.Helpers
             switch (priority.ToLower())
             {
                 case "high":
-                    return "priority-high";
+                    return "res-emp-ticketlisting-color-red";
                 case "mid":
-                    return "priority-medium";
+                    return "res-emp-ticketlisting-color-orange";
                 case "low":
-                    return "priority-low";
+                    return "res-emp-ticketlisting-color-green";
                 default:
                     return ""; // Default or unknown priority
             }
-        }
-
-        // Method to return CSS class based on ticket status
-        public static string GetTicketStatusCssClass(string status)
+        }                 
+        public static string GetTicketStatusEmpClass(string status)
         {
             switch (status.ToLower())
             {
                 case "open":
                     return "status-pending";
                 case "closed":
-                    return "status-closed";
+                    return "status-resolved";
                 case "resolved":
                     return "status-resolved";
+                case "re-open":
+                    return "status-pending";
+                case "cancelled":
+                    return "status-pending";
+                default:
+                    return "";
+            }
+        }
+
+        public static string GetTicketStatusCssClass(string status)
+        {
+            switch (status.ToLower())
+            {
+                case "open":
+                    return "ithrticket-status-open";
+                case "closed":
+                    return "ithrticket-status-closed";
+                case "resolved":
+                    return "ticket-status-pending";
                 case "re-open":
                     return "ticket-status-re-open";
                 case "cancelled":

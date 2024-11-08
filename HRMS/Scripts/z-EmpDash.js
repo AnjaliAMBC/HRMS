@@ -83,9 +83,10 @@ $(document).on('click', '.btn-checkin', function (event) {
                         $('.btn-checkin').removeAttr('disabled');
                         $('#dh-checkinhoursminutes').attr('data-signedindatetime', "");
                         $('#dh-checkinhoursminutes').html("");
-                        $('#checkOutTime').html("");
-                        $('#checkInTime').html("");
+                        $('#checkOutTime').html("00:00:00");
+                        $('#checkInTime').html("00:00:00");
                         $('.showcheckinbuttonpostcheckout').text('False');
+                        $('.btn-checkin').prop('disabled', false);
                     }
                     else {
                         $('#dh-checkinhoursminutes').attr('data-signedindatetime', "");

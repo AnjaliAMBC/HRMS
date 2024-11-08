@@ -165,6 +165,7 @@
         text-align: center;
         cursor: pointer;
         margin-bottom: 10px;
+        width: 75%;
     }
 </style>
 
@@ -315,22 +316,22 @@
                             {
                                 if (@holiday.HolidayDate != DateTime.MinValue)
                                 {
-                    <div class="emp-dash-upcoming-holidays-block">
-                        <div class="emp-upcoming-left">
-                            <div class="holiday-name">@holiday.HolidayName</div>
-                            <div class="holiday-date smalltext">@holiday.HolidayDate.ToString("dd MMMM dddd")</div>
+                                    <div class="emp-dash-upcoming-holidays-block">
+                                        <div class="emp-upcoming-left">
+                                            <div class="holiday-name">@holiday.HolidayName</div>
+                                            <div class="holiday-date smalltext">@holiday.HolidayDate.ToString("dd MMMM dddd")</div>
+                                        </div>
+                                        <a class="dashhoiday_description Emp-CompOffRequest"
+                                           data-leavenumber="@holiday.HolidayNo"
+                                           data-location="@holiday.Region">
+                                            <div class="emp-upcoming-right">
+                                                <i class="fas fa-chevron-right"></i>
+                                            </div>
+                                        </a>
+                                    </div>}
+                            }
                         </div>
-                        <a class="dashhoiday_description Emp-CompOffRequest"
-                           data-leavenumber="@holiday.HolidayNo"
-                           data-location="@holiday.Region">
-                            <div class="emp-upcoming-right">
-                                <i class="fas fa-chevron-right"></i>
-                            </div>
-                        </a>
-                    </div>}
-                                }
-                        </div>
-                                               
+
                     </div>
 
                     <div class="col-lg-4 col-md-6 col-sm-12 emp-dash-basic-info emp-dash-recent-tickets">
@@ -348,8 +349,8 @@
                                     <div class="emp-recent-tickets-right">
                                         <div class="recent-tickets-title">@myTicket.Subject</div>
                                         <div class="recent-tickets-info">
-                                            <span class="recent-tickets-info-left"><img src="/Assets/dashboard/iconoir-priority-high.png"><span class="emp-ticket-priority-label">Priority</span> - <span class="emp-ticket-priority-status @HRMS.Helpers.TicketingHelper.GetPriorityColor(myTicket.Priority)">@myTicket.Priority</span></span>
-                                            <span class="recent-tickets-info-right"><img src="/Assets/ei_user.png"> <span class="emp-ticket-priority-label">Status</span> <span class="emp-ticket-priority-status @HRMS.Helpers.TicketingHelper.GetTicketStatusCssClass(myTicket.Status)">@myTicket.Status</span></span>
+                                            <span class="recent-tickets-info-left"><img src="/Assets/dashboard/iconoir-priority-high.png"><span class="emp-ticket-priority-label">Priority</span> - <span class="emp-ticket-priority-status" style="color: #267EC4">@myTicket.Priority</span></span>
+                                            <span class="recent-tickets-info-right"><img src="/Assets/ei_user.png"> <span class="emp-ticket-priority-label">Status</span> <span class="emp-ticket-priority-status @HRMS.Helpers.TicketingHelper.GetTicketStatusEmpClass(myTicket.Status)">@myTicket.Status</span></span>
                                         </div>
                                     </div>
                                 </div>
@@ -530,15 +531,15 @@
                                     <button type="button" class="btn btn-primary emp-dash-modal-send" data-notificationtype="Birthday" data-notificationtoid="@empBirthdayDisplay.EmpInfo.EmployeeID" data-notificationtoname="@empBirthdayDisplay.EmpInfo.EmployeeName">Send</button>
                                 </div>
                             </div>
-                                            }
-                                                        }
-                                                        else
-                                                        {
-                                                    <div class="no-birthdays-message" style="text-align: center; font-size: 16px; color: gray; padding: 80px 0;">
-                                                     No Birthdays Today
-                                                      </div>
-                                                }
-                                                                </div>
+                        }
+                    }
+                    else
+                    {
+                        <div class="no-birthdays-message" style="text-align: center; font-size: 16px; color: gray; padding: 80px 0;">
+                            No Birthdays Today
+                        </div>
+                    }
+                </div>
             </div>
         </div>
     </div>
@@ -590,9 +591,9 @@
                     }
                     else
                     {
-                <div class="no-anniversaries-message" style="text-align: center; font-size: 16px; color: gray; padding: 80px 0;">
-                    No Anniversaries Today
-                </div>}
+                        <div class="no-anniversaries-message" style="text-align: center; font-size: 16px; color: gray; padding: 80px 0;">
+                            No Anniversaries Today
+                        </div>}
                 </div>
             </div>
         </div>
@@ -681,6 +682,7 @@
 
 </div>
 
+<span class="showcheckinbuttonpostcheckout" style="display: none">@showCheckInButton</span>
 @Html.Partial("EmployeeFooter")
 
 <script src="~/Scripts/z-EmpDash.js"></script>

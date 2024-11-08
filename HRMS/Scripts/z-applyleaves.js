@@ -15,7 +15,81 @@ function calculateTotalLeaves() {
     $('#totalLeaves').text(total + " Days");
 }
 
+//This code is mainly for Admin side look and feel
 // Function to dynamically generate balance section HTML
+function generateAdminBalanceBalanceSection() {
+    var leaveType = $('#leaveType').val();
+    var availableBalance = 0;
+    var empId = $("#leaveempname option:selected").val();
+    $.ajax({
+        type: "POST",
+        url: "/empleave/getavailableleaves",
+        data: { empId: empId, leaveType: leaveType },
+        success: function (data) {
+            var balanceSectionHTML = `
+            <div class="ml-4 res-emp-apply-leave" style="margin-top:25px;">
+                <div class="balance-section mt-4 ml-4">
+                    <div class="row" style="line-height:2;">
+                        <div class="col-md-12 leave-apply-info-block">
+                            <div class="col-md-10 res-leave-apply-left">
+                                <span>Total Balance</span>
+                            </div>
+                            <div class="col-md-1 res-leave-apply-right">
+                                <div class="available-total">${data.Available}</div>
+                            </div>
+                        </div>
+                        <div class="col-md-12 leave-apply-info-block">
+                            <div class="col-md-10 res-leave-apply-left">
+                                <span>Currently Booked</span>
+                            </div>
+                            <div class="col-md-1 res-leave-apply-right">
+                                <div class="booked-leaves">${data.Booked}</div>
+                            </div>
+                        </div>
+                        <div class="col-md-12 leave-apply-info-block">
+                            <div class="col-md-10 res-leave-apply-left">
+                                <span>Available Balance</span>
+                            </div>
+                            <div class="col-md-1 res-leave-apply-right">
+                                <div class="available-balance">${data.Balance}</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>`;
+
+            // Replace existing balance section with updated HTML
+            $('.balance-section-wrapper').html(balanceSectionHTML);
+
+            if ($('#isedirecord').text() == "true") {
+                var editableRecordLeaves = $('#totalLeavesNumber').text();
+                var existingAvailableLeaveBalance = $('.available-balance').text();
+
+                // Convert them to numbers (assuming they are numeric)
+                var totalLeaves = parseFloat(editableRecordLeaves) || 0;
+                var availableLeaveBalance = parseFloat(existingAvailableLeaveBalance) || 0;
+
+                // Combine the two values
+                var combinedTotal = totalLeaves + availableLeaveBalance;
+                $('.available-balance').text(combinedTotal);
+
+
+                var bookedLeaves = $('.booked-leaves').text();
+                var totalBookedLeaves = parseFloat(bookedLeaves) || 0;
+
+                var combinedBookedLeaves = totalBookedLeaves - totalLeaves;
+                $('.booked-leaves').text(combinedBookedLeaves)
+
+            }
+
+        },
+        error: function () {
+            alert("Error occurred while fetching available leaves.");
+        }
+    });
+}
+
+//Function to dynamically generate balance section HTML
 function generateBalanceSection() {
     var leaveType = $('#leaveType').val();
     var availableBalance = 0;
@@ -228,9 +302,14 @@ function generateDayTypeRows(leaverequestname) {
                         calculateTotalLeaves();
 
                         if ($('#isedirecord').text() == "true" && leaverequestname != undefined) {
-                            generateBalanceSection();
+                            //This code is mainly for Admin side look and feel
+                            if ($('.adminsideapplypage').length > 0) {
+                                generateAdminBalanceBalanceSection();
+                            }
+                            else {
+                                generateBalanceSection();
+                            }
                         }
-
 
                     },
                     error: function () {
@@ -254,7 +333,13 @@ function generateDayTypeRows(leaverequestname) {
         totalLeavesContainer.empty();
 
         if ($('#leaveType').val() == "Hourly Permission") {
-            generateBalanceSection();
+            //This code is mainly for Admin side look and feel
+            if ($('.adminsideapplypage').length > 0) {
+                generateAdminBalanceBalanceSection();
+            }
+            else {
+                generateBalanceSection();
+            }
         }
     }
 
@@ -301,7 +386,8 @@ $(document).on('change', '#toleaveDate', function (event) {
 });
 
 // On End Time change
-$('#datetimepicker2').on('change', function () {
+
+$(document).on('change', '#datetimepicker2', function (event) {
     var startTime = $('#datetimepicker1').val(); // Start time value
     var endTime = $('#datetimepicker2').val(); // End time value
 
@@ -636,7 +722,15 @@ $(document).off('change', '#leaveType').on('change', '#leaveType', function (eve
 
     $('.balance-section-wrapper').show();
     var selectedLeaveType = $(this).val();
-    generateBalanceSection(selectedLeaveType);
+
+    //This code is mainly for Admin side look and feel
+    if ($('.adminsideapplypage').length > 0) {
+        generateAdminBalanceBalanceSection();
+    }
+    else {
+        generateBalanceSection(selectedLeaveType);
+    }
+
 
     //$('#HourPermission').val($('#HourPermission option:first').val());
 
