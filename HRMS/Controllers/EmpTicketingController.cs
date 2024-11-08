@@ -53,20 +53,12 @@ namespace HRMS.Controllers
             return View("~/Views/EmployeeDashboard/EmpRaiseTicket.cshtml", model);
         }
 
-        public ActionResult EmpTicketView()
+        public ActionResult EmpTicketView(int ticketNumber)
         {
             var model = new TicketingModel(); // Instantiate the model
-            var cuserContext = SiteContext.GetCurrentUserContext();
-            var employeeId = cuserContext.EmpInfo.EmployeeID;
-
-            var employeeTickets = _dbContext.IT_Ticket
-                                    .Where(t => t.EmployeeID == employeeId)
-                                    .OrderByDescending(x => x.Created_date)
-                                    .ToList();
-            model.empTickets = employeeTickets;
-            model.ticketinfo = employeeTickets.FirstOrDefault() ?? new IT_Ticket();
-
-
+            var cuserContext = SiteContext.GetCurrentUserContext();  
+            model.ticketinfo = _dbContext.IT_Ticket
+                                    .Where(t => t.TicketNo == ticketNumber).FirstOrDefault();
             return View("~/Views/EmployeeDashboard/EmpTicketView.cshtml", model);
         }
 

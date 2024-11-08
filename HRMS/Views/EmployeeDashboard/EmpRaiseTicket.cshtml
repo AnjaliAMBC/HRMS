@@ -113,18 +113,18 @@
                                         <span class="emp-raiseticket-attach-upload-btn-wrapper">
                                             <button type="button" class="btn emp-raiseticket-attach-label">Upload file</button>
                                             <input type="file" id="emp-raiseticket-attach-file-upload" name="emp-raiseticket-attach-file-upload" accept="image/jpeg, image/png">
-                                            <span class="emp-raiseticket-file-name"></span>
+                                            <span class="emp-raiseticket-file-name">
+                                                @if (Model.ticketinfo != null && !string.IsNullOrWhiteSpace(Model.ticketinfo.AttatchimageFile))
+                                                {
+                                                    <a class="ticketing_filepath" href="/@System.Configuration.ConfigurationManager.AppSettings["TicketingAbsolutePath"]/@Model.ticketinfo.TicketType/@Model.ticketinfo.AttatchimageFile" target="_blank">@Model.ticketinfo.AttatchimageFile</a>
+                                                }
+                                            </span>
                                         </span>
                                         <div class="emp-raiseticket-attach-file-upload-size">Only JPEG, PNG with max size of 2MB</div>
                                     </span>
                                     <span class="error-message" id="emp-raiseticket-attach-error"></span>
                                 </div>
-                                <div class="col-lg-3 col-md-2 emp-raiseticketing-upload-right"></div>
-
-                                @if (Model.ticketinfo != null && !string.IsNullOrWhiteSpace(Model.ticketinfo.AttatchimageFile))
-                                {
-                                    <a class="ticketing_filepath" href="/@System.Configuration.ConfigurationManager.AppSettings["TicketingAbsolutePath"]/@Model.ticketinfo.TicketType/@Model.ticketinfo.AttatchimageFile" target="_blank">@Model.ticketinfo.AttatchimageFile</a><br />
-                                }
+                                <div class="col-lg-3 col-md-2 emp-raiseticketing-upload-right"></div>                           
 
                             </div>
                             <div class="col-lg-9 form-group div-emp-raiseticket-priority">

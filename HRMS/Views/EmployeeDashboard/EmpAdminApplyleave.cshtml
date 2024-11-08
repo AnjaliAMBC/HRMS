@@ -17,7 +17,6 @@
 
     var isAdminApplyPage = @Model.IsFromAdmin ? "adminsideapplypage" : "";
 
-    //This code is mainly for Admin side look and feel
     var containerclass = "emp-applyleave-horizon";
     var mainContainerContent = "main-content";
 }
@@ -29,7 +28,6 @@
 }
 else
 {
-    //This code is mainly for Admin side look and feel
     containerclass = "emp-leave-apply-form";
     mainContainerContent = "";
 }
@@ -70,12 +68,12 @@ else
                                         <select class="form-control" id="leaveempname">
                                             <option selected disabled>Select Employee Name</option>
                                             @{
-                                            var selectedempID = currentUserSession.EmpInfo.EmployeeID; ;
+                                                var selectedempID = currentUserSession.EmpInfo.EmployeeID; ;
                                             }
                                             @foreach (var emp in Model.employees)
                                             {
-                                            var selected = !currentUserSession.IsAdmin && emp.EmployeeID == selectedempID ? "selected" : "";
-                                            <option @selected value="@emp.EmployeeID" data-empname="@emp.EmployeeName" data-emplocation="@emp.Location" data-empemail="@emp.OfficalEmailid" data-designation="@emp.Designation" data-department="@emp.Department">@emp.EmployeeName @emp.EmployeeID</option>
+                                                var selected = !currentUserSession.IsAdmin && emp.EmployeeID == selectedempID ? "selected" : "";
+                                                <option @selected value="@emp.EmployeeID" data-empname="@emp.EmployeeName" data-emplocation="@emp.Location" data-empemail="@emp.OfficalEmailid" data-designation="@emp.Designation" data-department="@emp.Department">@emp.EmployeeName @emp.EmployeeID</option>
                                             }
                                         </select>
                                         <span class="error-message" id="leaveempname-error"></span>
@@ -84,12 +82,12 @@ else
                                     <select class="form-control" id="leaveType" @isLeaveTypeDisabled>
                                         <option selected disabled>Select Leave Type</option>
                                         @{
-                                        var selectedLeaveType = Model.EditLeaveInfo != null ? Model.EditLeaveInfo.leavesource : "";
+                                            var selectedLeaveType = Model.EditLeaveInfo != null ? Model.EditLeaveInfo.leavesource : "";
                                         }
                                         @foreach (var leavetype in Model.leaveTypes)
                                         {
-                                        var selected = leavetype == selectedLeaveType ? "selected" : "";
-                                        <option @selected value="@leavetype">@leavetype</option>
+                                            var selected = leavetype == selectedLeaveType ? "selected" : "";
+                                            <option @selected value="@leavetype">@leavetype</option>
                                         }
                                     </select>
                                     <span class="error-message" id="leaveType-error"></span>
@@ -100,64 +98,64 @@ else
 
                                         @if (Model.EditLeaveInfo != null && Model.EditLeaveInfo.Fromdate != DateTime.MinValue)
                                         {
-                                        @Html.TextBoxFor(m => m.EditLeaveInfo.Fromdate, "{0:yyyy-MM-dd}", new { @type = "date", @class = "form-control", @id = "fromleaveDate" })
+                                            @Html.TextBoxFor(m => m.EditLeaveInfo.Fromdate, "{0:yyyy-MM-dd}", new { @type = "date", @class = "form-control", @id = "fromleaveDate" })
                                         }
                                         else
                                         {
-                                        <input type="date" class="form-control" id="fromleaveDate">
+                                            <input type="date" class="form-control" id="fromleaveDate">
                                         }
                                         <span class="error-message" id="fromleaveDate-error"></span>
                                     </div>
 
 
                                     @{
-                                    var showTodate = "display: block";
+                                        var showTodate = "display: block";
 
-                                    if (isEditRecord == "true" && Model.EditLeaveInfo.leavesource == "Hourly Permission")
-                                    {
-                                    showTodate = "display: none";
-                                    }
+                                        if (isEditRecord == "true" && Model.EditLeaveInfo.leavesource == "Hourly Permission")
+                                        {
+                                            showTodate = "display: none";
+                                        }
                                     }
                                     <div class="form-group to-date-group" style="@showTodate">
                                         <label for="toleaveDate">End Date*</label>
 
                                         @if (Model.EditLeaveInfo != null && Model.EditLeaveInfo.Todate != DateTime.MinValue)
                                         {
-                                        @Html.TextBoxFor(m => m.EditLeaveInfo.Todate, "{0:yyyy-MM-dd}", new { @type = "date", @class = "form-control", @id = "toleaveDate" })
+                                            @Html.TextBoxFor(m => m.EditLeaveInfo.Todate, "{0:yyyy-MM-dd}", new { @type = "date", @class = "form-control", @id = "toleaveDate" })
                                         }
                                         else
                                         {
-                                        <input type="date" class="form-control custom-disabled" id="toleaveDate">
+                                            <input type="date" class="form-control custom-disabled" id="toleaveDate">
                                         }
                                         <span class="error-message" id="toleaveDate-error"></span>
                                     </div>
                                 </div>
                                 @*<div class="form-group time-section" style="display: none">
-                                    <label for="HourPermission" class="hour_label">Hour Permission*</label>
-                                    <select class="form-control" id="HourPermission">
-                                        <option selected disabled>Select Hours</option>
+                                        <label for="HourPermission" class="hour_label">Hour Permission*</label>
+                                        <select class="form-control" id="HourPermission">
+                                            <option selected disabled>Select Hours</option>
 
-                                        @{
-                                        decimal selectedHourPermission = Model.EditLeaveInfo != null && Model.EditLeaveInfo.leavesource == "Hourly Permission" ? Model.EditLeaveInfo.LeaveDays : 0;
-                                        }
-                                        @foreach (var hourPermission in Model.HourlyPermissions)
-                                        {
-                                        var permissionHourString = hourPermission.Split(' ')[0];
-                                        decimal permissionHour = decimal.Parse(permissionHourString);
-                                        var selected = permissionHour == selectedHourPermission ? "selected" : "";
-                                        <option @selected value="@permissionHour">@hourPermission</option>
-                                        }
-                                    </select>
-                                    <span class="error-message" id="HourPermission-error"></span>
-                                </div>*@
+                                            @{
+                                                decimal selectedHourPermission = Model.EditLeaveInfo != null && Model.EditLeaveInfo.leavesource == "Hourly Permission" ? Model.EditLeaveInfo.LeaveDays : 0;
+                                            }
+                                            @foreach (var hourPermission in Model.HourlyPermissions)
+                                            {
+                                                var permissionHourString = hourPermission.Split(' ')[0];
+                                                decimal permissionHour = decimal.Parse(permissionHourString);
+                                                var selected = permissionHour == selectedHourPermission ? "selected" : "";
+                                                <option @selected value="@permissionHour">@hourPermission</option>
+                                            }
+                                        </select>
+                                        <span class="error-message" id="HourPermission-error"></span>
+                                    </div>*@
 
                                 @{
-                                var showHourlyTimeSectiondate = "display: none";
+                                    var showHourlyTimeSectiondate = "display: none";
 
-                                if (isEditRecord == "true" && Model.EditLeaveInfo.leavesource == "Hourly Permission")
-                                {
-                                showHourlyTimeSectiondate = "display: block";
-                                }
+                                    if (isEditRecord == "true" && Model.EditLeaveInfo.leavesource == "Hourly Permission")
+                                    {
+                                        showHourlyTimeSectiondate = "display: block";
+                                    }
                                 }
 
                                 <div class="time-section" style="@showHourlyTimeSectiondate">
@@ -165,11 +163,11 @@ else
                                         <label for="StartTime">Start Time*</label>
                                         @if (Model.EditLeaveInfo != null && Model.EditLeaveInfo.StartTime.HasValue)
                                         {
-                                        @Html.TextBoxFor(m => m.EditLeaveInfo.StartTime, "{0:hh\\:mm}", new { @type = "time", @class = "form-control", @id = "datetimepicker1", @placeholder = "Select Time" })
+                                            @Html.TextBoxFor(m => m.EditLeaveInfo.StartTime, "{0:hh\\:mm}", new { @type = "time", @class = "form-control", @id = "datetimepicker1", @placeholder = "Select Time" })
                                         }
                                         else
                                         {
-                                        <input type="time" class="form-control custom-disabled" id="datetimepicker1">
+                                            <input type="time" class="form-control custom-disabled" id="datetimepicker1">
                                         }
 
                                         <span class="error-message" id="datetimepicker1-error" style="font-size: 10px"></span>
@@ -179,11 +177,11 @@ else
                                         <label for="EndTime">End Time*</label>
                                         @if (Model.EditLeaveInfo != null && Model.EditLeaveInfo.EndTime.HasValue)
                                         {
-                                        @Html.TextBoxFor(m => m.EditLeaveInfo.EndTime, "{0:hh\\:mm}", new { @type = "time", @class = "form-control", @id = "datetimepicker2", @placeholder = "Select Time" })
+                                            @Html.TextBoxFor(m => m.EditLeaveInfo.EndTime, "{0:hh\\:mm}", new { @type = "time", @class = "form-control", @id = "datetimepicker2", @placeholder = "Select Time" })
                                         }
                                         else
                                         {
-                                        <input type="time" class="form-control custom-disabled" id="datetimepicker2">
+                                            <input type="time" class="form-control custom-disabled" id="datetimepicker2">
                                         }
                                         <span class="error-message" id="datetimepicker2-error" style="font-size: 10px"></span>
                                     </div>
@@ -191,12 +189,12 @@ else
 
                                 </div>
                                 @{
-                                var currentlyBookedHours = "0";
+                                    var currentlyBookedHours = "0";
                                 }
 
                                 @if (Model != null && Model.EditLeaveInfo != null)
                                 {
-                                currentlyBookedHours = @Model.EditLeaveInfo.LeaveDays.ToString();
+                                    currentlyBookedHours = @Model.EditLeaveInfo.LeaveDays.ToString();
                                 }
                                 <div class="currentrecordbookedhours" data-bookedhours="@currentlyBookedHours" style="@showHourlyTimeSectiondate">
                                     Total Hours: <span class="spanleavehours">@currentlyBookedHours</span>
@@ -212,7 +210,7 @@ else
                                 <div id="dayTypeContainer" style="display: none"></div>
                                 <div id="editleaves" style="display: none">@Model.Leaves</div>
                                 @{
-                                var LeaveRequestName = @Model.EditLeaveInfo != null && !string.IsNullOrWhiteSpace(Model.EditLeaveInfo.LeaveRequestName) ? Model.EditLeaveInfo.LeaveRequestName : "";
+                                    var LeaveRequestName = @Model.EditLeaveInfo != null && !string.IsNullOrWhiteSpace(Model.EditLeaveInfo.LeaveRequestName) ? Model.EditLeaveInfo.LeaveRequestName : "";
                                 }
                                 <div id="editleaverequestname" style="display: none">@LeaveRequestName</div>
                                 <div id="totalLeavesContainer" class=""></div>
@@ -222,7 +220,7 @@ else
                                     <label for="teamEmail">Team Email <span style="font-size: smaller">(add with comma separator)</span></label>
 
                                     @{
-                                    var teamEmails = @Model.EditLeaveInfo != null && !string.IsNullOrWhiteSpace(Model.EditLeaveInfo.TeamEmails) ? Model.EditLeaveInfo.TeamEmails : "";
+                                        var teamEmails = @Model.EditLeaveInfo != null && !string.IsNullOrWhiteSpace(Model.EditLeaveInfo.TeamEmails) ? Model.EditLeaveInfo.TeamEmails : "";
                                     }
                                     <input type="text" value="@teamEmails" class="form-control" id="teamEmail">
                                     <div style="display: none" id="defaultteamEmail">@leaveDefaultEmails</div>
@@ -231,7 +229,7 @@ else
                                 <div class="form-group emp-apply-leave-reason">
                                     <label for="reason"><span class="emp-apply-leave-reason-left">Reason</span><span class="emp-apply-leave-reason-right"><input type="checkbox" id="leave-send-reason" name="leave-send-reason" value=""><span style="margin-left:5px;">Send reasons to team</span></span></label>
                                     @{
-                                    var leave_reason = @Model.EditLeaveInfo != null && !string.IsNullOrWhiteSpace(Model.EditLeaveInfo.leave_reason) ? Model.EditLeaveInfo.leave_reason : "";
+                                        var leave_reason = @Model.EditLeaveInfo != null && !string.IsNullOrWhiteSpace(Model.EditLeaveInfo.leave_reason) ? Model.EditLeaveInfo.leave_reason : "";
                                     }
                                     <textarea class="form-control" id="reason">@leave_reason</textarea>
                                     <span class="error-message" id="reason-error"></span>
@@ -239,7 +237,7 @@ else
                                 <div class="form-group">
                                     <label for="BackupName">Backup Resource Name*</label>
                                     @{
-                                    var BackupResource_Name = @Model.EditLeaveInfo != null && !string.IsNullOrWhiteSpace(Model.EditLeaveInfo.BackupResource_Name) ? Model.EditLeaveInfo.BackupResource_Name : "";
+                                        var BackupResource_Name = @Model.EditLeaveInfo != null && !string.IsNullOrWhiteSpace(Model.EditLeaveInfo.BackupResource_Name) ? Model.EditLeaveInfo.BackupResource_Name : "";
                                     }
                                     <input type="text" class="form-control" id="BackupName" value="@BackupResource_Name">
                                     <span class="error-message" id="BackupName-error"></span>
@@ -247,7 +245,7 @@ else
                                 <div class="form-group">
                                     <label for="BackupNo">Contact Number (In case of Emergency)*</label>
                                     @{
-                                    var EmergencyContact_no = @Model.EditLeaveInfo != null && !string.IsNullOrWhiteSpace(Model.EditLeaveInfo.EmergencyContact_no) ? Model.EditLeaveInfo.EmergencyContact_no : "";
+                                        var EmergencyContact_no = @Model.EditLeaveInfo != null && !string.IsNullOrWhiteSpace(Model.EditLeaveInfo.EmergencyContact_no) ? Model.EditLeaveInfo.EmergencyContact_no : "";
                                     }
                                     <input type="text" class="form-control" id="BackupNo" value="@EmergencyContact_no" inputmode="numeric" pattern="[0-9]*" oninput="this.value = this.value.replace(/[^0-9]/g, '');">
                                     <span class="error-message" id="BackupNo-error"></span>
@@ -270,43 +268,43 @@ else
                 @if (!Model.IsFromAdmin)
                 {
 
-                <div class="modal fade" id="leavemessageModal" tabindex="-1" role="dialog" aria-labelledby="messageModalLabel" aria-hidden="true">
-                    <div class="modal-dialog" role="document">
-                        <div class="modal-content">
-                            <div class="modal-header">
-                                <h5 class="modal-title" id="messageModalLabel">Message</h5>
-                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                    <span aria-hidden="true">&times;</span>
-                                </button>
-                            </div>
-                            <div class="modal-body" id="modalMessage">
-                            </div>
-                            <div class="modal-footer">
-                                <button type="button" class="btn btn-secondary btn-leaveclose-refreshpage">Close</button>
+                    <div class="modal fade" id="leavemessageModal" tabindex="-1" role="dialog" aria-labelledby="messageModalLabel" aria-hidden="true">
+                        <div class="modal-dialog" role="document">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <h5 class="modal-title" id="messageModalLabel">Message</h5>
+                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                        <span aria-hidden="true">&times;</span>
+                                    </button>
+                                </div>
+                                <div class="modal-body" id="modalMessage">
+                                </div>
+                                <div class="modal-footer">
+                                    <button type="button" class="btn btn-secondary btn-leaveclose-refreshpage">Close</button>
+                                </div>
                             </div>
                         </div>
                     </div>
-                </div>
                 }
                 else
                 {
-                <div class="modal fade" id="adminleavemessageModal" tabindex="-1" role="dialog" aria-labelledby="messageModalLabel" aria-hidden="true">
-                    <div class="modal-dialog" role="document">
-                        <div class="modal-content">
-                            <div class="modal-header">
-                                <h5 class="modal-title" id="messageModalLabel">Message</h5>
-                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                    <span aria-hidden="true">&times;</span>
-                                </button>
-                            </div>
-                            <div class="modal-body" id="modalMessage">
-                            </div>
-                            <div class="modal-footer">
-                                <button type="button" class="btn btn-secondary btn-leavecloseadmin-refreshpage">Close</button>
+                    <div class="modal fade" id="adminleavemessageModal" tabindex="-1" role="dialog" aria-labelledby="messageModalLabel" aria-hidden="true">
+                        <div class="modal-dialog" role="document">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <h5 class="modal-title" id="messageModalLabel">Message</h5>
+                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                        <span aria-hidden="true">&times;</span>
+                                    </button>
+                                </div>
+                                <div class="modal-body" id="modalMessage">
+                                </div>
+                                <div class="modal-footer">
+                                    <button type="button" class="btn btn-secondary btn-leavecloseadmin-refreshpage">Close</button>
+                                </div>
                             </div>
                         </div>
                     </div>
-                </div>
                 }
 
 
