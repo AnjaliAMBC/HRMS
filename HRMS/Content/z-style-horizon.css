@@ -433,6 +433,7 @@
     width: 57%;
     margin-right: 10px;
     margin-top: 12px;
+    vertical-align: top;
 }
 
 .emp-dashboard-horizon .dashboard-header-block .dashboard-header-right .dh-left .dh-date {
@@ -2044,6 +2045,10 @@ box-shadow: 0 0 5px rgba(0, 0, 0, 0.3);*/
     font-style: italic;
 }
 
+.emp-applyleave-horizon .currentrecordbookedhours .spanleavehours {
+    font-style: italic;
+}
+
 .emp-applyleave-horizon .apply-date-section .form-group {
     width: 48%;
     flex: initial;
@@ -2063,6 +2068,10 @@ box-shadow: 0 0 5px rgba(0, 0, 0, 0.3);*/
 }
 
 .emp-applyleave-horizon .time-section .end-time-section {
+}
+
+.emp-applyleave-horizon .time-section input[type="time"] {
+    width: 100%;
 }
 
 /* emp apply leave end */
@@ -2109,7 +2118,7 @@ box-shadow: 0 0 5px rgba(0, 0, 0, 0.3);*/
     background: #efefef;
     margin-top: -20px;
     padding-top: 15px;
-    height: 80vh;
+    height: 100vh;
 }
 
 .emp-ticketing-horizon .emp-Ticket-view .main-content.container-fluid {
