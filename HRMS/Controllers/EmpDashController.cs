@@ -197,6 +197,11 @@ namespace HRMS.Controllers
         {
             return View("/Views/EmployeeDashboard/PoliciesView.cshtml");
         }
+
+        public ActionResult JobReferral()
+        {       
+            return View("/Views/EmployeeDashboard/EmpJobReferralView.cshtml");
+        }
         public ActionResult Holidays()
         {
             var model = new HolidayModel();
