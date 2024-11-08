@@ -197,6 +197,10 @@
         margin: 0px 0;
     }
 
+    .emp-selfservice-list-horizon .emp-selfservice-details .emp-ss-details-block2 .nav-tabs .nav-item {
+        width: 100%;
+    }
+
     /* emp selfservice end */
 
     /* emp attendance start */
@@ -406,7 +410,7 @@
 
     .emp-selfservice-list-horizon .emp-selfservice-details .emp-selfservice-details-left .emp-ss-details-block2 {
         position: relative;
-        bottom: -295px;
+        bottom: -195px;
         z-index: 99;
         background: #fff;
     }
@@ -427,6 +431,10 @@
     .emp-selfservice-list-horizon .emp-selfservice-details-all .emp-ss-details-all-block2,
     .emp-selfservice-list-horizon .emp-selfservice-details-all .emp-ss-details-all-block3 {
         margin: 0px 0;
+    }
+
+    .emp-selfservice-list-horizon .emp-selfservice-details .emp-selfservice-details-left .emp-ss-details-block2 .responsive-tabs.nav-tabs > li {
+        width: auto;
     }
 
     /* emp selfservice end */
@@ -532,7 +540,6 @@
     /* emp raise ticketing end */
 
 }
-
 
 /* Media Query for Tablets Ipads portrait mode start */
 @media only screen and (min-width:768px) and (max-width:1024px) and (orientation: portrait) {
@@ -647,7 +654,156 @@
         padding-top: 0;
     }
 
+    .emp-selfservice-list-horizon .emp-selfservice-details .emp-selfservice-details-left .emp-ss-details-block2 {
+        bottom: -20px;
+    }
+
+    .emp-selfservice-list-horizon .emp-selfservice-details .responsive-tabs.nav-tabs i.fa {
+        top: 5px;
+    }
+
     /* emp selfservice end */
+
+    /* emp attendance start */
+
+    .emp-attendance-list-horizon .main-content {
+        margin-left: 0 !important;
+    }
+
+    .emp-attendance-list-horizon {
+        /*height: 96vh;*/
+    }
+
+    .emp-attendance-list-horizon .attendance-nav .att-calender .from-to-calen {
+        width: auto;
+    }
+
+    /* emp attendance end */
+
+    /* emp leave start */
+
+    .emp-leave-list-horizon {
+        height: calc(100vh - 60px);
+    }
+
+    .emp-leave-list-horizon .main-content {
+        margin-left: 0 !important;
+        padding-top: 0 !important;
+    }
+
+    .emp-leave-list-horizon {
+        padding: 20px 25px;
+        margin-top: 35px;
+    }
+
+    .emp-leave-list-horizon #empLeave {
+        padding: 20px 20px;
+    }
+
+    .emp-leave-list-horizon .res-emp-carousel {
+        justify-content: space-around;
+    }
+
+    .emp-leave-list-horizon .emp-leave-details .res-emp-apply {
+        max-width: 25%;
+        flex: 0 0 25%;
+        justify-content: right;
+    }
+
+    .emp-leave-list-horizon #leaveCarousel .carousel-leave-inner {
+        /*width: 85% !important;*/
+    }
+
+    .emp-leave-list-horizon .emp-leave-details .res-emp-apply .emp-leave-cal-history {
+        width: 85%;
+        margin: 10px 20px;
+    }
+
+    .emp-leave-list-horizon #leaveCarousel .carousel-leave-inner {
+        /*width: 270% !important;*/
+    }
+
+    .emp-leave-list-horizon #leaveCarousel .tracker-card {
+        width: 210%;
+    }
+
+    .emp-leave-list-horizon .emp-leave-info-block-all .responsive-tabs.nav-tabs i.fa {
+        top: auto;
+        right: 90px;
+    }
+
+    /* emp leave end */
+
+    /* emp apply leave start */
+
+    .emp-applyleave-horizon.emp-leave .main-content.container-fluid {
+        padding: 60px 15px;
+        margin-left: 0px !important;
+        width: 100% !important;
+    }
+
+    .emp-applyleave-horizon.emp-leave .balance-section-wrapper .res-emp-apply-leave .balance-section {
+        margin: 0 !important;
+    }
+
+    .emp-applyleave-horizon.emp-leave #empApplyLeaveFields .apply-date-section .form-group {
+        display: inline-block !important;
+        margin-right: 20px !important;
+    }
+
+    .emp-applyleave-horizon.emp-leave #empApplyLeaveFields .apply-date-section .form-group.to-date-group {
+        margin-right: 0px !important;
+    }
+
+    .emp-applyleave-horizon.emp-leave .apply-date-section {
+        display: flex;
+        justify-content: space-between;
+    }
+
+    .emp-applyleave-horizon #empApplyLeaveFields {
+        padding: 20px 25px;
+    }
+
+    /* emp apply leave end */
+
+    /* emp ticketing start */
+
+    .emp-ticketing-horizon .emp-Ticket-view .main-content.container-fluid {
+        margin-left: 0px !important;
+    }
+
+    .emp-ticketing-horizon .main-content {
+        margin-left: 0px !important;
+    }
+
+    .emp-ticketing-horizon #empticketlistingTable tbody td:nth-child(1) {
+        width: 800px !important;
+    }
+
+    .emp-ticketing-horizon .emp-Ticket-view .main-content.container-fluid .res-emp-tickethistory-header {
+        justify-content: space-between;
+    }
+
+    /* emp ticketing end */
+
+    /* emp raise ticketing start */
+
+    .emp-ticketing-raise-horizon .main-content {
+        margin-left: 0px !important;
+    }
+
+    .emp-ticketing-raise-horizon #emp-ticket-raise-Form .emp-raiseticketing-upload-right .emp-raiseticket-uploaded-image-close {
+        margin-left: -5px;
+        margin-top: -5px;
+        top: 0;
+        right: -10px;
+    }
+
+    .emp-ticketing-raise-horizon #empRaiseTicketingFields {
+        padding: 20px 25px;
+    }
+
+    /* emp raise ticketing end */    
 
 }
 
@@ -707,10 +863,233 @@
     .emp-selfservice-list-horizon .emp-selfservice-details .emp-selfservice-details-left .emp-ss-details-block1 .emp-ss-details-block1-right {
         width: 60%;
     }
+
+    .emp-selfservice-list-horizon .emp-selfservice-details .responsive-tabs.nav-tabs i.fa {
+        top: 5px;
+        right: 0;
+    }
+
     /* emp selfservice end */
+
+    /* emp attendance start */
+
+    .emp-attendance-list-horizon .main-content {
+        margin-left: 0 !important;
+    }
+
+    .emp-attendance-list-horizon {
+        /*height: 96vh;*/
+    }
+
+    .emp-attendance-list-horizon .attendance-nav .att-calender .from-to-calen {
+        width: auto;
+    }
+
+    .emp-attendance-list-horizon .attendance-nav .att-div .emp-leave-header-left {
+        display: inline-flex !important;
+        width: 45%;
+    }
+
+    .emp-attendance-list-horizon .attendance-nav .att-calender {
+        display: inline-flex !important;
+        width: 53%;
+        justify-content: right !important;
+    }
+
+    /* emp attendance end */
+
+    /* emp leave start */
+
+    .emp-leave-list-horizon .main-content {
+        margin-left: 0 !important;
+        padding-top: 0 !important;
+    }
+
+    .emp-leave-list-horizon {
+        padding: 20px 25px;
+        margin-top: 35px;
+    }
+
+    .emp-leave-list-horizon #empLeave {
+        padding: 20px 20px;
+    }
+
+    .emp-leave-list-horizon .res-emp-carousel {
+        justify-content: space-around;
+    }
+
+    .emp-leave-list-horizon .emp-leave-details .res-emp-apply {
+        max-width: 18%;
+        flex: 0 0 18%;
+        justify-content: right;
+    }
+
+    .emp-leave-list-horizon #leaveCarousel .carousel-leave-inner {
+        /*width: 85% !important;*/
+    }
+
+    .emp-leave-list-horizon .emp-leave-details .res-emp-apply .emp-leave-cal-history {
+        width: 85%;
+        margin: 10px 20px;
+    }
+
+    .emp-leave-list-horizon #leaveCarousel .carousel-leave-inner {
+        /*width: 270% !important;*/
+    }
+
+    .emp-leave-list-horizon #leaveCarousel .tracker-card {
+        width: 210%;
+    }
+
+    .emp-leave-list-horizon .empleave-calendar-table {
+        width: 100% !important;
+    }
+
+    .emp-leave-list-horizon .emp-leave-info-block-all .responsive-tabs.nav-tabs i.fa {
+        top: auto;
+    }
+
+    /* emp leave end */
+
+    /* emp apply leave start */
+
+    .emp-applyleave-horizon.emp-leave .main-content.container-fluid {
+        padding: 60px 15px;
+        margin-left: 0px !important;
+        width: 100% !important;
+    }
+
+    .emp-applyleave-horizon.emp-leave .balance-section-wrapper .res-emp-apply-leave .balance-section {
+        margin: 0 !important;
+    }
+
+    .emp-applyleave-horizon.emp-leave #empApplyLeaveFields .apply-date-section .form-group {
+        display: inline-block !important;
+        margin-right: 30px !important;
+    }
+
+    .emp-applyleave-horizon.emp-leave #empApplyLeaveFields .apply-date-section .form-group.to-date-group {
+        margin-right: 0px !important;
+    }
+
+    .emp-applyleave-horizon.emp-leave .apply-date-section {
+        display: flex;
+        justify-content: space-between;
+    }
+
+    .emp-applyleave-horizon #empApplyLeaveFields {
+        padding: 20px 25px;
+    }
+
+    /* emp apply leave end */
+
+    /* emp ticketing start */
+
+    .emp-ticketing-horizon .emp-Ticket-view .main-content.container-fluid {
+        margin-left: 0px !important;
+    }
+
+    .emp-ticketing-horizon .main-content {
+        margin-left: 0px !important;
+    }
+
+    .emp-ticketing-horizon #empticketlistingTable tbody td:nth-child(1) {
+        width: 800px !important;
+    }
+
+    .emp-ticketing-horizon .emp-Ticket-view .main-content.container-fluid .res-emp-tickethistory-header {
+        justify-content: space-between;
+    }
+
+    /* emp ticketing end */
+
+    /* emp raise ticketing start */
+
+    .emp-ticketing-raise-horizon .main-content {
+        margin-left: 0px !important;
+    }
+
+    .emp-ticketing-raise-horizon #empRaiseTicketingFields .emp-raiseticketing-upload-icon {
+        width: 10%;
+    }
+
+    .emp-ticketing-raise-horizon #emp-ticket-raise-Form .emp-raiseticketing-upload-right .emp-raiseticket-uploaded-image-close {
+        margin-left: -5px;
+        margin-top: -5px;
+        top: 0;
+    }
+
+    .emp-ticketing-raise-horizon #empRaiseTicketingFields {
+        padding: 20px 25px;
+    }
+
+    /* emp raise ticketing end */ 
 
 }
 
+/* iPad Pro (Portrait) */
+@media only screen and (min-device-width: 1024px) and (max-device-width: 1366px) and (orientation: portrait) {
+
+    /* signin start */
+
+    .login-page-horizon.login-page .logo {
+        width: 20%;
+        margin-left: 17%;
+    }
+
+    .login-page-horizon.login-page .login-container {
+        max-width: 65%;
+    }
+    /* signin end */
+
+    /* forgot password start */
+
+    .login-page-horizon.login-page .forgot-container {
+        width: 65% !important;
+    }
+
+    /* forgot password end */
+
+    /* emp dashboard start */
+    .emp-dashboard-horizon.emp-dashboard .main-content {
+        width: 100% !important;
+    }
+    /* emp dashboard start */
+
+    /* emp selfservice start */
+    .emp-selfservice-list-horizon .emp-selfservice-details .emp-selfservice-details-left .emp-ss-details-block1 .emp-ss-details-block1-right {
+        width: 65%;
+    }
+    /* emp selfservice end */
+
+    /* emp attendance start */
+
+    .emp-attendance-list-horizon .attendance-nav .att-div .emp-leave-header-left {
+        display: inline-flex !important;
+        width: 45%;
+    }
+
+    .emp-attendance-list-horizon .attendance-nav .att-calender {
+        display: inline-flex !important;
+        width: 53%;
+        justify-content: right !important;
+    }
+
+    /* emp attendance end */
+
+    /* emp apply leave start */
+
+    .emp-applyleave-horizon.emp-leave #empApplyLeaveFields .balance-section-wrapper .leave-apply-info-block .res-leave-apply-right {
+        margin-top: 11px;
+    }
+
+    /* emp apply leave end */
+
+}
+
+/* iPad Pro (Landscape) */
+@media only screen and (min-device-width: 1024px) and (max-device-width: 1366px) and (orientation: landscape) {
+}
 
 @media only screen and (min-width:1400px) and (max-width: 2560px) {
     .emp-ticketing-horizon #empticketlistingTable tbody td:nth-child(1) {
