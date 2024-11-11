@@ -61,8 +61,18 @@ namespace HRMS.Controllers
         }
         public ActionResult AdminJobListing()
         {
-            return View("~/Views/AdminDashboard/AdminJobListing.cshtml");
+            var jobListings = _dbContext.JobDetails
+                .OrderByDescending(job => job.PostedDate)
+                .ToList();
+
+            var model = new AdminJobModel
+            {
+                alljobListings = jobListings  // Assigning jobListings to the model
+            };
+
+            return View("~/Views/AdminDashboard/AdminJobListing.cshtml", model);
         }
+
         public ActionResult AdminJobDetail()
         {
             return View("~/Views/AdminDashboard/AdminJobDetail.cshtml");
@@ -70,6 +80,34 @@ namespace HRMS.Controllers
         public ActionResult AdminPostJobs()
         {
             return View("~/Views/AdminDashboard/AdminPostJobs.cshtml");
+        }
+
+
+        [HttpPost]
+        public JsonResult PostJob(JobDetail jobDetail)
+        {
+            try
+            {
+                if (ModelState.IsValid)
+                {                   
+                    jobDetail.PostedDate = jobDetail.PostedDate ?? DateTime.Now;
+                    jobDetail.UpdatedDate = DateTime.Now;                   
+                    // Add jobDetail to the database
+                    _dbContext.JobDetails.Add(jobDetail);
+                    _dbContext.SaveChanges();
+
+                    return Json(new { success = true, message = "Job posted successfully!" });
+                }
+                else
+                {
+                    return Json(new { success = false, message = "Please complete all required fields." });
+                }
+            }
+            catch (Exception ex)
+            {
+                // Log the exception as needed
+                return Json(new { success = false, message = "An error occurred while posting the job.", error = ex.Message });
+            }
         }
 
         [HttpGet]

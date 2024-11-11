@@ -291,6 +291,41 @@
           <Property Name="ClosedByName" Type="varchar" MaxLength="500" />
           <Property Name="ResolvedByName" Type="varchar" MaxLength="500" />
         </EntityType>
+        <EntityType Name="JobDetails">
+          <Key>
+            <PropertyRef Name="JobID" />
+          </Key>
+          <Property Name="Sno" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="JobID" Type="int" Nullable="false" />
+          <Property Name="JobTitle" Type="varchar" MaxLength="255" Nullable="false" />
+          <Property Name="Experience" Type="varchar" MaxLength="100" />
+          <Property Name="Location" Type="varchar" MaxLength="100" />
+          <Property Name="PostedBy" Type="varchar" MaxLength="255" />
+          <Property Name="PostedDate" Type="date" />
+          <Property Name="JobType" Type="varchar" MaxLength="100" />
+          <Property Name="JobStatus" Type="varchar" MaxLength="100" />
+          <Property Name="SalaryRange" Type="varchar" MaxLength="100" />
+          <Property Name="Priority" Type="varchar" MaxLength="100" />
+          <Property Name="JobDescription" Type="varchar(max)" />
+          <Property Name="UpdatedBy" Type="varchar" MaxLength="255" />
+          <Property Name="UpdatedDate" Type="datetime" />
+        </EntityType>
+        <EntityType Name="JobReferral">
+          <Key>
+            <PropertyRef Name="Sno" />
+          </Key>
+          <Property Name="Sno" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="JobID" Type="int" />
+          <Property Name="CandidateName" Type="varchar" MaxLength="255" Nullable="false" />
+          <Property Name="ResumePath" Type="varchar(max)" />
+          <Property Name="ReferredBy" Type="varchar" MaxLength="255" />
+          <Property Name="Condidatemblnumber" Type="varchar" MaxLength="50" />
+          <Property Name="ReferredById" Type="int" />
+          <Property Name="ReferredByEmail" Type="varchar" MaxLength="100" />
+          <Property Name="ReferredDate" Type="datetime" />
+          <Property Name="CandidateStatus" Type="varchar" MaxLength="100" />
+          <Property Name="CreatedDate" Type="datetime" />
+        </EntityType>
         <EntityType Name="LeaveBalance">
           <Key>
             <PropertyRef Name="Sno" />
@@ -538,6 +573,8 @@ warning 6002: The table/view 'HRMS_PortalDev1.dbo.CheckInView' does not have a p
           <EntitySet Name="emplogin" EntityType="Self.emplogin" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="IT_Maintenance" EntityType="Self.IT_Maintenance" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="IT_Ticket" EntityType="Self.IT_Ticket" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="JobDetails" EntityType="Self.JobDetails" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="JobReferral" EntityType="Self.JobReferral" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="LeaveBalance" EntityType="Self.LeaveBalance" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="LeaveRM" EntityType="Self.LeaveRM" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Location" EntityType="Self.Location" Schema="dbo" store:Type="Tables" />
@@ -616,6 +653,8 @@ warning 6002: The table/view 'HRMS_PortalDev1.dbo.CheckInView' does not have a p
           <EntitySet Name="Subscriptions" EntityType="HRMS_EntityModel.Subscription" />
           <EntitySet Name="SubscriptionHistories" EntityType="HRMS_EntityModel.SubscriptionHistory" />
           <EntitySet Name="IT_Maintenance" EntityType="HRMS_EntityModel.IT_Maintenance" />
+          <EntitySet Name="JobDetails" EntityType="HRMS_EntityModel.JobDetail" />
+          <EntitySet Name="JobReferrals" EntityType="HRMS_EntityModel.JobReferral" />
         </EntityContainer>
         <EntityType Name="Client">
           <Key>
@@ -1115,6 +1154,41 @@ warning 6002: The table/view 'HRMS_PortalDev1.dbo.CheckInView' does not have a p
           <Property Name="UpdateBy" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
           <Property Name="UpdateDate" Type="DateTime" Precision="3" />
           <Property Name="AgentID" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+        </EntityType>
+        <EntityType Name="JobDetail">
+          <Key>
+            <PropertyRef Name="JobID" />
+          </Key>
+          <Property Name="Sno" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="JobID" Type="Int32" Nullable="false" />
+          <Property Name="JobTitle" Type="String" Nullable="false" MaxLength="255" FixedLength="false" Unicode="false" />
+          <Property Name="Experience" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="Location" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="PostedBy" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+          <Property Name="PostedDate" Type="DateTime" Precision="0" />
+          <Property Name="JobType" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="JobStatus" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="SalaryRange" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="Priority" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="JobDescription" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="UpdatedBy" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+          <Property Name="UpdatedDate" Type="DateTime" Precision="3" />
+        </EntityType>
+        <EntityType Name="JobReferral">
+          <Key>
+            <PropertyRef Name="Sno" />
+          </Key>
+          <Property Name="Sno" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="JobID" Type="Int32" />
+          <Property Name="CandidateName" Type="String" Nullable="false" MaxLength="255" FixedLength="false" Unicode="false" />
+          <Property Name="ResumePath" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="ReferredBy" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+          <Property Name="Condidatemblnumber" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="ReferredById" Type="Int32" />
+          <Property Name="ReferredByEmail" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="ReferredDate" Type="DateTime" Precision="3" />
+          <Property Name="CandidateStatus" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="CreatedDate" Type="DateTime" Precision="3" />
         </EntityType>
       </Schema>
     </edmx:ConceptualModels>
@@ -1654,6 +1728,43 @@ warning 6002: The table/view 'HRMS_PortalDev1.dbo.CheckInView' does not have a p
                 <ScalarProperty Name="EmailId" ColumnName="EmailId" />
                 <ScalarProperty Name="EmployeeName" ColumnName="EmployeeName" />
                 <ScalarProperty Name="EmployeeID" ColumnName="EmployeeID" />
+                <ScalarProperty Name="Sno" ColumnName="Sno" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="JobDetails">
+            <EntityTypeMapping TypeName="HRMS_EntityModel.JobDetail">
+              <MappingFragment StoreEntitySet="JobDetails">
+                <ScalarProperty Name="UpdatedDate" ColumnName="UpdatedDate" />
+                <ScalarProperty Name="UpdatedBy" ColumnName="UpdatedBy" />
+                <ScalarProperty Name="JobDescription" ColumnName="JobDescription" />
+                <ScalarProperty Name="Priority" ColumnName="Priority" />
+                <ScalarProperty Name="SalaryRange" ColumnName="SalaryRange" />
+                <ScalarProperty Name="JobStatus" ColumnName="JobStatus" />
+                <ScalarProperty Name="JobType" ColumnName="JobType" />
+                <ScalarProperty Name="PostedDate" ColumnName="PostedDate" />
+                <ScalarProperty Name="PostedBy" ColumnName="PostedBy" />
+                <ScalarProperty Name="Location" ColumnName="Location" />
+                <ScalarProperty Name="Experience" ColumnName="Experience" />
+                <ScalarProperty Name="JobTitle" ColumnName="JobTitle" />
+                <ScalarProperty Name="JobID" ColumnName="JobID" />
+                <ScalarProperty Name="Sno" ColumnName="Sno" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="JobReferrals">
+            <EntityTypeMapping TypeName="HRMS_EntityModel.JobReferral">
+              <MappingFragment StoreEntitySet="JobReferral">
+                <ScalarProperty Name="CreatedDate" ColumnName="CreatedDate" />
+                <ScalarProperty Name="CandidateStatus" ColumnName="CandidateStatus" />
+                <ScalarProperty Name="ReferredDate" ColumnName="ReferredDate" />
+                <ScalarProperty Name="ReferredByEmail" ColumnName="ReferredByEmail" />
+                <ScalarProperty Name="ReferredById" ColumnName="ReferredById" />
+                <ScalarProperty Name="Condidatemblnumber" ColumnName="Condidatemblnumber" />
+                <ScalarProperty Name="ReferredBy" ColumnName="ReferredBy" />
+                <ScalarProperty Name="ResumePath" ColumnName="ResumePath" />
+                <ScalarProperty Name="CandidateName" ColumnName="CandidateName" />
+                <ScalarProperty Name="JobID" ColumnName="JobID" />
                 <ScalarProperty Name="Sno" ColumnName="Sno" />
               </MappingFragment>
             </EntityTypeMapping>
