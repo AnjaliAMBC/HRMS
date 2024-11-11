@@ -67,6 +67,10 @@ namespace HRMS.Controllers
         {
             return View("~/Views/AdminDashboard/AdminJobDetail.cshtml");
         }
+        public ActionResult AdminPostJobs()
+        {
+            return View("~/Views/AdminDashboard/AdminPostJobs.cshtml");
+        }
 
         [HttpGet]
         public ActionResult AddEmployee(string empid)
