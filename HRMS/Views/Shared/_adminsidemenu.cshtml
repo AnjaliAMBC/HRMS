@@ -85,6 +85,11 @@
                             </ul>
                         </div>
                     </li>
+                    <li class="mb-2 @(pageUrlPath.Contains("/AdminDashboard/AdminJobListing") ? "active sidebaractive" : "")">
+                        <a href="/AdminDashboard/AdminJobListing" class="@(pageUrlPath == "/AdminDashboard/AdminJobListing" ? "active" : "")">
+                            <img class="menu-icon" src="~/Assets/Icons/Attendance.png" /><span>Job Refferal</span>
+                        </a>
+                    </li>
                 }
 
                 @if (currentContext.IsAdmin || currentContext.IsSuperAdmin || currentContext.IsITAdmin)
@@ -140,13 +145,14 @@
                                 <li><a href="/Maintanance/MaintananceInfo" class=""><span class="menu-bar-design-red"></span>Maintanance</a></li>
 
                                 @*<li><a href="/purchase/purchaseaccountadmin" class=""><span class="menu-bar-design-chocolate"></span>Purchase Account</a></li>
-                                    <li><a href="/purchase/PurchaseAccountSubmit" class=""><span class="menu-bar-design-chocolate"></span>PAccountSubmit</a></li>
-                                    <li><a href="/purchase/purchasesuperadmin" class=" "><span class="menu-bar-design-darkcyan"></span>PurchaseSuperAdmin</a></li>
-                                    <li><a href="/purchase/purchasesuperapproval" class=""><span class="menu-bar-design-red"></span>PurchaseSApproval</a></li>*@
+                        <li><a href="/purchase/PurchaseAccountSubmit" class=""><span class="menu-bar-design-chocolate"></span>PAccountSubmit</a></li>
+                        <li><a href="/purchase/purchasesuperadmin" class=" "><span class="menu-bar-design-darkcyan"></span>PurchaseSuperAdmin</a></li>
+                        <li><a href="/purchase/purchasesuperapproval" class=""><span class="menu-bar-design-red"></span>PurchaseSApproval</a></li>*@
                             </ul>
                         </div>
                     </li>
                 }
+
             </ul>
         </div>
     </div>

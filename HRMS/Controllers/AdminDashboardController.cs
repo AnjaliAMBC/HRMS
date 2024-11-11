@@ -59,6 +59,14 @@ namespace HRMS.Controllers
 
             return View("~/Views/AdminDashboard/EmpManagement.cshtml", model);
         }
+        public ActionResult AdminJobListing()
+        {
+            return View("~/Views/AdminDashboard/AdminJobListing.cshtml");
+        }
+        public ActionResult AdminJobDetail()
+        {
+            return View("~/Views/AdminDashboard/AdminJobDetail.cshtml");
+        }
 
         [HttpGet]
         public ActionResult AddEmployee(string empid)
@@ -850,5 +858,6 @@ namespace HRMS.Controllers
             }
             return Json(model, JsonRequestBehavior.AllowGet);
         }
+       
     }
 }
