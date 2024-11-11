@@ -180,6 +180,12 @@
     <Compile Include="IT_Ticket.cs">
       <DependentUpon>HRMS.tt</DependentUpon>
     </Compile>
+    <Compile Include="JobDetail.cs">
+      <DependentUpon>HRMS.tt</DependentUpon>
+    </Compile>
+    <Compile Include="JobReferral.cs">
+      <DependentUpon>HRMS.tt</DependentUpon>
+    </Compile>
     <Compile Include="LeaveBalance.cs">
       <DependentUpon>HRMS.tt</DependentUpon>
     </Compile>
@@ -382,7 +388,7 @@
     </Compile>
     <Compile Include="Models\AccountModel.cs" />
     <Compile Include="Models\Admin\AddEmployee.cs" />
-    <Compile Include="Models\Admin\DashboardViewModel.cs" />
+    <Compile Include="Models\Admin\AdminJobModel.cs" />
     <Compile Include="Models\Admin\EmployeeManagementViewModel.cs" />
     <Compile Include="Models\CustomAuthorizeAttribute.cs" />
     <Compile Include="Models\DropdownItem.cs" />

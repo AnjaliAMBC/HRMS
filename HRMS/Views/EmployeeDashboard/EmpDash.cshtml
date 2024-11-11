@@ -350,24 +350,23 @@
                                         <div class="recent-tickets-title">@myTicket.Subject</div>
                                         <div class="recent-tickets-info">
                                             <span class="recent-tickets-info-left"><img src="/Assets/dashboard/iconoir-priority-high.png"><span class="emp-ticket-priority-label">Priority</span> - <span class="emp-ticket-priority-status" style="color: #267EC4">@myTicket.Priority</span></span>
-                                            <span class="recent-tickets-info-right"><img src="/Assets/ei_user.png"> <span class="emp-ticket-priority-label">Status</span> <span class="emp-ticket-priority-status @HRMS.Helpers.TicketingHelper.GetTicketStatusEmpClass(myTicket.Status)">@myTicket.Status</span></span>
+                                            <span class="recent-tickets-info-right"><img src="/Assets/ei_user.png"> <span class="emp-ticket-priority-label">Status</span> <span class="emp-ticket-priority-status @HRMS.Helpers.TicketingHelper.GetTicketStatusDashClass(myTicket.Status)">@myTicket.Status</span></span>
                                         </div>
                                     </div>
                                 </div>
-                            }
-
+                            }                           
                             @*<div class="emp-dash-recent-tickets-block">
-                                    <div class="emp-recent-tickets-left">
-                                        <div class="emp-ticket-navbar">IT</div>
-                                    </div>
-                                    <div class="emp-recent-tickets-right">
-                                        <div class="recent-tickets-title">System Not Working</div>
-                                        <div class="recent-tickets-info">
-                                            <span class="recent-tickets-info-left"><img src="/Assets/dashboard/iconoir-priority-high.png"><span class="emp-ticket-priority-label">Priority</span> - <span class="emp-ticket-priority-status priority-medium">Medium</span></span>
-                                            <span class="recent-tickets-info-right"><img src="/Assets/ei_user.png"> <span class="emp-ticket-priority-label">Status</span> <span class="emp-ticket-priority-status status-closed">Closed</span></span>
-                                        </div>
-                                    </div>
-                                </div>*@
+            <div class="emp-recent-tickets-left">
+                <div class="emp-ticket-navbar">IT</div>
+            </div>
+            <div class="emp-recent-tickets-right">
+                <div class="recent-tickets-title">System Not Working</div>
+                <div class="recent-tickets-info">
+                    <span class="recent-tickets-info-left"><img src="/Assets/dashboard/iconoir-priority-high.png"><span class="emp-ticket-priority-label">Priority</span> - <span class="emp-ticket-priority-status priority-medium">Medium</span></span>
+                    <span class="recent-tickets-info-right"><img src="/Assets/ei_user.png"> <span class="emp-ticket-priority-label">Status</span> <span class="emp-ticket-priority-status status-closed">Closed</span></span>
+                </div>
+            </div>
+        </div>*@
                         </div>
                     </div>
 

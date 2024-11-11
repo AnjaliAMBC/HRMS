@@ -9,12 +9,13 @@
         .adminbtn_postjob {
             border: 1px solid transparent;
             background-color: #2693F8;
-            color:white;
-            padding:5px 10px;
+            color: white;
+            padding: 5px 10px;
         }
-        label{
-            margin-bottom:0px;
-            font-size:12px;
+
+        label {
+            margin-bottom: 0px;
+            font-size: 12px;
         }
     </style>
     <div class="hiddenadmindashboard" style="display: none"></div>
@@ -35,58 +36,67 @@
                         <div class="container">
                             <div class="row">
                                 <div class="col-3 form-group">
-                                    <label for="postjob_referalId">Referal ID*</label>
-                                    <input type="text" class="form-control" id="postjob_referalId">
+                                    <label for="postjob_referalId">Referral ID*</label>
+                                    <input type="text" class="form-control" id="postjob_referalId" required>
+                                    <div class="invalid-feedback">Referral ID is required.</div>
                                 </div>
                                 <div class="col-3 form-group">
                                     <label for="postjob_jobtitle">Job Title*</label>
-                                    <input type="text" class="form-control" id="postjob_jobtitle">
+                                    <input type="text" class="form-control" id="postjob_jobtitle" required>
+                                    <div class="invalid-feedback">Job Title is required.</div>
                                 </div>
                                 <div class="col-3 form-group">
                                     <label for="postjob_experience">Experience*</label>
-                                    <input type="text" class="form-control" id="postjob_experience">
+                                    <input type="text" class="form-control" id="postjob_experience" required>
+                                    <div class="invalid-feedback">Experience is required.</div>
                                 </div>
                                 <div class="col-3 form-group">
                                     <label for="postjob_location">Location*</label>
-                                    <input type="text" class="form-control" id="postjob_location">
+                                    <input type="text" class="form-control" id="postjob_location" required>
+                                    <div class="invalid-feedback">Location is required.</div>
                                 </div>
                             </div>
                             <div class="row">
                                 <div class="col-3 form-group">
                                     <label for="postjob_postedby">Posted By*</label>
-                                    <input type="text" class="form-control" id="postjob_postedby">
+                                    <input type="text" class="form-control" id="postjob_postedby" required>
+                                    <div class="invalid-feedback">Posted By is required.</div>
                                 </div>
                                 <div class="col-3 form-group">
                                     <label for="postjob_posteddate">Posted Date*</label>
-                                    <input type="date" class="form-control" id="postjob_posteddate">
+                                    <input type="date" class="form-control" id="postjob_posteddate" required>
+                                    <div class="invalid-feedback">Posted Date is required.</div>
                                 </div>
                                 <div class="col-3 form-group">
                                     <label for="postjob_jobtype">Job Type*</label>
-                                    <select class="form-control" id="postjob_jobtype">
-                                        <option selected disabled>Select Job Type</option>
+                                    <select class="form-control" id="postjob_jobtype" required>
+                                        <option value="" selected disabled>Select Job Type</option>
                                         <option value="sap_bw">SAP BW</option>
                                         <option value="Content_writer">Content Writer</option>
                                         <option value="Full_stackdeveloper">Full Stack Developer</option>
                                     </select>
+                                    <div class="invalid-feedback">Job Type is required.</div>
                                 </div>
                                 <div class="col-3 form-group">
                                     <label for="postjob_status">Status*</label>
-                                    <select class="form-control" id="postjob_status">
-                                        <option selected disabled>Select Status</option>
+                                    <select class="form-control" id="postjob_status" required>
+                                        <option value="" selected disabled>Select Status</option>
                                         <option value="open">Open</option>
                                         <option value="Close">Close</option>
                                     </select>
+                                    <div class="invalid-feedback">Status is required.</div>
                                 </div>
                             </div>
                             <div class="row">
                                 <div class="col-12 form-group">
                                     <label for="postjob_jobdescription">Job Description*</label>
-                                    <textarea class="form-control" id="postjob_jobdescription" style="height:200px;"></textarea>
+                                    <textarea class="form-control" id="postjob_jobdescription" style="height:200px;" required></textarea>
+                                    <div class="invalid-feedback">Job Description is required.</div>
                                 </div>
                             </div>
                             <div class="row">
                                 <div class="col-3 ml-auto" style="padding-left:150px;padding-top:20px;">
-                                    <btn type="button" class="adminbtn_postjob">Post Job</btn>
+                                    <button type="button" class="btn btn-primary adminbtn_postjob">Post Job</button>
                                 </div>
                             </div>
                         </div>
@@ -95,6 +105,124 @@
             </div>
         </div>
     </div>
-</div>
 
+
+    <div class="modal fade" id="jobModal" tabindex="-1" role="dialog" aria-labelledby="jobModalLabel" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="jobModalLabel">Job Status</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <p id="modalMessage"></p>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+    <script>
+       
+        $(document).on('click', '.adminbtn_postjob', function () {
+            validateForm();
+        });
+
+        function validateForm() {
+            const form = document.getElementById('adminpostjob');
+            const inputs = form.querySelectorAll('input, select, textarea');
+            let isValid = true;
+
+            inputs.forEach(input => {
+                if (!input.checkValidity() || input.value === "") {
+                    input.classList.add('is-invalid');
+                    isValid = false;
+                } else {
+                    input.classList.remove('is-invalid');
+                }
+            });
+
+            const jobType = document.getElementById('postjob_jobtype');
+            if (jobType.value === "") {
+                jobType.classList.add('is-invalid');
+                isValid = false;
+            } else {
+                jobType.classList.remove('is-invalid');
+            }
+
+            const status = document.getElementById('postjob_status');
+            if (status.value === "") {
+                status.classList.add('is-invalid');
+                isValid = false;
+            } else {
+                status.classList.remove('is-invalid');
+            }
+
+            if (isValid) {
+                submitForm();
+            } else {
+                $('#modalMessage').text("Please fill in all required fields.")
+                    .addClass('text-danger')
+                    .removeClass('text-success');
+                $('#jobModal').modal('show');
+            }
+        }
+
+        function submitForm() {
+            const formData = {
+                ReferralId: document.getElementById("postjob_referalId").value,
+                JobTitle: document.getElementById("postjob_jobtitle").value,
+                Experience: document.getElementById("postjob_experience").value,
+                Location: document.getElementById("postjob_location").value,
+                PostedBy: document.getElementById("postjob_postedby").value,
+                PostedDate: document.getElementById("postjob_posteddate").value,
+                JobType: document.getElementById("postjob_jobtype").value,
+                JobStatus: document.getElementById("postjob_status").value,
+                JobDescription: document.getElementById("postjob_jobdescription").value
+            };
+
+            console.log("Submitting form with data:", formData);  // Debugging line
+
+            $.ajax({
+                url: '/AdminDashboard/PostJob',
+                type: 'POST',
+                data: formData,
+                dataType: 'json',
+                beforeSend: function () {
+                    $('.show-progress').show();
+                },
+                success: function (response) {
+                    console.log("Response received:", response);  // Debugging line
+                    if (response.success) {
+                        $('#modalMessage').text("Job posted successfully!")
+                            .addClass('text-success')
+                            .removeClass('text-danger');
+                        $('#jobModal').modal('show');
+                        document.getElementById("adminpostjob").reset();
+                        $('.is-invalid').removeClass('is-invalid');
+                    } else {
+                        $('#modalMessage').text("Error: " + response.message)
+                            .addClass('text-danger')
+                            .removeClass('text-success');
+                        $('#jobModal').modal('show');
+                    }
+                    $('.show-progress').hide();
+                },
+                error: function (xhr, status, error) {
+                    console.log("AJAX error:", status, error);  // Debugging line
+                    $('#modalMessage').text("An error occurred: " + error)
+                        .addClass('text-danger')
+                        .removeClass('text-success');
+                    $('#jobModal').modal('show');
+                    $('.show-progress').hide();
+                }
+            });
+        }
+
+    </script>
 

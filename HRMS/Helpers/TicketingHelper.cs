@@ -42,6 +42,25 @@ namespace HRMS.Helpers
             }
         }
 
+        public static string GetTicketStatusDashClass(string status)
+        {
+            switch (status.ToLower())
+            {
+                case "open":
+                    return "status-pending";
+                case "closed":
+                    return "status-closed";
+                case "resolved":
+                    return "status-closed";
+                case "re-open":
+                    return "status-pending";
+                case "cancelled":
+                    return "status-pending";
+                default:
+                    return "";
+            }
+        }
+
         public static string GetTicketStatusCssClass(string status)
         {
             switch (status.ToLower())

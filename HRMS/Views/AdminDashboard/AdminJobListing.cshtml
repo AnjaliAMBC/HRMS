@@ -1,4 +1,4 @@
-﻿
+﻿@model HRMS.Models.Admin.AdminJobModel
 @{
     ViewBag.Title = "AdminJobListing";
 }
@@ -7,158 +7,161 @@
 <div class="container-fluid res-admin-jobreferral">
     <div class="hiddenadmindashboard" style="display: none"></div>
     @Html.Partial("_adminsidemenu")
-<div class="main-content container-fluid" style="width: 86%">
-    <div class="content admin-jobreferral-list" style="margin-top:5px;padding:0px">
-        <div class="content admin-jobreferral">
-            <div style="margin-left: 0%">
-                <div class="admin-jobreferal-container">
-                    <div class="row admin-jobreferral-header">
-                        <div class="col-lg-3 admin-jobreferral-title">
-                            <h4>Job Application</h4>
-                        </div>
-                        <div class="adminpost_jobreferal ml-auto">
-                            <btn type="button" class="btn_admin_postjobreferal">Post Job</btn>
+    <div class="main-content container-fluid" style="width: 86%">
+        <div class="content admin-jobreferral-list" style="margin-top:5px;padding:0px">
+            <div class="content admin-jobreferral">
+                <div style="margin-left: 0%">
+                    <div class="admin-jobreferal-container">
+                        <div class="row admin-jobreferral-header">
+                            <div class="col-lg-3 admin-jobreferral-title">
+                                <h4>Job Application</h4>
+                            </div>
+                            <div class="adminpost_jobreferal ml-auto">
+                                <btn type="button" class="btn_admin_postjobreferal">Post Job</btn>
+                            </div>
                         </div>
                     </div>
-                </div>
 
-                <div class="admin-jobreferral-details" id="adminJobReferral">
-                    <div class="admin-jobreferal-body" id="admin-jobreferal-data">
-                        <div class="admin-jobreferal-data-block open-jobs">
-                            <div class="admin-jobreferal-data-block-header">
-                                <span class="admin-jobreferal-data-title">Lead Engineer</span>
-                                <span class="admin-jobreferal-data-posted"><i class="fa fa-ellipsis-v" aria-hidden="true"></i></span>
-                            </div>
-                            <div class="admin-jobreferal-data-block-body">
-                                <span class="admin-jobreferal-data-experience"><i class="fas fa-bookmark"></i> Experience: 10 - 12 Years</span>
-                                <span class="admin-jobreferal-data-location"><i class="fas fa-map-marker-alt"></i> Chennai, Tamilnadu, India</span>
-                                <span class="admin-jobreferal-data-onsite"><i class="fas fa-check-circle"></i> On-Site</span>
-                                <span class="admin-jobreferal-data-candidate">
-                                    <i class="fa-solid fa-user-group"></i>
-                                    <a class="admin_applied_jobreferal" data-toggle="modal" data-target="#adminJobReferralProcessModal">3 Candidates</a>
-                                </span>
-                            </div>
-                            <div class="admin-jobreferal-data-block-footer">
-                                <div class="admin-jobreferal-data-status open">Open</div>
-                            </div>
+                    <div class="admin-jobreferral-details" id="adminJobReferral">
+                        <div class="admin-jobreferal-body" id="admin-jobreferal-data">
+                            @foreach (var job in Model.alljobListings)
+                            {
+                                <div class="admin-jobreferal-data-block open-jobs">
+                                    <div class="admin-jobreferal-data-block-header">
+                                        <span class="admin-jobreferal-data-title">@job.JobTitle</span>
+                                        <span class="admin-jobreferal-data-posted"><i class="fa fa-ellipsis-v" aria-hidden="true"></i></span>
+                                    </div>
+                                    <div class="admin-jobreferal-data-block-body">
+                                        <span class="admin-jobreferal-data-experience"><i class="fas fa-bookmark"></i> Experience: @job.Experience</span>
+                                        <span class="admin-jobreferal-data-location"><i class="fas fa-map-marker-alt"></i>@job.Location</span>
+                                     <span class="admin-jobreferal-data-onsite"><i class="fas fa-check-circle"></i> On-Site</span>
+                                        <span class="admin-jobreferal-data-candidate">
+                                            <i class="fa-solid fa-user-group"></i>
+                                            <a class="admin_applied_jobreferal" data-toggle="modal" data-target="#adminJobReferralProcessModal">3 Candidates</a>
+                                        </span>
+                                    </div>
+                                    <div class="admin-jobreferal-data-block-footer">
+                                        <div class="admin-jobreferal-data-status open">@job.JobStatus</div>
+                                    </div>
+
+                                </div>
+                            }
+                            @*<div class="admin-jobreferal-data-block closed-jobs">
+                                    <div class="admin-jobreferal-data-block-header">
+                                        <span class="admin-jobreferal-data-title">Lead Engineer</span>
+                                        <span class="admin-jobreferal-data-posted"><i class="fa fa-ellipsis-v" aria-hidden="true"></i></span>
+                                    </div>
+                                    <div class="admin-jobreferal-data-block-body">
+                                        <span class="admin-jobreferal-data-experience"><i class="fas fa-bookmark"></i> Experience: 10 - 12 Years</span>
+                                        <span class="admin-jobreferal-data-location"><i class="fas fa-map-marker-alt"></i> Chennai, Tamilnadu, India</span>
+                                        <span class="admin-jobreferal-data-onsite"><i class="fas fa-check-circle"></i> On-Site</span>
+                                        <span class="admin-jobreferal-data-candidate">
+                                            <i class="fa-solid fa-user-group"></i>
+                                            <a class="admin_applied_jobreferal" data-toggle="modal" data-target="#adminJobReferralProcessModal">3 Candidates</a>
+                                        </span>
+                                    </div>
+                                    <div class="admin-jobreferal-data-block-footer">
+                                        <div class="admin-jobreferal-data-status closed">Closed</div>
+                                    </div>
+                                </div>
+                                <div class="admin-jobreferal-data-block open-jobs">
+                                    <div class="admin-jobreferal-data-block-header">
+                                        <span class="admin-jobreferal-data-title">Lead Engineer</span>
+                                        <span class="admin-jobreferal-data-posted"><i class="fa fa-ellipsis-v" aria-hidden="true"></i></span>
+                                    </div>
+                                    <div class="admin-jobreferal-data-block-body">
+                                        <span class="admin-jobreferal-data-experience"><i class="fas fa-bookmark"></i> Experience: 10 - 12 Years</span>
+                                        <span class="admin-jobreferal-data-location"><i class="fas fa-map-marker-alt"></i> Chennai, Tamilnadu, India</span>
+                                        <span class="admin-jobreferal-data-onsite"><i class="fas fa-check-circle"></i> On-Site</span>
+                                        <span class="admin-jobreferal-data-candidate">
+                                            <i class="fa-solid fa-user-group"></i>
+                                            <a class="admin_applied_jobreferal" data-toggle="modal" data-target="#adminJobReferralProcessModal">3 Candidates</a>
+                                        </span>
+                                    </div>
+                                    <div class="admin-jobreferal-data-block-footer">
+                                        <div class="admin-jobreferal-data-status open">Open</div>
+                                    </div>
+                                </div>
+
+                                <div class="admin-jobreferal-data-block closed-jobs">
+                                    <div class="admin-jobreferal-data-block-header">
+                                        <span class="admin-jobreferal-data-title">Lead Engineer</span>
+                                        <span class="admin-jobreferal-data-posted"><i class="fa fa-ellipsis-v" aria-hidden="true"></i></span>
+                                    </div>
+                                    <div class="admin-jobreferal-data-block-body">
+                                        <span class="admin-jobreferal-data-experience"><i class="fas fa-bookmark"></i> Experience: 10 - 12 Years</span>
+                                        <span class="admin-jobreferal-data-location"><i class="fas fa-map-marker-alt"></i> Chennai, Tamilnadu, India</span>
+                                        <span class="admin-jobreferal-data-onsite"><i class="fas fa-check-circle"></i> On-Site</span>
+                                        <span class="admin-jobreferal-data-candidate">
+                                            <i class="fa-solid fa-user-group"></i>
+                                            <a class="admin_applied_jobreferal" data-toggle="modal" data-target="#adminJobReferralProcessModal">3 Candidates</a>
+                                        </span>
+                                    </div>
+                                    <div class="admin-jobreferal-data-block-footer">
+                                        <div class="admin-jobreferal-data-status closed">Closed</div>
+                                    </div>
+                                </div>*@
 
                         </div>
-                        <div class="admin-jobreferal-data-block closed-jobs">
-                            <div class="admin-jobreferal-data-block-header">
-                                <span class="admin-jobreferal-data-title">Lead Engineer</span>
-                                <span class="admin-jobreferal-data-posted"><i class="fa fa-ellipsis-v" aria-hidden="true"></i></span>
-                            </div>
-                            <div class="admin-jobreferal-data-block-body">
-                                <span class="admin-jobreferal-data-experience"><i class="fas fa-bookmark"></i> Experience: 10 - 12 Years</span>
-                                <span class="admin-jobreferal-data-location"><i class="fas fa-map-marker-alt"></i> Chennai, Tamilnadu, India</span>
-                                <span class="admin-jobreferal-data-onsite"><i class="fas fa-check-circle"></i> On-Site</span>
-                                <span class="admin-jobreferal-data-candidate">
-                                    <i class="fa-solid fa-user-group"></i>
-                                    <a class="admin_applied_jobreferal" data-toggle="modal" data-target="#adminJobReferralProcessModal">3 Candidates</a>
-                                </span>
-                            </div>
-                            <div class="admin-jobreferal-data-block-footer">
-                                <div class="admin-jobreferal-data-status closed">Closed</div>
-                            </div>
-                        </div>
-                        <div class="admin-jobreferal-data-block open-jobs">
-                            <div class="admin-jobreferal-data-block-header">
-                                <span class="admin-jobreferal-data-title">Lead Engineer</span>
-                                <span class="admin-jobreferal-data-posted"><i class="fa fa-ellipsis-v" aria-hidden="true"></i></span>
-                            </div>
-                            <div class="admin-jobreferal-data-block-body">
-                                <span class="admin-jobreferal-data-experience"><i class="fas fa-bookmark"></i> Experience: 10 - 12 Years</span>
-                                <span class="admin-jobreferal-data-location"><i class="fas fa-map-marker-alt"></i> Chennai, Tamilnadu, India</span>
-                                <span class="admin-jobreferal-data-onsite"><i class="fas fa-check-circle"></i> On-Site</span>
-                                <span class="admin-jobreferal-data-candidate">
-                                    <i class="fa-solid fa-user-group"></i>
-                                    <a class="admin_applied_jobreferal" data-toggle="modal" data-target="#adminJobReferralProcessModal">3 Candidates</a>
-                                </span>
-                            </div>
-                            <div class="admin-jobreferal-data-block-footer">
-                                <div class="admin-jobreferal-data-status open">Open</div>
-                            </div>
-                        </div>
-
-                        <div class="admin-jobreferal-data-block closed-jobs">
-                            <div class="admin-jobreferal-data-block-header">
-                                <span class="admin-jobreferal-data-title">Lead Engineer</span>
-                                <span class="admin-jobreferal-data-posted"><i class="fa fa-ellipsis-v" aria-hidden="true"></i></span>
-                            </div>
-                            <div class="admin-jobreferal-data-block-body">
-                                <span class="admin-jobreferal-data-experience"><i class="fas fa-bookmark"></i> Experience: 10 - 12 Years</span>
-                                <span class="admin-jobreferal-data-location"><i class="fas fa-map-marker-alt"></i> Chennai, Tamilnadu, India</span>
-                                <span class="admin-jobreferal-data-onsite"><i class="fas fa-check-circle"></i> On-Site</span>
-                                <span class="admin-jobreferal-data-candidate">
-                                    <i class="fa-solid fa-user-group"></i>
-                                    <a class="admin_applied_jobreferal" data-toggle="modal" data-target="#adminJobReferralProcessModal">3 Candidates</a>
-                                </span>
-                            </div>
-                            <div class="admin-jobreferal-data-block-footer">
-                                <div class="admin-jobreferal-data-status closed">Closed</div>
-                            </div>
-                        </div>
-
                     </div>
                 </div>
             </div>
         </div>
-    </div>
 
-    <!-- emp job referal process Modal -->
-    <div id="adminJobReferralProcessModal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="adminJobReferralProcessModal" aria-hidden="true">
-        <div class="modal-dialog modal-lg" role="document">
-            <div class="modal-content">
-                <div class="modal-body">
-                    <div class="modal-header">
-                        <h5 class="modal-title" id="JobReferralProcessModalLabel">Recruitment Administrator-12891/#01</h5>
-                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                            <i class="fa-solid fa-xmark"></i>
-                        </button>
-                    </div>
+        <!-- emp job referal process Modal -->
+        <div id="adminJobReferralProcessModal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="adminJobReferralProcessModal" aria-hidden="true">
+            <div class="modal-dialog modal-lg" role="document">
+                <div class="modal-content">
                     <div class="modal-body">
-                        <table id="admin_candidatelist_jobreferal" class="display" style="width: 100%;">
-                            <thead class="canjref_thead">
-                                <tr>
-                                    <th>Candidate Name</th>
-                                    <th>Resume</th>
-                                    <th>Referred By</th>
-                                    <th>Referred Date</th>
-                                    <th>Status</th>
-                                </tr>
-                            </thead>
-                            <tbody class="canjref_tbody">
-                            </tbody>
-                        </table>
+                        <div class="modal-header">
+                            <h5 class="modal-title" id="JobReferralProcessModalLabel">Recruitment Administrator-12891/#01</h5>
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                <i class="fa-solid fa-xmark"></i>
+                            </button>
+                        </div>
+                        <div class="modal-body">
+                            <table id="admin_candidatelist_jobreferal" class="display" style="width: 100%;">
+                                <thead class="canjref_thead">
+                                    <tr>
+                                        <th>Candidate Name</th>
+                                        <th>Resume</th>
+                                        <th>Referred By</th>
+                                        <th>Referred Date</th>
+                                        <th>Status</th>
+                                    </tr>
+                                </thead>
+                                <tbody class="canjref_tbody">
+                                </tbody>
+                            </table>
 
+                        </div>
                     </div>
                 </div>
             </div>
         </div>
+
+
+        <script src="~/Scripts/z-jobreferralscript.js"></script>
+        <script>
+            $(document).ready(function () {
+                if (!$.fn.DataTable.isDataTable('#admin_candidatelist_jobreferal')) {
+                    $('#admin_candidatelist_jobreferal').DataTable({
+                        "paging": false,
+                        "searching": false,
+                        "ordering": false,
+                        //"scrollCollapse": true,
+                        "info": true,
+                        "autoWidth": false,
+                        "lengthMenu": [[7, 14, 21, -1], [7, 14, 21, "All"]],
+                        "columnDefs": [
+                            { "orderable": false, "targets": 1 }, // Disable ordering on the Checkin-Check-Out column
+                            { "orderable": false, "targets": 3 }  // Disable ordering on the Status column
+                        ]
+                    });
+                }
+            });
+        </script>
+
     </div>
-
-
-    <script src="~/Scripts/z-jobreferralscript.js"></script>
-    <script>
-        $(document).ready(function () {
-            if (!$.fn.DataTable.isDataTable('#admin_candidatelist_jobreferal')) {
-                $('#admin_candidatelist_jobreferal').DataTable({
-                    "paging": false,
-                    "searching": false,
-                    "ordering": false,
-                    //"scrollCollapse": true,
-                    "info": true,
-                    "autoWidth": false,
-                    "lengthMenu": [[7, 14, 21, -1], [7, 14, 21, "All"]],
-                    "columnDefs": [
-                        { "orderable": false, "targets": 1 }, // Disable ordering on the Checkin-Check-Out column
-                        { "orderable": false, "targets": 3 }  // Disable ordering on the Status column
-                    ]
-                });
-            }
-        });
-    </script>
-
 </div>
-    </div>
 

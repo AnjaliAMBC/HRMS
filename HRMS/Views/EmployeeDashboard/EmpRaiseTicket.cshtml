@@ -132,7 +132,7 @@
                                 <select class="form-control" id="emp-raiseticket-priority">
                                     <option selected="" disabled="">Select Priority</option>
                                     <option value="High" @(Model.ticketinfo != null && Model.ticketinfo.Priority == "High" ? "selected" : "")>High</option>
-                                    <option value="Mid" @(Model.ticketinfo != null && Model.ticketinfo.Priority == "Mid" ? "selected" : "")>Mid</option>
+                                    <option value="Mid" @(Model.ticketinfo != null && Model.ticketinfo.Priority == "Medium" ? "selected" : "")>Medium</option>
                                     <option value="Low" @(Model.ticketinfo != null && Model.ticketinfo.Priority == "Low" ? "selected" : "")>Low</option>
                                 </select>
                                 <span class="error-message" id="emp-raiseticket-priority-error"></span>

@@ -5,8 +5,9 @@ using System.Web;
 
 namespace HRMS.Models.Admin
 {
-    public class DashboardViewModel : SiteContextModel
+    public class AdminJobModel : SiteContextModel
     {
-       
+        public List<JobDetail> alljobListings { get; set; }
     }
+       
 }
