@@ -1,0 +1,100 @@
+﻿
+@{
+    ViewBag.Title = "AdminPostJobs";
+}
+
+@Html.Partial("_NavBar")
+<div class="container-fluid res-admin-jobreferral">
+    <style>
+        .adminbtn_postjob {
+            border: 1px solid transparent;
+            background-color: #2693F8;
+            color:white;
+            padding:5px 10px;
+        }
+        label{
+            margin-bottom:0px;
+            font-size:12px;
+        }
+    </style>
+    <div class="hiddenadmindashboard" style="display: none"></div>
+    @Html.Partial("_adminsidemenu")
+    <div class="main-content container-fluid" style="width: 86%">
+        <div class="content adminadd-postjob" style="margin-top:5px;padding:0px">
+            <div class="content admin-postjob">
+                <div style="margin-left: 0%">
+                    <div class="admin-postjob-container">
+                        <div class="row admin-postjob-header">
+                            <div class="col-lg-3 admin-postjob-title">
+                                <h4>Post Job</h4>
+                            </div>
+                        </div>
+                    </div>
+
+                    <form class="admin-postjob-details" id="adminpostjob">
+                        <div class="container">
+                            <div class="row">
+                                <div class="col-3 form-group">
+                                    <label for="postjob_referalId">Referal ID*</label>
+                                    <input type="text" class="form-control" id="postjob_referalId">
+                                </div>
+                                <div class="col-3 form-group">
+                                    <label for="postjob_jobtitle">Job Title*</label>
+                                    <input type="text" class="form-control" id="postjob_jobtitle">
+                                </div>
+                                <div class="col-3 form-group">
+                                    <label for="postjob_experience">Experience*</label>
+                                    <input type="text" class="form-control" id="postjob_experience">
+                                </div>
+                                <div class="col-3 form-group">
+                                    <label for="postjob_location">Location*</label>
+                                    <input type="text" class="form-control" id="postjob_location">
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-3 form-group">
+                                    <label for="postjob_postedby">Posted By*</label>
+                                    <input type="text" class="form-control" id="postjob_postedby">
+                                </div>
+                                <div class="col-3 form-group">
+                                    <label for="postjob_posteddate">Posted Date*</label>
+                                    <input type="date" class="form-control" id="postjob_posteddate">
+                                </div>
+                                <div class="col-3 form-group">
+                                    <label for="postjob_jobtype">Job Type*</label>
+                                    <select class="form-control" id="postjob_jobtype">
+                                        <option selected disabled>Select Job Type</option>
+                                        <option value="sap_bw">SAP BW</option>
+                                        <option value="Content_writer">Content Writer</option>
+                                        <option value="Full_stackdeveloper">Full Stack Developer</option>
+                                    </select>
+                                </div>
+                                <div class="col-3 form-group">
+                                    <label for="postjob_status">Status*</label>
+                                    <select class="form-control" id="postjob_status">
+                                        <option selected disabled>Select Status</option>
+                                        <option value="open">Open</option>
+                                        <option value="Close">Close</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-12 form-group">
+                                    <label for="postjob_jobdescription">Job Description*</label>
+                                    <textarea class="form-control" id="postjob_jobdescription" style="height:200px;"></textarea>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-3 ml-auto" style="padding-left:150px;padding-top:20px;">
+                                    <btn type="button" class="adminbtn_postjob">Post Job</btn>
+                                </div>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
