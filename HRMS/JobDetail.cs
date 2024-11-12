@@ -14,7 +14,6 @@ namespace HRMS
     
     public partial class JobDetail
     {
-        public int Sno { get; set; }
         public int JobID { get; set; }
         public string JobTitle { get; set; }
         public string Experience { get; set; }
