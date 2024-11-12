@@ -3,6 +3,12 @@
     ViewBag.Title = "PoliciesView";
 }
 
+<style>
+    #ReferFriendPopup .modal-lg {
+        width: 600px;
+    }
+</style>
+
 @Html.Partial("_EmployeeNavbar")
 <div class="container-fluid emp-jobreferral-list-horizon emp-jobreferral-detail-horizon">
     <div class="main-content container-fluid">
@@ -20,7 +26,7 @@
                     <div class="col-lg-8 emp-jobreferral-detail-left">
                         <div class="emp-jobreferral-detail-title-block">
                             <div class="title-block-left">SAP BW</div>
-                            <div class="title-block-right"><button class="btn">Refer a friend</button></div>
+                            <div class="title-block-right"><button class="btn" data-toggle="modal" data-target="#ReferFriendPopup">Refer a friend</button></div>
                         </div>
                         <div class="emp-jobreferral-detail-work-block">
                             <div class="work-block-experince">Work Experience : 5 to 10 Years</div>
@@ -92,34 +98,39 @@
                                     <div class="emp-jobreferral-detail-type-desc">41001</div>
                                 </div>
                                 <div class="col-lg-4 emp-jobreferral-detail-type-info emp-job-ref-btn">
-                                    <button class="btn">Refer a friend</button>
+                                    <button class="btn" data-toggle="modal" data-target="#ReferFriendPopup">Refer a friend</button>
                                 </div>
                             </div>
                         </div>
 
                     </div>
                     <div class="col-lg-4 emp-jobreferral-detail-right">
-                        <div class="emp-jobreferral-detail-title">Track Referal Status</div>
-                        <div class="emp-jobreferral-detail-body">
-                            <div class="emp-jobreferral-detail-track">
-                                <div class="col-lg-1 col-md-1 col-sm-2 emp-jobreferral-detail-track-left">
-                                    <div class="userIcon"><img src="~/Assets/calender-icon.png" alt="Image" class="emp-jobreferral-detail-track-image"></div>
+                        <div class="emp-jobreferral-detail-right-info">
+                            <div class="emp-jobreferral-detail-title">Track Referal Status</div>
+                            <div class="emp-jobreferral-detail-body">
+                                <div class="emp-jobreferral-detail-track">
+                                    <div class="col-lg-1 col-md-1 col-sm-2 emp-jobreferral-detail-track-left">
+                                        <div class="userIcon"><img src="~/Assets/calender-icon.png" alt="Image" class="emp-jobreferral-detail-track-image"></div>
+                                        <div class="vl"></div>
+                                    </div>
+                                    <span class="col-lg-10 col-md-10 col-sm-9 emp-jobreferral-detail-track-mid">
+                                        <div class="emp-jobreferral-detail-track-ref">Referred Date</div>
+                                        <div class="emp-jobreferral-detail-track-status">05 October 2024</div>
+                                    </span>
                                 </div>
-                                <span class="col-lg-10 col-md-10 col-sm-10 emp-jobreferral-detail-track-mid">
-                                    <div class="emp-jobreferral-detail-track-ref">Referal Date</div>
-                                    <div class="emp-jobreferral-detail-track-status">05 October 2024</div>
-                                </span>
-                            </div>
-                            <div class="emp-jobreferral-detail-track">
-                                <div class="col-lg-1 col-md-1 col-sm-2 emp-jobreferral-detail-track-left">
-                                    <div class="userIcon"><img src="~/Assets/calender-icon.png" alt="Image" class="emp-jobreferral-detail-track-image"></div>
+                                <div class="emp-jobreferral-detail-track">
+                                    <div class="col-lg-1 col-md-1 col-sm-2 emp-jobreferral-detail-track-left">
+                                        <div class="userIcon"><img src="~/Assets/status-icon.png" alt="Image" class="emp-jobreferral-detail-track-image"></div>
+                                        <div class="vl"></div>
+                                    </div>
+                                    <span class="col-lg-10 col-md-10 col-sm-9 emp-jobreferral-detail-track-mid">
+                                        <div class="emp-jobreferral-detail-track-ref">Status</div>
+                                        <div class="emp-jobreferral-detail-track-status">Selected</div>
+                                    </span>
                                 </div>
-                                <span class="col-lg-10 col-md-10 col-sm-10 emp-jobreferral-detail-track-mid">
-                                    <div class="emp-jobreferral-detail-track-ref">Referal Date</div>
-                                    <div class="emp-jobreferral-detail-track-status">05 October 2024</div>
-                                </span>
                             </div>
                         </div>
+
                     </div>
                 </div>
             </div>
@@ -128,4 +139,88 @@
     </div>
 </div>
 @Html.Partial("EmployeeFooter")
+
+<!-- ReferFriend Modal -->
+<div class="modal right fade" id="ReferFriendPopup" tabindex="-1" role="dialog" aria-labelledby="ReferFriendPopup">
+    <div class="modal-dialog modal-lg" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title" id="referfriend-header-title">Refer a Friend</h4>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><i class="far fa-times-circle" aria-hidden="true"></i></button>
+            </div>
+            <div class="modal-body">
+                <div class="row">
+                    <div class="col-lg-12 referfriend-detail-title-block">
+                        <div class="title-block-left">SAP BW</div>
+                    </div>
+                    <div class="col-lg-12 referfriend-detail-work-block">
+                        <div class="work-block-experince">Work Experience : 5 to 10 Years</div>
+                        <div class="title-block-location">Location : Chennai</div>
+                    </div>
+                    <div class="col-lg-12 referfriend-info-block">
+                        <div class="col-lg-5 col-md-5">
+                            <div class="form-group referfriend-referralid">
+                                <label for="ReferFriend-Referralid">Referral ID</label>
+                                <input type="text" class="form-control" id="ReferFriend-Referralid" value="EY65RRS" readonly>
+                            </div>
+                        </div>
+                        <div class="col-lg-7 col-md-7">
+                            <div class="form-group referfriend-referredby">
+                                <label for="ReferFriend-Referredby">Referred By</label>
+                                <input type="text" class="form-control" id="ReferFriend-Referredby" value="Test User" readonly>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-lg-12 referfriend-upload-left">
+                        <span class="referfriend-upload-icon">
+                            <img src="~/Assets/upload-icon.png">
+                        </span>
+                        <span class="referfriend-upload-btn">
+                            <span class="referfriend-attach-upload-btn-wrapper">
+                                <button type="button" class="btn referfriend-attach-label" disabled>Upload your resume/CV</button>
+                                <input type="file" id="referfriend-attach-file-upload" name="Attachment" accept=".doc, .docx, .pdf, .odt, .rtf">
+                            </span>
+                            <span class="referfriend-file-name">
+                                @*<a class="referfriend_filepath" href="" target="_blank">Test</a>*@
+                            </span>
+                            <div class="referfriend-attach-file-upload-size">Only doc, docx, pdf, odt, rtf</div>
+                        </span>
+                        <span class="error-message" id="referfriend-attach-error"></span>
+                    </div>
+                    <div class="col-lg-12 col-md-12">
+                        <div class="form-group referfriend-referralname">
+                            <label for="ReferFriend-ReferralName">Referral Name</label>
+                            <input type="text" class="form-control" id="ReferFriend-ReferralName" value="" placeholder="Enter Referral Name">
+                        </div>
+                    </div>
+                    <div class="col-lg-12 referfriend-contact-block">
+                        <div class="form-group referfriend-contact">
+                            <label for="ReferFriend-Contact">Referral Contact</label>
+                            <div class="ReferFriend-Contact-Fields">
+                                <select name="ReferFriend-ContactCode" class="ReferFriend-ContactCode form-control form-select" id="ReferFriend-ContactCode">
+                                    <option value="" selected>+91</option>
+                                </select>
+                                <input type="text" class="form-control" id="ReferFriend-Contact" value="" placeholder="Enter Contact Number">
+                            </div>
+                            
+                        </div>
+                    </div>
+                    <div class="col-lg-12 col-md-12 referfriend-email-block">
+                        <div class="form-group referfriend-email">
+                            <label for="ReferFriend-ReferralEmail">Referral Email</label>
+                            <input type="email" class="form-control" id="ReferFriend-ReferralEmail" value="" placeholder="Enter Referral Email">
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-lg-12 col-md-12 text-right">
+                        <button type="button" class="btn btn-primary referfriend-submit" data-maintenancesno="">Submit</button>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+</div>
+
 
