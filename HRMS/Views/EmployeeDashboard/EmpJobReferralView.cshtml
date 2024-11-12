@@ -29,28 +29,31 @@
                         </div>
                     </div>
                     <div class="emp-jobreferal-body" id="emp-jobreferal-data">
-                        @if (Model.jobdetail != null && Model.jobdetail.Any())
+                        @if (Model?.jobdetail != null && Model.jobdetail.Any())
                         {
                             foreach (var job in Model.jobdetail)
                             {
-                    <div class="emp-jobreferal-data-block open-jobs">
-                        <div class="emp-jobreferal-data-block-header">
-                            <span class="emp-jobreferal-data-title">@job.JobTitle - @job.JobID</span>
-                            <span class="emp-jobreferal-data-posted">@job.PostedDate</span>
-                        </div>
-                        <div class="emp-jobreferal-data-block-body">
-                            <span class="emp-jobreferal-data-experience"><i class="fas fa-bookmark"></i> Experience: @job.Experience</span>
-                            <span class="emp-jobreferal-data-fulltime"><i class="fas fa-clock"></i> @job.JobType</span>
-                            <span class="emp-jobreferal-data-location"><i class="fas fa-map-marker-alt"></i> @job.Location</span>
-                        </div>
-                        <div class="emp-jobreferal-data-block-footer">
-                            <div class="emp-jobreferal-data-status open">@job.JobStatus</div>
-                        </div>
-                    </div> }
-                                }
-                                else
-                                {
-                    <p>No jobs available</p>}
+                                <div class="emp-jobreferal-data-block open-jobs">
+                                    <div class="emp-jobreferal-data-block-header">
+                                        <span class="emp-jobreferal-data-title" data-jobId="@job.JobID">@job.JobTitle - @job.JobID</span>
+                                        <span class="emp-jobreferal-data-posted">
+                                            Posted On @(job.PostedDate.HasValue ? job.PostedDate.Value.ToString("dd MMM yyyy") : "N/A")
+                                        </span>
+
+                                    </div>
+                                    <div class="emp-jobreferal-data-block-body">
+                                        <span class="emp-jobreferal-data-experience"><i class="fas fa-bookmark"></i> Experience: @job.Experience</span>
+                                        <span class="emp-jobreferal-data-fulltime"><i class="fas fa-clock"></i> @job.JobType</span>
+                                        <span class="emp-jobreferal-data-location"><i class="fas fa-map-marker-alt"></i> @job.Location</span>
+                                    </div>
+                                    <div class="emp-jobreferal-data-block-footer">
+                                        <div class="emp-jobreferal-data-status open">@job.JobStatus</div>
+                                    </div>
+                                </div> }
+                        }
+                        else
+                        {
+                            <p>No jobs available</p>}
                         @*<div class="emp-jobreferal-data-block closed-jobs">
             <div class="emp-jobreferal-data-block-header">
                 <span class="emp-jobreferal-data-title">Lead Engineer</span>
@@ -181,6 +184,13 @@
             $('#empJobReferralProcessModal').css('opacity','1');
         });*@
 
+    });
+
+
+    $(document).on("click", ".emp-jobreferal-data-title", function (e) {
+        e.preventDefault();
+        var jobID = $(this).data("jobid"); 
+        window.location.href = "/EmpDash/JobDetail?jobId=" + jobID; 
     });
 
 </script>

@@ -16,6 +16,7 @@ namespace HRMS.Controllers
     using HRMS.Services;
     using System.Data.Entity;
     using System.Globalization;
+    using System.IO;
 
     public class EmpDashController : BaseController
     {
@@ -192,21 +193,99 @@ namespace HRMS.Controllers
             return Json(null, JsonRequestBehavior.AllowGet);
 
         }
-
-        public ActionResult Policies()
-        {
-            return View("/Views/EmployeeDashboard/PoliciesView.cshtml");
-        }
+      
 
         public ActionResult JobReferral()
-        {       
-            return View("/Views/EmployeeDashboard/EmpJobReferralView.cshtml");
+        {
+            var jobListings = _dbContext.JobDetails
+              .OrderByDescending(job => job.PostedDate)
+              .ToList();
+
+            var model = new EmpJobModel
+            {
+                jobdetail = jobListings  
+            };
+            
+            return View("/Views/EmployeeDashboard/EmpJobReferralView.cshtml", model);
         }
 
-        public ActionResult JobDetail()
+        public ActionResult JobDetail(int jobID)
         {
-            return View("/Views/EmployeeDashboard/EmpJobDetail.cshtml");
+            var jobDetail = _dbContext.JobDetails.FirstOrDefault(x => x.JobID == jobID);
+            var cuserContext = SiteContext.GetCurrentUserContext();
+            var empID = cuserContext.EmpInfo.EmployeeID;
+
+            var model = new EmpJobModel
+            {
+                jobInfo = jobDetail,
+                EmpInfo = cuserContext.EmpInfo,                
+            };
+
+            return View("/Views/EmployeeDashboard/EmpJobDetail.cshtml", model);
         }
+
+        [HttpPost]
+        public JsonResult ReferJob(int jobID, string candidateName, string referredBy, string candidateMobileNumber, string referredByEmail, HttpPostedFileBase file)
+        {
+            try
+            {
+                string resumePath = null;
+                
+                if (file != null)
+                {
+                    
+                    if (file.ContentType == "application/msword" ||
+                        file.ContentType == "application/vnd.openxmlformats-officedocument.wordprocessingml.document" ||
+                        file.ContentType == "application/pdf")
+                    {                        
+                        var ticketingFolderPath = ConfigurationManager.AppSettings["TicketingFolderPath"];
+                       
+                        string resumeFolderPath = Path.Combine(ticketingFolderPath, "Resume");
+
+                        if (!Directory.Exists(resumeFolderPath))
+                        {
+                            Directory.CreateDirectory(resumeFolderPath);
+                        }
+
+                        string fileName = Path.GetFileName(file.FileName);
+                        resumePath = Path.Combine(resumeFolderPath, fileName);
+
+                        file.SaveAs(resumePath);
+                    }
+                    else
+                    {
+                        return Json(new { success = false, message = "Invalid file type. Only doc, docx, and pdf files are allowed." });
+                    }
+                }
+                else
+                {
+                    return Json(new { success = false, message = "Please upload a file." });
+                }
+
+                // Save referral details to the database
+                var referral = new JobReferral
+                {
+                    JobID = jobID,
+                    CandidateName = candidateName,
+                    ResumePath = resumePath,
+                    ReferredBy = referredBy,
+                    Condidatemblnumber = candidateMobileNumber,
+                    ReferredByEmail = referredByEmail,
+                    ReferredDate = DateTime.Now
+                };
+
+                _dbContext.JobReferrals.Add(referral);
+                _dbContext.SaveChanges();
+
+                return Json(new { success = true, message = "Referral submitted successfully!" });
+            }
+            catch (Exception ex)
+            {
+                return Json(new { success = false, message = "Error: " + ex.Message });
+            }
+        }
+
+
         public ActionResult Holidays()
         {
             var model = new HolidayModel();

@@ -1,4 +1,4 @@
-﻿
+﻿@model HRMS.Models.Employee.EmpJobModel
 @{
     ViewBag.Title = "PoliciesView";
 }
@@ -25,53 +25,53 @@
                 <div class="row">
                     <div class="col-lg-8 emp-jobreferral-detail-left">
                         <div class="emp-jobreferral-detail-title-block">
-                            <div class="title-block-left">SAP BW</div>
-                            <div class="title-block-right"><button class="btn" data-toggle="modal" data-target="#ReferFriendPopup">Refer a friend</button></div>
+                            <div class="title-block-left">@Model.jobInfo.JobTitle</div>
+                            <div class="title-block-right"><button class="btn" data-toggle="modal" data-target="#ReferFriendPopup" data-Jobid="@Model.jobInfo.JobID">Refer a friend</button></div>
                         </div>
                         <div class="emp-jobreferral-detail-work-block">
-                            <div class="work-block-experince">Work Experience : 5 to 10 Years</div>
-                            <div class="title-block-location">Location : Chennai</div>
+                            <div class="work-block-experince">Work Experience : @Model.jobInfo.Experience</div>
+                            <div class="title-block-location">Location : @Model.jobInfo.Location</div>
                         </div>
                         <div class="emp-jobreferral-detail-desc-block">
                             <div class="emp-jobreferral-detail-desc-title">Job Description:</div>
                             <div>
-                                <p>Engage with business users to understand their requirements and translate them into actionable analytical problems.</p>
+                                <p>@Model.jobInfo.JobDescription</p>
                             </div>
 
-                            <div>
-                                <p>Data Modeling and Solution Development:</p>
-                                <p>Design, develop, and implement SAP BW 4 HANA based data models and ETL processes to meet business reporting and analytical needs.</p>
-                            </div>
+                            @*<div>
+                                    <p>Data Modeling and Solution Development:</p>
+                                    <p>Design, develop, and implement SAP BW 4 HANA based data models and ETL processes to meet business reporting and analytical needs.</p>
+                                </div>
 
-                            <div>
-                                <p>Collaboration and Teamwork:</p>
-                                <p>Work closely with SAP Functional consultants, Solution Architects, and UI developers to integrate data models into comprehensive business solutions.</p>
-                            </div>
+                                <div>
+                                    <p>Collaboration and Teamwork:</p>
+                                    <p>Work closely with SAP Functional consultants, Solution Architects, and UI developers to integrate data models into comprehensive business solutions.</p>
+                                </div>
 
-                            <div>
-                                <p>Technical Documentation:</p>
-                                <p>Create and maintain technical specification documents outlining data models, ETL processes, and system integrations.</p>
-                            </div>
+                                <div>
+                                    <p>Technical Documentation:</p>
+                                    <p>Create and maintain technical specification documents outlining data models, ETL processes, and system integrations.</p>
+                                </div>
 
-                            <div>
-                                <p>Support and Issue Resolution:</p>
-                                <p>Resolve SAP BW related issues and support requests according to defined service level agreements (SLAs).</p>
-                            </div>
+                                <div>
+                                    <p>Support and Issue Resolution:</p>
+                                    <p>Resolve SAP BW related issues and support requests according to defined service level agreements (SLAs).</p>
+                                </div>
 
-                            <div>
-                                <p>Process Chain Monitoring:</p>
-                                <p>Monitor daily process chains within SAP BW 4 HANA and proactively address any issues to ensure data integrity and system performance.</p>
-                            </div>
+                                <div>
+                                    <p>Process Chain Monitoring:</p>
+                                    <p>Monitor daily process chains within SAP BW 4 HANA and proactively address any issues to ensure data integrity and system performance.</p>
+                                </div>
 
-                            <div>
-                                <p>Continuous Learning and Skill Development:</p>
-                                <p>Stay updated with the latest SAP BW technologies and tools. Willingness to cross-skill and explore emerging technologies in the analytics domain.</p>
-                            </div>
+                                <div>
+                                    <p>Continuous Learning and Skill Development:</p>
+                                    <p>Stay updated with the latest SAP BW technologies and tools. Willingness to cross-skill and explore emerging technologies in the analytics domain.</p>
+                                </div>
 
-                            <div>
-                                <p>Reporting and Communication:</p>
-                                <p>Effectively communicate with stakeholders, customers, and project teams to ensure alignment on project goals, timelines, and deliverables.</p>
-                            </div>
+                                <div>
+                                    <p>Reporting and Communication:</p>
+                                    <p>Effectively communicate with stakeholders, customers, and project teams to ensure alignment on project goals, timelines, and deliverables.</p>
+                                </div>*@
 
                         </div>
 
@@ -97,9 +97,9 @@
                                     <div class="emp-jobreferral-detail-type-title">Zip/Postal Code</div>
                                     <div class="emp-jobreferral-detail-type-desc">41001</div>
                                 </div>
-                                <div class="col-lg-4 emp-jobreferral-detail-type-info emp-job-ref-btn">
-                                    <button class="btn" data-toggle="modal" data-target="#ReferFriendPopup">Refer a friend</button>
-                                </div>
+                                @*<div class="col-lg-4 emp-jobreferral-detail-type-info emp-job-ref-btn">
+                                        <button class="btn" data-toggle="modal" data-target="#ReferFriendPopup">Refer a friend</button>
+                                    </div>*@
                             </div>
                         </div>
 
@@ -141,7 +141,7 @@
 @Html.Partial("EmployeeFooter")
 
 <!-- ReferFriend Modal -->
-<div class="modal right fade" id="ReferFriendPopup" tabindex="-1" role="dialog" aria-labelledby="ReferFriendPopup">
+<div class="modal right fade" id="ReferFriendPopup" tabindex="-1" role="dialog" aria-labelledby="ReferFriendPopup" data-Jobid="@Model.jobInfo.JobID">
     <div class="modal-dialog modal-lg" role="document">
         <div class="modal-content">
             <div class="modal-header">
@@ -150,24 +150,28 @@
             </div>
             <div class="modal-body">
                 <div class="row">
+                    <input type="hidden" id="ReferFriend-JobID" />
+                    <input type="hidden" id="ReferFriend-EmployeeID" />
                     <div class="col-lg-12 referfriend-detail-title-block">
-                        <div class="title-block-left">SAP BW</div>
+                        <div class="title-block-left">@Model.jobInfo.JobTitle</div>
                     </div>
                     <div class="col-lg-12 referfriend-detail-work-block">
-                        <div class="work-block-experince">Work Experience : 5 to 10 Years</div>
-                        <div class="title-block-location">Location : Chennai</div>
+                        <div class="work-block-experince">Work Experience: @Model.jobInfo.Experience</div>
+                        <div class="title-block-location">Location: @Model.jobInfo.Location</div>
                     </div>
                     <div class="col-lg-12 referfriend-info-block">
                         <div class="col-lg-5 col-md-5">
                             <div class="form-group referfriend-referralid">
                                 <label for="ReferFriend-Referralid">Referral ID</label>
-                                <input type="text" class="form-control" id="ReferFriend-Referralid" value="EY65RRS" readonly>
+                                <input type="text" class="form-control" id="ReferFriend-Referralid" value="@Model.EmpInfo.EmployeeID" readonly>
+                                <div class="invalid-feedback">Referral ID is required.</div>
                             </div>
                         </div>
                         <div class="col-lg-7 col-md-7">
                             <div class="form-group referfriend-referredby">
                                 <label for="ReferFriend-Referredby">Referred By</label>
-                                <input type="text" class="form-control" id="ReferFriend-Referredby" value="Test User" readonly>
+                                <input type="text" class="form-control" id="ReferFriend-Referredby" value="@Model.EmpInfo.EmployeeName" readonly>
+                                <div class="invalid-feedback">Referred By is required.</div>
                             </div>
                         </div>
                     </div>
@@ -180,9 +184,7 @@
                                 <button type="button" class="btn referfriend-attach-label" disabled>Upload your resume/CV</button>
                                 <input type="file" id="referfriend-attach-file-upload" name="Attachment" accept=".doc, .docx, .pdf, .odt, .rtf">
                             </span>
-                            <span class="referfriend-file-name">
-                                @*<a class="referfriend_filepath" href="" target="_blank">Test</a>*@
-                            </span>
+                            <span class="referfriend-file-name"></span>
                             <div class="referfriend-attach-file-upload-size">Only doc, docx, pdf, odt, rtf</div>
                         </span>
                         <span class="error-message" id="referfriend-attach-error"></span>
@@ -191,6 +193,7 @@
                         <div class="form-group referfriend-referralname">
                             <label for="ReferFriend-ReferralName">Referral Name</label>
                             <input type="text" class="form-control" id="ReferFriend-ReferralName" value="" placeholder="Enter Referral Name">
+                            <div class="invalid-feedback">Referral Name is required.</div>
                         </div>
                     </div>
                     <div class="col-lg-12 referfriend-contact-block">
@@ -201,14 +204,15 @@
                                     <option value="" selected>+91</option>
                                 </select>
                                 <input type="text" class="form-control" id="ReferFriend-Contact" value="" placeholder="Enter Contact Number">
+                                <div class="invalid-feedback">Referral Contact is required.</div>
                             </div>
-                            
                         </div>
                     </div>
                     <div class="col-lg-12 col-md-12 referfriend-email-block">
                         <div class="form-group referfriend-email">
                             <label for="ReferFriend-ReferralEmail">Referral Email</label>
                             <input type="email" class="form-control" id="ReferFriend-ReferralEmail" value="" placeholder="Enter Referral Email">
+                            <div class="invalid-feedback">Referral Email is required.</div>
                         </div>
                     </div>
                 </div>
@@ -216,11 +220,12 @@
                     <div class="col-lg-12 col-md-12 text-right">
                         <button type="button" class="btn btn-primary referfriend-submit" data-maintenancesno="">Submit</button>
                     </div>
-                </div>
-
+                </div>               
             </div>
         </div>
     </div>
 </div>
 
 
+
+<script src="~/Scripts/z-jobreferralscript.js"></script>
