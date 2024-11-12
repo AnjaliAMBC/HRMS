@@ -21,7 +21,7 @@
     <div class="hiddenadmindashboard" style="display: none"></div>
     @Html.Partial("_adminsidemenu")
     <div class="main-content container-fluid" style="width: 86%">
-        <div class="content adminadd-postjob" style="margin-top:5px;padding:0px">
+        <div class="content adminadd-postjob" style="margin-top:20px;padding:0px">
             <div class="content admin-postjob">
                 <div style="margin-left: 0%">
                     <div class="admin-postjob-container">
@@ -37,43 +37,43 @@
                             <div class="row">
                                 <div class="col-3 form-group">
                                     <label for="postjob_referalId">Referral ID*</label>
-                                    <input type="text" class="form-control" id="postjob_referalId" required>
+                                    <input type="text" class="form-control" id="postjob_referalId" placeholder="Referal ID" required>
                                     <div class="invalid-feedback">Referral ID is required.</div>
                                 </div>
                                 <div class="col-3 form-group">
                                     <label for="postjob_jobtitle">Job Title*</label>
-                                    <input type="text" class="form-control" id="postjob_jobtitle" required>
+                                    <input type="text" class="form-control" id="postjob_jobtitle" placeholder="Enter Job Title" required>
                                     <div class="invalid-feedback">Job Title is required.</div>
                                 </div>
                                 <div class="col-3 form-group">
                                     <label for="postjob_experience">Experience*</label>
-                                    <input type="text" class="form-control" id="postjob_experience" required>
+                                    <input type="text" class="form-control" id="postjob_experience" placeholder="Enter Experience" required>
                                     <div class="invalid-feedback">Experience is required.</div>
                                 </div>
                                 <div class="col-3 form-group">
                                     <label for="postjob_location">Location*</label>
-                                    <input type="text" class="form-control" id="postjob_location" required>
+                                    <input type="text" class="form-control" id="postjob_location" placeholder="Enter Location" required>
                                     <div class="invalid-feedback">Location is required.</div>
                                 </div>
                             </div>
                             <div class="row">
                                 <div class="col-3 form-group">
                                     <label for="postjob_postedby">Posted By*</label>
-                                    <input type="text" class="form-control" id="postjob_postedby" required>
+                                    <input type="text" class="form-control" id="postjob_postedby" placeholder="Enter Posted By" required>
                                     <div class="invalid-feedback">Posted By is required.</div>
                                 </div>
                                 <div class="col-3 form-group">
                                     <label for="postjob_posteddate">Posted Date*</label>
-                                    <input type="date" class="form-control" id="postjob_posteddate" required>
+                                    <input type="date" class="form-control" id="postjob_posteddate" placeholder="Select Posted Date" required>
                                     <div class="invalid-feedback">Posted Date is required.</div>
                                 </div>
                                 <div class="col-3 form-group">
                                     <label for="postjob_jobtype">Job Type*</label>
                                     <select class="form-control" id="postjob_jobtype" required>
                                         <option value="" selected disabled>Select Job Type</option>
-                                        <option value="sap_bw">SAP BW</option>
-                                        <option value="Content_writer">Content Writer</option>
-                                        <option value="Full_stackdeveloper">Full Stack Developer</option>
+                                        <option value="sap_bw">Full Time</option>
+                                        <option value="Content_writer">Part Time</option>
+                                        <option value="Full_stackdeveloper">Other</option>
                                     </select>
                                     <div class="invalid-feedback">Job Type is required.</div>
                                 </div>
@@ -88,9 +88,26 @@
                                 </div>
                             </div>
                             <div class="row">
+                                <div class="col-3 form-group">
+                                    <label for="postjob_salary">Salary Package*</label>
+                                    <input type="text" class="form-control" id="postjob_salary" placeholder="Enter Package" required>
+                                    <div class="invalid-feedback">Salary Package is required.</div>
+                                </div>
+                                <div class="col-3 form-group">
+                                    <label for="postjob_priority">Priority*</label>
+                                    <select class="form-control" id="postjob_priority" required>
+                                        <option value="" selected disabled>Select Priority</option>
+                                        <option value="high">High</option>
+                                        <option value="medium">Medium</option>
+                                    </select>
+                                    <div class="invalid-feedback">Priority is required.</div>
+                                </div>
+
+                            </div>
+                            <div class="row">
                                 <div class="col-12 form-group">
                                     <label for="postjob_jobdescription">Job Description*</label>
-                                    <textarea class="form-control" id="postjob_jobdescription" style="height:200px;" required></textarea>
+                                    <textarea class="form-control" id="postjob_jobdescription" style="height:170px;" required></textarea>
                                     <div class="invalid-feedback">Job Description is required.</div>
                                 </div>
                             </div>
