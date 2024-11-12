@@ -5357,7 +5357,7 @@ width: 100%;*/
         width: 49%;
         border: 1px solid #ccc;
         border-radius: 3px;
-        padding: 10px 0px 0px 15px;
+        padding: 6px 0px 0px 10px;
         display: inline-block;
         margin: 10px 0px 5px 0px;
         margin-right: 9px;
@@ -5390,7 +5390,7 @@ width: 100%;*/
 
     .admin-jobreferral-list .admin-jobreferal-data-block-body {
         margin: 5px 0;
-        font-size: 14px;
+        font-size: 15px;
         color: #525252;
     }
 
@@ -5420,6 +5420,8 @@ width: 100%;*/
 
         .admin-jobreferral-list .admin-jobreferal-data-block-body span i {
             color: #40D8D8;
+            font-size:15px;
+            margin-right:5px;
         }
 
     .admin-jobreferral-list .admin-jobreferal-data-block-footer {
@@ -5447,7 +5449,6 @@ width: 100%;*/
     .admin-jobreferral-list .res-admin-jobreferral-left button {
         border-radius: 25px;
         border: 1px solid #000000;
-        #000000;
         margin-right: 10px;
     }
 
@@ -5503,6 +5504,28 @@ width: 100%;*/
 #admin_candidatelist_jobreferal .canjref_thead
 {
     background-color:
+}
+#admin_candidatelist_jobreferal .canjref_thead {
+    background-color: #267EC4;
+    padding:5px 10px;;
+    font-size:14px;
+    color:white;
+}
+    #admin_candidatelist_jobreferal .canjref_thead th{
+        padding:5px 10px;
+    }
+.jobreffered_by_image
+{
+    height:38px;
+    width:38px;
+    border-radius:50%;
+}
+#admin_candidatelist_jobreferal .odd {
+    background-color: #FFFFFF !important;
+}
+
+#admin_candidatelist_jobreferal .even {
+    background-color: #EBFAFF !important;
 }
 /*----Admin job referal style sheet ends here----*/
 /*-----Admin Job referal Details style sheet starts here-----*/
@@ -5571,5 +5594,35 @@ width: 100%;*/
         text-align: right;
         padding-right: 0;
     }
-
+.admin-jobreferal-details {
+    height: auto;
+    background-color: #E3E9F1;
+    padding:15px;
+}
+.admin-jobreferral-detail-track-left .userIcon {
+    border: 1px solid transparent;
+    background-color: #267EC4;
+    border-radius:50%;
+    text-align:center;
+    height:50px;
+    width:50px;
+}
+    .admin-jobreferral-detail-track-left .userIcon .admin-jobreferral-detail-track-image
+    {
+        padding-top:12px;
+    }
+.admin-jobreferral-detail-track-left .status-line {
+    border-left: 4px solid #267EC4;
+    height: 40px;
+    margin-left: 23px;
+}
+.admin-jobreferral-detail-title
+{
+    font-size:18px;
+    font-weight:700;
+    margin-bottom:10px;
+}
+.admin-jobreferral-detail-track-mid span{
+    font-size:14px;
+}
 /* emp job referal detailed end */
