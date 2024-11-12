@@ -1,4 +1,6 @@
 ﻿@model HRMS.IT_Maintenance
+@using HRMS.Helpers
+
 @{
     ViewBag.Title = "EmpMaintananceAcknowledge";
 }
@@ -52,6 +54,7 @@
         margin-top: 5px;
         text-align: center;
     }
+
     .success-message {
         color: green;
     }
@@ -80,9 +83,23 @@
                             <div class="maintenanceacknowledge-header-title">
                                 <span class="maintenanceacknowledge-image-btn">
                                     <!-- Dynamically load the employee image -->
-                                    <img src="~/Assets/EmpImages/1075.jpeg" alt="Employee Image" class="userIcon">
-                                    <div class="default-image-navbar" style="display: none;">
-                                    </div>
+
+                                    @{
+                                        var empBirthdayDisplay = EmployeeHelper.GetEmployeeDisplayInfo(@Model.EmployeeID);
+                                    }
+
+                                    @if (!string.IsNullOrWhiteSpace(empBirthdayDisplay.ImageSrc))
+                                    {
+                                        <img src="@empBirthdayDisplay.ImageSrc" alt="Employee Image" class="userIcon">
+                                    }
+                                    else
+                                    {
+                                        <div class="default-image-navbar">@empBirthdayDisplay.EmpShortName</div>
+                                    }
+
+                                    @*<img src="~/Assets/EmpImages/1075.jpeg" alt="Employee Image" class="userIcon">
+                                        <div class="default-image-navbar" style="display: none;">
+                                        </div>*@
                                 </span>
                                 <!-- Show the employee name dynamically -->
                                 <span class="maintenanceacknowledge-id-select" data-assetid="name">@Model.EmployeeName</span>
@@ -132,7 +149,7 @@
                                             <div class="col-lg-4 col-md-6">
                                                 <div class="form-group maintenanceacknowledge-tabs">
                                                     <label for="MaintenanceAcknowledge-Completed">I am hereby acknowledged that monthly maintenance completed for my IT Asset (Laptop or PC)</label>
-                                                        <select name="MaintenanceAcknowledge-Status" class="MaintenanceAcknowledge-Completed form-control form-select" id="MaintenanceAcknowledge-Completed">
+                                                    <select name="MaintenanceAcknowledge-Status" class="MaintenanceAcknowledge-Completed form-control form-select" id="MaintenanceAcknowledge-Completed">
                                                         <option value="Yes" @(Model.Acknowledge == "Yes" ? "selected" : "")>Yes</option>
                                                         <option value="No" @(Model.Acknowledge == "No" ? "selected" : "")>No</option>
                                                     </select>
@@ -182,6 +199,6 @@
 
 
 
-    <script src="~/Scripts/Z-Maintanance.js"></script>
- 
+<script src="~/Scripts/Z-Maintanance.js"></script>
+
 
