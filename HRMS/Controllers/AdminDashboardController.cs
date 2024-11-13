@@ -77,9 +77,15 @@ namespace HRMS.Controllers
         {
             return View("~/Views/AdminDashboard/AdminJobDetail.cshtml");
         }
-        public ActionResult AdminPostJobs()
+        public ActionResult AdminPostJobs(int jobid = 0)
         {
-            return View("~/Views/AdminDashboard/AdminPostJobs.cshtml");
+            var model = new AdminJobModel();
+            if (jobid != 0)
+            {
+                model.EditJob = _dbContext.JobDetails.Where(x => x.JobID == jobid).FirstOrDefault();
+            }
+
+            return View("~/Views/AdminDashboard/AdminPostJobs.cshtml", model);
         }
 
 
@@ -89,9 +95,9 @@ namespace HRMS.Controllers
             try
             {
                 if (ModelState.IsValid)
-                {                   
+                {
                     jobDetail.PostedDate = jobDetail.PostedDate ?? DateTime.Now;
-                    jobDetail.UpdatedDate = DateTime.Now;                   
+                    jobDetail.UpdatedDate = DateTime.Now;
                     // Add jobDetail to the database
                     _dbContext.JobDetails.Add(jobDetail);
                     _dbContext.SaveChanges();
@@ -240,10 +246,10 @@ namespace HRMS.Controllers
                     _dbContext.LeaveBalances.Add(empLeaveBalance);
 
                     //Delete old entry in case
-                    if(empLeaveBalanceInfo != null)
+                    if (empLeaveBalanceInfo != null)
                     {
                         _dbContext.LeaveBalances.Remove(empLeaveBalanceInfo);
-                    }                  
+                    }
                     _dbContext.SaveChanges();
 
 
@@ -900,6 +906,6 @@ namespace HRMS.Controllers
             }
             return Json(model, JsonRequestBehavior.AllowGet);
         }
-       
+
     }
 }
