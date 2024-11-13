@@ -41,12 +41,12 @@
         cursor: pointer;
     }
 
-    .profile-image-container img {
-        border-radius: 50%;
-        width: 45px;
-        height: 45px;
-        object-fit: cover;
-    }
+        .profile-image-container img {
+            border-radius: 50%;
+            width: 45px;
+            height: 45px;
+            object-fit: cover;
+        }
 
     .profile-dropdown {
         display: none;
@@ -63,19 +63,19 @@
         z-index: 1000;
     }
 
-    .profile-dropdown h4 {
-        margin: 0 0 10px;
-    }
+        .profile-dropdown h4 {
+            margin: 0 0 10px;
+        }
 
-    .profile-dropdown p {
-        margin: 5px 0;
-    }
+        .profile-dropdown p {
+            margin: 5px 0;
+        }
 
-    .profile-dropdown .btn {
-        display: block;
-        width: 100%;
-        margin: 10px 0;
-    }
+        .profile-dropdown .btn {
+            display: block;
+            width: 100%;
+            margin: 10px 0;
+        }
 
     .header-notification {
         margin: 12px 27px 0px 0px;
@@ -137,14 +137,15 @@
         cursor: pointer;
         margin-bottom: 10px;
     }
-
-
 </style>
 @{
     var pageUrlPath = Request.Url.AbsolutePath.ToLowerInvariant();
 }
 <nav class="navbar navbar-expand-md navbar-light bg-light fixed-top horizon-design" style="box-shadow: 0 0 5px 2px rgba(0, 0, 0, .3); height: 55px;">
     <a class="navbar-brand" href="#"><img src="~/Assets/AMBC_Logo.png" alt="logo" class="logo-img" /></a>
+    <span class="res-header-notification">
+        <span class="nav-notification" data-toggle="modal" data-target="#NotificationPopup"><img src="~/Assets/clarity_notification-line.png" alt="Notification" class="img-notification"><span class="notification-count">@notifications.Count()</span></span>
+    </span>
     <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#left-side-menu" aria-controls="left-side-menu" aria-expanded="false" aria-label="Toggle navigation">
         <span class="navbar-toggler-icon"></span>
     </button>
@@ -225,7 +226,7 @@
     </div>
 
 </nav>
-
+@Html.Partial("_empsidemenu")
 <!-- Notification Modal -->
 <div class="modal right fade" id="NotificationPopup" tabindex="-1" role="dialog" aria-labelledby="NotificationPopup">
     <div class="modal-dialog" role="document">
