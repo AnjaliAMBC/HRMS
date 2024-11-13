@@ -8,10 +8,11 @@ $(document).on('click', '.emp-jobreferal-data-title', function () {
     window.location.href = "/EmpDash/JobDetail";
 });
 
-$(document).on('click', '.admin-jobreferal-data-title', function () {
-    window.location.href = "/AdminDashboard/AdminJobDetail";
+$(document).on("click", ".admin-jobreferal-data-title", function (e) {
+    e.preventDefault();
+    var jobID = $(this).data("jobid");
+    window.location.href = "/AdminDashboard/AdminJobDetail?jobId=" + jobID;
 });
-
 $(document).on('click', '.btn_admin_postjobreferal', function () {
     window.location.href = "/AdminDashboard/AdminPostJobs";
 });

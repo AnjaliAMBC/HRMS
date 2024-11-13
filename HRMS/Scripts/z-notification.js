@@ -123,7 +123,10 @@ $(document).on("click", ".sender-send-btn", function () {
         success: function (response) {
             if (response.success) {
                 // Show success message and fade it out
-                $('#NotificationReplyPopup .replysent-msg').text("Reply sent successfully..!!").show();
+                $('#NotificationReplyPopup .replysent-msg')
+                    .text("Reply sent successfully..!!")
+                    .css("color", "green")
+                    .show();
                 setTimeout(function () {
                     $('#NotificationReplyPopup .replysent-msg').fadeOut();
                 }, 3000);

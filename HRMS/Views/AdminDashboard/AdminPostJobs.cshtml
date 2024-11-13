@@ -37,9 +37,9 @@
                         <div class="container">
                             <div class="row">
                                 <div class="col-3 form-group">
-                                    <label for="postjob_referalId">Referral ID*</label>
+                                    <label for="postjob_referalId">Job ID*</label>
                                     <input type="text" class="form-control" id="postjob_referalId" placeholder="Referral ID"
-                                           value="@Model.EditJob?.ReferralID" disabled>
+                                           value="@Model.EditJob.JobID" disabled>
                                     <div class="invalid-feedback">Referral ID is required.</div>
                                 </div>
                                 <div class="col-3 form-group">
@@ -71,50 +71,56 @@
                                 <div class="col-3 form-group">
                                     <label for="postjob_posteddate">Posted Date*</label>
                                     <input type="date" class="form-control" id="postjob_posteddate" name="PostedDate"
-                                           value="@Model.EditJob.PostedDate?.ToString("yyyy-MM-dd")" required>
+                                           value="@((Model.EditJob?.PostedDate != DateTime.MinValue) ? Model.EditJob.PostedDate?.ToString("yyyy-MM-dd") : "")" required>
                                     <div class="invalid-feedback">Posted Date is required.</div>
                                 </div>
+
                                 <div class="col-3 form-group">
                                     <label for="postjob_jobtype">Job Type*</label>
                                     <select class="form-control" id="postjob_jobtype" name="JobType" required>
-                                        <option value="" selected disabled>Select Job Type</option>
-                                        <option value="Full Time" @(Model.EditJob?.JobType == "Full Time" ? "selected" : "")>Full Time</option>
-                                        <option value="Part Time" @(Model.EditJob?.JobType == "Part Time" ? "selected" : "")>Part Time</option>
-                                        <option value="Other" @(Model.EditJob?.JobType == "Other" ? "selected" : "")>Other</option>
+                                        <option selected disabled>Select Job Type</option>
+                                        <option value="Full Time" @(Model.EditJob.JobType == "Full Time" ? "selected" : "")>Full Time</option>
+                                        <option value="Part Time" @(Model.EditJob.JobType == "Part Time" ? "selected" : "")>Part Time</option>
+                                        <option value="Contract" @(Model.EditJob.JobType == "Contract" ? "selected" : "")>Contract</option>
+                                        <option value="Other" @(Model.EditJob.JobType == "Other" ? "selected" : "")>Other</option>
                                     </select>
                                     <div class="invalid-feedback">Job Type is required.</div>
                                 </div>
+
                                 <div class="col-3 form-group">
                                     <label for="postjob_status">Status*</label>
                                     <select class="form-control" id="postjob_status" name="Status" required>
                                         <option value="" selected disabled>Select Status</option>
-                                        <option value="Open" @(Model.EditJob?.JobStatus == "Open" ? "selected" : "")>Open</option>
-                                        <option value="Close" @(Model.EditJob?.JobStatus == "Close" ? "selected" : "")>Close</option>
+                                        <option value="Open" @(Model.EditJob.JobStatus == "Open" ? "selected" : "")>Open</option>
+                                        <option value="Close" @(Model.EditJob.JobStatus == "Close" ? "selected" : "")>Close</option>
                                     </select>
                                     <div class="invalid-feedback">Status is required.</div>
                                 </div>
+
                             </div>
                             <div class="row">
                                 <div class="col-3 form-group">
                                     <label for="postjob_salary">Salary Package*</label>
                                     <input type="text" class="form-control" id="postjob_salary" name="Salary" placeholder="Enter Package"
-                                           value="@Model.EditJob?.Salary" required>
+                                           value="@Model.EditJob.SalaryRange" required>
                                     <div class="invalid-feedback">Salary Package is required.</div>
                                 </div>
+
                                 <div class="col-3 form-group">
                                     <label for="postjob_priority">Priority*</label>
                                     <select class="form-control" id="postjob_priority" name="Priority" required>
-                                        <option value="" selected disabled>Select Priority</option>
-                                        <option value="High" @(Model.EditJob?.Priority == "High" ? "selected" : "")>High</option>
-                                        <option value="Medium" @(Model.EditJob?.Priority == "Medium" ? "selected" : "")>Medium</option>
+                                        <option selected disabled>Select Priority</option>
+                                        <option value="High" @(Model.EditJob.Priority == "High" ? "selected" : "")>High</option>
+                                        <option value="Medium" @(Model.EditJob.Priority == "Medium" ? "selected" : "")>Medium</option>
                                     </select>
                                     <div class="invalid-feedback">Priority is required.</div>
                                 </div>
+
                             </div>
                             <div class="row">
                                 <div class="col-12 form-group">
                                     <label for="postjob_jobdescription">Job Description*</label>
-                                    <textarea class="form-control" id="postjob_jobdescription" name="JobDescription" style="height:170px;" required>@Model.EditJob?.JobDescription</textarea>
+                                    <textarea class="form-control" id="postjob_jobdescription" name="JobDescription" style="height:170px;" required>@Model.EditJob.JobDescription</textarea>
                                     <div class="invalid-feedback">Job Description is required.</div>
                                 </div>
                             </div>
@@ -173,8 +179,9 @@
                 }
             });
 
-
             const jobType = $('#postjob_jobtype');
+            const status = $('#postjob_status');
+
             if (!jobType.val()) {
                 jobType.addClass('is-invalid');
                 isValid = false;
@@ -182,7 +189,6 @@
                 jobType.removeClass('is-invalid');
             }
 
-            const status = $('#postjob_status');
             if (!status.val()) {
                 status.addClass('is-invalid');
                 isValid = false;
@@ -197,13 +203,13 @@
                     .text("Please fill in all required fields.")
                     .addClass('text-danger')
                     .removeClass('text-success');
-                // $('#jobModal').modal('show'); Uncomment if needed to show the modal
-            }
+                           }
         }
 
-
         function submitForm() {
+            const jobId = $("#postjob_jobid").val();  // Use the hidden field to determine if it’s an edit
             const formData = {
+                JobID: jobId,
                 JobTitle: $("#postjob_jobtitle").val(),
                 Experience: $("#postjob_experience").val(),
                 Location: $("#postjob_location").val(),
@@ -212,11 +218,11 @@
                 JobType: $("#postjob_jobtype").val(),
                 JobStatus: $("#postjob_status").val(),
                 JobDescription: $("#postjob_jobdescription").val(),
-                SalaryRange: $('#postjob_salary').val(), // Using text() for non-input elements
+                SalaryRange: $('#postjob_salary').val(),
                 Priority: $('#postjob_priority').val()
             };
 
-            console.log("Submitting form with data:", formData);  // Debugging line
+            console.log("Submitting form with data:", formData);
 
             $.ajax({
                 url: '/AdminDashboard/PostJob',
@@ -227,13 +233,12 @@
                     $('.show-progress').show();
                 },
                 success: function (response) {
-                    console.log("Response received:", response);  // Debugging line
+                    console.log("Response received:", response);
                     if (response.success) {
-                        $('#modalMessage').text("Job posted successfully!")
+                        $('#modalMessage').text(jobId ? "Job updated successfully!" : "Job posted successfully!")
                             .addClass('text-success')
                             .removeClass('text-danger');
-                        $('#jobModal').modal('show');
-                        document.getElementById("adminpostjob").reset();
+                        $('#jobModal').modal('show');                        
                         $('.is-invalid').removeClass('is-invalid');
                     } else {
                         $('#modalMessage').text("Error: " + response.message)
@@ -244,7 +249,7 @@
                     $('.show-progress').hide();
                 },
                 error: function (xhr, status, error) {
-                    console.log("AJAX error:", status, error);  // Debugging line
+                    console.log("AJAX error:", status, error);
                     $('#modalMessage').text("An error occurred: " + error)
                         .addClass('text-danger')
                         .removeClass('text-success');
