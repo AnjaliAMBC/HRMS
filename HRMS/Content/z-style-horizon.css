@@ -102,6 +102,34 @@
     top: 7px;
 }
 
+.horizon-design .res-header-notification {
+    margin-right: -100px;
+    display: none;
+}
+
+.horizon-design .res-header-notification .nav-notification {
+    padding: 12px 10px;
+    background: #D6E2F3;
+    border-radius: 3px;
+}
+
+.horizon-design .res-header-notification .nav-notification .notification-count {
+    position: absolute;
+    font-size: 9px;
+    background: #267EC4;
+    color: #fff;
+    border-radius: 25px;
+    width: 15px;
+    height: 15px;
+    text-align: center;
+    vertical-align: middle;
+    top: 7px;
+}
+
+#left-side-menu-normal {
+    display:none;
+}
+
 /* header end */
 
 
@@ -1139,6 +1167,7 @@
 .emp-selfservice-list-horizon .emp-selfservice-details .emp-selfservice-details-left .emp-ss-details-block1 .emp-ss-details-block1-left .img-edit-icon span {
     color: #fff;
     background: #267EC4;
+    padding: 6px 7px;
 }
 
 .emp-selfservice-list-horizon .emp-selfservice-details .emp-selfservice-details-left .emp-ss-details-block1 .emp-ss-details-block1-left img {
@@ -1401,7 +1430,80 @@ box-shadow: 0 0 5px rgba(0, 0, 0, 0.3);*/
     padding: 5px 15px;
     border-radius: 30px;
 }
+
 /* emp self service end */
+
+/* emp self service project start */
+
+.emp-selfservice-list-horizon .emp-project-details-main {
+    margin: 25px 0;
+    display: inline-flex;
+    justify-content: space-between;
+}
+
+.emp-selfservice-list-horizon .emp-project-details-main .emp-project-details-header {
+    display: inline-flex;
+    justify-content: space-between;
+    margin-bottom: 7px;
+}
+
+.emp-selfservice-list-horizon .emp-project-details-main .emp-project-details-title {
+    font-size: 18px;
+    font-weight: bold;
+}
+
+.emp-selfservice-list-horizon .emp-project-details-main .emp-project-details-edit span {
+    background: #ccc;
+    border-radius: 50px;
+    padding: 4px 7px;
+    text-align: center;
+    cursor:pointer;
+}
+
+.emp-selfservice-list-horizon .emp-project-details-main .emp-project-details-edit img {
+    width: 14px;
+    height: 14px;
+    vertical-align: middle;
+}
+
+.emp-selfservice-list-horizon .emp-project-details-main .emp-project-clientinfo {
+    background: #D6E2F3;
+    padding: 15px;
+    border-left: 4px solid #267EC4;
+    margin-bottom: 30px;
+    width: 95%;
+}
+
+.emp-selfservice-list-horizon .emp-project-details-main .emp-project-clientinfo div{
+    margin-bottom: 2px;
+}
+
+.emp-selfservice-list-horizon .emp-project-details-main .emp-project-clientinfo span {
+    font-weight: bold;
+}
+
+#empProjectRoleResModal .modal-header {
+    border-bottom: none;
+}
+
+#empProjectRoleResModal .modal-header button {
+    font-size: 14px;
+}
+
+#empProjectRoleResModal .modal-footer {
+    border-top: none;
+}
+
+#empProjectRoleResModal .modal-footer button {
+    padding: 5px 15px;
+    border-radius: 30px;
+}
+
+.emp-selfservice-list-horizon .emp-project-details-main .emp-project-details-body-block ul {
+    padding-left: 20px;
+}
+
+/* emp self service project end */
 
 /* emp maintenance acknowledge start */
 
@@ -1444,6 +1546,13 @@ box-shadow: 0 0 5px rgba(0, 0, 0, 0.3);*/
 .emp-maintenanceacknowledge-list-horizon #empMaintenanceAcknowledge .maintenanceacknowledge-info .emp-maintenanceacknowledge-submit {
     padding: 5px 25px;
     border-radius: 20px;
+}
+
+.emp-maintenanceacknowledge-list-horizon .maintenanceacknowledge-image-btn .default-image-navbar {
+    display: inline-block;
+    text-align: center;
+    vertical-align: middle;
+    padding: 8px 0;
 }
 
 /* emp maintenance acknowledge end */
@@ -2083,7 +2192,7 @@ box-shadow: 0 0 5px rgba(0, 0, 0, 0.3);*/
 /* emp ticketing start */
 
 .emp-ticketing-horizon {
-    /* height: 100vh; */
+     min-height: 100vh; 
 }
 
 .emp-ticketing-horizon .emp-ticketing-horizon-header {
@@ -2122,7 +2231,7 @@ box-shadow: 0 0 5px rgba(0, 0, 0, 0.3);*/
     background: #efefef;
     margin-top: -20px;
     padding-top: 15px;
-    height: 100vh;
+    height: auto;
 }
 
 .emp-ticketing-horizon .emp-Ticket-view .main-content.container-fluid {
@@ -2561,6 +2670,11 @@ width: 100%;*/
 
 .emp-jobreferralprocess-popup .right-data {
     padding: 10px 10px;
+}
+
+.emp-jobreferralprocess-popup .right-data span{
+    text-decoration: underline;
+    font-weight:bold;
 }
 
 .emp-jobreferralprocess-popup tr {

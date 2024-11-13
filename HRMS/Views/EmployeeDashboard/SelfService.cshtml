@@ -321,7 +321,7 @@
                                     <a class="nav-link active" id="tab1-link" data-toggle="tab" href="#tab1" role="tab" aria-controls="tab1" aria-selected="true">Profile</a>
                                 </li>
                                 <li class="nav-item" role="presentation">
-                                    <a class="nav-link" id="tab2-link" data-toggle="tab" href="#tab2" role="tab" aria-controls="tab2" aria-selected="false">Project</a>
+                                    <a class="nav-link" id="tab2-link" data-toggle="tab" href="#tab2" role="tab" aria-controls="tab2" aria-selected="false">Projects - R&R</a>
                                 </li>
                                 <li class="nav-item" role="presentation">
                                     <a class="nav-link" id="tab3-link" data-toggle="tab" href="#tab3" role="tab" aria-controls="tab3" aria-selected="false">Asset</a>
@@ -580,7 +580,48 @@
                     </div>
 
                     <div class="tab-pane fade emp-ss-projectview" id="tab2" role="tabpanel" aria-labelledby="tab2-link">
-                        Test
+                        <div class="row emp-project-details-main">
+                            <div class="col-lg-7 emp-project-details-left">
+                                <div class="col-lg-12 emp-project-details-header">
+                                    <div class="emp-project-details-title">Roles & Responsibility</div>
+                                    <div class="emp-project-details-edit"><span data-toggle="modal" data-target="#empProjectRoleResModal"><img src="~/Assets/edit-icon.png"></span></div>
+                                </div>
+                                <div class="col-lg-12 emp-project-details-body">
+                                    <div class="emp-project-details-body-block emp-project-details-body-block1">
+                                        <div>Graphics Designer</div>
+                                        <ul>
+                                            <li>Responsible for daily design in social media promotions.</li>
+                                            <li>Responsible in designing sales collaterals, catalogs, client presentations, brochures, eBooks, infographics and newsletters and handbook</li>
+                                            <li>Created banners and icons, and branding images for websites and applications.</li>
+                                        </ul>
+                                    </div>
+                                    <div class="emp-project-details-body-block emp-project-details-body-block2">
+                                        <div>UI/UX Designer</div>
+                                        <ul>
+                                            <li>Responsible for daily design in social media promotions.</li>
+                                            <li>Responsible in designing sales collaterals, catalogs, client presentations, brochures, eBooks, infographics and newsletters and handbook</li>
+                                            <li>Created banners and icons, and branding images for websites and applications.</li>
+                                        </ul>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-lg-4 emp-project-details-right">
+                                <div class="emp-project-details-clientinfo">
+                                    <div class="emp-project-clientinfo">
+                                        <div class="project-client"><span>Client : </span> AMBC</div>
+                                        <div class="project-name"><span>Project : </span> AMBC Website Revamp</div>
+                                        <div class="project-role"><span>Role : </span> Graphic / UI UX Designer</div>
+                                        <div class="project-rm"><span>RM : </span> Shanta M Balakumar</div>
+                                    </div>
+                                    <div class="emp-project-clientinfo">
+                                        <div class="project-client"><span>Client : </span> AMBC</div>
+                                        <div class="project-name"><span>Project : </span> AMBC Website Revamp</div>
+                                        <div class="project-role"><span>Role : </span> Graphic / UI UX Designer</div>
+                                        <div class="project-rm"><span>RM : </span> Shanta M Balakumar</div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
                     </div>
                     <div class="tab-pane fade emp-ss-assetview" id="tab3" role="tabpanel" aria-labelledby="tab3-link">
 
@@ -987,6 +1028,29 @@
                     <div class="status-head">Password Updated!</div>
                     <div class="status-desc">Your password has been changed successfully</div>
                 </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Project role & responsibility Modal -->
+<div id="empProjectRoleResModal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="empProjectRoleResModal" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="empProjectRoleResModalLabel">Add Roles & Responsibilities</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <i class="far fa-times-circle"></i>
+                </button>
+            </div>
+            <div class="modal-body">
+                <div class="empProjectRoleRes-field">
+                    <textarea rows="3" class="form-control" id="empProjectRoleRes-field" name="empProjectRoleRes-field"></textarea>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn" data-dismiss="modal">Close</button>
+                <button type="button" class="btn btn-primary" data-ticketname="" id="empProjectRoleResSubmitButton">Submit</button>
             </div>
         </div>
     </div>

@@ -2,7 +2,7 @@
     var pageUrlPath = Request.Url.AbsolutePath.ToLowerInvariant();
     var currentContext = Session["SiteContext"] as HRMS.Models.SiteContextModel; }
 
-<div id="left-side-menu-normal" class="row" style="margin-left: -29px;">
+<div id="left-side-menu-normal" class="row left-side-menu-normal-horizon" style="margin-left: -29px;">
     <style>
         .sidebar {
             box-shadow: 0 0 5px 0.5px rgba(0,0,0,0.3)
@@ -42,7 +42,7 @@
     </div>
 </div>
 
-<div id="left-side-menu" class="row" style="margin-left: -29px;">
+<div id="left-side-menu" class="row left-side-menu-horizon" style="margin-left: -29px;">
     <div class="col-md-2">
         <div class="sidebar" style="">
 
@@ -84,7 +84,7 @@
                 </li>
                 <li class="mb-2 @(pageUrlPath.Contains("/employeedashboard/selfservice") ? "active sidebaractive" : "")">
                     <a href="/employeedashboard/selfservice" class="@(pageUrlPath == "/employeedashboard/selfservice" ? "active" : "")">
-                        <img class="menu-icon" src="~/Assets/Icons/Employee.png" /><span>Employee Details</span>
+                        <img class="menu-icon" src="~/Assets/Icons/Employee.png" /><span>Employee</span>
 </a>
                 </li>
                 <li class="mb-2 @(pageUrlPath.Contains("/empattendance/Index") ? "active sidebaractive" : "")">
@@ -94,7 +94,7 @@
                 </li>
                 <li class="mb-2 @(pageUrlPath.Contains("/empleave/index") ? "active sidebaractive" : "")">
                     <a href="/EmpLeave/Index" class="@(pageUrlPath == "/empleave/index" ? "active" : "")">
-                        <img class="menu-icon" src="~/Assets/Icons/Leave.png" /><span>Leave Tracker</span>
+                        <img class="menu-icon" src="~/Assets/Icons/Leave.png" /><span>Leave</span>
 </a>
                 </li>
                 <li class="mb-2 @(pageUrlPath.Contains("/empticketing/index") ? "active sidebaractive" : "")">
@@ -105,7 +105,8 @@
             </ul>
 
             <ul id="logout_sidebar_button" class="nav nav-sidebar">
-                <li><a onclick="signOut()">Sign Out</a></li>
+                <li class="res-side-menu-myprofile"><a onclick="">My Profile</a></li>
+                <li class="res-side-menu-signout"><a onclick="signOut()">Sign Out</a></li>
             </ul>
         </div>
     </div>
