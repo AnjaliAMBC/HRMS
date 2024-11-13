@@ -89,7 +89,7 @@ namespace HRMS.Helpers
                     }
                     break;
 
-                case "New Join":
+                case "NewJoining":
                     if (notification.RepiedSno != 0)
                     {
                         title = $"{notification.Comments} from {notification.NotificationFromName}!";

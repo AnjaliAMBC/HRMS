@@ -68,7 +68,7 @@
                             {
                                 <div class="admin-jobreferal-data-block open-jobs">
                                     <div class="admin-jobreferal-data-block-header">
-                                        <span class="admin-jobreferal-data-title" style="cursor:pointer;">@job.JobTitle</span>
+                                        <span class="admin-jobreferal-data-title" style="cursor:pointer;" data-jobId="@job.JobID">@job.JobTitle</span>
                                         <span class="admin-jobreferal-data-options" onclick="toggleLeaveActionOptions(this, event)">
                                             <i class="fa fa-ellipsis-v" aria-hidden="true"></i>
                                         </span>
@@ -259,8 +259,8 @@
                         "autoWidth": false,
                         "lengthMenu": [[7, 14, 21, -1], [7, 14, 21, "All"]],
                         "columnDefs": [
-                            { "orderable": false, "targets": 1 }, // Disable ordering on the Checkin-Check-Out column
-                            { "orderable": false, "targets": 3 }  // Disable ordering on the Status column
+                            { "orderable": false, "targets": 1 }, 
+                            { "orderable": false, "targets": 3 }  
                         ]
                     });
                 }
@@ -281,14 +281,53 @@
                 }
             });
 
-
-            // Cancel leave event
+           
             $(document).on('click', '.admin-jobreferal-edit', function (event) {
                 var jobid = $(this).attr("data-jobid");
-                window.location.href = "/adminDashboard/adminpostjobs?jobid=" + jobid;
+                window.location.href = "/admindashboard/adminpostjobs?jobid=" + jobid;
                 return;
             });
 
+
+            let selectedJobId = null;
+
+           
+            $(document).on('click', '.admin-jobreferal-delete', function () {
+                selectedJobId = $(this).data('jobid');
+            });
+                        
+            $(document).on('click', '.delete-jobreferaldelete', function () {
+                if (selectedJobId) {
+                    $.ajax({
+                        url: '/admindashboard/deletejob', 
+                        type: 'POST',
+                        data: { jobId: selectedJobId },
+                        success: function (response) {
+                            if (response.success) {
+                                $('#modalMessage')
+                                    .text("Job deleted successfully!")
+                                    .addClass('text-success')
+                                    .removeClass('text-danger');
+                                $('#adminJobReferralDeleteModal').modal('hide');
+                               
+                                $(`.admin-jobreferal-edit[data-jobid="${selectedJobId}"]`).closest('.admin-jobreferal-dataoptions').remove();
+                            } else {
+                                $('#modalMessage')
+                                    .text("Error: " + response.message)
+                                    .addClass('text-danger')
+                                    .removeClass('text-success');
+                            }
+                        },
+                        error: function (xhr, status, error) {
+                            console.log("Error deleting job:", status, error);
+                            $('#modalMessage')
+                                .text("An error occurred: " + error)
+                                .addClass('text-danger')
+                                .removeClass('text-success');
+                        }
+                    });
+                }
+            });
 
         </script>
 

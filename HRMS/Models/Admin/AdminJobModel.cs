@@ -9,6 +9,8 @@ namespace HRMS.Models.Admin
     {
         public List<JobDetail> alljobListings { get; set; }
         public JobDetail EditJob { get; set; } = new JobDetail();
+
+        public JobDetail jobDetail { get; set; } = new JobDetail();
     }
 
 }
