@@ -126,12 +126,11 @@
     top: 7px;
 }
 
-/*#left-side-menu-normal {
-    display:none;
-}*/
+.left-side-menu-normal-horizon {
+    display: none;
+}
 
 /* header end */
-
 
 /* footer start */
 
@@ -411,8 +410,9 @@
 /* emp dashboard start */
 
 .emp-dashboard-horizon {
-    padding: 0 0 !important;
+    padding: 0 0 0px 0px !important;
     background: #efefef;
+    display: inline-block;
 }
 
 .emp-dashboard-horizon #left-side-menu-normal {
@@ -441,13 +441,13 @@
 }
 
 .emp-dashboard-horizon .dashboard-header-block .dashboard-header-left .dh-user-name {
-    font-size: 25px;
+    font-size: 32px;
     font-weight: bold;
 }
 
 .emp-dashboard-horizon .dashboard-header-block .dashboard-header-left .dh-welcome {
-    font-size: 20px;
-    margin-top: -5px;
+    font-size: 24px;
+    margin-top: 0px;
 }
 
 .emp-dashboard-horizon .dashboard-header-block .dashboard-header-right {
@@ -516,20 +516,20 @@
 }
 
 .emp-dashboard-horizon .dashboard-body-block {
-    padding: 30px 30px;
+    padding: 30px 45px;
 }
 
-.emp-dashboard-horizon .dashboard-body-block .emp-dash-block-1 .emp-dash-left-block {
+.emp-dashboard-horizon .dashboard-body-block .emp-dash-left-block {
 }
 
-.emp-dashboard-horizon .dashboard-body-block .emp-dash-block-1 .emp-dash-left-block .ed-blocks {
+.emp-dashboard-horizon .dashboard-body-block .emp-dash-left-block .ed-blocks {
     border: 0.3px solid #ccc;
     padding: 22px 15px;
     margin-bottom: 5px;
     background: #fff;
 }
 
-.emp-dashboard-horizon .dashboard-body-block .emp-dash-block-1 .emp-dash-left-block .ed-block-left {
+.emp-dashboard-horizon .dashboard-body-block .emp-dash-left-block .ed-block-left {
     width: 13%;
     display: inline-block;        
     border-radius: 4px;
@@ -539,35 +539,35 @@
     float: left;
 }
 
-.emp-dashboard-horizon .dashboard-body-block .emp-dash-block-1 .emp-dash-left-block .ed-block-right {
+.emp-dashboard-horizon .dashboard-body-block .emp-dash-left-block .ed-block-right {
     display: inline-block;
     width: 70%;
     padding: 0px 10px;
     cursor: pointer;
 }
 
-.emp-dashboard-horizon .dashboard-body-block .emp-dash-block-1 .emp-dash-left-block .ed-block-right .ed-block-1 {
+.emp-dashboard-horizon .dashboard-body-block .emp-dash-left-block .ed-block-right .ed-block-1 {
     font-weight: bold;
 }
 
-.emp-dashboard-horizon .dashboard-body-block .emp-dash-block-1 .emp-dash-left-block .ed-block-right .ed-block-2 {
+.emp-dashboard-horizon .dashboard-body-block .emp-dash-left-block .ed-block-right .ed-block-2 {
     color: #8B8B8B;
     font-size: 12px;
 }
 
-.emp-dashboard-horizon .dashboard-body-block .emp-dash-block-1 .emp-dash-left-block .ed-birthday .ed-block-left {
+.emp-dashboard-horizon .dashboard-body-block .emp-dash-left-block .ed-birthday .ed-block-left {
     background: #FFD1EB;
 }
 
-.emp-dashboard-horizon .dashboard-body-block .emp-dash-block-1 .emp-dash-left-block .ed-work-anniversary .ed-block-left {
+.emp-dashboard-horizon .dashboard-body-block  .emp-dash-left-block .ed-work-anniversary .ed-block-left {
     background: #ECB7804D;
 }
 
-.emp-dashboard-horizon .dashboard-body-block .emp-dash-block-1 .emp-dash-left-block .ed-new-joiners .ed-block-left {
+.emp-dashboard-horizon .dashboard-body-block .emp-dash-left-block .ed-new-joiners .ed-block-left {
     background: #FC785E4D;
 }
 
-.emp-dashboard-horizon .dashboard-body-block .emp-dash-block-1 .emp-dash-basic-info {
+.emp-dashboard-horizon .dashboard-body-block .emp-dash-basic-info {
     float: left;
 }
 
@@ -575,6 +575,8 @@
     border: 0.3px solid #b5dcf5;
     background: #DDEDFA;
     padding: 7px 15px;
+    display: flex;
+    justify-content: space-between;
 }
 
 .emp-dashboard-horizon .dashboard-body-block .emp-dash-block-content {
@@ -625,6 +627,7 @@
 
 .emp-dashboard-horizon .dashboard-body-block .emp-dash-block-2 {
     margin-top: 20px;
+    display: inline-block;
 }
 
 .emp-dashboard-horizon .dashboard-body-block .emp-dash-basic-info {
@@ -758,7 +761,7 @@
 
 .emp-dashboard-horizon .dashboard-body-block .emp-dash-basic-info .emp-dash-block-header .header-dropdown {
     text-align: right;
-    width: 23%;
+    /*width: 23%;*/
     display: inline-block;
 }
 
@@ -768,6 +771,7 @@
 
 .emp-dashboard-horizon .dashboard-body-block .emp-dash-block-3 {
     margin-top: 20px;
+    display: inline-block;
 }
 
 .emp-dashboard-horizon .dashboard-body-block .emp-dash-calendar {
@@ -933,7 +937,7 @@
 
 .emp-dashboard-horizon .emp-dash-hr-announcements .emp-dash-block-content .ed-hr-announcements-left {
     margin-bottom: 10px;
-    width: 54%;
+    width: 53%;
     font-size: 13px;
     margin-right: 10px;
     display: inline-block;
@@ -1036,6 +1040,36 @@
     margin-top: 35px !important;
 }
 
+.emp-dashboard-horizon .dashboard-body-block .emp-dash-left-block {
+
+}
+
+.emp-dashboard-horizon .dashboard-body-block .emp-dash-attendance {
+}
+
+.emp-dashboard-horizon .dashboard-body-block .emp-dash-hr-announcements {
+}
+
+.emp-dashboard-horizon .dashboard-body-block .emp-dash-upcoming-holidays {
+    margin-top: 20px;
+}
+
+.emp-dashboard-horizon .dashboard-body-block .emp-dash-recent-tickets {
+    margin-top: 20px;
+}
+
+.emp-dashboard-horizon .dashboard-body-block .emp-dash-management {
+    margin-top: 20px;
+}
+
+.emp-dashboard-horizon .dashboard-body-block .emp-dash-leave {
+    margin-top: 20px;
+}
+
+.emp-dashboard-horizon .dashboard-body-block .emp-dash-calendar {
+    margin-top: 20px;
+}
+
 /* emp dashboard end */
 
 /* emp upcoming holidays start */
@@ -1124,7 +1158,7 @@
 
 .emp-selfservice-list-horizon {
     background: #efefef;
-    /*height: 100vh;*/
+    min-height: 95vh;
     padding: 0 25px;
 }
 
@@ -1439,6 +1473,7 @@ box-shadow: 0 0 5px rgba(0, 0, 0, 0.3);*/
     margin: 25px 0;
     display: inline-flex;
     justify-content: space-between;
+    width: 100%;
 }
 
 .emp-selfservice-list-horizon .emp-project-details-main .emp-project-details-header {
@@ -1509,12 +1544,13 @@ box-shadow: 0 0 5px rgba(0, 0, 0, 0.3);*/
 
 .emp-maintenanceacknowledge-list-horizon {
     background: #efefef;
-    height: 100vh;
+    min-height: 95vh;
 }
 
 .emp-maintenanceacknowledge-list-horizon .main-content {
     margin-left: 0;
     padding-bottom: 20px;
+    width: 100% !important
 }
 
 .emp-maintenanceacknowledge-list-horizon .maintenanceacknowledge-header-title {
@@ -1561,7 +1597,7 @@ box-shadow: 0 0 5px rgba(0, 0, 0, 0.3);*/
 
 .emp-attendance-list-horizon {
     background: #efefef;
-    /*height: 100vh;*/
+    min-height: 95vh;
     padding: 0 25px 25px 25px;
 }
 
@@ -1617,7 +1653,7 @@ box-shadow: 0 0 5px rgba(0, 0, 0, 0.3);*/
 
 .emp-leave-list-horizon {
     background: #efefef;
-    /*height: 100vh;*/
+    min-height: 95vh;
     padding: 0 25px 25px 25px;
 }
 
@@ -1637,6 +1673,7 @@ box-shadow: 0 0 5px rgba(0, 0, 0, 0.3);*/
 }
 
 .emp-leave-list-horizon #leaveCarousel .emp-leave-carousel-blocks {
+    width: 185px;
 }
 
 .emp-leave-list-horizon #leaveCarousel .tracker-card {
@@ -1711,26 +1748,25 @@ box-shadow: 0 0 5px rgba(0, 0, 0, 0.3);*/
     background: #948078;
 }
 
-    .emp-leave-list-horizon #leaveCarousel .mat_border .tracker-title {
-        background: #247ba0;
-    }
+.emp-leave-list-horizon #leaveCarousel .mat_border .tracker-title {
+    background: #247ba0;
+}
 
-    .emp-leave-list-horizon #leaveCarousel .com_border .tracker-title {
-        background: #50514f;
-    }
+.emp-leave-list-horizon #leaveCarousel .com_border .tracker-title {
+    background: #50514f;
+}
 
 .emp-leave-list-horizon #leaveCarousel .ear_border .tracker-title {
     background: #2ECC87;
 }
 
-    .emp-leave-list-horizon #leaveCarousel .pat_border .tracker-title {
-        background: #70c1b3;
-    }
+.emp-leave-list-horizon #leaveCarousel .pat_border .tracker-title {
+    background: #70c1b3;
+}
 
 .emp-leave-list-horizon #leaveCarousel .emr_border .tracker-title {
     background: #3DC2C8;
 }
-
 
 .emp-leave-list-horizon .emp-leave-details .res-emp-apply {
     border: 1px solid #ccc;
@@ -1900,10 +1936,10 @@ box-shadow: 0 0 5px rgba(0, 0, 0, 0.3);*/
     background-color: #EBFAFF !important;
 }
 
-    .emp-leave-list-horizon #empleaveCompOffTable thead th:first-child {
-        border-top-left-radius: 5px;
-        text-align: center;
-    }
+.emp-leave-list-horizon #empleaveCompOffTable thead th:first-child {
+    border-top-left-radius: 5px;
+    text-align: center;
+}
 
 .emp-leave-list-horizon #empleaveCompOffTable thead th:last-child {
     border-top-right-radius: 5px;
@@ -2045,13 +2081,21 @@ box-shadow: 0 0 5px rgba(0, 0, 0, 0.3);*/
     border: 1px solid #ccc;
 }*/
 
+.emp-leave-list-horizon .leavehistory-year {
+    margin-top: -20px;
+}
+
+.emp-leave-list-horizon .leavehistory-year .year-dropdown {
+    top: -20px;
+}
+
 /* emp leave end */
 
 /* emp apply leave start */
 
 .emp-applyleave-horizon {
     background: #efefef;
-    /* height: 100vh; */
+    min-height: 95vh;
     padding-bottom: 25px;
 }
 
@@ -2231,7 +2275,7 @@ box-shadow: 0 0 5px rgba(0, 0, 0, 0.3);*/
     background: #efefef;
     margin-top: -20px;
     padding-top: 15px;
-    height: auto;
+    min-height: 90vh;
 }
 
 .emp-ticketing-horizon .emp-Ticket-view .main-content.container-fluid {
@@ -2400,7 +2444,7 @@ box-shadow: 0 0 5px rgba(0, 0, 0, 0.3);*/
 
 .emp-ticketing-raise-horizon {
     background: #efefef;
-    /* height: 100vh; */
+    min-height: 95vh; 
     padding-bottom: 25px;
 }
 
@@ -2704,7 +2748,7 @@ width: 100%;*/
 /* emp job referal detailed start */
 
 .emp-jobreferral-detail-horizon {
-    height: auto;
+    height: 100vh;
 }
 
 .emp-jobreferral-detail-horizon #empJobReferralDetail {

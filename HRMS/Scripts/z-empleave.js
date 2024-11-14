@@ -5,6 +5,32 @@
 
     $('.carousel .carousel-leave-item').each(function () {
         var minPerSlide = 5;
+        var width = $(window).width();
+        var height = $(window).height();
+        console.log("width", width);
+        console.log("height", height);
+        if (width >= 768 && width <= 1180) {
+            
+            // Check if the orientation is landscape or portrait
+            if (width > height) {
+                var minPerSlide = 4;
+                if (width >= 768 && width <= 1024) {
+                    var minPerSlide = 3;
+                    $('.carousel-control-next.btn_nxtleave').css('right', '-95px');
+                }
+                console.log("Landscape mode");
+                // Additional code for landscape mode
+            } else {
+                var minPerSlide = 2;
+                if (width >= 820 && width <= 1024) {
+                    var minPerSlide = 3;
+                    $('.carousel-control-next.btn_nxtleave').css('right', '-95px');
+                }
+                console.log("Portrait mode");
+                // Additional code for portrait mode
+            }
+        }
+        console.log("minPerSlide", minPerSlide);
         var next = $(this).next();
 
         if (!next.length) {
