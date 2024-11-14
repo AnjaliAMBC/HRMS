@@ -5,6 +5,7 @@
 }
 
 @Html.Partial("_NavBar")
+<script src="https://cdn.tiny.cloud/1/a8r9jj8t9yk0l2hgejaoyglumbdcfozlfeogwxxq03lyrsrr/tinymce/5/tinymce.min.js"></script>
 <div class="container-fluid res-admin-jobreferral">
     <style>
         .adminbtn_postjob {
@@ -18,11 +19,19 @@
             margin-bottom: 0px;
             font-size: 12px;
         }
+        .tox .tox-statusbar {
+            height: 0px !important;
+        }
+        .tox .tox-mbtn
+        {
+            height:15px;
+            font-size:12px;
+        }
     </style>
     <div class="hiddenadmindashboard" style="display: none"></div>
     @Html.Partial("_adminsidemenu")
-    <div class="main-content container-fluid" style="width: 86%">
-        <div class="content adminadd-postjob" style="margin-top:20px;padding:0px">
+    <div class="main-content container-fluid">
+        <div class="content adminadd-postjob">
             <div class="content admin-postjob">
                 <div style="margin-left: 0%">
                     <div class="admin-postjob-container">
@@ -34,27 +43,27 @@
                     </div>
 
                     <form class="admin-postjob-details" id="adminpostjob">
-                        <div class="container">
+                        <div class="container-fluid">
                             <div class="row">
-                                <div class="col-3 form-group">
+                                <div class="col-lg-3 col-sm-12 col-md-6 form-group">
                                     <label for="postjob_referalId">Job ID*</label>
                                     <input type="text" class="form-control" id="postjob_referalId" placeholder="Referral ID"
                                            value="@Model.EditJob.JobID" disabled>
                                     <div class="invalid-feedback">Referral ID is required.</div>
                                 </div>
-                                <div class="col-3 form-group">
+                                <div class="col-lg-3 col-sm-12 col-md-6 form-group">
                                     <label for="postjob_jobtitle">Job Title*</label>
                                     <input type="text" class="form-control" id="postjob_jobtitle" name="JobTitle" placeholder="Enter Job Title"
                                            value="@Model.EditJob.JobTitle" required>
                                     <div class="invalid-feedback">Job Title is required.</div>
                                 </div>
-                                <div class="col-3 form-group">
+                                <div class="col-lg-3 col-sm-12 col-md-6 form-group">
                                     <label for="postjob_experience">Experience*</label>
                                     <input type="text" class="form-control" id="postjob_experience" name="Experience" placeholder="Enter Experience"
                                            value="@Model.EditJob.Experience" required>
                                     <div class="invalid-feedback">Experience is required.</div>
                                 </div>
-                                <div class="col-3 form-group">
+                                <div class="col-lg-3 col-sm-12 col-md-6 form-group">
                                     <label for="postjob_location">Location*</label>
                                     <input type="text" class="form-control" id="postjob_location" name="Location" placeholder="Enter Location"
                                            value="@Model.EditJob.Location" required>
@@ -62,20 +71,20 @@
                                 </div>
                             </div>
                             <div class="row">
-                                <div class="col-3 form-group">
+                                <div class="col-lg-3 col-sm-12 col-md-6 form-group">
                                     <label for="postjob_postedby">Posted By*</label>
                                     <input type="text" class="form-control" id="postjob_postedby" name="PostedBy" placeholder="Enter Posted By"
                                            value="@Model.EditJob.PostedBy" required>
                                     <div class="invalid-feedback">Posted By is required.</div>
                                 </div>
-                                <div class="col-3 form-group">
+                                <div class="col-lg-3 col-sm-12 col-md-6 form-group">
                                     <label for="postjob_posteddate">Posted Date*</label>
                                     <input type="date" class="form-control" id="postjob_posteddate" name="PostedDate"
                                            value="@((Model.EditJob?.PostedDate != DateTime.MinValue) ? Model.EditJob.PostedDate?.ToString("yyyy-MM-dd") : "")" required>
                                     <div class="invalid-feedback">Posted Date is required.</div>
                                 </div>
 
-                                <div class="col-3 form-group">
+                                <div class="col-lg-3 col-sm-12 col-md-6 form-group">
                                     <label for="postjob_jobtype">Job Type*</label>
                                     <select class="form-control" id="postjob_jobtype" name="JobType" required>
                                         <option selected disabled>Select Job Type</option>
@@ -87,7 +96,7 @@
                                     <div class="invalid-feedback">Job Type is required.</div>
                                 </div>
 
-                                <div class="col-3 form-group">
+                                <div class="col-lg-3 col-sm-12 col-md-6 form-group">
                                     <label for="postjob_status">Status*</label>
                                     <select class="form-control" id="postjob_status" name="Status" required>
                                         <option value="" selected disabled>Select Status</option>
@@ -99,14 +108,14 @@
 
                             </div>
                             <div class="row">
-                                <div class="col-3 form-group">
+                                <div class="col-lg-3 col-sm-12 col-md-6 form-group">
                                     <label for="postjob_salary">Salary Package*</label>
                                     <input type="text" class="form-control" id="postjob_salary" name="Salary" placeholder="Enter Package"
                                            value="@Model.EditJob.SalaryRange" required>
                                     <div class="invalid-feedback">Salary Package is required.</div>
                                 </div>
 
-                                <div class="col-3 form-group">
+                                <div class="col-lg-3 col-sm-12 col-md-6 form-group">
                                     <label for="postjob_priority">Priority*</label>
                                     <select class="form-control" id="postjob_priority" name="Priority" required>
                                         <option selected disabled>Select Priority</option>
@@ -118,14 +127,14 @@
 
                             </div>
                             <div class="row">
-                                <div class="col-12 form-group">
+                                <div class="col-lg-12 col-sm-12 col-md-12 form-group">
                                     <label for="postjob_jobdescription">Job Description*</label>
                                     <textarea class="form-control" id="postjob_jobdescription" name="JobDescription" style="height:170px;" required>@Model.EditJob.JobDescription</textarea>
                                     <div class="invalid-feedback">Job Description is required.</div>
                                 </div>
                             </div>
                             <div class="row">
-                                <div class="col-3 ml-auto" style="padding-left:150px;padding-top:20px;">
+                                <div class="col-lg-3 col-sm-12 col-md-6 ml-auto" style="padding-left:150px;padding-top:20px;padding-bottom:10px;">
                                     <button type="submit" class="btn btn-primary adminbtn_postjob">Post Job</button>
                                 </div>
                             </div>
@@ -267,8 +276,14 @@
             return;
         });
 
-        
 
+       
+            tinymce.init({
+                selector: '#postjob_jobdescription',
+            plugins: 'bold italic underline',
+            toolbar: 'bold italic underline | alignleft aligncenter alignright',
+      });
+    
 
     </script>
 

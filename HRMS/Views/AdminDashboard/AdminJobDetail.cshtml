@@ -7,12 +7,12 @@
 <div class="container-fluid res-admin-jobreferral">
     <div class="hiddenadmindashboard" style="display: none"></div>
     @Html.Partial("_adminsidemenu")
-<div class="main-content container-fluid admin-jobreferral-list-horizon admin-jobreferral-detail-horizon" style="width: 86%">
-        <div class="content admin-jobreferral" style="margin-top:20px;padding:0px">
+<div class="main-content container-fluid admin-jobreferral-list-horizon admin-jobreferral-detail-horizon">
+        <div class="content admin-jobreferral" >
             <div class="admin-jobreferal-container">
                 <div class="row admin-jobreferral-header">
                     <div class="col-lg-12 admin-jobreferral-title">
-                        <h4>@Model.jobDetail.JobTitle-@Model.jobDetail.JobID</h4>
+                        <h4><b>@Model.jobDetail.JobTitle-@Model.jobDetail.JobID</b></h4>
                     </div>
                 </div>
             </div>
@@ -20,12 +20,20 @@
             <div class="admin-jobreferral-details" id="adminJobReferralDetail">
                 <div class="row">
                     <div class="col-lg-8 admin-jobreferral-detail-left">
-                        <div class="admin-jobreferral-detail-work-block">
-                            <div class="work-block-experince">Work Experience : @Model.jobDetail.Experience</div>
-                            <div class="title-block-location">Location : @Model.jobDetail.Location</div>
+                        <div class="admin-jobreferral-detail-work-block pt-2">
+                            <div class="row">
+                                <div class="col-sm-12 col-md-6 col-lg-4">
+                                    <div class="work-block-experince"><b>Work Experience</b> : @Model.jobDetail.Experience</div>
+                                    <div class="title-block-location"><b>Location</b> : @Model.jobDetail.Location</div>
+                                </div>
+                                <div class="col-sm-12 col-md-6 col-lg-4">
+                                    <div class="title-block-salary"><b>Salary Range</b> : 50,000 to 70,000</div>
+                                </div>
+                            </div>
+                            
                         </div>
-                        <div class="admin-jobreferral-detail-desc-block">
-                            <div class="emp-jobreferral-detail-desc-title" style="font-weight:700;margin-bottom:10px;">Job Description:</div>
+                        <div class="admin-jobreferral-detail-desc-block pt-2">
+                            <div class="emp-jobreferral-detail-desc-title" style="font-weight:700;margin-bottom:10px;font-size:18px;">Job Description:</div>
                             <div>
                                 <p>@Model.jobDetail.JobDescription</p>
                             </div>                
@@ -38,12 +46,12 @@
                             <div class="admin-jobreferral-detail-body">
                                 <div class="admin-jobreferral-detail-track">
                                     <div class="row">
-                                        <div class="col-lg-2 col-md-1 col-sm-2 admin-jobreferral-detail-track-left">
+                                        <div class="col-lg-2 col-md-3 col-sm-2 admin-jobreferral-detail-track-left">
                                             <div class="userIcon"><img src="~/Assets/calender-icon.png" alt="Image" class="admin-jobreferral-detail-track-image" style="height:38px;"></div>
                                             <div class="status-line"></div>
                                         </div>
                                         
-                                        <div class="col-lg-9 col-md-10 col-sm-10 admin-jobreferral-detail-track-mid" style="padding-top:6px;line-height:1.2rem">
+                                        <div class="col-lg-9 col-md-9 col-sm-10 admin-jobreferral-detail-track-mid" style="padding-top:6px;line-height:1.2rem">
                                             <span class="admin-jobreferral-detail-track-ref">Created Date</span><br />
                                             <span class="admin-jobreferral-detail-track-refvalue">
                                                 <b>
@@ -63,10 +71,10 @@
                                
                                 <div class="admin-jobreferral-detail-track">
                                     <div class="row">
-                                        <div class="col-lg-2 col-md-1 col-sm-2 admin-jobreferral-detail-track-left">
+                                        <div class="col-lg-2 col-md-3 col-sm-2 admin-jobreferral-detail-track-left">
                                             <div class="userIcon"><img src="~/Assets/status_icon.png" alt="Image" class="admin-jobreferral-detail-track-image"  style="height:38px;"></div>
                                         </div>
-                                        <div class="col-lg-9 col-md-10 col-sm-10 admin-jobreferral-detail-track-mid" style="padding-top:6px;line-height:1.2rem;">
+                                        <div class="col-lg-9 col-md-9 col-sm-10 admin-jobreferral-detail-track-mid" style="padding-top:6px;line-height:1.2rem;">
                                             <span class="admin-jobreferral-detail-track-status">Status</span><br />
                                             <span class="admin-jobreferral-detail-track-statusvalue"><b>@Model.jobDetail.JobStatus</b></span>
                                         </div>
