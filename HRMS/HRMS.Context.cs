@@ -49,7 +49,7 @@ namespace HRMS
         public virtual DbSet<Subscription> Subscriptions { get; set; }
         public virtual DbSet<SubscriptionHistory> SubscriptionHistories { get; set; }
         public virtual DbSet<IT_Maintenance> IT_Maintenance { get; set; }
-        public virtual DbSet<JobReferral> JobReferrals { get; set; }
         public virtual DbSet<JobDetail> JobDetails { get; set; }
+        public virtual DbSet<JobReferral> JobReferrals { get; set; }
     }
 }

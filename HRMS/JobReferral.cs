@@ -20,7 +20,7 @@ namespace HRMS
         public string ResumePath { get; set; }
         public string ReferredBy { get; set; }
         public string Condidatemblnumber { get; set; }
-        public Nullable<int> ReferredById { get; set; }
+        public string ReferredById { get; set; }
         public string ReferredByEmail { get; set; }
         public Nullable<System.DateTime> ReferredDate { get; set; }
         public string CandidateStatus { get; set; }

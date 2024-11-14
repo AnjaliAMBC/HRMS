@@ -215,7 +215,7 @@ namespace HRMS.Controllers
             var cuserContext = SiteContext.GetCurrentUserContext();
             var empID = cuserContext.EmpInfo.EmployeeID;
 
-            var jobReferrals = _dbContext.JobReferrals.Where(x => x.JobID == jobID).ToList();
+            var jobReferrals = _dbContext.JobReferrals.Where(x => x.JobID == jobID && x.ReferredById == empID).ToList();
 
             var model = new EmpJobModel
             {

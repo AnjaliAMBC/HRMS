@@ -26,7 +26,7 @@
 
 
                         @{
-                            var empID = System.Convert.ToString(Model[0].ReferredById);
+                            var empID = Model[0].ReferredById;
                             var empreferred = EmployeeHelper.GetEmployeeDisplayInfo(empID);
                         }
 
@@ -54,6 +54,7 @@
                                 candidateStatus.Add("Interview");
                                 candidateStatus.Add("Hold");
                                 candidateStatus.Add("Rejected");
+                                candidateStatus.Add("Removed");
                                 candidateStatus.Add("Others");
                             }
 
