@@ -230,8 +230,7 @@
         </div>
 
         <div class="dashboard-body-block">
-            <div class="row">
-                <div class="col-lg-12 col-md-12 col-sm-12 emp-dash-block-1">
+            <div class="row"> @*row start*@
                     <div class="col-lg-4 col-md-6 col-sm-12 emp-dash-basic-info emp-dash-left-block">
                         <div class="ed-blocks ed-birthday">
                             <div class="ed-block-left ed-b-left"><img src="~/Assets/dashboard/birthday.png"></div>
@@ -300,11 +299,10 @@
                         </div>
                     </div>
 
-                </div>
-            </div>
+                
 
-            <div class="row">
-                <div class="col-lg-12 col-md-12 col-sm-12 emp-dash-block-2">
+            
+                
                     <div class="col-lg-4 col-md-6 col-sm-12 emp-dash-basic-info emp-dash-upcoming-holidays">
                         <div class="emp-dash-block-header">
                             <span class="header-title">Upcoming Holidays</span>
@@ -408,11 +406,11 @@
                             </div>
                         </div>*@
 
-                </div>
-            </div>
+                
+            
 
-            <div class="row">
-                <div class="col-lg-12 col-md-12 col-sm-12 emp-dash-block-3">
+            
+                
                     <div class="col-lg-8 col-md-6 col-sm-12 emp-dash-basic-info emp-dash-leave">
 
                         <div class="emp-dash-block-header">
@@ -478,13 +476,13 @@
                         </div>
 
                     </div>
-                </div>
+                </div> @*row end*@
             </div>
-
+            
 
         </div>
 
-    </div>
+    
     @Html.Partial("_compoff", Model.Employees)
 
 
