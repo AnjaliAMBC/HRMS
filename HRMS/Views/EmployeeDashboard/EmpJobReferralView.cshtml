@@ -167,7 +167,6 @@
 
 <script>
     $(document).ready(function () {
-
         var $btns = $('.btn').click(function () {
             if (this.id == 'all-jobs') {
                 $('#emp-jobreferal-data > div').fadeIn(450);
@@ -178,11 +177,6 @@
             $btns.removeClass('active');
             $(this).addClass('active');
         });
-
-        @*$(document).on('click', '.res-emp-jobreferral-right', function () {
-            $('#empJobReferralProcessModal').show();
-            $('#empJobReferralProcessModal').css('opacity','1');
-        });*@
 
     });
 
@@ -195,13 +189,10 @@
 
 
     $(document).ready(function () {
-        // Function to filter job items based on the selected status
         function filterJobs(status) {
-            $(".emp-jobreferal-data-block").each(function () {
-                // Get the text inside .emp-jobreferal-data-status div
+            $(".emp-jobreferal-data-block").each(function () {           
                 const jobStatus = $(this).find(".emp-jobreferal-data-status").text().trim().toLowerCase();
-
-                // Show or hide based on the filter status
+              
                 if (status === "all") {
                     $(this).show();
                 } else if (status === "open" && jobStatus === "open") {
@@ -213,8 +204,7 @@
                 }
             });
         }
-
-        // Attach click event to buttons
+       
         $("#all-jobs").on("click", function () {
             filterJobs("all");
             $(this).addClass("active").siblings().removeClass("active");
@@ -230,7 +220,6 @@
             $(this).addClass("active").siblings().removeClass("active");
         });
     });
-
 
 
 </script>
