@@ -90,8 +90,31 @@
 
                 </td>
                 <td class="fontSmall">
-                    <span class="fontWtMedium">@leave.TotalLeaveDays </span>
+
+                    @{
+                        string timespan = "";
+                        DateTime startDateTime, endDateTime;
+                    }
+                    @if (leave.LatestLeave.leavesource == "Hourly Permission"
+                        && leave.LatestLeave.StartTime.HasValue
+                        && leave.LatestLeave.EndTime.HasValue)
+                    {
+                        // Convert TimeSpan to DateTime at midnight (00:00) to apply AM/PM formatting
+                        startDateTime = DateTime.Today.Add(leave.LatestLeave.StartTime.Value);
+                        endDateTime = DateTime.Today.Add(leave.LatestLeave.EndTime.Value);
+
+                        // Format to 12-hour AM/PM format
+                        timespan = startDateTime.ToString("h:mm tt") + " - " + endDateTime.ToString("h:mm tt");
+
+                        <span class="fontWtMedium">@leave.TotalLeaveDays (@timespan)</span>
+                    }
+                    else
+                    {
+                        <span class="fontWtMedium">@leave.TotalLeaveDays</span>
+                    }                    
+
                 </td>
+
                 <td style="width: 420px;" class="fontSmall commentSec">
                     <div class="dFlex d-flex">
                         <p title="@leave.LatestLeave.leave_reason">@leave.LatestLeave.leave_reason</p>
