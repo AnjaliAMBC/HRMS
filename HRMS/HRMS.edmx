@@ -308,6 +308,7 @@
           <Property Name="JobDescription" Type="varchar(max)" />
           <Property Name="UpdatedBy" Type="varchar" MaxLength="255" />
           <Property Name="UpdatedDate" Type="datetime" />
+          <Property Name="TotalReferrers" Type="int" />
         </EntityType>
         <EntityType Name="JobReferral">
           <Key>
@@ -1187,6 +1188,7 @@ warning 6002: The table/view 'HRMS_PortalDev1.dbo.CheckInView' does not have a p
           <Property Name="JobDescription" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
           <Property Name="UpdatedBy" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
           <Property Name="UpdatedDate" Type="DateTime" Precision="3" />
+          <Property Name="TotalReferrers" Type="Int32" />
         </EntityType>
       </Schema>
     </edmx:ConceptualModels>
@@ -1750,6 +1752,7 @@ warning 6002: The table/view 'HRMS_PortalDev1.dbo.CheckInView' does not have a p
           <EntitySetMapping Name="JobDetails">
             <EntityTypeMapping TypeName="HRMS_EntityModel.JobDetail">
               <MappingFragment StoreEntitySet="JobDetails">
+                <ScalarProperty Name="TotalReferrers" ColumnName="TotalReferrers" />
                 <ScalarProperty Name="UpdatedDate" ColumnName="UpdatedDate" />
                 <ScalarProperty Name="UpdatedBy" ColumnName="UpdatedBy" />
                 <ScalarProperty Name="JobDescription" ColumnName="JobDescription" />

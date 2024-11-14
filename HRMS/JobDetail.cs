@@ -27,5 +27,6 @@ namespace HRMS
         public string JobDescription { get; set; }
         public string UpdatedBy { get; set; }
         public Nullable<System.DateTime> UpdatedDate { get; set; }
+        public Nullable<int> TotalReferrers { get; set; }
     }
 }

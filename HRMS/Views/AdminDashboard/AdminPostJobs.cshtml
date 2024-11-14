@@ -92,7 +92,7 @@
                                     <select class="form-control" id="postjob_status" name="Status" required>
                                         <option value="" selected disabled>Select Status</option>
                                         <option value="Open" @(Model.EditJob.JobStatus == "Open" ? "selected" : "")>Open</option>
-                                        <option value="Close" @(Model.EditJob.JobStatus == "Close" ? "selected" : "")>Close</option>
+                                        <option value="Closed" @(Model.EditJob.JobStatus == "Closed" ? "selected" : "")>Closed</option>
                                     </select>
                                     <div class="invalid-feedback">Status is required.</div>
                                 </div>
@@ -151,7 +151,7 @@
                     <p id="modalMessage"></p>
                 </div>
                 <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                    <button type="button" class="btn btn-secondary btn-close-postjobs" data-dismiss="modal">Close</button>
                 </div>
             </div>
         </div>
@@ -160,11 +160,12 @@
 
     <script>
 
-        $(document).on('click', '.adminbtn_postjob', function () {
+        $(document).on('click', '.adminbtn_postjob', function (event) {
+            event.preventDefault();
             validateForm();
         });
 
-        function validateForm() {
+        function validateForm(event) {
             const form = $('#adminpostjob');
             const inputs = form.find('input, select, textarea');
             let isValid = true;
@@ -197,17 +198,17 @@
             }
 
             if (isValid) {
-                submitForm();
+                submitForm(event);
             } else {
                 $('#modalMessage')
                     .text("Please fill in all required fields.")
                     .addClass('text-danger')
                     .removeClass('text-success');
-                           }
+            }
         }
 
         function submitForm() {
-            const jobId = $("#postjob_jobid").val();  // Use the hidden field to determine if it’s an edit
+            const jobId = $("#postjob_referalId").val();
             const formData = {
                 JobID: jobId,
                 JobTitle: $("#postjob_jobtitle").val(),
@@ -225,10 +226,10 @@
             console.log("Submitting form with data:", formData);
 
             $.ajax({
-                url: '/AdminDashboard/PostJob',
+                url: '/admindashboard/postjob',
                 type: 'POST',
-                data: formData,
-                dataType: 'json',
+                data: JSON.stringify(formData),
+                contentType: 'application/json',
                 beforeSend: function () {
                     $('.show-progress').show();
                 },
@@ -238,7 +239,7 @@
                         $('#modalMessage').text(jobId ? "Job updated successfully!" : "Job posted successfully!")
                             .addClass('text-success')
                             .removeClass('text-danger');
-                        $('#jobModal').modal('show');                        
+                        $('#jobModal').modal('show');
                         $('.is-invalid').removeClass('is-invalid');
                     } else {
                         $('#modalMessage').text("Error: " + response.message)
@@ -258,6 +259,16 @@
                 }
             });
         }
+
+
+        $(document).on('click', '.btn-close-postjobs', function (event) {
+            event.preventDefault();
+            window.location.href = "/admindashboard/adminjoblisting";
+            return;
+        });
+
+        
+
 
     </script>
 
