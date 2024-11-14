@@ -20,20 +20,23 @@ namespace HRMS.Helpers
         public List<AnniversaryModel> Anniversary()
         {
             var today = DateTime.Today;
-            var anniversaries = _dbContext.emp_info.Where(e => e.DOJ.Month == today.Month && e.DOJ.Day == today.Day).Select(e => new AnniversaryModel
-            {
-                EmpName = e.EmployeeName,
-                Designation = e.Designation,
-                imagePath = e.imagepath,
-                years = today.Year - e.DOJ.Year,
-                EmpEmail = e.OfficalEmailid,
-                Empid = e.EmployeeID,
-                EmpInfo = e
-
-            }).ToList();
+            var anniversaries = _dbContext.emp_info
+                .Where(e => e.DOJ.Month == today.Month && e.DOJ.Day == today.Day && (today.Year - e.DOJ.Year) >= 1)
+                .Select(e => new AnniversaryModel
+                {
+                    EmpName = e.EmployeeName,
+                    Designation = e.Designation,
+                    imagePath = e.imagepath,
+                    years = today.Year - e.DOJ.Year,
+                    EmpEmail = e.OfficalEmailid,
+                    Empid = e.EmployeeID,
+                    EmpInfo = e
+                })
+                .ToList();
 
             return anniversaries;
         }
+
         public List<BirthdayModel> Birthday()
         {
             var today = DateTime.Today;

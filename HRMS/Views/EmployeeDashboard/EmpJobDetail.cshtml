@@ -97,38 +97,56 @@
                                     <div class="emp-jobreferral-detail-type-title">Zip/Postal Code</div>
                                     <div class="emp-jobreferral-detail-type-desc">41001</div>
                                 </div>-->
-                                @*<div class="col-lg-4 emp-jobreferral-detail-type-info emp-job-ref-btn">
-                                        <button class="btn" data-toggle="modal" data-target="#ReferFriendPopup">Refer a friend</button>
-                                    </div>*@
-                            <!--</div>
+                        @*<div class="col-lg-4 emp-jobreferral-detail-type-info emp-job-ref-btn">
+                                <button class="btn" data-toggle="modal" data-target="#ReferFriendPopup">Refer a friend</button>
+                            </div>*@
+                        <!--</div>
                         </div>-->
 
                     </div>
                     <div class="col-lg-4 emp-jobreferral-detail-right">
                         <div class="emp-jobreferral-detail-right-info">
                             <div class="emp-jobreferral-detail-title">Track Referal Status</div>
-                            <div class="emp-jobreferral-detail-body">
-                                <div class="emp-jobreferral-detail-track">
-                                    <div class="col-lg-1 col-md-1 col-sm-2 emp-jobreferral-detail-track-left">
-                                        <div class="userIcon"><img src="~/Assets/calender-icon.png" alt="Image" class="emp-jobreferral-detail-track-image"></div>
-                                        <div class="vl"></div>
+                            @foreach (var jobRefer in Model.jobReferrals)
+                            {
+                                <div class="emp-jobreferral-detail-body">
+                                    <div class="emp-jobreferral-detail-track">
+                                        <div class="col-lg-1 col-md-1 col-sm-2 emp-jobreferral-detail-track-left">
+                                            <div class="userIcon"><img src="~/Assets/calender-icon.png" alt="Image" class="emp-jobreferral-detail-track-image"></div>
+                                            <div class="vl"></div>
+                                        </div>
+                                        <span class="col-lg-10 col-md-10 col-sm-9 emp-jobreferral-detail-track-mid">
+                                            <div class="emp-jobreferral-detail-track-ref">Referred Date</div>
+                                            <div class="emp-jobreferral-detail-track-status">
+                                                @(jobRefer.ReferredDate?.ToString("dd MMMM yyyy") ?? "No Date Available")
+                                            </div>
+
+                                        </span>
                                     </div>
-                                    <span class="col-lg-10 col-md-10 col-sm-9 emp-jobreferral-detail-track-mid">
-                                        <div class="emp-jobreferral-detail-track-ref">Referred Date</div>
-                                        <div class="emp-jobreferral-detail-track-status">05 October 2024</div>
-                                    </span>
-                                </div>
-                                <div class="emp-jobreferral-detail-track">
-                                    <div class="col-lg-1 col-md-1 col-sm-2 emp-jobreferral-detail-track-left">
-                                        <div class="userIcon"><img src="~/Assets/status-icon.png" alt="Image" class="emp-jobreferral-detail-track-image"></div>
-                                        <div class="vl"></div>
+                                    <div class="emp-jobreferral-detail-track">
+                                        <div class="col-lg-1 col-md-1 col-sm-2 emp-jobreferral-detail-track-left">
+                                            <div class="userIcon"><img src="~/Assets/status-icon.png" alt="Image" class="emp-jobreferral-detail-track-image"></div>
+                                            <div class="vl"></div>
+                                        </div>
+                                        <span class="col-lg-10 col-md-10 col-sm-9 emp-jobreferral-detail-track-mid">
+                                            <div class="emp-jobreferral-detail-track-ref">Candidate Name</div>
+                                            <div class="emp-jobreferral-detail-track-status">@jobRefer.CandidateName</div>
+                                        </span>
                                     </div>
-                                    <span class="col-lg-10 col-md-10 col-sm-9 emp-jobreferral-detail-track-mid">
-                                        <div class="emp-jobreferral-detail-track-ref">Status</div>
-                                        <div class="emp-jobreferral-detail-track-status">Selected</div>
-                                    </span>
+                                    <div class="emp-jobreferral-detail-track">
+                                        <div class="col-lg-1 col-md-1 col-sm-2 emp-jobreferral-detail-track-left">
+                                            <div class="userIcon"><img src="~/Assets/status-icon.png" alt="Image" class="emp-jobreferral-detail-track-image"></div>
+                                            <div class="vl"></div>
+                                        </div>
+                                        <span class="col-lg-10 col-md-10 col-sm-9 emp-jobreferral-detail-track-mid">
+                                            <div class="emp-jobreferral-detail-track-ref">Status</div>
+                                            <div class="emp-jobreferral-detail-track-status">@jobRefer.CandidateStatus</div>
+                                        </span>
+                                    </div>
                                 </div>
-                            </div>
+
+                                <hr />
+                            }
                         </div>
 
                     </div>
@@ -182,10 +200,10 @@
                         <span class="referfriend-upload-btn">
                             <span class="referfriend-attach-upload-btn-wrapper">
                                 <button type="button" class="btn referfriend-attach-label" disabled>Upload your resume/CV</button>
-                                <input type="file" id="referfriend-attach-file-upload" name="Attachment" accept=".doc, .docx, .pdf, .odt, .rtf">
+                                <input type="file" id="referfriend-attach-file-upload" name="Attachment" accept=".doc, .docx, .pdf">
                             </span>
                             <span class="referfriend-file-name"></span>
-                            <div class="referfriend-attach-file-upload-size">Only doc, docx, pdf, odt, rtf</div>
+                            <div class="referfriend-attach-file-upload-size">Only doc, docx, pdf</div>
                         </span>
                         <span class="error-message" id="referfriend-attach-error"></span>
                     </div>
@@ -220,7 +238,7 @@
                     <div class="col-lg-12 col-md-12 text-right">
                         <button type="button" class="btn btn-primary referfriend-submit" data-maintenancesno="">Submit</button>
                     </div>
-                </div>               
+                </div>
             </div>
         </div>
     </div>

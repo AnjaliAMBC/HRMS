@@ -17,12 +17,13 @@ $(document).on('click', '.btn_admin_postjobreferal', function () {
     window.location.href = "/AdminDashboard/AdminPostJobs";
 });
 
-$(document).on('click', '[data-toggle="modal"]', function () {    
-    var jobID = $(this).data('jobid');    
-    var empID = $('.loggedinempid').text();  
-    
+$(document).on('click', '[data-toggle="modal"]', function () {
+    var jobID = $(this).data('jobid');
+    var empID = $('.loggedinempid').text();
+    $(".referfriend-submit").next('.message').text("");
+
     $('#ReferFriendPopup').find('#ReferFriend-JobID').val(jobID);
-    
+
     $('#ReferFriendPopup').find('#ReferFriend-EmployeeID').val(empID);
 });
 
@@ -32,6 +33,7 @@ $(document).on('click', '.referfriend-submit', function () {
     var candidateName = $("#ReferFriend-ReferralName").val();
     var candidateContact = $("#ReferFriend-Contact").val();
     var referredBy = $("#ReferFriend-Referredby").val();
+    var ReferredByID = $('#ReferFriend-Referralid').val();
     var referredByEmail = $("#ReferFriend-ReferralEmail").val();
     var file = $("#referfriend-attach-file-upload")[0].files[0];
 
@@ -56,7 +58,7 @@ $(document).on('click', '.referfriend-submit', function () {
         isValid = false;
     }
 
-    if (file) {       
+    if (file) {
         var allowedFileTypes = ['.doc', '.docx', '.pdf'];
         var fileExtension = file.name.split('.').pop().toLowerCase();
         if (!allowedFileTypes.includes('.' + fileExtension)) {
@@ -69,7 +71,7 @@ $(document).on('click', '.referfriend-submit', function () {
     }
 
     if (!isValid) {
-        return; 
+        return;
     }
 
     var formData = new FormData();
@@ -77,22 +79,26 @@ $(document).on('click', '.referfriend-submit', function () {
     formData.append("CandidateName", candidateName);
     formData.append("CandidateContact", candidateContact);
     formData.append("ReferredBy", referredBy);
+    formData.append("ReferredByID", ReferredByID);
+
     formData.append("ReferredByEmail", referredByEmail);
     if (file) {
-        formData.append("ResumePath", file);
+        formData.append("Resume", file);
     }
 
-  
+
     $.ajax({
-        url: '/EmpDash/ReferJob',  
+        url: '/EmpDash/ReferJob',
         type: 'POST',
         data: formData,
-        contentType: false, 
-        processData: false, 
+        contentType: false,
+        processData: false,
         success: function (response) {
             if (response.success) {
                 displayMessage('Referral submitted successfully!', 'success');
-                $('#ReferFriendPopup input').val('');
+                $('#ReferFriend-Contact').val('');
+                $('#ReferFriend-ReferralName').val('');
+                $('#ReferFriend-ReferralEmail').val('');
                 $('#referfriend-attach-file-upload').val('');
                 $('.referfriend-file-name').text('');
                 $("#ReferFriend-Contact").val('');
@@ -157,7 +163,39 @@ $(document).on('change', '#referfriend-attach-file-upload', function () {
     var file = this.files[0];
     if (file) {
         $('.referfriend-file-name').text(file.name);
-    } else {        
+    } else {
         $('.referfriend-file-name').text('');
     }
+});
+
+$(document).on('click', '.admin_applied_jobreferal', function () {
+    var jobId = $(this).data('jobid');
+
+    $.ajax({
+        url: '/admindashboard/loadcandidates',
+        type: 'GET',
+        data: { jobId: jobId },
+        success: function (result) {
+            $('#adminJobReferralProcessModal .modal-body').html(result);
+            $('#adminJobReferralProcessModal').modal('show');
+        },
+        error: function () {
+            alert('Failed to load candidates.');
+        }
+    });
+});
+
+
+$(document).on('change', '#jobreferred_status_data', function () {
+    var sno = $(this).data('sno');
+
+    $.ajax({
+        url: '/admindashboard/candidatestatusupdate',
+        type: 'POST',
+        data: { sno: sno, status: $('#jobreferred_status_data').val() },
+        success: function (result) {
+        },
+        error: function () {
+        }
+    });
 });

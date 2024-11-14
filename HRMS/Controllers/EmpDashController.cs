@@ -193,7 +193,7 @@ namespace HRMS.Controllers
             return Json(null, JsonRequestBehavior.AllowGet);
 
         }
-      
+
 
         public ActionResult JobReferral()
         {
@@ -203,9 +203,9 @@ namespace HRMS.Controllers
 
             var model = new EmpJobModel
             {
-                jobdetail = jobListings  
+                jobdetail = jobListings
             };
-            
+
             return View("/Views/EmployeeDashboard/EmpJobReferralView.cshtml", model);
         }
 
@@ -215,73 +215,87 @@ namespace HRMS.Controllers
             var cuserContext = SiteContext.GetCurrentUserContext();
             var empID = cuserContext.EmpInfo.EmployeeID;
 
+            var jobReferrals = _dbContext.JobReferrals.Where(x => x.JobID == jobID && x.ReferredById == empID).ToList();
+
             var model = new EmpJobModel
             {
                 jobInfo = jobDetail,
-                EmpInfo = cuserContext.EmpInfo,                
+                EmpInfo = cuserContext.EmpInfo,
+                jobReferrals = jobReferrals
             };
 
             return View("/Views/EmployeeDashboard/EmpJobDetail.cshtml", model);
         }
 
         [HttpPost]
-        public JsonResult ReferJob(int jobID, string candidateName, string referredBy, string candidateMobileNumber, string referredByEmail, HttpPostedFileBase file)
+        public JsonResult ReferJob()
         {
             try
             {
-                string resumePath = null;
-                
-                if (file != null)
+                int JobID = Convert.ToInt32(Request.Form["JobID"]);
+                string CandidateName = Request.Form["CandidateName"];
+                string ReferredBy = Request.Form["ReferredBy"];
+                string ReferredByID = Request.Form["ReferredByID"];
+                string Condidatemblnumber = Request.Form["Condidatemblnumber"];
+                string ReferredByEmail = Request.Form["ReferredByEmail"];
+
+                HttpPostedFileBase friendResume = Request.Files["Resume"];
+                string resumeName = "";
+
+                if (friendResume != null)
                 {
-                    
-                    if (file.ContentType == "application/msword" ||
-                        file.ContentType == "application/vnd.openxmlformats-officedocument.wordprocessingml.document" ||
-                        file.ContentType == "application/pdf")
-                    {                        
-                        var ticketingFolderPath = ConfigurationManager.AppSettings["TicketingFolderPath"];
-                       
-                        string resumeFolderPath = Path.Combine(ticketingFolderPath, "Resume");
-
-                        if (!Directory.Exists(resumeFolderPath))
-                        {
-                            Directory.CreateDirectory(resumeFolderPath);
-                        }
-
-                        string fileName = Path.GetFileName(file.FileName);
-                        resumePath = Path.Combine(resumeFolderPath, fileName);
-
-                        file.SaveAs(resumePath);
-                    }
-                    else
+                    var ticketingFolderPath = ConfigurationManager.AppSettings["TicketingFolderPath"];
+                    string resumeFolderPath = Path.Combine(ticketingFolderPath, "Resume");
+                    if (!Directory.Exists(resumeFolderPath))
                     {
-                        return Json(new { success = false, message = "Invalid file type. Only doc, docx, and pdf files are allowed." });
+                        Directory.CreateDirectory(resumeFolderPath);
                     }
+                    resumeName = Path.GetFileName(friendResume.FileName);
+                    string resumePath = Path.Combine(resumeFolderPath, resumeName);
+                    friendResume.SaveAs(resumePath);
                 }
-                else
-                {
-                    return Json(new { success = false, message = "Please upload a file." });
-                }
+
+
 
                 // Save referral details to the database
                 var referral = new JobReferral
                 {
-                    JobID = jobID,
-                    CandidateName = candidateName,
-                    ResumePath = resumePath,
-                    ReferredBy = referredBy,
-                    Condidatemblnumber = candidateMobileNumber,
-                    ReferredByEmail = referredByEmail,
-                    ReferredDate = DateTime.Now
+                    JobID = JobID,
+                    CandidateName = CandidateName,
+                    ResumePath = resumeName,
+                    ReferredBy = ReferredBy,
+                    Condidatemblnumber = Condidatemblnumber,
+                    ReferredByEmail = ReferredByEmail,
+                    ReferredDate = DateTime.Now,
+                    CandidateStatus = "Open"
                 };
 
                 _dbContext.JobReferrals.Add(referral);
                 _dbContext.SaveChanges();
 
+
+                var jobItem = _dbContext.JobDetails.Where(x => x.JobID == JobID).FirstOrDefault();
+                if (jobItem != null)
+                {
+                    // Check if TotalReferrers is null, set it to 0 if it is
+                    if (jobItem.TotalReferrers == null)
+                    {
+                        jobItem.TotalReferrers = 0;
+                    }
+
+                    jobItem.TotalReferrers += 1;
+                    _dbContext.SaveChanges();
+                }
+
                 return Json(new { success = true, message = "Referral submitted successfully!" });
             }
             catch (Exception ex)
             {
-                return Json(new { success = false, message = "Error: " + ex.Message });
+                return Json(new
+                {
+                    success = false,
+                    message = "Error: " + ex.Message
+                });
             }
         }
 
@@ -295,9 +309,9 @@ namespace HRMS.Controllers
             var holidayList = _dbContext.tblambcholidays.ToList();
 
             var filteredHolidays = holidayList
-       .Where(x => x.region.Split(',').Select(r => r.Trim().ToLower()).Contains(employeeLocation.ToLower())) // Filter in-memory
-       .OrderBy(x => x.holiday_date) // Sort holidays by date
-       .ToList();
+        .Where(x => x.region.Split(',').Select(r => r.Trim().ToLower()).Contains(employeeLocation.ToLower())) // Filter in-memory
+        .OrderBy(x => x.holiday_date) // Sort holidays by date
+        .ToList();
 
             model.Holidays = filteredHolidays;
             model.Employees = _dbContext.emp_info.Where(x => x.EmployeeStatus == "Active").ToList();
@@ -365,6 +379,5 @@ namespace HRMS.Controllers
                 return Json(new { success = false, message = "An error occurred while processing your request." });
             }
         }
-
     }
 }

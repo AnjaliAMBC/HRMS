@@ -308,6 +308,7 @@
           <Property Name="JobDescription" Type="varchar(max)" />
           <Property Name="UpdatedBy" Type="varchar" MaxLength="255" />
           <Property Name="UpdatedDate" Type="datetime" />
+          <Property Name="TotalReferrers" Type="int" />
         </EntityType>
         <EntityType Name="JobReferral">
           <Key>
@@ -319,7 +320,7 @@
           <Property Name="ResumePath" Type="varchar(max)" />
           <Property Name="ReferredBy" Type="varchar" MaxLength="255" />
           <Property Name="Condidatemblnumber" Type="varchar" MaxLength="50" />
-          <Property Name="ReferredById" Type="int" />
+          <Property Name="ReferredById" Type="varchar" MaxLength="50" />
           <Property Name="ReferredByEmail" Type="varchar" MaxLength="100" />
           <Property Name="ReferredDate" Type="datetime" />
           <Property Name="CandidateStatus" Type="varchar" MaxLength="100" />
@@ -652,8 +653,8 @@ warning 6002: The table/view 'HRMS_PortalDev1.dbo.CheckInView' does not have a p
           <EntitySet Name="Subscriptions" EntityType="HRMS_EntityModel.Subscription" />
           <EntitySet Name="SubscriptionHistories" EntityType="HRMS_EntityModel.SubscriptionHistory" />
           <EntitySet Name="IT_Maintenance" EntityType="HRMS_EntityModel.IT_Maintenance" />
-          <EntitySet Name="JobReferrals" EntityType="HRMS_EntityModel.JobReferral" />
           <EntitySet Name="JobDetails" EntityType="HRMS_EntityModel.JobDetail" />
+          <EntitySet Name="JobReferrals" EntityType="HRMS_EntityModel.JobReferral" />
         </EntityContainer>
         <EntityType Name="Client">
           <Key>
@@ -1154,22 +1155,6 @@ warning 6002: The table/view 'HRMS_PortalDev1.dbo.CheckInView' does not have a p
           <Property Name="UpdateDate" Type="DateTime" Precision="3" />
           <Property Name="AgentID" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
         </EntityType>
-        <EntityType Name="JobReferral">
-          <Key>
-            <PropertyRef Name="Sno" />
-          </Key>
-          <Property Name="Sno" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="JobID" Type="Int32" />
-          <Property Name="CandidateName" Type="String" Nullable="false" MaxLength="255" FixedLength="false" Unicode="false" />
-          <Property Name="ResumePath" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
-          <Property Name="ReferredBy" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
-          <Property Name="Condidatemblnumber" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
-          <Property Name="ReferredById" Type="Int32" />
-          <Property Name="ReferredByEmail" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
-          <Property Name="ReferredDate" Type="DateTime" Precision="3" />
-          <Property Name="CandidateStatus" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
-          <Property Name="CreatedDate" Type="DateTime" Precision="3" />
-        </EntityType>
         <EntityType Name="JobDetail">
           <Key>
             <PropertyRef Name="JobID" />
@@ -1187,6 +1172,23 @@ warning 6002: The table/view 'HRMS_PortalDev1.dbo.CheckInView' does not have a p
           <Property Name="JobDescription" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
           <Property Name="UpdatedBy" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
           <Property Name="UpdatedDate" Type="DateTime" Precision="3" />
+          <Property Name="TotalReferrers" Type="Int32" />
+        </EntityType>
+        <EntityType Name="JobReferral">
+          <Key>
+            <PropertyRef Name="Sno" />
+          </Key>
+          <Property Name="Sno" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="JobID" Type="Int32" />
+          <Property Name="CandidateName" Type="String" Nullable="false" MaxLength="255" FixedLength="false" Unicode="false" />
+          <Property Name="ResumePath" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="ReferredBy" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+          <Property Name="Condidatemblnumber" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="ReferredById" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="ReferredByEmail" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="ReferredDate" Type="DateTime" Precision="3" />
+          <Property Name="CandidateStatus" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="CreatedDate" Type="DateTime" Precision="3" />
         </EntityType>
       </Schema>
     </edmx:ConceptualModels>
@@ -1730,6 +1732,26 @@ warning 6002: The table/view 'HRMS_PortalDev1.dbo.CheckInView' does not have a p
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
+          <EntitySetMapping Name="JobDetails">
+            <EntityTypeMapping TypeName="HRMS_EntityModel.JobDetail">
+              <MappingFragment StoreEntitySet="JobDetails">
+                <ScalarProperty Name="TotalReferrers" ColumnName="TotalReferrers" />
+                <ScalarProperty Name="UpdatedDate" ColumnName="UpdatedDate" />
+                <ScalarProperty Name="UpdatedBy" ColumnName="UpdatedBy" />
+                <ScalarProperty Name="JobDescription" ColumnName="JobDescription" />
+                <ScalarProperty Name="Priority" ColumnName="Priority" />
+                <ScalarProperty Name="SalaryRange" ColumnName="SalaryRange" />
+                <ScalarProperty Name="JobStatus" ColumnName="JobStatus" />
+                <ScalarProperty Name="JobType" ColumnName="JobType" />
+                <ScalarProperty Name="PostedDate" ColumnName="PostedDate" />
+                <ScalarProperty Name="PostedBy" ColumnName="PostedBy" />
+                <ScalarProperty Name="Location" ColumnName="Location" />
+                <ScalarProperty Name="Experience" ColumnName="Experience" />
+                <ScalarProperty Name="JobTitle" ColumnName="JobTitle" />
+                <ScalarProperty Name="JobID" ColumnName="JobID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
           <EntitySetMapping Name="JobReferrals">
             <EntityTypeMapping TypeName="HRMS_EntityModel.JobReferral">
               <MappingFragment StoreEntitySet="JobReferral">
@@ -1744,25 +1766,6 @@ warning 6002: The table/view 'HRMS_PortalDev1.dbo.CheckInView' does not have a p
                 <ScalarProperty Name="CandidateName" ColumnName="CandidateName" />
                 <ScalarProperty Name="JobID" ColumnName="JobID" />
                 <ScalarProperty Name="Sno" ColumnName="Sno" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="JobDetails">
-            <EntityTypeMapping TypeName="HRMS_EntityModel.JobDetail">
-              <MappingFragment StoreEntitySet="JobDetails">
-                <ScalarProperty Name="UpdatedDate" ColumnName="UpdatedDate" />
-                <ScalarProperty Name="UpdatedBy" ColumnName="UpdatedBy" />
-                <ScalarProperty Name="JobDescription" ColumnName="JobDescription" />
-                <ScalarProperty Name="Priority" ColumnName="Priority" />
-                <ScalarProperty Name="SalaryRange" ColumnName="SalaryRange" />
-                <ScalarProperty Name="JobStatus" ColumnName="JobStatus" />
-                <ScalarProperty Name="JobType" ColumnName="JobType" />
-                <ScalarProperty Name="PostedDate" ColumnName="PostedDate" />
-                <ScalarProperty Name="PostedBy" ColumnName="PostedBy" />
-                <ScalarProperty Name="Location" ColumnName="Location" />
-                <ScalarProperty Name="Experience" ColumnName="Experience" />
-                <ScalarProperty Name="JobTitle" ColumnName="JobTitle" />
-                <ScalarProperty Name="JobID" ColumnName="JobID" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

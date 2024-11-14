@@ -1,0 +1,81 @@
+﻿@model  List<HRMS.JobReferral>
+
+@using HRMS.Helpers
+
+<table id="admin_candidatelist_jobreferal" class="display" style="width: 100%;">
+    <thead class="canjref_thead">
+        <tr>
+            <th>Candidate Name</th>
+            <th>Resume</th>
+            <th>Referred By</th>
+            <th>Referred Date</th>
+            <th>Status</th>
+        </tr>
+    </thead>
+    <tbody class="canjref_tbody">
+
+        @if (Model != null && Model.Any())
+        {
+            foreach (var candidate in Model)
+            {
+                <tr>
+                    <td class="jobreferred_candidatename">@candidate.CandidateName</td>
+                    <td class="jobreferred_resume"><a href="@candidate.ResumePath">Resume</a></td>
+                    <td class="jobreferred_by d-flex">
+                        <img src="@candidate.CandidateName" alt="" class="">
+
+
+                        @{
+                            var empID = Model[0].ReferredById;
+                            var empreferred = EmployeeHelper.GetEmployeeDisplayInfo(empID);
+                        }
+
+                        @if (!string.IsNullOrWhiteSpace(empreferred.ImageSrc))
+                        {
+                            <img src="@empreferred.ImageSrc" alt="Employee Image" class="jobreffered_by_image mt-1">
+                        }
+                        else
+                        {
+                            <div class="emp-dash-modal-navbar">@empreferred.EmpShortName</div>
+                        }
+                        <span class="employee-details mt-2 ml-2">
+                            @candidate.ReferredBy<br />
+                            <small>@candidate.ReferredByEmail</small>
+                        </span>
+                    </td>
+                    <td class="jobreferred_date">@candidate.ReferredDate</td>
+                    <td class="jobreferred_status">
+                        <select class="form-control" data-sno="@candidate.Sno" id="jobreferred_status_data" required>
+                            <option value="" selected disabled>Status</option>
+                            @{
+                                var candidateStatus = new List<string>();
+                                candidateStatus.Add("Selected");
+                                candidateStatus.Add("Open");
+                                candidateStatus.Add("Interview");
+                                candidateStatus.Add("Hold");
+                                candidateStatus.Add("Rejected");
+                                candidateStatus.Add("Removed");
+                                candidateStatus.Add("Others");
+                            }
+
+                            @foreach (var item in candidateStatus)
+                            {
+                                var selectedstatus = !string.IsNullOrEmpty(candidate.CandidateStatus) && (candidate.CandidateStatus == item) ? "selected" : "";
+                                <option value="@item" @selectedstatus>@item</option>
+                            }
+
+                        </select>
+                    </td>
+                </tr>
+            }
+        }
+        else
+        {
+            <tr>
+                <td colspan="5"> No Results found</td>
+            </tr>
+        }
+
+
+    </tbody>
+</table>
