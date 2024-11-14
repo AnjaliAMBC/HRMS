@@ -11,6 +11,7 @@ using System.Web.Mvc;
 
 namespace HRMS.Controllers
 {
+    using static HRMS.Helpers.PartialViewHelper;
     using Helpers;
     using HRMS.Models;
     using HRMS.Services;
@@ -241,21 +242,25 @@ namespace HRMS.Controllers
 
                 HttpPostedFileBase friendResume = Request.Files["Resume"];
                 string resumeName = "";
+                string resumePath = "";
 
                 if (friendResume != null)
                 {
                     var ticketingFolderPath = ConfigurationManager.AppSettings["TicketingFolderPath"];
                     string resumeFolderPath = Path.Combine(ticketingFolderPath, "Resume");
+
+                    // Ensure the resume folder exists
                     if (!Directory.Exists(resumeFolderPath))
                     {
                         Directory.CreateDirectory(resumeFolderPath);
                     }
+
                     resumeName = Path.GetFileName(friendResume.FileName);
-                    string resumePath = Path.Combine(resumeFolderPath, resumeName);
+                    resumePath = Path.Combine(resumeFolderPath, resumeName);
+
+                    // Save the resume file
                     friendResume.SaveAs(resumePath);
                 }
-
-
 
                 // Save referral details to the database
                 var referral = new JobReferral
@@ -273,22 +278,33 @@ namespace HRMS.Controllers
                 _dbContext.JobReferrals.Add(referral);
                 _dbContext.SaveChanges();
 
+                // Render the email body from a partial view
+                var emailBody = RenderPartialToString(this, "_JobReferralNotificationEmail", referral, ViewData, TempData);
 
-                var jobItem = _dbContext.JobDetails.Where(x => x.JobID == JobID).FirstOrDefault();
+                // Prepare the email request with attachment
+                var emailRequest = new EmailRequest
+                {
+                    Body = emailBody,
+                    ToEmail = ConfigurationManager.AppSettings["JobReferalNotification"],
+                    CCEmail = ConfigurationManager.AppSettings["JobReferalNotificationCC"],
+                    Subject = $"Resume Referral: {referral.CandidateName}",
+                    AttachmentPath = resumePath // Use the actual saved path of the resume
+                };
+
+                // Send the email
+                EMailHelper.SendEmail(emailRequest);
+
+                // Update job item referrer count if it exists
+                var jobItem = _dbContext.JobDetails.FirstOrDefault(x => x.JobID == JobID);
                 if (jobItem != null)
                 {
-                    // Check if TotalReferrers is null, set it to 0 if it is
-                    if (jobItem.TotalReferrers == null)
-                    {
-                        jobItem.TotalReferrers = 0;
-                    }
-
-                    jobItem.TotalReferrers += 1;
+                    jobItem.TotalReferrers = (jobItem.TotalReferrers ?? 0) + 1;
                     _dbContext.SaveChanges();
                 }
 
                 return Json(new { success = true, message = "Referral submitted successfully!" });
             }
+
             catch (Exception ex)
             {
                 return Json(new

@@ -144,7 +144,7 @@ function displayMessage(message, type) {
     // Create the message span if it doesn't exist
     var messageSpan = $(".referfriend-submit").next('.message');
     if (!messageSpan.length) {
-        messageSpan = $('<span class="message"></span>').insertAfter(".referfriend-submit");
+        messageSpan = $('<div class="message" style="text-align: left;"></div>').insertAfter(".referfriend-submit");
     }
 
     // Set the message text and style based on the type

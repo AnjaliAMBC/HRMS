@@ -1,0 +1,28 @@
+﻿@model HRMS.JobReferral
+
+<div>
+    <p>Dear HR/Recruitment Team,</p>
+
+    <p>I would like to refer my friend for a job opening at our company. Here are the details:</p>
+
+    <ul>
+        <li><strong>Referrer Name:</strong> @Model.ReferredBy</li>
+        <li><strong>Friend’s Name:</strong> @Model.CandidateName</li>
+        <li><strong>Friend’s Email:</strong> @Model.ReferredByEmail</li>
+        <li><strong>Job ID:</strong> @Model.JobID</li>
+       
+    </ul>
+
+    <p>Thank you for considering this referral. Please let me know if further information is needed.</p>
+
+    <p>
+        Best regards,<br />
+        @Model.ReferredBy
+    </p>
+
+    <div style="font-family: Calibri; color: #696969; font-size: 1.1em; margin-top: 20px; text-align: center;">
+        This is an automated email, please do not reply.
+        <br />
+        Automated mail from <a href="https://prm.ambctechnologies.com" style="color: #2693F8;">https://prm.ambctechnologies.com</a>
+    </div>
+</div>
