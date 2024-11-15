@@ -1031,7 +1031,7 @@
 }
 
 .emp-dashboard-horizon .emp-dash-leave .emp-dash-block-content .leave-title {
-    font-size: 13px;
+    font-size: 15px;
     font-weight: bold;
     margin-bottom: 0px;
 }
@@ -1463,6 +1463,10 @@ box-shadow: 0 0 5px rgba(0, 0, 0, 0.3);*/
 #RescheduleEmpMaintenancePopup .maintenanceapprove-info .text-right button {
     padding: 5px 15px;
     border-radius: 30px;
+}
+
+.emp-selfservice-list-horizon .emp-selfservice-details-all .emp-ss-assetview .tree-structure {
+    overflow-y: scroll;
 }
 
 /* emp self service end */
@@ -2571,7 +2575,7 @@ box-shadow: 0 0 5px rgba(0, 0, 0, 0.3);*/
 
 .emp-jobreferral-list-horizon {
     background: #efefef;
-    height: 100vh;
+    min-height: 95vh;
     padding: 0 25px 25px 25px;
 }
 
@@ -2624,6 +2628,7 @@ width: 100%;*/
 .emp-jobreferral-list-horizon .emp-jobreferal-data-block-header .emp-jobreferal-data-title {
     font-size: 18px;
     font-weight: bold;
+    cursor: pointer;
 }
 
 .emp-jobreferral-list-horizon .emp-jobreferal-data-block-header .emp-jobreferal-data-posted {
@@ -2893,7 +2898,7 @@ width: 100%;*/
 }
 
 #ReferFriendPopup .modal-body {
-    padding: 0 30px;
+    padding: 0 30px 25px 30px;
 }
 
 #ReferFriendPopup .title-block-left {
@@ -2910,12 +2915,17 @@ width: 100%;*/
     padding: 0;
 }
 
-#ReferFriendPopup .referfriend-upload-left {
+#ReferFriendPopup .referfriend-upload-left .referfriend-upload-left-block {
     border: 1px solid #ced4da;
     padding: 20px 20px;
     border-radius: 3px;
-    max-width: 95%;
-    margin-left: 15px;
+    max-width: 100%;
+    margin-bottom: 5px;
+}
+
+#ReferFriendPopup .referfriend-upload-left #referfriend-attach-error {
+    font-size: 80%;
+    display: block;
     margin-bottom: 10px;
 }
 

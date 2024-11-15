@@ -288,7 +288,7 @@ namespace HRMS.Controllers
                     ToEmail = ConfigurationManager.AppSettings["JobReferalNotification"],
                     CCEmail = ConfigurationManager.AppSettings["JobReferalNotificationCC"],
                     Subject = $"Resume Referral: {referral.CandidateName}",
-                    AttachmentPath = resumePath // Use the actual saved path of the resume
+                    /*AttachmentPath = resumePath // Use the actual saved path of the resume*/
                 };
 
                 // Send the email
