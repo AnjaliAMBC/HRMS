@@ -836,7 +836,7 @@ $(document).on('click', '.btn-applyleave-cancel', function (e) {
 
 
 $(document).on('click', '.btn-leaveclose-refreshpage', function () {
-    window.location.href = "/empLeave/index";
+    window.location.href = "/empleave/index";
     return;
 });
 

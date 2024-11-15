@@ -230,62 +230,66 @@
         </div>
 
         <div class="dashboard-body-block">
-            <div class="row"> @*row start*@
-                    <div class="col-lg-4 col-md-6 col-sm-12 emp-dash-basic-info emp-dash-left-block">
-                        <div class="ed-blocks ed-birthday">
-                            <div class="ed-block-left ed-b-left"><img src="~/Assets/dashboard/birthday.png"></div>
-                            <div class="ed-block-right ed-b-right" data-toggle="modal" data-target="#emp-dash-birthday-popup">
-                                <div class="ed-block-1 ed-b-birthday">Birthday</div>
-                                <div class="ed-block-2 ed-b-celebration">
-                                    @(Model.Birthdays.Count() > 0 ? $"{Model.Birthdays.Count()} Celebration(s)" : "No birthdays today")
-                                </div>
-                            </div>
-                        </div>
-                        <div class="ed-blocks ed-work-anniversary">
-                            <div class="ed-block-left ed-b-left"><img src="~/Assets/dashboard/work-anniversary.png"></div>
-                            <div class="ed-block-right ed-b-right" data-toggle="modal" data-target="#emp-dash-workanniversary-popup">
-                                <div class="ed-block-1 ed-b-birthday">Work Anniversary</div>
-                                <div class="ed-block-2 ed-b-celebration">
-                                    @(Model.AnniversaryModel.Count() > 0 ? $"{Model.AnniversaryModel.Count()} Anniversary Celebration(s)" : "No anniversaries today")
-                                </div>
-
-                            </div>
-                        </div>
-                        <div class="ed-blocks ed-new-joiners">
-                            <div class="ed-block-left ed-b-left"><img src="~/Assets/dashboard/new-joiners.png"></div>
-                            <div class="ed-block-right ed-b-right" data-toggle="modal" data-target="#emp-dash-newjoiner-popup">
-                                <div class="ed-block-1 ed-b-birthday">New Joiners</div>
-                                <div class="ed-block-2 ed-b-celebration">   @(Model.NewJoiners.Count() > 0 ? $"{Model.NewJoiners.Count()} New Joiner(s)" : "No New Joiners")</div>
+            <div class="row">
+                @*row start*@
+                <div class="col-lg-4 col-md-6 col-sm-12 emp-dash-basic-info emp-dash-left-block">
+                    <div class="ed-blocks ed-birthday">
+                        <div class="ed-block-left ed-b-left"><img src="~/Assets/dashboard/birthday.png"></div>
+                        <div class="ed-block-right ed-b-right" data-toggle="modal" data-target="#emp-dash-birthday-popup">
+                            <div class="ed-block-1 ed-b-birthday">Birthday</div>
+                            <div class="ed-block-2 ed-b-celebration">
+                                @(Model.Birthdays.Count() > 0 ? $"{Model.Birthdays.Count()} Celebration(s)" : "No birthdays today")
                             </div>
                         </div>
                     </div>
-                    <div class="col-lg-4 col-md-6 col-sm-12 emp-dash-basic-info emp-dash-middle-block emp-dash-attendance">
-                        <div class="emp-dash-block-header">
-                            <span class="header-title">Attendance</span>
-                            <span class="header-dropdown">
-                                @{
-                                    var months = DateHelper.GetAllMonths();
-                                    var currentMonth = DateTime.Now.Month;
+                    <div class="ed-blocks ed-work-anniversary">
+                        <div class="ed-block-left ed-b-left"><img src="~/Assets/dashboard/work-anniversary.png"></div>
+                        <div class="ed-block-right ed-b-right" data-toggle="modal" data-target="#emp-dash-workanniversary-popup">
+                            <div class="ed-block-1 ed-b-birthday">Work Anniversary</div>
+                            <div class="ed-block-2 ed-b-celebration">
+                                @(Model.AnniversaryModel.Count() > 0 ? $"{Model.AnniversaryModel.Count()} Anniversary Celebration(s)" : "No anniversaries today")
+                            </div>
 
+                        </div>
+                    </div>
+                    <div class="ed-blocks ed-new-joiners">
+                        <div class="ed-block-left ed-b-left"><img src="~/Assets/dashboard/new-joiners.png"></div>
+                        <div class="ed-block-right ed-b-right" data-toggle="modal" data-target="#emp-dash-newjoiner-popup">
+                            <div class="ed-block-1 ed-b-birthday">New Joiners</div>
+                            <div class="ed-block-2 ed-b-celebration">   @(Model.NewJoiners.Count() > 0 ? $"{Model.NewJoiners.Count()} New Joiner(s)" : "No New Joiners")</div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-4 col-md-6 col-sm-12 emp-dash-basic-info emp-dash-middle-block emp-dash-attendance">
+                    <div class="emp-dash-block-header">
+                        <span class="header-title">Attendance</span>
+                        <span class="header-dropdown">
+                            @{
+                                var months = DateHelper.GetAllMonths();
+                                var currentMonth = DateTime.Now.Month;
+
+                            }
+                            <select name="emp-dash-attendance-yearly" id="emp-dash-attedence-chart">
+                                @foreach (var month in months)
+                                {
+                                    <option value="@month.Number" @(month.Number == currentMonth ? "selected" : "")>@month.Name</option>
                                 }
-                                <select name="emp-dash-attendance-yearly" id="emp-dash-attedence-chart">
-                                    @foreach (var month in months)
-                                    {
-                                        <option value="@month.Number" @(month.Number == currentMonth ? "selected" : "")>@month.Name</option>
-                                    }
-                                </select>
-                            </span>
-                        </div>
-                        <div class="emp-dash-block-content">
-                            <canvas id="emp-dash-attendance" style="width:100%;max-width:100%"></canvas>
-                        </div>
+                            </select>
+                        </span>
+                    </div>
+                    <div class="emp-dash-block-content">
+                        <canvas id="emp-dash-attendance" style="width:100%;max-width:100%"></canvas>
+                    </div>
+                </div>
+
+                <div class="col-lg-4 col-md-6 col-sm-12 emp-dash-basic-info emp-dash-hr-announcements">
+                    <div class="emp-dash-block-header">
+                        <span class="header-title">HR Announcements</span>
+                        <span class="header-viewall"></span>
                     </div>
 
-                    <div class="col-lg-4 col-md-6 col-sm-12 emp-dash-basic-info emp-dash-hr-announcements">
-                        <div class="emp-dash-block-header">
-                            <span class="header-title">HR Announcements</span>
-                            <span class="header-viewall"></span>
-                        </div>
+                    @if (Model.EmpInfo.Location == "Hyderabad")
+                    {
                         <div class="emp-dash-block-content">
                             <div class="ed-hr-announcements-left">
                                 <p class="">Dear Team,</p>
@@ -297,48 +301,66 @@
                                 <img src="~/Assets/dashboard/hr-diwali.png">
                             </div>
                         </div>
-                    </div>
-
-                
-
-            
-                
-                    <div class="col-lg-4 col-md-6 col-sm-12 emp-dash-basic-info emp-dash-upcoming-holidays">
-                        <div class="emp-dash-block-header">
-                            <span class="header-title">Upcoming Holidays</span>
-                            <span class="header-viewall all-holidays-list">View All <i class="far fa-arrow-alt-circle-right"></i></span>
-                        </div>
+                    }
+                    else
+                    {
                         <div class="emp-dash-block-content">
+                            <div class="ed-hr-announcements-left">
+                                <p class="">Dear Team,</p>
+                                <p class="">Wishing you all a wounderful day!</p>
+                                <p class="">As the festive season of Diwali approaches, we are excited to announce that 25th October 2024(Friday) will be celebrated as Ethnic Wear Day in the office</p>
+                                <div class="ed-hr-announcements-view" data-toggle="modal" data-target="#emp-dash-hr-announcement-popup">View</div>
+                            </div>
+                            <div class="ed-hr-announcements-right">
+                                <img src="~/Assets/dashboard/hr-diwali.png">
+                            </div>
+                        </div>
+                    }
 
-                            @foreach (HRMS.Models.EmployeeEvent.UpcomingHoliday holiday in @Model.UpcomingHolidays)
+                </div>
+
+
+
+
+
+                <div class="col-lg-4 col-md-6 col-sm-12 emp-dash-basic-info emp-dash-upcoming-holidays">
+                    <div class="emp-dash-block-header">
+                        <span class="header-title">Upcoming Holidays</span>
+                        <span class="header-viewall all-holidays-list">View All <i class="far fa-arrow-alt-circle-right"></i></span>
+                    </div>
+                    <div class="emp-dash-block-content">
+
+                        @foreach (HRMS.Models.EmployeeEvent.UpcomingHoliday holiday in @Model.UpcomingHolidays)
+                        {
+                            if (@holiday.HolidayDate != DateTime.MinValue)
                             {
-                                if (@holiday.HolidayDate != DateTime.MinValue)
-                                {
-                                    <div class="emp-dash-upcoming-holidays-block">
-                                        <div class="emp-upcoming-left">
-                                            <div class="holiday-name">@holiday.HolidayName</div>
-                                            <div class="holiday-date smalltext">@holiday.HolidayDate.ToString("dd MMMM dddd")</div>
+                                <div class="emp-dash-upcoming-holidays-block">
+                                    <div class="emp-upcoming-left">
+                                        <div class="holiday-name">@holiday.HolidayName</div>
+                                        <div class="holiday-date smalltext">@holiday.HolidayDate.ToString("dd MMMM dddd")</div>
+                                    </div>
+                                    <a class="dashhoiday_description Emp-CompOffRequest"
+                                       data-leavenumber="@holiday.HolidayNo"
+                                       data-location="@holiday.Region">
+                                        <div class="emp-upcoming-right">
+                                            <i class="fas fa-chevron-right"></i>
                                         </div>
-                                        <a class="dashhoiday_description Emp-CompOffRequest"
-                                           data-leavenumber="@holiday.HolidayNo"
-                                           data-location="@holiday.Region">
-                                            <div class="emp-upcoming-right">
-                                                <i class="fas fa-chevron-right"></i>
-                                            </div>
-                                        </a>
-                                    </div>}
-                            }
-                        </div>
-
+                                    </a>
+                                </div>}
+                        }
                     </div>
 
-                    <div class="col-lg-4 col-md-6 col-sm-12 emp-dash-basic-info emp-dash-recent-tickets">
-                        <div class="emp-dash-block-header">
-                            <span class="header-title">Recent Tickets</span>
-                        </div>
-                        <div class="emp-dash-block-content">
+                </div>
 
-                            @foreach (var myTicket in Model.MyTickets)
+                <div class="col-lg-4 col-md-6 col-sm-12 emp-dash-basic-info emp-dash-recent-tickets">
+                    <div class="emp-dash-block-header">
+                        <span class="header-title">Recent Tickets</span>
+                    </div>
+                    <div class="emp-dash-block-content">
+
+                        @if (Model != null && Model.MyTickets.Any())
+                        {
+                            foreach (var myTicket in Model.MyTickets)
                             {
                                 <div class="emp-dash-recent-tickets-block">
                                     <div class="emp-recent-tickets-left">
@@ -353,136 +375,146 @@
                                     </div>
                                 </div>
                             }
-                            @*<div class="emp-dash-recent-tickets-block">
-                                    <div class="emp-recent-tickets-left">
-                                        <div class="emp-ticket-navbar">IT</div>
+                        }
+                        else
+                        {
+                            <div class="emp-dash-recent-tickets-block">
+                                No tickets!
+                            </div>
+
+                        }
+
+
+                        @*<div class="emp-dash-recent-tickets-block">
+                                <div class="emp-recent-tickets-left">
+                                    <div class="emp-ticket-navbar">IT</div>
+                                </div>
+                                <div class="emp-recent-tickets-right">
+                                    <div class="recent-tickets-title">System Not Working</div>
+                                    <div class="recent-tickets-info">
+                                        <span class="recent-tickets-info-left"><img src="/Assets/dashboard/iconoir-priority-high.png"><span class="emp-ticket-priority-label">Priority</span> - <span class="emp-ticket-priority-status priority-medium">Medium</span></span>
+                                        <span class="recent-tickets-info-right"><img src="/Assets/ei_user.png"> <span class="emp-ticket-priority-label">Status</span> <span class="emp-ticket-priority-status status-closed">Closed</span></span>
                                     </div>
-                                    <div class="emp-recent-tickets-right">
-                                        <div class="recent-tickets-title">System Not Working</div>
-                                        <div class="recent-tickets-info">
-                                            <span class="recent-tickets-info-left"><img src="/Assets/dashboard/iconoir-priority-high.png"><span class="emp-ticket-priority-label">Priority</span> - <span class="emp-ticket-priority-status priority-medium">Medium</span></span>
-                                            <span class="recent-tickets-info-right"><img src="/Assets/ei_user.png"> <span class="emp-ticket-priority-label">Status</span> <span class="emp-ticket-priority-status status-closed">Closed</span></span>
-                                        </div>
-                                    </div>
-                                </div>*@
+                                </div>
+                            </div>*@
+                    </div>
+                </div>
+
+                <div class="col-lg-4 col-md-6 col-sm-12 emp-dash-basic-info emp-dash-right-block emp-dash-management">
+                    <div class="ed-blocks ed-learning-management">
+                        <div class="ed-block-left ed-b-left"><img src="~/Assets/dashboard/circum_laptop.png"></div>
+                        <div class="ed-block-right ed-b-right">
+                            <div class="ed-block-1 ed-b-learning-management" style="cursor:pointer">Learning Management System</div>
                         </div>
                     </div>
-
-                    <div class="col-lg-4 col-md-6 col-sm-12 emp-dash-basic-info emp-dash-right-block emp-dash-management">
-                        <div class="ed-blocks ed-learning-management">
-                            <div class="ed-block-left ed-b-left"><img src="~/Assets/dashboard/circum_laptop.png"></div>
-                            <div class="ed-block-right ed-b-right">
-                                <div class="ed-block-1 ed-b-learning-management" style="cursor:pointer">Learning Management System</div>
-                            </div>
-                        </div>
-                        <div class="ed-blocks ed-policies">
-                            <div class="ed-block-left ed-b-left"><img src="~/Assets/dashboard/fluent-mdl2_entitlement-policy.png"></div>
-                            <div class="ed-block-right ed-b-right">
-                                <a href="~/Assets/Policies/Handbook.pdf" target="_blank" style="text-decoration: none;">
-                                    <div class="ed-block-1 ed-b-policies" style="cursor:pointer">Handbook</div>
-                                </a>
-                            </div>
-                        </div>
-                        <div class="ed-blocks ed-job-referal">
-                            <div class="ed-block-left ed-b-left"><img src="~/Assets/dashboard/hugeicons_job-share.png"></div>
-                            <div class="ed-block-right ed-b-right">
-                                <div class="ed-block-1 ed-b-job-referal" style="cursor:pointer">Job Referral</div>
-                            </div>
+                    <div class="ed-blocks ed-policies">
+                        <div class="ed-block-left ed-b-left"><img src="~/Assets/dashboard/fluent-mdl2_entitlement-policy.png"></div>
+                        <div class="ed-block-right ed-b-right">
+                            <a href="~/Assets/Policies/Handbook.pdf" target="_blank" style="text-decoration: none;">
+                                <div class="ed-block-1 ed-b-policies" style="cursor:pointer">Handbook</div>
+                            </a>
                         </div>
                     </div>
+                    <div class="ed-blocks ed-job-referal">
+                        <div class="ed-block-left ed-b-left"><img src="~/Assets/dashboard/hugeicons_job-share.png"></div>
+                        <div class="ed-block-right ed-b-right">
+                            <div class="ed-block-1 ed-b-job-referal" style="cursor:pointer">Job Referral</div>
+                        </div>
+                    </div>
+                </div>
 
-                    @*<div class="col-lg-4 col-md-6 col-sm-12 emp-dash-basic-info emp-dash-hours-spent">
-                            <div class="emp-dash-block-header">
-                                <span class="header-title">Hours Spent</span>
-                                <span class="header-dropdown">
-                                    <select name="emp-dash-hours-spent-yearly" id="emp-dash-hours-spent-yearly">
-                                        <option value="2024">2024</option>
-                                        <option value="2025">2025</option>
-                                    </select>
-                                </span>
-                            </div>
-                            <div class="emp-dash-block-content">
-                                <canvas id="emp-dash-hours-spent" style="width:100%;max-width:100%"></canvas>
-                            </div>
-                        </div>*@
-
-                
-            
-
-            
-                
-                    <div class="col-lg-8 col-md-6 col-sm-12 emp-dash-basic-info emp-dash-leave">
-
+                @*<div class="col-lg-4 col-md-6 col-sm-12 emp-dash-basic-info emp-dash-hours-spent">
                         <div class="emp-dash-block-header">
-                            <div class="header-title">
-                                <span class="header-title">Leave</span>
-                            </div>
+                            <span class="header-title">Hours Spent</span>
+                            <span class="header-dropdown">
+                                <select name="emp-dash-hours-spent-yearly" id="emp-dash-hours-spent-yearly">
+                                    <option value="2024">2024</option>
+                                    <option value="2025">2025</option>
+                                </select>
+                            </span>
                         </div>
                         <div class="emp-dash-block-content">
-                            <div class="container text-center my-0 leave-container p-0">
-                                <div class="leaveslider-container">
-                                    <div class="leaveslider-wrapper">
-                                        @foreach (var leaveType in Model.LeavesTypeInfo.LeaveTypes)
+                            <canvas id="emp-dash-hours-spent" style="width:100%;max-width:100%"></canvas>
+                        </div>
+                    </div>*@
+
+
+
+
+
+
+                <div class="col-lg-8 col-md-6 col-sm-12 emp-dash-basic-info emp-dash-leave">
+
+                    <div class="emp-dash-block-header">
+                        <div class="header-title">
+                            <span class="header-title">Leave</span>
+                        </div>
+                    </div>
+                    <div class="emp-dash-block-content">
+                        <div class="container text-center my-0 leave-container p-0">
+                            <div class="leaveslider-container">
+                                <div class="leaveslider-wrapper">
+                                    @foreach (var leaveType in Model.LeavesTypeInfo.LeaveTypes)
+                                    {
+                                        foreach (var leave in leaveType.AvailableLeaves)
                                         {
-                                            foreach (var leave in leaveType.AvailableLeaves)
-                                            {
-                                                <div class="leaveslider-item">
-                                                    <div class="card">
-                                                        <div class="leave-icon @leave.DashBoardColorCode">@leave.ShortName</div>
-                                                        <h6 class="leave-title">@leave.Type</h6>
-                                                        <p class="leave-details">Available: @leave.Balance.ToString().Replace(".00", "").Replace(".0", "")</p>
-                                                        <p class="leave-details">Booked: @leave.Booked</p>
-                                                    </div>
+                                            <div class="leaveslider-item">
+                                                <div class="card">
+                                                    <div class="leave-icon @leave.DashBoardColorCode">@leave.ShortName</div>
+                                                    <h6 class="leave-title">@leave.Type</h6>
+                                                    <p class="leave-details">Available: @leave.Balance.ToString().Replace(".00", "").Replace(".0", "")</p>
+                                                    <p class="leave-details">Booked: @leave.Booked</p>
                                                 </div>
-                                            }
+                                            </div>
                                         }
-                                    </div>
-                                    <div class="leaveslider-control left" onclick="prevSlide()">
-                                        <i class="fa-solid fa-chevron-left"></i>
-                                    </div>
-                                    <div class="leaveslider-control right" onclick="nextSlide()">
-                                        <i class="fa-solid fa-chevron-right"></i>
-                                    </div>
+                                    }
+                                </div>
+                                <div class="leaveslider-control left" onclick="prevSlide()">
+                                    <i class="fa-solid fa-chevron-left"></i>
+                                </div>
+                                <div class="leaveslider-control right" onclick="nextSlide()">
+                                    <i class="fa-solid fa-chevron-right"></i>
                                 </div>
                             </div>
                         </div>
-
                     </div>
-                    <div class="col-lg-4 col-md-6 col-sm-12 emp-dash-basic-info emp-dash-calendar">
-                        <div class="emp-dash-block-header calendar-header">
-                            <div class="header-title">
-                                <h6 id="monthYear" class="mt-1 mb-0"></h6>
-                            </div>
-                            <div class="header-dropdown">
-                                <i class="fas fa-chevron-left chevron-icon ml-4" onclick="prevMonth()"></i>
-                                <i class="fas fa-chevron-right chevron-icon mr-1" onclick="nextMonth()"></i>
-                            </div>
-                        </div>
-                        <div class="emp-dash-block-content calendar-body">
-                            <table class="table">
-                                <thead>
-                                    <tr>
-                                        <th scope="col">Mon</th>
-                                        <th scope="col">Tue</th>
-                                        <th scope="col">Wed</th>
-                                        <th scope="col">Thu</th>
-                                        <th scope="col">Fri</th>
-                                        <th scope="col">Sat</th>
-                                        <th scope="col">Sun</th>
-                                    </tr>
-                                </thead>
-                                <tbody id="calendarBody"></tbody>
-                            </table>
-                        </div>
 
+                </div>
+                <div class="col-lg-4 col-md-6 col-sm-12 emp-dash-basic-info emp-dash-calendar">
+                    <div class="emp-dash-block-header calendar-header">
+                        <div class="header-title">
+                            <h6 id="monthYear" class="mt-1 mb-0"></h6>
+                        </div>
+                        <div class="header-dropdown">
+                            <i class="fas fa-chevron-left chevron-icon ml-4" onclick="prevMonth()"></i>
+                            <i class="fas fa-chevron-right chevron-icon mr-1" onclick="nextMonth()"></i>
+                        </div>
                     </div>
-                </div> @*row end*@
-            </div>
-            
+                    <div class="emp-dash-block-content calendar-body">
+                        <table class="table">
+                            <thead>
+                                <tr>
+                                    <th scope="col">Mon</th>
+                                    <th scope="col">Tue</th>
+                                    <th scope="col">Wed</th>
+                                    <th scope="col">Thu</th>
+                                    <th scope="col">Fri</th>
+                                    <th scope="col">Sat</th>
+                                    <th scope="col">Sun</th>
+                                </tr>
+                            </thead>
+                            <tbody id="calendarBody"></tbody>
+                        </table>
+                    </div>
 
+                </div>
+            </div> @*row end*@
         </div>
 
-    
+
+    </div>
+
+
     @Html.Partial("_compoff", Model.Employees)
 
 
@@ -784,7 +816,7 @@
 
 
     $(document).on('click', '.all-holidays-list', function () {
-        window.location.href = '/EmpDash/Holidays';
+        window.location.href = '/empdash/holidays';
     });
 
 </script>

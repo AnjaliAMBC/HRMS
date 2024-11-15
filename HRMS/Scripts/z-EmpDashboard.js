@@ -116,7 +116,7 @@ $('.emp-leavetracker').click(function (event) {
     event.preventDefault();
     HighlightEmpActiveLink($(this));
     $.ajax({
-        url: '/EmpLeave/Index',
+        url: '/empleave/index',
         type: 'POST',
         dataType: 'html',
         success: function (response) {
