@@ -269,6 +269,7 @@ namespace HRMS.Controllers
                     CandidateName = CandidateName,
                     ResumePath = resumeName,
                     ReferredBy = ReferredBy,
+                    ReferredById = ReferredByID,
                     Condidatemblnumber = Condidatemblnumber,
                     ReferredByEmail = ReferredByEmail,
                     ReferredDate = DateTime.Now,
