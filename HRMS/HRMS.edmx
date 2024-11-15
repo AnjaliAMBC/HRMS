@@ -216,6 +216,7 @@
           <Property Name="imagepath" Type="varchar" MaxLength="1000" />
           <Property Name="ShiftStartTime" Type="time" Precision="7" />
           <Property Name="ShiftEndTime" Type="time" Precision="7" />
+          <Property Name="Roles&amp;Responsibilities" Type="varchar(max)" />
         </EntityType>
         <EntityType Name="emplogin">
           <Key>
@@ -739,6 +740,7 @@ warning 6002: The table/view 'HRMS_PortalDev1.dbo.CheckInView' does not have a p
           <Property Name="imagepath" Type="String" MaxLength="1000" FixedLength="false" Unicode="false" />
           <Property Name="ShiftStartTime" Type="Time" Precision="7" />
           <Property Name="ShiftEndTime" Type="Time" Precision="7" />
+          <Property Name="Roles_Responsibilities" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
         </EntityType>
         <EntityType Name="LeaveRM">
           <Key>
@@ -1244,6 +1246,7 @@ warning 6002: The table/view 'HRMS_PortalDev1.dbo.CheckInView' does not have a p
           <EntitySetMapping Name="emp_info">
             <EntityTypeMapping TypeName="HRMS_EntityModel.emp_info">
               <MappingFragment StoreEntitySet="emp_info">
+                <ScalarProperty Name="Roles_Responsibilities" ColumnName="Roles&amp;Responsibilities" />
                 <ScalarProperty Name="ShiftEndTime" ColumnName="ShiftEndTime" />
                 <ScalarProperty Name="ShiftStartTime" ColumnName="ShiftStartTime" />
                 <ScalarProperty Name="imagepath" ColumnName="imagepath" />

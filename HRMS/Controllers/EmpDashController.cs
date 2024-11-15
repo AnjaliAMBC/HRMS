@@ -288,7 +288,7 @@ namespace HRMS.Controllers
                     ToEmail = ConfigurationManager.AppSettings["JobReferalNotification"],
                     CCEmail = ConfigurationManager.AppSettings["JobReferalNotificationCC"],
                     Subject = $"Resume Referral: {referral.CandidateName}",
-                    /*AttachmentPath = resumePath // Use the actual saved path of the resume*/
+                    AttachmentPath = resumePath
                 };
 
                 // Send the email
@@ -395,5 +395,30 @@ namespace HRMS.Controllers
                 return Json(new { success = false, message = "An error occurred while processing your request." });
             }
         }
+
+        public JsonResult UpdateRoles(string employeeId, string roles)
+        {
+            try
+            {
+                var empInfo = _dbContext.emp_info.Where(x => x.EmployeeID == employeeId).FirstOrDefault();
+                if (empInfo != null)
+                {
+                    empInfo.Roles_Responsibilities = roles;
+                    _dbContext.SaveChanges();
+
+                    var siteContext = Session["SiteContext"] as SiteContextModel;
+
+                    siteContext.EmpInfo = empInfo;
+
+                }
+                return Json(new { success = true, message = "Roles updated successfully!" });
+            }
+            catch (Exception)
+            {
+                return Json(new { success = false, message = "Error when updating roles!" });
+            }
+
+        }
+
     }
 }

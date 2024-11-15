@@ -35,8 +35,8 @@ namespace HRMS.Models.Employee
         public string BCCEmail { get; set; }
         public string Subject { get; set; }
         public string Body { get; set; }
-
         public string FromEmail { get; set; }
+        public string AttachmentPath { get; set; }
 
         public JsonResponse JsonResponse { get; set; } = new JsonResponse();
     }

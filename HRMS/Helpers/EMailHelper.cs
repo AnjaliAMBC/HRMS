@@ -33,6 +33,13 @@ namespace HRMS.Helpers
                 smtpClient.Credentials = new NetworkCredential(fromEmail, fromPassword);
                 smtpClient.EnableSsl = true;
 
+                // Attach the file if AttachmentPath is provided and file exists
+                if (!string.IsNullOrEmpty(request.AttachmentPath) && System.IO.File.Exists(request.AttachmentPath))
+                {
+                    var attachment = new Attachment(request.AttachmentPath);
+                    mail.Attachments.Add(attachment);
+                }
+
                 smtpClient.Send(mail);
                 model.JsonResponse.StatusCode = 200;
                 model.JsonResponse.Message = "Email Sent Successfully!";
