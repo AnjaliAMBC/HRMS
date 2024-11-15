@@ -1,6 +1,6 @@
 ﻿////function AddEditLeaves(leaverequestname) {
 ////    $.ajax({
-////        url: '/empleave/empApplyLeave',
+////        url: '/empleave/empApplyleave',
 ////        type: 'GET',
 ////        dataType: 'html',
 ////        data: { leaveRequestName: leaverequestname },

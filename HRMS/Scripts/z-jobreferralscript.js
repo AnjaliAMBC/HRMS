@@ -1,11 +1,11 @@
 ﻿
 $(document).on('click', '.ed-b-job-referal', function () {
-    window.location.href = "/EmpDash/JobReferral";
+    window.location.href = "/empdash/jobreferral";
 });
 
 
 $(document).on('click', '.emp-jobreferal-data-title', function () {
-    window.location.href = "/EmpDash/JobDetail";
+    window.location.href = "/empdash/jobdetail";
 });
 
 $(document).on("click", ".admin-jobreferal-data-title", function (e) {

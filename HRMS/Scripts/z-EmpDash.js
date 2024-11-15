@@ -143,8 +143,8 @@ $(function () {
     var endDate = new Date(currentDate1);
     endDate.setDate(currentDate1.getDate() + (6 - currentDate1.getDay() + 1));
 
-    $("#week-start").text(startDate.toDateString());
-    $("#week-end").text(endDate.toDateString());
+    //$("#week-start").text(startDate.toDateString());
+    //$("#week-end").text(endDate.toDateString());
 
 
     $(document).on('click', '.left-btn', function (event) {

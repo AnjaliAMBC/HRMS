@@ -33,23 +33,30 @@
                     {
                         foreach (var job in Model.jobdetail)
                         {
-                            <div class="emp-jobreferal-data-block open-jobs">
-                                <div class="emp-jobreferal-data-block-header">
-                                    <span class="emp-jobreferal-data-title" data-jobId="@job.JobID">@job.JobTitle - @job.JobID</span>
-                                    <span class="emp-jobreferal-data-posted">
-                                        Posted On @(job.PostedDate.HasValue ? job.PostedDate.Value.ToString("dd MMM yyyy") : "N/A")
-                                    </span>
+                    <div class="emp-jobreferal-data-block open-jobs">
+                        <div class="emp-jobreferal-data-block-header">
+                            <span class="emp-jobreferal-data-title" data-jobId="@job.JobID">@job.JobTitle - @job.JobID</span>
+                            <span class="emp-jobreferal-data-posted">
+                                Posted On @(job.PostedDate.HasValue ? job.PostedDate.Value.ToString("dd MMM yyyy") : "N/A")
+                            </span>
 
-                                </div>
-                                <div class="emp-jobreferal-data-block-body">
-                                    <span class="emp-jobreferal-data-experience"><i class="fas fa-bookmark"></i> Experience: @job.Experience</span>
-                                    <span class="emp-jobreferal-data-fulltime"><i class="fas fa-clock"></i> @job.JobType</span>
-                                    <span class="emp-jobreferal-data-location"><i class="fas fa-map-marker-alt"></i> @job.Location</span>
-                                </div>
-                                <div class="emp-jobreferal-data-block-footer">
-                                    <div class="emp-jobreferal-data-status open">@job.JobStatus</div>
-                                </div>
-                            </div> }
+                        </div>
+                        <div class="emp-jobreferal-data-block-body">
+                            <span class="emp-jobreferal-data-experience"><i class="fas fa-bookmark"></i> Experience: @job.Experience</span>
+                            <span class="emp-jobreferal-data-fulltime"><i class="fas fa-clock"></i> @job.JobType</span>
+                            <span class="emp-jobreferal-data-location"><i class="fas fa-map-marker-alt"></i> @job.Location</span>
+                        </div>
+                        <div class="emp-jobreferal-data-block-footer">
+                            @if (job.JobStatus == "Closed")
+                            {
+                                <div class="emp-jobreferal-data-status closed">Closed</div>
+                            }
+                            else
+                            {
+                                <div class="emp-jobreferal-data-status open">Open</div>
+                            }
+                        </div>
+                    </div> }
                     }
                     else
                     {

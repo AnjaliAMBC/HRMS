@@ -122,14 +122,15 @@
                                                     <label for="MaintenanceAcknowledge-ProblemCategory">Problem Category</label>
                                                     <!-- Dynamically select problem category -->
                                                     <select name="MaintenanceAcknowledge-ProblemCategory" class="MaintenanceAcknowledge-ProblemCategory form-control form-select" id="MaintenanceAcknowledge-ProblemCategory">
-                                                        <option value="Select Category" disabled selected hidden>@Model.ProblemCategory</option>
-                                                        <option value="Network">Network</option>
-                                                        <option value="Hardware">Hardware</option>
-                                                        <option value="Software">Software</option>
-                                                        <option value="Others">Others</option>
+                                                        <option value="" disabled>Select Category</option>
+                                                        <option value="Network" @(Model.ProblemCategory == "Network" ? "selected" : "")>Network</option>
+                                                        <option value="Hardware" @(Model.ProblemCategory == "Hardware" ? "selected" : "")>Hardware</option>
+                                                        <option value="Software" @(Model.ProblemCategory == "Software" ? "selected" : "")>Software</option>
+                                                        <option value="Others" @(Model.ProblemCategory == "Others" ? "selected" : "")>Others</option>
                                                     </select>
                                                 </div>
                                             </div>
+
                                             <div class="col-lg-4 col-md-6">
                                                 <div class="form-group maintenanceacknowledge-tabs">
                                                     <label for="MaintenanceAcknowledge-IssueFacing">Issue Facing</label>

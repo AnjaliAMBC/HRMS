@@ -151,19 +151,19 @@
     </button>
     <div class="collapse navbar-collapse" id="navbarNav">
         <ul class="navbar-nav mr-auto nav-center-block">
-            <li class="nav-item @(pageUrlPath == "/empdash/index" ? "active" : "")">
+            <li class="nav-item @(pageUrlPath.Contains("/empdash") ? "active" : "")">
                 <a class="nav-link" href="/empDash/index">Dashboard <span class="sr-only">(current)</span></a>
             </li>
-            <li class="nav-item @(pageUrlPath == "/employeedashboard/selfservice" ? "active" : "")">
+            <li class="nav-item @(pageUrlPath.Contains("/employeedashboard") ? "active" : "")">
                 <a class="nav-link" href="/employeedashboard/selfservice">Employee</a>
             </li>
-            <li class="nav-item @(pageUrlPath == "/empattendance/index" ? "active" : "")">
+            <li class="nav-item @(pageUrlPath.Contains("/empattendance") ? "active" : "")">
                 <a class="nav-link" href="/EmpAttendance/Index">Attendance</a>
             </li>
-            <li class="nav-item @(pageUrlPath == "/empleave/index" ? "active" : "")">
-                <a class="nav-link" href="/EmpLeave/Index">Leave</a>
+            <li class="nav-item @(pageUrlPath.Contains("/empleave") || pageUrlPath.Contains("/empLeave") ? "active" : "")">
+                <a class="nav-link" href="/empleave/index">Leave</a>
             </li>
-            <li class="nav-item @(pageUrlPath == "/empticketing/index" ? "active" : "")">
+            <li class="nav-item @(pageUrlPath.Contains("/empticketing") ? "active" : "")">
                 <a class="nav-link" href="/EmpTicketing/Index">Ticketing</a>
             </li>
         </ul>
