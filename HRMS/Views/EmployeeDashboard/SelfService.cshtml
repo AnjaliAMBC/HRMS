@@ -240,7 +240,17 @@
         margin-top: 5px;
         text-align: center;
     }
+    .tox .tox-statusbar {
+        height: 0px !important;
+    }
+
+    .tox .tox-mbtn {
+        height: 15px;
+        font-size: 12px;
+    }
+    
 </style>
+<script src="https://cdn.tiny.cloud/1/a8r9jj8t9yk0l2hgejaoyglumbdcfozlfeogwxxq03lyrsrr/tinymce/5/tinymce.min.js"></script>
 <div class="container-fluid emp-selfservice-list-horizon">
     <div class="main-content container-fluid">
         <div class="content employee-selfservice">
@@ -900,7 +910,7 @@
                             <h5 style="visibility:hidden;">Emp Monthly Maintenance</h5>
                             <div class="mm-year-dropdown">
                                 <form id="yearFilterForm" method="get" action="/EmployeeDashboard/SelfService">
-                                    <select class="form-control" id="emp-mm-year" name="year">
+                                    <select class="form-control pointer" id="emp-mm-year" name="year">
                                         @for (int i = DateTime.Now.Year; i >= 2020; i--)  // Adjust range as needed
                                         {
                                             <option value="@i" @(i == (Request["year"] != null ? int.Parse(Request["year"]) : DateTime.Now.Year) ? "selected" : "")>
@@ -1057,7 +1067,7 @@
 
 <!-- Project role & responsibility Modal -->
 <div id="empProjectRoleResModal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="empProjectRoleResModal" aria-hidden="true">
-    <div class="modal-dialog" role="document">
+    <div class="modal-dialog " role="document" style="max-width: 65%; height: auto;">
         <div class="modal-content">
             <div class="modal-header">
                 <h5 class="modal-title" id="empProjectRoleResModalLabel">Add Roles & Responsibilities</h5>
@@ -1067,7 +1077,7 @@
             </div>
             <div class="modal-body">
                 <div class="empProjectRoleRes-field">
-                    <textarea rows="3" class="form-control" id="empProjectRoleRes-field" name="empProjectRoleRes-field"></textarea>
+                    <textarea rows="3" class="form-control" id="empProjectRoleRes-field" name="empProjectRoleRes-field" style="height:300px;"></textarea>
                 </div>
             </div>
             <div class="modal-footer">
@@ -1137,6 +1147,11 @@
         $('#roleUpdateMessage').html('');
     });
 
+    tinymce.init({
+        selector: '#empProjectRoleRes-field',
+        plugins: 'bold italic underline',
+        toolbar: 'bold italic underline | alignleft aligncenter alignright',
+    });
 </script>
 
 <script src="~/Scripts/z-changepassword.js"></script>

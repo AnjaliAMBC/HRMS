@@ -35,10 +35,18 @@
     var leaveUpdate = Model.First();
     <div class="email-container" style="font-family: Calibri; color: #333; background-color: #f8f9fa; padding: 20px; border-radius: 8px; max-width: 600px; margin: auto;">
         <div class="email-content" style="position: relative; padding: 20px; background-color: #fff; border-radius: 8px; box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);">
-            <a href="@siteURL" target="_blank" style="position: absolute; top: 20px; right: 20px;">
-                <img src="@logoURL" alt="AMBC Logo" width="70" style="display: block;">
-            </a>
-            <p style="margin-top: 0;">Hello <strong>@leaveUpdate.employee_name</strong>,</p>
+            <table width="80%" cellpadding="0" cellspacing="0" border="0" style="background-color:#ffffff;">
+                <tr>
+                    <td style="padding:0;">
+                        <p style="margin-top: 0;">Hello <strong>@leaveUpdate.employee_name</strong>,</p>
+                    </td>
+                    <td align="right" style="padding: 0;">
+                        <a href="@siteURL" target="_blank">
+                            <img src="@logoURL" alt="AMBC Logo" width="80" style="display: block;">
+                        </a>
+                    </td>
+                </tr>
+            </table>
             <p>
                 As per the request, @leaveUpdate.employee_name's leave has been applied
                 @if (leaveUpdate.Fromdate.HasValue && leaveUpdate.Todate.HasValue)
