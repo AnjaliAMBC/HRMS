@@ -30,6 +30,12 @@
                 // Additional code for portrait mode
             }
         }
+        if (width >= 1598) {
+            var minPerSlide = 6;
+        }
+        if (width >= 1918) {
+            var minPerSlide = 7;
+        }
         console.log("minPerSlide", minPerSlide);
         var next = $(this).next();
 

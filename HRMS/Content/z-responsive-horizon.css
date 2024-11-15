@@ -491,6 +491,45 @@
     }
 
     /* emp job referral popup end */
+
+    /* emp holiday start */
+
+    .emp-upcomingholidays-list-horizon {
+        padding: 20px 25px;
+        margin-top: 35px;
+    }
+
+    .emp-upcomingholidays-list-horizon #empupcomingholidaysTable thead th, .emp-upcomingholidays-list-horizon #empupcomingholidaysTable tbody td {
+        padding: 10px 15px;
+    }
+
+    .emp-upcomingholidays-list-horizon #empupcomingholidaysTable tbody .emp-upcomingholidays-table-last {
+        padding-right: 30px;
+        text-align: right;
+    }
+
+    .emp-upcomingholidays-list-horizon #empupcomingholidaysTable {
+        table-layout: fixed;
+    }
+
+    .emp-upcomingholidays-list-horizon #empupcomingholidaysTable thead th:nth-child(1) {
+        width: 160px;
+    }
+
+    .emp-upcomingholidays-list-horizon #empupcomingholidaysTable thead th:nth-child(2) {
+        width: 90px;
+    }
+
+    .emp-upcomingholidays-list-horizon #empupcomingholidaysTable thead th:nth-child(3) {
+        width: 90px;
+    }
+
+    .emp-upcomingholidays-list-horizon #empupcomingholidaysTable thead th:nth-child(4) {
+        width: 50px;
+    }
+
+
+    /* emp holiday end */
 }
 
 @media only screen and (min-width:360px) and (max-width:740px) and (orientation: landscape) {
@@ -564,7 +603,7 @@
 
     .left-side-menu-horizon #empdash-menu {
         overflow-y: scroll;
-        height: 150px;
+        height: 100px;
     }
 
     /* emp header / side menu end */
@@ -617,6 +656,10 @@
 
     .emp-dashboard-horizon .dashboard-header-block .dashboard-header-left .dh-user-name {
         font-size: 27px;
+        white-space: nowrap;
+        width: 305px;
+        text-overflow: ellipsis;
+        overflow: hidden;
     }
 
     .emp-dashboard-horizon .dashboard-header-block .dashboard-header-left .dh-welcome {
@@ -782,6 +825,15 @@
         /*width: 210%;*/
     }
 
+    .emp-leave-list-horizon .emp-leave-info-block-all .responsive-tabs.nav-tabs i.fa {
+        display: none;
+    }
+
+    .emp-leave-list-horizon .emp-leave-info-block-all .responsive-tabs.nav-tabs > li {
+        width: auto;
+        display: block !important;
+    }
+
     /* emp leave end */
 
     /* emp apply leave start */
@@ -849,6 +901,24 @@
 
     /* emp job referral detailed end */
 
+    /* emp holiday start */
+
+    .emp-upcomingholidays-list-horizon {
+        padding: 20px 25px;
+        margin-top: 35px;
+    }
+
+    .emp-upcomingholidays-list-horizon #empupcomingholidaysTable thead th, .emp-upcomingholidays-list-horizon #empupcomingholidaysTable tbody td {
+        padding: 10px 15px;
+    }
+
+    .emp-upcomingholidays-list-horizon #empupcomingholidaysTable tbody .emp-upcomingholidays-table-last {
+        padding-right: 30px;
+        text-align: right;
+    }
+
+    /* emp holiday end */
+
 }
 
 /* Media Query for Tablets Ipads portrait mode start */
@@ -886,6 +956,176 @@
     }
 
     /* forgot password end */
+
+    /* emp header start */
+
+    .navbar.horizon-design {
+        display: flex;
+        -ms-flex-wrap: wrap;
+        flex-wrap: wrap;
+        -ms-flex-align: center;
+        align-items: center;
+        -ms-flex-pack: justify;
+        justify-content: space-between;
+    }
+
+    #navbarNav {
+        display: none !important;
+    }
+
+    .navbar-expand-md .navbar-toggler {
+        display: inline-block !important;
+    }
+
+    .horizon-design .res-header-notification {
+        margin-right: -470px;
+        display: inline-block !important;
+    }
+
+    .navbar.navbar-expand-md .logo-img {
+        width: 80px;
+    }
+
+    #left-side-menu-normal {
+        display: none;
+    }
+
+    #left-side-menu.show {
+        display: block;
+    }
+
+    #left-side-menu .sidebar {
+        z-index: 9999;
+        position: fixed;
+        width: 30%;
+        top: 0px !important;
+        height: 100%;
+    }
+
+    #left-side-menu .sidebar-header {
+        margin: 0px 10px 0px 10px;
+        border-bottom: 1px solid #ccc;
+        color: black;
+        /*padding-bottom: 20px;*/
+    }
+
+    #left-side-menu .sidebar-header .bl {
+        display: inline-flex;
+        width: 22%;
+        padding: 0px 0px 0px 0px;
+    }
+
+    #left-side-menu .sidebar-header .bl .default-image-navbar {
+        margin-bottom: 20px;
+    }
+
+    #left-side-menu .sidebar-header .br {
+        display: inline-block;
+        width: 73%;
+        padding: 0px 0px 0px 0px;
+        float: inline-end;
+        margin-top: 2px;
+    }
+
+    #left-side-menu .sidebar-header .bl img {
+        border-radius: 40px;
+        width: 45px;
+        height: 45px;
+        object-fit: cover;
+    }
+
+    #left-side-menu .sidebar-header .br div {
+        line-height: 1.5;
+        font-size: 12px;
+        width: 145px; /* Set your desired width */
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+    }
+
+    #left-side-menu .sidebar-header a {
+        color: #007bff;
+    }
+
+    #left-side-menu .sidebar-header .name {
+    }
+
+    #logout_sidebar_button {
+        position: absolute;
+        display: inline-block;
+        bottom: 5px;
+        left: 0px;
+        width: 100%;
+        padding: 0;
+        box-shadow: 0px -6px 7px 0px #ccc;
+    }
+
+    #logout_sidebar_button li {
+        text-align: center;
+        display: block;
+    }
+
+    #left-side-menu .sidebar .admin-leave-main-menu .side-menubar-updown {
+        width: 50%;
+    }
+
+    #left-side-menu .sidebar .admin-ticket-main-menu .side-menubar-updown {
+        width: 40%;
+    }
+
+    #left-side-menu .sidebar .admin-itsupport-main-menu .side-menubar-updown {
+        width: 36%;
+    }
+
+
+    .horizon-design .res-header-notification {
+        display: inline-block;
+    }
+
+    #left-side-menu .sidebar {
+        left: 0;
+        background: #fff;
+    }
+
+    .left-side-menu-horizon #empdash-menu .menu-icon {
+        display: none;
+    }
+
+    .left-side-menu-horizon #empdash-menu span {
+        margin-left: 10px;
+    }
+
+    .left-side-menu-horizon #empdash-menu li {
+        margin-left: 5px;
+    }
+
+    .left-side-menu-horizon #empdash-menu li.sidebaractive {
+        background-color: #267EC4;
+    }
+
+    .left-side-menu-horizon #empdash-menu .sidebaractive span {
+        color: #fff;
+    }
+
+    .left-side-menu-horizon #logout_sidebar_button {
+        box-shadow: initial;
+        margin-bottom: 35px;
+    }
+
+    .left-side-menu-horizon #logout_sidebar_button li.res-side-menu-myprofile {
+        background: #267EC4;
+        color: #fff;
+        margin: 0 15px;
+        margin-bottom: 10px;
+    }
+
+    .left-side-menu-horizon #logout_sidebar_button li.res-side-menu-signout {
+        margin: 0 15px;
+        margin-bottom: 10px;
+        border: 1px solid #ccc;
+    }
+
+    /* emp header end */
 
     /* emp dashboard start */
 
@@ -1032,6 +1272,20 @@
         top: 5px;
     }
 
+    .emp-selfservice-list-horizon .emp-ss-tab-details-desktop {
+        display:none;
+    }
+
+    .emp-selfservice-list-horizon .emp-ss-tab-details-mobile {
+        display: block !important;
+    }
+
+    .emp-selfservice-list-horizon .responsive-tabs.nav-tabs i.fa {
+        position: relative;
+        top: -27px;
+        right: -650px;
+    }
+
     /* emp selfservice end */
 
     /* emp attendance start */
@@ -1100,6 +1354,16 @@
     .emp-leave-list-horizon .emp-leave-info-block-all .responsive-tabs.nav-tabs i.fa {
         top: auto;
         right: 90px;
+        display: none;
+    }
+
+    .emp-leave-list-horizon #leaveCarousel .btn_nxtleave {
+        right: -38px !important;
+    }
+
+    .emp-leave-list-horizon .emp-leave-info-block-all .responsive-tabs.nav-tabs > li {
+        width: auto;
+        display: block !important;
     }
 
     /* emp leave end */
@@ -1224,6 +1488,23 @@
 
     /* emp job referral detailed end */
 
+    /* emp holiday start */
+
+    .emp-upcomingholidays-list-horizon .main-content.container-fluid {
+        margin-left: 0 !important
+    }
+
+    .emp-upcomingholidays-list-horizon #empupcomingholidaysTable thead th, .emp-upcomingholidays-list-horizon #empupcomingholidaysTable tbody td {
+        padding: 10px 15px;
+    }
+
+    .emp-upcomingholidays-list-horizon #empupcomingholidaysTable tbody .emp-upcomingholidays-table-last {
+        padding-right: 30px;
+        text-align: right;
+    }
+
+    /* emp holiday end */
+
 }
 
 /* Media Query for Tablets Ipads landscape mode start */
@@ -1286,11 +1567,7 @@
 
     .emp-dashboard-horizon .dashboard-header-block .dashboard-header-right .dh-right {
         vertical-align: initial;
-    }
-
-    .emp-selfservice-list-horizon .emp-selfservice-details .emp-selfservice-details-left .emp-ss-details-block2 {
-        position: initial;
-    }
+    }    
 
     .emp-dashboard-horizon .dashboard-body-block .emp-dash-basic-info {
         margin-top: 20px;
@@ -1331,6 +1608,7 @@
     /* emp dashboard end */
 
     /* emp selfservice start */
+
     .emp-selfservice-list-horizon .main-content {
         margin-left: 0px !important;
     }
@@ -1346,6 +1624,37 @@
     .emp-selfservice-list-horizon .emp-selfservice-details .responsive-tabs.nav-tabs i.fa {
         top: 5px;
         right: 0;
+        display: none;
+    }
+
+    .emp-selfservice-list-horizon .emp-selfservice-details .emp-selfservice-details-left .emp-ss-details-block2 {
+        padding: 0;
+    }
+
+    .emp-selfservice-list-horizon .emp-selfservice-details .emp-selfservice-details-left .emp-ss-details-block2 .responsive-tabs.nav-tabs > li {
+        width: auto;
+    }
+
+    .emp-selfservice-list-horizon .emp-selfservice-details .emp-selfservice-details-left .emp-ss-details-block2 .responsive-tabs.nav-tabs > li {
+        display: block !important;
+    }
+
+    .emp-selfservice-list-horizon .tablet-view .responsive-tabs.nav-tabs {
+        position: relative;
+        z-index: 10;
+        height: 42px;
+        overflow: visible;
+        border-bottom: none;
+    }
+
+    .emp-selfservice-list-horizon .emp-selfservice-details .emp-selfservice-details-right .emp-ss-details-block3 .emp-ss-details-right-block {
+        text-overflow: ellipsis;
+        width: 164px;
+        display: inline-flex;
+    }
+
+    .emp-selfservice-list-horizon .emp-selfservice-details-all .emp-ss-assetview .tree-structure {
+        overflow-y: scroll;
     }
 
     /* emp selfservice end */
@@ -1426,6 +1735,16 @@
 
     .emp-leave-list-horizon .emp-leave-info-block-all .responsive-tabs.nav-tabs i.fa {
         top: auto;
+        display: none;
+    }
+
+    .emp-leave-list-horizon #leaveCarousel .btn_nxtleave {
+        right: -38px !important;
+    }
+
+    .emp-leave-list-horizon .emp-leave-info-block-all .responsive-tabs.nav-tabs > li {
+        width: auto;
+        display: block !important;
     }
 
     /* emp leave end */
@@ -1553,12 +1872,39 @@
 
     /* emp job referral detailed end */
 
+    /* emp holiday start */
+
+    .emp-upcomingholidays-list-horizon .main-content.container-fluid {
+        margin-left: 0 !important
+    }
+
+    .emp-upcomingholidays-list-horizon #empupcomingholidaysTable thead th, .emp-upcomingholidays-list-horizon #empupcomingholidaysTable tbody td {
+        border: none;
+        padding: 10px 15px;
+    }
+
+    .emp-upcomingholidays-list-horizon #empupcomingholidaysTable thead th, .emp-upcomingholidays-list-horizon #empupcomingholidaysTable tbody td {
+        padding: 10px 15px;
+    }
+
+    .emp-upcomingholidays-list-horizon #empupcomingholidaysTable tbody .emp-upcomingholidays-table-last {
+        padding-right: 30px;
+        text-align: right;
+    }
+
+    /* emp holiday end */
+
 }
 
 /* iPad Air (Portrait) start */
 @media only screen and (min-device-width: 820px) and (max-device-width: 1180px) and (orientation: portrait) {
     .emp-leave-list-horizon #empLeave .carousel-control-next.btn_nxtleave {
         right: -30px;
+    }
+
+    .horizon-design .res-header-notification {
+        margin-right: -530px;
+        display: inline-block !important;
     }
 }
 
@@ -1658,7 +2004,7 @@
     }
     .emp-dashboard-horizon .dashboard-body-block .emp-dash-calendar .emp-dash-block-header .header-dropdown {
         width: 25%;
-    }
+    }   
 
 }
 
@@ -1666,10 +2012,41 @@
     .emp-ticketing-horizon #empticketlistingTable tbody td:nth-child(1) {
         width: 910px !important;
     }
+    .emp-ticketing-horizon-header .main-content.container-fluid {
+        width: 100% !important;
+    }
 }
 
 @media only screen and (min-width:1600px) and (max-width:2560px) {
     .emp-dashboard-horizon .dashboard-header-block .dashboard-header-right {
         width: 27%;
+    }
+
+    .emp-dashboard-horizon #emp-dash-attendance {
+        width: 425px !important;
+        height: 210px !important;
+        margin-left: 20px;
+    }
+    .emp-ticketing-horizon-header .main-content.container-fluid {
+        width: 100% !important;
+    }
+
+    .emp-applyleave-horizon.emp-leave #empApplyLeaveFields .balance-section-wrapper .leave-apply-info-block .res-leave-apply-right span {
+        vertical-align: sub;
+    }
+}
+
+@media only screen and (min-width: 1920px) and (max-width: 2560px) {
+    .emp-ticketing-horizon-header .main-content.container-fluid {
+        width: 100% !important;
+    }
+    #empticketlistingTable tbody td:nth-child(2) {
+        width: 30px !important;
+        text-align: center;
+    }
+
+    .emp-applyleave-horizon.emp-leave #empApplyLeaveFields .balance-section-wrapper .leave-apply-info-block .res-leave-apply-right span {
+        font-size: 15px;
+        vertical-align: sub;
     }
 }
