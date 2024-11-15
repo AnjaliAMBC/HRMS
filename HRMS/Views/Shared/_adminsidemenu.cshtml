@@ -85,11 +85,7 @@
                             </ul>
                         </div>
                     </li>
-                    <li class="mb-2 @(pageUrlPath.Contains("/AdminDashboard/AdminJobListing") ? "active sidebaractive" : "")">
-                        <a href="/AdminDashboard/AdminJobListing" class="@(pageUrlPath == "/AdminDashboard/AdminJobListing" ? "active" : "")">
-                            <img class="menu-icon" src="~/Assets/Icons/Attendance.png" /><span>Job Refferal</span>
-                        </a>
-                    </li>
+
                 }
 
                 @if (currentContext.IsAdmin || currentContext.IsSuperAdmin || currentContext.IsITAdmin)
@@ -150,6 +146,14 @@
                         <li><a href="/purchase/purchasesuperapproval" class=""><span class="menu-bar-design-red"></span>PurchaseSApproval</a></li>*@
                             </ul>
                         </div>
+                    </li>
+                }
+                @if (currentContext.IsAdmin || currentContext.IsSuperAdmin)
+                {
+                    <li class="mb-2 @(pageUrlPath.Contains("/AdminDashboard/AdminJobListing") ? "active sidebaractive" : "")">
+                        <a href="/AdminDashboard/AdminJobListing" class="@(pageUrlPath == "/AdminDashboard/AdminJobListing" ? "active" : "")">
+                            <img class="menu-icon" src="~/Assets/Icons/jobreferral.png" /><span>Job Referral</span>
+                        </a>
                     </li>
                 }
 

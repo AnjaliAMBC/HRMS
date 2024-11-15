@@ -1,7 +1,22 @@
 ﻿@model HRMS.JobReferral
-
+@{
+    var siteURL = System.Configuration.ConfigurationManager.AppSettings["siteURL"];
+    var logoURL = siteURL + "/Assets/AMBC_Logo.png";
+}
 <div>
-    <p>Dear HR/Recruitment Team,</p>
+    <table cellpadding="0" cellspacing="0" border="0" width="100%">
+        <tr>
+            <td style="text-align: left; padding-bottom: 10px;">
+                <p>Dear HR/Recruitment Team,</p>
+            </td>
+            <td style="text-align: right; padding-bottom: 10px;">
+                <a href="@siteURL" target="_blank">
+                    <img src="@logoURL" alt="AMBC Logo" width="70" />
+                </a>
+            </td>
+        </tr>
+    </table>
+
 
     <p>I would like to refer my friend for a job opening at our company. Here are the details:</p>
 
@@ -10,7 +25,7 @@
         <li><strong>Friend’s Name:</strong> @Model.CandidateName</li>
         <li><strong>Friend’s Email:</strong> @Model.ReferredByEmail</li>
         <li><strong>Job ID:</strong> @Model.JobID</li>
-       
+
     </ul>
 
     <p>Thank you for considering this referral. Please let me know if further information is needed.</p>
