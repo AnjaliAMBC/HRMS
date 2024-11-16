@@ -78,8 +78,8 @@ namespace HRMS.Controllers
                 model.timerModel = new TimerModel(empCheckInInfo.Signin_Time);
             }
 
-            model.AnniversaryModel = new EmployeeEventHelper().Anniversary();
-            model.Birthdays = new EmployeeEventHelper().Birthday();
+            model.AnniversaryModel = new EmployeeEventHelper().Anniversary().Where(a => a.Empid != model.EmpInfo.EmployeeID).ToList();
+            model.Birthdays = new EmployeeEventHelper().Birthday().Where(a => a.Empid != model.EmpInfo.EmployeeID).ToList(); ;
             model.UpcomingHolidays = new EmployeeEventHelper().GetUpcomingHolidays(model.EmpInfo.Location);
 
             var isEmployeeAPpliedLeaveToday = _dbContext.con_leaveupdate.Where(x => x.employee_id == model.EmpInfo.EmployeeID && x.leavedate == DateTime.Today).FirstOrDefault();
@@ -100,7 +100,7 @@ namespace HRMS.Controllers
               .ToList();
 
 
-            model.NewJoiners = _dbContext.emp_info.Where(x => x.DOJ == DateTime.Today).ToList();
+            model.NewJoiners = _dbContext.emp_info.Where(x => x.DOJ == DateTime.Today && x.EmployeeID != model.EmpInfo.EmployeeID).ToList();
 
 
             return View("~/Views/EmployeeDashboard/EmpDash.cshtml", model);

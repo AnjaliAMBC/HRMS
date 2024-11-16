@@ -55,14 +55,21 @@
                         </td>
                         <td style="text-align:center;">
                             <span class="emp-maintenanceinfo-list-edit">
-                                <i class="fas fa-ellipsis-v asset-edit-dropdown" onclick="toggleEmpMaintenanceActionOptions(this)"></i>
+                                @{
+                                    var icondisplay = "display : block";
+                                }
+                                @if (maintenance.Acknowledge == "Yes")
+                                {
+                                    icondisplay = "display : none";
+                                }
+                                <i class="fas fa-ellipsis-v asset-edit-dropdown" style="@icondisplay" onclick="toggleEmpMaintenanceActionOptions(this)"></i>
                                 <div class="emp-maintenance-options" style="display:none">
                                     @if (maintenance.Status != "Completed")
                                     {
                                         <a class="btn btn-demo dropdown-item maintenance-info-reschedule" data-maintenancesno="@maintenance.Sno" data-toggle="modal" data-target="#RescheduleEmpMaintenancePopup">Reschedule</a>
                                     }
-                                    @if (maintenance.Status == "Completed")
-                                    { 
+                                    @if (maintenance.Status == "Completed" && (maintenance.Acknowledge == "No" || maintenance.Acknowledge == "null"))
+                                    {
                                         <a class="dropdown-item emp-maintenance-info-view" data-maintenancesno="@maintenance.Sno">Acknowledge</a>
                                     }
                                 </div>

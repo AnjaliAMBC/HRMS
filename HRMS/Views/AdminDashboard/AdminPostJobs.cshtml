@@ -19,15 +19,15 @@
             margin-bottom: 0px;
             font-size: 12px;
         }
+
         .tox .tox-statusbar {
             height: 0px !important;
         }
-        .tox .tox-mbtn
-        {
-            height:15px;
-            font-size:12px;
+
+        .tox .tox-mbtn {
+            height: 15px;
+            font-size: 12px;
         }
-        
     </style>
     <div class="hiddenadmindashboard" style="display: none"></div>
     @Html.Partial("_adminsidemenu")
@@ -38,7 +38,10 @@
                     <div class="admin-postjob-container">
                         <div class="row admin-postjob-header">
                             <div class="col-lg-3 admin-postjob-title">
-                                <h4>Post Job</h4>
+                                @{
+                                    var pageTitle = Model.IsNewJob ? "Post Job" : "Edit Job";
+                                }
+                                <h4>@pageTitle</h4>
                             </div>
                         </div>
                     </div>
@@ -136,7 +139,10 @@
                             </div>
                             <div class="row">
                                 <div class="col-lg-3 col-sm-12 col-md-6 ml-auto" style="padding-left:150px;padding-top:20px;padding-bottom:10px;">
-                                    <button type="submit" class="btn btn-primary adminbtn_postjob">Post Job</button>
+                                    @{
+                                        var jobButton = Model.IsNewJob ? "Post Job" : "Update Job";
+                                    }
+                                    <button type="submit" class="btn btn-primary adminbtn_postjob">@jobButton</button>
                                 </div>
                             </div>
                         </div>
@@ -278,13 +284,13 @@
         });
 
 
-       
-            tinymce.init({
-                selector: '#postjob_jobdescription',
+
+        tinymce.init({
+            selector: '#postjob_jobdescription',
             plugins: 'bold italic underline',
             toolbar: 'bold italic underline | alignleft aligncenter alignright',
-      });
-    
+        });
+
 
     </script>
 

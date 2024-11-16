@@ -98,6 +98,15 @@ namespace HRMS.Controllers
                     .Where(x => x.JobID == jobid)
                     .FirstOrDefault();
             }
+            else
+            {
+                int newJobId = _dbContext.JobDetails.Max(j => (int?)j.JobID) ?? 0; 
+                newJobId += 1;
+
+                model.IsNewJob = true;
+
+                model.EditJob.JobID = newJobId;
+            }
 
             return View("~/Views/AdminDashboard/AdminPostJobs.cshtml", model);
         }

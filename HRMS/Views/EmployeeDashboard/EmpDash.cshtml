@@ -354,7 +354,7 @@
 
                 <div class="col-lg-4 col-md-6 col-sm-12 emp-dash-basic-info emp-dash-recent-tickets">
                     <div class="emp-dash-block-header">
-                        <span class="header-title">Recent Tickets</span>
+                        <span class="header-title ticket-list" style="cursor:pointer">Recent Tickets</span>
                     </div>
                     <div class="emp-dash-block-content">
 
@@ -818,5 +818,10 @@
     $(document).on('click', '.all-holidays-list', function () {
         window.location.href = '/empdash/holidays';
     });
+
+    $(document).on('click', '.ticket-list', function () {
+        window.location.href = '/empticketing/index';
+    });
+    
 
 </script>

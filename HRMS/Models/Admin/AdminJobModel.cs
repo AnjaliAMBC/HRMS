@@ -11,6 +11,10 @@ namespace HRMS.Models.Admin
         public JobDetail EditJob { get; set; } = new JobDetail();
 
         public JobDetail jobDetail { get; set; } = new JobDetail();
+
+        public int NewJobId { get; set; }
+
+        public bool IsNewJob { get; set; } = false;
     }
 
 }
