@@ -1076,7 +1076,7 @@
 
 .emp-upcomingholidays-list-horizon {
     background: #efefef;
-    /*height: 100vh;*/
+    min-height: 95vh;
     padding: 0 25px 25px 25px;
 }
 
@@ -1084,6 +1084,7 @@
     margin-left: 0;
     /*padding-top: 0px;
     margin-top: 50px;*/
+    width: 100% !important;
 }
 
 .emp-upcomingholidays-list-horizon #empUpcomingHolidays {
@@ -1673,7 +1674,13 @@ box-shadow: 0 0 5px rgba(0, 0, 0, 0.3);*/
 }
 
 .emp-leave-list-horizon .res-emp-carousel {
-    padding: 0 20px;
+    padding: 0 0px;
+    width: 100%;
+}
+
+.emp-leave-list-horizon .emp-leave-info-block-all .empleave-calendar-body {
+    padding: 0 10px;
+    margin-top: 15px;
 }
 
 .emp-leave-list-horizon #leaveCarousel .emp-leave-carousel-blocks {
@@ -2048,7 +2055,7 @@ box-shadow: 0 0 5px rgba(0, 0, 0, 0.3);*/
 }
 
 .emp-leave-list-horizon .empleave-calendar-header #empleave-monthYear {
-    font-size: 12px;
+    font-size: 14px;
 }
 
 .emp-leave-list-horizon .empleave-calendar-header .empleave-chevron-icon {
@@ -2057,11 +2064,11 @@ box-shadow: 0 0 5px rgba(0, 0, 0, 0.3);*/
 }
 
 .emp-leave-list-horizon .emp-leave-info-block-all .emp-leave-calendar-title {
-    display: inline-flex;
+    /*display: inline-flex;*/
     margin-bottom: -29px;
     margin-left: 16px;
     font-weight: bold;
-    font-size: 14px;
+    font-size: 16px;
 }
 
 .emp-leave-list-horizon .empleave-calendar-body .highlight-festival-leave div {
@@ -2091,6 +2098,14 @@ box-shadow: 0 0 5px rgba(0, 0, 0, 0.3);*/
 
 .emp-leave-list-horizon .leavehistory-year .year-dropdown {
     top: -20px;
+}
+
+.emp-leave-list-horizon #leaveCarousel .carousel-item.carousel-leave-item {
+    display: none;
+}
+
+.emp-leave-list-horizon #leaveCarousel .carousel-item.carousel-leave-item.active {
+    display: inline-flex;
 }
 
 /* emp leave end */
@@ -2761,7 +2776,7 @@ width: 100%;*/
 /* emp job referal detailed start */
 
 .emp-jobreferral-detail-horizon {
-    height: 100vh;
+    /*height: 100vh;*/
 }
 
 .emp-jobreferral-detail-horizon #empJobReferralDetail {
