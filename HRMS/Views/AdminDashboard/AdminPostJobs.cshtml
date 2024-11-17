@@ -183,9 +183,10 @@
 
         function validateForm(event) {
             const form = $('#adminpostjob');
-            const inputs = form.find('input, select, textarea');
+            const inputs = form.find('input, select');
             let isValid = true;
 
+            // Validate standard inputs
             inputs.each(function () {
                 const input = $(this);
                 if (input.attr('required') && (!input.val() || !this.checkValidity())) {
@@ -196,9 +197,8 @@
                 }
             });
 
+            // Validate job type
             const jobType = $('#postjob_jobtype');
-            const status = $('#postjob_status');
-
             if (!jobType.val()) {
                 jobType.addClass('is-invalid');
                 isValid = false;
@@ -206,6 +206,8 @@
                 jobType.removeClass('is-invalid');
             }
 
+            // Validate status
+            const status = $('#postjob_status');
             if (!status.val()) {
                 status.addClass('is-invalid');
                 isValid = false;
@@ -213,6 +215,16 @@
                 status.removeClass('is-invalid');
             }
 
+            // Validate TinyMCE rich text editor field
+            const jobDescription = tinymce.get('postjob_jobdescription').getContent().trim(); // Get the content
+            if (!jobDescription) {
+                $('#postjob_jobdescription_ifr').addClass('is-invalid'); // Highlight iframe for invalid content
+                isValid = false;
+            } else {
+                $('#postjob_jobdescription_ifr').removeClass('is-invalid'); // Remove invalid highlight
+            }
+
+            // Handle form submission
             if (isValid) {
                 submitForm(event);
             } else {
@@ -222,6 +234,7 @@
                     .removeClass('text-success');
             }
         }
+
 
         function submitForm() {
             const jobId = $("#postjob_referalId").val();
@@ -234,7 +247,7 @@
                 PostedDate: $("#postjob_posteddate").val(),
                 JobType: $("#postjob_jobtype").val(),
                 JobStatus: $("#postjob_status").val(),
-                JobDescription: $("#postjob_jobdescription").val(),
+                JobDescription: tinymce.get('postjob_jobdescription').getContent(),
                 SalaryRange: $('#postjob_salary').val(),
                 Priority: $('#postjob_priority').val()
             };

@@ -397,6 +397,7 @@ namespace HRMS.Controllers
             }
         }
 
+        [ValidateInput(false)]
         public JsonResult UpdateRoles(string employeeId, string roles)
         {
             try

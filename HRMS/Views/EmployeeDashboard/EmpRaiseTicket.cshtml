@@ -18,7 +18,10 @@
             <div class="emp-raiseticketing-container">
                 <div class="row res-emp-raiseticketing-header">
                     <div class="col-lg-3 res-emp-raiseticketing-title">
-                        <h4 class="raiseticketing-pagetitle">Raise Ticket</h4>
+                        @{
+                            var pageTitle = Model.IsEditRecord ? "Edit Ticket" : "Raise Ticket";
+                        }
+                        <h4 class="raiseticketing-pagetitle">@pageTitle</h4>
                     </div>
                 </div>
             </div>
@@ -97,15 +100,15 @@
                                 <span class="error-message" id="emp-raiseticket-description-error"></span>
                             </div>
                             @*<div class="form-group">
-                    <label for="emp-raiseticket-attach">Attach File</label>
-                    <span class="emp-raiseticket-attach-upload-btn-wrapper">
-                        <button type="button" class="btn emp-raiseticket-attach-label">Upload a file</button>
-                        <input type="file" id="emp-raiseticket-attach-file-upload" name="emp-raiseticket-attach-file-upload" accept="image/jpeg, image/png">
-                        <span class="emp-raiseticket-file-name"></span>
-                    </span>
-                    <div class="emp-raiseticket-attach-file-upload-size">Only JPEG, PNG with max size of 2MB</div>
-                    <span class="error-message" id="emp-raiseticket-attach-error"></span>
-                </div>*@
+                                    <label for="emp-raiseticket-attach">Attach File</label>
+                                    <span class="emp-raiseticket-attach-upload-btn-wrapper">
+                                        <button type="button" class="btn emp-raiseticket-attach-label">Upload a file</button>
+                                        <input type="file" id="emp-raiseticket-attach-file-upload" name="emp-raiseticket-attach-file-upload" accept="image/jpeg, image/png">
+                                        <span class="emp-raiseticket-file-name"></span>
+                                    </span>
+                                    <div class="emp-raiseticket-attach-file-upload-size">Only JPEG, PNG with max size of 2MB</div>
+                                    <span class="error-message" id="emp-raiseticket-attach-error"></span>
+                                </div>*@
                             <div class="col-lg-12 form-group emp-raiseticketing-upload-field">
                                 <div class="col-lg-9 emp-raiseticketing-upload-left pointer">
                                     <span class="emp-raiseticketing-upload-icon"><img src="~/Assets/upload-icon.png"></span>
@@ -124,7 +127,7 @@
                                     </span>
                                     <span class="error-message" id="emp-raiseticket-attach-error"></span>
                                 </div>
-                                <div class="col-lg-3 col-md-2 emp-raiseticketing-upload-right"></div>                           
+                                <div class="col-lg-3 col-md-2 emp-raiseticketing-upload-right"></div>
 
                             </div>
                             <div class="col-lg-9 form-group div-emp-raiseticket-priority">
@@ -138,7 +141,7 @@
                                 <span class="error-message" id="emp-raiseticket-priority-error"></span>
                             </div>
                             <div class="col-lg-9 emp-raiseticket-submit">
-                                <button type="button" class="btn btn-apply-emp-raiseticket-cancel mb-4">Cancel</button>
+                                <button type="button" class="btn btn-apply-emp-raiseticket-cancel mb-4" data-isedit="@Model.IsEditRecord">Cancel</button>
                                 @{
                                     var buttonText = Model.IsEditRecord ? "Update" : "Raise";
                                 }

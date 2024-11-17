@@ -113,9 +113,16 @@ $(document).off('click', '.btn-apply-emp-raiseticket-submit').on('click', '.btn-
 
 $(document).on('click', '.btn-apply-emp-raiseticket-cancel', function (event) {
     event.preventDefault();
-    $('#empTicketConfirmCancelModal').removeAttr('disabled');
-    $('#emp-ticket-raise-Form')[0].reset();
-    $('#category-div').show();
+
+    var isEdit = $(this).data('isedit');
+
+    if (isEdit == "True") {
+        window.location.href = '/empTicketing/index';
+        return;
+    } else {
+        $('#empTicketConfirmCancelModal').removeAttr('disabled');
+        $('#emp-ticket-raise-Form')[0].reset();       
+    }
 });
 
 
