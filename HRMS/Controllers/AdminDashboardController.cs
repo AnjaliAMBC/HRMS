@@ -98,11 +98,20 @@ namespace HRMS.Controllers
                     .Where(x => x.JobID == jobid)
                     .FirstOrDefault();
             }
+            else
+            {
+                int newJobId = _dbContext.JobDetails.Max(j => (int?)j.JobID) ?? 0;
+                newJobId += 1;
+
+                model.IsNewJob = true;
+
+                model.EditJob.JobID = newJobId;
+            }
 
             return View("~/Views/AdminDashboard/AdminPostJobs.cshtml", model);
         }
 
-
+        [ValidateInput(false)]
         public JsonResult PostJob(JobDetail jobDetail)
         {
             try
@@ -137,6 +146,12 @@ namespace HRMS.Controllers
 
                         // Mark the entity as modified
                         _dbContext.Entry(existingJob).State = EntityState.Modified;
+                    }
+                    else
+                    {
+                        jobDetail.PostedDate = jobDetail.PostedDate ?? DateTime.Now;
+                        jobDetail.UpdatedDate = DateTime.Now;
+                        _dbContext.JobDetails.Add(jobDetail); // Add new job
                     }
                 }
                 _dbContext.SaveChanges();

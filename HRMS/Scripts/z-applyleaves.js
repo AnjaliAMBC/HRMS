@@ -781,9 +781,9 @@ $(document).on('click', '.dashhoiday_description', function (e) {
         holidayDate = $(this).siblings('.emp-upcoming-left').find('.holiday-date').text();
     } else {
         // If clicked element is from the table row
-        var $row = $(this).closest('tr');
-        holidayName = $row.find('td:nth-child(1)').text(); // Holiday name from 1st column
-        holidayDate = $row.find('td:nth-child(2)').text(); // Holiday date from 2nd column
+        var $row = $(this);
+        holidayName = $(this).find('.holiday-name').text();
+        holidayDate = $(this).find('.holiday-date').text();
     }
 
     $('.selectedholidayname').text(holidayName);  // Set hidden div value

@@ -579,7 +579,7 @@ function getLeaveSummary(employeeId, location, month, year) {
             $('#totalAbsent').text(response.TotalAbsent);
 
             // Update chart
-            updateChart(response.TotalPresent, response.TotalLeaves, response.TotalAbsent);
+            updateChart(response.TotalPresent, response.TotalLeaves, response.TotalAbsent, response.TotalHolidays);
 
         },
         error: function (xhr, status, error) {
@@ -589,13 +589,14 @@ function getLeaveSummary(employeeId, location, month, year) {
     });
 }
 
-function updateChart(present, leaves, absent) {
-    var xValues = ["Present", "Leave", "Absent"];
-    var yValues = [present, leaves, absent];
+function updateChart(present, leaves, absent, holiday) {
+    var xValues = ["Present", "Leave", "Absent", "Holiday"];
+    var yValues = [present, leaves, absent, holiday];
     var barColors = [
         "#96CD5C",
         "#C85353",
-        "#00B4F2"
+        "#00B4F2",
+        "#FFD700"
     ];
 
     // Destroy any existing chart instance before creating a new one (prevents duplication)

@@ -294,11 +294,11 @@
                             <div class="ed-hr-announcements-left">
                                 <p class="">Dear Team,</p>
                                 <p class="">Wishing you all a wounderful day!</p>
-                                <p class="">As the festive season of Diwali approaches, we are excited to announce that 25th October 2024(Friday) will be celebrated as Ethnic Wear Day in the office</p>
-                                <div class="ed-hr-announcements-view" data-toggle="modal" data-target="#emp-dash-hr-announcement-popup">View</div>
+                                <p class="">Coming Soon..!!</p>
+                                @*<div class="ed-hr-announcements-view" data-toggle="modal" data-target="#emp-dash-hr-announcement-popup">View</div>*@
                             </div>
                             <div class="ed-hr-announcements-right">
-                                <img src="~/Assets/dashboard/hr-diwali.png">
+                                <img src="~/Assets/dashboard/Hyderabad.png">
                             </div>
                         </div>
                     }
@@ -308,11 +308,11 @@
                             <div class="ed-hr-announcements-left">
                                 <p class="">Dear Team,</p>
                                 <p class="">Wishing you all a wounderful day!</p>
-                                <p class="">As the festive season of Diwali approaches, we are excited to announce that 25th October 2024(Friday) will be celebrated as Ethnic Wear Day in the office</p>
+                                <p class="">We are excited to announce that AMBC Excel & Energize 2024 🏆 our annual sports event, is scheduled to take place on 23rd November 2024(Saturday).</p>
                                 <div class="ed-hr-announcements-view" data-toggle="modal" data-target="#emp-dash-hr-announcement-popup">View</div>
                             </div>
                             <div class="ed-hr-announcements-right">
-                                <img src="~/Assets/dashboard/hr-diwali.png">
+                                <img src="~/Assets/dashboard/Madurai.jfif">
                             </div>
                         </div>
                     }
@@ -354,7 +354,7 @@
 
                 <div class="col-lg-4 col-md-6 col-sm-12 emp-dash-basic-info emp-dash-recent-tickets">
                     <div class="emp-dash-block-header">
-                        <span class="header-title">Recent Tickets</span>
+                        <span class="header-title ticket-list" style="cursor:pointer">Recent Tickets</span>
                     </div>
                     <div class="emp-dash-block-content">
 
@@ -696,14 +696,29 @@
                 </div>
                 <div class="modal-body">
                     <div class="ed-hr-announcements-left">
-                        <p class="">Dear Team,</p>
-                        <p class="">Wishing you all a wounderful day!</p>
-                        <p class="">As the festive season of Diwali approaches, we are excited to announce that 25th October 2024(Friday) will be celebrated as Ethnic Wear Day in the office</p>
-                        <p class="">Let's come together in traditional or ethnic attire of your choice</p>
-                        <p class="">Let's come together in traditional or ethnic attire of your choice</p>
+                        @if (Model.EmpInfo.Location == "Madurai")
+                        {
+                            <p class="">Dear Team,</p>
+                            <p class="">Wishing you all a wounderful day!</p>
+                            <p class="">We are excited to announce that AMBC Excel & Energize 2024 🏆 our annual sports event, is scheduled to take place on 23rd November 2024(Saturday).</p>
+                            <p class="">This event promises to be a day full of energy, enthusiasm, and team spirit, bringing us together to celebrate our competitive spirit.</p>
+                            <p class="">
+                                <b>Event Details:</b>
+                                <br />
+                                Date📅 : 23rd November 2024 (Saturday)
+                                <br />
+                                Location📍 : VVM Sports Academy
+                                <br />
+                                We encourage everyone to participate and represent yourselves in comfortable athletic attire and sports shoes with good grip to ensure your safety during the games and activities.
+                                <br />
+                                Mark your calendars and gear up for a day filled with joy, excitement, and memories to cherish!
+                                <br />
+                                Let’s come together and make AMBC Excel & Energize 2024 a grand success!
+                            </p>
+                        }
                     </div>
                     <div class="ed-hr-announcements-right">
-                        <img src="~/Assets/dashboard/hr-diwali.png">
+                        <img src="~/Assets/dashboard/Madurai.jfif">
                     </div>
                 </div>
             </div>
@@ -818,5 +833,10 @@
     $(document).on('click', '.all-holidays-list', function () {
         window.location.href = '/empdash/holidays';
     });
+
+    $(document).on('click', '.ticket-list', function () {
+        window.location.href = '/empticketing/index';
+    });
+
 
 </script>

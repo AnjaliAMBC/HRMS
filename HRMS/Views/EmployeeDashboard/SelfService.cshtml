@@ -1122,7 +1122,7 @@
 
 
     $(document).on('click', '#empProjectRoleResSubmitButton', function () {
-        var roles = $('#empProjectRoleRes-field').val();
+        var roles = tinymce.get('empProjectRoleRes-field').getContent();
 
         $.ajax({
             url: '/empdash/updateroles',

@@ -26,7 +26,20 @@
                     <div class="col-lg-8 emp-jobreferral-detail-left">
                         <div class="emp-jobreferral-detail-title-block">
                             <div class="title-block-left">@Model.jobInfo.JobTitle</div>
-                            <div class="title-block-right"><button class="btn" data-toggle="modal" data-target="#ReferFriendPopup" data-Jobid="@Model.jobInfo.JobID">Refer a friend</button></div>
+                            @if (@Model.jobInfo.JobStatus == "Open")
+                            {
+                                <div class="title-block-right">
+                                    <button class="btn" data-toggle="modal" data-target="#ReferFriendPopup" data-Jobid="@Model.jobInfo.JobID">Refer a Friend</button>
+                                </div>
+                            }
+                            else if (@Model.jobInfo.JobStatus == "Closed")
+                            {
+                                <div class="title-block-right">
+                                    <button class="btn" disabled>Refer a Friend</button>
+                                </div>
+                            }
+
+
                         </div>
                         <div class="emp-jobreferral-detail-work-block">
                             <div class="work-block-experince">Work Experience : @Model.jobInfo.Experience</div>

@@ -3,9 +3,8 @@
 @using HRMS.Helpers
 <div class="modal-content" style="border-color:transparent">
     <style>
-        .tableempty_jobreferal
-        {
-            text-align:center;
+        .tableempty_jobreferal {
+            text-align: center;
         }
     </style>
     <div class="modal-body" style="padding:0px;">
@@ -15,7 +14,7 @@
                 <i class="fa-solid fa-xmark"></i>
             </button>
         </div>
-        <div class="modal-body" >
+        <div class="modal-body">
             <table id="admin_candidatelist_jobreferal" class="display" style="width: 100%;">
                 <thead class="canjref_thead">
                     <tr>
@@ -34,7 +33,15 @@
                         {
                             <tr>
                                 <td class="jobreferred_candidatename">@candidate.CandidateName</td>
-                                <td class="jobreferred_resume"><a href="@candidate.ResumePath">Resume</a></td>
+                                <td class="jobreferred_resume">
+
+
+                                    @{ var basePath = System.Configuration.ConfigurationManager.AppSettings["TicketingAbsolutePath"];
+                                        var resumePath = $"/resume/{candidate.ResumePath}";
+                                        var absolutePath = $"{basePath}{resumePath}"; }
+
+                                    <a href="@absolutePath" target="_blank">Resume</a>
+                                </td>
                                 <td class="jobreferred_by d-flex">
                                     <img src="@candidate.CandidateName" alt="" class="">
 
@@ -93,7 +100,7 @@
 
                 </tbody>
             </table>
-            </div>
+        </div>
         <script>
             $(document).ready(function () {
                 if (!$.fn.DataTable.isDataTable('#admin_candidatelist_jobreferal')) {
@@ -113,5 +120,5 @@
                 }
             });
         </script>
-        </div>
     </div>
+</div>
