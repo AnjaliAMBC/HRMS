@@ -72,5 +72,6 @@ namespace HRMS
         public string imagepath { get; set; }
         public Nullable<System.TimeSpan> ShiftStartTime { get; set; }
         public Nullable<System.TimeSpan> ShiftEndTime { get; set; }
+        public string Roles_Responsibilities { get; set; }
     }
 }

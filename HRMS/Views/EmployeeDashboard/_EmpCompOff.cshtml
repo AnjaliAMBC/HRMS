@@ -1,0 +1,124 @@
+﻿@model HRMS.Models.CompOffModel
+
+<div class="empleavecompoff-year">
+</div>
+<div class="table-responsive">
+    <table id="empleaveCompOffTable" class="table empleave-compoff-table mt-4">
+        <thead>
+            <tr>
+                <th>Status</th>
+                <th>Requested Date</th>
+                <th>Work Date</th>
+                <th>Description</th>
+                <th>Action</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var compoff in Model.CompOffs)
+            {
+                // Convert the dates to the desired format
+                var requestedDate = compoff.createddate != null
+                    ? ((DateTime)compoff.createddate).ToString("d MMMM yyyy")
+                    : "";
+                var workDate = compoff.CampOffDate != null
+                    ? ((DateTime)compoff.CampOffDate).ToString("d MMMM yyyy")
+                    : "";
+
+                var leaveStatus = compoff.addStatus.ToLowerInvariant();
+                var statusClass = leaveStatus == "approved" ? "compoff-status-approved" :
+                                  leaveStatus == "rejected" ? "compoff-status-rejected" :
+                                  leaveStatus == "cancelled" ? "compoff-status-cancelled" :
+                                  leaveStatus == "pending" ? "compoff-status-pending" : "";
+
+                <tr>
+                    <td class="compoff-status">
+                        @if (compoff.addStatus.ToLowerInvariant() == "pending")
+                        {
+                            <span class="fontWtMedium @statusClass" title="@compoff.addStatus"><img src="/Assets/Pending.png"></span>
+                        }
+
+                        @if (compoff.addStatus.ToLowerInvariant() == "approved")
+                        {
+                            <span class="fontWtMedium @statusClass" title="@compoff.addStatus"><img src="/Assets/Approve.png"></span>
+                        }
+
+                        @if (compoff.addStatus.ToLowerInvariant() == "rejected")
+                        {
+                            <span class="fontWtMedium @statusClass" title="@compoff.addStatus"><img src="/Assets/reject.png"></span>
+                        }
+
+                        @if (compoff.addStatus.ToLowerInvariant() == "cancelled")
+                        {
+                            <span class="fontWtMedium @statusClass" title="@compoff.addStatus"><img src="~/Assets/Cancelled.png"></span>
+                        }
+                    </td>
+                    <td>
+                        <span class="fontWtMedium">
+                            <div class="emp-compoff-date">@requestedDate</div>
+                            <div class="emp-compoff-day">@((compoff.createddate != null ? ((DateTime)compoff.createddate).DayOfWeek.ToString() : ""))</div>
+                        </span>
+                    </td>
+                    <td>
+                        <span class="fontWtMedium">
+                            <div class="emp-compoff-date">@workDate</div>
+                            <div class="emp-compoff-day">@((compoff.CampOffDate != null ? ((DateTime)compoff.CampOffDate).DayOfWeek.ToString() : ""))</div>
+                        </span>
+                    </td>
+                    <td style="width: 420px;" class="fontSmall commentSec">
+                        <div class="dFlex d-flex">
+                            <p title="@compoff.Reason">@compoff.Reason</p>
+                        </div>
+                    </td>
+                    <td class="fontSmall position-relative compoff-actions">
+                        @if (leaveStatus == "pending")
+                        {
+                            <i class="fas fa-ellipsis-v" onclick="toggleEmpCompoffActionOptions(this)"></i>
+                            <div class="emp-compoffs" style="display:none">
+                                <a href="#" class="dropdown-item statusBtn editLeavecompoffBtn" data-leavename="Edit" data-compoffnum="@compoff.Compoff_no">Edit</a>
+                                <a href="#" class="dropdown-item statusBtn cancelLeavecompoffBtn" data-leavename="Cancel" data-compoffnum="@compoff.Compoff_no">Cancel</a>
+                            </div>
+                        }
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+
+</div>
+
+<script>
+
+    $(document).ready(function () {
+
+        function refreshEmpCompOffDataTable() {
+            if ($.fn.DataTable.isDataTable('#empleaveCompOffTable')) {
+                $('#empleaveCompOffTable').DataTable().destroy();
+            }
+
+            if (!$.fn.DataTable.isDataTable('#empleaveCompOffTable')) {
+                $('#empleaveCompOffTable').DataTable({
+                    "paging": true,
+                    "searching": false,
+                    "ordering": true,
+                    "info": true,
+                    "autoWidth": false,
+                    "lengthMenu": [[7, 14, 21, -1], [7, 14, 21, "All"]],
+                    "columnDefs": [
+                        { "orderable": true, "targets": 0 },
+                        { "orderable": true, "targets": 2 },
+                        { "orderable": true, "targets": 3 }
+                    ]
+                });
+            }
+        }
+
+        refreshEmpCompOffDataTable();
+
+        $(document).on('ajaxComplete', function () {
+            refreshEmpCompOffDataTable();
+        });
+    });
+
+
+
+</script>

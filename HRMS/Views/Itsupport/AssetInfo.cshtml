@@ -107,10 +107,10 @@
                         <div class="col-xl-5 col-lg-5 navbarl1 col-sm-12 col-md-8 res-admin-assetinfo-header-right">
                             <div class="col-xl-4 col-lg-4 navbarl1 col-sm-5 col-xs-12 col-md-4 res-admin-assetinfo-status p-0">
                                 <div class="form-group res-assetinfo p-0">
-                                    <select class="form-control form-select" name="assetinfostatus" id="assetinfo-status-dropdown" style="">
+                                    <select class="form-control form-select" name="assetinfostatus" id="assetinfo-status-dropdown">
                                         <option value="" disabled selected>Allocate Status</option>
                                         <option value="Assigned">Assigned</option>
-                                        <option value="Unassigned">Un-Assigned</option>
+                                        <option value="Unassigned">Unassigned</option> <!-- Make sure this matches exactly -->
                                         <option value="Scrap">Scrap</option>
                                         <option value="">All</option>
                                     </select>
@@ -167,10 +167,50 @@
                             <tr class="">
                                 <td><input type="checkbox" class="Assetlist-check" data-assetid="@asset.SNo"></td>
                                 <td class="tdassetid"><span class="assetinfo-image-btn"><img src="~/Assets/image8.png" alt="@asset.AssetID" style="width:25px"></span><span class="Asset-id-select" data-assetid="@asset.SNo" style="margin-left: 5px; color: #3E78CF;">@asset.AssetID</span></td>
-                                <td>@asset.AllocatedEmployeeID @asset.AllocatedEmployeeName</td>
-                                <td class="tdassetlocation">@asset.Location</td>                                
+                                <td>
+                                    @{ var allocatedEmployeeID = asset.AllocatedEmployeeID;
+                                        var allocatedEmployeeName = asset.AllocatedEmployeeName;
+
+                                        // Check if both values are null or whitespace
+                                        if (string.IsNullOrWhiteSpace(allocatedEmployeeID) ||
+                                        string.IsNullOrWhiteSpace(allocatedEmployeeName) ||
+                                        allocatedEmployeeName.Equals("Select Name", StringComparison.OrdinalIgnoreCase))
+                                        {
+                                            <text>N/A</text> }
+                                        else
+                                        {
+                                            <text>@allocatedEmployeeID @allocatedEmployeeName</text> } }
+                                </td>
+                                <td class="tdassetlocation">
+                                    @{
+                                        var assignedemplocation = "null";
+
+                                        if (asset.Location == assignedemplocation)
+                                        {
+                                            <text>N/A</text> }
+                                        else
+                                        {
+                                            <text> @asset.Location</text>
+                                        }
+                                    }
+                                </td>
+
                                 <td>@asset.AllocatedStatus</td>
-                                <td>@asset.AssignedBy</td>
+                                <td>
+                                    @{
+                                        var assignedbyemp = asset.AssignedBy;
+
+                                        // Check if both values are null or whitespace
+                                        if (string.IsNullOrWhiteSpace(assignedbyemp) || assignedbyemp.Equals("Select Name", StringComparison.OrdinalIgnoreCase))
+                                        {
+                                            <text>N/A</text>
+                                        }
+                                        else
+                                        {
+                                            <text>  @asset.AssignedBy </text>
+                                            }
+                                        }
+                                        </td>
                                 <td>@assignedDate</td>
                                 <td style="text-align:center;">
                                     <span class="assetinfo-list-edit">
@@ -386,6 +426,7 @@
             $('.assetinfo-advancesearch').on('keyup', function () {
                 table.search(this.value).draw(); // Perform global search on all columns
             });
+                      
 
             $(document).on('change', '#assetinfo-status-dropdown', function () {
                 var value = $(this).val(); // Get the selected value
@@ -397,6 +438,8 @@
                 if (value === '') {
                     table.column(columnIndex).search('').draw(); // Show all rows
                 } else {
+                    console.log('Current data in Allocate Status column:', table.column(columnIndex).data()); // Debugging statement for current data in the column
+
                     // Regular expression for exact match
                     table.column(columnIndex).search('^' + value + '$', true, false).draw();
                 }

@@ -240,7 +240,17 @@
         margin-top: 5px;
         text-align: center;
     }
+    .tox .tox-statusbar {
+        height: 0px !important;
+    }
+
+    .tox .tox-mbtn {
+        height: 15px;
+        font-size: 12px;
+    }
+    
 </style>
+<script src="https://cdn.tiny.cloud/1/a8r9jj8t9yk0l2hgejaoyglumbdcfozlfeogwxxq03lyrsrr/tinymce/5/tinymce.min.js"></script>
 <div class="container-fluid emp-selfservice-list-horizon">
     <div class="main-content container-fluid">
         <div class="content employee-selfservice">
@@ -257,29 +267,71 @@
                     <div class="col-lg-7 emp-selfservice-details-left">
                         <div class="emp-ss-details-block1">
                             <div class="emp-ss-details-block1-left">
-                                <img src="~/Assets/EmpImages/1075.jpeg">
+
+                                @if (!string.IsNullOrWhiteSpace(Model.EmpInfo.imagepath))
+                                {
+                                    var empImageURl = System.Configuration.ConfigurationManager.AppSettings["EmpImagesFolder"] + "/" + Model.EmpInfo.imagepath + "?" + System.DateTime.Now;
+                                    <img src="@empImageURl" alt="Employee Image" class="emp-profileimage">
+                                }
+                                else
+                                {
+                                    <img src="" alt="Employee Image" class="emp-profileimage" style="display: none">
+                                    // Split the full name into first name and last name
+                                    string[] names = Model.EmpInfo.EmployeeName.Split(new char[] { ' ' }, StringSplitOptions.RemoveEmptyEntries);
+
+                                    // Ensure we have at least one name
+                                    if (names.Length > 0)
+                                    {
+                                        // Get the first name
+                                        string firstName = names[0];
+
+                                        // Get the last name if available
+                                        string lastName = names.Length > 1 ? names[names.Length - 1] : string.Empty;
+
+                                        // Extract the first letters
+                                        char firstLetterOfFirstName = firstName[0];
+                                        char firstLetterOfLastName = !string.IsNullOrEmpty(lastName) ? lastName[0] : '\0';
+
+                                        // Convert to uppercase if needed
+                                        firstLetterOfFirstName = char.ToUpper(firstLetterOfFirstName);
+                                        firstLetterOfLastName = char.ToUpper(firstLetterOfLastName);
+
+                                        // Output the first letters
+                                        Console.WriteLine($"First letter of first name: {firstLetterOfFirstName}");
+                                        Console.WriteLine($"First letter of last name: {firstLetterOfLastName}");
+
+                                        <div class="default-image">@firstLetterOfFirstName @firstLetterOfLastName</div>
+
+                                    }
+                                }
                                 <div class="img-edit-icon"><span><i class="fas fa-camera"></i></span></div>
                                 <input type="file" id="imageInput" style="display: none;">
+
                             </div>
+                            @*<div class="emp-ss-details-block1-left">
+                                    <img src="~/Assets/EmpImages/1075.jpeg">
+                                    <div class="img-edit-icon"><span><i class="fas fa-camera"></i></span></div>
+                                    <input type="file" id="imageInput" style="display: none;">
+                                </div>*@
                             <div class="emp-ss-details-block1-right">
                                 <div class="emp-ss-details-user-info-1">
-                                    <div class="emp-ss-details-username">Test User</div>
-                                    <div class="emp-ss-details-designation color-gray">Test Design</div>
-                                    <div class="emp-ss-details-category color-gray">Digital Marketing</div>
+                                    <div class="emp-ss-details-username">@Model.EmpInfo.EmployeeName</div>
+                                    <div class="emp-ss-details-designation color-gray">@Model.EmpInfo.Designation</div>
+                                    <div class="emp-ss-details-category color-gray">@Model.EmpInfo.Department</div>
                                 </div>
                                 <div class="emp-ss-details-user-info-2">
-                                    <div class="emp-ss-details-empid">Employee ID: 1100</div>
-                                    <div class="emp-ss-details-dob color-gray">Date of Join: 01-01-2024</div>
+                                    <div class="emp-ss-details-empid">Employee ID: @Model.EmpInfo.EmployeeID</div>
+                                    <div class="emp-ss-details-dob color-gray">Date of Join: @Model.EmpInfo.DOJ.ToString("dd-MM-yyyy")</div>
                                 </div>
                             </div>
                         </div>
-                        <div class="emp-ss-details-block2">
+                        <div class="emp-ss-details-block2 emp-ss-tab-details-desktop">
                             <ul class="nav nav-tabs res-emp-ss-tabs responsive-tabs" id="myTab" role="tablist" style="font-size: 15px; width: 100%;">
                                 <li class="nav-item active" role="presentation">
                                     <a class="nav-link active" id="tab1-link" data-toggle="tab" href="#tab1" role="tab" aria-controls="tab1" aria-selected="true">Profile</a>
                                 </li>
                                 <li class="nav-item" role="presentation">
-                                    <a class="nav-link" id="tab2-link" data-toggle="tab" href="#tab2" role="tab" aria-controls="tab2" aria-selected="false">Project</a>
+                                    <a class="nav-link" id="tab2-link" data-toggle="tab" href="#tab2" role="tab" aria-controls="tab2" aria-selected="false">Projects - R&R</a>
                                 </li>
                                 <li class="nav-item" role="presentation">
                                     <a class="nav-link" id="tab3-link" data-toggle="tab" href="#tab3" role="tab" aria-controls="tab3" aria-selected="false">Asset</a>
@@ -287,6 +339,8 @@
                                 <li class="nav-item" role="presentation">
                                     <a class="nav-link" id="tab4-link" data-toggle="tab" href="#tab4" role="tab" aria-controls="tab4" aria-selected="false">Monthly Maintenance</a>
                                 </li>
+                                <i class="fa fa-caret-up"></i>
+                                <i class="fa fa-caret-down"></i>
                             </ul>
                         </div>
                     </div>
@@ -294,24 +348,24 @@
                     <div class="col-lg-5 emp-selfservice-details-right">
                         <div class="emp-ss-details-block3">
                             <div class="emp-ss-details-right-left emp-ss-details-phone">
-                                <span class="col-lg-4 emp-ss-details-left-block">Phone:</span>
-                                <span class="col-lg-8 emp-ss-details-right-block" style="color: #267EC4;">+91 090909090</span>
+                                <span class="col-lg-4 col-md-5 emp-ss-details-left-block">Phone:</span>
+                                <span class="col-lg-8 emp-ss-details-right-block" style="color: #267EC4;">@Model.EmpInfo.MobileNumber</span>
                             </div>
                             <div class="emp-ss-details-right-left emp-ss-details-email">
-                                <span class="col-lg-4 emp-ss-details-left-block">Email:</span>
-                                <span class="col-lg-8 emp-ss-details-right-block" style="color: #267EC4;">test@ambconline.com</span>
+                                <span class="col-lg-4 col-md-5 emp-ss-details-left-block">Email:</span>
+                                <span class="col-lg-8 emp-ss-details-right-block" style="color: #267EC4;">@Model.EmpInfo.OfficalEmailid</span>
                             </div>
                             <div class="emp-ss-details-right-left emp-ss-details-shift">
-                                <span class="col-lg-4 emp-ss-details-left-block">Shift Timing:</span>
-                                <span class="col-lg-8 emp-ss-details-right-block color-gray">09:30 - 18:30</span>
+                                <span class="col-lg-4 col-md-5 emp-ss-details-left-block">Shift Timing:</span>
+                                <span class="col-lg-8 emp-ss-details-right-block color-gray">@Model.EmpInfo.ShiftTimings</span>
                             </div>
                             <div class="emp-ss-details-right-left emp-ss-details-location">
-                                <span class="col-lg-4 emp-ss-details-left-block">Location:</span>
-                                <span class="col-lg-8 emp-ss-details-right-block color-gray">Madurai</span>
+                                <span class="col-lg-4 col-md-5 emp-ss-details-left-block">Location:</span>
+                                <span class="col-lg-8 emp-ss-details-right-block color-gray">@Model.EmpInfo.Location</span>
                             </div>
                             <div class="emp-ss-details-right-left emp-ss-details-emptype">
-                                <span class="col-lg-4 emp-ss-details-left-block">Employee Type:</span>
-                                <span class="col-lg-8 emp-ss-details-right-block color-gray">Full-Time</span>
+                                <span class="col-lg-4 col-md-5 emp-ss-details-left-block">Employee Type:</span>
+                                <span class="col-lg-8 emp-ss-details-right-block color-gray">@Model.EmpInfo.EmployeeType</span>
                             </div>
                         </div>
                         <div class="emp-ss-details-block4">
@@ -322,6 +376,25 @@
                     </div>
                 </div>
 
+            </div>
+
+            <div class="emp-ss-details-block2 emp-ss-tab-details-mobile" style="display:none;">
+                <ul class="nav nav-tabs res-emp-ss-tabs responsive-tabs" id="myTab" role="tablist" style="font-size: 15px; width: 100%;">
+                    <li class="nav-item active" role="presentation">
+                        <a class="nav-link active" id="tab1-link" data-toggle="tab" href="#tab1" role="tab" aria-controls="tab1" aria-selected="true">Profile</a>
+                    </li>
+                    <li class="nav-item" role="presentation">
+                        <a class="nav-link" id="tab2-link" data-toggle="tab" href="#tab2" role="tab" aria-controls="tab2" aria-selected="false">Projects - R&amp;R</a>
+                    </li>
+                    <li class="nav-item" role="presentation">
+                        <a class="nav-link" id="tab3-link" data-toggle="tab" href="#tab3" role="tab" aria-controls="tab3" aria-selected="false">Asset</a>
+                    </li>
+                    <li class="nav-item" role="presentation">
+                        <a class="nav-link" id="tab4-link" data-toggle="tab" href="#tab4" role="tab" aria-controls="tab4" aria-selected="false">Monthly Maintenance</a>
+                    </li>
+                    <i class="fa fa-caret-up"></i>
+                    <i class="fa fa-caret-down"></i>
+                </ul>
             </div>
 
             <div class="emp-selfservice-details-all">
@@ -536,8 +609,52 @@
                     </div>
 
                     <div class="tab-pane fade emp-ss-projectview" id="tab2" role="tabpanel" aria-labelledby="tab2-link">
-                        Test
+                        <div class="row emp-project-details-main">
+                            <div class="col-lg-7 emp-project-details-left">
+                                <div class="col-lg-12 emp-project-details-header">
+                                    <div class="emp-project-details-title">Roles & Responsibility</div>
+                                    <div class="emp-project-details-edit"><span data-toggle="modal" data-target="#empProjectRoleResModal"><img src="~/Assets/edit-icon.png"></span></div>
+                                </div>
+                                <div class="col-lg-12 emp-project-details-body">
+                                    @Model.EmpInfo.Roles_Responsibilities
+                                    @*<div class="emp-project-details-body-block emp-project-details-body-block1">
+                                            <div>Graphics Designer</div>
+                                            <ul>
+                                                <li>Responsible for daily design in social media promotions.</li>
+                                                <li>Responsible in designing sales collaterals, catalogs, client presentations, brochures, eBooks, infographics and newsletters and handbook</li>
+                                                <li>Created banners and icons, and branding images for websites and applications.</li>
+                                            </ul>
+                                        </div>
+                                        <div class="emp-project-details-body-block emp-project-details-body-block2">
+                                            <div>UI/UX Designer</div>
+                                            <ul>
+                                                <li>Responsible for daily design in social media promotions.</li>
+                                                <li>Responsible in designing sales collaterals, catalogs, client presentations, brochures, eBooks, infographics and newsletters and handbook</li>
+                                                <li>Created banners and icons, and branding images for websites and applications.</li>
+                                            </ul>
+                                        </div>*@
+                                </div>
+                            </div>
+                            <div class="col-lg-4 emp-project-details-right">
+                                <div class="emp-project-details-clientinfo">
+                                    <div class="emp-project-clientinfo">
+                                        <div class="project-client"><span>Client : </span> @Model.EmpInfo.Client</div>
+                                        <div class="project-name"><span>Project : </span> @Model.EmpInfo.Client</div>
+                                        <div class="project-role"><span>Role : </span> @Model.EmpInfo.Designation</div>
+                                        <div class="project-rm"><span>RM : </span> @Model.EmpInfo.ReportingManager</div>
+                                    </div>
+                                    @*<div class="emp-project-clientinfo">
+                                            <div class="project-client"><span>Client : </span> AMBC</div>
+                                            <div class="project-name"><span>Project : </span> AMBC Website Revamp</div>
+                                            <div class="project-role"><span>Role : </span> Graphic / UI UX Designer</div>
+                                            <div class="project-rm"><span>RM : </span> Shanta M Balakumar</div>
+                                        </div>*@
+                                </div>
+                            </div>
+                        </div>
                     </div>
+
+
                     <div class="tab-pane fade emp-ss-assetview" id="tab3" role="tabpanel" aria-labelledby="tab3-link">
 
                         <div class="container" style="margin-left: 0 auto">
@@ -555,68 +672,229 @@
                                                         </div>
                                                     </div>
                                                     <ul>
-                                                        <li>
-                                                            <div class="family" style="width: 172px">
-                                                                <div class="person child male">
-                                                                    <div class="name allocate-details tree-child">
-                                                                        <img src="~/Assets/EmpImages/1020.jpeg">
-                                                                        <div class="allocate-info">
-                                                                            <div class="model"><span>Model</span> Dell</div>
-                                                                            <div class="assetid"><span>Asset ID</span> AMBC/MDU/#0077</div>
-                                                                            <div class="allocatedby"><span>Allocated By</span> Test User</div>
-                                                                            <div class="allocateddate"><span>Allocated Date</span> 09-10-2024</div>
-                                                                        </div>
-                                                                    </div>
-                                                                </div>
-                                                            </div>
-                                                        </li>
-                                                        <li>
-                                                            <div class="family" style="width: 172px">
-                                                                <div class="person child male">
-                                                                    <div class="name allocate-details tree-child">
-                                                                        <img src="~/Assets/EmpImages/1020.jpeg">
-                                                                        <div class="allocate-info">
-                                                                            <div class="model"><span>Model</span> Dell</div>
-                                                                            <div class="assetid"><span>Asset ID</span> AMBC/MDU/#0077</div>
-                                                                            <div class="allocatedby"><span>Allocated By</span> Test User</div>
-                                                                            <div class="allocateddate"><span>Allocated Date</span> 09-10-2024</div>
-                                                                        </div>
-                                                                    </div>
-                                                                </div>
-                                                            </div>
-                                                        </li>
-                                                        <li>
-                                                            <div class="family" style="width: 172px">
-                                                                <div class="person child male">
-                                                                    <div class="name allocate-details tree-child">
-                                                                        <img src="~/Assets/EmpImages/1020.jpeg">
-                                                                        <div class="allocate-info">
-                                                                            <div class="model"><span>Model</span> Dell</div>
-                                                                            <div class="assetid"><span>Asset ID</span> AMBC/MDU/#0077</div>
-                                                                            <div class="allocatedby"><span>Allocated By</span> Test User</div>
-                                                                            <div class="allocateddate"><span>Allocated Date</span> 09-10-2024</div>
-                                                                        </div>
-                                                                    </div>
-                                                                </div>
-                                                            </div>
-                                                        </li>
-                                                        <li>
-                                                            <div class="family" style="width: 172px">
-                                                                <div class="person child male">
-                                                                    <div class="name allocate-details tree-child">
-                                                                        <img src="~/Assets/EmpImages/1020.jpeg">
-                                                                        <div class="allocate-info">
-                                                                            <div class="model"><span>Model</span> Dell</div>
-                                                                            <div class="assetid"><span>Asset ID</span> AMBC/MDU/#0077</div>
-                                                                            <div class="allocatedby"><span>Allocated By</span> Test User</div>
-                                                                            <div class="allocateddate"><span>Allocated Date</span> 09-10-2024</div>
-                                                                        </div>
-                                                                    </div>
-                                                                </div>
-                                                            </div>
-                                                        </li>
+                                                        @if (Model.empAsset != null)
+                                                        {
+                                                            if (!string.IsNullOrWhiteSpace(Model.empAsset.AssetType1) && Model.empAsset.AssetType1 != "null")
+                                                            {
+                                                                <li>
+                                                                    <div class="family" style="width: 172px">
+                                                                        <div class="person child male">
+                                                                            <div class="name allocate-details tree-child">
+                                                                                @if (!string.IsNullOrWhiteSpace(Model.empAsset.AssetType1Image))
+                                                                                {
+
+                                                                                    // Split the AssetID by '#' and check if there are enough parts
+                                                                                    var assetIDParts = Model.empAsset.AssetID.Split('#');
+                                                                                    var assetFolderID = assetIDParts.Length > 1 ? assetIDParts[1] : string.Empty; // Extracting assetFolderID
+
+                                                                                    // Construct the asset image URL
+                                                                                    var assetImageURL = $"{System.Configuration.ConfigurationManager.AppSettings["TicketingAbsolutePath"]}/Assets/{assetFolderID}/{Model.empAsset.AssetType1Image}";
 
 
+                                                                                    <img src="@assetImageURL" alt="Asset Image" class="asset-profileimage">
+                                                                                }
+                                                                                else // Fallback image if asset image is not available
+                                                                                {
+                                                                                    <img src="~/Assets/01_Laptop.png" alt="Default Asset Image" />
+                                                                                }
+
+                                                                                <div class="allocate-info">
+                                                                                    <div class="model"><span>Asset Name</span> @Model.empAsset.AssetType1</div>
+                                                                                    <div class="assetid"><span>Asset ID</span> @Model.empAsset.AssetID</div>
+                                                                                    <div class="allocatedby"><span>Allocated By</span> @Model.empAsset.AssignedBy</div>
+                                                                                    <div class="allocateddate">
+                                                                                        <span>Allocated Date</span>@if (Model.empAsset.AssignedDate.HasValue)
+                                                                                        {
+                                                                                            @Model.empAsset.AssignedDate.Value.ToString("dd-MM-yyyy")
+                                                                                        }
+                                                                                        else
+                                                                                        {
+                                                                                            <span>No Date</span>
+                                                                                        }
+                                                                                    </div>
+                                                                                </div>
+                                                                            </div>
+                                                                        </div>
+                                                                    </div>
+                                                                </li>
+                                                            }
+                                                            if (!string.IsNullOrWhiteSpace(Model.empAsset.AssetType2) && Model.empAsset.AssetType2 != "null")
+                                                            {
+                                                                <li>
+                                                                    <div class="family" style="width: 172px">
+                                                                        <div class="person child male">
+                                                                            <div class="name allocate-details tree-child">
+                                                                                @if (!string.IsNullOrWhiteSpace(Model.empAsset.AssetType2Image))
+                                                                                {
+
+
+                                                                                    // Split the AssetID by '#' and check if there are enough parts
+                                                                                    var assetIDParts = Model.empAsset.AssetID.Split('#');
+                                                                                    var assetFolderID = assetIDParts.Length > 1 ? assetIDParts[1] : string.Empty; // Extracting assetFolderID
+
+                                                                                    // Construct the asset image URL
+                                                                                    var assetImageURL = $"{System.Configuration.ConfigurationManager.AppSettings["TicketingAbsolutePath"]}/Assets/{assetFolderID}/{Model.empAsset.AssetType2Image}";
+
+                                                                                    <img src="@assetImageURL" alt="Asset Image" class="asset-profileimage"> }
+                                                                                else
+                                                                                {
+                                                                                    <img src="~/Assets/01_Mouse.png" alt="Mouse" />}
+
+                                                                                <div class="allocate-info">
+                                                                                    <div class="model"><span>Asset Name</span> @Model.empAsset.AssetType2</div>
+                                                                                    <div class="assetid"><span>Asset ID</span> @Model.empAsset.AssetID</div>
+                                                                                    <div class="allocatedby"><span>Allocated By</span> @Model.empAsset.AssignedBy</div>
+                                                                                    <div class="allocateddate">
+                                                                                        <span>Allocated Date</span>@if (Model.empAsset.AssignedDate.HasValue)
+                                                                                        {
+                                                                                            @Model.empAsset.AssignedDate.Value.ToString("dd-MM-yyyy")
+                                                                                        }
+                                                                                        else
+                                                                                        {
+                                                                                            <span>No Date</span>
+                                                                                        }
+                                                                                    </div>
+                                                                                </div>
+                                                                            </div>
+                                                                        </div>
+                                                                    </div>
+                                                                </li>
+                                                            }
+                                                            if (!string.IsNullOrWhiteSpace(Model.empAsset.AssetType3) && Model.empAsset.AssetType3 != "null")
+                                                            {
+                                                                <li>
+                                                                    <div class="family" style="width: 172px">
+                                                                        <div class="person child male">
+                                                                            <div class="name allocate-details tree-child">
+                                                                                @if (!string.IsNullOrWhiteSpace(Model.empAsset.AssetType3Image))
+                                                                                {
+
+                                                                                    // Split the AssetID by '#' and check if there are enough parts
+                                                                                    var assetIDParts = Model.empAsset.AssetID.Split('#');
+                                                                                    var assetFolderID = assetIDParts.Length > 1 ? assetIDParts[1] : string.Empty; // Extracting assetFolderID
+
+                                                                                    // Construct the asset image URL
+                                                                                    var assetImageURL = $"{System.Configuration.ConfigurationManager.AppSettings["TicketingAbsolutePath"]}/Assets/{assetFolderID}/{Model.empAsset.AssetType3Image}";
+
+                                                                                    <img src="@assetImageURL" alt="Asset Image" class="asset-profileimage" width="80"> }
+                                                                                else
+                                                                                {
+                                                                                    <img src="~/Assets/01_Mouse.png" alt="Mouse" />}
+                                                                                <div class="allocate-info">
+                                                                                    <div class="model"><span>Asset Name</span> @Model.empAsset.AssetType3</div>
+                                                                                    <div class="assetid"><span>Asset ID</span> @Model.empAsset.AssetID</div>
+                                                                                    <div class="allocatedby"><span>Allocated By</span> @Model.empAsset.AssignedBy</div>
+                                                                                    <div class="allocateddate">
+                                                                                        <span>Allocated Date</span>@if (Model.empAsset.AssignedDate.HasValue)
+                                                                                        {
+                                                                                            @Model.empAsset.AssignedDate.Value.ToString("dd-MM-yyyy")
+                                                                                        }
+                                                                                        else
+                                                                                        {
+                                                                                            <span>No Date</span>
+                                                                                        }
+                                                                                    </div>
+                                                                                </div>
+                                                                            </div>
+                                                                        </div>
+                                                                    </div>
+                                                                </li>
+                                                            }
+                                                            if (!string.IsNullOrWhiteSpace(Model.empAsset.AssetType4) && Model.empAsset.AssetType4 != "null")
+                                                            {
+                                                                <li>
+                                                                    <div class="family" style="width: 172px">
+                                                                        <div class="person child male">
+                                                                            <div class="name allocate-details tree-child">
+                                                                                @if (!string.IsNullOrWhiteSpace(Model.empAsset.AssetType4Image))
+                                                                                {
+
+                                                                                    // Split the AssetID by '#' and check if there are enough parts
+                                                                                    var assetIDParts = Model.empAsset.AssetID.Split('#');
+                                                                                    var assetFolderID = assetIDParts.Length > 1 ? assetIDParts[1] : string.Empty; // Extracting assetFolderID
+
+                                                                                    // Construct the asset image URL
+                                                                                    var assetImageURL = $"{System.Configuration.ConfigurationManager.AppSettings["TicketingAbsolutePath"]}/Assets/{assetFolderID}/{Model.empAsset.AssetType4Image}";
+
+                                                                                    <img src="@assetImageURL" alt="Asset Image" class="asset-profileimage"> }
+                                                                                else
+                                                                                {
+                                                                                    <img src="~/Assets/01_Mouse.png" alt="Mouse" />}
+                                                                                <div class="allocate-info">
+                                                                                    <div class="model"><span>Asset Name</span> @Model.empAsset.AssetType4</div>
+                                                                                    <div class="assetid"><span>Asset ID</span> @Model.empAsset.AssetID</div>
+                                                                                    <div class="allocatedby"><span>Allocated By</span> @Model.empAsset.AssignedBy</div>
+                                                                                    <div class="allocateddate">
+                                                                                        <span>Allocated Date</span>@if (Model.empAsset.AssignedDate.HasValue)
+                                                                                        {
+                                                                                            @Model.empAsset.AssignedDate.Value.ToString("dd-MM-yyyy")
+                                                                                        }
+                                                                                        else
+                                                                                        {
+                                                                                            <span>No Date</span>
+                                                                                        }
+                                                                                    </div>
+                                                                                </div>
+                                                                            </div>
+                                                                        </div>
+                                                                    </div>
+                                                                </li>
+                                                            }
+                                                            if (!string.IsNullOrWhiteSpace(Model.empAsset.AssetType5) && Model.empAsset.AssetType5 != "null")
+                                                            {
+                                                                <li>
+                                                                    <div class="family" style="width: 172px">
+                                                                        <div class="person child male">
+                                                                            <div class="name allocate-details tree-child">
+                                                                                @if (!string.IsNullOrWhiteSpace(Model.empAsset.AssetType5Image))
+                                                                                {
+
+                                                                                    // Split the AssetID by '#' and check if there are enough parts
+                                                                                    var assetIDParts = Model.empAsset.AssetID.Split('#');
+                                                                                    var assetFolderID = assetIDParts.Length > 1 ? assetIDParts[1] : string.Empty; // Extracting assetFolderID
+
+                                                                                    // Construct the asset image URL
+                                                                                    var assetImageURL = $"{System.Configuration.ConfigurationManager.AppSettings["TicketingAbsolutePath"]}/Assets/{assetFolderID}/{Model.empAsset.AssetType5Image}";
+                                                                                    <img src="@assetImageURL" alt="Asset Image" class="asset-profileimage">
+                                                                                }
+
+                                                                                else
+                                                                                {
+                                                                                    <img src="~/Assets/01_Mouse.png" alt="Mouse" />
+                                                                                }
+                                                                                <div class="allocate-info">
+                                                                                    <div class="model"><span>Asset Name</span> @Model.empAsset.AssetType5</div>
+                                                                                    <div class="assetid"><span>Asset ID</span> @Model.empAsset.AssetID</div>
+                                                                                    <div class="allocatedby"><span>Allocated By</span> @Model.empAsset.AssignedBy</div>
+                                                                                    <div class="allocateddate">
+                                                                                        <span>Allocated Date</span>@if (Model.empAsset.AssignedDate.HasValue)
+                                                                                        {
+                                                                                            @Model.empAsset.AssignedDate.Value.ToString("dd-MM-yyyy")
+                                                                                        }
+                                                                                        else
+                                                                                        {
+                                                                                            <span>No Date</span>
+                                                                                        }
+                                                                                    </div>
+                                                                                </div>
+                                                                            </div>
+                                                                        </div>
+                                                                    </div>
+                                                                </li>
+                                                            }
+                                                        }
+                                                        else
+                                                        {
+                                                            <li>
+
+                                                                <div class="name allocate-details tree-child">
+                                                                    <div class="allocate-info">
+                                                                        <span>No assets assigned to this employee.</span>
+                                                                    </div>
+                                                                </div>
+
+                                                            </li>
+                                                        }
                                                     </ul>
                                                 </div>
                                             </div>
@@ -628,74 +906,25 @@
 
                     </div>
                     <div class="tab-pane fade emp-ss-monthlymaintenanceview" id="tab4" role="tabpanel" aria-labelledby="tab4-link">
-
                         <div class="emp-ss-mm-year">
                             <h5 style="visibility:hidden;">Emp Monthly Maintenance</h5>
                             <div class="mm-year-dropdown">
-                                <select class="form-control" id="emp-mm-year">
-                                    <option value="2024">2024</option>
-                                    <option value="2025">2025</option>
-                                </select>
+                                <form id="yearFilterForm" method="get" action="/EmployeeDashboard/SelfService">
+                                    <select class="form-control pointer" id="emp-mm-year" name="year">
+                                        @for (int i = DateTime.Now.Year; i >= 2020; i--)  // Adjust range as needed
+                                        {
+                                            <option value="@i" @(i == (Request["year"] != null ? int.Parse(Request["year"]) : DateTime.Now.Year) ? "selected" : "")>
+                                                @i
+                                            </option>
+                                        }
+                                    </select>
+                                </form>
                             </div>
+
                         </div>
 
-                        <div class="res-emp-maintenanceinfo-table table-responsive">
-                            <table id="empmaintenanceinfotable" class="display" style="width: 100%;">
-                                <thead style="background-color: #3E78CF; border-radius: 10px;">
-                                    <tr>
-                                        <th style="text-align:center;">Acknowledge</th>
-                                        <th>Date</th>
-                                        <th>Agent Name</th>
-                                        <th>Change Request Date</th>
-                                        <th>Status</th>
-                                        <th style="text-align:center;">Action</th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    <tr class="odd">
-                                        <td class="emp-maintenancestatus-icon" style="text-align:center;">
-                                            <span class="emp-maintenanceapproved-btn">
-                                                <img src="/assets/Pending.png" alt="Pending" style="width:25px" title="Pending">
-                                                <div style="display:none">Pending</div>
-                                            </span>
-                                        </td>
-                                        <td>01 October 2024</td>
-                                        <td><span class="emp-maintenanceinfo-image-btn"><img src="~/Assets/EmpImages/1155.jpeg" alt="agentname"></span><span class="emp-maintenance-id-select" data-assetid="name">Name</span></td>
-                                        <td>01 October 2024</td>
-                                        <td><div class="emp-maintenance-status pending">Pending</div></td>
-                                        <td style="text-align:center;">
-                                            <span class="emp-maintenanceinfo-list-edit">
-                                                <i class="fas fa-ellipsis-v asset-edit-dropdown" onclick="toggleEmpMaintenanceActionOptions(this)"></i>
-                                                <div class="emp-maintenance-options" style="display:none">
-                                                    <a class="btn btn-demo dropdown-item emp-maintenance-info-edit" data-assetid="1" data-toggle="modal" data-target="#RescheduleEmpMaintenancePopup">Reschedule</a>
-                                                    <a class="dropdown-item emp-maintenance-info-view" data-assetid="1">Acknowledge</a>
-                                                </div>
-                                            </span>
-                                        </td>
-                                    </tr>
-                                    <tr class="even">
-                                        <td class="emp-maintenancestatus-icon" style="text-align:center;">
-                                            <span class="emp-maintenanceapproved-btn">
-                                                <img src="/assets/Approve.png" alt="Approved" style="width:25px" title="Approved">
-                                                <div style="display:none">Approved</div>
-                                            </span>
-                                        </td>
-                                        <td>01 October 2024</td>
-                                        <td><span class="emp-maintenanceinfo-image-btn"><img src="~/Assets/EmpImages/1155.jpeg" alt="agentname"></span><span class="emp-maintenance-id-select" data-assetid="name">Name</span></td>
-                                        <td>01 October 2024</td>
-                                        <td><div class="emp-maintenance-status completed">Completed</div></td>
-                                        <td style="text-align:center;">
-                                            <span class="emp-maintenanceinfo-list-edit">
-                                                <i class="fas fa-ellipsis-v asset-edit-dropdown" onclick="toggleEmpMaintenanceActionOptions(this)"></i>
-                                                <div class="emp-maintenance-options" style="display:none">
-                                                    <a class="btn btn-demo dropdown-item emp-maintenance-info-edit" data-assetid="1" data-toggle="modal" data-target="#RescheduleEmpMaintenancePopup">Reschedule</a>
-                                                    <a class="dropdown-item emp-maintenance-info-view" data-assetid="1">Acknowledge</a>
-                                                </div>
-                                            </span>
-                                        </td>
-                                    </tr>
-                                </tbody>
-                            </table>
+                        <div class="MaintenanceTableRows-div">
+                            @Html.Partial("_MaintenanceTableRows", Model)
                         </div>
 
 
@@ -712,14 +941,18 @@
 
 
     <!-- Modal -->
-    <div class="modal right fade" id="RescheduleEmpMaintenancePopup" tabindex="-1" role="dialog" aria-labelledby="RescheduleEmpMaintenancePopup">
+    <div class="modal right fade" id="RescheduleMaintenancePopup" tabindex="-1" role="dialog" aria-labelledby="RescheduleMaintenancePopup">
         <div class="modal-dialog" role="document">
             <div class="modal-content">
                 <div class="modal-header">
                     <h4 class="modal-title" id="reschedulemaintenance-header-title">Reschedule Maintenance</h4>
-                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><i class="far fa-times-circle"></i></button>
+                    @*<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>*@
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><i class="fa fa-times-circle" aria-hidden="true"></i></button>
                 </div>
-                <div class="modal-body">                    
+                <div class="modal-body">
+                    <div class="reschedulemaintenance-body-title">
+                        <span class="reschedulemaintenance-image-btn"><img src="" alt="ename"></span><span class="reschedulemaintenance-id-select" data-assetid="name">Name</span>
+                    </div>
                     <div class="maintenanceapprove-info">
                         <div class="row">
                             <div class="col-lg-12 col-md-12">
@@ -732,8 +965,11 @@
                                 <div class="form-group reschedulemaintenance-tabs">
                                     <label for="RescheduleMaintenance-AgentName">Agent Name</label>
                                     <select name="RescheduleMaintenance-AgentName" class="RescheduleMaintenance-AgentName form-control form-select" id="RescheduleMaintenance-AgentName">
-                                        <option value="" disabled selected hidden>Select Agent</option>                                        
-                                        <option value="1">Test User</option>                                       
+                                        <option value="" disabled selected hidden>Select Agent</option>
+                                        @foreach (var agent in Model.ITEmployees)
+                                        {
+                                            <option value="@agent.EmployeeID">@agent.EmployeeName</option>
+                                        }
 
                                     </select>
                                 </div>
@@ -829,6 +1065,30 @@
     </div>
 </div>
 
+<!-- Project role & responsibility Modal -->
+<div id="empProjectRoleResModal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="empProjectRoleResModal" aria-hidden="true">
+    <div class="modal-dialog " role="document" style="max-width: 65%; height: auto;">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="empProjectRoleResModalLabel">Add Roles & Responsibilities</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <i class="far fa-times-circle"></i>
+                </button>
+            </div>
+            <div class="modal-body">
+                <div class="empProjectRoleRes-field">
+                    <textarea rows="3" class="form-control" id="empProjectRoleRes-field" name="empProjectRoleRes-field" style="height:300px;"></textarea>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn" data-dismiss="modal">Close</button>
+                <button type="button" class="btn btn-primary" data-ticketname="" id="empProjectRoleResSubmitButton">Submit</button>
+                <div id="roleUpdateMessage" class="mt-2" style="width: 100%; text-align: center;"></div>
+            </div>
+        </div>
+    </div>
+</div>
+
 <script>
     $(document).ready(function () {
         //$(".emp-imgs").mouseover(function () {
@@ -847,31 +1107,6 @@
         });
     });
 
-    $(document).ready(function () {
-
-        function refreshDataTable() {
-            if ($.fn.DataTable.isDataTable('#empmaintenanceinfotable')) {
-                $('#empmaintenanceinfotable').DataTable().destroy();
-            }
-
-            $('#empmaintenanceinfotable').DataTable({
-                "responsive": true,
-                "paging": false,
-                "searching": false,
-                "ordering": false,
-                "info": false,
-                "autoWidth": false,
-                "lengthMenu": [[10, 20, 50, -1], [10, 20, 50, "All"]]
-            });
-        }
-
-        refreshDataTable();
-
-        $(document).on('ajaxComplete', function () {
-            refreshDataTable();
-        });       
-
-    });
 
     function toggleEmpMaintenanceActionOptions(iconElement) {
         const optionsMenu = $(iconElement).next('.emp-maintenance-options');
@@ -880,6 +1115,44 @@
     }
 
 
+    $(document).on('click', '.emp-maintenance-info-view', function () {
+        var maintananceNo = $(this).data('maintenancesno');
+        window.location.href = '/EmployeeDashboard/MaintananceAck?Sno=' + maintananceNo;
+    });
+
+
+    $(document).on('click', '#empProjectRoleResSubmitButton', function () {
+        var roles = tinymce.get('empProjectRoleRes-field').getContent();
+
+        $.ajax({
+            url: '/empdash/updateroles',
+            type: 'POST',
+            data: { employeeId: $('.loggedinempid').text(), roles: roles },
+            success: function (response) {
+                if (response.success) {
+                    $('.emp-project-details-body').html(roles);
+                    $('#roleUpdateMessage').html('<span class="text-success">' + response.message + '</span>');
+                } else {
+                    $('#roleUpdateMessage').html('<span class="text-danger">' + response.message + '</span>');
+                }
+            },
+            error: function (xhr, status, error) {
+                $('#roleUpdateMessage').html('<span class="text-danger">Error: ' + error + '</span>');
+            }
+        });
+    });
+
+    $(document).on('click', '.emp-project-details-edit span', function () {
+        $('#empProjectRoleRes-field').val('');
+        $('#roleUpdateMessage').html('');
+    });
+
+    tinymce.init({
+        selector: '#empProjectRoleRes-field',
+        plugins: 'bold italic underline',
+        toolbar: 'bold italic underline | alignleft aligncenter alignright',
+    });
 </script>
 
 <script src="~/Scripts/z-changepassword.js"></script>
+<script src="~/Scripts/Z-Maintanance.js"></script>

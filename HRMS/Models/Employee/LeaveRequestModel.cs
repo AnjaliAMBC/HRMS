@@ -21,7 +21,7 @@ namespace HRMS.Models.Employee
         public string HalfDayCategory { get; set; }
         public string BackupResource_Name { get; set; }
         public string EmergencyContact_no { get; set; }
-        public string hourPermission { get; set; }
+        public bool hourPermission { get; set; }
         public JsonResponse jsonResponse { get; set; } = new JsonResponse();
         public string Location { get; set; }
         public string OfficalEmailid { get; set; }
@@ -29,6 +29,10 @@ namespace HRMS.Models.Employee
         public string EditRequestName { get; set; }
         public string Designation { get; set; }
         public string Department { get; set; }
+        public System.TimeSpan StartTime { get; set; }
+        public System.TimeSpan EndTime { get; set; }
+
+        public bool SendReasontoteamChecked { get; set; } = false;
     }
 
     public class DayTypeEntry
@@ -47,6 +51,8 @@ namespace HRMS.Models.Employee
         public List<string> leaveTypes = new List<string>();
 
         public List<string> HourlyPermissions = new List<string>();
+
+        public bool IsFromAdmin { get; set; } = false;
 
     }
 

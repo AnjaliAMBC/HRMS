@@ -47,19 +47,18 @@
         data: {
             employeeID: employeeID,
             empName: empName,
+            holidaylocation:empLocation,
             compOffDate: compOffDate,
             reason: reason,
             submittedUser: submittedUser,
             holidayname: selectedHolidayName,
-            holidynumber: parseInt(selectedHolidayNumber),
-            holidaylocation: selectedHolidayLocation,
+            holidynumber: parseInt(selectedHolidayNumber),           
             empEmail: empEmail
         },
         success: function (response) {
             if (response.StatusCode === 200) {
                 $('#Compreason').val("");
-                $('#CompemployeeName').val("Select Employee Name");
-                $('#Compdate').val("");
+                $('#CompemployeeName').val("Select Employee Name");               
                 $('#compOffMessage').removeClass('alert-danger').addClass('alert-success').html(response.Message).show();
             } else {
                 $('#compOffMessage').removeClass('alert-success').addClass('alert-danger').html(response.Message).show();

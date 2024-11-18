@@ -180,6 +180,12 @@
     <Compile Include="IT_Ticket.cs">
       <DependentUpon>HRMS.tt</DependentUpon>
     </Compile>
+    <Compile Include="JobDetail.cs">
+      <DependentUpon>HRMS.tt</DependentUpon>
+    </Compile>
+    <Compile Include="JobReferral.cs">
+      <DependentUpon>HRMS.tt</DependentUpon>
+    </Compile>
     <Compile Include="LeaveBalance.cs">
       <DependentUpon>HRMS.tt</DependentUpon>
     </Compile>
@@ -190,6 +196,7 @@
     <Compile Include="Models\Admin\AdminAttendanceModel.cs" />
     <Compile Include="Models\Admin\AdminDashView.cs" />
     <Compile Include="Models\Admin\AdminLeaveManagementModel.cs" />
+    <Compile Include="Models\Employee\EmpJobModel.cs" />
     <Compile Include="Models\Employee\EmpModel.cs" />
     <Compile Include="Models\ITsupport\AssetViewModel.cs" />
     <Compile Include="Models\ITsupport\MaintananceModel.cs" />
@@ -236,6 +243,11 @@
     <Compile Include="VendorType.cs">
       <DependentUpon>HRMS.tt</DependentUpon>
     </Compile>
+    <Content Include="Assets\01_CPU.png" />
+    <Content Include="Assets\01_Desktop.png" />
+    <Content Include="Assets\01_Keyboard.png" />
+    <Content Include="Assets\01_Laptop.png" />
+    <Content Include="Assets\01_Mouse.png" />
     <Content Include="Assets\Approve.png" />
     <Content Include="Assets\asset-icon-1.png" />
     <Content Include="Assets\asset-icon-2.png" />
@@ -243,8 +255,26 @@
     <Content Include="Assets\asset-icon-4.png" />
     <Content Include="Assets\asset-icon-5.png" />
     <Content Include="Assets\Birthday.png" />
+    <Content Include="Assets\calender-icon.png" />
     <Content Include="Assets\Cancelled.png" />
+    <Content Include="Assets\category-light.png" />
+    <Content Include="Assets\clarity_notification-line.png" />
     <Content Include="Assets\correct.png" />
+    <Content Include="Assets\dashboard\birthday.png" />
+    <Content Include="Assets\dashboard\circum_laptop-old.png" />
+    <Content Include="Assets\dashboard\circum_laptop.png" />
+    <Content Include="Assets\dashboard\fluent-mdl2_entitlement-policy-old.png" />
+    <Content Include="Assets\dashboard\fluent-mdl2_entitlement-policy.png" />
+    <Content Include="Assets\dashboard\hr-diwali.PNG" />
+    <Content Include="Assets\dashboard\hugeicons_job-share-old.png" />
+    <Content Include="Assets\dashboard\hugeicons_job-share.png" />
+    <Content Include="Assets\dashboard\Hyderabad.png" />
+    <Content Include="Assets\dashboard\iconoir-priority-high.png" />
+    <Content Include="Assets\dashboard\Madurai.jfif" />
+    <Content Include="Assets\dashboard\new-joiners.png" />
+    <Content Include="Assets\dashboard\work-anniversary.png" />
+    <Content Include="Assets\edit-icon.png" />
+    <Content Include="Assets\ei_user.png" />
     <Content Include="Assets\EMBackground.png" />
     <Content Include="Assets\EmpImages\1020.jpeg" />
     <Content Include="Assets\EmpImages\1075.jpeg" />
@@ -258,21 +288,37 @@
     <Content Include="Assets\Icons\Dashboard.png" />
     <Content Include="Assets\Icons\Employee.png" />
     <Content Include="Assets\Icons\IT Support.png" />
+    <Content Include="Assets\Icons\jobreferral.png" />
     <Content Include="Assets\Icons\Leave.png" />
     <Content Include="Assets\Icons\Ticketing.png" />
     <Content Include="Assets\image8.png" />
     <Content Include="Assets\Leave.png" />
+    <Content Include="Assets\leave\bereavement.png" />
+    <Content Include="Assets\leave\CompOff.png" />
+    <Content Include="Assets\leave\earned.png" />
+    <Content Include="Assets\leave\emergency.png" />
+    <Content Include="Assets\leave\hourly-permission.png" />
+    <Content Include="Assets\leave\marriage.png" />
+    <Content Include="Assets\leave\Maternity.png" />
+    <Content Include="Assets\leave\Paternity.png" />
+    <Content Include="Assets\leave\sick.png" />
+    <Content Include="Assets\mail-icon.png" />
     <Content Include="Assets\Pending.png" />
     <Content Include="Assets\Purchase\POApproved.png" />
     <Content Include="Assets\Purchase\PODefault.png" />
     <Content Include="Assets\Purchase\TaxApproved.png" />
     <Content Include="Assets\Reject.png" />
+    <Content Include="Assets\resolved.png" />
     <Content Include="Assets\Sidebarimages\01_Dashboard.png" />
     <Content Include="Assets\Sidebarimages\02_Employee.png" />
     <Content Include="Assets\Sidebarimages\03_Attendance.png" />
     <Content Include="Assets\Sidebarimages\04_Leave.png" />
     <Content Include="Assets\Sidebarimages\05_Ticketing.png" />
+    <Content Include="Assets\sign-in-bg.png" />
+    <Content Include="Assets\status-icon.png" />
+    <Content Include="Assets\status_icon.png" />
     <Content Include="Assets\Ticket.png" />
+    <Content Include="Assets\upload-icon.png" />
     <Content Include="Assets\WorkAnni.png" />
     <Content Include="Content\5.15.4all.min.css" />
     <Content Include="Content\all.min.css" />
@@ -283,7 +329,9 @@
     <Content Include="Content\jquery.dataTables.css" />
     <Content Include="Content\select2.min.css" />
     <Content Include="Content\z-Adminticketting.css" />
+    <Content Include="Content\z-responsive-horizon.css" />
     <Content Include="Content\z-responsive.css" />
+    <Content Include="Content\z-style-horizon.css" />
     <Content Include="Content\z-style.css" />
     <Content Include="Content\Z-Vendor.css" />
     <Content Include="Scripts\4.5.2bootstrap.min.js" />
@@ -348,7 +396,7 @@
     </Compile>
     <Compile Include="Models\AccountModel.cs" />
     <Compile Include="Models\Admin\AddEmployee.cs" />
-    <Compile Include="Models\Admin\DashboardViewModel.cs" />
+    <Compile Include="Models\Admin\AdminJobModel.cs" />
     <Compile Include="Models\Admin\EmployeeManagementViewModel.cs" />
     <Compile Include="Models\CustomAuthorizeAttribute.cs" />
     <Compile Include="Models\DropdownItem.cs" />
@@ -400,6 +448,7 @@
     <Content Include="Scripts\z-custom.js" />
     <Content Include="Scripts\z-empleave.js" />
     <Content Include="Scripts\z-empTicketing.js" />
+    <Content Include="Scripts\z-jobreferralscript.js" />
     <Content Include="Scripts\Z-Maintanance.js" />
     <Content Include="Scripts\z-notification.js" />
     <Content Include="Scripts\z-purchaseScript.js" />
@@ -428,6 +477,7 @@
     <Content Include="Assets\Templates\SampleLeaveHistoryImport.xlsx" />
     <Content Include="Assets\Templates\Sample Assets Import.xlsx" />
     <Content Include="Assets\Templates\VendorImportTemplate.xlsx" />
+    <Content Include="Assets\Policies\Handbook.pdf" />
     <None Include="Scripts\jquery-3.4.1.intellisense.js" />
     <Content Include="Scripts\jquery-3.4.1.js" />
     <Content Include="Scripts\jquery-3.4.1.min.js" />
@@ -538,14 +588,29 @@
     <Content Include="Views\Shared\_MaintenanceEmailNotification.cshtml" />
     <Content Include="Views\Itsupport\_maintenanceinfotable.cshtml" />
     <Content Include="Views\Shared\_EmployeeNavbar.cshtml" />
-    <Content Include="Views\EmployeeDashboard\PoliciesView.cshtml" />
     <Content Include="Views\EmployeeDashboard\HolidaysListView.cshtml" />
     <Content Include="Views\Shared\EmployeeFooter.cshtml" />
+    <Content Include="Views\EmployeeDashboard\EmpMaintananceAcknowledge.cshtml" />
+    <Content Include="Views\EmployeeDashboard\_MaintenanceTableRows.cshtml" />
+    <Content Include="Views\EmployeeDashboard\_EmpAttendanceTableRows.cshtml" />
+    <Content Include="Views\EmployeeDashboard\_EmpNotificationReply.cshtml" />
+    <Content Include="Views\EmployeeDashboard\_EmpLeaveHistory.cshtml" />
+    <Content Include="Views\EmployeeDashboard\_EmpCompOff.cshtml" />
+    <Content Include="Views\EmployeeDashboard\EmpTicketView.cshtml" />
+    <Content Include="Views\Shared\_EmpLeaveReasonEmail.cshtml" />
+    <Content Include="Views\Shared\_AdminLeaveReasonEmail.cshtml" />
+    <Content Include="Views\EmployeeDashboard\EmpAdminApplyleave.cshtml" />
+    <Content Include="Views\EmployeeDashboard\EmpJobReferralView.cshtml" />
+    <Content Include="Views\EmployeeDashboard\EmpJobDetail.cshtml" />
+    <Content Include="Views\AdminDashboard\AdminJobListing.cshtml" />
+    <Content Include="Views\AdminDashboard\AdminJobDetail.cshtml" />
+    <Content Include="Views\AdminDashboard\AdminPostJobs.cshtml" />
+    <Content Include="Views\Shared\_HourlyPermissionEmail.cshtml" />
+    <Content Include="Views\AdminDashboard\_CandidateListPartial.cshtml" />
+    <Content Include="Views\Shared\_JobReferralNotificationEmail.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
-    <Folder Include="Views\Maintanance\" />
-    <Folder Include="Views\Notification\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="fonts\glyphicons-halflings-regular.woff2" />

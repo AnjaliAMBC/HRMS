@@ -352,7 +352,7 @@ $(document).on('click', '.btn-apply-admin-itticket-submit', function (event) {
             },
             success: function (response) {
                 if (response.success) {
-                    $('#modalMessage').text("Ticket " + status + " updated successfully.");
+                    $('#modalMessage').html('<span style="color: green;">Ticket ' + status + ' successfully.</span>');
                     $('#messageModal').modal('show');
                 } else {
                     $('#modalMessage').text("Error: " + response.message);

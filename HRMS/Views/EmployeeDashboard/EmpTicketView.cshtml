@@ -1,0 +1,272 @@
+﻿@model HRMS.Models.TicketingModel
+
+@using HRMS.Helpers
+
+
+<style>
+    .error-message {
+        color: red;
+    }
+
+    .form-control.error {
+        border-color: red;
+    }
+</style>
+@Html.Partial("_EmployeeNavbar")
+
+<div class="container-fluid emp-ticketing-raise-horizon emp-ticketing-view-horizon">
+    <div class="main-content container-fluid">
+        <div class="content employee-raiseticketing">
+            <div class="emp-raiseticketing-container">
+                <div class="row res-emp-raiseticketing-header">
+                    <div class="col-lg-3 res-emp-raiseticketing-title">
+                        <h4 class="raiseticketing-pagetitle">View Ticket</h4>
+                    </div>
+                </div>
+            </div>
+            <div class="EmpTicket-raise-container" id="empRaiseTicketingFields">
+                <div class="col-lg-6 col-md-11 emp-ticket-raise-popup-form">
+                    <form id="emp-ticket-raise-Form">
+                        <div class="form-group">
+                            <!-- Ticket Type -->
+                            <div class="col-lg-9 form-group div-emp-raiseticket-ticketype">
+                                <label for="emp-raiseticket-ticketype" class="emp-raiseticket-label">Ticket Type*</label>
+                                <select class="form-control" id="emp-raiseticket-ticketype" name="TicketType" disabled>
+                                    <option disabled>Select IT or HR</option>
+                                    <option value="IT" @(Model.ticketinfo.TicketType == "IT" ? "selected" : "")>IT</option>
+                                    <option value="HR" @(Model.ticketinfo.TicketType == "HR" ? "selected" : "")>HR</option>
+                                </select>
+                                <span class="error-message" id="emp-raiseticket-ticketype-error"></span>
+                            </div>
+
+                            <!-- Category based on Ticket Type -->
+                            <div class="col-lg-9 form-group div-emp-raiseticket-category" id="category-div">
+                                <label for="emp-raiseticket-category" class="emp-raiseticket-label">Category*</label>
+                                @if (Model.ticketinfo.TicketType == "IT")
+                                {
+                                    <select class="form-control" id="emp-raiseticket-itcategory" name="Category" disabled>
+                                        <option disabled>Select Category</option>
+                                        <option value="Hardware" @(Model.ticketinfo.Category == "Hardware" ? "selected" : "")>Hardware</option>
+                                        <option value="Software" @(Model.ticketinfo.Category == "Software" ? "selected" : "")>Software</option>
+                                        <option value="Network" @(Model.ticketinfo.Category == "Network" ? "selected" : "")>Network</option>
+                                        <option value="Others" @(Model.ticketinfo.Category == "Others" ? "selected" : "")>Others</option>
+                                    </select>
+                                }
+                                else if (Model.ticketinfo.TicketType == "HR")
+                                {
+                                    <select class="form-control" id="emp-raiseticket-hrcategory" name="Category" disabled>
+                                        <option disabled>Select Category</option>
+                                        <option value="Recruitment" @(Model.ticketinfo.Category == "Recruitment" ? "selected" : "")>Recruitment</option>
+                                        <option value="Payroll" @(Model.ticketinfo.Category == "Payroll" ? "selected" : "")>Payroll</option>
+                                        <option value="Benefits" @(Model.ticketinfo.Category == "Benefits" ? "selected" : "")>Benefits</option>
+                                        <option value="PF" @(Model.ticketinfo.Category == "PF" ? "selected" : "")>PF</option>
+                                        <option value="Leaves" @(Model.ticketinfo.Category == "Leaves" ? "selected" : "")>Leaves</option>
+                                        <option value="Others" @(Model.ticketinfo.Category == "Others" ? "selected" : "")>Others</option>
+                                    </select>
+                                }
+                                <span class="error-message" id="emp-raiseticket-category-error"></span>
+                            </div>
+
+                            <!-- Subject -->
+                            <div class="col-lg-9 form-group">
+                                <label for="emp-raiseticket-subject">Subject*</label>
+                                <input type="text" class="form-control" id="emp-raiseticket-subject" name="Subject"
+                                       placeholder="Enter Subject" value="@Model.ticketinfo.Subject" readonly>
+                                <span class="error-message" id="emp-raiseticket-subject-error"></span>
+                            </div>
+
+                            <!-- Description -->
+                            <div class="col-lg-9 form-group">
+                                <label for="emp-raiseticket-description">Description*</label>
+                                <textarea class="form-control" id="emp-raiseticket-description" name="Description" readonly>@Model.ticketinfo.Description</textarea>
+                                <span class="error-message" id="emp-raiseticket-description-error"></span>
+                            </div>                           
+                            <!-- File Upload (Display file name if any) -->
+                            <div class="col-lg-12 form-group emp-raiseticketing-upload-field">
+                                <div class="col-lg-9 emp-raiseticketing-upload-left">
+                                    <span class="emp-raiseticketing-upload-icon">
+                                        <img src="~/Assets/upload-icon.png">
+                                    </span>
+                                    <span class="emp-raiseticketing-upload-btn">
+                                        <span class="emp-raiseticket-attach-upload-btn-wrapper">
+                                            <button type="button" class="btn emp-raiseticket-attach-label" disabled>Upload file</button>
+                                            <input type="file" id="emp-raiseticket-attach-file-upload" name="Attachment" accept="image/jpeg, image/png">
+                                        </span>
+                                        <span class="emp-raiseticket-file-name">
+                                            @if (Model.ticketinfo != null && !string.IsNullOrWhiteSpace(Model.ticketinfo.AttatchimageFile))
+                                            {
+                                                <a class="ticketing_filepath" href="/@System.Configuration.ConfigurationManager.AppSettings["TicketingAbsolutePath"]/@Model.ticketinfo.TicketType/@Model.ticketinfo.AttatchimageFile" target="_blank">@Model.ticketinfo.AttatchimageFile</a>
+                                            }
+                                        </span>
+                                        <div class="emp-raiseticket-attach-file-upload-size">Only JPEG, PNG with max size of 2MB</div>
+                                    </span>
+                                    <span class="error-message" id="emp-raiseticket-attach-error"></span>
+                                </div>
+                                <div class="col-lg-3 emp-raiseticketing-upload-right"></div>                               
+                            </div>
+                            <!-- Priority -->
+                            <div class="col-lg-9 form-group div-emp-raiseticket-priority">
+                                <label for="emp-raiseticket-priority" class="emp-raiseticket-priority-label">Priority*</label>
+                                <select class="form-control" id="emp-raiseticket-priority" name="Priority" disabled>
+                                    <option disabled>Select Priority</option>
+                                    <option value="High" @(Model.ticketinfo.Priority == "High" ? "selected" : "")>High</option>
+                                    <option value="Mid" @(Model.ticketinfo.Priority == "Mid" ? "selected" : "")>Mid</option>
+                                    <option value="Low" @(Model.ticketinfo.Priority == "Low" ? "selected" : "")>Low</option>
+                                </select>
+                                <span class="error-message" id="emp-raiseticket-priority-error"></span>
+                            </div>
+
+                            <!-- Submit Button -->
+                            <div class="col-lg-9 emp-raiseticket-submit">
+                                <button type="button" class="btn btn-apply-emp-raiseticket-cancel mb-4">Cancel</button>
+                                <button type="submit" class="btn btn-primary btn-apply-emp-raiseticket-submit mb-4" disabled>Update</button>
+                            </div>
+                        </div>
+                    </form>
+
+                    <!-- Modal for success message -->
+                    @Html.Partial("CommonModalPopups")
+
+                </div>
+
+                <div class="col-lg-5 emp-view-ticketing-block">
+                    <div class="admin-it-ticketing-commentbox-list">
+                        <div class="col-lg-1 col-md-1 col-sm-2 admin-it-ticketing-commentbox-left">
+
+                            @{
+                                var empOpenedDisplay = EmployeeHelper.GetEmployeeDisplayInfo(@Model.ticketinfo.EmployeeID);
+                            }
+
+                            @if (!string.IsNullOrWhiteSpace(empOpenedDisplay.ImageSrc))
+                            {
+                                <div class="userIcon"><img src="@empOpenedDisplay.ImageSrc" alt="Employee Image" class="asseet-transfer-image"></div>
+                            }
+                            else
+                            {
+                                <div class="emp-dash-modal-navbar">@empOpenedDisplay.EmpShortName</div>
+                            }
+                            <div class="vl"></div>
+                        </div>
+                        <span class="col-lg-7 col-md-7 col-sm-5 admin-it-ticketing-commentbox-mid">
+                            <div class="admin-it-ticketing-commentbox-userinfo">@Model.ticketinfo.EmployeeID @Model.ticketinfo.EmployeeName</div>
+                            <div class="admin-it-ticketing-commentbox-status">Open</div>
+                            <div class="admin-it-ticketing-commentbox-desc" title="@Model.ticketinfo.Description">@Model.ticketinfo.Description</div>
+                        </span>
+                        <span class="col-lg-2 col-md-2 col-sm-2 admin-it-ticketing-commentbox-right">
+                            <div class="admin-it-ticketing-commentbox-date">
+                                @(Model.ticketinfo.Created_date?.ToString("dd MMM yyyy") ?? "No date available")
+                            </div>
+                        </span>
+                    </div>
+
+                    @if (!string.IsNullOrWhiteSpace(Model.ticketinfo.Resolved_by))
+                    {
+                        <div class="admin-it-ticketing-commentbox-list">
+                            <div class="col-lg-1 col-md-1 col-sm-2 admin-it-ticketing-commentbox-left">
+
+                                @{
+                                    var empResolvedDisplay = EmployeeHelper.GetEmployeeDisplayInfo(@Model.ticketinfo.Resolved_by);
+                                }
+
+                                @if (!string.IsNullOrWhiteSpace(empResolvedDisplay.ImageSrc))
+                                {
+                                    <div class="userIcon"><img src="@empResolvedDisplay.ImageSrc" alt="Employee Image"></div>
+                                }
+                                else
+                                {
+                                    <div class="emp-dash-modal-navbar">@empResolvedDisplay.EmpShortName</div>
+                                }
+                                <div class="vl"></div>
+                            </div>
+                            <span class="col-lg-7 col-md-7 col-sm-5 admin-it-ticketing-commentbox-mid">
+                                <div class="admin-it-ticketing-commentbox-userinfo">@Model.ticketinfo.Resolved_by @Model.ticketinfo.ResolvedByName</div>
+                                <div class="admin-it-ticketing-commentbox-status">Resolved</div>
+                                @*<div class="admin-it-ticketing-commentbox-desc" title="This is to acknowledge, that my tickets has been solved. Thanks for quick time support.">@Model.ticketinfo</div>*@
+                            </span>
+                            <span class="col-lg-2 col-md-2 col-sm-2 admin-it-ticketing-commentbox-right">
+                                <div class="admin-it-ticketing-commentbox-date">  @(Model.ticketinfo.ResolvedDate?.ToString("dd MMM yyyy") ?? "No date available")</div>
+                            </span>
+                        </div>
+                    }
+
+                    @if (Model.ticketinfo.ReopenedDate != null && Model.ticketinfo.ReopenedDate != DateTime.MinValue)
+                    {
+                        <div class="admin-it-ticketing-commentbox-list">
+                            <div class="col-lg-1 col-md-1 col-sm-2 admin-it-ticketing-commentbox-left">
+
+                                @{
+                                    var empResopenedDisplay = EmployeeHelper.GetEmployeeDisplayInfo(@Model.ticketinfo.EmployeeID);
+                                }
+
+                                @if (!string.IsNullOrWhiteSpace(empResopenedDisplay.ImageSrc))
+                                {
+                                    <div class="userIcon"><img src="@empResopenedDisplay.ImageSrc" alt="Employee Image"></div>
+                                }
+                                else
+                                {
+                                    <div class="emp-dash-modal-navbar">@empResopenedDisplay.EmpShortName</div>
+                                }
+                                <div class="vl"></div>
+                            </div>
+                            <span class="col-lg-7 col-md-7 col-sm-5 admin-it-ticketing-commentbox-mid">
+                                <div class="admin-it-ticketing-commentbox-userinfo">@Model.ticketinfo.EmployeeID @Model.ticketinfo.EmployeeName</div>
+                                <div class="admin-it-ticketing-commentbox-status">Re-Opened</div>
+                                <div class="admin-it-ticketing-commentbox-desc" title="@Model.ticketinfo.ReopenedComments">@Model.ticketinfo.ReopenedComments</div>
+                            </span>
+                            <span class="col-lg-2 col-md-2 col-sm-2 admin-it-ticketing-commentbox-right">
+                                <div class="admin-it-ticketing-commentbox-date">  @(Model.ticketinfo.ReopenedDate?.ToString("dd MMM yyyy") ?? "No date available")</div>
+                            </span>
+                        </div>
+                    }
+
+                    @if (!string.IsNullOrWhiteSpace(Model.ticketinfo.Closedby))
+                    {
+                <div class="admin-it-ticketing-commentbox-list">
+                    <div class="col-lg-1 col-md-1 col-sm-2 admin-it-ticketing-commentbox-left">
+
+                        @{
+                            var empResopenedDisplay = EmployeeHelper.GetEmployeeDisplayInfo(@Model.ticketinfo.Closedby);
+                        }
+
+                        @if (!string.IsNullOrWhiteSpace(empResopenedDisplay.ImageSrc))
+                        {
+                            <div class="userIcon"><img src="@empResopenedDisplay.ImageSrc" alt="Employee Image"></div>
+                        }
+                        else
+                        {
+                            <div class="emp-dash-modal-navbar">@empResopenedDisplay.EmpShortName</div>
+                        }
+                        <div class="vl"></div>
+                    </div>
+
+                   
+                    <span class="col-lg-7 col-md-7 col-sm-5 admin-it-ticketing-commentbox-mid">
+                        <div class="admin-it-ticketing-commentbox-userinfo">@Model.ticketinfo.Closedby @Model.ticketinfo.ClosedByName</div>
+                        <div style="display: flex; align-items: center;">
+                            @if (Model.ticketinfo.isacknowledge == "true")
+                            {
+                        <img src="~/Assets/resolved.png" alt="Resolved" style="margin-right: 10px;">}
+                            <div class="admin-it-ticketing-commentbox-status mt-3">Closed</div>
+                        </div>
+                        <div class="admin-it-ticketing-commentbox-desc" title="@Model.ticketinfo.AcknowledgeComments">@Model.ticketinfo.AcknowledgeComments</div>
+                    </span>
+
+
+                    <span class="col-lg-2 col-md-2 col-sm-2 admin-it-ticketing-commentbox-right">
+                        <div class="admin-it-ticketing-commentbox-date">  @(Model.ticketinfo.Closed_date?.ToString("dd MMM yyyy") ?? "No date available")</div>
+                    </span>
+                </div>
+                    }
+
+                </div>
+
+
+            </div>
+
+
+        </div>
+    </div>
+</div>
+@Html.Partial("EmployeeFooter")
+
+

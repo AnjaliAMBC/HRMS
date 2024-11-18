@@ -80,7 +80,8 @@ $(document).off('click', '.btn-apply-emp-raiseticket-submit').on('click', '.btn-
         formData.append('Status', 'Open');
         formData.append('Location', $('.loggedinemplocation').text());
         formData.append('File', $('#emp-raiseticket-attach-file-upload')[0].files[0]);
-
+        formData.append('IsEditRecord', $('.iseditablerecorddiv').text());
+        formData.append('EdiatbleRecordNumber', $('.editablerecordticketnumber').text());
         $.ajax({
             url: '/empticketing/raiseticket',
             type: 'POST',
@@ -91,8 +92,8 @@ $(document).off('click', '.btn-apply-emp-raiseticket-submit').on('click', '.btn-
                 $('.show-progress').show();
             },
             success: function (response) {
-                $('#messageModal .modal-body').html('<p  style="color: green;">Ticket has been raised successfully.</p>');
-                $('#messageModal').modal('show');
+                $('#TicketingmessageModal .modal-body').html('<p  style="color: green;">' + response.message + '</p>');
+                $('#TicketingmessageModal').modal('show');
 
                 $('#emp-ticket-raise-Form')[0].reset();
                 $('#category-div').hide();
@@ -112,14 +113,22 @@ $(document).off('click', '.btn-apply-emp-raiseticket-submit').on('click', '.btn-
 
 $(document).on('click', '.btn-apply-emp-raiseticket-cancel', function (event) {
     event.preventDefault();
-    $('#empTicketConfirmCancelModal').removeAttr('disabled');
-    $('#emp-ticket-raise-Form')[0].reset();
-    $('#category-div').show();
+
+    var isEdit = $(this).data('isedit');
+
+    if (isEdit == "True") {
+        window.location.href = '/empTicketing/index';
+        return;
+    } else {
+        $('#empTicketConfirmCancelModal').removeAttr('disabled');
+        $('#emp-ticket-raise-Form')[0].reset();       
+    }
 });
 
 
 $(document).on('change', '#emp-raiseticket-attach-file-upload', function (event) {
     var fileName = $(this).val().split('\\').pop();
+    $('.ticketing_filepath').hide();
     $('.emp-raiseticket-file-name').text(fileName);
     $('.emp-raiseticket-attach-label').removeClass('error');
     $('#emp-raiseticket-attach-error').text('');
@@ -127,8 +136,17 @@ $(document).on('change', '#emp-raiseticket-attach-file-upload', function (event)
 
 function toggleLeaveTicketHistoryActionOptions(iconElement) {
     const optionsMenu = $(iconElement).next('.emp-tickethistoryoptions');
-    $('.emp-tickethistoryoptions').not(optionsMenu).hide();
-    optionsMenu.toggle();
+    $('.emp-tickethistoryoptions').not(optionsMenu).hide(); // Hide other open menus
+    optionsMenu.toggle(); // Toggle the clicked menu
+
+    // Add an event listener to the document to close the menu when clicking outside
+    $(document).on('click.hideMenu', function (event) {
+        // Check if the click was outside the options menu or the icon that triggered it
+        if (!$(event.target).closest(iconElement).length && !$(event.target).closest('.emp-tickethistoryoptions').length) {
+            optionsMenu.hide(); // Hide the menu
+            $(document).off('click.hideMenu'); // Remove the event listener to prevent multiple bindings
+        }
+    });
 }
 
 var currentSelectedrow;
@@ -241,12 +259,14 @@ function openCancelModal(ticketNo) {
 //        $('#empTicketConfirmCancelModal .modal-body').html('<p>Ticket information is missing. Please try again.</p>');
 //    }
 //});
+var currentSelectedrow;
 
-
-$(document).on('click', '.res-empticketlisting-status-level', function (event) {
+$(document).on('click', '.emp-tickethistory-acknowledge', function (event) {
     event.preventDefault();
     var ticketNo = $(this).closest('tr').find('.emp-ticketing-listing-title').data('ticketnum');
     currentSelectedrow = $(this).closest('tr');
+
+    $('#empTicketCommentsModal').data('ticketNo', ticketNo);
 
     $.ajax({
         url: '/adminticketing/getticketdetailsbynumber?ticketNo=' + ticketNo,
@@ -270,8 +290,11 @@ $(document).on('click', '.res-empticketlisting-status-level', function (event) {
 
 
 $(document).on('click', '.btn-apply-emp-tickethistory-comment-reopen, .btn-apply-emp-tickethistory-comment-submitbtn', function (event) {
-    var ticketNo = $(this).attr('data-ticketname'); // Assuming data-ticketname attribute is set appropriately
-    var ticketStatus = $(this).attr('data-status'); // Assuming data-status attribute is set appropriately
+    event.preventDefault();
+
+    // Retrieve ticket number from the modal's data attribute
+    var ticketNo = $('#empTicketCommentsModal').data('ticketNo');
+    var ticketStatus = $(this).hasClass('btn-apply-emp-tickethistory-comment-reopen') ? 'Re-Open' : 'Closed';
     var comments = $('#emp-tickethistory-comments').val();
     var updateby = $('.loggedinempname').text();
     var updatebyID = $('.loggedinempid').text();
@@ -300,7 +323,7 @@ $(document).on('click', '.btn-apply-emp-tickethistory-comment-reopen, .btn-apply
                     $modal.find('.emp-ticketing-commentbox-popup').hide();
                     $modal.find('.emp-ticketing-statuschange-div').html('<p style="color: green;">Ticket status has been updated successfully.</p>');
 
-                    // Additional logic based on status if needed
+                    // Update the status in the current row
                     if (ticketStatus === 'Re-Open') {
                         currentSelectedrow.find('.res-empticketlisting-status-level').text('Re-Open');
                     } else if (ticketStatus === 'Closed') {
@@ -324,6 +347,23 @@ $(document).on('click', '.btn-apply-emp-tickethistory-comment-reopen, .btn-apply
         $('#empTicketCommentsModal .modal-body').html('<p>Ticket information is missing. Please try again.</p>');
     }
 });
+
+
+$(document).on('click', '.emp-tickethistory-edit', function (event) {
+    var ticketName = $(this).attr('data-ticketname');
+    window.location.href = "/empticketing/empticketraise?ticketnumber=" + ticketName;
+    return;
+
+});
+
+$(document).on('click', '.btn-closeticketing-refreshpage', function (event) {
+
+    window.location.href = "/empticketing/index";
+    return;
+
+});
+
+
 
 
 

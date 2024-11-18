@@ -27,7 +27,7 @@ namespace HRMS
         public string Notes { get; set; }
         public string Acknowledge { get; set; }
         public string Location { get; set; }
-        public Nullable<System.DateTime> IssueDate { get; set; }
+        public Nullable<System.DateTime> AcknowledgeDate { get; set; }
         public string ProblemCategory { get; set; }
         public string IssueFacing { get; set; }
         public string NewAssetRequirement { get; set; }

@@ -11,11 +11,13 @@ using System.Web.Mvc;
 
 namespace HRMS.Controllers
 {
+    using static HRMS.Helpers.PartialViewHelper;
     using Helpers;
     using HRMS.Models;
     using HRMS.Services;
     using System.Data.Entity;
     using System.Globalization;
+    using System.IO;
 
     public class EmpDashController : BaseController
     {
@@ -76,8 +78,8 @@ namespace HRMS.Controllers
                 model.timerModel = new TimerModel(empCheckInInfo.Signin_Time);
             }
 
-            model.AnniversaryModel = new EmployeeEventHelper().Anniversary();
-            model.Birthdays = new EmployeeEventHelper().Birthday();
+            model.AnniversaryModel = new EmployeeEventHelper().Anniversary().Where(a => a.Empid != model.EmpInfo.EmployeeID).ToList();
+            model.Birthdays = new EmployeeEventHelper().Birthday().Where(a => a.Empid != model.EmpInfo.EmployeeID).ToList(); ;
             model.UpcomingHolidays = new EmployeeEventHelper().GetUpcomingHolidays(model.EmpInfo.Location);
 
             var isEmployeeAPpliedLeaveToday = _dbContext.con_leaveupdate.Where(x => x.employee_id == model.EmpInfo.EmployeeID && x.leavedate == DateTime.Today).FirstOrDefault();
@@ -98,7 +100,7 @@ namespace HRMS.Controllers
               .ToList();
 
 
-            model.NewJoiners = _dbContext.emp_info.Where(x => x.DOJ == DateTime.Today).ToList();
+            model.NewJoiners = _dbContext.emp_info.Where(x => x.DOJ == DateTime.Today && x.EmployeeID != model.EmpInfo.EmployeeID).ToList();
 
 
             return View("~/Views/EmployeeDashboard/EmpDash.cshtml", model);
@@ -193,10 +195,128 @@ namespace HRMS.Controllers
 
         }
 
-        public ActionResult Policies()
+
+        public ActionResult JobReferral()
         {
-            return View("/Views/EmployeeDashboard/PoliciesView.cshtml");
+            var jobListings = _dbContext.JobDetails
+              .OrderByDescending(job => job.PostedDate)
+              .ToList();
+
+            var model = new EmpJobModel
+            {
+                jobdetail = jobListings
+            };
+
+            return View("/Views/EmployeeDashboard/EmpJobReferralView.cshtml", model);
         }
+
+        public ActionResult JobDetail(int jobID)
+        {
+            var jobDetail = _dbContext.JobDetails.FirstOrDefault(x => x.JobID == jobID);
+            var cuserContext = SiteContext.GetCurrentUserContext();
+            var empID = cuserContext.EmpInfo.EmployeeID;
+
+            var jobReferrals = _dbContext.JobReferrals.Where(x => x.JobID == jobID && x.ReferredById == empID).ToList();
+
+            var model = new EmpJobModel
+            {
+                jobInfo = jobDetail,
+                EmpInfo = cuserContext.EmpInfo,
+                jobReferrals = jobReferrals
+            };
+
+            return View("/Views/EmployeeDashboard/EmpJobDetail.cshtml", model);
+        }
+
+        [HttpPost]
+        public JsonResult ReferJob()
+        {
+            try
+            {
+                int JobID = Convert.ToInt32(Request.Form["JobID"]);
+                string CandidateName = Request.Form["CandidateName"];
+                string ReferredBy = Request.Form["ReferredBy"];
+                string ReferredByID = Request.Form["ReferredByID"];
+                string Condidatemblnumber = Request.Form["Condidatemblnumber"];
+                string ReferredByEmail = Request.Form["ReferredByEmail"];
+
+                HttpPostedFileBase friendResume = Request.Files["Resume"];
+                string resumeName = "";
+                string resumePath = "";
+
+                if (friendResume != null)
+                {
+                    var ticketingFolderPath = ConfigurationManager.AppSettings["TicketingFolderPath"];
+                    string resumeFolderPath = Path.Combine(ticketingFolderPath, "Resume");
+
+                    // Ensure the resume folder exists
+                    if (!Directory.Exists(resumeFolderPath))
+                    {
+                        Directory.CreateDirectory(resumeFolderPath);
+                    }
+
+                    resumeName = Path.GetFileName(friendResume.FileName);
+                    resumePath = Path.Combine(resumeFolderPath, resumeName);
+
+                    // Save the resume file
+                    friendResume.SaveAs(resumePath);
+                }
+
+                // Save referral details to the database
+                var referral = new JobReferral
+                {
+                    JobID = JobID,
+                    CandidateName = CandidateName,
+                    ResumePath = resumeName,
+                    ReferredBy = ReferredBy,
+                    ReferredById = ReferredByID,
+                    Condidatemblnumber = Condidatemblnumber,
+                    ReferredByEmail = ReferredByEmail,
+                    ReferredDate = DateTime.Now,
+                    CandidateStatus = "Open"
+                };
+
+                _dbContext.JobReferrals.Add(referral);
+                _dbContext.SaveChanges();
+
+                // Render the email body from a partial view
+                var emailBody = RenderPartialToString(this, "_JobReferralNotificationEmail", referral, ViewData, TempData);
+
+                // Prepare the email request with attachment
+                var emailRequest = new EmailRequest
+                {
+                    Body = emailBody,
+                    ToEmail = ConfigurationManager.AppSettings["JobReferalNotification"],
+                    CCEmail = ConfigurationManager.AppSettings["JobReferalNotificationCC"],
+                    Subject = $"Resume Referral: {referral.CandidateName}",
+                    AttachmentPath = resumePath
+                };
+
+                // Send the email
+                EMailHelper.SendEmail(emailRequest);
+
+                // Update job item referrer count if it exists
+                var jobItem = _dbContext.JobDetails.FirstOrDefault(x => x.JobID == JobID);
+                if (jobItem != null)
+                {
+                    jobItem.TotalReferrers = (jobItem.TotalReferrers ?? 0) + 1;
+                    _dbContext.SaveChanges();
+                }
+
+                return Json(new { success = true, message = "Referral submitted successfully!" });
+            }
+
+            catch (Exception ex)
+            {
+                return Json(new
+                {
+                    success = false,
+                    message = "Error: " + ex.Message
+                });
+            }
+        }
+
+
         public ActionResult Holidays()
         {
             var model = new HolidayModel();
@@ -206,9 +326,9 @@ namespace HRMS.Controllers
             var holidayList = _dbContext.tblambcholidays.ToList();
 
             var filteredHolidays = holidayList
-       .Where(x => x.region.Split(',').Select(r => r.Trim().ToLower()).Contains(employeeLocation.ToLower())) // Filter in-memory
-       .OrderBy(x => x.holiday_date) // Sort holidays by date
-       .ToList();
+        .Where(x => x.region.Split(',').Select(r => r.Trim().ToLower()).Contains(employeeLocation.ToLower())) // Filter in-memory
+        .OrderBy(x => x.holiday_date) // Sort holidays by date
+        .ToList();
 
             model.Holidays = filteredHolidays;
             model.Employees = _dbContext.emp_info.Where(x => x.EmployeeStatus == "Active").ToList();
@@ -224,5 +344,83 @@ namespace HRMS.Controllers
             return Json(jsonResult, JsonRequestBehavior.AllowGet);
 
         }
+
+        [HttpPost]
+        public JsonResult SaveNotificationReply()
+        {
+            try
+            {
+                // Parse the parameters from the request
+                var sno = int.Parse(Request.Form["SNo"]);
+                var replyComments = Request.Form["ReplyComments"];
+                var replyFrom = Request.Form["ReplyFrom"];
+                var replyTo = Request.Form["ReplyTo"];
+
+                // Validate input
+                if (string.IsNullOrWhiteSpace(replyComments))
+                {
+                    return Json(new { success = false, message = "Reply comments cannot be empty." });
+                }
+
+                var notification = _dbContext.Notifications.FirstOrDefault(n => n.RepiedSno == sno);
+                if (notification == null)
+                {
+                    var oldNotificationInfo = _dbContext.Notifications.FirstOrDefault(n => n.SNo == sno);
+
+                    var newNotification = new Notification
+                    {
+                        NotificationDate = DateTime.Now,
+                        NotificationFromName = oldNotificationInfo.NotificationToName,
+                        NotificationFromID = oldNotificationInfo.NotificationToID,
+                        NotificationToName = oldNotificationInfo.NotificationFromName,
+                        NotificationToID = oldNotificationInfo.NotificationFromID,
+                        NotificationType = oldNotificationInfo.NotificationType,
+                        Status = "Sent",
+                        Comments = replyComments,
+                        RepiedSno = sno,
+                        CreatedDate = DateTime.Now
+                    };
+
+                    _dbContext.Notifications.Add(newNotification);
+                    _dbContext.SaveChanges();
+
+                    return Json(new { success = true });
+                }
+                return Json(new { success = false, message = "Notification not found." });
+            }
+            catch (Exception ex)
+            {
+                // Log the exception (consider using a logging library)
+                // For example: _logger.LogError(ex, "An error occurred while saving notification reply.");
+
+                return Json(new { success = false, message = "An error occurred while processing your request." });
+            }
+        }
+
+        [ValidateInput(false)]
+        public JsonResult UpdateRoles(string employeeId, string roles)
+        {
+            try
+            {
+                var empInfo = _dbContext.emp_info.Where(x => x.EmployeeID == employeeId).FirstOrDefault();
+                if (empInfo != null)
+                {
+                    empInfo.Roles_Responsibilities = roles;
+                    _dbContext.SaveChanges();
+
+                    var siteContext = Session["SiteContext"] as SiteContextModel;
+
+                    siteContext.EmpInfo = empInfo;
+
+                }
+                return Json(new { success = true, message = "Roles updated successfully!" });
+            }
+            catch (Exception)
+            {
+                return Json(new { success = false, message = "Error when updating roles!" });
+            }
+
+        }
+
     }
 }

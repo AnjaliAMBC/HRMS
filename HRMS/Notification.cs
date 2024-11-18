@@ -29,5 +29,6 @@ namespace HRMS
         public string ReplyTo { get; set; }
         public string ReplyComments { get; set; }
         public Nullable<System.DateTime> Notification_replyDate { get; set; }
+        public Nullable<int> RepiedSno { get; set; }
     }
 }

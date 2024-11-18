@@ -6,6 +6,7 @@ using System.Collections.Generic;
 using System.Configuration;
 using System.IO;
 using System.Linq;
+using System.Net;
 using System.Web;
 using System.Web.Mvc;
 
@@ -29,12 +30,36 @@ namespace HRMS.Controllers
 
             var employeeTickets = _dbContext.IT_Ticket.Where(t => t.EmployeeID == employeeId).OrderByDescending(x => x.Created_date).ToList();
             model.empTickets = employeeTickets;
+
+            if (employeeTickets.Any())
+            {
+                model.ticketinfo = employeeTickets.First();
+            }
+
             return View("~/Views/EmployeeDashboard/EmpTicketing.cshtml", model);
         }
-        public ActionResult EmpTicketRaise()
-        {
 
-            return PartialView("~/Views/EmployeeDashboard/EmpRaiseTicket.cshtml");
+        public ActionResult EmpTicketRaise(int ticketnumber = 0)
+        {
+            var model = new TicketingModel();
+            var cuserContext = SiteContext.GetCurrentUserContext();
+
+            if (ticketnumber != 0)
+            {
+                model.IsEditRecord = true;
+                model.ticketinfo = _dbContext.IT_Ticket.Where(t => t.TicketNo == ticketnumber).FirstOrDefault();
+            }
+
+            return View("~/Views/EmployeeDashboard/EmpRaiseTicket.cshtml", model);
+        }
+
+        public ActionResult EmpTicketView(int ticketNumber)
+        {
+            var model = new TicketingModel(); // Instantiate the model
+            var cuserContext = SiteContext.GetCurrentUserContext();  
+            model.ticketinfo = _dbContext.IT_Ticket
+                                    .Where(t => t.TicketNo == ticketNumber).FirstOrDefault();
+            return View("~/Views/EmployeeDashboard/EmpTicketView.cshtml", model);
         }
 
         [HttpPost]
@@ -56,10 +81,13 @@ namespace HRMS.Controllers
                 string status = Request.Form["Status"];
                 string location = Request.Form["Location"];
 
+                string isEdiatbleRecord = Request.Form["IsEditRecord"].ToString().ToLowerInvariant();
+                string isEdiatbleRecordTicketNumber = Request.Form["EdiatbleRecordNumber"].ToString().ToLowerInvariant();
+
                 // Get file from FormData
                 HttpPostedFileBase file = Request.Files["File"];
 
-                string filePath = "";
+                string fileName = "";
 
                 // Validate file
                 if (file != null)
@@ -67,12 +95,12 @@ namespace HRMS.Controllers
                     if ((file.ContentType == "image/jpeg" || file.ContentType == "image/png") && file.ContentLength <= 2097152)
                     {
                         // Save the file in a virtual folder
-                        var fileName = Path.GetFileName(file.FileName);
+                        fileName = Path.GetFileName(file.FileName);
                         var TicketingFolderPath = ConfigurationManager.AppSettings["TicketingFolderPath"];
 
                         TicketingFolderPath = TicketingFolderPath + "/" + ticketType;
 
-                        filePath = Path.Combine(TicketingFolderPath, fileName);
+                        string filePath = Path.Combine(TicketingFolderPath, fileName);
                         file.SaveAs(filePath);
                     }
                     else
@@ -81,25 +109,61 @@ namespace HRMS.Controllers
                     }
                 }
 
-                // Create and populate the IT_Ticket model
-                var ticketModel = new IT_Ticket
-                {
-                    TicketType = ticketType,
-                    Category = category,
-                    Subject = subject,
-                    Description = description,
-                    Priority = priority,
-                    EmployeeID = employeeId,
-                    EmployeeName = employeeName,
-                    OfficialEmailID = officialEmail,
-                    Status = status,
-                    Location = location,
-                    Created_date = DateTime.Now,
-                    AttatchimageFile = filePath // Save file path to model
-                };
+                var raisedTicket = new IT_Ticket();
 
-                // Save the model to the database
-                var raisedTicket = _dbContext.IT_Ticket.Add(ticketModel);
+                var Message = "Ticket has been raised successfully.";
+
+                if (isEdiatbleRecord == "false")
+                {
+                    // Create and populate the IT_Ticket model
+                    var ticketModel = new IT_Ticket
+                    {
+                        TicketType = ticketType,
+                        Category = category,
+                        Subject = subject,
+                        Description = description,
+                        Priority = priority,
+                        EmployeeID = employeeId,
+                        EmployeeName = employeeName,
+                        OfficialEmailID = officialEmail,
+                        Status = status,
+                        Location = location,
+                        Created_date = DateTime.Now,
+                        AttatchimageFile = fileName // Save file path to model
+                    };
+
+                    // Save the model to the database
+                    raisedTicket = _dbContext.IT_Ticket.Add(ticketModel);
+                    Message = "Ticket has been raised successfully.";
+                }
+                else
+                {
+                    var ticketNum = System.Convert.ToInt32(isEdiatbleRecordTicketNumber);
+                    raisedTicket = _dbContext.IT_Ticket.Where(x => x.TicketNo == ticketNum).FirstOrDefault();
+
+                    if (raisedTicket != null)
+                    {
+                        raisedTicket.TicketType = ticketType;
+                        raisedTicket.Category = category;
+                        raisedTicket.Subject = subject;
+                        raisedTicket.Description = description;
+                        raisedTicket.Priority = priority;
+                        raisedTicket.EmployeeID = employeeId;
+                        raisedTicket.EmployeeName = employeeName;
+                        raisedTicket.OfficialEmailID = officialEmail;
+                        raisedTicket.Status = status;
+                        raisedTicket.Location = location;
+                        raisedTicket.Created_date = DateTime.Now;
+                        if (file != null)
+                        {
+                            raisedTicket.AttatchimageFile = fileName;
+                        }
+
+                        Message = "Ticket has been updated successfully.";
+                    }
+                }
+
+
                 _dbContext.SaveChanges();
 
 
@@ -122,7 +186,7 @@ namespace HRMS.Controllers
 
 
                 TicketingHelper.SendTicketConfirmationEmail(raisedTicket);
-                return Json(new { success = true });
+                return Json(new { success = true, message = Message });
             }
             catch (Exception ex)
             {
@@ -232,5 +296,6 @@ namespace HRMS.Controllers
                 return Json(new { success = false, message = ex.Message });
             }
         }
+
     }
 }

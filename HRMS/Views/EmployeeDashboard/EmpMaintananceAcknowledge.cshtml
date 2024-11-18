@@ -1,0 +1,204 @@
+﻿@model HRMS.IT_Maintenance
+@using HRMS.Helpers
+
+@{
+    ViewBag.Title = "EmpMaintananceAcknowledge";
+}
+
+@Html.Partial("_EmployeeNavbar")
+<style>
+    .modal.left .modal-dialog,
+    .modal.right .modal-dialog {
+        position: fixed;
+        margin: auto;
+        width: 320px;
+        height: 100%;
+        -webkit-transform: translate3d(0%, 0, 0);
+        -ms-transform: translate3d(0%, 0, 0);
+        -o-transform: translate3d(0%, 0, 0);
+        transform: translate3d(0%, 0, 0);
+    }
+
+    .modal.left .modal-content,
+    .modal.right .modal-content {
+        height: 100%;
+        overflow-y: auto;
+    }
+
+    .modal.left .modal-body,
+    .modal.right .modal-body {
+        padding: 15px 15px 80px;
+    }
+
+    /*Right*/
+    .modal.right.fade .modal-dialog {
+        right: 0px;
+        -webkit-transition: opacity 0.3s linear, right 0.3s ease-out;
+        -moz-transition: opacity 0.3s linear, right 0.3s ease-out;
+        -o-transition: opacity 0.3s linear, right 0.3s ease-out;
+        transition: opacity 0.3s linear, right 0.3s ease-out;
+    }
+
+    .modal.right.fade.in .modal-dialog {
+        right: 0;
+    }
+
+    .modal-dialog {
+        margin: 5% auto;
+    }
+
+    .checkputcolor {
+        background: linear-gradient(to right, #FF554B, #EA2E24, #D11006);
+        color: #fff;
+        padding: 5px 7px;
+        margin-top: 5px;
+        text-align: center;
+    }
+
+    .success-message {
+        color: green;
+    }
+
+    .error-message {
+        color: red;
+    }
+</style>
+
+<div class="container-fluid emp-maintenanceacknowledge-list-horizon">
+    <div class="main-content container-fluid">
+        <div class="content employee-maintenanceacknowledge">
+            <div class="emp-maintenanceacknowledge-container">
+                <div class="row res-emp-maintenanceacknowledge-header">
+                    <div class="col-lg-3 res-emp-maintenanceacknowledge-title">
+                        <h4>Acknowledge</h4>
+                    </div>
+                </div>
+            </div>
+
+            <div class="emp-maintenanceacknowledge-details" id="empMaintenanceAcknowledge">
+
+                <div class="admin-maintenanceacknowledge-view">
+                    <div class="container-fluid">
+                        <div class="maintenanceacknowledge-details">
+                            <div class="maintenanceacknowledge-header-title">
+                                <span class="maintenanceacknowledge-image-btn">
+                                    <!-- Dynamically load the employee image -->
+
+                                    @{
+                                        var empBirthdayDisplay = EmployeeHelper.GetEmployeeDisplayInfo(@Model.EmployeeID);
+                                    }
+
+                                    @if (!string.IsNullOrWhiteSpace(empBirthdayDisplay.ImageSrc))
+                                    {
+                                        <img src="@empBirthdayDisplay.ImageSrc" alt="Employee Image" class="userIcon">
+                                    }
+                                    else
+                                    {
+                                        <div class="default-image-navbar">@empBirthdayDisplay.EmpShortName</div>
+                                    }
+
+                                    @*<img src="~/Assets/EmpImages/1075.jpeg" alt="Employee Image" class="userIcon">
+                                        <div class="default-image-navbar" style="display: none;">
+                                        </div>*@
+                                </span>
+                                <!-- Show the employee name dynamically -->
+                                <span class="maintenanceacknowledge-id-select" data-assetid="name">@Model.EmployeeName</span>
+                            </div>
+
+                            <div class="maintenanceacknowledge-info">
+                                <div class="row">
+                                    <div class="col-lg-12 col-md-12 maintenanceacknowledge-left-block-main">
+                                        <div class="row">
+                                            <div class="col-lg-4 col-md-6">
+                                                <div class="form-group maintenanceacknowledge-tabs">
+                                                    <label for="MaintenanceAcknowledge-Date">Date</label>
+                                                    <!-- Bind date field dynamically -->
+                                                    <input type="date" class="form-control" id="MaintenanceAcknowledge-Date"
+                                                           value="@(Model.AcknowledgeDate.HasValue ? Model.AcknowledgeDate.Value.ToString("yyyy-MM-dd") : "")">
+                                                </div>
+                                            </div>
+                                            <div class="col-lg-4 col-md-6">
+                                                <div class="form-group maintenanceacknowledge-tabs">
+                                                    <label for="MaintenanceAcknowledge-ProblemCategory">Problem Category</label>
+                                                    <!-- Dynamically select problem category -->
+                                                    <select name="MaintenanceAcknowledge-ProblemCategory" class="MaintenanceAcknowledge-ProblemCategory form-control form-select" id="MaintenanceAcknowledge-ProblemCategory">
+                                                        <option value="" disabled>Select Category</option>
+                                                        <option value="Network" @(Model.ProblemCategory == "Network" ? "selected" : "")>Network</option>
+                                                        <option value="Hardware" @(Model.ProblemCategory == "Hardware" ? "selected" : "")>Hardware</option>
+                                                        <option value="Software" @(Model.ProblemCategory == "Software" ? "selected" : "")>Software</option>
+                                                        <option value="Others" @(Model.ProblemCategory == "Others" ? "selected" : "")>Others</option>
+                                                    </select>
+                                                </div>
+                                            </div>
+
+                                            <div class="col-lg-4 col-md-6">
+                                                <div class="form-group maintenanceacknowledge-tabs">
+                                                    <label for="MaintenanceAcknowledge-IssueFacing">Issue Facing</label>
+                                                    <!-- Bind issue facing dynamically -->
+                                                    <input type="text" class="form-control" id="MaintenanceAcknowledge-IssueFacing" value="@Model.IssueFacing">
+                                                </div>
+                                            </div>
+                                        
+                                            <div class="col-lg-4 col-md-6">
+                                                <div class="form-group maintenanceacknowledge-tabs">
+                                                    <label for="MaintenanceAcknowledge-AssetReplacement">Do you have any requirement of new asset or replacement required?</label>
+                                                    <!-- Bind asset replacement field dynamically -->
+                                                    <input type="text" class="form-control" id="MaintenanceAcknowledge-AssetReplacement" value="@Model.NewAssetRequirement">
+                                                </div>
+                                            </div>
+                                            <div class="col-lg-4 col-md-6">
+                                                <div class="form-group maintenanceacknowledge-tabs">
+                                                    <label for="MaintenanceAcknowledge-Completed">I am hereby acknowledged that monthly maintenance completed for my IT Asset (Laptop or PC)</label>
+                                                    <select name="MaintenanceAcknowledge-Status" class="MaintenanceAcknowledge-Completed form-control form-select" id="MaintenanceAcknowledge-Completed">
+                                                        <option value="Yes" @(Model.Acknowledge == "Yes" ? "selected" : "")>Yes</option>
+                                                        <option value="No" @(Model.Acknowledge == "No" ? "selected" : "")>No</option>
+                                                    </select>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="row">
+                                            <div class="col-lg-12 col-md-12 text-right">
+                                                <!-- Pass the Sno dynamically with the submit button -->
+                                                <button type="button" class="btn btn-primary emp-maintenanceacknowledge-submit" data-maintenancesno="@Model.Sno">Acknowledge</button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+</div>
+
+
+@Html.Partial("EmployeeFooter")
+
+<!-- Success/Error Modal -->
+<div class="modal fade" id="responseModal" tabindex="-1" role="dialog" aria-labelledby="responseModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="responseModalLabel">Message</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body" id="responseModalBody">
+                <!-- Dynamic message goes here -->
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary mainaknowledge-close" data-dismiss="modal">Close</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+<script src="~/Scripts/Z-Maintanance.js"></script>
+
+

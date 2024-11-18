@@ -25,7 +25,7 @@ function prepareDelete(subscriptionID) {
 $('.delete-Subscription').on('click', function () {
     if (deleteSubscriptionID) {
         $.ajax({
-            url: '/Subscription/DeleteSubscription', // Adjust URL to match your delete endpoint
+            url: '/Subscription/DeleteSubscription', 
             type: 'POST',
             data: { id: deleteSubscriptionID },
             success: function (response) {

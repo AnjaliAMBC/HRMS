@@ -82,33 +82,88 @@
         cursor: pointer;
     }
 
-
     .sign-out {
         text-decoration: none;
         font-size: 14px;
     }
-</style>
 
+
+    .modal.left .modal-dialog,
+    .modal.right .modal-dialog {
+        position: fixed;
+        margin: auto;
+        width: 320px;
+        height: 100%;
+        -webkit-transform: translate3d(0%, 0, 0);
+        -ms-transform: translate3d(0%, 0, 0);
+        -o-transform: translate3d(0%, 0, 0);
+        transform: translate3d(0%, 0, 0);
+    }
+
+    .modal.left .modal-content,
+    .modal.right .modal-content {
+        height: 100%;
+        overflow-y: auto;
+    }
+
+    .modal.left .modal-body,
+    .modal.right .modal-body {
+        padding: 15px 15px 80px;
+    }
+
+    /*Right*/
+    .modal.right.fade .modal-dialog {
+        right: 0px;
+        -webkit-transition: opacity 0.3s linear, right 0.3s ease-out;
+        -moz-transition: opacity 0.3s linear, right 0.3s ease-out;
+        -o-transition: opacity 0.3s linear, right 0.3s ease-out;
+        transition: opacity 0.3s linear, right 0.3s ease-out;
+    }
+
+    .modal.right.fade.in .modal-dialog {
+        right: 0;
+    }
+
+    .modal-dialog {
+        margin: 5% auto;
+    }
+
+    .checkputcolor {
+        background: linear-gradient(to right, #FF554B, #EA2E24, #D11006);
+        color: #fff;
+        padding: 5px 7px;
+        margin-top: 14px;
+        text-align: center;
+        cursor: pointer;
+        margin-bottom: 10px;
+    }
+</style>
+@{
+    var pageUrlPath = Request.Url.AbsolutePath.ToLowerInvariant();
+}
 <nav class="navbar navbar-expand-md navbar-light bg-light fixed-top horizon-design" style="box-shadow: 0 0 5px 2px rgba(0, 0, 0, .3); height: 55px;">
     <a class="navbar-brand" href="#"><img src="~/Assets/AMBC_Logo.png" alt="logo" class="logo-img" /></a>
-    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#left-side-menu" aria-controls="left-side-menu" aria-expanded="false" aria-label="Toggle navigation">
+    <span class="res-header-notification">
+        <span class="nav-notification" data-toggle="modal" data-target="#NotificationPopup"><img src="~/Assets/clarity_notification-line.png" alt="Notification" class="img-notification"><span class="notification-count">@notifications.Count()</span></span>
+    </span>
+    <button class="navbar-toggler emp-navbartogglebtn-horizon-design" type="button" data-toggle="collapse" data-target="#left-side-menu" aria-controls="left-side-menu" aria-expanded="false" aria-label="Toggle navigation">
         <span class="navbar-toggler-icon"></span>
     </button>
-    <div class="collapse navbar-collapse" id="navbarNav">
+    <div class="collapse navbar-collapse emp-navbar-horizon-design" id="navbarNav">
         <ul class="navbar-nav mr-auto nav-center-block">
-            <li class="nav-item active">
+            <li class="nav-item @(pageUrlPath.Contains("/empdash") ? "active" : "")">
                 <a class="nav-link" href="/empDash/index">Dashboard <span class="sr-only">(current)</span></a>
             </li>
-            <li class="nav-item">
+            <li class="nav-item @(pageUrlPath.Contains("/employeedashboard") ? "active" : "")">
                 <a class="nav-link" href="/employeedashboard/selfservice">Employee</a>
             </li>
-            <li class="nav-item">
+            <li class="nav-item @(pageUrlPath.Contains("/empattendance") ? "active" : "")">
                 <a class="nav-link" href="/EmpAttendance/Index">Attendance</a>
             </li>
-            <li class="nav-item">
-                <a class="nav-link" href="/EmpLeave/Index">Leave</a>
+            <li class="nav-item @(pageUrlPath.Contains("/empleave") || pageUrlPath.Contains("/empLeave") ? "active" : "")">
+                <a class="nav-link" href="/empleave/index">Leave</a>
             </li>
-            <li class="nav-item">
+            <li class="nav-item @(pageUrlPath.Contains("/empticketing") ? "active" : "")">
                 <a class="nav-link" href="/EmpTicketing/Index">Ticketing</a>
             </li>
         </ul>
@@ -158,7 +213,8 @@
 
         @if (!currentContext.IsAdmin)
         {
-            <button class="view-profile-btn btn" onclick="viewProfile()" style="width: 38%; background-color: #EEF4FF; margin-left: 74px; font-size: 12px; border: 1px solid #7E7E7E"><img src="~/Assets/ei_user.png" />My Profile</button>
+            @*<button class="view-profile-btn btn" onclick="viewProfile()" style="width: 38%; background-color: #EEF4FF; margin-left: 74px; font-size: 12px; border: 1px solid #7E7E7E"><img src="~/Assets/ei_user.png" />My Profile</button>*@
+            <button class="view-profile-btn btn" onclick="viewProfile()" style="width: 38%; background-color: #EEF4FF; margin-left: 74px; font-size: 12px; border: 1px solid #7E7E7E">My Profile</button>
         }
 
         <a href="#" class="sign-out" onclick="signOut()" style="color: #F8284A; display: flex; align-items: center; margin-left: 34%;">
@@ -170,14 +226,14 @@
     </div>
 
 </nav>
-
+@Html.Partial("_empsidemenu")
 <!-- Notification Modal -->
 <div class="modal right fade" id="NotificationPopup" tabindex="-1" role="dialog" aria-labelledby="NotificationPopup">
     <div class="modal-dialog" role="document">
         <div class="modal-content">
             <div class="modal-header">
                 <h4 class="modal-title" id="notification-header-title">Notification</h4>
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><i class="fa fa-times-circle" aria-hidden="true"></i></button>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><i class="far fa-times-circle" aria-hidden="true"></i></button>
             </div>
             <div class="modal-body">
                 <div class="notification-list-blocks">
@@ -189,7 +245,13 @@
                             <div class="notification-block-left light-blue"><img src="/Assets/mail-icon.png"></div>
                             <div class="notification-block-right">
                                 <div class="notification-block-info notification-info-title" title="@NotificationHelper.GetNotificationTitle(notification)">@NotificationHelper.GetNotificationTitle(notification)</div>
-                                <div class="notification-block-info notification-info-date">@formattedDate</div>
+                                <div class="notification-block-info notification-info-date">
+                                    <span class="notification-date">@formattedDate</span>
+                                    @if (notification.NotificationType == "Birthday" || notification.NotificationType == "Anniversary" || notification.NotificationType == "NewJoining")
+                                    {
+                                        <span data-sno="@notification.SNo" data-toggle="modal" data-target="#NotificationReplyPopup" class="notification-reply">Reply</span>
+                                    }
+                                </div>
                             </div>
                         </div>
                     }
@@ -198,7 +260,7 @@
                             <div class="notification-block-left light-gray"><img src="/Assets/mail-icon.png"></div>
                             <div class="notification-block-right">
                                 <div class="notification-block-info notification-info-title" title="Test notification data notification data dummy">Test notification data</div>
-                                <div class="notification-block-info notification-info-date">09 October 9:20 AM</div>
+                                <div class="notification-block-info notification-info-date"><span class="notification-date">09 October 9:20 AM</span> <span data-toggle="modal" data-target="#NotificationReplyPopup" class="notification-reply">Reply</span></div>
                             </div>
                         </div>
                         <div class="notification-block">
@@ -225,6 +287,11 @@
     <!-- modal-dialog -->
 </div>
 <!--Notification  modal -->
+<!-- Notification reply Modal -->
+<div class="empNotificationReply-div">
+    @*@Html.Partial("~/Views/EmployeeDashboard/_EmpNotificationReply.cshtml")*@
+</div>
+<!--Notification reply  modal -->
 
 
 

@@ -83,9 +83,10 @@ $(document).on('click', '.btn-checkin', function (event) {
                         $('.btn-checkin').removeAttr('disabled');
                         $('#dh-checkinhoursminutes').attr('data-signedindatetime', "");
                         $('#dh-checkinhoursminutes').html("");
-                        $('#checkOutTime').html("");
-                        $('#checkInTime').html("");
+                        $('#checkOutTime').html("00:00:00");
+                        $('#checkInTime').html("00:00:00");
                         $('.showcheckinbuttonpostcheckout').text('False');
+                        $('.btn-checkin').prop('disabled', false);
                     }
                     else {
                         $('#dh-checkinhoursminutes').attr('data-signedindatetime', "");
@@ -105,7 +106,6 @@ $(document).on('click', '.btn-checkin', function (event) {
 
 });
 
-// Function to format date as "Date MonthName Year"
 function formatDate(date) {
     return date.toLocaleDateString('en-GB', { day: '2-digit', month: 'long', year: 'numeric' });
 }
@@ -113,35 +113,19 @@ function formatDate(date) {
 
 function GetAttendenceInfo(startDate, endDate) {
     $.ajax({
-        url: "/empattendance/index",
-        type: 'POST',
-        dataType: 'html',
+        url: "/empattendance/getAttedenceInfo",
+        type: 'GET',
         data: {
             startDate: startDate,
             endDate: endDate
         },
         success: function (response) {
-            $(".hiddenempdashboard").html("");
-            $(".emp-dashboard-data").html("");
-            $(".selfservice-dashboard-data").html("");
-            $(".attedance-dashboard-data").html("");
-            $(".leave-dashboard-data").html("");
-            $(".myrequest-dashboard-data").html("");
-
-
-            $(".hiddenempdashboard").html(response);
-            var formContent = $(".hiddenempdashboard").find(".empattendence-container").html();
-            $(".attedance-dashboard-data").html(formContent);
-            $('.attedance-dashboard-data').show();
-            $('.emp-dashboard-data').hide();
-            $('.selfservice-dashboard-data').hide();
-            $('.leave-dashboard-data').hide();
-            $('.myrequest-dashboard-data').hide();
-
-            $(".hiddenempdashboard").html("");
+            // Update the maintenance records section with the new data
+            $('.EmpAttedenceTableRows-div').html('');
+            $('.EmpAttedenceTableRows-div').html(response);
         },
         error: function (xhr, status, error) {
-            console.error('Error uploading file:', error);
+            console.error('Error fetching attendance info:', error);
         },
         complete: function () {
         }
@@ -149,8 +133,8 @@ function GetAttendenceInfo(startDate, endDate) {
 }
 
 
-$(function () {
 
+$(function () {
     var currentDate1 = new Date();
 
     var startDate = new Date(currentDate1);
@@ -159,40 +143,32 @@ $(function () {
     var endDate = new Date(currentDate1);
     endDate.setDate(currentDate1.getDate() + (6 - currentDate1.getDay() + 1));
 
-    // Update UI
-    $("#week-start").text(startDate.toDateString());
-    $("#week-end").text(endDate.toDateString());
+    //$("#week-start").text(startDate.toDateString());
+    //$("#week-end").text(endDate.toDateString());
 
-    // Left button click
+
     $(document).on('click', '.left-btn', function (event) {
         startDate.setDate(startDate.getDate() - 7);
         endDate.setDate(endDate.getDate() - 7);
         updateWeekDates(startDate, endDate);
     });
 
-    // Right button click
     $(document).on('click', '.right-btn', function (event) {
         startDate.setDate(startDate.getDate() + 7);
         endDate.setDate(endDate.getDate() + 7);
         updateWeekDates(startDate, endDate);
     });
 
-    // Function to update week dates
     function updateWeekDates(start, end) {
         $("#week-start").text(formatDate(start));
         $("#week-end").text(formatDate(end));
-
         var startDate = $("#week-start").text();
         var endDate = $("#week-end").text();
-
         GetAttendenceInfo(startDate, endDate);
-
     }
 });
 
-// Function to format date as "Date MonthName Year"
 function formatDateenUS(inputDate) {
-    // Convert input string to Date object
     var date = new Date(inputDate);
     return date.toLocaleDateString('en-GB', { day: '2-digit', month: 'long', year: 'numeric' });
 }
@@ -218,7 +194,6 @@ function AttedencevalidateDates() {
     } else {
         toError.style.display = 'none';
     }
-
     return isValid;
 }
 
@@ -604,7 +579,7 @@ function getLeaveSummary(employeeId, location, month, year) {
             $('#totalAbsent').text(response.TotalAbsent);
 
             // Update chart
-            updateChart(response.TotalPresent, response.TotalLeaves, response.TotalAbsent);
+            updateChart(response.TotalPresent, response.TotalLeaves, response.TotalAbsent, response.TotalHolidays);
 
         },
         error: function (xhr, status, error) {
@@ -614,13 +589,14 @@ function getLeaveSummary(employeeId, location, month, year) {
     });
 }
 
-function updateChart(present, leaves, absent) {
-    var xValues = ["Present", "Leave", "Absent"];
-    var yValues = [present, leaves, absent];
+function updateChart(present, leaves, absent, holiday) {
+    var xValues = ["Present", "Leave", "Absent", "Holiday"];
+    var yValues = [present, leaves, absent, holiday];
     var barColors = [
         "#96CD5C",
         "#C85353",
-        "#00B4F2"
+        "#00B4F2",
+        "#FFD700"
     ];
 
     // Destroy any existing chart instance before creating a new one (prevents duplication)

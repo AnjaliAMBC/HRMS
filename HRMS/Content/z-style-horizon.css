@@ -1,3 +1,7 @@
+.modal-lg {
+    max-width: 800px !important;
+}
+
 /* signin start */
 
 .login-page-horizon {
@@ -18,8 +22,9 @@
     position: absolute;
     bottom: 10px;
     text-align: center;
-    width: 82%;
+    width: 100%;
     font-size: 12px;
+    left: 0px;
 }
 
 .login-page-horizon .logininput {
@@ -68,8 +73,8 @@
     color: #4B5675;
 }
 
-.horizon-design #navbarNav .nav-center-block li.active a{
-    color: #000;
+.horizon-design #navbarNav .nav-center-block li.active a {
+    color: #267EC4;
 }
 
 .horizon-design #navbarNav .header-notification .nav-notification {
@@ -97,8 +102,35 @@
     top: 7px;
 }
 
-/* header end */
+.horizon-design .res-header-notification {
+    margin-right: -100px;
+    display: none;
+}
 
+.horizon-design .res-header-notification .nav-notification {
+    padding: 12px 10px;
+    background: #D6E2F3;
+    border-radius: 3px;
+}
+
+.horizon-design .res-header-notification .nav-notification .notification-count {
+    position: absolute;
+    font-size: 9px;
+    background: #267EC4;
+    color: #fff;
+    border-radius: 25px;
+    width: 15px;
+    height: 15px;
+    text-align: center;
+    vertical-align: middle;
+    top: 7px;
+}
+
+.left-side-menu-normal-horizon {
+    display: none;
+}
+
+/* header end */
 
 /* footer start */
 
@@ -116,8 +148,9 @@
 /* header profile dropdown start */
 
 .horizon-design .profile-dropdown {
-    text-align: left;
+    text-align: center;
     width: 240px !important;
+    margin-top: -7px;
 }
 
 .horizon-design .profile-dropdown .header-profile-email {
@@ -126,17 +159,21 @@
 }
 
 .horizon-design .profile-dropdown .header-profile-designation {
-    display: none;
+    /*display: none;*/
+    color: #828282 !important;
+    font-size: 14px;
 }
 
 .horizon-design .profile-dropdown .view-profile-btn {
-    width: auto !important;
-    background-color: transparent !important;
+    width: 100% !important;
+    background-color: #267EC4 !important;
     font-size: 12px;
     border: 0px solid #7E7E7E !important;
-    text-align: left;
-    padding: 0;
+    text-align: center;
+    padding: 6px 0px;
     margin-left: 0 !important;
+    color: #fff;
+    border-radius: 0;
 }
 
 .horizon-design .profile-dropdown .sign-out {
@@ -212,7 +249,7 @@
 
 #NotificationPopup .modal-body .notification-list-blocks .notification-block .notification-block-right {
     display: inline-block;
-    width: 70%;
+    width: 88%;
     padding: 0px 10px;
 }
 
@@ -229,15 +266,153 @@
 #NotificationPopup .modal-body .notification-list-blocks .notification-block .notification-block-right .notification-info-date {
     font-size: 12px;
     color: gray;
+    display: flex;
+    justify-content: space-between;
+}
+
+#NotificationPopup .modal-body .notification-list-blocks .notification-block .notification-block-right .notification-info-date .notification-reply {
+    border-radius: 15px;
+    border: 1px solid #267EC4;
+    padding: 0 10px;
+    color: #267EC4;
+    cursor: pointer;
 }
 
 /* notification end */
 
+/* notification reply start */
+
+#NotificationReplyPopup .modal-dialog {
+    right: 316px;
+    box-shadow: 3px 2px 5px 1px #ccc;
+}
+
+#NotificationReplyPopup .modal-dialog .modal-header {
+    border: none;
+}
+
+#NotificationReplyPopup .notificationreply-list-blocks {
+}
+
+#NotificationReplyPopup .notificationreply-list-blocks .notificationreply-receiver {
+}
+
+#NotificationReplyPopup .notificationreply-list-blocks .notificationreply-receiver .notificationreply-receiver-left {
+    width: 18%;
+    display: inline-block;
+    vertical-align: top;
+}
+
+#NotificationReplyPopup .notificationreply-list-blocks .notificationreply-receiver .notificationreply-receiver-left img {
+    border-radius: 50%;
+    width: 45px;
+    height: 45px;
+    object-fit: cover;
+    margin-right: 7px;
+}
+
+#NotificationReplyPopup .notificationreply-list-blocks .notificationreply-receiver .notificationreply-receiver-right {
+    display: inline-block;
+    width: 80%;
+    font-size: 14px;
+}
+
+#NotificationReplyPopup .notificationreply-list-blocks .notificationreply-receiver .notificationreply-receiver-right .receiver-userinfo {
+    margin-top: 7px;
+}
+
+#NotificationReplyPopup .notificationreply-list-blocks .notificationreply-receiver .notificationreply-receiver-right .receiver-userinfo .receiver-name {
+    line-height: 1;
+}
+
+#NotificationReplyPopup .notificationreply-list-blocks .notificationreply-receiver .notificationreply-receiver-right .receiver-userinfo .receiver-date {
+    color: gray;
+}
+
+#NotificationReplyPopup .notificationreply-list-blocks .notificationreply-receiver .notificationreply-receiver-right .receiver-message {
+    background: #EBF3FE;
+    padding: 2px 5px;
+    border-radius: 3px;
+    margin: 10px 0 0 0;
+}
+
+#NotificationReplyPopup .notificationreply-list-blocks .notificationreply-receiver .notificationreply-receiver-right .receiver-like {
+    color: gray;
+    cursor: pointer;
+    outline: none;
+}
+
+#NotificationReplyPopup .notificationreply-list-blocks .notificationreply-receiver .notificationreply-receiver-right .receiver-like span{
+    font-size: 12px;
+}
+
+#NotificationReplyPopup .notificationreply-list-blocks .notificationreply-sender {
+}
+
+#NotificationReplyPopup .notificationreply-list-blocks .notificationreply-sender .notificationreply-sender-left {
+    display: inline-block;
+    width: 80%;
+    font-size: 14px;
+    padding-right: 5px;
+}
+
+#NotificationReplyPopup .notificationreply-list-blocks .notificationreply-sender .notificationreply-sender-left .sender-userinfo {
+    margin-top: 7px;
+    text-align: right;
+}
+
+#NotificationReplyPopup .notificationreply-list-blocks .notificationreply-sender .notificationreply-sender-left .sender-userinfo .sender-name {
+    line-height: 1;
+}
+
+#NotificationReplyPopup .notificationreply-list-blocks .notificationreply-sender .notificationreply-sender-left .sender-userinfo .sender-date {
+    color: gray;
+}
+
+#NotificationReplyPopup .notificationreply-list-blocks .notificationreply-sender .notificationreply-sender-left textarea {
+    width: 100%;
+    border: 0.5px solid #c5c5c5;
+    margin: 10px 0 0 0;
+    outline: none;
+    padding: 2px 5px;
+    border-radius: 3px;
+    }
+
+#NotificationReplyPopup .notificationreply-list-blocks .notificationreply-sender .notificationreply-sender-left .sender-send {
+    margin-top: 5px;
+}
+
+#NotificationReplyPopup .notificationreply-list-blocks .notificationreply-sender .notificationreply-sender-left .sender-send-btn {
+    display: inline-block;
+    background: #267EC4;
+    padding: 3px 15px;
+    border-radius: 15px;
+    color: #fff;
+    cursor:pointer;
+}
+
+#NotificationReplyPopup .notificationreply-list-blocks .notificationreply-sender .notificationreply-sender-right {
+    width: 18%;
+    display: inline-block;
+    vertical-align: top;
+}
+
+#NotificationReplyPopup .notificationreply-list-blocks .notificationreply-sender .notificationreply-sender-right img {
+    border-radius: 50%;
+    width: 45px;
+    height: 45px;
+    object-fit: cover;
+    margin-right: 7px;
+}
+
+/* notification reply end */
+
 /* emp dashboard start */
 
 .emp-dashboard-horizon {
-    padding: 0 0 !important;
+    padding: 0 0 0px 0px !important;
     background: #efefef;
+    display: inline-block;
 }
 
 .emp-dashboard-horizon #left-side-menu-normal {
@@ -259,25 +434,25 @@
 
 .emp-dashboard-horizon .dashboard-header-block .dashboard-header-left {
     color: #fff;
-    width: 70%;
+    width: 67%;
     display: inline-block;
     vertical-align: middle;
     margin-top: 35px;
 }
 
 .emp-dashboard-horizon .dashboard-header-block .dashboard-header-left .dh-user-name {
-    font-size: 25px;
+    font-size: 32px;
     font-weight: bold;
 }
 
 .emp-dashboard-horizon .dashboard-header-block .dashboard-header-left .dh-welcome {
-    font-size: 20px;
-    margin-top: -5px;
+    font-size: 24px;
+    margin-top: 0px;
 }
 
 .emp-dashboard-horizon .dashboard-header-block .dashboard-header-right {
     display: inline-block;
-    width: 25%;
+    width: 31%;
     background: #fff;
     padding: 16px 25px 16px 15px;
     border-radius: 0 18px 0px 0px;
@@ -289,7 +464,8 @@
     display: inline-block;
     width: 57%;
     margin-right: 10px;
-    margin-top: 18px;
+    margin-top: 12px;
+    vertical-align: top;
 }
 
 .emp-dashboard-horizon .dashboard-header-block .dashboard-header-right .dh-left .dh-date {
@@ -318,7 +494,7 @@
     width: 33%;
     margin-left: 10px;
     font-size: 12px;
-    vertical-align: top;
+    /*vertical-align: top;*/
 }
 
 .emp-dashboard-horizon .dashboard-header-block .dashboard-header-right .dh-right .dh-checkin {
@@ -333,27 +509,27 @@
     margin-bottom: 0px;
 }
 
-    .emp-dashboard-horizon .dashboard-header-block .dashboard-header-right .dh-right .dh-checkin-time,
-    .emp-dashboard-horizon .dashboard-header-block .dashboard-header-right .dh-right .dh-checkout-time,
-    .emp-dashboard-horizon .dashboard-header-block .dashboard-header-right .dh-right .dh-currenttime-display {
-        color: #1C88D6;
-    }
+.emp-dashboard-horizon .dashboard-header-block .dashboard-header-right .dh-right .dh-checkin-time,
+.emp-dashboard-horizon .dashboard-header-block .dashboard-header-right .dh-right .dh-checkout-time,
+.emp-dashboard-horizon .dashboard-header-block .dashboard-header-right .dh-right .dh-currenttime-display {
+    color: #1C88D6;
+}
 
 .emp-dashboard-horizon .dashboard-body-block {
-    padding: 30px 30px;
+    padding: 30px 45px;
 }
 
-.emp-dashboard-horizon .dashboard-body-block .emp-dash-block-1 .emp-dash-left-block {
+.emp-dashboard-horizon .dashboard-body-block .emp-dash-left-block {
 }
 
-    .emp-dashboard-horizon .dashboard-body-block .emp-dash-block-1 .emp-dash-left-block .ed-blocks {
-        border: 0.3px solid #ccc;
-        padding: 22px 15px;
-        margin-bottom: 5px;
-        background: #fff;
-    }
+.emp-dashboard-horizon .dashboard-body-block .emp-dash-left-block .ed-blocks {
+    border: 0.3px solid #ccc;
+    padding: 22px 15px;
+    margin-bottom: 5px;
+    background: #fff;
+}
 
-.emp-dashboard-horizon .dashboard-body-block .emp-dash-block-1 .emp-dash-left-block .ed-block-left {
+.emp-dashboard-horizon .dashboard-body-block .emp-dash-left-block .ed-block-left {
     width: 13%;
     display: inline-block;        
     border-radius: 4px;
@@ -363,35 +539,35 @@
     float: left;
 }
 
-.emp-dashboard-horizon .dashboard-body-block .emp-dash-block-1 .emp-dash-left-block .ed-block-right {
+.emp-dashboard-horizon .dashboard-body-block .emp-dash-left-block .ed-block-right {
     display: inline-block;
     width: 70%;
     padding: 0px 10px;
     cursor: pointer;
 }
 
-.emp-dashboard-horizon .dashboard-body-block .emp-dash-block-1 .emp-dash-left-block .ed-block-right .ed-block-1 {
+.emp-dashboard-horizon .dashboard-body-block .emp-dash-left-block .ed-block-right .ed-block-1 {
     font-weight: bold;
 }
 
-.emp-dashboard-horizon .dashboard-body-block .emp-dash-block-1 .emp-dash-left-block .ed-block-right .ed-block-2 {
+.emp-dashboard-horizon .dashboard-body-block .emp-dash-left-block .ed-block-right .ed-block-2 {
     color: #8B8B8B;
     font-size: 12px;
 }
 
-.emp-dashboard-horizon .dashboard-body-block .emp-dash-block-1 .emp-dash-left-block .ed-birthday .ed-block-left {
+.emp-dashboard-horizon .dashboard-body-block .emp-dash-left-block .ed-birthday .ed-block-left {
     background: #FFD1EB;
 }
 
-.emp-dashboard-horizon .dashboard-body-block .emp-dash-block-1 .emp-dash-left-block .ed-work-anniversary .ed-block-left {
+.emp-dashboard-horizon .dashboard-body-block  .emp-dash-left-block .ed-work-anniversary .ed-block-left {
     background: #ECB7804D;
 }
 
-.emp-dashboard-horizon .dashboard-body-block .emp-dash-block-1 .emp-dash-left-block .ed-new-joiners .ed-block-left {
+.emp-dashboard-horizon .dashboard-body-block .emp-dash-left-block .ed-new-joiners .ed-block-left {
     background: #FC785E4D;
 }
 
-.emp-dashboard-horizon .dashboard-body-block .emp-dash-block-1 .emp-dash-basic-info {
+.emp-dashboard-horizon .dashboard-body-block .emp-dash-basic-info {
     float: left;
 }
 
@@ -399,22 +575,24 @@
     border: 0.3px solid #b5dcf5;
     background: #DDEDFA;
     padding: 7px 15px;
+    display: flex;
+    justify-content: space-between;
 }
 
-    .emp-dashboard-horizon .dashboard-body-block .emp-dash-block-content {
-        border: 1px solid #ccc;
-        border-top: 0px solid #ccc;
-        padding: 15px 0;
-        height: 240px;
-        background: #fff;
-    }
+.emp-dashboard-horizon .dashboard-body-block .emp-dash-block-content {
+    border: 1px solid #ccc;
+    border-top: 0px solid #ccc;
+    padding: 15px 0;
+    height: 240px;
+    background: #fff;
+}
 
 .emp-dashboard-horizon .dashboard-body-block .emp-dash-management {
 }
 
 .emp-dashboard-horizon .dashboard-body-block .emp-dash-management .ed-blocks {
     border: 0.3px solid #ccc;
-    padding: 30px 20px;
+    padding: 25px 20px;
     margin-bottom: 5px;
 }
 
@@ -424,7 +602,7 @@
 }
 
 .emp-dashboard-horizon .dashboard-body-block .emp-dash-management .ed-blocks .ed-block-left img {
-    width: 35px;
+    width: 45px;
 }
 
 .emp-dashboard-horizon .dashboard-body-block .emp-dash-management .ed-blocks .ed-block-right {
@@ -449,6 +627,7 @@
 
 .emp-dashboard-horizon .dashboard-body-block .emp-dash-block-2 {
     margin-top: 20px;
+    display: inline-block;
 }
 
 .emp-dashboard-horizon .dashboard-body-block .emp-dash-basic-info {
@@ -582,7 +761,7 @@
 
 .emp-dashboard-horizon .dashboard-body-block .emp-dash-basic-info .emp-dash-block-header .header-dropdown {
     text-align: right;
-    width: 23%;
+    /*width: 23%;*/
     display: inline-block;
 }
 
@@ -592,6 +771,7 @@
 
 .emp-dashboard-horizon .dashboard-body-block .emp-dash-block-3 {
     margin-top: 20px;
+    display: inline-block;
 }
 
 .emp-dashboard-horizon .dashboard-body-block .emp-dash-calendar {
@@ -600,8 +780,13 @@
 
 .emp-dashboard-horizon .dashboard-body-block .emp-dash-calendar table.table{
     border-collapse: separate;
-    border-spacing: 5px 0;
+    border-spacing: 5px 4px;
     table-layout: fixed;
+}
+
+.emp-dash-calendar .calendar-body th,
+.emp-dash-calendar .calendar-body td {
+    padding: 6px 3px;
 }
 
 .emp-dashboard-horizon .dashboard-body-block .emp-dash-calendar .emp-dash-block-header .header-title {
@@ -752,7 +937,7 @@
 
 .emp-dashboard-horizon .emp-dash-hr-announcements .emp-dash-block-content .ed-hr-announcements-left {
     margin-bottom: 10px;
-    width: 54%;
+    width: 53%;
     font-size: 13px;
     margin-right: 10px;
     display: inline-block;
@@ -772,7 +957,7 @@
 }
 
 .emp-dashboard-horizon .emp-dash-hr-announcements .emp-dash-block-content .ed-hr-announcements-right {
-    width: 40%;
+    width: 36%;
     display: inline-block;
     vertical-align: top;
     margin-left: 5px;
@@ -846,7 +1031,7 @@
 }
 
 .emp-dashboard-horizon .emp-dash-leave .emp-dash-block-content .leave-title {
-    font-size: 13px;
+    font-size: 15px;
     font-weight: bold;
     margin-bottom: 0px;
 }
@@ -855,19 +1040,51 @@
     margin-top: 35px !important;
 }
 
+.emp-dashboard-horizon .dashboard-body-block .emp-dash-left-block {
+
+}
+
+.emp-dashboard-horizon .dashboard-body-block .emp-dash-attendance {
+}
+
+.emp-dashboard-horizon .dashboard-body-block .emp-dash-hr-announcements {
+}
+
+.emp-dashboard-horizon .dashboard-body-block .emp-dash-upcoming-holidays {
+    margin-top: 20px;
+}
+
+.emp-dashboard-horizon .dashboard-body-block .emp-dash-recent-tickets {
+    margin-top: 20px;
+}
+
+.emp-dashboard-horizon .dashboard-body-block .emp-dash-management {
+    margin-top: 20px;
+}
+
+.emp-dashboard-horizon .dashboard-body-block .emp-dash-leave {
+    margin-top: 20px;
+}
+
+.emp-dashboard-horizon .dashboard-body-block .emp-dash-calendar {
+    margin-top: 20px;
+}
+
 /* emp dashboard end */
 
-/* emp upcoimg holidays start */
+/* emp upcoming holidays start */
 
 .emp-upcomingholidays-list-horizon {
     background: #efefef;
-    /*height: 100vh;*/
+    min-height: 95vh;
+    padding: 0 25px 25px 25px;
 }
 
 .emp-upcomingholidays-list-horizon .main-content {
     margin-left: 0;
     /*padding-top: 0px;
     margin-top: 50px;*/
+    width: 100% !important;
 }
 
 .emp-upcomingholidays-list-horizon #empUpcomingHolidays {
@@ -936,19 +1153,21 @@
     border-radius: 30px;
 }
 
-/* emp upcoimg holidays end */
+/* emp upcoming holidays end */
 
 /* emp self service start */
 
 .emp-selfservice-list-horizon {
     background: #efefef;
-    /*height: 100vh;*/
+    min-height: 95vh;
+    padding: 0 25px;
 }
 
 .emp-selfservice-list-horizon .main-content {
     margin-left: 0;
+    width: 100% !important;
     /*padding-top: 0px;
-margin-top: 50px;*/
+    margin-top: 50px;*/
 }
 
 .emp-selfservice-list-horizon .emp-selfservice-details {
@@ -983,6 +1202,7 @@ margin-top: 50px;*/
 .emp-selfservice-list-horizon .emp-selfservice-details .emp-selfservice-details-left .emp-ss-details-block1 .emp-ss-details-block1-left .img-edit-icon span {
     color: #fff;
     background: #267EC4;
+    padding: 6px 7px;
 }
 
 .emp-selfservice-list-horizon .emp-selfservice-details .emp-selfservice-details-left .emp-ss-details-block1 .emp-ss-details-block1-left img {
@@ -1133,10 +1353,14 @@ box-shadow: 0 0 5px rgba(0, 0, 0, 0.3);*/
     color: gray;
 }
 
+.emp-selfservice-list-horizon .emp-ss-monthlymaintenanceview {
+    margin: 0 20px;
+}
+
 .emp-selfservice-list-horizon .emp-ss-monthlymaintenanceview .emp-ss-mm-year {
     display: flex;
     justify-content: space-between;
-    margin: 0 20px;
+    margin-bottom: 10px;
 }
 
 .emp-selfservice-list-horizon .emp-ss-monthlymaintenanceview .mm-year-dropdown {
@@ -1241,4 +1465,1563 @@ box-shadow: 0 0 5px rgba(0, 0, 0, 0.3);*/
     padding: 5px 15px;
     border-radius: 30px;
 }
+
+.emp-selfservice-list-horizon .emp-selfservice-details-all .emp-ss-assetview .tree-structure {
+    overflow-y: scroll;
+}
+
 /* emp self service end */
+
+/* emp self service project start */
+
+.emp-selfservice-list-horizon .emp-project-details-main {
+    margin: 25px 0;
+    display: inline-flex;
+    justify-content: space-between;
+    width: 100%;
+}
+
+.emp-selfservice-list-horizon .emp-project-details-main .emp-project-details-header {
+    display: inline-flex;
+    justify-content: space-between;
+    margin-bottom: 7px;
+}
+
+.emp-selfservice-list-horizon .emp-project-details-main .emp-project-details-title {
+    font-size: 18px;
+    font-weight: bold;
+}
+
+.emp-selfservice-list-horizon .emp-project-details-main .emp-project-details-edit span {
+    background: #ccc;
+    border-radius: 50px;
+    padding: 4px 7px;
+    text-align: center;
+    cursor:pointer;
+}
+
+.emp-selfservice-list-horizon .emp-project-details-main .emp-project-details-edit img {
+    width: 14px;
+    height: 14px;
+    vertical-align: middle;
+}
+
+.emp-selfservice-list-horizon .emp-project-details-main .emp-project-clientinfo {
+    background: #D6E2F3;
+    padding: 15px;
+    border-left: 4px solid #267EC4;
+    margin-bottom: 30px;
+    width: 95%;
+}
+
+.emp-selfservice-list-horizon .emp-project-details-main .emp-project-clientinfo div{
+    margin-bottom: 2px;
+}
+
+.emp-selfservice-list-horizon .emp-project-details-main .emp-project-clientinfo span {
+    font-weight: bold;
+}
+
+#empProjectRoleResModal .modal-header {
+    border-bottom: none;
+}
+
+#empProjectRoleResModal .modal-header button {
+    font-size: 14px;
+}
+
+#empProjectRoleResModal .modal-footer {
+    border-top: none;
+}
+
+#empProjectRoleResModal .modal-footer button {
+    padding: 5px 15px;
+    border-radius: 30px;
+}
+
+.emp-selfservice-list-horizon .emp-project-details-main .emp-project-details-body-block ul {
+    padding-left: 20px;
+}
+
+/* emp self service project end */
+
+/* emp maintenance acknowledge start */
+
+.emp-maintenanceacknowledge-list-horizon {
+    background: #efefef;
+    min-height: 95vh;
+}
+
+.emp-maintenanceacknowledge-list-horizon .main-content {
+    margin-left: 0;
+    padding-bottom: 20px;
+    width: 100% !important
+}
+
+.emp-maintenanceacknowledge-list-horizon .maintenanceacknowledge-header-title {
+    margin-bottom: 20px;
+    border-bottom: 1px solid #ccc;
+    padding-bottom: 20px;
+    padding-top: 10px;
+}
+
+.emp-maintenanceacknowledge-list-horizon .maintenanceacknowledge-image-btn img {
+    border-radius: 50%;
+    width: 42px;
+    height: 42px;
+    object-fit: cover;
+    margin-right: 7px;
+}
+
+.emp-maintenanceacknowledge-list-horizon .maintenanceacknowledge-id-select {
+    font-size: 18px;
+}
+
+.emp-maintenanceacknowledge-list-horizon #empMaintenanceAcknowledge {
+    background: #fff;
+    padding: 10px 20px;
+    height: 520px;
+    box-shadow: 0px 3px 3px 1px #ccc;
+}
+
+.emp-maintenanceacknowledge-list-horizon #empMaintenanceAcknowledge .maintenanceacknowledge-info .emp-maintenanceacknowledge-submit {
+    padding: 5px 25px;
+    border-radius: 20px;
+}
+
+.emp-maintenanceacknowledge-list-horizon .maintenanceacknowledge-image-btn .default-image-navbar {
+    display: inline-block;
+    text-align: center;
+    vertical-align: middle;
+    padding: 8px 0;
+}
+
+/* emp maintenance acknowledge end */
+
+/* emp attendance start */
+
+.emp-attendance-list-horizon {
+    background: #efefef;
+    min-height: 95vh;
+    padding: 0 25px 25px 25px;
+}
+
+.emp-attendance-list-horizon .main-content {
+    margin-left: 0;
+    width: 100% !important;
+}
+
+.emp-attendance-list-horizon #empAttendance {
+    background: #fff;
+    padding: 20px 40px;
+    margin-left: 0;
+}
+
+.emp-attendance-list-horizon .attendance-nav .attendance-find {
+    padding: 0 20px;
+    border-radius: 20px;
+    background: #267EC4;
+}
+
+.emp-attendance-list-horizon .attendence-thead th {
+    background-color: #267EC4 !important;
+    color: #fff;
+    font-weight: normal;
+}
+
+.emp-attendance-list-horizon thead.attendence-thead th:first-child {
+    border-top-left-radius: 5px;
+    padding-left: 25px;
+}
+
+.emp-attendance-list-horizon thead.attendence-thead th:last-child {
+    border-top-right-radius: 5px;
+}
+
+.emp-attendance-list-horizon tbody.empatt-body .fntblur {
+    color: gray;
+    font-weight: normal;
+}
+
+.emp-attendance-list-horizon tbody.empatt-body th:first-child {
+    padding-left: 25px;
+}
+
+.emp-attendance-list-horizon .empatt-body tr:nth-child(1) th,
+.emp-attendance-list-horizon .empatt-body tr:nth-child(1) td {
+    padding-top: 20px !important;
+}
+
+/* emp attendance end */
+
+/* emp leave start */
+
+.emp-leave-list-horizon {
+    background: #efefef;
+    min-height: 95vh;
+    padding: 0 25px 25px 25px;
+}
+
+.emp-leave-list-horizon .main-content {
+    margin-left: 0;
+    width: 100% !important;
+}
+
+.emp-leave-list-horizon #empLeave {
+    background: #fff;
+    padding: 20px 40px;
+    margin-left: 0;
+}
+
+.emp-leave-list-horizon .res-emp-carousel {
+    padding: 0 0px;
+    width: 100%;
+}
+
+.emp-leave-list-horizon .emp-leave-info-block-all .empleave-calendar-body {
+    padding: 0 10px;
+    margin-top: 15px;
+}
+
+.emp-leave-list-horizon #leaveCarousel .emp-leave-carousel-blocks {
+    width: 185px;
+}
+
+.emp-leave-list-horizon #leaveCarousel .tracker-card {
+    border: 1px solid #ccc;
+    margin: 0 10px;
+    padding: 0;
+    padding-bottom: 15px;
+}
+
+.emp-leave-list-horizon #leaveCarousel .tracker-card .tracker-title {
+    text-align: center;
+    background: #ccc;
+    padding: 7px 3px;
+    font-size: 14px;
+    text-transform: uppercase;
+    color: #fff;
+}
+
+.emp-leave-list-horizon #leaveCarousel .tracker-card .tracker-details {
+    text-align: center;
+    color: #000;
+}
+
+.emp-leave-list-horizon #leaveCarousel .emp-leave-icon {
+    text-align: center;
+    width: 100%;
+    display: inline-block;
+    margin: 20px 0px;
+}
+
+.emp-leave-list-horizon #leaveCarousel .emp-leave-icon img {
+    width: 40px;
+    height: 40px;
+}
+
+.emp-leave-list-horizon #leaveCarousel .carousel-leave-inner {
+    width: 112% !important;
+    margin-left: 30px;
+}
+
+.emp-leave-list-horizon #leaveCarousel .btn_prevleave {
+    background-color: transparent;
+    width: 24px;
+    height: 24px;
+    top: 40%;
+    border-radius: 50%;
+    border: 1px solid black;
+    font-size: 10px;
+}
+
+.emp-leave-list-horizon #leaveCarousel .btn_nxtleave {
+    width: 24px;
+    height: 24px;
+    top: 40%;
+    border: 1px solid black;
+    font-size: 10px;
+}
+
+.emp-leave-list-horizon #leaveCarousel .sick_border .tracker-title {
+    background: #47B2F7;
+}
+
+.emp-leave-list-horizon #leaveCarousel .mar_border .tracker-title {
+    background: #B38BDC;
+}
+
+.emp-leave-list-horizon #leaveCarousel .hou_border .tracker-title {
+    background: #F35F8C;
+}
+
+.emp-leave-list-horizon #leaveCarousel .bev_border .tracker-title {
+    background: #948078;
+}
+
+.emp-leave-list-horizon #leaveCarousel .mat_border .tracker-title {
+    background: #247ba0;
+}
+
+.emp-leave-list-horizon #leaveCarousel .com_border .tracker-title {
+    background: #50514f;
+}
+
+.emp-leave-list-horizon #leaveCarousel .ear_border .tracker-title {
+    background: #2ECC87;
+}
+
+.emp-leave-list-horizon #leaveCarousel .pat_border .tracker-title {
+    background: #70c1b3;
+}
+
+.emp-leave-list-horizon #leaveCarousel .emr_border .tracker-title {
+    background: #3DC2C8;
+}
+
+.emp-leave-list-horizon .emp-leave-details .res-emp-apply {
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    margin: 0 0px 0px 25px;
+    max-width: 14%;
+    padding: 0;
+    background: #fff;
+}
+
+.emp-leave-list-horizon .emp-leave-details .res-emp-apply .emp-leave-action {
+    text-align: center;
+    background: #267EC4;
+    padding: 7px 3px;
+    font-size: 14px;
+    text-transform: uppercase;
+    color: #fff;
+    width: 100%;
+}
+
+.emp-leave-list-horizon .emp-leave-details .res-emp-apply .applyleave_btn {
+    margin: 10px 0;
+    width: 100%;
+    text-align: center;
+}
+
+.emp-leave-list-horizon .emp-leave-details .res-emp-apply .applyleave_btn button {
+    padding: 5px 30px;
+    border-radius: 25px;
+    font-size: 12px;
+}
+
+.emp-leave-list-horizon .emp-leave-details .res-emp-apply .emp-leave-cal-history {
+    border: 1px solid #eee;
+    font-size: 12px;
+    padding: 0 0px;
+    width: 75%;
+    margin: 10px 26px;
+    border-radius: 3px;
+}
+
+.emp-leave-list-horizon .emp-leave-details .res-emp-apply .emp-leave-cal-history .active {
+    background: #ccc;
+}
+
+.emp-leave-list-horizon .emp-leave-details .res-emp-apply .emp-leave-cal-history i {
+    color: #000 !important;
+}
+
+.emp-leave-list-horizon .emp-leave-details .res-emp-apply .emp-leave-cal-history a {
+    color: #000;
+    text-decoration: none !important;
+}
+
+.emp-leave-list-horizon .emp-leave-details .res-emp-apply .emp-leave-cal-history .leavecalendar_btn {
+    padding: 5px 12px;
+}
+
+.emp-leave-list-horizon .emp-leave-details .res-emp-apply .emp-leave-cal-history .leavehistory_btn {
+    padding: 5px 12px;
+}
+
+.emp-leave-list-horizon .emp-leave-details .res-emp-apply .emp-leave-cal-history .leavecalendar_btn.active {
+    background: #D6E2F3;
+}
+
+.emp-leave-list-horizon .emp-leave-details .res-emp-apply .emp-leave-cal-history .leavehistory_btn.active {
+    background: #D6E2F3;
+}
+
+.emp-leave-list-horizon .emp-leave-info-block-all {
+    margin: 25px 0 0 0;
+    display: inline-block;
+}
+
+.emp-leave-list-horizon .emp-leave-details .emp-leave-info-block-all .res-admin-empleave-tabs {
+    border-bottom: none;
+}
+
+.emp-leave-list-horizon .emp-leave-info-block-all .nav-tabs .nav-item {
+    padding: 0 10px;
+}
+
+.emp-leave-list-horizon .emp-leave-info-block-all .nav-tabs .nav-item.show .nav-link,
+.emp-leave-list-horizon .emp-leave-info-block-all .nav-tabs .nav-link {
+    border: 0px;
+    color: #525252;
+}
+
+.emp-leave-list-horizon .emp-leave-info-block-all .nav-tabs .nav-item.show .nav-link,
+.emp-leave-list-horizon .emp-leave-info-block-all .nav-tabs .nav-link.active {
+    color: #000;
+    border-bottom: 2px solid #267EC4;
+}
+
+.emp-leave-list-horizon #leaveHistoryTable th {
+    background-color: #267EC4 !important;
+    color: #fff;
+    font-weight: normal;
+}
+
+.emp-leave-list-horizon #leaveHistoryTable tbody tr {
+    background-color: #ffffff;
+    border-bottom: 1px solid #ccc;
+}
+
+.emp-leave-list-horizon #leaveHistoryTable tbody tr:nth-child(even) {
+    background-color: #EBFAFF !important;
+}
+
+.emp-leave-list-horizon #leaveHistoryTable thead th:first-child {
+    border-top-left-radius: 5px;
+    text-align: center;
+}
+
+.emp-leave-list-horizon #leaveHistoryTable thead th:last-child {
+    border-top-right-radius: 5px;
+    text-align: center;
+}
+
+.emp-leave-list-horizon #leaveHistoryTable thead th,
+.emp-leave-list-horizon #leaveHistoryTable tbody td {
+    border: none;
+    /*padding: 10px 75px;*/
+    vertical-align: middle
+}
+
+.emp-leave-list-horizon #leaveHistoryTable tbody {
+    border-left: 1px solid #ccc;
+    border-right: 1px solid #ccc;
+}
+
+.emp-leave-list-horizon #leaveHistoryTable .empleave-status,
+.emp-leave-list-horizon #leaveHistoryTable .position-relative {
+    text-align: center;
+}
+
+.emp-leave-list-horizon .leave-edit-history {
+    border: none;
+}
+
+.emp-leave-list-horizon .leave-history #leaveHistoryTable .commentSec p {
+    margin-bottom: 0;
+}
+
+.emp-leave-list-horizon .leave-history #leaveHistoryTable .empleave-status img {
+    width: 25px;
+    height: 25px;
+}
+
+.emp-leave-list-horizon #leaveHistoryTable .emp-leaveoptions {
+    text-align: left;
+}
+
+.emp-leave-list-horizon #empleaveCompOffTable th {
+    background-color: #267EC4 !important;
+    color: #fff;
+    font-weight: normal;
+}
+
+.emp-leave-list-horizon #empleaveCompOffTable tbody tr {
+    background-color: #ffffff;
+    border-bottom: 1px solid #ccc;
+}
+
+.emp-leave-list-horizon #empleaveCompOffTable tbody tr:nth-child(even) {
+    background-color: #EBFAFF !important;
+}
+
+.emp-leave-list-horizon #empleaveCompOffTable thead th:first-child {
+    border-top-left-radius: 5px;
+    text-align: center;
+}
+
+.emp-leave-list-horizon #empleaveCompOffTable thead th:last-child {
+    border-top-right-radius: 5px;
+    text-align: center;
+}
+
+.emp-leave-list-horizon #empleaveCompOffTable thead th,
+.emp-leave-list-horizon #empleaveCompOffTable tbody td {
+    border: none;
+    /*padding: 10px 75px;*/
+}
+
+.emp-leave-list-horizon #empleaveCompOffTable tbody {
+    border-left: 1px solid #ccc;
+    border-right: 1px solid #ccc;
+}
+
+.emp-leave-list-horizon .leave-history #empleaveCompOffTable .commentSec p {
+    min-height: 0;
+}
+
+.emp-leave-list-horizon .leave-history #empleaveCompOffTable .compoff-status {
+    text-align: center;
+}
+
+.emp-leave-list-horizon .leave-history #empleaveCompOffTable .compoff-status img {
+    width: 25px;
+    height: 25px;
+    margin-top: 7px;
+}
+
+.emp-leave-list-horizon .leave-history #empleaveCompOffTable .compoff-actions {
+    text-align: center;
+}
+
+.emp-leave-list-horizon .leave-history #empleaveCompOffTable .compoff-actions i {
+    margin-top: 12px;
+    color: #828282;
+}
+
+.emp-leave-list-horizon #empleaveCompOffTable .emp-compoffs a.dropdown-item {
+    background: #fff;
+    text-align: left;
+    cursor: pointer;
+}
+
+.emp-leave-list-horizon #empleaveCompOffTable .emp-compoffs {
+    z-index: 9;
+}
+
+#confirmCancelModal .modal-header {
+    border-bottom: 0;
+}
+
+#confirmCancelModal .modal-header button {
+    font-size: 14px;
+}
+
+#confirmCancelModal .modal-body {
+    font-size: 18px;
+    padding: 0 15px 15px 20px;
+}
+
+#confirmCancelModal .modal-footer {
+    border-top: 0;
+}
+
+#confirmCancelModal .modal-footer  button{
+    color: #fff;
+    padding: 2px 18px;
+    border-radius: 15px;
+}
+
+#confirmCancelModal .modal-footer .btn {
+    background: #A7A7A7;
+    border: none;
+}
+
+#confirmCancelModal .modal-footer #confirmCancelButton {
+    background: #8854D0;
+}
+
+#confirmCancelModal .modal-sm {
+    max-width: 300px;
+}
+
+/*.emp-leave-list-horizon .empleavehistory-dropdown {
+    display: inline-flex;
+    width: 19%;
+    justify-content: right;
+}
+
+.emp-leave-list-horizon .empleavehistory-dropdown select {
+    border: 1px solid #ccc;
+    font-size: 14px;
+    padding: 5px 10px;
+    border-radius: 4px;
+}*/
+
+.emp-leave-list-horizon .empleave-calendar-header {
+    margin-right: 0;
+}
+
+.emp-leave-list-horizon .empleave-calendar-header #empleave-monthYear {
+    font-size: 14px;
+}
+
+.emp-leave-list-horizon .empleave-calendar-header .empleave-chevron-icon {
+    font-size: 12px;
+    color: #8B8B8B;
+}
+
+.emp-leave-list-horizon .emp-leave-info-block-all .emp-leave-calendar-title {
+    /*display: inline-flex;*/
+    margin-bottom: -29px;
+    margin-left: 16px;
+    font-weight: bold;
+    font-size: 16px;
+}
+
+.emp-leave-list-horizon .empleave-calendar-body .highlight-festival-leave div {
+    margin-top: 15px;
+}
+
+.emp-leave-list-horizon .empleave-calendar-body thead th {
+    background: #ECEDEE;
+    border: 1px solid #ccc;
+}
+
+.emp-leave-list-horizon .empleave-calendar-body thead th:first-child {
+    border-top-left-radius: 0px;
+}
+
+.emp-leave-list-horizon .empleave-calendar-body thead th:last-child {
+    border-top-right-radius: 0px;
+}
+
+/*.emp-leave-list-horizon .empleave-calendar-table tbody tr {
+    border: 1px solid #ccc;
+}*/
+
+.emp-leave-list-horizon .leavehistory-year {
+    margin-top: -20px;
+}
+
+.emp-leave-list-horizon .leavehistory-year .year-dropdown {
+    top: -20px;
+}
+
+.emp-leave-list-horizon #leaveCarousel .carousel-item.carousel-leave-item {
+    display: none;
+}
+
+.emp-leave-list-horizon #leaveCarousel .carousel-item.carousel-leave-item.active {
+    display: inline-flex;
+}
+
+/* emp leave end */
+
+/* emp apply leave start */
+
+.emp-applyleave-horizon {
+    background: #efefef;
+    min-height: 95vh;
+    padding-bottom: 25px;
+}
+
+.emp-applyleave-horizon .main-content {
+    margin-left: 0;
+    padding: 45px 25px 5px 25px;
+    width: 100% !important;
+}
+
+.emp-applyleave-horizon #empApplyLeaveFields {
+    background: #fff;
+    padding: 10px;
+}
+
+.emp-applyleave-horizon #empApplyLeaveFields .emp-leave-apply-form {
+    padding: 15px 20px;
+}
+
+.emp-applyleave-horizon .emp-apply-leave-reason label {
+    width: 100%;
+}
+
+.emp-applyleave-horizon .emp-apply-leave-reason label .emp-apply-leave-reason-left {
+    float: left;
+}
+
+.emp-applyleave-horizon .emp-apply-leave-reason label .emp-apply-leave-reason-right {
+    float: right;
+}
+
+.emp-applyleave-horizon .emp-leave-apply-form #leaveForm .btn-apply-empleave {
+    padding: 5px 30px;
+    border-radius: 25px;
+}
+
+.emp-applyleave-horizon.emp-leave .balance-section-wrapper .res-emp-apply-leave .balance-section {
+    /*background: #D9D9D9;
+    width: 66%;
+    padding: 10px 10px;
+    border-radius: 3px;*/
+}
+
+.emp-applyleave-horizon.emp-leave #empApplyLeaveFields .balance-section-wrapper .emp-apply-leave-title {
+    display: inline-block;
+    margin-left: -5px;
+    margin-bottom: 10px;
+}
+
+.emp-applyleave-horizon.emp-leave #empApplyLeaveFields .balance-section-wrapper .leave-apply-info-block {
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    padding: 15px 15px;
+    margin: 0 10px;
+    max-width: 28%;
+}
+
+.emp-applyleave-horizon.emp-leave #empApplyLeaveFields .balance-section-wrapper .leave-apply-info-block .res-leave-apply-left {
+    float: left;
+    padding: 0;
+}
+
+.emp-applyleave-horizon.emp-leave #empApplyLeaveFields .balance-section-wrapper .leave-apply-info-block .res-leave-apply-left div {
+    background: #267EC4;
+    width: 45px;
+    border-radius: 25px;
+    height: 45px;
+    text-align: center;
+    padding-top: 7px;
+    color: #fff;
+}
+
+.emp-applyleave-horizon.emp-leave #empApplyLeaveFields .balance-section-wrapper .leave-apply-info-block .res-leave-apply-right {
+    float: left;
+    line-height: normal;
+    margin-top: 3px;
+}
+
+.emp-applyleave-horizon.emp-leave #empApplyLeaveFields .balance-section-wrapper .leave-apply-info-block .res-leave-apply-right span {
+    font-size: 15px;
+}
+
+.emp-applyleave-horizon.emp-leave #leaveForm #dayTypeLabel {
+    margin-bottom: 0;
+}
+
+.emp-applyleave-horizon.emp-leave #leaveForm .apply-leave-form {
+    justify-content: space-between;
+}
+
+.emp-applyleave-horizon .dayleave-type-container .form-check {
+    margin-right: 35px;
+}
+
+.emp-applyleave-horizon #leaveForm #dayTypeContainer {
+    margin-bottom: 0;
+}
+
+.emp-applyleave-horizon #totalLeavesContainer {
+    margin-bottom: 10px;
+    font-size: 14px;
+}
+
+.emp-applyleave-horizon #totalLeavesContainer #totalLeaves {
+    font-style: italic;
+}
+
+.emp-applyleave-horizon .currentrecordbookedhours .spanleavehours {
+    font-style: italic;
+}
+
+.emp-applyleave-horizon .apply-date-section .form-group {
+    width: 48%;
+    flex: initial;
+}
+
+.emp-applyleave-horizon .time-section {
+    display: flex;
+    justify-content: space-between;
+}
+
+.emp-applyleave-horizon .time-section .form-group {
+    display: inline-block;
+    width: 48%;
+}
+
+.emp-applyleave-horizon .time-section .start-time-section {
+}
+
+.emp-applyleave-horizon .time-section .end-time-section {
+}
+
+.emp-applyleave-horizon .time-section input[type="time"] {
+    width: 100%;
+}
+
+/* emp apply leave end */
+
+/* emp ticketing start */
+
+.emp-ticketing-horizon {
+     min-height: 100vh; 
+}
+
+.emp-ticketing-horizon .emp-ticketing-horizon-header {
+    background: #267EC4;
+    padding: 15px 25px 15px 25px;
+    display: inline-block;
+}
+
+.emp-ticketing-horizon .res-emp-tickethistory-header .res-emp-tickethistory-right .empticketing-dropdown {
+    margin-top: 7px;
+    margin-right: 15px;
+}
+
+.emp-ticketing-horizon .res-emp-tickethistory-header .res-emp-tickethistory-right .empticketing-dropdown select {
+    border: 1px solid #ccc;
+    font-size: 14px;
+    padding: 5px 10px;
+}
+
+.emp-ticketing-horizon .main-content {
+    margin-left: 0;
+    padding: 45px 25px 5px 25px;
+}
+
+.emp-ticketing-horizon .ticketing-pagetitle {
+    color: #fff;
+    text-align: center;
+}
+
+.emp-ticketing-horizon .res-emp-tickethistory-header .btn-empRaiseTicket {
+    padding: 0 20px;
+    border-radius: 25px;
+}
+
+.emp-ticketing-horizon .emp-Ticket-view {
+    background: #efefef;
+    margin-top: -20px;
+    padding-top: 15px;
+    min-height: 90vh;
+}
+
+.emp-ticketing-horizon .emp-Ticket-view .main-content.container-fluid {
+    padding: 0 30px;
+    width: 100% !important;
+}
+
+.emp-ticketing-horizon #empticketlistingTable .res-emp-ticketlisting-user-details .emp-ticketing-listing-details {
+    color: #525252;
+}
+
+.emp-ticketing-horizon .res-emp-ticket-listing-table {
+    margin-top: 5px;
+}
+
+.emp-ticketing-horizon #empticketlistingTable tbody tr {
+    border-bottom: 0px solid #ccc;
+    box-shadow: 3px 2px 2px 1px #ccc;
+}
+
+.emp-ticketing-horizon .res-emp-ticketlisting-user-details .emp-ticket-msg-icon {
+    padding: 10px;
+    margin-top: -10px;
+}
+
+.emp-ticketing-horizon #empticketlistingTable tbody tr:nth-child(odd) .emp-ticket-msg-icon {
+    background: #01A8B5;
+}
+
+.emp-ticketing-horizon #empticketlistingTable tbody tr:nth-child(even) .emp-ticket-msg-icon {
+    background: #F9AD52;
+}
+
+.emp-ticketing-horizon #empticketlistingTable .res-emp-ticketlisting-color.priority-high {
+    background: red;
+}
+
+.emp-ticketing-horizon #empticketlistingTable .res-emp-ticketlisting-color.priority-medium {
+    background: orange;
+}
+
+.emp-ticketing-horizon #empticketlistingTable .res-emp-ticketlisting-color.priority-low {
+    background: #50BEEA;
+}
+
+.emp-ticketing-horizon #empticketlistingTable .emp-ticketing-response-time {
+    background: #ffe6e6;
+    color: #C42626;
+    padding: 0 10px;
+    border-radius: 15px;
+    margin-left: 10px;
+}
+
+.emp-ticketing-horizon #empticketlistingTable .emp-ticket-edit-history {
+    border: 0px solid lightgray;
+}
+
+.emp-ticketing-horizon #empticketlistingTable .res-empticketlisting-status-level {
+    width: 100%;
+    text-align: right;    
+}
+
+.emp-ticketing-horizon #empticketlistingTable .res-empticketlisting-status-level img {
+    margin-right: 5px;
+    width: 20px;
+    height: 20px;
+}
+
+.emp-ticketing-horizon #empticketlistingTable .res-empticketlisting-status-level .empticketing-satus {
+    padding: 6px 15px;
+    border-radius: 3px;
+}
+
+.emp-ticketing-horizon #empticketlistingTable .res-empticketlisting-status-level.status-pending .empticketing-satus {
+    border: 0.7px solid #FA171B;
+    background: #FA171B26;
+    color: #FA171B;
+}
+
+.emp-ticketing-horizon #empticketlistingTable .res-empticketlisting-status-level.status-resolved .empticketing-satus {
+    border: 0.7px solid #2693F8;
+    background: #2693F826;
+    color: #2693F8;
+    font-weight: bold;
+    padding: 6px 5px;
+}
+
+    .emp-ticketing-horizon #empticketlistingTable .res-empticketlisting-status-level.status-closed .empticketing-satus {
+        border: 0.7px solid #2693F8;
+        background: #2693F826;
+        color: #2693F8;
+        font-weight: bold;
+        padding: 6px 5px;
+    }
+
+.emp-ticketing-horizon #empticketlistingTable .emp-ticketing-listing-closedby label {
+    color: #525252;
+}
+
+.emp-ticketing-horizon #empticketlistingTable .emp-ticketing-listing-closedby {
+    margin-top: 5px;
+}
+
+.emp-ticketing-horizon #empticketlistingTable .emp-ticketing-listing-closedby div {
+    font-size: 12px;
+}
+
+.emp-ticketing-horizon #empticketlistingTable .emp-tickethistoryoptions {
+    width: auto;
+}
+
+#empTicketCommentsModal .modal-header {
+    padding: 0;
+    margin-bottom: 10px;
+}
+
+#empTicketCommentsModal #TicketConfirmCancelModalLabel {
+    font-size: 16px;
+}
+
+#empTicketCommentsModal .modal-header button {
+    font-size: 14px;
+}
+
+#empTicketCommentsModal .emp-ticketing-commentbox-popup .emp-tickethistory-comment-submit button {
+    padding: 5px 25px;
+    border-radius: 20px;
+}
+
+#empTicketConfirmCancelModal .modal-sm {
+    max-width: 300px;
+}
+
+#empTicketConfirmCancelModal .modal-body {
+    font-size: 18px;
+    padding: 0 15px 15px 20px;
+}
+
+#empTicketConfirmCancelModal .modal-header {
+    border-bottom: 0;
+}
+
+#empTicketConfirmCancelModal .modal-header button {
+    font-size: 14px;
+}
+
+#empTicketConfirmCancelModal .modal-body {
+    font-size: 18px;
+    padding: 0 15px 15px 20px;
+}
+
+#empTicketConfirmCancelModal .modal-footer {
+    border-top: 0;
+}
+
+#empTicketConfirmCancelModal .modal-footer button {
+    padding: 5px 25px;
+    border-radius: 20px;
+}
+
+#empTicketConfirmCancelModal .modal-footer .btn {
+    background: #A7A7A7;
+    border: none;
+}
+
+#empTicketConfirmCancelModal .modal-footer #empTicketConfirmCancelButton {
+    background: #8854D0;
+    color: #fff;
+}
+
+/* emp ticketing end */
+
+/* emp raise ticketing start */
+
+.emp-ticketing-raise-horizon {
+    background: #efefef;
+    min-height: 95vh; 
+    padding-bottom: 25px;
+}
+
+.emp-ticketing-raise-horizon .main-content {
+    margin-left: 0;
+    padding: 45px 25px 5px 25px;
+    width: 100% !important;
+}
+
+.emp-ticketing-raise-horizon #empRaiseTicketingFields {
+    background: #fff;
+    padding: 10px;
+}
+
+.emp-ticketing-raise-horizon #empRaiseTicketingFields .emp-raiseticketing-upload-icon {
+    display: inline-block;
+    width: 15%;
+    vertical-align: top;
+}
+
+.emp-ticketing-raise-horizon #empRaiseTicketingFields .emp-raiseticketing-upload-icon img {
+    width: 55px;
+}
+
+.emp-ticketing-raise-horizon #empRaiseTicketingFields .emp-raiseticketing-upload-btn {
+    display: inline-block;
+    width: 80%;
+    vertical-align: text-top;
+    margin-left: 10px;
+}
+
+.emp-ticketing-raise-horizon .emp-ticket-raise-popup-form #emp-ticket-raise-Form .form-group {
+    padding-left: 0px;
+}
+
+.emp-ticketing-raise-horizon .emp-ticket-raise-popup-form #emp-ticket-raise-Form .emp-raiseticket-attach-label {
+    border: 0px solid #b3b3b3;
+    color: #0066B1;
+    background-color: transparent;
+    font-size: 12px;
+    padding: 0;
+    text-decoration: underline;
+}
+
+.emp-ticketing-raise-horizon .emp-ticket-raise-popup-form #emp-ticket-raise-Form .emp-raiseticket-attach-file-upload-size {
+    font-size: 12px;
+    margin-top: -6px;
+    color: #6B6B6B;
+}
+
+.emp-ticketing-raise-horizon #emp-ticket-raise-Form .emp-raiseticketing-upload-left {
+    float: left;
+    border: 1px solid #ced4da;
+    padding: 10px 10px;
+    border-radius: 3px;
+    max-width: 74%;
+}
+
+.emp-ticketing-raise-horizon #emp-ticket-raise-Form .emp-raiseticketing-upload-right {
+    display: inline-block;
+}
+
+.emp-ticketing-raise-horizon #emp-ticket-raise-Form .emp-raiseticketing-upload-right img {
+    height: 50px;
+    width: auto;
+}
+
+.emp-ticketing-raise-horizon #emp-ticket-raise-Form .emp-raiseticketing-upload-right .emp-raiseticket-uploaded-image-close {
+    font-size: 10px;
+    cursor: pointer;
+    position: absolute;
+    color: #F8284A;
+    margin-left: -5px;
+    margin-top: -5px;
+}
+
+.emp-ticketing-raise-horizon #emp-ticket-raise-Form .emp-raiseticketing-upload-field {
+    display: inline-block;
+}
+
+.emp-ticketing-raise-horizon #emp-ticket-raise-Form .btn-apply-emp-raiseticket-submit {
+    padding: 5px 25px;
+    border-radius: 20px;
+}
+
+/* emp raise ticketing end */
+
+/* emp view ticketing start */
+
+.emp-ticketing-view-horizon .emp-ticket-raise-popup-form {
+    display: inline-block;
+}
+
+.emp-ticketing-view-horizon .emp-view-ticketing-block {
+    display: inline-block;
+    vertical-align: top;
+    margin-top: 20px;
+}
+
+.emp-ticketing-view-horizon #empRaiseTicketingFields .admin-it-ticketing-commentbox-left .emp-dash-modal-navbar {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    background-color: #C4C4C4;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: black;
+    margin-right: 12px;
+}
+
+.emp-ticketing-view-horizon .emp-ticket-raise-popup-form #emp-ticket-raise-Form .emp-raiseticket-attach-upload-btn-wrapper {
+    width: auto;
+}
+
+.emp-ticketing-view-horizon .emp-ticket-raise-popup-form #emp-ticket-raise-Form .emp-raiseticket-file-name {
+    display: inline-block;
+    vertical-align: super;
+}
+
+/* emp view ticketing end */
+
+/* emp job referal listing start */
+
+.emp-jobreferral-list-horizon {
+    background: #efefef;
+    min-height: 95vh;
+    padding: 0 25px 25px 25px;
+}
+
+.emp-jobreferral-list-horizon .main-content {
+    margin-left: 0;
+    width: 100% !important;
+}
+
+.emp-jobreferral-list-horizon #empJobReferral {
+    background: #fff;
+    padding: 20px 40px;
+    margin-left: 0;
+}
+
+.emp-jobreferral-list-horizon .res-emp-jobreferral-header .res-emp-jobreferral-right {
+    text-align: right;
+    margin-left: -12px;
+    cursor: pointer;
+}
+
+.emp-jobreferral-list-horizon #emp-jobreferal-data {
+    /*display: inline-flex;
+justify-content: space-between;
+width: 100%;*/
+}
+
+.emp-jobreferral-list-horizon .emp-jobreferal-data-block {
+    width: 49%;
+    border: 1px solid #ccc;
+    border-radius: 3px;
+    padding: 10px 0px 0px 15px;
+    display: inline-block;
+    margin: 10px 0px 5px 0px;
+    margin-right: 9px;
+}
+
+.emp-jobreferral-list-horizon .emp-jobreferal-data-block:nth-child(odd) {
+}
+
+.emp-jobreferral-list-horizon .emp-jobreferal-data-block:nth-child(even) {
+    /*margin-left: 5%;*/
+}
+
+.emp-jobreferral-list-horizon .emp-jobreferal-data-block-header {
+    display: inline-flex;
+    justify-content: space-between;
+    width: 100%;
+}
+
+.emp-jobreferral-list-horizon .emp-jobreferal-data-block-header .emp-jobreferal-data-title {
+    font-size: 18px;
+    font-weight: bold;
+    cursor: pointer;
+}
+
+.emp-jobreferral-list-horizon .emp-jobreferal-data-block-header .emp-jobreferal-data-posted {
+    font-style: italic;
+    font-size: 13px;
+    padding-right: 10px;
+    color: #525252;
+}
+
+.emp-jobreferral-list-horizon .emp-jobreferal-data-block-body {
+    margin: 5px 0;
+    font-size: 14px;
+    color: #525252;
+}
+
+.emp-jobreferral-list-horizon .emp-jobreferal-data-block-body .emp-jobreferal-data-experience {
+    width: 40%;
+    display: inline-block;
+}
+
+.emp-jobreferral-list-horizon .emp-jobreferal-data-block-body .emp-jobreferal-data-onsite {
+    width: 28%;
+    display: inline-block;
+}
+
+.emp-jobreferral-list-horizon .emp-jobreferal-data-block-body .emp-jobreferal-data-fulltime {
+    width: 30%;
+    display: inline-block;
+}
+
+.emp-jobreferral-list-horizon .emp-jobreferal-data-block-body .emp-jobreferal-data-location {
+    width: 100%;
+    display: inline-block;
+    margin-top: 5px;
+}
+
+.emp-jobreferral-list-horizon .emp-jobreferal-data-block-body span i {
+    color: #40D8D8;
+}
+
+.emp-jobreferral-list-horizon .emp-jobreferal-data-block-footer {
+    text-align: right;
+}
+
+.emp-jobreferral-list-horizon .emp-jobreferal-data-status {
+    text-align: center;
+    display: inline-block;
+    width: 75px;
+    font-size: 14px;
+    color: #fff;
+    padding: 2px 0px;
+    border-radius: 3px 0px 0px 0px;
+}
+
+.emp-jobreferral-list-horizon .emp-jobreferal-data-status.open {
+    background: green;
+}
+
+.emp-jobreferral-list-horizon .emp-jobreferal-data-status.closed {
+    background: red;
+}
+
+.emp-jobreferral-list-horizon .res-emp-jobreferral-left button {
+    border-radius: 25px;
+    border: 1px solid #000000;
+    #000000;
+    margin-right: 10px;
+}
+
+.emp-jobreferral-list-horizon .res-emp-jobreferral-left button.active {
+    background: #267EC4;
+    border: 0px solid;
+    color: #fff;
+}
+
+.emp-jobreferralprocess-popup {
+    table-layout: fixed;
+    margin: 0 0%;
+}
+
+.emp-jobreferralprocess-popup .left-data {
+    background: #3B94CD;
+    width: 22%;
+    color: #fff;
+    padding: 10px 10px;
+    border-right: 1px solid #524e4e;
+}
+
+.emp-jobreferralprocess-popup .right-data {
+    padding: 10px 10px;
+}
+
+.emp-jobreferralprocess-popup .right-data span{
+    text-decoration: underline;
+    font-weight:bold;
+}
+
+.emp-jobreferralprocess-popup tr {
+    border: 1px solid #524e4e
+}
+
+.emp-jobreferralprocess-popup .right-data  ul{
+    padding-left: 20px;
+}
+
+#empJobReferralProcessModal .modal-header {
+    padding: 0;
+    margin-bottom: 10px;
+    border-bottom: 0px;
+}
+
+#empJobReferralProcessModal #JobReferralProcessModalLabel {
+    font-size: 21px;
+}
+
+#empJobReferralProcessModal .modal-header button {
+    font-size: 14px;
+}
+
+/* emp job referal listing end */
+
+/* emp job referal detailed start */
+
+.emp-jobreferral-detail-horizon {
+    /*height: 100vh;*/
+}
+
+.emp-jobreferral-detail-horizon #empJobReferralDetail {
+    background: #fff;
+    padding: 20px 40px;
+    margin-left: 0;
+}
+
+.emp-jobreferral-detail-horizon #empJobReferralDetail .emp-jobreferral-detail-left {
+}
+
+.emp-jobreferral-detail-horizon #empJobReferralDetail .emp-jobreferral-detail-left .title-block-left {
+    display: inline-block;
+    width: 70%;
+    font-size: 24px;
+    font-weight: bold;
+}
+
+.emp-jobreferral-detail-horizon #empJobReferralDetail .emp-jobreferral-detail-left .title-block-right {
+    display: inline-block;
+    width: 29%;
+    text-align: right;
+}
+
+.emp-jobreferral-detail-horizon #empJobReferralDetail .emp-jobreferral-detail-left .title-block-right .btn{
+    background: #267EC4;
+    color: #fff;
+    border-radius: 25px;
+}
+
+.emp-jobreferral-detail-horizon #empJobReferralDetail .emp-jobreferral-detail-left .emp-jobreferral-detail-work-block {
+    margin-bottom: 10px;
+}
+
+.emp-jobreferral-detail-horizon #empJobReferralDetail .emp-jobreferral-detail-left .emp-jobreferral-detail-desc-block .emp-jobreferral-detail-desc-title {
+    font-weight: bold;
+    margin-bottom: 10px;
+}
+
+.emp-jobreferral-detail-horizon #empJobReferralDetail .emp-jobreferral-detail-left .emp-jobreferral-detail-type-block {
+    border: 1px solid;
+    border-radius: 10px;
+    padding: 15px 5px;
+}
+
+.emp-jobreferral-detail-horizon #empJobReferralDetail .emp-jobreferral-detail-left .emp-jobreferral-detail-type-block .emp-jobreferral-detail-type-title {
+    font-weight: bold;
+}
+
+.emp-jobreferral-detail-horizon #empJobReferralDetail .emp-jobreferral-detail-left .emp-jobreferral-detail-type-block .emp-jobreferral-detail-type-info {
+    margin-bottom: 10px;
+}
+
+.emp-jobreferral-detail-horizon #empJobReferralDetail .emp-jobreferral-detail-left .emp-jobreferral-detail-type-block .btn {
+    background: #267EC4;
+    color: #fff;
+    border-radius: 25px;
+    margin-top: 10px;
+}
+
+.emp-jobreferral-detail-horizon .emp-jobreferral-detail-type-info.emp-job-ref-btn {
+    text-align: right;
+    padding-right: 0;
+}
+
+.emp-jobreferral-detail-horizon .emp-jobreferral-detail-track .emp-jobreferral-detail-track-left .userIcon {
+    width: 45px;
+    height: 45px;
+    border-radius: 50%;
+    background-color: #267EC4;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: black;
+    margin-right: 12px;
+}
+
+.emp-jobreferral-detail-horizon .emp-jobreferral-detail-track .emp-jobreferral-detail-track-left .userIcon img {
+    width: 20px;
+    height: 20px;
+}
+
+.emp-jobreferral-detail-horizon #empJobReferralDetail .emp-jobreferral-detail-right-info {
+    background: #E3E9F1;
+    padding: 15px 20px;
+}
+
+.emp-jobreferral-detail-horizon #empJobReferralDetail .emp-jobreferral-detail-title {
+    font-size: 20px;
+    margin-bottom: 10px;
+}
+
+.emp-jobreferral-detail-horizon #empJobReferralDetail .emp-jobreferral-detail-right-info .vl {
+    border-left: 3px solid #267EC4;
+    height: 60px;
+    margin-left: 20px;
+}
+
+.emp-jobreferral-detail-horizon #empJobReferralDetail .emp-jobreferral-detail-right-info .emp-jobreferral-detail-track-mid .emp-jobreferral-detail-track-status {
+    font-weight: bold;
+}
+
+.emp-jobreferral-detail-horizon #empJobReferralDetail .emp-jobreferral-detail-right-info .emp-jobreferral-detail-track:last-child .vl {
+    display: none;
+}
+
+.emp-jobreferral-detail-horizon #empJobReferralDetail .emp-jobreferral-detail-right-info .emp-jobreferral-detail-track-left {
+    display: inline-block;
+    vertical-align: super;
+    padding: 0;
+}
+
+.emp-jobreferral-detail-horizon #empJobReferralDetail .emp-jobreferral-detail-right-info .emp-jobreferral-detail-track-mid {
+    display: inline-block;
+    margin-left: 10px;
+    font-size: 15px;
+}
+
+.emp-jobreferral-detail-horizon #empJobReferralDetail .emp-jobreferral-detail-right-info .emp-jobreferral-detail-track {
+    /*margin-bottom: 40px;*/
+}
+
+.emp-jobreferral-detail-horizon #empJobReferralDetail .emp-jobreferral-detail-right-info .emp-jobreferral-detail-track:nth-last-child(1) {
+    margin-bottom: 20px;
+}
+
+/* emp job referal detailed end */
+
+/* emp job referral friend start */
+
+#ReferFriendPopup #referfriend-header-title {
+    font-size: 18px;
+}
+
+#ReferFriendPopup .modal-header {
+    border-bottom: 0;
+    padding: 15px 30px;
+}
+
+#ReferFriendPopup .modal-header button i {
+    font-size: 14px;
+}
+
+#ReferFriendPopup .modal-body {
+    padding: 0 30px 25px 30px;
+}
+
+#ReferFriendPopup .title-block-left {
+    font-size: 22px;
+    font-weight: bold;
+}
+
+#ReferFriendPopup .referfriend-detail-work-block {
+    margin: 10px 0;
+}
+
+#ReferFriendPopup .referfriend-info-block {
+    display: inline-flex;
+    padding: 0;
+}
+
+#ReferFriendPopup .referfriend-upload-left .referfriend-upload-left-block {
+    border: 1px solid #ced4da;
+    padding: 20px 20px;
+    border-radius: 3px;
+    max-width: 100%;
+    margin-bottom: 5px;
+}
+
+#ReferFriendPopup .referfriend-upload-left #referfriend-attach-error {
+    font-size: 80%;
+    display: block;
+    margin-bottom: 10px;
+}
+
+#ReferFriendPopup .referfriend-upload-left .referfriend-upload-icon {
+    display: inline-block;
+    width: 12%;
+    vertical-align: top;
+}
+
+#ReferFriendPopup .referfriend-upload-left .referfriend-upload-icon img {
+    width: 55px;
+}
+
+#ReferFriendPopup .referfriend-upload-left .referfriend-upload-btn {
+    display: inline-block;
+    width: 80%;
+    vertical-align: text-top;
+    margin-left: 10px;
+}
+
+#ReferFriendPopup .referfriend-upload-left .referfriend-attach-upload-btn-wrapper {
+    position: relative;
+    overflow: hidden;
+    display: inline-block;
+    width: 100%;
+}
+
+#ReferFriendPopup .referfriend-upload-left .referfriend-attach-label {
+    border: 0px solid #b3b3b3;
+    color: #0066B1;
+    background-color: transparent;
+    font-size: 14px;
+    padding: 0;
+    text-decoration: underline;
+}
+
+#ReferFriendPopup .referfriend-upload-left .referfriend-attach-upload-btn-wrapper input[type=file] {
+    font-size: 100px;
+    position: absolute;
+    left: 0;
+    top: 0;
+    opacity: 0;
+    width: 31%;
+    height: 30px;
+    cursor: pointer;
+}
+
+#ReferFriendPopup .referfriend-upload-left .referfriend-file-name {
+    margin-left: 10px;
+    font-size: 12px;
+}
+
+#ReferFriendPopup .referfriend-upload-left .referfriend-attach-file-upload-size {
+    font-size: 12px;
+    margin-top: -6px;
+    color: #6B6B6B;
+}
+
+#ReferFriendPopup .ReferFriend-Contact-Fields #ReferFriend-ContactCode {
+    width: 15%;
+    display: inline-block;
+}
+
+#ReferFriendPopup .ReferFriend-Contact-Fields #ReferFriend-Contact {
+    width: 84%;
+    display: inline-block;
+}
+
+#ReferFriendPopup .referfriend-submit {
+    border-radius: 25px;
+    padding: 5px 20px;
+}
+
+/* emp job referral friend end */
+
+

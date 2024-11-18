@@ -1,0 +1,371 @@
+﻿@model HRMS.Models.Employee.ApplyLeaveViewModel
+
+@{
+    var currentUserSession = Session["SiteContext"] as HRMS.Models.SiteContextModel;
+    var leaveDefaultEmails = System.Configuration.ConfigurationManager.AppSettings["LeaveEmails"];
+
+    var isLeaveTypeDisabled = "";
+
+    var pageTitle = !string.IsNullOrWhiteSpace(Model.Leaves) && Model.Leaves != "[]" ? "Edit Leave" : "Apply Leave";
+    isLeaveTypeDisabled = !string.IsNullOrWhiteSpace(Model.Leaves) && Model.Leaves != "[]" ? "disabled" : "";
+
+    var isEditRecord = !string.IsNullOrWhiteSpace(Model.Leaves) && Model.Leaves != "[]" ? "true" : "false";
+
+    var buttonText = !string.IsNullOrWhiteSpace(Model.Leaves) && Model.Leaves != "[]" ? "Update" : "Apply";
+
+    var hideDivStyle = currentUserSession != null && !currentUserSession.IsAdmin ? "display:none;" : "";
+
+    var isAdminApplyPage = @Model.IsFromAdmin ? "adminsideapplypage" : "";
+
+    var containerclass = "emp-applyleave-horizon";
+    var mainContainerContent = "main-content";
+}
+
+@if (!Model.IsFromAdmin)
+{
+
+    @Html.Partial("_EmployeeNavbar")
+}
+else
+{
+    containerclass = "emp-leave-apply-form";
+    mainContainerContent = "";
+}
+
+
+
+<style>
+    .error-message {
+        color: red;
+        display: none; /* Hidden by default */
+    }
+
+    .input-error, .input-error select {
+        border-color: red !important;
+    }
+</style>
+
+<div class="container-fluid emp-leave @containerclass @isAdminApplyPage">
+    <div class="@mainContainerContent container-fluid">
+        <div class="content employee-applyleave">
+            <div class="emp-applyleave-container">
+                <div class="row res-emp-applyleave-header">
+                    <div class="col-lg-3 res-emp-applyleave-title">
+                        <h4 class="leave-pagetitle">@pageTitle</h4>
+                    </div>
+                </div>
+            </div>
+
+
+            <div class="employeeleaveapply-view" id="empApplyLeaveFields">
+                <div class="container1 emp-leave-apply-form">
+                    <div class="row">
+                        <div class="col-lg-5 col-md-11 popup-form">
+                            <form id="leaveForm">
+                                <div class="form-group">
+                                    <div class="form-group div-leave-empname" style="@hideDivStyle">
+                                        <label for="leaveempname" class="leave_label">Employee Name*</label>
+                                        <select class="form-control" id="leaveempname">
+                                            <option selected disabled>Select Employee Name</option>
+                                            @{
+                                                var selectedempID = currentUserSession.EmpInfo.EmployeeID; ;
+                                            }
+                                            @foreach (var emp in Model.employees)
+                                            {
+                                                var selected = !currentUserSession.IsAdmin && emp.EmployeeID == selectedempID ? "selected" : "";
+                                                <option @selected value="@emp.EmployeeID" data-empname="@emp.EmployeeName" data-emplocation="@emp.Location" data-empemail="@emp.OfficalEmailid" data-designation="@emp.Designation" data-department="@emp.Department">@emp.EmployeeName @emp.EmployeeID</option>
+                                            }
+                                        </select>
+                                        <span class="error-message" id="leaveempname-error"></span>
+                                    </div>
+                                    <label for="leaveType" class="leave_label">Select Leave Type*</label>
+                                    <select class="form-control" id="leaveType" @isLeaveTypeDisabled>
+                                        <option selected disabled>Select Leave Type</option>
+                                        @{
+                                            var selectedLeaveType = Model.EditLeaveInfo != null ? Model.EditLeaveInfo.leavesource : "";
+                                        }
+                                        @foreach (var leavetype in Model.leaveTypes)
+                                        {
+                                            var selected = leavetype == selectedLeaveType ? "selected" : "";
+                                            <option @selected value="@leavetype">@leavetype</option>
+                                        }
+                                    </select>
+                                    <span class="error-message" id="leaveType-error"></span>
+                                </div>
+                                <div class="apply-date-section">
+                                    <div class="form-group">
+                                        <label for="fromleaveDate">Start Date*</label>
+
+                                        @if (Model.EditLeaveInfo != null && Model.EditLeaveInfo.Fromdate != DateTime.MinValue)
+                                        {
+                                            @Html.TextBoxFor(m => m.EditLeaveInfo.Fromdate, "{0:yyyy-MM-dd}", new { @type = "date", @class = "form-control", @id = "fromleaveDate" })
+                                        }
+                                        else
+                                        {
+                                            <input type="date" class="form-control" id="fromleaveDate">
+                                        }
+                                        <span class="error-message" id="fromleaveDate-error"></span>
+                                    </div>
+
+
+                                    @{
+                                        var showTodate = "display: block";
+
+                                        if (isEditRecord == "true" && Model.EditLeaveInfo.leavesource == "Hourly Permission")
+                                        {
+                                            showTodate = "display: none";
+                                        }
+                                    }
+                                    <div class="form-group to-date-group" style="@showTodate">
+                                        <label for="toleaveDate">End Date*</label>
+
+                                        @if (Model.EditLeaveInfo != null && Model.EditLeaveInfo.Todate != DateTime.MinValue)
+                                        {
+                                            @Html.TextBoxFor(m => m.EditLeaveInfo.Todate, "{0:yyyy-MM-dd}", new { @type = "date", @class = "form-control", @id = "toleaveDate" })
+                                        }
+                                        else
+                                        {
+                                            <input type="date" class="form-control custom-disabled" id="toleaveDate">
+                                        }
+                                        <span class="error-message" id="toleaveDate-error"></span>
+                                    </div>
+                                </div>
+                                @*<div class="form-group time-section" style="display: none">
+                                        <label for="HourPermission" class="hour_label">Hour Permission*</label>
+                                        <select class="form-control" id="HourPermission">
+                                            <option selected disabled>Select Hours</option>
+
+                                            @{
+                                                decimal selectedHourPermission = Model.EditLeaveInfo != null && Model.EditLeaveInfo.leavesource == "Hourly Permission" ? Model.EditLeaveInfo.LeaveDays : 0;
+                                            }
+                                            @foreach (var hourPermission in Model.HourlyPermissions)
+                                            {
+                                                var permissionHourString = hourPermission.Split(' ')[0];
+                                                decimal permissionHour = decimal.Parse(permissionHourString);
+                                                var selected = permissionHour == selectedHourPermission ? "selected" : "";
+                                                <option @selected value="@permissionHour">@hourPermission</option>
+                                            }
+                                        </select>
+                                        <span class="error-message" id="HourPermission-error"></span>
+                                    </div>*@
+
+                                @{
+                                    var showHourlyTimeSectiondate = "display: none";
+
+                                    if (isEditRecord == "true" && Model.EditLeaveInfo.leavesource == "Hourly Permission")
+                                    {
+                                        showHourlyTimeSectiondate = "display: block";
+                                    }
+                                }
+
+                                <div class="time-section" style="@showHourlyTimeSectiondate">
+                                    <div class="form-group start-time-section">
+                                        <label for="StartTime">Start Time*</label>
+                                        @if (Model.EditLeaveInfo != null && Model.EditLeaveInfo.StartTime.HasValue)
+                                        {
+                                            @Html.TextBoxFor(m => m.EditLeaveInfo.StartTime, "{0:hh\\:mm}", new { @type = "time", @class = "form-control", @id = "datetimepicker1", @placeholder = "Select Time" })
+                                        }
+                                        else
+                                        {
+                                            <input type="time" class="form-control custom-disabled" id="datetimepicker1">
+                                        }
+
+                                        <span class="error-message" id="datetimepicker1-error" style="font-size: 10px"></span>
+                                    </div>
+
+                                    <div class="form-group end-time-section">
+                                        <label for="EndTime">End Time*</label>
+                                        @if (Model.EditLeaveInfo != null && Model.EditLeaveInfo.EndTime.HasValue)
+                                        {
+                                            @Html.TextBoxFor(m => m.EditLeaveInfo.EndTime, "{0:hh\\:mm}", new { @type = "time", @class = "form-control", @id = "datetimepicker2", @placeholder = "Select Time" })
+                                        }
+                                        else
+                                        {
+                                            <input type="time" class="form-control custom-disabled" id="datetimepicker2">
+                                        }
+                                        <span class="error-message" id="datetimepicker2-error" style="font-size: 10px"></span>
+                                    </div>
+
+
+                                </div>
+                                @{
+                                    var currentlyBookedHours = "0";
+                                }
+
+                                @if (Model != null && Model.EditLeaveInfo != null)
+                                {
+                                    currentlyBookedHours = @Model.EditLeaveInfo.LeaveDays.ToString();
+                                }
+                                <div class="currentrecordbookedhours" data-bookedhours="@currentlyBookedHours" style="@showHourlyTimeSectiondate">
+                                    Total Hours: <span class="spanleavehours">@currentlyBookedHours</span>
+                                </div>
+
+
+                                <div>
+
+                                </div>
+                                <div class="form-group" id="dayTypeLabel" style="display: none">
+                                    <label>Day Type*</label>
+                                </div>
+                                <div id="dayTypeContainer" style="display: none"></div>
+                                <div id="editleaves" style="display: none">@Model.Leaves</div>
+                                @{
+                                    var LeaveRequestName = @Model.EditLeaveInfo != null && !string.IsNullOrWhiteSpace(Model.EditLeaveInfo.LeaveRequestName) ? Model.EditLeaveInfo.LeaveRequestName : "";
+                                }
+                                <div id="editleaverequestname" style="display: none">@LeaveRequestName</div>
+                                <div id="totalLeavesContainer" class=""></div>
+                                <div id="totalLeavesNumber" class="" style="display: none"></div>
+                                <div id="isedirecord" style="display: none">@isEditRecord</div>
+                                <div class="form-group">
+                                    <label for="teamEmail">Team Email <span style="font-size: smaller">(add with comma separator)</span></label>
+
+                                    @{
+                                        var teamEmails = @Model.EditLeaveInfo != null && !string.IsNullOrWhiteSpace(Model.EditLeaveInfo.TeamEmails) ? Model.EditLeaveInfo.TeamEmails : "";
+                                    }
+                                    <input type="text" value="@teamEmails" class="form-control" id="teamEmail">
+                                    <div style="display: none" id="defaultteamEmail">@leaveDefaultEmails</div>
+                                    <span class="error-message" id="teamEmail-error"></span>
+                                </div>
+                                <div class="form-group emp-apply-leave-reason">
+                                    <label for="reason"><span class="emp-apply-leave-reason-left">Reason</span><span class="emp-apply-leave-reason-right"><input type="checkbox" id="leave-send-reason" name="leave-send-reason" value=""><span style="margin-left:5px;">Send reasons to team</span></span></label>
+                                    @{
+                                        var leave_reason = @Model.EditLeaveInfo != null && !string.IsNullOrWhiteSpace(Model.EditLeaveInfo.leave_reason) ? Model.EditLeaveInfo.leave_reason : "";
+                                    }
+                                    <textarea class="form-control" id="reason">@leave_reason</textarea>
+                                    <span class="error-message" id="reason-error"></span>
+                                </div>
+                                <div class="form-group">
+                                    <label for="BackupName">Backup Resource Name*</label>
+                                    @{
+                                        var BackupResource_Name = @Model.EditLeaveInfo != null && !string.IsNullOrWhiteSpace(Model.EditLeaveInfo.BackupResource_Name) ? Model.EditLeaveInfo.BackupResource_Name : "";
+                                    }
+                                    <input type="text" class="form-control" id="BackupName" value="@BackupResource_Name">
+                                    <span class="error-message" id="BackupName-error"></span>
+                                </div>
+                                <div class="form-group">
+                                    <label for="BackupNo">Contact Number (In case of Emergency)*</label>
+                                    @{
+                                        var EmergencyContact_no = @Model.EditLeaveInfo != null && !string.IsNullOrWhiteSpace(Model.EditLeaveInfo.EmergencyContact_no) ? Model.EditLeaveInfo.EmergencyContact_no : "";
+                                    }
+                                    <input type="text" class="form-control" id="BackupNo" value="@EmergencyContact_no" inputmode="numeric" pattern="[0-9]*" oninput="this.value = this.value.replace(/[^0-9]/g, '');">
+                                    <span class="error-message" id="BackupNo-error"></span>
+                                </div>
+                                <span class="error-message-showerror" style="display: none; color: red"></span>
+                                <div class="apply-leave-submit-block">
+                                    <button type="button" class="btn btn-applyleave-cancel mb-4">Cancel</button>
+                                    <button type="submit" class="btn btn-primary btn-apply-empleave mb-4">@buttonText</button>
+                                </div>
+                            </form>
+                        </div>
+                        <div class="col-lg-7 col-md-12">
+                            <div class="balance-section-wrapper" style="display: none">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+
+                @if (!Model.IsFromAdmin)
+                {
+
+                    <div class="modal fade" id="leavemessageModal" tabindex="-1" role="dialog" aria-labelledby="messageModalLabel" aria-hidden="true">
+                        <div class="modal-dialog" role="document">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <h5 class="modal-title" id="messageModalLabel">Message</h5>
+                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                        <span aria-hidden="true">&times;</span>
+                                    </button>
+                                </div>
+                                <div class="modal-body" id="modalMessage">
+                                </div>
+                                <div class="modal-footer">
+                                    <button type="button" class="btn btn-secondary btn-leaveclose-refreshpage">Close</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                }
+                else
+                {
+                    <div class="modal fade" id="adminleavemessageModal" tabindex="-1" role="dialog" aria-labelledby="messageModalLabel" aria-hidden="true">
+                        <div class="modal-dialog" role="document">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <h5 class="modal-title" id="messageModalLabel">Message</h5>
+                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                        <span aria-hidden="true">&times;</span>
+                                    </button>
+                                </div>
+                                <div class="modal-body" id="modalMessage">
+                                </div>
+                                <div class="modal-footer">
+                                    <button type="button" class="btn btn-secondary btn-leavecloseadmin-refreshpage">Close</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                }
+
+
+
+            </div>
+
+
+
+
+        </div>
+    </div>
+</div>
+
+@if (!Model.IsFromAdmin)
+{
+    @Html.Partial("EmployeeFooter")
+}
+
+<!-- Moment.js (required for Tempus Dominus) -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.29.1/moment.min.js"></script>
+
+<!-- Tempus Dominus Bootstrap 4 CSS -->
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/tempusdominus-bootstrap-4/5.39.0/css/tempusdominus-bootstrap-4.min.css" />
+
+<!-- Tempus Dominus Bootstrap 4 JS -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/tempusdominus-bootstrap-4/5.39.0/js/tempusdominus-bootstrap-4.min.js"></script>
+
+<script src="~/Scripts/z-Teamemail.js"></script>
+<script>
+    $(document).ready(function () {
+        $('#leaveempname').select2();
+
+        $('#datetimepicker1').datetimepicker({
+            format: 'HH:mm'
+        });
+        $('#datetimepicker2').datetimepicker({
+            format: 'HH:mm'
+        });
+
+
+
+        // Function to get query string parameter by name
+        function getLeaveQueryStringParameter(name) {
+            const urlParams = new URLSearchParams(window.location.search);
+            return urlParams.get(name);
+        }
+
+
+        if ($('#isedirecord').text() == "true") {
+            const leaveRequestName = getLeaveQueryStringParameter('leaveRequestName');
+
+            $('#dayTypeContainer').show();
+            $('#totalLeavesContainer').show();
+
+            generateDayTypeRows(leaveRequestName);
+
+
+        }
+
+        //$('#leaveType').val("Sick Leave").trigger('change');
+
+    });
+</script>
+

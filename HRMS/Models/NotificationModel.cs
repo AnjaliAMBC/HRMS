@@ -14,4 +14,5 @@ namespace HRMS.Models
         public string NotificationType { get; set; }
         public string Comments { get; set; }
     }
+
 }

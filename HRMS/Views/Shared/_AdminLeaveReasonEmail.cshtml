@@ -1,0 +1,99 @@
+﻿
+@model List<con_leaveupdate>
+
+@{
+    var siteURL = System.Configuration.ConfigurationManager.AppSettings["siteURL"];
+    var logoURL = siteURL + "/Assets/AMBC_Logo.png";
+}
+
+<style>
+    body {
+        font-family: Arial, sans-serif;
+        color: #333;
+    }
+
+    .email-container {
+        border: 1px solid #ddd;
+        padding: 20px;
+        max-width: 600px;
+        margin: 0 auto;
+    }
+
+    .email-content {
+        padding: 20px;
+    }
+
+    .email-footer {
+        text-align: center;
+        padding: 10px;
+        border-top: 1px solid #ddd;
+    }
+</style>
+
+@if (Model != null && Model.Any())
+{
+    var leaveUpdate = Model.First();
+    <div class="email-container" style="font-family: Calibri; color: #333; background-color: #f8f9fa; padding: 20px; border-radius: 8px; max-width: 600px; margin: auto;">
+        <div class="email-content" style="position: relative; padding: 20px; background-color: #fff; border-radius: 8px; box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);">
+            <table width="80%" cellpadding="0" cellspacing="0" border="0" style="background-color:#ffffff;">
+                <tr>
+                    <td style="padding:0;">
+                        <p style="margin-top: 0;">Hello <strong>@leaveUpdate.employee_name</strong>,</p>
+                    </td>
+                    <td align="right" style="padding: 0;">
+                        <a href="@siteURL" target="_blank">
+                            <img src="@logoURL" alt="AMBC Logo" width="80" style="display: block;">
+                        </a>
+                    </td>
+                </tr>
+            </table>
+            <p>
+                As per the request, @leaveUpdate.employee_name's leave has been applied
+                @if (leaveUpdate.Fromdate.HasValue && leaveUpdate.Todate.HasValue)
+                {
+                    if (leaveUpdate.Fromdate.Value == leaveUpdate.Todate.Value)
+                    {
+                        @:on @(leaveUpdate.Fromdate.Value.ToString("dd-MM-yyyy"))
+                    }
+                    else
+                    {
+                        if (leaveUpdate.Todate.Value != DateTime.MinValue)
+                        {
+                            @:from @(leaveUpdate.Fromdate.Value.ToString("dd-MM-yyyy"))
+                            @:to @(leaveUpdate.Todate.Value.ToString("dd-MM-yyyy"))
+                        }
+                        else
+                        {
+                            @:on @(leaveUpdate.Fromdate.Value.ToString("dd-MM-yyyy"))
+                        }
+                    }
+                }
+                by @leaveUpdate.createdby.
+            </p>
+            <p>
+                <strong>Employee Name:</strong> @leaveUpdate.employee_name<br />
+                @if (leaveUpdate.Todate.HasValue && leaveUpdate.Todate.Value != DateTime.MinValue && leaveUpdate.Fromdate != leaveUpdate.Todate)
+                {
+                    <strong>From Date:</strong> @(leaveUpdate.Fromdate?.ToString("dd-MM-yyyy") ?? "N/A")<br />
+                    <strong>To Date:</strong> @(leaveUpdate.Todate.Value.ToString("dd-MM-yyyy"))<br />
+                }
+                else
+                {
+                    <strong>Date:</strong> @(leaveUpdate.Fromdate?.ToString("dd-MM-yyyy") ?? "N/A")<br />
+                }
+                <strong>Submitted By:</strong> @leaveUpdate.createdby<br />
+                <strong>Leave Type:</strong> @leaveUpdate.leavesource<br />
+                <strong>Reason:</strong> @leaveUpdate.leave_reason
+            </p>
+            <p>Please update your leave info in your client calendar and upcoming out-of-office in your signature.</p>
+            <p><strong>Note:</strong> All ‘Earned Leaves’ require 2 weeks’ notice to get approval from the management and clients.</p>
+        </div>
+        <div style="font-family: Calibri; color: #696969; font-size: 1.1em; margin-top: 20px; text-align: center;">
+            This is an automated email, please do not reply.
+            <br />
+            Automated mail from <a href="https://prm.ambctechnologies.com" style="color: #2693F8;">https://prm.ambctechnologies.com</a>
+        </div>
+    </div>
+}
+
+

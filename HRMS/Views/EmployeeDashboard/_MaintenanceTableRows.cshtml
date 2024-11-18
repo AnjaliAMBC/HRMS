@@ -1,0 +1,116 @@
+﻿@model HRMS.Models.Employee.SelfServiceViewModel
+
+
+<div class="res-emp-maintenanceinfo-table table-responsive">
+    <table id="empmaintenanceinfotable" class="table display" style="width: 100%;">
+        <thead style="background-color: #3E78CF; border-radius: 10px;">
+            <tr>
+                <th style="text-align:center;">Acknowledge</th>
+                <th>Date</th>
+                <th>Agent Name</th>
+                <th>Change Request Date</th>
+                <th>Status</th>
+                <th style="text-align:center;">Action</th>
+            </tr>
+        </thead>
+        <tbody class="emp-ss-monthlymaintenanceview">
+            @if (Model.empMaintanance != null && Model.empMaintanance.Any())
+            {
+                foreach (var maintenance in Model.empMaintanance)
+                {
+                    <tr class="@(maintenance.Status == "Pending" ? "odd" : "even")">
+                        <td class="emp-maintenancestatus-icon" style="text-align:center;">
+                            <span class="emp-maintenanceapproved-btn">
+                                @if (string.IsNullOrEmpty(maintenance.Acknowledge) || maintenance.Acknowledge == "No" || maintenance.Acknowledge == "null")
+                                {
+                                    <img src="/assets/Pending.png" alt="Pending" style="width:25px" title="Pending"> }
+                                else if (maintenance.Acknowledge == "Yes")
+                                {
+                                    <img src="/assets/Approve.png" alt="Approved" style="width:25px" title="Approved">}
+                            </span>
+                        </td>
+                        <td>
+                            @if (maintenance.MaintenanceDate.HasValue)
+                            {
+                                @maintenance.MaintenanceDate.Value.ToString("dd-MM-yyyy") }
+                            else
+                            {
+                                @:N/A
+                            }
+                        </td>
+                        <td>@maintenance.AgentName</td>
+                        <td>
+                            @if (maintenance.RescheduleDate.HasValue)
+                            {
+                                @maintenance.RescheduleDate.Value.ToString("dd-MM-yyyy") }
+                            else
+                            {
+                                @:N/A
+                            }
+                        </td>
+                        <td>
+                            <div class="emp-maintenance-status @(maintenance.Status == "Pending" ? "pending" : "completed")">
+                                @maintenance.Status
+                            </div>
+                        </td>
+                        <td style="text-align:center;">
+                            <span class="emp-maintenanceinfo-list-edit">
+                                @{
+                                    var icondisplay = "display : block";
+                                }
+                                @if (maintenance.Acknowledge == "Yes")
+                                {
+                                    icondisplay = "display : none";
+                                }
+                                <i class="fas fa-ellipsis-v asset-edit-dropdown" style="@icondisplay" onclick="toggleEmpMaintenanceActionOptions(this)"></i>
+                                <div class="emp-maintenance-options" style="display:none">
+                                    @if (maintenance.Status != "Completed")
+                                    {
+                                        <a class="btn btn-demo dropdown-item maintenance-info-reschedule" data-maintenancesno="@maintenance.Sno" data-toggle="modal" data-target="#RescheduleEmpMaintenancePopup">Reschedule</a>
+                                    }
+                                    @if (maintenance.Status == "Completed" && (maintenance.Acknowledge == "No" || maintenance.Acknowledge == "null"))
+                                    {
+                                        <a class="dropdown-item emp-maintenance-info-view" data-maintenancesno="@maintenance.Sno">Acknowledge</a>
+                                    }
+                                </div>
+                            </span>
+                        </td>
+                    </tr>
+                }
+            }
+            else
+            {
+                <tr>
+                    <td colspan="6" style="text-align:center;">No maintenance records found for the current year</td>
+                </tr>
+            }
+        </tbody>
+    </table>
+</div>
+
+<script>
+
+    $(document).ready(function () {
+        function refreshMaintenanceDataTable() {
+            if ($.fn.DataTable.isDataTable('#adminmaintenanceinfotable')) {
+                $('#adminmaintenanceinfotable').DataTable().destroy();
+            }
+
+            $('#adminmaintenanceinfotable').DataTable({
+                "responsive": true,
+                "paging": false,
+                "searching": false,
+                "ordering": false,
+                "info": false,
+                "autoWidth": false,
+                "lengthMenu": [[10, 20, 50, -1], [10, 20, 50, "All"]]
+            });
+        }
+
+        refreshMaintenanceDataTable();
+
+        $(document).on('ajaxComplete', function () {
+            refreshMaintenanceDataTable();
+        });
+    });
+</script>

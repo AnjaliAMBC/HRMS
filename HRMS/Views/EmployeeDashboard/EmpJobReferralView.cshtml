@@ -1,0 +1,233 @@
+﻿@model HRMS.Models.Employee.EmpJobModel
+
+@{
+    ViewBag.Title = "EmpJobReferralView";
+}
+@Html.Partial("_EmployeeNavbar")
+<div class="container-fluid emp-jobreferral-list-horizon">
+    <div class="main-content container-fluid">
+        <div class="content employee-jobreferral">
+            <div class="emp-jobreferal-container">
+                <div class="row emp-jobreferral-header">
+                    <div class="col-lg-3 emp-jobreferral-title">
+                        <h4>Job Referral</h4>
+                    </div>
+                </div>
+            </div>
+
+            <div class="emp-jobreferral-details" id="empJobReferral">
+                <div class="row res-emp-jobreferral-header">
+                    <div class="col-lg-5 col-md-7 col-sm-12 res-emp-jobreferral-left">
+                        <button type="button" id="all-jobs" class="btn all-jobs active">All Jobs</button>
+                        <button type="button" id="open-jobs" class="btn open-jobs ">Open Jobs</button>
+                        <button type="button" id="closed-jobs" class="btn closed-jobs ">Closed Jobs</button>
+                    </div>
+                    <div class="col-lg-6 col-md-1 res-emp-jobreferral-mid">
+                    </div>
+                    <div class="col-lg-1 col-md-4 col-sm-12 res-emp-jobreferral-right">
+                        <i class="fa-solid fa-gear" data-toggle="modal" data-target="#empJobReferralProcessModal"></i>
+                    </div>
+                </div>
+                <div class="emp-jobreferal-body" id="emp-jobreferal-data">
+                    @if (Model?.jobdetail != null && Model.jobdetail.Any())
+                    {
+                        foreach (var job in Model.jobdetail)
+                        {
+                    <div class="emp-jobreferal-data-block open-jobs">
+                        <div class="emp-jobreferal-data-block-header">
+                            <span class="emp-jobreferal-data-title" data-jobId="@job.JobID">@job.JobTitle - @job.JobID</span>
+                            <span class="emp-jobreferal-data-posted">
+                                Posted On @(job.PostedDate.HasValue ? job.PostedDate.Value.ToString("dd MMM yyyy") : "N/A")
+                            </span>
+
+                        </div>
+                        <div class="emp-jobreferal-data-block-body">
+                            <span class="emp-jobreferal-data-experience"><i class="fas fa-bookmark"></i> Experience: @job.Experience</span>
+                            <span class="emp-jobreferal-data-fulltime"><i class="fas fa-clock"></i> @job.JobType</span>
+                            <span class="emp-jobreferal-data-location"><i class="fas fa-map-marker-alt"></i> @job.Location</span>
+                        </div>
+                        <div class="emp-jobreferal-data-block-footer">
+                            @if (job.JobStatus == "Closed")
+                            {
+                                <div class="emp-jobreferal-data-status closed">Closed</div>
+                            }
+                            else
+                            {
+                                <div class="emp-jobreferal-data-status open">Open</div>
+                            }
+                        </div>
+                    </div> }
+                    }
+                    else
+                    {
+                        <p>No jobs available</p>}
+                    @*<div class="emp-jobreferal-data-block closed-jobs">
+                            <div class="emp-jobreferal-data-block-header">
+                                <span class="emp-jobreferal-data-title">Lead Engineer</span>
+                                <span class="emp-jobreferal-data-posted">Posted On 07 Oct 2024</span>
+                            </div>
+                            <div class="emp-jobreferal-data-block-body">
+                                <span class="emp-jobreferal-data-experience"><i class="fas fa-bookmark"></i> Experience: 10 - 12 Years</span>
+                                <span class="emp-jobreferal-data-onsite"><i class="fas fa-check-circle"></i> On-Site</span>
+                                <span class="emp-jobreferal-data-fulltime"><i class="fas fa-clock"></i> Full-Time</span>
+                                <span class="emp-jobreferal-data-location"><i class="fas fa-map-marker-alt"></i> Chennai, Tamilnadu, India</span>
+                            </div>
+                            <div class="emp-jobreferal-data-block-footer">
+                                <div class="emp-jobreferal-data-status closed">Closed</div>
+                            </div>
+                        </div>
+
+                        <div class="emp-jobreferal-data-block open-jobs">
+                            <div class="emp-jobreferal-data-block-header">
+                                <span class="emp-jobreferal-data-title">Lead Engineer</span>
+                                <span class="emp-jobreferal-data-posted">Posted On 07 Oct 2024</span>
+                            </div>
+                            <div class="emp-jobreferal-data-block-body">
+                                <span class="emp-jobreferal-data-experience"><i class="fas fa-bookmark"></i> Experience: 10 - 12 Years</span>
+                                <span class="emp-jobreferal-data-onsite"><i class="fas fa-check-circle"></i> On-Site</span>
+                                <span class="emp-jobreferal-data-fulltime"><i class="fas fa-clock"></i> Full-Time</span>
+                                <span class="emp-jobreferal-data-location"><i class="fas fa-map-marker-alt"></i> Chennai, Tamilnadu, India</span>
+                            </div>
+                            <div class="emp-jobreferal-data-block-footer">
+                                <div class="emp-jobreferal-data-status open">Open</div>
+                            </div>
+                        </div>
+
+                        <div class="emp-jobreferal-data-block closed-jobs">
+                            <div class="emp-jobreferal-data-block-header">
+                                <span class="emp-jobreferal-data-title">Lead Engineer</span>
+                                <span class="emp-jobreferal-data-posted">Posted On 07 Oct 2024</span>
+                            </div>
+                            <div class="emp-jobreferal-data-block-body">
+                                <span class="emp-jobreferal-data-experience"><i class="fas fa-bookmark"></i> Experience: 10 - 12 Years</span>
+                                <span class="emp-jobreferal-data-onsite"><i class="fas fa-check-circle"></i> On-Site</span>
+                                <span class="emp-jobreferal-data-fulltime"><i class="fas fa-clock"></i> Full-Time</span>
+                                <span class="emp-jobreferal-data-location"><i class="fas fa-map-marker-alt"></i> Chennai, Tamilnadu, India</span>
+                            </div>
+                            <div class="emp-jobreferal-data-block-footer">
+                                <div class="emp-jobreferal-data-status closed">Closed</div>
+                            </div>
+                        </div>*@
+
+                </div>
+            </div>
+
+        </div>
+    </div>
+</div>
+
+<!-- emp job referal process Modal -->
+<div id="empJobReferralProcessModal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="empJobReferralProcessModal" aria-hidden="true">
+    <div class="modal-dialog modal-lg" role="document">
+        <div class="modal-content">
+            <div class="modal-body">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="JobReferralProcessModalLabel">Employee Referal Process</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <i class="far fa-times-circle"></i>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <table class="emp-jobreferralprocess-popup">
+                        <tr>
+                            <td class="left-data">Referral Process</td>
+                            <td class="right-data">As an AMBC employee, you are encouraged to recommend candidates who you believe will be successful with us.</td>
+                        </tr>
+                        <tr>
+                            <td class="left-data">How to Refer</td>
+                            <td class="right-data">Submit the resume along with your recommendation to <span>references@ambconline.com.</span> Please CC: <span>hr@ambconline.com</span> & <span>gnanasampaths@ambconline.com</span></td>
+                        </tr>
+                        <tr>
+                            <td class="left-data">Referral Bonus</td>
+                            <td class="right-data">For each successful referral, Referral Bonus will be provided after 90 days of the hire.</td>
+                        </tr>
+                        <tr>
+                            <td class="left-data">Terms & Conditions</td>
+                            <td class="right-data">
+                                <ul>
+                                    <li>Referrals should be submitted with a copy of the candidate’s resume.</li>
+                                    <li>Referral Bonus will only be applicable if the candidate has not applied to AMBC directly or been contacted by the recruitment team within the last six months.</li>
+                                    <li>The first employee to refer a candidate will be eligible for the Referral Bonus if more than one referral is received.</li>
+                                </ul>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="left-data">Contact – Team Recruitment</td>
+                            <td class="right-data">
+                                <ul>
+                                    <li>+91 63698-23570</li>
+                                    <li>+91 74188-81957</li>
+                                    <li style="text-decoration:underline;">references@ambconline.com</li>
+                                </ul>
+                            </td>
+                        </tr>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+@Html.Partial("EmployeeFooter")
+
+<script src="~/Scripts/z-jobreferralscript.js"></script>
+
+<script>
+    $(document).ready(function () {
+        var $btns = $('.btn').click(function () {
+            if (this.id == 'all-jobs') {
+                $('#emp-jobreferal-data > div').fadeIn(450);
+            } else {
+                var $el = $('.' + this.id).fadeIn(450);
+                $('#emp-jobreferal-data > div').not($el).hide();
+            }
+            $btns.removeClass('active');
+            $(this).addClass('active');
+        });
+
+    });
+
+
+    $(document).on("click", ".emp-jobreferal-data-title", function (e) {
+        e.preventDefault();
+        var jobID = $(this).data("jobid");
+        window.location.href = "/EmpDash/JobDetail?jobId=" + jobID;
+    });
+
+
+    $(document).ready(function () {
+        function filterJobs(status) {
+            $(".emp-jobreferal-data-block").each(function () {           
+                const jobStatus = $(this).find(".emp-jobreferal-data-status").text().trim().toLowerCase();
+              
+                if (status === "all") {
+                    $(this).show();
+                } else if (status === "open" && jobStatus === "open") {
+                    $(this).show();
+                } else if (status === "closed" && jobStatus === "closed") {
+                    $(this).show();
+                } else {
+                    $(this).hide();
+                }
+            });
+        }
+       
+        $("#all-jobs").on("click", function () {
+            filterJobs("all");
+            $(this).addClass("active").siblings().removeClass("active");
+        });
+
+        $("#open-jobs").on("click", function () {
+            filterJobs("open");
+            $(this).addClass("active").siblings().removeClass("active");
+        });
+
+        $("#closed-jobs").on("click", function () {
+            filterJobs("closed");
+            $(this).addClass("active").siblings().removeClass("active");
+        });
+    });
+
+
+</script>
+

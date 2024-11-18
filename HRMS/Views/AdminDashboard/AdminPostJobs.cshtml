@@ -1,0 +1,309 @@
+﻿@model HRMS.Models.Admin.AdminJobModel
+
+@{
+    ViewBag.Title = "AdminPostJobs";
+}
+
+@Html.Partial("_NavBar")
+<script src="https://cdn.tiny.cloud/1/a8r9jj8t9yk0l2hgejaoyglumbdcfozlfeogwxxq03lyrsrr/tinymce/5/tinymce.min.js"></script>
+<div class="container-fluid res-admin-jobreferral">
+    <style>
+        .adminbtn_postjob {
+            border: 1px solid transparent;
+            background-color: #2693F8;
+            color: white;
+            padding: 5px 10px;
+        }
+
+        label {
+            margin-bottom: 0px;
+            font-size: 12px;
+        }
+
+        .tox .tox-statusbar {
+            height: 0px !important;
+        }
+
+        .tox .tox-mbtn {
+            height: 15px;
+            font-size: 12px;
+        }
+    </style>
+    <div class="hiddenadmindashboard" style="display: none"></div>
+    @Html.Partial("_adminsidemenu")
+    <div class="main-content container-fluid">
+        <div class="content adminadd-postjob">
+            <div class="content admin-postjob">
+                <div style="margin-left: 0%">
+                    <div class="admin-postjob-container">
+                        <div class="row admin-postjob-header">
+                            <div class="col-lg-3 admin-postjob-title">
+                                @{
+                                    var pageTitle = Model.IsNewJob ? "Post Job" : "Edit Job";
+                                }
+                                <h4>@pageTitle</h4>
+                            </div>
+                        </div>
+                    </div>
+
+                    <form class="admin-postjob-details" id="adminpostjob">
+                        <div class="container-fluid">
+                            <div class="row">
+                                <div class="col-lg-3 col-sm-12 col-md-6 form-group">
+                                    <label for="postjob_referalId">Job ID*</label>
+                                    <input type="text" class="form-control" id="postjob_referalId" placeholder="Referral ID"
+                                           value="@Model.EditJob.JobID" disabled>
+                                    <div class="invalid-feedback">Referral ID is required.</div>
+                                </div>
+                                <div class="col-lg-3 col-sm-12 col-md-6 form-group">
+                                    <label for="postjob_jobtitle">Job Title*</label>
+                                    <input type="text" class="form-control" id="postjob_jobtitle" name="JobTitle" placeholder="Enter Job Title"
+                                           value="@Model.EditJob.JobTitle" required>
+                                    <div class="invalid-feedback">Job Title is required.</div>
+                                </div>
+                                <div class="col-lg-3 col-sm-12 col-md-6 form-group">
+                                    <label for="postjob_experience">Experience*</label>
+                                    <input type="text" class="form-control" id="postjob_experience" name="Experience" placeholder="Enter Experience"
+                                           value="@Model.EditJob.Experience" required>
+                                    <div class="invalid-feedback">Experience is required.</div>
+                                </div>
+                                <div class="col-lg-3 col-sm-12 col-md-6 form-group">
+                                    <label for="postjob_location">Location*</label>
+                                    <input type="text" class="form-control" id="postjob_location" name="Location" placeholder="Enter Location"
+                                           value="@Model.EditJob.Location" required>
+                                    <div class="invalid-feedback">Location is required.</div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-lg-3 col-sm-12 col-md-6 form-group">
+                                    <label for="postjob_postedby">Posted By*</label>
+                                    <input type="text" class="form-control" id="postjob_postedby" name="PostedBy" placeholder="Enter Posted By"
+                                           value="@Model.EditJob.PostedBy" required>
+                                    <div class="invalid-feedback">Posted By is required.</div>
+                                </div>
+                                <div class="col-lg-3 col-sm-12 col-md-6 form-group">
+                                    <label for="postjob_posteddate">Posted Date*</label>
+                                    <input type="date" class="form-control" id="postjob_posteddate" name="PostedDate"
+                                           value="@((Model.EditJob?.PostedDate != DateTime.MinValue) ? Model.EditJob.PostedDate?.ToString("yyyy-MM-dd") : "")" required>
+                                    <div class="invalid-feedback">Posted Date is required.</div>
+                                </div>
+
+                                <div class="col-lg-3 col-sm-12 col-md-6 form-group">
+                                    <label for="postjob_jobtype">Job Type*</label>
+                                    <select class="form-control" id="postjob_jobtype" name="JobType" required>
+                                        <option selected disabled>Select Job Type</option>
+                                        <option value="Full Time" @(Model.EditJob.JobType == "Full Time" ? "selected" : "")>Full Time</option>
+                                        <option value="Part Time" @(Model.EditJob.JobType == "Part Time" ? "selected" : "")>Part Time</option>
+                                        <option value="Contract" @(Model.EditJob.JobType == "Contract" ? "selected" : "")>Contract</option>
+                                        <option value="Other" @(Model.EditJob.JobType == "Other" ? "selected" : "")>Other</option>
+                                    </select>
+                                    <div class="invalid-feedback">Job Type is required.</div>
+                                </div>
+
+                                <div class="col-lg-3 col-sm-12 col-md-6 form-group">
+                                    <label for="postjob_status">Status*</label>
+                                    <select class="form-control" id="postjob_status" name="Status" required>
+                                        <option value="" selected disabled>Select Status</option>
+                                        <option value="Open" @(Model.EditJob.JobStatus == "Open" ? "selected" : "")>Open</option>
+                                        <option value="Closed" @(Model.EditJob.JobStatus == "Closed" ? "selected" : "")>Closed</option>
+                                    </select>
+                                    <div class="invalid-feedback">Status is required.</div>
+                                </div>
+
+                            </div>
+                            <div class="row">
+                                <div class="col-lg-3 col-sm-12 col-md-6 form-group">
+                                    <label for="postjob_salary">Salary Package*</label>
+                                    <input type="text" class="form-control" id="postjob_salary" name="Salary" placeholder="Enter Package"
+                                           value="@Model.EditJob.SalaryRange" required>
+                                    <div class="invalid-feedback">Salary Package is required.</div>
+                                </div>
+
+                                <div class="col-lg-3 col-sm-12 col-md-6 form-group">
+                                    <label for="postjob_priority">Priority*</label>
+                                    <select class="form-control" id="postjob_priority" name="Priority" required>
+                                        <option selected disabled>Select Priority</option>
+                                        <option value="High" @(Model.EditJob.Priority == "High" ? "selected" : "")>High</option>
+                                        <option value="Medium" @(Model.EditJob.Priority == "Medium" ? "selected" : "")>Medium</option>
+                                    </select>
+                                    <div class="invalid-feedback">Priority is required.</div>
+                                </div>
+
+                            </div>
+                            <div class="row">
+                                <div class="col-lg-12 col-sm-12 col-md-12 form-group">
+                                    <label for="postjob_jobdescription">Job Description*</label>
+                                    <textarea class="form-control" id="postjob_jobdescription" name="JobDescription" style="height:170px;" required>@Model.EditJob.JobDescription</textarea>
+                                    <div class="invalid-feedback">Job Description is required.</div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-lg-3 col-sm-12 col-md-6 ml-auto" style="padding-left:150px;padding-top:20px;padding-bottom:10px;">
+                                    @{
+                                        var jobButton = Model.IsNewJob ? "Post Job" : "Update Job";
+                                    }
+                                    <button type="submit" class="btn btn-primary adminbtn_postjob">@jobButton</button>
+                                </div>
+                            </div>
+                        </div>
+                    </form>
+
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+    <div class="modal fade" id="jobModal" tabindex="-1" role="dialog" aria-labelledby="jobModalLabel" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="jobModalLabel">Job Status</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <p id="modalMessage"></p>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary btn-close-postjobs" data-dismiss="modal">Close</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+    <script>
+
+        $(document).on('click', '.adminbtn_postjob', function (event) {
+            event.preventDefault();
+            validateForm();
+        });
+
+        function validateForm(event) {
+            const form = $('#adminpostjob');
+            const inputs = form.find('input, select');
+            let isValid = true;
+
+            // Validate standard inputs
+            inputs.each(function () {
+                const input = $(this);
+                if (input.attr('required') && (!input.val() || !this.checkValidity())) {
+                    input.addClass('is-invalid');
+                    isValid = false;
+                } else {
+                    input.removeClass('is-invalid');
+                }
+            });
+
+            // Validate job type
+            const jobType = $('#postjob_jobtype');
+            if (!jobType.val()) {
+                jobType.addClass('is-invalid');
+                isValid = false;
+            } else {
+                jobType.removeClass('is-invalid');
+            }
+
+            // Validate status
+            const status = $('#postjob_status');
+            if (!status.val()) {
+                status.addClass('is-invalid');
+                isValid = false;
+            } else {
+                status.removeClass('is-invalid');
+            }
+
+            // Validate TinyMCE rich text editor field
+            const jobDescription = tinymce.get('postjob_jobdescription').getContent().trim(); // Get the content
+            if (!jobDescription) {
+                $('#postjob_jobdescription_ifr').addClass('is-invalid'); // Highlight iframe for invalid content
+                isValid = false;
+            } else {
+                $('#postjob_jobdescription_ifr').removeClass('is-invalid'); // Remove invalid highlight
+            }
+
+            // Handle form submission
+            if (isValid) {
+                submitForm(event);
+            } else {
+                $('#modalMessage')
+                    .text("Please fill in all required fields.")
+                    .addClass('text-danger')
+                    .removeClass('text-success');
+            }
+        }
+
+
+        function submitForm() {
+            const jobId = $("#postjob_referalId").val();
+            const formData = {
+                JobID: jobId,
+                JobTitle: $("#postjob_jobtitle").val(),
+                Experience: $("#postjob_experience").val(),
+                Location: $("#postjob_location").val(),
+                PostedBy: $("#postjob_postedby").val(),
+                PostedDate: $("#postjob_posteddate").val(),
+                JobType: $("#postjob_jobtype").val(),
+                JobStatus: $("#postjob_status").val(),
+                JobDescription: tinymce.get('postjob_jobdescription').getContent(),
+                SalaryRange: $('#postjob_salary').val(),
+                Priority: $('#postjob_priority').val()
+            };
+
+            console.log("Submitting form with data:", formData);
+
+            $.ajax({
+                url: '/admindashboard/postjob',
+                type: 'POST',
+                data: JSON.stringify(formData),
+                contentType: 'application/json',
+                beforeSend: function () {
+                    $('.show-progress').show();
+                },
+                success: function (response) {
+                    console.log("Response received:", response);
+                    if (response.success) {
+                        $('#modalMessage').text(jobId ? "Job updated successfully!" : "Job posted successfully!")
+                            .addClass('text-success')
+                            .removeClass('text-danger');
+                        $('#jobModal').modal('show');
+                        $('.is-invalid').removeClass('is-invalid');
+                    } else {
+                        $('#modalMessage').text("Error: " + response.message)
+                            .addClass('text-danger')
+                            .removeClass('text-success');
+                        $('#jobModal').modal('show');
+                    }
+                    $('.show-progress').hide();
+                },
+                error: function (xhr, status, error) {
+                    console.log("AJAX error:", status, error);
+                    $('#modalMessage').text("An error occurred: " + error)
+                        .addClass('text-danger')
+                        .removeClass('text-success');
+                    $('#jobModal').modal('show');
+                    $('.show-progress').hide();
+                }
+            });
+        }
+
+
+        $(document).on('click', '.btn-close-postjobs', function (event) {
+            event.preventDefault();
+            window.location.href = "/admindashboard/adminjoblisting";
+            return;
+        });
+
+
+
+        tinymce.init({
+            selector: '#postjob_jobdescription',
+            plugins: 'bold italic underline',
+            toolbar: 'bold italic underline | alignleft aligncenter alignright',
+        });
+
+
+    </script>
+

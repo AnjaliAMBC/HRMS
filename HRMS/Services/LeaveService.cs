@@ -11,6 +11,8 @@ namespace HRMS.Services
         public int TotalLeaves { get; set; }
         public int TotalPresent { get; set; }
         public int TotalAbsent { get; set; }
+
+        public int TotalHolidays { get; set; }
     }
 
     public class LeaveService
@@ -47,39 +49,51 @@ namespace HRMS.Services
             var daysInMonth = DateTime.DaysInMonth(year, month);
             var totalPresent = 0;
             var totalWeekdays = 0;
+            var totalHolidays = 0;
 
             for (int day = 1; day <= daysInMonth; day++)
             {
                 var date = new DateTime(year, month, day);
 
+                // Only consider weekdays
                 if (date.DayOfWeek != DayOfWeek.Saturday && date.DayOfWeek != DayOfWeek.Sunday)
                 {
                     totalWeekdays++;
-                }
 
-                if (logins.Any(l => l.Login_date.Date == date))
-                {
-                    totalPresent++;
-                }
-                else if ((leaves.Any(l => l.leavedate.HasValue && l.leavedate.Value.Date == date) ||
-                          holidays.Any(h => h.holiday_date.HasValue && h.holiday_date.Value.Date == date)))
-                {
-                    continue;
+                    // Check if employee logged in
+                    if (logins.Any(l => l.Login_date.Date == date))
+                    {
+                        totalPresent++;
+                    }
+                    // Check if it’s a leave day
+                    else if (leaves.Any(l => l.leavedate.HasValue && l.leavedate.Value.Date == date))
+                    {
+                        // Leave day - skip further checks
+                        continue;
+                    }
+                    // Check if it's a holiday
+                    else if (holidays.Any(h => h.holiday_date.HasValue && h.holiday_date.Value.Date == date))
+                    {
+                        totalHolidays++;
+                    }
                 }
             }
 
             var totalLeaves = leaves.Count;
-            var totalAbsent = totalWeekdays - (totalPresent + totalLeaves);
+            var totalAbsent = totalWeekdays - (totalPresent + totalLeaves + totalHolidays);
 
             var summary = new LeaveSummary
             {
                 TotalLeaves = totalLeaves,
                 TotalPresent = totalPresent,
-                TotalAbsent = totalAbsent
+                TotalAbsent = totalAbsent,
+                TotalHolidays = totalHolidays
             };
 
             return JsonConvert.SerializeObject(summary);
         }
+
+
 
     }
 }

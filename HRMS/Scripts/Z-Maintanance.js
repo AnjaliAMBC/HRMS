@@ -100,13 +100,13 @@ $(document).on('click', '.reschedulemaintenance-Update', function (event) {
     var agentName = $('#RescheduleMaintenance-AgentName option:selected').text();
     var notes = $('#RescheduleMaintenance-Notes').val();
     var isValid = true;
-    
+
     $('#RescheduleMaintenance-Reschedule').removeClass('is-invalid');
     $('#rescheduleDateError').remove();
-   
+
     if (!rescheduleDate) {
         isValid = false;
-       
+
         $('#RescheduleMaintenance-Reschedule').addClass('is-invalid');
         $('#RescheduleMaintenance-Reschedule').after('<span id="rescheduleDateError" class="text-danger">Reschedule Date is required</span>');
     }
@@ -152,12 +152,12 @@ $(document).on('click', '.reschedulemaintenance-Update', function (event) {
 
 $(document).ready(function () {
     $('.Add-Schedule-Maintanance').click(function () {
-        var isValid = true; 
+        var isValid = true;
         var formData = new FormData();
-        
+
         $('.error-message').remove();
         $('.form-control, .form-check-input').removeClass('is-invalid');
-       
+
         var location = $('input[name="schedulemaintenance-location"]:checked').val();
         if (!location) {
             isValid = false;
@@ -166,7 +166,7 @@ $(document).ready(function () {
         } else {
             formData.append('Location', location);
         }
-        
+
         if ($('#multiSelectDropdown option:selected').length === 0) {
             isValid = false;
             $('#multiSelectDropdown').after('<span class="error-message text-danger">Please select at least one employee.</span>');
@@ -198,14 +198,14 @@ $(document).ready(function () {
         } else {
             formData.append('Date', date);
         }
-      
+
         var timeIn = $('#datetimepicker1').val();
         var timeOut = $('#datetimepicker2').val();
         formData.append('TimeIn', timeIn);
         formData.append('TimeOut', timeOut);
 
-       
-        if (isValid) {       
+
+        if (isValid) {
             $.ajax({
                 url: '/Maintanance/AddMaintenanceSchedule',
                 type: 'POST',
@@ -326,9 +326,85 @@ $(document).on('click', '#exportmaintenancehistory', function () {
     });
 });
 
+$(document).on('click', '.refresh-scheduletablelist', function () {
+    window.location.href = "/maintanance/maintananceInfo";
+    return false;
+});
+
+$(document).on('click', '.emp-maintenanceacknowledge-submit', function () {
+    var formData = new FormData();
+
+    // Collecting values from the relevant fields (make sure the IDs correspond to your actual inputs)
+    var maintenanceackDate = $('#MaintenanceAcknowledge-Date').val().trim();
+    var problemCategory = $('#MaintenanceAcknowledge-ProblemCategory').val();
+    var issueFacing = $('#MaintenanceAcknowledge-IssueFacing').val().trim();
+    var newAssetRequirement = $('#MaintenanceAcknowledge-AssetReplacement').val().trim();
+    var acknowledge = $('#MaintenanceAcknowledge-Completed').val(); // "Yes" or "No"
+    var sno = $(this).data('maintenancesno'); // Get the Sno from the clicked link
+
+    // Append data to the FormData object
+    formData.append('AcknowledgeDate', maintenanceackDate);
+    formData.append('ProblemCategory', problemCategory);
+    formData.append('IssueFacing', issueFacing);
+    formData.append('NewAssetRequirement', newAssetRequirement);
+    formData.append('Acknowledge', acknowledge);
+    formData.append('Sno', sno); // Include the Sno
+
+    // Send the data using AJAX
+    $.ajax({
+        url: '/EmployeeDashboard/AcknowledgeMaintenance',
+        type: 'POST',
+        data: formData,
+        contentType: false, // Important for FormData
+        processData: false, // Important for FormData
+        success: function (response) {
+            // Clear previous message classes
+            $('#responseModalLabel').removeClass('success-message error-message');
+
+            // Check if the response indicates success or error
+            if (response.success) {
+                $('#responseModalLabel').text('Success');
+                $('#responseModalBody').text(response.message).addClass('success-message');;
+            } else {
+                $('#responseModalLabel').text('Error');
+                $('#responseModalBody').text(response.message || 'An error occurred while submitting the data.').addClass('error-message');
+            }
+            $('#responseModal').modal('show');
+        },
+        error: function (xhr, status, error) {
+            console.error(error);
+            $('#responseModalLabel').text('Error').addClass('error-message');
+            $('#responseModalBody').text('An error occurred while submitting the data.');
+            $('#responseModal').modal('show');
+        }
+    });
+
+});
 
 
 
 
+$(document).on('change', '#emp-mm-year', function () {
+    var selectedYear = $(this).val();
+    var currentEmployeeID = $('.loggedinempid').text();
+
+    $.ajax({
+        url: '/employeedashboard/getmaintenancebyyear',
+        type: 'GET',
+        data: { year: selectedYear, empID: currentEmployeeID },
+        success: function (data) {
+            // Update the maintenance records section with the new data
+            $('.MaintenanceTableRows-div').html('');
+            $('.MaintenanceTableRows-div').html(data);
+        },
+        error: function (xhr, status, error) {
+            console.error(error);
+            alert('An error occurred while filtering the maintenance data.');
+        }
+    });
+});
 
 
+$(document).on('click', '.mainaknowledge-close', function () {
+    window.location.href = "/employeedashboard/selfservice";
+});

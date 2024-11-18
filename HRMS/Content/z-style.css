@@ -1227,7 +1227,7 @@ div.main-content {
 
 .res-admin-leave-history .res-admin-leave-balance-export {
     width: 12%;
-    //margin-top: -5px;
+    /*margin-top: -5px;*/
 }
 
 .res-admin-leave-history .res-admin-leave-balance-calender {
@@ -1391,7 +1391,16 @@ div.main-content {
 }
 
 .res-admin-leave .admin-leave-container .container-fluid {
-    margin-top: -10px;
+    margin-top: 10px;
+}
+
+.adminsideapplypage .employeeleaveapply-view {
+    margin-left: -18px;
+    margin-top: 10px;
+}
+
+.adminsideapplypage .emp-apply-leave-reason-right {
+    margin-left: 260px;
 }
 
 #adminleaveHistoryTable tbody tr td:nth-child(1) {
@@ -1421,6 +1430,11 @@ div.main-content {
 
 #adminleaveHistoryTable_wrapper {
     padding: 0px 20px 20px 20px;
+}
+
+#adminleaveHistoryTable img.leavehistory_status {
+    width: 22px !important;
+    height: 22px !important;
 }
 
 /* admin leave history end*/
@@ -2845,9 +2859,9 @@ input[type=checkbox], input[type=radio] {
 
 #empticketlistingTable .emp-ticketing-response-time {
     display: inline-block;
-    //background: #ffe6e6;
+    /*background: #ffe6e6;*/
     color: #ff9999;
-    //padding: 0 10px;
+    /*padding: 0 10px;*/
     margin-bottom: 5px;
 }
 
@@ -5302,4 +5316,783 @@ input[type=checkbox], input[type=radio] {
 }
 #subscriptionadd-success-popup .modal-header button{
     padding-bottom:0px;
+}
+
+
+/*-----Admin Job refferal Page Style sheet starting here ------*/
+.admin-jobreferral-list {
+    background: white;
+    height: 100vh;
+    padding: 0 10px 25px 0px;
+}
+
+    .admin-jobreferral-list .main-content {
+        margin-left: 0;
+        width: 100% !important;
+    }
+
+    .admin-jobreferral-list #adminJobReferral {
+        background: #fff;
+        margin-left: 0;
+    }
+    .admin-jobreferral-list .adminpost_jobreferal
+    {
+        margin-right:2%;
+
+    }
+
+    .admin-jobreferral-list .res-admin-jobreferral-header .res-admin-jobreferral-right {
+        text-align: right;
+        margin-left: -12px;
+        cursor: pointer;
+    }
+
+    .admin-jobreferral-list #admin-jobreferal-data {
+        /*display: inline-flex;
+justify-content: space-between;
+width: 100%;*/
+    }
+
+    .admin-jobreferral-list .admin-jobreferal-data-block {
+        width: 48%;
+        border: 1px solid #ccc;
+        border-radius: 3px;
+        padding: 6px 0px 0px 10px;
+        display: inline-block;
+        margin: 10px 0px 5px 0px;
+        margin-right: 9px;
+    }
+
+        .admin-jobreferral-list .admin-jobreferal-data-block:nth-child(odd) {
+        }
+
+        .admin-jobreferral-list .admin-jobreferal-data-block:nth-child(even) {
+            /*margin-left: 5%;*/
+        }
+
+    .admin-jobreferral-list .admin-jobreferal-data-block-header {
+        display: inline-flex;
+        justify-content: space-between;
+        width: 100%;
+    }
+
+        .admin-jobreferral-list .admin-jobreferal-data-block-header .admin-jobreferal-data-title {
+            font-size: 18px;
+            font-weight: bold;
+        }
+
+        .admin-jobreferral-list .admin-jobreferal-data-block-header .admin-jobreferal-data-posted {
+            font-style: italic;
+            font-size: 13px;
+            padding-right: 10px;
+            color: #525252;
+        }
+
+    .admin-jobreferral-list .admin-jobreferal-data-block-body {
+        margin: 5px 0;
+        font-size: 15px;
+        color: #525252;
+    }
+
+        .admin-jobreferral-list .admin-jobreferal-data-block-body .admin-jobreferal-data-experience {
+            width: 50%;
+            display: inline-block;
+            
+        }
+
+        .admin-jobreferral-list .admin-jobreferal-data-block-body .admin-jobreferal-data-onsite {
+            width: 50%;
+            display: inline-block;
+            margin-top: 5px;
+        }
+
+        .admin-jobreferral-list .admin-jobreferal-data-block-body .admin-jobreferal-data-candidate {
+            width: 49%;
+            display: inline-block;
+            margin-top:5px;
+        }
+
+        .admin-jobreferral-list .admin-jobreferal-data-block-body .admin-jobreferal-data-location {
+            width: 49%;
+            display: inline-block;
+            
+        }
+
+        .admin-jobreferral-list .admin-jobreferal-data-block-body span i {
+            color: #40D8D8;
+            font-size:15px;
+            margin-right:5px;
+        }
+
+    .admin-jobreferral-list .admin-jobreferal-data-block-footer {
+        text-align: right;
+    }
+
+    .admin-jobreferral-list .admin-jobreferal-data-status {
+        text-align: center;
+        display: inline-block;
+        width: 75px;
+        font-size: 14px;
+        color: #fff;
+        padding: 2px 0px;
+        border-radius: 3px 0px 0px 0px;
+    }
+
+        .admin-jobreferral-list .admin-jobreferal-data-status.Open {
+            background: green;
+        }
+
+        .admin-jobreferral-list .admin-jobreferal-data-status.Closed {
+            background: red;
+        }
+
+    .admin-jobreferral-list .res-admin-jobreferral-left button {
+        border-radius: 25px;
+        border: 1px solid #000000;
+        margin-right: 10px;
+    }
+
+        .admin-jobreferral-list .res-admin-jobreferral-left button.active {
+            background: #267EC4;
+            border: 0px solid;
+            color: #fff;
+        }
+
+.admin-jobreferralprocess-popup {
+    table-layout: fixed;
+    margin: 0 0%;
+}
+
+    .admin-jobreferralprocess-popup .left-data {
+        background: #3B94CD;
+        width: 22%;
+        color: #fff;
+        padding: 10px 10px;
+        border-right: 1px solid #524e4e;
+    }
+
+    .admin-jobreferralprocess-popup .right-data {
+        padding: 10px 10px;
+    }
+
+    .admin-jobreferralprocess-popup tr {
+        border: 1px solid #524e4e
+    }
+
+    .admin-jobreferralprocess-popup .right-data ul {
+        padding-left: 20px;
+    }
+
+#adminJobReferralProcessModal .modal-header {
+    padding: 0;
+    margin-bottom: 10px;
+    border-bottom: 0px;
+}
+
+#adminJobReferralProcessModal #JobReferralProcessModalLabel {
+    font-size: 21px;
+}
+
+#adminJobReferralProcessModal .modal-header button {
+    font-size: 14px;
+}
+
+.res-admin-jobreferral .main-content
+{
+    
+}
+#admin_candidatelist_jobreferal .canjref_thead
+{
+    background-color:
+}
+#admin_candidatelist_jobreferal .canjref_thead {
+    background-color: #267EC4;
+    padding:5px 10px;;
+    font-size:14px;
+    color:white;
+}
+    #admin_candidatelist_jobreferal .canjref_thead th{
+        padding:5px 10px;
+    }
+.jobreffered_by_image
+{
+    height:38px;
+    width:38px;
+    border-radius:50%;
+}
+#admin_candidatelist_jobreferal .odd {
+    background-color: #FFFFFF !important;
+}
+
+#admin_candidatelist_jobreferal .even {
+    background-color: #EBFAFF !important;
+}
+.admin-jobreferral-list {
+    margin-top: 20px;
+    margin-left:0px;
+}
+.admin-jobreferal-data-options {
+    display: inline-block;
+    margin-right: 10px;
+}
+
+.admin-jobreferal-data-block {
+    position: relative;
+}
+
+.admin-jobreferal-dataoptions {
+    display: none;
+    left: 86%;
+    cursor: pointer;
+    position: absolute;
+    background-color: white;
+    border: 1px solid #ddd;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.15);
+    z-index: 1000;
+    margin-top: 0px;
+    width: 55px;
+}
+
+    .admin-jobreferal-dataoptions a {
+        display: block;
+        padding: 2px 4px;
+        color: #333;
+        text-decoration: none;
+    }
+
+        .admin-jobreferal-dataoptions a:hover {
+            background-color: #f8f9fa;
+        }
+
+.btn_admin_postjobreferal {
+    color: white;
+    background-color: #3E78CF !important;
+}
+
+#adminJobReferral {
+    margin-top: 5px;
+}
+#admin_candidatelist_jobreferal
+{
+    width:100%;
+}
+.res-admin-jobreferral .main-content
+{
+    width:86%;
+}
+/*----Admin job referal style sheet ends here----*/
+/*-----Admin Job referal Details style sheet starts here-----*/
+.admin-jobreferral-detail-horizon {
+    height: auto;
+}
+
+    .admin-jobreferral-detail-horizon #adminJobReferralDetail {
+        background: white;
+        margin-left: 0;
+    }
+
+        .admin-jobreferral-detail-horizon #adminJobReferralDetail .admin-jobreferral-detail-left {
+        }
+
+            .admin-jobreferral-detail-horizon #adminJobReferralDetail .admin-jobreferral-detail-left .title-block-left {
+                display: inline-block;
+                width: 70%;
+                font-size: 24px;
+                font-weight: bold;
+            }
+
+            .admin-jobreferral-detail-horizon #adminJobReferralDetail .admin-jobreferral-detail-left .title-block-right {
+                display: inline-block;
+                width: 29%;
+                text-align: right;
+            }
+
+                .admin-jobreferral-detail-horizon #adminJobReferralDetail .admin-jobreferral-detail-left .title-block-right .btn {
+                    background: #267EC4;
+                    color: #fff;
+                    border-radius: 25px;
+                }
+
+            .admin-jobreferral-detail-horizon #adminJobReferralDetail .admin-jobreferral-detail-left .admin-jobreferral-detail-work-block {
+                margin-bottom: 10px;
+            }
+
+            .admin-jobreferral-detail-horizon #adminJobReferralDetail .admin-jobreferral-detail-left .admin-jobreferral-detail-desc-block .admin-jobreferral-detail-desc-title {
+                font-weight: bold;
+                margin-bottom: 10px;
+            }
+
+            .admin-jobreferral-detail-horizon #adminJobReferralDetail .admin-jobreferral-detail-left .admin-jobreferral-detail-type-block {
+                border: 1px solid;
+                border-radius: 10px;
+                padding: 15px 5px;
+            }
+
+                .admin-jobreferral-detail-horizon #adminJobReferralDetail .admin-jobreferral-detail-left .admin-jobreferral-detail-type-block .admin-jobreferral-detail-type-title {
+                    font-weight: bold;
+                }
+
+                .admin-jobreferral-detail-horizon #adminJobReferralDetail .admin-jobreferral-detail-left .admin-jobreferral-detail-type-block .admin-jobreferral-detail-type-info {
+                    margin-bottom: 10px;
+                }
+
+                .admin-jobreferral-detail-horizon #adminJobReferralDetail .admin-jobreferral-detail-left .admin-jobreferral-detail-type-block .btn {
+                    background: #267EC4;
+                    color: #fff;
+                    border-radius: 25px;
+                    margin-top: 10px;
+                }
+
+    .admin-jobreferral-detail-horizon .admin-jobreferral-detail-type-info.admin-job-ref-btn {
+        text-align: right;
+        padding-right: 0;
+    }
+.admin-jobreferal-details {
+    height: auto;
+    background-color: #E3E9F1;
+    padding:15px;
+}
+.admin-jobreferral-detail-track-left .userIcon {
+    border: 1px solid transparent;
+    background-color: #267EC4;
+    border-radius:50%;
+    text-align:center;
+    height:50px;
+    width:50px;
+}
+    .admin-jobreferral-detail-track-left .userIcon .admin-jobreferral-detail-track-image
+    {
+        padding-top:12px;
+    }
+.admin-jobreferral-detail-track-left .status-line {
+    border-left: 4px solid #267EC4;
+    height: 40px;
+    margin-left: 23px;
+}
+.admin-jobreferral-detail-title
+{
+    font-size:18px;
+    font-weight:700;
+    margin-bottom:10px;
+}
+.admin-jobreferral-detail-track-mid span{
+    font-size:14px;
+}
+.postjob_submitbtn {
+    padding-top: 10px;
+}
+.adminadd-postjob {
+    margin-top: 20px;
+    padding: 0px
+}
+.admin-jobreferral {
+    margin-top: 20px;
+    padding: 0px
+}
+#adminJobReferralProcessModal {
+    align-content: center;
+}
+
+/* Admin job referal detailed end */
+.pointer{
+    cursor:pointer;
+}
+/*  Admin Responsive view for Job Referal Listing Page Start*/
+@media (max-width:375px) {
+    .admin-jobreferral-list {
+        margin-top:70px;
+    }
+    .admin-jobreferral-title h4{
+        font-size:22px;
+    }
+    .btn_admin_postjobreferal
+    {
+        font-size:15px;
+    }
+    .admin-jobreferral-list .res-admin-jobreferral-left button
+    {
+        margin-right:5px;
+        font-size:12px;
+    }
+    .admin-jobreferral-list .admin-jobreferal-data-block
+    {
+        width:100%;
+    }
+    .postjob_submitbtn {
+        padding-left: 0px;
+        padding-top: 5px;
+        padding-bottom:10px;
+    }
+    .adminadd-postjob {
+        margin-top: 70px;
+    }
+    .admin-jobreferral-list .admin-jobreferal-data-block-body .admin-jobreferal-data-experience {
+        width: 100%;
+    }
+    .admin-jobreferral-list .admin-jobreferal-data-block-body .admin-jobreferal-data-onsite
+    {
+        margin-top:0px;
+    }
+    .admin-jobreferral-list .admin-jobreferal-data-block-body .admin-jobreferal-data-candidate
+    {
+        margin-top:0px;
+    }
+    #adminJobReferral
+    {
+        padding-bottom:10px;
+    }
+    .admin-jobreferal-dataoptions
+    {
+        left:73%;
+    }
+    #adminJobReferralDeleteModal .modal-header {
+        padding: 0px;
+        padding-right: 10px;
+    }
+        #adminJobReferralDeleteModal .modal-footer .btn-secondary
+        {
+            font-size:12px;
+        }
+    #adminJobReferralDeleteModal .modal-footer .delete-jobreferaldelete {
+        font-size: 12px;
+    }
+    #adminJobReferralDeleteModal {
+        align-content: center;
+    }
+    .admin-jobreferral {
+        margin-top: 80px;
+        padding: 0px
+    }
+    .admin-jobreferral-detail-track-mid
+    {
+        padding-left:30px;
+    }
+    #admin_candidatelist_jobreferal_wrapper
+    {
+        overflow-y:auto;
+    }
+    #admin_candidatelist_jobreferal
+    {
+        width:400%;
+    }
+}
+@media (min-width:321px) and (max-width:375px)
+{
+    .admin-jobreferal-dataoptions {
+        left: 78%;
+    }
+}
+@media (min-width:376px) and (max-width:425px)
+{
+    .admin-jobreferral-list {
+        margin-top: 70px;
+    }
+        .admin-jobreferral-list .admin-jobreferal-data-block
+        {
+            width:100%
+        }
+    .admin-jobreferal-dataoptions {
+        left: 81%;
+    }
+    #adminJobReferralDeleteModal {
+        align-content: center;
+    }
+    #admin_candidatelist_jobreferal_wrapper {
+        overflow-y: auto;
+        
+    }
+    #admin_candidatelist_jobreferal {
+        width: 250%;
+    }
+    .admin-jobreferral {
+        margin-top: 70px;
+        padding: 0px
+    }
+    .adminadd-postjob {
+        margin-top: 70px;
+    }
+    .admin-jobreferral-detail-track-mid {
+        padding-left: 20px;
+    }
+}
+@media (min-width:426px) and (max-width:600px)
+{
+    .admin-jobreferral-list {
+        margin-top: 70px;
+    }
+
+        .admin-jobreferral-list .admin-jobreferal-data-block {
+            width: 100%
+        }
+    .adminadd-postjob {
+        margin-top: 70px;
+    }
+    .admin-jobreferral {
+        margin-top: 70px;
+        padding: 0px
+    }
+    .admin-jobreferral-detail-track-mid {
+        padding-left: 30px;
+    }
+    #admin_candidatelist_jobreferal_wrapper {
+        overflow-y: auto;
+    }
+    #admin_candidatelist_jobreferal {
+        width: 180%;
+    }
+    #adminJobReferralDeleteModal {
+        align-content: center;
+    }
+}
+@media (min-width:601px) and (max-width:700px)
+{
+    .admin-jobreferral-list {
+        margin-top: 70px;
+    }
+
+        .admin-jobreferral-list .admin-jobreferal-data-block {
+            width: 100%
+        }
+
+    .adminadd-postjob {
+        margin-top: 70px;
+    }
+
+    .admin-jobreferral {
+        margin-top: 70px;
+        padding: 0px
+    }
+
+    .admin-jobreferral-detail-track-mid {
+        padding-left: 30px;
+    }
+
+    #admin_candidatelist_jobreferal_wrapper {
+        overflow-y: auto;
+    }
+
+    #admin_candidatelist_jobreferal {
+        width: 150%;
+    }
+
+    #adminJobReferralDeleteModal {
+        align-content: center;
+    }
+    .admin-jobreferal-dataoptions {
+        left: 89%;
+    }
+}
+@media (min-width:701px) and (max-width:767px) {
+    .admin-jobreferral-list {
+        margin-top: 70px;
+    }
+
+        .admin-jobreferral-list .admin-jobreferal-data-block {
+            width: 100%
+        }
+
+    .adminadd-postjob {
+        margin-top: 70px;
+    }
+
+    .admin-jobreferral {
+        margin-top: 70px;
+        padding: 0px
+    }
+
+    .admin-jobreferral-detail-track-mid {
+        padding-left: 30px;
+    }
+
+    #admin_candidatelist_jobreferal_wrapper {
+        overflow-y: auto;
+    }
+
+    #admin_candidatelist_jobreferal {
+        width: 120%;
+    }
+
+    #adminJobReferralDeleteModal {
+        align-content: center;
+    }
+
+    .admin-jobreferal-dataoptions {
+        left: 90%;
+    }
+}
+@media (min-width:768px) and (max-width:900px) {
+   
+
+    .admin-jobreferral {
+        padding: 0px
+    }
+
+    .admin-jobreferral-detail-track-mid {
+        padding-left: 30px;
+    }
+
+    #admin_candidatelist_jobreferal_wrapper {
+        overflow-y: auto;
+    }
+
+    #admin_candidatelist_jobreferal {
+        width: 100%;
+    }
+
+    #adminJobReferralDeleteModal {
+        align-content: center;
+    }
+
+    .admin-jobreferal-dataoptions {
+        left: 87%;
+    }
+}
+@media (min-width:768px) and (max-width:800px) {
+    .admin-jobreferral-list .admin-jobreferal-data-block {
+        width:100%;
+    }
+}
+@media (min-width:801px) and (max-width:900px) {
+    .admin-jobreferral-list .admin-jobreferal-data-block {
+        width: 48%;
+    }
+    .admin-jobreferral-list .admin-jobreferal-data-block-body .admin-jobreferal-data-experience
+    {
+        width:100%;
+    }
+    .admin-jobreferal-dataoptions {
+        left: 75%;
+    }
+    .res-admin-jobreferral .main-content {
+        width: 78%;
+    }
+    .admin-jobreferral-list .admin-jobreferal-data-block-body .admin-jobreferal-data-onsite
+    {
+        margin-top:0px;
+    }
+    .admin-jobreferral-list .admin-jobreferal-data-block-body .admin-jobreferal-data-candidate {
+        margin-top: 0px;
+    }
+}
+@media (width:1024px)
+{
+    .res-admin-jobreferral .main-content
+    {
+        width:81%;
+    }
+    .admin-jobreferral-list .admin-jobreferal-data-block-body .admin-jobreferal-data-location {
+        width: 40%
+    }
+
+    .admin-jobreferral-list .admin-jobreferal-data-block-body .admin-jobreferal-data-onsite {
+        width: 58%
+    }
+
+    .admin-jobreferral-list .admin-jobreferal-data-block-body .admin-jobreferal-data-experience {
+        width: 58%;
+    }
+
+    .admin-jobreferral-list .admin-jobreferal-data-block-body .admin-jobreferal-data-candidate {
+        width: 40%
+    }
+
+}
+@media (width:430px)
+{
+    #admin_candidatelist_jobreferal {
+        width: 250%;
+    }
+
+
+}
+@media (width:412px)
+{
+    .admin-jobreferral-list .admin-jobreferal-data-block-body .admin-jobreferal-data-location {
+        width: 40%
+    }
+
+    .admin-jobreferral-list .admin-jobreferal-data-block-body .admin-jobreferal-data-onsite {
+        width: 58%
+    }
+
+    .admin-jobreferral-list .admin-jobreferal-data-block-body .admin-jobreferal-data-experience {
+        width: 58%;
+    }
+
+    .admin-jobreferral-list .admin-jobreferal-data-block-body .admin-jobreferal-data-candidate {
+        width: 40%
+    }
+}
+@media (min-width:855px) and (max-width:900px) {
+    .admin-jobreferral-list .admin-jobreferal-data-block-body .admin-jobreferal-data-location {
+        width: 40%
+    }
+
+    .admin-jobreferral-list .admin-jobreferal-data-block-body .admin-jobreferal-data-onsite {
+        width: 58%
+    }
+
+    .admin-jobreferral-list .admin-jobreferal-data-block-body .admin-jobreferal-data-experience {
+        width: 58%;
+    }
+
+    .admin-jobreferral-list .admin-jobreferal-data-block-body .admin-jobreferal-data-candidate {
+        width: 40%
+    }
+}
+@media (min-width:901px) and (max-width:1020px) {
+
+
+    .admin-jobreferral {
+        padding: 0px
+    }
+
+    .admin-jobreferral-detail-track-mid {
+        padding-left: 30px;
+    }
+
+    #admin_candidatelist_jobreferal_wrapper {
+        overflow-y: auto;
+    }
+
+    #admin_candidatelist_jobreferal {
+        width: 100%;
+    }
+
+    #adminJobReferralDeleteModal {
+        align-content: center;
+    }
+
+    .admin-jobreferal-dataoptions {
+        left: 87%;
+    }
+
+    .admin-jobreferral-list .admin-jobreferal-data-block {
+        width: 48%;
+    }
+
+    .admin-jobreferral-list .admin-jobreferal-data-block-body .admin-jobreferal-data-location {
+        width: 40%
+    }
+
+    .admin-jobreferral-list .admin-jobreferal-data-block-body .admin-jobreferal-data-onsite {
+        width: 55%
+    }
+
+    .admin-jobreferral-list .admin-jobreferal-data-block-body .admin-jobreferal-data-experience {
+        width: 55%;
+    }
+
+    .admin-jobreferral-list .admin-jobreferal-data-block-body .admin-jobreferal-data-candidate {
+        width: 40%
+    }
+    
+}
+
+@media (min-width:1500px) 
+{
+    .admin-jobreferral-list .admin-jobreferal-data-block
+    {
+        width:32%
+    }
 }

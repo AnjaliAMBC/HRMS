@@ -31,7 +31,7 @@
         starttimeWithAmPm = checkInTime.ToString("hh:mm tt", System.Globalization.CultureInfo.InvariantCulture);
         showCheckInButton = true;
         previousdayortodaycheckinexist = true;
-        buttonDeafultbgcolor = "#C70000";
+        buttonDeafultbgcolor = "checkputcolor";
     }
 
     var ButtonDisabled = "";
@@ -50,7 +50,7 @@
         }
         else
         {
-            buttonDeafultbgcolor = "#C70000";
+            buttonDeafultbgcolor = "checkputcolor";
         }
 
         starttimeWithAmPm = checkInTime.ToString("hh:mm:ss tt", System.Globalization.CultureInfo.InvariantCulture);
@@ -81,8 +81,6 @@
 
     var currentUserSession = Session["SiteContext"] as HRMS.Models.SiteContextModel;
 
-    buttonDeafultbgcolor = buttonText == "Check In" ? "#3E78CF" : "#C70000";
-
     if ((Model.todayCheckInInfo.Signin_Time != null && Model.todayCheckInInfo.Signin_Time != DateTime.MinValue) && (Model.todayCheckInInfo.Signout_Time == DateTime.MinValue || Model.todayCheckInInfo.Signout_Time == null))
     {
         buttonText = "Check Out";
@@ -93,6 +91,8 @@
     {
         buttonDeafultbgcolor = "dh-attendance";
     }
+
+    buttonDeafultbgcolor = buttonText == "Check In" ? "dh-attendance" : "checkputcolor";
 
 }
 
@@ -161,8 +161,11 @@
         background: linear-gradient(to right, #FF554B, #EA2E24, #D11006);
         color: #fff;
         padding: 5px 7px;
-        margin-top: 5px;
+        margin-top: 14px;
         text-align: center;
+        cursor: pointer;
+        margin-bottom: 10px;
+        width: 75%;
     }
 </style>
 
@@ -228,116 +231,136 @@
 
         <div class="dashboard-body-block">
             <div class="row">
-                <div class="col-lg-12 col-md-12 col-sm-12 emp-dash-block-1">
-                    <div class="col-lg-4 col-md-6 col-sm-12 emp-dash-basic-info emp-dash-left-block">
-                        <div class="ed-blocks ed-birthday">
-                            <div class="ed-block-left ed-b-left"><img src="~/Assets/dashboard/birthday.png"></div>
-                            <div class="ed-block-right ed-b-right" data-toggle="modal" data-target="#emp-dash-birthday-popup">
-                                <div class="ed-block-1 ed-b-birthday">Birthday</div>
-                                <div class="ed-block-2 ed-b-celebration">
-                                    @(Model.Birthdays.Count() > 0 ? $"{Model.Birthdays.Count()} Celebration(s)" : "No birthdays today")
-                                </div>
-                            </div>
-                        </div>
-                        <div class="ed-blocks ed-work-anniversary">
-                            <div class="ed-block-left ed-b-left"><img src="~/Assets/dashboard/work-anniversary.png"></div>
-                            <div class="ed-block-right ed-b-right" data-toggle="modal" data-target="#emp-dash-workanniversary-popup">
-                                <div class="ed-block-1 ed-b-birthday">Work Anniversary</div>
-                                <div class="ed-block-2 ed-b-celebration">
-                                    @(Model.AnniversaryModel.Count() > 0 ? $"{Model.AnniversaryModel.Count()} Anniversary Celebration(s)" : "No anniversaries today")
-                                </div>
-
-                            </div>
-                        </div>
-                        <div class="ed-blocks ed-new-joiners">
-                            <div class="ed-block-left ed-b-left"><img src="~/Assets/dashboard/new-joiners.png"></div>
-                            <div class="ed-block-right ed-b-right" data-toggle="modal" data-target="#emp-dash-newjoiner-popup">
-                                <div class="ed-block-1 ed-b-birthday">New Joiners</div>
-                                <div class="ed-block-2 ed-b-celebration">   @(Model.NewJoiners.Count() > 0 ? $"{Model.NewJoiners.Count()} New Joiner(s)" : "No New Joiners")</div>
+                @*row start*@
+                <div class="col-lg-4 col-md-6 col-sm-12 emp-dash-basic-info emp-dash-left-block">
+                    <div class="ed-blocks ed-birthday">
+                        <div class="ed-block-left ed-b-left"><img src="~/Assets/dashboard/birthday.png"></div>
+                        <div class="ed-block-right ed-b-right" data-toggle="modal" data-target="#emp-dash-birthday-popup">
+                            <div class="ed-block-1 ed-b-birthday">Birthday</div>
+                            <div class="ed-block-2 ed-b-celebration">
+                                @(Model.Birthdays.Count() > 0 ? $"{Model.Birthdays.Count()} Celebration(s)" : "No birthdays today")
                             </div>
                         </div>
                     </div>
-                    <div class="col-lg-4 col-md-6 col-sm-12 emp-dash-basic-info emp-dash-middle-block emp-dash-attendance">
-                        <div class="emp-dash-block-header">
-                            <span class="header-title">Attendance</span>
-                            <span class="header-dropdown">
-                                @{
-                                    var months = DateHelper.GetAllMonths();
-                                    var currentMonth = DateTime.Now.Month;
+                    <div class="ed-blocks ed-work-anniversary">
+                        <div class="ed-block-left ed-b-left"><img src="~/Assets/dashboard/work-anniversary.png"></div>
+                        <div class="ed-block-right ed-b-right" data-toggle="modal" data-target="#emp-dash-workanniversary-popup">
+                            <div class="ed-block-1 ed-b-birthday">Work Anniversary</div>
+                            <div class="ed-block-2 ed-b-celebration">
+                                @(Model.AnniversaryModel.Count() > 0 ? $"{Model.AnniversaryModel.Count()} Anniversary Celebration(s)" : "No anniversaries today")
+                            </div>
 
+                        </div>
+                    </div>
+                    <div class="ed-blocks ed-new-joiners">
+                        <div class="ed-block-left ed-b-left"><img src="~/Assets/dashboard/new-joiners.png"></div>
+                        <div class="ed-block-right ed-b-right" data-toggle="modal" data-target="#emp-dash-newjoiner-popup">
+                            <div class="ed-block-1 ed-b-birthday">New Joiners</div>
+                            <div class="ed-block-2 ed-b-celebration">   @(Model.NewJoiners.Count() > 0 ? $"{Model.NewJoiners.Count()} New Joiner(s)" : "No New Joiners")</div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-4 col-md-6 col-sm-12 emp-dash-basic-info emp-dash-middle-block emp-dash-attendance">
+                    <div class="emp-dash-block-header">
+                        <span class="header-title">Attendance</span>
+                        <span class="header-dropdown">
+                            @{
+                                var months = DateHelper.GetAllMonths();
+                                var currentMonth = DateTime.Now.Month;
+
+                            }
+                            <select name="emp-dash-attendance-yearly" id="emp-dash-attedence-chart">
+                                @foreach (var month in months)
+                                {
+                                    <option value="@month.Number" @(month.Number == currentMonth ? "selected" : "")>@month.Name</option>
                                 }
-                                <select name="emp-dash-attendance-yearly" id="emp-dash-attedence-chart">
-                                    @foreach (var month in months)
-                                    {
-                                        <option value="@month.Number" @(month.Number == currentMonth ? "selected" : "")>@month.Name</option>
-                                    }
-                                </select>
-                            </span>
-                        </div>
-                        <div class="emp-dash-block-content">
-                            <canvas id="emp-dash-attendance" style="width:100%;max-width:100%"></canvas>
-                        </div>
+                            </select>
+                        </span>
+                    </div>
+                    <div class="emp-dash-block-content">
+                        <canvas id="emp-dash-attendance" style="width:100%;max-width:100%"></canvas>
+                    </div>
+                </div>
+
+                <div class="col-lg-4 col-md-6 col-sm-12 emp-dash-basic-info emp-dash-hr-announcements">
+                    <div class="emp-dash-block-header">
+                        <span class="header-title">HR Announcements</span>
+                        <span class="header-viewall"></span>
                     </div>
 
-                    <div class="col-lg-4 col-md-6 col-sm-12 emp-dash-basic-info emp-dash-hr-announcements">
-                        <div class="emp-dash-block-header">
-                            <span class="header-title">HR Announcements</span>
-                            <span class="header-viewall"></span>
-                        </div>
+                    @if (Model.EmpInfo.Location == "Hyderabad")
+                    {
                         <div class="emp-dash-block-content">
                             <div class="ed-hr-announcements-left">
                                 <p class="">Dear Team,</p>
                                 <p class="">Wishing you all a wounderful day!</p>
-                                <p class="">As the festive season of Diwali approaches, we are excited to announce that 25th October 2024(Friday) will be celebrated as Ethnic Wear Day in the office</p>
+                                <p class="">Coming Soon..!!</p>
+                                @*<div class="ed-hr-announcements-view" data-toggle="modal" data-target="#emp-dash-hr-announcement-popup">View</div>*@
+                            </div>
+                            <div class="ed-hr-announcements-right">
+                                <img src="~/Assets/dashboard/Hyderabad.png">
+                            </div>
+                        </div>
+                    }
+                    else
+                    {
+                        <div class="emp-dash-block-content">
+                            <div class="ed-hr-announcements-left">
+                                <p class="">Dear Team,</p>
+                                <p class="">Wishing you all a wounderful day!</p>
+                                <p class="">We are excited to announce that AMBC Excel & Energize 2024 🏆 our annual sports event, is scheduled to take place on 23rd November 2024(Saturday).</p>
                                 <div class="ed-hr-announcements-view" data-toggle="modal" data-target="#emp-dash-hr-announcement-popup">View</div>
                             </div>
                             <div class="ed-hr-announcements-right">
-                                <img src="~/Assets/dashboard/hr-diwali.png">
+                                <img src="~/Assets/dashboard/Madurai.jfif">
                             </div>
                         </div>
+                    }
+
+                </div>
+
+
+
+
+
+                <div class="col-lg-4 col-md-6 col-sm-12 emp-dash-basic-info emp-dash-upcoming-holidays">
+                    <div class="emp-dash-block-header">
+                        <span class="header-title">Upcoming Holidays</span>
+                        <span class="header-viewall all-holidays-list">View All <i class="far fa-arrow-alt-circle-right"></i></span>
+                    </div>
+                    <div class="emp-dash-block-content">
+
+                        @foreach (HRMS.Models.EmployeeEvent.UpcomingHoliday holiday in @Model.UpcomingHolidays)
+                        {
+                            if (@holiday.HolidayDate != DateTime.MinValue)
+                            {
+                                <div class="emp-dash-upcoming-holidays-block">
+                                    <div class="emp-upcoming-left">
+                                        <div class="holiday-name">@holiday.HolidayName</div>
+                                        <div class="holiday-date smalltext">@holiday.HolidayDate.ToString("dd MMMM dddd")</div>
+                                    </div>
+                                    <a class="dashhoiday_description Emp-CompOffRequest"
+                                       data-leavenumber="@holiday.HolidayNo"
+                                       data-location="@holiday.Region">
+                                        <div class="emp-upcoming-right">
+                                            <i class="fas fa-chevron-right"></i>
+                                        </div>
+                                    </a>
+                                </div>}
+                        }
                     </div>
 
                 </div>
-            </div>
 
-            <div class="row">
-                <div class="col-lg-12 col-md-12 col-sm-12 emp-dash-block-2">
-                    <div class="col-lg-4 col-md-6 col-sm-12 emp-dash-basic-info emp-dash-upcoming-holidays">
-                        <div class="emp-dash-block-header">
-                            <span class="header-title">Upcoming Holidays</span>
-                            <span class="header-viewall all-holidays-list">View All <i class="far fa-arrow-alt-circle-right"></i></span>
-                        </div>
-                        <div class="emp-dash-block-content">
-
-                            @foreach (HRMS.Models.EmployeeEvent.UpcomingHoliday holiday in @Model.UpcomingHolidays)
-                            {
-                                if (@holiday.HolidayDate != DateTime.MinValue)
-                                {
-                    <div class="emp-dash-upcoming-holidays-block">
-                        <div class="emp-upcoming-left">
-                            <div class="holiday-name">@holiday.HolidayName</div>
-                            <div class="holiday-date smalltext">@holiday.HolidayDate.ToString("dd MMMM dddd")</div>
-                        </div>
-                        <a class="dashhoiday_description Emp-CompOffRequest"
-                           data-leavenumber="@holiday.HolidayNo"
-                           data-location="@holiday.Region">
-                            <div class="emp-upcoming-right">
-                                <i class="fas fa-chevron-right"></i>
-                            </div>
-                        </a>
-                    </div>}
-                                }
-                        </div>
-                                               
+                <div class="col-lg-4 col-md-6 col-sm-12 emp-dash-basic-info emp-dash-recent-tickets">
+                    <div class="emp-dash-block-header">
+                        <span class="header-title ticket-list" style="cursor:pointer">Recent Tickets</span>
                     </div>
+                    <div class="emp-dash-block-content">
 
-                    <div class="col-lg-4 col-md-6 col-sm-12 emp-dash-basic-info emp-dash-recent-tickets">
-                        <div class="emp-dash-block-header">
-                            <span class="header-title">Recent Tickets</span>
-                        </div>
-                        <div class="emp-dash-block-content">
-
-                            @foreach (var myTicket in Model.MyTickets)
+                        @if (Model != null && Model.MyTickets.Any())
+                        {
+                            foreach (var myTicket in Model.MyTickets)
                             {
                                 <div class="emp-dash-recent-tickets-block">
                                     <div class="emp-recent-tickets-left">
@@ -346,141 +369,152 @@
                                     <div class="emp-recent-tickets-right">
                                         <div class="recent-tickets-title">@myTicket.Subject</div>
                                         <div class="recent-tickets-info">
-                                            <span class="recent-tickets-info-left"><img src="/Assets/dashboard/iconoir-priority-high.png"><span class="emp-ticket-priority-label">Priority</span> - <span class="emp-ticket-priority-status @HRMS.Helpers.TicketingHelper.GetPriorityColor(myTicket.Priority)">@myTicket.Priority</span></span>
-                                            <span class="recent-tickets-info-right"><img src="/Assets/ei_user.png"> <span class="emp-ticket-priority-label">Status</span> <span class="emp-ticket-priority-status @HRMS.Helpers.TicketingHelper.GetTicketStatusCssClass(myTicket.Status)">@myTicket.Status</span></span>
+                                            <span class="recent-tickets-info-left"><img src="/Assets/dashboard/iconoir-priority-high.png"><span class="emp-ticket-priority-label">Priority</span> - <span class="emp-ticket-priority-status" style="color: #267EC4">@myTicket.Priority</span></span>
+                                            <span class="recent-tickets-info-right"><img src="/Assets/ei_user.png"> <span class="emp-ticket-priority-label">Status</span> <span class="emp-ticket-priority-status @HRMS.Helpers.TicketingHelper.GetTicketStatusDashClass(myTicket.Status)">@myTicket.Status</span></span>
                                         </div>
                                     </div>
                                 </div>
                             }
+                        }
+                        else
+                        {
+                            <div class="emp-dash-recent-tickets-block">
+                                No tickets!
+                            </div>
 
-                            @*<div class="emp-dash-recent-tickets-block">
-                                    <div class="emp-recent-tickets-left">
-                                        <div class="emp-ticket-navbar">IT</div>
+                        }
+
+
+                        @*<div class="emp-dash-recent-tickets-block">
+                                <div class="emp-recent-tickets-left">
+                                    <div class="emp-ticket-navbar">IT</div>
+                                </div>
+                                <div class="emp-recent-tickets-right">
+                                    <div class="recent-tickets-title">System Not Working</div>
+                                    <div class="recent-tickets-info">
+                                        <span class="recent-tickets-info-left"><img src="/Assets/dashboard/iconoir-priority-high.png"><span class="emp-ticket-priority-label">Priority</span> - <span class="emp-ticket-priority-status priority-medium">Medium</span></span>
+                                        <span class="recent-tickets-info-right"><img src="/Assets/ei_user.png"> <span class="emp-ticket-priority-label">Status</span> <span class="emp-ticket-priority-status status-closed">Closed</span></span>
                                     </div>
-                                    <div class="emp-recent-tickets-right">
-                                        <div class="recent-tickets-title">System Not Working</div>
-                                        <div class="recent-tickets-info">
-                                            <span class="recent-tickets-info-left"><img src="/Assets/dashboard/iconoir-priority-high.png"><span class="emp-ticket-priority-label">Priority</span> - <span class="emp-ticket-priority-status priority-medium">Medium</span></span>
-                                            <span class="recent-tickets-info-right"><img src="/Assets/ei_user.png"> <span class="emp-ticket-priority-label">Status</span> <span class="emp-ticket-priority-status status-closed">Closed</span></span>
-                                        </div>
-                                    </div>
-                                </div>*@
-                        </div>
+                                </div>
+                            </div>*@
                     </div>
-
-                    <div class="col-lg-4 col-md-6 col-sm-12 emp-dash-basic-info emp-dash-right-block emp-dash-management">
-                        <div class="ed-blocks ed-learning-management">
-                            <div class="ed-block-left ed-b-left"><img src="~/Assets/dashboard/circum_laptop.png"></div>
-                            <div class="ed-block-right ed-b-right">
-                                <div class="ed-block-1 ed-b-learning-management">Learning Management System</div>
-                            </div>
-                        </div>
-                        <div class="ed-blocks ed-policies">
-                            <div class="ed-block-left ed-b-left"><img src="~/Assets/dashboard/fluent-mdl2_entitlement-policy.png"></div>
-                            <div class="ed-block-right ed-b-right">
-                                <div class="ed-block-1 ed-b-policies">Policies</div>
-                            </div>
-                        </div>
-                        <div class="ed-blocks ed-job-referal">
-                            <div class="ed-block-left ed-b-left"><img src="~/Assets/dashboard/hugeicons_job-share.png"></div>
-                            <div class="ed-block-right ed-b-right">
-                                <div class="ed-block-1 ed-b-job-referal">Job Referral</div>
-                            </div>
-                        </div>
-                    </div>
-
-                    @*<div class="col-lg-4 col-md-6 col-sm-12 emp-dash-basic-info emp-dash-hours-spent">
-                            <div class="emp-dash-block-header">
-                                <span class="header-title">Hours Spent</span>
-                                <span class="header-dropdown">
-                                    <select name="emp-dash-hours-spent-yearly" id="emp-dash-hours-spent-yearly">
-                                        <option value="2024">2024</option>
-                                        <option value="2025">2025</option>
-                                    </select>
-                                </span>
-                            </div>
-                            <div class="emp-dash-block-content">
-                                <canvas id="emp-dash-hours-spent" style="width:100%;max-width:100%"></canvas>
-                            </div>
-                        </div>*@
-
                 </div>
-            </div>
 
-            <div class="row">
-                <div class="col-lg-12 col-md-12 col-sm-12 emp-dash-block-3">
-                    <div class="col-lg-8 col-md-6 col-sm-12 emp-dash-basic-info emp-dash-leave">
+                <div class="col-lg-4 col-md-6 col-sm-12 emp-dash-basic-info emp-dash-right-block emp-dash-management">
+                    <div class="ed-blocks ed-learning-management pointer">
+                        <div class="ed-block-left ed-b-left"><img src="~/Assets/dashboard/circum_laptop.png"></div>
+                        <div class="ed-block-right ed-b-right">
+                            <div class="ed-block-1 ed-b-learning-management" style="cursor:pointer">Learning Management System</div>
+                        </div>
+                    </div>
+                    <div class="ed-blocks ed-policies pointer">
+                        <div class="ed-block-left ed-b-left"><img src="~/Assets/dashboard/fluent-mdl2_entitlement-policy.png"></div>
+                        <div class="ed-block-right ed-b-right">
+                            <a href="~/Assets/Policies/Handbook.pdf" target="_blank" style="text-decoration: none;">
+                                <div class="ed-block-1 ed-b-policies" style="cursor:pointer">Handbook</div>
+                            </a>
+                        </div>
+                    </div>
+                    <div class="ed-blocks ed-job-referal pointer">
+                        <div class="ed-block-left ed-b-left"><img src="~/Assets/dashboard/hugeicons_job-share.png"></div>
+                        <div class="ed-block-right ed-b-right">
+                            <div class="ed-block-1 ed-b-job-referal" style="cursor:pointer">Job Referral</div>
+                        </div>
+                    </div>
+                </div>
 
+                @*<div class="col-lg-4 col-md-6 col-sm-12 emp-dash-basic-info emp-dash-hours-spent">
                         <div class="emp-dash-block-header">
-                            <div class="header-title">
-                                <span class="header-title">Leaves</span>
-                            </div>
+                            <span class="header-title">Hours Spent</span>
+                            <span class="header-dropdown">
+                                <select name="emp-dash-hours-spent-yearly" id="emp-dash-hours-spent-yearly">
+                                    <option value="2024">2024</option>
+                                    <option value="2025">2025</option>
+                                </select>
+                            </span>
                         </div>
                         <div class="emp-dash-block-content">
-                            <div class="container text-center my-0 leave-container p-0">
-                                <div class="leaveslider-container">
-                                    <div class="leaveslider-wrapper">
-                                        @foreach (var leaveType in Model.LeavesTypeInfo.LeaveTypes)
+                            <canvas id="emp-dash-hours-spent" style="width:100%;max-width:100%"></canvas>
+                        </div>
+                    </div>*@
+
+
+
+
+
+
+                <div class="col-lg-8 col-md-6 col-sm-12 emp-dash-basic-info emp-dash-leave">
+
+                    <div class="emp-dash-block-header">
+                        <div class="header-title">
+                            <span class="header-title">Leave</span>
+                        </div>
+                    </div>
+                    <div class="emp-dash-block-content">
+                        <div class="container text-center my-0 leave-container p-0">
+                            <div class="leaveslider-container">
+                                <div class="leaveslider-wrapper">
+                                    @foreach (var leaveType in Model.LeavesTypeInfo.LeaveTypes)
+                                    {
+                                        foreach (var leave in leaveType.AvailableLeaves)
                                         {
-                                            foreach (var leave in leaveType.AvailableLeaves)
-                                            {
-                                                <div class="leaveslider-item">
-                                                    <div class="card">
-                                                        <div class="leave-icon @leave.DashBoardColorCode">@leave.ShortName</div>
-                                                        <h6 class="leave-title">@leave.Type</h6>
-                                                        <p class="leave-details">Available: @leave.Balance.ToString().Replace(".00", "").Replace(".0", "")</p>
-                                                        <p class="leave-details">Booked: @leave.Booked</p>
-                                                    </div>
+                                            <div class="leaveslider-item">
+                                                <div class="card">
+                                                    <div class="leave-icon @leave.DashBoardColorCode">@leave.ShortName</div>
+                                                    <h6 class="leave-title">@leave.Type</h6>
+                                                    <p class="leave-details">Available: @leave.Balance.ToString().Replace(".00", "").Replace(".0", "")</p>
+                                                    <p class="leave-details">Booked: @leave.Booked</p>
                                                 </div>
-                                            }
+                                            </div>
                                         }
-                                    </div>
-                                    <div class="leaveslider-control left" onclick="prevSlide()">
-                                        <i class="fa-solid fa-chevron-left"></i>
-                                    </div>
-                                    <div class="leaveslider-control right" onclick="nextSlide()">
-                                        <i class="fa-solid fa-chevron-right"></i>
-                                    </div>
+                                    }
+                                </div>
+                                <div class="leaveslider-control left" onclick="prevSlide()">
+                                    <i class="fa-solid fa-chevron-left"></i>
+                                </div>
+                                <div class="leaveslider-control right" onclick="nextSlide()">
+                                    <i class="fa-solid fa-chevron-right"></i>
                                 </div>
                             </div>
                         </div>
-
                     </div>
-                    <div class="col-lg-4 col-md-6 col-sm-12 emp-dash-basic-info emp-dash-calendar">
-                        <div class="emp-dash-block-header calendar-header">
-                            <div class="header-title">
-                                <h6 id="monthYear" class="mt-1 mb-0"></h6>
-                            </div>
-                            <div class="header-dropdown">
-                                <i class="fas fa-chevron-left chevron-icon ml-4" onclick="prevMonth()"></i>
-                                <i class="fas fa-chevron-right chevron-icon mr-1" onclick="nextMonth()"></i>
-                            </div>
-                        </div>
-                        <div class="emp-dash-block-content calendar-body">
-                            <table class="table">
-                                <thead>
-                                    <tr>
-                                        <th scope="col">Mon</th>
-                                        <th scope="col">Tue</th>
-                                        <th scope="col">Wed</th>
-                                        <th scope="col">Thu</th>
-                                        <th scope="col">Fri</th>
-                                        <th scope="col">Sat</th>
-                                        <th scope="col">Sun</th>
-                                    </tr>
-                                </thead>
-                                <tbody id="calendarBody"></tbody>
-                            </table>
-                        </div>
 
-                    </div>
                 </div>
-            </div>
+                <div class="col-lg-4 col-md-6 col-sm-12 emp-dash-basic-info emp-dash-calendar">
+                    <div class="emp-dash-block-header calendar-header">
+                        <div class="header-title">
+                            <h6 id="monthYear" class="mt-1 mb-0"></h6>
+                        </div>
+                        <div class="header-dropdown">
+                            <i class="fas fa-chevron-left chevron-icon ml-4" onclick="prevMonth()"></i>
+                            <i class="fas fa-chevron-right chevron-icon mr-1" onclick="nextMonth()"></i>
+                        </div>
+                    </div>
+                    <div class="emp-dash-block-content calendar-body">
+                        <table class="table">
+                            <thead>
+                                <tr>
+                                    <th scope="col">Mon</th>
+                                    <th scope="col">Tue</th>
+                                    <th scope="col">Wed</th>
+                                    <th scope="col">Thu</th>
+                                    <th scope="col">Fri</th>
+                                    <th scope="col">Sat</th>
+                                    <th scope="col">Sun</th>
+                                </tr>
+                            </thead>
+                            <tbody id="calendarBody"></tbody>
+                        </table>
+                    </div>
 
-
+                </div>
+            </div> @*row end*@
         </div>
 
+
     </div>
+
+
     @Html.Partial("_compoff", Model.Employees)
 
 
@@ -528,15 +562,15 @@
                                     <button type="button" class="btn btn-primary emp-dash-modal-send" data-notificationtype="Birthday" data-notificationtoid="@empBirthdayDisplay.EmpInfo.EmployeeID" data-notificationtoname="@empBirthdayDisplay.EmpInfo.EmployeeName">Send</button>
                                 </div>
                             </div>
-                                            }
-                                                        }
-                                                        else
-                                                        {
-                                                    <div class="no-birthdays-message" style="text-align: center; font-size: 16px; color: gray; padding: 80px 0;">
-                                                     No Birthdays Today
-                                                      </div>
-                                                }
-                                                                </div>
+                        }
+                    }
+                    else
+                    {
+                        <div class="no-birthdays-message" style="text-align: center; font-size: 16px; color: gray; padding: 80px 0;">
+                            No Birthdays Today
+                        </div>
+                    }
+                </div>
             </div>
         </div>
     </div>
@@ -588,9 +622,9 @@
                     }
                     else
                     {
-                <div class="no-anniversaries-message" style="text-align: center; font-size: 16px; color: gray; padding: 80px 0;">
-                    No Anniversaries Today
-                </div>}
+                        <div class="no-anniversaries-message" style="text-align: center; font-size: 16px; color: gray; padding: 80px 0;">
+                            No Anniversaries Today
+                        </div>}
                 </div>
             </div>
         </div>
@@ -662,14 +696,29 @@
                 </div>
                 <div class="modal-body">
                     <div class="ed-hr-announcements-left">
-                        <p class="">Dear Team,</p>
-                        <p class="">Wishing you all a wounderful day!</p>
-                        <p class="">As the festive season of Diwali approaches, we are excited to announce that 25th October 2024(Friday) will be celebrated as Ethnic Wear Day in the office</p>
-                        <p class="">Let's come together in traditional or ethnic attire of your choice</p>
-                        <p class="">Let's come together in traditional or ethnic attire of your choice</p>
+                        @if (Model.EmpInfo.Location == "Madurai")
+                        {
+                            <p class="">Dear Team,</p>
+                            <p class="">Wishing you all a wounderful day!</p>
+                            <p class="">We are excited to announce that AMBC Excel & Energize 2024 🏆 our annual sports event, is scheduled to take place on 23rd November 2024(Saturday).</p>
+                            <p class="">This event promises to be a day full of energy, enthusiasm, and team spirit, bringing us together to celebrate our competitive spirit.</p>
+                            <p class="">
+                                <b>Event Details:</b>
+                                <br />
+                                Date📅 : 23rd November 2024 (Saturday)
+                                <br />
+                                Location📍 : VVM Sports Academy
+                                <br />
+                                We encourage everyone to participate and represent yourselves in comfortable athletic attire and sports shoes with good grip to ensure your safety during the games and activities.
+                                <br />
+                                Mark your calendars and gear up for a day filled with joy, excitement, and memories to cherish!
+                                <br />
+                                Let’s come together and make AMBC Excel & Energize 2024 a grand success!
+                            </p>
+                        }
                     </div>
                     <div class="ed-hr-announcements-right">
-                        <img src="~/Assets/dashboard/hr-diwali.png">
+                        <img src="~/Assets/dashboard/Madurai.jfif">
                     </div>
                 </div>
             </div>
@@ -679,11 +728,12 @@
 
 </div>
 
+<span class="showcheckinbuttonpostcheckout" style="display: none">@showCheckInButton</span>
 @Html.Partial("EmployeeFooter")
 
 <script src="~/Scripts/z-EmpDash.js"></script>
 <script src="~/Scripts/z-empleave.js"></script>
-<script src="~/Scripts/z-notification.js"></script>
+
 <script>
     let currentIndex = 0;
 
@@ -734,6 +784,7 @@
 
 
 </script>
+<script src="~/Scripts/z-jobreferralscript.js"></script>
 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.4/Chart.js"></script>
 <script>
@@ -779,11 +830,13 @@
     });
 
 
-    $(document).on('click', '.ed-policies', function () {
-        window.location.href = '/EmpDash/Policies';
-    });
     $(document).on('click', '.all-holidays-list', function () {
-        window.location.href = '/EmpDash/Holidays';
+        window.location.href = '/empdash/holidays';
     });
+
+    $(document).on('click', '.ticket-list', function () {
+        window.location.href = '/empticketing/index';
+    });
+
 
 </script>

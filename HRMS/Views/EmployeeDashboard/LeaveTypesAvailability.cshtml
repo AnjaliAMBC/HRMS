@@ -3,25 +3,65 @@
 @{
     int index = 1;
 }
+
 @foreach (HRMS.Models.Employee.LeaveEmployee emp in Model.LeaveTypes)
 {
     foreach (HRMS.Models.Employee.AvailableLeaves availabilty in emp.AvailableLeaves)
     {
         var activeClass = index == 1 ? "active" : "";
+        var imagePath = ""; // Initialize variable to store image path based on leave type
+
+        // Use a switch statement to set the image path based on the leave type
+        switch (availabilty.Type)
+        {
+            case "Earned Leave":
+                imagePath = "~/Assets/leave/earned.png";
+                break;
+            case "Emergency Leave":
+                imagePath = "~/Assets/leave/emergency.png";
+                break;
+            case "Sick Leave":
+                imagePath = "~/Assets/leave/sick.png";
+                break;
+            case "Bereavement Leave":
+                imagePath = "~/Assets/leave/bereavement.png";
+                break;
+            case "Marriage Leave":
+                imagePath = "~/Assets/leave/marriage.png";
+                break;
+            case "Maternity Leave":
+                imagePath = "~/Assets/leave/Maternity.png";
+                break;
+            case "Paternity Leave":
+                imagePath = "~/Assets/leave/Paternity.png";               
+                break;
+            case "Comp Off":
+                imagePath = "~/Assets/leave/CompOff.png";
+                break;
+            case "Hourly Permission":
+                imagePath = "~/Assets/leave/hourly-permission.png";
+                break;
+            default:
+                imagePath = "~/Assets/leave/default.png"; // Set a default image if none match
+                break;
+        }
+
         <div class="carousel-item carousel-leave-item @activeClass">
-            <div class="col-md-2 m-0">
+            <div class="m-0 emp-leave-carousel-blocks">
                 <div class="card card-body tracker-card @availabilty.ColorCode">
                     <h6 class="tracker-title">@availabilty.Type</h6>
 
-                    @if (@availabilty.Type == "Hourly Permission")
+                    <div class="emp-leave-icon"><img src="@Url.Content(imagePath)" alt="@availabilty.Type"></div>
+
+                    @if (availabilty.Type == "Hourly Permission")
                     {
-                        <p class="tracker-details">Available: @availabilty.Balance.ToString().Replace(".00", "") Hours</p>
-                        <p class="tracker-details">Booked: @availabilty.Booked.ToString().Replace(".00", "") Hours</p>
+                        <p class="tracker-details">Available @availabilty.Balance.ToString().Replace(".00", "") Hours</p>
+                        <p class="tracker-details">Booked @availabilty.Booked.ToString().Replace(".00", "") Hours</p>
                     }
                     else
                     {
-                        <p class="tracker-details">Available: @availabilty.Balance.ToString().Replace(".00", "") Days</p>
-                        <p class="tracker-details">Booked: @availabilty.Booked.ToString().Replace(".00", "") Days</p>
+                        <p class="tracker-details">Available @availabilty.Balance.ToString().Replace(".00", "") Days</p>
+                        <p class="tracker-details">Booked @availabilty.Booked.ToString().Replace(".00", "") Days</p>
                     }
                 </div>
             </div>

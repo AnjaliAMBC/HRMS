@@ -149,8 +149,8 @@ namespace HRMS.Controllers
                     worksheet.Cells[i + 2, 10].Value = data[i].Location ?? ""; // Location
 
                     // IssueDate
-                    worksheet.Cells[i + 2, 11].Value = data[i].IssueDate.HasValue
-                                                        ? data[i].IssueDate.Value.ToString("yyyy-MM-dd")
+                    worksheet.Cells[i + 2, 11].Value = data[i].AcknowledgeDate.HasValue
+                                                        ? data[i].AcknowledgeDate.Value.ToString("yyyy-MM-dd")
                                                         : "";
 
                     worksheet.Cells[i + 2, 12].Value = data[i].ProblemCategory ?? ""; // ProblemCategory
@@ -206,11 +206,14 @@ namespace HRMS.Controllers
                 {
                     for (int i = 0; i < employeeIDs.Length; i++)
                     {
+                        var empID = employeeIDs[i];
+                        var employee = _dbContext.emp_info.Where(x => x.EmployeeID == empID).FirstOrDefault();
+
                         var maintenance = new IT_Maintenance
                         {
-                            EmployeeID = employeeIDs[i],
-                            EmployeeName = employeeNames[i],
-                            EmailId = employeeEmails[i],
+                            EmployeeID = employee.EmployeeID,
+                            EmployeeName = employee.EmployeeName,
+                            EmailId = employee.OfficalEmailid,
                             Location = location,
                             AgentID = agentID,
                             AgentName = agentName,
@@ -432,8 +435,8 @@ namespace HRMS.Controllers
                     worksheet.Cells[i + 2, 10].Value = data[i].Location ?? "";
 
                     // IssueDate
-                    worksheet.Cells[i + 2, 11].Value = data[i].IssueDate.HasValue
-                                                        ? data[i].IssueDate.Value.ToString("yyyy-MM-dd")
+                    worksheet.Cells[i + 2, 11].Value = data[i].AcknowledgeDate.HasValue
+                                                        ? data[i].AcknowledgeDate.Value.ToString("yyyy-MM-dd")
                                                         : "";
 
                     worksheet.Cells[i + 2, 12].Value = data[i].ProblemCategory ?? "";

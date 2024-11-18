@@ -1,0 +1,226 @@
+﻿@model  List<HRMS.Models.Employee.LeaveInfo>
+
+
+
+<table id="leaveHistoryTable" class="table leave-history-table">
+    <thead>
+        <tr>
+            <th>Status</th>
+            <th>Leave Type</th>
+            <th>Date</th>
+            <th>Day(s)</th>
+            <th>Reason</th>
+            <th>Action</th>
+        </tr>
+    </thead>
+    <tbody>
+
+        @foreach (var leave in Model)
+        {
+            <tr class="rowBorder">
+                <td class="fontSmall empleave-status">
+
+                    @if (leave.LatestLeave.LeaveStatus.ToLowerInvariant() == "pending")
+                    {
+                        <span class="fontWtMedium " title="Pending"><img src="/Assets/Pending.png"></span>
+                    }
+
+
+                    @if (leave.LatestLeave.LeaveStatus.ToLowerInvariant() == "approved")
+                    {
+                        <span class="fontWtMedium " title="Approved"><img src="/Assets/Approve.png"></span>
+                    }
+
+                    @if (leave.LatestLeave.LeaveStatus.ToLowerInvariant() == "rejected")
+                    {
+                        <span class="fontWtMedium " title="Rejected"><img src="/Assets/reject.png"></span>
+                    }
+
+                    @if (leave.LatestLeave.LeaveStatus.ToLowerInvariant() == "cancelled")
+                    {
+                        <span class="fontWtMedium " title="Cancelled"><img src="~/Assets/Cancelled.png"></span>
+                    }
+
+                </td>
+                <td class="fontSmall dataMinWidth">
+                    <span class="fontWtbold">@leave.LatestLeave.leavesource</span>
+                </td>
+                <td class="fontSmall dataMinWidth dateMaxWidth">
+                    @if (leave.LatestLeave.Fromdate == leave.LatestLeave.Todate || leave.LatestLeave.leavesource.ToLowerInvariant() == "hourly permission")
+                    {
+                        var formattedDate = leave.LatestLeave.Fromdate.HasValue
+                    ? leave.LatestLeave.Fromdate.Value.ToString("dd MMMM yyyy")
+                    : "N/A";
+                        var dayOfWeek = leave.LatestLeave.Fromdate.HasValue
+                                        ? leave.LatestLeave.Fromdate.Value.ToString("dddd")
+                                        : "";
+
+
+                        <p class="mb-0 fontWtMedium">@formattedDate</p>
+                        <span class="mutedText">@dayOfWeek</span>
+
+                    }
+                    else
+                    {
+                        var formattedFromDate = leave.LatestLeave.Fromdate.HasValue
+                    ? leave.LatestLeave.Fromdate.Value.ToString("dd MMMM yyyy")
+                    : "N/A";
+                        var formattedToDate = leave.LatestLeave.Todate.HasValue
+                                              ? leave.LatestLeave.Todate.Value.ToString("dd MMMM yyyy")
+                                              : "N/A";
+
+                        var fromDay = leave.LatestLeave.Fromdate.HasValue
+                                      ? leave.LatestLeave.Fromdate.Value.ToString("dddd")
+                                      : "";
+                        var toDay = leave.LatestLeave.Todate.HasValue
+                                    ? leave.LatestLeave.Todate.Value.ToString("dddd")
+                                    : "";
+
+                        <p class="mb-0 fontWtMedium">
+                            @(formattedFromDate == formattedToDate
+            ? formattedFromDate
+            : $"{formattedFromDate} - {formattedToDate}")
+                        </p>
+                        <span class="mutedText">
+                            @(formattedFromDate == formattedToDate
+             ? fromDay
+            : $"{fromDay} - {toDay}")
+                        </span>
+                    }
+
+                </td>
+                <td class="fontSmall">
+
+                    @{
+                        string timespan = "";
+                        DateTime startDateTime, endDateTime;
+                    }
+                    @if (leave.LatestLeave.leavesource == "Hourly Permission"
+                        && leave.LatestLeave.StartTime.HasValue
+                        && leave.LatestLeave.EndTime.HasValue)
+                    {
+                        // Convert TimeSpan to DateTime at midnight (00:00) to apply AM/PM formatting
+                        startDateTime = DateTime.Today.Add(leave.LatestLeave.StartTime.Value);
+                        endDateTime = DateTime.Today.Add(leave.LatestLeave.EndTime.Value);
+
+                        // Format to 12-hour AM/PM format
+                        timespan = startDateTime.ToString("h:mm tt") + " - " + endDateTime.ToString("h:mm tt");
+
+                        <span class="fontWtMedium">@leave.TotalLeaveDays (@timespan)</span>
+                    }
+                    else
+                    {
+                        <span class="fontWtMedium">@leave.TotalLeaveDays</span>
+                    }                    
+
+                </td>
+
+                <td style="width: 420px;" class="fontSmall commentSec">
+                    <div class="dFlex d-flex">
+                        <p title="@leave.LatestLeave.leave_reason">@leave.LatestLeave.leave_reason</p>
+                    </div>
+                </td>
+
+                <td class="fontSmall position-relative">
+                    @{
+                        var today = DateTime.Now;
+                        var fromDateInDateFormat = leave.LatestLeave.Fromdate ?? DateTime.MinValue; // Use default if null
+                        var leaveStatus = leave.LatestLeave.LeaveStatus.ToLower();
+
+                        if (today > fromDateInDateFormat)
+                        {
+                            // If leave date has passed and status is 'pending', show 'Edit' option only
+                            if (leaveStatus == "pending")
+                            {
+                                <i class="fas fa-ellipsis-h leave-edit-history" onclick="toggleLeaveActionOptions(this)"></i>
+                                <div class="emp-leaveoptions" style="display:none">
+                                    <a class="dropdown-item emp-leave-edit" onclick="empleaveedit($(this))" data-leavename="@leave.LatestLeave.LeaveRequestName">Edit</a>
+                                </div>
+                            }
+                        }
+                        else
+                        {
+                            // If leave date is today or in the future and status is 'pending', show both 'Edit' and 'Cancel' options
+                            if (leaveStatus == "pending")
+                            {
+                                <i class="fas fa-ellipsis-v leave-edit-history" onclick="toggleLeaveActionOptions(this)"></i>
+                                <div class="emp-leaveoptions" style="display:none">
+                                    <a class="dropdown-item emp-leave-edit" onclick="empleaveedit($(this))" data-leavename="@leave.LatestLeave.LeaveRequestName">Edit</a>
+                                    <a class="dropdown-item emp-leave-cancel" onclick="empleavecancel($(this))" data-leavename="@leave.LatestLeave.LeaveRequestName">Cancel</a>
+                                </div>
+                            }
+                        }
+                    }
+                </td>
+
+
+
+                @*<td class="fontSmall position-relative">
+                        <i class="fas fa-ellipsis-v leave-edit-history" onclick="toggleLeaveActionOptions(this)"></i>
+                    </td>*@
+            </tr>
+
+        }
+
+
+        @*<tr class="rowBorder">
+                <td class="fontSmall empleave-status">
+                    <span class="fontWtMedium " title="Pending"><img src="/Assets/Pending.png"></span>
+                </td>
+                <td class="fontSmall dataMinWidth">
+                    <span class="fontWtbold">Sick Leave</span>
+                </td>
+                <td class="fontSmall dataMinWidth dateMaxWidth">
+                    <p class="mb-0 fontWtMedium">10 October 2024</p><span class="mutedText">Friday</span>
+                </td>
+                <td class="fontSmall">
+                    <span class="fontWtMedium">1 (10am - 11am)</span>
+                </td>
+                <td style="width: 420px;" class="fontSmall commentSec">
+                    <div class="dFlex d-flex">
+                        <p title="sdsds">dsfsdsa</p>
+                    </div>
+                </td>
+                <td class="fontSmall position-relative">
+                    <i class="fas fa-ellipsis-v leave-edit-history" onclick="toggleLeaveActionOptions(this)"></i>
+                    <div class="emp-leaveoptions" style="display:none">
+                        <a class="dropdown-item emp-leave-edit" onclick="empleaveedit($(this))" data-leavename='aa'>Edit</a>
+                        <a class="dropdown-item emp-leave-cancel" onclick="empleavecancel($(this))" data-leavename='aaa'>Cancel</a>
+                    </div>
+                </td>
+            </tr>*@
+    </tbody>
+</table>
+
+
+
+<script>
+
+    $(document).ready(function () {
+
+        function refreshEmpLeaveHistoryDataTable() {
+            if ($.fn.DataTable.isDataTable('#leaveHistoryTable')) {
+                $('#leaveHistoryTable').DataTable().destroy();
+            }
+
+            $('#leaveHistoryTable').DataTable({
+                "responsive": true,
+                "paging": true,
+                "searching": false,
+                "ordering": false,
+                "info": true,
+                "autoWidth": false,
+                "lengthMenu": [[10, 20, 50, -1], [10, 20, 50, "All"]]
+            });
+        }
+
+        refreshEmpLeaveHistoryDataTable();
+
+        $(document).on('ajaxComplete', function () {
+            refreshEmpLeaveHistoryDataTable();
+        });
+    });
+
+
+
+</script>

@@ -35,15 +35,67 @@ namespace HRMS.Controllers
         public ActionResult SelfService()
         {
             var model = new SelfServiceViewModel();
+
             if (Session["SiteContext"] != null)
             {
                 var siteContext = Session["SiteContext"] as SiteContextModel;
+                var employeeid = siteContext.EmpInfo.EmployeeID;
+
+                // Get the employee's asset
+                model.empAsset = _dbContext.Assets.FirstOrDefault(x => x.AllocatedEmployeeID == employeeid);
+
+                // Get the current year
+                int currentYear = DateTime.Now.Year;
+
+                // Filter maintenance records by the current year
+                model.empMaintanance = _dbContext.IT_Maintenance
+                                           .Where(x => x.EmployeeID == employeeid && x.MaintenanceDate.Value.Year == currentYear)
+                                           .ToList();
+
                 model.EmpInfo = siteContext.EmpInfo;
                 model.LoginInfo = siteContext.LoginInfo;
+
+
+                model.ITEmployees = _dbContext.emp_info.Where(x => x.Department == "IT").ToList();
+
                 return View("~/Views/EmployeeDashboard/SelfService.cshtml", model);
             }
+
             return null;
         }
+
+        public SelfServiceViewModel GetMaintenanceDataForYear(int year, string empID)
+        {
+            var model = new SelfServiceViewModel();
+            // Assuming you have a DbContext (e.g., HRMS_EntityFramework)
+            using (var context = new HRMS_EntityFramework())
+            {
+                // Query the database to get maintenance records for the given year
+
+                if (string.IsNullOrWhiteSpace(empID))
+                {
+                    model.empMaintanance = context.IT_Maintenance
+                      .Where(m => m.MaintenanceDate.HasValue && m.MaintenanceDate.Value.Year == year)
+                      .ToList();
+                }
+                else
+                {
+                    model.empMaintanance = context.IT_Maintenance
+                       .Where(m => m.MaintenanceDate.HasValue && m.MaintenanceDate.Value.Year == year && m.EmployeeID == empID)
+                      .ToList();
+                }
+            }
+
+            return model;
+        }
+
+        public ActionResult GetMaintenanceByYear(int year, string empID)
+        {
+            var model = new SelfServiceViewModel();
+            model = GetMaintenanceDataForYear(year, empID);  // Fetch data based on the year
+            return PartialView("_MaintenanceTableRows", model);
+        }
+
 
         [HttpPost]
         public JsonResult UploadImage(HttpPostedFileBase file)
@@ -125,6 +177,55 @@ namespace HRMS.Controllers
             {
                 model.JsonResponse = ErrorHelper.CaptureError(ex);
                 return Json(model, JsonRequestBehavior.AllowGet);
+            }
+        }
+        public ActionResult MaintananceAck(int Sno)
+        {
+            // Retrieve the maintenance record based on Sno
+            var maintenance = _dbContext.IT_Maintenance.FirstOrDefault(m => m.Sno == Sno);
+
+            if (maintenance == null)
+            {
+                // If no matching maintenance record is found, return an error or handle it as needed
+                return HttpNotFound();
+            }
+
+            // Pass the maintenance data to the view
+            return View("/Views/EmployeeDashboard/EmpMaintananceAcknowledge.cshtml", maintenance);
+        }
+
+        [HttpPost]
+        public ActionResult AcknowledgeMaintenance(string AcknowledgeDate, string ProblemCategory, string IssueFacing, string NewAssetRequirement, string Acknowledge, int Sno)
+        {
+            using (var context = new HRMS_EntityFramework())
+            {
+                // Find the maintenance record by Sno
+                var maintenanceRecord = context.IT_Maintenance.FirstOrDefault(m => m.Sno == Sno);
+
+                if (maintenanceRecord != null)
+                {
+                    if (maintenanceRecord.AcknowledgeDate != null && maintenanceRecord.AcknowledgeDate != DateTime.MinValue)
+                    {
+                        return Json(new { success = true, message = "You've already acknowledged!" });
+                    }
+                    // Update the fields with the provided values
+                    maintenanceRecord.AcknowledgeDate = string.IsNullOrEmpty(AcknowledgeDate)
+                        ? (DateTime?)null
+                        : DateTime.Parse(AcknowledgeDate);
+                    maintenanceRecord.ProblemCategory = ProblemCategory;
+                    maintenanceRecord.IssueFacing = IssueFacing;
+                    maintenanceRecord.NewAssetRequirement = NewAssetRequirement;
+                    maintenanceRecord.Acknowledge = Acknowledge.Equals("Yes", StringComparison.OrdinalIgnoreCase) ? "Yes" : "No";
+
+                    // Save changes to the database
+                    context.SaveChanges();
+
+                    return Json(new { success = true, message = "Maintenance successfully acknowledged!" }); // Return a success message
+                }
+                else
+                {
+                    return Json(new { success = false, message = "No record found." }); // Handle record not found
+                }
             }
         }
 

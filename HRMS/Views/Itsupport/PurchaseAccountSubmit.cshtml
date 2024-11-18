@@ -9,7 +9,7 @@
     string ApprovedvendorName = "";
     string ApprovedvendorEmail = "";
     string ApprovedvendorFile = "";
-    decimal ApprovedvendorPrice = 0;
+    String ApprovedvendorPrice = "0";
 
     if (Model.Vendor1Status == "Approved")
     {
@@ -17,7 +17,7 @@
         ApprovedvendorName = Model.VendorName1;
         ApprovedvendorEmail = Model.VendorEmail1;
         ApprovedvendorFile = Model.AttachFile1;
-        ApprovedvendorPrice = Model.QuotationPrice1;
+        ApprovedvendorPrice = !string.IsNullOrEmpty(Model.QuotationPrice1) ? Model.QuotationPrice1 : "0";
     }
 
     if (Model.Vendor2Status == "Approved")
@@ -26,7 +26,7 @@
         ApprovedvendorName = Model.VendorName2;
         ApprovedvendorEmail = Model.VendorEmail2;
         ApprovedvendorFile = Model.AttachFile2;
-        ApprovedvendorPrice = Model.QuotationPrice2.HasValue ? Model.QuotationPrice2.Value : 0;
+        ApprovedvendorPrice = !string.IsNullOrEmpty(Model.QuotationPrice2) ? Model.QuotationPrice2 : "0";
     }
 
     if (Model.Vendor3Status == "Approved")
@@ -35,7 +35,7 @@
         ApprovedvendorName = Model.VendorName3;
         ApprovedvendorEmail = Model.VendorEmail3;
         ApprovedvendorFile = Model.AttachFile3;
-        ApprovedvendorPrice = Model.QuotationPrice3.HasValue ? Model.QuotationPrice3.Value : 0;
+        ApprovedvendorPrice = !string.IsNullOrEmpty(Model.QuotationPrice3) ? Model.QuotationPrice3 : "0";
     }
 }
 

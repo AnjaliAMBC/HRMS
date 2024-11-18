@@ -1,337 +1,141 @@
 ﻿@model HRMS.Models.Employee.EmpAttedenceModel
 
-@Html.Partial("_NavBar")
-<div class="container-fluid emp-attendance">
-    @Html.Partial("_empsidemenu")
-    <div class="main-content container-fluid" style="width: 84%">
-        <div class="hiddenempdashboard" style="display: none"></div>
-        <div class="content attedance-dashboard-data" style="margin-top: 20px;">
-            <div class="empattendence-container">
+@Html.Partial("_EmployeeNavbar")
 
-                <style>
-                    .attendence-title {
-                        display: inline-block;
-                        vertical-align: middle;
-                        /* Align vertically with the slider */
-                    }
+<style>
+    .attendence-title {
+        display: inline-block;
+        vertical-align: middle;
+        /* Align vertically with the slider */
+    }
 
-                    .left-right-icon {
-                        display: inline-block;
-                        vertical-align: middle; /* Align vertically with the label */
-                        font-size: 15px;
-                    }
+    .left-right-icon {
+        display: inline-block;
+        vertical-align: middle; /* Align vertically with the label */
+        font-size: 15px;
+        margin-top: 7px;
+    }
 
-                    .left-btn,
-                    .right-btn {
-                        cursor: pointer;
-                    }
+    .left-btn,
+    .right-btn {
+        cursor: pointer;
+    }
 
+    #attendanceTable_length {
+        display: none;
+    }
 
+    #attendanceTable_filter {
+        display: none;
+    }
 
-                    #attendanceTable_length {
-                        display: none;
-                    }
+    .empatt-body {
+        font-size: 13px;
+        font-weight: 300;
+    }
 
-                    #attendanceTable_filter {
-                        display: none;
-                    }
+    .attendance-find {
+        background-color: #007bff;
+    }
 
-                    .empatt-body {
-                        font-size: 13px;
-                        font-weight: 300;
-                    }
+    .att-table {
+        @*margin-top: 15px;*@
+    }
 
-                    .attendance-find {
-                        background-color: #007bff;
-                    }
+    .att-calender {
+        padding: 20px;
+    }
 
-                    .att-table {
-                        margin-top: 15px;
-                    }
+    .form-row {
+        display: flex;
+        align-items: center;
+    }
 
-                    .att-calender {
-                        padding: 20px;
-                    }
+    .form-group {
+        display: flex;
+        flex-direction: column;
+        margin-right: 10px;
+    }
 
-                    .form-row {
-                        display: flex;
-                        align-items: center;
-                    }
+    .apply-div {
+        display: flex;
+        align-items: center;
+    }
 
-                    .form-group {
-                        display: flex;
-                        flex-direction: column;
-                        margin-right: 10px;
-                    }
+    .error-message {
+        color: red;
+        font-size: 12px;
+        margin-top: 5px;
+        display: none;
+    }
 
-                    .apply-div {
-                        display: flex;
-                        align-items: center;
-                    }
+    .empatt-body tr:nth-child(1) th,
+    .empatt-body tr:nth-child(1) td {
+        padding-top: 20px;
+    }
+</style>
 
-                    .error-message {
-                        color: red;
-                        font-size: 12px;
-                        margin-top: 5px;
-                        display: none;
-                    }
+@{
+    string startDateFormatted = Model.startWeek.ToString("dd MMMM yyyy");
+    string endDateFormatted = Model.EndWeek.ToString("dd MMMM yyyy");
 
-                    .empatt-body tr:nth-child(1) th,
-                    .empatt-body tr:nth-child(1) td {
-                        padding-top: 20px;
-                    }
-                </style>
+}
 
-                @{
-
-                    // Format the dates
-                    string startDateFormatted = Model.startWeek.ToString("dd MMMM yyyy");
-                    string endDateFormatted = Model.EndWeek.ToString("dd MMMM yyyy");
-
-                }
-                <div class="attendance-nav">
-
-                    <div class="att-div">
-                        <div>
-                            <h4 class="attendence-title ml-1">Attendance</h4>
-                            <div id="week-slider" class="left-right-icon">
-                                <i class="bi bi-chevron-left left-btn"></i>
-                                <span id="week-start">@startDateFormatted</span> - <span id="week-end">@endDateFormatted</span>
-                                <i class="bi bi-chevron-right right-btn"></i>
-                            </div>
-                        </div>
-
-                        <div class="att-calender p-0 d-flex justify-content-end align-items-start">
-                            <div class=" from-to-calen">
-                                <div class="form-group">
-                                    <div class="d-flex align-items-center" style="font-size: 14px;">
-                                        <span>From</span>
-                                        <input type="date" class="form-control ml-2" id="attendancefrom" name="attendancefrom" style="font-size: 13px;">
-                                    </div>
-                                    <span id="from-error" class="error-message">Please fill out this field.</span>
-                                </div>
-                                <div class="form-group">
-                                    <div class="d-flex align-items-center" style="font-size: 14px;">
-                                        <span>To</span>
-                                        <input type="date" class="form-control ml-2" id="attendanceto" name="attendanceto" style="font-size: 13px;">
-                                    </div>
-                                    <span id="to-error" class="error-message">Please fill out this field.</span>
-                                </div>
-                                <div class="apply-div">
-                                    <button class="btn btn-primary apply-filter attendance-find button-color-blue" onclick="return validateDates()">View</button>
-                                </div>
-                            </div>
-                        </div>
-
+<div class="container-fluid emp-attendance-list-horizon">
+    <div class="main-content container-fluid">
+        <div class="content employee-attendance">
+            <div class="emp-attendance-container">
+                <div class="row res-emp-attendance-header">
+                    <div class="col-lg-3 res-emp-attendance-title">
+                        <h4>Attendance</h4>
                     </div>
-                    <div class="att-table table-responsive-sm table-responsive">
+                </div>
+            </div>
 
-                        <table id="attendanceTable" class="table table-attendence">
-                            <thead class="attendence-thead">
-                                <tr>
-                                    <th scope="col">Date</th>
-                                    <th scope="col" style="text-align: center;">Check In - Check Out</th>
-                                    <th scope="col">Hours</th>
-                                    <th scope="col">Status</th>
-                                </tr>
-                            </thead>
-                            <tbody class="empatt-body">
-                                @foreach (DateTime date in Model.AllDates)
-                                {
-                                    var isWeekendDate = date.DayOfWeek == DayOfWeek.Saturday || date.DayOfWeek == DayOfWeek.Sunday;
-                                    var weekendtext = "";
-                                    if (isWeekendDate)
-                                    {
-                                        weekendtext = "weekend";
-                                    }
+            <div class="emp-attendance-details attendance-nav" id="empAttendance">
 
-                                    var isCheckInExists = Model.AttedenceList.Where(x => x.Login_date == date).FirstOrDefault();
-                                    var empLeave = Model.Leaves.Where(x => x.leavedate == date && (x.LeaveStatus != "Rejected" && x.LeaveStatus != "Cancelled")).FirstOrDefault();
-
-                                    if (isCheckInExists != null)
-                                    {
-                                        string starttimeWithAmPm = isCheckInExists.Signin_Time.ToString("hh:mm tt", System.Globalization.CultureInfo.InvariantCulture);
-                                        string endtimeWithAmPm = isCheckInExists.Signout_Time?.ToString("hh:mm tt", System.Globalization.CultureInfo.InvariantCulture);
-
-                                        string statusType = "bar-width-green";
-                                        string buttonColor = "present-btn";
-                                        string attedenceType = "Present";
-                                        string attedenceActualType = "";
-                                        int hours = 00;
-                                        int minutes = 00;
-
-                                        if (endtimeWithAmPm != null)
-                                        {
-                                            // Initialize endTime as null
-                                            DateTime? endTime = null;
-                                            endTime = isCheckInExists.Signout_Time;
-
-
-                                            // Calculate time difference
-                                            TimeSpan? timeDifference = endTime - isCheckInExists.Signin_Time;
-
-                                            // Convert time difference to hours and minutes
-                                            hours = (int)timeDifference?.TotalHours;
-                                            minutes = (int)timeDifference?.Minutes;
-
-                                            //if (hours < 9)
-                                            //{
-                                            //    statusType = "bar-width-yellow";
-                                            //    buttonColor = "yellow-btn";
-                                            //    attedenceType = "Permission";
-                                            //}
-                                        }
-                                        else
-                                        {
-                                            if (isCheckInExists.Login_date == DateTime.Today)
-                                            {
-                                                // Calculate time difference
-                                                TimeSpan? timeDifference = DateTime.Now - isCheckInExists.Signin_Time;
-
-                                                // Convert time difference to hours and minutes
-                                                hours = (int)timeDifference?.TotalHours;
-                                                minutes = (int)timeDifference?.Minutes;
-                                            }
-                                        }
-
-                                        if (empLeave != null)
-                                        {
-                                            if (empLeave.DayType == "fullDay")
-                                            {
-                                                statusType = "bar-width-red";
-                                                attedenceType = "Leave";
-                                                attedenceActualType = empLeave.leavesource;
-                                                buttonColor = "leave-btn";
-                                            }
-                                            if (empLeave.DayType == "halfDay")
-                                            {
-                                                if (empLeave.HalfDayCategory == "First Half")
-                                                {
-                                                    buttonColor = "firsthalf-leave-button";
-                                                    statusType = "bar-width-firsthalf-leave";
-                                                }
-                                                else
-                                                {
-                                                    buttonColor = "secondhalf-leave-button";
-                                                    statusType = "bar-width-second-leave";
-                                                }
-
-                                                attedenceType = "H/D Leave";
-
-                                            }
-                                            if (empLeave.DayType == "")
-                                            {
-                                                statusType = "bar-width-yellow";
-                                                attedenceType = "Permission";
-                                                buttonColor = "yellow-btn";
-                                            }
-
-                                        }
-
-
-                                        <tr>
-                                            <th scope="row">@isCheckInExists.Login_date.ToString("dd MMMM yyyy") <br><span class="fntblur">@isCheckInExists.Login_date.ToString("dddd", System.Globalization.CultureInfo.InvariantCulture)</span></th>
-
-                                            <td style="padding-right: 15px !important;" class="bar-wi bar-wd">
-                                                <div class="progress attendance-bar bar">
-                                                    <div class="progress-bar @statusType" role="progressbar" aria-valuenow="75" aria-valuemin="10" aria-valuemax="10"></div>
-                                                    <span class="bar-time">@starttimeWithAmPm - @endtimeWithAmPm</span>
-                                                </div>
-                                            </td>
-                                            <td class="bar-wd">@hours.ToString("00").Trim()h:@minutes.ToString("00").Trim()m</td>
-                                            <td><button class="@buttonColor" style="pointer-events:none">@attedenceType</button></td>
-                                        </tr>
-                                    }
-                                    else
-                                    {
-                                        string statusType = "bar-width-gray";
-                                        string buttonColor = "gray-btn";
-                                        string attedenceType = "Weekend";
-                                        string attedenceActualType = "";
-
-                                        if (!isWeekendDate)
-                                        {
-                                            if (empLeave != null)
-                                            {
-                                                if (empLeave.leavecategory.ToLowerInvariant().Contains("leave") || empLeave.leavecategory.ToLowerInvariant().Contains("comp off"))
-                                                {
-                                                    statusType = "bar-width-red";
-                                                    attedenceType = "Leave";
-                                                    attedenceActualType = empLeave.leavesource;
-                                                    buttonColor = "leave-btn";
-                                                }
-                                                if (empLeave.leavecategory.ToLowerInvariant().Contains("permission"))
-                                                {
-                                                    statusType = "bar-width-yellow";
-                                                    attedenceType = "Permission";
-                                                    buttonColor = "yellow-btn";
-                                                }
-                                            }
-                                            else
-                                            {
-                                                statusType = "bar-width-blue";
-                                                attedenceType = "Absent";
-                                                buttonColor = "absent-btn";
-                                            }
-                                        }
-
-                                        <tr>
-                                            <th scope="row">@date.ToString("dd MMMM yyyy") <br><span class="fntblur">@date.ToString("dddd", System.Globalization.CultureInfo.InvariantCulture)</span></th>
-                                            <td style="padding-right: 15px !important;" class="bar-wi bar-wd">
-                                                <div class="progress attendance-bar bar res-emp-attendance-@buttonColor">
-                                                    <div class="progress-bar @statusType" role="progressbar" aria-valuenow="75" aria-valuemin="10" aria-valuemax="10"></div>
-                                                    @if (!string.IsNullOrWhiteSpace(attedenceActualType))
-                                                    {
-                                                        <span class="bar-time">@attedenceActualType</span>
-                                                    }
-                                                    else
-                                                    {
-                                                        <span class="bar-time">@attedenceType</span>
-                                                    }
-
-                                                </div>
-                                            </td>
-
-                                            <td class="bar-wd">00h:00m</td>
-                                            <td><button class="@buttonColor" style="pointer-events:none">@attedenceType</button></td>
-
-                                        </tr>
-                                    }
-                                }
-                            </tbody>
-                        </table>
-
+                <div class="att-div">
+                    <div class="emp-leave-header-left">
+                        <div id="week-slider" class="left-right-icon">
+                            <i class="bi bi-chevron-left left-btn"></i>
+                            <span id="week-start">@startDateFormatted</span> - <span id="week-end">@endDateFormatted</span>
+                            <i class="bi bi-chevron-right right-btn"></i>
+                        </div>
                     </div>
 
-                    @*<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>*@
+                    <div class="att-calender p-0 d-flex justify-content-end align-items-start">
+                        <div class=" from-to-calen">
+                            <div class="form-group">
+                                <div class="d-flex align-items-center" style="font-size: 14px;">
+                                    <span>From</span>
+                                    <input type="date" class="form-control ml-2" id="attendancefrom" name="attendancefrom" style="font-size: 13px;">
+                                </div>
+                                <span id="from-error" class="error-message">Please fill out this field.</span>
+                            </div>
+                            <div class="form-group">
+                                <div class="d-flex align-items-center" style="font-size: 14px;">
+                                    <span>To</span>
+                                    <input type="date" class="form-control ml-2" id="attendanceto" name="attendanceto" style="font-size: 13px;">
+                                </div>
+                                <span id="to-error" class="error-message">Please fill out this field.</span>
+                            </div>
+                            <div class="apply-div">
+                                <button class="btn btn-primary apply-filter attendance-find button-color-blue" onclick="return validateDates()">View</button>
+                            </div>
+                        </div>
+                    </div>
+
                 </div>
 
-                <script>
-                    $(document).ready(function () {
+                <div class="att-table table-responsive-sm table-responsive EmpAttedenceTableRows-div">
+                    @Html.Partial("~/Views/EmployeeDashboard/_EmpAttendanceTableRows.cshtml", Model)
+                </div>
 
-                        if (!$.fn.DataTable.isDataTable('#attendanceTable')) {
-                            $('#attendanceTable').DataTable({
-                                "responsive": true,
-                                "paging": true,
-                                "searching": true,
-                                "scrollY": '62vh',
-                                "scrollCollapse": true,
-                                "ordering": false,
-                                "info": true,
-                                "autoWidth": false,
-                                "lengthMenu": [[14, 21, -1], [14, 21, "All"]],
-                                "columnDefs": [
-                                    { "orderable": false, "targets": 1 }, // Disable ordering on the Checkin-Check-Out column
-                                    { "orderable": false, "targets": 3 }  // Disable ordering on the Status column
-                                ]
-                            });
-                        }
-
-                    });
-
-                </script>
             </div>
+
         </div>
     </div>
 </div>
+@Html.Partial("EmployeeFooter")
+
 <script src="~/Scripts/z-EmpDash.js"></script>

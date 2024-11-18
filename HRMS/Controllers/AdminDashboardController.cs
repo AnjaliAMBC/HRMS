@@ -15,6 +15,7 @@ using System.Net.Mail;
 using System.Configuration;
 using System.Net;
 using HRMS.Models.Employee;
+using System.Data.Entity;
 
 namespace HRMS.Controllers
 {
@@ -23,10 +24,9 @@ namespace HRMS.Controllers
         // Database context
         private readonly HRMS_EntityFramework _dbContext;
 
-        // Constructor to initialize database context
         public AdminDashboardController()
         {
-            _dbContext = new HRMS_EntityFramework(); // Replace YourDbContext with your actual DbContext class
+            _dbContext = new HRMS_EntityFramework();
         }
 
         // GET: AdminDashboard
@@ -59,6 +59,136 @@ namespace HRMS.Controllers
 
             return View("~/Views/AdminDashboard/EmpManagement.cshtml", model);
         }
+        public ActionResult AdminJobListing()
+        {
+            var jobListings = _dbContext.JobDetails
+                .OrderByDescending(job => job.PostedDate)
+                .ToList();
+
+            var model = new AdminJobModel
+            {
+                alljobListings = jobListings
+            };
+
+            return View("~/Views/AdminDashboard/AdminJobListing.cshtml", model);
+        }
+
+
+        public ActionResult AdminJobDetail(int jobID)
+        {
+            var jobDetail = _dbContext.JobDetails.FirstOrDefault(x => x.JobID == jobID);
+
+            var model = new AdminJobModel
+            {
+                jobDetail = jobDetail,
+
+            };
+
+            return View("~/Views/AdminDashboard/AdminJobDetail.cshtml", model);
+        }
+        // GET: AdminPostJobs
+        public ActionResult AdminPostJobs(int jobid = 0)
+        {
+            var model = new AdminJobModel();
+
+            if (jobid != 0)
+            {
+
+                model.EditJob = _dbContext.JobDetails
+                    .Where(x => x.JobID == jobid)
+                    .FirstOrDefault();
+            }
+            else
+            {
+                int newJobId = _dbContext.JobDetails.Max(j => (int?)j.JobID) ?? 0;
+                newJobId += 1;
+
+                model.IsNewJob = true;
+
+                model.EditJob.JobID = newJobId;
+            }
+
+            return View("~/Views/AdminDashboard/AdminPostJobs.cshtml", model);
+        }
+
+        [ValidateInput(false)]
+        public JsonResult PostJob(JobDetail jobDetail)
+        {
+            try
+            {
+
+                if (jobDetail.JobID == 0)
+                {
+                    // Adding a new job
+                    jobDetail.PostedDate = jobDetail.PostedDate ?? DateTime.Now;
+                    jobDetail.UpdatedDate = DateTime.Now;
+                    _dbContext.JobDetails.Add(jobDetail); // Add new job
+                }
+                else
+                {
+                    // Editing an existing job
+                    var existingJob = _dbContext.JobDetails
+                        .FirstOrDefault(x => x.JobID == jobDetail.JobID);
+
+                    if (existingJob != null)
+                    {
+                        // Update the job details
+                        existingJob.JobTitle = jobDetail.JobTitle;
+                        existingJob.Experience = jobDetail.Experience;
+                        existingJob.Location = jobDetail.Location;
+                        existingJob.PostedBy = jobDetail.PostedBy;
+                        existingJob.JobDescription = jobDetail.JobDescription;
+                        existingJob.SalaryRange = jobDetail.SalaryRange;
+                        existingJob.PostedDate = jobDetail.PostedDate ?? existingJob.PostedDate;
+                        existingJob.UpdatedDate = DateTime.Now;
+                        existingJob.JobStatus = jobDetail.JobStatus;
+                        existingJob.Priority = jobDetail.Priority;
+
+                        // Mark the entity as modified
+                        _dbContext.Entry(existingJob).State = EntityState.Modified;
+                    }
+                    else
+                    {
+                        jobDetail.PostedDate = jobDetail.PostedDate ?? DateTime.Now;
+                        jobDetail.UpdatedDate = DateTime.Now;
+                        _dbContext.JobDetails.Add(jobDetail); // Add new job
+                    }
+                }
+                _dbContext.SaveChanges();
+                return Json(new { success = true, message = jobDetail.JobID == 0 ? "Job posted successfully!" : "Job updated successfully!" });
+            }
+
+            catch (Exception ex)
+            {
+                return Json(new { success = false, message = "An error occurred while posting the job.", error = ex.Message });
+            }
+        }
+
+
+        public JsonResult DeleteJob(int jobId)
+        {
+            try
+            {
+                // Example code to delete the job post, assuming you have a repository or database context
+                var jobToDelete = _dbContext.JobDetails.Find(jobId);
+
+                if (jobToDelete == null)
+                {
+                    return Json(new { success = false, message = "Job not found." });
+                }
+
+                _dbContext.JobDetails.Remove(jobToDelete);
+                _dbContext.SaveChanges();
+
+                return Json(new { success = true });
+            }
+            catch (Exception ex)
+            {
+                // Log the exception
+                return Json(new { success = false, message = "An error occurred while deleting the job." });
+            }
+        }
+
 
         [HttpGet]
         public ActionResult AddEmployee(string empid)
@@ -190,10 +320,10 @@ namespace HRMS.Controllers
                     _dbContext.LeaveBalances.Add(empLeaveBalance);
 
                     //Delete old entry in case
-                    if(empLeaveBalanceInfo != null)
+                    if (empLeaveBalanceInfo != null)
                     {
                         _dbContext.LeaveBalances.Remove(empLeaveBalanceInfo);
-                    }                  
+                    }
                     _dbContext.SaveChanges();
 
 
@@ -850,5 +980,37 @@ namespace HRMS.Controllers
             }
             return Json(model, JsonRequestBehavior.AllowGet);
         }
+
+
+        public ActionResult LoadCandidates(int jobId = 0)
+        {
+            // Fetch the candidate list from the database based on JobID
+            var candidates = _dbContext.JobReferrals
+                                       .Where(j => j.JobID == jobId)
+                                       .ToList();
+
+            return PartialView("~/Views/AdminDashboard/_CandidateListPartial.cshtml", candidates);
+        }
+
+
+
+        public JsonResult CandidateStatusUpdate(int sno, string status)
+        {
+            var model = new JsonResponse();
+            var candidate = _dbContext.JobReferrals
+                                       .Where(j => j.Sno == sno).FirstOrDefault();
+
+            if (candidate != null)
+            {
+                candidate.CandidateStatus = status;
+            }
+
+            _dbContext.SaveChanges();
+
+            model.Message = "Candidate status updated successfuly!";
+            model.StatusCode = 200;
+            return Json(model, JsonRequestBehavior.AllowGet);
+        }
+
     }
 }

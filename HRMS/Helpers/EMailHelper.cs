@@ -33,6 +33,13 @@ namespace HRMS.Helpers
                 smtpClient.Credentials = new NetworkCredential(fromEmail, fromPassword);
                 smtpClient.EnableSsl = true;
 
+                // Attach the file if AttachmentPath is provided and file exists
+                if (!string.IsNullOrEmpty(request.AttachmentPath) && System.IO.File.Exists(request.AttachmentPath))
+                {
+                    var attachment = new Attachment(request.AttachmentPath);
+                    mail.Attachments.Add(attachment);
+                }
+
                 smtpClient.Send(mail);
                 model.JsonResponse.StatusCode = 200;
                 model.JsonResponse.Message = "Email Sent Successfully!";
@@ -45,5 +52,32 @@ namespace HRMS.Helpers
                 return model;
             }
         }
+
+        public static string FormatTimeSpan(TimeSpan? time)
+        {
+            // Check if the TimeSpan is null
+            if (!time.HasValue)
+            {
+                return "Not specified"; // Or whatever default you prefer
+            }
+
+            // Extract the TimeSpan value
+            TimeSpan t = time.Value;
+
+            // Convert the TimeSpan into a 12-hour format with AM/PM
+            int hours = t.Hours;
+            int minutes = t.Minutes;
+
+            // Determine AM or PM
+            string period = hours >= 12 ? "PM" : "AM";
+
+            // Convert hours to 12-hour format (handle midnight and noon)
+            hours = (hours > 12) ? hours - 12 : (hours == 0 ? 12 : hours);
+
+            // Format the time as hh:mm AM/PM
+            return $"{hours:D2}:{minutes:D2} {period}";
+        }
+
+
     }
 }
