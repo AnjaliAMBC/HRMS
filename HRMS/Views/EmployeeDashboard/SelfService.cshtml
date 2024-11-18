@@ -616,7 +616,7 @@
                                     <div class="emp-project-details-edit"><span data-toggle="modal" data-target="#empProjectRoleResModal"><img src="~/Assets/edit-icon.png"></span></div>
                                 </div>
                                 <div class="col-lg-12 emp-project-details-body">
-                                    @Model.EmpInfo.Roles_Responsibilities
+                                    @Html.Raw(Model.EmpInfo.Roles_Responsibilities)
                                     @*<div class="emp-project-details-body-block emp-project-details-body-block1">
                                             <div>Graphics Designer</div>
                                             <ul>
