@@ -2,6 +2,169 @@
 @{
     ViewBag.Title = "EmpTimesheetView";
 }
+@Html.Partial("_EmployeeNavbar")
+<div class="container-fluid emp-timesheet-list-horizon">
+    <div class="main-content container-fluid">
+        <div class="content employee-timesheet">
+            <div class="emp-timesheet-container">
+                <div class="row res-emp-timesheet-header">
+                    <div class="col-lg-3 res-emp-timesheet-title">
+                        <h4>Timesheet</h4>
+                    </div>
+                </div>
+            </div>
 
-<h2>EmpTimesheetView</h2>
+            <div class="emp-timesheet-details timesheet-nav" id="empTimesheet">
+
+                <div class="emp-timesheet-table-block">
+                    <div class="emp-timesheet-table-header">
+                        <div class="emp-timesheet-table-title">Task List</div>
+                        <div class="emp-timesheet-table-submit"><button type="button" class="btn btn-primary"  data-toggle="modal" data-target="#empSubmitTimesheetModal">Submit Timesheet</button></div>
+                    </div>
+                    <div class="emp-timesheet-table-body">
+                        <div class="emp-timesheet-body table-responsive">
+                            <table id="emptimesheetlistingTable" class="table emp-timesheet-table" style="width: 100%; color: #272727">
+                                <thead style=" background-color: #3E78CF; border-radius: 10px;">
+                                    <tr>
+                                        <th>Date</th>
+                                        <th>Category</th>
+                                        <th>Task/Incident Name</th>
+                                        <th>Task/Incident Description</th>
+                                        <th>Priority</th>
+                                        <th>Requester</th>
+                                        <th>Status</th>
+                                        <th>Total Hours</th>
+                                        <th>Action</th>
+                                    </tr>
+                                </thead>
+                                <tbody id="emptimesheetBody">
+                                    <tr>
+                                        <td>07-11-2024</td>
+                                        <td>Support</td>
+                                        <td>HRMS</td>
+                                        <td>Help Desk Tickets and IDERA Monitoring & Diskspace</td>
+                                        <td>Medium</td>
+                                        <td>Medium</td>
+                                        <td>Closed</td>
+                                        <td>0.90</td>
+                                        <td>
+                                            <i class="fas fa-ellipsis-v emp-timesheet-edit" onclick="toggleEmpTimesheetActionOptions(this)"></i>
+                                            <div class="emp-timesheetoptions" style="display:none">
+                                                <a class="dropdown-item emp-timesheet-edit-btn"
+                                                   data-timesheetname="1">Edit</a>
+                                                <a class="dropdown-item emp-timesheet-cancel"
+                                                   onclick="emptimesheetcancel($(this))"
+                                                   data-timesheetname="1">Delete</a>
+                                            </div>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>07-11-2024</td>
+                                        <td>Support</td>
+                                        <td>HRMS</td>
+                                        <td>Help Desk Tickets and IDERA Monitoring & Diskspace</td>
+                                        <td>Medium</td>
+                                        <td>Medium</td>
+                                        <td>Closed</td>
+                                        <td>0.90</td>
+                                        <td>
+                                            <i class="fas fa-ellipsis-v emp-timesheet-edit" onclick="toggleEmpTimesheetActionOptions(this)"></i>
+                                            <div class="emp-timesheetoptions" style="display:none">
+                                                <a class="dropdown-item emp-timesheet-edit-btn"
+                                                   data-timesheetname="1">Edit</a>
+                                                <a class="dropdown-item emp-timesheet-cancel"
+                                                   onclick="emptimesheetcancel($(this))"
+                                                   data-timesheetname="1">Delete</a>
+                                            </div>
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+
+        </div>
+    </div>
+</div>
+
+<!-- Submit Timesheet Modal -->
+<div id="empSubmitTimesheetModal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="empSubmitTimesheetModal" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <i class="far fa-times-circle"></i>
+                </button>
+            </div>
+            <div class="modal-body">
+                Are you sure you want to submit timesheet (06 November 2024 to 10 November 2024)
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">No</button>
+                <button type="button" class="btn" data-ticketname="" id="empSubmitTimesheetSubmitButton">Yes</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Confirmation Modal -->
+<div id="empTimesheetConfirmCancelModal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="empTimesheetConfirmCancelModal" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <i class="far fa-times-circle"></i>
+                </button>
+            </div>
+            <div class="modal-body">
+                Are you sure you want to delete this timesheet?
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">No</button>
+                <button type="button" class="btn" data-ticketname="" id="empTimesheetConfirmCancelButton">Yes</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+    $(document).ready(function () {
+        var table = $('#emptimesheetlistingTable').DataTable({
+            "paging": true,
+            "searching": false,
+            "ordering": false,
+            "info": true,
+            "autoWidth": false,
+        });
+    });
+
+    function toggleEmpTimesheetActionOptions(iconElement) {
+        const optionsMenu = $(iconElement).next('.emp-timesheetoptions');
+        $('.emp-timesheetoptions').not(optionsMenu).hide(); // Hide other open menus
+        optionsMenu.toggle(); // Toggle the clicked menu
+
+        // Add an event listener to the document to close the menu when clicking outside
+        $(document).on('click.hideMenu', function (event) {
+            // Check if the click was outside the options menu or the icon that triggered it
+            if (!$(event.target).closest(iconElement).length && !$(event.target).closest('.emp-timesheetoptions').length) {
+                optionsMenu.hide(); // Hide the menu
+                $(document).off('click.hideMenu'); // Remove the event listener to prevent multiple bindings
+            }
+        });
+    }
+
+    function emptimesheetcancel(currentthis) {
+        currentSelectedrow = currentthis.closest('tr');
+        var timesheetName = currentthis.attr("data-timesheetname");
+        $('#empTimesheetConfirmCancelButton').attr('data-timesheetname', timesheetName);
+        $('#empTimesheetConfirmCancelModal .modal-body').html('Are you sure you want to delete this task?');
+        $('#empTimesheetConfirmCancelButton').attr('disabled', false);
+        $('#empTimesheetConfirmCancelModal').modal('show');
+    }
+
+
+</script>
 

@@ -3024,4 +3024,234 @@ width: 100%;*/
 
 /* emp job referral friend end */
 
+/* emp timesheet start */
 
+.emp-timesheet-list-horizon {
+    background: #efefef;
+    min-height: 95vh;
+    padding: 0 25px 25px 25px;
+}
+
+.emp-timesheet-list-horizon .main-content {
+    margin-left: 0;
+    width: 100% !important;
+}
+
+.emp-timesheet-list-horizon #empTimesheet {
+    background: #fff;
+    padding: 20px 40px;
+    margin-left: 0;
+}
+
+.emp-timesheet-list-horizon #emptimesheetlistingTable_length {
+    display: none;
+}
+
+.emp-timesheet-list-horizon #emptimesheetlistingTable thead th {
+    color: #fff;
+    font-weight: normal;
+}
+
+.emp-timesheet-list-horizon #emptimesheetlistingTable thead th:first-child {
+    border-top-left-radius: 5px;
+}
+
+.emp-timesheet-list-horizon #emptimesheetlistingTable thead th:last-child {
+    border-top-right-radius: 5px;
+}
+
+.emp-timesheet-list-horizon #emptimesheetlistingTable_wrapper {
+    padding: 0;
+}
+
+.emp-timesheet-list-horizon .emp-timesheet-table-header {
+    display: inline-flex;
+    justify-content: space-between;
+    width: 100%;
+    margin-bottom: 15px;
+}
+
+.emp-timesheet-list-horizon .emp-timesheet-table-title {
+    padding: 8px 0;
+    font-size: 20px;
+}
+
+.emp-timesheet-list-horizon .emp-timesheet-table-submit button {
+    cursor: pointer;
+    border-radius: 25px;
+    padding: 7px 20px;
+}
+
+.emp-timesheet-list-horizon #emptimesheetlistingTable tbody tr:nth-child(even) {
+    background-color: #EBFAFF !important;
+}
+
+.emp-timesheet-list-horizon #emptimesheetlistingTable .emp-timesheet-edit {
+    font-size: smaller;
+    height: 20px;
+    width: 20px;
+    text-align: center;
+    line-height: 1rem;
+    color: gray;
+    cursor: pointer;
+}
+
+.emp-timesheet-list-horizon #emptimesheetlistingTable .emp-timesheetoptions {
+    position: absolute;
+    top: auto;
+    cursor: pointer;
+    padding: 5px 5px;
+    width: 70px;
+    text-align: left;
+    right: 50px;
+    background-color: white;
+    border: 1px solid #ccc;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    z-index: 1000;
+}
+
+.emp-timesheet-list-horizon #emptimesheetlistingTable .emp-timesheetoptions a {
+    display: block;
+    padding: 2px 4px;
+    color: #333;
+    text-decoration: none;
+}
+
+#empTimesheetConfirmCancelModal .modal-header {
+    border-bottom: 0;
+}
+
+#empTimesheetConfirmCancelModal .modal-header button {
+    font-size: 14px;
+}
+
+#empTimesheetConfirmCancelModal .modal-body {
+    font-size: 18px;
+    padding: 0 15px 15px 20px;
+}
+
+#empTimesheetConfirmCancelModal .modal-footer {
+    border-top: 0;
+}
+
+#empTimesheetConfirmCancelModal .modal-footer .btn {
+    background: #A7A7A7;
+    border: none;
+    padding: 5px 25px;
+    border-radius: 20px;
+}
+
+#empTimesheetConfirmCancelModal .modal-footer #empTimesheetConfirmCancelButton {
+    background: #8854D0;
+    color: #fff;
+    border: none;
+}
+
+
+#empSubmitTimesheetModal .modal-header {
+    border-bottom: 0;
+}
+
+#empSubmitTimesheetModal .modal-header button {
+    font-size: 14px;
+}
+
+#empSubmitTimesheetModal .modal-body {
+    font-size: 18px;
+    padding: 0 15px 15px 20px;
+}
+
+#empSubmitTimesheetModal .modal-footer {
+    border-top: 0;
+}
+
+#empSubmitTimesheetModal .modal-footer .btn {
+    background: #A7A7A7;
+    border: none;
+    padding: 5px 25px;
+    border-radius: 20px;
+}
+
+#empSubmitTimesheetModal .modal-footer #empSubmitTimesheetSubmitButton {
+    background: #8854D0;
+    color: #fff;
+    border: none;
+}
+
+/* emp timesheet end */
+
+/* emp enter timesheet start */
+
+.emp-entertimesheet-list-horizon {
+    background: #efefef;
+    min-height: 95vh;
+    padding: 0 25px 25px 25px;
+}
+
+.emp-entertimesheet-list-horizon .main-content {
+    margin-left: 0;
+    width: 100% !important;
+}
+
+.emp-entertimesheet-list-horizon #empEntertimesheet {
+    background: #fff;
+    padding: 20px 40px;
+    margin-left: 0;
+}
+
+.emp-entertimesheet-list-horizon .emp-entertimesheet-block1 {
+    border: 1px solid #ccc;
+    display: inline-block;
+}
+
+.emp-entertimesheet-list-horizon .emp-entertimesheet-weekno {
+    padding: 5px 20px;
+    border-right: 1px solid #ccc;
+    display: inline-block;
+}
+
+.emp-entertimesheet-list-horizon .emp-entertimesheet-weekrange-info {
+    padding: 5px 10px;
+    display: inline-block;
+}
+
+.emp-entertimesheet-list-horizon .emp-entertimesheet-block2 {
+    margin: 10px 0;
+}
+
+.emp-entertimesheet-list-horizon .emp-entertimesheet-rangedates {
+    display: inline-block;
+    border: 1px solid #3E78CF;
+}
+
+.emp-entertimesheet-list-horizon .emp-entertimesheet-rangedates span {
+    border-right: 1px solid #3E78CF;
+    padding: 7px 15px;
+    display: inline-block;
+    font-size: 14px;
+    cursor: pointer;
+}
+
+.emp-entertimesheet-list-horizon .emp-entertimesheet-rangedates span.active {
+    background: #3E78CF;
+    color: #fff;
+}
+
+.emp-entertimesheet-list-horizon .emp-entertimesheet-block3 {
+    display: inline-block;
+}
+
+.emp-entertimesheet-list-horizon .emp-entertimesheet-block4 .form-group {
+    padding: 0 5px;
+}
+
+.emp-entertimesheet-list-horizon .emp-entertimesheet-block4 .form-group:nth-child(1) {
+    padding-left: 15px;
+}
+
+.emp-entertimesheet-list-horizon .emp-entertimesheet-block4 .emp-entertimesheet-footer {
+    display: flex;
+    justify-content: space-between;
+}
+
+/* emp enter timesheet end */
