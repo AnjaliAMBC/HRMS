@@ -23,5 +23,10 @@ namespace HRMS.Controllers
         {
             return View("~/Views/EmployeeDashboard/EmpTimesheetView.cshtml");
         }
+
+        public ActionResult AdminTimesheet()
+        {      
+            return View("~/Views/AdminDashboard/AdminTimesheetView.cshtml");
+        }
     }
 }

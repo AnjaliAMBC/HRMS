@@ -156,7 +156,14 @@
                         </a>
                     </li>
                 }
-
+                @if (currentContext.IsAdmin || currentContext.IsSuperAdmin)
+                {
+                    <li class="mb-2 @(pageUrlPath.Contains("/timesheet/admintimesheet") ? "active sidebaractive" : "")">
+                        <a href="/timesheet/admintimesheet" class="@(pageUrlPath == "/timesheet/admintimesheet" ? "active" : "")">
+                            <img class="menu-icon" src="~/Assets/Icons/jobreferral.png" /><span> Timesheet </span>
+                        </a>
+                    </li>
+                }
             </ul>
         </div>
     </div>
