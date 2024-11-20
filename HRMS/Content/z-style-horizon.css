@@ -2,6 +2,10 @@
     max-width: 800px !important;
 }
 
+.border-red {
+    border: 1px solid red;
+}
+
 /* signin start */
 
 .login-page-horizon {
@@ -3178,6 +3182,88 @@ width: 100%;*/
     border: none;
 }
 
+.emp-timesheet-header-block {
+    display: flex;
+    width: 100%;
+    justify-content: space-between;
+}
+
+.emp-timesheet-header-block .emp-timesheet-header-block-left {
+    width: 85%;
+}
+
+.emp-timesheet-header-block .emp-timesheet-header-block-right {
+    width: 16%;
+    text-align: right;
+}
+
+.emp-timesheet-list-horizon .emp-timesheet-block1 {
+    border: 1px solid #ccc;
+    display: inline-block;
+}
+
+.emp-timesheet-list-horizon .emp-timesheet-weekno {
+    padding: 5px 20px;
+    border-right: 1px solid #ccc;
+    display: inline-block;
+}
+
+.emp-timesheet-list-horizon .emp-timesheet-weekrange-info {
+    padding: 5px 10px;
+    display: inline-block;
+}
+
+.emp-timesheet-list-horizon .emp-timesheet-block2 {
+    display: inline-block;
+    width: 15%;
+}
+
+.emp-timesheet-list-horizon .emp-timesheet-block3 {
+    display: inline-block;
+}
+
+.emp-timesheet-list-horizon .emp-timesheet-block3 span{
+    font-weight: bold;
+}
+
+.emp-timesheet-header-block .emp-timesheet-header-block-right button {
+    padding: 8px 25px;
+    border-radius: 20px;
+}
+
+.emp-timesheet-weekrange-info i.fa-angle-left {
+    color: #afafaf;
+    margin-right: 5px;
+    cursor: pointer;
+}
+
+.emp-timesheet-weekrange-info i.fa-angle-right {
+    color: #afafaf;
+    margin-left: 5px;
+    cursor: pointer;
+}
+
+.emp-timesheet-weekrange-info i.fa-long-arrow-right {
+    color: #afafaf;
+    margin: 0 5px;
+}
+
+.emp-timesheet-graph-block .emp-timesheet-hours-spent {
+    display: inline-block;
+    width: 69%;
+}
+
+.emp-timesheet-graph-block .emp-timesheet-attendance {
+    display: inline-block;
+    width: 30%;
+    vertical-align: top;
+}
+
+.emp-timesheet-graph-block .emp-timesheet-attendance .emp-timesheet-block-donet {
+    border: 1px solid #ccc;
+    padding: 15px 0;
+}
+
 /* emp timesheet end */
 
 /* emp enter timesheet start */
@@ -3230,6 +3316,11 @@ width: 100%;*/
     display: inline-block;
     font-size: 14px;
     cursor: pointer;
+    margin-right: -4px;
+}
+
+.emp-entertimesheet-list-horizon .emp-entertimesheet-rangedates span:last-child {
+    border-right: 0px solid #3E78CF;
 }
 
 .emp-entertimesheet-list-horizon .emp-entertimesheet-rangedates span.active {
@@ -3252,6 +3343,51 @@ width: 100%;*/
 .emp-entertimesheet-list-horizon .emp-entertimesheet-block4 .emp-entertimesheet-footer {
     display: flex;
     justify-content: space-between;
+    width: 101%;
+}
+
+.emp-entertimesheet-list-horizon .emp-entertimesheet-day-block {
+    display: none;
+}
+
+.emp-entertimesheet-list-horizon .emp-entertimesheet-day-block.active {
+    display: block;
+}
+
+.emp-entertimesheet-list-horizon .emp-entertimesheet-addtask button {
+    border: 1px solid #ccc;
+    background: transparent;
+    font-size: 15px;
+    padding: 5px 14px;
+    color: #464242;
+    outline-style: none;
+}
+
+.emp-entertimesheet-list-horizon .emp-entertimesheet-addtask button i {
+    color: #464242;
+    margin-right: 10px;
+}
+
+.emp-entertimesheet-list-horizon .emp-entertimesheet-save button {
+    padding: 5px 30px;
+    border-radius: 20px;
+}
+
+.emp-entertimesheet-weekrange-info i.fa-angle-left {
+    color: #afafaf;
+    margin-right: 5px;
+    cursor:pointer;
+}
+
+.emp-entertimesheet-weekrange-info i.fa-angle-right {
+    color: #afafaf;
+    margin-left: 5px;
+    cursor: pointer;
+}
+
+.emp-entertimesheet-weekrange-info i.fa-long-arrow-right {
+    color: #afafaf;
+    margin: 0 5px;
 }
 
 /* emp enter timesheet end */

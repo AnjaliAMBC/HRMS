@@ -27,18 +27,18 @@
 
                 <div class="emp-entertimesheet-block2">
                     <div class="emp-entertimesheet-rangedates">
-                        <span class="active">04-11-2024</span>
-                        <span>05-11-2024</span>
-                        <span>06-11-2024</span>
-                        <span>07-11-2024</span>
-                        <span>08-11-2024</span>
-                        <span>09-11-2024</span>
-                        <span>10-11-2024</span>
-                    </div>                    
+                        <span class="active" href="#emp-entertimesheet-day-block1">04-11-2024</span>
+                        <span href="#emp-entertimesheet-day-block2">05-11-2024</span>
+                        <span href="#emp-entertimesheet-day-block3">06-11-2024</span>
+                        <span href="#emp-entertimesheet-day-block4">07-11-2024</span>
+                        <span href="#emp-entertimesheet-day-block5">08-11-2024</span>
+                        <span href="#emp-entertimesheet-day-block6">09-11-2024</span>
+                        <span href="#emp-entertimesheet-day-block7">10-11-2024</span>
+                    </div>
                 </div>
 
                 <div class="emp-entertimesheet-block3">
-                    <div class="form-group div-entertimesheet-clientname" >
+                    <div class="form-group div-entertimesheet-clientname">
                         <label for="entertimesheetClientName" class="leave_label">Client*</label>
                         <select class="form-control" id="entertimesheetClientName">
                             <option selected disabled>Select Client</option>
@@ -50,50 +50,1766 @@
 
                 <div class="emp-entertimesheet-block4">
 
-                    <div class="row emp-entertimesheet-fields row-1">
-                        <div class="form-group col-lg-1 div-entertimesheet-category">
-                            <label for="entertimesheetCategory" class="leave_label">Category*</label>
-                            <select class="form-control" id="entertimesheetCategory">
-                                <option value="1">Test1</option>
-                            </select>
+                    <div id="emp-entertimesheet-day-block1" class="emp-entertimesheet-day-block active">
+
+                        <div class="row emp-entertimesheet-fields row-1">
+                            <div class="form-group col-lg-1 div-entertimesheet-category div-entertimesheet-category-1-block-1">
+                                <label for="entertimesheetCategory-1-block-1" class="leave_label">Category*</label>
+                                <select class="form-control" id="entertimesheetCategory-1-block-1">
+                                    <option value="1">Test1</option>
+                                </select>
+                            </div>
+                            <div class="form-group col-lg-2 div-entertimesheet-taskname div-entertimesheet-taskname-1-block-1">
+                                <label for="entertimesheetTaskName-1-block-1">Incident/Task Name*</label>
+                                <input type="text" class="form-control" id="entertimesheetTaskName-1-block-1" value="" placeholder="Incident/Task Name">
+                            </div>
+                            <div class="form-group col-lg-3 div-entertimesheet-taskdesc div-entertimesheet-taskdesc-1-block-1">
+                                <label for="entertimesheetTaskDesc-1-block-1">Incident/Task Description*</label>
+                                <input type="text" class="form-control" id="entertimesheetTaskDesc-1-block-1" value="" placeholder="Incident/Task Description">
+                            </div>
+                            <div class="form-group col-lg-2 div-entertimesheet-requester div-entertimesheet-requester-1-block-1">
+                                <label for="entertimesheetRequester-1-block-1">Requester</label>
+                                <input type="text" class="form-control" id="entertimesheetRequester-1-block-1" value="">
+                            </div>
+                            <div class="form-group col-lg-2 div-entertimesheet-hourspent div-entertimesheet-hourspent-1-block-1">
+                                <label for="entertimesheetHoursSpent-1-block-1">Hours Spend*</label>
+                                <input type="text" class="form-control" id="entertimesheetHoursSpent-1-block-1" value="">
+                            </div>
+                            <div class="form-group col-lg-1 div-entertimesheet-priority div-entertimesheet-priority-1-block-1">
+                                <label for="entertimesheetPriority-1-block-1" class="leave_label">Priority*</label>
+                                <select class="form-control" id="entertimesheetPriority-1-block-1">
+                                    <option value="1">High</option>
+                                    <option value="2">Medium</option>
+                                    <option value="3">Low</option>
+                                </select>
+                            </div>
+                            <div class="form-group col-lg-1 div-entertimesheet-status div-entertimesheet-status-1-block-1">
+                                <label for="entertimesheetStatus-1-block-1" class="leave_label">Status*</label>
+                                <select class="form-control" id="entertimesheetStatus-1-block-1">
+                                    <option value="1">Closed</option>
+                                    <option value="2">Open</option>
+                                </select>
+                            </div>
                         </div>
-                        <div class="form-group col-lg-2">
-                            <label for="entertimesheetTaskName">Incident/Task Name*</label>
-                            <input type="text" class="form-control" id="entertimesheetTaskName" value="" placeholder="Incident/Task Name">
+
+                        <div class="row emp-entertimesheet-fields row-2">
+                            <div class="form-group col-lg-1 div-entertimesheet-category div-entertimesheet-category-2-block-1">
+                                <select class="form-control" id="entertimesheetCategory-2-block-1">
+                                    <option value="1">Test1</option>
+                                </select>
+                            </div>
+                            <div class="form-group col-lg-2 div-entertimesheet-taskname div-entertimesheet-taskname-2-block-1">
+                                <input type="text" class="form-control" id="entertimesheetTaskName-2-block-1" value="" placeholder="Incident/Task Name">
+                            </div>
+                            <div class="form-group col-lg-3 div-entertimesheet-taskdesc div-entertimesheet-taskdesc-2-block-1">
+                                <input type="text" class="form-control" id="entertimesheetTaskDesc-1-block-1" value="" placeholder="Incident/Task Description">
+                            </div>
+                            <div class="form-group col-lg-2 div-entertimesheet-requester div-entertimesheet-requester-2-block-1">
+                                <input type="text" class="form-control" id="entertimesheetRequester-2-block-1" value="">
+                            </div>
+                            <div class="form-group col-lg-2 div-entertimesheet-hourspent div-entertimesheet-hourspent-2-block-1">
+                                <input type="text" class="form-control" id="entertimesheetHoursSpent-2-block-1" value="">
+                            </div>
+                            <div class="form-group col-lg-1 div-entertimesheet-priority div-entertimesheet-priority-2-block-1">
+                                <select class="form-control" id="entertimesheetPriority-2-block-1">
+                                    <option value="1">High</option>
+                                    <option value="2">Medium</option>
+                                    <option value="3">Low</option>
+                                </select>
+                            </div>
+                            <div class="form-group col-lg-1 div-entertimesheet-status div-entertimesheet-status-2-block-1">
+                                <select class="form-control" id="entertimesheetStatus-2">
+                                    <option value="1">Closed</option>
+                                    <option value="2">Open</option>
+                                </select>
+                            </div>
                         </div>
-                        <div class="form-group col-lg-3">
-                            <label for="entertimesheetTaskDesc">Incident/Task Description*</label>
-                            <input type="text" class="form-control" id="entertimesheetTaskDesc" value="" placeholder="Incident/Task Description">
+
+                        <div class="row emp-entertimesheet-fields row-3">
+                            <div class="form-group col-lg-1 div-entertimesheet-category div-entertimesheet-category-3-block-1">
+                                <select class="form-control" id="entertimesheetCategory-3-block-1">
+                                    <option value="1">Test1</option>
+                                </select>
+                            </div>
+                            <div class="form-group col-lg-2 div-entertimesheet-taskname div-entertimesheet-taskname-3-block-1">
+                                <input type="text" class="form-control" id="entertimesheetTaskName-3-block-1" value="" placeholder="Incident/Task Name">
+                            </div>
+                            <div class="form-group col-lg-3 div-entertimesheet-taskdesc div-entertimesheet-taskdesc-3-block-1">
+                                <input type="text" class="form-control" id="entertimesheetTaskDesc-3-block-1" value="" placeholder="Incident/Task Description">
+                            </div>
+                            <div class="form-group col-lg-2 div-entertimesheet-requester div-entertimesheet-requester-3-block-1">
+                                <input type="text" class="form-control" id="entertimesheetRequester-3-block-1" value="">
+                            </div>
+                            <div class="form-group col-lg-2 div-entertimesheet-hourspent div-entertimesheet-hourspent-3-block-1">
+                                <input type="text" class="form-control" id="entertimesheetHoursSpent-3-block-1" value="">
+                            </div>
+                            <div class="form-group col-lg-1 div-entertimesheet-priority div-entertimesheet-priority-3-block-1">
+                                <select class="form-control" id="entertimesheetPriority-3-block-1">
+                                    <option value="1">High</option>
+                                    <option value="2">Medium</option>
+                                    <option value="3">Low</option>
+                                </select>
+                            </div>
+                            <div class="form-group col-lg-1 div-entertimesheet-status div-entertimesheet-status-3-block-1">
+                                <select class="form-control" id="entertimesheetStatus-3-block-1">
+                                    <option value="1">Closed</option>
+                                    <option value="2">Open</option>
+                                </select>
+                            </div>
                         </div>
-                        <div class="form-group col-lg-2">
-                            <label for="entertimesheetRequester">Requester</label>
-                            <input type="text" class="form-control" id="entertimesheetRequester" value="">
+
+                        <div class="row emp-entertimesheet-fields row-4">
+                            <div class="form-group col-lg-1 div-entertimesheet-category div-entertimesheet-category-4-block-1">
+                                <select class="form-control" id="entertimesheetCategory-4-block-1">
+                                    <option value="1">Test1</option>
+                                </select>
+                            </div>
+                            <div class="form-group col-lg-2 div-entertimesheet-taskname div-entertimesheet-taskname-4-block-1">
+                                <input type="text" class="form-control" id="entertimesheetTaskName-4-block-1" value="" placeholder="Incident/Task Name">
+                            </div>
+                            <div class="form-group col-lg-3 div-entertimesheet-taskdesc div-entertimesheet-taskdesc-4-block-1">
+                                <input type="text" class="form-control" id="entertimesheetTaskDesc-4-block-1" value="" placeholder="Incident/Task Description">
+                            </div>
+                            <div class="form-group col-lg-2 div-entertimesheet-requester div-entertimesheet-requester-4-block-1">
+                                <input type="text" class="form-control" id="entertimesheetRequester-4-block-1" value="">
+                            </div>
+                            <div class="form-group col-lg-2 div-entertimesheet-hourspent div-entertimesheet-hourspent-4-block-1">
+                                <input type="text" class="form-control" id="entertimesheetHoursSpent-4-block-1" value="">
+                            </div>
+                            <div class="form-group col-lg-1 div-entertimesheet-priority div-entertimesheet-priority-4-block-1">
+                                <select class="form-control" id="entertimesheetPriority-4-block-1">
+                                    <option value="1">High</option>
+                                    <option value="2">Medium</option>
+                                    <option value="3">Low</option>
+                                </select>
+                            </div>
+                            <div class="form-group col-lg-1 div-entertimesheet-status div-entertimesheet-status-4-block-1">
+                                <select class="form-control" id="entertimesheetStatus-4-block-1">
+                                    <option value="1">Closed</option>
+                                    <option value="2">Open</option>
+                                </select>
+                            </div>
                         </div>
-                        <div class="form-group col-lg-2">
-                            <label for="entertimesheetHoursSpent">Hours Spend*</label>
-                            <input type="text" class="form-control" id="entertimesheetHoursSpent" value="">
+
+                        <div class="row emp-entertimesheet-fields row-5">
+                            <div class="form-group col-lg-1 div-entertimesheet-category div-entertimesheet-category-5-block-1">
+                                <select class="form-control" id="entertimesheetCategory-5-block-1">
+                                    <option value="1">Test1</option>
+                                </select>
+                            </div>
+                            <div class="form-group col-lg-2 div-entertimesheet-taskname div-entertimesheet-taskname-5-block-1">
+                                <input type="text" class="form-control" id="entertimesheetTaskName-5-block-1" value="" placeholder="Incident/Task Name">
+                            </div>
+                            <div class="form-group col-lg-3 div-entertimesheet-taskdesc div-entertimesheet-taskdesc-5-block-1">
+                                <input type="text" class="form-control" id="entertimesheetTaskDesc-5-block-1" value="" placeholder="Incident/Task Description">
+                            </div>
+                            <div class="form-group col-lg-2 div-entertimesheet-requester div-entertimesheet-requester-5-block-1">
+                                <input type="text" class="form-control" id="entertimesheetRequester-5-block-1" value="">
+                            </div>
+                            <div class="form-group col-lg-2 div-entertimesheet-hourspent div-entertimesheet-hourspent-5-block-1">
+                                <input type="text" class="form-control" id="entertimesheetHoursSpent-5-block-1" value="">
+                            </div>
+                            <div class="form-group col-lg-1 div-entertimesheet-priority div-entertimesheet-priority-5-block-1">
+                                <select class="form-control" id="entertimesheetPriority-5-block-1">
+                                    <option value="1">High</option>
+                                    <option value="2">Medium</option>
+                                    <option value="3">Low</option>
+                                </select>
+                            </div>
+                            <div class="form-group col-lg-1 div-entertimesheet-status div-entertimesheet-status-5-block-1">
+                                <select class="form-control" id="entertimesheetStatus-5-block-1">
+                                    <option value="1">Closed</option>
+                                    <option value="2">Open</option>
+                                </select>
+                            </div>
                         </div>
-                        <div class="form-group col-lg-1 div-entertimesheet-priority">
-                            <label for="entertimesheetPriority" class="leave_label">Priority*</label>
-                            <select class="form-control" id="entertimesheetPriority">
-                                <option value="1">High</option>
-                                <option value="2">Medium</option>
-                                <option value="3">Low</option>
-                            </select>
+
+                        <div class="row emp-entertimesheet-fields row-6" style="display: none;">
+                            <div class="form-group col-lg-1 div-entertimesheet-category div-entertimesheet-category-6-block-1">
+                                <select class="form-control" id="entertimesheetCategory-6-block-1">
+                                    <option value="1">Test1</option>
+                                </select>
+                            </div>
+                            <div class="form-group col-lg-2 div-entertimesheet-taskname div-entertimesheet-taskname-6-block-1">
+                                <input type="text" class="form-control" id="entertimesheetTaskName-6-block-1" value="" placeholder="Incident/Task Name">
+                            </div>
+                            <div class="form-group col-lg-3 div-entertimesheet-taskdesc div-entertimesheet-taskdesc-6-block-1">
+                                <input type="text" class="form-control" id="entertimesheetTaskDesc-6-block-1" value="" placeholder="Incident/Task Description">
+                            </div>
+                            <div class="form-group col-lg-2 div-entertimesheet-requester div-entertimesheet-requester-6-block-1">
+                                <input type="text" class="form-control" id="entertimesheetRequester-6-block-1" value="">
+                            </div>
+                            <div class="form-group col-lg-2 div-entertimesheet-hourspent div-entertimesheet-hourspent-6-block-1">
+                                <input type="text" class="form-control" id="entertimesheetHoursSpent-6-block-1" value="">
+                            </div>
+                            <div class="form-group col-lg-1 div-entertimesheet-priority div-entertimesheet-priority-6-block-1">
+                                <select class="form-control" id="entertimesheetPriority-6-block-1">
+                                    <option value="1">High</option>
+                                    <option value="2">Medium</option>
+                                    <option value="3">Low</option>
+                                </select>
+                            </div>
+                            <div class="form-group col-lg-1 div-entertimesheet-status div-entertimesheet-status-6-block-1">
+                                <select class="form-control" id="entertimesheetStatus-6-block-1">
+                                    <option value="1">Closed</option>
+                                    <option value="2">Open</option>
+                                </select>
+                            </div>
                         </div>
-                        <div class="form-group col-lg-1 div-entertimesheet-status">
-                            <label for="entertimesheetStatus" class="leave_label">Status*</label>
-                            <select class="form-control" id="entertimesheetStatus">
-                                <option value="1">Closed</option>
-                                <option value="2">Open</option>
-                            </select>
+
+                        <div class="row emp-entertimesheet-fields row-7" style="display: none;">
+                            <div class="form-group col-lg-1 div-entertimesheet-category div-entertimesheet-category-7-block-1">
+                                <select class="form-control" id="entertimesheetCategory-7-block-1">
+                                    <option value="1">Test1</option>
+                                </select>
+                            </div>
+                            <div class="form-group col-lg-2 div-entertimesheet-taskname div-entertimesheet-taskname-7-block-1">
+                                <input type="text" class="form-control" id="entertimesheetTaskName-7-block-1" value="" placeholder="Incident/Task Name">
+                            </div>
+                            <div class="form-group col-lg-3 div-entertimesheet-taskdesc div-entertimesheet-taskdesc-7-block-1">
+                                <input type="text" class="form-control" id="entertimesheetTaskDesc-7-block-1" value="" placeholder="Incident/Task Description">
+                            </div>
+                            <div class="form-group col-lg-2 div-entertimesheet-requester div-entertimesheet-requester-7-block-1">
+                                <input type="text" class="form-control" id="entertimesheetRequester-7-block-1" value="">
+                            </div>
+                            <div class="form-group col-lg-2 div-entertimesheet-hourspent div-entertimesheet-hourspent-7-block-1">
+                                <input type="text" class="form-control" id="entertimesheetHoursSpent-7-block-1" value="">
+                            </div>
+                            <div class="form-group col-lg-1 div-entertimesheet-priority div-entertimesheet-priority-7-block-1">
+                                <select class="form-control" id="entertimesheetPriority-7-block-1">
+                                    <option value="1">High</option>
+                                    <option value="2">Medium</option>
+                                    <option value="3">Low</option>
+                                </select>
+                            </div>
+                            <div class="form-group col-lg-1 div-entertimesheet-status div-entertimesheet-status-7-block-1">
+                                <select class="form-control" id="entertimesheetStatus-7-block-1">
+                                    <option value="1">Closed</option>
+                                    <option value="2">Open</option>
+                                </select>
+                            </div>
                         </div>
+
+                        <div class="emp-entertimesheet-footer emp-entertimesheet-footer-1">
+                            <div class="emp-entertimesheet-addtask emp-entertimesheet-addtask-1">
+                                <button type="button" class="emp-entertimesheet-addtask-btn-1">
+                                    <i class="fa-solid fa-plus"></i>Add Task
+                                </button>
+                            </div>
+                            <div class="emp-entertimesheet-save emp-entertimesheet-save-1"><button type="button" class="btn btn-primary">Save</button></div>
+                        </div>
+
                     </div>
 
-                    <div class="emp-entertimesheet-footer">
-                        <div class="emp-entertimesheet-addtask">Add Task</div>
-                        <div class="emp-entertimesheet-save"><button type="button" class="btn btn-primary">Save</button></div>
+                    <div id="emp-entertimesheet-day-block2" class="emp-entertimesheet-day-block">
+
+                        <div class="row emp-entertimesheet-fields row-1">
+                            <div class="form-group col-lg-1 div-entertimesheet-category div-entertimesheet-category-1-block-2">
+                                <label for="entertimesheetCategory-1-block-2" class="leave_label">Category*</label>
+                                <select class="form-control" id="entertimesheetCategory-1-block-2">
+                                    <option value="1">Test1</option>
+                                </select>
+                            </div>
+                            <div class="form-group col-lg-2 div-entertimesheet-taskname div-entertimesheet-taskname-1-block-2">
+                                <label for="entertimesheetTaskName-1-block-2">Incident/Task Name*</label>
+                                <input type="text" class="form-control" id="entertimesheetTaskName-1-block-2" value="" placeholder="Incident/Task Name">
+                            </div>
+                            <div class="form-group col-lg-3 div-entertimesheet-taskdesc div-entertimesheet-taskdesc-1-block-2">
+                                <label for="entertimesheetTaskDesc-1-block-2">Incident/Task Description*</label>
+                                <input type="text" class="form-control" id="entertimesheetTaskDesc-1-block-2" value="" placeholder="Incident/Task Description">
+                            </div>
+                            <div class="form-group col-lg-2 div-entertimesheet-requester div-entertimesheet-requester-1-block-2">
+                                <label for="entertimesheetRequester-1-block-2">Requester</label>
+                                <input type="text" class="form-control" id="entertimesheetRequester-1-block-2" value="">
+                            </div>
+                            <div class="form-group col-lg-2 div-entertimesheet-hourspent div-entertimesheet-hourspent-1-block-2">
+                                <label for="entertimesheetHoursSpent-1-block-2">Hours Spend*</label>
+                                <input type="text" class="form-control" id="entertimesheetHoursSpent-1-block-2" value="">
+                            </div>
+                            <div class="form-group col-lg-1 div-entertimesheet-priority div-entertimesheet-priority-1-block-2">
+                                <label for="entertimesheetPriority-1-block-2" class="leave_label">Priority*</label>
+                                <select class="form-control" id="entertimesheetPriority-1-block-2">
+                                    <option value="1">High</option>
+                                    <option value="2">Medium</option>
+                                    <option value="3">Low</option>
+                                </select>
+                            </div>
+                            <div class="form-group col-lg-1 div-entertimesheet-status div-entertimesheet-status-1-block-2">
+                                <label for="entertimesheetStatus-1-block-2" class="leave_label">Status*</label>
+                                <select class="form-control" id="entertimesheetStatus-1-block-2">
+                                    <option value="1">Closed</option>
+                                    <option value="2">Open</option>
+                                </select>
+                            </div>
+                        </div>
+
+                        <div class="row emp-entertimesheet-fields row-2">
+                            <div class="form-group col-lg-1 div-entertimesheet-category div-entertimesheet-category-2-block-2">
+                                <select class="form-control" id="entertimesheetCategory-2-block-2">
+                                    <option value="1">Test1</option>
+                                </select>
+                            </div>
+                            <div class="form-group col-lg-2 div-entertimesheet-taskname div-entertimesheet-taskname-2-block-2">
+                                <input type="text" class="form-control" id="entertimesheetTaskName-2-block-2" value="" placeholder="Incident/Task Name">
+                            </div>
+                            <div class="form-group col-lg-3 div-entertimesheet-taskdesc div-entertimesheet-taskdesc-2-block-2">
+                                <input type="text" class="form-control" id="entertimesheetTaskDesc-1-block-2" value="" placeholder="Incident/Task Description">
+                            </div>
+                            <div class="form-group col-lg-2 div-entertimesheet-requester div-entertimesheet-requester-2-block-2">
+                                <input type="text" class="form-control" id="entertimesheetRequester-2-block-2" value="">
+                            </div>
+                            <div class="form-group col-lg-2 div-entertimesheet-hourspent div-entertimesheet-hourspent-2-block-2">
+                                <input type="text" class="form-control" id="entertimesheetHoursSpent-2-block-2" value="">
+                            </div>
+                            <div class="form-group col-lg-1 div-entertimesheet-priority div-entertimesheet-priority-2-block-2">
+                                <select class="form-control" id="entertimesheetPriority-2-block-2">
+                                    <option value="1">High</option>
+                                    <option value="2">Medium</option>
+                                    <option value="3">Low</option>
+                                </select>
+                            </div>
+                            <div class="form-group col-lg-1 div-entertimesheet-status div-entertimesheet-status-2-block-2">
+                                <select class="form-control" id="entertimesheetStatus-2">
+                                    <option value="1">Closed</option>
+                                    <option value="2">Open</option>
+                                </select>
+                            </div>
+                        </div>
+
+                        <div class="row emp-entertimesheet-fields row-3">
+                            <div class="form-group col-lg-1 div-entertimesheet-category div-entertimesheet-category-3-block-2">
+                                <select class="form-control" id="entertimesheetCategory-3-block-2">
+                                    <option value="1">Test1</option>
+                                </select>
+                            </div>
+                            <div class="form-group col-lg-2 div-entertimesheet-taskname div-entertimesheet-taskname-3-block-2">
+                                <input type="text" class="form-control" id="entertimesheetTaskName-3-block-2" value="" placeholder="Incident/Task Name">
+                            </div>
+                            <div class="form-group col-lg-3 div-entertimesheet-taskdesc div-entertimesheet-taskdesc-3-block-2">
+                                <input type="text" class="form-control" id="entertimesheetTaskDesc-3-block-2" value="" placeholder="Incident/Task Description">
+                            </div>
+                            <div class="form-group col-lg-2 div-entertimesheet-requester div-entertimesheet-requester-3-block-2">
+                                <input type="text" class="form-control" id="entertimesheetRequester-3-block-2" value="">
+                            </div>
+                            <div class="form-group col-lg-2 div-entertimesheet-hourspent div-entertimesheet-hourspent-3-block-2">
+                                <input type="text" class="form-control" id="entertimesheetHoursSpent-3-block-2" value="">
+                            </div>
+                            <div class="form-group col-lg-1 div-entertimesheet-priority div-entertimesheet-priority-3-block-2">
+                                <select class="form-control" id="entertimesheetPriority-3-block-2">
+                                    <option value="1">High</option>
+                                    <option value="2">Medium</option>
+                                    <option value="3">Low</option>
+                                </select>
+                            </div>
+                            <div class="form-group col-lg-1 div-entertimesheet-status div-entertimesheet-status-3-block-2">
+                                <select class="form-control" id="entertimesheetStatus-3-block-2">
+                                    <option value="1">Closed</option>
+                                    <option value="2">Open</option>
+                                </select>
+                            </div>
+                        </div>
+
+                        <div class="row emp-entertimesheet-fields row-4">
+                            <div class="form-group col-lg-1 div-entertimesheet-category div-entertimesheet-category-4-block-2">
+                                <select class="form-control" id="entertimesheetCategory-4-block-2">
+                                    <option value="1">Test1</option>
+                                </select>
+                            </div>
+                            <div class="form-group col-lg-2 div-entertimesheet-taskname div-entertimesheet-taskname-4-block-2">
+                                <input type="text" class="form-control" id="entertimesheetTaskName-4-block-2" value="" placeholder="Incident/Task Name">
+                            </div>
+                            <div class="form-group col-lg-3 div-entertimesheet-taskdesc div-entertimesheet-taskdesc-4-block-2">
+                                <input type="text" class="form-control" id="entertimesheetTaskDesc-4-block-2" value="" placeholder="Incident/Task Description">
+                            </div>
+                            <div class="form-group col-lg-2 div-entertimesheet-requester div-entertimesheet-requester-4-block-2">
+                                <input type="text" class="form-control" id="entertimesheetRequester-4-block-2" value="">
+                            </div>
+                            <div class="form-group col-lg-2 div-entertimesheet-hourspent div-entertimesheet-hourspent-4-block-2">
+                                <input type="text" class="form-control" id="entertimesheetHoursSpent-4-block-2" value="">
+                            </div>
+                            <div class="form-group col-lg-1 div-entertimesheet-priority div-entertimesheet-priority-4-block-2">
+                                <select class="form-control" id="entertimesheetPriority-4-block-2">
+                                    <option value="1">High</option>
+                                    <option value="2">Medium</option>
+                                    <option value="3">Low</option>
+                                </select>
+                            </div>
+                            <div class="form-group col-lg-1 div-entertimesheet-status div-entertimesheet-status-4-block-2">
+                                <select class="form-control" id="entertimesheetStatus-4-block-2">
+                                    <option value="1">Closed</option>
+                                    <option value="2">Open</option>
+                                </select>
+                            </div>
+                        </div>
+
+                        <div class="row emp-entertimesheet-fields row-5">
+                            <div class="form-group col-lg-1 div-entertimesheet-category div-entertimesheet-category-5-block-2">
+                                <select class="form-control" id="entertimesheetCategory-5-block-2">
+                                    <option value="1">Test1</option>
+                                </select>
+                            </div>
+                            <div class="form-group col-lg-2 div-entertimesheet-taskname div-entertimesheet-taskname-5-block-2">
+                                <input type="text" class="form-control" id="entertimesheetTaskName-5-block-2" value="" placeholder="Incident/Task Name">
+                            </div>
+                            <div class="form-group col-lg-3 div-entertimesheet-taskdesc div-entertimesheet-taskdesc-5-block-2">
+                                <input type="text" class="form-control" id="entertimesheetTaskDesc-5-block-2" value="" placeholder="Incident/Task Description">
+                            </div>
+                            <div class="form-group col-lg-2 div-entertimesheet-requester div-entertimesheet-requester-5-block-2">
+                                <input type="text" class="form-control" id="entertimesheetRequester-5-block-2" value="">
+                            </div>
+                            <div class="form-group col-lg-2 div-entertimesheet-hourspent div-entertimesheet-hourspent-5-block-2">
+                                <input type="text" class="form-control" id="entertimesheetHoursSpent-5-block-2" value="">
+                            </div>
+                            <div class="form-group col-lg-1 div-entertimesheet-priority div-entertimesheet-priority-5-block-2">
+                                <select class="form-control" id="entertimesheetPriority-5-block-2">
+                                    <option value="1">High</option>
+                                    <option value="2">Medium</option>
+                                    <option value="3">Low</option>
+                                </select>
+                            </div>
+                            <div class="form-group col-lg-1 div-entertimesheet-status div-entertimesheet-status-5-block-2">
+                                <select class="form-control" id="entertimesheetStatus-5-block-2">
+                                    <option value="1">Closed</option>
+                                    <option value="2">Open</option>
+                                </select>
+                            </div>
+                        </div>
+
+                        <div class="row emp-entertimesheet-fields row-6" style="display: none;">
+                            <div class="form-group col-lg-1 div-entertimesheet-category div-entertimesheet-category-6-block-2">
+                                <select class="form-control" id="entertimesheetCategory-6-block-2">
+                                    <option value="1">Test1</option>
+                                </select>
+                            </div>
+                            <div class="form-group col-lg-2 div-entertimesheet-taskname div-entertimesheet-taskname-6-block-2">
+                                <input type="text" class="form-control" id="entertimesheetTaskName-6-block-2" value="" placeholder="Incident/Task Name">
+                            </div>
+                            <div class="form-group col-lg-3 div-entertimesheet-taskdesc div-entertimesheet-taskdesc-6-block-2">
+                                <input type="text" class="form-control" id="entertimesheetTaskDesc-6-block-2" value="" placeholder="Incident/Task Description">
+                            </div>
+                            <div class="form-group col-lg-2 div-entertimesheet-requester div-entertimesheet-requester-6-block-2">
+                                <input type="text" class="form-control" id="entertimesheetRequester-6-block-2" value="">
+                            </div>
+                            <div class="form-group col-lg-2 div-entertimesheet-hourspent div-entertimesheet-hourspent-6-block-2">
+                                <input type="text" class="form-control" id="entertimesheetHoursSpent-6-block-2" value="">
+                            </div>
+                            <div class="form-group col-lg-1 div-entertimesheet-priority div-entertimesheet-priority-6-block-2">
+                                <select class="form-control" id="entertimesheetPriority-6-block-2">
+                                    <option value="1">High</option>
+                                    <option value="2">Medium</option>
+                                    <option value="3">Low</option>
+                                </select>
+                            </div>
+                            <div class="form-group col-lg-1 div-entertimesheet-status div-entertimesheet-status-6-block-2">
+                                <select class="form-control" id="entertimesheetStatus-6-block-2">
+                                    <option value="1">Closed</option>
+                                    <option value="2">Open</option>
+                                </select>
+                            </div>
+                        </div>
+
+                        <div class="row emp-entertimesheet-fields row-7" style="display: none;">
+                            <div class="form-group col-lg-1 div-entertimesheet-category div-entertimesheet-category-7-block-2">
+                                <select class="form-control" id="entertimesheetCategory-7-block-2">
+                                    <option value="1">Test1</option>
+                                </select>
+                            </div>
+                            <div class="form-group col-lg-2 div-entertimesheet-taskname div-entertimesheet-taskname-7-block-2">
+                                <input type="text" class="form-control" id="entertimesheetTaskName-7-block-2" value="" placeholder="Incident/Task Name">
+                            </div>
+                            <div class="form-group col-lg-3 div-entertimesheet-taskdesc div-entertimesheet-taskdesc-7-block-2">
+                                <input type="text" class="form-control" id="entertimesheetTaskDesc-7-block-2" value="" placeholder="Incident/Task Description">
+                            </div>
+                            <div class="form-group col-lg-2 div-entertimesheet-requester div-entertimesheet-requester-7-block-2">
+                                <input type="text" class="form-control" id="entertimesheetRequester-7-block-2" value="">
+                            </div>
+                            <div class="form-group col-lg-2 div-entertimesheet-hourspent div-entertimesheet-hourspent-7-block-2">
+                                <input type="text" class="form-control" id="entertimesheetHoursSpent-7-block-2" value="">
+                            </div>
+                            <div class="form-group col-lg-1 div-entertimesheet-priority div-entertimesheet-priority-7-block-2">
+                                <select class="form-control" id="entertimesheetPriority-7-block-2">
+                                    <option value="1">High</option>
+                                    <option value="2">Medium</option>
+                                    <option value="3">Low</option>
+                                </select>
+                            </div>
+                            <div class="form-group col-lg-1 div-entertimesheet-status div-entertimesheet-status-7-block-2">
+                                <select class="form-control" id="entertimesheetStatus-7-block-2">
+                                    <option value="1">Closed</option>
+                                    <option value="2">Open</option>
+                                </select>
+                            </div>
+                        </div>
+
+                        <div class="emp-entertimesheet-footer emp-entertimesheet-footer-2">
+                            <div class="emp-entertimesheet-addtask emp-entertimesheet-addtask-2">
+                                <button type="button" class="emp-entertimesheet-addtask-btn-2">
+                                    <i class="fa-solid fa-plus"></i>Add Task
+                                </button>
+                            </div>
+                            <div class="emp-entertimesheet-save emp-entertimesheet-save-2"><button type="button" class="btn btn-primary">Save</button></div>
+                        </div>
+
                     </div>
+
+                    <div id="emp-entertimesheet-day-block3" class="emp-entertimesheet-day-block">
+
+                        <div class="row emp-entertimesheet-fields row-1">
+                            <div class="form-group col-lg-1 div-entertimesheet-category div-entertimesheet-category-1-block-3">
+                                <label for="entertimesheetCategory-1-block-3" class="leave_label">Category*</label>
+                                <select class="form-control" id="entertimesheetCategory-1-block-3">
+                                    <option value="1">Test1</option>
+                                </select>
+                            </div>
+                            <div class="form-group col-lg-2 div-entertimesheet-taskname div-entertimesheet-taskname-1-block-3">
+                                <label for="entertimesheetTaskName-1-block-3">Incident/Task Name*</label>
+                                <input type="text" class="form-control" id="entertimesheetTaskName-1-block-3" value="" placeholder="Incident/Task Name">
+                            </div>
+                            <div class="form-group col-lg-3 div-entertimesheet-taskdesc div-entertimesheet-taskdesc-1-block-3">
+                                <label for="entertimesheetTaskDesc-1-block-3">Incident/Task Description*</label>
+                                <input type="text" class="form-control" id="entertimesheetTaskDesc-1-block-3" value="" placeholder="Incident/Task Description">
+                            </div>
+                            <div class="form-group col-lg-2 div-entertimesheet-requester div-entertimesheet-requester-1-block-3">
+                                <label for="entertimesheetRequester-1-block-3">Requester</label>
+                                <input type="text" class="form-control" id="entertimesheetRequester-1-block-3" value="">
+                            </div>
+                            <div class="form-group col-lg-2 div-entertimesheet-hourspent div-entertimesheet-hourspent-1-block-3">
+                                <label for="entertimesheetHoursSpent-1-block-3">Hours Spend*</label>
+                                <input type="text" class="form-control" id="entertimesheetHoursSpent-1-block-3" value="">
+                            </div>
+                            <div class="form-group col-lg-1 div-entertimesheet-priority div-entertimesheet-priority-1-block-3">
+                                <label for="entertimesheetPriority-1-block-3" class="leave_label">Priority*</label>
+                                <select class="form-control" id="entertimesheetPriority-1-block-3">
+                                    <option value="1">High</option>
+                                    <option value="2">Medium</option>
+                                    <option value="3">Low</option>
+                                </select>
+                            </div>
+                            <div class="form-group col-lg-1 div-entertimesheet-status div-entertimesheet-status-1-block-3">
+                                <label for="entertimesheetStatus-1-block-3" class="leave_label">Status*</label>
+                                <select class="form-control" id="entertimesheetStatus-1-block-3">
+                                    <option value="1">Closed</option>
+                                    <option value="2">Open</option>
+                                </select>
+                            </div>
+                        </div>
+
+                        <div class="row emp-entertimesheet-fields row-2">
+                            <div class="form-group col-lg-1 div-entertimesheet-category div-entertimesheet-category-2-block-3">
+                                <select class="form-control" id="entertimesheetCategory-2-block-3">
+                                    <option value="1">Test1</option>
+                                </select>
+                            </div>
+                            <div class="form-group col-lg-2 div-entertimesheet-taskname div-entertimesheet-taskname-2-block-3">
+                                <input type="text" class="form-control" id="entertimesheetTaskName-2-block-3" value="" placeholder="Incident/Task Name">
+                            </div>
+                            <div class="form-group col-lg-3 div-entertimesheet-taskdesc div-entertimesheet-taskdesc-2-block-3">
+                                <input type="text" class="form-control" id="entertimesheetTaskDesc-1-block-3" value="" placeholder="Incident/Task Description">
+                            </div>
+                            <div class="form-group col-lg-2 div-entertimesheet-requester div-entertimesheet-requester-2-block-3">
+                                <input type="text" class="form-control" id="entertimesheetRequester-2-block-3" value="">
+                            </div>
+                            <div class="form-group col-lg-2 div-entertimesheet-hourspent div-entertimesheet-hourspent-2-block-3">
+                                <input type="text" class="form-control" id="entertimesheetHoursSpent-2-block-3" value="">
+                            </div>
+                            <div class="form-group col-lg-1 div-entertimesheet-priority div-entertimesheet-priority-2-block-3">
+                                <select class="form-control" id="entertimesheetPriority-2-block-3">
+                                    <option value="1">High</option>
+                                    <option value="2">Medium</option>
+                                    <option value="3">Low</option>
+                                </select>
+                            </div>
+                            <div class="form-group col-lg-1 div-entertimesheet-status div-entertimesheet-status-2-block-3">
+                                <select class="form-control" id="entertimesheetStatus-2">
+                                    <option value="1">Closed</option>
+                                    <option value="2">Open</option>
+                                </select>
+                            </div>
+                        </div>
+
+                        <div class="row emp-entertimesheet-fields row-3">
+                            <div class="form-group col-lg-1 div-entertimesheet-category div-entertimesheet-category-3-block-3">
+                                <select class="form-control" id="entertimesheetCategory-3-block-3">
+                                    <option value="1">Test1</option>
+                                </select>
+                            </div>
+                            <div class="form-group col-lg-2 div-entertimesheet-taskname div-entertimesheet-taskname-3-block-3">
+                                <input type="text" class="form-control" id="entertimesheetTaskName-3-block-3" value="" placeholder="Incident/Task Name">
+                            </div>
+                            <div class="form-group col-lg-3 div-entertimesheet-taskdesc div-entertimesheet-taskdesc-3-block-3">
+                                <input type="text" class="form-control" id="entertimesheetTaskDesc-3-block-3" value="" placeholder="Incident/Task Description">
+                            </div>
+                            <div class="form-group col-lg-2 div-entertimesheet-requester div-entertimesheet-requester-3-block-3">
+                                <input type="text" class="form-control" id="entertimesheetRequester-3-block-3" value="">
+                            </div>
+                            <div class="form-group col-lg-2 div-entertimesheet-hourspent div-entertimesheet-hourspent-3-block-3">
+                                <input type="text" class="form-control" id="entertimesheetHoursSpent-3-block-3" value="">
+                            </div>
+                            <div class="form-group col-lg-1 div-entertimesheet-priority div-entertimesheet-priority-3-block-3">
+                                <select class="form-control" id="entertimesheetPriority-3-block-3">
+                                    <option value="1">High</option>
+                                    <option value="2">Medium</option>
+                                    <option value="3">Low</option>
+                                </select>
+                            </div>
+                            <div class="form-group col-lg-1 div-entertimesheet-status div-entertimesheet-status-3-block-3">
+                                <select class="form-control" id="entertimesheetStatus-3-block-3">
+                                    <option value="1">Closed</option>
+                                    <option value="2">Open</option>
+                                </select>
+                            </div>
+                        </div>
+
+                        <div class="row emp-entertimesheet-fields row-4">
+                            <div class="form-group col-lg-1 div-entertimesheet-category div-entertimesheet-category-4-block-3">
+                                <select class="form-control" id="entertimesheetCategory-4-block-3">
+                                    <option value="1">Test1</option>
+                                </select>
+                            </div>
+                            <div class="form-group col-lg-2 div-entertimesheet-taskname div-entertimesheet-taskname-4-block-3">
+                                <input type="text" class="form-control" id="entertimesheetTaskName-4-block-3" value="" placeholder="Incident/Task Name">
+                            </div>
+                            <div class="form-group col-lg-3 div-entertimesheet-taskdesc div-entertimesheet-taskdesc-4-block-3">
+                                <input type="text" class="form-control" id="entertimesheetTaskDesc-4-block-3" value="" placeholder="Incident/Task Description">
+                            </div>
+                            <div class="form-group col-lg-2 div-entertimesheet-requester div-entertimesheet-requester-4-block-3">
+                                <input type="text" class="form-control" id="entertimesheetRequester-4-block-3" value="">
+                            </div>
+                            <div class="form-group col-lg-2 div-entertimesheet-hourspent div-entertimesheet-hourspent-4-block-3">
+                                <input type="text" class="form-control" id="entertimesheetHoursSpent-4-block-3" value="">
+                            </div>
+                            <div class="form-group col-lg-1 div-entertimesheet-priority div-entertimesheet-priority-4-block-3">
+                                <select class="form-control" id="entertimesheetPriority-4-block-3">
+                                    <option value="1">High</option>
+                                    <option value="2">Medium</option>
+                                    <option value="3">Low</option>
+                                </select>
+                            </div>
+                            <div class="form-group col-lg-1 div-entertimesheet-status div-entertimesheet-status-4-block-3">
+                                <select class="form-control" id="entertimesheetStatus-4-block-3">
+                                    <option value="1">Closed</option>
+                                    <option value="2">Open</option>
+                                </select>
+                            </div>
+                        </div>
+
+                        <div class="row emp-entertimesheet-fields row-5">
+                            <div class="form-group col-lg-1 div-entertimesheet-category div-entertimesheet-category-5-block-3">
+                                <select class="form-control" id="entertimesheetCategory-5-block-3">
+                                    <option value="1">Test1</option>
+                                </select>
+                            </div>
+                            <div class="form-group col-lg-2 div-entertimesheet-taskname div-entertimesheet-taskname-5-block-3">
+                                <input type="text" class="form-control" id="entertimesheetTaskName-5-block-3" value="" placeholder="Incident/Task Name">
+                            </div>
+                            <div class="form-group col-lg-3 div-entertimesheet-taskdesc div-entertimesheet-taskdesc-5-block-3">
+                                <input type="text" class="form-control" id="entertimesheetTaskDesc-5-block-3" value="" placeholder="Incident/Task Description">
+                            </div>
+                            <div class="form-group col-lg-2 div-entertimesheet-requester div-entertimesheet-requester-5-block-3">
+                                <input type="text" class="form-control" id="entertimesheetRequester-5-block-3" value="">
+                            </div>
+                            <div class="form-group col-lg-2 div-entertimesheet-hourspent div-entertimesheet-hourspent-5-block-3">
+                                <input type="text" class="form-control" id="entertimesheetHoursSpent-5-block-3" value="">
+                            </div>
+                            <div class="form-group col-lg-1 div-entertimesheet-priority div-entertimesheet-priority-5-block-3">
+                                <select class="form-control" id="entertimesheetPriority-5-block-3">
+                                    <option value="1">High</option>
+                                    <option value="2">Medium</option>
+                                    <option value="3">Low</option>
+                                </select>
+                            </div>
+                            <div class="form-group col-lg-1 div-entertimesheet-status div-entertimesheet-status-5-block-3">
+                                <select class="form-control" id="entertimesheetStatus-5-block-3">
+                                    <option value="1">Closed</option>
+                                    <option value="2">Open</option>
+                                </select>
+                            </div>
+                        </div>
+
+                        <div class="row emp-entertimesheet-fields row-6" style="display: none;">
+                            <div class="form-group col-lg-1 div-entertimesheet-category div-entertimesheet-category-6-block-3">
+                                <select class="form-control" id="entertimesheetCategory-6-block-3">
+                                    <option value="1">Test1</option>
+                                </select>
+                            </div>
+                            <div class="form-group col-lg-2 div-entertimesheet-taskname div-entertimesheet-taskname-6-block-3">
+                                <input type="text" class="form-control" id="entertimesheetTaskName-6-block-3" value="" placeholder="Incident/Task Name">
+                            </div>
+                            <div class="form-group col-lg-3 div-entertimesheet-taskdesc div-entertimesheet-taskdesc-6-block-3">
+                                <input type="text" class="form-control" id="entertimesheetTaskDesc-6-block-3" value="" placeholder="Incident/Task Description">
+                            </div>
+                            <div class="form-group col-lg-2 div-entertimesheet-requester div-entertimesheet-requester-6-block-3">
+                                <input type="text" class="form-control" id="entertimesheetRequester-6-block-3" value="">
+                            </div>
+                            <div class="form-group col-lg-2 div-entertimesheet-hourspent div-entertimesheet-hourspent-6-block-3">
+                                <input type="text" class="form-control" id="entertimesheetHoursSpent-6-block-3" value="">
+                            </div>
+                            <div class="form-group col-lg-1 div-entertimesheet-priority div-entertimesheet-priority-6-block-3">
+                                <select class="form-control" id="entertimesheetPriority-6-block-3">
+                                    <option value="1">High</option>
+                                    <option value="2">Medium</option>
+                                    <option value="3">Low</option>
+                                </select>
+                            </div>
+                            <div class="form-group col-lg-1 div-entertimesheet-status div-entertimesheet-status-6-block-3">
+                                <select class="form-control" id="entertimesheetStatus-6-block-3">
+                                    <option value="1">Closed</option>
+                                    <option value="2">Open</option>
+                                </select>
+                            </div>
+                        </div>
+
+                        <div class="row emp-entertimesheet-fields row-7" style="display: none;">
+                            <div class="form-group col-lg-1 div-entertimesheet-category div-entertimesheet-category-7-block-3">
+                                <select class="form-control" id="entertimesheetCategory-7-block-3">
+                                    <option value="1">Test1</option>
+                                </select>
+                            </div>
+                            <div class="form-group col-lg-2 div-entertimesheet-taskname div-entertimesheet-taskname-7-block-3">
+                                <input type="text" class="form-control" id="entertimesheetTaskName-7-block-3" value="" placeholder="Incident/Task Name">
+                            </div>
+                            <div class="form-group col-lg-3 div-entertimesheet-taskdesc div-entertimesheet-taskdesc-7-block-3">
+                                <input type="text" class="form-control" id="entertimesheetTaskDesc-7-block-3" value="" placeholder="Incident/Task Description">
+                            </div>
+                            <div class="form-group col-lg-2 div-entertimesheet-requester div-entertimesheet-requester-7-block-3">
+                                <input type="text" class="form-control" id="entertimesheetRequester-7-block-3" value="">
+                            </div>
+                            <div class="form-group col-lg-2 div-entertimesheet-hourspent div-entertimesheet-hourspent-7-block-3">
+                                <input type="text" class="form-control" id="entertimesheetHoursSpent-7-block-3" value="">
+                            </div>
+                            <div class="form-group col-lg-1 div-entertimesheet-priority div-entertimesheet-priority-7-block-3">
+                                <select class="form-control" id="entertimesheetPriority-7-block-3">
+                                    <option value="1">High</option>
+                                    <option value="2">Medium</option>
+                                    <option value="3">Low</option>
+                                </select>
+                            </div>
+                            <div class="form-group col-lg-1 div-entertimesheet-status div-entertimesheet-status-7-block-3">
+                                <select class="form-control" id="entertimesheetStatus-7-block-3">
+                                    <option value="1">Closed</option>
+                                    <option value="2">Open</option>
+                                </select>
+                            </div>
+                        </div>
+
+                        <div class="emp-entertimesheet-footer emp-entertimesheet-footer-3">
+                            <div class="emp-entertimesheet-addtask emp-entertimesheet-addtask-3">
+                                <button type="button" class="emp-entertimesheet-addtask-btn-3">
+                                    <i class="fa-solid fa-plus"></i>Add Task
+                                </button>
+                            </div>
+                            <div class="emp-entertimesheet-save emp-entertimesheet-save-3"><button type="button" class="btn btn-primary">Save</button></div>
+                        </div>
+
+                    </div>
+
+                    <div id="emp-entertimesheet-day-block4" class="emp-entertimesheet-day-block">
+
+                        <div class="row emp-entertimesheet-fields row-1">
+                            <div class="form-group col-lg-1 div-entertimesheet-category div-entertimesheet-category-1-block-4">
+                                <label for="entertimesheetCategory-1-block-4" class="leave_label">Category*</label>
+                                <select class="form-control" id="entertimesheetCategory-1-block-4">
+                                    <option value="1">Test1</option>
+                                </select>
+                            </div>
+                            <div class="form-group col-lg-2 div-entertimesheet-taskname div-entertimesheet-taskname-1-block-4">
+                                <label for="entertimesheetTaskName-1-block-4">Incident/Task Name*</label>
+                                <input type="text" class="form-control" id="entertimesheetTaskName-1-block-4" value="" placeholder="Incident/Task Name">
+                            </div>
+                            <div class="form-group col-lg-3 div-entertimesheet-taskdesc div-entertimesheet-taskdesc-1-block-4">
+                                <label for="entertimesheetTaskDesc-1-block-4">Incident/Task Description*</label>
+                                <input type="text" class="form-control" id="entertimesheetTaskDesc-1-block-4" value="" placeholder="Incident/Task Description">
+                            </div>
+                            <div class="form-group col-lg-2 div-entertimesheet-requester div-entertimesheet-requester-1-block-4">
+                                <label for="entertimesheetRequester-1-block-4">Requester</label>
+                                <input type="text" class="form-control" id="entertimesheetRequester-1-block-4" value="">
+                            </div>
+                            <div class="form-group col-lg-2 div-entertimesheet-hourspent div-entertimesheet-hourspent-1-block-4">
+                                <label for="entertimesheetHoursSpent-1-block-4">Hours Spend*</label>
+                                <input type="text" class="form-control" id="entertimesheetHoursSpent-1-block-4" value="">
+                            </div>
+                            <div class="form-group col-lg-1 div-entertimesheet-priority div-entertimesheet-priority-1-block-4">
+                                <label for="entertimesheetPriority-1-block-4" class="leave_label">Priority*</label>
+                                <select class="form-control" id="entertimesheetPriority-1-block-4">
+                                    <option value="1">High</option>
+                                    <option value="2">Medium</option>
+                                    <option value="3">Low</option>
+                                </select>
+                            </div>
+                            <div class="form-group col-lg-1 div-entertimesheet-status div-entertimesheet-status-1-block-4">
+                                <label for="entertimesheetStatus-1-block-4" class="leave_label">Status*</label>
+                                <select class="form-control" id="entertimesheetStatus-1-block-4">
+                                    <option value="1">Closed</option>
+                                    <option value="2">Open</option>
+                                </select>
+                            </div>
+                        </div>
+
+                        <div class="row emp-entertimesheet-fields row-2">
+                            <div class="form-group col-lg-1 div-entertimesheet-category div-entertimesheet-category-2-block-4">
+                                <select class="form-control" id="entertimesheetCategory-2-block-4">
+                                    <option value="1">Test1</option>
+                                </select>
+                            </div>
+                            <div class="form-group col-lg-2 div-entertimesheet-taskname div-entertimesheet-taskname-2-block-4">
+                                <input type="text" class="form-control" id="entertimesheetTaskName-2-block-4" value="" placeholder="Incident/Task Name">
+                            </div>
+                            <div class="form-group col-lg-3 div-entertimesheet-taskdesc div-entertimesheet-taskdesc-2-block-4">
+                                <input type="text" class="form-control" id="entertimesheetTaskDesc-1-block-4" value="" placeholder="Incident/Task Description">
+                            </div>
+                            <div class="form-group col-lg-2 div-entertimesheet-requester div-entertimesheet-requester-2-block-4">
+                                <input type="text" class="form-control" id="entertimesheetRequester-2-block-4" value="">
+                            </div>
+                            <div class="form-group col-lg-2 div-entertimesheet-hourspent div-entertimesheet-hourspent-2-block-4">
+                                <input type="text" class="form-control" id="entertimesheetHoursSpent-2-block-4" value="">
+                            </div>
+                            <div class="form-group col-lg-1 div-entertimesheet-priority div-entertimesheet-priority-2-block-4">
+                                <select class="form-control" id="entertimesheetPriority-2-block-4">
+                                    <option value="1">High</option>
+                                    <option value="2">Medium</option>
+                                    <option value="3">Low</option>
+                                </select>
+                            </div>
+                            <div class="form-group col-lg-1 div-entertimesheet-status div-entertimesheet-status-2-block-4">
+                                <select class="form-control" id="entertimesheetStatus-2">
+                                    <option value="1">Closed</option>
+                                    <option value="2">Open</option>
+                                </select>
+                            </div>
+                        </div>
+
+                        <div class="row emp-entertimesheet-fields row-3">
+                            <div class="form-group col-lg-1 div-entertimesheet-category div-entertimesheet-category-3-block-4">
+                                <select class="form-control" id="entertimesheetCategory-3-block-4">
+                                    <option value="1">Test1</option>
+                                </select>
+                            </div>
+                            <div class="form-group col-lg-2 div-entertimesheet-taskname div-entertimesheet-taskname-3-block-4">
+                                <input type="text" class="form-control" id="entertimesheetTaskName-3-block-4" value="" placeholder="Incident/Task Name">
+                            </div>
+                            <div class="form-group col-lg-3 div-entertimesheet-taskdesc div-entertimesheet-taskdesc-3-block-4">
+                                <input type="text" class="form-control" id="entertimesheetTaskDesc-3-block-4" value="" placeholder="Incident/Task Description">
+                            </div>
+                            <div class="form-group col-lg-2 div-entertimesheet-requester div-entertimesheet-requester-3-block-4">
+                                <input type="text" class="form-control" id="entertimesheetRequester-3-block-4" value="">
+                            </div>
+                            <div class="form-group col-lg-2 div-entertimesheet-hourspent div-entertimesheet-hourspent-3-block-4">
+                                <input type="text" class="form-control" id="entertimesheetHoursSpent-3-block-4" value="">
+                            </div>
+                            <div class="form-group col-lg-1 div-entertimesheet-priority div-entertimesheet-priority-3-block-4">
+                                <select class="form-control" id="entertimesheetPriority-3-block-4">
+                                    <option value="1">High</option>
+                                    <option value="2">Medium</option>
+                                    <option value="3">Low</option>
+                                </select>
+                            </div>
+                            <div class="form-group col-lg-1 div-entertimesheet-status div-entertimesheet-status-3-block-4">
+                                <select class="form-control" id="entertimesheetStatus-3-block-4">
+                                    <option value="1">Closed</option>
+                                    <option value="2">Open</option>
+                                </select>
+                            </div>
+                        </div>
+
+                        <div class="row emp-entertimesheet-fields row-4">
+                            <div class="form-group col-lg-1 div-entertimesheet-category div-entertimesheet-category-4-block-4">
+                                <select class="form-control" id="entertimesheetCategory-4-block-4">
+                                    <option value="1">Test1</option>
+                                </select>
+                            </div>
+                            <div class="form-group col-lg-2 div-entertimesheet-taskname div-entertimesheet-taskname-4-block-4">
+                                <input type="text" class="form-control" id="entertimesheetTaskName-4-block-4" value="" placeholder="Incident/Task Name">
+                            </div>
+                            <div class="form-group col-lg-3 div-entertimesheet-taskdesc div-entertimesheet-taskdesc-4-block-4">
+                                <input type="text" class="form-control" id="entertimesheetTaskDesc-4-block-4" value="" placeholder="Incident/Task Description">
+                            </div>
+                            <div class="form-group col-lg-2 div-entertimesheet-requester div-entertimesheet-requester-4-block-4">
+                                <input type="text" class="form-control" id="entertimesheetRequester-4-block-4" value="">
+                            </div>
+                            <div class="form-group col-lg-2 div-entertimesheet-hourspent div-entertimesheet-hourspent-4-block-4">
+                                <input type="text" class="form-control" id="entertimesheetHoursSpent-4-block-4" value="">
+                            </div>
+                            <div class="form-group col-lg-1 div-entertimesheet-priority div-entertimesheet-priority-4-block-4">
+                                <select class="form-control" id="entertimesheetPriority-4-block-4">
+                                    <option value="1">High</option>
+                                    <option value="2">Medium</option>
+                                    <option value="3">Low</option>
+                                </select>
+                            </div>
+                            <div class="form-group col-lg-1 div-entertimesheet-status div-entertimesheet-status-4-block-4">
+                                <select class="form-control" id="entertimesheetStatus-4-block-4">
+                                    <option value="1">Closed</option>
+                                    <option value="2">Open</option>
+                                </select>
+                            </div>
+                        </div>
+
+                        <div class="row emp-entertimesheet-fields row-5">
+                            <div class="form-group col-lg-1 div-entertimesheet-category div-entertimesheet-category-5-block-4">
+                                <select class="form-control" id="entertimesheetCategory-5-block-4">
+                                    <option value="1">Test1</option>
+                                </select>
+                            </div>
+                            <div class="form-group col-lg-2 div-entertimesheet-taskname div-entertimesheet-taskname-5-block-4">
+                                <input type="text" class="form-control" id="entertimesheetTaskName-5-block-4" value="" placeholder="Incident/Task Name">
+                            </div>
+                            <div class="form-group col-lg-3 div-entertimesheet-taskdesc div-entertimesheet-taskdesc-5-block-4">
+                                <input type="text" class="form-control" id="entertimesheetTaskDesc-5-block-4" value="" placeholder="Incident/Task Description">
+                            </div>
+                            <div class="form-group col-lg-2 div-entertimesheet-requester div-entertimesheet-requester-5-block-4">
+                                <input type="text" class="form-control" id="entertimesheetRequester-5-block-4" value="">
+                            </div>
+                            <div class="form-group col-lg-2 div-entertimesheet-hourspent div-entertimesheet-hourspent-5-block-4">
+                                <input type="text" class="form-control" id="entertimesheetHoursSpent-5-block-4" value="">
+                            </div>
+                            <div class="form-group col-lg-1 div-entertimesheet-priority div-entertimesheet-priority-5-block-4">
+                                <select class="form-control" id="entertimesheetPriority-5-block-4">
+                                    <option value="1">High</option>
+                                    <option value="2">Medium</option>
+                                    <option value="3">Low</option>
+                                </select>
+                            </div>
+                            <div class="form-group col-lg-1 div-entertimesheet-status div-entertimesheet-status-5-block-4">
+                                <select class="form-control" id="entertimesheetStatus-5-block-4">
+                                    <option value="1">Closed</option>
+                                    <option value="2">Open</option>
+                                </select>
+                            </div>
+                        </div>
+
+                        <div class="row emp-entertimesheet-fields row-6" style="display: none;">
+                            <div class="form-group col-lg-1 div-entertimesheet-category div-entertimesheet-category-6-block-4">
+                                <select class="form-control" id="entertimesheetCategory-6-block-4">
+                                    <option value="1">Test1</option>
+                                </select>
+                            </div>
+                            <div class="form-group col-lg-2 div-entertimesheet-taskname div-entertimesheet-taskname-6-block-4">
+                                <input type="text" class="form-control" id="entertimesheetTaskName-6-block-4" value="" placeholder="Incident/Task Name">
+                            </div>
+                            <div class="form-group col-lg-3 div-entertimesheet-taskdesc div-entertimesheet-taskdesc-6-block-4">
+                                <input type="text" class="form-control" id="entertimesheetTaskDesc-6-block-4" value="" placeholder="Incident/Task Description">
+                            </div>
+                            <div class="form-group col-lg-2 div-entertimesheet-requester div-entertimesheet-requester-6-block-4">
+                                <input type="text" class="form-control" id="entertimesheetRequester-6-block-4" value="">
+                            </div>
+                            <div class="form-group col-lg-2 div-entertimesheet-hourspent div-entertimesheet-hourspent-6-block-4">
+                                <input type="text" class="form-control" id="entertimesheetHoursSpent-6-block-4" value="">
+                            </div>
+                            <div class="form-group col-lg-1 div-entertimesheet-priority div-entertimesheet-priority-6-block-4">
+                                <select class="form-control" id="entertimesheetPriority-6-block-4">
+                                    <option value="1">High</option>
+                                    <option value="2">Medium</option>
+                                    <option value="3">Low</option>
+                                </select>
+                            </div>
+                            <div class="form-group col-lg-1 div-entertimesheet-status div-entertimesheet-status-6-block-4">
+                                <select class="form-control" id="entertimesheetStatus-6-block-4">
+                                    <option value="1">Closed</option>
+                                    <option value="2">Open</option>
+                                </select>
+                            </div>
+                        </div>
+
+                        <div class="row emp-entertimesheet-fields row-7" style="display: none;">
+                            <div class="form-group col-lg-1 div-entertimesheet-category div-entertimesheet-category-7-block-4">
+                                <select class="form-control" id="entertimesheetCategory-7-block-4">
+                                    <option value="1">Test1</option>
+                                </select>
+                            </div>
+                            <div class="form-group col-lg-2 div-entertimesheet-taskname div-entertimesheet-taskname-7-block-4">
+                                <input type="text" class="form-control" id="entertimesheetTaskName-7-block-4" value="" placeholder="Incident/Task Name">
+                            </div>
+                            <div class="form-group col-lg-3 div-entertimesheet-taskdesc div-entertimesheet-taskdesc-7-block-4">
+                                <input type="text" class="form-control" id="entertimesheetTaskDesc-7-block-4" value="" placeholder="Incident/Task Description">
+                            </div>
+                            <div class="form-group col-lg-2 div-entertimesheet-requester div-entertimesheet-requester-7-block-4">
+                                <input type="text" class="form-control" id="entertimesheetRequester-7-block-4" value="">
+                            </div>
+                            <div class="form-group col-lg-2 div-entertimesheet-hourspent div-entertimesheet-hourspent-7-block-4">
+                                <input type="text" class="form-control" id="entertimesheetHoursSpent-7-block-4" value="">
+                            </div>
+                            <div class="form-group col-lg-1 div-entertimesheet-priority div-entertimesheet-priority-7-block-4">
+                                <select class="form-control" id="entertimesheetPriority-7-block-4">
+                                    <option value="1">High</option>
+                                    <option value="2">Medium</option>
+                                    <option value="3">Low</option>
+                                </select>
+                            </div>
+                            <div class="form-group col-lg-1 div-entertimesheet-status div-entertimesheet-status-7-block-4">
+                                <select class="form-control" id="entertimesheetStatus-7-block-4">
+                                    <option value="1">Closed</option>
+                                    <option value="2">Open</option>
+                                </select>
+                            </div>
+                        </div>
+
+                        <div class="emp-entertimesheet-footer emp-entertimesheet-footer-4">
+                            <div class="emp-entertimesheet-addtask emp-entertimesheet-addtask-4">
+                                <button type="button" class="emp-entertimesheet-addtask-btn-4">
+                                    <i class="fa-solid fa-plus"></i>Add Task
+                                </button>
+                            </div>
+                            <div class="emp-entertimesheet-save emp-entertimesheet-save-4"><button type="button" class="btn btn-primary">Save</button></div>
+                        </div>
+
+                    </div>
+
+                    <div id="emp-entertimesheet-day-block5" class="emp-entertimesheet-day-block">
+
+                        <div class="row emp-entertimesheet-fields row-1">
+                            <div class="form-group col-lg-1 div-entertimesheet-category div-entertimesheet-category-1-block-5">
+                                <label for="entertimesheetCategory-1-block-5" class="leave_label">Category*</label>
+                                <select class="form-control" id="entertimesheetCategory-1-block-5">
+                                    <option value="1">Test1</option>
+                                </select>
+                            </div>
+                            <div class="form-group col-lg-2 div-entertimesheet-taskname div-entertimesheet-taskname-1-block-5">
+                                <label for="entertimesheetTaskName-1-block-5">Incident/Task Name*</label>
+                                <input type="text" class="form-control" id="entertimesheetTaskName-1-block-5" value="" placeholder="Incident/Task Name">
+                            </div>
+                            <div class="form-group col-lg-3 div-entertimesheet-taskdesc div-entertimesheet-taskdesc-1-block-5">
+                                <label for="entertimesheetTaskDesc-1-block-5">Incident/Task Description*</label>
+                                <input type="text" class="form-control" id="entertimesheetTaskDesc-1-block-5" value="" placeholder="Incident/Task Description">
+                            </div>
+                            <div class="form-group col-lg-2 div-entertimesheet-requester div-entertimesheet-requester-1-block-5">
+                                <label for="entertimesheetRequester-1-block-5">Requester</label>
+                                <input type="text" class="form-control" id="entertimesheetRequester-1-block-5" value="">
+                            </div>
+                            <div class="form-group col-lg-2 div-entertimesheet-hourspent div-entertimesheet-hourspent-1-block-5">
+                                <label for="entertimesheetHoursSpent-1-block-5">Hours Spend*</label>
+                                <input type="text" class="form-control" id="entertimesheetHoursSpent-1-block-5" value="">
+                            </div>
+                            <div class="form-group col-lg-1 div-entertimesheet-priority div-entertimesheet-priority-1-block-5">
+                                <label for="entertimesheetPriority-1-block-5" class="leave_label">Priority*</label>
+                                <select class="form-control" id="entertimesheetPriority-1-block-5">
+                                    <option value="1">High</option>
+                                    <option value="2">Medium</option>
+                                    <option value="3">Low</option>
+                                </select>
+                            </div>
+                            <div class="form-group col-lg-1 div-entertimesheet-status div-entertimesheet-status-1-block-5">
+                                <label for="entertimesheetStatus-1-block-5" class="leave_label">Status*</label>
+                                <select class="form-control" id="entertimesheetStatus-1-block-5">
+                                    <option value="1">Closed</option>
+                                    <option value="2">Open</option>
+                                </select>
+                            </div>
+                        </div>
+
+                        <div class="row emp-entertimesheet-fields row-2">
+                            <div class="form-group col-lg-1 div-entertimesheet-category div-entertimesheet-category-2-block-5">
+                                <select class="form-control" id="entertimesheetCategory-2-block-5">
+                                    <option value="1">Test1</option>
+                                </select>
+                            </div>
+                            <div class="form-group col-lg-2 div-entertimesheet-taskname div-entertimesheet-taskname-2-block-5">
+                                <input type="text" class="form-control" id="entertimesheetTaskName-2-block-5" value="" placeholder="Incident/Task Name">
+                            </div>
+                            <div class="form-group col-lg-3 div-entertimesheet-taskdesc div-entertimesheet-taskdesc-2-block-5">
+                                <input type="text" class="form-control" id="entertimesheetTaskDesc-1-block-5" value="" placeholder="Incident/Task Description">
+                            </div>
+                            <div class="form-group col-lg-2 div-entertimesheet-requester div-entertimesheet-requester-2-block-5">
+                                <input type="text" class="form-control" id="entertimesheetRequester-2-block-5" value="">
+                            </div>
+                            <div class="form-group col-lg-2 div-entertimesheet-hourspent div-entertimesheet-hourspent-2-block-5">
+                                <input type="text" class="form-control" id="entertimesheetHoursSpent-2-block-5" value="">
+                            </div>
+                            <div class="form-group col-lg-1 div-entertimesheet-priority div-entertimesheet-priority-2-block-5">
+                                <select class="form-control" id="entertimesheetPriority-2-block-5">
+                                    <option value="1">High</option>
+                                    <option value="2">Medium</option>
+                                    <option value="3">Low</option>
+                                </select>
+                            </div>
+                            <div class="form-group col-lg-1 div-entertimesheet-status div-entertimesheet-status-2-block-5">
+                                <select class="form-control" id="entertimesheetStatus-2">
+                                    <option value="1">Closed</option>
+                                    <option value="2">Open</option>
+                                </select>
+                            </div>
+                        </div>
+
+                        <div class="row emp-entertimesheet-fields row-3">
+                            <div class="form-group col-lg-1 div-entertimesheet-category div-entertimesheet-category-3-block-5">
+                                <select class="form-control" id="entertimesheetCategory-3-block-5">
+                                    <option value="1">Test1</option>
+                                </select>
+                            </div>
+                            <div class="form-group col-lg-2 div-entertimesheet-taskname div-entertimesheet-taskname-3-block-5">
+                                <input type="text" class="form-control" id="entertimesheetTaskName-3-block-5" value="" placeholder="Incident/Task Name">
+                            </div>
+                            <div class="form-group col-lg-3 div-entertimesheet-taskdesc div-entertimesheet-taskdesc-3-block-5">
+                                <input type="text" class="form-control" id="entertimesheetTaskDesc-3-block-5" value="" placeholder="Incident/Task Description">
+                            </div>
+                            <div class="form-group col-lg-2 div-entertimesheet-requester div-entertimesheet-requester-3-block-5">
+                                <input type="text" class="form-control" id="entertimesheetRequester-3-block-5" value="">
+                            </div>
+                            <div class="form-group col-lg-2 div-entertimesheet-hourspent div-entertimesheet-hourspent-3-block-5">
+                                <input type="text" class="form-control" id="entertimesheetHoursSpent-3-block-5" value="">
+                            </div>
+                            <div class="form-group col-lg-1 div-entertimesheet-priority div-entertimesheet-priority-3-block-5">
+                                <select class="form-control" id="entertimesheetPriority-3-block-5">
+                                    <option value="1">High</option>
+                                    <option value="2">Medium</option>
+                                    <option value="3">Low</option>
+                                </select>
+                            </div>
+                            <div class="form-group col-lg-1 div-entertimesheet-status div-entertimesheet-status-3-block-5">
+                                <select class="form-control" id="entertimesheetStatus-3-block-5">
+                                    <option value="1">Closed</option>
+                                    <option value="2">Open</option>
+                                </select>
+                            </div>
+                        </div>
+
+                        <div class="row emp-entertimesheet-fields row-4">
+                            <div class="form-group col-lg-1 div-entertimesheet-category div-entertimesheet-category-4-block-5">
+                                <select class="form-control" id="entertimesheetCategory-4-block-5">
+                                    <option value="1">Test1</option>
+                                </select>
+                            </div>
+                            <div class="form-group col-lg-2 div-entertimesheet-taskname div-entertimesheet-taskname-4-block-5">
+                                <input type="text" class="form-control" id="entertimesheetTaskName-4-block-5" value="" placeholder="Incident/Task Name">
+                            </div>
+                            <div class="form-group col-lg-3 div-entertimesheet-taskdesc div-entertimesheet-taskdesc-4-block-5">
+                                <input type="text" class="form-control" id="entertimesheetTaskDesc-4-block-5" value="" placeholder="Incident/Task Description">
+                            </div>
+                            <div class="form-group col-lg-2 div-entertimesheet-requester div-entertimesheet-requester-4-block-5">
+                                <input type="text" class="form-control" id="entertimesheetRequester-4-block-5" value="">
+                            </div>
+                            <div class="form-group col-lg-2 div-entertimesheet-hourspent div-entertimesheet-hourspent-4-block-5">
+                                <input type="text" class="form-control" id="entertimesheetHoursSpent-4-block-5" value="">
+                            </div>
+                            <div class="form-group col-lg-1 div-entertimesheet-priority div-entertimesheet-priority-4-block-5">
+                                <select class="form-control" id="entertimesheetPriority-4-block-5">
+                                    <option value="1">High</option>
+                                    <option value="2">Medium</option>
+                                    <option value="3">Low</option>
+                                </select>
+                            </div>
+                            <div class="form-group col-lg-1 div-entertimesheet-status div-entertimesheet-status-4-block-5">
+                                <select class="form-control" id="entertimesheetStatus-4-block-5">
+                                    <option value="1">Closed</option>
+                                    <option value="2">Open</option>
+                                </select>
+                            </div>
+                        </div>
+
+                        <div class="row emp-entertimesheet-fields row-5">
+                            <div class="form-group col-lg-1 div-entertimesheet-category div-entertimesheet-category-5-block-5">
+                                <select class="form-control" id="entertimesheetCategory-5-block-5">
+                                    <option value="1">Test1</option>
+                                </select>
+                            </div>
+                            <div class="form-group col-lg-2 div-entertimesheet-taskname div-entertimesheet-taskname-5-block-5">
+                                <input type="text" class="form-control" id="entertimesheetTaskName-5-block-5" value="" placeholder="Incident/Task Name">
+                            </div>
+                            <div class="form-group col-lg-3 div-entertimesheet-taskdesc div-entertimesheet-taskdesc-5-block-5">
+                                <input type="text" class="form-control" id="entertimesheetTaskDesc-5-block-5" value="" placeholder="Incident/Task Description">
+                            </div>
+                            <div class="form-group col-lg-2 div-entertimesheet-requester div-entertimesheet-requester-5-block-5">
+                                <input type="text" class="form-control" id="entertimesheetRequester-5-block-5" value="">
+                            </div>
+                            <div class="form-group col-lg-2 div-entertimesheet-hourspent div-entertimesheet-hourspent-5-block-5">
+                                <input type="text" class="form-control" id="entertimesheetHoursSpent-5-block-5" value="">
+                            </div>
+                            <div class="form-group col-lg-1 div-entertimesheet-priority div-entertimesheet-priority-5-block-5">
+                                <select class="form-control" id="entertimesheetPriority-5-block-5">
+                                    <option value="1">High</option>
+                                    <option value="2">Medium</option>
+                                    <option value="3">Low</option>
+                                </select>
+                            </div>
+                            <div class="form-group col-lg-1 div-entertimesheet-status div-entertimesheet-status-5-block-5">
+                                <select class="form-control" id="entertimesheetStatus-5-block-5">
+                                    <option value="1">Closed</option>
+                                    <option value="2">Open</option>
+                                </select>
+                            </div>
+                        </div>
+
+                        <div class="row emp-entertimesheet-fields row-6" style="display: none;">
+                            <div class="form-group col-lg-1 div-entertimesheet-category div-entertimesheet-category-6-block-5">
+                                <select class="form-control" id="entertimesheetCategory-6-block-5">
+                                    <option value="1">Test1</option>
+                                </select>
+                            </div>
+                            <div class="form-group col-lg-2 div-entertimesheet-taskname div-entertimesheet-taskname-6-block-5">
+                                <input type="text" class="form-control" id="entertimesheetTaskName-6-block-5" value="" placeholder="Incident/Task Name">
+                            </div>
+                            <div class="form-group col-lg-3 div-entertimesheet-taskdesc div-entertimesheet-taskdesc-6-block-5">
+                                <input type="text" class="form-control" id="entertimesheetTaskDesc-6-block-5" value="" placeholder="Incident/Task Description">
+                            </div>
+                            <div class="form-group col-lg-2 div-entertimesheet-requester div-entertimesheet-requester-6-block-5">
+                                <input type="text" class="form-control" id="entertimesheetRequester-6-block-5" value="">
+                            </div>
+                            <div class="form-group col-lg-2 div-entertimesheet-hourspent div-entertimesheet-hourspent-6-block-5">
+                                <input type="text" class="form-control" id="entertimesheetHoursSpent-6-block-5" value="">
+                            </div>
+                            <div class="form-group col-lg-1 div-entertimesheet-priority div-entertimesheet-priority-6-block-5">
+                                <select class="form-control" id="entertimesheetPriority-6-block-5">
+                                    <option value="1">High</option>
+                                    <option value="2">Medium</option>
+                                    <option value="3">Low</option>
+                                </select>
+                            </div>
+                            <div class="form-group col-lg-1 div-entertimesheet-status div-entertimesheet-status-6-block-5">
+                                <select class="form-control" id="entertimesheetStatus-6-block-5">
+                                    <option value="1">Closed</option>
+                                    <option value="2">Open</option>
+                                </select>
+                            </div>
+                        </div>
+
+                        <div class="row emp-entertimesheet-fields row-7" style="display: none;">
+                            <div class="form-group col-lg-1 div-entertimesheet-category div-entertimesheet-category-7-block-5">
+                                <select class="form-control" id="entertimesheetCategory-7-block-5">
+                                    <option value="1">Test1</option>
+                                </select>
+                            </div>
+                            <div class="form-group col-lg-2 div-entertimesheet-taskname div-entertimesheet-taskname-7-block-5">
+                                <input type="text" class="form-control" id="entertimesheetTaskName-7-block-5" value="" placeholder="Incident/Task Name">
+                            </div>
+                            <div class="form-group col-lg-3 div-entertimesheet-taskdesc div-entertimesheet-taskdesc-7-block-5">
+                                <input type="text" class="form-control" id="entertimesheetTaskDesc-7-block-5" value="" placeholder="Incident/Task Description">
+                            </div>
+                            <div class="form-group col-lg-2 div-entertimesheet-requester div-entertimesheet-requester-7-block-5">
+                                <input type="text" class="form-control" id="entertimesheetRequester-7-block-5" value="">
+                            </div>
+                            <div class="form-group col-lg-2 div-entertimesheet-hourspent div-entertimesheet-hourspent-7-block-5">
+                                <input type="text" class="form-control" id="entertimesheetHoursSpent-7-block-5" value="">
+                            </div>
+                            <div class="form-group col-lg-1 div-entertimesheet-priority div-entertimesheet-priority-7-block-5">
+                                <select class="form-control" id="entertimesheetPriority-7-block-5">
+                                    <option value="1">High</option>
+                                    <option value="2">Medium</option>
+                                    <option value="3">Low</option>
+                                </select>
+                            </div>
+                            <div class="form-group col-lg-1 div-entertimesheet-status div-entertimesheet-status-7-block-5">
+                                <select class="form-control" id="entertimesheetStatus-7-block-5">
+                                    <option value="1">Closed</option>
+                                    <option value="2">Open</option>
+                                </select>
+                            </div>
+                        </div>
+
+                        <div class="emp-entertimesheet-footer emp-entertimesheet-footer-5">
+                            <div class="emp-entertimesheet-addtask emp-entertimesheet-addtask-5">
+                                <button type="button" class="emp-entertimesheet-addtask-btn-5">
+                                    <i class="fa-solid fa-plus"></i>Add Task
+                                </button>
+                            </div>
+                            <div class="emp-entertimesheet-save emp-entertimesheet-save-5"><button type="button" class="btn btn-primary">Save</button></div>
+                        </div>
+
+                    </div>
+
+                    <div id="emp-entertimesheet-day-block6" class="emp-entertimesheet-day-block">
+
+                        <div class="row emp-entertimesheet-fields row-1">
+                            <div class="form-group col-lg-1 div-entertimesheet-category div-entertimesheet-category-1-block-6">
+                                <label for="entertimesheetCategory-1-block-6" class="leave_label">Category*</label>
+                                <select class="form-control" id="entertimesheetCategory-1-block-6">
+                                    <option value="1">Test1</option>
+                                </select>
+                            </div>
+                            <div class="form-group col-lg-2 div-entertimesheet-taskname div-entertimesheet-taskname-1-block-6">
+                                <label for="entertimesheetTaskName-1-block-6">Incident/Task Name*</label>
+                                <input type="text" class="form-control" id="entertimesheetTaskName-1-block-6" value="" placeholder="Incident/Task Name">
+                            </div>
+                            <div class="form-group col-lg-3 div-entertimesheet-taskdesc div-entertimesheet-taskdesc-1-block-6">
+                                <label for="entertimesheetTaskDesc-1-block-6">Incident/Task Description*</label>
+                                <input type="text" class="form-control" id="entertimesheetTaskDesc-1-block-6" value="" placeholder="Incident/Task Description">
+                            </div>
+                            <div class="form-group col-lg-2 div-entertimesheet-requester div-entertimesheet-requester-1-block-6">
+                                <label for="entertimesheetRequester-1-block-6">Requester</label>
+                                <input type="text" class="form-control" id="entertimesheetRequester-1-block-6" value="">
+                            </div>
+                            <div class="form-group col-lg-2 div-entertimesheet-hourspent div-entertimesheet-hourspent-1-block-6">
+                                <label for="entertimesheetHoursSpent-1-block-6">Hours Spend*</label>
+                                <input type="text" class="form-control" id="entertimesheetHoursSpent-1-block-6" value="">
+                            </div>
+                            <div class="form-group col-lg-1 div-entertimesheet-priority div-entertimesheet-priority-1-block-6">
+                                <label for="entertimesheetPriority-1-block-6" class="leave_label">Priority*</label>
+                                <select class="form-control" id="entertimesheetPriority-1-block-6">
+                                    <option value="1">High</option>
+                                    <option value="2">Medium</option>
+                                    <option value="3">Low</option>
+                                </select>
+                            </div>
+                            <div class="form-group col-lg-1 div-entertimesheet-status div-entertimesheet-status-1-block-6">
+                                <label for="entertimesheetStatus-1-block-6" class="leave_label">Status*</label>
+                                <select class="form-control" id="entertimesheetStatus-1-block-6">
+                                    <option value="1">Closed</option>
+                                    <option value="2">Open</option>
+                                </select>
+                            </div>
+                        </div>
+
+                        <div class="row emp-entertimesheet-fields row-2">
+                            <div class="form-group col-lg-1 div-entertimesheet-category div-entertimesheet-category-2-block-6">
+                                <select class="form-control" id="entertimesheetCategory-2-block-6">
+                                    <option value="1">Test1</option>
+                                </select>
+                            </div>
+                            <div class="form-group col-lg-2 div-entertimesheet-taskname div-entertimesheet-taskname-2-block-6">
+                                <input type="text" class="form-control" id="entertimesheetTaskName-2-block-6" value="" placeholder="Incident/Task Name">
+                            </div>
+                            <div class="form-group col-lg-3 div-entertimesheet-taskdesc div-entertimesheet-taskdesc-2-block-6">
+                                <input type="text" class="form-control" id="entertimesheetTaskDesc-1-block-6" value="" placeholder="Incident/Task Description">
+                            </div>
+                            <div class="form-group col-lg-2 div-entertimesheet-requester div-entertimesheet-requester-2-block-6">
+                                <input type="text" class="form-control" id="entertimesheetRequester-2-block-6" value="">
+                            </div>
+                            <div class="form-group col-lg-2 div-entertimesheet-hourspent div-entertimesheet-hourspent-2-block-6">
+                                <input type="text" class="form-control" id="entertimesheetHoursSpent-2-block-6" value="">
+                            </div>
+                            <div class="form-group col-lg-1 div-entertimesheet-priority div-entertimesheet-priority-2-block-6">
+                                <select class="form-control" id="entertimesheetPriority-2-block-6">
+                                    <option value="1">High</option>
+                                    <option value="2">Medium</option>
+                                    <option value="3">Low</option>
+                                </select>
+                            </div>
+                            <div class="form-group col-lg-1 div-entertimesheet-status div-entertimesheet-status-2-block-6">
+                                <select class="form-control" id="entertimesheetStatus-2">
+                                    <option value="1">Closed</option>
+                                    <option value="2">Open</option>
+                                </select>
+                            </div>
+                        </div>
+
+                        <div class="row emp-entertimesheet-fields row-3">
+                            <div class="form-group col-lg-1 div-entertimesheet-category div-entertimesheet-category-3-block-6">
+                                <select class="form-control" id="entertimesheetCategory-3-block-6">
+                                    <option value="1">Test1</option>
+                                </select>
+                            </div>
+                            <div class="form-group col-lg-2 div-entertimesheet-taskname div-entertimesheet-taskname-3-block-6">
+                                <input type="text" class="form-control" id="entertimesheetTaskName-3-block-6" value="" placeholder="Incident/Task Name">
+                            </div>
+                            <div class="form-group col-lg-3 div-entertimesheet-taskdesc div-entertimesheet-taskdesc-3-block-6">
+                                <input type="text" class="form-control" id="entertimesheetTaskDesc-3-block-6" value="" placeholder="Incident/Task Description">
+                            </div>
+                            <div class="form-group col-lg-2 div-entertimesheet-requester div-entertimesheet-requester-3-block-6">
+                                <input type="text" class="form-control" id="entertimesheetRequester-3-block-6" value="">
+                            </div>
+                            <div class="form-group col-lg-2 div-entertimesheet-hourspent div-entertimesheet-hourspent-3-block-6">
+                                <input type="text" class="form-control" id="entertimesheetHoursSpent-3-block-6" value="">
+                            </div>
+                            <div class="form-group col-lg-1 div-entertimesheet-priority div-entertimesheet-priority-3-block-6">
+                                <select class="form-control" id="entertimesheetPriority-3-block-6">
+                                    <option value="1">High</option>
+                                    <option value="2">Medium</option>
+                                    <option value="3">Low</option>
+                                </select>
+                            </div>
+                            <div class="form-group col-lg-1 div-entertimesheet-status div-entertimesheet-status-3-block-6">
+                                <select class="form-control" id="entertimesheetStatus-3-block-6">
+                                    <option value="1">Closed</option>
+                                    <option value="2">Open</option>
+                                </select>
+                            </div>
+                        </div>
+
+                        <div class="row emp-entertimesheet-fields row-4">
+                            <div class="form-group col-lg-1 div-entertimesheet-category div-entertimesheet-category-4-block-6">
+                                <select class="form-control" id="entertimesheetCategory-4-block-6">
+                                    <option value="1">Test1</option>
+                                </select>
+                            </div>
+                            <div class="form-group col-lg-2 div-entertimesheet-taskname div-entertimesheet-taskname-4-block-6">
+                                <input type="text" class="form-control" id="entertimesheetTaskName-4-block-6" value="" placeholder="Incident/Task Name">
+                            </div>
+                            <div class="form-group col-lg-3 div-entertimesheet-taskdesc div-entertimesheet-taskdesc-4-block-6">
+                                <input type="text" class="form-control" id="entertimesheetTaskDesc-4-block-6" value="" placeholder="Incident/Task Description">
+                            </div>
+                            <div class="form-group col-lg-2 div-entertimesheet-requester div-entertimesheet-requester-4-block-6">
+                                <input type="text" class="form-control" id="entertimesheetRequester-4-block-6" value="">
+                            </div>
+                            <div class="form-group col-lg-2 div-entertimesheet-hourspent div-entertimesheet-hourspent-4-block-6">
+                                <input type="text" class="form-control" id="entertimesheetHoursSpent-4-block-6" value="">
+                            </div>
+                            <div class="form-group col-lg-1 div-entertimesheet-priority div-entertimesheet-priority-4-block-6">
+                                <select class="form-control" id="entertimesheetPriority-4-block-6">
+                                    <option value="1">High</option>
+                                    <option value="2">Medium</option>
+                                    <option value="3">Low</option>
+                                </select>
+                            </div>
+                            <div class="form-group col-lg-1 div-entertimesheet-status div-entertimesheet-status-4-block-6">
+                                <select class="form-control" id="entertimesheetStatus-4-block-6">
+                                    <option value="1">Closed</option>
+                                    <option value="2">Open</option>
+                                </select>
+                            </div>
+                        </div>
+
+                        <div class="row emp-entertimesheet-fields row-5">
+                            <div class="form-group col-lg-1 div-entertimesheet-category div-entertimesheet-category-5-block-6">
+                                <select class="form-control" id="entertimesheetCategory-5-block-6">
+                                    <option value="1">Test1</option>
+                                </select>
+                            </div>
+                            <div class="form-group col-lg-2 div-entertimesheet-taskname div-entertimesheet-taskname-5-block-6">
+                                <input type="text" class="form-control" id="entertimesheetTaskName-5-block-6" value="" placeholder="Incident/Task Name">
+                            </div>
+                            <div class="form-group col-lg-3 div-entertimesheet-taskdesc div-entertimesheet-taskdesc-5-block-6">
+                                <input type="text" class="form-control" id="entertimesheetTaskDesc-5-block-6" value="" placeholder="Incident/Task Description">
+                            </div>
+                            <div class="form-group col-lg-2 div-entertimesheet-requester div-entertimesheet-requester-5-block-6">
+                                <input type="text" class="form-control" id="entertimesheetRequester-5-block-6" value="">
+                            </div>
+                            <div class="form-group col-lg-2 div-entertimesheet-hourspent div-entertimesheet-hourspent-5-block-6">
+                                <input type="text" class="form-control" id="entertimesheetHoursSpent-5-block-6" value="">
+                            </div>
+                            <div class="form-group col-lg-1 div-entertimesheet-priority div-entertimesheet-priority-5-block-6">
+                                <select class="form-control" id="entertimesheetPriority-5-block-6">
+                                    <option value="1">High</option>
+                                    <option value="2">Medium</option>
+                                    <option value="3">Low</option>
+                                </select>
+                            </div>
+                            <div class="form-group col-lg-1 div-entertimesheet-status div-entertimesheet-status-5-block-6">
+                                <select class="form-control" id="entertimesheetStatus-5-block-6">
+                                    <option value="1">Closed</option>
+                                    <option value="2">Open</option>
+                                </select>
+                            </div>
+                        </div>
+
+                        <div class="row emp-entertimesheet-fields row-6" style="display: none;">
+                            <div class="form-group col-lg-1 div-entertimesheet-category div-entertimesheet-category-6-block-6">
+                                <select class="form-control" id="entertimesheetCategory-6-block-6">
+                                    <option value="1">Test1</option>
+                                </select>
+                            </div>
+                            <div class="form-group col-lg-2 div-entertimesheet-taskname div-entertimesheet-taskname-6-block-6">
+                                <input type="text" class="form-control" id="entertimesheetTaskName-6-block-6" value="" placeholder="Incident/Task Name">
+                            </div>
+                            <div class="form-group col-lg-3 div-entertimesheet-taskdesc div-entertimesheet-taskdesc-6-block-6">
+                                <input type="text" class="form-control" id="entertimesheetTaskDesc-6-block-6" value="" placeholder="Incident/Task Description">
+                            </div>
+                            <div class="form-group col-lg-2 div-entertimesheet-requester div-entertimesheet-requester-6-block-6">
+                                <input type="text" class="form-control" id="entertimesheetRequester-6-block-6" value="">
+                            </div>
+                            <div class="form-group col-lg-2 div-entertimesheet-hourspent div-entertimesheet-hourspent-6-block-6">
+                                <input type="text" class="form-control" id="entertimesheetHoursSpent-6-block-6" value="">
+                            </div>
+                            <div class="form-group col-lg-1 div-entertimesheet-priority div-entertimesheet-priority-6-block-6">
+                                <select class="form-control" id="entertimesheetPriority-6-block-6">
+                                    <option value="1">High</option>
+                                    <option value="2">Medium</option>
+                                    <option value="3">Low</option>
+                                </select>
+                            </div>
+                            <div class="form-group col-lg-1 div-entertimesheet-status div-entertimesheet-status-6-block-6">
+                                <select class="form-control" id="entertimesheetStatus-6-block-6">
+                                    <option value="1">Closed</option>
+                                    <option value="2">Open</option>
+                                </select>
+                            </div>
+                        </div>
+
+                        <div class="row emp-entertimesheet-fields row-7" style="display: none;">
+                            <div class="form-group col-lg-1 div-entertimesheet-category div-entertimesheet-category-7-block-6">
+                                <select class="form-control" id="entertimesheetCategory-7-block-6">
+                                    <option value="1">Test1</option>
+                                </select>
+                            </div>
+                            <div class="form-group col-lg-2 div-entertimesheet-taskname div-entertimesheet-taskname-7-block-6">
+                                <input type="text" class="form-control" id="entertimesheetTaskName-7-block-6" value="" placeholder="Incident/Task Name">
+                            </div>
+                            <div class="form-group col-lg-3 div-entertimesheet-taskdesc div-entertimesheet-taskdesc-7-block-6">
+                                <input type="text" class="form-control" id="entertimesheetTaskDesc-7-block-6" value="" placeholder="Incident/Task Description">
+                            </div>
+                            <div class="form-group col-lg-2 div-entertimesheet-requester div-entertimesheet-requester-7-block-6">
+                                <input type="text" class="form-control" id="entertimesheetRequester-7-block-6" value="">
+                            </div>
+                            <div class="form-group col-lg-2 div-entertimesheet-hourspent div-entertimesheet-hourspent-7-block-6">
+                                <input type="text" class="form-control" id="entertimesheetHoursSpent-7-block-6" value="">
+                            </div>
+                            <div class="form-group col-lg-1 div-entertimesheet-priority div-entertimesheet-priority-7-block-6">
+                                <select class="form-control" id="entertimesheetPriority-7-block-6">
+                                    <option value="1">High</option>
+                                    <option value="2">Medium</option>
+                                    <option value="3">Low</option>
+                                </select>
+                            </div>
+                            <div class="form-group col-lg-1 div-entertimesheet-status div-entertimesheet-status-7-block-6">
+                                <select class="form-control" id="entertimesheetStatus-7-block-6">
+                                    <option value="1">Closed</option>
+                                    <option value="2">Open</option>
+                                </select>
+                            </div>
+                        </div>
+
+                        <div class="emp-entertimesheet-footer emp-entertimesheet-footer-6">
+                            <div class="emp-entertimesheet-addtask emp-entertimesheet-addtask-6">
+                                <button type="button" class="emp-entertimesheet-addtask-btn-6">
+                                    <i class="fa-solid fa-plus"></i>Add Task
+                                </button>
+                            </div>
+                            <div class="emp-entertimesheet-save emp-entertimesheet-save-6"><button type="button" class="btn btn-primary">Save</button></div>
+                        </div>
+
+                    </div>
+
+                    <div id="emp-entertimesheet-day-block7" class="emp-entertimesheet-day-block">
+
+                        <div class="row emp-entertimesheet-fields row-1">
+                            <div class="form-group col-lg-1 div-entertimesheet-category div-entertimesheet-category-1-block-7">
+                                <label for="entertimesheetCategory-1-block-7" class="leave_label">Category*</label>
+                                <select class="form-control" id="entertimesheetCategory-1-block-7">
+                                    <option value="1">Test1</option>
+                                </select>
+                            </div>
+                            <div class="form-group col-lg-2 div-entertimesheet-taskname div-entertimesheet-taskname-1-block-7">
+                                <label for="entertimesheetTaskName-1-block-7">Incident/Task Name*</label>
+                                <input type="text" class="form-control" id="entertimesheetTaskName-1-block-7" value="" placeholder="Incident/Task Name">
+                            </div>
+                            <div class="form-group col-lg-3 div-entertimesheet-taskdesc div-entertimesheet-taskdesc-1-block-7">
+                                <label for="entertimesheetTaskDesc-1-block-7">Incident/Task Description*</label>
+                                <input type="text" class="form-control" id="entertimesheetTaskDesc-1-block-7" value="" placeholder="Incident/Task Description">
+                            </div>
+                            <div class="form-group col-lg-2 div-entertimesheet-requester div-entertimesheet-requester-1-block-7">
+                                <label for="entertimesheetRequester-1-block-7">Requester</label>
+                                <input type="text" class="form-control" id="entertimesheetRequester-1-block-7" value="">
+                            </div>
+                            <div class="form-group col-lg-2 div-entertimesheet-hourspent div-entertimesheet-hourspent-1-block-7">
+                                <label for="entertimesheetHoursSpent-1-block-7">Hours Spend*</label>
+                                <input type="text" class="form-control" id="entertimesheetHoursSpent-1-block-7" value="">
+                            </div>
+                            <div class="form-group col-lg-1 div-entertimesheet-priority div-entertimesheet-priority-1-block-7">
+                                <label for="entertimesheetPriority-1-block-7" class="leave_label">Priority*</label>
+                                <select class="form-control" id="entertimesheetPriority-1-block-7">
+                                    <option value="1">High</option>
+                                    <option value="2">Medium</option>
+                                    <option value="3">Low</option>
+                                </select>
+                            </div>
+                            <div class="form-group col-lg-1 div-entertimesheet-status div-entertimesheet-status-1-block-7">
+                                <label for="entertimesheetStatus-1-block-7" class="leave_label">Status*</label>
+                                <select class="form-control" id="entertimesheetStatus-1-block-7">
+                                    <option value="1">Closed</option>
+                                    <option value="2">Open</option>
+                                </select>
+                            </div>
+                        </div>
+
+                        <div class="row emp-entertimesheet-fields row-2">
+                            <div class="form-group col-lg-1 div-entertimesheet-category div-entertimesheet-category-2-block-7">
+                                <select class="form-control" id="entertimesheetCategory-2-block-7">
+                                    <option value="1">Test1</option>
+                                </select>
+                            </div>
+                            <div class="form-group col-lg-2 div-entertimesheet-taskname div-entertimesheet-taskname-2-block-7">
+                                <input type="text" class="form-control" id="entertimesheetTaskName-2-block-7" value="" placeholder="Incident/Task Name">
+                            </div>
+                            <div class="form-group col-lg-3 div-entertimesheet-taskdesc div-entertimesheet-taskdesc-2-block-7">
+                                <input type="text" class="form-control" id="entertimesheetTaskDesc-1-block-7" value="" placeholder="Incident/Task Description">
+                            </div>
+                            <div class="form-group col-lg-2 div-entertimesheet-requester div-entertimesheet-requester-2-block-7">
+                                <input type="text" class="form-control" id="entertimesheetRequester-2-block-7" value="">
+                            </div>
+                            <div class="form-group col-lg-2 div-entertimesheet-hourspent div-entertimesheet-hourspent-2-block-7">
+                                <input type="text" class="form-control" id="entertimesheetHoursSpent-2-block-7" value="">
+                            </div>
+                            <div class="form-group col-lg-1 div-entertimesheet-priority div-entertimesheet-priority-2-block-7">
+                                <select class="form-control" id="entertimesheetPriority-2-block-7">
+                                    <option value="1">High</option>
+                                    <option value="2">Medium</option>
+                                    <option value="3">Low</option>
+                                </select>
+                            </div>
+                            <div class="form-group col-lg-1 div-entertimesheet-status div-entertimesheet-status-2-block-7">
+                                <select class="form-control" id="entertimesheetStatus-2">
+                                    <option value="1">Closed</option>
+                                    <option value="2">Open</option>
+                                </select>
+                            </div>
+                        </div>
+
+                        <div class="row emp-entertimesheet-fields row-3">
+                            <div class="form-group col-lg-1 div-entertimesheet-category div-entertimesheet-category-3-block-7">
+                                <select class="form-control" id="entertimesheetCategory-3-block-7">
+                                    <option value="1">Test1</option>
+                                </select>
+                            </div>
+                            <div class="form-group col-lg-2 div-entertimesheet-taskname div-entertimesheet-taskname-3-block-7">
+                                <input type="text" class="form-control" id="entertimesheetTaskName-3-block-7" value="" placeholder="Incident/Task Name">
+                            </div>
+                            <div class="form-group col-lg-3 div-entertimesheet-taskdesc div-entertimesheet-taskdesc-3-block-7">
+                                <input type="text" class="form-control" id="entertimesheetTaskDesc-3-block-7" value="" placeholder="Incident/Task Description">
+                            </div>
+                            <div class="form-group col-lg-2 div-entertimesheet-requester div-entertimesheet-requester-3-block-7">
+                                <input type="text" class="form-control" id="entertimesheetRequester-3-block-7" value="">
+                            </div>
+                            <div class="form-group col-lg-2 div-entertimesheet-hourspent div-entertimesheet-hourspent-3-block-7">
+                                <input type="text" class="form-control" id="entertimesheetHoursSpent-3-block-7" value="">
+                            </div>
+                            <div class="form-group col-lg-1 div-entertimesheet-priority div-entertimesheet-priority-3-block-7">
+                                <select class="form-control" id="entertimesheetPriority-3-block-7">
+                                    <option value="1">High</option>
+                                    <option value="2">Medium</option>
+                                    <option value="3">Low</option>
+                                </select>
+                            </div>
+                            <div class="form-group col-lg-1 div-entertimesheet-status div-entertimesheet-status-3-block-7">
+                                <select class="form-control" id="entertimesheetStatus-3-block-7">
+                                    <option value="1">Closed</option>
+                                    <option value="2">Open</option>
+                                </select>
+                            </div>
+                        </div>
+
+                        <div class="row emp-entertimesheet-fields row-4">
+                            <div class="form-group col-lg-1 div-entertimesheet-category div-entertimesheet-category-4-block-7">
+                                <select class="form-control" id="entertimesheetCategory-4-block-7">
+                                    <option value="1">Test1</option>
+                                </select>
+                            </div>
+                            <div class="form-group col-lg-2 div-entertimesheet-taskname div-entertimesheet-taskname-4-block-7">
+                                <input type="text" class="form-control" id="entertimesheetTaskName-4-block-7" value="" placeholder="Incident/Task Name">
+                            </div>
+                            <div class="form-group col-lg-3 div-entertimesheet-taskdesc div-entertimesheet-taskdesc-4-block-7">
+                                <input type="text" class="form-control" id="entertimesheetTaskDesc-4-block-7" value="" placeholder="Incident/Task Description">
+                            </div>
+                            <div class="form-group col-lg-2 div-entertimesheet-requester div-entertimesheet-requester-4-block-7">
+                                <input type="text" class="form-control" id="entertimesheetRequester-4-block-7" value="">
+                            </div>
+                            <div class="form-group col-lg-2 div-entertimesheet-hourspent div-entertimesheet-hourspent-4-block-7">
+                                <input type="text" class="form-control" id="entertimesheetHoursSpent-4-block-7" value="">
+                            </div>
+                            <div class="form-group col-lg-1 div-entertimesheet-priority div-entertimesheet-priority-4-block-7">
+                                <select class="form-control" id="entertimesheetPriority-4-block-7">
+                                    <option value="1">High</option>
+                                    <option value="2">Medium</option>
+                                    <option value="3">Low</option>
+                                </select>
+                            </div>
+                            <div class="form-group col-lg-1 div-entertimesheet-status div-entertimesheet-status-4-block-7">
+                                <select class="form-control" id="entertimesheetStatus-4-block-7">
+                                    <option value="1">Closed</option>
+                                    <option value="2">Open</option>
+                                </select>
+                            </div>
+                        </div>
+
+                        <div class="row emp-entertimesheet-fields row-5">
+                            <div class="form-group col-lg-1 div-entertimesheet-category div-entertimesheet-category-5-block-7">
+                                <select class="form-control" id="entertimesheetCategory-5-block-7">
+                                    <option value="1">Test1</option>
+                                </select>
+                            </div>
+                            <div class="form-group col-lg-2 div-entertimesheet-taskname div-entertimesheet-taskname-5-block-7">
+                                <input type="text" class="form-control" id="entertimesheetTaskName-5-block-7" value="" placeholder="Incident/Task Name">
+                            </div>
+                            <div class="form-group col-lg-3 div-entertimesheet-taskdesc div-entertimesheet-taskdesc-5-block-7">
+                                <input type="text" class="form-control" id="entertimesheetTaskDesc-5-block-7" value="" placeholder="Incident/Task Description">
+                            </div>
+                            <div class="form-group col-lg-2 div-entertimesheet-requester div-entertimesheet-requester-5-block-7">
+                                <input type="text" class="form-control" id="entertimesheetRequester-5-block-7" value="">
+                            </div>
+                            <div class="form-group col-lg-2 div-entertimesheet-hourspent div-entertimesheet-hourspent-5-block-7">
+                                <input type="text" class="form-control" id="entertimesheetHoursSpent-5-block-7" value="">
+                            </div>
+                            <div class="form-group col-lg-1 div-entertimesheet-priority div-entertimesheet-priority-5-block-7">
+                                <select class="form-control" id="entertimesheetPriority-5-block-7">
+                                    <option value="1">High</option>
+                                    <option value="2">Medium</option>
+                                    <option value="3">Low</option>
+                                </select>
+                            </div>
+                            <div class="form-group col-lg-1 div-entertimesheet-status div-entertimesheet-status-5-block-7">
+                                <select class="form-control" id="entertimesheetStatus-5-block-7">
+                                    <option value="1">Closed</option>
+                                    <option value="2">Open</option>
+                                </select>
+                            </div>
+                        </div>
+
+                        <div class="row emp-entertimesheet-fields row-6" style="display: none;">
+                            <div class="form-group col-lg-1 div-entertimesheet-category div-entertimesheet-category-6-block-7">
+                                <select class="form-control" id="entertimesheetCategory-6-block-7">
+                                    <option value="1">Test1</option>
+                                </select>
+                            </div>
+                            <div class="form-group col-lg-2 div-entertimesheet-taskname div-entertimesheet-taskname-6-block-7">
+                                <input type="text" class="form-control" id="entertimesheetTaskName-6-block-7" value="" placeholder="Incident/Task Name">
+                            </div>
+                            <div class="form-group col-lg-3 div-entertimesheet-taskdesc div-entertimesheet-taskdesc-6-block-7">
+                                <input type="text" class="form-control" id="entertimesheetTaskDesc-6-block-7" value="" placeholder="Incident/Task Description">
+                            </div>
+                            <div class="form-group col-lg-2 div-entertimesheet-requester div-entertimesheet-requester-6-block-7">
+                                <input type="text" class="form-control" id="entertimesheetRequester-6-block-7" value="">
+                            </div>
+                            <div class="form-group col-lg-2 div-entertimesheet-hourspent div-entertimesheet-hourspent-6-block-7">
+                                <input type="text" class="form-control" id="entertimesheetHoursSpent-6-block-7" value="">
+                            </div>
+                            <div class="form-group col-lg-1 div-entertimesheet-priority div-entertimesheet-priority-6-block-7">
+                                <select class="form-control" id="entertimesheetPriority-6-block-7">
+                                    <option value="1">High</option>
+                                    <option value="2">Medium</option>
+                                    <option value="3">Low</option>
+                                </select>
+                            </div>
+                            <div class="form-group col-lg-1 div-entertimesheet-status div-entertimesheet-status-6-block-7">
+                                <select class="form-control" id="entertimesheetStatus-6-block-7">
+                                    <option value="1">Closed</option>
+                                    <option value="2">Open</option>
+                                </select>
+                            </div>
+                        </div>
+
+                        <div class="row emp-entertimesheet-fields row-7" style="display: none;">
+                            <div class="form-group col-lg-1 div-entertimesheet-category div-entertimesheet-category-7-block-7">
+                                <select class="form-control" id="entertimesheetCategory-7-block-7">
+                                    <option value="1">Test1</option>
+                                </select>
+                            </div>
+                            <div class="form-group col-lg-2 div-entertimesheet-taskname div-entertimesheet-taskname-7-block-7">
+                                <input type="text" class="form-control" id="entertimesheetTaskName-7-block-7" value="" placeholder="Incident/Task Name">
+                            </div>
+                            <div class="form-group col-lg-3 div-entertimesheet-taskdesc div-entertimesheet-taskdesc-7-block-7">
+                                <input type="text" class="form-control" id="entertimesheetTaskDesc-7-block-7" value="" placeholder="Incident/Task Description">
+                            </div>
+                            <div class="form-group col-lg-2 div-entertimesheet-requester div-entertimesheet-requester-7-block-7">
+                                <input type="text" class="form-control" id="entertimesheetRequester-7-block-7" value="">
+                            </div>
+                            <div class="form-group col-lg-2 div-entertimesheet-hourspent div-entertimesheet-hourspent-7-block-7">
+                                <input type="text" class="form-control" id="entertimesheetHoursSpent-7-block-7" value="">
+                            </div>
+                            <div class="form-group col-lg-1 div-entertimesheet-priority div-entertimesheet-priority-7-block-7">
+                                <select class="form-control" id="entertimesheetPriority-7-block-7">
+                                    <option value="1">High</option>
+                                    <option value="2">Medium</option>
+                                    <option value="3">Low</option>
+                                </select>
+                            </div>
+                            <div class="form-group col-lg-1 div-entertimesheet-status div-entertimesheet-status-7-block-7">
+                                <select class="form-control" id="entertimesheetStatus-7-block-7">
+                                    <option value="1">Closed</option>
+                                    <option value="2">Open</option>
+                                </select>
+                            </div>
+                        </div>
+
+                        <div class="emp-entertimesheet-footer emp-entertimesheet-footer-7">
+                            <div class="emp-entertimesheet-addtask emp-entertimesheet-addtask-7">
+                                <button type="button" class="emp-entertimesheet-addtask-btn-7">
+                                    <i class="fa-solid fa-plus"></i>Add Task
+                                </button>
+                            </div>
+                            <div class="emp-entertimesheet-save emp-entertimesheet-save-7"><button type="button" class="btn btn-primary">Save</button></div>
+                        </div>
+
+                    </div>
+
+
+
+
 
                 </div>
 
@@ -102,3 +1818,39 @@
         </div>
     </div>
 </div>
+@Html.Partial("EmployeeFooter")
+
+<script>
+    $('.emp-entertimesheet-rangedates span').on('click', function (event) {
+        var clickedElement = $(event.target); // The element that was clicked
+        console.log(clickedElement);
+        console.log(clickedElement.attr('href')); // If the element has an href attribute
+        var href = clickedElement.attr('href');
+
+        $('.emp-entertimesheet-rangedates span').removeClass('active');
+        clickedElement.addClass('active');
+
+        $('.emp-entertimesheet-day-block').removeClass('active');
+        $(href).addClass('active');
+    });
+
+    $('.emp-entertimesheet-footer .emp-entertimesheet-addtask button').on('click', function (event) {
+        var className = $(this).attr('class');
+        var lastChar = className.slice(-1); // Get the last character
+        console.log(lastChar);
+
+        // Check if row-6 is display:flex
+        if ($('#emp-entertimesheet-day-block' + lastChar + ' .row-6').css('display') === 'flex') {
+            // Change row-7 to display:flex
+            $('#emp-entertimesheet-day-block' + lastChar + ' .row-7').css('display', 'flex');
+        }
+
+        $('#emp-entertimesheet-day-block' + lastChar + ' .row-6').css({
+            'display': 'flex'
+        });
+
+
+
+    });
+
+</script>

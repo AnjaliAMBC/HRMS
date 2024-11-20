@@ -16,10 +16,52 @@
 
             <div class="emp-timesheet-details timesheet-nav" id="empTimesheet">
 
+                <div class="emp-timesheet-header-block">
+                    <div class="emp-timesheet-header-block-left">
+                        <div class="emp-timesheet-block1">
+                            <span class="emp-timesheet-weekno">Week 42</span>
+                            <span class="emp-timesheet-weekrange-info">
+                                <i class="fa fa-angle-left" aria-hidden="true"></i>
+                                <span class="emp-timesheet-weekrange">04 November 2024 <i class="fa fa-long-arrow-right" aria-hidden="true"></i> 10 November 2024</span>
+                                <i class="fa fa-angle-right" aria-hidden="true"></i>
+                            </span>
+                        </div>
+                        <div class="emp-timesheet-block2">
+                            <div class="form-group col-lg-12 div-timesheet-company">
+                                <select class="form-control" id="entertimesheetCompany">
+                                    <option value="1">AMBC</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="emp-timesheet-block3">
+                            <span>Reporting Manager </span> Shanta M Balakumar
+                        </div>
+                    </div>
+                    <div class="emp-timesheet-header-block-right">
+                        <button type="button" class="btn btn-primary">Enter Timesheet</button>
+                    </div>
+                </div>
+
+                <div class="emp-timesheet-graph-block">
+                    <div class="emp-timesheet-hours-spent">
+                        <div class="emp-timesheet-block-content emp-timesheet-block-bar">
+                            <canvas id="emp-timesheet-hours-spent" style="width:100%;max-width:100%"></canvas>
+                        </div>
+                    </div>
+                    <div class="emp-timesheet-attendance">
+                        <div class="emp-timesheet-block-content emp-timesheet-block-donet">
+                            <canvas id="emp-timesheet-attendance" style="width:100%;max-width:100%"></canvas>
+                        </div>
+                    </div>
+                </div>
+
+                
+                
+
                 <div class="emp-timesheet-table-block">
                     <div class="emp-timesheet-table-header">
                         <div class="emp-timesheet-table-title">Task List</div>
-                        <div class="emp-timesheet-table-submit"><button type="button" class="btn btn-primary"  data-toggle="modal" data-target="#empSubmitTimesheetModal">Submit Timesheet</button></div>
+                        <div class="emp-timesheet-table-submit"><button type="button" class="btn btn-primary" data-toggle="modal" data-target="#empSubmitTimesheetModal">Submit Timesheet</button></div>
                     </div>
                     <div class="emp-timesheet-table-body">
                         <div class="emp-timesheet-body table-responsive">
@@ -129,6 +171,80 @@
         </div>
     </div>
 </div>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.4/Chart.js"></script>
+<script>
+    var xValues = ["04-11-2024", "05-11-2024", "06-11-2024", "07-11-2024", "08-11-2024", "09-11-2024", "10-11-2024"];
+    var yValues = [8, 4, 7, 8.1, 0, 2, 0];
+    var barColors = ["#9240ED", "#2240ED", "#4dc3b2", "#fdff5f", "#5440ED", "#4540ED", "#9340ED"];
+
+    new Chart("emp-timesheet-hours-spent", {
+        type: "bar",
+        data: {
+            labels: xValues,
+            datasets: [{
+                backgroundColor: barColors,
+                data: yValues,
+                borderWidth: 0
+            }]
+        },
+        options: {
+            legend: {
+                display: false // Disable the legend
+            },
+            scales: {
+                xAxes: [{
+                    barPercentage: 1.0,  // Adjust the width of the bars
+                    categoryPercentage: 0.5, // Adjust the space between bars
+                    gridLines: {
+                        display: false // Remove gridlines on the x-axis
+                    }
+                }],
+                yAxes: [{
+                    ticks: {
+                        beginAtZero: true
+                    },
+                    gridLines: {
+                        display: false
+                    }
+                }]
+            }
+        }
+    });
+
+    var xValues = ["HoursSpend", "Overtime"];
+    var yValues = [23, 22];
+    var barColors = [
+        "#96CD5C",
+        "#C85353"
+    ];
+
+    // Create the chart
+    new Chart("emp-timesheet-attendance", {
+        type: "doughnut",
+        data: {
+            labels: xValues,
+            datasets: [{
+                backgroundColor: barColors,
+                data: yValues
+            }]
+        },
+        options: {
+            legend: {
+                display: true,
+                position: 'bottom'
+            },
+            // Disable hover effects
+            hover: {
+                mode: null // Disable hover mode
+            },
+            // Disable animations if you want it to load instantly without hover effects
+            animation: {
+                duration: 0 // Disable animations on hover
+            }
+        }
+    });
+
+</script>
 
 <script>
     $(document).ready(function () {
