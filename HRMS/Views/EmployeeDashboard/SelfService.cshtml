@@ -1,5 +1,7 @@
 ﻿@model HRMS.Models.Employee.SelfServiceViewModel
 
+@using HRMS.Helpers
+
 @Html.Partial("_EmployeeNavbar")
 <style>
 
@@ -248,7 +250,7 @@
         height: 15px;
         font-size: 12px;
     }
-    
+
 </style>
 <script src="https://cdn.tiny.cloud/1/a8r9jj8t9yk0l2hgejaoyglumbdcfozlfeogwxxq03lyrsrr/tinymce/5/tinymce.min.js"></script>
 <div class="container-fluid emp-selfservice-list-horizon">
@@ -667,8 +669,6 @@
                                                 <div class="parent">
                                                     <div class="person female" style="border: none;">
                                                         <div class="name allocate-details tree-root">
-
-
                                                         </div>
                                                     </div>
                                                     <ul>
@@ -695,7 +695,8 @@
                                                                                 }
                                                                                 else // Fallback image if asset image is not available
                                                                                 {
-                                                                                    <img src="~/Assets/01_Laptop.png" alt="Default Asset Image" />
+                                                                                    var defaultImagePath = ImageHelper.GetDefaultAssetImage(Model.empAsset.AssetType1);
+                                                                                    <img src="@defaultImagePath" alt="Default Asset Image" />
                                                                                 }
 
                                                                                 <div class="allocate-info">
@@ -738,7 +739,9 @@
                                                                                     <img src="@assetImageURL" alt="Asset Image" class="asset-profileimage"> }
                                                                                 else
                                                                                 {
-                                                                                    <img src="~/Assets/01_Mouse.png" alt="Mouse" />}
+                                                                                    var defaultImagePath = ImageHelper.GetDefaultAssetImage(Model.empAsset.AssetType1);
+                                                                                    <img src="@defaultImagePath" alt="Default Asset Image" />
+                                                                                }
 
                                                                                 <div class="allocate-info">
                                                                                     <div class="model"><span>Asset Name</span> @Model.empAsset.AssetType2</div>
@@ -779,8 +782,10 @@
                                                                                     <img src="@assetImageURL" alt="Asset Image" class="asset-profileimage" width="80"> }
                                                                                 else
                                                                                 {
-                                                                                    <img src="~/Assets/01_Mouse.png" alt="Mouse" />}
-                                                                                <div class="allocate-info">
+                                                                                    var defaultImagePath = ImageHelper.GetDefaultAssetImage(Model.empAsset.AssetType1);
+                                                                                    <img src="@defaultImagePath" alt="Default Asset Image" />
+                                                                                    }
+                                                                                    <div class="allocate-info">
                                                                                     <div class="model"><span>Asset Name</span> @Model.empAsset.AssetType3</div>
                                                                                     <div class="assetid"><span>Asset ID</span> @Model.empAsset.AssetID</div>
                                                                                     <div class="allocatedby"><span>Allocated By</span> @Model.empAsset.AssignedBy</div>
@@ -819,7 +824,9 @@
                                                                                     <img src="@assetImageURL" alt="Asset Image" class="asset-profileimage"> }
                                                                                 else
                                                                                 {
-                                                                                    <img src="~/Assets/01_Mouse.png" alt="Mouse" />}
+                                                                                    var defaultImagePath = ImageHelper.GetDefaultAssetImage(Model.empAsset.AssetType1);
+                                                                                    <img src="@defaultImagePath" alt="Default Asset Image" />
+                                                                                    }
                                                                                 <div class="allocate-info">
                                                                                     <div class="model"><span>Asset Name</span> @Model.empAsset.AssetType4</div>
                                                                                     <div class="assetid"><span>Asset ID</span> @Model.empAsset.AssetID</div>
@@ -860,7 +867,8 @@
 
                                                                                 else
                                                                                 {
-                                                                                    <img src="~/Assets/01_Mouse.png" alt="Mouse" />
+                                                                                    var defaultImagePath = ImageHelper.GetDefaultAssetImage(Model.empAsset.AssetType1);
+                                                                                    <img src="@defaultImagePath" alt="Default Asset Image" />
                                                                                 }
                                                                                 <div class="allocate-info">
                                                                                     <div class="model"><span>Asset Name</span> @Model.empAsset.AssetType5</div>

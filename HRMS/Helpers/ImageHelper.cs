@@ -29,5 +29,35 @@ namespace HRMS.Helpers
 
             return files.Length > 0;
         }
+
+
+        public static string GetDefaultAssetImage(string assetType)
+        {
+            switch (assetType)
+            {
+                case "Laptop":
+                    return "~/Assets/01_Laptop.png";
+                case "Mouse":
+                    return "~/Assets/01_Mouse.png";
+                case "Headset":
+                    return "~/Assets/01_Headset.png";
+                case "Keyboard":
+                    return "~/Assets/01_Keyboard.png";
+                case "Monitor":
+                    return "~/Assets/01_Desktop.png";
+                case "CPU":
+                    return "~/Assets/01_CPU.png";
+                case "Power Cable":
+                    return "~/Assets/01_PowerCable.png";
+                case "Charger":
+                    return "~/Assets/01_Charger.png";
+                case "UPS":
+                    return "~/Assets/01_UPS.png";
+                case "Others":
+                default:
+                    return "~/Assets/01_Others.png";
+            }
+        }
     }
 }
+
