@@ -96,7 +96,7 @@
           <Property Name="Holidayno" Type="int" />
           <Property Name="Location" Type="varchar" MaxLength="255" />
           <Property Name="OfficalEmailid" Type="varchar" MaxLength="255" />
-          <Property Name="Reason" Type="varchar" MaxLength="255" />
+          <Property Name="Reason" Type="varchar(max)" />
           <Property Name="approvedbyname" Type="nvarchar" MaxLength="500" />
           <Property Name="approvedbydate" Type="datetime" />
           <Property Name="rejectedbyname" Type="nvarchar" MaxLength="500" />
@@ -507,6 +507,75 @@
           <Property Name="IsSignOutBySystem" Type="bit" />
           <Property Name="Employee_LoginLocation" Type="varchar" MaxLength="255" />
         </EntityType>
+        <EntityType Name="TimeSheet">
+          <Key>
+            <PropertyRef Name="Sno" />
+          </Key>
+          <Property Name="Sno" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Client" Type="varchar" MaxLength="100" Nullable="false" />
+          <Property Name="EmployeeID" Type="varchar" MaxLength="100" />
+          <Property Name="EmployeeName" Type="varchar" MaxLength="255" />
+          <Property Name="EmployeeEmail" Type="varchar" MaxLength="100" />
+          <Property Name="Date" Type="date" />
+          <Property Name="Category1" Type="varchar" MaxLength="255" />
+          <Property Name="IncidentTaskName1" Type="varchar" MaxLength="500" />
+          <Property Name="IncidentTaskDescription1" Type="varchar(max)" />
+          <Property Name="Requester1" Type="varchar" MaxLength="100" />
+          <Property Name="HoursSpent1" Type="varchar" MaxLength="50" />
+          <Property Name="Priority1" Type="varchar" MaxLength="100" />
+          <Property Name="Status1" Type="varchar" MaxLength="100" />
+          <Property Name="Category2" Type="varchar" MaxLength="255" />
+          <Property Name="IncidentTaskName2" Type="varchar" MaxLength="500" />
+          <Property Name="IncidentTaskDescription2" Type="varchar(max)" />
+          <Property Name="Requester2" Type="varchar" MaxLength="100" />
+          <Property Name="HoursSpent2" Type="varchar" MaxLength="50" />
+          <Property Name="Priority2" Type="varchar" MaxLength="100" />
+          <Property Name="Status2" Type="varchar" MaxLength="100" />
+          <Property Name="Category3" Type="varchar" MaxLength="255" />
+          <Property Name="IncidentTaskName3" Type="varchar" MaxLength="500" />
+          <Property Name="IncidentTaskDescription3" Type="varchar(max)" />
+          <Property Name="Requester3" Type="varchar" MaxLength="100" />
+          <Property Name="HoursSpent3" Type="varchar" MaxLength="50" />
+          <Property Name="Priority3" Type="varchar" MaxLength="100" />
+          <Property Name="Status3" Type="varchar" MaxLength="100" />
+          <Property Name="Category4" Type="varchar" MaxLength="255" />
+          <Property Name="IncidentTaskName4" Type="varchar" MaxLength="500" />
+          <Property Name="IncidentTaskDescription4" Type="varchar(max)" />
+          <Property Name="Requester4" Type="varchar" MaxLength="100" />
+          <Property Name="HoursSpent4" Type="varchar" MaxLength="50" />
+          <Property Name="Priority4" Type="varchar" MaxLength="100" />
+          <Property Name="Status4" Type="varchar" MaxLength="100" />
+          <Property Name="Category5" Type="varchar" MaxLength="255" />
+          <Property Name="IncidentTaskName5" Type="varchar" MaxLength="500" />
+          <Property Name="IncidentTaskDescription5" Type="varchar(max)" />
+          <Property Name="Requester5" Type="varchar" MaxLength="100" />
+          <Property Name="HoursSpent5" Type="varchar" MaxLength="50" />
+          <Property Name="Priority5" Type="varchar" MaxLength="100" />
+          <Property Name="Status5" Type="varchar" MaxLength="100" />
+          <Property Name="Category6" Type="varchar" MaxLength="255" />
+          <Property Name="IncidentTaskName6" Type="varchar" MaxLength="500" />
+          <Property Name="IncidentTaskDescription6" Type="varchar(max)" />
+          <Property Name="Requester6" Type="varchar" MaxLength="100" />
+          <Property Name="HoursSpent6" Type="varchar" MaxLength="50" />
+          <Property Name="Priority6" Type="varchar" MaxLength="100" />
+          <Property Name="Status6" Type="varchar" MaxLength="100" />
+          <Property Name="Category7" Type="varchar" MaxLength="255" />
+          <Property Name="IncidentTaskName7" Type="varchar" MaxLength="500" />
+          <Property Name="IncidentTaskDescription7" Type="varchar(max)" />
+          <Property Name="Requester7" Type="varchar" MaxLength="100" />
+          <Property Name="HoursSpent7" Type="varchar" MaxLength="50" />
+          <Property Name="Priority7" Type="varchar" MaxLength="100" />
+          <Property Name="Status7" Type="varchar" MaxLength="100" />
+          <Property Name="UpdatedBy" Type="varchar" MaxLength="255" />
+          <Property Name="UpdatedDate" Type="datetime" />
+        </EntityType>
+        <EntityType Name="TimeSheetCategory">
+          <Key>
+            <PropertyRef Name="Sno" />
+          </Key>
+          <Property Name="Sno" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="CategoryName" Type="varchar" MaxLength="255" />
+        </EntityType>
         <EntityType Name="VendorList">
           <Key>
             <PropertyRef Name="VedorID" />
@@ -586,6 +655,8 @@ warning 6002: The table/view 'HRMS_PortalDev1.dbo.CheckInView' does not have a p
           <EntitySet Name="SubscriptionHistory" EntityType="Self.SubscriptionHistory" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="tblambcholiday" EntityType="Self.tblambcholiday" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="tbld_ambclogininformation" EntityType="Self.tbld_ambclogininformation" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="TimeSheet" EntityType="Self.TimeSheet" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="TimeSheetCategory" EntityType="Self.TimeSheetCategory" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="VendorList" EntityType="Self.VendorList" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="VendorType" EntityType="Self.VendorType" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="CheckInView" EntityType="Self.CheckInView" store:Type="Views" store:Schema="dbo">
@@ -656,6 +727,8 @@ warning 6002: The table/view 'HRMS_PortalDev1.dbo.CheckInView' does not have a p
           <EntitySet Name="IT_Maintenance" EntityType="HRMS_EntityModel.IT_Maintenance" />
           <EntitySet Name="JobDetails" EntityType="HRMS_EntityModel.JobDetail" />
           <EntitySet Name="JobReferrals" EntityType="HRMS_EntityModel.JobReferral" />
+          <EntitySet Name="TimeSheets" EntityType="HRMS_EntityModel.TimeSheet" />
+          <EntitySet Name="TimeSheetCategories" EntityType="HRMS_EntityModel.TimeSheetCategory" />
         </EntityContainer>
         <EntityType Name="Client">
           <Key>
@@ -839,7 +912,7 @@ warning 6002: The table/view 'HRMS_PortalDev1.dbo.CheckInView' does not have a p
           <Property Name="Holidayno" Type="Int32" />
           <Property Name="Location" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
           <Property Name="OfficalEmailid" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
-          <Property Name="Reason" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+          <Property Name="Reason" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
           <Property Name="approvedbyname" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
           <Property Name="approvedbydate" Type="DateTime" Precision="3" />
           <Property Name="rejectedbyname" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
@@ -1191,6 +1264,75 @@ warning 6002: The table/view 'HRMS_PortalDev1.dbo.CheckInView' does not have a p
           <Property Name="ReferredDate" Type="DateTime" Precision="3" />
           <Property Name="CandidateStatus" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
           <Property Name="CreatedDate" Type="DateTime" Precision="3" />
+        </EntityType>
+        <EntityType Name="TimeSheet">
+          <Key>
+            <PropertyRef Name="Sno" />
+          </Key>
+          <Property Name="Sno" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Client" Type="String" Nullable="false" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="EmployeeID" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="EmployeeName" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+          <Property Name="EmployeeEmail" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="Date" Type="DateTime" Precision="0" />
+          <Property Name="Category1" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+          <Property Name="IncidentTaskName1" Type="String" MaxLength="500" FixedLength="false" Unicode="false" />
+          <Property Name="IncidentTaskDescription1" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="Requester1" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="HoursSpent1" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="Priority1" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="Status1" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="Category2" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+          <Property Name="IncidentTaskName2" Type="String" MaxLength="500" FixedLength="false" Unicode="false" />
+          <Property Name="IncidentTaskDescription2" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="Requester2" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="HoursSpent2" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="Priority2" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="Status2" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="Category3" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+          <Property Name="IncidentTaskName3" Type="String" MaxLength="500" FixedLength="false" Unicode="false" />
+          <Property Name="IncidentTaskDescription3" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="Requester3" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="HoursSpent3" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="Priority3" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="Status3" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="Category4" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+          <Property Name="IncidentTaskName4" Type="String" MaxLength="500" FixedLength="false" Unicode="false" />
+          <Property Name="IncidentTaskDescription4" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="Requester4" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="HoursSpent4" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="Priority4" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="Status4" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="Category5" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+          <Property Name="IncidentTaskName5" Type="String" MaxLength="500" FixedLength="false" Unicode="false" />
+          <Property Name="IncidentTaskDescription5" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="Requester5" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="HoursSpent5" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="Priority5" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="Status5" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="Category6" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+          <Property Name="IncidentTaskName6" Type="String" MaxLength="500" FixedLength="false" Unicode="false" />
+          <Property Name="IncidentTaskDescription6" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="Requester6" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="HoursSpent6" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="Priority6" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="Status6" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="Category7" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+          <Property Name="IncidentTaskName7" Type="String" MaxLength="500" FixedLength="false" Unicode="false" />
+          <Property Name="IncidentTaskDescription7" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="Requester7" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="HoursSpent7" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="Priority7" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="Status7" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="UpdatedBy" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+          <Property Name="UpdatedDate" Type="DateTime" Precision="3" />
+        </EntityType>
+        <EntityType Name="TimeSheetCategory">
+          <Key>
+            <PropertyRef Name="Sno" />
+          </Key>
+          <Property Name="Sno" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="CategoryName" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
         </EntityType>
       </Schema>
     </edmx:ConceptualModels>
@@ -1768,6 +1910,77 @@ warning 6002: The table/view 'HRMS_PortalDev1.dbo.CheckInView' does not have a p
                 <ScalarProperty Name="ResumePath" ColumnName="ResumePath" />
                 <ScalarProperty Name="CandidateName" ColumnName="CandidateName" />
                 <ScalarProperty Name="JobID" ColumnName="JobID" />
+                <ScalarProperty Name="Sno" ColumnName="Sno" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="TimeSheets">
+            <EntityTypeMapping TypeName="HRMS_EntityModel.TimeSheet">
+              <MappingFragment StoreEntitySet="TimeSheet">
+                <ScalarProperty Name="UpdatedDate" ColumnName="UpdatedDate" />
+                <ScalarProperty Name="UpdatedBy" ColumnName="UpdatedBy" />
+                <ScalarProperty Name="Status7" ColumnName="Status7" />
+                <ScalarProperty Name="Priority7" ColumnName="Priority7" />
+                <ScalarProperty Name="HoursSpent7" ColumnName="HoursSpent7" />
+                <ScalarProperty Name="Requester7" ColumnName="Requester7" />
+                <ScalarProperty Name="IncidentTaskDescription7" ColumnName="IncidentTaskDescription7" />
+                <ScalarProperty Name="IncidentTaskName7" ColumnName="IncidentTaskName7" />
+                <ScalarProperty Name="Category7" ColumnName="Category7" />
+                <ScalarProperty Name="Status6" ColumnName="Status6" />
+                <ScalarProperty Name="Priority6" ColumnName="Priority6" />
+                <ScalarProperty Name="HoursSpent6" ColumnName="HoursSpent6" />
+                <ScalarProperty Name="Requester6" ColumnName="Requester6" />
+                <ScalarProperty Name="IncidentTaskDescription6" ColumnName="IncidentTaskDescription6" />
+                <ScalarProperty Name="IncidentTaskName6" ColumnName="IncidentTaskName6" />
+                <ScalarProperty Name="Category6" ColumnName="Category6" />
+                <ScalarProperty Name="Status5" ColumnName="Status5" />
+                <ScalarProperty Name="Priority5" ColumnName="Priority5" />
+                <ScalarProperty Name="HoursSpent5" ColumnName="HoursSpent5" />
+                <ScalarProperty Name="Requester5" ColumnName="Requester5" />
+                <ScalarProperty Name="IncidentTaskDescription5" ColumnName="IncidentTaskDescription5" />
+                <ScalarProperty Name="IncidentTaskName5" ColumnName="IncidentTaskName5" />
+                <ScalarProperty Name="Category5" ColumnName="Category5" />
+                <ScalarProperty Name="Status4" ColumnName="Status4" />
+                <ScalarProperty Name="Priority4" ColumnName="Priority4" />
+                <ScalarProperty Name="HoursSpent4" ColumnName="HoursSpent4" />
+                <ScalarProperty Name="Requester4" ColumnName="Requester4" />
+                <ScalarProperty Name="IncidentTaskDescription4" ColumnName="IncidentTaskDescription4" />
+                <ScalarProperty Name="IncidentTaskName4" ColumnName="IncidentTaskName4" />
+                <ScalarProperty Name="Category4" ColumnName="Category4" />
+                <ScalarProperty Name="Status3" ColumnName="Status3" />
+                <ScalarProperty Name="Priority3" ColumnName="Priority3" />
+                <ScalarProperty Name="HoursSpent3" ColumnName="HoursSpent3" />
+                <ScalarProperty Name="Requester3" ColumnName="Requester3" />
+                <ScalarProperty Name="IncidentTaskDescription3" ColumnName="IncidentTaskDescription3" />
+                <ScalarProperty Name="IncidentTaskName3" ColumnName="IncidentTaskName3" />
+                <ScalarProperty Name="Category3" ColumnName="Category3" />
+                <ScalarProperty Name="Status2" ColumnName="Status2" />
+                <ScalarProperty Name="Priority2" ColumnName="Priority2" />
+                <ScalarProperty Name="HoursSpent2" ColumnName="HoursSpent2" />
+                <ScalarProperty Name="Requester2" ColumnName="Requester2" />
+                <ScalarProperty Name="IncidentTaskDescription2" ColumnName="IncidentTaskDescription2" />
+                <ScalarProperty Name="IncidentTaskName2" ColumnName="IncidentTaskName2" />
+                <ScalarProperty Name="Category2" ColumnName="Category2" />
+                <ScalarProperty Name="Status1" ColumnName="Status1" />
+                <ScalarProperty Name="Priority1" ColumnName="Priority1" />
+                <ScalarProperty Name="HoursSpent1" ColumnName="HoursSpent1" />
+                <ScalarProperty Name="Requester1" ColumnName="Requester1" />
+                <ScalarProperty Name="IncidentTaskDescription1" ColumnName="IncidentTaskDescription1" />
+                <ScalarProperty Name="IncidentTaskName1" ColumnName="IncidentTaskName1" />
+                <ScalarProperty Name="Category1" ColumnName="Category1" />
+                <ScalarProperty Name="Date" ColumnName="Date" />
+                <ScalarProperty Name="EmployeeEmail" ColumnName="EmployeeEmail" />
+                <ScalarProperty Name="EmployeeName" ColumnName="EmployeeName" />
+                <ScalarProperty Name="EmployeeID" ColumnName="EmployeeID" />
+                <ScalarProperty Name="Client" ColumnName="Client" />
+                <ScalarProperty Name="Sno" ColumnName="Sno" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="TimeSheetCategories">
+            <EntityTypeMapping TypeName="HRMS_EntityModel.TimeSheetCategory">
+              <MappingFragment StoreEntitySet="TimeSheetCategory">
+                <ScalarProperty Name="CategoryName" ColumnName="CategoryName" />
                 <ScalarProperty Name="Sno" ColumnName="Sno" />
               </MappingFragment>
             </EntityTypeMapping>

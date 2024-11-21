@@ -25,8 +25,17 @@ namespace HRMS.Controllers
         }
 
         public ActionResult AdminTimesheet()
-        {      
+        {
             return View("~/Views/AdminDashboard/AdminTimesheetView.cshtml");
+        }
+
+        public ActionResult TimesheetWeekReport()
+        {        
+            return View("~/Views/AdminDashboard/TimesheetWeeklyTemplate.cshtml");
+        }
+        public ActionResult TimesheetMonthReport()
+        {
+            return View("~/Views/AdminDashboard/TimesheetMonthlyTemplate.cshtml");
         }
     }
 }
