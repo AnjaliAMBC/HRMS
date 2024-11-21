@@ -6,6 +6,10 @@
     border: 1px solid red;
 }
 
+.canvasjs-chart-credit {
+    display: none;
+}
+
 /* signin start */
 
 .login-page-horizon {
@@ -3231,37 +3235,42 @@ width: 100%;*/
     border-radius: 20px;
 }
 
-.emp-timesheet-weekrange-info i.fa-angle-left {
+.emp-timesheet-list-horizon .emp-timesheet-weekrange-info i.fa-angle-left {
     color: #afafaf;
     margin-right: 5px;
     cursor: pointer;
 }
 
-.emp-timesheet-weekrange-info i.fa-angle-right {
+.emp-timesheet-list-horizon .emp-timesheet-weekrange-info i.fa-angle-right {
     color: #afafaf;
     margin-left: 5px;
     cursor: pointer;
 }
 
-.emp-timesheet-weekrange-info i.fa-long-arrow-right {
+.emp-timesheet-list-horizon .emp-timesheet-weekrange-info i.fa-long-arrow-right {
     color: #afafaf;
     margin: 0 5px;
 }
 
-.emp-timesheet-graph-block .emp-timesheet-hours-spent {
+.emp-timesheet-list-horizon .emp-timesheet-graph-block .emp-timesheet-hours-spent {
     display: inline-block;
     width: 69%;
 }
 
-.emp-timesheet-graph-block .emp-timesheet-attendance {
+.emp-timesheet-list-horizon .emp-timesheet-graph-block .emp-timesheet-attendance {
     display: inline-block;
     width: 30%;
     vertical-align: top;
 }
 
-.emp-timesheet-graph-block .emp-timesheet-attendance .emp-timesheet-block-donet {
+.emp-timesheet-list-horizon .emp-timesheet-graph-block .emp-timesheet-attendance .emp-timesheet-block-donut {
     border: 1px solid #ccc;
     padding: 15px 0;
+}
+
+.emp-timesheet-list-horizon .emp-timesheet-graph-block .emp-timesheet-block-donut .emp-timesheet-block-donut-title {
+    display: inline-block;
+    margin-left: 15px;
 }
 
 /* emp timesheet end */
@@ -3373,19 +3382,19 @@ width: 100%;*/
     border-radius: 20px;
 }
 
-.emp-entertimesheet-weekrange-info i.fa-angle-left {
+.emp-entertimesheet-list-horizon .emp-entertimesheet-weekrange-info i.fa-angle-left {
     color: #afafaf;
     margin-right: 5px;
-    cursor:pointer;
+    cursor: pointer;
 }
 
-.emp-entertimesheet-weekrange-info i.fa-angle-right {
+.emp-entertimesheet-list-horizon .emp-entertimesheet-weekrange-info i.fa-angle-right {
     color: #afafaf;
     margin-left: 5px;
     cursor: pointer;
 }
 
-.emp-entertimesheet-weekrange-info i.fa-long-arrow-right {
+.emp-entertimesheet-list-horizon .emp-entertimesheet-weekrange-info i.fa-long-arrow-right {
     color: #afafaf;
     margin: 0 5px;
 }

@@ -2,6 +2,26 @@
 @{
     ViewBag.Title = "AdminTimesheetView";
 }
+@Html.Partial("_NavBar")
+<div class="container-fluid res-admin-timesheet">
+    <div class="hiddenadmindashboard" style="display: none"></div>
+    @Html.Partial("_adminsidemenu")
+    <div class="main-content container-fluid">
+        <div class="content admin-timesheet-list">
+            <div class="content admin-timesheet">
+                    <div class="admin-timesheet-container">
+                        <div class="row admin-timesheet-header">
+                            <div class="admin-timesheet-header-title">
+                                <h4>Timesheet</h4>
+                            </div>
+                            <div class="admin-timesheet-header-right ml-auto">
+                                <button type="button" class="btn btn-primary btn-admin-timesheet-sendremainder">Send Remainder</button>
+                            </div>
+                        </div>
+                    </div>
 
-<h2>AdminTimesheetView</h2>
+                
+            </div>
+        </div>
+    </div>
 
