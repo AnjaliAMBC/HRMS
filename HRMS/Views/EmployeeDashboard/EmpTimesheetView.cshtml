@@ -45,18 +45,17 @@
                 <div class="emp-timesheet-graph-block">
                     <div class="emp-timesheet-hours-spent">
                         <div class="emp-timesheet-block-content emp-timesheet-block-bar">
-                            <canvas id="emp-timesheet-hours-spent" style="width:100%;max-width:100%"></canvas>
+                            <div id="emp-timesheet-hours-spent" style="height: 270px; width: 100%;"></div>
                         </div>
                     </div>
                     <div class="emp-timesheet-attendance">
-                        <div class="emp-timesheet-block-content emp-timesheet-block-donet">
+                        <div class="emp-timesheet-block-content emp-timesheet-block-donut">
+                            <div class="emp-timesheet-block-donut-title">Hours Spent</div>
                             <canvas id="emp-timesheet-attendance" style="width:100%;max-width:100%"></canvas>
                         </div>
                     </div>
                 </div>
 
-                
-                
 
                 <div class="emp-timesheet-table-block">
                     <div class="emp-timesheet-table-header">
@@ -171,51 +170,138 @@
         </div>
     </div>
 </div>
+<script type="text/javascript" src="https://cdn.canvasjs.com/canvasjs.min.js"></script>
+<script>
+    $(document).ready(function () {
+        // Define static data points in jQuery
+
+        var dataPoints1 = [
+            { label: "4-11-2024", y: 0, indexLabel: "" },
+            { label: "5-11-2024", y: 0, indexLabel: "" },
+            { label: "6-11-2024", y: 0, indexLabel: "" },
+            { label: "7-11-2024", y: 0.2, indexLabel: "Leave" },
+            { label: "8-11-2024", y: 0, indexLabel: "" },
+            { label: "9-11-2024", y: 0, indexLabel: "" },
+            { label: "10-11-2024", y: 0, indexLabel: "" }
+        ];
+
+        var dataPoints2 = [
+            { label: "4-11-2024", y: 0, indexLabel: "" },
+            { label: "5-11-2024", y: 0, indexLabel: "" },
+            { label: "6-11-2024", y: 0, indexLabel: "" },
+            { label: "7-11-2024", y: 0, indexLabel: "" },
+            { label: "8-11-2024", y: 0.2, indexLabel: "Holiday" },
+            { label: "9-11-2024", y: 0, indexLabel: "" },
+            { label: "10-11-2024", y: 0, indexLabel: "" }
+        ];
+
+        var dataPoints3 = [
+            { label: "4-11-2024", y: 0, indexLabel: "" },
+            { label: "5-11-2024", y: 0, indexLabel: "" },
+            { label: "6-11-2024", y: 0, indexLabel: "" },
+            { label: "7-11-2024", y: 0, indexLabel: "" },
+            { label: "8-11-2024", y: 0, indexLabel: "" },
+            { label: "9-11-2024", y: 0.2, indexLabel: "Weekend" },
+            { label: "10-11-2024", y: 0.2, indexLabel: "Weekend" }
+        ];
+
+        var dataPoints4 = [
+            { label: "4-11-2024", y: 8, indexLabel: "Hours Spent" },
+            { label: "5-11-2024", y: 8.10, indexLabel: "Hours Spent" },
+            { label: "6-11-2024", y: 0, indexLabel: "" },
+            { label: "7-11-2024", y: 0, indexLabel: "" },
+            { label: "8-11-2024", y: 0, indexLabel: "" },
+            { label: "9-11-2024", y: 0, indexLabel: "" },
+            { label: "10-11-2024", y: 0, indexLabel: "" }
+        ];
+
+        var dataPoints5 = [
+            { label: "4-11-2024", y: 1, indexLabel: "Overtime" },
+            { label: "5-11-2024", y: 0.10, indexLabel: "Overtime" },
+            { label: "6-11-2024", y: 0, indexLabel: "" },
+            { label: "7-11-2024", y: 0, indexLabel: "" },
+            { label: "8-11-2024", y: 0, indexLabel: "" },
+            { label: "9-11-2024", y: 0, indexLabel: "" },
+            { label: "10-11-2024", y: 0, indexLabel: "" }
+        ];
+
+        // Initialize CanvasJS Chart
+        var chart = new CanvasJS.Chart("emp-timesheet-hours-spent", {
+            axisY: {
+                suffix: " h",
+                interval: 2, // Set the interval for Y-axis labels
+                minimum: 0,  // Set the starting value of Y-axis
+                gridThickness: 0, // Removes the Y-axis grid lines
+                lineThickness: 0 // Remove the left axis line
+            },
+            data: [
+                {
+                    type: "stackedColumn",
+                    name: "Leave",
+                    showInLegend: false, // Hide from legend
+                    color: "#FF5733",
+                    yValueFormatString: "#,##0 h",
+                    dataPoints: dataPoints1
+                },
+                {
+                    type: "stackedColumn",
+                    name: "Hoilday",
+                    showInLegend: false, // Hide from legend
+                    color: "#FFC300",
+                    yValueFormatString: "#,##0 h",
+                    dataPoints: dataPoints2
+                },
+                {
+                    type: "stackedColumn",
+                    name: "Week End",
+                    showInLegend: false, // Hide from legend
+                    color: "#3e4652",
+                    yValueFormatString: "#,##0 h",
+                    dataPoints: dataPoints3
+                },
+                {
+			        type: "stackedColumn",
+			        name: "Hours Spent",
+                    showInLegend: false, // Hide from legend
+                    color: "#33FF57",
+                    yValueFormatString: "#,##0 h",
+                    dataPoints: dataPoints4
+                },
+                {
+			        type: "stackedColumn",
+			        name: "Overtime",
+                    showInLegend: false, // Hide from legend
+                    color: "#50aced",
+			        yValueFormatString: "#,##0 h",
+                    dataPoints: dataPoints5
+                }
+                
+            ]
+        });
+
+        // Render the chart
+        chart.render();
+
+        // Define the toggleDataSeries function
+        function toggleDataSeries(e) {
+            if (typeof (e.dataSeries.visible) === "undefined" || e.dataSeries.visible) {
+                e.dataSeries.visible = false;
+            } else {
+                e.dataSeries.visible = true;
+            }
+            chart.render();
+        }
+
+});
+</script>
+
 <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.4/Chart.js"></script>
 <script>
-    var xValues = ["04-11-2024", "05-11-2024", "06-11-2024", "07-11-2024", "08-11-2024", "09-11-2024", "10-11-2024"];
-    var yValues = [8, 4, 7, 8.1, 0, 2, 0];
-    var barColors = ["#9240ED", "#2240ED", "#4dc3b2", "#fdff5f", "#5440ED", "#4540ED", "#9340ED"];
-
-    new Chart("emp-timesheet-hours-spent", {
-        type: "bar",
-        data: {
-            labels: xValues,
-            datasets: [{
-                backgroundColor: barColors,
-                data: yValues,
-                borderWidth: 0
-            }]
-        },
-        options: {
-            legend: {
-                display: false // Disable the legend
-            },
-            scales: {
-                xAxes: [{
-                    barPercentage: 1.0,  // Adjust the width of the bars
-                    categoryPercentage: 0.5, // Adjust the space between bars
-                    gridLines: {
-                        display: false // Remove gridlines on the x-axis
-                    }
-                }],
-                yAxes: [{
-                    ticks: {
-                        beginAtZero: true
-                    },
-                    gridLines: {
-                        display: false
-                    }
-                }]
-            }
-        }
-    });
-
-    var xValues = ["HoursSpend", "Overtime"];
-    var yValues = [23, 22];
+    var xValues = ["Hours Spent", "Overtime"];
+    var yValues = [16, 1.10];
     var barColors = [
-        "#96CD5C",
-        "#C85353"
+        "#33FF57",
+        "#50aced"
     ];
 
     // Create the chart
