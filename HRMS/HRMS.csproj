@@ -238,6 +238,12 @@
     <Compile Include="tbld_ambclogininformation.cs">
       <DependentUpon>HRMS.tt</DependentUpon>
     </Compile>
+    <Compile Include="TimeSheet.cs">
+      <DependentUpon>HRMS.tt</DependentUpon>
+    </Compile>
+    <Compile Include="TimeSheetCategory.cs">
+      <DependentUpon>HRMS.tt</DependentUpon>
+    </Compile>
     <Compile Include="VendorList.cs">
       <DependentUpon>HRMS.tt</DependentUpon>
     </Compile>
@@ -614,6 +620,9 @@
     <Content Include="Views\EmployeeDashboard\EmpTimesheetView.cshtml" />
     <Content Include="Views\AdminDashboard\AdminTimesheetView.cshtml" />
     <Content Include="Views\EmployeeDashboard\_TimesheetRows.cshtml" />
+    <Content Include="Views\AdminDashboard\TimesheetMonthlyTemplate.cshtml" />
+    <Content Include="Views\AdminDashboard\TimesheetWeeklyTemplate.cshtml" />
+    <Content Include="Views\Shared\_TimesheetReminderEmail.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
