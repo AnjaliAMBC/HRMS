@@ -1,19 +1,209 @@
 ﻿$(document).on('click', '.timesheet-Submit', function (event) {
-    event.preventDefault();   
+    event.preventDefault();
     window.location.href = "/timesheet/submittimesheet";
 });
 
 
+$(document).on('click', '.emp-entertimesheet-rangedates span', function (event) {
+    $(".emp-entertimesheet-rangedates span").removeClass("active");
+    $(".emp-entertimesheet-block4 > div").removeClass("active").hide();
+    $(this).addClass("active");
+    $($(this).attr("href")).addClass("active").show();
+});
+
+function getDivCountByUniqueKey(uniqueKey) {
+    const divCount = $(`div[data-dayuniquekey="${uniqueKey}"]`).length;
+    return divCount;
+}
+
+$(document).on('click', '#addTaskBtn', function (event) {
+    event.preventDefault();
+    var keyNummber = $(this).data("dayuniquekey");
+    const count = getDivCountByUniqueKey(keyNummber);
+    var dayDate = $(this).data("daydate");
+    var newNumber = count + 1;
+    var blocknumber = $(this).data("blocknumber");
+    var dayindexnumber = $(this).data("dayindexnumber");
+    $.ajax({
+        url: "/timesheet/addnewrowbydate",
+        type: "POST",
+        data: { date: dayDate, rownmber: newNumber, dayindexnumber: dayindexnumber, blocknumber: blocknumber },
+        success: function (newrow) {
+            $("." + blocknumber + " .emp-entertimesheet-footer").before(newrow);
+        },
+        error: function (error) {
+            console.error("Error loading partial view:", error);
+            alert("Error loading timesheet data. Please try again.");
+        }
+    });
+});
+
+
+function showMessageInModal(message, type) {
+    const modalMessage = $('#modalMessage');
+    const modalTitle = $('#messageModalLabel');
+
+    modalMessage.text(message);
+
+    if (type === "success") {
+        modalMessage.css("color", "green");
+        modalTitle.text("Success");
+    } else if (type === "error") {
+        modalMessage.css("color", "red");
+        modalTitle.text("Error");
+    }
+
+    $('#TimeSheetMessageModal').modal('show');
+}
+
+
 $(document).ready(function () {
-    // Function to format date as "dd-mm-yyyy"
+    $(document).on('click', '.btn-save-timesheet', function () {
+        var dayUniqueKey = $(this).data("dayuniquekey");
+        var selectedDate = $(this).data("daydate");
+        var weeknumber = $(this).data("weeknumber");
+        var firstRow = $('div.emp-entertimesheet-fields[data-dayuniquekey="' + dayUniqueKey + '"]').first();
+        var isValid = true;
+
+        // Define a variable to calculate the total hours spent
+        let totalHoursSpent = 0;
+
+        // Maximum allowed hours fetched from the data attribute
+        const maxAllowedHours = parseFloat($(this).data("maxallaowedhours"));
+
+        // Validate required fields
+        firstRow.find('select, input[type="text"]').not('[id*="Requester"]').each(function () {
+            if ($(this).val() === "" || $(this).val() === "0") {
+                $(this).addClass('is-invalid');
+                isValid = false;
+            } else {
+                $(this).removeClass('is-invalid');
+            }
+        });
+
+        if (!isValid) {
+            if (firstRow.find('.validation-message').length === 0) {
+                /* firstRow.append('<div class="validation-message text-danger mt-2">Please fill in all required fields.</div>'); */
+            }
+            return; // Exit if validation fails
+        }
+
+        firstRow.find('.validation-message').remove();
+        var timesheetList = [];
+
+        $('div.emp-entertimesheet-fields[data-dayuniquekey="' + dayUniqueKey + '"]').each(function () {
+            var timesheetData = $(this);
+
+            // Parse the hours and minutes
+            var hoursSpentInput = timesheetData.find('.timesheet-hoursspent').val();
+            var hoursSpent = 0;
+
+            if (hoursSpentInput) {
+                var timeParts = hoursSpentInput.split('.'); // Split by '.'
+                var hours = parseInt(timeParts[0]) || 0; // Get hours
+                var minutes = parseInt(timeParts[1]) || 0; // Get minutes
+                hoursSpent = hours + minutes / 60; // Convert minutes to fraction
+            }
+
+            totalHoursSpent += hoursSpent;
+
+            var data = {
+                Client: $('#entertimesheetClientName').val(),
+                EmployeeID: $('.loggedinempid').text(),
+                EmployeeName: $('.loggedinempname').text(),
+                EmployeeEmail: $('.loggedinempemail').text(),
+                Date: selectedDate,
+                Category: timesheetData.find('.timesheet-entertimesheetCategory').val(),
+                IncidentTaskName: timesheetData.find('.timesheet-entertimesheetTaskName').val(),
+                IncidentTaskDescription: timesheetData.find('.timesheet-entertimesheetTaskDesc').val(),
+                Requester: timesheetData.find('.timesheet-entertimesheetRequester').val(),
+                HoursSpent: hoursSpentInput, // Store formatted hours spent
+                Priority: timesheetData.find('.timesheet-entertimesheetPriority').val(),
+                Status: timesheetData.find('.timesheet-entertimesheetStatus').val(),
+                CreatedBy: timesheetData.find('.created-by').val(),
+                CreatedDate: timesheetData.find('.created-date').val(),
+                UpdatedBy: timesheetData.find('.updated-by').val(),
+                UpdatedDate: timesheetData.find('.updated-date').val(),
+                submissionstatus: "Save",
+                WeekEnd: weeknumber,
+                TimeSheetID: timesheetData.find('.timesheetid').text(),
+            };
+
+            timesheetList.push(data);
+        });
+
+
+        if (totalHoursSpent > maxAllowedHours) {
+            const maxHours = Math.floor(maxAllowedHours);
+            const maxMinutes = Math.round((maxAllowedHours - maxHours) * 60);
+
+            const totalHours = Math.floor(totalHoursSpent);
+            const totalMinutes = Math.round((totalHoursSpent - totalHours) * 60);
+
+            showMessageInModal(
+                `You cannot enter more than the allowed hours: ${maxHours} hours and ${maxMinutes} minutes. 
+        Total hours entered: ${totalHours} hours and ${totalMinutes} minutes.`,
+                "error"
+            );
+            return;
+        }
+
+
+        if (timesheetList.length > 0) {
+            $.ajax({
+                url: '/timesheet/savetimesheet',
+                method: 'POST',
+                contentType: 'application/json',
+                data: JSON.stringify(timesheetList),
+                success: function (response) {
+                    console.log('Timesheet data submitted successfully!', response);
+                    showMessageInModal(
+                        `Timesheet data saved successfully!`,
+                        "success"
+                    );
+                },
+                error: function (xhr, status, error) {
+                    console.error('Error submitting timesheet data:', error);
+                }
+            });
+        } else {
+            console.warn('No timesheet data found to submit.');
+        }
+    });
+});
+
+
+$(document).on('click', '.btn-close-timesheetsave', function () {
+    $('#TimeSheetMessageModal').modal('hide');
+    return;
+});
+
+
+
+
+
+$(document).on('input change', '.emp-entertimesheet-fields select, .emp-entertimesheet-fields input[type="text"]', function () {
+    $(this).removeClass('is-invalid');
+    $(this).closest('.emp-entertimesheet-fields').find('.validation-message').remove();
+});
+
+
+
+$(document).on('input', '.timesheethoursspent', function () {
+    let value = $(this).val();
+    if (!/^\d*(\.\d{0,2})?$/.test(value)) {
+        $(this).val(value.slice(0, -1));
+    }
+});
+
+$(document).ready(function () {
     function formatDateToShort(date) {
         var day = date.getDate();
-        var month = date.getMonth() + 1; // Months are zero-indexed
+        var month = date.getMonth() + 1;
         var year = date.getFullYear();
         return (day < 10 ? '0' + day : day) + '-' + (month < 10 ? '0' + month : month) + '-' + year;
     }
 
-    // Function to format date as "dd Month yyyy"
     function formatDateToLong(date) {
         var day = date.getDate();
         var monthNames = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
@@ -22,193 +212,209 @@ $(document).ready(function () {
         return (day < 10 ? '0' + day : day) + ' ' + month + ' ' + year;
     }
 
-    // Function to calculate the week number of the year
     function getWeekNumber(date) {
-        var startDate = new Date(date.getFullYear(), 0, 1); // First day of the year
-        var diff = date - startDate; // Difference between current date and the start of the year
-        var oneDay = 1000 * 60 * 60 * 24; // Number of milliseconds in a day
-        var dayOfYear = Math.floor(diff / oneDay); // Calculate the day of the year
-        return Math.ceil((dayOfYear + 1) / 7); // Return the week number
+        var startDate = new Date(date.getFullYear(), 0, 1);
+        var diff = date - startDate;
+        var oneDay = 1000 * 60 * 60 * 24;
+        var dayOfYear = Math.floor(diff / oneDay);
+        return Math.ceil((dayOfYear + 1) / 7);
     }
 
-    // Function to get the start and end date of the week
     function getStartEndDateOfWeek(date) {
         var start = new Date(date);
         var end = new Date(date);
         var day = start.getDay();
-        var diff = start.getDate() - day + (day == 0 ? -6 : 1); // Adjust to the start of the week (Monday)
+        var diff = start.getDate() - day + (day == 0 ? -6 : 1);
         start.setDate(diff);
-        end.setDate(start.getDate() + 6); // Set the end date to 6 days after the start date
+        end.setDate(start.getDate() + 6);
         return {
             startDate: start,
             endDate: end
         };
     }
 
-    // Function to update the week, week number, and dates
     function updateWeek(date) {
         var weekData = getStartEndDateOfWeek(date);
         var weekStart = weekData.startDate;
         var weekEnd = weekData.endDate;
-       
+
         $('#week-start').text(formatDateToLong(weekStart));
         $('#week-end').text(formatDateToLong(weekEnd));
-
-        // Update the day elements below the week range with short format (e.g., "01-01-2024")
-        for (var i = 0; i < 7; i++) {
-            var day = new Date(weekStart);
-            day.setDate(weekStart.getDate() + i); // Update the day
-            $('#date-' + (i + 1)).text(formatDateToShort(day)); // Set the date for each day in short format
-        }
-
-        // Update the week number
         var weekNumber = getWeekNumber(weekStart);
         $('#week-number').text('Week ' + weekNumber);
+
+        //for (var i = 0; i < 7; i++) {
+        //    var day = new Date(weekStart);
+        //    day.setDate(weekStart.getDate() + i);
+        //    $('#date-' + (i + 1)).text(formatDateToShort(day));
+        //}
+
+        var weekstart = $('#week-start').text();
+        var weekend = $('#week-end').text();
+        var weeknumber = weekNumber;
+        $.ajax({
+            url: "/timesheet/previousweektimesheets",
+            type: "POST",
+            data: { weekstart: weekstart, weekend: weekend, weeknumber: weeknumber },
+            success: function (newrow) {
+                $("#empEntertimesheet").empty();
+                $("#empEntertimesheet").append(newrow);
+            },
+            error: function (error) {
+                console.error("Error loading partial view:", error);
+                alert("Error loading timesheet data. Please try again.");
+            }
+        });
     }
 
-    // Set the default week (current week)
-    var currentDate = new Date();
-    updateWeek(currentDate);
-
-    // Previous week click
-    $('#prev-week').click(function () {
-        var prevWeekStart = new Date($('#week-start').text().split('-').reverse().join('-')); // Convert string back to Date
-        prevWeekStart.setDate(prevWeekStart.getDate() - 7); // Move back 7 days to get the previous week's Monday
+    $(document).on('click', '#prev-week', function (event) {
+        event.preventDefault();
+        var prevWeekStart = new Date($('#week-start').text().split('-').reverse().join('-'));
+        prevWeekStart.setDate(prevWeekStart.getDate() - 7);
         updateWeek(prevWeekStart);
     });
 
-    // Next week click
-    $('#next-week').click(function () {
-        var nextWeekStart = new Date($('#week-start').text().split('-').reverse().join('-')); // Convert string back to Date
-        nextWeekStart.setDate(nextWeekStart.getDate() + 7); // Move forward 7 days to get the next week's Monday
+    $(document).on('click', '#next-week', function (event) {
+        event.preventDefault();
+        var nextWeekStart = new Date($('#week-start').text().split('-').reverse().join('-'));
+        nextWeekStart.setDate(nextWeekStart.getDate() + 7);
         updateWeek(nextWeekStart);
     });
 });
 
 
-let currentRow = 5; 
-$(document).on('click', '#addTaskBtn', function () {
-    if (currentRow < 7) {
-        currentRow++;
-        $('.row-' + currentRow).show(); 
-    } else {
-        alert('You can only add up to 2 additional tasks.');
-    }
-});
+//let currentRow = 5; 
+//$(document).on('click', '#addTaskBtn', function () {
+//    if (currentRow < 7) {
+//        currentRow++;
+//        $('.row-' + currentRow).show(); 
+//    } else {
+//        alert('You can only add up to 2 additional tasks.');
+//    }
+//});
 
 
-// validations for block 1
+//$(document).ready(function () {
+//    let selectedDate = "";
 
-$(document).ready(function () {
-    // Variable to store the selected date
-    let selectedDate = "";
-   
-    $(".emp-entertimesheet-rangedates span").on("click", function () {
-        $(".emp-entertimesheet-rangedates span").removeClass("active");
-        $(this).addClass("active");
-        selectedDate = $(this).text(); // Get the selected date
-        console.log("Selected Date: " + selectedDate);
-    });
+//    // Date selection handler
+//    $(".emp-entertimesheet-rangedates span").on("click", function () {
+//        $(".emp-entertimesheet-rangedates span").removeClass("active");
+//        $(this).addClass("active");
+//        selectedDate = $(this).text(); // Get the selected date
 
-    // Function to validate Row 1
-    function validateRow1() {
-        let isValid = true;
-        const requiredFields = [
-            "#entertimesheetTaskName-1-block-1",
-            "#entertimesheetTaskDesc-1-block-1",
-            "#entertimesheetRequester-1-block-1",
-            "#entertimesheetHoursSpent-1-block-1"
-        ];
+//        // Fetch the timesheet data for the selected date
+//        $.ajax({
+//            url: "/Timesheet/LoadPartialView", // Endpoint to load partial view
+//            type: "GET",
+//            data: { date: selectedDate },
+//            success: function (html) {
+//                $(".emp-entertimesheet-fields-container").html(html); // Update the partial view
+//            },
+//            error: function (error) {
+//                console.error("Error loading partial view:", error);
+//                alert("Error loading timesheet data. Please try again.");
+//            }
+//        });
+//    });
 
-        $.each(requiredFields, function (index, selector) {
-            const field = $(selector);
-            if (!field.val().trim()) {
-                field.addClass("border-red");
-                isValid = false;
-            } else {
-                field.removeClass("border-red");
-            }
-        });
+//    // Validate the first row (mandatory)
+//    function validateRow1() {
+//        let isValid = true;
+//        const requiredFields = [
+//            "#entertimesheetTaskName-1-block-1",
+//            "#entertimesheetTaskDesc-1-block-1",
+//            "#entertimesheetRequester-1-block-1",
+//            "#entertimesheetHoursSpent-1-block-1"
+//        ];
 
-        const categoryField = $("#entertimesheetCategory-1-block-1");
-        if (categoryField.val() === "" || categoryField.val() === null || categoryField.val() === "0") {
-            categoryField.addClass("border-red");
-            isValid = false;
-        } else {
-            categoryField.removeClass("border-red");
-        }
+//        $.each(requiredFields, function (index, selector) {
+//            const field = $(selector);
+//            if (!field.val().trim()) {
+//                field.addClass("border-red");
+//                isValid = false;
+//            } else {
+//                field.removeClass("border-red");
+//            }
+//        });
 
-        const priorityField = $("#entertimesheetPriority-1-block-1");
-        if (priorityField.val() === "" || priorityField.val() === null || priorityField.val() === "0") {
-            priorityField.addClass("border-red");
-            isValid = false;
-        } else {
-            priorityField.removeClass("border-red");
-        }
+//        // Additional required selects for Row 1
+//        const selectsToValidate = [
+//            "#entertimesheetCategory-1-block-1",
+//            "#entertimesheetPriority-1-block-1",
+//            "#entertimesheetStatus-1-block-1"
+//        ];
 
-        const statusField = $("#entertimesheetStatus-1-block-1");
-        if (statusField.val() === "" || statusField.val() === null || statusField.val() === "0") {
-            statusField.addClass("border-red");
-            isValid = false;
-        } else {
-            statusField.removeClass("border-red");
-        }
+//        $.each(selectsToValidate, function (index, selector) {
+//            const field = $(selector);
+//            if (!field.val() || field.val() === "0") {
+//                field.addClass("border-red");
+//                isValid = false;
+//            } else {
+//                field.removeClass("border-red");
+//            }
+//        });
 
-        return isValid;
-    }
+//        return isValid;
+//    }
 
-    
-    function collectTimesheetData() {
-        let timesheetData = []; 
+//    // Collect all timesheet data from visible rows
+//    function collectTimesheetData() {
+//        let timesheetData = [];
 
-        $(".emp-entertimesheet-fields").each(function (index, row) {
-            let rowData = {};
+//        $(".emp-entertimesheet-fields").each(function () {
+//            const rowNumber = $(this).data("row-number"); // Assumes a data attribute for row tracking
 
-            // Get values for each field in the current row
-            rowData.category = $(row).find("#entertimesheetCategory-1-block-1").val();
-            rowData.taskName = $(row).find("#entertimesheetTaskName-1-block-1").val();
-            rowData.taskDesc = $(row).find("#entertimesheetTaskDesc-1-block-1").val();
-            rowData.requester = $(row).find("#entertimesheetRequester-1-block-1").val();
-            rowData.hoursSpent = $(row).find("#entertimesheetHoursSpent-1-block-1").val();
-            rowData.priority = $(row).find("#entertimesheetPriority-1-block-1").val();
-            rowData.status = $(row).find("#entertimesheetStatus-1-block-1").val();
+//            // Get individual fields from each row
+//            let rowData = {
+//                Client: $('#entertimesheetClientName').val(),
+//                Category: $(this).find(`#entertimesheetCategory-${rowNumber}-block-1`).val() || "N/A",
+//                IncidentTaskName: $(this).find(`#entertimesheetTaskName-${rowNumber}-block-1`).val() ? $(this).find(`#entertimesheetTaskName-${rowNumber}-block-1`).val().trim() : "N/A",
+//                IncidentTaskDescription: $(this).find(`#entertimesheetTaskDesc-${rowNumber}-block-1`).val() ? $(this).find(`#entertimesheetTaskDesc-${rowNumber}-block-1`).val().trim() : "N/A",
+//                Requester: $(this).find(`#entertimesheetRequester-${rowNumber}-block-1`).val() ? $(this).find(`#entertimesheetRequester-${rowNumber}-block-1`).val().trim() : "N/A",
+//                HoursSpent: $(this).find(`#entertimesheetHoursSpent-${rowNumber}-block-1`).val() ? $(this).find(`#entertimesheetHoursSpent-${rowNumber}-block-1`).val().trim() : "N/A",
+//                Priority: $(this).find(`#entertimesheetPriority-${rowNumber}-block-1`).val() || "N/A",
+//                Status: $(this).find(`#entertimesheetStatus-${rowNumber}-block-1`).val() || "N/A"
+//            };
 
-            // Push the current row data into the array
-            timesheetData.push(rowData);
-        });
+//            // Push each rowData to the timesheetData array
+//            timesheetData.push(rowData);
+//        });
 
-        return timesheetData;
-    }
+//        return timesheetData;
+//    }
 
-    // Click event for the Save button
-    $(".emp-entertimesheet-save button").on("click", function () {
-        if (validateRow1()) { 
-            if (selectedDate) { 
-                const timesheetData = collectTimesheetData(); 
-                timesheetData.selectedDate = selectedDate;
-                $.ajax({
-                    url: "/Timesheet/Save", 
-                    type: "POST",
-                    data: { timesheetData: timesheetData }, 
-                    success: function (response) {
-                        if (response.success) {
-                            alert("Timesheet data saved successfully.");
-                        } else {
-                            alert("Failed to save data. Please try again.");
-                        }
-                    },
-                    error: function (error) {
-                        console.error("Error while saving timesheet data:", error);
-                        alert("Error while saving timesheet data.");
-                    }
-                });
-            } else {
-                alert("Please select a date before submitting.");
-            }
-        } else {
-            alert("Please fill out all mandatory fields in Row 1.");
-        }
-    });
-});
+//    $(".emp-entertimesheet-save button").on("click", function () {
+//        if (validateRow1()) {
+//            if (selectedDate) {
+//                const timesheetData = collectTimesheetData();
+//                const payload = {
+//                    date: selectedDate,
+//                    timesheetData: JSON.stringify(timesheetData)
+//                };
 
-
+//                $.ajax({
+//                    url: "/Timesheet/Save",
+//                    type: "POST",
+//                    data: payload,
+//                    success: function (response) {
+//                        if (response.success) {
+//                            alert("Timesheet data saved successfully.");
+//                            $(".emp-entertimesheet-rangedates span.active").trigger("click");
+//                        } else {
+//                            alert("Failed to save data. Please try again.");
+//                        }
+//                    },
+//                    error: function (error) {
+//                        console.error("Error while saving timesheet data:", error);
+//                        alert("Error while saving timesheet data.");
+//                    }
+//                });
+//            } else {
+//                alert("Please select a date before submitting.");
+//            }
+//        } else {
+//            alert("Please fill out all mandatory fields in Row 1.");
+//        }
+//    });
+//});

@@ -173,8 +173,6 @@
 <script type="text/javascript" src="https://cdn.canvasjs.com/canvasjs.min.js"></script>
 <script>
     $(document).ready(function () {
-        // Define static data points in jQuery
-
         var dataPoints1 = [
             { label: "4-11-2024", y: 0, indexLabel: "" },
             { label: "5-11-2024", y: 0, indexLabel: "" },
@@ -225,20 +223,19 @@
             { label: "10-11-2024", y: 0, indexLabel: "" }
         ];
 
-        // Initialize CanvasJS Chart
         var chart = new CanvasJS.Chart("emp-timesheet-hours-spent", {
             axisY: {
                 suffix: " h",
-                interval: 2, // Set the interval for Y-axis labels
-                minimum: 0,  // Set the starting value of Y-axis
-                gridThickness: 0, // Removes the Y-axis grid lines
-                lineThickness: 0 // Remove the left axis line
+                interval: 2,
+                minimum: 0,
+                gridThickness: 0,
+                lineThickness: 0
             },
             data: [
                 {
                     type: "stackedColumn",
                     name: "Leave",
-                    showInLegend: false, // Hide from legend
+                    showInLegend: false,
                     color: "#FF5733",
                     yValueFormatString: "#,##0 h",
                     dataPoints: dataPoints1
@@ -246,7 +243,7 @@
                 {
                     type: "stackedColumn",
                     name: "Hoilday",
-                    showInLegend: false, // Hide from legend
+                    showInLegend: false,
                     color: "#FFC300",
                     yValueFormatString: "#,##0 h",
                     dataPoints: dataPoints2
@@ -254,35 +251,33 @@
                 {
                     type: "stackedColumn",
                     name: "Week End",
-                    showInLegend: false, // Hide from legend
+                    showInLegend: false,
                     color: "#3e4652",
                     yValueFormatString: "#,##0 h",
                     dataPoints: dataPoints3
                 },
                 {
-			        type: "stackedColumn",
-			        name: "Hours Spent",
-                    showInLegend: false, // Hide from legend
+                    type: "stackedColumn",
+                    name: "Hours Spent",
+                    showInLegend: false,
                     color: "#33FF57",
                     yValueFormatString: "#,##0 h",
                     dataPoints: dataPoints4
                 },
                 {
-			        type: "stackedColumn",
-			        name: "Overtime",
-                    showInLegend: false, // Hide from legend
+                    type: "stackedColumn",
+                    name: "Overtime",
+                    showInLegend: false,
                     color: "#50aced",
-			        yValueFormatString: "#,##0 h",
+                    yValueFormatString: "#,##0 h",
                     dataPoints: dataPoints5
                 }
-                
+
             ]
         });
 
-        // Render the chart
         chart.render();
 
-        // Define the toggleDataSeries function
         function toggleDataSeries(e) {
             if (typeof (e.dataSeries.visible) === "undefined" || e.dataSeries.visible) {
                 e.dataSeries.visible = false;
@@ -292,7 +287,7 @@
             chart.render();
         }
 
-});
+    });
 </script>
 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.4/Chart.js"></script>
@@ -304,7 +299,6 @@
         "#50aced"
     ];
 
-    // Create the chart
     new Chart("emp-timesheet-attendance", {
         type: "doughnut",
         data: {
@@ -319,13 +313,11 @@
                 display: true,
                 position: 'bottom'
             },
-            // Disable hover effects
             hover: {
-                mode: null // Disable hover mode
+                mode: null
             },
-            // Disable animations if you want it to load instantly without hover effects
             animation: {
-                duration: 0 // Disable animations on hover
+                duration: 0
             }
         }
     });
@@ -345,15 +337,12 @@
 
     function toggleEmpTimesheetActionOptions(iconElement) {
         const optionsMenu = $(iconElement).next('.emp-timesheetoptions');
-        $('.emp-timesheetoptions').not(optionsMenu).hide(); // Hide other open menus
-        optionsMenu.toggle(); // Toggle the clicked menu
-
-        // Add an event listener to the document to close the menu when clicking outside
+        $('.emp-timesheetoptions').not(optionsMenu).hide();
+        optionsMenu.toggle();
         $(document).on('click.hideMenu', function (event) {
-            // Check if the click was outside the options menu or the icon that triggered it
             if (!$(event.target).closest(iconElement).length && !$(event.target).closest('.emp-timesheetoptions').length) {
-                optionsMenu.hide(); // Hide the menu
-                $(document).off('click.hideMenu'); // Remove the event listener to prevent multiple bindings
+                optionsMenu.hide();
+                $(document).off('click.hideMenu');
             }
         });
     }
