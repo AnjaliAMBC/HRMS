@@ -2,6 +2,284 @@
 @{
     ViewBag.Title = "TimesheetMontlyTemplate";
 }
+<style>
+    .weekly-timesheet-header {
+        text-align: center;
+        font-size: 25px;
+        border-top-right-radius:0px !important;
+        border-top-left-radius:0px !important;
+        padding:0px !important;
+    }
+    #adminweeklytimesheet td {
+        font-size: 17px;
+        border: 2px solid #dee2e6;
+        padding: 5px;
+    }
+    .weeklyupdate-timesheet-header {
+        text-align: center;
+        font-size: 20px;
+        border-top-right-radius: 0px !important;
+        border-top-left-radius: 0px !important;
+        padding: 0px !important;
+    }
+    .weeklyupdate-timesheet-subheader th {
+        text-align: center;
+        font-size: 16px;
+        border-top-right-radius: 0px !important;
+        border-top-left-radius: 0px !important;
+        padding: 0px !important;
+    }
+    #adminweeklyupdatesheet td {
+        font-size: 14px;
+        border: 2px solid #dee2e6;
+        padding: 5px;
+    }
+    .leaveupdate-timesheet-header {
+        text-align: center;
+        font-size: 20px;
+        border-top-right-radius: 0px !important;
+        border-top-left-radius: 0px !important;
+        padding: 0px !important;
+    }
+    .leaveupdate-timesheet-subheader th {
+        text-align: center;
+        font-size: 16px;
+        border-top-right-radius: 0px !important;
+        border-top-left-radius: 0px !important;
+        padding: 0px !important;
+    }
+    #adminleaveupdatesheet td {
+        font-size: 14px;
+        border: 2px solid #dee2e6;
+        padding: 5px;
+        text-align:center;
+    }
+    .analysisupdate-timesheet-header {
+        text-align: center;
+        font-size: 20px;
+        border-top-right-radius: 0px !important;
+        border-top-left-radius: 0px !important;
+        padding: 0px !important;
+    }
+    #adminanalysisupdatesheet td {
+        font-size: 14px;
+        border: 2px solid #dee2e6;
+        padding: 5px;
+    }
+    #adminanalysisupdatesheet tbody th {
+        font-size: 14px;
+        border: 2px solid #dee2e6;
+        padding: 5px;
+    }
+    #adminweeklyupdatesheet {
+        width: 100%;
+        table-layout:fixed;
+    }
+    .dataTables_wrapper
+    {
+        padding:0px;
+    }
+    #adminweeklyupdatesheet_paginate {
+        display: none;
+    }
 
-<h2>TimesheetMontlyTemplate</h2>
+    #adminweeklyupdatesheet_length {
+        font-size: 14px;
+        margin-bottom: 0px;
+    }
+</style>
 
+
+<div class="container-fluid">
+   <div class="row mb-2">
+       <div class="col-9 p-0">
+            <table class="table table-admin-weekly-timesheet" id="adminweeklytimesheet" style="table-layout:fixed;font-size:14px;">
+                <thead style="background-color: #d8e6fb;">
+                   <tr>
+                       <th class="weekly-timesheet-header" colspan="4">Designation - Weekly Status Report For Month</th>
+                   </tr>
+                </thead>
+               <tbody>
+                   <tr>
+                       <td><b>Resource Name</b></td>
+                       <td>Prathiksha Kubendran</td>
+                       <td><b>Project Manager</b></td>
+                       <td> Shantha M Balakumar</td>
+                   </tr>
+                   <tr>
+                       <td><b>Week Start Date</b></td>
+                       <td>25-11-2024</td>
+                       <td><b>Week End Date</b></td>
+                       <td>01-12-2024</td>
+                   </tr>
+               </tbody>
+            </table>
+       </div>
+       <div class="col-3 d-flex justify-content-center align-items-center p-0">
+           <img class="" src="~/Assets/Logol.png" />
+       </div>
+   </div>
+    <div class="row mb-2">
+        <table class="table table-admin-weeklyupdate-timesheet" id="adminweeklyupdatesheet" style="width:100%;font-size:14px;">
+            <thead style="background-color: #d8e6fb;">
+                <tr>
+                    <th class="weeklyupdate-timesheet-header" colspan="8">TASK DETAILS(25-11-2024 TO 01-12-2024)</th>
+                </tr>
+                <tr class="weeklyupdate-timesheet-subheader">
+                    <th>Date</th>
+                    <th>Category</th>
+                    <th>Task/Incident Name</th>
+                    <th>Task/Incident Description</th>
+                    <th>Priority</th>
+                    <th>Requester</th>
+                    <th>Status</th>
+                    <th>Total Hours</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>25-11-2024</td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                </tr>
+                <tr>
+                    <td>26-11-2024</td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                </tr>
+                <tr>
+                    <td>27-11-2024</td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                </tr>
+                <tr>
+                    <td>28-11-2024</td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                </tr>
+                <tr>
+                    <td>29-11-2024</td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                </tr>
+                <tr>
+                    <td>30-11-2024</td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                </tr>
+                <tr>
+                    <td>01-12-2024</td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                </tr>
+            </tbody>
+        </table>
+</div>
+    <div class="row mt-4">
+        <div class="col-6 p-0">
+            <table class="table table-admin-leaveupdate-timesheet pl-3" id="adminleaveupdatesheet" style="width:80%;font-size:14px;">
+                <thead style="background-color: #d8e6fb;">
+                    <tr>
+                        <th class="leaveupdate-timesheet-header" colspan="8">LEAVE INFORMATION</th>
+                    </tr>
+                    <tr class="leaveupdate-timesheet-subheader">
+                        <th>Leave Type</th>
+                        <th>Leave Days</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>Sick Leave</td>
+                        <td>2 days</td>
+                    </tr>
+                    <tr>
+                        <td>NA</td>
+                        <td>NA</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+        <div class="col-6 p-0">
+            <table class="table table-admin-analysisupdate-timesheet" id="adminanalysisupdatesheet" style="width:80%;font-size:14px;">
+                <thead style="background-color: #d8e6fb;">
+                    <tr>
+                        <th class="analysisupdate-timesheet-header" colspan="8">ANALYSIS</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <th>Total Billable Hours(till Date)</th>
+                        <td>40</td>
+                    </tr>
+                    <tr>
+                        <th>Total NonBillable Hours(till Date)</th>
+                        <td>0</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+<script>
+    $(document).ready(function () {
+        if (!$.fn.DataTable.isDataTable('#adminweeklyupdatesheet')) {
+            $('#adminweeklyupdatesheet').DataTable({
+                "paging": true,
+                "searching": false,
+                "ordering": false,
+                "info": false,
+                "autoWidth": false, // Disable automatic width adjustment
+                "lengthMenu": [[7, 14, 21, -1], [7, 14, 21, "All"]],
+                "columnDefs": [
+                    { "orderable": false, "targets": 1 },
+                    { "orderable": false, "targets": 3 }
+                ],
+                "columns": [
+                    { "width": "7%" }, 
+                    { "width": "10%" }, 
+                    { "width": "15%" }, 
+                    { "width": "30%" }, 
+                    { "width": "10%" }, 
+                    { "width": "10%" }, 
+                    { "width": "10%" },  
+                    { "width": "8%" }   
+                ]
+            });
+        }
+    });
+</script>
