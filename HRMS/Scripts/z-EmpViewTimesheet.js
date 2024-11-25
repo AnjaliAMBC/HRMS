@@ -63,17 +63,22 @@ $(document).ready(function () {
         var weekend = $('#view-week-end').text();
         var weeknumber = weekNumber;
         var client = $('#viewtimesheetclient').val();
+        var empID = $(".loggedinempid").text();
         $.ajax({
             url: "/timesheet/viewpreviousweektimesheets",
             type: "POST",
-            data: { weekstart: weekstart, weekend: weekend, weeknumber: weeknumber, client: client },
+            data: { weekstart: weekstart, weekend: weekend, weeknumber: weeknumber, client: client, empID: empID },
+            beforeSend: function () {
+                $('.show-progress').show();
+            },
             success: function (newrow) {
                 $(".emp-timesheet-table-body").empty();
                 $(".emp-timesheet-table-body").append(newrow);
+                $('.show-progress').hide();
             },
             error: function (error) {
                 console.error("Error loading partial view:", error);
-                alert("Error loading timesheet data. Please try again.");
+                $('.show-progress').hide();
             }
         });
     }
@@ -92,7 +97,135 @@ $(document).ready(function () {
         updateViewWeek(nextWeekStart);
     });
 
-    updateViewWeek(new Date());
+
+    $(document).on('click', '#empSubmitTimesheetSubmitButton', function (event) {
+        event.preventDefault();
+        var weekstartdate = $(this).data("weekstartdate");
+        var weekenddate = $(this).data("weekenddate");
+        var weeknumber = $(this).data("weeknumber");
+        var clientName = $('#viewtimesheetclient').val();
+        var empID = $(".loggedinempid").text();
+
+        $.ajax({
+            url: "/timesheet/submittimesheet",
+            type: "POST",
+            data: { weekstart: weekstartdate, weekend: weekenddate, weeknumber: weeknumber, client: clientName, empID: empID },
+            success: function (response) {
+                if (response.success) {
+                    $('#modalMessage')
+                        .text(response.message)
+                        .removeClass('text-danger')
+                        .addClass('text-primary');
+                    $('.timesheet-noyes-div').hide();
+                    $('.timesheet-close-div').show();
+                    $('#empSubmitTimesheetModal').modal('show');
+                } else {
+                    $('#modalMessage')
+                        .text("Error: " + response.message)
+                        .removeClass('text-primary')
+                        .addClass('text-danger');
+                    $('.timesheet-noyes-div').hide();
+                    $('.timesheet-close-div').show();
+                    $('#empSubmitTimesheetModal').modal('show');
+                }
+
+            },
+            error: function (error) {
+                console.error("Error submitting timesheet:", error);
+
+                $('#modalMessage')
+                    .text("An unexpected error occurred. Please try again.")
+                    .removeClass('text-primary')
+                    .addClass('text-danger');
+                $('.timesheet-noyes-div').hide();
+                $('.timesheet-close-div').show();
+                $('#empSubmitTimesheetModal').modal('show');
+            }
+        });
+    });
+
+    $(document).on('click', '.emp-timesheet-edit-btn', function (event) {
+        event.preventDefault();
+
+        var client = $('#viewtimesheetclient').val();
+        var selectedDate = $(this).data("timesheetdate");
+        window.location.href = "/timesheet/entertimesheet?client=" + client + "&date=" + selectedDate;
+        return;
+
+    });
+
+    $(document).on('click', '.btn-timesheet-submit', function (event) {
+        event.preventDefault();
+        var weekstart = $('#view-week-start').text();
+        var weekend = $('#view-week-end').text();
+
+        var confirmationText = `Are you sure you want to submit the timesheet from ${weekstart} to ${weekend}?`;
+
+        $('#modalMessage')
+            .text(confirmationText)
+            .removeClass('text-danger')
+            .addClass('text-primary');
+
+        $('.timesheet-noyes-div').show();
+        $('.timesheet-close-div').hide();
+    });
+
+    $(document).on('click', '.btn-close-timesheetview', function (event) {
+        event.preventDefault();
+        window.location.href = "/timesheet/timesheetview";
+        return;
+    });
+
+    $(document).on('click', '.btn-delete-timesheetview', function (event) {
+        event.preventDefault();
+        window.location.href = "/timesheet/timesheetview";
+        return;
+    });
+
+    
+
+    $(document).on('click', '#empTimesheetDeleteButton', function (event) {
+        event.preventDefault();
+        var timesheetID = $(this).data("deleteticketid");
+
+        $.ajax({
+            url: "/timesheet/deletetimesheet",
+            type: "POST",
+            data: { timesheetid: timesheetID },
+            success: function (response) {
+                if (response.success) {
+                    $('#deletetimesheetmessage')
+                        .text(response.message)
+                        .removeClass('text-danger')
+                        .addClass('text-primary');
+                    $('.timesheetdelete-noyes-div').hide();
+                    $('.timesheetdelete-close-div').show();
+                    $('#empTimesheetConfirmCancelModal').modal('show');
+                } else {
+                    $('#deletetimesheetmessage')
+                        .text("Error: " + response.message)
+                        .removeClass('text-primary')
+                        .addClass('text-danger');
+                    $('.timesheetdelete-noyes-div').hide();
+                    $('.timesheetdelete-close-div').show();
+                    $('#empTimesheetConfirmCancelModal').modal('show');
+                }
+
+            },
+            error: function (error) {
+                console.error("Error submitting timesheet:", error);
+
+                $('#deletetimesheetmessage')
+                    .text("An unexpected error occurred. Please try again.")
+                    .removeClass('text-primary')
+                    .addClass('text-danger');
+                $('.timesheetdelete-noyes-div').hide();
+                $('.timesheetdelete-close-div').show();
+                $('#empTimesheetConfirmCancelModal').modal('show');
+            }
+        });
+    });
+
 });
 
 
