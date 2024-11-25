@@ -27,8 +27,16 @@ namespace HRMS.Controllers
         }
 
         // GET: Timesheet/SubmitTimesheet
-        public ActionResult SubmitTimesheet()
+        public ActionResult EnterTimesheet(string client)
         {
+            Timesheet model = CurrentWeekTimeSheetDetails(client);
+            return View("~/Views/EmployeeDashboard/EmpTimesheetSubmit.cshtml", model);
+        }
+
+        private Timesheet CurrentWeekTimeSheetDetails(string client)
+        {
+            var cuserContext = SiteContext.GetCurrentUserContext();
+
             var model = new Timesheet();
             DateTime today = DateTime.Today;
 
@@ -41,14 +49,14 @@ namespace HRMS.Controllers
             model.Weeknumber = CultureInfo.CurrentCulture.Calendar.GetWeekOfYear(today, CalendarWeekRule.FirstDay, startOfWeek);
             model.WeekStartDate = weekStartDate;
             model.WeekEndDate = weekEndDate;
-            model.WeekInfo = DaysInfo(model.WeekStartDate.ToString("dd MMMM yyyy"), model.WeekEndDate.ToString("dd MMMM yyyy"), model.Weeknumber);
+            model.WeekInfo = DaysInfo(model.WeekStartDate.ToString("dd MMMM yyyy"), model.WeekEndDate.ToString("dd MMMM yyyy"), model.Weeknumber, cuserContext.EmpInfo.EmployeeID, cuserContext.EmpInfo.Location, client);
+            model.SiteContext = cuserContext;
+            model.Client = client;
 
-
-
-            return View("~/Views/EmployeeDashboard/EmpTimesheetSubmit.cshtml", model);
+            return model;
         }
 
-        private List<DaySpecifcData> DaysInfo(string weekstart, string weekend, int weeknumber)
+        private List<DaySpecifcData> DaysInfo(string weekstart, string weekend, int weeknumber, string empID, string location, string client)
         {
             var cuserContext = SiteContext.GetCurrentUserContext();
 
@@ -65,13 +73,15 @@ namespace HRMS.Controllers
             var categories = _dbContext.TimeSheetCategories.ToList();
             var clients = _dbContext.Clients.ToList();
 
+            var empInfo = _dbContext.emp_info.Where(x => x.EmployeeID == empID && x.Location == location).FirstOrDefault();
+
             var fullDayWorkingHours = System.Convert.ToInt32(System.Configuration.ConfigurationManager.AppSettings["FullDayMaxWorkingHours"]);
             var halfDayWorkingHours = System.Convert.ToInt32(System.Configuration.ConfigurationManager.AppSettings["HalfDayMaxWorkingHours"]);
 
             var model = new List<DaySpecifcData>();
             for (DateTime date = weekStartDate; date <= weekEndDate; date = date.AddDays(1))
             {
-                var daySpecificTimesheets = timeSheetInfo.Where(x => x.Date == date && x.EmployeeID == cuserContext.EmpInfo.EmployeeID).OrderByDescending(x => x.Date).ToList();
+                var daySpecificTimesheets = timeSheetInfo.Where(x => x.Date == date && x.EmployeeID == empInfo.EmployeeID && x.Client == client).OrderByDescending(x => x.Date).ToList();
                 var TimeSheetSubmitted = daySpecificTimesheets.Where(x => x.submissionstatus == "Submitted").FirstOrDefault() != null ? true : false;
 
                 if (daySpecificTimesheets != null && daySpecificTimesheets.Count() < 5 && !TimeSheetSubmitted)
@@ -89,19 +99,19 @@ namespace HRMS.Controllers
                             Priority = string.Empty,
                             Status = string.Empty,
                             Date = date,
-                            EmployeeID = cuserContext.EmpInfo.EmployeeID
+                            EmployeeID = empID
                         });
                     }
                 }
 
                 model.Add(new DaySpecifcData()
                 {
-                    CheckInInfo = loginInfo.Where(x => x.Employee_Code == cuserContext.EmpInfo.EmployeeID && x.Login_date == date).FirstOrDefault(),
+                    CheckInInfo = loginInfo.Where(x => x.Employee_Code == empID && x.Login_date == date).FirstOrDefault(),
                     Date = date,
                     IsWeekend = date.DayOfWeek == DayOfWeek.Saturday || date.DayOfWeek == DayOfWeek.Sunday ? true : false,
-                    CompoffInfo = compoOffInfo.Where(x => x.addStatus == "Approved" && x.EmployeeID == cuserContext.EmpInfo.EmployeeID && x.CampOffDate == date).FirstOrDefault(),
-                    HolidayInfo = holidayInfo.Where(x => x.region.Contains(cuserContext.EmpInfo.Location) && x.holiday_date == date).FirstOrDefault(),
-                    Leaves = leavesInfo.Where(x => x.employee_id == cuserContext.EmpInfo.EmployeeID && x.leavedate == date).ToList(),
+                    CompoffInfo = compoOffInfo.Where(x => x.addStatus == "Approved" && x.EmployeeID == empInfo.EmployeeID && x.CampOffDate == date).FirstOrDefault(),
+                    HolidayInfo = holidayInfo.Where(x => x.region.Contains(empInfo.Location) && x.holiday_date == date).FirstOrDefault(),
+                    Leaves = leavesInfo.Where(x => x.employee_id == empInfo.EmployeeID && x.leavedate == date).ToList(),
                     TimeSheets = daySpecificTimesheets,
                     TimeSheetSubmitted = TimeSheetSubmitted,
                     Categories = categories,
@@ -115,7 +125,14 @@ namespace HRMS.Controllers
             return model;
         }
 
-        public ActionResult PreviousWeekTimeSheets(string weekstart, string weekend, int weeknumber)
+        public ActionResult PreviousWeekTimeSheets(string weekstart, string weekend, int weeknumber, string client)
+        {
+            Timesheet model = TimesheetsByWeek(weekstart, weekend, weeknumber, client);
+
+            return PartialView("~/Views/EmployeeDashboard/_EmployeeTimeSheetMain.cshtml", model);
+        }
+
+        private Timesheet TimesheetsByWeek(string weekstart, string weekend, int weeknumber, string client)
         {
             var model = new Timesheet();
 
@@ -125,9 +142,15 @@ namespace HRMS.Controllers
             model.Weeknumber = weeknumber;
             model.WeekStartDate = weekStartDate;
             model.WeekEndDate = weekEndDate;
-            model.WeekInfo = DaysInfo(weekstart, weekend, weeknumber);
+            model.WeekInfo = DaysInfo(weekstart, weekend, weeknumber, cuserContext.EmpInfo.EmployeeID, cuserContext.EmpInfo.Location, client);
+            return model;
+        }
 
-            return PartialView("~/Views/EmployeeDashboard/_EmployeeTimeSheetMain.cshtml", model);
+        public ActionResult ViewPreviousWeekTimeSheets(string weekstart, string weekend, int weeknumber, string client)
+        {
+            Timesheet model = TimesheetsByWeek(weekstart, weekend, weeknumber, client);
+
+            return PartialView("~/Views/EmployeeDashboard/_EmpViewTimeSheetrows.cshtml", model);
         }
 
 
@@ -257,7 +280,9 @@ namespace HRMS.Controllers
         // GET: Timesheet/TimesheetView
         public ActionResult TimesheetView()
         {
-            return View("~/Views/EmployeeDashboard/EmpTimesheetView.cshtml");
+            var cuserContext = SiteContext.GetCurrentUserContext();
+            Timesheet model = CurrentWeekTimeSheetDetails(cuserContext.EmpInfo.Client);
+            return View("~/Views/EmployeeDashboard/EmpTimesheetView.cshtml", model);
         }
 
         public ActionResult AdminTimesheet()

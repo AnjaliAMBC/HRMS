@@ -38,16 +38,18 @@
     </div>
 </div>
 
-<div class="emp-entertimesheet-block3">
-    <div class="form-group div-entertimesheet-clientname">
-        <label for="entertimesheetClientName" class="leave_label">Client*</label>
-        <select class="form-control" id="entertimesheetClientName">
-            <option selected disabled>Select Client</option>
-            <option value="Ambc">Ambc</option>
-        </select>
-        <span class="error-message" id="entertimesheetClientName-error"></span>
-    </div>
-</div>
+@*<div class="emp-entertimesheet-block3">
+        <div class="form-group div-entertimesheet-clientname">
+            <label for="entertimesheetClientName" class="leave_label">Client*</label>
+            <select class="form-control" id="entertimesheetClientName">
+                <option selected disabled>Select Client</option>
+                <option value="Ambc">Ambc</option>
+            </select>
+            <span class="error-message" id="entertimesheetClientName-error"></span>
+        </div>
+    </div>*@
+
+<div class="selected-timesheet-client" style="display: none">@Model.Client</div>
 
 <div class="emp-entertimesheet-block4">
     @{

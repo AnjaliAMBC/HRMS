@@ -41,6 +41,9 @@ namespace HRMS.Models
         public DateTime WeekStartDate { get; set; }
         public DateTime WeekEndDate { get; set; }
         public List<DaySpecifcData> WeekInfo { get; set; }
+
+        public SiteContextModel SiteContext { get; set; }
+        public string Client { get; set; }
     }
 
     public class DaySpecifcData

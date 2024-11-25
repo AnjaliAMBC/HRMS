@@ -1,0 +1,87 @@
+﻿@model HRMS.Models.Timesheet
+
+<div class="emp-timesheet-body table-responsive">
+    <table id="emptimesheetlistingTable" class="table emp-timesheet-table" style="width: 100%; color: #272727">
+        <thead style=" background-color: #3E78CF; border-radius: 10px;">
+            <tr>
+                <th>Date</th>
+                <th>Category</th>
+                <th>Task/Incident Name</th>
+                <th>Task/Incident Description</th>
+                <th>Priority</th>
+                <th>Requester</th>
+                <th>Status</th>
+                <th>Total Hours</th>
+                <th>Action</th>
+            </tr>
+        </thead>
+        <tbody id="emptimesheetBody">
+
+            @foreach (var weekinfo in Model.WeekInfo)
+            {
+                foreach (var timeSheet in weekinfo.TimeSheets.Where(x => x.HoursSpent > 0))
+                {
+                    <tr>
+                        <td>@(timeSheet.Date.HasValue ? timeSheet.Date.Value.ToString("dd-MM-yyyy") : "N/A")</td>
+                        <td>@timeSheet.Category</td>
+                        <td>@timeSheet.IncidentTaskName</td>
+                        <td>@timeSheet.IncidentTaskDescription</td>
+                        <td>@timeSheet.Priority</td>
+                        <td>@timeSheet.Requester</td>
+                        <td>@timeSheet.Status</td>
+                        <td>@timeSheet.HoursSpent</td>
+                        <td>
+                            <i class="fas fa-ellipsis-v emp-timesheet-edit" onclick="toggleEmpTimesheetActionOptions(this)"></i>
+                            <div class="emp-timesheetoptions" style="display:none">
+                                <a class="dropdown-item emp-timesheet-edit-btn"
+                                   data-timesheetname="1">Edit</a>
+                                <a class="dropdown-item emp-timesheet-cancel"
+                                   onclick="emptimesheetcancel($(this))"
+                                   data-timesheetname="1">Delete</a>
+                            </div>
+                        </td>
+                    </tr>
+                }
+
+            }
+
+
+        </tbody>
+    </table>
+</div>
+
+
+<script>
+    $(document).ready(function () {
+        var table = $('#emptimesheetlistingTable').DataTable({
+            "paging": true,
+            "searching": false,
+            "ordering": false,
+            "info": true,
+            "autoWidth": false,
+        });
+    });
+
+    function toggleEmpTimesheetActionOptions(iconElement) {
+        const optionsMenu = $(iconElement).next('.emp-timesheetoptions');
+        $('.emp-timesheetoptions').not(optionsMenu).hide();
+        optionsMenu.toggle();
+        $(document).on('click.hideMenu', function (event) {
+            if (!$(event.target).closest(iconElement).length && !$(event.target).closest('.emp-timesheetoptions').length) {
+                optionsMenu.hide();
+                $(document).off('click.hideMenu');
+            }
+        });
+    }
+
+    function emptimesheetcancel(currentthis) {
+        currentSelectedrow = currentthis.closest('tr');
+        var timesheetName = currentthis.attr("data-timesheetname");
+        $('#empTimesheetConfirmCancelButton').attr('data-timesheetname', timesheetName);
+        $('#empTimesheetConfirmCancelModal .modal-body').html('Are you sure you want to delete this task?');
+        $('#empTimesheetConfirmCancelButton').attr('disabled', false);
+        $('#empTimesheetConfirmCancelModal').modal('show');
+    }
+
+
+</script>

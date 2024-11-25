@@ -1,10 +1,4 @@
-﻿$(document).on('click', '.timesheet-Submit', function (event) {
-    event.preventDefault();
-    window.location.href = "/timesheet/submittimesheet";
-});
-
-
-$(document).on('click', '.emp-entertimesheet-rangedates span', function (event) {
+﻿$(document).on('click', '.emp-entertimesheet-rangedates span', function (event) {
     $(".emp-entertimesheet-rangedates span").removeClass("active");
     $(".emp-entertimesheet-block4 > div").removeClass("active").hide();
     $(this).addClass("active");
@@ -108,7 +102,7 @@ $(document).ready(function () {
             totalHoursSpent += hoursSpent;
 
             var data = {
-                Client: $('#entertimesheetClientName').val(),
+                Client: $('.selected-timesheet-client').text(),
                 EmployeeID: $('.loggedinempid').text(),
                 EmployeeName: $('.loggedinempname').text(),
                 EmployeeEmail: $('.loggedinempemail').text(),
