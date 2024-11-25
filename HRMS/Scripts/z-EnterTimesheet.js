@@ -1,10 +1,4 @@
-﻿$(document).on('click', '.timesheet-Submit', function (event) {
-    event.preventDefault();
-    window.location.href = "/timesheet/submittimesheet";
-});
-
-
-$(document).on('click', '.emp-entertimesheet-rangedates span', function (event) {
+﻿$(document).on('click', '.emp-entertimesheet-rangedates span', function (event) {
     $(".emp-entertimesheet-rangedates span").removeClass("active");
     $(".emp-entertimesheet-block4 > div").removeClass("active").hide();
     $(this).addClass("active");
@@ -108,7 +102,7 @@ $(document).ready(function () {
             totalHoursSpent += hoursSpent;
 
             var data = {
-                Client: $('#entertimesheetClientName').val(),
+                Client: $('.selected-timesheet-client').text(),
                 EmployeeID: $('.loggedinempid').text(),
                 EmployeeName: $('.loggedinempname').text(),
                 EmployeeEmail: $('.loggedinempemail').text(),
@@ -242,6 +236,7 @@ $(document).ready(function () {
         $('#week-end').text(formatDateToLong(weekEnd));
         var weekNumber = getWeekNumber(weekStart);
         $('#week-number').text('Week ' + weekNumber);
+        var client = $('.selected-timesheet-client').text();
 
         //for (var i = 0; i < 7; i++) {
         //    var day = new Date(weekStart);
@@ -252,10 +247,12 @@ $(document).ready(function () {
         var weekstart = $('#week-start').text();
         var weekend = $('#week-end').text();
         var weeknumber = weekNumber;
+        var empID = $(".loggedinempid").text();
+
         $.ajax({
             url: "/timesheet/previousweektimesheets",
             type: "POST",
-            data: { weekstart: weekstart, weekend: weekend, weeknumber: weeknumber },
+            data: { weekstart: weekstart, weekend: weekend, weeknumber: weeknumber, client: client, empID: empID},
             success: function (newrow) {
                 $("#empEntertimesheet").empty();
                 $("#empEntertimesheet").append(newrow);

@@ -26,11 +26,20 @@ namespace HRMS.Controllers
             return View();
         }
 
-        // GET: Timesheet/SubmitTimesheet
-        public ActionResult SubmitTimesheet()
+        // GET: Timesheet/EnterTimeSheet
+        public ActionResult EnterTimesheet(string client, string date = "")
+        {
+            var cuserContext = SiteContext.GetCurrentUserContext();
+            var empID = cuserContext.EmpInfo.EmployeeID;
+            Timesheet model = CurrentWeekTimeSheetDetails(client, empID, date);
+            return View("~/Views/EmployeeDashboard/EmpTimesheetSubmit.cshtml", model);
+        }
+
+        private Timesheet CurrentWeekTimeSheetDetails(string client, string empID, string date)
         {
             var model = new Timesheet();
-            DateTime today = DateTime.Today;
+
+            DateTime today = string.IsNullOrWhiteSpace(date) ? DateTime.Today : DateTime.Parse(date);
 
             DayOfWeek startOfWeek = DayOfWeek.Monday;
             int diff = (7 + (today.DayOfWeek - startOfWeek)) % 7;
@@ -41,14 +50,17 @@ namespace HRMS.Controllers
             model.Weeknumber = CultureInfo.CurrentCulture.Calendar.GetWeekOfYear(today, CalendarWeekRule.FirstDay, startOfWeek);
             model.WeekStartDate = weekStartDate;
             model.WeekEndDate = weekEndDate;
-            model.WeekInfo = DaysInfo(model.WeekStartDate.ToString("dd MMMM yyyy"), model.WeekEndDate.ToString("dd MMMM yyyy"), model.Weeknumber);
+            model.SelectedDate = today;
 
+            model.WeekInfo = DaysInfo(model.WeekStartDate.ToString("dd MMMM yyyy"), model.WeekEndDate.ToString("dd MMMM yyyy"), model.Weeknumber, empID, client);
+            model.SiteContext = SiteContext.GetCurrentUserContext();
+            model.Client = client;
 
-
-            return View("~/Views/EmployeeDashboard/EmpTimesheetSubmit.cshtml", model);
+            return model;
         }
 
-        private List<DaySpecifcData> DaysInfo(string weekstart, string weekend, int weeknumber)
+
+        private List<DaySpecifcData> DaysInfo(string weekstart, string weekend, int weeknumber, string empID, string client)
         {
             var cuserContext = SiteContext.GetCurrentUserContext();
 
@@ -57,22 +69,32 @@ namespace HRMS.Controllers
             DateTime weekEndDate = DateTime.Parse(weekend);
 
             var loginInfo = _dbContext.tbld_ambclogininformation;
-            var compoOffInfo = _dbContext.Compoffs;
-            var holidayInfo = _dbContext.tblambcholidays;
-            var leavesInfo = _dbContext.con_leaveupdate;
+            var compoOffInfo = _dbContext.Compoffs.Where(x => x.addStatus == "Approved");
+            var holidaysInfo = _dbContext.tblambcholidays;
+            var leavesInfo = _dbContext.con_leaveupdate.Where(x => x.LeaveStatus != "Cancelled" && x.LeaveStatus != "Rejected");
             var timeSheetInfo = _dbContext.TimeSheets;
 
             var categories = _dbContext.TimeSheetCategories.ToList();
             var clients = _dbContext.Clients.ToList();
 
+            var empInfo = _dbContext.emp_info.Where(x => x.EmployeeID == empID).FirstOrDefault();
+
             var fullDayWorkingHours = System.Convert.ToInt32(System.Configuration.ConfigurationManager.AppSettings["FullDayMaxWorkingHours"]);
             var halfDayWorkingHours = System.Convert.ToInt32(System.Configuration.ConfigurationManager.AppSettings["HalfDayMaxWorkingHours"]);
 
+            decimal standardWorkingHours = 8;
+
             var model = new List<DaySpecifcData>();
+
             for (DateTime date = weekStartDate; date <= weekEndDate; date = date.AddDays(1))
             {
-                var daySpecificTimesheets = timeSheetInfo.Where(x => x.Date == date && x.EmployeeID == cuserContext.EmpInfo.EmployeeID).OrderByDescending(x => x.Date).ToList();
-                var TimeSheetSubmitted = daySpecificTimesheets.Where(x => x.submissionstatus == "Submitted").FirstOrDefault() != null ? true : false;
+                int allowedHours = fullDayWorkingHours;
+
+                var daySpecificTimesheets = timeSheetInfo
+                    .Where(x => x.Date == date && x.EmployeeID == empInfo.EmployeeID && x.Client == client)
+                    .OrderByDescending(x => x.Date).ToList();
+
+                var TimeSheetSubmitted = daySpecificTimesheets.Any(x => x.submissionstatus == "Submitted");
 
                 if (daySpecificTimesheets != null && daySpecificTimesheets.Count() < 5 && !TimeSheetSubmitted)
                 {
@@ -89,33 +111,302 @@ namespace HRMS.Controllers
                             Priority = string.Empty,
                             Status = string.Empty,
                             Date = date,
-                            EmployeeID = cuserContext.EmpInfo.EmployeeID
+                            EmployeeID = empID
                         });
                     }
                 }
 
+                // Example data from your sources
+
+                var leaveInfo = leavesInfo.Where(x => x.employee_id == empInfo.EmployeeID && x.leavedate == date).ToList();
+                bool isLeave = leaveInfo != null && leaveInfo.Count() > 0 ? true : false;
+
+                var holidayInfo = holidaysInfo.Where(x => x.region.Contains(empInfo.Location) && x.holiday_date == date).FirstOrDefault();
+                bool isHoliday = holidayInfo != null ? true : false;
+
+                bool isWeekend = date.DayOfWeek == DayOfWeek.Saturday || date.DayOfWeek == DayOfWeek.Sunday;
+
+
+                var timeSheetForDate = timeSheetInfo.Where(x => x.Date == date && x.EmployeeID == empInfo.EmployeeID).ToList();
+                decimal hoursSpent = timeSheetForDate.Sum(x => x.HoursSpent ?? 0);
+                decimal overtime = hoursSpent > standardWorkingHours ? hoursSpent - standardWorkingHours : 0;
+
+                var checkInRecord = loginInfo.FirstOrDefault(x => x.Login_date == date);
+
+                var indexLabelLeave = "";
+                decimal leaveY = 0;
+                if (checkInRecord != null)
+                {
+                    if (isLeave)
+                    {
+                        if (leaveInfo[0].DayType == "halfDay")
+                        {
+                            allowedHours = halfDayWorkingHours;
+                            indexLabelLeave = "Half Day Leave + Work";
+                            leaveY = System.Convert.ToDecimal(0.2);
+                        }
+                        else
+                        {
+                            allowedHours = 0;
+                            indexLabelLeave = "Leave";
+                            leaveY = System.Convert.ToDecimal(0.2);
+                        }
+                    }
+                    else
+                    {
+                        indexLabelLeave = "";
+                        allowedHours = fullDayWorkingHours;
+                    }
+                }
+
+                // Leave data points
+                var dataPoints1 = new Graph
+                {
+                    label = date.ToString("d-M-yyyy"),
+                    y = leaveY,
+                    indexLabel = indexLabelLeave
+                };
+
+
+                var indexLabelHoliday = "";
+                decimal holidayY = 0;
+                if (checkInRecord != null)
+                {
+                    if (isHoliday)
+                    {
+                        allowedHours = fullDayWorkingHours;
+                        indexLabelHoliday = "";
+                    }
+                }
+                else
+                {
+                    if (isHoliday)
+                    {
+                        holidayY = System.Convert.ToDecimal(0.2);
+                        indexLabelHoliday = "Holiday";
+                    }
+                }
+
+                // Holiday data points
+                var dataPoints2 = new Graph
+                {
+                    label = date.ToString("d-M-yyyy"),
+                    y = holidayY,
+                    indexLabel = indexLabelHoliday
+                };
+
+                // Weekend data points
+                var dataPoints3 = new Graph
+                {
+                    label = date.ToString("d-M-yyyy"),
+                    y = isWeekend ? System.Convert.ToDecimal(0.2) : 0,
+                    indexLabel = isWeekend ? "Weekend" : ""
+                };
+
+                // Hours Spent data points
+                var dataPoints4 = new Graph
+                {
+                    label = date.ToString("d-M-yyyy"),
+                    y = hoursSpent - overtime,
+                    indexLabel = hoursSpent - overtime > 0 ? "Hours Spent" : ""
+                };
+
+                // Overtime data points
+                var dataPoints5 = new Graph
+                {
+                    label = date.ToString("d-M-yyyy"),
+                    y = overtime,
+                    indexLabel = overtime > 0 ? "Overtime" : ""
+                };
+
+                if (isWeekend)
+                {
+                    allowedHours = 0;
+                }
+
+                var DateValidated = allowedHours == 0 ? true : (allowedHours != 0 && hoursSpent > 0) ? true : false;
+
+                if (allowedHours == 0 && DateValidated)
+                {
+                    TimeSheetSubmitted = true;
+                }
+
+                // Add to model
                 model.Add(new DaySpecifcData()
                 {
-                    CheckInInfo = loginInfo.Where(x => x.Employee_Code == cuserContext.EmpInfo.EmployeeID && x.Login_date == date).FirstOrDefault(),
+                    CheckInInfo = loginInfo.Where(x => x.Employee_Code == empID && x.Login_date == date).FirstOrDefault(),
                     Date = date,
-                    IsWeekend = date.DayOfWeek == DayOfWeek.Saturday || date.DayOfWeek == DayOfWeek.Sunday ? true : false,
-                    CompoffInfo = compoOffInfo.Where(x => x.addStatus == "Approved" && x.EmployeeID == cuserContext.EmpInfo.EmployeeID && x.CampOffDate == date).FirstOrDefault(),
-                    HolidayInfo = holidayInfo.Where(x => x.region.Contains(cuserContext.EmpInfo.Location) && x.holiday_date == date).FirstOrDefault(),
-                    Leaves = leavesInfo.Where(x => x.employee_id == cuserContext.EmpInfo.EmployeeID && x.leavedate == date).ToList(),
+                    IsWeekend = isWeekend,
+                    CompoffInfo = compoOffInfo.Where(x => x.addStatus == "Approved" && x.EmployeeID == empInfo.EmployeeID && x.CampOffDate == date).FirstOrDefault(),
+                    HolidayInfo = holidaysInfo.Where(x => x.region.Contains(empInfo.Location) && x.holiday_date == date).FirstOrDefault(),
+                    Leaves = leaveInfo,
                     TimeSheets = daySpecificTimesheets,
                     TimeSheetSubmitted = TimeSheetSubmitted,
                     Categories = categories,
                     Clients = clients,
                     FullDayeWorkingHours = fullDayWorkingHours,
-                    HalfDayeWorkingHours = halfDayWorkingHours
-                }); ;
-            }
+                    HalfDayeWorkingHours = halfDayWorkingHours,
 
+                    DataPoints1 = new List<Graph> { dataPoints1 },
+                    DataPoints2 = new List<Graph> { dataPoints2 },
+                    DataPoints3 = new List<Graph> { dataPoints3 },
+                    DataPoints4 = new List<Graph> { dataPoints4 },
+                    DataPoints5 = new List<Graph> { dataPoints5 },
+
+                    //Based on this value when submitting timesheet will check hurs enetred for specifc date or not
+                    AllowedHours = allowedHours,
+
+                    HoursSpent = hoursSpent - overtime,
+                    OverTime = overtime,
+                    DateValidated = allowedHours == 0 ? true : (allowedHours != 0 && hoursSpent > 0) ? true : false
+                });
+            }
 
             return model;
         }
 
-        public ActionResult PreviousWeekTimeSheets(string weekstart, string weekend, int weeknumber)
+
+        //private List<DaySpecifcData> DaysInfo(string weekstart, string weekend, int weeknumber, string empID, string location, string client)
+        //{
+        //    var cuserContext = SiteContext.GetCurrentUserContext();
+
+        //    // Parse weekstart and weekend parameters to DateTime
+        //    DateTime weekStartDate = DateTime.Parse(weekstart);
+        //    DateTime weekEndDate = DateTime.Parse(weekend);
+
+        //    var loginInfo = _dbContext.tbld_ambclogininformation;
+        //    var compoOffInfo = _dbContext.Compoffs.Where(x => x.addStatus == "Approved");
+        //    var holidayInfo = _dbContext.tblambcholidays;
+        //    var leavesInfo = _dbContext.con_leaveupdate.Where(x => x.LeaveStatus != "Cancelled" && x.LeaveStatus != "Rejected");
+        //    var timeSheetInfo = _dbContext.TimeSheets;
+
+        //    var categories = _dbContext.TimeSheetCategories.ToList();
+        //    var clients = _dbContext.Clients.ToList();
+
+        //    var empInfo = _dbContext.emp_info.Where(x => x.EmployeeID == empID && x.Location == location).FirstOrDefault();
+
+        //    var fullDayWorkingHours = System.Convert.ToInt32(System.Configuration.ConfigurationManager.AppSettings["FullDayMaxWorkingHours"]);
+        //    var halfDayWorkingHours = System.Convert.ToInt32(System.Configuration.ConfigurationManager.AppSettings["HalfDayMaxWorkingHours"]);
+
+
+        //    var dataPoints1 = new List<dynamic>();
+        //    var dataPoints2 = new List<dynamic>();
+        //    var dataPoints3 = new List<dynamic>();
+        //    var dataPoints4 = new List<dynamic>();
+        //    var dataPoints5 = new List<dynamic>();
+
+        //    decimal standardWorkingHours = 8;
+
+
+        //    var model = new List<DaySpecifcData>();
+        //    for (DateTime date = weekStartDate; date <= weekEndDate; date = date.AddDays(1))
+        //    {
+        //        var daySpecificTimesheets = timeSheetInfo.Where(x => x.Date == date && x.EmployeeID == empInfo.EmployeeID && x.Client == client).OrderByDescending(x => x.Date).ToList();
+        //        var TimeSheetSubmitted = daySpecificTimesheets.Where(x => x.submissionstatus == "Submitted").FirstOrDefault() != null ? true : false;
+
+        //        if (daySpecificTimesheets != null && daySpecificTimesheets.Count() < 5 && !TimeSheetSubmitted)
+        //        {
+        //            int rowsToAdd = 5 - daySpecificTimesheets.Count();
+        //            for (int i = 0; i < rowsToAdd; i++)
+        //            {
+        //                daySpecificTimesheets.Add(new TimeSheet
+        //                {
+        //                    Category = string.Empty,
+        //                    IncidentTaskName = string.Empty,
+        //                    IncidentTaskDescription = string.Empty,
+        //                    Requester = string.Empty,
+        //                    HoursSpent = null,
+        //                    Priority = string.Empty,
+        //                    Status = string.Empty,
+        //                    Date = date,
+        //                    EmployeeID = empID
+        //                });
+        //            }
+        //        }
+
+
+        //        // Example data from your sources
+        //        bool isLeave = leavesInfo.Any(x => x.employee_id == empInfo.EmployeeID && x.leavedate == date);
+        //        bool isHoliday = holidayInfo.Any(x => x.region.Contains(empInfo.Location) && x.holiday_date == date);
+        //        bool isWeekend = date.DayOfWeek == DayOfWeek.Saturday || date.DayOfWeek == DayOfWeek.Sunday;
+        //        var timeSheetForDate = timeSheetInfo.Where(x => x.Date == date && x.EmployeeID == empInfo.EmployeeID).ToList();
+        //        decimal hoursSpent = timeSheetForDate.Sum(x => x.HoursSpent ?? 0);
+        //        // Calculate overtime (hoursSpent - standardWorkingHours, if hoursSpent > standardWorkingHours)
+        //        decimal overtime = hoursSpent > standardWorkingHours ? hoursSpent - standardWorkingHours : 0;
+
+
+        //        model.Add(new DaySpecifcData()
+        //        {
+        //            CheckInInfo = loginInfo.Where(x => x.Employee_Code == empID && x.Login_date == date).FirstOrDefault(),
+        //            Date = date,
+        //            IsWeekend = date.DayOfWeek == DayOfWeek.Saturday || date.DayOfWeek == DayOfWeek.Sunday ? true : false,
+        //            CompoffInfo = compoOffInfo.Where(x => x.addStatus == "Approved" && x.EmployeeID == empInfo.EmployeeID && x.CampOffDate == date).FirstOrDefault(),
+        //            HolidayInfo = holidayInfo.Where(x => x.region.Contains(empInfo.Location) && x.holiday_date == date).FirstOrDefault(),
+        //            Leaves = leavesInfo.Where(x => x.employee_id == empInfo.EmployeeID && x.leavedate == date).ToList(),
+        //            TimeSheets = daySpecificTimesheets,
+        //            TimeSheetSubmitted = TimeSheetSubmitted,
+        //            Categories = categories,
+        //            Clients = clients,
+        //            FullDayeWorkingHours = fullDayWorkingHours,
+        //            HalfDayeWorkingHours = halfDayWorkingHours,
+        //        });
+
+
+
+        //        // Leave data points
+        //        dataPoints1.Add(new
+        //        {
+        //            label = date.ToString("d-M-yyyy"),
+        //            y = isLeave ? 0.2m : 0,
+        //            indexLabel = isLeave ? "Leave" : ""
+        //        });
+
+        //        // Holiday data points
+        //        dataPoints2.Add(new
+        //        {
+        //            label = date.ToString("d-M-yyyy"),
+        //            y = isHoliday ? 0.2m : 0,
+        //            indexLabel = isHoliday ? "Holiday" : ""
+        //        });
+
+        //        // Weekend data points
+        //        dataPoints3.Add(new
+        //        {
+        //            label = date.ToString("d-M-yyyy"),
+        //            y = isWeekend ? 0.2m : 0,
+        //            indexLabel = isWeekend ? "Weekend" : ""
+        //        });
+
+        //        // Hours Spent data points
+        //        dataPoints4.Add(new
+        //        {
+        //            label = date.ToString("d-M-yyyy"),
+        //            y = hoursSpent,
+        //            indexLabel = hoursSpent > 0 ? "Hours Spent" : ""
+        //        });
+
+        //        // Overtime data points
+        //        dataPoints5.Add(new
+        //        {
+        //            label = date.ToString("d-M-yyyy"),
+        //            y = overtime,
+        //            indexLabel = overtime > 0 ? "Overtime" : ""
+        //        });
+
+        //    }
+
+
+        //    return model;
+        //}
+
+        public ActionResult PreviousWeekTimeSheets(string weekstart, string weekend, int weeknumber, string client, string empID)
+        {
+            Timesheet model = TimesheetsByWeek(weekstart, weekend, weeknumber, client, empID);
+
+            return PartialView("~/Views/EmployeeDashboard/_EmployeeTimeSheetMain.cshtml", model);
+        }
+
+        private Timesheet TimesheetsByWeek(string weekstart, string weekend, int weeknumber, string client, string empID)
         {
             var model = new Timesheet();
 
@@ -125,9 +416,16 @@ namespace HRMS.Controllers
             model.Weeknumber = weeknumber;
             model.WeekStartDate = weekStartDate;
             model.WeekEndDate = weekEndDate;
-            model.WeekInfo = DaysInfo(weekstart, weekend, weeknumber);
+            model.WeekInfo = DaysInfo(weekstart, weekend, weeknumber, empID, client);
+            model.Client = client;
+            return model;
+        }
 
-            return PartialView("~/Views/EmployeeDashboard/_EmployeeTimeSheetMain.cshtml", model);
+        public ActionResult ViewPreviousWeekTimeSheets(string weekstart, string weekend, int weeknumber, string client, string empID)
+        {
+            Timesheet model = TimesheetsByWeek(weekstart, weekend, weeknumber, client, empID);
+
+            return PartialView("~/Views/EmployeeDashboard/_EmpViewTimeSheetrows.cshtml", model);
         }
 
 
@@ -257,8 +555,52 @@ namespace HRMS.Controllers
         // GET: Timesheet/TimesheetView
         public ActionResult TimesheetView()
         {
-            return View("~/Views/EmployeeDashboard/EmpTimesheetView.cshtml");
+            var cuserContext = SiteContext.GetCurrentUserContext();
+            Timesheet model = CurrentWeekTimeSheetDetails(cuserContext.EmpInfo.Client, cuserContext.EmpInfo.EmployeeID, "");
+            return View("~/Views/EmployeeDashboard/EmpTimesheetView.cshtml", model);
         }
+
+
+        public ActionResult SubmitTimeSheet(string weekstart, string weekend, int weeknumber, string client, string empID)
+        {
+            try
+            {
+                var cuserContext = SiteContext.GetCurrentUserContext();
+                var timeSheets = _dbContext.TimeSheets.Where(x => x.EmployeeID == empID && x.WeekEnd == weeknumber).ToList();
+
+                foreach (var timeSheet in timeSheets)
+                {
+                    timeSheet.submissionstatus = "Submitted";
+                    timeSheet.UpdatedDate = DateTime.Now;
+                }
+                _dbContext.SaveChanges();
+
+                return Json(new { success = true, message = "TimeSheet submitted Successfully!" });
+            }
+            catch (Exception ex)
+            {
+                return Json(new { success = true, message = "Error when submitted TimeSheet!" });
+            }
+        }
+
+        public ActionResult DeleteTimeSheet(int timesheetid)
+        {
+            try
+            {
+                var cuserContext = SiteContext.GetCurrentUserContext();
+                var timeSheets = _dbContext.TimeSheets.Where(x => x.TimeSheetID == timesheetid).FirstOrDefault();
+
+                _dbContext.TimeSheets.Remove(timeSheets);
+                _dbContext.SaveChanges();
+
+                return Json(new { success = true, message = "TimeSheet deleted Successfully!" });
+            }
+            catch (Exception ex)
+            {
+                return Json(new { success = true, message = "Error when deleting TimeSheet!" });
+            }
+        }
+
 
         public ActionResult AdminTimesheet()
         {

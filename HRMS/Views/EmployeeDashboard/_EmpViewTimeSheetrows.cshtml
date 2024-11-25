@@ -1,0 +1,295 @@
+﻿@model HRMS.Models.Timesheet
+
+@{
+    var dataPointsArray1 = new List<HRMS.Models.Graph>();
+    var dataPointsArray2 = new List<HRMS.Models.Graph>();
+
+    var dataPointsArray3 = new List<HRMS.Models.Graph>();
+    var dataPointsArray4 = new List<HRMS.Models.Graph>();
+    var dataPointsArray5 = new List<HRMS.Models.Graph>();
+
+    decimal totalHoursSpent = 0;
+    decimal totalOverTime = 0;
+
+    var timeSheetSubmitEnabled = false;
+}
+
+<div class="emp-timesheet-table-header">
+    <div class="emp-timesheet-table-title">Task List</div>
+
+    @{
+        bool enableSubmitButton = Model.WeekInfo.Any(w => !w.TimeSheetSubmitted);
+    }
+
+    <div class="emp-timesheet-table-submit">
+        <button type="button"
+                class="btn btn-primary btn-timesheet-submit"
+                data-toggle="modal"
+                data-target="#empSubmitTimesheetModal"
+                @(enableSubmitButton ? "" : "disabled")>
+            Submit Timesheet
+        </button>
+    </div>
+</div>
+
+
+<div class="emp-timesheet-body table-responsive">
+    <table id="emptimesheetlistingTable" class="table emp-timesheet-table" style="width: 100%; color: #272727">
+        <thead style="background-color: #3E78CF; border-radius: 10px;">
+            <tr>
+                <th>Date</th>
+                <th>Category</th>
+                <th>Task/Incident Name</th>
+                <th>Task/Incident Description</th>
+                <th>Priority</th>
+                <th>Requester</th>
+                <th>Status</th>
+                <th>Total Hours</th>
+                <th>Action</th>
+            </tr>
+        </thead>
+        <tbody id="emptimesheetBody">
+            @foreach (var weekinfo in Model.WeekInfo)
+            {
+                foreach (var timeSheet in weekinfo.TimeSheets.Where(x => x.HoursSpent > 0))
+                {
+                    <tr>
+                        <td>@(timeSheet.Date.HasValue ? timeSheet.Date.Value.ToString("dd-MM-yyyy") : "N/A")</td>
+                        <td>@timeSheet.Category</td>
+                        <td>@timeSheet.IncidentTaskName</td>
+                        <td>@timeSheet.IncidentTaskDescription</td>
+                        <td>@timeSheet.Priority</td>
+                        <td>@timeSheet.Requester</td>
+                        <td>@timeSheet.Status</td>
+                        <td>@timeSheet.HoursSpent</td>
+                        <td>
+                            <i class="fas fa-ellipsis-v emp-timesheet-edit" onclick="toggleEmpTimesheetActionOptions(this)"></i>
+                            <div class="emp-timesheetoptions" style="display:none">
+                                <a class="dropdown-item emp-timesheet-edit-btn"
+                                   data-timesheeetid="@timeSheet.TimeSheetID" data-timesheetdate="@(timeSheet.Date.HasValue ? timeSheet.Date.Value.ToString("dd-MM-yyyy") : "N/A")">Edit</a>
+                                <a class="dropdown-item emp-timesheet-cancel"
+                                   onclick="emptimesheetcancel($(this))"
+                                   data-timesheeetid="@timeSheet.TimeSheetID" data-timesheetdate="@(timeSheet.Date.HasValue ? timeSheet.Date.Value.ToString("dd-MM-yyyy") : "N/A")">Delete</a>
+                            </div>
+                        </td>
+                    </tr>
+                }
+
+                dataPointsArray1.Add(weekinfo.DataPoints1[0]);
+                dataPointsArray2.Add(weekinfo.DataPoints2[0]);
+                dataPointsArray3.Add(weekinfo.DataPoints3[0]);
+                dataPointsArray4.Add(weekinfo.DataPoints4[0]);
+                dataPointsArray5.Add(weekinfo.DataPoints5[0]);
+                totalHoursSpent += weekinfo.HoursSpent;
+                totalOverTime += weekinfo.OverTime;
+
+                if (timeSheetSubmitEnabled == false)
+                {
+                    if (weekinfo.TimeSheetSubmitted == false)
+                    {
+                        timeSheetSubmitEnabled = true;
+                    }
+                }
+            }
+
+
+        </tbody>
+    </table>
+</div>
+
+<!-- Submit Timesheet Modal -->
+<div id="empSubmitTimesheetModal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="empSubmitTimesheetModal" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <i class="far fa-times-circle"></i>
+                </button>
+            </div>
+            <div class="modal-body" id="modalMessage">
+                Are you sure you want to submit timesheet (@Model.WeekStartDate.ToString("dd MMMM yyyy") to @Model.WeekEndDate.ToString("dd MMMM yyyy"))
+            </div>
+            <div class="modal-footer timesheet-noyes-div">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">No</button>
+                <button type="button" class="btn" data-weeknumber="@Model.Weeknumber" data-weekstartdate="@Model.WeekStartDate.ToString("dd MMMM yyyy")" data-weekenddate="@Model.WeekEndDate.ToString("dd MMMM yyyy")" id="empSubmitTimesheetSubmitButton">Yes</button>
+            </div>
+
+            <div class="modal-footer timesheet-close-div" style="display: none">
+                <button type="button" class="btn btn-secondary btn-close-timesheetview">Close</button>
+
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<div id="empTimesheetConfirmCancelModal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="empTimesheetConfirmCancelModal" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <i class="far fa-times-circle"></i>
+                </button>
+            </div>
+            <div class="modal-body" id="deletetimesheetmessage">
+                Are you sure you want to delete this timesheet?
+            </div>
+            <div class="modal-footer timesheetdelete-noyes-div">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">No</button>
+                <button type="button" class="btn" data-deleteticketid="" data-weekstartdate="@Model.WeekStartDate.ToString("dd MMMM yyyy")" data-weekenddate="@Model.WeekEndDate.ToString("dd MMMM yyyy")" data-weeknumber="@Model.Weeknumber" id="empTimesheetDeleteButton">Yes</button>
+            </div>
+
+            <div class="modal-footer timesheetdelete-close-div" style="display: none">
+                <button type="button" class="btn btn-secondary btn-delete-timesheetview">Close</button>
+
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<script>
+    $(document).ready(function () {
+        var table = $('#emptimesheetlistingTable').DataTable({
+            "paging": true,
+            "searching": false,
+            "ordering": false,
+            "info": true,
+            "autoWidth": false,
+        });
+    });
+
+    function toggleEmpTimesheetActionOptions(iconElement) {
+        const optionsMenu = $(iconElement).next('.emp-timesheetoptions');
+        $('.emp-timesheetoptions').not(optionsMenu).hide();
+        optionsMenu.toggle();
+        $(document).on('click.hideMenu', function (event) {
+            if (!$(event.target).closest(iconElement).length && !$(event.target).closest('.emp-timesheetoptions').length) {
+                optionsMenu.hide();
+                $(document).off('click.hideMenu');
+            }
+        });
+    }
+
+    function emptimesheetcancel(currentthis) {
+        currentSelectedrow = currentthis.closest('tr');
+        var timesheetName = currentthis.attr("data-timesheeetid");
+        $('#empTimesheetDeleteButton').attr('data-deleteticketid', timesheetName);
+        $('#empTimesheetConfirmCancelModal .modal-body').html('Are you sure you want to delete this task?');
+        $('#empTimesheetConfirmCancelModal').attr('disabled', false);
+        $('#empTimesheetConfirmCancelModal').modal('show');
+    }
+
+</script>
+
+
+<script>
+    $(document).ready(function () {
+
+        var dataPoints1 = @Html.Raw(Json.Encode(dataPointsArray1));
+        var dataPoints2 = @Html.Raw(Json.Encode(dataPointsArray2));
+        var dataPoints3 = @Html.Raw(Json.Encode(dataPointsArray3));
+        var dataPoints4 = @Html.Raw(Json.Encode(dataPointsArray4));
+        var dataPoints5 = @Html.Raw(Json.Encode(dataPointsArray5));
+
+        var chart = new CanvasJS.Chart("emp-timesheet-hours-spent", {
+            axisY: {
+                suffix: " h",
+                interval: 2,
+                minimum: 0,
+                gridThickness: 0,
+                lineThickness: 0
+            },
+            data: [
+                {
+                    type: "stackedColumn",
+                    name: "Leave",
+                    showInLegend: false,
+                    color: "#FF5733",
+                    yValueFormatString: "#,##0 h",
+                    dataPoints: dataPoints1
+                },
+                {
+                    type: "stackedColumn",
+                    name: "Hoilday",
+                    showInLegend: false,
+                    color: "#FFC300",
+                    yValueFormatString: "#,##0 h",
+                    dataPoints: dataPoints2
+                },
+                {
+                    type: "stackedColumn",
+                    name: "Week End",
+                    showInLegend: false,
+                    color: "#3e4652",
+                    yValueFormatString: "#,##0 h",
+                    dataPoints: dataPoints3
+                },
+                {
+                    type: "stackedColumn",
+                    name: "Hours Spent",
+                    showInLegend: false,
+                    color: "#33FF57",
+                    yValueFormatString: "#,##0 h",
+                    dataPoints: dataPoints4
+                },
+                {
+                    type: "stackedColumn",
+                    name: "Overtime",
+                    showInLegend: false,
+                    color: "#50aced",
+                    yValueFormatString: "#,##0 h",
+                    dataPoints: dataPoints5
+                }
+
+            ]
+        });
+
+        chart.render();
+
+
+        function toggleDataSeries(e) {
+            if (typeof (e.dataSeries.visible) === "undefined" || e.dataSeries.visible) {
+                e.dataSeries.visible = false;
+            } else {
+                e.dataSeries.visible = true;
+            }
+            chart.render();
+        }
+
+    });
+</script>
+
+@*<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.4/Chart.js"></script>*@
+<script>
+    var xValues = ["Hours Spent", "Overtime"];
+    var yValues = [@totalHoursSpent, @totalOverTime];
+    var barColors = [
+        "#33FF57",
+        "#50aced"
+    ];
+
+    new Chart("emp-timesheet-attendance", {
+        type: "doughnut",
+        data: {
+            labels: xValues,
+            datasets: [{
+                backgroundColor: barColors,
+                data: yValues
+            }]
+        },
+        options: {
+            legend: {
+                display: true,
+                position: 'bottom'
+            },
+            hover: {
+                mode: null
+            },
+            animation: {
+                duration: 0
+            }
+        }
+    });
+
+</script>

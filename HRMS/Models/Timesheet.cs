@@ -41,6 +41,11 @@ namespace HRMS.Models
         public DateTime WeekStartDate { get; set; }
         public DateTime WeekEndDate { get; set; }
         public List<DaySpecifcData> WeekInfo { get; set; }
+
+        public SiteContextModel SiteContext { get; set; }
+        public string Client { get; set; }
+
+        public DateTime SelectedDate { get; set; }
     }
 
     public class DaySpecifcData
@@ -57,6 +62,20 @@ namespace HRMS.Models
         public List<Client> Clients { get; set; } = new List<Client>();
         public int FullDayeWorkingHours { get; set; }
         public int HalfDayeWorkingHours { get; set; }
+
+        // Adding dataPoints as properties
+        public List<Graph> DataPoints1 { get; set; } = new List<Graph>();
+        public List<Graph> DataPoints2 { get; set; } = new List<Graph>();
+        public List<Graph> DataPoints3 { get; set; } = new List<Graph>();
+        public List<Graph> DataPoints4 { get; set; } = new List<Graph>();
+        public List<Graph> DataPoints5 { get; set; } = new List<Graph>();
+
+        public int AllowedHours { get; set; }
+
+        public Decimal HoursSpent { get; set; }
+        public Decimal OverTime { get; set; }
+        public bool DateValidated { get; set; }
+
 
     }
 
