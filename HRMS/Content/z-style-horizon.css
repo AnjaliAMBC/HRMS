@@ -3421,6 +3421,11 @@ width: 100%;*/
     border: 1px solid #48D1CC !important;
 }
 
+.res-admin-timesheet .btn-admin-timesheet-sendremainder img {
+    margin-right: 7px;
+    vertical-align: sub;
+}
+
 .res-admin-timesheet .main-content.container-fluid {
     width: 86%;
 }
@@ -3433,7 +3438,6 @@ width: 100%;*/
     display: inline-block;
     margin-right: 10px;
 }
-
 
 
 .admin-timesheet-header-block {
@@ -3509,7 +3513,8 @@ width: 100%;*/
     margin-bottom: 10px;
 }
 
-.res-admin-timesheet .admin-timesheet-graph-block .admin-timesheet-graph-header span span {
+.res-admin-timesheet .admin-timesheet-graph-block .admin-timesheet-graph-header span.admin-timesheet-graph-resourcename-title,
+.res-admin-timesheet .admin-timesheet-graph-block .admin-timesheet-graph-header span.admin-timesheet-graph-reportingmanager-title {
     font-weight: bold;
 }
 
@@ -3538,7 +3543,18 @@ width: 100%;*/
     margin-left: 15px;
 }
 
+.res-admin-timesheet .admin-timesheet-graph-arrows {
+    text-align: right;
+}
 
+.res-admin-timesheet .admin-timesheet-graph-leftarrow {
+    margin-right: 10px;
+    cursor:pointer;
+}
+
+.res-admin-timesheet .admin-timesheet-graph-rightarrow {
+    cursor: pointer;
+}
 
 
 
@@ -3621,6 +3637,11 @@ width: 100%;*/
 #adminTimesheetSendRemainderModal .modal-footer {
     border-top: 0px;
     padding-top: 0px;
+}
+
+#adminTimesheetSendRemainderModal .modal-footer button {
+    padding: 5px 20px;
+    border-radius: 25px;
 }
 
 /* admin timesheet end */
