@@ -37,7 +37,7 @@
             <table cellpadding="0" cellspacing="0" border="0" width="100%">
                 <tr>
                     <td style="text-align: left; padding-bottom: 10px;">
-                        <p style="margin-top: 0;">Hello <strong>@leaveUpdate.employee_name</strong>,</p>
+                        <p style="margin-top: 0;">Hello HR,</p>
                     </td>
                     <td style="text-align: right; padding-bottom: 10px;">
                         <a href="@siteURL" target="_blank">
@@ -81,6 +81,19 @@
                 {
                     <strong>Date:</strong> @(leaveUpdate.Fromdate?.ToString("dd-MM-yyyy") ?? "N/A")<br />
                 }
+                @{ int totalDays = 0;
+
+                                    if (leaveUpdate.Fromdate.HasValue && leaveUpdate.Todate.HasValue)
+                                    {
+                                        DateTime startDate = leaveUpdate.Fromdate.Value;
+                                        DateTime endDate = leaveUpdate.Todate.Value;
+
+                                        totalDays = Enumerable.Range(0, (endDate - startDate).Days + 1)
+                                                              .Select(offset => startDate.AddDays(offset))
+                                                              .Count(date => date.DayOfWeek != DayOfWeek.Saturday && date.DayOfWeek != DayOfWeek.Sunday);
+                                    } }
+                <strong>Total days:</strong> @totalDays<br />
+
                 <strong>Submitted By:</strong> @leaveUpdate.createdby<br />
                 <strong>Leave Type:</strong> @leaveUpdate.leavesource<br />
             </p>

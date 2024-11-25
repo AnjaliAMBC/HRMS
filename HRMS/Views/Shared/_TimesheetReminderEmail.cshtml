@@ -1,1 +1,36 @@
-﻿
+﻿@model 
+
+
+@{
+    var siteURL = System.Configuration.ConfigurationManager.AppSettings["siteURL"];
+    var logoURL = siteURL + "/Assets/AMBC_Logo.png";
+}
+
+
+
+
+
+<div class="email-container" style="font-family: Calibri; color: #333; background-color: #f9f9f9; padding: 20px; border-radius: 8px; max-width: 600px; margin: auto;">
+    <div class="email-content" style="position: relative; padding: 20px; background-color: #fff; border-radius: 8px; box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);">
+        <table width="80%" cellpadding="0" cellspacing="0" border="0" style="background-color:#ffffff;">
+            <tr>
+                <td style="padding:0;">
+                    <p>Hello EmployeeName,</p>
+                </td>
+                <td align="right" style="padding: 0;">
+                    <a href="@siteURL" target="_blank">
+                        <img src="@logoURL" alt="AMBC Logo" width="80" style="display: block;">
+                    </a>
+                </td>
+            </tr>
+        </table>
+        <p style="font-size:18px;">Just a quick reminder to submit your weekly reports for the week of From date to to date within Monday before 11 AM IST.</p>
+
+        <p style="font-size:18px;">Please make this a priority and submit the reports in HRMS portal.</p>
+
+        <p style="font-size:18px;">Your timely submission is appreciated!</p>
+        <div style="font-family: Calibri; color: #696969; font-size: 1.1em; margin-top: 20px; text-align: center;">
+            This is an automated email, please do not reply.
+            <br />
+            Automated mail from <a href="https://prm.ambctechnologies.com" style="color: #2693F8;">https://prm.ambctechnologies.com</a>
+        </div>

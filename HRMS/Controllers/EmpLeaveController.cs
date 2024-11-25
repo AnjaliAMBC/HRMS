@@ -284,7 +284,7 @@ namespace HRMS.Controllers
                 // In case admin submits the leave on employee's behalf
                 else
                 {
-                    var emailSubject = "Leave Application from " + leaveRequest.EmpName + " on " + System.DateTime.Now.ToString("dd MMMM yyyy");
+                    var emailSubject = "Leave Application from " + leaveRequest.EmpName ;
                     var emailBody = RenderPartialToString(this, "_LeaveNotificationAdminEmail", leaves, ViewData, TempData);
 
                     var teamEmails = "";
