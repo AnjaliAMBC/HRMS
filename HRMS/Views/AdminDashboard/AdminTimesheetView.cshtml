@@ -22,7 +22,7 @@
                                     <option value="2">Weekly Report</option>
                                 </select>
                             </span>
-                            <button type="button" class="btn btn-primary btn-admin-timesheet-sendremainder" data-toggle="modal" data-target="#adminTimesheetSendRemainderModal">Send Remainder</button>
+                            <button type="button" class="btn btn-primary btn-admin-timesheet-sendremainder" data-toggle="modal" data-target="#adminTimesheetSendRemainderModal"><img src="~/Assets/remainder-icon.png">Send Remainder</button>
                         </div>
                     </div>
 
@@ -66,8 +66,8 @@
 
                             <div class="admin-timesheet-graph-block">
                                 <div class="admin-timesheet-graph-header">
-                                    <span class="admin-timesheet-graph-resourcename"><span>Resource Name </span> 1122 Test User</span>
-                                    <span class="admin-timesheet-graph-reportingmanager"><span>Reporting Manager </span> Shanta M Balakumar</span>
+                                    <span class="admin-timesheet-graph-resourcename"><span class="admin-timesheet-graph-resourcename-title">Resource Name </span> <span class="admin-timesheet-graph-resourcename-info">1122 Test User</span></span>
+                                    <span class="admin-timesheet-graph-reportingmanager"><span class="admin-timesheet-graph-reportingmanager-title">Reporting Manager </span> <span class="admin-timesheet-graph-reportingmanager-info">Shanta M Balakumar</span></span>
                                 </div>
                                 <div class="admin-timesheet-graph-body">
                                     <div class="admin-timesheet-hours-spent">
@@ -82,8 +82,10 @@
                                         </div>
                                     </div>
                                 </div>
-
-                                
+                            </div>
+                            <div class="admin-timesheet-graph-arrows">
+                                <span class="admin-timesheet-graph-leftarrow"><i class="far fa-arrow-alt-circle-left"></i></span>
+                                <span class="admin-timesheet-graph-rightarrow"><i class="far fa-arrow-alt-circle-right"></i></span>
                             </div>
                         </div>
 
@@ -181,7 +183,7 @@
                     </table>
                 </div>
                 <div class="admin-timesheet-sendremainder-notes">
-                    <span>Note:</span>  Send remainder for all the selected employees in single/group email
+                    <span style="font-weight: bold;">Note:</span>  Send remainder for all the selected employees in single/group email
                 </div>
             </div>
             <div class="modal-footer">
@@ -313,6 +315,140 @@
             chart.render();
         }
 
+        $('.admin-timesheet-graph-leftarrow').click(function (e) {
+            console.log('sdsd');
+            $('.admin-timesheet-graph-resourcename-info, .admin-timesheet-graph-reportingmanager-info').empty();
+            $('.admin-timesheet-graph-resourcename-info').text('Testing Resource Name');
+            $('.admin-timesheet-graph-reportingmanager-info').text('Testing Reporting Manager Name');
+
+            reloadHoursSpent();
+
+            // Dynamically update dataPoints
+            dataPoints1 = [
+                { label: "4-11-2024", y: Math.random() * 10, indexLabel: "" },
+                { label: "5-11-2024", y: Math.random() * 10, indexLabel: "" },
+                { label: "6-11-2024", y: Math.random() * 10, indexLabel: "" },
+                { label: "7-11-2024", y: Math.random() * 10, indexLabel: "" },
+                { label: "8-11-2024", y: Math.random() * 10, indexLabel: "" },
+                { label: "9-11-2024", y: 0, indexLabel: "" },
+                { label: "10-11-2024", y: 0, indexLabel: "" }
+            ];
+            dataPoints2 = [
+                { label: "4-11-2024", y: Math.random() * 10, indexLabel: "" },
+                { label: "5-11-2024", y: Math.random() * 10, indexLabel: "" },
+                { label: "6-11-2024", y: Math.random() * 10, indexLabel: "" },
+                { label: "7-11-2024", y: Math.random() * 10, indexLabel: "" },
+                { label: "8-11-2024", y: Math.random() * 10, indexLabel: "" },
+                { label: "9-11-2024", y: 0, indexLabel: "" },
+                { label: "10-11-2024", y: 0, indexLabel: "" }
+            ];
+            dataPoints3 = [
+                { label: "4-11-2024", y: Math.random() * 10, indexLabel: "" },
+                { label: "5-11-2024", y: Math.random() * 10, indexLabel: "" },
+                { label: "6-11-2024", y: Math.random() * 10, indexLabel: "" },
+                { label: "7-11-2024", y: Math.random() * 10, indexLabel: "" },
+                { label: "8-11-2024", y: Math.random() * 10, indexLabel: "" },
+                { label: "9-11-2024", y: 0, indexLabel: "" },
+                { label: "10-11-2024", y: 0, indexLabel: "" }
+            ];
+            dataPoints4 = [
+                { label: "4-11-2024", y: Math.random() * 10, indexLabel: "" },
+                { label: "5-11-2024", y: Math.random() * 10, indexLabel: "" },
+                { label: "6-11-2024", y: Math.random() * 10, indexLabel: "" },
+                { label: "7-11-2024", y: Math.random() * 10, indexLabel: "" },
+                { label: "8-11-2024", y: Math.random() * 10, indexLabel: "" },
+                { label: "9-11-2024", y: 0, indexLabel: "" },
+                { label: "10-11-2024", y: 0, indexLabel: "" }
+            ];
+            dataPoints5 = [
+                { label: "4-11-2024", y: Math.random() * 10, indexLabel: "" },
+                { label: "5-11-2024", y: Math.random() * 10, indexLabel: "" },
+                { label: "6-11-2024", y: Math.random() * 10, indexLabel: "" },
+                { label: "7-11-2024", y: Math.random() * 10, indexLabel: "" },
+                { label: "8-11-2024", y: Math.random() * 10, indexLabel: "" },
+                { label: "9-11-2024", y: 0, indexLabel: "" },
+                { label: "10-11-2024", y: 0, indexLabel: "" }
+            ];
+
+            // Update the chart data
+            chart.options.data[0].dataPoints = dataPoints1;
+            chart.options.data[0].dataPoints = dataPoints2;            
+            chart.options.data[0].dataPoints = dataPoints3;
+            chart.options.data[0].dataPoints = dataPoints4;
+            chart.options.data[0].dataPoints = dataPoints5;
+
+            // Re-render the chart
+            chart.render();
+
+        });
+
+        $('.admin-timesheet-graph-rightarrow').click(function (e) {
+            console.log('sdsd');
+            $('.admin-timesheet-graph-resourcename-info, .admin-timesheet-graph-reportingmanager-info').empty();
+            $('.admin-timesheet-graph-resourcename-info').text('Testing Resource Name');
+            $('.admin-timesheet-graph-reportingmanager-info').text('Testing Reporting Manager Name');
+            reloadHoursSpent();
+
+            // Dynamically update dataPoints
+            dataPoints1 = [
+                { label: "4-11-2024", y: Math.random() * 10, indexLabel: "" },
+                { label: "5-11-2024", y: Math.random() * 10, indexLabel: "" },
+                { label: "6-11-2024", y: Math.random() * 10, indexLabel: "" },
+                { label: "7-11-2024", y: Math.random() * 10, indexLabel: "Leave" },
+                { label: "8-11-2024", y: Math.random() * 10, indexLabel: "" },
+                { label: "9-11-2024", y: 0, indexLabel: "" },
+                { label: "10-11-2024", y: 0, indexLabel: "" }
+            ];
+            dataPoints2 = [
+                { label: "4-11-2024", y: Math.random() * 10, indexLabel: "" },
+                { label: "5-11-2024", y: Math.random() * 10, indexLabel: "" },
+                { label: "6-11-2024", y: Math.random() * 10, indexLabel: "" },
+                { label: "7-11-2024", y: Math.random() * 10, indexLabel: "Leave" },
+                { label: "8-11-2024", y: Math.random() * 10, indexLabel: "" },
+                { label: "9-11-2024", y: 0, indexLabel: "" },
+                { label: "10-11-2024", y: 0, indexLabel: "" }
+            ];
+            dataPoints3 = [
+                { label: "4-11-2024", y: Math.random() * 10, indexLabel: "" },
+                { label: "5-11-2024", y: Math.random() * 10, indexLabel: "" },
+                { label: "6-11-2024", y: Math.random() * 10, indexLabel: "" },
+                { label: "7-11-2024", y: Math.random() * 10, indexLabel: "Leave" },
+                { label: "8-11-2024", y: Math.random() * 10, indexLabel: "" },
+                { label: "9-11-2024", y: 0, indexLabel: "" },
+                { label: "10-11-2024", y: 0, indexLabel: "" }
+            ];
+            dataPoints4 = [
+                { label: "4-11-2024", y: Math.random() * 10, indexLabel: "" },
+                { label: "5-11-2024", y: Math.random() * 10, indexLabel: "" },
+                { label: "6-11-2024", y: Math.random() * 10, indexLabel: "" },
+                { label: "7-11-2024", y: Math.random() * 10, indexLabel: "Leave" },
+                { label: "8-11-2024", y: Math.random() * 10, indexLabel: "" },
+                { label: "9-11-2024", y: 0, indexLabel: "" },
+                { label: "10-11-2024", y: 0, indexLabel: "" }
+            ];
+            dataPoints5 = [
+                { label: "4-11-2024", y: Math.random() * 10, indexLabel: "" },
+                { label: "5-11-2024", y: Math.random() * 10, indexLabel: "" },
+                { label: "6-11-2024", y: Math.random() * 10, indexLabel: "" },
+                { label: "7-11-2024", y: Math.random() * 10, indexLabel: "Leave" },
+                { label: "8-11-2024", y: Math.random() * 10, indexLabel: "" },
+                { label: "9-11-2024", y: 0, indexLabel: "" },
+                { label: "10-11-2024", y: 0, indexLabel: "" }
+            ];
+
+            // Update the chart data
+            chart.options.data[0].dataPoints = dataPoints1;
+            chart.options.data[0].dataPoints = dataPoints2;
+            chart.options.data[0].dataPoints = dataPoints3;
+            chart.options.data[0].dataPoints = dataPoints4;
+            chart.options.data[0].dataPoints = dataPoints5;
+
+            // Re-render the chart
+            chart.render();
+
+        });
+
+
     });
 </script>
 
@@ -326,7 +462,7 @@
     ];
 
     // Create the chart
-    new Chart("admin-timesheet-attendance", {
+    var attendanceChart = new Chart("admin-timesheet-attendance", {
         type: "doughnut",
         data: {
             labels: xValues,
@@ -351,6 +487,18 @@
         }
     });
 
+    // Reload button click event
+    function reloadHoursSpent() {
+        // Generate new random data
+        yValues = [Math.random() * 20, Math.random() * 5]; // Replace with dynamic data
+
+        // Update chart data
+        attendanceChart.data.datasets[0].data = yValues;
+
+        // Re-render the chart
+        attendanceChart.update();
+    }
+
 </script>
 
 <script>
@@ -364,7 +512,8 @@
             "ordering": false,
             "info": true,
             "autoWidth": false,
-        });
+        });        
+
     });
 </script>
 
