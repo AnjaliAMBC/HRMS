@@ -1,0 +1,88 @@
+﻿@model HRMS.Models.TimesheetDayModel
+
+@for (int i = Model.StartIndexNumber; i <= Model.EndIndexNumber; i++)
+{
+    var timeSheet = Model.DaySpecifcInfo.TimeSheets[0];
+
+    <div class="row emp-entertimesheet-fields row-@i" data-dayuniquekey="@(timeSheet.Date.HasValue ? timeSheet.Date.Value.ToString("dd-MM-yyyy") : "NoDate")-@Model.IndexNumber">
+        <div class="form-group col-lg-1 div-entertimesheet-category div-entertimesheet-category-@i-block-1">
+            <label for="entertimesheetCategory-@i-block-1" class="leave_label">
+                Category@((i == 0) ? "*" : "")
+            </label>
+            <select class="form-control timesheet-entertimesheetCategory" id="entertimesheetCategory-@i-block-1">
+                <option value="">Select</option>
+
+                @foreach (var category in Model.DaySpecifcInfo.Categories)
+                {
+                    <option value="@category.CategoryName" @(timeSheet.Category == @category.CategoryName ? "selected" : "")>@category.CategoryName</option>
+                }
+
+            </select>
+        </div>
+
+        <div class="form-group col-lg-2 div-entertimesheet-taskname div-entertimesheet-taskname-@i-block-1">
+            <label for="entertimesheetTaskName-@i-block-1">
+                Incident/Task Name@((i == 0) ? "*" : "")
+            </label>
+            <input type="text" class="form-control timesheet-entertimesheetTaskName"
+                   id="entertimesheetTaskName-@i-block-1"
+                   value="@timeSheet.IncidentTaskName"
+                   placeholder="Incident/Task Name">
+        </div>
+
+        <div class="form-group col-lg-3 div-entertimesheet-taskdesc div-entertimesheet-taskdesc-@i-block-1">
+            <label for="entertimesheetTaskDesc-@i-block-1">
+                Incident/Task Description@((i == 0) ? "*" : "")
+            </label>
+            <input type="text" class="form-control timesheet-entertimesheetTaskDesc"
+                   id="entertimesheetTaskDesc-@i-block-1"
+                   value="@timeSheet.IncidentTaskDescription"
+                   placeholder="Incident/Task Description">
+        </div>
+
+        <div class="form-group col-lg-2 div-entertimesheet-requester div-entertimesheet-requester-@i-block-1">
+            <label for="entertimesheetRequester-@i-block-1">
+                Requester@((i == 0) ? "*" : "")
+            </label>
+            <input type="text" class="form-control timesheet-entertimesheetRequester"
+                   id="entertimesheetRequester-@i-block-1"
+                   value="@timeSheet.Requester">
+        </div>
+
+        <div class="form-group col-lg-2 div-entertimesheet-hourspent div-entertimesheet-hourspent-@i-block-1">
+            <label for="entertimesheetHoursSpent-@i-block-1">
+                Hours Spend@((i == 0) ? "*" : "")
+            </label>
+            <input type="text" class="form-control timesheet-hoursspent"
+                   id="entertimesheetHoursSpent-@i-block-1"
+                   value="@timeSheet.HoursSpent">
+        </div>
+
+        <div class="form-group col-lg-1 div-entertimesheet-priority div-entertimesheet-priority-@i-block-1">
+            <label for="entertimesheetPriority-@i-block-1" class="leave_label">
+                Priority@((i == 0) ? "*" : "")
+            </label>
+            <select class="form-control timesheet-entertimesheetPriority" id="entertimesheetPriority-@i-block-1">
+                <option value="">Select</option>
+                <option value="High" @(timeSheet.Priority == "High" ? "selected" : "")>High</option>
+                <option value="Medium" @(timeSheet.Priority == "Medium" ? "selected" : "")>Medium</option>
+                <option value="Low" @(timeSheet.Priority == "Low" ? "selected" : "")>Low</option>
+            </select>
+        </div>
+
+        <div class="form-group col-lg-1 div-entertimesheet-status div-entertimesheet-status-@i-block-1">
+            <label for="entertimesheetStatus-@i-block-1" class="leave_label">
+                Status@((i == 0) ? "*" : "")
+            </label>
+            <select class="form-control timesheet-entertimesheetStatus" id="entertimesheetStatus-@i-block-1">
+                <option value="">Select</option>
+                <option value="Closed" @(timeSheet.Status == "Closed" ? "selected" : "")>Closed</option>
+                <option value="Open" @(timeSheet.Status == "Open" ? "selected" : "")>Open</option>
+            </select>
+        </div>
+
+        <div class="timesheetid" style="display: none">@timeSheet.TimeSheetID</div>
+    </div>
+}
+
+

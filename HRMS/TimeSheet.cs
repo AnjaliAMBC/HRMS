@@ -14,62 +14,24 @@ namespace HRMS
     
     public partial class TimeSheet
     {
-        public int Sno { get; set; }
+        public int TimeSheetID { get; set; }
         public string Client { get; set; }
         public string EmployeeID { get; set; }
         public string EmployeeName { get; set; }
         public string EmployeeEmail { get; set; }
         public Nullable<System.DateTime> Date { get; set; }
-        public string Category1 { get; set; }
-        public string IncidentTaskName1 { get; set; }
-        public string IncidentTaskDescription1 { get; set; }
-        public string Requester1 { get; set; }
-        public string HoursSpent1 { get; set; }
-        public string Priority1 { get; set; }
-        public string Status1 { get; set; }
-        public string Category2 { get; set; }
-        public string IncidentTaskName2 { get; set; }
-        public string IncidentTaskDescription2 { get; set; }
-        public string Requester2 { get; set; }
-        public string HoursSpent2 { get; set; }
-        public string Priority2 { get; set; }
-        public string Status2 { get; set; }
-        public string Category3 { get; set; }
-        public string IncidentTaskName3 { get; set; }
-        public string IncidentTaskDescription3 { get; set; }
-        public string Requester3 { get; set; }
-        public string HoursSpent3 { get; set; }
-        public string Priority3 { get; set; }
-        public string Status3 { get; set; }
-        public string Category4 { get; set; }
-        public string IncidentTaskName4 { get; set; }
-        public string IncidentTaskDescription4 { get; set; }
-        public string Requester4 { get; set; }
-        public string HoursSpent4 { get; set; }
-        public string Priority4 { get; set; }
-        public string Status4 { get; set; }
-        public string Category5 { get; set; }
-        public string IncidentTaskName5 { get; set; }
-        public string IncidentTaskDescription5 { get; set; }
-        public string Requester5 { get; set; }
-        public string HoursSpent5 { get; set; }
-        public string Priority5 { get; set; }
-        public string Status5 { get; set; }
-        public string Category6 { get; set; }
-        public string IncidentTaskName6 { get; set; }
-        public string IncidentTaskDescription6 { get; set; }
-        public string Requester6 { get; set; }
-        public string HoursSpent6 { get; set; }
-        public string Priority6 { get; set; }
-        public string Status6 { get; set; }
-        public string Category7 { get; set; }
-        public string IncidentTaskName7 { get; set; }
-        public string IncidentTaskDescription7 { get; set; }
-        public string Requester7 { get; set; }
-        public string HoursSpent7 { get; set; }
-        public string Priority7 { get; set; }
-        public string Status7 { get; set; }
+        public string Category { get; set; }
+        public string IncidentTaskName { get; set; }
+        public string IncidentTaskDescription { get; set; }
+        public string Requester { get; set; }
+        public Nullable<decimal> HoursSpent { get; set; }
+        public string Priority { get; set; }
+        public string Status { get; set; }
+        public string CreateddBy { get; set; }
+        public Nullable<System.DateTime> CreatedDate { get; set; }
         public string UpdatedBy { get; set; }
         public Nullable<System.DateTime> UpdatedDate { get; set; }
+        public Nullable<int> WeekEnd { get; set; }
+        public string submissionstatus { get; set; }
     }
 }
