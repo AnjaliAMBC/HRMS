@@ -37,16 +37,15 @@ namespace HRMS.Controllers
 
             model.Assets = _dbContext.Assets.OrderByDescending(x => x.CreatedDate).ToList();
             model.TotalAssets = model.Assets.Count();
-            model.AssetsInUse = model.Assets.Where(x => x.AllocatedStatus == "Assigned").ToList().Count();
-            model.AssetsInScrap = model.Assets.Where(x => x.AllocatedStatus == "Scrap").ToList().Count();
-            model.HydAssets = model.Assets.Where(x => x.AllocatedStatus == "Assigned" && x.Location == "Hyderabad").ToList().Count();
-            model.MaduraiAssets = model.Assets.Where(x => x.AllocatedStatus == "Assigned" && x.Location == "Madurai").ToList().Count();
+            model.AssetsInUse = model.Assets.Where(x => x.AllocatedStatus.Trim() == "Assigned").ToList().Count();
+            model.AssetsInScrap = model.Assets.Where(x => x.AllocatedStatus.Trim() == "Scarp").Count();
+            model.HydAssets = model.Assets.Where(x => x.AllocatedStatus.Trim() == "Assigned" && x.Location.Trim() == "Hyderabad").ToList().Count();
+            model.MaduraiAssets = model.Assets.Where(x => x.AllocatedStatus.Trim() == "Assigned" && x.Location.Trim() == "Madurai").ToList().Count();
             model.AssetModel.Employees = _dbContext.emp_info.Where(x => x.EmployeeStatus == "Active").ToList();
             model.AssetModel.allVendors = _dbContext.VendorLists.Where(x => x.Status == "Approved").ToList();
             model.AssetModel.ITEmployees = _dbContext.emp_info.Where(x => x.EmployeeStatus == "Active" && x.Department == "IT").ToList();
             return View("~/Views/Itsupport/AssetInfo.cshtml", model);
         }
-
         public ActionResult AddAsset(int sno = 0)
         {
             var model = new AssetModel();

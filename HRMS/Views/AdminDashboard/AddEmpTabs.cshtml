@@ -478,12 +478,16 @@
                         <div class="col-lg-3 col-md-6">
                             <div class="form-group tabs-general drop-menu">
                                 <label for="AdminAddEmpClient1">Client</label>
-                                <select class="form-control" id="AdminAddEmpClient1" required>
+                                <select class="form-control" id="AdminAddEmpClient1" name="Client" required>
                                     <option value="">Select Client</option>
-                                    <option value="1">Test Client</option>
+                                    @foreach (var client in Model.Clients)
+                                    {
+                                        <option value="@client.Id">@client.Name</option>
+                                    }
                                 </select>
                                 <div class="invalid-feedback">Please select Client.</div>
                             </div>
+
                         </div>
                         <div class="col-lg-3 col-md-6">
                             <div class="form-group tabs-general">
@@ -512,7 +516,10 @@
                             <div class="form-group tabs-general drop-menu">
                                 <select class="form-control" id="AdminAddEmpClient2" required>
                                     <option value="">Select Client</option>
-                                    <option value="1">Test Client</option>
+                                    @foreach (var client in Model.Clients)
+                                    {
+                                        <option value="@client.Id">@client.Name</option>
+                                    }
                                 </select>
                                 <div class="invalid-feedback">Please select Client.</div>
                             </div>
@@ -541,7 +548,10 @@
                             <div class="form-group tabs-general drop-menu">
                                 <select class="form-control" id="AdminAddEmpClient3" required>
                                     <option value="">Select Client</option>
-                                    <option value="1">Test Client</option>
+                                    @foreach (var client in Model.Clients)
+                                    {
+                                        <option value="@client.Id">@client.Name</option>
+                                    }
                                 </select>
                                 <div class="invalid-feedback">Please select Client.</div>
                             </div>

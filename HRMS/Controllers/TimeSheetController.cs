@@ -1,8 +1,10 @@
 ﻿using HRMS.Helpers;
 using HRMS.Models;
+using HRMS.Models.Employee;
 using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
+using System.Configuration;
 using System.Data.Entity.Validation;
 using System.Globalization;
 using System.Linq;
@@ -11,6 +13,7 @@ using System.Web.Mvc;
 
 namespace HRMS.Controllers
 {
+    using static HRMS.Helpers.PartialViewHelper;
     public class TimeSheetController : Controller
     {
         private readonly HRMS_EntityFramework _dbContext;
@@ -32,7 +35,7 @@ namespace HRMS.Controllers
             var cuserContext = SiteContext.GetCurrentUserContext();
             var empID = cuserContext.EmpInfo.EmployeeID;
             Timesheet model = CurrentWeekTimeSheetDetails(client, empID, date);
-            return View("~/Views/EmployeeDashboard/EmpTimesheetSubmit.cshtml", model);
+            return View("~/Views/Timesheet/EmpTimesheetSubmit.cshtml", model);
         }
 
         private Timesheet CurrentWeekTimeSheetDetails(string client, string empID, string date)
@@ -394,8 +397,6 @@ namespace HRMS.Controllers
         //        });
 
         //    }
-
-
         //    return model;
         //}
 
@@ -403,7 +404,7 @@ namespace HRMS.Controllers
         {
             Timesheet model = TimesheetsByWeek(weekstart, weekend, weeknumber, client, empID);
 
-            return PartialView("~/Views/EmployeeDashboard/_EmployeeTimeSheetMain.cshtml", model);
+            return PartialView("~/Views/Timesheet/_EmployeeTimeSheetMain.cshtml", model);
         }
 
         private Timesheet TimesheetsByWeek(string weekstart, string weekend, int weeknumber, string client, string empID)
@@ -425,7 +426,7 @@ namespace HRMS.Controllers
         {
             Timesheet model = TimesheetsByWeek(weekstart, weekend, weeknumber, client, empID);
 
-            return PartialView("~/Views/EmployeeDashboard/_EmpViewTimeSheetrows.cshtml", model);
+            return PartialView("~/Views/Timesheet/_EmpViewTimeSheetrows.cshtml", model);
         }
 
 
@@ -461,7 +462,7 @@ namespace HRMS.Controllers
                 EmployeeID = cuserContext.EmpInfo.EmployeeID
             });
 
-            return PartialView("~/Views/EmployeeDashboard/_Timesheetaddnewrow.cshtml", model);
+            return PartialView("~/Views/Timesheet/_Timesheetaddnewrow.cshtml", model);
         }
 
         [HttpPost]
@@ -557,7 +558,7 @@ namespace HRMS.Controllers
         {
             var cuserContext = SiteContext.GetCurrentUserContext();
             Timesheet model = CurrentWeekTimeSheetDetails(cuserContext.EmpInfo.Client, cuserContext.EmpInfo.EmployeeID, "");
-            return View("~/Views/EmployeeDashboard/EmpTimesheetView.cshtml", model);
+            return View("~/Views/Timesheet/EmpTimesheetView.cshtml", model);
         }
 
 
@@ -574,6 +575,19 @@ namespace HRMS.Controllers
                     timeSheet.UpdatedDate = DateTime.Now;
                 }
                 _dbContext.SaveChanges();
+
+                var emailBody = RenderPartialToString(this, "_TimesheetReminderEmail", timeSheets, ViewData, TempData);
+
+                var emailRequest = new EmailRequest()
+                {
+                    Body = emailBody,
+                    ToEmail = ConfigurationManager.AppSettings["TimesheetSubmitEmail"],
+                    Subject = $"Submission of Timesheet - {cuserContext.EmpInfo.EmployeeName} - {cuserContext.EmpInfo.EmployeeID}" // Adjust subject as needed
+                };
+
+                // Send email
+                EMailHelper.SendEmail(emailRequest);
+
 
                 return Json(new { success = true, message = "TimeSheet submitted Successfully!" });
             }
@@ -604,16 +618,16 @@ namespace HRMS.Controllers
 
         public ActionResult AdminTimesheet()
         {
-            return View("~/Views/AdminDashboard/AdminTimesheetView.cshtml");
+            return View("~/Views/Timesheet/AdminTimesheetView.cshtml");
         }
 
         public ActionResult TimesheetWeekReport()
         {
-            return View("~/Views/AdminDashboard/TimesheetWeeklyTemplate.cshtml");
+            return View("~/Views/Timesheet/TimesheetWeeklyTemplate.cshtml");
         }
         public ActionResult TimesheetMonthReport()
         {
-            return View("~/Views/AdminDashboard/TimesheetMonthlyTemplate.cshtml");
+            return View("~/Views/Timesheet/TimesheetMonthlyTemplate.cshtml");
         }
     }
 }

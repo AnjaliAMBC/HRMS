@@ -73,9 +73,7 @@ $(document).on('click', '.asset-info-transfer', function (event) {
             $('.asseettrasfer-assign-location').text(data.EditAssets.Location);
             $('.asseettrasfer-assign-olddate').text(FormattedTransferDate(data.EditAssets.AssignedDate));
             $('.asseettrasfer-assign-oldassignby').text(data.EditAssets.AssignedBy);
-            $('.asset-transer-assesno').text(data.EditAssets.SNo);
-
-          
+            $('.asset-transer-assesno').text(data.EditAssets.SNo);          
         },
         error: function (xhr, status, error) {
             alert("An error occurred: " + error);
