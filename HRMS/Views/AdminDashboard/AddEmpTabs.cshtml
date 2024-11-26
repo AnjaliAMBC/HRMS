@@ -459,11 +459,119 @@
                             </div>
 
                         </div>
+                        @*<div class="col-lg-12 col-md-12 res-save-btn">
+                            <button type="button" class="btn btn-primary save-and-next">Save and Next</button>
+                        </div>*@
+
+                    </div>
+
+                    <div class="client-details-header">
+                        <h3 class="client-det">Client Details</h3>
+                        <div class="input-group-append">
+                            <button class="btn btn-secondary btn-sm" type="button">
+                                <i class="fas fa-plus fa-xs"></i>
+                            </button>
+                        </div>
+                    </div>
+                    
+                    <div class="row EmpClientDetails-1">
+                        <div class="col-lg-3 col-md-6">
+                            <div class="form-group tabs-general drop-menu">
+                                <label for="AdminAddEmpClient1">Client</label>
+                                <select class="form-control" id="AdminAddEmpClient1" required>
+                                    <option value="">Select Client</option>
+                                    <option value="1">Test Client</option>
+                                </select>
+                                <div class="invalid-feedback">Please select Client.</div>
+                            </div>
+                        </div>
+                        <div class="col-lg-3 col-md-6">
+                            <div class="form-group tabs-general">
+                                <label for="AdminAddEmpProjectName1">Project Name</label>
+                                <input type="text" class="form-control" id="AdminAddEmpProjectName1" value="" required>
+                                <div class="invalid-feedback">Please enter Project Name.</div>
+                            </div>
+                        </div>
+                        <div class="col-lg-3 col-md-6">
+                            <div class="form-group tabs-general">
+                                <label for="AdminAddEmpRole1">Role</label>
+                                <input type="text" class="form-control" id="AdminAddEmpRole1" value="" required>
+                                <div class="invalid-feedback">Please enter Role.</div>
+                            </div>
+                        </div>
+                        <div class="col-lg-3 col-md-6">
+                            <div class="form-group tabs-general">
+                                <label for="AdminAddEmpReportingManager1">Reporting Manager</label>
+                                <input type="text" class="form-control" id="AdminAddEmpReportingManager1" value="" required>
+                                <div class="invalid-feedback">Please enter Reporting Manager.</div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row EmpClientDetails-2">
+                        <div class="col-lg-3 col-md-6">
+                            <div class="form-group tabs-general drop-menu">
+                                <select class="form-control" id="AdminAddEmpClient2" required>
+                                    <option value="">Select Client</option>
+                                    <option value="1">Test Client</option>
+                                </select>
+                                <div class="invalid-feedback">Please select Client.</div>
+                            </div>
+                        </div>
+                        <div class="col-lg-3 col-md-6">
+                            <div class="form-group tabs-general">
+                                <input type="text" class="form-control" id="AdminAddEmpProjectName2" value="" required>
+                                <div class="invalid-feedback">Please enter Project Name.</div>
+                            </div>
+                        </div>
+                        <div class="col-lg-3 col-md-6">
+                            <div class="form-group tabs-general">
+                                <input type="text" class="form-control" id="AdminAddEmpRole2" value="" required>
+                                <div class="invalid-feedback">Please enter Role.</div>
+                            </div>
+                        </div>
+                        <div class="col-lg-3 col-md-6">
+                            <div class="form-group tabs-general">
+                                <input type="text" class="form-control" id="AdminAddEmpReportingManager2" value="" required>
+                                <div class="invalid-feedback">Please enter Reporting Manager.</div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row EmpClientDetails-3">
+                        <div class="col-lg-3 col-md-6">
+                            <div class="form-group tabs-general drop-menu">
+                                <select class="form-control" id="AdminAddEmpClient3" required>
+                                    <option value="">Select Client</option>
+                                    <option value="1">Test Client</option>
+                                </select>
+                                <div class="invalid-feedback">Please select Client.</div>
+                            </div>
+                        </div>
+                        <div class="col-lg-3 col-md-6">
+                            <div class="form-group tabs-general">
+                                <input type="text" class="form-control" id="AdminAddEmpProjectName3" value="" required>
+                                <div class="invalid-feedback">Please enter Project Name.</div>
+                            </div>
+                        </div>
+                        <div class="col-lg-3 col-md-6">
+                            <div class="form-group tabs-general">
+                                <input type="text" class="form-control" id="AdminAddEmpRole3" value="" required>
+                                <div class="invalid-feedback">Please enter Role.</div>
+                            </div>
+                        </div>
+                        <div class="col-lg-3 col-md-6">
+                            <div class="form-group tabs-general">
+                                <input type="text" class="form-control" id="AdminAddEmpReportingManager3" value="" required>
+                                <div class="invalid-feedback">Please enter Reporting Manager.</div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="row">
                         <div class="col-lg-12 col-md-12 res-save-btn">
                             <button type="button" class="btn btn-primary save-and-next">Save and Next</button>
                         </div>
-
                     </div>
+
 
                     @*Current loggedin User name*@
                     <input type="text" class="form-control" id="CreatedBy" value="@Model.EmpInfo.Employer_name" style="display: none">
@@ -917,4 +1025,17 @@
             error.style.display = 'none';
         }
     }
+
+    $(".EmpClientDetails-2, .EmpClientDetails-3").css({
+        "display": "none"
+    });
+
+    $('.admin-empmanagement-view .client-details-header .input-group-append').click(function (e) {
+        if ($('.EmpClientDetails-2').css('display') === 'flex') {
+            $('.EmpClientDetails-3').css('display', 'flex');
+        }
+        $('.EmpClientDetails-2').css({
+            'display': 'flex'
+        });
+    });
 </script>
