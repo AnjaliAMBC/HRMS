@@ -1,0 +1,130 @@
+﻿
+@{
+    ViewBag.Title = "_TimesheetSubmittedEmail";
+}
+
+
+@{
+    var siteURL = System.Configuration.ConfigurationManager.AppSettings["siteURL"];
+    var logoURL = siteURL + "/Assets/AMBC_Logo.png";
+}
+
+
+
+
+
+<div class="email-container" style="font-family: Calibri; color: #333; background-color: #f9f9f9; padding: 20px; border-radius: 8px; max-width: 600px; margin: auto;">
+    <div class="email-content" style="position: relative; padding: 20px; background-color: #fff; border-radius: 8px; box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);">
+        <table width="100%" cellpadding="0" cellspacing="0" border="0" style="background-color:#ffffff;">
+            <tr>
+                <td style="padding:0;">
+                    <p>Hello EmployeeName,</p>
+                </td>
+                <td align="right" style="padding: 0;">
+                    <a href="@siteURL" target="_blank">
+                        <img src="@logoURL" alt="AMBC Logo" width="80" style="display: block;">
+                    </a>
+                </td>
+            </tr>
+        </table>
+        <p style="font-size:18px;">Your timesheet for the week of <b>25th November 2024</b> to <b>1st December 2024</b> has been successfully submitted</p>
+
+        <p style="font-size:18px;">Please make sure your data are relevent.</p>
+
+        <table class="table table-admin-weeklyupdate-timesheet" id="adminweeklyupdatesheet" style="width:100%;font-size:14px;">
+            <thead style="background-color: #d8e6fb;">
+                <tr>
+                    <th class="weeklyupdate-timesheet-header" colspan="8">TASK DETAILS(25-11-2024 TO 01-12-2024)</th>
+                </tr>
+                <tr class="weeklyupdate-timesheet-subheader">
+                    <th>Date</th>
+                    <th>Category</th>
+                    <th>Task/Incident Name</th>
+                    <th>Task/Incident Description</th>
+                    <th>Priority</th>
+                    <th>Requester</th>
+                    <th>Status</th>
+                    <th>Total Hours</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>25-11-2024</td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                </tr>
+                <tr>
+                    <td>26-11-2024</td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                </tr>
+                <tr>
+                    <td>27-11-2024</td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                </tr>
+                <tr>
+                    <td>28-11-2024</td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                </tr>
+                <tr>
+                    <td>29-11-2024</td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                </tr>
+                <tr>
+                    <td>30-11-2024</td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                </tr>
+                <tr>
+                    <td>01-12-2024</td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                </tr>
+            </tbody>
+        </table>
+        <div style="font-family: Calibri; color: #696969; font-size: 1.1em; margin-top: 20px; text-align: center;">
+            This is an automated email, please do not reply.
+            <br />
+            Automated mail from <a href="https://prm.ambctechnologies.com" style="color: #2693F8;">https://prm.ambctechnologies.com</a>
+        </div>
+
+
+
