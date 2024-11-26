@@ -360,7 +360,14 @@
                         <div class="tab-pane fade assetview-allocateinfo-details" id="tab3" role="tabpanel" aria-labelledby="tab3-link">
                             <div class="container" style="margin-left: 5px">
                                 <div class="tree-structure">
-
+                                    @if (Model.AllocatedEmpInfo == null)
+                                    {
+                                <div class="no-allocation-message">
+                                    <p style="font-weight: bold; color: #ff0000;">Not allocated this asset to anyone</p>
+                                </div>
+                                }
+                                  else
+                                    {
                                     <div class="tree">
                                         <ul>
                                             <li>
@@ -368,15 +375,14 @@
                                                     <div class="parent">
                                                         <div class="person female" style="border: none;">
                                                             <div class="name allocate-details tree-root">
-                                                                @if (Model.AllocatedEmpInfo != null)
-                                                                {
+                                                               
                                                                     <img src="/assets/empimages/@Model.AllocatedEmpInfo.imagepath">
                                                                     <div class="user-info">
                                                                         <div class="user-name">@Model.AllocatedEmpInfo.EmployeeName @Model.AllocatedEmpInfo.EmployeeID</div>
                                                                         <div class="user-designation">@Model.AllocatedEmpInfo.Designation</div>
                                                                         <div class="user-location">Location: @Model.AllocatedEmpInfo.Location</div>
                                                                     </div>
-                                                                }
+                                                                
 
                                                             </div>
                                                         </div>
@@ -397,7 +403,11 @@
                                                                                 <div class="allocate-info">
                                                                                     <div class="model"><span>Type</span> @Model.EditAssets.AssetType1 @Model.EditAssets.AssetSerialNo1</div>
                                                                                     <div class="allocatedby"><span>Allocated By</span> @Model.EditAssets.AssignedBy</div>
-                                                                                    <div class="allocateddate"><span>Allocated Date</span> @Model.EditAssets.AssignedDate.Value.ToString("yyyy-MM-dd")</div>
+                                                                                    <div class="allocateddate">
+                                                                                        <span>Allocated Date</span>
+                                                                                        @(Model.EditAssets.AssignedDate.HasValue ? Model.EditAssets.AssignedDate.Value.ToString("yyyy-MM-dd") : "Not Assigned")
+                                                                                    </div>
+
                                                                                 </div>
                                                                             </div>
                                                                         </div>
@@ -415,7 +425,7 @@
                                                                                 <div class="allocate-info">
                                                                                     <div class="model"><span>Type</span> @Model.EditAssets.AssetType2 @Model.EditAssets.AssetSerialNo2</div>
                                                                                     <div class="allocatedby"><span>Allocated By</span> @Model.EditAssets.AssignedBy</div>
-                                                                                    <div class="allocateddate"><span>Allocated Date</span> @Model.EditAssets.AssignedDate.Value.ToString("yyyy-MM-dd")</div>
+                                                                                    <div class="allocateddate"><span>Allocated Date</span>  @(Model.EditAssets.AssignedDate.HasValue ? Model.EditAssets.AssignedDate.Value.ToString("yyyy-MM-dd") : "Not Assigned")</div>
                                                                                 </div>
                                                                             </div>
                                                                         </div>
@@ -432,7 +442,7 @@
                                                                                 <div class="allocate-info">
                                                                                     <div class="model"><span>Type</span> @Model.EditAssets.AssetType3 @Model.EditAssets.AssetSerialNo3</div>
                                                                                     <div class="allocatedby"><span>Allocated By</span> @Model.EditAssets.AssignedBy</div>
-                                                                                    <div class="allocateddate"><span>Allocated Date</span> @Model.EditAssets.AssignedDate.Value.ToString("yyyy-MM-dd")</div>
+                                                                                    <div class="allocateddate"><span>Allocated Date</span> @(Model.EditAssets.AssignedDate.HasValue ? Model.EditAssets.AssignedDate.Value.ToString("yyyy-MM-dd") : "Not Assigned")</div>
                                                                                 </div>
                                                                             </div>
                                                                         </div>
@@ -449,7 +459,7 @@
                                                                                 <div class="allocate-info">
                                                                                     <div class="model"><span>Type</span> @Model.EditAssets.AssetType4 @Model.EditAssets.AssetSerialNo4</div>
                                                                                     <div class="allocatedby"><span>Allocated By</span> @Model.EditAssets.AssignedBy</div>
-                                                                                    <div class="allocateddate"><span>Allocated Date</span> @Model.EditAssets.AssignedDate.Value.ToString("yyyy-MM-dd")</div>
+                                                                                    <div class="allocateddate"><span>Allocated Date</span>  @(Model.EditAssets.AssignedDate.HasValue ? Model.EditAssets.AssignedDate.Value.ToString("yyyy-MM-dd") : "Not Assigned")</div>
                                                                                 </div>
                                                                             </div>
                                                                         </div>
@@ -466,7 +476,7 @@
                                                                                 <div class="allocate-info">
                                                                                     <div class="model"><span>Type</span> @Model.EditAssets.AssetType5 @Model.EditAssets.AssetSerialNo5</div>
                                                                                     <div class="allocatedby"><span>Allocated By</span> @Model.EditAssets.AssignedBy</div>
-                                                                                    <div class="allocateddate"><span>Allocated Date</span> @Model.EditAssets.AssignedDate.Value.ToString("yyyy-MM-dd")</div>
+                                                                                    <div class="allocateddate"><span>Allocated Date</span>  @(Model.EditAssets.AssignedDate.HasValue ? Model.EditAssets.AssignedDate.Value.ToString("yyyy-MM-dd") : "Not Assigned")</div>
                                                                                 </div>
                                                                             </div>
                                                                         </div>
@@ -484,7 +494,7 @@
                                                                                 <div class="allocate-info">
                                                                                     <div class="model"><span>Type</span> @Model.EditAssets.AssetType6 @Model.EditAssets.AssetSerialNo6</div>
                                                                                     <div class="allocatedby"><span>Allocated By</span> @Model.EditAssets.AssignedBy</div>
-                                                                                    <div class="allocateddate"><span>Allocated Date</span> @Model.EditAssets.AssignedDate.Value.ToString("yyyy-MM-dd")</div>
+                                                                                    <div class="allocateddate"><span>Allocated Date</span>  @(Model.EditAssets.AssignedDate.HasValue ? Model.EditAssets.AssignedDate.Value.ToString("yyyy-MM-dd") : "Not Assigned")</div>
                                                                                 </div>
                                                                             </div>
                                                                         </div>
@@ -502,7 +512,7 @@
                                                                                 <div class="allocate-info">
                                                                                     <div class="model"><span>Type</span> @Model.EditAssets.AssetType7 @Model.EditAssets.AssetSerialNo7</div>
                                                                                     <div class="allocatedby"><span>Allocated By</span> @Model.EditAssets.AssignedBy</div>
-                                                                                    <div class="allocateddate"><span>Allocated Date</span> @Model.EditAssets.AssignedDate.Value.ToString("yyyy-MM-dd")</div>
+                                                                                    <div class="allocateddate"><span>Allocated Date</span>  @(Model.EditAssets.AssignedDate.HasValue ? Model.EditAssets.AssignedDate.Value.ToString("yyyy-MM-dd") : "Not Assigned")</div>
                                                                                 </div>
                                                                             </div>
                                                                         </div>
@@ -516,7 +526,7 @@
                                         </ul>
                                     </div>
 
-
+                                                                }
                                 </div>
                             </div>
                         </div>
@@ -559,10 +569,8 @@
                                             </div>
                                         </div>
                                     </div>
-
                                     <div class="vertical-line"></div>
                                 }
-
                             </div>
                         </div>
                     </div>
