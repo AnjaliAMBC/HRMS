@@ -48,9 +48,9 @@
                                     <div class="admin-timesheet-block3">
                                         <div class="form-group col-lg-12 div-timesheet-employeename">
                                             @*<select class="form-control" id="admintimesheetEmployeeName">
-                                                <option value="1">Test1</option>
-                                                <option value="2">Test2</option>
-                                            </select>*@
+                                        <option value="1">Test1</option>
+                                        <option value="2">Test2</option>
+                                    </select>*@
 
                                             <div class="dropdown">
                                                 <a class="btn btn-outline-primary admintimesheet-dropdown-toggle" href="#" id="adminTimesheetDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
@@ -164,7 +164,6 @@
 
 
                 </div>
-
             </div>
         </div>
     </div>
@@ -350,6 +349,7 @@
             $('.admin-timesheet-graph-reportingmanager-info').text('Testing Reporting Manager Name');
 
             reloadHoursSpent();
+            reloadTable();
 
             // Dynamically update dataPoints
             dataPoints1 = [
@@ -416,6 +416,7 @@
             $('.admin-timesheet-graph-resourcename-info').text('Testing Resource Name');
             $('.admin-timesheet-graph-reportingmanager-info').text('Testing Reporting Manager Name');
             reloadHoursSpent();
+            reloadTable();
 
             // Dynamically update dataPoints
             dataPoints1 = [
@@ -527,6 +528,44 @@
         attendanceChart.update();
     }
 
+    function reloadTable() {
+        // Initialize DataTable
+        let table = $('#admintimesheetlistingTable').DataTable();
+        console.log("Reload button clicked.");
+
+        // Static data array
+        var data = [
+            { date: '10-11-2024', category: 'John Doe', taskname: 'XYZ Corp', taskdesc: 'Chennai', priority: 'Medium', requester: 'Medium', status: 'Closed', totalhours: '10' },
+            { date: '10-11-2024', category: 'Jane Smith', taskname: 'Test Corp', taskdesc: 'Madurai', priority: 'Medium', requester: 'High', status: 'Open', totalhours: '8' },
+            { date: '06-11-2024', category: 'Mark Johnson', taskname: 'XYZ Corp', taskdesc: 'Hyderabad', priority: 'High', requester: 'Medium', status: 'Closed', totalhours: '12' }
+        ];
+
+        // Clear the existing data in the table
+        console.log("Clearing existing data...");
+        table.clear();
+
+        // Add new rows dynamically
+        console.log("Adding new rows...");
+        data.forEach((item, index) => {
+            console.log(`Adding row ${index + 1}: `, item);
+            table.row.add([
+                item.date,
+                item.category,
+                item.taskname,
+                item.taskdesc,
+                item.priority,
+                item.requester,
+                item.status,
+                item.totalhours
+            ]);
+        });
+
+        // Redraw the table to update
+        console.log("Redrawing the table...");
+        table.draw();
+        console.log("Table reloaded successfully.");
+    }
+
 </script>
 
 <script>
@@ -540,7 +579,56 @@
             "ordering": false,
             "info": true,
             "autoWidth": false,
-        });        
+        });
+
+        // Employee search filter
+        $(document).on('keyup', '#employeeSearch', function () {
+            var value = $(this).val().toLowerCase();
+            $('#employeeList .form-check').filter(function () {
+                $(this).toggle($(this).text().toLowerCase().indexOf(value) > -1)
+            });
+        });
+
+        // Select All functionality in employee list
+        $(document).on('change', '#selectAll', function () {
+            var checked = $(this).is(':checked');
+            $('#employeeList .form-check-input').not('#selectAll').prop('checked', checked);
+            updateSelectedEmployees(); // Update the selected employees text
+            filterTable(table);
+        });
+
+        // Function to update selected employees in button text
+        function updateSelectedEmployees() {
+            let selectedEmployees = [];
+            $('#employeeList .form-check-input:checked').not('#selectAll').each(function () {
+                let employeeName = $(this).siblings('label').find('span').text();
+                selectedEmployees.push(employeeName);
+            });
+
+            // Update button text with selected employees
+            let buttonText = 'Select Employees';
+            if (selectedEmployees.length > 0) {
+                if (selectedEmployees.length === 1) {
+                    buttonText = selectedEmployees[0];
+                } else {
+                    buttonText = selectedEmployees.length + ' employees selected';
+                }
+            }
+            $('#adminTimesheetDropdown').html(buttonText + ' <i class="fas fa-chevron-down ml-1"></i>');
+        }
+
+        // Event handler for checkbox change
+        $(document).on('change', '#employeeList .form-check-input', function () {
+            updateSelectedEmployees();
+            filterTable(table);
+        });
+
+        function filterTable(table) {
+            var selectedEmployees = [];
+            $('#employeeList .form-check-input:checked').not('#selectAll').each(function () {
+                selectedEmployees.push($(this).attr('id'));
+            });
+        }
 
     });
 </script>
