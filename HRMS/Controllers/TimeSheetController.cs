@@ -44,8 +44,7 @@ namespace HRMS.Controllers
             var model = new Timesheet();
             DateTime today = string.IsNullOrWhiteSpace(startDate) ? DateTime.Today : DateTime.Parse(startDate);
             if (isWeek)
-            {
-                // Determine the start and end of the week
+            {               
                 DayOfWeek startOfWeek = DayOfWeek.Monday;
                 int diff = (7 + (today.DayOfWeek - startOfWeek)) % 7;
 
@@ -58,8 +57,7 @@ namespace HRMS.Controllers
                 model.Weeknumber = CultureInfo.CurrentCulture.Calendar.GetWeekOfYear(today, CalendarWeekRule.FirstDay, startOfWeek);
             }
             else
-            {
-                // Month calculation logic
+            {                
                 DateTime start = string.IsNullOrWhiteSpace(startDate) ? DateTime.Today : DateTime.Parse(startDate);
                 DateTime monthStartDate = new DateTime(start.Year, start.Month, 1);
 
@@ -641,6 +639,7 @@ namespace HRMS.Controllers
             var cuserContext = SiteContext.GetCurrentUserContext();
             Timesheet model = CurrentWeekTimeSheetDetails(cuserContext.EmpInfo.Client, cuserContext.EmpInfo.EmployeeID, "", "", true);
             model.Employees = _dbContext.emp_info.ToList();
+            model.WeeklyReport = true;
             return View("~/Views/Timesheet/AdminTimesheetView.cshtml", model);
         }
 
@@ -648,11 +647,9 @@ namespace HRMS.Controllers
         public JsonResult GetEmployeeTimesheet(string client, string employeeId, string startdate, string endDate, bool isweek)
         {
             Timesheet model = CurrentWeekTimeSheetDetails(client, employeeId, startdate, endDate, isweek);
+            model.WeeklyReport = isweek;
 
-            // Render the graph block partial view
             string graphBlockHtml = RenderPartialViewToString("~/Views/Timesheet/_AdminTimesheetCharts.cshtml", model);
-
-            // Render the table block partial view
             string tableBlockHtml = RenderPartialViewToString("~/Views/Timesheet/_AdminTimesheetrows.cshtml", model);
 
             return Json(new

@@ -37,6 +37,9 @@
                                 <div class="admin-timesheet-header-block-left">
                                     <div class="admin-timesheet-block1" data-weekstartdate="@Model.WeekStartDate.ToString("dd MMMM yyyy")" data-weekenddate="@Model.WeekEndDate.ToString("dd MMMM yyyy")" data-weeknumber="@Model.Weeknumber">
                                         <span class="admin-timesheet-weekno" id="admin-view-week-number">Week @Model.Weeknumber</span>
+                                        <select class="form-control admin-timesheet-weekno" id="admin-year-dropdown" style="display: none; width: 120px">
+                                            <!-- Dynamically populated years -->
+                                        </select>
                                         <span class="admin-timesheet-weekrange-info">
                                             <i class="fa fa-angle-left" aria-hidden="true" id="admin-view-prev-week"></i>
                                             <span class="admin-timesheet-weekrange">
@@ -251,9 +254,10 @@
             if (timesheetselectedEmployeeIds.length > 0) {
                 let firstEmployeeId = timesheetselectedEmployeeIds[currentTimeSheetIndex];
                 loadEmployeeTimesheet(firstEmployeeId);
-            } else {
-                alert("No employees selected.");
             }
+            //else {
+            //    alert("No employees selected.");
+            //}
         }
 
         $(document).on('click', '.timesheet-View', function () {
@@ -331,37 +335,128 @@
             };
         }
 
-        function updateViewWeek(date) {
-            var weekData = getStartEndDateOfWeek(date);
-            var weekStart = weekData.startDate;
-            var weekEnd = weekData.endDate;
+        function updateYearDropdown(year) {
+            const yearDropdown = $("#admin-year-dropdown");
+          
+            if (!yearDropdown.find(`option[value="${year}"]`).length) {
+                populateYearDropdown();
+            }
+            
+            yearDropdown.val(year);
+        }
 
-            var formattedStartDate = formatDateToLong(weekStart);
-            var formattedEndDate = formatDateToLong(weekEnd);
+       
+        function updateViewWeek(date, isWeekly) {
+            var startDate, endDate, weekNumber;
+
+            if (isWeekly) {
+                var weekData = getStartEndDateOfWeek(date);
+                startDate = weekData.startDate;
+                endDate = weekData.endDate;
+                weekNumber = getWeekNumber(startDate); // Calculate week number
+                $('#admin-view-week-number').text('Week ' + weekNumber);
+            } else {
+               
+                startDate = new Date(date.getFullYear(), date.getMonth(), 1); // First day of the month
+                endDate = new Date(date.getFullYear(), date.getMonth() + 1, 0); // Last day of the month
+                $('#admin-view-week-number').text(startDate.toLocaleString("en-US", { month: "long" }) + ' ' + startDate.getFullYear());
+            }
+
+         
+            var formattedStartDate = formatDateToLong(startDate);
+            var formattedEndDate = formatDateToLong(endDate);
 
             $('#admin-view-week-start').text(formattedStartDate);
             $('#admin-view-week-end').text(formattedEndDate);
-            var weekNumber = getWeekNumber(weekStart);
-            $('#admin-view-week-number').text('Week ' + weekNumber);
 
             $('.admin-timesheet-block1').attr("data-weekstartdate", formattedStartDate);
             $('.admin-timesheet-block1').attr("data-weekenddate", formattedEndDate);
 
+
+            if (!isWeekly) {
+                updateYearDropdown(startDate.getFullYear());
+            }       
+
             GetFirstEmployeeTimesheet();
         }
 
+      
         $(document).on('click', '#admin-view-prev-week', function (event) {
             event.preventDefault();
-            var prevWeekStart = new Date($('#admin-view-week-start').text().split('-').reverse().join('-'));
-            prevWeekStart.setDate(prevWeekStart.getDate() - 7);
-            updateViewWeek(prevWeekStart);
+            var isWeekly = $("#admin-timesheet-report").val() === "WeeklyReport";
+            var startDate = new Date($('#admin-view-week-start').text().split(' ').reverse().join(' '));
+
+            if (isWeekly) {
+                startDate.setDate(startDate.getDate() - 7);
+            } else {
+                startDate.setMonth(startDate.getMonth() - 1); 
+                startDate.setDate(1);
+            }
+
+            updateViewWeek(startDate, isWeekly);
         });
 
+      
         $(document).on('click', '#admin-view-next-week', function (event) {
             event.preventDefault();
-            var nextWeekStart = new Date($('#admin-view-week-start').text().split('-').reverse().join('-'));
-            nextWeekStart.setDate(nextWeekStart.getDate() + 7);
-            updateViewWeek(nextWeekStart);
+            var isWeekly = $("#admin-timesheet-report").val() === "WeeklyReport";
+            var startDate = new Date($('#admin-view-week-start').text().split(' ').reverse().join(' '));
+
+            if (isWeekly) {
+                startDate.setDate(startDate.getDate() + 7);
+            } else {
+                startDate.setMonth(startDate.getMonth() + 1);
+                startDate.setDate(1);
+            }
+            updateViewWeek(startDate, isWeekly);
+        });
+
+        function populateYearDropdown() {
+            const currentYear = new Date().getFullYear();
+            const yearDropdown = $("#admin-year-dropdown");
+
+            yearDropdown.empty();
+            yearDropdown.append(`<option value="${currentYear - 2}">${currentYear - 2}</option>`);
+            yearDropdown.append(`<option value="${currentYear - 1}">${currentYear - 1}</option>`);
+            yearDropdown.append(`<option value="${currentYear}" selected>${currentYear}</option>`); // Set current year as selected
+            yearDropdown.append(`<option value="${currentYear + 1}">${currentYear + 1}</option>`);
+        }
+
+
+        // Set the start and end dates for the month
+        function setMonthStartAndEndDates(year) {
+            const startDate = new Date(year, new Date().getMonth(), 1); // Start of the month
+            const endDate = new Date(year, new Date().getMonth() + 1, 0); // End of the month
+
+            // Update the HTML elements dynamically
+            $("#admin-view-week-start").text(formatDateToLong(startDate));
+            $("#admin-view-week-end").text(formatDateToLong(endDate));
+
+            $(".admin-timesheet-block1").attr("data-weekstartdate", formatDateToLong(startDate));
+            $(".admin-timesheet-block1").attr("data-weekenddate", formatDateToLong(endDate));
+        }
+
+
+
+        $("#admin-timesheet-report").on("change", function () {
+            const selectedReportType = $(this).val();
+
+            if (selectedReportType === "MonthlyReport") {
+                $("#admin-view-week-number").hide();
+                $("#admin-year-dropdown").show();
+                const currentYear = new Date().getFullYear();
+                populateYearDropdown();
+                setMonthStartAndEndDates(currentYear);
+            } else {
+                $("#admin-view-week-number").show();
+                $("#admin-year-dropdown").hide();
+                updateViewWeek(new Date(), true);
+            }
+        });
+
+        $("#admin-year-dropdown").on("change", function () {
+            const selectedYear = $(this).val();
+            setMonthStartAndEndDates(selectedYear);
         });
 
     });

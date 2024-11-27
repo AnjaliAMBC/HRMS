@@ -11,6 +11,17 @@
     decimal totalHoursSpent = 0;
     decimal totalOverTime = 0;
 
+    var weekLabels = new List<string>();
+
+    var weeksModel = new List<HRMS.Models.WeekDateModel>();
+
+    var totalHoursArray = new List<decimal>();
+    var overtimeHoursArray = new List<decimal>();
+
+
+
+
+
 }
 
 <script type="text/javascript" src="https://cdn.canvasjs.com/canvasjs.min.js"></script>
@@ -34,20 +45,80 @@
     </div>
 </div>
 
-
-@foreach (var weekinfo in Model.WeekInfo)
+@if (Model.WeeklyReport)
 {
-    dataPointsArray1.Add(weekinfo.DataPoints1[0]);
-    dataPointsArray2.Add(weekinfo.DataPoints2[0]);
-    dataPointsArray3.Add(weekinfo.DataPoints3[0]);
-    dataPointsArray4.Add(weekinfo.DataPoints4[0]);
-    dataPointsArray5.Add(weekinfo.DataPoints5[0]);
-    totalHoursSpent += weekinfo.HoursSpent;
-    totalOverTime += weekinfo.OverTime;
+    foreach (var weekinfo in Model.WeekInfo)
+    {
+        dataPointsArray1.Add(weekinfo.DataPoints1[0]);
+        dataPointsArray2.Add(weekinfo.DataPoints2[0]);
+        dataPointsArray3.Add(weekinfo.DataPoints3[0]);
+        dataPointsArray4.Add(weekinfo.DataPoints4[0]);
+        dataPointsArray5.Add(weekinfo.DataPoints5[0]);
+        totalHoursSpent += weekinfo.HoursSpent;
+        totalOverTime += weekinfo.OverTime;
+    }
+}
+else
+{
+
+    DateTime startDate = Model.WeekStartDate;
+    DateTime endDate = Model.WeekEndDate;
+
+    int totalWeeks = 0;
+    DateTime currentStartDate = startDate;
+
+    while (currentStartDate <= endDate)
+    {
+        DateTime weekEndDate = currentStartDate.AddDays(6);
+        if (weekEndDate > endDate)
+        {
+            weekEndDate = endDate;
+        }
+
+        totalWeeks++;
+        var weekLabel = "Week " + totalWeeks;
+        weekLabels.Add(weekLabel);
+
+        weeksModel.Add(new HRMS.Models.WeekDateModel()
+        {
+            StartDate = currentStartDate,
+            EndDate = weekEndDate
+        });
+
+        currentStartDate = weekEndDate.AddDays(1);
+    }
+
+    foreach (var date in weeksModel)
+    {
+        var weekwiseRecords = Model.WeekInfo.Where(x => x.Date >= date.StartDate && x.Date <= date.EndDate).ToList();
+
+        decimal weekHoursSpent = 0;
+        decimal weekOverTime = 0;
+        foreach (var record in weekwiseRecords)
+        {
+            weekHoursSpent += record.HoursSpent;
+            weekOverTime += record.OverTime;
+        }
+
+        totalHoursArray.Add(weekHoursSpent);
+        overtimeHoursArray.Add(weekOverTime);
+
+        totalHoursSpent += weekHoursSpent;
+        totalOverTime += weekOverTime;
+    }
+
+
+
 }
 
 
-<script>
+
+
+
+@if (Model.WeeklyReport)
+{
+    <script>
+
     var dataPoints1 = @Html.Raw(Json.Encode(dataPointsArray1));
         var dataPoints2 = @Html.Raw(Json.Encode(dataPointsArray2));
         var dataPoints3 = @Html.Raw(Json.Encode(dataPointsArray3));
@@ -116,7 +187,79 @@
             }
             chart.render();
         }
-</script>
+    </script>
+}
+else
+{
+    <script>
+
+    var weekLabels = @Html.Raw(Json.Encode(weekLabels));
+    var totalHoursArray = @Html.Raw(Json.Encode(totalHoursArray));
+    var overtimeHoursArray = @Html.Raw(Json.Encode(overtimeHoursArray));
+
+    var dataPoints1 = [];
+    var dataPoints2 = [];
+    var dataPoints3 = [];
+
+    for (var i = 0; i < weekLabels.length; i++) {
+        dataPoints1.push({ label: weekLabels[i], y: totalHoursArray[i] });
+        dataPoints2.push({ label: weekLabels[i], y: overtimeHoursArray[i] });
+        dataPoints3.push({ label: weekLabels[i], y: totalHoursArray[i] + overtimeHoursArray[i] });
+    }
+
+    var chart = new CanvasJS.Chart("admin-timesheet-hours-spent", {
+        axisY: {
+            suffix: " h",
+            interval: 5,
+            minimum: 0,
+            gridThickness: 0,
+            lineThickness: 0
+        },
+        data: [
+            {
+                type: "stackedColumn",
+                name: "Total Hours",
+                showInLegend: true,
+                color: "#33FF57",
+                yValueFormatString: "#,##0 h",
+                dataPoints: dataPoints1
+            },
+            {
+                type: "stackedColumn",
+                name: "Overtime Hours",
+                showInLegend: true,
+                color: "#FF5733",
+                yValueFormatString: "#,##0 h",
+                dataPoints: dataPoints2
+            },
+            //{
+            //    type: "stackedColumn",
+            //    name: "Combined Hours",
+            //    showInLegend: true,
+            //    color: "#FFC300", // Yellow color for Combined Hours (Total + Overtime)
+            //    yValueFormatString: "#,##0 h",
+            //    dataPoints: dataPoints3
+            //}
+        ]
+    });
+
+    // Render the chart
+    chart.render();
+
+    // Optional: Function to toggle data series visibility
+    function toggleDataSeries(e) {
+        if (typeof (e.dataSeries.visible) === "undefined" || e.dataSeries.visible) {
+            e.dataSeries.visible = false;
+        } else {
+            e.dataSeries.visible = true;
+        }
+        chart.render();
+    }
+    </script>
+
+}
+
+
 
 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.4/Chart.js"></script>

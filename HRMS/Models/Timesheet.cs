@@ -50,6 +50,8 @@ namespace HRMS.Models
         public List<emp_info> Employees { get; set; }
 
         public emp_info SelectedEmployee { get; set; }
+
+        public bool WeeklyReport { get; set; } = false;
     }
 
     public class DaySpecifcData

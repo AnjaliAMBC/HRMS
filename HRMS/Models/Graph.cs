@@ -12,4 +12,11 @@ namespace HRMS.Models
         public string indexLabel { get; set; }
     }
 
+    public class WeekDateModel
+    {
+        public DateTime StartDate { get; set; }
+        public DateTime EndDate { get; set; }
+      
+    }
+
 }
