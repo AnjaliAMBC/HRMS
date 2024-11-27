@@ -1,0 +1,52 @@
+﻿@model HRMS.Models.Timesheet
+
+<div class="admin-timesheet-table-body">
+    <div class="admin-timesheet-body table-responsive">
+        <table id="admintimesheetlistingTable" class="table admin-timesheet-table" style="width: 100%; color: #272727">
+            <thead style=" background-color: #3E78CF; border-radius: 10px;">
+                <tr>
+                    <th>Date</th>
+                    <th>Category</th>
+                    <th>Task/Incident Name</th>
+                    <th>Task/Incident Description</th>
+                    <th>Priority</th>
+                    <th>Requester</th>
+                    <th>Status</th>
+                    <th>Total Hours</th>
+                </tr>
+            </thead>
+            <tbody id="admintimesheetBody">
+
+                @foreach (var weekinfo in Model.WeekInfo)
+                {
+                    foreach (var timeSheet in weekinfo.TimeSheets.Where(x => x.HoursSpent > 0))
+                    {
+                        <tr>
+                            <td>@(timeSheet.Date.HasValue ? timeSheet.Date.Value.ToString("dd-MM-yyyy") : "N/A")</td>
+                            <td>@timeSheet.Category</td>
+                            <td>@timeSheet.IncidentTaskName</td>
+                            <td>@timeSheet.IncidentTaskDescription</td>
+                            <td>@timeSheet.Priority</td>
+                            <td>@timeSheet.Requester</td>
+                            <td>@timeSheet.Status</td>
+                            <td>@timeSheet.HoursSpent</td>
+                        </tr>
+                    }
+                }
+            </tbody>
+        </table>
+    </div>
+</div>
+
+
+<script>
+    $(document).ready(function () {
+        var table = $('#admintimesheetlistingTable').DataTable({
+            "paging": true,
+            "searching": false,
+            "ordering": false,
+            "info": true,
+            "autoWidth": false,
+        });
+    });
+</script>

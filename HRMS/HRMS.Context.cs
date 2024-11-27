@@ -29,7 +29,6 @@ namespace HRMS
         public virtual DbSet<Client> Clients { get; set; }
         public virtual DbSet<Department> Departments { get; set; }
         public virtual DbSet<Designation> Designations { get; set; }
-        public virtual DbSet<emp_info> emp_info { get; set; }
         public virtual DbSet<LeaveRM> LeaveRMs { get; set; }
         public virtual DbSet<tbld_ambclogininformation> tbld_ambclogininformation { get; set; }
         public virtual DbSet<tblambcholiday> tblambcholidays { get; set; }
@@ -53,5 +52,6 @@ namespace HRMS
         public virtual DbSet<JobReferral> JobReferrals { get; set; }
         public virtual DbSet<TimeSheetCategory> TimeSheetCategories { get; set; }
         public virtual DbSet<TimeSheet> TimeSheets { get; set; }
+        public virtual DbSet<emp_info> emp_info { get; set; }
     }
 }

@@ -7,6 +7,7 @@ using System.Collections.Generic;
 using System.Configuration;
 using System.Data.Entity.Validation;
 using System.Globalization;
+using System.IO;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
@@ -34,28 +35,45 @@ namespace HRMS.Controllers
         {
             var cuserContext = SiteContext.GetCurrentUserContext();
             var empID = cuserContext.EmpInfo.EmployeeID;
-            Timesheet model = CurrentWeekTimeSheetDetails(client, empID, date);
+            Timesheet model = CurrentWeekTimeSheetDetails(client, empID, "", "", true);
             return View("~/Views/Timesheet/EmpTimesheetSubmit.cshtml", model);
         }
 
-        private Timesheet CurrentWeekTimeSheetDetails(string client, string empID, string date)
+        private Timesheet CurrentWeekTimeSheetDetails(string client, string empID, string startDate, string endDate, bool isWeek)
         {
             var model = new Timesheet();
+            DateTime today = string.IsNullOrWhiteSpace(startDate) ? DateTime.Today : DateTime.Parse(startDate);
+            if (isWeek)
+            {
+                // Determine the start and end of the week
+                DayOfWeek startOfWeek = DayOfWeek.Monday;
+                int diff = (7 + (today.DayOfWeek - startOfWeek)) % 7;
 
-            DateTime today = string.IsNullOrWhiteSpace(date) ? DateTime.Today : DateTime.Parse(date);
+                DateTime weekStartDate = today.AddDays(-diff);
+                DateTime weekEndDate = weekStartDate.AddDays(6);
 
-            DayOfWeek startOfWeek = DayOfWeek.Monday;
-            int diff = (7 + (today.DayOfWeek - startOfWeek)) % 7;
+                model.WeekStartDate = weekStartDate;
+                model.WeekEndDate = weekEndDate;
 
-            DateTime weekStartDate = today.AddDays(-diff);
-            DateTime weekEndDate = weekStartDate.AddDays(6);
+                model.Weeknumber = CultureInfo.CurrentCulture.Calendar.GetWeekOfYear(today, CalendarWeekRule.FirstDay, startOfWeek);
+            }
+            else
+            {
+                // Month calculation logic
+                DateTime start = string.IsNullOrWhiteSpace(startDate) ? DateTime.Today : DateTime.Parse(startDate);
+                DateTime monthStartDate = new DateTime(start.Year, start.Month, 1);
 
-            model.Weeknumber = CultureInfo.CurrentCulture.Calendar.GetWeekOfYear(today, CalendarWeekRule.FirstDay, startOfWeek);
-            model.WeekStartDate = weekStartDate;
-            model.WeekEndDate = weekEndDate;
+                DateTime end = string.IsNullOrWhiteSpace(endDate) ? DateTime.Today : DateTime.Parse(endDate);
+                DateTime monthEndDate = new DateTime(end.Year, end.Month, DateTime.DaysInMonth(end.Year, end.Month));
+
+                model.WeekStartDate = monthStartDate;
+                model.WeekEndDate = monthEndDate;
+            }
+
+            var selectedEmployee = _dbContext.emp_info.Where(x => x.EmployeeID == empID).FirstOrDefault();
             model.SelectedDate = today;
-
-            model.WeekInfo = DaysInfo(model.WeekStartDate.ToString("dd MMMM yyyy"), model.WeekEndDate.ToString("dd MMMM yyyy"), model.Weeknumber, empID, client);
+            model.SelectedEmployee = selectedEmployee;
+            model.WeekInfo = DaysInfo(model.WeekStartDate.ToString("dd MMMM yyyy"), model.WeekEndDate.ToString("dd MMMM yyyy"), model.Weeknumber, empID, client, selectedEmployee);
             model.SiteContext = SiteContext.GetCurrentUserContext();
             model.Client = client;
 
@@ -63,9 +81,9 @@ namespace HRMS.Controllers
         }
 
 
-        private List<DaySpecifcData> DaysInfo(string weekstart, string weekend, int weeknumber, string empID, string client)
+        private List<DaySpecifcData> DaysInfo(string weekstart, string weekend, int weeknumber, string empID, string client, emp_info selecteEmployee)
         {
-            var cuserContext = SiteContext.GetCurrentUserContext();
+            //var cuserContext = SiteContext.GetCurrentUserContext();
 
             // Parse weekstart and weekend parameters to DateTime
             DateTime weekStartDate = DateTime.Parse(weekstart);
@@ -80,7 +98,7 @@ namespace HRMS.Controllers
             var categories = _dbContext.TimeSheetCategories.ToList();
             var clients = _dbContext.Clients.ToList();
 
-            var empInfo = _dbContext.emp_info.Where(x => x.EmployeeID == empID).FirstOrDefault();
+            var empInfo = selecteEmployee;
 
             var fullDayWorkingHours = System.Convert.ToInt32(System.Configuration.ConfigurationManager.AppSettings["FullDayMaxWorkingHours"]);
             var halfDayWorkingHours = System.Convert.ToInt32(System.Configuration.ConfigurationManager.AppSettings["HalfDayMaxWorkingHours"]);
@@ -410,6 +428,7 @@ namespace HRMS.Controllers
         private Timesheet TimesheetsByWeek(string weekstart, string weekend, int weeknumber, string client, string empID)
         {
             var model = new Timesheet();
+            var selectedEmployee = _dbContext.emp_info.Where(x => x.EmployeeID == empID).FirstOrDefault();
 
             var cuserContext = SiteContext.GetCurrentUserContext();
             DateTime weekStartDate = DateTime.Parse(weekstart);
@@ -417,7 +436,8 @@ namespace HRMS.Controllers
             model.Weeknumber = weeknumber;
             model.WeekStartDate = weekStartDate;
             model.WeekEndDate = weekEndDate;
-            model.WeekInfo = DaysInfo(weekstart, weekend, weeknumber, empID, client);
+            model.SelectedEmployee = selectedEmployee;
+            model.WeekInfo = DaysInfo(weekstart, weekend, weeknumber, empID, client, selectedEmployee);
             model.Client = client;
             return model;
         }
@@ -557,7 +577,7 @@ namespace HRMS.Controllers
         public ActionResult TimesheetView()
         {
             var cuserContext = SiteContext.GetCurrentUserContext();
-            Timesheet model = CurrentWeekTimeSheetDetails(cuserContext.EmpInfo.Client, cuserContext.EmpInfo.EmployeeID, "");
+            Timesheet model = CurrentWeekTimeSheetDetails(cuserContext.EmpInfo.Client, cuserContext.EmpInfo.EmployeeID, "", "", true);
             return View("~/Views/Timesheet/EmpTimesheetView.cshtml", model);
         }
 
@@ -618,8 +638,45 @@ namespace HRMS.Controllers
 
         public ActionResult AdminTimesheet()
         {
-            return View("~/Views/Timesheet/AdminTimesheetView.cshtml");
+            var cuserContext = SiteContext.GetCurrentUserContext();
+            Timesheet model = CurrentWeekTimeSheetDetails(cuserContext.EmpInfo.Client, cuserContext.EmpInfo.EmployeeID, "", "", true);
+            model.Employees = _dbContext.emp_info.ToList();
+            return View("~/Views/Timesheet/AdminTimesheetView.cshtml", model);
         }
+
+
+        public JsonResult GetEmployeeTimesheet(string client, string employeeId, string startdate, string endDate, bool isweek)
+        {
+            Timesheet model = CurrentWeekTimeSheetDetails(client, employeeId, startdate, endDate, isweek);
+
+            // Render the graph block partial view
+            string graphBlockHtml = RenderPartialViewToString("~/Views/Timesheet/_AdminTimesheetCharts.cshtml", model);
+
+            // Render the table block partial view
+            string tableBlockHtml = RenderPartialViewToString("~/Views/Timesheet/_AdminTimesheetrows.cshtml", model);
+
+            return Json(new
+            {
+                graphBlockHtml,
+                tableBlockHtml
+            }, JsonRequestBehavior.AllowGet);
+
+        }
+
+        // Helper method to render a partial view to string
+        private string RenderPartialViewToString(string viewPath, object model)
+        {
+            ViewData.Model = model;
+            using (var sw = new StringWriter())
+            {
+                var viewResult = ViewEngines.Engines.FindView(ControllerContext, viewPath, null);
+                var viewContext = new ViewContext(ControllerContext, viewResult.View, ViewData, TempData, sw);
+                viewResult.View.Render(viewContext, sw);
+                viewResult.ViewEngine.ReleaseView(ControllerContext, viewResult.View);
+                return sw.GetStringBuilder().ToString();
+            }
+        }
+
 
         public ActionResult TimesheetWeekReport()
         {

@@ -492,21 +492,21 @@
                         <div class="col-lg-3 col-md-6">
                             <div class="form-group tabs-general">
                                 <label for="AdminAddEmpProjectName1">Project Name</label>
-                                <input type="text" class="form-control" id="AdminAddEmpProjectName1" value="" required>
+                                <input type="text" class="form-control" id="AdminAddEmpProjectName1" value="@Model.EditableEmpInfo.ProjectName1" required>
                                 <div class="invalid-feedback">Please enter Project Name.</div>
                             </div>
                         </div>
                         <div class="col-lg-3 col-md-6">
                             <div class="form-group tabs-general">
                                 <label for="AdminAddEmpRole1">Role</label>
-                                <input type="text" class="form-control" id="AdminAddEmpRole1" value="" required>
+                                <input type="text" class="form-control" id="AdminAddEmpRole1" value="@Model.EditableEmpInfo.Role1" required>
                                 <div class="invalid-feedback">Please enter Role.</div>
                             </div>
                         </div>
                         <div class="col-lg-3 col-md-6">
                             <div class="form-group tabs-general">
                                 <label for="AdminAddEmpReportingManager1">Reporting Manager</label>
-                                <input type="text" class="form-control" id="AdminAddEmpReportingManager1" value="" required>
+                                <input type="text" class="form-control" id="AdminAddEmpReportingManager1" value="@Model.EditableEmpInfo.ReportingManager1" required>
                                 <div class="invalid-feedback">Please enter Reporting Manager.</div>
                             </div>
                         </div>
@@ -514,64 +514,56 @@
                     <div class="row EmpClientDetails-2">
                         <div class="col-lg-3 col-md-6">
                             <div class="form-group tabs-general drop-menu">
-                                <select class="form-control" id="AdminAddEmpClient2" required>
+                                <select class="form-control" id="AdminAddEmpClient2">
                                     <option value="">Select Client</option>
                                     @foreach (var client in Model.Clients)
                                     {
                                         <option value="@client.Id">@client.Name</option>
                                     }
-                                </select>
-                                <div class="invalid-feedback">Please select Client.</div>
+                                </select>                                
                             </div>
                         </div>
                         <div class="col-lg-3 col-md-6">
                             <div class="form-group tabs-general">
-                                <input type="text" class="form-control" id="AdminAddEmpProjectName2" value="" required>
-                                <div class="invalid-feedback">Please enter Project Name.</div>
+                                <input type="text" class="form-control" id="AdminAddEmpProjectName2" value="@Model.EditableEmpInfo.ProjectName2">                              
                             </div>
                         </div>
                         <div class="col-lg-3 col-md-6">
                             <div class="form-group tabs-general">
-                                <input type="text" class="form-control" id="AdminAddEmpRole2" value="" required>
-                                <div class="invalid-feedback">Please enter Role.</div>
+                                <input type="text" class="form-control" id="AdminAddEmpRole2" value="@Model.EditableEmpInfo.Role2">                               
                             </div>
                         </div>
                         <div class="col-lg-3 col-md-6">
                             <div class="form-group tabs-general">
-                                <input type="text" class="form-control" id="AdminAddEmpReportingManager2" value="" required>
-                                <div class="invalid-feedback">Please enter Reporting Manager.</div>
+                                <input type="text" class="form-control" id="AdminAddEmpReportingManager2" value="@Model.EditableEmpInfo.ReportingManager2">                                
                             </div>
                         </div>
                     </div>
                     <div class="row EmpClientDetails-3">
                         <div class="col-lg-3 col-md-6">
                             <div class="form-group tabs-general drop-menu">
-                                <select class="form-control" id="AdminAddEmpClient3" required>
+                                <select class="form-control" id="AdminAddEmpClient3">
                                     <option value="">Select Client</option>
                                     @foreach (var client in Model.Clients)
                                     {
                                         <option value="@client.Id">@client.Name</option>
                                     }
-                                </select>
-                                <div class="invalid-feedback">Please select Client.</div>
+                                </select>                               
                             </div>
                         </div>
                         <div class="col-lg-3 col-md-6">
                             <div class="form-group tabs-general">
-                                <input type="text" class="form-control" id="AdminAddEmpProjectName3" value="" required>
-                                <div class="invalid-feedback">Please enter Project Name.</div>
+                                <input type="text" class="form-control" id="AdminAddEmpProjectName3" value="@Model.EditableEmpInfo.ProjectName3">                                
                             </div>
                         </div>
                         <div class="col-lg-3 col-md-6">
                             <div class="form-group tabs-general">
-                                <input type="text" class="form-control" id="AdminAddEmpRole3" value="" required>
-                                <div class="invalid-feedback">Please enter Role.</div>
+                                <input type="text" class="form-control" id="AdminAddEmpRole3" value="@Model.EditableEmpInfo.Role3">                               
                             </div>
                         </div>
                         <div class="col-lg-3 col-md-6">
                             <div class="form-group tabs-general">
-                                <input type="text" class="form-control" id="AdminAddEmpReportingManager3" value="" required>
-                                <div class="invalid-feedback">Please enter Reporting Manager.</div>
+                                <input type="text" class="form-control" id="AdminAddEmpReportingManager3" value="@Model.EditableEmpInfo.ReportingManager3">                                
                             </div>
                         </div>
                     </div>

@@ -1,8 +1,13 @@
-﻿
+﻿@model HRMS.Models.Timesheet
+
 @{
     ViewBag.Title = "AdminTimesheetView";
+    var defaultSelectedClient = "";
+
 }
 @Html.Partial("_NavBar")
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.4/Chart.js"></script>
+
 <div class="container-fluid res-admin-timesheet">
     <div class="hiddenadmindashboard" style="display: none"></div>
     @Html.Partial("_adminsidemenu")
@@ -30,28 +35,35 @@
                         <div class="emp-timesheet-details timesheet-nav" id="adminTimesheet">
                             <div class="admin-timesheet-header-block">
                                 <div class="admin-timesheet-header-block-left">
-                                    <div class="admin-timesheet-block1">
-                                        <span class="admin-timesheet-weekno">Week 42</span>
+                                    <div class="admin-timesheet-block1" data-weekstartdate="@Model.WeekStartDate.ToString("dd MMMM yyyy")" data-weekenddate="@Model.WeekEndDate.ToString("dd MMMM yyyy")" data-weeknumber="@Model.Weeknumber">
+                                        <span class="admin-timesheet-weekno" id="admin-view-week-number">Week @Model.Weeknumber</span>
                                         <span class="admin-timesheet-weekrange-info">
-                                            <i class="fa fa-angle-left" aria-hidden="true"></i>
-                                            <span class="admin-timesheet-weekrange">04 November 2024 <i class="fa fa-long-arrow-right" aria-hidden="true"></i> 10 November 2024</span>
-                                            <i class="fa fa-angle-right" aria-hidden="true"></i>
+                                            <i class="fa fa-angle-left" aria-hidden="true" id="admin-view-prev-week"></i>
+                                            <span class="admin-timesheet-weekrange">
+                                                <span id="admin-view-week-start">
+                                                    @Model.WeekStartDate.ToString("dd MMMM yyyy")
+                                                </span><i class="fa fa-long-arrow-right" aria-hidden="true"></i> <span id="admin-view-week-end">@Model.WeekEndDate.ToString("dd MMMM yyyy")</span>
+                                            </span>
+                                            <i class="fa fa-angle-right" aria-hidden="true" id="admin-view-next-week"></i>
                                         </span>
                                     </div>
                                     <div class="admin-timesheet-block2">
                                         <div class="form-group col-lg-12 div-timesheet-company">
                                             <select class="form-control" id="admintimesheetCompany">
-                                                <option value="1">AMBC</option>
+
+                                                @foreach (var client in Model.WeekInfo[0].Clients)
+                                                {
+                                                    if (defaultSelectedClient == "")
+                                                    {
+                                                        defaultSelectedClient = client.ClientName;
+                                                    }
+                                                    <option value="@client.ClientName">@client.ClientName</option>
+                                                }
                                             </select>
                                         </div>
                                     </div>
                                     <div class="admin-timesheet-block3">
                                         <div class="form-group col-lg-12 div-timesheet-employeename">
-                                            @*<select class="form-control" id="admintimesheetEmployeeName">
-                                        <option value="1">Test1</option>
-                                        <option value="2">Test2</option>
-                                    </select>*@
-
                                             <div class="dropdown">
                                                 <a class="btn btn-outline-primary admintimesheet-dropdown-toggle" href="#" id="adminTimesheetDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                                     Select Employees <i class="fas fa-chevron-down ml-1"></i>
@@ -65,18 +77,20 @@
                                                                 <span>Select All</span>
                                                             </label>
                                                         </div>
-                                                        <div class="form-check">
-                                                            <input class="form-check-input" type="checkbox" value="" id="">
-                                                            <label class="adminleavehistory-form-check-label" for="">
-                                                                <span>Test1</span>
-                                                            </label>
-                                                        </div>
-                                                        <div class="form-check">
-                                                            <input class="form-check-input" type="checkbox" value="" id="">
-                                                            <label class="adminleavehistory-form-check-label" for="">
-                                                                <span>Test2</span>
-                                                            </label>
-                                                        </div>
+                                                        @{
+                                                            var clientSpecifcEmployees = Model.Employees.Where(x => x.Client == defaultSelectedClient).ToList();
+                                                        }
+
+                                                        @foreach (var empClient in clientSpecifcEmployees)
+                                                        {
+                                                            <div class="form-check">
+                                                                <input class="form-check-input" type="checkbox" value="" id="">
+                                                                <label class="adminleavehistory-form-check-label" for="">
+                                                                    <span>@empClient.EmployeeName - @empClient.EmployeeID</span>
+                                                                    <div style="display: none">@empClient.EmployeeID</div>
+                                                                </label>
+                                                            </div>
+                                                        }
 
                                                     </div>
                                                 </div>
@@ -93,24 +107,10 @@
                             </div>
 
                             <div class="admin-timesheet-graph-block">
-                                <div class="admin-timesheet-graph-header">
-                                    <span class="admin-timesheet-graph-resourcename"><span class="admin-timesheet-graph-resourcename-title">Resource Name </span> <span class="admin-timesheet-graph-resourcename-info">1122 Test User</span></span>
-                                    <span class="admin-timesheet-graph-reportingmanager"><span class="admin-timesheet-graph-reportingmanager-title">Reporting Manager </span> <span class="admin-timesheet-graph-reportingmanager-info">Shanta M Balakumar</span></span>
-                                </div>
-                                <div class="admin-timesheet-graph-body">
-                                    <div class="admin-timesheet-hours-spent">
-                                        <div class="admin-timesheet-block-content admin-timesheet-block-bar">
-                                            <div id="admin-timesheet-hours-spent" style="height: 270px; width: 100%;"></div>
-                                        </div>
-                                    </div>
-                                    <div class="admin-timesheet-attendance">
-                                        <div class="admin-timesheet-block-content admin-timesheet-block-donut">
-                                            <div class="admin-timesheet-block-donut-title">Hours Spent</div>
-                                            <canvas id="admin-timesheet-attendance" style="width:100%;max-width:100%"></canvas>
-                                        </div>
-                                    </div>
-                                </div>
+                                @Html.Partial("~/Views/Timesheet/_AdminTimesheetCharts.cshtml", Model)
+
                             </div>
+
                             <div class="admin-timesheet-graph-arrows">
                                 <span class="admin-timesheet-graph-leftarrow"><i class="far fa-arrow-alt-circle-left"></i></span>
                                 <span class="admin-timesheet-graph-rightarrow"><i class="far fa-arrow-alt-circle-right"></i></span>
@@ -118,50 +118,10 @@
                         </div>
 
                         <div class="admin-timesheet-table-block">
-                            <div class="admin-timesheet-table-body">
-                                <div class="admin-timesheet-body table-responsive">
-                                    <table id="admintimesheetlistingTable" class="table admin-timesheet-table" style="width: 100%; color: #272727">
-                                        <thead style=" background-color: #3E78CF; border-radius: 10px;">
-                                            <tr>
-                                                <th>Date</th>
-                                                <th>Category</th>
-                                                <th>Task/Incident Name</th>
-                                                <th>Task/Incident Description</th>
-                                                <th>Priority</th>
-                                                <th>Requester</th>
-                                                <th>Status</th>
-                                                <th>Total Hours</th>
-                                            </tr>
-                                        </thead>
-                                        <tbody id="admintimesheetBody">
-                                            <tr>
-                                                <td>07-11-2024</td>
-                                                <td>Support</td>
-                                                <td>HRMS</td>
-                                                <td>Help Desk Tickets and IDERA Monitoring & Diskspace</td>
-                                                <td>Medium</td>
-                                                <td>Medium</td>
-                                                <td>Closed</td>
-                                                <td>0.90</td>
-                                            </tr>
-                                            <tr>
-                                                <td>07-11-2024</td>
-                                                <td>Support</td>
-                                                <td>HRMS</td>
-                                                <td>Help Desk Tickets and IDERA Monitoring & Diskspace</td>
-                                                <td>Medium</td>
-                                                <td>Medium</td>
-                                                <td>Closed</td>
-                                                <td>0.90</td>
-                                            </tr>
-                                        </tbody>
-                                    </table>
-                                </div>
-                            </div>
+                            @Html.Partial("~/Views/Timesheet/_AdminTimesheetrows.cshtml", Model)
                         </div>
 
                     </div>
-
 
                 </div>
             </div>
@@ -220,366 +180,8 @@
     </div>
 </div>
 
-<script type="text/javascript" src="https://cdn.canvasjs.com/canvasjs.min.js"></script>
 <script>
     $(document).ready(function () {
-        // Define static data points in jQuery
-
-        var dataPoints1 = [
-            { label: "4-11-2024", y: 0, indexLabel: "" },
-            { label: "5-11-2024", y: 0, indexLabel: "" },
-            { label: "6-11-2024", y: 0, indexLabel: "" },
-            { label: "7-11-2024", y: 0.2, indexLabel: "Leave" },
-            { label: "8-11-2024", y: 0, indexLabel: "" },
-            { label: "9-11-2024", y: 0, indexLabel: "" },
-            { label: "10-11-2024", y: 0, indexLabel: "" }
-        ];
-
-        var dataPoints2 = [
-            { label: "4-11-2024", y: 0, indexLabel: "" },
-            { label: "5-11-2024", y: 0, indexLabel: "" },
-            { label: "6-11-2024", y: 0, indexLabel: "" },
-            { label: "7-11-2024", y: 0, indexLabel: "" },
-            { label: "8-11-2024", y: 0.2, indexLabel: "Holiday" },
-            { label: "9-11-2024", y: 0, indexLabel: "" },
-            { label: "10-11-2024", y: 0, indexLabel: "" }
-        ];
-
-        var dataPoints3 = [
-            { label: "4-11-2024", y: 0, indexLabel: "" },
-            { label: "5-11-2024", y: 0, indexLabel: "" },
-            { label: "6-11-2024", y: 0, indexLabel: "" },
-            { label: "7-11-2024", y: 0, indexLabel: "" },
-            { label: "8-11-2024", y: 0, indexLabel: "" },
-            { label: "9-11-2024", y: 0.2, indexLabel: "Weekend" },
-            { label: "10-11-2024", y: 0.2, indexLabel: "Weekend" }
-        ];
-
-        var dataPoints4 = [
-            { label: "4-11-2024", y: 8, indexLabel: "Hours Spent" },
-            { label: "5-11-2024", y: 8.10, indexLabel: "Hours Spent" },
-            { label: "6-11-2024", y: 0, indexLabel: "" },
-            { label: "7-11-2024", y: 0, indexLabel: "" },
-            { label: "8-11-2024", y: 0, indexLabel: "" },
-            { label: "9-11-2024", y: 0, indexLabel: "" },
-            { label: "10-11-2024", y: 0, indexLabel: "" }
-        ];
-
-        var dataPoints5 = [
-            { label: "4-11-2024", y: 1, indexLabel: "Overtime" },
-            { label: "5-11-2024", y: 0.10, indexLabel: "Overtime" },
-            { label: "6-11-2024", y: 0, indexLabel: "" },
-            { label: "7-11-2024", y: 0, indexLabel: "" },
-            { label: "8-11-2024", y: 0, indexLabel: "" },
-            { label: "9-11-2024", y: 0, indexLabel: "" },
-            { label: "10-11-2024", y: 0, indexLabel: "" }
-        ];
-
-        // Initialize CanvasJS Chart
-        var chart = new CanvasJS.Chart("admin-timesheet-hours-spent", {
-            axisY: {
-                suffix: " h",
-                interval: 2, // Set the interval for Y-axis labels
-                minimum: 0,  // Set the starting value of Y-axis
-                gridThickness: 0, // Removes the Y-axis grid lines
-                lineThickness: 0 // Remove the left axis line
-            },
-            data: [
-                {
-                    type: "stackedColumn",
-                    name: "Leave",
-                    showInLegend: false, // Hide from legend
-                    color: "#FF5733",
-                    yValueFormatString: "#,##0 h",
-                    dataPoints: dataPoints1
-                },
-                {
-                    type: "stackedColumn",
-                    name: "Hoilday",
-                    showInLegend: false, // Hide from legend
-                    color: "#FFC300",
-                    yValueFormatString: "#,##0 h",
-                    dataPoints: dataPoints2
-                },
-                {
-                    type: "stackedColumn",
-                    name: "Week End",
-                    showInLegend: false, // Hide from legend
-                    color: "#3e4652",
-                    yValueFormatString: "#,##0 h",
-                    dataPoints: dataPoints3
-                },
-                {
-                    type: "stackedColumn",
-                    name: "Hours Spent",
-                    showInLegend: false, // Hide from legend
-                    color: "#33FF57",
-                    yValueFormatString: "#,##0 h",
-                    dataPoints: dataPoints4
-                },
-                {
-                    type: "stackedColumn",
-                    name: "Overtime",
-                    showInLegend: false, // Hide from legend
-                    color: "#50aced",
-                    yValueFormatString: "#,##0 h",
-                    dataPoints: dataPoints5
-                }
-
-            ]
-        });
-
-        // Render the chart
-        chart.render();
-
-        // Define the toggleDataSeries function
-        function toggleDataSeries(e) {
-            if (typeof (e.dataSeries.visible) === "undefined" || e.dataSeries.visible) {
-                e.dataSeries.visible = false;
-            } else {
-                e.dataSeries.visible = true;
-            }
-            chart.render();
-        }
-
-        $('.admin-timesheet-graph-leftarrow').click(function (e) {
-            console.log('sdsd');
-            $('.admin-timesheet-graph-resourcename-info, .admin-timesheet-graph-reportingmanager-info').empty();
-            $('.admin-timesheet-graph-resourcename-info').text('Testing Resource Name');
-            $('.admin-timesheet-graph-reportingmanager-info').text('Testing Reporting Manager Name');
-
-            reloadHoursSpent();
-            reloadTable();
-
-            // Dynamically update dataPoints
-            dataPoints1 = [
-                { label: "4-11-2024", y: Math.random() * 10, indexLabel: "" },
-                { label: "5-11-2024", y: Math.random() * 10, indexLabel: "" },
-                { label: "6-11-2024", y: Math.random() * 10, indexLabel: "" },
-                { label: "7-11-2024", y: Math.random() * 10, indexLabel: "" },
-                { label: "8-11-2024", y: Math.random() * 10, indexLabel: "" },
-                { label: "9-11-2024", y: 0, indexLabel: "" },
-                { label: "10-11-2024", y: 0, indexLabel: "" }
-            ];
-            dataPoints2 = [
-                { label: "4-11-2024", y: Math.random() * 10, indexLabel: "" },
-                { label: "5-11-2024", y: Math.random() * 10, indexLabel: "" },
-                { label: "6-11-2024", y: Math.random() * 10, indexLabel: "" },
-                { label: "7-11-2024", y: Math.random() * 10, indexLabel: "" },
-                { label: "8-11-2024", y: Math.random() * 10, indexLabel: "" },
-                { label: "9-11-2024", y: 0, indexLabel: "" },
-                { label: "10-11-2024", y: 0, indexLabel: "" }
-            ];
-            dataPoints3 = [
-                { label: "4-11-2024", y: Math.random() * 10, indexLabel: "" },
-                { label: "5-11-2024", y: Math.random() * 10, indexLabel: "" },
-                { label: "6-11-2024", y: Math.random() * 10, indexLabel: "" },
-                { label: "7-11-2024", y: Math.random() * 10, indexLabel: "" },
-                { label: "8-11-2024", y: Math.random() * 10, indexLabel: "" },
-                { label: "9-11-2024", y: 0, indexLabel: "" },
-                { label: "10-11-2024", y: 0, indexLabel: "" }
-            ];
-            dataPoints4 = [
-                { label: "4-11-2024", y: Math.random() * 10, indexLabel: "" },
-                { label: "5-11-2024", y: Math.random() * 10, indexLabel: "" },
-                { label: "6-11-2024", y: Math.random() * 10, indexLabel: "" },
-                { label: "7-11-2024", y: Math.random() * 10, indexLabel: "" },
-                { label: "8-11-2024", y: Math.random() * 10, indexLabel: "" },
-                { label: "9-11-2024", y: 0, indexLabel: "" },
-                { label: "10-11-2024", y: 0, indexLabel: "" }
-            ];
-            dataPoints5 = [
-                { label: "4-11-2024", y: Math.random() * 10, indexLabel: "" },
-                { label: "5-11-2024", y: Math.random() * 10, indexLabel: "" },
-                { label: "6-11-2024", y: Math.random() * 10, indexLabel: "" },
-                { label: "7-11-2024", y: Math.random() * 10, indexLabel: "" },
-                { label: "8-11-2024", y: Math.random() * 10, indexLabel: "" },
-                { label: "9-11-2024", y: 0, indexLabel: "" },
-                { label: "10-11-2024", y: 0, indexLabel: "" }
-            ];
-
-            // Update the chart data
-            chart.options.data[0].dataPoints = dataPoints1;
-            chart.options.data[0].dataPoints = dataPoints2;            
-            chart.options.data[0].dataPoints = dataPoints3;
-            chart.options.data[0].dataPoints = dataPoints4;
-            chart.options.data[0].dataPoints = dataPoints5;
-
-            // Re-render the chart
-            chart.render();
-
-        });
-
-        $('.admin-timesheet-graph-rightarrow').click(function (e) {
-            console.log('sdsd');
-            $('.admin-timesheet-graph-resourcename-info, .admin-timesheet-graph-reportingmanager-info').empty();
-            $('.admin-timesheet-graph-resourcename-info').text('Testing Resource Name');
-            $('.admin-timesheet-graph-reportingmanager-info').text('Testing Reporting Manager Name');
-            reloadHoursSpent();
-            reloadTable();
-
-            // Dynamically update dataPoints
-            dataPoints1 = [
-                { label: "4-11-2024", y: Math.random() * 10, indexLabel: "" },
-                { label: "5-11-2024", y: Math.random() * 10, indexLabel: "" },
-                { label: "6-11-2024", y: Math.random() * 10, indexLabel: "" },
-                { label: "7-11-2024", y: Math.random() * 10, indexLabel: "Leave" },
-                { label: "8-11-2024", y: Math.random() * 10, indexLabel: "" },
-                { label: "9-11-2024", y: 0, indexLabel: "" },
-                { label: "10-11-2024", y: 0, indexLabel: "" }
-            ];
-            dataPoints2 = [
-                { label: "4-11-2024", y: Math.random() * 10, indexLabel: "" },
-                { label: "5-11-2024", y: Math.random() * 10, indexLabel: "" },
-                { label: "6-11-2024", y: Math.random() * 10, indexLabel: "" },
-                { label: "7-11-2024", y: Math.random() * 10, indexLabel: "Leave" },
-                { label: "8-11-2024", y: Math.random() * 10, indexLabel: "" },
-                { label: "9-11-2024", y: 0, indexLabel: "" },
-                { label: "10-11-2024", y: 0, indexLabel: "" }
-            ];
-            dataPoints3 = [
-                { label: "4-11-2024", y: Math.random() * 10, indexLabel: "" },
-                { label: "5-11-2024", y: Math.random() * 10, indexLabel: "" },
-                { label: "6-11-2024", y: Math.random() * 10, indexLabel: "" },
-                { label: "7-11-2024", y: Math.random() * 10, indexLabel: "Leave" },
-                { label: "8-11-2024", y: Math.random() * 10, indexLabel: "" },
-                { label: "9-11-2024", y: 0, indexLabel: "" },
-                { label: "10-11-2024", y: 0, indexLabel: "" }
-            ];
-            dataPoints4 = [
-                { label: "4-11-2024", y: Math.random() * 10, indexLabel: "" },
-                { label: "5-11-2024", y: Math.random() * 10, indexLabel: "" },
-                { label: "6-11-2024", y: Math.random() * 10, indexLabel: "" },
-                { label: "7-11-2024", y: Math.random() * 10, indexLabel: "Leave" },
-                { label: "8-11-2024", y: Math.random() * 10, indexLabel: "" },
-                { label: "9-11-2024", y: 0, indexLabel: "" },
-                { label: "10-11-2024", y: 0, indexLabel: "" }
-            ];
-            dataPoints5 = [
-                { label: "4-11-2024", y: Math.random() * 10, indexLabel: "" },
-                { label: "5-11-2024", y: Math.random() * 10, indexLabel: "" },
-                { label: "6-11-2024", y: Math.random() * 10, indexLabel: "" },
-                { label: "7-11-2024", y: Math.random() * 10, indexLabel: "Leave" },
-                { label: "8-11-2024", y: Math.random() * 10, indexLabel: "" },
-                { label: "9-11-2024", y: 0, indexLabel: "" },
-                { label: "10-11-2024", y: 0, indexLabel: "" }
-            ];
-
-            // Update the chart data
-            chart.options.data[0].dataPoints = dataPoints1;
-            chart.options.data[0].dataPoints = dataPoints2;
-            chart.options.data[0].dataPoints = dataPoints3;
-            chart.options.data[0].dataPoints = dataPoints4;
-            chart.options.data[0].dataPoints = dataPoints5;
-
-            // Re-render the chart
-            chart.render();
-
-        });
-
-
-    });
-</script>
-
-<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.4/Chart.js"></script>
-<script>
-    var xValues = ["Hours Spent", "Overtime"];
-    var yValues = [16, 1.10];
-    var barColors = [
-        "#33FF57",
-        "#50aced"
-    ];
-
-    // Create the chart
-    var attendanceChart = new Chart("admin-timesheet-attendance", {
-        type: "doughnut",
-        data: {
-            labels: xValues,
-            datasets: [{
-                backgroundColor: barColors,
-                data: yValues
-            }]
-        },
-        options: {
-            legend: {
-                display: true,
-                position: 'bottom'
-            },
-            // Disable hover effects
-            hover: {
-                mode: null // Disable hover mode
-            },
-            // Disable animations if you want it to load instantly without hover effects
-            animation: {
-                duration: 0 // Disable animations on hover
-            }
-        }
-    });
-
-    // Reload button click event
-    function reloadHoursSpent() {
-        // Generate new random data
-        yValues = [Math.random() * 20, Math.random() * 5]; // Replace with dynamic data
-
-        // Update chart data
-        attendanceChart.data.datasets[0].data = yValues;
-
-        // Re-render the chart
-        attendanceChart.update();
-    }
-
-    function reloadTable() {
-        // Initialize DataTable
-        let table = $('#admintimesheetlistingTable').DataTable();
-        console.log("Reload button clicked.");
-
-        // Static data array
-        var data = [
-            { date: '10-11-2024', category: 'John Doe', taskname: 'XYZ Corp', taskdesc: 'Chennai', priority: 'Medium', requester: 'Medium', status: 'Closed', totalhours: '10' },
-            { date: '10-11-2024', category: 'Jane Smith', taskname: 'Test Corp', taskdesc: 'Madurai', priority: 'Medium', requester: 'High', status: 'Open', totalhours: '8' },
-            { date: '06-11-2024', category: 'Mark Johnson', taskname: 'XYZ Corp', taskdesc: 'Hyderabad', priority: 'High', requester: 'Medium', status: 'Closed', totalhours: '12' }
-        ];
-
-        // Clear the existing data in the table
-        console.log("Clearing existing data...");
-        table.clear();
-
-        // Add new rows dynamically
-        console.log("Adding new rows...");
-        data.forEach((item, index) => {
-            console.log(`Adding row ${index + 1}: `, item);
-            table.row.add([
-                item.date,
-                item.category,
-                item.taskname,
-                item.taskdesc,
-                item.priority,
-                item.requester,
-                item.status,
-                item.totalhours
-            ]);
-        });
-
-        // Redraw the table to update
-        console.log("Redrawing the table...");
-        table.draw();
-        console.log("Table reloaded successfully.");
-    }
-
-</script>
-
-<script>
-    $(document).ready(function () {
-
-        @*$('#admintimesheetEmployeeName').select2();*@
-
-        var table = $('#admintimesheetlistingTable').DataTable({
-            "paging": true,
-            "searching": false,
-            "ordering": false,
-            "info": true,
-            "autoWidth": false,
-        });
 
         // Employee search filter
         $(document).on('keyup', '#employeeSearch', function () {
@@ -594,8 +196,17 @@
             var checked = $(this).is(':checked');
             $('#employeeList .form-check-input').not('#selectAll').prop('checked', checked);
             updateSelectedEmployees(); // Update the selected employees text
-            filterTable(table);
+            //filterTable(table);
         });
+
+        function SelectedEmployeeIDs() {
+            let selectedEmployeeids = [];
+            $('#employeeList .form-check-input:checked').not('#selectAll').each(function () {
+                let employeeName = $(this).siblings('label').find('div').text();
+                selectedEmployeeids.push(employeeName);
+            });
+            return selectedEmployeeids;
+        }
 
         // Function to update selected employees in button text
         function updateSelectedEmployees() {
@@ -620,7 +231,7 @@
         // Event handler for checkbox change
         $(document).on('change', '#employeeList .form-check-input', function () {
             updateSelectedEmployees();
-            filterTable(table);
+            //filterTable(table);
         });
 
         function filterTable(table) {
@@ -629,6 +240,129 @@
                 selectedEmployees.push($(this).attr('id'));
             });
         }
+
+        let currentTimeSheetIndex = 0;
+        let timesheetselectedEmployeeIds = [];
+
+        function GetFirstEmployeeTimesheet() {
+            timesheetselectedEmployeeIds = [];
+            timesheetselectedEmployeeIds = SelectedEmployeeIDs();
+            currentTimeSheetIndex = 0;
+            if (timesheetselectedEmployeeIds.length > 0) {
+                let firstEmployeeId = timesheetselectedEmployeeIds[currentTimeSheetIndex];
+                loadEmployeeTimesheet(firstEmployeeId);
+            } else {
+                alert("No employees selected.");
+            }
+        }
+
+        $(document).on('click', '.timesheet-View', function () {
+            GetFirstEmployeeTimesheet();
+        });
+
+        function loadEmployeeTimesheet(employeeId) {
+            let client = $('#admintimesheetCompany').val();
+            let startDate = $('.admin-timesheet-block1').data("weekstartdate");
+            let endDate = $('.admin-timesheet-block1').data("weekenddate");
+            let isweek = $('#admin-timesheet-report').val() == "WeeklyReport" ? true : false;
+            $.ajax({
+                url: '/timesheet/getemployeetimesheet',
+                type: 'GET',
+                data: { client: client, employeeId: employeeId, startdate: startDate, endDate: endDate, isweek: isweek },
+                beforeSend: function () {
+                    $('.show-progress').show();
+                },
+                success: function (response) {
+                    $('.admin-timesheet-graph-block').html(response.graphBlockHtml);
+                    $('.admin-timesheet-table-block').html(response.tableBlockHtml);
+                    $('.show-progress').hide();
+                },
+                error: function () {
+                    $('.show-progress').hide();
+                }
+            });
+        }
+
+        // Left Arrow Click
+        $(document).on('click', '.admin-timesheet-graph-leftarrow', function () {
+            if (currentTimeSheetIndex > 0) {
+                currentTimeSheetIndex--;
+                loadEmployeeTimesheet(timesheetselectedEmployeeIds[currentTimeSheetIndex]);
+            }
+        });
+
+        // Right Arrow Click
+        $(document).on('click', '.admin-timesheet-graph-rightarrow', function () {
+            if (currentTimeSheetIndex < timesheetselectedEmployeeIds.length - 1) {
+                currentTimeSheetIndex++;
+                loadEmployeeTimesheet(timesheetselectedEmployeeIds[currentTimeSheetIndex]);
+            }
+        });
+
+
+
+
+        function formatDateToLong(date) {
+            var day = date.getDate();
+            var monthNames = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
+            var month = monthNames[date.getMonth()];
+            var year = date.getFullYear();
+            return (day < 10 ? '0' + day : day) + ' ' + month + ' ' + year;
+        }
+
+        function getWeekNumber(date) {
+            var startDate = new Date(date.getFullYear(), 0, 1);
+            var diff = date - startDate;
+            var oneDay = 1000 * 60 * 60 * 24;
+            var dayOfYear = Math.floor(diff / oneDay);
+            return Math.ceil((dayOfYear + 1) / 7);
+        }
+
+        function getStartEndDateOfWeek(date) {
+            var start = new Date(date);
+            var end = new Date(date);
+            var day = start.getDay();
+            var diff = start.getDate() - day + (day == 0 ? -6 : 1);
+            start.setDate(diff);
+            end.setDate(start.getDate() + 6);
+            return {
+                startDate: start,
+                endDate: end
+            };
+        }
+
+        function updateViewWeek(date) {
+            var weekData = getStartEndDateOfWeek(date);
+            var weekStart = weekData.startDate;
+            var weekEnd = weekData.endDate;
+
+            var formattedStartDate = formatDateToLong(weekStart);
+            var formattedEndDate = formatDateToLong(weekEnd);
+
+            $('#admin-view-week-start').text(formattedStartDate);
+            $('#admin-view-week-end').text(formattedEndDate);
+            var weekNumber = getWeekNumber(weekStart);
+            $('#admin-view-week-number').text('Week ' + weekNumber);
+
+            $('.admin-timesheet-block1').attr("data-weekstartdate", formattedStartDate);
+            $('.admin-timesheet-block1').attr("data-weekenddate", formattedEndDate);
+
+            GetFirstEmployeeTimesheet();
+        }
+
+        $(document).on('click', '#admin-view-prev-week', function (event) {
+            event.preventDefault();
+            var prevWeekStart = new Date($('#admin-view-week-start').text().split('-').reverse().join('-'));
+            prevWeekStart.setDate(prevWeekStart.getDate() - 7);
+            updateViewWeek(prevWeekStart);
+        });
+
+        $(document).on('click', '#admin-view-next-week', function (event) {
+            event.preventDefault();
+            var nextWeekStart = new Date($('#admin-view-week-start').text().split('-').reverse().join('-'));
+            nextWeekStart.setDate(nextWeekStart.getDate() + 7);
+            updateViewWeek(nextWeekStart);
+        });
 
     });
 </script>
