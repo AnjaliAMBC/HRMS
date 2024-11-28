@@ -1,4 +1,6 @@
-﻿
+﻿@model HRMS.Models.Timesheet
+
+
 @{
     ViewBag.Title = "TimesheetMontlyTemplate";
 }
@@ -6,15 +8,17 @@
     .weekly-timesheet-header {
         text-align: center;
         font-size: 25px;
-        border-top-right-radius:0px !important;
-        border-top-left-radius:0px !important;
-        padding:0px !important;
+        border-top-right-radius: 0px !important;
+        border-top-left-radius: 0px !important;
+        padding: 0px !important;
     }
+
     #adminweeklytimesheet td {
         font-size: 17px;
         border: 2px solid #dee2e6;
         padding: 5px;
     }
+
     .weeklyupdate-timesheet-header {
         text-align: center;
         font-size: 20px;
@@ -22,6 +26,7 @@
         border-top-left-radius: 0px !important;
         padding: 0px !important;
     }
+
     .weeklyupdate-timesheet-subheader th {
         text-align: center;
         font-size: 16px;
@@ -29,11 +34,13 @@
         border-top-left-radius: 0px !important;
         padding: 0px !important;
     }
+
     #adminweeklyupdatesheet td {
         font-size: 14px;
         border: 2px solid #dee2e6;
         padding: 5px;
     }
+
     .leaveupdate-timesheet-header {
         text-align: center;
         font-size: 20px;
@@ -41,6 +48,7 @@
         border-top-left-radius: 0px !important;
         padding: 0px !important;
     }
+
     .leaveupdate-timesheet-subheader th {
         text-align: center;
         font-size: 16px;
@@ -48,12 +56,14 @@
         border-top-left-radius: 0px !important;
         padding: 0px !important;
     }
+
     #adminleaveupdatesheet td {
         font-size: 14px;
         border: 2px solid #dee2e6;
         padding: 5px;
-        text-align:center;
+        text-align: center;
     }
+
     .analysisupdate-timesheet-header {
         text-align: center;
         font-size: 20px;
@@ -61,24 +71,28 @@
         border-top-left-radius: 0px !important;
         padding: 0px !important;
     }
+
     #adminanalysisupdatesheet td {
         font-size: 14px;
         border: 2px solid #dee2e6;
         padding: 5px;
     }
+
     #adminanalysisupdatesheet tbody th {
         font-size: 14px;
         border: 2px solid #dee2e6;
         padding: 5px;
     }
+
     #adminweeklyupdatesheet {
         width: 100%;
-        table-layout:fixed;
+        table-layout: fixed;
     }
-    .dataTables_wrapper
-    {
-        padding:0px;
+
+    .dataTables_wrapper {
+        padding: 0px;
     }
+
     #adminweeklyupdatesheet_paginate {
         display: none;
     }
@@ -91,39 +105,39 @@
 
 
 <div class="container-fluid">
-   <div class="row mb-2">
-       <div class="col-9 p-0">
+    <div class="row mb-2">
+        <div class="col-9 p-0">
             <table class="table table-admin-weekly-timesheet" id="adminweeklytimesheet" style="table-layout:fixed;font-size:14px;">
                 <thead style="background-color: #d8e6fb;">
-                   <tr>
-                       <th class="weekly-timesheet-header" colspan="4">Designation - Weekly Status Report For Month</th>
-                   </tr>
+                    <tr>
+                        <th class="weekly-timesheet-header" colspan="4">Designation - Weekly Status Report</th>
+                    </tr>
                 </thead>
-               <tbody>
-                   <tr>
-                       <td><b>Resource Name</b></td>
-                       <td>Prathiksha Kubendran</td>
-                       <td><b>Project Manager</b></td>
-                       <td> Shantha M Balakumar</td>
-                   </tr>
-                   <tr>
-                       <td><b>Week Start Date</b></td>
-                       <td>25-11-2024</td>
-                       <td><b>Week End Date</b></td>
-                       <td>01-12-2024</td>
-                   </tr>
-               </tbody>
+                <tbody>
+                    <tr>
+                        <td><b>Resource Name</b></td>
+                        <td>@Model.SelectedEmployee.EmployeeName</td>
+                        <td><b>Project Manager</b></td>
+                        <td> @Model.SelectedEmployee.ReportingManager</td>
+                    </tr>
+                    <tr>
+                        <td><b>Week Start Date</b></td>
+                        <td>@Model.WeekStartDate.ToString("dd-MM-yyyy")</td>
+                        <td><b>Week End Date</b></td>
+                        <td>@Model.WeekEndDate.ToString("dd-MM-yyyy")</td>
+                    </tr>
+                </tbody>
             </table>
-       </div>
-       <div class="col-3 d-flex justify-content-center align-items-center p-0">
-           <img class="" src="~/Assets/Logol.png" />
-       </div>
-   </div>
+        </div>
+        <div class="col-3 d-flex justify-content-center align-items-center p-0">
+            <img class="" src="~/Assets/Logol.png" />
+        </div>
+    </div>
     <div class="row mb-2">
         <table class="table table-admin-weeklyupdate-timesheet" id="adminweeklyupdatesheet" style="width:100%;font-size:14px;">
             <thead style="background-color: #d8e6fb;">
                 <tr>
-                    <th class="weeklyupdate-timesheet-header" colspan="8">TASK DETAILS(25-11-2024 TO 01-12-2024)</th>
+                    <th class="weeklyupdate-timesheet-header" colspan="8">TASK DETAILS(@Model.WeekStartDate.ToString("dd-MM-yyyy") TO @Model.WeekEndDate.ToString("dd-MM-yyyy"))</th>
                 </tr>
                 <tr class="weeklyupdate-timesheet-subheader">
                     <th>Date</th>
@@ -137,79 +151,24 @@
                 </tr>
             </thead>
             <tbody>
-                <tr>
-                    <td>25-11-2024</td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                </tr>
-                <tr>
-                    <td>26-11-2024</td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                </tr>
-                <tr>
-                    <td>27-11-2024</td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                </tr>
-                <tr>
-                    <td>28-11-2024</td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                </tr>
-                <tr>
-                    <td>29-11-2024</td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                </tr>
-                <tr>
-                    <td>30-11-2024</td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                </tr>
-                <tr>
-                    <td>01-12-2024</td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                </tr>
+
+                @foreach (var timesheet in Model.WeekInfo[0].TimeSheets)
+                {
+                    <tr>
+                        <td>@(timesheet.Date?.ToString("dd-MM-yyyy") ?? "N/A")</td>
+                        <td>>@timesheet.Category</td>
+                        <td>@timesheet.IncidentTaskName</td>
+                        <td>@timesheet.IncidentTaskDescription</td>
+                        <td>@timesheet.Priority</td>
+                        <td>@timesheet.Requester</td>
+                        <td>@timesheet.Status</td>
+                        <td>@timesheet.HoursSpent</td>
+                    </tr>
+                }
+
             </tbody>
         </table>
-</div>
+    </div>
     <div class="row mt-4">
         <div class="col-6 p-0">
             <table class="table table-admin-leaveupdate-timesheet pl-3" id="adminleaveupdatesheet" style="width:80%;font-size:14px;">
@@ -270,14 +229,14 @@
                     { "orderable": false, "targets": 3 }
                 ],
                 "columns": [
-                    { "width": "7%" }, 
-                    { "width": "10%" }, 
-                    { "width": "15%" }, 
-                    { "width": "30%" }, 
-                    { "width": "10%" }, 
-                    { "width": "10%" }, 
-                    { "width": "10%" },  
-                    { "width": "8%" }   
+                    { "width": "7%" },
+                    { "width": "10%" },
+                    { "width": "15%" },
+                    { "width": "30%" },
+                    { "width": "10%" },
+                    { "width": "10%" },
+                    { "width": "10%" },
+                    { "width": "8%" }
                 ]
             });
         }

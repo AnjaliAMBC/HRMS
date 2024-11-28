@@ -2,15 +2,21 @@
 using HRMS.Models;
 using HRMS.Models.Employee;
 using Newtonsoft.Json;
+using OfficeOpenXml;
+using OfficeOpenXml.Style;
 using System;
 using System.Collections.Generic;
 using System.Configuration;
 using System.Data.Entity.Validation;
+using System.Drawing;
 using System.Globalization;
 using System.IO;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
+using System.IO.Compression;
+using System.Net;
+using System.Text;
 
 namespace HRMS.Controllers
 {
@@ -44,7 +50,7 @@ namespace HRMS.Controllers
             var model = new Timesheet();
             DateTime today = string.IsNullOrWhiteSpace(startDate) ? DateTime.Today : DateTime.Parse(startDate);
             if (isWeek)
-            {               
+            {
                 DayOfWeek startOfWeek = DayOfWeek.Monday;
                 int diff = (7 + (today.DayOfWeek - startOfWeek)) % 7;
 
@@ -55,9 +61,10 @@ namespace HRMS.Controllers
                 model.WeekEndDate = weekEndDate;
 
                 model.Weeknumber = CultureInfo.CurrentCulture.Calendar.GetWeekOfYear(today, CalendarWeekRule.FirstDay, startOfWeek);
+                model.WeeklyReport = true;
             }
             else
-            {                
+            {
                 DateTime start = string.IsNullOrWhiteSpace(startDate) ? DateTime.Today : DateTime.Parse(startDate);
                 DateTime monthStartDate = new DateTime(start.Year, start.Month, 1);
 
@@ -66,12 +73,13 @@ namespace HRMS.Controllers
 
                 model.WeekStartDate = monthStartDate;
                 model.WeekEndDate = monthEndDate;
+                model.WeeklyReport = false;
             }
 
             var selectedEmployee = _dbContext.emp_info.Where(x => x.EmployeeID == empID).FirstOrDefault();
             model.SelectedDate = today;
             model.SelectedEmployee = selectedEmployee;
-            model.WeekInfo = DaysInfo(model.WeekStartDate.ToString("dd MMMM yyyy"), model.WeekEndDate.ToString("dd MMMM yyyy"), model.Weeknumber, empID, client, selectedEmployee);
+            model.WeekInfo = DaysInfo(model.WeekStartDate.ToString("dd MMMM yyyy"), model.WeekEndDate.ToString("dd MMMM yyyy"), empID, client, selectedEmployee);
             model.SiteContext = SiteContext.GetCurrentUserContext();
             model.Client = client;
 
@@ -79,7 +87,7 @@ namespace HRMS.Controllers
         }
 
 
-        private List<DaySpecifcData> DaysInfo(string weekstart, string weekend, int weeknumber, string empID, string client, emp_info selecteEmployee)
+        private List<DaySpecifcData> DaysInfo(string weekstart, string weekend, string empID, string client, emp_info selecteEmployee)
         {
             //var cuserContext = SiteContext.GetCurrentUserContext();
 
@@ -435,7 +443,7 @@ namespace HRMS.Controllers
             model.WeekStartDate = weekStartDate;
             model.WeekEndDate = weekEndDate;
             model.SelectedEmployee = selectedEmployee;
-            model.WeekInfo = DaysInfo(weekstart, weekend, weeknumber, empID, client, selectedEmployee);
+            model.WeekInfo = DaysInfo(weekstart, weekend, empID, client, selectedEmployee);
             model.Client = client;
             return model;
         }
@@ -672,6 +680,132 @@ namespace HRMS.Controllers
                 viewResult.ViewEngine.ReleaseView(ControllerContext, viewResult.View);
                 return sw.GetStringBuilder().ToString();
             }
+        }
+
+        public ActionResult excelexport()
+        {
+            var model = CurrentWeekTimeSheetDetails("AMBC", "1311", "25 November 2024", "01 December 2024", true);
+            return View("~/Views/Timesheet/_TimeSheetWeeklyreportTemplate.cshtml", model);
+        }
+
+        public string RenderPartialViewToStringWithoutMainLayout(string viewName, object model)
+        {
+            ViewData.Model = model;
+
+            using (var sw = new StringWriter())
+            {
+                var viewResult = ViewEngines.Engines.FindPartialView(ControllerContext, viewName);
+                var viewContext = new ViewContext(ControllerContext, viewResult.View, ViewData, TempData, sw);
+                // Pass null for layout
+                ViewData["Layout"] = null;
+                viewResult.View.Render(viewContext, sw);
+                viewResult.ViewEngine.ReleaseView(ControllerContext, viewResult.View);
+                return sw.GetStringBuilder().ToString();
+            }
+        }
+
+        public ActionResult ExportSelectedEmployeesToZip(string[] selectedEmployeeIDs, string weekstart, string weekend, string client, bool weeklyreport)
+        {
+            if (selectedEmployeeIDs == null || selectedEmployeeIDs.Length == 0)
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest, "No employees selected.");
+
+            List<SourceFile> sourceFiles = new List<SourceFile>();
+
+            var requiredZIPFileName = client + "-" + weekstart + "to" + weekend;
+
+            using (var zipStream = new MemoryStream())
+            {
+                using (var zipArchive = new ZipArchive(zipStream, ZipArchiveMode.Create, true))
+                {
+                    foreach (var empID in selectedEmployeeIDs)
+                    {
+                        var model = CurrentWeekTimeSheetDetails(client, empID, weekstart, weekend, weeklyreport);
+                        string empSpecificReport = RenderPartialViewToStringWithoutMainLayout("~/Views/Timesheet/_TimeSheetWeeklyreportTemplate.cshtml", model);
+
+                        string wrappedHtmlContent = "<html xmlns:x=\"urn:schemas-microsoft-com:office:excel\">" +
+                                   "<head><meta http-equiv=\"Content-Type\" content=\"text/html; charset=UTF-8\" /></head>" +
+                                   "<body>" + empSpecificReport + "</body></html>";
+
+
+                        byte[] byteArray = Encoding.ASCII.GetBytes(wrappedHtmlContent);
+
+                        sourceFiles.Add(new SourceFile()
+                        {
+                            FileBytes = byteArray,
+                            Extension = ".xls",
+                            Name = model.SelectedEmployee.EmployeeName + "-TimeSheet- " + weekstart + " to " + weekend
+                        });
+                    }
+                }
+
+                byte[] fileBytes = null;
+
+                using (System.IO.MemoryStream memoryStream = new System.IO.MemoryStream())
+                {
+                    using (System.IO.Compression.ZipArchive zip = new System.IO.Compression.ZipArchive(memoryStream, System.IO.Compression.ZipArchiveMode.Create, true))
+                    {
+                        foreach (SourceFile f in sourceFiles)
+                        {
+
+                            System.IO.Compression.ZipArchiveEntry zipItem = zip.CreateEntry(f.Name + "." + f.Extension);
+                            using (System.IO.MemoryStream originalFileMemoryStream = new System.IO.MemoryStream(f.FileBytes))
+                            {
+                                using (System.IO.Stream entryStream = zipItem.Open())
+                                {
+                                    originalFileMemoryStream.CopyTo(entryStream);
+                                }
+                            }
+                        }
+                    }
+                    fileBytes = memoryStream.ToArray();
+                }
+
+                // download the constructed zip
+
+                Response.AddHeader("Content-Disposition", "attachment; filename=" + requiredZIPFileName + ".zip");
+                return File(fileBytes, "application/zip");
+            }
+        }
+
+
+        private MemoryStream GenerateExcelFromRenderedView(string htmlContent, string empID)
+        {
+            var memoryStream = new MemoryStream();
+
+            using (var package = new ExcelPackage())
+            {
+                var worksheet = package.Workbook.Worksheets.Add("Timesheet");
+                var htmlDoc = new HtmlAgilityPack.HtmlDocument();
+                htmlDoc.LoadHtml(htmlContent);
+
+                var table = htmlDoc.DocumentNode.SelectSingleNode("//table");
+                if (table != null)
+                {
+                    int row = 1;
+                    foreach (var tr in table.SelectNodes(".//tr"))
+                    {
+                        int col = 1;
+                        foreach (var td in tr.SelectNodes(".//td|.//th"))
+                        {
+                            worksheet.Cells[row, col].Value = td.InnerText.Trim();
+                            col++;
+                        }
+                        row++;
+                    }
+                }
+                else
+                {
+                    worksheet.Cells[1, 1].Value = "Generated Timesheet Report";
+                    worksheet.Cells[2, 1].Value = htmlContent;
+                }
+
+
+                worksheet.Cells.AutoFitColumns();
+                package.SaveAs(memoryStream);
+            }
+
+            memoryStream.Seek(0, SeekOrigin.Begin);
+            return memoryStream;
         }
 
 

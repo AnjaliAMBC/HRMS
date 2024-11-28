@@ -97,4 +97,11 @@ namespace HRMS.Models
         public DaySpecifcData DaySpecifcInfo { get; set; } = new DaySpecifcData();
 
     }
+
+    public class SourceFile
+    {
+        public string Name { get; set; }
+        public string Extension { get; set; }
+        public Byte[] FileBytes { get; set; }
+    }
 }
