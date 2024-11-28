@@ -593,7 +593,7 @@ namespace HRMS.Controllers
             try
             {
                 var cuserContext = SiteContext.GetCurrentUserContext();
-                var timeSheets = _dbContext.TimeSheets.Where(x => x.EmployeeID == empID && x.WeekEnd == weeknumber).ToList();
+                var timeSheets = _dbContext.TimeSheets.Where(x => x.EmployeeID == empID && x.WeekNo == weeknumber).ToList();
 
                 foreach (var timeSheet in timeSheets)
                 {
@@ -808,14 +808,53 @@ namespace HRMS.Controllers
             return memoryStream;
         }
 
+        public ActionResult TimesheetRemainders(string client, int weekNumber)
+        {
+            int remainderWeek = weekNumber - 1;
+            var distinctEmployeeIDs = _dbContext.TimeSheets
+                                         .Where(x => x.Client == client && x.WeekNo == remainderWeek && x.submissionstatus == "Save")
+                                         .Select(x => x.EmployeeID)
+                                         .Distinct()
+                                         .ToList();
 
-        public ActionResult TimesheetWeekReport()
-        {
-            return View("~/Views/Timesheet/TimesheetWeeklyTemplate.cshtml");
+            var clientSpecificEmployees = _dbContext.emp_info
+                                                    .Where(x => x.Client == client && x.EmployeeStatus == "Active")
+                                                    .ToList();
+            var missingEmployees = clientSpecificEmployees
+                .Where(emp => !distinctEmployeeIDs.Contains(emp.EmployeeID))
+                .ToList();
+
+            return PartialView("~/Views/Timesheet/_TimesheerRemainders.cshtml", missingEmployees);
         }
-        public ActionResult TimesheetMonthReport()
+
+
+        [HttpPost]
+        public ActionResult SendReminderEmail(List<EmployeeReminderInfo> selectedEmployees)
         {
-            return View("~/Views/Timesheet/TimesheetMonthlyTemplate.cshtml");
+            if (selectedEmployees == null || !selectedEmployees.Any())
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest, "No employees selected.");
+
+            foreach (var employee in selectedEmployees)
+            {
+                string empId = employee.EmployeeID;
+                string empName = employee.EmployeeName;
+                string empEmail = employee.EmployeeEmail;
+
+                var emailBody = RenderPartialViewToString("~/Views/Timesheet/_TimesheetReminderEmail.cshtml", employee);
+                var emailSubject = $"Reminder: Please Submit Your Timesheet for [{employee.WeekStartDate}] - [{employee.WeekEndDate}]";
+                var emailRequest = new EmailRequest()
+                {
+                    Body = emailBody,
+                    ToEmail = employee.EmployeeEmail,
+                    CCEmail = ConfigurationManager.AppSettings["TimesheetRemaindersCC"],
+                    Subject = emailSubject
+                };
+
+                var sendNotification = EMailHelper.SendEmail(emailRequest);
+            }
+
+            return Json(new { success = true, message = "Reminder emails sent successfully!" });
         }
+
     }
 }

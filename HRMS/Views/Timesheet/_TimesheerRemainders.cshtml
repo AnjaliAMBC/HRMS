@@ -1,0 +1,28 @@
+﻿@model List<HRMS.emp_info>
+
+
+<table id="admintimesheetsendremainderTable" class="table admin-timesheet-table" style="width: 100%; color: #272727">
+    <thead style="background-color: #3E78CF; border-radius: 10px;">
+        <tr>
+            <th>Select Employee</th>
+            <th>Employee ID</th>
+            <th>Employee Name</th>
+            <th>Client</th>
+            <th>Location</th>
+        </tr>
+    </thead>
+    <tbody id="admintimesheetBody">
+        @foreach (var employee in Model)
+        {
+
+            <tr>
+                <td><input type="checkbox" id="timehseerreaminderemp" name="employeeIds" value="@employee.EmployeeID" data-empemail="@employee.OfficalEmailid"></td>
+                <td class="timesheet-empid">@employee.EmployeeID</td>
+                <td class="timesheet-empname">@employee.EmployeeName</td>
+                <td>@employee.Client</td>
+                <td>@employee.Location</td>
+            </tr>
+        }
+    </tbody>
+</table>
+

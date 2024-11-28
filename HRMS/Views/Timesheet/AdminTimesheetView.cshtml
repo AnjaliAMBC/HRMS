@@ -144,33 +144,7 @@
             </div>
             <div class="modal-body">
                 <div class="admin-timesheetsendremainder-body table-responsive">
-                    <table id="admintimesheetsendremainderTable" class="table admin-timesheet-table" style="width: 100%; color: #272727">
-                        <thead style=" background-color: #3E78CF; border-radius: 10px;">
-                            <tr>
-                                <th>Select Employee</th>
-                                <th>Employee ID</th>
-                                <th>Employee Name</th>
-                                <th>Client</th>
-                                <th>Location</th>
-                            </tr>
-                        </thead>
-                        <tbody id="admintimesheetBody">
-                            <tr>
-                                <td><input type="checkbox" name="adminTimesheetEmpCheckbox" value="test" /></td>
-                                <td>112</td>
-                                <td>Test Name</td>
-                                <td>AMBC</td>
-                                <td>Madurai</td>
-                            </tr>
-                            <tr>
-                                <td><input type="checkbox" name="adminTimesheetEmpCheckbox" value="test" /></td>
-                                <td>112</td>
-                                <td>Test Name</td>
-                                <td>AMBC</td>
-                                <td>Madurai</td>
-                            </tr>
-                        </tbody>
-                    </table>
+
                 </div>
                 <div class="admin-timesheet-sendremainder-notes">
                     <span style="font-weight: bold;">Note:</span>  Send remainder for all the selected employees in single/group email
@@ -179,6 +153,8 @@
             <div class="modal-footer">
                 <button type="button" class="btn btn-primary" data-ticketname="" id="adminTimesheetSendRemainderSubmitButton">Send Remainder</button>
             </div>
+
+            <div id="reminderStatusMessage" class="alert" style="display: none;"></div>
         </div>
     </div>
 </div>
@@ -186,7 +162,6 @@
 <script>
     $(document).ready(function () {
 
-        // Employee search filter
         $(document).on('keyup', '#employeeSearch', function () {
             var value = $(this).val().toLowerCase();
             $('#employeeList .form-check').filter(function () {
@@ -194,12 +169,10 @@
             });
         });
 
-        // Select All functionality in employee list
         $(document).on('change', '#selectAll', function () {
             var checked = $(this).is(':checked');
             $('#employeeList .form-check-input').not('#selectAll').prop('checked', checked);
-            updateSelectedEmployees(); // Update the selected employees text
-            //filterTable(table);
+            updateSelectedEmployees();
         });
 
         function SelectedEmployeeIDs() {
@@ -211,7 +184,6 @@
             return selectedEmployeeids;
         }
 
-        // Function to update selected employees in button text
         function updateSelectedEmployees() {
             let selectedEmployees = [];
             $('#employeeList .form-check-input:checked').not('#selectAll').each(function () {
@@ -219,7 +191,6 @@
                 selectedEmployees.push(employeeName);
             });
 
-            // Update button text with selected employees
             let buttonText = 'Select Employees';
             if (selectedEmployees.length > 0) {
                 if (selectedEmployees.length === 1) {
@@ -231,10 +202,8 @@
             $('#adminTimesheetDropdown').html(buttonText + ' <i class="fas fa-chevron-down ml-1"></i>');
         }
 
-        // Event handler for checkbox change
         $(document).on('change', '#employeeList .form-check-input', function () {
             updateSelectedEmployees();
-            //filterTable(table);
         });
 
         function filterTable(table) {
@@ -255,9 +224,6 @@
                 let firstEmployeeId = timesheetselectedEmployeeIds[currentTimeSheetIndex];
                 loadEmployeeTimesheet(firstEmployeeId);
             }
-            //else {
-            //    alert("No employees selected.");
-            //}
         }
 
         $(document).on('click', '.timesheet-View', function () {
@@ -287,7 +253,6 @@
             });
         }
 
-        // Left Arrow Click
         $(document).on('click', '.admin-timesheet-graph-leftarrow', function () {
             if (currentTimeSheetIndex > 0) {
                 currentTimeSheetIndex--;
@@ -295,16 +260,12 @@
             }
         });
 
-        // Right Arrow Click
         $(document).on('click', '.admin-timesheet-graph-rightarrow', function () {
             if (currentTimeSheetIndex < timesheetselectedEmployeeIds.length - 1) {
                 currentTimeSheetIndex++;
                 loadEmployeeTimesheet(timesheetselectedEmployeeIds[currentTimeSheetIndex]);
             }
         });
-
-
-
 
         function formatDateToLong(date) {
             var day = date.getDate();
@@ -337,41 +298,35 @@
 
         function updateYearDropdown(year) {
             const yearDropdown = $("#admin-year-dropdown");
-
             if (!yearDropdown.find(`option[value="${year}"]`).length) {
                 populateYearDropdown();
             }
-
             yearDropdown.val(year);
         }
 
 
         function updateViewWeek(date, isWeekly) {
             var startDate, endDate, weekNumber;
-
             if (isWeekly) {
                 var weekData = getStartEndDateOfWeek(date);
                 startDate = weekData.startDate;
                 endDate = weekData.endDate;
-                weekNumber = getWeekNumber(startDate); // Calculate week number
+                weekNumber = getWeekNumber(startDate);
                 $('#admin-view-week-number').text('Week ' + weekNumber);
             } else {
 
-                startDate = new Date(date.getFullYear(), date.getMonth(), 1); // First day of the month
-                endDate = new Date(date.getFullYear(), date.getMonth() + 1, 0); // Last day of the month
+                startDate = new Date(date.getFullYear(), date.getMonth(), 1);
+                endDate = new Date(date.getFullYear(), date.getMonth() + 1, 0);
                 $('#admin-view-week-number').text(startDate.toLocaleString("en-US", { month: "long" }) + ' ' + startDate.getFullYear());
             }
 
-
             var formattedStartDate = formatDateToLong(startDate);
             var formattedEndDate = formatDateToLong(endDate);
-
             $('#admin-view-week-start').text(formattedStartDate);
             $('#admin-view-week-end').text(formattedEndDate);
 
             $('.admin-timesheet-block1').attr("data-weekstartdate", formattedStartDate);
             $('.admin-timesheet-block1').attr("data-weekenddate", formattedEndDate);
-
 
             if (!isWeekly) {
                 updateYearDropdown(startDate.getFullYear());
@@ -380,19 +335,16 @@
             GetFirstEmployeeTimesheet();
         }
 
-
         $(document).on('click', '#admin-view-prev-week', function (event) {
             event.preventDefault();
             var isWeekly = $("#admin-timesheet-report").val() === "WeeklyReport";
             var startDate = new Date($('#admin-view-week-start').text().split(' ').reverse().join(' '));
-
             if (isWeekly) {
                 startDate.setDate(startDate.getDate() - 7);
             } else {
                 startDate.setMonth(startDate.getMonth() - 1);
                 startDate.setDate(1);
             }
-
             updateViewWeek(startDate, isWeekly);
         });
 
@@ -401,7 +353,6 @@
             event.preventDefault();
             var isWeekly = $("#admin-timesheet-report").val() === "WeeklyReport";
             var startDate = new Date($('#admin-view-week-start').text().split(' ').reverse().join(' '));
-
             if (isWeekly) {
                 startDate.setDate(startDate.getDate() + 7);
             } else {
@@ -418,30 +369,24 @@
             yearDropdown.empty();
             yearDropdown.append(`<option value="${currentYear - 2}">${currentYear - 2}</option>`);
             yearDropdown.append(`<option value="${currentYear - 1}">${currentYear - 1}</option>`);
-            yearDropdown.append(`<option value="${currentYear}" selected>${currentYear}</option>`); // Set current year as selected
+            yearDropdown.append(`<option value="${currentYear}" selected>${currentYear}</option>`);
             yearDropdown.append(`<option value="${currentYear + 1}">${currentYear + 1}</option>`);
         }
 
-
-        // Set the start and end dates for the month
         function setMonthStartAndEndDates(year) {
-            const startDate = new Date(year, new Date().getMonth(), 1); // Start of the month
-            const endDate = new Date(year, new Date().getMonth() + 1, 0); // End of the month
-
-            // Update the HTML elements dynamically
+            const startDate = new Date(year, new Date().getMonth(), 1);
+            const endDate = new Date(year, new Date().getMonth() + 1, 0);
             $("#admin-view-week-start").text(formatDateToLong(startDate));
             $("#admin-view-week-end").text(formatDateToLong(endDate));
-
             $(".admin-timesheet-block1").attr("data-weekstartdate", formatDateToLong(startDate));
             $(".admin-timesheet-block1").attr("data-weekenddate", formatDateToLong(endDate));
         }
-
-
 
         $("#admin-timesheet-report").on("change", function () {
             const selectedReportType = $(this).val();
 
             if (selectedReportType === "MonthlyReport") {
+                $('.btn-admin-timesheet-sendremainder').attr("disabled", true);
                 $("#admin-view-week-number").hide();
                 $("#admin-year-dropdown").show();
                 const currentYear = new Date().getFullYear();
@@ -451,6 +396,7 @@
                 $("#admin-view-week-number").show();
                 $("#admin-year-dropdown").hide();
                 updateViewWeek(new Date(), true);
+                $('.btn-admin-timesheet-sendremainder').attr("disabled", false);
             }
         });
 
@@ -458,7 +404,6 @@
             const selectedYear = $(this).val();
             setMonthStartAndEndDates(selectedYear);
         });
-
 
         $(document).on('click', '.admin-timesheet-header-block-right img', function () {
             const client = $("#admintimesheetCompany").val();
@@ -488,23 +433,92 @@
                         const filenameRegex = /filename[^;=\n]*=((['"]).*?\2|[^;\n]*)/;
                         const matches = filenameRegex.exec(disposition);
                         if (matches != null && matches[1]) {
-                            filename = matches[1].replace(/['"]/g, ''); // Remove quotes
+                            filename = matches[1].replace(/['"]/g, '');
                         }
                     }
-
                     const blob = new Blob([response], { type: 'application/zip' });
                     const link = document.createElement('a');
                     link.href = URL.createObjectURL(blob);
                     link.download = filename;
                     link.click();
-
-                    //alert("Export Successful! The ZIP file will be downloaded shortly.");
                 },
                 error: function (xhr, status, error) {
                     alert('Error exporting timesheet: ' + error);
                 }
             });
         });
+
+        $(document).on('click', '.btn-admin-timesheet-sendremainder', function () {
+            var weekNumber = $('.admin-timesheet-block1').data("weeknumber");
+            const client = $("#admintimesheetCompany").val();
+            $('#adminTimesheetSendRemainderModal').modal("show");
+            $.ajax({
+                url: '/timesheet/timesheetremainders',
+                type: 'GET',
+                data: { client: client, weekNumber: weekNumber },
+                beforeSend: function () {
+                    $('.show-progress').show();
+                },
+                success: function (response) {
+                    $('.admin-timesheetsendremainder-body').html(response);
+                    $('.show-progress').hide();
+                },
+                error: function () {
+                    $('.show-progress').hide();
+                }
+            });
+        });
+
+        $('#adminTimesheetSendRemainderSubmitButton').click(function () {
+            var selectedEmployees = [];
+
+            $('#timehseerreaminderemp:checked').each(function () {
+                var $row = $(this).closest('tr');
+
+                var employeeId = $row.find('.timesheet-empid').text().trim();
+                var employeeName = $row.find('.timesheet-empname').text().trim();
+                var empEmail = $(this).data('empemail');
+                var weekstartdate = $('.admin-timesheet-block1').data("weekstartdate");
+                var weekenddate = $('.admin-timesheet-block1').data("weekenddate");
+
+
+                selectedEmployees.push({
+                    EmployeeID: employeeId,
+                    EmployeeName: employeeName,
+                    EmployeeEmail: empEmail,
+                    WeekStartDate: weekstartdate,
+                    WeekEndDate: weekenddate
+                });
+            });
+
+            // Check if any employees are selected
+            if (selectedEmployees.length > 0) {
+                $.ajax({
+                    url: '/timesheet/sendreminderemail',
+                    type: 'POST',
+                    data: {
+                        selectedEmployees: selectedEmployees // Send the selected employees as data
+                    },
+                    success: function (response) {
+                        var statusMessage = $('#reminderStatusMessage');
+                        if (response.success) {
+                            statusMessage.removeClass('alert-danger').addClass('alert-success')
+                                .text('Reminder sent successfully to the selected employees!').show();
+                        } else {
+                            statusMessage.removeClass('alert-success').addClass('alert-danger')
+                                .text('Failed to send reminder. Please try again.').show();
+                        }
+                    },
+                    error: function (xhr, status, error) {
+                        var statusMessage = $('#reminderStatusMessage');
+                        statusMessage.removeClass('alert-success').addClass('alert-danger')
+                            .text('An error occurred while sending the reminder.').show();
+                    }
+                });
+            }
+        });
+
+
 
 
     });

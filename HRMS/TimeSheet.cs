@@ -31,7 +31,7 @@ namespace HRMS
         public Nullable<System.DateTime> CreatedDate { get; set; }
         public string UpdatedBy { get; set; }
         public Nullable<System.DateTime> UpdatedDate { get; set; }
-        public Nullable<int> WeekEnd { get; set; }
+        public Nullable<int> WeekNo { get; set; }
         public string submissionstatus { get; set; }
     }
 }
