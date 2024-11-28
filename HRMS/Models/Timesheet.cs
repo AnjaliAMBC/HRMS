@@ -104,4 +104,13 @@ namespace HRMS.Models
         public string Extension { get; set; }
         public Byte[] FileBytes { get; set; }
     }
+
+    public class EmployeeReminderInfo
+    {
+        public string EmployeeID { get; set; }
+        public string EmployeeName { get; set; }
+        public string EmployeeEmail { get; set; }
+        public string WeekStartDate { get; set; }
+        public string WeekEndDate { get; set; }
+    }
 }

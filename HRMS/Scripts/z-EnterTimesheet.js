@@ -111,7 +111,7 @@ $(document).ready(function () {
                 IncidentTaskName: timesheetData.find('.timesheet-entertimesheetTaskName').val(),
                 IncidentTaskDescription: timesheetData.find('.timesheet-entertimesheetTaskDesc').val(),
                 Requester: timesheetData.find('.timesheet-entertimesheetRequester').val(),
-                HoursSpent: hoursSpentInput, // Store formatted hours spent
+                HoursSpent: hoursSpentInput,
                 Priority: timesheetData.find('.timesheet-entertimesheetPriority').val(),
                 Status: timesheetData.find('.timesheet-entertimesheetStatus').val(),
                 CreatedBy: timesheetData.find('.created-by').val(),
@@ -119,7 +119,7 @@ $(document).ready(function () {
                 UpdatedBy: timesheetData.find('.updated-by').val(),
                 UpdatedDate: timesheetData.find('.updated-date').val(),
                 submissionstatus: "Save",
-                WeekEnd: weeknumber,
+                WeekNo: weeknumber,
                 TimeSheetID: timesheetData.find('.timesheetid').text(),
             };
 
