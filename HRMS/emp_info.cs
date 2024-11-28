@@ -73,17 +73,5 @@ namespace HRMS
         public Nullable<System.TimeSpan> ShiftStartTime { get; set; }
         public Nullable<System.TimeSpan> ShiftEndTime { get; set; }
         public string Roles_Responsibilities { get; set; }
-        public string Client1 { get; set; }
-        public string ProjectName1 { get; set; }
-        public string Role1 { get; set; }
-        public string ReportingManager1 { get; set; }
-        public string Client2 { get; set; }
-        public string ProjectName2 { get; set; }
-        public string Role2 { get; set; }
-        public string ReportingManager2 { get; set; }
-        public string Client3 { get; set; }
-        public string ProjectName3 { get; set; }
-        public string Role3 { get; set; }
-        public string ReportingManager3 { get; set; }
     }
 }

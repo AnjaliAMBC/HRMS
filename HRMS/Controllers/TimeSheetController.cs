@@ -633,14 +633,13 @@ namespace HRMS.Controllers
                 _dbContext.TimeSheets.Remove(timeSheets);
                 _dbContext.SaveChanges();
 
-                return Json(new { success = true, message = "TimeSheet deleted Successfully!" });
+                return Json(new { success = true, message = "Timesheet deleted Successfully!" });
             }
             catch (Exception ex)
             {
                 return Json(new { success = true, message = "Error when deleting TimeSheet!" });
             }
         }
-
 
         public ActionResult AdminTimesheet()
         {

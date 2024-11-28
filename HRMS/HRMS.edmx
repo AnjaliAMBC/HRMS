@@ -217,18 +217,6 @@
           <Property Name="ShiftStartTime" Type="time" Precision="7" />
           <Property Name="ShiftEndTime" Type="time" Precision="7" />
           <Property Name="Roles&amp;Responsibilities" Type="varchar(max)" />
-          <Property Name="Client1" Type="varchar" MaxLength="255" />
-          <Property Name="ProjectName1" Type="varchar" MaxLength="255" />
-          <Property Name="Role1" Type="varchar" MaxLength="255" />
-          <Property Name="ReportingManager1" Type="varchar" MaxLength="255" />
-          <Property Name="Client2" Type="varchar" MaxLength="255" />
-          <Property Name="ProjectName2" Type="varchar" MaxLength="255" />
-          <Property Name="Role2" Type="varchar" MaxLength="255" />
-          <Property Name="ReportingManager2" Type="varchar" MaxLength="255" />
-          <Property Name="Client3" Type="varchar" MaxLength="255" />
-          <Property Name="ProjectName3" Type="varchar" MaxLength="255" />
-          <Property Name="Role3" Type="varchar" MaxLength="255" />
-          <Property Name="ReportingManager3" Type="varchar" MaxLength="255" />
         </EntityType>
         <EntityType Name="emplogin">
           <Key>
@@ -249,6 +237,20 @@
           <Property Name="CreatedDate" Type="date" />
           <Property Name="IsLeaveRM" Type="bit" />
           <Property Name="IsReportingM" Type="bit" />
+        </EntityType>
+        <EntityType Name="EmployeeBasedClients">
+          <Key>
+            <PropertyRef Name="Sno" />
+          </Key>
+          <Property Name="Sno" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="EmployeeID" Type="varchar" MaxLength="100" />
+          <Property Name="EmployeeName" Type="varchar" MaxLength="255" Nullable="false" />
+          <Property Name="OfficalEmailid" Type="varchar" MaxLength="100" Nullable="false" />
+          <Property Name="EmployeeStatus" Type="varchar" MaxLength="100" Nullable="false" />
+          <Property Name="Client" Type="varchar" MaxLength="255" />
+          <Property Name="ProjectName" Type="varchar" MaxLength="255" />
+          <Property Name="Role1" Type="varchar" MaxLength="255" />
+          <Property Name="ReportingManager" Type="varchar" MaxLength="255" />
         </EntityType>
         <EntityType Name="IT_Maintenance">
           <Key>
@@ -615,6 +617,7 @@ warning 6002: The table/view 'HRMS_PortalDev1.dbo.CheckInView' does not have a p
           <EntitySet Name="Designation" EntityType="Self.Designation" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="emp_info" EntityType="Self.emp_info" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="emplogin" EntityType="Self.emplogin" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="EmployeeBasedClients" EntityType="Self.EmployeeBasedClients" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="IT_Maintenance" EntityType="Self.IT_Maintenance" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="IT_Ticket" EntityType="Self.IT_Ticket" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="JobDetails" EntityType="Self.JobDetails" Schema="dbo" store:Type="Tables" />
@@ -701,8 +704,9 @@ warning 6002: The table/view 'HRMS_PortalDev1.dbo.CheckInView' does not have a p
           <EntitySet Name="JobDetails" EntityType="HRMS_EntityModel.JobDetail" />
           <EntitySet Name="JobReferrals" EntityType="HRMS_EntityModel.JobReferral" />
           <EntitySet Name="TimeSheetCategories" EntityType="HRMS_EntityModel.TimeSheetCategory" />
-          <EntitySet Name="emp_info" EntityType="HRMS_EntityModel.emp_info" />
           <EntitySet Name="TimeSheets" EntityType="HRMS_EntityModel.TimeSheet" />
+          <EntitySet Name="emp_info" EntityType="HRMS_EntityModel.emp_info" />
+          <EntitySet Name="EmployeeBasedClients" EntityType="HRMS_EntityModel.EmployeeBasedClient" />
         </EntityContainer>
         <EntityType Name="Client">
           <Key>
@@ -1182,6 +1186,30 @@ warning 6002: The table/view 'HRMS_PortalDev1.dbo.CheckInView' does not have a p
           <Property Name="Sno" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="CategoryName" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
         </EntityType>
+        <EntityType Name="TimeSheet">
+          <Key>
+            <PropertyRef Name="TimeSheetID" />
+          </Key>
+          <Property Name="TimeSheetID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Client" Type="String" Nullable="false" MaxLength="255" FixedLength="false" Unicode="false" />
+          <Property Name="EmployeeID" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="EmployeeName" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+          <Property Name="EmployeeEmail" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="Date" Type="DateTime" Precision="0" />
+          <Property Name="Category" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+          <Property Name="IncidentTaskName" Type="String" MaxLength="1000" FixedLength="false" Unicode="false" />
+          <Property Name="IncidentTaskDescription" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="Requester" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+          <Property Name="HoursSpent" Type="Decimal" Precision="8" Scale="2" />
+          <Property Name="Priority" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="Status" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="CreateddBy" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+          <Property Name="CreatedDate" Type="DateTime" Precision="3" />
+          <Property Name="UpdatedBy" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+          <Property Name="UpdatedDate" Type="DateTime" Precision="3" />
+          <Property Name="WeekNo" Type="Int32" />
+          <Property Name="submissionstatus" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+        </EntityType>
         <EntityType Name="emp_info">
           <Key>
             <PropertyRef Name="EmployeeID" />
@@ -1245,42 +1273,20 @@ warning 6002: The table/view 'HRMS_PortalDev1.dbo.CheckInView' does not have a p
           <Property Name="ShiftStartTime" Type="Time" Precision="7" />
           <Property Name="ShiftEndTime" Type="Time" Precision="7" />
           <Property Name="Roles_Responsibilities" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
-          <Property Name="Client1" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
-          <Property Name="ProjectName1" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
-          <Property Name="Role1" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
-          <Property Name="ReportingManager1" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
-          <Property Name="Client2" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
-          <Property Name="ProjectName2" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
-          <Property Name="Role2" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
-          <Property Name="ReportingManager2" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
-          <Property Name="Client3" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
-          <Property Name="ProjectName3" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
-          <Property Name="Role3" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
-          <Property Name="ReportingManager3" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
         </EntityType>
-        <EntityType Name="TimeSheet">
+        <EntityType Name="EmployeeBasedClient">
           <Key>
-            <PropertyRef Name="TimeSheetID" />
+            <PropertyRef Name="Sno" />
           </Key>
-          <Property Name="TimeSheetID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="Client" Type="String" Nullable="false" MaxLength="255" FixedLength="false" Unicode="false" />
+          <Property Name="Sno" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="EmployeeID" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
-          <Property Name="EmployeeName" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
-          <Property Name="EmployeeEmail" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
-          <Property Name="Date" Type="DateTime" Precision="0" />
-          <Property Name="Category" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
-          <Property Name="IncidentTaskName" Type="String" MaxLength="1000" FixedLength="false" Unicode="false" />
-          <Property Name="IncidentTaskDescription" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
-          <Property Name="Requester" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
-          <Property Name="HoursSpent" Type="Decimal" Precision="8" Scale="2" />
-          <Property Name="Priority" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
-          <Property Name="Status" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
-          <Property Name="CreateddBy" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
-          <Property Name="CreatedDate" Type="DateTime" Precision="3" />
-          <Property Name="UpdatedBy" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
-          <Property Name="UpdatedDate" Type="DateTime" Precision="3" />
-          <Property Name="WeekNo" Type="Int32" />
-          <Property Name="submissionstatus" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+          <Property Name="EmployeeName" Type="String" Nullable="false" MaxLength="255" FixedLength="false" Unicode="false" />
+          <Property Name="OfficalEmailid" Type="String" Nullable="false" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="EmployeeStatus" Type="String" Nullable="false" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="Client" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+          <Property Name="ProjectName" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+          <Property Name="Role1" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+          <Property Name="ReportingManager" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
         </EntityType>
       </Schema>
     </edmx:ConceptualModels>
@@ -1805,21 +1811,34 @@ warning 6002: The table/view 'HRMS_PortalDev1.dbo.CheckInView' does not have a p
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
+          <EntitySetMapping Name="TimeSheets">
+            <EntityTypeMapping TypeName="HRMS_EntityModel.TimeSheet">
+              <MappingFragment StoreEntitySet="TimeSheet">
+                <ScalarProperty Name="submissionstatus" ColumnName="submissionstatus" />
+                <ScalarProperty Name="WeekNo" ColumnName="WeekNo" />
+                <ScalarProperty Name="UpdatedDate" ColumnName="UpdatedDate" />
+                <ScalarProperty Name="UpdatedBy" ColumnName="UpdatedBy" />
+                <ScalarProperty Name="CreatedDate" ColumnName="CreatedDate" />
+                <ScalarProperty Name="CreateddBy" ColumnName="CreateddBy" />
+                <ScalarProperty Name="Status" ColumnName="Status" />
+                <ScalarProperty Name="Priority" ColumnName="Priority" />
+                <ScalarProperty Name="HoursSpent" ColumnName="HoursSpent" />
+                <ScalarProperty Name="Requester" ColumnName="Requester" />
+                <ScalarProperty Name="IncidentTaskDescription" ColumnName="IncidentTaskDescription" />
+                <ScalarProperty Name="IncidentTaskName" ColumnName="IncidentTaskName" />
+                <ScalarProperty Name="Category" ColumnName="Category" />
+                <ScalarProperty Name="Date" ColumnName="Date" />
+                <ScalarProperty Name="EmployeeEmail" ColumnName="EmployeeEmail" />
+                <ScalarProperty Name="EmployeeName" ColumnName="EmployeeName" />
+                <ScalarProperty Name="EmployeeID" ColumnName="EmployeeID" />
+                <ScalarProperty Name="Client" ColumnName="Client" />
+                <ScalarProperty Name="TimeSheetID" ColumnName="TimeSheetID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
           <EntitySetMapping Name="emp_info">
             <EntityTypeMapping TypeName="HRMS_EntityModel.emp_info">
               <MappingFragment StoreEntitySet="emp_info">
-                <ScalarProperty Name="ReportingManager3" ColumnName="ReportingManager3" />
-                <ScalarProperty Name="Role3" ColumnName="Role3" />
-                <ScalarProperty Name="ProjectName3" ColumnName="ProjectName3" />
-                <ScalarProperty Name="Client3" ColumnName="Client3" />
-                <ScalarProperty Name="ReportingManager2" ColumnName="ReportingManager2" />
-                <ScalarProperty Name="Role2" ColumnName="Role2" />
-                <ScalarProperty Name="ProjectName2" ColumnName="ProjectName2" />
-                <ScalarProperty Name="Client2" ColumnName="Client2" />
-                <ScalarProperty Name="ReportingManager1" ColumnName="ReportingManager1" />
-                <ScalarProperty Name="Role1" ColumnName="Role1" />
-                <ScalarProperty Name="ProjectName1" ColumnName="ProjectName1" />
-                <ScalarProperty Name="Client1" ColumnName="Client1" />
                 <ScalarProperty Name="Roles_Responsibilities" ColumnName="Roles&amp;Responsibilities" />
                 <ScalarProperty Name="ShiftEndTime" ColumnName="ShiftEndTime" />
                 <ScalarProperty Name="ShiftStartTime" ColumnName="ShiftStartTime" />
@@ -1882,32 +1901,22 @@ warning 6002: The table/view 'HRMS_PortalDev1.dbo.CheckInView' does not have a p
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
-          <EntitySetMapping Name="TimeSheets">
-            <EntityTypeMapping TypeName="HRMS_EntityModel.TimeSheet">
-              <MappingFragment StoreEntitySet="TimeSheet">
-                <ScalarProperty Name="submissionstatus" ColumnName="submissionstatus" />
-                <ScalarProperty Name="WeekNo" ColumnName="WeekNo" />
-                <ScalarProperty Name="UpdatedDate" ColumnName="UpdatedDate" />
-                <ScalarProperty Name="UpdatedBy" ColumnName="UpdatedBy" />
-                <ScalarProperty Name="CreatedDate" ColumnName="CreatedDate" />
-                <ScalarProperty Name="CreateddBy" ColumnName="CreateddBy" />
-                <ScalarProperty Name="Status" ColumnName="Status" />
-                <ScalarProperty Name="Priority" ColumnName="Priority" />
-                <ScalarProperty Name="HoursSpent" ColumnName="HoursSpent" />
-                <ScalarProperty Name="Requester" ColumnName="Requester" />
-                <ScalarProperty Name="IncidentTaskDescription" ColumnName="IncidentTaskDescription" />
-                <ScalarProperty Name="IncidentTaskName" ColumnName="IncidentTaskName" />
-                <ScalarProperty Name="Category" ColumnName="Category" />
-                <ScalarProperty Name="Date" ColumnName="Date" />
-                <ScalarProperty Name="EmployeeEmail" ColumnName="EmployeeEmail" />
+          <EntitySetMapping Name="EmployeeBasedClients">
+            <EntityTypeMapping TypeName="HRMS_EntityModel.EmployeeBasedClient">
+              <MappingFragment StoreEntitySet="EmployeeBasedClients">
+                <ScalarProperty Name="ReportingManager" ColumnName="ReportingManager" />
+                <ScalarProperty Name="Role1" ColumnName="Role1" />
+                <ScalarProperty Name="ProjectName" ColumnName="ProjectName" />
+                <ScalarProperty Name="Client" ColumnName="Client" />
+                <ScalarProperty Name="EmployeeStatus" ColumnName="EmployeeStatus" />
+                <ScalarProperty Name="OfficalEmailid" ColumnName="OfficalEmailid" />
                 <ScalarProperty Name="EmployeeName" ColumnName="EmployeeName" />
                 <ScalarProperty Name="EmployeeID" ColumnName="EmployeeID" />
-                <ScalarProperty Name="Client" ColumnName="Client" />
-                <ScalarProperty Name="TimeSheetID" ColumnName="TimeSheetID" />
+                <ScalarProperty Name="Sno" ColumnName="Sno" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
-        </EntityContainerMapping>
+          </EntityContainerMapping>
       </Mapping>
     </edmx:Mappings>
   </edmx:Runtime>

@@ -197,14 +197,14 @@ $(document).ready(function () {
                     $('#deletetimesheetmessage')
                         .text(response.message)
                         .removeClass('text-danger')
-                        .addClass('text-primary');
+                        .addClass('text-success');
                     $('.timesheetdelete-noyes-div').hide();
                     $('.timesheetdelete-close-div').show();
                     $('#empTimesheetConfirmCancelModal').modal('show');
                 } else {
                     $('#deletetimesheetmessage')
                         .text("Error: " + response.message)
-                        .removeClass('text-primary')
+                        .removeClass('text-success')
                         .addClass('text-danger');
                     $('.timesheetdelete-noyes-div').hide();
                     $('.timesheetdelete-close-div').show();
