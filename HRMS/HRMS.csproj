@@ -56,6 +56,9 @@
     <Reference Include="EPPlus, Version=4.5.3.3, Culture=neutral, PublicKeyToken=ea159fdaa78159a1, processorArchitecture=MSIL">
       <HintPath>..\packages\EPPlus.4.5.3.3\lib\net40\EPPlus.dll</HintPath>
     </Reference>
+    <Reference Include="HtmlAgilityPack, Version=1.11.71.0, Culture=neutral, PublicKeyToken=bd319b19eaf3b43a, processorArchitecture=MSIL">
+      <HintPath>..\packages\HtmlAgilityPack.1.11.71\lib\Net45\HtmlAgilityPack.dll</HintPath>
+    </Reference>
     <Reference Include="Microsoft.CSharp" />
     <Reference Include="PresentationCore" />
     <Reference Include="Quartz, Version=3.0.0.0, Culture=neutral, PublicKeyToken=f6b8c98a402cc8a4, processorArchitecture=MSIL">
@@ -64,6 +67,7 @@
     <Reference Include="System" />
     <Reference Include="System.Data" />
     <Reference Include="System.Drawing" />
+    <Reference Include="System.IO.Compression" />
     <Reference Include="System.Runtime.Remoting" />
     <Reference Include="System.Runtime.Serialization" />
     <Reference Include="System.Security" />
@@ -630,6 +634,10 @@
     <Content Include="Views\Timesheet\_Timesheetaddnewrow.cshtml" />
     <Content Include="Views\Timesheet\_EmpViewTimeSheetrows.cshtml" />
     <Content Include="Views\Shared\_TimesheetSubmittedEmail.cshtml" />
+    <Content Include="Views\Timesheet\_AdminTimesheetRowsView.cshtml" />
+    <Content Include="Views\Timesheet\_AdminTimesheetCharts.cshtml" />
+    <Content Include="Views\Timesheet\_AdminTimesheetrows.cshtml" />
+    <Content Include="Views\Timesheet\_TimeSheetWeeklyreportTemplate.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

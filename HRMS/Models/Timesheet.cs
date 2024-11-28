@@ -46,6 +46,12 @@ namespace HRMS.Models
         public string Client { get; set; }
 
         public DateTime SelectedDate { get; set; }
+
+        public List<emp_info> Employees { get; set; }
+
+        public emp_info SelectedEmployee { get; set; }
+
+        public bool WeeklyReport { get; set; } = false;
     }
 
     public class DaySpecifcData
@@ -90,5 +96,12 @@ namespace HRMS.Models
         public bool AddNewRow { get; set; } = false;
         public DaySpecifcData DaySpecifcInfo { get; set; } = new DaySpecifcData();
 
+    }
+
+    public class SourceFile
+    {
+        public string Name { get; set; }
+        public string Extension { get; set; }
+        public Byte[] FileBytes { get; set; }
     }
 }

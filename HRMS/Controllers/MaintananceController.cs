@@ -42,7 +42,7 @@ namespace HRMS.Controllers
             var endOfMonth = startOfMonth.AddMonths(1).AddDays(-1);
 
 
-            model.ITEmployees = _dbContext.emp_info.Where(x => x.EmployeeStatus == "Active" && x.Department == "IT").ToList();
+            model.ITEmployees = _dbContext.emp_info.Where(x => x.EmployeeStatus == "Active" && x.Department.Contains("IT")).ToList();
             model.Employees = _dbContext.emp_info.Where(x => x.EmployeeStatus == "Active").ToList();
 
 
@@ -185,7 +185,7 @@ namespace HRMS.Controllers
         {
             var response = new JsonResponse();
             MaintananceModel model = new MaintananceModel();
-            model.ITEmployees = _dbContext.emp_info.Where(x => x.EmployeeStatus == "Active" && x.Department == "IT").ToList();
+            model.ITEmployees = _dbContext.emp_info.Where(x => x.EmployeeStatus == "Active" && x.Department.Contains("IT")).ToList();
             model.Employees = _dbContext.emp_info.Where(x => x.EmployeeStatus == "Active").ToList();
 
             try
@@ -303,7 +303,7 @@ namespace HRMS.Controllers
             MaintananceModel model = new MaintananceModel();
             var selectedMaintenanceSno = sno;
             var maintenanceItem = _dbContext.IT_Maintenance.Where(x => x.Sno == sno).FirstOrDefault();
-            model.ITEmployees = _dbContext.emp_info.Where(x => x.EmployeeStatus == "Active" && x.Department == "IT").ToList();
+            model.ITEmployees = _dbContext.emp_info.Where(x => x.EmployeeStatus == "Active" && x.Department.Contains("IT")).ToList();
             model.Employees = _dbContext.emp_info.Where(x => x.EmployeeStatus == "Active").ToList();
             model.EditableRecord = maintenanceItem;
 

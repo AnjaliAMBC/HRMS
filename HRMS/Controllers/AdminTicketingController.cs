@@ -45,8 +45,7 @@ namespace HRMS.Controllers
 
             var employeeTickets = _dbContext.IT_Ticket.Where(x => x.TicketType == "HR").OrderByDescending(x => x.Created_date);
             model.empTickets = employeeTickets.ToList();
-
-            model.itEmployees = _dbContext.emp_info.Where(x => x.Department == "HR").ToList();
+            model.itEmployees = _dbContext.emp_info.Where(x => x.Department.Contains("HR")).ToList();
             return View("~/Views/AdminDashboard/AdminHrTicketing.cshtml", model);
         }
 
@@ -66,7 +65,7 @@ namespace HRMS.Controllers
                 model.TicketViewModel = ticket;
             }
 
-            var hrEMployees = _dbContext.emp_info.Where(x => x.Department == "HR").ToList();
+            var hrEMployees = _dbContext.emp_info.Where(x => x.Department.Contains("HR")).ToList();
             model.ITEmployees = hrEMployees;
 
             return View("~/Views/AdminDashboard/AdminHrTicketOpenCloseView.cshtml", model);
@@ -86,7 +85,7 @@ namespace HRMS.Controllers
             var employeeTickets = _dbContext.IT_Ticket.Where(x => x.TicketType == "IT").OrderByDescending(x => x.Created_date);
             model.empTickets = employeeTickets.ToList();
 
-            model.itEmployees = _dbContext.emp_info.Where(x => x.Department == "IT").ToList();
+            model.itEmployees = _dbContext.emp_info.Where(x => x.Department.Contains("IT")).ToList();
 
             return View("~/Views/AdminDashboard/AdminTicketingView.cshtml", model);
         }
@@ -100,7 +99,7 @@ namespace HRMS.Controllers
 
             }
 
-            var itEMployees = _dbContext.emp_info.Where(x => x.Department == "IT").ToList();
+            var itEMployees = _dbContext.emp_info.Where(x => x.Department.Contains("IT")).ToList();
             model.ITEmployees = itEMployees;
 
             return View("~/Views/AdminDashboard/AdminItTicketOpenClose.cshtml", model);
@@ -275,7 +274,6 @@ namespace HRMS.Controllers
                             Comments = "",
                             CreatedDate = DateTime.Now
                         };
-
                         _dbContext.Notifications.Add(newNotification);
                         _dbContext.SaveChanges();
                     }
@@ -323,7 +321,6 @@ namespace HRMS.Controllers
 
                 row++;
             }
-
 
             worksheet.Cells.AutoFitColumns();
 

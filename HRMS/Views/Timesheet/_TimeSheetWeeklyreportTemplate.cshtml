@@ -1,0 +1,286 @@
+﻿@model HRMS.Models.Timesheet
+
+@{
+    Layout = null;
+
+}
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>Index</title>
+    <style type="text/css">
+        body {
+            font-family: Arial;
+            font-size: 9pt;
+        }
+    </style>
+</head>
+<body>
+
+    <style>
+        .headerrow {
+            border: 0px !important;
+            padding: 2px !important;
+            background-color: LightGray;
+        }
+
+        .headertd {
+            font-size: small;
+            border-right: 1px solid lightgray !important;
+        }
+
+        .center {
+            margin-top: 3px;
+            width: 100%;
+            border: 1px solid black;
+            padding: 6px;
+            background-color: #D3D3D3;
+        }
+
+        #timesheet-table th, td {
+            border: 1px solid #D3D3D3;
+        }
+
+        .table-leaveinfo th, td {
+            /* border: 1px solid #D3D3D3;*/
+        }
+
+        .partialview-reports {
+            font-family: Calibri;
+        }
+
+        .row-highlate {
+            background-color: yellow !important;
+        }
+    </style>
+
+
+    @if (Model != null)
+    {
+        decimal? totalhoursSpentInTheWeek = 0;
+        decimal? totalBillableHours = 0;
+        decimal? totalNonBillableHours = 0;
+
+        <div class="card timesheet-card partialview-reports" style="font-family:Calibri">
+            <div class="card-body ">
+                <div class="emailbodycontent">
+                    <div class="table-responsive table">
+                        <table>
+                            <tr>
+                                <td style="width: 100%; padding-left: 0px; text-align: center; border: 1px solid black; padding-top: 0px; padding-right: 0px; padding-bottom:0px">
+                                    <table style="width:100%">
+                                        @if (Model.WeeklyReport)
+                                        {
+                                            <tr style="background-color: #D3D3D3; text-align:center"><td colspan="7"><h2><b>@Model.SelectedEmployee.ProjectName1 Weekly Status Report</b></h2></td></tr>
+                                        }
+                                        else
+                                        {
+                                            <tr style="background-color: #D3D3D3; text-align:center"><td colspan="7"><h2><b>@Model.SelectedEmployee.ProjectName1 @Model.WeekStartDate.ToString("MMMM") Status Report</b></h2></td></tr>
+                                        }
+
+                                        <tr style="text-align:left">
+                                            <td class="headertd">
+                                                <b>Resource Name</b>
+                                            </td>
+                                            <td class="headertd">
+                                                @Model.SelectedEmployee.EmployeeName
+                                            </td>
+                                            <td class="headertd"><b>Project Manager</b></td>
+                                            <td class="headertd">
+                                                @Model.SelectedEmployee.ReportingManager
+                                            </td>
+                                        </tr>
+                                        <tr style="text-align:left">
+                                            @if (Model.WeeklyReport)
+                                            {
+                                                <td class="headertd"><b>Week Start Date</b></td>
+                                            }
+                                            else
+                                            {
+                                                <td class="headertd"><b>Start Date</b></td>
+                                            }
+                                            <td class="headertd">@Model.WeekStartDate.ToString("dd-MM-yyyy")</td>
+                                            @if (Model.WeeklyReport)
+                                            {
+                                                <td class="headertd">
+                                                    <b>Week End Date</b>
+                                                </td>
+                                            }
+                                            else
+                                            {
+                                                <td class="headertd">
+                                                    <b>End Date</b>
+                                                </td>
+                                            }
+                                            <td class="headertd">
+                                                @Model.WeekEndDate.ToString("dd-MM-yyyy")
+                                            </td>
+                                        </tr>
+                                    </table>
+                                </td>
+                                <td style="width: 30%">
+                                    <img class=" preload-me" src="https://ambconline.com/wp-content/uploads/2022/12/AMBC-ISO-LOGO.png" srcset="https://ambconline.com/wp-content/uploads/2022/12/AMBC-ISO-LOGO.png 188w, https://ambconline.com/wp-content/uploads/2022/12/AMBC-ISO-LOGO.png 188w" width="300" height="80" sizes="188px" alt="AMBC Inc">
+                                </td>
+                            </tr>
+                        </table>
+
+                        <table>
+                            <tr>
+                                <td colspan="8"></td>
+                            </tr>
+                        </table>
+                        <table>
+                            <tr>
+                                <td colspan="8" style="background-color: #D3D3D3"><b>EFFORT DETAILS (current week)</b></td>
+                            </tr>
+                        </table>
+
+                        <table class="table" id="timesheet-table" style="margin-top: 2px">
+                            <thead class="table-bordered">
+                                <tr style="background-color: #BCD2E8">
+                                    <th class="" scope="col" style="max-width:50px; text-align:left">Day</th>
+                                    <th class="" scope="col" style="text-align: left">Category</th>
+                                    <th class="" scope="col" style="text-align: left">Incident Number</th>
+                                    <th class="" scope="col" style="text-align: left">Incident Desc</th>
+                                    <th class="" scope="col" style="text-align: left">Requester</th>
+                                    <th class="" scope="col" style="text-align: left">Priority</th>
+                                    <th class="" scope="col" style="text-align: left">Status</th>
+                                    <th class="" scope="col" style="text-align: left">Time Spent</th>
+                                </tr>
+                            </thead>
+
+                            <tbody class="timesheet-table-grid">
+                                @foreach (var dayInfo in Model.WeekInfo)
+                                {
+                                    if (dayInfo.HoursSpent > 0)
+                                    {
+                                        totalBillableHours += dayInfo.HoursSpent;
+                                        totalhoursSpentInTheWeek += totalBillableHours;
+                                    }
+                                    if (dayInfo.OverTime > 0)
+                                    {
+                                        totalNonBillableHours += dayInfo.OverTime;
+                                        totalhoursSpentInTheWeek += totalNonBillableHours;
+                                    }
+
+                                    foreach (var employeeReport in dayInfo.TimeSheets)
+                                    {
+                                        if (employeeReport.HoursSpent > 0)
+                                        {
+                                            var currentTaskDate = employeeReport.Date?.ToString("dd-MM-yyyy") ?? "N/A";
+                                            var isAppliedLeavePostSubmission = Model.WeekInfo[0].Leaves.Where(x => x.leavedate == employeeReport.Date).FirstOrDefault();
+
+                                            var rowhighlate = "";
+                                            if (isAppliedLeavePostSubmission != null)
+                                            {
+                                                rowhighlate = "row-highlate";
+                                            }
+
+                                            <tr style="background-color: #fff" class="@rowhighlate">
+                                                <td scope="row" style="font-family: Calibri; text-align: left; vertical-align: middle; ">@currentTaskDate</td>
+                                                <td scope="row" style="font-family: Calibri; text-align: left; vertical-align: middle; ">@employeeReport.Category</td>
+                                                <td scope="row" style="font-family: Calibri; text-align: left; vertical-align: middle; max-width: 200px ">@employeeReport.IncidentTaskName</td>
+                                                <td scope="row" style="font-family: Calibri; text-align: left; max-width: 200px; vertical-align: middle; ">@employeeReport.IncidentTaskDescription</td>
+                                                <td scope="row" style="font-family: Calibri; text-align: left; vertical-align: middle; ">@employeeReport.Requester</td>
+                                                <td scope="row" style="font-family: Calibri; text-align: left; vertical-align: middle; ">@employeeReport.Priority</td>
+                                                <td scope="row" style="font-family: Calibri; text-align: left; vertical-align: middle; ">@employeeReport.Status</td>
+                                                <td scope="row" style="font-family: Calibri; text-align: left; vertical-align: middle; ">@employeeReport.HoursSpent</td>
+
+                                            </tr>
+                                        }
+                                    }
+                                }
+
+                            </tbody>
+                        </table>
+
+                        <table>
+                            <tr>
+                                <td colspan="8"></td>
+                            </tr>
+                        </table>
+                        <table>
+                            <tr>
+                                <td colspan="8" style="background-color: #D3D3D3"><b>Leave Information</b></td>
+                            </tr>
+                        </table>
+
+                        <table style="margin-top: 4px; width:34%">
+                            <thead class="table-bordered">
+                                <tr style="background-color: #BCD2E8">
+                                    <th class="" scope="col">Leave Date</th>
+                                    <th class="" scope="col">Leave Type</th>
+                                </tr>
+                            </thead>
+
+                            <tbody class="timesheet-table-grid">
+                                @{
+                                    var leavesExists = false;
+                                }
+                                @foreach (var dayInfo in Model.WeekInfo)
+                                {
+                                    foreach (var leave in dayInfo.Leaves)
+                                    {
+                                        leavesExists = true;
+                                        <tr style="background-color: #ccffcc">
+                                            <td scope="row" style="vertical-align: middle; text-align: center;">
+                                                @(leave.leavedate.HasValue ? leave.leavedate.Value.ToString("dd-MM-yyyy") : "N/A")
+                                            </td>
+                                            <td scope="row" style="vertical-align: middle; text-align: center;">@leave.leavesource</td>
+                                        </tr>
+                                    }
+                                }
+
+                                @if (!leavesExists)
+                                {
+                                    <tr style="background-color: #ccffcc">
+                                        <td scope="row">NA</td>
+                                        <td scope="row">NA</td>
+                                    </tr>
+                                }
+
+                            </tbody>
+                        </table>
+                        <table style="border: none">
+                            <tr style="background-color: #ccffcc; ">
+                                <td style="width: 368px;  background-color: white; font-size: initial; padding: 3px;"><b>Total Billable Hours (till date)</b></td>
+
+                                <td style="background-color: white; width: 30px; text-align: left"><b>@totalBillableHours</b></td>
+                            </tr>
+                        </table>
+
+                        <table style="border: none; background-color: #fff ">
+
+                            <tr style="background-color: #ccffcc; ">
+                                <td style="width: 368px; background-color: white; font-size: initial; padding: 3px;"><b>Total Nonbillable Hours (till date)</b></td>
+
+                                <td style="background-color: white; width: 30px;text-align:left"><b>@totalNonBillableHours</b></td>
+                            </tr>
+                        </table>
+                        <div style="height:10px">
+                            <b>          </b>
+                        </div>
+                        <table style=" border: none; background-color: #fff ">
+
+                            <tr style="background-color: #ccffcc; ">
+                                <td style="width: 368px; background-color: white; font-size: initial; padding: 3px;"><b>Total Entire Project Efforts</b></td>
+
+                                <td style=" background-color:white; width: 30px; text-align:left"><b>@totalhoursSpentInTheWeek</b></td>
+                            </tr>
+                        </table>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    }
+
+    <br />
+    <br />
+    <br />
+
+</body>
+</html>
+

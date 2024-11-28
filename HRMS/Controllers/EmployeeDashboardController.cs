@@ -56,7 +56,7 @@ namespace HRMS.Controllers
                 model.LoginInfo = siteContext.LoginInfo;
 
 
-                model.ITEmployees = _dbContext.emp_info.Where(x => x.Department == "IT").ToList();
+                model.ITEmployees = _dbContext.emp_info.Where(x => x.Department.Contains("IT")).ToList();
 
                 return View("~/Views/EmployeeDashboard/SelfService.cshtml", model);
             }

@@ -43,7 +43,7 @@ namespace HRMS.Controllers
             model.MaduraiAssets = model.Assets.Where(x => x.AllocatedStatus.Trim() == "Assigned" && x.Location.Trim() == "Madurai").ToList().Count();
             model.AssetModel.Employees = _dbContext.emp_info.Where(x => x.EmployeeStatus == "Active").ToList();
             model.AssetModel.allVendors = _dbContext.VendorLists.Where(x => x.Status == "Approved").ToList();
-            model.AssetModel.ITEmployees = _dbContext.emp_info.Where(x => x.EmployeeStatus == "Active" && x.Department == "IT").ToList();
+            model.AssetModel.ITEmployees = _dbContext.emp_info.Where(x => x.EmployeeStatus == "Active" && x.Department.Contains("IT")).ToList();
             return View("~/Views/Itsupport/AssetInfo.cshtml", model);
         }
         public ActionResult AddAsset(int sno = 0)
@@ -51,7 +51,7 @@ namespace HRMS.Controllers
             var model = new AssetModel();
 
             model.Employees = _dbContext.emp_info.Where(x => x.EmployeeStatus == "Active").ToList();
-            model.ITEmployees = _dbContext.emp_info.Where(x => x.EmployeeStatus == "Active" && x.Department == "IT").ToList();
+            model.ITEmployees = _dbContext.emp_info.Where(x => x.EmployeeStatus == "Active" && x.Department.Contains("IT")).ToList();
             model.allVendors = _dbContext.VendorLists.Where(x => x.Status == "Approved").ToList();
             if (sno != 0)
             {
@@ -385,7 +385,7 @@ namespace HRMS.Controllers
             var model = new AssetModel();
             var employees = _dbContext.emp_info.Where(x => x.EmployeeStatus == "Active");
             model.Employees = employees.ToList();
-            model.ITEmployees = _dbContext.emp_info.Where(x => x.Department == "IT").ToList();
+            model.ITEmployees = _dbContext.emp_info.Where(x => x.Department.Contains("IT")).ToList();
             if (sno != 0)
             {
                 model.EditAssets = _dbContext.Assets.Where(x => x.SNo == sno).FirstOrDefault();
