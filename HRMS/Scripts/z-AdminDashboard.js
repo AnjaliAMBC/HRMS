@@ -547,14 +547,33 @@ $(document).on('click', '.addemp-submit-btn', function () {
 
     if (formValidated) {
         var formData = {};
+
+        // Collect data from .tabs-view
         $('.tabs-view').each(function () {
             $(this).find('input, select, textarea').each(function () {
-                var fieldName = $(this).attr('id');
-                var fieldValue = $(this).val();
-                formData[fieldName] = fieldValue;
+                var fieldName = $(this).attr('id'); // Use the ID as the field name
+                var fieldValue = $(this).val(); // Get the field value
+                formData[fieldName] = fieldValue; // Store it in formData
             });
         });
 
+        // Collect data from dynamic rows in #clientRowsContainer
+        var clientRowsData = [];
+        $('#clientRowsContainer .row').each(function () {
+            var rowData = {}; // Object to store data for a single row
+
+            // Find all inputs and selects in the current row
+            $(this).find('input, select, textarea').each(function () {
+                var fieldName = $(this).attr('id'); // Use the ID as the field name
+                var fieldValue = $(this).val(); // Get the field value
+                rowData[fieldName] = fieldValue; // Store it in the row data
+            });
+
+            clientRowsData.push(rowData); // Add the row data to the main clientRowsData array
+        });
+
+        // Add client rows data to the main formData
+        formData['clientRows'] = clientRowsData;
         if ($('.isaddaction').html() == "True") {
             $.ajax({
                 url: '/admindashboard/addemployee',

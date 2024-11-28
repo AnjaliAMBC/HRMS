@@ -260,6 +260,27 @@ namespace HRMS.Controllers
                 _dbContext.SaveChanges();
 
 
+                if (model.DynamicClientData == null && model.DynamicClientData.Any())
+                {
+                    foreach (var clientData in model.DynamicClientData)
+                    {
+                        var empClient = new EmployeeBasedClient
+                        {
+                            EmployeeID = model.EmpInfo.EmployeeID,
+                            EmployeeName = model.EmpInfo.EmployeeName,
+                            OfficalEmailid = model.EmpInfo.OfficalEmailid,
+                            EmployeeStatus = clientData.EmployeeStatus,
+                            Client = clientData.Client,
+                            ProjectName = clientData.ProjectName,
+                            Role1 = clientData.Role1,
+                            ReportingManager = clientData.ReportingManager
+                        };
+
+                        _dbContext.EmployeeBasedClients.Add(empClient);
+                    }
+                    _dbContext.SaveChanges();
+                }
+
                 //Add leave balnce in case employee added as a full time employee without any probation
                 if (model.EmpInfo.EmployeeType == "Full-Time")
                 {
@@ -326,8 +347,7 @@ namespace HRMS.Controllers
                     }
                     _dbContext.SaveChanges();
 
-
-                }
+                }               
 
                 NewAccountCreateEmail(empLoginInfo);
             }
@@ -451,18 +471,18 @@ namespace HRMS.Controllers
                     existingEmployee.CreatedDate = model.EmpInfo.CreatedDate;
                     existingEmployee.UpdatedBy = model.EmpInfo.UpdatedBy;
                     existingEmployee.UpdatedDate = DateTime.Now;
-                    existingEmployee.ProjectName1 = model.EmpInfo.ProjectName1;
-                    existingEmployee.ProjectName2 = model.EmpInfo.ProjectName2;
-                    existingEmployee.ProjectName3 = model.EmpInfo.ProjectName3;
-                    existingEmployee.Role1 = model.EmpInfo.Role1;
-                    existingEmployee.Role2 = model.EmpInfo.Role2;
-                    existingEmployee.Role3 = model.EmpInfo.Role3;
-                    existingEmployee.ReportingManager1 = model.EmpInfo.ReportingManager1;
-                    existingEmployee.ReportingManager2 = model.EmpInfo.ReportingManager2;
-                    existingEmployee.ReportingManager3 = model.EmpInfo.ReportingManager3;
-                    existingEmployee.Client1 = model.EmpInfo.Client1;
-                    existingEmployee.Client2 = model.EmpInfo.Client2;
-                    existingEmployee.Client3 = model.EmpInfo.Client3;
+                    //existingEmployee.ProjectName1 = model.EmpInfo.ProjectName1;
+                    //existingEmployee.ProjectName2 = model.EmpInfo.ProjectName2;
+                    //existingEmployee.ProjectName3 = model.EmpInfo.ProjectName3;
+                    //existingEmployee.Role1 = model.EmpInfo.Role1;
+                    //existingEmployee.Role2 = model.EmpInfo.Role2;
+                    //existingEmployee.Role3 = model.EmpInfo.Role3;
+                    //existingEmployee.ReportingManager1 = model.EmpInfo.ReportingManager1;
+                    //existingEmployee.ReportingManager2 = model.EmpInfo.ReportingManager2;
+                    //existingEmployee.ReportingManager3 = model.EmpInfo.ReportingManager3;
+                    //existingEmployee.Client1 = model.EmpInfo.Client1;
+                    //existingEmployee.Client2 = model.EmpInfo.Client2;
+                    //existingEmployee.Client3 = model.EmpInfo.Client3;
 
                     _dbContext.SaveChanges();
                     model.JsonResponse.Message = "Employee details updated successfully!";
