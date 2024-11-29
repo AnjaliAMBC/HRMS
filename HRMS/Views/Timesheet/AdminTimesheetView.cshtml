@@ -5,6 +5,15 @@
     var defaultSelectedClient = "";
 
 }
+
+<style>
+    .red-border {       
+        border: 1px solid red !important;
+    }
+    .green-border {
+        border: 1px solid green !important;
+    }
+</style>
 @Html.Partial("_NavBar")
 <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.4/Chart.js"></script>
 
@@ -183,9 +192,7 @@
                 table.columns.adjust().draw();
             }, 1000); // Delay to ensure the modal is fully rendered
         }
-        
-
-        
+                
 
         $(document).on('keyup', '#employeeSearch', function () {
             var value = $(this).val().toLowerCase();
@@ -252,7 +259,38 @@
         }
 
         $(document).on('click', '.timesheet-View', function () {
-            GetFirstEmployeeTimesheet();
+            let isValid = validateEmployeeDropdown();
+            if (isValid) {
+                GetFirstEmployeeTimesheet();
+            }
+        });
+
+        function validateEmployeeDropdown() {
+            // Use the existing SelectedEmployeeIDs function to get the selected employee IDs
+            let selectedEmployees = SelectedEmployeeIDs();
+            let dropdownElement = $('#adminTimesheetDropdown');
+
+            if (selectedEmployees.length === 0) {
+                // Add red border if no employee is selected
+                dropdownElement.removeClass('green-border').addClass('red-border');
+                alert("Please select at least one employee.");
+                return false;
+            } else {
+                // Add green border if employees are selected
+                dropdownElement.removeClass('red-border').addClass('green-border');
+                return true;
+            }
+        }
+
+        $(document).on('change', '#employeeList .form-check-input', function () {
+            let selectedEmployees = SelectedEmployeeIDs();
+            let dropdownElement = $('#adminTimesheetDropdown');
+
+            if (selectedEmployees.length === 0) {
+                dropdownElement.removeClass('green-border').addClass('red-border');
+            } else {
+                dropdownElement.removeClass('red-border').addClass('green-border');
+            }
         });
 
         function loadEmployeeTimesheet(employeeId) {

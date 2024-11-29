@@ -1,10 +1,5 @@
 ﻿@model HRMS.Models.ITsupport.VendorViewModel
-<style>
-    .vendor-list-edit.disabled i {
-        color: gray;
-        cursor: not-allowed;
-    }
-</style>
+
 @Html.Partial("_NavBar")
 <div class="container-fluid">
     <div class="hiddenadmindashboard" style="display: none"></div>
@@ -118,15 +113,20 @@
                                 <td>
                                     @if (vendor.Status != "Approved" && vendor.Status != "Rejected")
                                     {
-                                <span class="vendor-list-edit" data-vendorid="@vendor.VedorID">
-                                    <i class="fas fa-pencil-alt"></i>
-                                </span> }
-                                                else
-                                                {
-                                <span class="vendor-list-edit disabled" data-vendorid="@vendor.VedorID" title="Editing Disabled">
-                                    <i class="fas fa-pencil-alt" style="color: gray; cursor: not-allowed;"></i>
-                                </span>}
+                                        // Show the enabled edit icon if the status is neither "Approved" nor "Rejected"
+                                        <span class="vendor-list-edit" data-vendorid="@vendor.VedorID" style="cursor:pointer">
+                                            <i class="fas fa-pencil-alt"></i>
+                                        </span>
+                                    }
+                                    else
+                                    {
+                                        // Show the disabled edit icon and prevent clicks
+                                        <span class="vendor-list-edit disabled" data-vendorid="@vendor.VedorID" title="Editing Disabled" style="pointer-events: none;">
+                                            <i class="fas fa-pencil-alt" style="color: gray; cursor: not-allowed;"></i>
+                                        </span>
+                                    }
                                 </td>
+
                             </tr>
                             }
                             @*<tr class="even">

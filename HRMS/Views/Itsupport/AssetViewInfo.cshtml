@@ -1,5 +1,7 @@
 ﻿@model HRMS.Models.ITsupport.AssetModel
 
+@using HRMS.Helpers
+
 @{
     ViewBag.Title = "AssetViewInfo";
 }
@@ -338,20 +340,26 @@
                                     <div class="col-lg-2 col-md-3">
                                         <div class="form-group assetview-purchaseinfo-tabs">
                                             <label for="AssetPurchase-PurcahseDate">Purchase Date</label>
-                                            @if (Model.EditAssets.PurchaseDate != null && Model.EditAssets.PurchaseDate.HasValue)
+                                            @if (Model != null && Model.EditAssets.PurchaseDate != null && Model.EditAssets.PurchaseDate.HasValue)
                                             {
                                                 <div>@Model.EditAssets.PurchaseDate.Value.ToString("yyyy-MM-dd")</div>
                                             }
-
+                                            else
+                                            {
+                                                <div>N/A</div>
+                                            }
                                         </div>
                                     </div>
                                     <div class="col-lg-2 col-md-3">
                                         <div class="form-group assetview-purchaseinfo-tabs">
                                             <label for="AssetPurchase-InvoiceDate">Invoice Date</label>
-                                            @if (Model.EditAssets.InvoiceDate != null && Model.EditAssets.InvoiceDate.HasValue)
+                                            @if (Model != null && Model.EditAssets != null && Model.EditAssets.InvoiceDate.HasValue)
                                             {
-                                                <div>@Model.EditAssets.InvoiceDate.Value.ToString("yyyy-MM-dd")</div>
-                                            }
+                                        <div>@Model.EditAssets.InvoiceDate.Value.ToString("yyyy-MM-dd")</div> }
+                                                    else
+                                                    {
+                                        <div>N/A</div>}
+
                                         </div>
                                     </div>
                                 </div>
@@ -360,173 +368,203 @@
                         <div class="tab-pane fade assetview-allocateinfo-details" id="tab3" role="tabpanel" aria-labelledby="tab3-link">
                             <div class="container" style="margin-left: 5px">
                                 <div class="tree-structure">
-                                    @if (Model.AllocatedEmpInfo == null)
+                                   
+                                    @if (Model.AllocatedEmpInfo != null)
                                     {
-                                <div class="no-allocation-message">
-                                    <p style="font-weight: bold; color: #ff0000;">Not allocated this asset to anyone</p>
-                                </div>
-                                }
-                                  else
-                                    {
-                                    <div class="tree">
-                                        <ul>
-                                            <li>
-                                                <div class="family">
-                                                    <div class="parent">
-                                                        <div class="person female" style="border: none;">
-                                                            <div class="name allocate-details tree-root">
-                                                               
+                                        <div class="tree">
+                                            <ul>
+                                                <li>
+                                                    <div class="family">
+                                                        <div class="parent">
+                                                            <div class="person female" style="border: none;">
+                                                                <div class="name allocate-details tree-root">
+
                                                                     <img src="/assets/empimages/@Model.AllocatedEmpInfo.imagepath">
                                                                     <div class="user-info">
                                                                         <div class="user-name">@Model.AllocatedEmpInfo.EmployeeName @Model.AllocatedEmpInfo.EmployeeID</div>
                                                                         <div class="user-designation">@Model.AllocatedEmpInfo.Designation</div>
                                                                         <div class="user-location">Location: @Model.AllocatedEmpInfo.Location</div>
                                                                     </div>
-                                                                
 
+
+                                                                </div>
                                                             </div>
-                                                        </div>
-                                                        <ul>
+                                                            <ul>
 
-                                                            @{
-                                                                var assetFolderID = Model.EditAssets.AssetID.Split('#')[1];
-                                                                var assetImageURL = @System.Configuration.ConfigurationManager.AppSettings["TicketingAbsolutePath"] + "/assets/" + assetFolderID + "/";
-                                                            }
-
-                                                            @if (!string.IsNullOrWhiteSpace(Model.EditAssets.AssetType1) && !string.IsNullOrWhiteSpace(Model.EditAssets.AssetSerialNo1))
-                                                            {
-                                                                <li>
-                                                                    <div class="family" style="width: 172px">
-                                                                        <div class="person child male">
-                                                                            <div class="name allocate-details tree-child">
-                                                                                <img src="@assetImageURL/@Model.EditAssets.AssetType1Image">
-                                                                                <div class="allocate-info">
-                                                                                    <div class="model"><span>Type</span> @Model.EditAssets.AssetType1 @Model.EditAssets.AssetSerialNo1</div>
-                                                                                    <div class="allocatedby"><span>Allocated By</span> @Model.EditAssets.AssignedBy</div>
-                                                                                    <div class="allocateddate">
-                                                                                        <span>Allocated Date</span>
-                                                                                        @(Model.EditAssets.AssignedDate.HasValue ? Model.EditAssets.AssignedDate.Value.ToString("yyyy-MM-dd") : "Not Assigned")
-                                                                                    </div>
-
-                                                                                </div>
-                                                                            </div>
-                                                                        </div>
-                                                                    </div>
-                                                                </li>
-                                                            }
-
-                                                            @if (!string.IsNullOrWhiteSpace(Model.EditAssets.AssetType2) && !string.IsNullOrWhiteSpace(Model.EditAssets.AssetSerialNo2))
-                                                            {
-                                                                <li>
-                                                                    <div class="family" style="width: 172px">
-                                                                        <div class="person child female">
-                                                                            <div class="name allocate-details tree-child">
-                                                                                <img src="@assetImageURL/@Model.EditAssets.AssetType2Image">
-                                                                                <div class="allocate-info">
-                                                                                    <div class="model"><span>Type</span> @Model.EditAssets.AssetType2 @Model.EditAssets.AssetSerialNo2</div>
-                                                                                    <div class="allocatedby"><span>Allocated By</span> @Model.EditAssets.AssignedBy</div>
-                                                                                    <div class="allocateddate"><span>Allocated Date</span>  @(Model.EditAssets.AssignedDate.HasValue ? Model.EditAssets.AssignedDate.Value.ToString("yyyy-MM-dd") : "Not Assigned")</div>
-                                                                                </div>
-                                                                            </div>
-                                                                        </div>
-                                                                    </div>
-                                                                </li>
-                                                            }
-                                                            @if (!string.IsNullOrWhiteSpace(Model.EditAssets.AssetType3) && !string.IsNullOrWhiteSpace(Model.EditAssets.AssetSerialNo3))
-                                                            {
-                                                                <li>
-                                                                    <div class="family" style="width: 172px">
-                                                                        <div class="person child female">
-                                                                            <div class="name allocate-details tree-child">
-                                                                                <img src="@assetImageURL/@Model.EditAssets.AssetType3Image">
-                                                                                <div class="allocate-info">
-                                                                                    <div class="model"><span>Type</span> @Model.EditAssets.AssetType3 @Model.EditAssets.AssetSerialNo3</div>
-                                                                                    <div class="allocatedby"><span>Allocated By</span> @Model.EditAssets.AssignedBy</div>
-                                                                                    <div class="allocateddate"><span>Allocated Date</span> @(Model.EditAssets.AssignedDate.HasValue ? Model.EditAssets.AssignedDate.Value.ToString("yyyy-MM-dd") : "Not Assigned")</div>
-                                                                                </div>
-                                                                            </div>
-                                                                        </div>
-                                                                    </div>
-                                                                </li>
-                                                            }
-                                                            @if (!string.IsNullOrWhiteSpace(Model.EditAssets.AssetType4) && !string.IsNullOrWhiteSpace(Model.EditAssets.AssetSerialNo4))
-                                                            {
-                                                                <li>
-                                                                    <div class="family" style="width: 172px">
-                                                                        <div class="person child female">
-                                                                            <div class="name allocate-details tree-child">
-                                                                                <img src="@assetImageURL/@Model.EditAssets.AssetType4Image">
-                                                                                <div class="allocate-info">
-                                                                                    <div class="model"><span>Type</span> @Model.EditAssets.AssetType4 @Model.EditAssets.AssetSerialNo4</div>
-                                                                                    <div class="allocatedby"><span>Allocated By</span> @Model.EditAssets.AssignedBy</div>
-                                                                                    <div class="allocateddate"><span>Allocated Date</span>  @(Model.EditAssets.AssignedDate.HasValue ? Model.EditAssets.AssignedDate.Value.ToString("yyyy-MM-dd") : "Not Assigned")</div>
-                                                                                </div>
-                                                                            </div>
-                                                                        </div>
-                                                                    </div>
-                                                                </li>
-                                                            }
-                                                            @if (!string.IsNullOrWhiteSpace(Model.EditAssets.AssetType5) && !string.IsNullOrWhiteSpace(Model.EditAssets.AssetSerialNo5))
-                                                            {
-                                                                <li>
-                                                                    <div class="family" style="width: 172px">
-                                                                        <div class="person child female">
-                                                                            <div class="name allocate-details tree-child">
-                                                                                <img src="@assetImageURL/@Model.EditAssets.AssetType5Image">
-                                                                                <div class="allocate-info">
-                                                                                    <div class="model"><span>Type</span> @Model.EditAssets.AssetType5 @Model.EditAssets.AssetSerialNo5</div>
-                                                                                    <div class="allocatedby"><span>Allocated By</span> @Model.EditAssets.AssignedBy</div>
-                                                                                    <div class="allocateddate"><span>Allocated Date</span>  @(Model.EditAssets.AssignedDate.HasValue ? Model.EditAssets.AssignedDate.Value.ToString("yyyy-MM-dd") : "Not Assigned")</div>
-                                                                                </div>
-                                                                            </div>
-                                                                        </div>
-                                                                    </div>
-                                                                </li>
-                                                            }
-
-                                                            @if (!string.IsNullOrWhiteSpace(Model.EditAssets.AssetType6) && !string.IsNullOrWhiteSpace(Model.EditAssets.AssetSerialNo6))
-                                                            {
-                                                                <li>
-                                                                    <div class="family" style="width: 172px">
-                                                                        <div class="person child female">
-                                                                            <div class="name allocate-details tree-child">
-                                                                                <img src="@assetImageURL/@Model.EditAssets.AssetType6Image">
-                                                                                <div class="allocate-info">
-                                                                                    <div class="model"><span>Type</span> @Model.EditAssets.AssetType6 @Model.EditAssets.AssetSerialNo6</div>
-                                                                                    <div class="allocatedby"><span>Allocated By</span> @Model.EditAssets.AssignedBy</div>
-                                                                                    <div class="allocateddate"><span>Allocated Date</span>  @(Model.EditAssets.AssignedDate.HasValue ? Model.EditAssets.AssignedDate.Value.ToString("yyyy-MM-dd") : "Not Assigned")</div>
-                                                                                </div>
-                                                                            </div>
-                                                                        </div>
-                                                                    </div>
-                                                                </li>
-                                                            }
-
-                                                            @if (!string.IsNullOrWhiteSpace(Model.EditAssets.AssetType7) && !string.IsNullOrWhiteSpace(Model.EditAssets.AssetSerialNo7))
-                                                            {
-                                                                <li>
-                                                                    <div class="family" style="width: 172px">
-                                                                        <div class="person child female">
-                                                                            <div class="name allocate-details tree-child">
-                                                                                <img src="@assetImageURL/@Model.EditAssets.AssetType7Image">
-                                                                                <div class="allocate-info">
-                                                                                    <div class="model"><span>Type</span> @Model.EditAssets.AssetType7 @Model.EditAssets.AssetSerialNo7</div>
-                                                                                    <div class="allocatedby"><span>Allocated By</span> @Model.EditAssets.AssignedBy</div>
-                                                                                    <div class="allocateddate"><span>Allocated Date</span>  @(Model.EditAssets.AssignedDate.HasValue ? Model.EditAssets.AssignedDate.Value.ToString("yyyy-MM-dd") : "Not Assigned")</div>
-                                                                                </div>
-                                                                            </div>
-                                                                        </div>
-                                                                    </div>
-                                                                </li>
-                                                            }
-                                                        </ul>
-                                                    </div>
-                                                </div>
-                                            </li>
-                                        </ul>
-                                    </div>
-
+                                                                @{
+                                                                    var assetFolderID = Model.EditAssets.AssetID.Split('#')[1];
+                                                                    var assetImageURL = @System.Configuration.ConfigurationManager.AppSettings["TicketingAbsolutePath"] + "/assets/" + assetFolderID + "/";
                                                                 }
+
+                                                                @if (!string.IsNullOrWhiteSpace(Model.EditAssets.AssetType1) && !string.IsNullOrWhiteSpace(Model.EditAssets.AssetSerialNo1))
+                                                                {
+                                                                    <li>
+                                                                        <div class="family" style="width: 172px">
+                                                                            <div class="person child male">
+                                                                                <div class="name allocate-details tree-child">
+                                                                                    @{ // Use default image if AssetType2Image is null or empty
+                                                                                        var imageUrl = !string.IsNullOrWhiteSpace(Model.EditAssets.AssetType1Image)
+                                                                                            ? $"{assetImageURL}/{Model.EditAssets.AssetType1Image}"
+                                                                                            : Url.Content(HRMS.Helpers.ImageHelper.GetDefaultAssetImage(Model.EditAssets.AssetType1)); }
+                                                                                    <img src="@imageUrl" alt="Asset Image">
+                                                                                    <div class="allocate-info">
+                                                                                        <div class="model"><span>Type</span> @Model.EditAssets.AssetType1 @Model.EditAssets.AssetSerialNo1</div>
+                                                                                        <div class="allocatedby"><span>Allocated By</span> @Model.EditAssets.AssignedBy</div>
+                                                                                        <div class="allocateddate">
+                                                                                            <span>Allocated Date</span>
+                                                                                            @(Model.EditAssets.AssignedDate.HasValue ? Model.EditAssets.AssignedDate.Value.ToString("yyyy-MM-dd") : "Not Assigned")
+                                                                                        </div>
+
+                                                                                    </div>
+                                                                                </div>
+                                                                            </div>
+                                                                        </div>
+                                                                    </li>
+                                                                }
+
+                                                                @if (!string.IsNullOrWhiteSpace(Model.EditAssets.AssetType2) && !string.IsNullOrWhiteSpace(Model.EditAssets.AssetSerialNo2))
+                                                                {
+                                                                    <li>
+                                                                        <div class="family" style="width: 172px">
+                                                                            <div class="person child female">
+                                                                                <div class="name allocate-details tree-child">
+                                                                                    @{ // Use default image if AssetType2Image is null or empty
+                                                                                        var imageUrl = !string.IsNullOrWhiteSpace(Model.EditAssets.AssetType2Image)
+                                                                                            ? $"{assetImageURL}/{Model.EditAssets.AssetType2Image}"
+                                                                                            : Url.Content(HRMS.Helpers.ImageHelper.GetDefaultAssetImage(Model.EditAssets.AssetType2)); }
+                                                                                    <img src="@imageUrl" alt="Asset Image">
+                                                                                    <div class="allocate-info">
+                                                                                        <div class="model"><span>Type</span> @Model.EditAssets.AssetType2 @Model.EditAssets.AssetSerialNo2</div>
+                                                                                        <div class="allocatedby"><span>Allocated By</span> @Model.EditAssets.AssignedBy</div>
+                                                                                        <div class="allocateddate"><span>Allocated Date</span>  @(Model.EditAssets.AssignedDate.HasValue ? Model.EditAssets.AssignedDate.Value.ToString("yyyy-MM-dd") : "Not Assigned")</div>
+                                                                                    </div>
+                                                                                </div>
+                                                                            </div>
+                                                                        </div>
+                                                                    </li>
+                                                                }
+                                                                @if (!string.IsNullOrWhiteSpace(Model.EditAssets.AssetType3) && !string.IsNullOrWhiteSpace(Model.EditAssets.AssetSerialNo3))
+                                                                {
+                                                                    <li>
+                                                                        <div class="family" style="width: 172px">
+                                                                            <div class="person child female">
+                                                                                <div class="name allocate-details tree-child">
+                                                                                    @{ // Use default image if AssetType2Image is null or empty
+                                                                                        var imageUrl = !string.IsNullOrWhiteSpace(Model.EditAssets.AssetType3Image)
+                                                                                            ? $"{assetImageURL}/{Model.EditAssets.AssetType3Image}"
+                                                                                            : Url.Content(HRMS.Helpers.ImageHelper.GetDefaultAssetImage(Model.EditAssets.AssetType3));
+                                                                                    }
+                                                                                    <img src="@imageUrl" alt="Asset Image">
+                                                                                    <div class="allocate-info">
+                                                                                        <div class="model"><span>Type</span> @Model.EditAssets.AssetType3 @Model.EditAssets.AssetSerialNo3</div>
+                                                                                        <div class="allocatedby"><span>Allocated By</span> @Model.EditAssets.AssignedBy</div>
+                                                                                        <div class="allocateddate"><span>Allocated Date</span> @(Model.EditAssets.AssignedDate.HasValue ? Model.EditAssets.AssignedDate.Value.ToString("yyyy-MM-dd") : "Not Assigned")</div>
+                                                                                    </div>
+                                                                                </div>
+                                                                            </div>
+                                                                        </div>
+                                                                    </li>
+                                                                }
+                                                                @if (!string.IsNullOrWhiteSpace(Model.EditAssets.AssetType4) && !string.IsNullOrWhiteSpace(Model.EditAssets.AssetSerialNo4))
+                                                                {
+                                                                    <li>
+                                                                        <div class="family" style="width: 172px">
+                                                                            <div class="person child female">
+                                                                                <div class="name allocate-details tree-child">
+                                                                                    @{ // Use default image if AssetType2Image is null or empty
+                                                                                        var imageUrl = !string.IsNullOrWhiteSpace(Model.EditAssets.AssetType4Image)
+                                                                                            ? $"{assetImageURL}/{Model.EditAssets.AssetType4Image}"
+                                                                                            : Url.Content(HRMS.Helpers.ImageHelper.GetDefaultAssetImage(Model.EditAssets.AssetType4)); }
+                                                                                    <img src="@imageUrl" alt="Asset Image">
+                                                                                    <div class="allocate-info">
+                                                                                        <div class="model"><span>Type</span> @Model.EditAssets.AssetType4 @Model.EditAssets.AssetSerialNo4</div>
+                                                                                        <div class="allocatedby"><span>Allocated By</span> @Model.EditAssets.AssignedBy</div>
+                                                                                        <div class="allocateddate"><span>Allocated Date</span>  @(Model.EditAssets.AssignedDate.HasValue ? Model.EditAssets.AssignedDate.Value.ToString("yyyy-MM-dd") : "Not Assigned")</div>
+                                                                                    </div>
+                                                                                </div>
+                                                                            </div>
+                                                                        </div>
+                                                                    </li>
+                                                                }
+                                                                @if (!string.IsNullOrWhiteSpace(Model.EditAssets.AssetType5) && !string.IsNullOrWhiteSpace(Model.EditAssets.AssetSerialNo5))
+                                                                {
+                                                                    <li>
+                                                                        <div class="family" style="width: 172px">
+                                                                            <div class="person child female">
+                                                                                <div class="name allocate-details tree-child">
+                                                                                    @{ // Use default image if AssetType2Image is null or empty
+                                                                                        var imageUrl = !string.IsNullOrWhiteSpace(Model.EditAssets.AssetType5Image)
+                                                                                            ? $"{assetImageURL}/{Model.EditAssets.AssetType5Image}"
+                                                                                            : Url.Content(HRMS.Helpers.ImageHelper.GetDefaultAssetImage(Model.EditAssets.AssetType5)); }
+                                                                                    <img src="@imageUrl" alt="Asset Image">
+                                                                                    <div class="allocate-info">
+                                                                                        <div class="model"><span>Type</span> @Model.EditAssets.AssetType5 @Model.EditAssets.AssetSerialNo5</div>
+                                                                                        <div class="allocatedby"><span>Allocated By</span> @Model.EditAssets.AssignedBy</div>
+                                                                                        <div class="allocateddate"><span>Allocated Date</span>  @(Model.EditAssets.AssignedDate.HasValue ? Model.EditAssets.AssignedDate.Value.ToString("yyyy-MM-dd") : "Not Assigned")</div>
+                                                                                    </div>
+                                                                                </div>
+                                                                            </div>
+                                                                        </div>
+                                                                    </li>
+                                                                }
+
+                                                                @if (!string.IsNullOrWhiteSpace(Model.EditAssets.AssetType6) && !string.IsNullOrWhiteSpace(Model.EditAssets.AssetSerialNo6))
+                                                                {
+                                                                    <li>
+                                                                        <div class="family" style="width: 172px">
+                                                                            <div class="person child female">
+                                                                                <div class="name allocate-details tree-child">
+                                                                                    @{ // Use default image if AssetType2Image is null or empty
+                                                                                        var imageUrl = !string.IsNullOrWhiteSpace(Model.EditAssets.AssetType6Image)
+                                                                                            ? $"{assetImageURL}/{Model.EditAssets.AssetType6Image}"
+                                                                                            : Url.Content(HRMS.Helpers.ImageHelper.GetDefaultAssetImage(Model.EditAssets.AssetType6));
+                                                                                    }
+                                                                                    <img src="@imageUrl" alt="Asset Image">
+                                                                                    <div class="allocate-info">
+                                                                                        <div class="model"><span>Type</span> @Model.EditAssets.AssetType6 @Model.EditAssets.AssetSerialNo6</div>
+                                                                                        <div class="allocatedby"><span>Allocated By</span> @Model.EditAssets.AssignedBy</div>
+                                                                                        <div class="allocateddate"><span>Allocated Date</span>  @(Model.EditAssets.AssignedDate.HasValue ? Model.EditAssets.AssignedDate.Value.ToString("yyyy-MM-dd") : "Not Assigned")</div>
+                                                                                    </div>
+                                                                                </div>
+                                                                            </div>
+                                                                        </div>
+                                                                    </li>
+                                                                }
+
+                                                                @if (!string.IsNullOrWhiteSpace(Model.EditAssets.AssetType7) && !string.IsNullOrWhiteSpace(Model.EditAssets.AssetSerialNo7))
+                                                                {
+                                                                    <li>
+                                                                        <div class="family" style="width: 172px">
+                                                                            <div class="person child female">
+                                                                                <div class="name allocate-details tree-child">
+                                                                                    @{ // Use default image if AssetType2Image is null or empty
+                                                                                        var imageUrl = !string.IsNullOrWhiteSpace(Model.EditAssets.AssetType7Image)
+                                                                                            ? $"{assetImageURL}/{Model.EditAssets.AssetType7Image}"
+                                                                                            : Url.Content(HRMS.Helpers.ImageHelper.GetDefaultAssetImage(Model.EditAssets.AssetType7)); }
+                                                                                    <img src="@imageUrl" alt="Asset Image">
+                                                                                    <div class="allocate-info">
+                                                                                        <div class="model"><span>Type</span> @Model.EditAssets.AssetType7 @Model.EditAssets.AssetSerialNo7</div>
+                                                                                        <div class="allocatedby"><span>Allocated By</span> @Model.EditAssets.AssignedBy</div>
+                                                                                        <div class="allocateddate"><span>Allocated Date</span>  @(Model.EditAssets.AssignedDate.HasValue ? Model.EditAssets.AssignedDate.Value.ToString("yyyy-MM-dd") : "Not Assigned")</div>
+                                                                                    </div>
+                                                                                </div>
+                                                                            </div>
+                                                                        </div>
+                                                                    </li>
+                                                                }
+                                                            </ul>
+                                                        </div>
+                                                    </div>
+                                                </li>
+                                            </ul>
+                                        </div>
+                                    }
+                                    else
+                                    {
+                                        <div class="no-allocation-message">
+                                            <p style="font-weight: bold; color: #ff0000;">Not allocated this asset to anyone</p>
+                                        </div>
+                                    }
                                 </div>
                             </div>
                         </div>
