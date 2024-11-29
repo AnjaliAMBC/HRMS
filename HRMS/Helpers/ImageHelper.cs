@@ -40,7 +40,7 @@ namespace HRMS.Helpers
                 case "Mouse":
                     return "~/Assets/01_Mouse.png";
                 case "Headset":
-                    return "~/Assets/01_Headset.png";
+                    return "~/Assets/Headset.png";
                 case "Keyboard":
                     return "~/Assets/01_Keyboard.png";
                 case "Monitor":
@@ -48,14 +48,14 @@ namespace HRMS.Helpers
                 case "CPU":
                     return "~/Assets/01_CPU.png";
                 case "Power Cable":
-                    return "~/Assets/01_PowerCable.png";
+                    return "~/Assets/PowerCable.png";
                 case "Charger":
-                    return "~/Assets/01_Charger.png";
+                    return "~/Assets/Charger.png";
                 case "UPS":
-                    return "~/Assets/01_UPS.png";
+                    return "~/Assets/UPS.png";
                 case "Others":
                 default:
-                    return "~/Assets/01_Others.png";
+                    return "~/Assets/Others.png";
             }
         }
     }

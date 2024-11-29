@@ -71,7 +71,11 @@ $(document).on('click', '.asset-info-transfer', function (event) {
                 $('.asseet-transfer-image').attr("src", "/assets/asset-icon-3.png")
             }
             $('.asseettrasfer-assign-location').text(data.EditAssets.Location);
-            $('.asseettrasfer-assign-olddate').text(FormattedTransferDate(data.EditAssets.AssignedDate));
+            $('.asseettrasfer-assign-olddate').text(
+                data.EditAssets.AssignedDate
+                    ? FormattedTransferDate(data.EditAssets.AssignedDate)
+                    : 'N/A' 
+            );
             $('.asseettrasfer-assign-oldassignby').text(data.EditAssets.AssignedBy);
             $('.asset-transer-assesno').text(data.EditAssets.SNo);          
         },

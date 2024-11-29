@@ -143,9 +143,6 @@ namespace HRMS.Controllers
             }
             return false;
         }
-
-
-
         public static string RenderPartialToString(Controller controller, string partialViewName, object model, ViewDataDictionary viewData, TempDataDictionary tempData)
         {
             ViewEngineResult result = ViewEngines.Engines.FindPartialView(controller.ControllerContext, partialViewName);
