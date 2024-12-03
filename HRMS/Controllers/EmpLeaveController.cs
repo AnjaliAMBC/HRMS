@@ -215,7 +215,7 @@ namespace HRMS.Controllers
                 //When employee apply leave
                 if (leaves[0].employee_name.Contains(leaveRequest.SubmittedBy))
                 {
-                    var emailSubject = "Leave Application from " + leaveRequest.EmpName + " on " + System.DateTime.Now.ToString("dd MMMM yyyy");
+                    var emailSubject = "Leave Application from " + leaveRequest.EmpName;
                     var emailBody = RenderPartialToString(this, "_LeaveNotificationEmpEmail", leaves, ViewData, TempData);
 
                     var teamEmails = "";

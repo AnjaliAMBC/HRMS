@@ -196,7 +196,7 @@ namespace HRMS.Controllers
             var model = new AddEmployeeViewModel();
             var cuserContext = SiteContext.GetCurrentUserContext();
             model.EmpInfo = cuserContext.EmpInfo;
-            model.LoginInfo = cuserContext.LoginInfo;
+            model.LoginInfo = cuserContext.LoginInfo;            
 
             model.HeadLine = "Add Employee";
             if (!string.IsNullOrEmpty(empid) && !model.IsAddAction)
@@ -259,24 +259,23 @@ namespace HRMS.Controllers
                 _dbContext.emplogins.Add(empLoginInfo);
                 _dbContext.SaveChanges();
 
-
-                if (model.DynamicClientData == null && model.DynamicClientData.Any())
+                if (model.ClientRows == null)
                 {
-                    foreach (var clientData in model.DynamicClientData)
+                    foreach (var clientRow in model.ClientRows)
                     {
-                        var empClient = new EmployeeBasedClient
+                        var employeeBasedClient = new EmployeeBasedClient
                         {
-                            EmployeeID = model.EmpInfo.EmployeeID,
-                            EmployeeName = model.EmpInfo.EmployeeName,
-                            OfficalEmailid = model.EmpInfo.OfficalEmailid,
-                            EmployeeStatus = clientData.EmployeeStatus,
-                            Client = clientData.Client,
-                            ProjectName = clientData.ProjectName,
-                            Role1 = clientData.Role1,
-                            ReportingManager = clientData.ReportingManager
+                            EmployeeID = newEmployee.EmployeeID,
+                            EmployeeName = newEmployee.EmployeeName,
+                            OfficalEmailid = newEmployee.OfficalEmailid,
+                            EmployeeStatus = clientRow.Status,
+                            Client = clientRow.Client,
+                            ProjectName = clientRow.ProjectName,
+                            Role1 = clientRow.Role,
+                            ReportingManager = clientRow.ReportingManager,                           
                         };
 
-                        _dbContext.EmployeeBasedClients.Add(empClient);
+                        _dbContext.EmployeeBasedClients.Add(employeeBasedClient);
                     }
                     _dbContext.SaveChanges();
                 }

@@ -38,7 +38,7 @@ namespace HRMS.Controllers
             model.Assets = _dbContext.Assets.OrderByDescending(x => x.CreatedDate).ToList();
             model.TotalAssets = model.Assets.Count();
             model.AssetsInUse = model.Assets.Where(x => x.AllocatedStatus.Trim() == "Assigned").ToList().Count();
-            model.AssetsInScrap = model.Assets.Where(x => x.AllocatedStatus.Trim() == "Scarp").Count();
+            model.AssetsInScrap = model.Assets.Where(x => x.AllocatedStatus.Trim() == "Scrap").Count();
             model.HydAssets = model.Assets.Where(x => x.AllocatedStatus.Trim() == "Assigned" && x.Location.Trim() == "Hyderabad").ToList().Count();
             model.MaduraiAssets = model.Assets.Where(x => x.AllocatedStatus.Trim() == "Assigned" && x.Location.Trim() == "Madurai").ToList().Count();
             model.AssetModel.Employees = _dbContext.emp_info.Where(x => x.EmployeeStatus == "Active").ToList();
@@ -100,7 +100,7 @@ namespace HRMS.Controllers
                 string invoiceDate = Request.Form["AssetPurchase-InvoiceDate"];
                 string location = Request.Form["AssetAllocate-Location"];
                 string employeeID = Request.Form["AssetAllocate-Employee"];
-                string employeeName = Request.Form["AssetAllocate-AssignedByName"];
+                string employeeName = Request.Form["AssetAllocate-EmployeeName"];
                 string acknowledgeEmail = Request.Form["AssetAllocate-AcknowledgeEmail"];
                 string assignedByID = Request.Form["AssetAllocate-AssignedBy"];
                 string assignedByEmpName = Request.Form["AssetAllocate-AssignedByName"];
@@ -435,7 +435,8 @@ namespace HRMS.Controllers
                         transerAssetRecord.AllocatedEmployeeID = assetTransferPostModel.allocatedempid;
                         transerAssetRecord.AllocatedEmployeeName = assetTransferPostModel.allocatedempname;
                         transerAssetRecord.AssignedBy = assetTransferPostModel.assignedbyname;
-                        transerAssetRecord.AssignedByEmpID = assetTransferPostModel.assignedbyname;
+                        transerAssetRecord.AssignedByEmpID = assetTransferPostModel.assignedbyid;
+                        transerAssetRecord.AssignedDate = string.IsNullOrWhiteSpace(assetTransferPostModel.transferdate) ? (DateTime?)null : System.Convert.ToDateTime(assetTransferPostModel.transferdate);
                         transerAssetRecord.AllocatedStatus = "Assigned";
                         transerAssetRecord.Location = assetTransferPostModel.location;
                         transerAssetRecord.UpdatedBy = cuserContext.EmpInfo.EmployeeName;

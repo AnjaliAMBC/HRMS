@@ -115,7 +115,14 @@
                     </tr>
                     <tr>
                         <td><strong>Transfer Date:</strong></td>
-                        <td>@Model.AssignedDate.Value.ToString("dd-MM-yyyy")</td>
+                        <td>
+                            @if (Model.AssignedDate.HasValue)
+                            {
+                    @Model.AssignedDate.Value.ToString("dd-MM-yyyy") }
+                                    else
+                                    {
+                    <span>No date assigned</span> <!-- You can customize this message -->}
+                        </td>
                     </tr>
                     <tr>
                         <td><strong>Assigned By:</strong></td>

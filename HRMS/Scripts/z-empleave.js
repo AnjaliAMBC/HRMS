@@ -430,7 +430,6 @@ currentLeaveMonth = leavetoday.getMonth();
 currentLeaveYear = leavetoday.getFullYear();
 fetchLeaveHolidays();
 
-
 // Convert JSON date format to readable date
 function formatJSONDate(jsonDate) {
     const date = new Date(parseInt(jsonDate.replace(/\/Date\((.*?)\)\//, '$1')));
@@ -500,7 +499,6 @@ function formatJSONDateDay(jsonDate) {
 //                    { title: "Actions" }
 //                ]
 //            });
-
 //        },
 //        error: function (xhr, status, error) {
 //            console.error(error);
@@ -519,7 +517,7 @@ function GetEmpLeaveHistory() {
     console.log("Year:", year);
 
     $.ajax({
-        url: '/empLeave/EmpLeaveHistory',
+        url: '/empLeave/empleavehistory',
         type: 'GET',
         dataType: 'html',
         data: {
@@ -563,7 +561,7 @@ function GetCompOffHistory() {
     }
 
     $.ajax({
-        url: '/adminleave/EmployeeLeaveCompensatoryOff',
+        url: '/adminleave/employeeleavecompensatoryoff',
         type: 'GET',
         data: {
             fromDate: fromDate,

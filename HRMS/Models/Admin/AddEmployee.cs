@@ -76,7 +76,17 @@ namespace HRMS.Models.Admin
         public List<DropdownItem> ReportingManagers { get; set; } = new List<DropdownItem>();
         public bool IsAddAction { get; set; } = false;
         public string LastCreatedEmpID { get; set; }
-        public List<EmployeeBasedClient> DynamicClientData { get; set; }
+        public List<ClientRow> ClientRows { get; set; }
+    }
+
+    public class ClientRow
+    {
+        public string Client { get; set; }
+        public string ProjectName { get; set; }
+        public string Role { get; set; }
+        public string ReportingManager { get; set; }
+        public string Status { get; set; }
+
     }
 
     public class DeleteEmployeeViewModel : SiteContextModel

@@ -116,29 +116,43 @@ $(document).on('click', '.assettransfer-Transfer', function (event) {
 
     var employeeId = $('#AssetTransfer-Employee').val();
     var employeeName = $('#AssetTransfer-Employee option:selected').text();
+    //if (!employeeId) {
+    //    $('#AssetTransfer-Employee').addClass('is-invalid');
+    //    isValid = false;
+    //}
+    //else {
+    //    $('#AssetTransfer-Employee').removeClass('is-invalid');
+    //}
+
     if (!employeeId) {
+        console.error("Employee ID not found!");
         $('#AssetTransfer-Employee').addClass('is-invalid');
         isValid = false;
-    }
-    else {
+    } else {
+        console.log("Employee ID:", employeeId);
+        console.log("Employee Name:", employeeName);
         $('#AssetTransfer-Employee').removeClass('is-invalid');
     }
 
     var assignedById = $('#AssetTransfer-AssignedBy').val();
     var assignedByName = $('#AssetTransfer-AssignedBy option:selected').text();
     if (!assignedById) {
+        console.error("Assigned ID not found!");
         $('#AssetTransfer-AssignedBy').addClass('is-invalid');
         isValid = false;
     }
     else {
+        console.log("Assigned Employee ID:", assignedById);
+        console.log("Assigned Employee Name:", assignedByName);
         $('#AssetTransfer-AssignedBy').removeClass('is-invalid');
     }
-
     var transferDate = $('#AssetTransfer-TransferDate').val();
     if (!transferDate) {
+        console.error("Transfered Date not found!");
         $('#AssetTransfer-TransferDate').addClass('is-invalid');
         isValid = false;
     } else {
+        console.log("Transfered Date:", transferDate);
         $('#AssetTransfer-TransferDate').removeClass('is-invalid');
     }
 
