@@ -16,11 +16,12 @@
             var weekendtext = "";
             if (isWeekendDate)
             {
-                weekendtext = "weekend";
+                weekendtext = "Weekend";
             }
 
             var isCheckInExists = Model.AttedenceList.Where(x => x.Login_date == date).FirstOrDefault();
             var empLeave = Model.Leaves.Where(x => x.leavedate == date && (x.LeaveStatus != "Rejected" && x.LeaveStatus != "Cancelled")).FirstOrDefault();
+            var holiday = Model.holidaysList.FirstOrDefault(h => h.holiday_date == date); // Check if the date is a holiday
 
             if (isCheckInExists != null)
             {
@@ -30,42 +31,22 @@
                 string statusType = "bar-width-green";
                 string buttonColor = "present-btn";
                 string attedenceType = "Present";
-                string attedenceActualType = "";
+                string attedenceActualType = "Present";
                 int hours = 00;
                 int minutes = 00;
 
                 if (endtimeWithAmPm != null)
                 {
-                    // Initialize endTime as null
-                    DateTime? endTime = null;
-                    endTime = isCheckInExists.Signout_Time;
-
-
-                    // Calculate time difference
+                    DateTime? endTime = isCheckInExists.Signout_Time;
                     TimeSpan? timeDifference = endTime - isCheckInExists.Signin_Time;
-
-                    // Convert time difference to hours and minutes
                     hours = (int)timeDifference?.TotalHours;
                     minutes = (int)timeDifference?.Minutes;
-
-                    //if (hours < 9)
-                    //{
-                    //    statusType = "bar-width-yellow";
-                    //    buttonColor = "yellow-btn";
-                    //    attedenceType = "Permission";
-                    //}
                 }
-                else
+                else if (isCheckInExists.Login_date == DateTime.Today)
                 {
-                    if (isCheckInExists.Login_date == DateTime.Today)
-                    {
-                        // Calculate time difference
-                        TimeSpan? timeDifference = DateTime.Now - isCheckInExists.Signin_Time;
-
-                        // Convert time difference to hours and minutes
-                        hours = (int)timeDifference?.TotalHours;
-                        minutes = (int)timeDifference?.Minutes;
-                    }
+                    TimeSpan? timeDifference = DateTime.Now - isCheckInExists.Signin_Time;
+                    hours = (int)timeDifference?.TotalHours;
+                    minutes = (int)timeDifference?.Minutes;
                 }
 
                 if (empLeave != null)
@@ -77,33 +58,22 @@
                         attedenceActualType = empLeave.leavesource;
                         buttonColor = "leave-btn";
                     }
-                    if (empLeave.DayType == "halfDay")
+                    else if (empLeave.DayType == "halfDay")
                     {
-                        if (empLeave.HalfDayCategory == "First Half")
-                        {
-                            buttonColor = "firsthalf-leave-button";
-                            statusType = "bar-width-firsthalf-leave";
-                        }
-                        else
-                        {
-                            buttonColor = "secondhalf-leave-button";
-                            statusType = "bar-width-second-leave";
-                        }
-
+                        buttonColor = empLeave.HalfDayCategory == "First Half" ? "firsthalf-leave-button" : "secondhalf-leave-button";
+                        statusType = empLeave.HalfDayCategory == "First Half" ? "bar-width-firsthalf-leave" : "bar-width-second-leave";
                         attedenceType = "H/D Leave";
-
                     }
-                    if (empLeave.DayType == "")
+                    else
                     {
                         statusType = "bar-width-yellow";
                         attedenceType = "Permission";
                         buttonColor = "yellow-btn";
                     }
-
                 }
+
                 <tr>
                     <th scope="row">@isCheckInExists.Login_date.ToString("dd MMMM yyyy") <br><span class="fntblur">@isCheckInExists.Login_date.ToString("dddd", System.Globalization.CultureInfo.InvariantCulture)</span></th>
-
                     <td style="padding: 6px 30px" class="bar-wi bar-wd">
                         <div class="progress attendance-bar bar">
                             <div class="progress-bar @statusType" role="progressbar" aria-valuenow="75" aria-valuemin="10" aria-valuemax="10"></div>
@@ -119,10 +89,21 @@
             {
                 string statusType = "bar-width-gray";
                 string buttonColor = "gray-btn";
-                string attedenceType = "Weekend";
-                string attedenceActualType = "";
+                string attedenceType = holiday != null ? "Holiday" : (isWeekendDate ? "Weekend" : "Absent");
+                string attedenceActualType = holiday != null ? holiday.holiday_name : (isWeekendDate ? "Weekend" : "Absent");
 
-                if (!isWeekendDate)
+                if (isWeekendDate)
+                {
+                    statusType = "bar-width-gray";
+                    buttonColor = "gray-btn";
+                }
+                else if (holiday != null)
+                {
+                    statusType = "bar-width-yellow1";
+                    buttonColor = "holiday-btn";
+                }
+
+                if (!isWeekendDate && holiday == null)
                 {
                     if (empLeave != null)
                     {
@@ -133,7 +114,7 @@
                             attedenceActualType = empLeave.leavesource;
                             buttonColor = "leave-btn";
                         }
-                        if (empLeave.leavecategory.ToLowerInvariant().Contains("permission"))
+                        else if (empLeave.leavecategory.ToLowerInvariant().Contains("permission"))
                         {
                             statusType = "bar-width-yellow";
                             attedenceType = "Permission";
@@ -143,6 +124,7 @@
                     else
                     {
                         statusType = "bar-width-blue";
+                        attedenceActualType = "Absent";
                         attedenceType = "Absent";
                         buttonColor = "absent-btn";
                     }
@@ -153,16 +135,8 @@
                     <td style="padding: 6px 30px" class="bar-wi bar-wd">
                         <div class="progress attendance-bar bar res-emp-attendance-@buttonColor">
                             <div class="progress-bar @statusType" role="progressbar" aria-valuenow="75" aria-valuemin="10" aria-valuemax="10"></div>
-                            @if (!string.IsNullOrWhiteSpace(attedenceActualType))
-                            {
-                                <span class="bar-time">@attedenceActualType</span>
-                            }
-                            else
-                            {
-                                <span class="bar-time">@attedenceType</span>
-                            }
+                            <span class="bar-time">@attedenceActualType</span>
                             <div class="progress-bar @statusType" role="progressbar" aria-valuenow="75" aria-valuemin="10" aria-valuemax="10"></div>
-
                         </div>
                     </td>
                     <td class="bar-wd">00h:00m</td>

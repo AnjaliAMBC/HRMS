@@ -100,14 +100,14 @@ namespace HRMS.Helpers
                     }
                     break;
 
-                case "Reminder":
+                case "Remainder":
                     switch (notification.Status)
                     {
                         case "CheckIn":
-                            title = "Reminder: Please check in.";
+                            title = "Reminder: Please check-in.";
                             break;
                         case "CheckOut":
-                            title = "Reminder: Please check out.";
+                            title = "Reminder: Please check-out.";
                             break;
                         default:
                             title = "Reminder notification.";

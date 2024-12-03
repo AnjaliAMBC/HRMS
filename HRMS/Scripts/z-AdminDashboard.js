@@ -557,23 +557,32 @@ $(document).on('click', '.addemp-submit-btn', function () {
             });
         });
 
-        // Collect data from dynamic rows in #clientRowsContainer
         var clientRowsData = [];
+
+       
         $('#clientRowsContainer .row').each(function () {
-            var rowData = {}; // Object to store data for a single row
+            var clientField = $(this).find('select[name="Client"]').val(); // Select Client
+            var projectNameField = $(this).find('#ProjectName1').val(); // Project Name
+            var roleField = $(this).find('#Role1').val(); // Role
+            var managerField = $(this).find('#ReportingManager1').val(); // Reporting Manager
+            var statusField = $(this).find('select[name="Status"]').val(); // Status
 
-            // Find all inputs and selects in the current row
-            $(this).find('input, select, textarea').each(function () {
-                var fieldName = $(this).attr('id'); // Use the ID as the field name
-                var fieldValue = $(this).val(); // Get the field value
-                rowData[fieldName] = fieldValue; // Store it in the row data
-            });
-
-            clientRowsData.push(rowData); // Add the row data to the main clientRowsData array
+            
+            if (clientField || projectNameField || roleField || managerField || statusField) {
+                clientRowsData.push({
+                    Client: clientField,
+                    ProjectName: projectNameField,
+                    Role: roleField,
+                    ReportingManager: managerField,
+                    Status: statusField
+                });
+            }
         });
+        
+        formData['ClientRows'] = clientRowsData;
 
-        // Add client rows data to the main formData
-        formData['clientRows'] = clientRowsData;
+
+
         if ($('.isaddaction').html() == "True") {
             $.ajax({
                 url: '/admindashboard/addemployee',

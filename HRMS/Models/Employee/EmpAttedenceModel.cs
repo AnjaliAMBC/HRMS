@@ -12,5 +12,6 @@ namespace HRMS.Models.Employee
         public DateTime EndWeek { get; set; }
         public List<DateTime> AllDates { get; set; } = new List<DateTime>();
         public List<con_leaveupdate> Leaves { get; set; } = new List<con_leaveupdate>();
+        public List<tblambcholiday> holidaysList { get; set; } = new List<tblambcholiday>();
     }
 }

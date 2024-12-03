@@ -1,157 +1,148 @@
 ﻿@model HRMS.Models.TimesheetDayModel
 
-@{
-    var timeSheetSubmitted = false;
-    var allowedHours = 0;
-}
-
+@{ var timeSheetSubmitted = false;
+   }
 @for (int i = 1; i <= Model.DaySpecifcInfo.TimeSheets.Count; i++)
 {
     var timeSheet = Model.DaySpecifcInfo.TimeSheets[i - 1];
 
-    if (Model.DaySpecifcInfo.HolidayInfo == null && Model.DaySpecifcInfo.CompoffInfo == null && Model.DaySpecifcInfo.Leaves.Count() == 0 && Model.DaySpecifcInfo.CheckInInfo == null && !Model.DaySpecifcInfo.IsWeekend)
+    // Check for leave, holiday, or weekend first, and handle accordingly
+    if (Model.DaySpecifcInfo.Leaves.Count > 0 && Model.DaySpecifcInfo.CheckInInfo == null)
     {
-        <div>
-            Data is missing for the following date: @(timeSheet.Date?.ToString("dd MMM yyyy") ?? "N/A")
-            Please ensure all required timesheet information is filled, including check-in info, comp-off info, leave records, or holiday info.
-        </div>
-        return;
-    }
-
-    if (Model.DaySpecifcInfo.CheckInInfo == null && Model.DaySpecifcInfo.Leaves.Count > 0)
-    {
-        if (Model.DaySpecifcInfo.Leaves.Where(x => x.DayType == "fullDay").FirstOrDefault() != null)
+        // Handle leave case
+        if (Model.DaySpecifcInfo.Leaves.Any(x => x.DayType == "fullDay"))
         {
-            <div>
-                You are on Leave: @(timeSheet.Date?.ToString("dd MMM yyyy") ?? "N/A")
-            </div>
-            return;
-        }
-
-    }
-
-    if (Model.DaySpecifcInfo.Leaves.Count > 0)
-    {
-        if (Model.DaySpecifcInfo.Leaves.Where(x => x.DayType == "halfDay").FirstOrDefault() != null)
-        {
-            allowedHours = Model.DaySpecifcInfo.HalfDayeWorkingHours;
-        }
-    }
-    else
-    {
-        allowedHours = Model.DaySpecifcInfo.FullDayeWorkingHours;
-    }
-
-    if (Model.DaySpecifcInfo.CheckInInfo == null && Model.DaySpecifcInfo.HolidayInfo != null)
-    {
-        <div>
-            Holiday: @(timeSheet.Date?.ToString("dd MMM yyyy") ?? "N/A")
-        </div>
-        return;
-    }
-
-    if (Model.DaySpecifcInfo.CheckInInfo == null && Model.DaySpecifcInfo.CompoffInfo != null)
-    {
-        <div>
-            CompoOff: @(timeSheet.Date?.ToString("dd MMM yyyy") ?? "N/A")
-        </div>
-        return;
-    }
-
-
-
-    timeSheetSubmitted = timeSheet.submissionstatus == "Submitted" ? true : false;
-
-    <div class="row emp-entertimesheet-fields row-@i" data-dayuniquekey="@(timeSheet.Date.HasValue ? timeSheet.Date.Value.ToString("dd-MM-yyyy") : "NoDate")-@Model.IndexNumber">
-        <div class="form-group col-lg-1 div-entertimesheet-category div-entertimesheet-category-@i-block-1">
-            <label for="entertimesheetCategory-@i-block-1" class="leave_label">
-                Category@((i == 0) ? "*" : "")
-            </label>
-            <select class="form-control timesheet-entertimesheetCategory" id="entertimesheetCategory-@i-block-1">
-                <option value="">Select</option>
-
-                @foreach (var category in Model.DaySpecifcInfo.Categories)
-                {
-                    <option value="@category.CategoryName" @(timeSheet.Category == @category.CategoryName ? "selected" : "")>@category.CategoryName</option>
+<div>
+    You are on Leave: @(timeSheet.Date?.ToString("dd MMM yyyy") ?? "N/A")<br />
+    <p><span style="color: red;">Reason:</span> Full-day leave is applied. Please check in and submit the timesheet.</p>
+</div> return;
+                    }                   
                 }
 
-            </select>
-        </div>
-        <div class="form-group col-lg-2 div-entertimesheet-taskname div-entertimesheet-taskname-@i-block-1">
-            <label for="entertimesheetTaskName-@i-block-1">
-                Incident/Task Name@((i == 0) ? "*" : "")
-            </label>
-            <input type="text" class="form-control timesheet-entertimesheetTaskName"
-                   id="entertimesheetTaskName-@i-block-1"
-                   value="@timeSheet.IncidentTaskName"
-                   placeholder="Incident/Task Name">
-        </div>
+                // Check for holiday
+                if (Model.DaySpecifcInfo.HolidayInfo != null && Model.DaySpecifcInfo.CheckInInfo == null)
+                {
+<div>
+    Holiday: @(timeSheet.Date?.ToString("dd MMM yyyy") ?? "N/A")<br />
+    <p><span style="color: red;">Reason:</span> It's a holiday. Please check in and submit the timesheet.</p>
+</div> return;
+                }
 
-        <div class="form-group col-lg-3 div-entertimesheet-taskdesc div-entertimesheet-taskdesc-@i-block-1">
-            <label for="entertimesheetTaskDesc-@i-block-1">
-                Incident/Task Description@((i == 0) ? "*" : "")
-            </label>
-            <input type="text" class="form-control timesheet-entertimesheetTaskDesc"
-                   id="entertimesheetTaskDesc-@i-block-1"
-                   value="@timeSheet.IncidentTaskDescription"
-                   placeholder="Incident/Task Description">
-        </div>
+                // Check for comp-off
+                if (Model.DaySpecifcInfo.CompoffInfo != null && Model.DaySpecifcInfo.CheckInInfo == null)
+                {
+<div>
+    CompoOff: @(timeSheet.Date?.ToString("dd MMM yyyy") ?? "N/A")<br />
+    <p><span style="color: red;">Reason:</span> Comp-off day is applied. Please check in and submit the timesheet.</p>
+</div> return;
+                }
 
-        <div class="form-group col-lg-2 div-entertimesheet-requester div-entertimesheet-requester-@i-block-1">
-            <label for="entertimesheetRequester-@i-block-1">
-                Requester@((i == 0) ? "*" : "")
-            </label>
-            <input type="text" class="form-control timesheet-entertimesheetRequester"
-                   id="entertimesheetRequester-@i-block-1"
-                   value="@timeSheet.Requester">
-        </div>
+                // Handle weekend case
+                if (Model.DaySpecifcInfo.IsWeekend && Model.DaySpecifcInfo.CheckInInfo == null)
+                {
+<div>
+    Data is missing for the following weekend date: @(timeSheet.Date?.ToString("dd MMM yyyy") ?? "N/A")<br />
+    <p><span style="color: red;">Reason:</span> Check-in information is required for weekends. Please check in and submit the timesheet.</p>
+</div> return;
+                }
 
-        <div class="form-group col-lg-2 div-entertimesheet-hourspent div-entertimesheet-hourspent-@i-block-1">
-            <label for="entertimesheetHoursSpent-@i-block-1">
-                Hours Spend@((i == 0) ? "*" : "")
-            </label>
-            <input type="text" class="form-control timesheet-hoursspent"
-                   id="entertimesheetHoursSpent-@i-block-1"
-                   value="@timeSheet.HoursSpent">
-        </div>
+                if (Model.DaySpecifcInfo.CheckInInfo == null)
+                {
+<div>
+    Data is missing for the following date: @(timeSheet.Date?.ToString("dd MMM yyyy") ?? "N/A")<br />
+    <p><span style="color: red;">Reason:</span> Check-in information is missing.</p>
+</div> return;
+                }
 
-        <div class="form-group col-lg-1 div-entertimesheet-priority div-entertimesheet-priority-@i-block-1">
-            <label for="entertimesheetPriority-@i-block-1" class="leave_label">
-                Priority@((i == 0) ? "*" : "")
-            </label>
-            <select class="form-control timesheet-entertimesheetPriority" id="entertimesheetPriority-@i-block-1">
-                <option value="">Select</option>
-                <option value="High" @(timeSheet.Priority == "High" ? "selected" : "")>High</option>
-                <option value="Medium" @(timeSheet.Priority == "Medium" ? "selected" : "")>Medium</option>
-                <option value="Low" @(timeSheet.Priority == "Low" ? "selected" : "")>Low</option>
-            </select>
-        </div>
+                timeSheetSubmitted = timeSheet.submissionstatus == "Submitted";
 
-        <div class="form-group col-lg-1 div-entertimesheet-status div-entertimesheet-status-@i-block-1">
-            <label for="entertimesheetStatus-@i-block-1" class="leave_label">
-                Status@((i == 0) ? "*" : "")
-            </label>
-            <select class="form-control timesheet-entertimesheetStatus" id="entertimesheetStatus-@i-block-1">
-                <option value="">Select</option>
-                <option value="Closed" @(timeSheet.Status == "Closed" ? "selected" : "")>Closed</option>
-                <option value="Open" @(timeSheet.Status == "Open" ? "selected" : "")>Open</option>
-            </select>
-        </div>
+<div class="row emp-entertimesheet-fields row-@i" data-dayuniquekey="@(timeSheet.Date.HasValue ? timeSheet.Date.Value.ToString("dd-MM-yyyy") : "NoDate")-@Model.IndexNumber">
+    <div class="form-group col-lg-1 div-entertimesheet-category div-entertimesheet-category-@i-block-1">
+        <label for="entertimesheetCategory-@i-block-1" class="leave_label">
+            Category@((i == 0) ? "*" : "")
+        </label>
+        <select class="form-control timesheet-entertimesheetCategory" id="entertimesheetCategory-@i-block-1">
+            <option value="">Select</option>
 
-        <div class="timesheetid" style="display: none">@timeSheet.TimeSheetID</div>
+            @foreach (var category in Model.DaySpecifcInfo.Categories)
+            {
+<option value="@category.CategoryName" @(timeSheet.Category == @category.CategoryName ? "selected" : "")>@category.CategoryName</option>}
 
-
-    </div>}
-
-
-@if (!Model.AddNewRow && !timeSheetSubmitted)
-{
-    <div class="emp-entertimesheet-footer emp-entertimesheet-footer-@Model.IndexNumber">
-        <div class="emp-entertimesheet-addtask emp-entertimesheet-addtask-@Model.IndexNumber">
-            <button type="button" class="emp-entertimesheet-addtask-btn-@Model.IndexNumber" data-weeknumber="@Model.Weeknumber" data-dayindexnumber="@Model.IndexNumber" data-blocknumber="@Model.BlockNumber" data-daydate="@Model.Date.ToString("dd-MM-yyyy")" data-dayuniquekey="@Model.Date.ToString("dd-MM-yyyy")-@Model.IndexNumber" id="addTaskBtn">
-                <i class="fa-solid fa-plus"></i>Add Task
-            </button>
-        </div>
-        <div class="emp-entertimesheet-save emp-entertimesheet-save-@Model.IndexNumber"><button type="button" class="btn btn-primary btn-save-timesheet" data-maxallaowedhours="@allowedHours" data-weeknumber="@Model.Weeknumber" data-dayindexnumber="@Model.IndexNumber" data-blocknumber="@Model.BlockNumber" data-daydate="@Model.Date.ToString("dd-MM-yyyy")" data-dayuniquekey="@Model.Date.ToString("dd-MM-yyyy")-@Model.IndexNumber">Save</button></div>
+        </select>
     </div>
-}
+    <div class="form-group col-lg-2 div-entertimesheet-taskname div-entertimesheet-taskname-@i-block-1">
+        <label for="entertimesheetTaskName-@i-block-1">
+            Incident/Task Name@((i == 0) ? "*" : "")
+        </label>
+        <input type="text" class="form-control timesheet-entertimesheetTaskName"
+               id="entertimesheetTaskName-@i-block-1"
+               value="@timeSheet.IncidentTaskName"
+               placeholder="Incident/Task Name">
+    </div>
+
+    <div class="form-group col-lg-3 div-entertimesheet-taskdesc div-entertimesheet-taskdesc-@i-block-1">
+        <label for="entertimesheetTaskDesc-@i-block-1">
+            Incident/Task Description@((i == 0) ? "*" : "")
+        </label>
+        <input type="text" class="form-control timesheet-entertimesheetTaskDesc"
+               id="entertimesheetTaskDesc-@i-block-1"
+               value="@timeSheet.IncidentTaskDescription"
+               placeholder="Incident/Task Description">
+    </div>
+
+    <div class="form-group col-lg-2 div-entertimesheet-requester div-entertimesheet-requester-@i-block-1">
+        <label for="entertimesheetRequester-@i-block-1">
+            Requester@((i == 0) ? "*" : "")
+        </label>
+        <input type="text" class="form-control timesheet-entertimesheetRequester"
+               id="entertimesheetRequester-@i-block-1"
+               value="@timeSheet.Requester">
+    </div>
+
+    <div class="form-group col-lg-2 div-entertimesheet-hourspent div-entertimesheet-hourspent-@i-block-1">
+        <label for="entertimesheetHoursSpent-@i-block-1">
+            Hours Spend@((i == 0) ? "*" : "")
+        </label>
+        <input type="text" class="form-control timesheet-hoursspent"
+               id="entertimesheetHoursSpent-@i-block-1"
+               value="@timeSheet.HoursSpent">
+    </div>
+
+    <div class="form-group col-lg-1 div-entertimesheet-priority div-entertimesheet-priority-@i-block-1">
+        <label for="entertimesheetPriority-@i-block-1" class="leave_label">
+            Priority@((i == 0) ? "*" : "")
+        </label>
+        <select class="form-control timesheet-entertimesheetPriority" id="entertimesheetPriority-@i-block-1">
+            <option value="">Select</option>
+            <option value="High" @(timeSheet.Priority == "High" ? "selected" : "")>High</option>
+            <option value="Medium" @(timeSheet.Priority == "Medium" ? "selected" : "")>Medium</option>
+            <option value="Low" @(timeSheet.Priority == "Low" ? "selected" : "")>Low</option>
+        </select>
+    </div>
+
+    <div class="form-group col-lg-1 div-entertimesheet-status div-entertimesheet-status-@i-block-1">
+        <label for="entertimesheetStatus-@i-block-1" class="leave_label">
+            Status@((i == 0) ? "*" : "")
+        </label>
+        <select class="form-control timesheet-entertimesheetStatus" id="entertimesheetStatus-@i-block-1">
+            <option value="">Select</option>
+            <option value="Closed" @(timeSheet.Status == "Closed" ? "selected" : "")>Closed</option>
+            <option value="Open" @(timeSheet.Status == "Open" ? "selected" : "")>Open</option>
+        </select>
+    </div>
+
+    <div class="timesheetid" style="display: none">@timeSheet.TimeSheetID</div>
+
+
+</div>}
+
+
+
+<div class="emp-entertimesheet-footer emp-entertimesheet-footer-@Model.IndexNumber">
+    <div class="emp-entertimesheet-addtask emp-entertimesheet-addtask-@Model.IndexNumber">
+        <button type="button" class="emp-entertimesheet-addtask-btn-@Model.IndexNumber" data-weeknumber="@Model.Weeknumber" data-dayindexnumber="@Model.IndexNumber" data-blocknumber="@Model.BlockNumber" data-daydate="@Model.Date.ToString("dd-MM-yyyy")" data-dayuniquekey="@Model.Date.ToString("dd-MM-yyyy")-@Model.IndexNumber" id="addTaskBtn">
+            <i class="fa-solid fa-plus"></i>Add Task
+        </button>
+    </div>
+    <div class="emp-entertimesheet-save emp-entertimesheet-save-@Model.IndexNumber"><button type="button" class="btn btn-primary btn-save-timesheet" data-weeknumber="@Model.Weeknumber" data-dayindexnumber="@Model.IndexNumber" data-blocknumber="@Model.BlockNumber" data-daydate="@Model.Date.ToString("dd-MM-yyyy")" data-dayuniquekey="@Model.Date.ToString("dd-MM-yyyy")-@Model.IndexNumber">Save</button></div>
+</div>

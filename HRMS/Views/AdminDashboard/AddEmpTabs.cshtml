@@ -265,7 +265,7 @@
                         </div>
                     </div>
                     <div class="row">
-                        <div class="col-lg-3 col-md-6">
+                        @*<div class="col-lg-3 col-md-6">
                             <div class="form-group drop-menu tabs-general">
                                 <label for="Client">Client</label>
                                 <div class="input-group">
@@ -288,7 +288,7 @@
                                     <div class="invalid-feedback">Please select Client Name.</div>
                                 </div>
                             </div>
-                        </div>
+                        </div>*@
 
                         <div class="col-lg-3 col-md-6">
                             <div class="form-group drop-menu tabs-general">
@@ -311,7 +311,6 @@
                                         selectedemploymentTypeItem = !string.IsNullOrEmpty(Model.EditableEmpInfo.EmployeeType) && (Model.EditableEmpInfo.EmployeeType == item) ? "selected" : "";
                                         <option value="@item" @selectedemploymentTypeItem>@item</option>
                                     }
-
                                 </select>
                                 <div class="invalid-feedback">Please select Employee Type.</div>
                             </div>
@@ -340,7 +339,7 @@
                                 <div class="invalid-feedback">Please select Location.</div>
                             </div>
                         </div>
-                        <div class="col-lg-3 col-md-6">
+                        @*<div class="col-lg-3 col-md-6">
                             <div class="form-group tabs-general drop-menu">
                                 <label for="ReportingManager">Reporting Manager</label>
                                 <div class="input-group dropdownplacehodercolor">
@@ -366,7 +365,7 @@
                                 </div>
                             </div>
 
-                        </div>
+                        </div>*@
                     </div>
                     <div class="row">
                         <div class="col-lg-3 col-md-6">
@@ -466,7 +465,7 @@
                     </div>
 
                     <div class="client-details-header">
-                        <h3 class="client-det">Client Details</h3>
+                        <h3 class="client-det">Client  & Project Details</h3>
                         <div class="input-group-append">
                             <button class="btn btn-secondary btn-sm client-row" type="button">
                                 <i class="fas fa-plus fa-xs"></i>
@@ -506,14 +505,14 @@
                             </div>
                             <div class="col-lg-3 col-md-6">
                                 <div class="form-group tabs-general">
-                                    <label for="AdminAddEmpRole1">Role</label>
+                                    <label for="AdminAddEmpRole1">Project Role</label>
                                     <input type="text" class="form-control" id="Role1" value="" required>
                                     <div class="invalid-feedback">Please enter Role.</div>
                                 </div>
                             </div>
                             <div class="col-lg-3 col-md-6">
                                 <div class="form-group tabs-general">
-                                    <label for="AdminAddEmpReportingManager1">Reporting Manager</label>
+                                    <label for="AdminAddEmpReportingManager1">Project Reporting Manager</label>
                                     <input type="text" class="form-control" id="ReportingManager1" value="" required>
                                     <div class="invalid-feedback">Please enter Reporting Manager.</div>
                                 </div>
@@ -898,7 +897,6 @@
             </div>
         </div>
     </div>
-
 
     <!-- Modal -->
     <div class="modal fade" id="addDepartmentModel" tabindex="-1" aria-labelledby="addDepartmentModelLabel" aria-hidden="true">
