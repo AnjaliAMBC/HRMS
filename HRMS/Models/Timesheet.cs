@@ -43,6 +43,8 @@ namespace HRMS.Models
         public List<DaySpecifcData> WeekInfo { get; set; }
 
         public SiteContextModel SiteContext { get; set; }
+
+        public EmployeeBasedClient SelectedClient { get; set; } = new EmployeeBasedClient();
         public string Client { get; set; }
 
         public DateTime SelectedDate { get; set; }

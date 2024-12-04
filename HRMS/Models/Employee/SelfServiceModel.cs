@@ -12,6 +12,9 @@ namespace HRMS.Models.Employee
         public List<emp_info> ITEmployees { get; set; } = new List<emp_info>();
 
         public IT_Maintenance EditableRecord = new IT_Maintenance();
+
+        public List<EmployeeBasedClient> Empbasedclients { get; set; } = new List<EmployeeBasedClient>();
+
     }
 
     public class SelfServiceEmpImageModel : SiteContextModel

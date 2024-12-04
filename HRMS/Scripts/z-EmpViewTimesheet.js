@@ -43,6 +43,33 @@ $(document).ready(function () {
         };
     }
 
+    function GetReportByClient() {
+        var weekstart = $('#view-week-start').text().split('-').reverse().join('-').trim();
+        var weekend = $('#view-week-end').text().split('-').reverse().join('-').trim();
+        var client = $('#viewtimesheetclient').val();
+        var empID = $(".loggedinempid").text();
+        var weekData = getStartEndDateOfWeek(weekstart);
+        var weekStart = weekData.startDate;
+        var weekNumber = getWeekNumber(weekStart);
+        $.ajax({
+            url: "/timesheet/viewpreviousweektimesheets",
+            type: "POST",
+            data: { weekstart: weekstart, weekend: weekend, weeknumber: weekNumber, client: client, empID: empID },
+            beforeSend: function () {
+                $('.show-progress').show();
+            },
+            success: function (newrow) {
+                $(".emp-timesheet-table-body").empty();
+                $(".emp-timesheet-table-body").append(newrow);
+                $('.show-progress').hide();
+            },
+            error: function (error) {
+                console.error("Error loading partial view:", error);
+                $('.show-progress').hide();
+            }
+        });
+    }
+
     function updateViewWeek(date) {
         var weekData = getStartEndDateOfWeek(date);
         var weekStart = weekData.startDate;
@@ -59,28 +86,30 @@ $(document).ready(function () {
         //    $('#date-' + (i + 1)).text(formatDateToShort(day));
         //}
 
-        var weekstart = $('#view-week-start').text();
-        var weekend = $('#view-week-end').text();
-        var weeknumber = weekNumber;
-        var client = $('#viewtimesheetclient').val();
-        var empID = $(".loggedinempid").text();
-        $.ajax({
-            url: "/timesheet/viewpreviousweektimesheets",
-            type: "POST",
-            data: { weekstart: weekstart, weekend: weekend, weeknumber: weeknumber, client: client, empID: empID },
-            beforeSend: function () {
-                $('.show-progress').show();
-            },
-            success: function (newrow) {
-                $(".emp-timesheet-table-body").empty();
-                $(".emp-timesheet-table-body").append(newrow);
-                $('.show-progress').hide();
-            },
-            error: function (error) {
-                console.error("Error loading partial view:", error);
-                $('.show-progress').hide();
-            }
-        });
+        GetReportByClient();
+
+        //var weekstart = $('#view-week-start').text();
+        //var weekend = $('#view-week-end').text();
+        //var weeknumber = weekNumber;
+        //var client = $('#viewtimesheetclient').val();
+        //var empID = $(".loggedinempid").text();
+        //$.ajax({
+        //    url: "/timesheet/viewpreviousweektimesheets",
+        //    type: "POST",
+        //    data: { weekstart: weekstart, weekend: weekend, weeknumber: weeknumber, client: client, empID: empID },
+        //    beforeSend: function () {
+        //        $('.show-progress').show();
+        //    },
+        //    success: function (newrow) {
+        //        $(".emp-timesheet-table-body").empty();
+        //        $(".emp-timesheet-table-body").append(newrow);
+        //        $('.show-progress').hide();
+        //    },
+        //    error: function (error) {
+        //        console.error("Error loading partial view:", error);
+        //        $('.show-progress').hide();
+        //    }
+        //});
     }
 
     $(document).on('click', '#view-prev-week', function (event) {
@@ -95,6 +124,12 @@ $(document).ready(function () {
         var nextWeekStart = new Date($('#view-week-start').text().split('-').reverse().join('-'));
         nextWeekStart.setDate(nextWeekStart.getDate() + 7);
         updateViewWeek(nextWeekStart);
+    });
+
+
+    $(document).on('change', '#viewtimesheetclient', function (event) {
+        event.preventDefault();
+        GetReportByClient();
     });
 
 
@@ -182,7 +217,7 @@ $(document).ready(function () {
         return;
     });
 
-    
+
 
     $(document).on('click', '#empTimesheetDeleteButton', function (event) {
         event.preventDefault();

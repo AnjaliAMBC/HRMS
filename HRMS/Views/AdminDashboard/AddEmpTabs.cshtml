@@ -486,7 +486,7 @@
                             <div class="col-lg-3 col-md-6">
                                 <div class="form-group tabs-general drop-menu">
                                     <label for="AdminAddEmpClient1">Client</label>
-                                    <select class="form-control" id="Client1" name="Client" required>
+                                    <select class="form-control row-selected-client" id="Client1" name="Client" required>
                                         <option value="">Select Client</option>
                                         @foreach (var client in Model.Clients)
                                         {
@@ -501,21 +501,21 @@
                             <div class="col-lg-3 col-md-6">
                                 <div class="form-group tabs-general">
                                     <label for="AdminAddEmpProjectName1">Project Name</label>
-                                    <input type="text" class="form-control" id="ProjectName1" value="" required>
+                                    <input type="text" class="form-control row-selected-project" id="ProjectName1" value="" required>
                                     <div class="invalid-feedback">Please enter Project Name.</div>
                                 </div>
                             </div>
                             <div class="col-lg-3 col-md-6">
                                 <div class="form-group tabs-general">
                                     <label for="AdminAddEmpRole1">Project Role</label>
-                                    <input type="text" class="form-control" id="Role1" value="" required>
+                                    <input type="text" class="form-control row-selected-role" id="Role1" value="" required>
                                     <div class="invalid-feedback">Please enter Role.</div>
                                 </div>
                             </div>
                             <div class="col-lg-3 col-md-6">
                                 <div class="form-group tabs-general">
                                     <label for="AdminAddEmpReportingManager1">Project Reporting Manager</label>
-                                    <input type="text" class="form-control" id="ReportingManager1" value="" required>
+                                    <input type="text" class="form-control row-selected-rolemanager" id="ReportingManager1" value="" required>
                                     <div class="invalid-feedback">Please enter Reporting Manager.</div>
                                 </div>
                             </div>
@@ -524,7 +524,7 @@
                             <div class="col-lg-3 col-md-6">
                                 <div class="form-group tabs-general drop-menu">
                                     <label for="AdminAddEmpStatus1">Status</label>
-                                    <select class="form-control" id="Status1" name="Status" required>
+                                    <select class="form-control row-selected-status" id="Status1" name="Status" required>
                                         <option value="">Select Status</option>
                                         <option value="Active" >Active</option>
                                         <option value="Inactive" >Inactive</option>

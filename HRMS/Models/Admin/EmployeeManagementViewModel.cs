@@ -11,5 +11,6 @@ namespace HRMS.Models.Admin
         public string EmpListJson { get; set; }
         public emp_info EditableEmpInfo { get; set; } = new emp_info();
         public List<DropdownItem> Departments { get; set; } = new List<DropdownItem>();
+
     }
 }

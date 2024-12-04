@@ -79,6 +79,7 @@ namespace HRMS.Controllers
             var selectedEmployee = _dbContext.emp_info.Where(x => x.EmployeeID == empID).FirstOrDefault();
             model.SelectedDate = today;
             model.SelectedEmployee = selectedEmployee;
+            model.SelectedClient = _dbContext.EmployeeBasedClients.Where(x => x.EmployeeID == empID && x.Client == client).FirstOrDefault();
             model.WeekInfo = DaysInfo(model.WeekStartDate.ToString("dd MMMM yyyy"), model.WeekEndDate.ToString("dd MMMM yyyy"), empID, client, selectedEmployee);
             model.SiteContext = SiteContext.GetCurrentUserContext();
             model.Client = client;
@@ -154,7 +155,7 @@ namespace HRMS.Controllers
                 bool isWeekend = date.DayOfWeek == DayOfWeek.Saturday || date.DayOfWeek == DayOfWeek.Sunday;
 
 
-                var timeSheetForDate = timeSheetInfo.Where(x => x.Date == date && x.EmployeeID == empInfo.EmployeeID).ToList();
+                var timeSheetForDate = timeSheetInfo.Where(x => x.Date == date && x.EmployeeID == empInfo.EmployeeID && x.Client == client).ToList();
                 decimal hoursSpent = timeSheetForDate.Sum(x => x.HoursSpent ?? 0);
                 decimal overtime = hoursSpent > standardWorkingHours ? hoursSpent - standardWorkingHours : 0;
 
@@ -583,7 +584,8 @@ namespace HRMS.Controllers
         public ActionResult TimesheetView()
         {
             var cuserContext = SiteContext.GetCurrentUserContext();
-            Timesheet model = CurrentWeekTimeSheetDetails(cuserContext.EmpInfo.Client, cuserContext.EmpInfo.EmployeeID, "", "", true);
+
+            Timesheet model = CurrentWeekTimeSheetDetails(cuserContext.EmpBasedClients[0].Client, cuserContext.EmpInfo.EmployeeID, "", "", true);
             return View("~/Views/Timesheet/EmpTimesheetView.cshtml", model);
         }
 
@@ -644,7 +646,7 @@ namespace HRMS.Controllers
         public ActionResult AdminTimesheet()
         {
             var cuserContext = SiteContext.GetCurrentUserContext();
-            Timesheet model = CurrentWeekTimeSheetDetails(cuserContext.EmpInfo.Client, cuserContext.EmpInfo.EmployeeID, "", "", true);
+            Timesheet model = CurrentWeekTimeSheetDetails("", cuserContext.EmpInfo.EmployeeID, "", "", true);
             model.Employees = _dbContext.emp_info.ToList();
             model.WeeklyReport = true;
             return View("~/Views/Timesheet/AdminTimesheetView.cshtml", model);
@@ -816,7 +818,7 @@ namespace HRMS.Controllers
                                          .Distinct()
                                          .ToList();
 
-            var clientSpecificEmployees = _dbContext.emp_info
+            var clientSpecificEmployees = _dbContext.EmployeeBasedClients
                                                     .Where(x => x.Client == client && x.EmployeeStatus == "Active")
                                                     .ToList();
             var missingEmployees = clientSpecificEmployees

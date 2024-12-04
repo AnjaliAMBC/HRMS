@@ -41,34 +41,13 @@
                         </td>
                     </tr>
 
-                    <!-- Conditional display of To Date -->
-                    @if (leaveUpdate.leavesource == "Hourly Permission")
-                    {
-                        if (!leaveUpdate.Todate.HasValue || leaveUpdate.Todate.Value == DateTime.MinValue)
-                        {
-                            <tr>
-                                <td style="padding-bottom: 10px;">
-                                    <p style="margin: 0;"><strong>To Date:</strong> @(leaveUpdate.Fromdate.HasValue ? leaveUpdate.Fromdate.Value.ToString("dd-MM-yyyy") : "Not specified")</p>
-                                </td>
-                            </tr>
-                        }
-                        else
-                        {
-                            <tr>
-                                <td style="padding-bottom: 10px;">
-                                    <p style="margin: 0;"><strong>To Date:</strong> @(leaveUpdate.Todate.HasValue ? leaveUpdate.Todate.Value.ToString("dd-MM-yyyy") : "Not specified")</p>
-                                </td>
-                            </tr>
-                        }
-                    }
-                    else
-                    {
+                   
                         <tr>
                             <td style="padding-bottom: 10px;">
                                 <p style="margin: 0;"><strong>To Date:</strong> @(leaveUpdate.Todate.HasValue ? leaveUpdate.Todate.Value.ToString("dd-MM-yyyy") : "Not specified")</p>
                             </td>
                         </tr>
-                    }
+                    
                   
                     <tr>
                         <td style="padding-bottom: 10px;">

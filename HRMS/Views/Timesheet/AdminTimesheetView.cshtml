@@ -7,9 +7,10 @@
 }
 
 <style>
-    .red-border {       
+    .red-border {
         border: 1px solid red !important;
     }
+
     .green-border {
         border: 1px solid green !important;
     }
@@ -62,7 +63,7 @@
                                     <div class="admin-timesheet-block2">
                                         <div class="form-group col-lg-12 div-timesheet-company">
                                             <select class="form-control" id="admintimesheetCompany">
-
+                                                <option value="">Select Client</option>
                                                 @foreach (var client in Model.WeekInfo[0].Clients)
                                                 {
                                                     if (defaultSelectedClient == "")
@@ -89,20 +90,23 @@
                                                                 <span>Select All</span>
                                                             </label>
                                                         </div>
-                                                        @{
-                                                            var clientSpecifcEmployees = Model.Employees.Where(x => x.Client == defaultSelectedClient).ToList();
-                                                        }
+                                                        @*@{
+                                                                var clientSpecifcEmployees = Model.Employees.Where(x => x.Client == defaultSelectedClient).ToList();
+                                                            }
 
-                                                        @foreach (var empClient in clientSpecifcEmployees)
-                                                        {
-                                                            <div class="form-check">
-                                                                <input class="form-check-input" type="checkbox" value="" id="">
-                                                                <label class="adminleavehistory-form-check-label" for="">
-                                                                    <span>@empClient.EmployeeName - @empClient.EmployeeID</span>
-                                                                    <div style="display: none">@empClient.EmployeeID</div>
-                                                                </label>
-                                                            </div>
-                                                        }
+                                                            @foreach (var empClient in clientSpecifcEmployees)
+                                                            {*@
+                                                        <div class="dynamic-empnames">
+                                                            @*<div class="form-check">
+                                                                    <input class="form-check-input" type="checkbox" value="" id="">
+                                                                    <label class="adminleavehistory-form-check-label" for="">
+                                                                        <span> - </span>
+                                                                        <div style="display: none"></div>
+                                                                    </label>
+                                                                </div>*@
+                                                        </div>
+
+                                                        @*}*@
 
                                                     </div>
                                                 </div>
@@ -192,7 +196,7 @@
                 table.columns.adjust().draw();
             }, 1000); // Delay to ensure the modal is fully rendered
         }
-                
+
 
         $(document).on('keyup', '#employeeSearch', function () {
             var value = $(this).val().toLowerCase();
@@ -207,13 +211,24 @@
             updateSelectedEmployees();
         });
 
+        //function SelectedEmployeeIDs() {
+        //    let selectedEmployeeids = [];
+        //    $('#employeeList .form-check-input:checked').not('#selectAll').each(function () {
+        //        let employeeName = $(this).siblings('label').find('div').text();
+        //        selectedEmployeeids.push(employeeName);
+        //    });
+        //    return selectedEmployeeids;
+        //}
+
         function SelectedEmployeeIDs() {
-            let selectedEmployeeids = [];
-            $('#employeeList .form-check-input:checked').not('#selectAll').each(function () {
-                let employeeName = $(this).siblings('label').find('div').text();
-                selectedEmployeeids.push(employeeName);
+            let selectedEmployeeIDs = [];
+            // Iterate through all checked checkboxes inside dynamic-empnames, excluding "Select All"
+            $('#employeeList .dynamic-empnames .form-check-input:checked').not('#selectAll').each(function () {
+                // Extract the EmployeeID from the value of the checkbox
+                let employeeID = $(this).val();
+                selectedEmployeeIDs.push(employeeID);
             });
-            return selectedEmployeeids;
+            return selectedEmployeeIDs;
         }
 
         function updateSelectedEmployees() {
@@ -580,6 +595,43 @@
                     }
                 });
             }
+        });
+
+
+        $(document).on('change', '#admintimesheetCompany', function () {
+            var selectedClientName = $('#admintimesheetCompany').val();
+            $('#adminTimesheetDropdown').text('Select Employees ').append('<i class="fas fa-chevron-down ml-1"></i>');
+            $('#employeeList #selectAll').prop('checked', false);
+
+            $.ajax({
+                url: '/employeedashboard/getemployeesbyclient',
+                type: 'GET',
+                data: { clientname: selectedClientName },
+                beforeSend: function () {
+                    $('.show-progress').show();
+                },
+                success: function (response) {
+                    // Clear the contents of dynamic-empnames
+                    $('.dynamic-empnames').empty();
+
+                    // Append new employee checkboxes inside dynamic-empnames
+                    response.forEach(function (employee) {
+                        $('.dynamic-empnames').append(`
+                    <div class="form-check">
+                        <input class="form-check-input" type="checkbox" value="${employee.EmployeeID}" id="employee_${employee.EmployeeID}">
+                        <label class="adminleavehistory-form-check-label" for="employee_${employee.EmployeeID}">
+                            <span>${employee.EmployeeName} - ${employee.EmployeeID}</span>
+                        </label>
+                    </div>
+                `);
+                    });
+
+                    $('.show-progress').hide();
+                },
+                error: function () {
+                    $('.show-progress').hide();
+                }
+            });
         });
 
 

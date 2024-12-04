@@ -619,40 +619,22 @@
                                 </div>
                                 <div class="col-lg-12 emp-project-details-body">
                                     @Html.Raw(Model.EmpInfo.Roles_Responsibilities)
-                                    @*<div class="emp-project-details-body-block emp-project-details-body-block1">
-                                            <div>Graphics Designer</div>
-                                            <ul>
-                                                <li>Responsible for daily design in social media promotions.</li>
-                                                <li>Responsible in designing sales collaterals, catalogs, client presentations, brochures, eBooks, infographics and newsletters and handbook</li>
-                                                <li>Created banners and icons, and branding images for websites and applications.</li>
-                                            </ul>
-                                        </div>
-                                        <div class="emp-project-details-body-block emp-project-details-body-block2">
-                                            <div>UI/UX Designer</div>
-                                            <ul>
-                                                <li>Responsible for daily design in social media promotions.</li>
-                                                <li>Responsible in designing sales collaterals, catalogs, client presentations, brochures, eBooks, infographics and newsletters and handbook</li>
-                                                <li>Created banners and icons, and branding images for websites and applications.</li>
-                                            </ul>
-                                        </div>*@
                                 </div>
                             </div>
                             <div class="col-lg-4 emp-project-details-right">
                                 <div class="emp-project-details-clientinfo">
-                                    <div class="emp-project-clientinfo">
-                                        <div class="project-client"><span>Client : </span> @Model.EmpInfo.Client</div>
-                                        <div class="project-name"><span>Project : </span> @Model.EmpInfo.Client</div>
-                                        <div class="project-role"><span>Role : </span> @Model.EmpInfo.Designation</div>
-                                        <div class="project-rm"><span>RM : </span> @Model.EmpInfo.ReportingManager</div>
-                                    </div>
-                                    @*<div class="emp-project-clientinfo">
-                                            <div class="project-client"><span>Client : </span> AMBC</div>
-                                            <div class="project-name"><span>Project : </span> AMBC Website Revamp</div>
-                                            <div class="project-role"><span>Role : </span> Graphic / UI UX Designer</div>
-                                            <div class="project-rm"><span>RM : </span> Shanta M Balakumar</div>
-                                        </div>*@
+                                    @foreach (var client in Model.Empbasedclients)
+                                    {
+                                        <div class="emp-project-clientinfo">
+                                            <div class="project-client"><span>Client : </span> @client.Client</div>
+                                            <div class="project-name"><span>Project : </span> @client.ProjectName</div>
+                                            <div class="project-role"><span>Role : </span> @client.Role1</div>
+                                            <div class="project-rm"><span>RM : </span> @client.ReportingManager</div>
+                                        </div>
+                                    }
                                 </div>
                             </div>
+
                         </div>
                     </div>
 
@@ -784,7 +766,7 @@
                                                                                 {
                                                                                     var defaultImagePath = ImageHelper.GetDefaultAssetImage(Model.empAsset.AssetType3);
                                                                                     <img src="@defaultImagePath" alt="Default Asset Image" />
-                                                                                    }
+                                                                                }
                                                                                     <div class="allocate-info">
                                                                                     <div class="model"><span>Asset Name</span> @Model.empAsset.AssetType3</div>
                                                                                     <div class="assetid"><span>Asset ID</span> @Model.empAsset.AssetID</div>
