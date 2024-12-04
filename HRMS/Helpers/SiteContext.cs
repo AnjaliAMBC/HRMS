@@ -55,6 +55,7 @@ namespace HRMS.Helpers
                 contextModel.IsSuperAdmin = siteContext.IsSuperAdmin;
                 contextModel.IsITAdmin = siteContext.IsITAdmin;
                 contextModel.IsAccountAdmin = siteContext.IsAccountAdmin;
+                contextModel.EmpBasedClients = siteContext.EmpBasedClients;
                 //contextModel.CheckInInfo = siteContext.CheckInInfo;
                 //contextModel.empLastDayCheckInDetails = siteContext.empLastDayCheckInDetails;
             }

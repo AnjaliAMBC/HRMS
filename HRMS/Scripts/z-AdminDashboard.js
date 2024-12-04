@@ -561,11 +561,11 @@ $(document).on('click', '.addemp-submit-btn', function () {
 
        
         $('#clientRowsContainer .row').each(function () {
-            var clientField = $(this).find('select[name="Client"]').val(); // Select Client
-            var projectNameField = $(this).find('#ProjectName1').val(); // Project Name
-            var roleField = $(this).find('#Role1').val(); // Role
-            var managerField = $(this).find('#ReportingManager1').val(); // Reporting Manager
-            var statusField = $(this).find('select[name="Status"]').val(); // Status
+            var clientField = $(this).find('.row-selected-client').val(); // Select Client
+            var projectNameField = $(this).find('.row-selected-project').val(); // Project Name
+            var roleField = $(this).find('.row-selected-role').val(); // Role
+            var managerField = $(this).find('.row-selected-rolemanager').val(); // Reporting Manager
+            var statusField = $(this).find('.row-selected-status').val(); // Status
 
             
             if (clientField || projectNameField || roleField || managerField || statusField) {
@@ -580,8 +580,6 @@ $(document).on('click', '.addemp-submit-btn', function () {
         });
         
         formData['ClientRows'] = clientRowsData;
-
-
 
         if ($('.isaddaction').html() == "True") {
             $.ajax({

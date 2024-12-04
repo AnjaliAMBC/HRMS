@@ -100,4 +100,11 @@ namespace HRMS.Models.Admin
     {
         public JsonResponse JsonResponse { get; set; } = new JsonResponse();
     }
+
+
+    public class AddUpdateEmpInfo : emp_info
+    {
+        public List<ClientRow> ClientRows { get; set; } = new List<ClientRow>();
+    }
+
 }

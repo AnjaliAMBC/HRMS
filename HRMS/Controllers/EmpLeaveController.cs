@@ -212,10 +212,9 @@ namespace HRMS.Controllers
                 leaveRequest.jsonResponse.Message = "Leave request submitted successfully.";
                 leaveRequest.jsonResponse.StatusCode = 200;
 
-                //When employee apply leave
                 if (leaves[0].employee_name.Contains(leaveRequest.SubmittedBy))
                 {
-                    var emailSubject = "Leave Application from " + leaveRequest.EmpName;
+                    var emailSubject = "Leave Application from " + leaveRequest.EmpName + " - " + leaveRequest.EmpID;
                     var emailBody = RenderPartialToString(this, "_LeaveNotificationEmpEmail", leaves, ViewData, TempData);
 
                     var teamEmails = "";
@@ -223,19 +222,18 @@ namespace HRMS.Controllers
                     {
                         teamEmails = "," + leaveRequest.TeamEmail.Trim();
                     }
-                    teamEmails = teamEmails.Trim().Trim(',');
-
+                    teamEmails = teamEmails.Trim(',');
 
                     if (leaveRequest.LeaveType == "Hourly Permission")
                     {
+                        // Email for Hourly Permission
                         var hourlyPermissionEmailBody = RenderPartialToString(this, "_HourlyPermissionEmail", leaves, ViewData, TempData);
                         var hourlyPermissionEmailRequest = new EmailRequest()
                         {
                             Body = hourlyPermissionEmailBody,
                             ToEmail = ConfigurationManager.AppSettings["LeaveEmails"],
-                            CCEmail = teamEmails,
-                            BCCEmail = leaveRequest.OfficalEmailid,
-                            Subject = "Hourly Permission Request from " + leaveRequest.EmpName
+                            CCEmail = teamEmails + "," + leaveRequest.OfficalEmailid,
+                            Subject = "Hourly Permission Request from " + leaveRequest.EmpName + " - " + leaveRequest.EmpID
                         };
                         EMailHelper.SendEmail(hourlyPermissionEmailRequest);
                     }
@@ -243,48 +241,53 @@ namespace HRMS.Controllers
                     {
                         if (leaveRequest.SendReasontoteamChecked)
                         {
-                            var emailRequest = new EmailRequest()
+                            // Different emails for LeaveEmails and Team Emails
+                            var teamEmailBody = RenderPartialToString(this, "_EmpLeavewithoutReasonEmail", leaves, ViewData, TempData);
+
+                            // Email to LeaveEmails
+                            var leaveEmailRequest = new EmailRequest()
                             {
                                 Body = emailBody,
                                 ToEmail = ConfigurationManager.AppSettings["LeaveEmails"],
-                                CCEmail = !string.IsNullOrWhiteSpace(teamEmails) ? teamEmails : string.Empty,
-                                BCCEmail = leaveRequest.OfficalEmailid, // Add official email ID to BCC
+                                CCEmail = leaveRequest.OfficalEmailid,
                                 Subject = emailSubject
                             };
+                            EMailHelper.SendEmail(leaveEmailRequest);
 
-                            var sendNotification = EMailHelper.SendEmail(emailRequest);
+                            // Email to Team Emails
+                            if (!string.IsNullOrWhiteSpace(teamEmails))
+                            {
+                                var teamEmailRequest = new EmailRequest()
+                                {
+                                    Body = teamEmailBody,
+                                    ToEmail = teamEmails,                                    
+                                    BCCEmail = leaveRequest.OfficalEmailid,
+                                    Subject = emailSubject
+                                };
+                                EMailHelper.SendEmail(teamEmailRequest);
+                            }
                         }
                         else
                         {
-                            var TeamemailBody = RenderPartialToString(this, "_EmpLeaveReasonEmail", leaves, ViewData, TempData);
-                            var emailRequest = new EmailRequest()
-                            {
-                                Body = TeamemailBody,
-                                ToEmail = !string.IsNullOrWhiteSpace(teamEmails) ? teamEmails : string.Empty,
-                                CCEmail = "",
-                                BCCEmail = leaveRequest.OfficalEmailid,
-                                Subject = emailSubject
-                            };
-                            var sendTeamNotification = EMailHelper.SendEmail(emailRequest);
-
-
-                            var adminemailRequest = new EmailRequest()
+                            // One email to both LeaveEmails and Team Emails
+                            var combinedEmailRequest = new EmailRequest()
                             {
                                 Body = emailBody,
-                                ToEmail = ConfigurationManager.AppSettings["LeaveEmails"],
+                                ToEmail = ConfigurationManager.AppSettings["LeaveEmails"] + (!string.IsNullOrWhiteSpace(teamEmails) ? "," + teamEmails : ""),
                                 CCEmail = "",
                                 BCCEmail = leaveRequest.OfficalEmailid,
                                 Subject = emailSubject
                             };
-                            var sendAdminNotification = EMailHelper.SendEmail(adminemailRequest);
+                            EMailHelper.SendEmail(combinedEmailRequest);
                         }
                     }
                 }
 
+
                 // In case admin submits the leave on employee's behalf
                 else
                 {
-                    var emailSubject = "Leave Application from " + leaveRequest.EmpName ;
+                    var emailSubject = "Leave Application from " + leaveRequest.EmpName + " - " + leaveRequest.EmpID;
                     var emailBody = RenderPartialToString(this, "_LeaveNotificationAdminEmail", leaves, ViewData, TempData);
 
                     var teamEmails = "";
@@ -294,48 +297,65 @@ namespace HRMS.Controllers
                     }
                     teamEmails = teamEmails.Trim().Trim(',');
 
-                    if (leaveRequest.SendReasontoteamChecked)
-                    {
-                        var emailRequest = new EmailRequest()
+                    if (leaveRequest.LeaveType == "Hourly Permission")
+                    {                        
+                        var hourlyPermissionEmailBody = RenderPartialToString(this, "_HourlyPermissionEmail", leaves, ViewData, TempData);
+                        var hourlyPermissionEmailRequest = new EmailRequest()
                         {
-                            Body = emailBody,
+                            Body = hourlyPermissionEmailBody,
                             ToEmail = ConfigurationManager.AppSettings["LeaveEmails"],
-                            CCEmail = !string.IsNullOrWhiteSpace(teamEmails) ? teamEmails : string.Empty,
-                            BCCEmail = leaveRequest.OfficalEmailid,
-                            Subject = emailSubject
+                            CCEmail = teamEmails + "," + leaveRequest.OfficalEmailid,
+                            Subject = "Hourly Permission Request from " + leaveRequest.EmpName + " - " + leaveRequest.EmpID
                         };
-
-                        var sendNotification = EMailHelper.SendEmail(emailRequest);
+                        EMailHelper.SendEmail(hourlyPermissionEmailRequest);
+                        
                     }
                     else
                     {
-                        //This is for team
-                        var TeamemailBody = RenderPartialToString(this, "_EmpLeaveReasonEmail", leaves, ViewData, TempData);
-                        var teamemailRequest = new EmailRequest()
+                        if (leaveRequest.SendReasontoteamChecked)
                         {
-                            Body = TeamemailBody,
-                            ToEmail = !string.IsNullOrWhiteSpace(teamEmails) ? teamEmails : string.Empty,
-                            CCEmail = "",
-                            BCCEmail = leaveRequest.OfficalEmailid,
-                            Subject = emailSubject
-                        };
 
-                        var sendNotification = EMailHelper.SendEmail(teamemailRequest);
+                            // Email to Admin
+                            var adminEmailRequest = new EmailRequest()
+                            {
+                                Body = emailBody,
+                                ToEmail = ConfigurationManager.AppSettings["LeaveEmails"],
+                                CCEmail = leaveRequest.OfficalEmailid,
+                                Subject = emailSubject
+                            };
 
+                            var sendAdminNotification = EMailHelper.SendEmail(adminEmailRequest);
 
-                        //This is for admin
-                        var adminemailRequest = new EmailRequest()
+                            // Email to Team (if team emails exist)
+                            if (!string.IsNullOrWhiteSpace(teamEmails))
+                            {
+                                var teamEmailBody = RenderPartialToString(this, "_AdminLeaveWithoutReasonEmail", leaves, ViewData, TempData);
+                                var teamEmailRequest = new EmailRequest()
+                                {
+                                    Body = teamEmailBody,
+                                    ToEmail = teamEmails,                                    
+                                    Subject = emailSubject
+                                };
+
+                                var sendTeamNotification = EMailHelper.SendEmail(teamEmailRequest);
+                            }
+                        }
+                        else
                         {
-                            Body = emailBody,
-                            ToEmail = ConfigurationManager.AppSettings["LeaveEmails"],
-                            CCEmail = "",
-                            BCCEmail = leaveRequest.OfficalEmailid,
-                            Subject = emailSubject
-                        };
+                            // Send one combined email to both LeaveEmails and team emails
+                            var combinedEmailRequest = new EmailRequest()
+                            {
+                                Body = emailBody,
+                                ToEmail = ConfigurationManager.AppSettings["LeaveEmails"],
+                                CCEmail = teamEmails + "," + leaveRequest.OfficalEmailid,
+                                Subject = emailSubject
+                            };
 
-                        var sendAdminNotification = EMailHelper.SendEmail(adminemailRequest);
+                            var sendNotification = EMailHelper.SendEmail(combinedEmailRequest);
+                        }
                     }
                 }
+
 
                 var newNotification = new Notification
                 {
@@ -360,7 +380,8 @@ namespace HRMS.Controllers
                 leaveRequest.jsonResponse = ErrorHelper.CaptureError(ex);
                 return Json(leaveRequest, JsonRequestBehavior.AllowGet);
             }
-        }
+        }       
+
 
 
         public ActionResult GetAvailableLeaves(string empId, string leaveType)

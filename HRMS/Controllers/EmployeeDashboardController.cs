@@ -41,13 +41,11 @@ namespace HRMS.Controllers
                 var siteContext = Session["SiteContext"] as SiteContextModel;
                 var employeeid = siteContext.EmpInfo.EmployeeID;
 
-                // Get the employee's asset
                 model.empAsset = _dbContext.Assets.FirstOrDefault(x => x.AllocatedEmployeeID == employeeid);
 
-                // Get the current year
                 int currentYear = DateTime.Now.Year;
 
-                // Filter maintenance records by the current year
+              
                 model.empMaintanance = _dbContext.IT_Maintenance
                                            .Where(x => x.EmployeeID == employeeid && x.MaintenanceDate.Value.Year == currentYear)
                                            .ToList();
@@ -55,7 +53,7 @@ namespace HRMS.Controllers
                 model.EmpInfo = siteContext.EmpInfo;
                 model.LoginInfo = siteContext.LoginInfo;
 
-
+                model.Empbasedclients = _dbContext.EmployeeBasedClients.Where(x => x.EmployeeID == employeeid && x.EmployeeStatus=="Active").ToList();
                 model.ITEmployees = _dbContext.emp_info.Where(x => x.Department.Contains("IT")).ToList();
 
                 return View("~/Views/EmployeeDashboard/SelfService.cshtml", model);
@@ -227,6 +225,13 @@ namespace HRMS.Controllers
                     return Json(new { success = false, message = "No record found." }); // Handle record not found
                 }
             }
+        }
+
+
+        public JsonResult GetEmployeesByClient(string clientname)
+        {
+            var employees = _dbContext.EmployeeBasedClients.Where(x => x.Client == clientname).ToList();          
+            return Json(employees, JsonRequestBehavior.AllowGet);
         }
 
     }

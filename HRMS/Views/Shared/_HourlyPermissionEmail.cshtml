@@ -54,37 +54,31 @@
                             </td>
                         </tr>
                     }
-                    @if (leaveUpdate.leavesource == "Hourly Permission")
-                    {
-                        <tr>
-                            <td style="padding-bottom: 10px;">
-                                <p style="margin: 0;">
-                                    <strong>Start Time:</strong> @(leaveUpdate.StartTime.HasValue ? EMailHelper.FormatTimeSpan(leaveUpdate.StartTime) : "Not specified")
-                                </p>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td style="padding-bottom: 10px;">
-                                <p style="margin: 0;">
-                                    <strong>End Time:</strong> @(leaveUpdate.EndTime.HasValue ? EMailHelper.FormatTimeSpan(leaveUpdate.EndTime) : "Not specified")
-                                </p>
-                            </td>
-                        </tr>
-                    }
-                    else
-                    {
-                        <tr>
-                            <td style="padding-bottom: 10px;">
-                                <p style="margin: 0;"><strong>To Date:</strong> @(leaveUpdate.Todate.HasValue ? leaveUpdate.Todate.Value.ToString("dd-MM-yyyy") : "Not specified")</p>
-                            </td>
-                        </tr>
-                    }
+
+                    <tr>
+                        <td style="padding-bottom: 10px;">
+                            <p style="margin: 0;">
+                                <strong>Start Time:</strong> @(leaveUpdate.StartTime.HasValue ? EMailHelper.FormatTimeSpan(leaveUpdate.StartTime) : "Not specified")
+                            </p>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td style="padding-bottom: 10px;">
+                            <p style="margin: 0;">
+                                <strong>End Time:</strong> @(leaveUpdate.EndTime.HasValue ? EMailHelper.FormatTimeSpan(leaveUpdate.EndTime) : "Not specified")
+                            </p>
+                        </td>
+                    </tr>
                     <tr>
                         <td style="padding-bottom: 10px;">
                             <p style="margin: 0;"><strong>Reason:</strong> @leaveUpdate.leave_reason</p>
                         </td>
                     </tr>
-
+                    <tr>
+                        <td style="padding-bottom: 10px;">
+                            <p style="margin: 0;"><strong>Submitted By:</strong> @leaveUpdate.createdby</p>
+                        </td>
+                    </tr>
                     <tr>
                         <td style="padding-bottom: 10px;">
                             <p style="margin: 0;"><strong>Backup Resource Name:</strong> @leaveUpdate.BackupResource_Name</p>

@@ -32,7 +32,7 @@ namespace HRMS.Controllers
             _dbContext = new HRMS_EntityFramework(); // Replace YourDbContext with your actual DbContext class
         }
 
-       
+
         [HttpGet]
         [AllowAnonymous]
         public ActionResult Login()
@@ -44,7 +44,7 @@ namespace HRMS.Controllers
         [AllowAnonymous]
         public ActionResult Login(AccountModel loginModel)
         {
-           
+
             if (IsValidUser(loginModel))
             {
                 FormsAuthentication.SetAuthCookie(loginModel.EmailID, false);
@@ -72,12 +72,22 @@ namespace HRMS.Controllers
                     .Where(emp => emp.EmployeeID == loginModel.EmployeeID && emp.Password == loginModel.Password)
                     .FirstOrDefault();
 
-                if (isEmpExists != null && isEmpExists.EmployeeStatus == "Active") 
+                if (isEmpExists != null && isEmpExists.EmployeeStatus == "Active")
                 {
                     loginModel.IsUser = true;
                     var currentEmployee = _dbContext.emp_info
                         .Where(emp => emp.EmployeeID == loginModel.EmployeeID)
                         .FirstOrDefault();
+
+                    var empClients = _dbContext.EmployeeBasedClients.Where(x => x.EmployeeID == loginModel.EmployeeID).OrderBy(x => x.CreatedDate).ToList();
+                    if (empClients != null)
+                    {
+                        SiteContext.EmpBasedClients = empClients;
+                    }
+                    else
+                    {
+                        SiteContext.EmpBasedClients = new List<EmployeeBasedClient>();
+                    }
 
                     SiteContext.LoginInfo = isEmpExists;
                     SiteContext.EmpInfo = currentEmployee;
@@ -104,6 +114,17 @@ namespace HRMS.Controllers
                     var currentEmployee = _dbContext.emp_info
                         .Where(emp => emp.OfficalEmailid == loginModel.EmailID)
                         .FirstOrDefault();
+
+                    var empClients = _dbContext.EmployeeBasedClients.Where(x => x.EmployeeID == loginModel.EmployeeID).OrderBy(x => x.CreatedDate).ToList();
+                    if (empClients != null)
+                    {
+                        SiteContext.EmpBasedClients = empClients;
+                    }
+                    else
+                    {
+                        SiteContext.EmpBasedClients = new List<EmployeeBasedClient>();
+                    }
+
 
                     SiteContext.LoginInfo = isEmpExists;
                     SiteContext.EmpInfo = currentEmployee;
@@ -283,7 +304,7 @@ namespace HRMS.Controllers
                 var changePasswordEmp = _dbContext.emplogins.SingleOrDefault(u => u.EmployeeID == empid);
                 if (changePasswordEmp != null)
                 {
-                    if(changePasswordEmp.Password == currentPassword)
+                    if (changePasswordEmp.Password == currentPassword)
                     {
                         changePasswordEmp.Password = newPassword;
                         _dbContext.SaveChanges();
@@ -292,9 +313,9 @@ namespace HRMS.Controllers
                     {
                         result["currentPassword"] = "Current password is incorrect.";
                         success = false;
-                    }                  
-                  
-                }                
+                    }
+
+                }
             }
 
             return Json(new { success = success, errors = result });
@@ -309,13 +330,13 @@ namespace HRMS.Controllers
 
         private bool VerifyPassword(string storedPassword, string inputPassword)
         {
-            return storedPassword == inputPassword; 
+            return storedPassword == inputPassword;
         }
 
         private string HashPassword(string password)
         {
-            
-            return password; 
+
+            return password;
         }
 
     }

@@ -196,7 +196,7 @@ namespace HRMS.Controllers
             var model = new AddEmployeeViewModel();
             var cuserContext = SiteContext.GetCurrentUserContext();
             model.EmpInfo = cuserContext.EmpInfo;
-            model.LoginInfo = cuserContext.LoginInfo;            
+            model.LoginInfo = cuserContext.LoginInfo;
 
             model.HeadLine = "Add Employee";
             if (!string.IsNullOrEmpty(empid) && !model.IsAddAction)
@@ -230,8 +230,9 @@ namespace HRMS.Controllers
         }
 
         [HttpPost]
-        public ActionResult AddEmployee(emp_info formData)
+        public ActionResult AddEmployee(AddUpdateEmpInfo formData)
         {
+            var cuserContext = SiteContext.GetCurrentUserContext();
             var model = new AddEmployeeViewModel();
             try
             {
@@ -259,7 +260,7 @@ namespace HRMS.Controllers
                 _dbContext.emplogins.Add(empLoginInfo);
                 _dbContext.SaveChanges();
 
-                if (model.ClientRows == null)
+                if (formData.ClientRows != null && formData.ClientRows.Any())
                 {
                     foreach (var clientRow in model.ClientRows)
                     {
@@ -272,7 +273,12 @@ namespace HRMS.Controllers
                             Client = clientRow.Client,
                             ProjectName = clientRow.ProjectName,
                             Role1 = clientRow.Role,
-                            ReportingManager = clientRow.ReportingManager,                           
+                            ReportingManager = clientRow.ReportingManager,
+                            CreatedBy = cuserContext.EmpInfo.EmployeeName,
+                            CreatedDate = DateTime.Now,
+                            UpdatedBy = cuserContext.EmpInfo.EmployeeName,
+                            UpdatedDate = DateTime.Now,
+                            Location = newEmployee.Location
                         };
 
                         _dbContext.EmployeeBasedClients.Add(employeeBasedClient);
@@ -346,7 +352,7 @@ namespace HRMS.Controllers
                     }
                     _dbContext.SaveChanges();
 
-                }               
+                }
 
                 NewAccountCreateEmail(empLoginInfo);
             }
@@ -394,8 +400,9 @@ namespace HRMS.Controllers
         }
 
         [HttpPost]
-        public ActionResult UpdateEmployee(emp_info formData)
+        public ActionResult UpdateEmployee(AddUpdateEmpInfo formData)
         {
+            var cuserContext = SiteContext.GetCurrentUserContext();
             var model = new AddEmployeeViewModel();
             try
             {
@@ -429,7 +436,7 @@ namespace HRMS.Controllers
                     existingEmployee.Designation = model.EmpInfo.Designation;
                     existingEmployee.ShiftTimings = model.EmpInfo.ShiftTimings;
                     existingEmployee.Department = model.EmpInfo.Department;
-                    existingEmployee.Client = model.EmpInfo.Client;
+                    //existingEmployee.Client = model.EmpInfo.Client;
                     existingEmployee.EmployeeType = model.EmpInfo.EmployeeType;
                     existingEmployee.Location = model.EmpInfo.Location;
                     existingEmployee.ReportingManager = model.EmpInfo.ReportingManager;
@@ -484,6 +491,55 @@ namespace HRMS.Controllers
                     //existingEmployee.Client3 = model.EmpInfo.Client3;
 
                     _dbContext.SaveChanges();
+
+                    var clientRows = formData.ClientRows;
+
+                    if (clientRows != null && clientRows.Any())
+                    {
+                        foreach (var clientRow in clientRows)
+                        {
+                            var isClientExists = _dbContext.EmployeeBasedClients.Where(x => x.Client == clientRow.Client && x.EmployeeID == existingEmployee.EmployeeID).FirstOrDefault();
+
+                            if (isClientExists != null)
+                            {
+                                isClientExists.Client = clientRow.Client;
+                                isClientExists.EmployeeID = existingEmployee.EmployeeID;
+                                isClientExists.EmployeeName = existingEmployee.EmployeeName;
+                                isClientExists.EmployeeStatus = clientRow.Status;
+                                isClientExists.OfficalEmailid = existingEmployee.OfficalEmailid;
+                                isClientExists.ProjectName = clientRow.ProjectName;
+                                isClientExists.ReportingManager = clientRow.ReportingManager;
+                                isClientExists.Role1 = clientRow.Role;
+                                isClientExists.UpdatedBy = cuserContext.EmpInfo.EmployeeName;
+                                isClientExists.UpdatedDate = DateTime.Now;
+                                isClientExists.Location = existingEmployee.Location;
+                            }
+                            else
+                            {
+                                var employeeBasedClient = new EmployeeBasedClient
+                                {
+                                    EmployeeID = existingEmployee.EmployeeID,
+                                    EmployeeName = existingEmployee.EmployeeName,
+                                    OfficalEmailid = existingEmployee.OfficalEmailid,
+                                    EmployeeStatus = clientRow.Status,
+                                    Client = clientRow.Client,
+                                    ProjectName = clientRow.ProjectName,
+                                    Role1 = clientRow.Role,
+                                    ReportingManager = clientRow.ReportingManager,
+                                    CreatedBy = cuserContext.EmpInfo.EmployeeName,
+                                    CreatedDate = DateTime.Now,
+                                    UpdatedBy = cuserContext.EmpInfo.EmployeeName,
+                                    UpdatedDate = DateTime.Now,
+                                    Location = existingEmployee.Location
+                                };
+
+                                _dbContext.EmployeeBasedClients.Add(employeeBasedClient);
+
+                            }
+                            _dbContext.SaveChanges();
+                        }
+                    }
+
                     model.JsonResponse.Message = "Employee details updated successfully!";
                     model.JsonResponse.StatusCode = 200;
 

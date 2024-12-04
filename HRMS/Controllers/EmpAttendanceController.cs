@@ -62,22 +62,20 @@ namespace HRMS.Controllers
             }
 
 
-            var location = cuserContext.EmpInfo.Location?.Trim().ToLower();  // Trim spaces and convert to lower case
-            Console.WriteLine($"Employee Location: {location}");  // Debug: Log the employee location
+            var location = cuserContext.EmpInfo.Location?.Trim().ToLower(); 
+            Console.WriteLine($"Employee Location: {location}");  
 
-            // Fetch all holidays first, without location filtering
+            
             var holidays = _dbContext.tblambcholidays
                 .Where(x => x.holiday_date >= model.startWeek && x.holiday_date <= model.EndWeek)
                 .ToList();
-
-            // Now filter the holidays in memory based on location
+            
             var filteredHolidays = holidays
                 .Where(x => x.region != null && x.region.Split(',')
-                    .Any(r => r.Trim().ToLower() == location))  // Split and compare location in memory
+                    .Any(r => r.Trim().ToLower() == location))  
                 .ToList();
-
-            // Debug: Check the holidays query
-            Console.WriteLine($"Filtered Holidays found: {filteredHolidays.Count}");  // Debug: Log the number of holidays found
+           
+            Console.WriteLine($"Filtered Holidays found: {filteredHolidays.Count}");  
 
             if (filteredHolidays != null && filteredHolidays.Any())
             {

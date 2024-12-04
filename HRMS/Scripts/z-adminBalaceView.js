@@ -329,7 +329,13 @@ function AdminViewHistoryTable(fromDate, toDate) {
                 var fromDay = leaveInfo.LatestLeave.Fromdate ? new Date(leaveInfo.LatestLeave.Fromdate).toLocaleDateString('en-GB', { weekday: 'long' }) : "No Date Available";
                 var toDate = leaveInfo.LatestLeave.Todate ? new Date(leaveInfo.LatestLeave.Todate).toLocaleDateString('en-GB', { day: 'numeric', month: 'long', year: 'numeric' }) : "No Date Available";
                 var toDay = leaveInfo.LatestLeave.Todate ? new Date(leaveInfo.LatestLeave.Todate).toLocaleDateString('en-GB', { weekday: 'long' }) : "No Date Available";
-                
+
+                var isHourlyPermission = leaveInfo.LatestLeave.leavesource === "Hourly Permission";
+
+                if (isHourlyPermission) {
+                    toDate = fromDate;
+                    toDay = fromDay;
+                }
                     var status = leaveInfo.LatestLeave.LeaveStatus.toLowerCase();
                     var statusImageMap = {
                         pending: '/Assets/Pending.png',
@@ -373,10 +379,10 @@ function AdminViewHistoryTable(fromDate, toDate) {
                         <div class="res-leave-his-date">${fromDate}</div>
                         <div class="res-leave-his-day mutedText">${fromDay}</div>
                     </td>
-                    <td class="res-admin-leave-to">
-                        <div class="res-leave-his-date">${toDate}</div>
-                        <div class="res-leave-his-day mutedText">${toDay}</div>
-                    </td>
+                   <td class="res-admin-leave-to">
+    <div class="res-leave-his-date">${isHourlyPermission ? fromDate : toDate}</div>
+    <div class="res-leave-his-day mutedText">${isHourlyPermission ? fromDay : toDay}</div>
+</td>
                     <td>${leaveInfo.TotalLeaveDays}</td>
                     <td>${leaveInfo.LatestLeave.Location}</td>
                     <td class="admin-leavehistory-reasons"><span title="${leaveInfo.LatestLeave.leave_reason}">${leaveInfo.LatestLeave.leave_reason}</span></td>

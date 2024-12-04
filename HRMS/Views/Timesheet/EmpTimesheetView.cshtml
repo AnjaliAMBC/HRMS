@@ -40,17 +40,16 @@
                         <div class="emp-timesheet-block2">
                             <div class="form-group col-lg-12 div-timesheet-company">
                                 <select class="form-control" id="viewtimesheetclient">
-
-                                    @*@foreach (var client in Model.WeekInfo[0].Clients)
-                                        {*@
-                                    <option value="@Model.SiteContext.EmpInfo.Client">@Model.SiteContext.EmpInfo.Client</option>
-                                    @*}*@
+                                    @foreach (var client in Model.SiteContext.EmpBasedClients)
+                                    {
+                                        <option value="@client.Client">@client.Client</option>
+                                    }
 
                                 </select>
                             </div>
                         </div>
                         <div class="emp-timesheet-block3">
-                            <span>Reporting Manager </span> @Model.SiteContext.EmpInfo.ReportingManager
+                            <span>Reporting Manager: </span> @Model.SelectedClient.ReportingManager
                         </div>
                     </div>
                     <div class="emp-timesheet-header-block-right">
