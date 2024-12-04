@@ -67,6 +67,8 @@
 
 <script>
     $(document).ready(function () {
-        $('#CompemployeeName').select2();
+        $('#CompemployeeName').select2({
+            dropdownParent: $('#compOffModal')
+        });
     });
 </script>
