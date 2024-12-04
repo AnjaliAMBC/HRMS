@@ -580,6 +580,17 @@ div.main-content {
     font-weight: normal;
 }
 
+.admin-empmanagement-view #myTabContent .client-details-header .btn-add-new-client {
+    float: right;
+    clear: both;
+}
+
+.admin-empmanagement-view #clientRowsContainer .btn-remove-client {
+    height: 30px;
+    display: inline-block;
+    margin-top: 30px;
+}
+
 /* admin employee management end */
 
 /*admin attendance start*/
@@ -635,6 +646,7 @@ div.main-content {
 .admin-attendance-container #adminaddendancetable thead th {
     /*text-align: center;*/
     font-size: 14px;
+    color: #fff;
 }
 
 .admin-attendance-container #adminaddendancetable .leave-btn,
@@ -818,6 +830,10 @@ div.main-content {
     vertical-align: bottom;
     text-align: center;
     padding-top: 7px;
+}
+
+.res-admin-attendance .adminaddendancedetailedtable {
+    margin-top: 0 !important;
 }
 
 /*admin attendance end*/
@@ -1425,7 +1441,16 @@ div.main-content {
 }
 
 .adminsideapplypage .emp-apply-leave-reason-right {
-    margin-left: 260px;
+    /*margin-left: 260px;*/
+}
+
+#empApplyLeaveFields .emp-apply-leave-reason label {
+    display: flex;
+    justify-content: space-between;
+}
+
+#empApplyLeaveFields .emp-apply-leave-reason-right {
+    margin-left: 0;
 }
 
 #adminleaveHistoryTable tbody tr td:nth-child(1) {

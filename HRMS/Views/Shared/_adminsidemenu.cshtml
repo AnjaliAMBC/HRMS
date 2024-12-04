@@ -244,7 +244,7 @@
                         <div class="sidebar-submenu" style="@ticketigSidebarShow">
                             <ul>
                                 <li class="@highliateITTicketing"><a href="/adminticketing/itticketing"><span class="menu-bar-design-red"></span>IT Ticketing</a></li>
-                                
+
                                 @if (currentContext.IsAdmin || currentContext.IsSuperAdmin)
                                 {
                                     <li class="@highliateHRTicketing"><a href="/adminticketing/hrticketing" class=""><span class="menu-bar-design-blue"></span>HR Ticketing</a></li>
@@ -287,6 +287,22 @@
                                 <li><a href="/Maintanance/MaintananceInfo" class=""><span class="menu-bar-design-red"></span>Maintanance</a></li>
                             </ul>
                         </div>
+                    </li>
+                }
+                @if (currentContext.IsAdmin || currentContext.IsSuperAdmin)
+                {
+                    <li class="mb-2 @(pageUrlPath.Contains("/AdminDashboard/AdminJobListing") ? "active sidebaractive" : "")">
+                        <a href="/AdminDashboard/AdminJobListing" class="@(pageUrlPath == "/AdminDashboard/AdminJobListing" ? "active" : "")">
+                            <img class="menu-icon" src="~/Assets/Icons/jobreferral.png" /><span>Job Referral</span>
+                        </a>
+                    </li>
+                }
+                @if (currentContext.IsAdmin || currentContext.IsSuperAdmin)
+                {
+                    <li class="mb-2 @(pageUrlPath.Contains("/timesheet/admintimesheet") ? "active sidebaractive" : "")">
+                        <a href="/timesheet/admintimesheet" class="@(pageUrlPath == "/timesheet/admintimesheet" ? "active" : "")">
+                            <img class="menu-icon" src="~/Assets/Icons/Timesheet.png" /><span> Timesheet </span>
+                        </a>
                     </li>
                 }
             </ul>

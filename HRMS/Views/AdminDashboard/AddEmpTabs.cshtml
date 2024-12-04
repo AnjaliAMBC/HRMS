@@ -366,8 +366,7 @@
                             </div>
 
                         </div>*@
-                    </div>
-                    <div class="row">
+
                         <div class="col-lg-3 col-md-6">
                             <div class="form-group tabs-general drop-menu">
                                 <label for="LeavereportingManager">Leave Reporting Manager</label>
@@ -402,13 +401,16 @@
                                 <div class="invalid-feedback">Please enter Mobile Number</div>
                             </div>
                         </div>
-                        <div class="col-lg-3 col-md-6">
+
+                    </div>
+                    <div class="row">                        
+                        <div class="col-lg-6 col-md-6">
                             <div class="form-group tabs-general">
                                 <label for="Personal_Emailid">Personal Email</label>
                                 <input type="email" class="form-control" id="Personal_Emailid" value="@Model.EditableEmpInfo.Personal_Emailid">
                             </div>
                         </div>
-                        <div class="col-lg-3 col-md-6">
+                        <div class="col-lg-6 col-md-6">
                             <div class="form-group tabs-general">
                                 <label for="OfficalEmailid">Official Email</label>
                                 <input type="email" class="form-control" id="OfficalEmailid" value="@Model.EditableEmpInfo.OfficalEmailid" required>
@@ -471,7 +473,7 @@
                                 <i class="fas fa-plus fa-xs"></i>
                             </button>
                         </div>
-                        <div class="input-group-append">
+                        <div class="input-group-append btn-add-new-client">
                             <button class="btn btn-secondary btn-sm ml-4" type="button" data-toggle="modal" data-target="#addClientModal">
                                 Add New Clients <i class="fas fa-plus fa-xs"></i>
                             </button>
@@ -1087,7 +1089,7 @@
 
             // Add the remove button only if the row is not the first one
             if (rowCount > 1) {
-                newRow.append('<button type="button" class="btn btn-danger btn-sm remove-row"><i class="fas fa-minus-circle"></i></button>');
+                newRow.append('<button type="button" class="btn btn-danger btn-sm remove-row btn-remove-client"><i class="fas fa-minus-circle"></i></button>');
             }
 
             // Append the new row to the container
