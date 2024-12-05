@@ -236,7 +236,7 @@ $(document).ready(function () {
         $('#week-end').text(formatDateToLong(weekEnd));
         var weekNumber = getWeekNumber(weekStart);
         $('#week-number').text('Week ' + weekNumber);
-        var client = $('.selected-timesheet-client').text();
+        var client = $('.selected-timesheet-client').val();
 
         //for (var i = 0; i < 7; i++) {
         //    var day = new Date(weekStart);
@@ -252,14 +252,19 @@ $(document).ready(function () {
         $.ajax({
             url: "/timesheet/previousweektimesheets",
             type: "POST",
-            data: { weekstart: weekstart, weekend: weekend, weeknumber: weeknumber, client: client, empID: empID},
+            beforeSend: function () {
+                $('.show-progress').show(); // Show loader before the request starts
+            },
+            data: { weekstart: weekstart, weekend: weekend, weeknumber: weeknumber, client: client, empID: empID },
             success: function (newrow) {
                 $("#empEntertimesheet").empty();
                 $("#empEntertimesheet").append(newrow);
+                $('.show-progress').hide();
             },
             error: function (error) {
                 console.error("Error loading partial view:", error);
                 alert("Error loading timesheet data. Please try again.");
+                $('.show-progress').hide();
             }
         });
     }

@@ -103,14 +103,19 @@
                                                 <div class="col-lg-7 col-md-7">
                                                     <div class="form-group assetadd-tabs">
                                                         <label for="AssetID">Asset ID*</label>
-                                                        <input type="text" class="form-control" value="@Model.EditAssets.AssetID" name="AssetID" id="AssetID" placeholder="Enter Asset ID" required>
+                                                        <input type="text" class="form-control"
+                                                               value="@Model.EditAssets.AssetID"
+                                                               name="AssetID"
+                                                               id="AssetID"
+                                                               placeholder="Enter Asset ID"
+                                                               required
+                                                               @(Model.EditAssets.AssetID != null ? "disabled" : "")>
                                                         <div class="invalid-feedback">Asset ID is required.</div>
                                                     </div>
                                                 </div>
                                                 <div class="col-lg-4 col-md-4">
                                                 </div>
                                             </div>
-
                                             <div class="col-lg-12 col-md-12 AssetType-block" style="padding-left:0px;">
                                                 <div class="col-lg-7 col-md-7 assetadd-left-block">
                                                     <div class="form-group assetadd-tabs assetadd-type-main">

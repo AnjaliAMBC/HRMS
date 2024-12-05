@@ -89,7 +89,7 @@
                                             </td>
                                             <td class="headertd"><b>Project Manager</b></td>
                                             <td class="headertd">
-                                                @Model.SelectedEmployee.ReportingManager
+                                                @Model.SelectedClient.ReportingManager
                                             </td>
                                         </tr>
                                         <tr style="text-align:left">
@@ -157,12 +157,12 @@
                                     if (dayInfo.HoursSpent > 0)
                                     {
                                         totalBillableHours += dayInfo.HoursSpent;
-                                        totalhoursSpentInTheWeek += totalBillableHours;
+                                        totalhoursSpentInTheWeek += dayInfo.HoursSpent;
                                     }
                                     if (dayInfo.OverTime > 0)
                                     {
                                         totalNonBillableHours += dayInfo.OverTime;
-                                        totalhoursSpentInTheWeek += totalNonBillableHours;
+                                        totalhoursSpentInTheWeek += dayInfo.OverTime;
                                     }
 
                                     foreach (var employeeReport in dayInfo.TimeSheets)

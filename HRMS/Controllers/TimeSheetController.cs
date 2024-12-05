@@ -444,6 +444,7 @@ namespace HRMS.Controllers
             model.WeekStartDate = weekStartDate;
             model.WeekEndDate = weekEndDate;
             model.SelectedEmployee = selectedEmployee;
+            model.SiteContext = cuserContext;
             model.WeekInfo = DaysInfo(weekstart, weekend, empID, client, selectedEmployee);
             model.Client = client;
             return model;

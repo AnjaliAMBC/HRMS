@@ -23,7 +23,7 @@
             var hrefbloackNumber = "emp-entertimesheet-day-block" + index;
             var idNumber = "date-" + index;
             var activeClass = "";
-            if (date.Date == Model.SelectedDate)
+            if (index == 1)
             {
                 activeClass = "active";
             }
@@ -41,7 +41,7 @@
 <div class="emp-entertimesheet-block3">
     <div class="form-group div-entertimesheet-clientname">
         <label for="entertimesheetClientName" class="leave_label">Client*</label>
-        <select class="form-control" id="entertimesheetClientName" disabled>
+        <select class="form-control selected-timesheet-client" id="entertimesheetClientName" disabled>
             @foreach (var client in Model.SiteContext.EmpBasedClients)
             {
                 <option value="@client.Client">@client.Client</option>

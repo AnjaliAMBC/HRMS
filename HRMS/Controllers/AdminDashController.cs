@@ -64,50 +64,19 @@ namespace HRMS.Controllers
 
             return View("~/Views/AdminDashboard/AdminDash.cshtml", model);
         }
-        //public List<AnniversaryModel> Anniversary()
-        //{
-        //    var today = DateTime.Today;
-        //    var anniversaries = _dbContext.emp_info.Where(e => e.DOJ.Month == today.Month && e.DOJ.Day == today.Day).Select(e => new AnniversaryModel
-        //    {
-        //        EmpName = e.EmployeeName,
-        //        Designation = e.Designation,
-        //        imagePath = e.imagepath,
-        //        years = today.Year - e.DOJ.Year
-        //    }).ToList();
 
-        //    return anniversaries;
-        //}
-        //public List<BirthdayModel> Birthday()
-        //{
-        //    var today = DateTime.Today;
-        //    var birthdays = _dbContext.emp_info.Where(e => e.DOB.Month == today.Month && e.DOB.Day == today.Day).Select(e => new BirthdayModel
-        //        {
-        //            EmpName = e.EmployeeName,
-        //            imagePath = e.imagepath,
-        //            Designation = e.Designation
-        //        })
-        //        .ToList();
-
-        //    return birthdays;
-        //}
-        //public List<UpcomingHoliday> upcomingHolidays()
-        //{
-
-        //    var today = DateTime.Today;
-        //    var upcomingHolidays = _dbContext.tblambcholidays
-        //        .Where(h => h.holiday_date >= today)
-        //        .OrderBy(h => h.holiday_date)
-        //        .Select(h => new UpcomingHoliday
-        //        {
-        //            HolidayNo = h.holidayno,
-        //            HolidayDate = (DateTime)h.holiday_date,
-        //            HolidayName = h.holiday_name,
-        //            Region = h.region
-        //        })
-        //        .ToList();
-
-        //    return upcomingHolidays;
-        //}
+        public ActionResult AdminHolidayView()
+        {
+            return View("~/Views/AdminDashboard/AdminHolidayListView.cshtml");
+        }
+        public ActionResult HolidayImport()
+        {
+            return View("~/Views/AdminDashboard/HolidayBulkImport.cshtml");
+        }
+        public ActionResult JobImport()
+        {
+            return View("/Views/AdminDashboard/JobBulkImport.cshtml");
+        }
 
     }
 }
