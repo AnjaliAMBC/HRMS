@@ -29,7 +29,11 @@
 
 <div class="admin-timesheet-graph-header">
     <span class="admin-timesheet-graph-resourcename"><span class="admin-timesheet-graph-resourcename-title">Resource Name </span> <span class="admin-timesheet-graph-resourcename-info">@Model.SelectedEmployee.EmployeeID @Model.SelectedEmployee.EmployeeName</span></span>
-    <span class="admin-timesheet-graph-reportingmanager"><span class="admin-timesheet-graph-reportingmanager-title">Reporting Manager </span> <span class="admin-timesheet-graph-reportingmanager-info">@Model.SelectedEmployee.ReportingManager</span></span>
+    <span class="admin-timesheet-graph-reportingmanager"><span class="admin-timesheet-graph-reportingmanager-title">Reporting Manager </span> <span class="admin-timesheet-graph-reportingmanager-info">
+    @(!string.IsNullOrEmpty(Model.SelectedClient?.ReportingManager)
+            ? Model.SelectedClient.ReportingManager
+            : "N/A")
+</span></span>
 </div>
 <div class="admin-timesheet-graph-body">
     <div class="admin-timesheet-hours-spent">

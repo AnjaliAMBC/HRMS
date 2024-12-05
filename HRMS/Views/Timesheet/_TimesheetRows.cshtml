@@ -1,7 +1,6 @@
 ﻿@model HRMS.Models.TimesheetDayModel
 
-@{ var timeSheetSubmitted = false;
-   }
+@{ var timeSheetSubmitted = false; }
 @for (int i = 1; i <= Model.DaySpecifcInfo.TimeSheets.Count; i++)
 {
     var timeSheet = Model.DaySpecifcInfo.TimeSheets[i - 1];
@@ -16,45 +15,45 @@
     You are on Leave: @(timeSheet.Date?.ToString("dd MMM yyyy") ?? "N/A")<br />
     <p><span style="color: red;">Reason:</span> Full-day leave is applied. Please check in and submit the timesheet.</p>
 </div> return;
-                    }                   
-                }
+}
+}
 
-                // Check for holiday
-                if (Model.DaySpecifcInfo.HolidayInfo != null && Model.DaySpecifcInfo.CheckInInfo == null)
-                {
+// Check for holiday
+if (Model.DaySpecifcInfo.HolidayInfo != null && Model.DaySpecifcInfo.CheckInInfo == null)
+{
 <div>
     Holiday: @(timeSheet.Date?.ToString("dd MMM yyyy") ?? "N/A")<br />
     <p><span style="color: red;">Reason:</span> It's a holiday. Please check in and submit the timesheet.</p>
 </div> return;
-                }
+}
 
-                // Check for comp-off
-                if (Model.DaySpecifcInfo.CompoffInfo != null && Model.DaySpecifcInfo.CheckInInfo == null)
-                {
+// Check for comp-off
+if (Model.DaySpecifcInfo.CompoffInfo != null && Model.DaySpecifcInfo.CheckInInfo == null)
+{
 <div>
     CompoOff: @(timeSheet.Date?.ToString("dd MMM yyyy") ?? "N/A")<br />
     <p><span style="color: red;">Reason:</span> Comp-off day is applied. Please check in and submit the timesheet.</p>
 </div> return;
-                }
+}
 
-                // Handle weekend case
-                if (Model.DaySpecifcInfo.IsWeekend && Model.DaySpecifcInfo.CheckInInfo == null)
-                {
+// Handle weekend case
+if (Model.DaySpecifcInfo.IsWeekend && Model.DaySpecifcInfo.CheckInInfo == null)
+{
 <div>
     Data is missing for the following weekend date: @(timeSheet.Date?.ToString("dd MMM yyyy") ?? "N/A")<br />
     <p><span style="color: red;">Reason:</span> Check-in information is required for weekends. Please check in and submit the timesheet.</p>
 </div> return;
-                }
+}
 
-                if (Model.DaySpecifcInfo.CheckInInfo == null)
-                {
+if (Model.DaySpecifcInfo.CheckInInfo == null)
+{
 <div>
     Data is missing for the following date: @(timeSheet.Date?.ToString("dd MMM yyyy") ?? "N/A")<br />
     <p><span style="color: red;">Reason:</span> Check-in information is missing.</p>
 </div> return;
-                }
+}
 
-                timeSheetSubmitted = timeSheet.submissionstatus == "Submitted";
+timeSheetSubmitted = timeSheet.submissionstatus == "Submitted";
 
 <div class="row emp-entertimesheet-fields row-@i" data-dayuniquekey="@(timeSheet.Date.HasValue ? timeSheet.Date.Value.ToString("dd-MM-yyyy") : "NoDate")-@Model.IndexNumber">
     <div class="form-group col-lg-1 div-entertimesheet-category div-entertimesheet-category-@i-block-1">
@@ -66,7 +65,8 @@
 
             @foreach (var category in Model.DaySpecifcInfo.Categories)
             {
-<option value="@category.CategoryName" @(timeSheet.Category == @category.CategoryName ? "selected" : "")>@category.CategoryName</option>}
+<option value="@category.CategoryName" @(timeSheet.Category == @category.CategoryName ? "selected" : "")>@category.CategoryName</option>
+}
 
         </select>
     </div>
@@ -134,8 +134,7 @@
     <div class="timesheetid" style="display: none">@timeSheet.TimeSheetID</div>
 
 
-</div>
-}
+</div>}
 
 
 
