@@ -470,6 +470,7 @@
                 const currentYear = new Date().getFullYear();
                 populateYearDropdown();
                 setMonthStartAndEndDates(currentYear);
+                updateViewWeek(new Date(), false);
             } else {
                 $("#admin-view-week-number").show();
                 $("#admin-year-dropdown").hide();

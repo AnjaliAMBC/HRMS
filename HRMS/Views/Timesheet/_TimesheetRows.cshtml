@@ -1,6 +1,16 @@
 ﻿@model HRMS.Models.TimesheetDayModel
 
-@{ var timeSheetSubmitted = false; }
+<style>
+    .filled-field {
+        background-color: rgb(232, 240, 254);
+    }
+</style>
+
+@{ var timeSheetSubmitted = false;
+    var allowedHours = System.Convert.ToInt32(System.Configuration.ConfigurationManager.AppSettings["FullDayMaxWorkingHours"]); }
+
+
+
 @for (int i = 1; i <= Model.DaySpecifcInfo.TimeSheets.Count; i++)
 {
     var timeSheet = Model.DaySpecifcInfo.TimeSheets[i - 1];
@@ -76,8 +86,7 @@ timeSheetSubmitted = timeSheet.submissionstatus == "Submitted";
         </label>
         <input type="text" class="form-control timesheet-entertimesheetTaskName"
                id="entertimesheetTaskName-@i-block-1"
-               value="@timeSheet.IncidentTaskName"
-               placeholder="Incident/Task Name">
+               value="@timeSheet.IncidentTaskName">
     </div>
 
     <div class="form-group col-lg-3 div-entertimesheet-taskdesc div-entertimesheet-taskdesc-@i-block-1">
@@ -86,8 +95,7 @@ timeSheetSubmitted = timeSheet.submissionstatus == "Submitted";
         </label>
         <input type="text" class="form-control timesheet-entertimesheetTaskDesc"
                id="entertimesheetTaskDesc-@i-block-1"
-               value="@timeSheet.IncidentTaskDescription"
-               placeholder="Incident/Task Description">
+               value="@timeSheet.IncidentTaskDescription">
     </div>
 
     <div class="form-group col-lg-2 div-entertimesheet-requester div-entertimesheet-requester-@i-block-1">
@@ -105,7 +113,7 @@ timeSheetSubmitted = timeSheet.submissionstatus == "Submitted";
         </label>
         <input type="text" class="form-control timesheet-hoursspent"
                id="entertimesheetHoursSpent-@i-block-1"
-               value="@timeSheet.HoursSpent">
+               value="@timeSheet.HoursSpent" oninput="validateHoursSpent(this)">
     </div>
 
     <div class="form-group col-lg-1 div-entertimesheet-priority div-entertimesheet-priority-@i-block-1">
@@ -135,14 +143,40 @@ timeSheetSubmitted = timeSheet.submissionstatus == "Submitted";
 
 
 </div>}
-
-
-
+@{ var isButtonsDisabled = timeSheetSubmitted ? "disabled" : ""; }
 <div class="emp-entertimesheet-footer emp-entertimesheet-footer-@Model.IndexNumber">
     <div class="emp-entertimesheet-addtask emp-entertimesheet-addtask-@Model.IndexNumber">
-        <button type="button" class="emp-entertimesheet-addtask-btn-@Model.IndexNumber" data-weeknumber="@Model.Weeknumber" data-dayindexnumber="@Model.IndexNumber" data-blocknumber="@Model.BlockNumber" data-daydate="@Model.Date.ToString("dd-MM-yyyy")" data-dayuniquekey="@Model.Date.ToString("dd-MM-yyyy")-@Model.IndexNumber" id="addTaskBtn">
+        <button type="button" class="emp-entertimesheet-addtask-btn-@Model.IndexNumber" data-weeknumber="@Model.Weeknumber" data-dayindexnumber="@Model.IndexNumber" data-blocknumber="@Model.BlockNumber" data-daydate="@Model.Date.ToString("dd-MM-yyyy")" data-dayuniquekey="@Model.Date.ToString("dd-MM-yyyy")-@Model.IndexNumber" id="addTaskBtn" @isButtonsDisabled>
             <i class="fa-solid fa-plus"></i>Add Task
         </button>
     </div>
-    <div class="emp-entertimesheet-save emp-entertimesheet-save-@Model.IndexNumber"><button type="button" class="btn btn-primary btn-save-timesheet" data-weeknumber="@Model.Weeknumber" data-dayindexnumber="@Model.IndexNumber" data-blocknumber="@Model.BlockNumber" data-daydate="@Model.Date.ToString("dd-MM-yyyy")" data-dayuniquekey="@Model.Date.ToString("dd-MM-yyyy")-@Model.IndexNumber">Save</button></div>
+    <div class="emp-entertimesheet-save emp-entertimesheet-save-@Model.IndexNumber"><button type="button" class="btn btn-primary btn-save-timesheet" data-maxallaowedhours="@allowedHours" data-weeknumber="@Model.Weeknumber" data-dayindexnumber="@Model.IndexNumber" data-blocknumber="@Model.BlockNumber" data-daydate="@Model.Date.ToString("dd-MM-yyyy")" data-dayuniquekey="@Model.Date.ToString("dd-MM-yyyy")-@Model.IndexNumber" @isButtonsDisabled>Save</button></div>
 </div>
+<script>
+
+    $(document).ready(function () {
+        $(".emp-entertimesheet-fields").each(function () {
+            // Check each input field
+            $(this).find("input[type='text']").each(function () {
+                const value = $(this).val().trim();
+                // Add the class only if the value is not empty and not '0'
+                if (value !== "" && value !== "0") {
+                    $(this).addClass("filled-field");
+                } else {
+                    $(this).removeClass("filled-field"); // Remove the class if the field is empty or '0'
+                }
+            });
+
+            // Check each select field
+            $(this).find("select").each(function () {
+                if ($(this).val().trim() !== "") {
+                    $(this).addClass("filled-field");
+                } else {
+                    $(this).removeClass("filled-field");
+                }
+            });
+        });
+    });
+
+
+</script>

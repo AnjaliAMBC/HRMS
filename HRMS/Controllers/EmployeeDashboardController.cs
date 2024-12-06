@@ -90,7 +90,7 @@ namespace HRMS.Controllers
         public ActionResult GetMaintenanceByYear(int year, string empID)
         {
             var model = new SelfServiceViewModel();
-            model = GetMaintenanceDataForYear(year, empID);  // Fetch data based on the year
+            model = GetMaintenanceDataForYear(year, empID);  
             return PartialView("_MaintenanceTableRows", model);
         }
 

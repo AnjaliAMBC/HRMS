@@ -1,4 +1,7 @@
 ﻿@model HRMS.Models.Timesheet
+@{
+    var dateFromUrl = Request.QueryString["date"];
+}
 
 <div class="emp-entertimesheet-block1">
     <span class="emp-entertimesheet-weekno" id="week-number">Week @Model.Weeknumber</span>
@@ -17,25 +20,37 @@
     <div class="emp-entertimesheet-rangedates">
         @{
             int index = 1;
+
         }
         @foreach (var date in Model.WeekInfo)
         {
             var hrefbloackNumber = "emp-entertimesheet-day-block" + index;
             var idNumber = "date-" + index;
             var activeClass = "";
-            if (index == 1)
+            var datecolor = "";
+
+            if (dateFromUrl != null && date.Date.ToString("dd-MM-yyyy") == dateFromUrl)
             {
                 activeClass = "active";
             }
-            var datecolor = "";
+            else if (dateFromUrl == null && index == 1)
+            {
+                activeClass = "active";
+            }
+
             if (date.IsWeekend)
             {
                 datecolor = "background-color:lightgray";
             }
-            <span class="@activeClass" style="@datecolor" href="#@hrefbloackNumber" id="@idNumber">@date.Date.ToString("dd-MM-yyyy")</span>
+
+            <span class="@activeClass" style="@datecolor" href="#@hrefbloackNumber" id="@idNumber">
+                @date.Date.ToString("dd-MM-yyyy")
+            </span>
+
             index = index + 1;
         }
     </div>
+
 </div>
 
 <div class="emp-entertimesheet-block3">
@@ -60,10 +75,17 @@
     }
     @foreach (var dayInfo in Model.WeekInfo)
     {
-        var bloackNumber = "emp-entertimesheet-day-block" + dayindex;
+        var blockNumber = "emp-entertimesheet-day-block" + dayindex;
         var activeClass = "";
         var display = "display:none;";
-        if (dayindex == 1)
+
+        if (dateFromUrl != null && dayInfo.Date.ToString("dd-MM-yyyy") == dateFromUrl)
+        {
+            activeClass = "active";
+            display = "display:block;";
+        }
+
+        else if (dateFromUrl == null && dayindex == 1)
         {
             activeClass = "active";
             display = "display:block;";
@@ -73,13 +95,12 @@
         dayModel.IndexNumber = dayindex;
         dayModel.Weeknumber = Model.Weeknumber;
         dayModel.Date = dayInfo.Date;
-        dayModel.BlockNumber = bloackNumber;
+        dayModel.BlockNumber = blockNumber;
         dayModel.StartIndexNumber = 1;
         dayModel.EndIndexNumber = 5;
-
         dayModel.DaySpecifcInfo = dayInfo;
 
-        <div id="@bloackNumber" class="@bloackNumber @activeClass" style="@display">
+        <div id="@blockNumber" class="@blockNumber @activeClass" style="@display">
             @Html.Partial("~/Views/Timesheet/_TimesheetRows.cshtml", dayModel)
         </div>
 

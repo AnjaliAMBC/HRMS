@@ -18,14 +18,46 @@
     <div class="emp-timesheet-table-title">Task List</div>
 
     @{
-        bool enableSubmitButton = Model.WeekInfo.Any(w => !w.TimeSheetSubmitted);
+
+        var currentWeekStartDate = DateTime.Now.Date.AddDays(-(int)DateTime.Now.DayOfWeek + 1);
+        var currentWeekEndDate = currentWeekStartDate.AddDays(6);
+
+        bool isCurrentWeek = Model.WeekStartDate.Date >= currentWeekStartDate &&
+                             Model.WeekEndDate.Date <= currentWeekEndDate;
+
+        // Check if today is Thursday or earlier
+        bool isBeforeThursday = DateTime.Now.DayOfWeek < DayOfWeek.Friday;
+        bool enableSubmitButton = true;
+
+        bool timesheetNotSubmitted = Model.WeekInfo.Any(w =>
+            w.TimeSheets.Any(t =>
+                t.submissionstatus == "Save" &&
+                t.HoursSpent > 0));
+
+        // Timesheet is considered submitted if none of the records meet the condition
+        bool timesheetSubmitted = !timesheetNotSubmitted;
+
+        if (timesheetSubmitted)
+        {
+            enableSubmitButton = false;
+        }
+
+        if (isCurrentWeek && isBeforeThursday)
+        {
+            enableSubmitButton = false;
+        }
+
+        var notValidatedDates = string.Join(", ", Model.WeekInfo
+    .Where(x => x.DateValidated == false)
+    .Select(x => x.Date.ToString("dd-MM-yyyy")));
     }
 
+    @*//TODO: Yet to work on this*@
     <div class="emp-timesheet-table-submit">
         <button type="button"
-                class="btn btn-primary btn-timesheet-submit"
+                class="btn btn-primary btn-timesheet-submit1"
                 data-toggle="modal"
-                data-target="#empSubmitTimesheetModal"
+                data-target="#empSubmitTimesheetModal1" data-notValidatedDates="@notValidatedDates"
                 @(enableSubmitButton ? "" : "disabled")>
             Submit Timesheet
         </button>
@@ -67,9 +99,13 @@
                             <div class="emp-timesheetoptions" style="display:none">
                                 <a class="dropdown-item emp-timesheet-edit-btn"
                                    data-timesheeetid="@timeSheet.TimeSheetID" data-timesheetdate="@(timeSheet.Date.HasValue ? timeSheet.Date.Value.ToString("dd-MM-yyyy") : "N/A")">Edit</a>
-                                <a class="dropdown-item emp-timesheet-cancel"
-                                   onclick="emptimesheetcancel($(this))"
-                                   data-timesheeetid="@timeSheet.TimeSheetID" data-timesheetdate="@(timeSheet.Date.HasValue ? timeSheet.Date.Value.ToString("dd-MM-yyyy") : "N/A")">Delete</a>
+                                @if (!string.IsNullOrWhiteSpace(notValidatedDates))
+                                {
+                                    <a class="dropdown-item emp-timesheet-cancel"
+                                       onclick="emptimesheetcancel($(this))"
+                                       data-timesheeetid="@timeSheet.TimeSheetID" data-timesheetdate="@(timeSheet.Date.HasValue ? timeSheet.Date.Value.ToString("dd-MM-yyyy") : "N/A")">Delete</a>
+                                }
+
                             </div>
                         </td>
                     </tr>

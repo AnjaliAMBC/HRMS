@@ -135,11 +135,12 @@ namespace HRMS.Controllers
                             IncidentTaskName = string.Empty,
                             IncidentTaskDescription = string.Empty,
                             Requester = string.Empty,
-                            HoursSpent = null,
+                            HoursSpent = 0,
                             Priority = string.Empty,
                             Status = string.Empty,
                             Date = date,
-                            EmployeeID = empID
+                            EmployeeID = empID,
+                            submissionstatus = ""
                         });
                     }
                 }
@@ -593,10 +594,14 @@ namespace HRMS.Controllers
 
         public ActionResult SubmitTimeSheet(string weekstart, string weekend, int weeknumber, string client, string empID)
         {
+            var model = new TimesheetSubmitEmailModel();
             try
             {
+                model.WeekStartDate = DateTime.Parse(weekstart);
+                model.WeekEndDate = DateTime.Parse(weekend);
+
                 var cuserContext = SiteContext.GetCurrentUserContext();
-                var timeSheets = _dbContext.TimeSheets.Where(x => x.EmployeeID == empID && x.WeekNo == weeknumber).ToList();
+                var timeSheets = _dbContext.TimeSheets.Where(x => x.EmployeeID == empID && x.WeekNo == weeknumber && x.Client == client).ToList();
 
                 foreach (var timeSheet in timeSheets)
                 {
@@ -605,13 +610,17 @@ namespace HRMS.Controllers
                 }
                 _dbContext.SaveChanges();
 
-                var emailBody = RenderPartialToString(this, "_TimesheetReminderEmail", timeSheets, ViewData, TempData);
+                model.UserContext = cuserContext;
+                model.TimeSheets = timeSheets;
+
+                var emailBody = RenderPartialToString(this, "_TimesheetSubmittedEmail", model, ViewData, TempData);
 
                 var emailRequest = new EmailRequest()
                 {
                     Body = emailBody,
-                    ToEmail = ConfigurationManager.AppSettings["TimesheetSubmitEmail"],
-                    Subject = $"Submission of Timesheet - {cuserContext.EmpInfo.EmployeeName} - {cuserContext.EmpInfo.EmployeeID}" // Adjust subject as needed
+                    ToEmail = cuserContext.EmpInfo.OfficalEmailid,
+                    CCEmail = ConfigurationManager.AppSettings["TimesheetRemaindersCC"],
+                    Subject = $"Submission of Timesheet - {cuserContext.EmpInfo.EmployeeName} - {cuserContext.EmpInfo.EmployeeID}"
                 };
 
                 // Send email

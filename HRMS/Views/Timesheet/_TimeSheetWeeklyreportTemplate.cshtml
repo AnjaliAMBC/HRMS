@@ -133,8 +133,18 @@
                         </table>
                         <table>
                             <tr>
-                                <td colspan="8" style="background-color: #D3D3D3"><b>EFFORT DETAILS (current week)</b></td>
-                            </tr>
+                                <td colspan="8" style="background-color: #D3D3D3">
+                                    <b>
+                                        EFFORT DETAILS @if (Model.WeeklyReport)
+                                        {
+                                            <span>(Current - Week)</span>
+                                        }
+                else
+                {
+                                    <span>(Current - Month)</span>
+                }
+                                                    </b></td>
+                                    </tr>
                         </table>
 
                         <table class="table" id="timesheet-table" style="margin-top: 2px">
@@ -223,13 +233,16 @@
                                 {
                                     foreach (var leave in dayInfo.Leaves)
                                     {
-                                        leavesExists = true;
-                                        <tr style="background-color: #ccffcc">
-                                            <td scope="row" style="vertical-align: middle; text-align: center;">
-                                                @(leave.leavedate.HasValue ? leave.leavedate.Value.ToString("dd-MM-yyyy") : "N/A")
-                                            </td>
-                                            <td scope="row" style="vertical-align: middle; text-align: center;">@leave.leavesource</td>
-                                        </tr>
+                                        if (leave.leavesource!= "Hourly Permission") 
+                                        {
+                                            leavesExists = true;
+                                            <tr style="background-color: #ccffcc">
+                                                <td scope="row" style="vertical-align: middle; text-align: center;">
+                                                    @(leave.leavedate.HasValue ? leave.leavedate.Value.ToString("dd-MM-yyyy") : "N/A")
+                                                </td>
+                                                <td scope="row" style="vertical-align: middle; text-align: center;">@leave.leavesource</td>
+                                            </tr>
+                                        }
                                     }
                                 }
 
@@ -240,8 +253,8 @@
                                         <td scope="row">NA</td>
                                     </tr>
                                 }
-
                             </tbody>
+                           
                         </table>
                         <table style="border: none">
                             <tr style="background-color: #ccffcc; ">

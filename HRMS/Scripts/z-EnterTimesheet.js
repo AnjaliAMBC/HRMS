@@ -102,7 +102,7 @@ $(document).ready(function () {
             totalHoursSpent += hoursSpent;
 
             var data = {
-                Client: $('.selected-timesheet-client').text(),
+                Client: $('.selected-timesheet-client').val(),
                 EmployeeID: $('.loggedinempid').text(),
                 EmployeeName: $('.loggedinempname').text(),
                 EmployeeEmail: $('.loggedinempemail').text(),
@@ -122,8 +122,9 @@ $(document).ready(function () {
                 WeekNo: weeknumber,
                 TimeSheetID: timesheetData.find('.timesheetid').text(),
             };
-
-            timesheetList.push(data);
+            if (hoursSpentInput > 0) {
+                timesheetList.push(data);
+            }          
         });
 
 
@@ -165,6 +166,24 @@ $(document).ready(function () {
         }
     });
 });
+
+function validateHoursSpent(input) {
+    // Allow numbers with up to two decimal places
+    const regex = /^\d+(\.\d{0,2})?$/;
+
+    // Validate input value
+    if (!regex.test(input.value)) {
+        input.value = input.value.slice(0, -1); // Remove invalid character
+        return;
+    }
+
+    // Validate minutes (if there's a decimal)
+    const parts = input.value.split('.');
+    if (parts.length > 1 && parseInt(parts[1], 10) > 59) {
+        input.value = parts[0] + '.59'; // Limit minutes to 59
+    }
+}
+
 
 
 $(document).on('click', '.btn-close-timesheetsave', function () {
