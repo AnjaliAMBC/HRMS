@@ -266,29 +266,29 @@
                     </div>
                     <div class="row">
                         @*<div class="col-lg-3 col-md-6">
-                            <div class="form-group drop-menu tabs-general">
-                                <label for="Client">Client</label>
-                                <div class="input-group">
-                                    <select class="form-control" id="Client" onchange="handleClientChange(this.value)" required>
-                                        @{
-                                            var selectedClientItem = !string.IsNullOrEmpty(Model.EditableEmpInfo.Client) ? "selected" : "";
-                                        }
-                                        <option value="" @selectedClientItem style="color:lightgray;">Select Client</option>
-                                        @foreach (var item in Model.Clients)
-                                        {
-                                            selectedClientItem = !string.IsNullOrEmpty(Model.EditableEmpInfo.Client) && (Model.EditableEmpInfo.Client == item.Name) ? "selected" : "";
-                                            <option value="@item.Id" @selectedClientItem>@item.Name</option>
-                                        }
-                                    </select>
-                                    <div class="input-group-append">
-                                        <button class="btn btn-secondary btn-sm" type="button" data-toggle="modal" data-target="#addClientModal">
-                                            <i class="fas fa-plus fa-xs"></i>
-                                        </button>
+                                <div class="form-group drop-menu tabs-general">
+                                    <label for="Client">Client</label>
+                                    <div class="input-group">
+                                        <select class="form-control" id="Client" onchange="handleClientChange(this.value)" required>
+                                            @{
+                                                var selectedClientItem = !string.IsNullOrEmpty(Model.EditableEmpInfo.Client) ? "selected" : "";
+                                            }
+                                            <option value="" @selectedClientItem style="color:lightgray;">Select Client</option>
+                                            @foreach (var item in Model.Clients)
+                                            {
+                                                selectedClientItem = !string.IsNullOrEmpty(Model.EditableEmpInfo.Client) && (Model.EditableEmpInfo.Client == item.Name) ? "selected" : "";
+                                                <option value="@item.Id" @selectedClientItem>@item.Name</option>
+                                            }
+                                        </select>
+                                        <div class="input-group-append">
+                                            <button class="btn btn-secondary btn-sm" type="button" data-toggle="modal" data-target="#addClientModal">
+                                                <i class="fas fa-plus fa-xs"></i>
+                                            </button>
+                                        </div>
+                                        <div class="invalid-feedback">Please select Client Name.</div>
                                     </div>
-                                    <div class="invalid-feedback">Please select Client Name.</div>
                                 </div>
-                            </div>
-                        </div>*@
+                            </div>*@
 
                         <div class="col-lg-3 col-md-6">
                             <div class="form-group drop-menu tabs-general">
@@ -340,32 +340,32 @@
                             </div>
                         </div>
                         @*<div class="col-lg-3 col-md-6">
-                            <div class="form-group tabs-general drop-menu">
-                                <label for="ReportingManager">Reporting Manager</label>
-                                <div class="input-group dropdownplacehodercolor">
-                                    <select class="form-control" id="ReportingManager" required>
-                                        @{
-                                            var selectedReportingManager = string.IsNullOrEmpty(Model.EditableEmpInfo.ReportingManager) ? "selected" : "";
-                                        }
-                                        <option value="" @selectedReportingManager style="color:lightgray;">Select RM</option>
+                                <div class="form-group tabs-general drop-menu">
+                                    <label for="ReportingManager">Reporting Manager</label>
+                                    <div class="input-group dropdownplacehodercolor">
+                                        <select class="form-control" id="ReportingManager" required>
+                                            @{
+                                                var selectedReportingManager = string.IsNullOrEmpty(Model.EditableEmpInfo.ReportingManager) ? "selected" : "";
+                                            }
+                                            <option value="" @selectedReportingManager style="color:lightgray;">Select RM</option>
 
-                                        @foreach (var item in Model.ReportingManagers)
-                                        {
-                                            selectedReportingManager = !string.IsNullOrEmpty(Model.EditableEmpInfo.ReportingManager) && (Model.EditableEmpInfo.ReportingManager == item.Name) ? "selected" : "";
-                                            <option value="@item.Name" @selectedReportingManager>@item.Name</option>
-                                        }
+                                            @foreach (var item in Model.ReportingManagers)
+                                            {
+                                                selectedReportingManager = !string.IsNullOrEmpty(Model.EditableEmpInfo.ReportingManager) && (Model.EditableEmpInfo.ReportingManager == item.Name) ? "selected" : "";
+                                                <option value="@item.Name" @selectedReportingManager>@item.Name</option>
+                                            }
 
-                                    </select>
-                                    <div class="input-group-append">
-                                        <button class="btn btn-secondary btn-sm" type="button" data-toggle="modal" data-target="#addReportingManagerModal">
-                                            <i class="fas fa-plus fa-xs"></i>
-                                        </button>
+                                        </select>
+                                        <div class="input-group-append">
+                                            <button class="btn btn-secondary btn-sm" type="button" data-toggle="modal" data-target="#addReportingManagerModal">
+                                                <i class="fas fa-plus fa-xs"></i>
+                                            </button>
+                                        </div>
+                                        <div class="invalid-feedback">Please select Reporting Manager.</div>
                                     </div>
-                                    <div class="invalid-feedback">Please select Reporting Manager.</div>
                                 </div>
-                            </div>
 
-                        </div>*@
+                            </div>*@
 
                         <div class="col-lg-3 col-md-6">
                             <div class="form-group tabs-general drop-menu">
@@ -403,7 +403,7 @@
                         </div>
 
                     </div>
-                    <div class="row">                        
+                    <div class="row">
                         <div class="col-lg-6 col-md-6">
                             <div class="form-group tabs-general">
                                 <label for="Personal_Emailid">Personal Email</label>
@@ -461,19 +461,21 @@
 
                         </div>
                         @*<div class="col-lg-12 col-md-12 res-save-btn">
-                <button type="button" class="btn btn-primary save-and-next">Save and Next</button>
-            </div>*@
+                                <button type="button" class="btn btn-primary save-and-next">Save and Next</button>
+                            </div>*@
 
                     </div>
 
                     <div class="client-details-header">
-                        <h3 class="client-det">Client  & Project Details</h3>
+                        <h3 class="client-det">Client & Project Details</h3>
                         <div class="input-group-append">
+                            <!-- Button to dynamically add a client row -->
                             <button class="btn btn-secondary btn-sm client-row" type="button">
                                 <i class="fas fa-plus fa-xs"></i>
                             </button>
                         </div>
                         <div class="input-group-append btn-add-new-client">
+                            <!-- Button to open the modal to add a new client -->
                             <button class="btn btn-secondary btn-sm ml-4" type="button" data-toggle="modal" data-target="#addClientModal">
                                 Add New Clients <i class="fas fa-plus fa-xs"></i>
                             </button>
@@ -482,120 +484,126 @@
 
                     <!-- Container for Dynamic Client Rows -->
                     <div id="clientRowsContainer">
-                        <div class="row EmpClientDetails-1" id="clientRow1">
+                        @for (int i = 0; i < Model.ClientsFromDB.Count(); i++)
+                        {
+                            var clientRow = Model.ClientsFromDB[i];
+                            <div class="row EmpClientDetails-@i" id="clientRow@i">
+                                <div class="col-lg-3 col-md-6">
+                                    <div class="form-group tabs-general drop-menu">
+                                        <label for="Client@i">Client</label>
+                                        <select class="form-control row-selected-client" id="Client@i" name="Client" required>
+                                            <option value="">Select Client</option>
+                                            @foreach (var client in Model.Clients)
+                                            {
+                                                <option value="@client.Id" @(client.Id == clientRow.Client ? "selected" : "")>
+                                                    @client.Name
+                                                </option>
+                                            }
+                                        </select>
+                                        <div class="invalid-feedback">Please select Client.</div>
+                                    </div>
+                                </div>
+                                <div class="col-lg-3 col-md-6">
+                                    <div class="form-group tabs-general">
+                                        <label for="ProjectName@i">Project Name</label>
+                                        <input type="text" class="form-control row-selected-project" id="ProjectName@i" value="@clientRow.ProjectName" required>
+                                        <div class="invalid-feedback">Please enter Project Name.</div>
+                                    </div>
+                                </div>
+                                <div class="col-lg-3 col-md-6">
+                                    <div class="form-group tabs-general">
+                                        <label for="Role@i">Project Role</label>
+                                        <input type="text" class="form-control row-selected-role" id="Role@i" value="@clientRow.Role1" required>
+                                        <div class="invalid-feedback">Please enter Role.</div>
+                                    </div>
+                                </div>
+                                <div class="col-lg-3 col-md-6">
+                                    <div class="form-group tabs-general">
+                                        <label for="ReportingManager@i">Project Reporting Manager</label>
+                                        <input type="text" class="form-control row-selected-rolemanager" id="ReportingManager@i" value="@clientRow.ReportingManager" required>
+                                        <div class="invalid-feedback">Please enter Reporting Manager.</div>
+                                    </div>
+                                </div>
+
+                                <!-- New Status Dropdown -->
+                                <div class="col-lg-3 col-md-6">
+                                    <div class="form-group tabs-general drop-menu">
+                                        <label for="Status@i">Status</label>
+                                        <select class="form-control row-selected-status" id="Status@i" name="Status" required>
+                                            <option value="">Select Status</option>
+                                            <option value="Active" @(clientRow.EmployeeStatus == "Active" ? "selected" : "")>Active</option>
+                                            <option value="Inactive" @(clientRow.EmployeeStatus == "Inactive" ? "selected" : "")>Inactive</option>
+                                        </select>
+                                        <div class="invalid-feedback">Please select Status.</div>
+                                    </div>
+                                </div>
+                            </div>
+                        }
+                    </div>
+
+
+
+
+                    @*<div class="row EmpClientDetails-2">
                             <div class="col-lg-3 col-md-6">
                                 <div class="form-group tabs-general drop-menu">
-                                    <label for="AdminAddEmpClient1">Client</label>
-                                    <select class="form-control row-selected-client" id="Client1" name="Client" required>
+                                    <select class="form-control" id="Client2" name="Client2">
                                         <option value="">Select Client</option>
                                         @foreach (var client in Model.Clients)
                                         {
-                                            <option value="@client.Id" @(client.Id == Model.EditableEmpInfo.Client ? "selected" : "")>
+                                            <option value="@client.Id" @(client.Id == Model.EditableEmpInfo.Client2 ? "selected" : "")>
                                                 @client.Name
                                             </option>
                                         }
                                     </select>
-                                    <div class="invalid-feedback">Please select Client.</div>
                                 </div>
                             </div>
                             <div class="col-lg-3 col-md-6">
                                 <div class="form-group tabs-general">
-                                    <label for="AdminAddEmpProjectName1">Project Name</label>
-                                    <input type="text" class="form-control row-selected-project" id="ProjectName1" value="" required>
-                                    <div class="invalid-feedback">Please enter Project Name.</div>
+                                    <input type="text" class="form-control" id="ProjectName2" value="@Model.EditableEmpInfo.ProjectName2">
                                 </div>
                             </div>
                             <div class="col-lg-3 col-md-6">
                                 <div class="form-group tabs-general">
-                                    <label for="AdminAddEmpRole1">Project Role</label>
-                                    <input type="text" class="form-control row-selected-role" id="Role1" value="" required>
-                                    <div class="invalid-feedback">Please enter Role.</div>
+                                    <input type="text" class="form-control" id="Role2" value="@Model.EditableEmpInfo.Role2">
                                 </div>
                             </div>
                             <div class="col-lg-3 col-md-6">
                                 <div class="form-group tabs-general">
-                                    <label for="AdminAddEmpReportingManager1">Project Reporting Manager</label>
-                                    <input type="text" class="form-control row-selected-rolemanager" id="ReportingManager1" value="" required>
-                                    <div class="invalid-feedback">Please enter Reporting Manager.</div>
+                                    <input type="text" class="form-control" id="ReportingManager2" value="@Model.EditableEmpInfo.ReportingManager2">
                                 </div>
                             </div>
-
-                            <!-- New Status Dropdown -->
+                        </div>
+                        <div class="row EmpClientDetails-3">
                             <div class="col-lg-3 col-md-6">
                                 <div class="form-group tabs-general drop-menu">
-                                    <label for="AdminAddEmpStatus1">Status</label>
-                                    <select class="form-control row-selected-status" id="Status1" name="Status" required>
-                                        <option value="">Select Status</option>
-                                        <option value="Active" >Active</option>
-                                        <option value="Inactive" >Inactive</option>
+                                    <select class="form-control" id="Client3">
+                                        <option value="">Select Client</option>
+                                        @foreach (var client in Model.Clients)
+                                        {
+                                            <option value="@client.Id" @(client.Id == Model.EditableEmpInfo.Client3 ? "selected" : "")>
+                                                @client.Name
+                                            </option>
+                                        }
                                     </select>
-                                    <div class="invalid-feedback">Please select Status.</div>
                                 </div>
-                            </div>                            
-                        </div>
-                    </div>
-
-
-                    @*<div class="row EmpClientDetails-2">
-            <div class="col-lg-3 col-md-6">
-                <div class="form-group tabs-general drop-menu">
-                    <select class="form-control" id="Client2" name="Client2">
-                        <option value="">Select Client</option>
-                        @foreach (var client in Model.Clients)
-                        {
-                            <option value="@client.Id" @(client.Id == Model.EditableEmpInfo.Client2 ? "selected" : "")>
-                                @client.Name
-                            </option>
-                        }
-                    </select>
-                </div>
-            </div>
-            <div class="col-lg-3 col-md-6">
-                <div class="form-group tabs-general">
-                    <input type="text" class="form-control" id="ProjectName2" value="@Model.EditableEmpInfo.ProjectName2">
-                </div>
-            </div>
-            <div class="col-lg-3 col-md-6">
-                <div class="form-group tabs-general">
-                    <input type="text" class="form-control" id="Role2" value="@Model.EditableEmpInfo.Role2">
-                </div>
-            </div>
-            <div class="col-lg-3 col-md-6">
-                <div class="form-group tabs-general">
-                    <input type="text" class="form-control" id="ReportingManager2" value="@Model.EditableEmpInfo.ReportingManager2">
-                </div>
-            </div>
-        </div>
-        <div class="row EmpClientDetails-3">
-            <div class="col-lg-3 col-md-6">
-                <div class="form-group tabs-general drop-menu">
-                    <select class="form-control" id="Client3">
-                        <option value="">Select Client</option>
-                        @foreach (var client in Model.Clients)
-                        {
-                            <option value="@client.Id" @(client.Id == Model.EditableEmpInfo.Client3 ? "selected" : "")>
-                                @client.Name
-                            </option>
-                        }
-                    </select>
-                </div>
-            </div>
-            <div class="col-lg-3 col-md-6">
-                <div class="form-group tabs-general">
-                    <input type="text" class="form-control" id="ProjectName3" value="@Model.EditableEmpInfo.ProjectName3">
-                </div>
-            </div>
-            <div class="col-lg-3 col-md-6">
-                <div class="form-group tabs-general">
-                    <input type="text" class="form-control" id="Role3" value="@Model.EditableEmpInfo.Role3">
-                </div>
-            </div>
-            <div class="col-lg-3 col-md-6">
-                <div class="form-group tabs-general">
-                    <input type="text" class="form-control" id="ReportingManager3" value="@Model.EditableEmpInfo.ReportingManager3">
-                </div>
-            </div>
-        </div>*@
+                            </div>
+                            <div class="col-lg-3 col-md-6">
+                                <div class="form-group tabs-general">
+                                    <input type="text" class="form-control" id="ProjectName3" value="@Model.EditableEmpInfo.ProjectName3">
+                                </div>
+                            </div>
+                            <div class="col-lg-3 col-md-6">
+                                <div class="form-group tabs-general">
+                                    <input type="text" class="form-control" id="Role3" value="@Model.EditableEmpInfo.Role3">
+                                </div>
+                            </div>
+                            <div class="col-lg-3 col-md-6">
+                                <div class="form-group tabs-general">
+                                    <input type="text" class="form-control" id="ReportingManager3" value="@Model.EditableEmpInfo.ReportingManager3">
+                                </div>
+                            </div>
+                        </div>*@
 
                     <div class="row">
                         <div class="col-lg-12 col-md-12 res-save-btn">
@@ -1055,52 +1063,29 @@
             error.style.display = 'none';
         }
     }
-
-    //$(".EmpClientDetails-2, .EmpClientDetails-3").css({
-    //    "display": "none"
-    //});
-
-    //$('.admin-empmanagement-view .client-details-header .input-group-append').click(function (e) {
-    //    if ($('.EmpClientDetails-2').css('display') === 'flex') {
-    //        $('.EmpClientDetails-3').css('display', 'flex');
-    //    }
-    //    $('.EmpClientDetails-2').css({
-    //        'display': 'flex'
-    //    });
-    //});
 </script>
 
 <script>
-    $(document).ready(function () {
-        let rowCount = 1;
 
-        // Add row functionality
-        $(".client-row").click(function () {
-            rowCount++; // Increment row count for unique IDs
-
-            // Clone the first row and update the IDs
-            var newRow = $("#clientRow1").clone().attr("id", "clientRow" + rowCount);
-
-            // Update the IDs and values of the cloned row (important to avoid duplicate IDs)
-            newRow.find("select, input").each(function () {
-                var id = $(this).attr("id").replace(/\d+$/, rowCount); // Replace the number at the end of the ID
-                $(this).attr("id", id).val(''); // Set the new ID and reset the value
-            });
-
-            // Add the remove button only if the row is not the first one
-            if (rowCount > 1) {
-                newRow.append('<button type="button" class="btn btn-danger btn-sm remove-row btn-remove-client"><i class="fas fa-minus-circle"></i></button>');
-            }
-
-            // Append the new row to the container
-            $("#clientRowsContainer").append(newRow);
+$(document).ready(function () {
+    let rowCount = @Model.ClientRows.Count();
+    $(".client-row").click(function () {
+        rowCount++;
+        var newRow = $(".EmpClientDetails-1").first().clone().attr("id", "clientRow" + rowCount);
+        newRow.find("select, input").each(function () {
+            var id = $(this).attr("id").replace(/\d+$/, rowCount);
+            $(this).attr("id", id).val('');
         });
-
-        // Remove row functionality
-        $(document).on("click", ".remove-row", function () {
-            $(this).closest('.row').remove();
-        });
+        if (rowCount > 1) {
+            newRow.append('<button type="button" class="btn btn-danger btn-sm remove-row btn-remove-client"><i class="fas fa-minus-circle"></i></button>');
+        }
+        $("#clientRowsContainer").append(newRow);
     });
 
+    $(document).on("click", ".remove-row", function () {
+        $(this).closest('.row').remove();
+        rowCount--;
+    });
+});
 
 </script>

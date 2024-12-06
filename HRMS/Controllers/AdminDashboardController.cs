@@ -225,6 +225,11 @@ namespace HRMS.Controllers
                 model.LastCreatedEmpID = lastEmpInfo.EmployeeID;
             }
 
+            model.ClientsFromDB = _dbContext.EmployeeBasedClients.Where(x => x.EmployeeID == empid).ToList();
+            if (model.ClientsFromDB.Count() == 0)
+            {
+                model.ClientsFromDB.Add(new EmployeeBasedClient());
+            }
 
             return PartialView("~/Views/AdminDashboard/AddEmpTabs.cshtml", model);
         }

@@ -76,7 +76,9 @@ namespace HRMS.Models.Admin
         public List<DropdownItem> ReportingManagers { get; set; } = new List<DropdownItem>();
         public bool IsAddAction { get; set; } = false;
         public string LastCreatedEmpID { get; set; }
-        public List<ClientRow> ClientRows { get; set; }
+        public List<ClientRow> ClientRows { get; set; } = new List<ClientRow>();
+
+        public List<EmployeeBasedClient> ClientsFromDB { get; set; } = new List<EmployeeBasedClient>();
     }
 
     public class ClientRow
