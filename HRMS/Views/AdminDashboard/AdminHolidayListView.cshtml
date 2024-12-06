@@ -1,7 +1,98 @@
-﻿
-@{
-    ViewBag.Title = "AdminHolidayListView";
-}
+﻿@model HRMS.Models.Admin.AdminLeaveHistoryViewModel
+@Html.Partial("_NavBar")
+<div class="container-fluid res-admin-holidayslist">
+    <div class="hiddenadmindashboard" style="display: none"></div>
+    @Html.Partial("_adminsidemenu")
+    <div class="main-content container-fluid" style="width: 84%">
+        <div class="content admin-holidayslist-container" style="margin-left: -5px; margin-top: 0px;">
+            <div class="admin-holidayslist-view">                
+                <div class="container-fluid res-admin-holidays-list">
+                    <div class="row mb-2 align-items-center">
+                        <div class="col-lg-3 col-md-6 admin-holidays-list-header-title">
+                            <h4 class="ml-1">Holidays List</h4>
+                        </div>
+                        <div class="col-lg-7 admin-holidayslist-empty">
 
-<h2>AdminHolidayListView</h2>
+                        </div>
+                        <div class="col-lg-2 admin-holidayslist-bulkimport">
+                            <div class="form-group " style="">
+                                <button type="button" class="btn btn-primary btn-import-holidayslist">Bulk Import</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
 
+                <div class="res-admin-holidayslist-table table-responsive">
+                    <table class="table table-admin-holidays-listing" id="adminholidayslistTable" style="font-size:14px;">
+                        <thead style="background-color: #3E78CF; border-radius: 10px;">
+                            <tr>
+                                <th>Holidays</th>
+                                <th>Date</th>
+                                <th>Day</th>
+                                <th class="admin-holidayslist-table-last">Action</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+
+                            <tr class="odd">
+                                <td>Diwali</td>
+                                <td>07-11-2024</td>
+                                <td>Monday</td>
+                                <td class="admin-holidayslist-table-last">
+                                    <i class="fas fa-ellipsis-v admin-holidayslist-edit" onclick="toggleAdminHolidaysListActionOptions(this)"></i>
+                                    <div class="admin-holidayslistoptions" style="display:none">
+                                        <a class="dropdown-item admin-holidayslist-edit-btn" data-timesheeetid="4" data-timesheetdate="02-12-2024">Edit</a>
+                                    </div>
+                                </td>
+                            </tr>
+                            <tr class="even">
+                                <td>Tamil New Year</td>
+                                <td>10-11-2024</td>
+                                <td>Friday</td>
+                                <td class="admin-holidayslist-table-last">
+                                    <i class="fas fa-ellipsis-v admin-holidayslist-edit" onclick="toggleAdminHolidaysListActionOptions(this)"></i>
+                                    <div class="admin-holidayslistoptions" style="display:none">
+                                        <a class="dropdown-item admin-holidayslist-edit-btn" data-timesheeetid="4" data-timesheetdate="02-12-2024">Edit</a>
+                                    </div>
+                                </td>
+                            </tr>
+
+
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+    $(document).ready(function () {
+        if (!$.fn.DataTable.isDataTable('#adminholidayslistTable')) {
+            $('#adminholidayslistTable').DataTable({
+                "paging": false,
+                "searching": false,
+                "ordering": false,
+                "info": false,
+                "autoWidth": false,
+                "lengthMenu": [[7, 14, 21, -1], [7, 14, 21, "All"]],
+                "columnDefs": [
+                    { "orderable": false, "targets": 1 },
+                    { "orderable": false, "targets": 3 }
+                ]
+            });
+        }
+    });
+
+    function toggleAdminHolidaysListActionOptions(iconElement) {
+        const optionsMenu = $(iconElement).next('.admin-holidayslistoptions');
+        $('.admin-holidayslistoptions').not(optionsMenu).hide();
+        optionsMenu.toggle();
+        $(document).on('click.hideMenu', function (event) {
+            if (!$(event.target).closest(iconElement).length && !$(event.target).closest('.admin-holidayslistoptions').length) {
+                optionsMenu.hide();
+                $(document).off('click.hideMenu');
+            }
+        });
+    }
+</script>

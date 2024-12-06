@@ -5587,6 +5587,72 @@ input[type=checkbox], input[type=radio] {
 
 /* admin timesheet end */
 
+/* admin holidays list start */
+
+.res-admin-holidayslist .main-content.container-fluid {
+    width: 87% !important;
+    margin-left: 180px;
+    margin-top: 20px;
+}
+
+.res-admin-holidayslist .res-admin-holidays-list .admin-holidayslist-bulkimport {
+    text-align: right;
+}
+
+#adminholidayslistTable_wrapper {
+    padding: 0px 20px 20px 20px;
+}
+
+.admin-holidayslist-view #adminholidayslistTable thead th {
+    color: #fff;
+}
+
+.admin-holidayslist-view #adminholidayslistTable thead th,
+.admin-holidayslist-view #adminholidayslistTable tbody td {
+    border: none;
+    padding: 10px 75px;
+}
+
+.admin-holidayslist-view #adminholidayslistTable .emp-holidayslist-table-last {
+    text-align: right;
+}
+
+.admin-holidayslist-view #adminholidayslistTable tbody tr:nth-child(even) {
+    background-color: #EBFAFF !important;
+}
+
+.admin-holidayslist-view #adminholidayslistTable .admin-holidayslist-edit {
+    font-size: smaller;
+    height: 20px;
+    width: 20px;
+    text-align: center;
+    line-height: 1rem;
+    color: gray;
+    cursor: pointer;
+}
+
+.admin-holidayslist-view #adminholidayslistTable .admin-holidayslistoptions {
+    position: absolute;
+    top: auto;
+    cursor: pointer;
+    padding: 5px 5px;
+    width: 70px;
+    text-align: left;
+    right: 100px;
+    background-color: white;
+    border: 1px solid #ccc;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    z-index: 1000;
+}
+
+.admin-holidayslist-view #adminholidayslistTable .admin-holidayslistoptions a {
+    display: block;
+    padding: 2px 4px;
+    color: #333;
+    text-decoration: none;
+}
+
+/* admin holidays list end */
 
 @supports (-webkit-backdrop-filter: none) or (-webkit-hyphens:auto) {
     #adminaddendancetable {
