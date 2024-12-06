@@ -193,17 +193,30 @@ $(document).ready(function () {
         event.preventDefault();
         var weekstart = $('#view-week-start').text();
         var weekend = $('#view-week-end').text();
+        var notValidatedDates = $(this).data('notvalidateddates'); // Get the data-notvalidateddates value
 
-        var confirmationText = `Are you sure you want to submit the timesheet from ${weekstart} to ${weekend}?`;
+        var confirmationText = '';
 
-        $('#modalMessage')
-            .text(confirmationText)
-            .removeClass('text-danger')
-            .addClass('text-primary');
-
-        $('.timesheet-noyes-div').show();
-        $('.timesheet-close-div').hide();
+        if (notValidatedDates) {
+            confirmationText = `The timesheet has missing data for the following dates: <span style="color: red; font-weight: bold;">${notValidatedDates}</span>. Please review and update before submitting.`;
+            $('#modalMessage')
+                .html(`<span style="font-size: 0.85rem;">${confirmationText}</span>`) // Inline style for smaller font size
+                .removeClass('text-primary')
+                .addClass('text-danger');
+            $('.timesheet-noyes-div').hide(); 
+            $('.timesheet-close-div').show();
+        } else {
+            confirmationText = `Are you sure you want to submit the timesheet from ${weekstart} to ${weekend}?`;
+            $('#modalMessage')
+                .html(`<span>${confirmationText}</span>`)
+                .removeClass('text-danger')
+                .addClass('text-primary');
+            $('.timesheet-noyes-div').show();
+            $('.timesheet-close-div').hide();
+        }
     });
+
+
 
     $(document).on('click', '.btn-close-timesheetview', function (event) {
         event.preventDefault();

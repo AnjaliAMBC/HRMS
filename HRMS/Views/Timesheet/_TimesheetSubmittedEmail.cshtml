@@ -1,4 +1,6 @@
-﻿
+﻿@model HRMS.Models.TimesheetSubmitEmailModel
+
+
 @{
     ViewBag.Title = "_TimesheetSubmittedEmail";
 }
@@ -23,14 +25,14 @@
                 </td>
             </tr>
         </table>
-        <p style="font-size:18px;">Your timesheet for the week of <b>25th November 2024</b> to <b>1st December 2024</b> has been successfully submitted</p>
+        <p style="font-size:18px;">Your timesheet for the week of <b>@Model.WeekStartDate.ToString("dd MMMM yyyy")</b> to <b>@Model.WeekEndDate.ToString("dd MMMM yyyy")</b> has been successfully submitted</p>
 
         <p style="font-size:18px;">Please make sure your data are relevent.</p>
 
         <table class="table table-admin-weeklyupdate-timesheet" id="adminweeklyupdatesheet" style="width:100%;font-size:14px;">
             <thead style="background-color: #d8e6fb;">
                 <tr>
-                    <th class="weeklyupdate-timesheet-header" colspan="8">TASK DETAILS(25-11-2024 TO 01-12-2024)</th>
+                    <th class="weeklyupdate-timesheet-header" colspan="8">TASK DETAILS(@Model.WeekStartDate.ToString("dd-MM-yyyy") TO @Model.WeekEndDate.ToString("dd-MM-yyyy"))</th>
                 </tr>
                 <tr class="weeklyupdate-timesheet-subheader">
                     <th>Date</th>
@@ -44,16 +46,21 @@
                 </tr>
             </thead>
             <tbody>
-                <tr>
-                    <td>25-11-2024</td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                </tr>               
+
+                @foreach (var timesheet in Model.TimeSheets)
+                {
+                    <tr>
+                        <td>@(timesheet.Date.HasValue ? timesheet.Date.Value.ToString("dd-MM-yyyy") : "N/A")</td>
+                        <td>@timesheet.Category</td>
+                        <td>@timesheet.IncidentTaskName</td>
+                        <td>@timesheet.IncidentTaskDescription</td>
+                        <td>@timesheet.Priority</td>
+                        <td>@timesheet.Requester</td>
+                        <td>@timesheet.Status</td>
+                        <td>@timesheet.HoursSpent</td>
+                    </tr>
+                }
+
             </tbody>
         </table>
         <div style="font-family: Calibri; color: #696969; font-size: 1.1em; margin-top: 20px; text-align: center;">
@@ -61,6 +68,9 @@
             <br />
             Automated mail from <a href="https://prm.ambctechnologies.com" style="color: #2693F8;">https://prm.ambctechnologies.com</a>
         </div>
+
+    </div>
+</div>
 
 
 

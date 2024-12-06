@@ -115,4 +115,13 @@ namespace HRMS.Models
         public string WeekStartDate { get; set; }
         public string WeekEndDate { get; set; }
     }
+
+    public class TimesheetSubmitEmailModel
+    {
+        public SiteContextModel UserContext { get; set; }
+        public List<TimeSheet> TimeSheets { get; set; }
+
+        public DateTime WeekStartDate { get; set; }
+        public DateTime WeekEndDate { get; set; }
+    }
 }
