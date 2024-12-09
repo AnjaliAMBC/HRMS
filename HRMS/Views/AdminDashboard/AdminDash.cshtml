@@ -313,3 +313,117 @@
 
     @Html.Partial("_compoff", Model.Employees)
 </div>
+
+<div class="modal fade" id="createAnnouncementModal" tabindex="-1" aria-labelledby="createAnnouncementModal" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="createAnnouncementModalLabel">Create Announcement</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">×</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <form>
+                    <div class="row">
+                        <div class="col-lg-6 form-group">
+                            <label for="announcementLocationName">Holidays</label>
+                            <select class="form-control form-select-sm" name="announcementLocationName" id="announcementLocationName">
+                                <option value="" disabled selected>Select Location</option>
+                                <option value="Madurai">Madurai</option>
+                                <option value="Hyderabad">Hyderabad</option>
+                                <option value="All">All</option>
+                            </select>
+                        </div>
+                        <div class="col-lg-6 form-group">
+                            <label for="announcementSubject">Subject</label>
+                            <input type="text" class="form-control" id="announcementSubject" value="">
+                        </div>
+                        <div class="col-lg-12 form-group">
+                            <label for="announcementDescription">Description</label>
+                            <textarea class="form-control" id="announcementDescription" rows="3" cols="50" placeholder="Description"></textarea>
+                        </div>
+                        <div class="col-lg-6 form-group">
+                            <label for="AnnouncementFile" style="width:100%;">File Upload</label>
+                            <div class="upload-btn-wrapper announcementwrapper">
+                                <button class="btn AnnouncementFile-upload-btn">Upload File</button>
+                                <input type="file"
+                                       class="form-control"
+                                       name="AnnouncementFile"
+                                       id="AnnouncementFile"
+                                       required
+                                       accept=".png,.jpeg," data-existingfile="attach">
+                            </div>
+
+                            <a style="display:none;" class="announcementFile" href="" target="_blank">aa</a><br />
+
+                            <small style="font-size: 12px; float: left; margin-top: -5px; color: #3E78CF; width: 100%;">File supported PNG, JPEG of 2MB</small>
+                            <div class="invalid-feedback">File is required.</div>
+                        </div>
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-primary announcementSubmit">Submit</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal fade" id="uploadHandbookModal" tabindex="-1" aria-labelledby="uploadHandbookModal" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="uploadHandbookModalLabel">Upload Handbook</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">×</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <form>
+                    <div class="handbook-file-upload" id="handbook-file-upload-area">
+                        <label for="handbook-file-upload-input" id="handbook-file-upload-label">
+                            <img src="~/Assets/icon-upload.png"><br>
+                            Drag and drop files or Browse<br>
+                            Supported formats: .PDF
+                        </label>
+                        <input type="file" id="handbook-file-upload-input" accept=".xlsx" onchange="handleHandbookFileUpload(this)">
+                    </div>
+
+                    <div class="handbook-uploaded-file" id="handbook-uploaded-file-info" style="display: none;">
+                        <p style="color: green; font-size: 13px;" id="handbook-uploaded-file-text"></p>
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <div class="handnook-uploaded-file-test"></div>
+                <div class="handnook-uploaded-file-details">
+                    <img src="~/Assets/icon-pdf.png">
+                    <span class="handbook-uploaded-file-name"><a href="#">test</a></span>
+                </div>
+                <button type="button" class="btn btn-primary uploadHandbooktSubmit">Submit</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+    $(document).ready(function () {
+        $('#AnnouncementFile').on('change', function () {
+            $(this).attr("data-existingfile", "");
+            var fileInput1 = $('#AnnouncementFile');
+            var file = fileInput1[0].files[0];
+            if (file) {
+                var fileName = file.name;
+                var fileUrl = URL.createObjectURL(file);
+
+                $('.announcementFile').attr('href', fileUrl).text(fileName).show();
+            } else {
+                $('.announcementFile').hide();
+            }
+            console.log("Announcement File validation passed.");
+            
+        });
+    });    
+
+</script>

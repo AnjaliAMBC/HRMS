@@ -3,5 +3,74 @@
     ViewBag.Title = "HolidayBulkImport";
 }
 
-<h2>HolidayBulkImport</h2>
+@Html.Partial("_NavBar")
+<div class="container-fluid res-admin-holidaysupload">
+    <div class="hiddenadmindashboard" style="display: none"></div>
+    @Html.Partial("_adminsidemenu")
+    <div class="main-content container-fluid" style="width: 84%">
+        <div class="content admin-holidaysupload-container" style="margin-left: -5px; margin-top: 0px;">
+            <div class="admin-holidaysupload-view">
+                <div class="container res-admin-holidaysupload-import col-lg-6">
+                    <!-- Headline: Import Employee -->
+                    <h4 class="import-user-head">Bulk Upload Holidays List</h4>
+
+                    <!-- Description with bullet points -->
+                    <div class="description">
+                        <p>Here's how to import list:</p>
+                        <ul>
+                            <li>Prepare your holidays data in a xlsx format.</li>
+                            <li>Make sure the CSV file follows the correct format.</li>
+                            <li>Use the template provided for best results.</li>
+                        </ul>
+                    </div>
+
+                    <div>
+                        <button class="btn btn-primary download-btn" onclick="downloadTemplate()">Download Template</button>
+                    </div>
+                    <p style=" margin-bottom: 35px; margin-top: 5px;">Sample excel template</p>
+
+                    <div class="file-upload" id="file-upload-area">
+                        <label for="file-upload-input" id="file-upload-label">
+                            <i class="fas fa-cloud-upload-alt fa-3x mb-3"></i><br>
+                            Drag and drop files or Browse<br>
+                            Supported formats: .XLSX
+                        </label>
+                        <input type="file" id="file-upload-input" accept=".xlsx" onchange="handleFileUpload(this)">
+                    </div>
+
+                    <div class="uploaded-file" id="uploaded-file-info" style="display: none;">
+                        <p style="color: green; font-size: 13px;" id="uploaded-file-text"></p>
+                    </div>
+
+                    <div class="submit-button">
+                        <button class="btn btn-primary btn-importuser-submit" style="background-color:#2693F8;float:right;">Submit</button>
+                    </div>
+
+                    <div class="modal fade" id="importSuccessModal" tabindex="-1" role="dialog" aria-labelledby="importSuccessModalLabel" aria-hidden="true">
+                        <div class="modal-dialog" role="document">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <h5 class="modal-title" id="importSuccessModalLabel">Import Users</h5>
+                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                        <span aria-hidden="true">&times;</span>
+                                    </button>
+                                </div>
+                                <div class="modal-body">
+                                    <p class="success-message" style="color: green">Holidays imported successfully!</p>
+                                </div>
+                                <div class="modal-footer">
+                                    <button type="button" class="btn btn-primary refresh-holidaysupload">Close</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+
 

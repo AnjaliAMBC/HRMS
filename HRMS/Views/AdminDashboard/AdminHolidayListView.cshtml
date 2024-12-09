@@ -41,7 +41,7 @@
                                 <td class="admin-holidayslist-table-last">
                                     <i class="fas fa-ellipsis-v admin-holidayslist-edit" onclick="toggleAdminHolidaysListActionOptions(this)"></i>
                                     <div class="admin-holidayslistoptions" style="display:none">
-                                        <a class="dropdown-item admin-holidayslist-edit-btn" data-timesheeetid="4" data-timesheetdate="02-12-2024">Edit</a>
+                                        <a class="dropdown-item admin-holidayslist-edit-btn" data-timesheeetid="4" data-timesheetdate="02-12-2024" data-toggle="modal" data-target="#editHolidaysModal">Edit</a>
                                     </div>
                                 </td>
                             </tr>
@@ -52,7 +52,7 @@
                                 <td class="admin-holidayslist-table-last">
                                     <i class="fas fa-ellipsis-v admin-holidayslist-edit" onclick="toggleAdminHolidaysListActionOptions(this)"></i>
                                     <div class="admin-holidayslistoptions" style="display:none">
-                                        <a class="dropdown-item admin-holidayslist-edit-btn" data-timesheeetid="4" data-timesheetdate="02-12-2024">Edit</a>
+                                        <a class="dropdown-item admin-holidayslist-edit-btn" data-timesheeetid="4" data-timesheetdate="02-12-2024" data-toggle="modal" data-target="#editHolidaysModal">Edit</a>
                                     </div>
                                 </td>
                             </tr>
@@ -61,6 +61,34 @@
                         </tbody>
                     </table>
                 </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal fade" id="editHolidaysModal" tabindex="-1" aria-labelledby="editHolidaysModal" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="editHolidaysModalLabel">Edit Holidays</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">×</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <form>
+                    <div class="form-group">
+                        <label for="editHolidaysName">Holidays</label>
+                        <input type="text" class="form-control" name="holidaysName" value="">
+                    </div>
+                    <div class="form-group">
+                        <label for="editHolidaysDate">Date</label>
+                        <input type="date" class="form-control" id="editHolidaysDate" value="" >
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-primary editHolidaysSubmit">Update</button>
             </div>
         </div>
     </div>
