@@ -25,7 +25,7 @@
                     </div>
 
                     <div>
-                        <button class="btn btn-primary download-btn" onclick="downloadTemplate()">Download Template</button>
+                        <button class="btn btn-primary download-btn" onclick="downloadHolidayTemplate()">Download Template</button>
                     </div>
                     <p style=" margin-bottom: 35px; margin-top: 5px;">Sample excel template</p>
 
@@ -35,7 +35,7 @@
                             Drag and drop files or Browse<br>
                             Supported formats: .XLSX
                         </label>
-                        <input type="file" id="file-upload-input" accept=".xlsx" onchange="handleFileUpload(this)">
+                        <input type="file" id="file-upload-input" accept=".xlsx" onchange="handleHolidayFileUpload(this)">
                     </div>
 
                     <div class="uploaded-file" id="uploaded-file-info" style="display: none;">
@@ -43,14 +43,14 @@
                     </div>
 
                     <div class="submit-button">
-                        <button class="btn btn-primary btn-importuser-submit" style="background-color:#2693F8;float:right;">Submit</button>
+                        <button class="btn btn-primary btn-importholidays" style="background-color:#2693F8;float:right;" onclick="submitFile()">Submit</button>
                     </div>
 
                     <div class="modal fade" id="importSuccessModal" tabindex="-1" role="dialog" aria-labelledby="importSuccessModalLabel" aria-hidden="true">
                         <div class="modal-dialog" role="document">
                             <div class="modal-content">
                                 <div class="modal-header">
-                                    <h5 class="modal-title" id="importSuccessModalLabel">Import Users</h5>
+                                    <h5 class="modal-title" id="importSuccessModalLabel">Import Holidays</h5>
                                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                                         <span aria-hidden="true">&times;</span>
                                     </button>
@@ -74,3 +74,65 @@
 
 
 
+<script>
+    function downloadHolidayTemplate() {
+        var link = document.createElement('a');
+        link.href = '/assets/templates/holidaysimportsample.xlsx';
+        link.download = 'HolidayImportSample.xlsx';
+        document.body.appendChild(link);
+        link.click();
+        document.body.removeChild(link);
+    }
+
+
+    let selectedFile = null;
+
+    function handleHolidayFileUpload(input) {
+        selectedFile = input.files[0]; // Store the selected file
+        if (selectedFile) {
+            // Display the file name to the user
+            document.getElementById('uploaded-file-info').style.display = 'block';
+            document.getElementById('uploaded-file-text').innerText = `Selected File: ${selectedFile.name}`;
+        } else {
+            alert("Please select a file.");
+        }
+    }
+
+    function submitFile() {
+        if (!selectedFile) {
+            alert("Please select a file before submitting.");
+            return;
+        }
+
+        const formData = new FormData();
+        formData.append("file", selectedFile);
+
+        $.ajax({
+            url: '/admindash/importholidays',
+            method: 'POST',
+            data: formData,
+            contentType: false,
+            processData: false,
+            success: function (response) {
+                if (response.success) {
+                    $("#importSuccessModal").modal("show");
+                    document.getElementById('uploaded-file-info').style.display = 'none';
+                    selectedFile = null;
+                } else {
+                    alert("Error: " + response.message);
+                }
+            },
+            error: function (xhr, status, error) {
+                console.error("Error:", error);
+                alert("An error occurred while importing holidays.");
+            }
+        });
+    }
+
+    $(document).on('click', '.refresh-holidaysupload', function () {
+        event.preventDefault();
+        window.location.href = "";
+        return;
+    });
+
+</script>
