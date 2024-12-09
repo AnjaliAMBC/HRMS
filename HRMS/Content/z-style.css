@@ -5652,7 +5652,170 @@ input[type=checkbox], input[type=radio] {
     text-decoration: none;
 }
 
+#editHolidaysModal .modal-header {
+    border-bottom: 0px;
+}
+
+#editHolidaysModal .modal-body {
+    padding-top: 0;
+}
+
 /* admin holidays list end */
+
+/* admin holidays import start */
+
+.res-admin-holidaysupload {
+    /*margin-top: 15px;*/
+}
+
+.res-admin-holidaysupload .admin-holidaysupload-view {
+    margin-left: 10px;
+    margin-top: 20px;
+}
+
+.res-admin-holidaysupload-import {
+    margin-left: -10px;
+}
+
+.res-admin-holidaysupload .import-user-head {
+    margin-top: 0;
+    margin-bottom: 15px;
+}
+
+.res-admin-holidaysupload .download-btn {
+    color: #fff;
+}
+
+.res-admin-holidaysupload .res-admin-holidaysupload-import #file-upload-area {
+    width: 100%;
+}
+
+.res-admin-holidaysupload .submit-button {
+    margin-top: 20px;
+    text-align: left;
+    margin-right: 0;
+    margin-bottom: 20px;
+}
+
+
+/* admin holidays import end */
+
+/* admin hr announcement start */
+
+#createAnnouncementModal .upload-btn-wrapper {
+    position: relative;
+    overflow: hidden;
+    display: inline-block;
+    width: 100%;
+}
+
+#createAnnouncementModal .AnnouncementFile-upload-btn {
+    border: 0px solid gray;
+    color: darkslategrey;
+    background-color: #ccc;
+    border-radius: 3px;
+    font-size: 14px;
+    width: 70%;
+    padding: 8px 0px;
+    cursor: pointer;
+}
+
+#createAnnouncementModal .upload-btn-wrapper input[type=file] {
+    font-size: 100px;
+    position: absolute;
+    left: 0;
+    top: 0;
+    opacity: 0;
+}
+
+#createAnnouncementModal .announcementFile {
+    font-size: 12px;
+    margin-bottom: 5px;
+    display: inline-block;
+}
+
+#createAnnouncementModal .modal-header {
+    border-bottom: 0px;
+}
+
+#createAnnouncementModal .modal-footer {
+    border-top: 0px;
+    padding-top: 0;
+}
+
+#createAnnouncementModal .modal-body {
+    padding-top: 0;
+    padding-bottom: 0;
+}
+
+/* admin hr announcement end */
+
+/* admin handbook start */
+
+#uploadHandbookModal .handbook-file-upload {
+    border: 2px dashed #007bff;
+    padding: 32px;
+    text-align: center;
+    border-radius: 10px;
+    cursor: pointer;
+    width: 45%;
+}
+
+#uploadHandbookModal #handbook-file-upload-area {
+    width: 100%;
+}
+
+#uploadHandbookModal #handbook-file-upload-input {
+    cursor: pointer;
+}
+
+#uploadHandbookModal #handbook-file-upload-input {
+    display: none;
+}
+
+#uploadHandbookModal #handbook-file-upload-label {
+    font-size: 14px;
+}
+
+#uploadHandbookModal .modal-header {
+    border-bottom: 0px;
+}
+
+#uploadHandbookModal .modal-body {
+    padding-top: 0;
+    padding-bottom: 0;
+}
+
+#uploadHandbookModal .modal-footer {
+    border-top: 0px;
+    padding-top: 0;
+    justify-content: space-between;
+    margin-top: 5px;
+}
+
+#uploadHandbookModal .handnook-uploaded-file-details {
+    background: #ccc;
+    padding: 5px 10px;
+    width: 210px;
+    font-size: 14px;
+    border-radius: 3px;
+    margin-left: 100px;
+}
+
+#uploadHandbookModal #handnook-uploaded-file-details img {
+    width: 30px;
+}
+
+#uploadHandbookModal .handbook-uploaded-file-name {
+    margin-left: 5px;
+}
+
+#uploadHandbookModal .handbook-uploaded-file-name a {
+    text-decoration: underline;
+}
+
+/* admin handbook end */
+
 
 @supports (-webkit-backdrop-filter: none) or (-webkit-hyphens:auto) {
     #adminaddendancetable {
