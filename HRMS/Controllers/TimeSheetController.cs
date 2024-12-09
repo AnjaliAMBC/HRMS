@@ -37,11 +37,11 @@ namespace HRMS.Controllers
         }
 
         // GET: Timesheet/EnterTimeSheet
-        public ActionResult EnterTimesheet(string client, string date = "")
+        public ActionResult EnterTimesheet(string client, string date, string startdate = "", string enddate = "")
         {
             var cuserContext = SiteContext.GetCurrentUserContext();
             var empID = cuserContext.EmpInfo.EmployeeID;
-            Timesheet model = CurrentWeekTimeSheetDetails(client, empID, "", "", true);
+            Timesheet model = CurrentWeekTimeSheetDetails(client, empID, startdate, enddate, true);
             return View("~/Views/Timesheet/EmpTimesheetSubmit.cshtml", model);
         }
 

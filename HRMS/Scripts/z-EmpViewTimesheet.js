@@ -184,7 +184,10 @@ $(document).ready(function () {
 
         var client = $('#viewtimesheetclient').val();
         var selectedDate = $(this).data("timesheetdate");
-        window.location.href = "/timesheet/entertimesheet?client=" + client + "&date=" + selectedDate;
+        var weekstart = $('#view-week-start').text();
+        var weekend = $('#view-week-end').text();
+
+        window.location.href = "/timesheet/entertimesheet?client=" + client + "&date=" + selectedDate + "&startdate=" + weekstart + "&enddate=" + weekend;
         return;
 
     });
@@ -203,7 +206,7 @@ $(document).ready(function () {
                 .html(`<span style="font-size: 0.85rem;">${confirmationText}</span>`) // Inline style for smaller font size
                 .removeClass('text-primary')
                 .addClass('text-danger');
-            $('.timesheet-noyes-div').hide(); 
+            $('.timesheet-noyes-div').hide();
             $('.timesheet-close-div').show();
         } else {
             confirmationText = `Are you sure you want to submit the timesheet from ${weekstart} to ${weekend}?`;
