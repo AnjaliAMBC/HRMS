@@ -1,11 +1,11 @@
-﻿@model HRMS.Models.Admin.AdminLeaveHistoryViewModel
+﻿@model List<HRMS.tblambcholiday>
 @Html.Partial("_NavBar")
 <div class="container-fluid res-admin-holidayslist">
     <div class="hiddenadmindashboard" style="display: none"></div>
     @Html.Partial("_adminsidemenu")
     <div class="main-content container-fluid" style="width: 84%">
         <div class="content admin-holidayslist-container" style="margin-left: -5px; margin-top: 0px;">
-            <div class="admin-holidayslist-view">                
+            <div class="admin-holidayslist-view">
                 <div class="container-fluid res-admin-holidays-list">
                     <div class="row mb-2 align-items-center">
                         <div class="col-lg-3 col-md-6 admin-holidays-list-header-title">
@@ -26,7 +26,7 @@
                     <table class="table table-admin-holidays-listing" id="adminholidayslistTable" style="font-size:14px;">
                         <thead style="background-color: #3E78CF; border-radius: 10px;">
                             <tr>
-                                <th>Holidays</th>
+                                <th>Holiday Name</th>
                                 <th>Date</th>
                                 <th>Day</th>
                                 <th class="admin-holidayslist-table-last">Action</th>
@@ -34,28 +34,35 @@
                         </thead>
                         <tbody>
 
-                            <tr class="odd">
-                                <td>Diwali</td>
-                                <td>07-11-2024</td>
-                                <td>Monday</td>
-                                <td class="admin-holidayslist-table-last">
-                                    <i class="fas fa-ellipsis-v admin-holidayslist-edit" onclick="toggleAdminHolidaysListActionOptions(this)"></i>
-                                    <div class="admin-holidayslistoptions" style="display:none">
-                                        <a class="dropdown-item admin-holidayslist-edit-btn" data-timesheeetid="4" data-timesheetdate="02-12-2024" data-toggle="modal" data-target="#editHolidaysModal">Edit</a>
-                                    </div>
-                                </td>
-                            </tr>
-                            <tr class="even">
-                                <td>Tamil New Year</td>
-                                <td>10-11-2024</td>
-                                <td>Friday</td>
-                                <td class="admin-holidayslist-table-last">
-                                    <i class="fas fa-ellipsis-v admin-holidayslist-edit" onclick="toggleAdminHolidaysListActionOptions(this)"></i>
-                                    <div class="admin-holidayslistoptions" style="display:none">
-                                        <a class="dropdown-item admin-holidayslist-edit-btn" data-timesheeetid="4" data-timesheetdate="02-12-2024" data-toggle="modal" data-target="#editHolidaysModal">Edit</a>
-                                    </div>
-                                </td>
-                            </tr>
+                            @foreach (var holiday in Model)
+                            {
+                                var holidaydate = holiday.holiday_date.HasValue ? holiday.holiday_date.Value.ToString("dd-MM-yyyy") : "N/A";
+                                var holidayName = @holiday.holiday_name;
+                                <tr class="">
+                                    <td>@holidayName</td>
+                                    <td>@holidaydate</td>
+                                    <td>@(holiday.holiday_date.HasValue ? holiday.holiday_date.Value.ToString("dddd") : "N/A")</td>
+                                    <td class="admin-holidayslist-table-last">
+                                        <i class="fas fa-ellipsis-v admin-holidayslist-edit" onclick="toggleAdminHolidaysListActionOptions(this)"></i>
+                                        <div class="admin-holidayslistoptions" style="display:none">
+                                            <a class="dropdown-item admin-holidayslist-edit-btn" data-holidayid="@holiday.holidayno" data-holidaydate="@holidaydate" data-holidayname="@holidayName" data-toggle="modal" data-target="#editHolidaysModal">Edit</a>
+                                        </div>
+                                    </td>
+                                </tr>
+                            }
+
+
+                            @*<tr class="even">
+                                    <td>Tamil New Year</td>
+                                    <td>10-11-2024</td>
+                                    <td>Friday</td>
+                                    <td class="admin-holidayslist-table-last">
+                                        <i class="fas fa-ellipsis-v admin-holidayslist-edit" onclick="toggleAdminHolidaysListActionOptions(this)"></i>
+                                        <div class="admin-holidayslistoptions" style="display:none">
+                                            <a class="dropdown-item admin-holidayslist-edit-btn" data-timesheeetid="4" data-timesheetdate="02-12-2024" data-toggle="modal" data-target="#editHolidaysModal">Edit</a>
+                                        </div>
+                                    </td>
+                                </tr>*@
 
 
                         </tbody>
@@ -66,33 +73,37 @@
     </div>
 </div>
 
-<div class="modal fade" id="editHolidaysModal" tabindex="-1" aria-labelledby="editHolidaysModal" aria-hidden="true">
+<div class="modal fade" id="editHolidaysModal" tabindex="-1" aria-labelledby="editHolidaysModalLabel" aria-hidden="true">
     <div class="modal-dialog">
         <div class="modal-content">
             <div class="modal-header">
                 <h5 class="modal-title" id="editHolidaysModalLabel">Edit Holidays</h5>
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                    <span aria-hidden="true">×</span>
+                    <span aria-hidden="true">&times;</span>
                 </button>
             </div>
             <div class="modal-body">
-                <form>
+                <form id="editHolidayForm">
                     <div class="form-group">
-                        <label for="editHolidaysName">Holidays</label>
-                        <input type="text" class="form-control" name="holidaysName" value="">
+                        <label for="editHolidaysName">Holiday Name</label>
+                        <input type="text" class="form-control" id="editHolidaysName" name="holidayName" value="">
                     </div>
                     <div class="form-group">
-                        <label for="editHolidaysDate">Date</label>
-                        <input type="date" class="form-control" id="editHolidaysDate" value="" >
+                        <label for="editHolidaysDate">Holiday Date</label>
+                        <input type="date" class="form-control" id="editHolidaysDate" name="holidayDate" value="">
                     </div>
                 </form>
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-primary editHolidaysSubmit">Update</button>
+                <!-- Message container to show success or failure message -->
+                <div id="editHolidayMessage" class="mt-2" style="display: none;"></div>
             </div>
         </div>
     </div>
 </div>
+
+
 
 <script>
     $(document).ready(function () {
@@ -123,4 +134,62 @@
             }
         });
     }
+
+    $(document).on("click", ".admin-holidayslist-edit-btn", function () {
+        $(".editHolidaysSubmit").prop("disabled", false);
+        const holidayId = $(this).data("holidayid");
+        const holidayName = $(this).data("holidayname");
+        const holidayDate = $(this).data("holidaydate");
+
+        let formattedDate = "";
+        if (holidayDate) {
+            const parts = holidayDate.split('-');
+            formattedDate = `${parts[2]}-${parts[1]}-${parts[0]}`;
+        }
+
+        $("#editHolidaysName").val(holidayName);
+        $("#editHolidaysDate").val(formattedDate);
+
+        $("#editHolidaysModal").data("holidayid", holidayId);
+    });
+
+
+    $(document).on("click", ".editHolidaysSubmit", function () {
+        const holidayId = $("#editHolidaysModal").data("holidayid");
+        const holidayName = $("#editHolidaysName").val();
+        const holidayDate = $("#editHolidaysDate").val();
+   
+        if (!holidayName || !holidayDate) {
+            $("#editHolidayMessage").text("Please fill in both fields.").css("color", "red").show();
+            return;
+        }
+
+        $.ajax({
+            url: '/admindash/updateHoliday',
+            method: 'POST',
+            data: {
+                holidayId: holidayId,
+                holidayName: holidayName,
+                holidayDate: holidayDate
+            },
+            success: function (response) {
+                if (response.success) {
+                    $("#editHolidayMessage").text(response.message).css("color", "green").show();
+                    $(".editHolidaysSubmit").prop("disabled", true);
+                } else {
+                    $("#editHolidayMessage").text("Error: " + response.message).css("color", "red").show();
+                }
+            },
+            error: function () {
+                $("#editHolidayMessage").text("An error occurred. Please try again.").css("color", "red").show();
+            }
+        });
+    });
+
+    $(document).on('hidden.bs.modal', '#editHolidaysModal', function () {
+        location.reload();
+    });
+
+
+
 </script>
