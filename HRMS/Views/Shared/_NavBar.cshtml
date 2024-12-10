@@ -62,6 +62,44 @@
         text-decoration: none;
         font-size: 14px;
     }
+
+
+    .modal.left .modal-dialog,
+    .modal.right .modal-dialog {
+        position: fixed;
+        margin: auto;
+        width: 320px;
+        height: 100%;
+        -webkit-transform: translate3d(0%, 0, 0);
+        -ms-transform: translate3d(0%, 0, 0);
+        -o-transform: translate3d(0%, 0, 0);
+        transform: translate3d(0%, 0, 0);
+    }
+
+    .modal.left .modal-content,
+    .modal.right .modal-content {
+        height: 100%;
+        overflow-y: auto;
+    }
+
+    .modal.left .modal-body,
+    .modal.right .modal-body {
+        padding: 15px 15px 80px;
+    }
+
+    /*Right*/
+    .modal.right.fade .modal-dialog {
+        right: 0px;
+        -webkit-transition: opacity 0.3s linear, right 0.3s ease-out;
+        -moz-transition: opacity 0.3s linear, right 0.3s ease-out;
+        -o-transition: opacity 0.3s linear, right 0.3s ease-out;
+        transition: opacity 0.3s linear, right 0.3s ease-out;
+    }
+
+    .modal.right.fade.in .modal-dialog {
+        right: 0;
+    }
+
 </style>
 
 <nav class="navbar navbar-expand-md navbar-light bg-light fixed-top" style="box-shadow: 0 0 5px 2px rgba(0, 0, 0, .3); height: 55px;">
@@ -71,7 +109,7 @@
     </button>
     <div class="collapse navbar-collapse" id="navbarNav">
         <ul class="navbar-nav ml-auto">
-            <li class="header-notification"><i class="fa-regular fa-bell" aria-hidden="true" style="font-size:23px;"></i></li>
+            <li class="header-notification" data-toggle="modal" data-target="#NotificationPopup"><i class="fa-regular fa-bell" aria-hidden="true" style="font-size:23px;"></i></li>
             <li class="nav-item" id="navbar-profile">
                 @{
                     var currentContext = Session["SiteContext"] as HRMS.Models.SiteContextModel;
@@ -128,6 +166,41 @@
     </div>
 
 </nav>
+
+<!-- Notification Modal -->
+<div class="modal right fade" id="NotificationPopup" tabindex="-1" role="dialog" aria-labelledby="NotificationPopup">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title" id="notification-header-title">Notification</h4>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><i class="far fa-times-circle" aria-hidden="true"></i></button>
+            </div>
+            <div class="modal-body">
+                <div class="notification-list-blocks">                    
+                    <div class="notification-block">
+                        <div class="notification-block-left light-green"><img src="/Assets/mail-icon.png"></div>
+                        <div class="notification-block-right">
+                            <div class="notification-block-info notification-info-title" title="Test notification data notification data dummy">Test notification data</div>
+                            <div class="notification-block-info notification-info-date">09 October 9:20 AM</div>
+                        </div>
+                    </div>
+                    <div class="notification-block">
+                        <div class="notification-block-left light-red"><img src="/Assets/mail-icon.png"></div>
+                        <div class="notification-block-right">
+                            <div class="notification-block-info notification-info-title" title="Test notification data notification data dummy">Test notification data</div>
+                            <div class="notification-block-info notification-info-date">09 October 9:20 AM</div>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+
+        </div>
+        <!-- modal-content -->
+    </div>
+    <!-- modal-dialog -->
+</div>
+<!--Notification  modal -->
 
 
 

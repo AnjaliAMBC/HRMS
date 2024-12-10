@@ -17,7 +17,17 @@
 
             <div class="admin-dashboard-view">
                 <div class="container-fluid res-admindash">
-                    <h4 class="mb-3 header-title">Dashboard</h4>
+
+                    <div class="row admin-dashboard-header">
+                        <div class="admin-dashboard-header-title">
+                            <h4 class="mb-3 header-title">Dashboard</h4>
+                        </div>
+                        <div class="admin-dashboard-header-right ml-auto">
+                            <span class="admin-dash-handbook" title="Handbook" data-toggle="modal" data-target="#uploadHandbookModal"><img src="~/Assets/icon-handbook.png"></span>
+                            <span class="admin-dash-announcement" title="HR Announcement" data-toggle="modal" data-target="#createAnnouncementModal"><img src="~/Assets/icon-announcement.png"></span>
+                        </div>
+                    </div>
+
                     <div class="dashboard">
                         <div class="row">
                             <div class="col-12 col-sm-11 col-md-6 col-lg-4 col-xl-4 p-0 dashcard_style">
@@ -29,76 +39,109 @@
                                             ? Model.AllEMployeeLeaves.Where(x => adminLocations.Contains(x.LatestLeave.Location))
                                             : Model.AllEMployeeLeaves;
                                         }
-                                        Leave Request (@filteredLeaveRequests.Count())
+                                        <span class="admin-leave-request active">Leave Request (@filteredLeaveRequests.Count())</span> | <span class="admin-today-leave">Todays Leave (2)</span>
                                     </div>
                                     <div class="card-body admindash_card scrollbar p-2">
-                                        @if (!Model.AllEMployeeLeaves?.Any() ?? true)
-                                        {
-                                            <div class="d-flex flex-column align-items-center justify-content-center">
-                                                <img src="~/Assets/Leave.png" alt="No Birthdays" class="img-fluid mb-3" style="max-width: 133px; margin-top: 72px;">
-                                                <p class="text-muted">No Leaves today...!!</p>
-                                            </div>
-                                        }
-                                        else
-                                        {
-                                            <ul class="list-group list-group-flush">
-                                                @foreach (var leave in filteredLeaveRequests)
-                                                {
-                                                    <li class="list-group-item p-0">
-                                                        <div class="leave-info">
-                                                            @{
-                                                                var empImagePath = "/Assets/EmpImages/" + leave.LatestLeave.employee_id + ".jpeg" + "?" + System.DateTime.Now;
-                                                            }
-                                                            <img src="@empImagePath" alt="emp name" class="rounded-circle">
-                                                            <div class="leave-text mt-2">
-                                                                <span>@leave.LatestLeave.employee_name</span>
-                                                                @if (leave.LatestLeave.leavesource == "Hourly Permission")
+                                        <div class="admin-leave-request-details">
+                                            @if (!Model.AllEMployeeLeaves?.Any() ?? true)
+                                            {
+                                                <div class="d-flex flex-column align-items-center justify-content-center">
+                                                    <img src="~/Assets/Leave.png" alt="No Birthdays" class="img-fluid mb-3" style="max-width: 133px; margin-top: 72px;">
+                                                    <p class="text-muted">No Leaves today...!!</p>
+                                                </div>
+                                            }
+                                            else
+                                            {
+                                                <ul class="list-group list-group-flush">
+                                                    @foreach (var leave in filteredLeaveRequests)
+                                                    {
+                                                        <li class="list-group-item p-0">
+                                                            <div class="leave-info">
+                                                                @{
+                                                                    var empImagePath = "/Assets/EmpImages/" + leave.LatestLeave.employee_id + ".jpeg" + "?" + System.DateTime.Now;
+                                                                }
+                                                                <img src="@empImagePath" alt="emp name" class="rounded-circle">
+                                                                <div class="leave-text mt-2">
+                                                                    <span>@leave.LatestLeave.employee_name</span>
+                                                                    @if (leave.LatestLeave.leavesource == "Hourly Permission")
+                                                                    {
+                                                                        <small>@leave.LatestLeave.leavesource | @leave.LatestLeave.Fromdate.Value.ToString("dd MMMM yyyy")</small>
+                                                                    }
+                                                                    else
+                                                                    {
+                                                                        <small>@leave.LatestLeave.leavesource | @leave.LatestLeave.Fromdate.Value.ToString("dd MMMM yyyy") to @leave.LatestLeave.Todate.Value.ToString("dd MMMM yyyy")</small>
+                                                                    }
+                                                                    @*else
+                                                        {
+                                                            <small>@leave.LatestLeave.leavesource | @leave.LatestLeave.Fromdate.Value.ToString("dd MMMM yyyy")</small>
+                                                        }*@
+                                                                </div>
+
+                                                            </div>
+                                                            <div class="btn-group">
+
+                                                                @if (leave.LatestLeave.LeaveStatus == "Pending")
                                                                 {
-                                                                    <small>@leave.LatestLeave.leavesource | @leave.LatestLeave.Fromdate.Value.ToString("dd MMMM yyyy")</small>
+                                                                    <button type="button" data-leavename="@leave.LatestLeave.LeaveRequestName" class="btn_approve p-0">✔ Approve</button>
+                                                                    <button type="button" data-leavename="@leave.LatestLeave.LeaveRequestName" class="btn_reject ml-0">✖ Reject</button>
                                                                 }
                                                                 else
                                                                 {
-                                                                    <small>@leave.LatestLeave.leavesource | @leave.LatestLeave.Fromdate.Value.ToString("dd MMMM yyyy") to @leave.LatestLeave.Todate.Value.ToString("dd MMMM yyyy")</small>
+                                                                    var color = "#3E78CF";
+                                                                    if (leave.LatestLeave.LeaveStatus != "Approved")
+                                                                    {
+                                                                        color = "red";
+                                                                    }
+                                                                    <small style="color: @color">
+                                                                        @leave.LatestLeave.LeaveStatus
+                                                                    </small>
                                                                 }
-                                                                @*else
-                                {
-                                    <small>@leave.LatestLeave.leavesource | @leave.LatestLeave.Fromdate.Value.ToString("dd MMMM yyyy")</small>
-                                }*@
+
                                                             </div>
+                                                        </li>
+                                                    }
 
-                                                        </div>
-                                                        <div class="btn-group">
+                                                </ul>
+                                            }
+                                        </div>
+                                        <div style="display:none;" class="admin-todays-leave-details">
 
-                                                            @if (leave.LatestLeave.LeaveStatus == "Pending")
-                                                            {
-                                                                <button type="button" data-leavename="@leave.LatestLeave.LeaveRequestName" class="btn_approve p-0">✔ Approve</button>
-                                                                <button type="button" data-leavename="@leave.LatestLeave.LeaveRequestName" class="btn_reject ml-0">✖ Reject</button>
-                                                            }
-                                                            else
-                                                            {
-                                                                var color = "#3E78CF";
-                                                                if (leave.LatestLeave.LeaveStatus != "Approved")
-                                                                {
-                                                                    color = "red";
-                                                                }
-                                                                <small style="color: @color">
-                                                                    @leave.LatestLeave.LeaveStatus
-                                                                </small>
-                                                            }
+                                            <div class="admin-todays-leave-list-all">
+                                                <div class="admin-todays-leave-list">
+                                                    <div class="col-lg-1 col-md-1 col-sm-2 admin-todays-leave-left">
+                                                        <img class="userIcon" src="/Assets/EmpImages/1311.jpeg?1733763745637">
+                                                    </div>
+                                                    <span class="col-lg-7 col-md-7 col-sm-5 admin-todays-leave-mid">
+                                                        <div class="admin-itodays-leave-userinfo">Anjali Missewar</div>
+                                                        <div class="admin-todays-leave-date">Emergency Leave | 02-12-2024</div>
+                                                    </span>
+                                                    <span class="col-lg-2 col-md-2 col-sm-2 admin-todays-leave-right">
+                                                        <div class="admin-todays-leave-status"><img src="~/Assets/Approve.png"></div>
+                                                    </span>
+                                                </div>
+                                                <div class="admin-todays-leave-list">
+                                                    <div class="col-lg-1 col-md-1 col-sm-2 admin-todays-leave-left">
+                                                        <img class="userIcon" src="/Assets/EmpImages/1311.jpeg?1733763745637">
+                                                    </div>
+                                                    <span class="col-lg-7 col-md-7 col-sm-5 admin-todays-leave-mid">
+                                                        <div class="admin-itodays-leave-userinfo">Anjali Missewar</div>
+                                                        <div class="admin-todays-leave-date">Emergency Leave | 02-12-2024</div>
+                                                    </span>
+                                                    <span class="col-lg-2 col-md-2 col-sm-2 admin-todays-leave-right">
+                                                        <div class="admin-todays-leave-status"><img src="~/Assets/Pending.png"></div>
+                                                    </span>
+                                                </div>
+                                            </div>
 
-                                                        </div>
-                                                    </li>
-                                                }
-
-                                            </ul>                                        
-                                     }
-                                      </div>
+                                        </div>
+                                        
+                                    </div>
                                 </div>
                             </div>
                             <div class="col-12 col-sm-11 col-md-6 col-lg-4 col-xl-4 p-0 dashcard_style">
                                 <!-- Announcements Section -->
                                 <div class="card mx-2 my-card">
-                                    <div class="card-header hr-dashtickets">       
+                                    <div class="card-header hr-dashtickets">
                                         HR Tickets (@Model.AllHRTickets.Count())
                                     </div>
                                     <div class="card-body admindash_card scrollbar px-4 py-1 announcement_card">
@@ -148,12 +191,12 @@
                                 <!-- Calendar Section -->
                                 <div class="card mx-2 my-card">
                                     <!--<div class="card-header">
-                                        January 2024
-                                    </div>
-                                    <div class="card-body">-->
+                        January 2024
+                    </div>
+                    <div class="card-body">-->
                                     <!-- Calendar placeholder -->
                                     <!--<div id="calendar"></div>
-                                    </div>-->
+                    </div>-->
 
                                     <div class="card-header calendar-header text-dark">
                                         <div>
@@ -263,7 +306,7 @@
                                 <!-- Upcoming Holidays Section -->
                                 <div class="card mx-2 my-card">
                                     <div class="card-header">
-                                         Holidays List
+                                        Holidays List
                                     </div>
                                     <div class="card-body scrollbar admindash_card p-2">
                                         <ul class="list-group list-group-flush res-admin-dash-upcomingholidays-block">
@@ -424,6 +467,21 @@
             console.log("Announcement File validation passed.");
             
         });
+
+        $('.admin-leave-request').on('click', function () {
+            $('.admin-today-leave').removeClass('active');
+            $('.admin-leave-request').addClass('active');
+            $('.admin-todays-leave-details').css({ 'display': 'none' });
+            $('.admin-leave-request-details').css({ 'display': 'block' });
+        });
+
+        $('.admin-today-leave').on('click', function () {
+            $('.admin-leave-request').removeClass('active');
+            $('.admin-today-leave').addClass('active');
+            $('.admin-leave-request-details').css({ 'display': 'none' });
+            $('.admin-todays-leave-details').css({ 'display': 'block' });
+        });
+
     });    
 
 </script>

@@ -981,9 +981,9 @@ $(document).on('click', '.compOff-History-Page', function () {
     window.location.href = "/adminleave/adminleavecompensatoryoff";
 });
 
-$(document).on('click', '.leave-request-Page', function () {
+/*$(document).on('click', '.leave-request-Page', function () {
    window.location.href = "/adminleave/index";
-});
+});*/
 
 
 $(document).on('click', '.hr-dashtickets', function () {

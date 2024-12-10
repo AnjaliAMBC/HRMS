@@ -283,6 +283,95 @@ div.main-content {
 
 /* sidebar menu end */
 
+/* notification start */
+
+#NotificationPopup #notification-header-title {
+    font-size: 18px;
+}
+
+#NotificationPopup .modal-header button i {
+    font-size: 14px;
+}
+
+#NotificationPopup .modal-body {
+}
+
+#NotificationPopup .modal-body .notification-list-blocks {
+}
+
+#NotificationPopup .modal-body .notification-list-blocks .notification-block {
+    display: inline-block;
+    width: 100%;
+    margin-bottom: 10px;
+    border-bottom: 1px solid #ccc;
+    padding-bottom: 10px;
+}
+
+#NotificationPopup .modal-body .notification-list-blocks .notification-block .notification-block-left {
+    width: 12%;
+    display: inline-block;
+    border-radius: 44px;
+    text-align: center;
+    padding: 5px;
+    vertical-align: middle;
+    float: left;
+}
+
+#NotificationPopup .modal-body .notification-list-blocks .notification-block .notification-block-left.light-blue {
+    background: #C5E6F6;
+}
+
+#NotificationPopup .modal-body .notification-list-blocks .notification-block .notification-block-left.light-gray {
+    background: #E4E4E4;
+}
+
+#NotificationPopup .modal-body .notification-list-blocks .notification-block .notification-block-left.light-green {
+    background: #C2F3C2;
+}
+
+#NotificationPopup .modal-body .notification-list-blocks .notification-block .notification-block-left.light-red {
+    background: #C2F3C2;
+}
+
+#NotificationPopup .modal-body .notification-list-blocks .notification-block .notification-block-left img {
+    width: 21px;
+    height: 21px;
+}
+
+#NotificationPopup .modal-body .notification-list-blocks .notification-block .notification-block-right {
+    display: inline-block;
+    width: 88%;
+    padding: 0px 10px;
+}
+
+#NotificationPopup .modal-body .notification-list-blocks .notification-block .notification-block-right .notification-info-title {
+    font-size: 13px;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    overflow: hidden;
+    overflow-x: hidden;
+    overflow-y: hidden;
+    width: 230px;
+}
+
+#NotificationPopup .modal-body .notification-list-blocks .notification-block .notification-block-right .notification-info-date {
+    font-size: 12px;
+    color: gray;
+    display: flex;
+    justify-content: space-between;
+}
+
+#NotificationPopup .modal-body .notification-list-blocks .notification-block .notification-block-right .notification-info-date .notification-reply {
+    border-radius: 15px;
+    border: 1px solid #267EC4;
+    padding: 0 10px;
+    color: #267EC4;
+    cursor: pointer;
+}
+
+/* notification end */
+
+
 /* admin dashnoard start */
 .res-admin-dashboard .dashcard_style {
     height: auto;
@@ -5795,14 +5884,14 @@ input[type=checkbox], input[type=radio] {
 
 #uploadHandbookModal .handnook-uploaded-file-details {
     background: #ccc;
-    padding: 5px 10px;
+    padding: 10px 10px;
     width: 210px;
     font-size: 14px;
     border-radius: 3px;
     margin-left: 100px;
 }
 
-#uploadHandbookModal #handnook-uploaded-file-details img {
+#uploadHandbookModal .handnook-uploaded-file-details img {
     width: 30px;
 }
 
@@ -5814,7 +5903,135 @@ input[type=checkbox], input[type=radio] {
     text-decoration: underline;
 }
 
+.admin-dashboard-header-title {
+    margin-left: 15px;
+}
+
+.admin-dashboard-view .admin-dashboard-header-right {
+    margin-right: 10px;
+}
+
+.admin-dashboard-view .admin-dashboard-header-right span {
+    border: 1px solid #ccc;
+    display: inline-block;
+    vertical-align: top;
+    padding: 4px 6px;
+    border-radius: 3px;
+    cursor: pointer;
+    margin-left: 5px;
+    cursor: pointer;
+}
+
+.admin-dashboard-view .admin-dashboard-header-right span img{
+    width: 20px;
+}
+
 /* admin handbook end */
+
+/* admin dashboard todays leave start */
+
+.admin-leave-request.active,
+.admin-today-leave.active {
+    border-bottom: 1px solid #000;
+    padding-bottom: 6px;
+}
+
+.admin-todays-leave-list-all {
+    padding: 5px 5px;
+}
+
+.admin-todays-leave-list {
+    display: flex;
+    font-size: 14px;
+}
+
+.admin-todays-leave-list .admin-todays-leave-left {
+    padding: 0;
+    margin-right: 20px;
+
+}
+
+.admin-todays-leave-list .admin-todays-leave-left img {
+    width: 37px;
+    height: 37px;
+    object-fit: cover;
+    border-radius: 50%;
+    margin-right: 10px;
+}
+
+.admin-todays-leave-list .admin-todays-leave-mid {
+    padding: 0;
+    margin-right: 25px;
+}
+
+.admin-todays-leave-list .admin-todays-leave-mid .admin-todays-leave-date {
+    color: #8e98a1;
+    margin-bottom: 10px;
+    font-size: 12px;
+}
+
+.admin-todays-leave-list .admin-todays-leave-right {
+    padding: 0;
+    padding-top: 5px;
+    text-align: right;
+}
+
+.admin-todays-leave-list .admin-todays-leave-right img {
+    width: 20px;
+}
+
+/* admin dashboard todays leave end */
+
+/* admin job import start */
+
+.res-admin-holidaysupload {
+    /*margin-top: 15px;*/
+}
+
+.res-admin-jobupload .admin-jobupload-view {
+    margin-left: 10px;
+    margin-top: 20px;
+}
+
+.res-admin-jobupload-import {
+    margin-left: -10px;
+}
+
+.res-admin-jobupload .import-user-head {
+    margin-top: 0;
+    margin-bottom: 15px;
+}
+
+.res-admin-jobupload .download-btn {
+    color: #fff;
+}
+
+.res-admin-jobupload .res-admin-jobupload-import #job-file-upload-area {
+    width: 100%;
+}
+
+.res-admin-jobupload .submit-button {
+    margin-top: 20px;
+    text-align: left;
+    margin-right: 0;
+    margin-bottom: 20px;
+}
+
+.res-admin-jobupload .job-file-upload {
+    border: 2px dashed #007bff;
+    padding: 32px;
+    text-align: center;
+    border-radius: 10px;
+    cursor: pointer;
+    width: 45%;
+}
+
+.res-admin-jobupload #job-file-upload-input {
+    display: none;
+}
+
+
+/* admin job import end */
 
 
 @supports (-webkit-backdrop-filter: none) or (-webkit-hyphens:auto) {
