@@ -176,6 +176,9 @@
     </Compile>
     <Compile Include="Filters\CustomExceptionFilter.cs" />
     <Compile Include="Filters\SessionTimeoutException.cs" />
+    <Compile Include="HandBook.cs">
+      <DependentUpon>HRMS.tt</DependentUpon>
+    </Compile>
     <Compile Include="Helpers\EmployeeEventHelper.cs" />
     <Compile Include="Helpers\DateHelper.cs" />
     <Compile Include="Helpers\EMailHelper.cs" />
@@ -185,6 +188,9 @@
     <Compile Include="Helpers\TicketingHelper.cs" />
     <Compile Include="Helpers\VendorHelper.cs" />
     <Compile Include="HolidayNotificationJob.cs" />
+    <Compile Include="HRAnnouncement.cs">
+      <DependentUpon>HRMS.tt</DependentUpon>
+    </Compile>
     <Compile Include="IT_Maintenance.cs">
       <DependentUpon>HRMS.tt</DependentUpon>
     </Compile>
@@ -305,6 +311,10 @@
     <Content Include="Assets\Fonts\familyMaterial.css" />
     <Content Include="Assets\Fonts\familyRoboto.css" />
     <Content Include="Assets\Headset.png" />
+    <Content Include="Assets\icon-announcement.png" />
+    <Content Include="Assets\icon-handbook.png" />
+    <Content Include="Assets\icon-pdf.png" />
+    <Content Include="Assets\icon-upload.png" />
     <Content Include="Assets\Icons\Attendance.png" />
     <Content Include="Assets\Icons\Dashboard.png" />
     <Content Include="Assets\Icons\Employee.png" />
@@ -504,6 +514,8 @@
     <Content Include="Assets\Templates\Sample Assets Import.xlsx" />
     <Content Include="Assets\Templates\VendorImportTemplate.xlsx" />
     <Content Include="Assets\Policies\Handbook.pdf" />
+    <Content Include="Assets\Templates\HolidaysImportSample.xlsx" />
+    <Content Include="Assets\Templates\JobImportSample.xlsx" />
     <None Include="Scripts\jquery-3.4.1.intellisense.js" />
     <Content Include="Scripts\jquery-3.4.1.js" />
     <Content Include="Scripts\jquery-3.4.1.min.js" />
