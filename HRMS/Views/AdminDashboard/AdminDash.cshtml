@@ -22,7 +22,7 @@
                         <div class="admin-dashboard-header-title">
                             <h4 class="mb-3 header-title">Dashboard</h4>
                         </div>
-                        <div class="admin-dashboard-header-right ml-auto">
+                        <div class="admin-dashboard-header-right ml-auto" style="display: none">
                             <span class="admin-dash-handbook" title="Handbook" data-toggle="modal" data-target="#uploadHandbookModal"><img src="~/Assets/icon-handbook.png"></span>
                             <span class="admin-dash-announcement" title="HR Announcement" data-toggle="modal" data-target="#createAnnouncementModal"><img src="~/Assets/icon-announcement.png"></span>
                         </div>
@@ -35,11 +35,22 @@
                                 <div class="card leave-requests mx-2 my-card">
                                     <div class="card-header leave-request-Page">
                                         @{
+                                            var today = DateTime.Today;
+
+                                            // Filter leaves for "Leave Requests" based on admin locations
                                             var filteredLeaveRequests = adminLocations.Any()
-                                            ? Model.AllEMployeeLeaves.Where(x => adminLocations.Contains(x.LatestLeave.Location))
-                                            : Model.AllEMployeeLeaves;
+                                                ? Model.AllEMployeeLeaves.Where(x => adminLocations.Contains(x.LatestLeave.Location))
+                                                : Model.AllEMployeeLeaves;
+
+                                            // Calculate count for "Today's Leave"
+                                            var todaysLeaveCount = Model.AllEMployeeLeaves
+                                                .Count(x => x.LatestLeave.Fromdate.HasValue && x.LatestLeave.Todate.HasValue &&
+                                                            today >= x.LatestLeave.Fromdate.Value.Date &&
+                                                            today <= x.LatestLeave.Todate.Value.Date);
                                         }
-                                        <span class="admin-leave-request active">Leave Request (@filteredLeaveRequests.Count())</span> | <span class="admin-today-leave">Todays Leave (2)</span>
+                                        <span class="admin-leave-request active">Leave Request (@filteredLeaveRequests.Count())</span> |
+                                        <span class="admin-today-leave">Todays Leave (@todaysLeaveCount)</span>
+
                                     </div>
                                     <div class="card-body admindash_card scrollbar p-2">
                                         <div class="admin-leave-request-details">
@@ -65,16 +76,16 @@
                                                                     <span>@leave.LatestLeave.employee_name</span>
                                                                     @if (leave.LatestLeave.leavesource == "Hourly Permission")
                                                                     {
-                                                                        <small>@leave.LatestLeave.leavesource | @leave.LatestLeave.Fromdate.Value.ToString("dd MMMM yyyy")</small>
+                                                                        <small>@leave.LatestLeave.leavesource | @leave.LatestLeave.Fromdate.Value.ToString("dd-MM-yyyy")</small>
                                                                     }
                                                                     else
                                                                     {
-                                                                        <small>@leave.LatestLeave.leavesource | @leave.LatestLeave.Fromdate.Value.ToString("dd MMMM yyyy") to @leave.LatestLeave.Todate.Value.ToString("dd MMMM yyyy")</small>
+                                                                        <small>@leave.LatestLeave.leavesource | @leave.LatestLeave.Fromdate.Value.ToString("dd-MM-yyyy") to @leave.LatestLeave.Todate.Value.ToString("dd-MM-yyyy")</small>
                                                                     }
                                                                     @*else
-                                                        {
-                                                            <small>@leave.LatestLeave.leavesource | @leave.LatestLeave.Fromdate.Value.ToString("dd MMMM yyyy")</small>
-                                                        }*@
+                                                                        {
+                                                                            <small>@leave.LatestLeave.leavesource | @leave.LatestLeave.Fromdate.Value.ToString("dd MMMM yyyy")</small>
+                                                                        }*@
                                                                 </div>
 
                                                             </div>
@@ -104,37 +115,62 @@
                                                 </ul>
                                             }
                                         </div>
-                                        <div style="display:none;" class="admin-todays-leave-details">
+                                        <div class="admin-todays-leave-details" style="display: none">
+                                            @* Filter today's date and the employees on leave *@
+                                            @{
+                                                var today1 = DateTime.Today;
+
+                                                // Filter leaves for "On Leave Today"
+                                                var onLeaveToday = Model.AllEMployeeLeaves
+                                                    .Where(x => x.LatestLeave.Fromdate.HasValue && x.LatestLeave.Todate.HasValue &&
+                                                                today1 >= x.LatestLeave.Fromdate.Value.Date &&
+                                                                today1 <= x.LatestLeave.Todate.Value.Date)
+                                                    .ToList();
+                                            }
 
                                             <div class="admin-todays-leave-list-all">
-                                                <div class="admin-todays-leave-list">
-                                                    <div class="col-lg-1 col-md-1 col-sm-2 admin-todays-leave-left">
-                                                        <img class="userIcon" src="/Assets/EmpImages/1311.jpeg?1733763745637">
-                                                    </div>
-                                                    <span class="col-lg-7 col-md-7 col-sm-5 admin-todays-leave-mid">
-                                                        <div class="admin-itodays-leave-userinfo">Anjali Missewar</div>
-                                                        <div class="admin-todays-leave-date">Emergency Leave | 02-12-2024</div>
-                                                    </span>
-                                                    <span class="col-lg-2 col-md-2 col-sm-2 admin-todays-leave-right">
-                                                        <div class="admin-todays-leave-status"><img src="~/Assets/Approve.png"></div>
-                                                    </span>
-                                                </div>
-                                                <div class="admin-todays-leave-list">
-                                                    <div class="col-lg-1 col-md-1 col-sm-2 admin-todays-leave-left">
-                                                        <img class="userIcon" src="/Assets/EmpImages/1311.jpeg?1733763745637">
-                                                    </div>
-                                                    <span class="col-lg-7 col-md-7 col-sm-5 admin-todays-leave-mid">
-                                                        <div class="admin-itodays-leave-userinfo">Anjali Missewar</div>
-                                                        <div class="admin-todays-leave-date">Emergency Leave | 02-12-2024</div>
-                                                    </span>
-                                                    <span class="col-lg-2 col-md-2 col-sm-2 admin-todays-leave-right">
-                                                        <div class="admin-todays-leave-status"><img src="~/Assets/Pending.png"></div>
-                                                    </span>
-                                                </div>
-                                            </div>
+                                                @if (onLeaveToday.Any())
+                                                {
+                                                    foreach (var leave in onLeaveToday)
+                                                    {
+                                                        var empImagePath = "/Assets/EmpImages/" + leave.LatestLeave.employee_id + ".jpeg" + "?" + System.DateTime.Now;
+                                                        var leaveStatusIcon = "/Assets/Pending.png";
+                                                        if (leave.LatestLeave.LeaveStatus == "Approved")
+                                                        {
+                                                            leaveStatusIcon = "/Assets/Approve.png";
 
+                                                        }
+                                                        else if (leave.LatestLeave.LeaveStatus == "Rejected")
+                                                        {
+                                                            leaveStatusIcon = "/Assets/Reject.png";
+                                                        }
+
+                                                        <div class="admin-todays-leave-list">
+                                                            <div class="col-lg-1 col-md-1 col-sm-2 admin-todays-leave-left">
+                                                                <img class="userIcon" src="@empImagePath" alt="@leave.LatestLeave.employee_name">
+                                                            </div>
+                                                            <span class="col-lg-7 col-md-7 col-sm-5 admin-todays-leave-mid">
+                                                                <div class="admin-itodays-leave-userinfo">@leave.LatestLeave.employee_name</div>
+                                                                <div class="admin-todays-leave-date">
+                                                                    @leave.LatestLeave.leavesource | @leave.LatestLeave.Fromdate.Value.ToString("dd-MM-yyyy") to @leave.LatestLeave.Todate.Value.ToString("dd-MM-yyyy")
+                                                                </div>
+                                                            </span>
+                                                            <span class="col-lg-2 col-md-2 col-sm-2 admin-todays-leave-right">
+                                                                <div class="admin-todays-leave-status">
+                                                                    <img src="@leaveStatusIcon" alt="@leave.LatestLeave.LeaveStatus">
+                                                                </div>
+                                                            </span>
+                                                        </div>
+                                                    }
+                                                }
+                                                else
+                                                {
+                                                    <p class="text-muted">No employees are on leave today.</p>
+                                                }
+                                            </div>
                                         </div>
-                                        
+
+
                                     </div>
                                 </div>
                             </div>
@@ -191,12 +227,12 @@
                                 <!-- Calendar Section -->
                                 <div class="card mx-2 my-card">
                                     <!--<div class="card-header">
-                        January 2024
-                    </div>
-                    <div class="card-body">-->
+                                        January 2024
+                                    </div>
+                                    <div class="card-body">-->
                                     <!-- Calendar placeholder -->
                                     <!--<div id="calendar"></div>
-                    </div>-->
+                                    </div>-->
 
                                     <div class="card-header calendar-header text-dark">
                                         <div>
@@ -322,7 +358,10 @@
                                                     <li>
                                                         <a class="dashhoiday_description res-holidays-details-left compOff-request" data-leavenumber="@holiday.HolidayNo" data-location="@holiday.Region">
                                                             <h6 class="mb-0 holiday-name">@holiday.HolidayName</h6>
-                                                            <p class="smalltext res-admin-dash-location holiday-date">@holiday.HolidayDate.ToString("dd MMMM dddd")</p><span class="ml-2 holiday_location" style="display: none">@holiday.Region</span>
+                                                            <p class="smalltext res-admin-dash-location holiday-date">
+                                                                @holiday.HolidayDate.ToString("dd MMMM yyyy dddd")
+                                                            </p>
+                                                            <span class="ml-2 holiday_location" style="display: none">@holiday.Region</span>
                                                         </a>
 
                                                         @if (totalApplied > 0)
@@ -408,7 +447,9 @@
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-primary announcementSubmit">Submit</button>
+                <div id="announcementMessage" style="display: none; margin-top: 10px;"></div>
             </div>
+
         </div>
     </div>
 </div>
@@ -430,14 +471,16 @@
                             Drag and drop files or Browse<br>
                             Supported formats: .PDF
                         </label>
-                        <input type="file" id="handbook-file-upload-input" accept=".xlsx" onchange="handleHandbookFileUpload(this)">
+                        <input type="file" id="handbook-file-upload-input" accept=".pdf" onchange="handleHandbookFileUpload(this)">
                     </div>
 
+                    <!-- Error message container -->
                     <div class="handbook-uploaded-file" id="handbook-uploaded-file-info" style="display: none;">
-                        <p style="color: green; font-size: 13px;" id="handbook-uploaded-file-text"></p>
+                        <p style="color: red; font-size: 13px;" id="handbook-uploaded-file-text"></p>
                     </div>
                 </form>
             </div>
+
             <div class="modal-footer">
                 <div class="handnook-uploaded-file-test"></div>
                 <div class="handnook-uploaded-file-details">
@@ -449,6 +492,8 @@
         </div>
     </div>
 </div>
+
+
 
 <script>
     $(document).ready(function () {
@@ -465,7 +510,7 @@
                 $('.announcementFile').hide();
             }
             console.log("Announcement File validation passed.");
-            
+
         });
 
         $('.admin-leave-request').on('click', function () {
@@ -482,6 +527,152 @@
             $('.admin-todays-leave-details').css({ 'display': 'block' });
         });
 
-    });    
+    });
+
+
+
+    function handleHandbookFileUpload(input) {
+        const file = input.files[0];
+        const maxSize = 2 * 1024 * 1024;
+
+        if (file) {
+            if (file.size > maxSize) {
+                $("#handbook-uploaded-file-info").show();
+                $("#handbook-uploaded-file-text").text("The file size is too large. Please upload a file smaller than 2MB.").css("color", "red");
+                $(".handbook-uploaded-file-name").text("");
+                input.value = "";
+            } else {
+                $(".handbook-uploaded-file-name").text(file.name);
+                $("#handbook-uploaded-file-info").show();
+                $("#handbook-uploaded-file-text").text("File selected: " + file.name).css("color", "black");
+                $("#handbook-uploaded-file-info").hide();
+            }
+        } else {
+            $("#handbook-uploaded-file-info").hide();
+        }
+    }
+
+
+
+    $(document).on("click", ".uploadHandbooktSubmit", function () {
+        const fileInput = $("#handbook-file-upload-input");
+        const file = fileInput[0].files[0];
+
+        if (!file) {
+            $("#handbook-uploaded-file-info").text("Please upload a file.").css("color", "red").show();
+            return;
+        }
+
+        $("#handbook-uploaded-file-info").hide();
+        $(".handbook-uploaded-file-name").text(file.name);
+
+        $(".handnook-uploaded-file-details").show();
+
+        const formData = new FormData();
+        formData.append("file", file);
+        $.ajax({
+            url: '/admindash/uploadhandbook',
+            type: 'POST',
+            data: formData,
+            processData: false,
+            contentType: false,
+            success: function (response) {
+                if (response.success) {
+                    $(".handnook-uploaded-file-test").text(response.message).css("color", "green").show();
+                } else {
+                    $(".handnook-uploaded-file-test").text("Error: " + response.message).css("color", "red").show();
+                }
+            },
+            error: function () {
+                $(".handnook-uploaded-file-test").text("An error occurred while uploading the file.").css("color", "red").show();
+            }
+        });
+    });
+
+    $('#uploadHandbookModal').on('show.bs.modal', function () {
+        $("#handbook-file-upload-input").val("");
+        $("#handbook-uploaded-file-info").hide();
+        $(".handnook-uploaded-file-test").text("").hide();
+        $(".handnook-uploaded-file-details").show();
+        $(".handbook-uploaded-file-name").text("");
+    });
+
+
+    $(document).on("click", ".announcementSubmit", function () {
+        const announcementLocation = $("#announcementLocationName").val();
+        const announcementSubject = $("#announcementSubject").val();
+        const announcementDescription = $("#announcementDescription").val();
+
+        let isValid = true;
+
+        if (!announcementLocation) {
+            $("#announcementLocationName").addClass("is-invalid");
+            $("#announcementLocationName").next(".invalid-feedback").text("Location is required.").show();
+            isValid = false;
+        } else {
+            $("#announcementLocationName").removeClass("is-invalid");
+            $("#announcementLocationName").next(".invalid-feedback").hide();
+        }
+
+        if (!announcementSubject) {
+            $("#announcementSubject").addClass("is-invalid");
+            $("#announcementSubject").next(".invalid-feedback").text("Subject is required.").show();
+            isValid = false;
+        } else {
+            $("#announcementSubject").removeClass("is-invalid");
+            $("#announcementSubject").next(".invalid-feedback").hide();
+        }
+
+        if (!announcementDescription) {
+            $("#announcementDescription").addClass("is-invalid");
+            $("#announcementDescription").next(".invalid-feedback").text("Description is required.").show();
+            isValid = false;
+        } else {
+            $("#announcementDescription").removeClass("is-invalid");
+            $("#announcementDescription").next(".invalid-feedback").hide();
+        }
+
+        if (isValid) {
+            const formData = new FormData();
+            formData.append("Location", announcementLocation);
+            formData.append("Subject", announcementSubject);
+            formData.append("Description", announcementDescription);
+            formData.append("File", $("#AnnouncementFile")[0].files[0] || null);
+
+            $.ajax({
+                url: '/admindash/createAnnouncement',
+                type: 'POST',
+                data: formData,
+                processData: false,
+                contentType: false,
+                success: function (response) {
+                    const messageDiv = $("#announcementMessage");
+                    if (response.success) {
+                        messageDiv.text("Announcement created successfully!").css("color", "green").show();
+                        $(".announcementSubmit").prop("disabled", true);  // Disable the submit button
+                    } else {
+                        messageDiv.text("Error: " + response.message).css("color", "red").show();
+                    }
+                },
+                error: function () {
+                    const messageDiv = $("#announcementMessage");
+                    messageDiv.text("An error occurred while creating the announcement.").css("color", "red").show();
+                }
+            });
+        }
+    });
+
+
+    $('#createAnnouncementModal').on('show.bs.modal', function () {
+        $('#announcementLocationName').val('').removeClass('is-invalid');
+        $('#announcementSubject').val('').removeClass('is-invalid');
+        $('#announcementDescription').val('').removeClass('is-invalid');
+        $('#AnnouncementFile').val('').removeClass('is-invalid');
+        $('.announcementFile').hide().attr('href', '').text('');
+        $('.invalid-feedback').hide();
+        $('#announcementMessage').hide().text('');
+    });
+
+
 
 </script>

@@ -72,3 +72,67 @@
 </div>
 
 
+<script>
+    function downloadJobTemplate() {
+        var link = document.createElement('a');
+        link.href = '/assets/templates/JobImportSample.xlsx';
+        link.download = 'JobImportSample.xlsx';
+        document.body.appendChild(link);
+        link.click();
+        document.body.removeChild(link);
+    }
+
+
+    let uploadedFile = null;;
+
+    function handleJobFileUpload(input) {
+        uploadedFile = input.files[0];
+        if (uploadedFile) {
+            document.getElementById("job-uploaded-file-info").style.display = "block";
+            document.getElementById("job-uploaded-file-text").innerText = `Uploaded File: ${uploadedFile.name}`;
+        } else {
+            alert("Please select a file.");
+        }
+    }
+
+
+    function submitFile() {
+        if (!uploadedFile) {
+            alert("Please upload a file before submitting.");
+            return;
+        }
+
+        const formData = new FormData();
+        formData.append("file", uploadedFile);
+
+        $.ajax({
+            url: '/admindash/jobimport',
+            method: 'POST',
+            data: formData,
+            contentType: false,
+            processData: false,
+            success: function (response) {
+                if (response.success) {
+                    $("#importSuccessModal").modal("show");
+                    document.getElementById('uploaded-file-info').style.display = 'none';
+                    uploadedFile = null;
+                } else {
+                    alert("Error: " + response.message);
+                }
+            },
+            error: function (xhr, status, error) {
+                console.error("Error:", error);
+                alert("An error occurred while importing holidays.");
+            }
+        });
+    }
+
+
+   
+    $(document).on('click', '.refresh-jobupload', function () {
+        event.preventDefault();
+        window.location.href = "/admindashboard/adminjoblisting";
+        return;
+    });
+
+</script>

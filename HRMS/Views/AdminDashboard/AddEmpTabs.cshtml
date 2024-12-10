@@ -1069,7 +1069,7 @@
 
 $(document).ready(function () {
     let rowCount = @Model.ClientRows.Count();
-    $(".client-row").click(function () {
+    $(document).on("click", ".client-row", function () {   
         rowCount++;
         var newRow = $(".EmpClientDetails-1").first().clone().attr("id", "clientRow" + rowCount);
         newRow.find("select, input").each(function () {

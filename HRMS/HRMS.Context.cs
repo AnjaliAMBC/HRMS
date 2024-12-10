@@ -54,5 +54,7 @@ namespace HRMS
         public virtual DbSet<TimeSheet> TimeSheets { get; set; }
         public virtual DbSet<emp_info> emp_info { get; set; }
         public virtual DbSet<EmployeeBasedClient> EmployeeBasedClients { get; set; }
+        public virtual DbSet<HandBook> HandBooks { get; set; }
+        public virtual DbSet<HRAnnouncement> HRAnnouncements { get; set; }
     }
 }
