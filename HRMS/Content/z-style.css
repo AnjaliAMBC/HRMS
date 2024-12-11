@@ -6111,11 +6111,16 @@ input[type=checkbox], input[type=radio] {
 
 
 /*-----Admin Job refferal Page Style sheet starting here ------*/
+
 .admin-jobreferral-list {
     background: white;
     height: 100vh;
     padding: 0 10px 25px 0px;
 }
+
+    .admin-jobreferral-list .admin-jobreferral-header {
+        margin: 0 0px;
+    }
 
     .admin-jobreferral-list .main-content {
         margin-left: 0;
@@ -6327,13 +6332,23 @@ width: 100%;*/
     margin-right: 10px;
 }
 
+.admin-jobreferal-data-options i{
+    font-size: smaller;
+    height: 20px;
+    width: 20px;
+    text-align: center;
+    line-height: 1rem;
+    color: gray;
+    cursor: pointer;
+}
+
 .admin-jobreferal-data-block {
     position: relative;
 }
 
 .admin-jobreferal-dataoptions {
     display: none;
-    left: 86%;
+    left: 83%;
     cursor: pointer;
     position: absolute;
     background-color: white;
@@ -6341,7 +6356,8 @@ width: 100%;*/
     box-shadow: 0 2px 5px rgba(0, 0, 0, 0.15);
     z-index: 1000;
     margin-top: 0px;
-    width: 55px;
+    /*width: 55px;*/
+    padding: 5px;
 }
 
     .admin-jobreferal-dataoptions a {
@@ -6371,6 +6387,19 @@ width: 100%;*/
 {
     width:86%;
 }
+
+.adminadd-postjob .admin-postjob-title {
+    margin-left: 15px;
+}
+
+#adminJobReferralProcessModal .modal-body {
+    padding: 10px 0;
+}
+
+#adminJobReferralProcessModal #admin_candidatelist_jobreferal_wrapper {
+    padding: 0;
+}
+
 /*----Admin job referal style sheet ends here----*/
 /*-----Admin Job referal Details style sheet starts here-----*/
 .admin-jobreferral-detail-horizon {
