@@ -34,22 +34,25 @@
                                 <!-- Leave Request Section -->
                                 <div class="card leave-requests mx-2 my-card">
                                     <div class="card-header leave-request-Page">
-                                        @{
-                                            var today = DateTime.Today;
+                                        <div class="leave-request-header-block">
+                                            @{
+                                                var today = DateTime.Today;
 
-                                            // Filter leaves for "Leave Requests" based on admin locations
-                                            var filteredLeaveRequests = adminLocations.Any()
-                                                ? Model.AllEMployeeLeaves.Where(x => adminLocations.Contains(x.LatestLeave.Location))
-                                                : Model.AllEMployeeLeaves;
+                                                // Filter leaves for "Leave Requests" based on admin locations
+                                                var filteredLeaveRequests = adminLocations.Any()
+                                                    ? Model.AllEMployeeLeaves.Where(x => adminLocations.Contains(x.LatestLeave.Location))
+                                                    : Model.AllEMployeeLeaves;
 
-                                            // Calculate count for "Today's Leave"
-                                            var todaysLeaveCount = Model.AllEMployeeLeaves
-                                                .Count(x => x.LatestLeave.Fromdate.HasValue && x.LatestLeave.Todate.HasValue &&
-                                                            today >= x.LatestLeave.Fromdate.Value.Date &&
-                                                            today <= x.LatestLeave.Todate.Value.Date);
-                                        }
-                                        <span class="admin-leave-request active">Leave Request (@filteredLeaveRequests.Count())</span> |
-                                        <span class="admin-today-leave">Todays Leave (@todaysLeaveCount)</span>
+                                                // Calculate count for "Today's Leave"
+                                                var todaysLeaveCount = Model.AllEMployeeLeaves
+                                                    .Count(x => x.LatestLeave.Fromdate.HasValue && x.LatestLeave.Todate.HasValue &&
+                                                                today >= x.LatestLeave.Fromdate.Value.Date &&
+                                                                today <= x.LatestLeave.Todate.Value.Date);
+                                            }
+                                            <span class="admin-leave-request active">Leave Request (@filteredLeaveRequests.Count())</span> |
+                                            <span class="admin-today-leave">Todays Leave (@todaysLeaveCount)</span>
+                                        </div>
+                                        
 
                                     </div>
                                     <div class="card-body admindash_card scrollbar p-2">
@@ -149,7 +152,7 @@
                                                             <div class="col-lg-1 col-md-1 col-sm-2 admin-todays-leave-left">
                                                                 <img class="userIcon" src="@empImagePath" alt="@leave.LatestLeave.employee_name">
                                                             </div>
-                                                            <span class="col-lg-7 col-md-7 col-sm-5 admin-todays-leave-mid">
+                                                            <span class="col-lg-7 col-md-7 col-sm-7 admin-todays-leave-mid">
                                                                 <div class="admin-itodays-leave-userinfo">@leave.LatestLeave.employee_name</div>
                                                                 <div class="admin-todays-leave-date">
                                                                     @leave.LatestLeave.leavesource | @leave.LatestLeave.Fromdate.Value.ToString("dd-MM-yyyy") to @leave.LatestLeave.Todate.Value.ToString("dd-MM-yyyy")
