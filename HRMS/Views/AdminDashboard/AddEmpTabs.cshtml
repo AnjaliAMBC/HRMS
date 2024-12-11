@@ -486,12 +486,16 @@
                     <div id="clientRowsContainer">
                         @for (int i = 0; i < Model.ClientsFromDB.Count(); i++)
                         {
+                            var requiredIndex = i + 1;
                             var clientRow = Model.ClientsFromDB[i];
-                            <div class="row EmpClientDetails-@i" id="clientRow@i">
+                            <div class="row EmpClientDetails-@requiredIndex" id="clientRow@i">
                                 <div class="col-lg-3 col-md-6">
                                     <div class="form-group tabs-general drop-menu">
                                         <label for="Client@i">Client</label>
-                                        <select class="form-control row-selected-client" id="Client@i" name="Client" required>
+                                        @{
+                                            var clientID = "Client" + @requiredIndex;
+                                        }
+                                        <select class="form-control row-selected-client" id="" name="@clientID" required>
                                             <option value="">Select Client</option>
                                             @foreach (var client in Model.Clients)
                                             {
@@ -506,21 +510,30 @@
                                 <div class="col-lg-3 col-md-6">
                                     <div class="form-group tabs-general">
                                         <label for="ProjectName@i">Project Name</label>
-                                        <input type="text" class="form-control row-selected-project" id="ProjectName@i" value="@clientRow.ProjectName" required>
+                                        @{
+                                            var ProjectNameID = "ProjectName" + @requiredIndex;
+                                        }
+                                        <input type="text" class="form-control row-selected-project" id="@ProjectNameID" value="@clientRow.ProjectName" required>
                                         <div class="invalid-feedback">Please enter Project Name.</div>
                                     </div>
                                 </div>
                                 <div class="col-lg-3 col-md-6">
                                     <div class="form-group tabs-general">
                                         <label for="Role@i">Project Role</label>
-                                        <input type="text" class="form-control row-selected-role" id="Role@i" value="@clientRow.Role1" required>
+                                        @{
+                                            var RoleID = "Role" + @requiredIndex;
+                                        }
+                                        <input type="text" class="form-control row-selected-role" id="@RoleID" value="@clientRow.Role1" required>
                                         <div class="invalid-feedback">Please enter Role.</div>
                                     </div>
                                 </div>
                                 <div class="col-lg-3 col-md-6">
                                     <div class="form-group tabs-general">
                                         <label for="ReportingManager@i">Project Reporting Manager</label>
-                                        <input type="text" class="form-control row-selected-rolemanager" id="ReportingManager@i" value="@clientRow.ReportingManager" required>
+                                        @{
+                                            var ReportingManagerID = "ReportingManager" + @requiredIndex;
+                                        }
+                                        <input type="text" class="form-control row-selected-rolemanager" id="@ReportingManagerID" value="@clientRow.ReportingManager" required>
                                         <div class="invalid-feedback">Please enter Reporting Manager.</div>
                                     </div>
                                 </div>
@@ -529,7 +542,10 @@
                                 <div class="col-lg-3 col-md-6">
                                     <div class="form-group tabs-general drop-menu">
                                         <label for="Status@i">Status</label>
-                                        <select class="form-control row-selected-status" id="Status@i" name="Status" required>
+                                        @{
+                                            var StatusID = "Status" + @requiredIndex;
+                                        }
+                                        <select class="form-control row-selected-status" id="@StatusID" name="Status" required>
                                             <option value="">Select Status</option>
                                             <option value="Active" @(clientRow.EmployeeStatus == "Active" ? "selected" : "")>Active</option>
                                             <option value="Inactive" @(clientRow.EmployeeStatus == "Inactive" ? "selected" : "")>Inactive</option>
@@ -1068,8 +1084,8 @@
 <script>
 
 $(document).ready(function () {
-    let rowCount = @Model.ClientRows.Count();
-    $(document).on("click", ".client-row", function () {   
+    let rowCount = @Model.ClientsFromDB.Count();
+    $(document).on("click", ".client-row", function () {
         rowCount++;
         var newRow = $(".EmpClientDetails-1").first().clone().attr("id", "clientRow" + rowCount);
         newRow.find("select, input").each(function () {

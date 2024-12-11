@@ -53,8 +53,17 @@
                         </div>
                     </div>
                     <div class="emp-timesheet-header-block-right">
-                        <button type="button" class="btn btn-primary timesheet-enter">Enter Timesheet</button>
+                        <form id="timesheet-form" method="post" action="/timesheet/entertimesheet">
+                            <input type="hidden" id="clientHidden" name="client" value="">
+                            <input type="hidden" id="startdateHidden" name="startdate" value="">
+                            <input type="hidden" id="enddateHidden" name="enddate" value="">
+                            <button type="submit" class="btn btn-primary timesheet-enter">Enter Timesheet</button>
+                        </form>
                     </div>
+
+                    @*<div class="emp-timesheet-header-block-right">
+                            <button type="button" class="btn btn-primary timesheet-enter">Enter Timesheet</button>
+                        </div>*@
                 </div>
 
                 <div class="emp-timesheet-graph-block">
