@@ -36,26 +36,26 @@ namespace HRMS.Helpers
             switch (assetType)
             {
                 case "Laptop":
-                    return "~/Assets/01_Laptop.png";
+                    return "/Assets/01_Laptop.png";
                 case "Mouse":
-                    return "~/Assets/01_Mouse.png";
+                    return "/Assets/01_Mouse.png";
                 case "Headset":
-                    return "~/Assets/Headset.png";
+                    return "/Assets/Headset.png";
                 case "Keyboard":
-                    return "~/Assets/01_Keyboard.png";
+                    return "/Assets/01_Keyboard.png";
                 case "Monitor":
-                    return "~/Assets/01_Desktop.png";
+                    return "/Assets/01_Desktop.png";
                 case "CPU":
-                    return "~/Assets/01_CPU.png";
+                    return "/Assets/01_CPU.png";
                 case "Power Cable":
-                    return "~/Assets/PowerCable.png";
+                    return "/Assets/PowerCable.png";
                 case "Charger":
-                    return "~/Assets/Charger.png";
+                    return "/Assets/Charger.png";
                 case "UPS":
-                    return "~/Assets/UPS.png";
+                    return "/Assets/UPS.png";
                 case "Others":
                 default:
-                    return "~/Assets/Others.png";
+                    return "/Assets/Others.png";
             }
         }
     }

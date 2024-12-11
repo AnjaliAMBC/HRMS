@@ -59,7 +59,8 @@
         <select class="form-control selected-timesheet-client" id="entertimesheetClientName" disabled>
             @foreach (var client in Model.SiteContext.EmpBasedClients)
             {
-                <option value="@client.Client">@client.Client</option>
+                var selected = @client.Client == Model.Client ? "selected" : "";
+                <option value="@client.Client" @selected>@client.Client</option>
             }
 
         </select>

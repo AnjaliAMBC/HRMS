@@ -1,9 +1,46 @@
-﻿$(document).on('click', '.timesheet-enter', function (event) {
+﻿////$(document).on('click', '.timesheet-enter', function (event) {
+////    event.preventDefault();
+////    var client = $('#viewtimesheetclient').val();
+////    window.location.href = "/timesheet/entertimesheet?client=" + client;
+////    return;
+////});
+
+
+//$(document).on('click', '.timesheet-enter', function (event) {
+//    event.preventDefault();
+//    var client = $('#viewtimesheetclient').val();
+//    // Store client data in TempData via AJAX
+//    $.ajax({
+//        url: '/timesheet/entertimesheet', // Controller action to set TempData
+//        type: 'POST',
+//        data: { client: client },
+//        success: function () {
+//            window.location.href = "/timesheet/entertimesheet"; // Redirect without query strings
+//            return;
+//        }
+//    });
+//});
+
+$(document).on('click', '.timesheet-enter', function (event) {
     event.preventDefault();
+
+    // Get the selected client
     var client = $('#viewtimesheetclient').val();
-    window.location.href = "/timesheet/entertimesheet?client=" + client;
-    return;
+
+    // Get the week start and end dates from the HTML
+    var weekStart = $('#view-week-start').text().trim(); // 02 December 2024
+    var weekEnd = $('#view-week-end').text().trim();   // 08 December 2024
+
+    // Set the hidden input fields with the necessary values
+    $('#clientHidden').val(client);
+    $('#startdateHidden').val(weekStart);
+    $('#enddateHidden').val(weekEnd);
+
+    // Submit the form to the action
+    $('#timesheet-form').submit();
 });
+
+
 
 
 $(document).ready(function () {

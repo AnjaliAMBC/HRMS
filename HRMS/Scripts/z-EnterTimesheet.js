@@ -59,6 +59,16 @@ $(document).ready(function () {
         var firstRow = $('div.emp-entertimesheet-fields[data-dayuniquekey="' + dayUniqueKey + '"]').first();
         var isValid = true;
 
+        var selectedDateObj = new Date(selectedDate);
+
+        // Set the time components to 00:00:00 UTC (Midnight UTC)
+        selectedDateObj.setUTCHours(0, 0, 0, 0);
+
+        // Format the date to 'yyyy-MM-dd' (keeping it in UTC format)
+        var formattedDate = selectedDateObj.toISOString().split('T')[0];
+
+
+
         // Define a variable to calculate the total hours spent
         let totalHoursSpent = 0;
 
@@ -106,7 +116,7 @@ $(document).ready(function () {
                 EmployeeID: $('.loggedinempid').text(),
                 EmployeeName: $('.loggedinempname').text(),
                 EmployeeEmail: $('.loggedinempemail').text(),
-                Date: selectedDate,
+                Date: formattedDate,
                 Category: timesheetData.find('.timesheet-entertimesheetCategory').val(),
                 IncidentTaskName: timesheetData.find('.timesheet-entertimesheetTaskName').val(),
                 IncidentTaskDescription: timesheetData.find('.timesheet-entertimesheetTaskDesc').val(),
@@ -124,7 +134,7 @@ $(document).ready(function () {
             };
             if (hoursSpentInput > 0) {
                 timesheetList.push(data);
-            }          
+            }
         });
 
 
@@ -151,6 +161,7 @@ $(document).ready(function () {
                 contentType: 'application/json',
                 data: JSON.stringify(timesheetList),
                 success: function (response) {
+                    AddRowColors();
                     console.log('Timesheet data submitted successfully!', response);
                     showMessageInModal(
                         `Timesheet data saved successfully!`,
@@ -302,6 +313,30 @@ $(document).ready(function () {
         updateWeek(nextWeekStart);
     });
 });
+
+function AddRowColors() {
+    $(".emp-entertimesheet-fields").each(function () {
+        // Check each input field
+        $(this).find("input[type='text']").each(function () {
+            const value = $(this).val().trim();
+            // Add the class only if the value is not empty and not '0'
+            if (value !== "" && value !== "0") {
+                $(this).addClass("filled-field");
+            } else {
+                $(this).removeClass("filled-field"); // Remove the class if the field is empty or '0'
+            }
+        });
+
+        // Check each select field
+        $(this).find("select").each(function () {
+            if ($(this).val().trim() !== "") {
+                $(this).addClass("filled-field");
+            } else {
+                $(this).removeClass("filled-field");
+            }
+        });
+    });
+}
 
 
 //let currentRow = 5; 

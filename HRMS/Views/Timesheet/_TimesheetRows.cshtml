@@ -75,8 +75,7 @@ timeSheetSubmitted = timeSheet.submissionstatus == "Submitted";
 
             @foreach (var category in Model.DaySpecifcInfo.Categories)
             {
-<option value="@category.CategoryName" @(timeSheet.Category == @category.CategoryName ? "selected" : "")>@category.CategoryName</option>
-}
+<option value="@category.CategoryName" @(timeSheet.Category == @category.CategoryName ? "selected" : "")>@category.CategoryName</option>}
 
         </select>
     </div>
@@ -150,32 +149,12 @@ timeSheetSubmitted = timeSheet.submissionstatus == "Submitted";
             <i class="fa-solid fa-plus"></i>Add Task
         </button>
     </div>
-    <div class="emp-entertimesheet-save emp-entertimesheet-save-@Model.IndexNumber"><button type="button" class="btn btn-primary btn-save-timesheet" data-maxallaowedhours="@allowedHours" data-weeknumber="@Model.Weeknumber" data-dayindexnumber="@Model.IndexNumber" data-blocknumber="@Model.BlockNumber" data-daydate="@Model.Date.ToString("dd-MM-yyyy")" data-dayuniquekey="@Model.Date.ToString("dd-MM-yyyy")-@Model.IndexNumber" @isButtonsDisabled>Save</button></div>
+    <div class="emp-entertimesheet-save emp-entertimesheet-save-@Model.IndexNumber"><button type="button" class="btn btn-primary btn-save-timesheet" data-maxallaowedhours="@allowedHours" data-weeknumber="@Model.Weeknumber" data-dayindexnumber="@Model.IndexNumber" data-blocknumber="@Model.BlockNumber" data-daydate="@Model.Date.ToString("yyyy-MM-dd")" data-dayuniquekey="@Model.Date.ToString("dd-MM-yyyy")-@Model.IndexNumber" @isButtonsDisabled>Save</button></div>
 </div>
 <script>
 
     $(document).ready(function () {
-        $(".emp-entertimesheet-fields").each(function () {
-            // Check each input field
-            $(this).find("input[type='text']").each(function () {
-                const value = $(this).val().trim();
-                // Add the class only if the value is not empty and not '0'
-                if (value !== "" && value !== "0") {
-                    $(this).addClass("filled-field");
-                } else {
-                    $(this).removeClass("filled-field"); // Remove the class if the field is empty or '0'
-                }
-            });
-
-            // Check each select field
-            $(this).find("select").each(function () {
-                if ($(this).val().trim() !== "") {
-                    $(this).addClass("filled-field");
-                } else {
-                    $(this).removeClass("filled-field");
-                }
-            });
-        });
+        AddRowColors();
     });
 
 
