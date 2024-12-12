@@ -377,5 +377,10 @@ namespace HRMS.Controllers
             return Json(new { success = true, message = "Announcement created successfully!" });
         }
 
+        
+        public ActionResult AdminSefservice()
+        {
+            return View("/Views/AdminDashboard/AdminSelfService.cshtml");
+        }
     }
 }

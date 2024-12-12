@@ -201,9 +201,26 @@ $(document).ready(function () {
 
         var timeIn = $('#datetimepicker1').val();
         var timeOut = $('#datetimepicker2').val();
-        formData.append('TimeIn', timeIn);
-        formData.append('TimeOut', timeOut);
 
+        if (!timeIn || !timeOut || new Date(`1970-01-01T${timeOut}`) <= new Date(`1970-01-01T${timeIn}`)) {
+            isValid = false;
+            if (!timeIn) {
+                $('#datetimepicker1').after('<span class="error-message text-danger">Please enter a valid Time In.</span>');
+                $('#datetimepicker1').addClass('is-invalid');
+            }
+            if (!timeOut) {
+                $('#datetimepicker2').after('<span class="error-message text-danger">Please enter a valid Time Out.</span>');
+                $('#datetimepicker2').addClass('is-invalid');
+            } else {
+                $('#datetimepicker2').after('<span class="error-message text-danger">Time Out should be greater than Time In.</span>');
+                $('#datetimepicker2').addClass('is-invalid');
+            }
+        } else {
+            formData.append('TimeIn', timeIn);
+            formData.append('TimeOut', timeOut);
+        }
+
+        if (!isValid) return false;
 
         if (isValid) {
             $.ajax({
@@ -246,6 +263,16 @@ $(document).ready(function () {
     });
 });
 
+
+$('#datetimepicker1, #datetimepicker2').on('input', function () {
+    var timeIn = $('#datetimepicker1').val();
+    var timeOut = $('#datetimepicker2').val();
+
+    if (timeIn && timeOut && new Date(`1970-01-01T${timeOut}`) > new Date(`1970-01-01T${timeIn}`)) {
+        $('#datetimepicker1, #datetimepicker2').removeClass('is-invalid');
+        $('.error-message').remove(); // Remove the error message
+    }
+});
 
 $('#addmaintenanceinfo-popup').on('show.bs.modal', function () {
     $('#multiSelectDropdown').val(null).trigger('change');
