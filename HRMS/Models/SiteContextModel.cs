@@ -15,6 +15,9 @@ namespace HRMS.Models
 
         public bool IsAccountAdmin { get; set; } = false;
         public bool IsITAdmin { get; set; } = false;
+
+        public bool IsHiringAdmin { get; set; } = false;
+        public bool IsTimeAdmin { get; set; } = false;
         public List<EmployeeBasedClient> EmpBasedClients { get; set; } = new List<EmployeeBasedClient>();
         //public CheckInDetails empLastDayCheckInDetails { get; set; } = new CheckInDetails();
     }

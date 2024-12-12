@@ -37,7 +37,7 @@
                                     <option value="MonthlyReport">Monthly Report</option>
                                 </select>
                             </span>
-                            <button type="button" class="btn btn-primary btn-admin-timesheet-sendremainder" data-toggle="modal" data-target="#adminTimesheetSendRemainderModal"><img src="~/Assets/remainder-icon.png">Send Remainder</button>
+                            <button type="button" class="btn btn-primary btn-admin-timesheet-sendremainder"><img src="~/Assets/remainder-icon.png">Send Remainder</button>
                         </div>
                     </div>
 
@@ -391,6 +391,7 @@
                 endDate = weekData.endDate;
                 weekNumber = getWeekNumber(startDate);
                 $('#admin-view-week-number').text('Week ' + weekNumber);
+                $('.admin-timesheet-block1').attr("data-weeknumber", weekNumber);
             } else {
 
                 startDate = new Date(date.getFullYear(), date.getMonth(), 1);
@@ -529,24 +530,37 @@
 
         $(document).on('click', '.btn-admin-timesheet-sendremainder', function () {
             var weekNumber = $('.admin-timesheet-block1').data("weeknumber");
-            const client = $("#admintimesheetCompany").val();
-            $('#adminTimesheetSendRemainderModal').modal("show");
-            $.ajax({
-                url: '/timesheet/timesheetremainders',
-                type: 'GET',
-                data: { client: client, weekNumber: weekNumber },
-                beforeSend: function () {
-                    $('.show-progress').show();
-                },
-                success: function (response) {
-                    $('.admin-timesheetsendremainder-body').html(response);
-                    loadTimesheetRemainderTable();
-                    $('.show-progress').hide();
-                },
-                error: function () {
-                    $('.show-progress').hide();
-                }
-            });
+            const clientField = $("#admintimesheetCompany");
+            const client = clientField.val();
+
+            // Check if client value is empty
+            if (!client) {
+                // Add a red border to indicate error
+                clientField.css("border", "1px solid red");
+                clientField.focus();
+                $('#adminTimesheetSendRemainderModal').modal("hide");
+                return; // Exit the function to prevent the AJAX call
+            } else {               
+                clientField.css("border", "");
+              
+                $.ajax({
+                    url: '/timesheet/timesheetremainders',
+                    type: 'GET',
+                    data: { client: client, weekNumber: weekNumber },
+                    beforeSend: function () {
+                        $('.show-progress').show();
+                    },
+                    success: function (response) {
+                        $('.admin-timesheetsendremainder-body').html(response);
+                        loadTimesheetRemainderTable();
+                        $('#adminTimesheetSendRemainderModal').modal("show");
+                        $('.show-progress').hide();
+                    },
+                    error: function () {
+                        $('.show-progress').hide();
+                    }
+                });
+            }
         });
 
         $('#adminTimesheetSendRemainderSubmitButton').click(function () {
@@ -597,6 +611,8 @@
                 });
             }
         });
+
+
 
 
         $(document).on('change', '#admintimesheetCompany', function () {

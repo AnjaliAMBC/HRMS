@@ -166,7 +166,7 @@ else
                     type: "stackedColumn",
                     name: "Hours Spent",
                     showInLegend: false,
-                    color: "#33FF57",
+                    color: "#92d050",
                     yValueFormatString: "#,##0 h",
                     dataPoints: dataPoints4
                 },
@@ -174,7 +174,7 @@ else
                     type: "stackedColumn",
                     name: "Overtime",
                     showInLegend: false,
-                    color: "#50aced",
+                    color: "#00B4F2",
                     yValueFormatString: "#,##0 h",
                     dataPoints: dataPoints5
                 }
@@ -224,7 +224,7 @@ else
                 type: "stackedColumn",
                 name: "Total Hours",
                 showInLegend: true,
-                color: "#33FF57",
+                color: "#92d050",
                 yValueFormatString: "#,##0 h",
                 dataPoints: dataPoints1
             },
@@ -232,7 +232,7 @@ else
                 type: "stackedColumn",
                 name: "Overtime Hours",
                 showInLegend: true,
-                color: "#FF5733",
+                color: "#00B4F2",
                 yValueFormatString: "#,##0 h",
                 dataPoints: dataPoints2
             },
@@ -271,8 +271,8 @@ else
     var xValues = ["Hours Spent", "Overtime"];
     var yValues = [@totalHoursSpent, @totalOverTime];
     var barColors = [
-        "#33FF57",
-        "#50aced"
+        "#92d050",
+        "#00B4F2"
     ];
 
     var attendanceChart = new Chart("admin-timesheet-attendance", {
