@@ -53,7 +53,7 @@ function validateAndSubmitForm() {
     var form = document.getElementById('subscriptionadd-form');
     var isValid = true;
 
-
+    // Validate required fields and check for other conditions
     $(form).find('input[required], select[required], textarea[required]').each(function () {
         if (!this.checkValidity()) {
             $(this).addClass('is-invalid');  // Add red border to invalid fields
@@ -62,6 +62,21 @@ function validateAndSubmitForm() {
             $(this).removeClass('is-invalid');  // Remove red border from valid fields
         }
     });
+
+    // Validate that Renewal Date is greater than Purchase Date
+    var purchaseDate = $('#SubscriptionPurchasedate').val();
+    var renewalDate = $('#SubscriptionRenewaldate').val();
+
+    if (purchaseDate && renewalDate) {
+        if (new Date(renewalDate) <= new Date(purchaseDate)) {
+            // If Renewal Date is not greater than Purchase Date
+            $('#SubscriptionRenewaldate').addClass('is-invalid').removeClass('is-valid');
+            isValid = false;
+        } else {
+            // If Renewal Date is greater than Purchase Date
+            $('#SubscriptionRenewaldate').addClass('is-valid').removeClass('is-invalid');
+        }
+    }
 
     if (isValid) {
         var formData = new FormData(); // Gather form data, including files
@@ -80,7 +95,7 @@ function validateAndSubmitForm() {
         formData.append("EditRecordID", $('#SubscriptionID').val().replace("S#", ""));
         formData.append("IsNewSubscription", $('.isnewsubscription').text());
 
-
+        // Ajax call for form submission
         $.ajax({
             url: '/Subscription/AddUpdateSubscription',
             type: 'POST',
@@ -115,16 +130,26 @@ function validateAndSubmitForm() {
         }, 1000);
     }
 }
-// Function to clear the form fields
+
+// Date validation: On change, check if Renewal Date is greater than Purchase Date
+$('#SubscriptionPurchasedate, #SubscriptionRenewaldate').on('change', function () {
+    var purchaseDate = $('#SubscriptionPurchasedate').val();
+    var renewalDate = $('#SubscriptionRenewaldate').val();
+
+    if (purchaseDate && renewalDate) {
+        if (new Date(renewalDate) <= new Date(purchaseDate)) {
+            $('#SubscriptionRenewaldate').addClass('is-invalid').removeClass('is-valid');
+        } else {
+            $('#SubscriptionRenewaldate').addClass('is-valid').removeClass('is-invalid');
+        }
+    }
+});
 function clearForm() {
     var form = document.getElementById('subscriptionadd-form');
     form.reset();
     $(form).find('.is-invalid').removeClass('is-invalid');
 }
-//edit logic
 
-
-//export functionality 
 
 function exportSubscriptioninfo() {
     var selectedSubscriptions = [];
