@@ -148,7 +148,7 @@
                         </div>
                     </li>
                 }
-                @if (currentContext.IsAdmin || currentContext.IsSuperAdmin)
+                @if (currentContext.IsAdmin || currentContext.IsSuperAdmin || currentContext.IsHiringAdmin)
                 {
                     <li class="mb-2 @(pageUrlPath.Contains("/AdminDashboard/AdminJobListing") ? "active sidebaractive" : "")">
                         <a href="/AdminDashboard/AdminJobListing" class="@(pageUrlPath == "/AdminDashboard/AdminJobListing" ? "active" : "")">
@@ -156,7 +156,7 @@
                         </a>
                     </li>
                 }
-                @if (currentContext.IsAdmin || currentContext.IsSuperAdmin)
+                @if (currentContext.IsAdmin || currentContext.IsSuperAdmin || currentContext.IsTimeAdmin)               
                 {
                     <li class="mb-2 @(pageUrlPath.Contains("/timesheet/admintimesheet") ? "active sidebaractive" : "")">
                         <a href="/timesheet/admintimesheet" class="@(pageUrlPath == "/timesheet/admintimesheet" ? "active" : "")">
@@ -174,7 +174,6 @@
         <div class="sidebar" style="">
             <div class="sidebar-header mt-4">
                 <div class="bl">
-
                     @if (!string.IsNullOrWhiteSpace(currentContext.EmpInfo.imagepath))
                     {
                         var empImageURl = System.Configuration.ConfigurationManager.AppSettings["EmpImagesFolder"] + "/" + currentContext.EmpInfo.imagepath + "?" + System.DateTime.Now;
@@ -289,7 +288,7 @@
                         </div>
                     </li>
                 }
-                @if (currentContext.IsAdmin || currentContext.IsSuperAdmin)
+                @if (currentContext.IsAdmin || currentContext.IsSuperAdmin || currentContext.IsHiringAdmin)
                 {
                     <li class="mb-2 @(pageUrlPath.Contains("/AdminDashboard/AdminJobListing") ? "active sidebaractive" : "")">
                         <a href="/AdminDashboard/AdminJobListing" class="@(pageUrlPath == "/AdminDashboard/AdminJobListing" ? "active" : "")">
@@ -297,7 +296,7 @@
                         </a>
                     </li>
                 }
-                @if (currentContext.IsAdmin || currentContext.IsSuperAdmin)
+                @if (currentContext.IsAdmin || currentContext.IsSuperAdmin || currentContext.IsTimeAdmin)
                 {
                     <li class="mb-2 @(pageUrlPath.Contains("/timesheet/admintimesheet") ? "active sidebaractive" : "")">
                         <a href="/timesheet/admintimesheet" class="@(pageUrlPath == "/timesheet/admintimesheet" ? "active" : "")">

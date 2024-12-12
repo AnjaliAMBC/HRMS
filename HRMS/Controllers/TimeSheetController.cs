@@ -619,8 +619,7 @@ namespace HRMS.Controllers
                 var emailRequest = new EmailRequest()
                 {
                     Body = emailBody,
-                    ToEmail = cuserContext.EmpInfo.OfficalEmailid,
-                    CCEmail = ConfigurationManager.AppSettings["TimesheetRemaindersCC"],
+                    ToEmail = cuserContext.EmpInfo.OfficalEmailid,                    
                     Subject = $"Submission of Timesheet - {cuserContext.EmpInfo.EmployeeName} - {cuserContext.EmpInfo.EmployeeID}"
                 };
 
@@ -822,9 +821,9 @@ namespace HRMS.Controllers
 
         public ActionResult TimesheetRemainders(string client, int weekNumber)
         {
-            int remainderWeek = weekNumber - 1;
+            int remainderWeek = weekNumber;
             var distinctEmployeeIDs = _dbContext.TimeSheets
-                                         .Where(x => x.Client == client && x.WeekNo == remainderWeek && x.submissionstatus == "Save")
+                                         .Where(x => x.Client == client && x.WeekNo == remainderWeek && (x.submissionstatus == "Submitted"))
                                          .Select(x => x.EmployeeID)
                                          .Distinct()
                                          .ToList();

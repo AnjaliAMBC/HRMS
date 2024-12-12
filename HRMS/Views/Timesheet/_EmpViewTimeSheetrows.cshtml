@@ -85,30 +85,33 @@
             {
                 foreach (var timeSheet in weekinfo.TimeSheets.Where(x => x.HoursSpent > 0))
                 {
-                    <tr>
-                        <td>@(timeSheet.Date.HasValue ? timeSheet.Date.Value.ToString("dd-MM-yyyy") : "N/A")</td>
-                        <td>@timeSheet.Category</td>
-                        <td>@timeSheet.IncidentTaskName</td>
-                        <td>@timeSheet.IncidentTaskDescription</td>
-                        <td>@timeSheet.Priority</td>
-                        <td>@timeSheet.Requester</td>
-                        <td>@timeSheet.Status</td>
-                        <td>@timeSheet.HoursSpent</td>
-                        <td>
-                            <i class="fas fa-ellipsis-v emp-timesheet-edit" onclick="toggleEmpTimesheetActionOptions(this)"></i>
-                            <div class="emp-timesheetoptions" style="display:none">
-                                <a class="dropdown-item emp-timesheet-edit-btn"
-                                   data-timesheeetid="@timeSheet.TimeSheetID" data-timesheetdate="@(timeSheet.Date.HasValue ? timeSheet.Date.Value.ToString("dd-MM-yyyy") : "N/A")">Edit</a>
-                                @if (!string.IsNullOrWhiteSpace(notValidatedDates))
-                                {
-                                    <a class="dropdown-item emp-timesheet-cancel"
-                                       onclick="emptimesheetcancel($(this))"
-                                       data-timesheeetid="@timeSheet.TimeSheetID" data-timesheetdate="@(timeSheet.Date.HasValue ? timeSheet.Date.Value.ToString("dd-MM-yyyy") : "N/A")">Delete</a>
-                                }
+            <tr>
+                <td>@(timeSheet.Date.HasValue ? timeSheet.Date.Value.ToString("dd-MM-yyyy") : "N/A")</td>
+                <td>@timeSheet.Category</td>
+                <td>@timeSheet.IncidentTaskName</td>
+                <td>@timeSheet.IncidentTaskDescription</td>
+                <td>@timeSheet.Priority</td>
+                <td>@timeSheet.Requester</td>
+                <td>@timeSheet.Status</td>
+                <td>@timeSheet.HoursSpent</td>
+                <td>
+                    <i class="fas fa-ellipsis-v emp-timesheet-edit" onclick="toggleEmpTimesheetActionOptions(this)"></i>
+                    @if (timeSheet.submissionstatus != "Submitted")
+                    {
+                        <div class="emp-timesheetoptions" style="display:none">
+                            <a class="dropdown-item emp-timesheet-edit-btn"
+                               data-timesheeetid="@timeSheet.TimeSheetID" data-timesheetdate="@(timeSheet.Date.HasValue ? timeSheet.Date.Value.ToString("dd-MM-yyyy") : "N/A")">Edit</a>
+                            @if (!string.IsNullOrWhiteSpace(notValidatedDates))
+                            {
+                                <a class="dropdown-item emp-timesheet-cancel"
+                                   onclick="emptimesheetcancel($(this))"
+                                   data-timesheeetid="@timeSheet.TimeSheetID" data-timesheetdate="@(timeSheet.Date.HasValue ? timeSheet.Date.Value.ToString("dd-MM-yyyy") : "N/A")">Delete</a>
+                            }
+                        </div>
+                    }
+                </td>
 
-                            </div>
-                        </td>
-                    </tr>
+            </tr>
                 }
 
                 dataPointsArray1.Add(weekinfo.DataPoints1[0]);
@@ -265,7 +268,7 @@
                     type: "stackedColumn",
                     name: "Hours Spent",
                     showInLegend: false,
-                    color: "#33FF57",
+                    color: "#92d050",
                     yValueFormatString: "#,##0 h",
                     dataPoints: dataPoints4
                 },
@@ -273,7 +276,7 @@
                     type: "stackedColumn",
                     name: "Overtime",
                     showInLegend: false,
-                    color: "#50aced",
+                    color: "#00B4F2",
                     yValueFormatString: "#,##0 h",
                     dataPoints: dataPoints5
                 }
@@ -301,8 +304,8 @@
     var xValues = ["Hours Spent", "Overtime"];
     var yValues = [@totalHoursSpent, @totalOverTime];
     var barColors = [
-        "#33FF57",
-        "#50aced"
+        "#92d050",
+        "#00B4F2"
     ];
 
     new Chart("emp-timesheet-attendance", {

@@ -19,7 +19,11 @@ namespace HRMS.Models
         public bool IsUser { get; set; }
         public bool IsITAdmin { get; set; }
 
+        public bool IsHiringAdmin { get; set; }
+
         public bool IsAccountAdmin { get; set; }
+
+        public bool IsTimeAdmin { get; set; }
     }
 
     public class ForgotPasswordModel
@@ -47,7 +51,7 @@ namespace HRMS.Models
     {
 
         public string Empid { get; set; }
-        public string Password { get; set; }       
+        public string Password { get; set; }
         public bool IsPasswordReset { get; set; } = false;
         public string ResponseMessage { get; set; }
     }

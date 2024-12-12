@@ -107,6 +107,16 @@ $(document).ready(function () {
                             window.location.href = "/vendor/index";
                             return;
                         }
+
+                        if (data.IsHiringAdmin) {
+                            window.location.href = "/admindashboard/adminjoblisting";
+                            return;
+                        }
+
+                        if (data.IsTimeAdmin) {
+                            window.location.href = "/timesheet/admintimesheet";
+                            return;
+                        }
                     } else {
                         $('.show-progress').hide();
                         $('.error-message').show();
