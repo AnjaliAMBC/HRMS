@@ -152,7 +152,7 @@
                             <div class="admin-it-ticketing-commentbox-status">Open</div>
                             <div class="admin-it-ticketing-commentbox-desc" title="@Model.ticketinfo.Description">@Model.ticketinfo.Description</div>
                         </span>
-                        <span class="col-lg-2 col-md-2 col-sm-2 admin-it-ticketing-commentbox-right">
+                        <span class="col-lg-2 col-md-2 col-sm-3 admin-it-ticketing-commentbox-right">
                             <div class="admin-it-ticketing-commentbox-date">
                                 @(Model.ticketinfo.Created_date?.ToString("dd MMM yyyy") ?? "No date available")
                             </div>
@@ -183,7 +183,7 @@
                                 <div class="admin-it-ticketing-commentbox-status">Resolved</div>
                                 @*<div class="admin-it-ticketing-commentbox-desc" title="This is to acknowledge, that my tickets has been solved. Thanks for quick time support.">@Model.ticketinfo</div>*@
                             </span>
-                            <span class="col-lg-2 col-md-2 col-sm-2 admin-it-ticketing-commentbox-right">
+                            <span class="col-lg-2 col-md-2 col-sm-3 admin-it-ticketing-commentbox-right">
                                 <div class="admin-it-ticketing-commentbox-date">  @(Model.ticketinfo.ResolvedDate?.ToString("dd MMM yyyy") ?? "No date available")</div>
                             </span>
                         </div>
@@ -213,7 +213,7 @@
                                 <div class="admin-it-ticketing-commentbox-status">Re-Opened</div>
                                 <div class="admin-it-ticketing-commentbox-desc" title="@Model.ticketinfo.ReopenedComments">@Model.ticketinfo.ReopenedComments</div>
                             </span>
-                            <span class="col-lg-2 col-md-2 col-sm-2 admin-it-ticketing-commentbox-right">
+                            <span class="col-lg-2 col-md-2 col-sm-3 admin-it-ticketing-commentbox-right">
                                 <div class="admin-it-ticketing-commentbox-date">  @(Model.ticketinfo.ReopenedDate?.ToString("dd MMM yyyy") ?? "No date available")</div>
                             </span>
                         </div>
@@ -252,7 +252,7 @@
                     </span>
 
 
-                    <span class="col-lg-2 col-md-2 col-sm-2 admin-it-ticketing-commentbox-right">
+                    <span class="col-lg-2 col-md-2 col-sm-3 admin-it-ticketing-commentbox-right">
                         <div class="admin-it-ticketing-commentbox-date">  @(Model.ticketinfo.Closed_date?.ToString("dd MMM yyyy") ?? "No date available")</div>
                     </span>
                 </div>
