@@ -669,7 +669,7 @@
                                             <div class="col-lg-12 col-md-12">
                                                 <div class="col-lg-6 col-md-12 assetadd-allocate-left-block">
                                                     <div class="form-group assetadd-allocateinfo-tabs">
-                                                        <label for="AssetAllocate-AssignedBy">Assigned By</label>
+                                                        <label for="AssetAllocate-AssignedBy">Allocated By</label>
                                                         <select name="AssetAllocate-AssignedBy" class="AssetAllocate-AssignedBy form-control form-select" id="AssetAllocate-AssignedBy">
                                                             <option value="" disabled selected hidden>Select Name</option>
                                                             @foreach (var deptEmp in Model.ITEmployees)
@@ -685,7 +685,7 @@
                                             <div class="col-lg-12 col-md-12">
                                                 <div class="col-lg-6 col-md-12 assetadd-allocate-left-block">
                                                     <div class="form-group assetadd-allocateinfo-tabs">
-                                                        <label for="AssetAllocate-AssignedDate">Assigned Date</label>
+                                                        <label for="AssetAllocate-AssignedDate">Allocated Date</label>
                                                         @if (Model.EditAssets.AssignedDate != DateTime.MinValue)
                                                         {
                                                             @Html.TextBoxFor(m => m.EditAssets.AssignedDate, "{0:yyyy-MM-dd}", new { @type = "date", @class = "form-control", @id = "AssetAllocate-AssignedDate" })

@@ -399,30 +399,35 @@
                                             <td><button class="@buttonColor" style="pointer-events:none">@attedenceType</button></td>
                                             <td><i class="fas fa-pencil-alt empattendence-edit" data-attendenceid="34" data-toggle="modal" data-target="#leaveUpdateModal"></i></td>
                                         </tr>
-                                    }
-                                    else
-                                    {
-                                        var leaveType = "Absent";
-                                        var buttoncolorcode = "absent-btn";
-                                        if (@Model.SelectedDate.DayOfWeek == DayOfWeek.Saturday || Model.SelectedDate.DayOfWeek == DayOfWeek.Sunday)
-                                        {
-                                            leaveType = "Weekend";
-                                            buttoncolorcode = "gray-btn";
-                                        }
+                                                }
+                                                else
+                                                {
+                                                    var leaveType = "Absent";
+                                                    var buttoncolorcode = "absent-btn";
+                                                    if (@Model.SelectedDate.DayOfWeek == DayOfWeek.Saturday || Model.SelectedDate.DayOfWeek == DayOfWeek.Sunday)
+                                                    {
+                                                        leaveType = "Weekend";
+                                                        buttoncolorcode = "gray-btn";
+                                                    }
 
-                                        if (empLeave != null)
-                                        {
-                                            if (empLeave.leavecategory.ToLowerInvariant().Contains("leave") || empLeave.leavecategory.ToLowerInvariant().Contains("comp off"))
-                                            {
-                                                leaveType = "Leave";
-                                                buttoncolorcode = "leave-btn";
-                                            }
-                                            if (empLeave.leavecategory.ToLowerInvariant().Contains("permission"))
-                                            {
-                                                leaveType = "Permission";
-                                                buttoncolorcode = "yellow-btn";
-                                            }
-                                        }
+                                                    if (empLeave != null)
+                                                    {
+                                                        if (empLeave.DayType== "fullDay")
+                                                        {
+                                                            leaveType = "Leave";
+                                                            buttoncolorcode = "leave-btn";
+                                                        }
+                                                        if (empLeave.DayType == "halfDay")
+                                                        {
+                                                            leaveType = "H/D Leave";
+                                                            buttoncolorcode = "leave-btn";
+                                                        }
+                                                        if (empLeave.DayType == "")
+                                                        {
+                                                            leaveType = "Permission";
+                                                            buttoncolorcode = "yellow-btn";
+                                                        }
+                                                    }
                                         <tr>
                                             <td><span class="employee-id">@employee.EmployeeID</span></td>
                                             <td class="employee-info1 employee-indiattendance p-2">
