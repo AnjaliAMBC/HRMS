@@ -145,14 +145,22 @@ label {
     margin-top: 20px;
 }
 
-table.dataTable thead th, table.dataTable tbody td {
+table.dataTable thead th {
     border: none;
     padding: 8px;
+    font-size:14px;
+    color:white;
+    font-weight:100;
+}
+table.dataTable tbody td
+{
+    border:none;
+    padding:8px;
 }
 
-    table.dataTable tbody td input[type="checkbox"] {
-        margin: 0;
-    }
+table.dataTable tbody td input[type="checkbox"] {
+    margin: 0;
+}
 
 .edit-btn, .delete-btn {
     cursor: pointer;
@@ -275,11 +283,11 @@ table.dataTable {
 }
 
 table.dataTable.display tbody tr.odd {
-    background-color: white !important;
+    background-color: #f9f9f9 !important;
 }
 
 table.dataTable.display tbody tr.even {
-    background-color: white !important;
+    background-color: #EBFAFF !important;
 }
 /* Initially hide the edit and delete icons */
 .edit-btn,
