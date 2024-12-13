@@ -187,14 +187,14 @@ $(document).ready(function () {
                     $('#modalMessage')
                         .text(response.message)
                         .removeClass('text-danger')
-                        .addClass('text-primary');
+                        .addClass('text-success');
                     $('.timesheet-noyes-div').hide();
                     $('.timesheet-close-div').show();
                     $('#empSubmitTimesheetModal').modal('show');
                 } else {
                     $('#modalMessage')
                         .text("Error: " + response.message)
-                        .removeClass('text-primary')
+                        .removeClass('text-success')
                         .addClass('text-danger');
                     $('.timesheet-noyes-div').hide();
                     $('.timesheet-close-div').show();

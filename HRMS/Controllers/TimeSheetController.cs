@@ -627,7 +627,7 @@ namespace HRMS.Controllers
                 EMailHelper.SendEmail(emailRequest);
 
 
-                return Json(new { success = true, message = "TimeSheet submitted Successfully!" });
+                return Json(new { success = true, message = "Timesheet submitted successfully!" });
             }
             catch (Exception ex)
             {
