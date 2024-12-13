@@ -11,58 +11,97 @@
     var logoURL = siteURL + "/Assets/AMBC_Logo.png";
 }
 
-<div class="email-container" style="font-family: Calibri; color: #333; background-color: #f9f9f9; padding: 20px; border-radius: 8px; max-width: 600px; margin: auto;">
+<div class="email-container" style="font-family: Calibri; color: #333; background-color: #f9f9f9; padding: 20px; border-radius: 8px; max-width: 1000px; margin: auto;">
     <div class="email-content" style="position: relative; padding: 20px; background-color: #fff; border-radius: 8px; box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);">
-        <table width="100%" cellpadding="0" cellspacing="0" border="0" style="background-color:#ffffff;">
-            <tr>
-                <td style="padding:0;">
-                    <p>Hello EmployeeName,</p>
-                </td>
-                <td align="right" style="padding: 0;">
-                    <a href="@siteURL" target="_blank">
-                        <img src="@logoURL" alt="AMBC Logo" width="80" style="display: block;">
-                    </a>
-                </td>
-            </tr>
-        </table>
-        <p style="font-size:18px;">Your timesheet for the week of <b>@Model.WeekStartDate.ToString("dd MMMM yyyy")</b> to <b>@Model.WeekEndDate.ToString("dd MMMM yyyy")</b> has been successfully submitted</p>
-
-        <p style="font-size:18px;">Please make sure your data are relevent.</p>
-
-        <table class="table table-admin-weeklyupdate-timesheet" id="adminweeklyupdatesheet" style="width:100%;font-size:14px;">
+        <table width="100%" cellpadding="0" cellspacing="1" border="1" style="background-color:#ffffff;">
             <thead style="background-color: #d8e6fb;">
                 <tr>
-                    <th class="weeklyupdate-timesheet-header" colspan="8">TASK DETAILS(@Model.WeekStartDate.ToString("dd-MM-yyyy") TO @Model.WeekEndDate.ToString("dd-MM-yyyy"))</th>
-                </tr>
-                <tr class="weeklyupdate-timesheet-subheader">
-                    <th>Date</th>
-                    <th>Category</th>
-                    <th>Task/Incident Name</th>
-                    <th>Task/Incident Description</th>
-                    <th>Priority</th>
-                    <th>Requester</th>
-                    <th>Status</th>
-                    <th>Total Hours</th>
+                    <th class="weeklyupdate-timesheet-mainheader" colspan="8" style="text-align:center;font-size:20px">Weekly Status Report</th>
+                    <th colspan="3" rowspan="3" style="text-align: center; vertical-align: middle; padding: 10px;">
+                        <img src="@logoURL" alt="Company Logo" style="max-width: 100%;" width="120">
+                    </th>
                 </tr>
             </thead>
             <tbody>
-
-                @foreach (var timesheet in Model.TimeSheets)
+                @if (Model.TimeSheets != null && Model.TimeSheets.Any())
+                {
+                    var timesheet = Model.TimeSheets.FirstOrDefault();
+                    <tr>
+                        <th style="padding:0;" colspan="2">
+                            Employee Name
+                        </th>
+                        <td style="padding: 0;" colspan="2">
+                            @timesheet.EmployeeName
+                        </td>
+                        <th style="padding:0" colspan="2">
+                            Employee Designation
+                        </th>
+                        <td style="padding:0" colspan="2">
+                            @timesheet.
+                        </td>
+                    </tr>
+                    <tr>
+                        <th style="padding:0" colspan="2">
+                            Week Start Date
+                        </th>
+                        <td style="padding:0" colspan="2">
+                            @Model.WeekStartDate.ToString("dd-MM-yyyy")
+                        </td>
+                        <th style="padding:0" colspan="2">
+                            Week End Date
+                        </th>
+                        <td style="padding:0" colspan="2">
+                            @Model.WeekEndDate.ToString("dd-MM-yyyy")
+                        </td>
+                    </tr>
+ }
+                else
                 {
                     <tr>
-                        <td>@(timesheet.Date.HasValue ? timesheet.Date.Value.ToString("dd-MM-yyyy") : "N/A")</td>
-                        <td>@timesheet.Category</td>
-                        <td>@timesheet.IncidentTaskName</td>
-                        <td>@timesheet.IncidentTaskDescription</td>
-                        <td>@timesheet.Priority</td>
-                        <td>@timesheet.Requester</td>
-                        <td>@timesheet.Status</td>
-                        <td>@timesheet.HoursSpent</td>
+                        <td colspan="8" style="text-align:center; color: red;">
+                            No timesheet data available.
+                        </td>
                     </tr>
-                }
-
+}
             </tbody>
         </table>
+
+        <div class="d-flex align-items-center" style="text-align:center;">
+            <table class="table table-admin-weeklyupdate-timesheet" id="adminweeklyupdatesheet" border="1" style="width:90%;font-size:14px;">
+                <thead style="background-color: #d8e6fb;">
+                    <tr>
+                        <th class="weeklyupdate-timesheet-header" colspan="8" style="text-align:center;">TASK DETAILS(@Model.WeekStartDate.ToString("dd-MM-yyyy") TO @Model.WeekEndDate.ToString("dd-MM-yyyy"))</th>
+                    </tr>
+                    <tr class="weeklyupdate-timesheet-subheader" style="text-align:left;">
+                        <th>Date</th>
+                        <th>Category</th>
+                        <th>Task/Incident Name</th>
+                        <th>Task/Incident Description</th>
+                        <th>Priority</th>
+                        <th>Requester</th>
+                        <th>Status</th>
+                        <th>Total Hours</th>
+                    </tr>
+                </thead>
+                <tbody>
+
+                    @foreach (var timesheet in Model.TimeSheets)
+                    {
+                        <tr>
+                            <td>@(timesheet.Date.HasValue ? timesheet.Date.Value.ToString("dd-MM-yyyy") : "N/A")</td>
+                            <td>@timesheet.Category</td>
+                            <td>@timesheet.IncidentTaskName</td>
+                            <td>@timesheet.IncidentTaskDescription</td>
+                            <td>@timesheet.Priority</td>
+                            <td>@timesheet.Requester</td>
+                            <td>@timesheet.Status</td>
+                            <td>@timesheet.HoursSpent</td>
+                        </tr>
+                    }
+
+                </tbody>
+            </table>
+        </div>
         <div style="font-family: Calibri; color: #696969; font-size: 1.1em; margin-top: 20px; text-align: center;">
             This is an automated email, please do not reply.
             <br />
