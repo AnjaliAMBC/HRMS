@@ -869,6 +869,10 @@
         margin-left: 0 !important;
     }
 
+    .res-admin-emp-tabs.responsive-tabs.nav-tabs > li > a {
+        color: #000;
+    }
+
     /* admin employee management end */
 
     /* admin attendance start*/
@@ -3958,6 +3962,10 @@
 
     .tablet-view .admin-empmanagement-view .container {
         margin: 0;
+    }
+
+    .res-admin-emp-tabs.responsive-tabs.nav-tabs > li > a {
+        color: #000;
     }
 
     /* admin employee management end */
@@ -10487,11 +10495,20 @@
     }
 }
 
+
+@media only screen and (min-width: 0px) and (max-width: 1024px) {
+
+    .res-admin-emp-tabs.responsive-tabs.nav-tabs > li > a {
+        color: #000;
+    }
+}
+
 @media only screen and (min-width: 1025px) and (max-width: 2560px) {
 
     .admin-empmanagement-view .nav-tabs.responsive-tabs {
         display: inline-flex;
         justify-content: space-between;
     }
+
 }
 
