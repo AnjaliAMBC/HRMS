@@ -10479,10 +10479,19 @@
 }
 
 @media screen (min-width: 1440px) and (max-width: 2560px) {
+
     @supports (-webkit-backdrop-filter: none) or (-webkit-hyphens:auto) {
         .admin-empmanagement-view .nav-tabs .nav-link {
             padding: 7px 17px;
         }
+    }
+}
+
+@media only screen and (min-width: 1025px) and (max-width: 2560px) {
+
+    .admin-empmanagement-view .nav-tabs.responsive-tabs {
+        display: inline-flex;
+        justify-content: space-between;
     }
 }
 

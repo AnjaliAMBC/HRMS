@@ -903,6 +903,7 @@ div.main-content {
 
 #adminaddendancetable .adminatt_tbody tr td:nth-child(9) {
     width: 8%;
+    text-align: center;
 }
 
 #adminaddendancetable .attemployee-image {
@@ -923,6 +924,10 @@ div.main-content {
 
 .res-admin-attendance .adminaddendancedetailedtable {
     margin-top: 0 !important;
+}
+
+.res-admin-attendance-main thead th:last-child {
+    text-align: center;
 }
 
 /*admin attendance end*/
@@ -1706,6 +1711,10 @@ div.main-content {
     border-bottom: 1px solid #ccc;
 }
 
+.res-admin-leavecompoff-view #adminleavecompoffTable tbody .even {
+    background-color: #EBFAFF !important;
+}
+
 .res-admin-leavecompoff-view .res-adminleave-drop {
     margin-right: 0px;
 }
@@ -1957,6 +1966,14 @@ div.main-content {
 
 #adminitticketlistingTable tbody tr {
     border-bottom: 1px solid #ccc;
+}
+
+#adminticketlistingTable tbody .even {
+    background-color: #EBFAFF !important;
+}
+
+#adminitticketlistingTable tbody .even {
+    background-color: #EBFAFF !important;
 }
 
 .res-admin-it-ticketlisting-user-details .it-ticket-msg-icon {
@@ -2285,6 +2302,14 @@ div.main-content {
 
 #adminhrticketlistingTable tbody tr {
     border-bottom: 1px solid #ccc;
+}
+
+#adminticketlistingTable tbody .even {
+    background-color: #EBFAFF !important;
+}
+
+#adminhrticketlistingTable tbody .even {
+    background-color: #EBFAFF !important;
 }
 
 .res-admin-hr-ticketlisting-user-details .hr-ticket-msg-icon {
@@ -4799,6 +4824,10 @@ input[type=checkbox], input[type=radio] {
     object-fit: cover;
 }
 
+.admin-asset-view .assetview-allocateinfo-details .allocate-info .model-item {
+    display: inline;
+}
+
 /*  asset view end */
 
 /*  asset transfer start */
@@ -5449,7 +5478,7 @@ input[type=checkbox], input[type=radio] {
 }
 
 .admin-timesheet-header-block .admin-timesheet-header-block-left {
-    width: 85%;
+    width: 89%;
 }
 
 .admin-timesheet-header-block .admin-timesheet-block1 {
@@ -5487,7 +5516,7 @@ input[type=checkbox], input[type=radio] {
 
 .admin-timesheet-header-block .admin-timesheet-block2 {
     display: inline-block;
-    width: 15%;
+    width: 18%;
 }
 
 .admin-timesheet-header-block #admintimesheetCompany {
@@ -5496,7 +5525,7 @@ input[type=checkbox], input[type=radio] {
 
 .admin-timesheet-header-block .admin-timesheet-block3 {
     display: inline-block;
-    width: 23%;
+    width: 24%;
 }
 
 .admin-timesheet-header-block .admin-timesheet-block3 .div-timesheet-employeename {
