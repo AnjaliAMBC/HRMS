@@ -52,7 +52,7 @@
     .Select(x => x.Date.ToString("dd-MM-yyyy")));
     }
 
-    @*//TODO: Yet to work on this*@
+
     <div class="emp-timesheet-table-submit">
         <button type="button"
                 class="btn btn-primary btn-timesheet-submit"
@@ -85,33 +85,33 @@
             {
                 foreach (var timeSheet in weekinfo.TimeSheets.Where(x => x.HoursSpent > 0))
                 {
-            <tr>
-                <td>@(timeSheet.Date.HasValue ? timeSheet.Date.Value.ToString("dd-MM-yyyy") : "N/A")</td>
-                <td>@timeSheet.Category</td>
-                <td>@timeSheet.IncidentTaskName</td>
-                <td>@timeSheet.IncidentTaskDescription</td>
-                <td>@timeSheet.Priority</td>
-                <td>@timeSheet.Requester</td>
-                <td>@timeSheet.Status</td>
-                <td>@timeSheet.HoursSpent</td>
-                <td>
-                    <i class="fas fa-ellipsis-v emp-timesheet-edit" onclick="toggleEmpTimesheetActionOptions(this)"></i>
-                    @if (timeSheet.submissionstatus != "Submitted")
-                    {
-                        <div class="emp-timesheetoptions" style="display:none">
-                            <a class="dropdown-item emp-timesheet-edit-btn"
-                               data-timesheeetid="@timeSheet.TimeSheetID" data-timesheetdate="@(timeSheet.Date.HasValue ? timeSheet.Date.Value.ToString("dd-MM-yyyy") : "N/A")">Edit</a>
-                            @if (!string.IsNullOrWhiteSpace(notValidatedDates))
+                    <tr>
+                        <td>@(timeSheet.Date.HasValue ? timeSheet.Date.Value.ToString("dd-MM-yyyy") : "N/A")</td>
+                        <td>@timeSheet.Category</td>
+                        <td>@timeSheet.IncidentTaskName</td>
+                        <td>@timeSheet.IncidentTaskDescription</td>
+                        <td>@timeSheet.Priority</td>
+                        <td>@timeSheet.Requester</td>
+                        <td>@timeSheet.Status</td>
+                        <td>@timeSheet.HoursSpent</td>
+                        <td>
+                            <i class="fas fa-ellipsis-v emp-timesheet-edit" onclick="toggleEmpTimesheetActionOptions(this)"></i>
+                            @if (timeSheet.submissionstatus != "Submitted")
                             {
-                                <a class="dropdown-item emp-timesheet-cancel"
-                                   onclick="emptimesheetcancel($(this))"
-                                   data-timesheeetid="@timeSheet.TimeSheetID" data-timesheetdate="@(timeSheet.Date.HasValue ? timeSheet.Date.Value.ToString("dd-MM-yyyy") : "N/A")">Delete</a>
+                                <div class="emp-timesheetoptions" style="display:none">
+                                    <a class="dropdown-item emp-timesheet-edit-btn"
+                                       data-timesheeetid="@timeSheet.TimeSheetID" data-timesheetdate="@(timeSheet.Date.HasValue ? timeSheet.Date.Value.ToString("dd-MM-yyyy") : "N/A")">Edit</a>
+                                    @if (!string.IsNullOrWhiteSpace(notValidatedDates))
+                                    {
+                                        <a class="dropdown-item emp-timesheet-cancel"
+                                           onclick="emptimesheetcancel($(this))"
+                                           data-timesheeetid="@timeSheet.TimeSheetID" data-timesheetdate="@(timeSheet.Date.HasValue ? timeSheet.Date.Value.ToString("dd-MM-yyyy") : "N/A")">Delete</a>
+                                    }
+                                </div>
                             }
-                        </div>
-                    }
-                </td>
+                        </td>
 
-            </tr>
+                    </tr>
                 }
 
                 dataPointsArray1.Add(weekinfo.DataPoints1[0]);
@@ -301,34 +301,39 @@
 
 @*<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.4/Chart.js"></script>*@
 <script>
-    var xValues = ["Hours Spent", "Overtime"];
-    var yValues = [@totalHoursSpent, @totalOverTime];
-    var barColors = [
-        "#92d050",
-        "#00B4F2"
-    ];
-
-    new Chart("emp-timesheet-attendance", {
-        type: "doughnut",
-        data: {
-            labels: xValues,
-            datasets: [{
-                backgroundColor: barColors,
-                data: yValues
-            }]
-        },
-        options: {
-            legend: {
-                display: true,
-                position: 'bottom'
+    var chartInstance; 
+    function updateChart() {
+        var xValues = ["Hours Spent", "Overtime"];
+        var yValues = [@totalHoursSpent, @totalOverTime];
+        var barColors = ["#92d050", "#00B4F2"];
+     
+        if (chartInstance) {
+            chartInstance.destroy();
+        }    
+        chartInstance = new Chart("emp-timesheet-attendance", {
+            type: "doughnut",
+            data: {
+                labels: xValues,
+                datasets: [{
+                    backgroundColor: barColors,
+                    data: yValues
+                }]
             },
-            hover: {
-                mode: null
-            },
-            animation: {
-                duration: 0
+            options: {
+                legend: {
+                    display: true,
+                    position: 'bottom'
+                },
+                hover: {
+                    mode: null
+                },
+                animation: {
+                    duration: 0
+                }
             }
-        }
-    });
+        });
+    }
+    updateChart();
+  
 
 </script>
