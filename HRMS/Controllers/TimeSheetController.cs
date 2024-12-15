@@ -204,7 +204,8 @@ namespace HRMS.Controllers
                     if (isHoliday)
                     {
                         allowedHours = fullDayWorkingHours;
-                        indexLabelHoliday = "";
+                        indexLabelHoliday = "Holiday";
+                        holidayY = System.Convert.ToDecimal(0.2);
                     }
                 }
                 else
@@ -248,7 +249,7 @@ namespace HRMS.Controllers
                     indexLabel = overtime > 0 ? "Overtime" : ""
                 };
 
-                if (isWeekend)
+                if (isWeekend || isHoliday)
                 {
                     allowedHours = 0;
                 }
