@@ -106,7 +106,7 @@ namespace HRMS.Controllers
 
                 var isEmpExists = _dbContext.emplogins
                     .Where(emp => emp.EmployeeEmail == loginModel.EmailID && emp.Password == loginModel.Password &&
-                                  (emp.EmployeeRole.Contains("HR Admin") || emp.EmployeeRole.Contains("Super Admin") || emp.EmployeeRole.Contains("IT Admin") || emp.EmployeeRole.Contains("Account Admin")) || emp.EmployeeRole.Contains("Rec") || emp.EmployeeRole.Contains("TimeAdmin"))
+                                  (emp.EmployeeRole.Contains("HR Admin") || emp.EmployeeRole.Contains("Super Admin") || emp.EmployeeRole.Contains("IT Admin") || emp.EmployeeRole.Contains("Account Admin") || emp.EmployeeRole.Contains("Rec") || emp.EmployeeRole.Contains("TimeAdmin")))
                     .FirstOrDefault();
 
                 if (isEmpExists != null && isEmpExists.EmployeeStatus == "Active") // Check if employee status is active

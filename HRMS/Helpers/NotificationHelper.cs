@@ -28,10 +28,10 @@ namespace HRMS.Helpers
                             title = $"{notification.NotificationFromName} has submitted a leave request for approval.";
                             break;
                         case "Updated":
-                            title = $"Your leave request was updated by {notification.NotificationFromName}.";
+                            title = $"Your leave request has been updated by {notification.NotificationFromName}.";
                             break;
                         case "Cancelled":
-                            title = $"Your leave request was cancelled by {notification.NotificationFromName}.";
+                            title = $"Your leave request has been cancelled by {notification.NotificationFromName}.";
                             break;
                         default:
                             title = $"Leave request status changed by {notification.NotificationFromName}.";

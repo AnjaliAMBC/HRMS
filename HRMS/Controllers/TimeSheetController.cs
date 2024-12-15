@@ -171,7 +171,7 @@ namespace HRMS.Controllers
                         if (leaveInfo[0].DayType == "halfDay")
                         {
                             allowedHours = halfDayWorkingHours;
-                            indexLabelLeave = "Half Day Leave + Work";
+                            indexLabelLeave = "Halfday Leave";
                             leaveY = System.Convert.ToDecimal(0.2);
                         }
                         else

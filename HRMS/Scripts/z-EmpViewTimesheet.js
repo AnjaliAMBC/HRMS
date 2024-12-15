@@ -246,7 +246,7 @@ $(document).ready(function () {
             $('.timesheet-noyes-div').hide();
             $('.timesheet-close-div').show();
         } else {
-            confirmationText = `Are you sure you want to submit the timesheet from ${weekstart} to ${weekend}?`;
+            confirmationText = `Are you sure you want to submit the timesheet from &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp ${weekstart} to ${weekend}?`;
             $('#modalMessage')
                 .html(`<span>${confirmationText}</span>`)
                 .removeClass('text-danger')
