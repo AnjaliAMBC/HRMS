@@ -107,7 +107,7 @@ namespace HRMS.Controllers
             var compoOffInfo = _dbContext.Compoffs.Where(x => x.addStatus == "Approved");
             var holidaysInfo = _dbContext.tblambcholidays;
             var leavesInfo = _dbContext.con_leaveupdate.Where(x => x.LeaveStatus != "Cancelled" && x.LeaveStatus != "Rejected");
-            var timeSheetInfo = !isAdminReport ? _dbContext.TimeSheets : _dbContext.TimeSheets.Where(x => x.submissionstatus == "Submitted");
+            var timeSheetInfo = !isAdminReport ? _dbContext.TimeSheets : _dbContext.TimeSheets.Where(x => x.submissionstatus == "Submitted" && x.Date>= weekStartDate && x.Date<= weekEndDate);
 
             var categories = _dbContext.TimeSheetCategories.ToList();
             var clients = _dbContext.Clients.ToList();
@@ -207,28 +207,7 @@ namespace HRMS.Controllers
                 string timeFormatted = $"{(int)hours}.{minutesTwoDigits:D2}";
                 decimal hoursSpent = System.Convert.ToDecimal(timeFormatted);
 
-
-
-                //decimal totalOverTimeMinutes = totalMinutes - 480;  // Example total minutes
-
-                //// Calculate hours and remaining minutes
-                //decimal hoursovertime = totalOverTimeMinutes / 60;   // This gives the whole number of hours
-                //decimal minutesovertime = totalOverTimeMinutes % 60;  // This gives the remaining minutes
-
-                //// Take the first two digits of the minutes (round down if necessary)
-                //int minutesTwoDigitsOverTime = (int)minutesovertime;  // Casting to int will give the whole part of the minutes
-
-                //// Format the result
-                //string timeFormattedOverTime = $"{(int)hoursovertime}.{minutesTwoDigitsOverTime:D2}";
-                //decimal overtime = System.Convert.ToDecimal(timeFormattedOverTime);
-
                 decimal overtime = hoursSpent > standardWorkingHours ? hoursSpent - standardWorkingHours : 0;
-
-
-                var abc = 0;
-
-
-
                 var checkInRecord = loginInfo.FirstOrDefault(x => x.Login_date == date);
 
                 var indexLabelLeave = "";
@@ -262,6 +241,26 @@ namespace HRMS.Controllers
                     }
                 }
 
+                else
+                {
+                    if (isLeave)
+                    {
+                        if (leaveInfo[0].DayType == "halfDay")
+                        {                           
+                            indexLabelLeave = "Halfday Leave";
+                            leaveY = System.Convert.ToDecimal(0.2);
+                        }
+                        else if (leaveInfo[0].DayType == "fullDay")
+                        {                            
+                            indexLabelLeave = "Leave";
+                            leaveY = System.Convert.ToDecimal(0.2);
+                        }
+                        else
+                        {                            
+                            indexLabelLeave = "";
+                        }
+                    }                   
+                }
                 // Leave data points
                 var dataPoints1 = new Graph
                 {
