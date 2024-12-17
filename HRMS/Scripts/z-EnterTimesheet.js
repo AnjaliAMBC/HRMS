@@ -56,8 +56,13 @@ $(document).ready(function () {
         var dayUniqueKey = $(this).data("dayuniquekey");
         var selectedDate = $(this).data("daydate");
         var weeknumber = $(this).data("weeknumber");
+        var weekstartdate = $(this).data("weekstartdate");
+        var weekenddate = $(this).data("weekenddate");
+
         var firstRow = $('div.emp-entertimesheet-fields[data-dayuniquekey="' + dayUniqueKey + '"]').first();
         var isValid = true;
+
+
 
         var selectedDateObj = new Date(selectedDate);
 
@@ -135,8 +140,10 @@ $(document).ready(function () {
             if (hoursSpentInput > 0) {
                 timesheetList.push(data);
             }
+            //else {
+            //    $(this).remove();
+            //}
         });
-
 
         if (totalHoursSpent > maxAllowedHours) {
             const maxHours = Math.floor(maxAllowedHours);
@@ -150,6 +157,7 @@ $(document).ready(function () {
         Total hours entered: ${totalHours} hours and ${totalMinutes} minutes.`,
                 "error"
             );
+
             return;
         }
 
@@ -167,6 +175,10 @@ $(document).ready(function () {
                         `Timesheet data saved successfully!`,
                         "success"
                     );
+                    $('.sucesstimesheetstartdate').text(weekstartdate);
+                    $('.sucesstimesheetenddate').text(weekenddate);
+                    $('.sucesstimesheetselecteddate').text(selectedDate);
+                    $('.sucesstimesheetselectedclient').text($('.selected-timesheet-client').val());
                 },
                 error: function (xhr, status, error) {
                     console.error('Error submitting timesheet data:', error);
@@ -194,13 +206,46 @@ function validateHoursSpent(input) {
         input.value = parts[0] + '.59'; // Limit minutes to 59
     }
 }
-
-
-
 $(document).on('click', '.btn-close-timesheetsave', function () {
+    
+
+    // Get values from the modal's hidden divs
+    var client = $('.sucesstimesheetselectedclient').text().trim();
+    var selectedDate = $('.sucesstimesheetselecteddate').text().trim();
+    var weekstart = $('.sucesstimesheetstartdate').text().trim();
+    var weekend = $('.sucesstimesheetenddate').text().trim();
+
+
+    if (client === "" || selectedDate === "" || weekstart === "" || weekend === "") {
+        $('#TimeSheetMessageModal').modal('hide');
+        return;
+    }
+
+    $('.show-progress').show();
+
+    // Create a hidden form dynamically if it doesn't already exist
+    if ($('#timesheet-submit-form').length === 0) {
+        var form = $('<form>', {
+            id: 'timesheet-submit-form',
+            method: 'post',
+            action: '/timesheet/entertimesheet'
+        });
+
+        // Add hidden fields for client, date, startdate, and enddate
+        form.append('<input type="hidden" name="client" value="' + client + '">');
+        form.append('<input type="hidden" name="date" value="' + selectedDate + '">');
+        form.append('<input type="hidden" name="startdate" value="' + weekstart + '">');
+        form.append('<input type="hidden" name="enddate" value="' + weekend + '">');
+
+        // Append the form to the body and submit it
+        $('body').append(form);
+        form.submit();
+    }
+
+    // Hide the modal after submission
     $('#TimeSheetMessageModal').modal('hide');
-    return;
 });
+
 
 
 

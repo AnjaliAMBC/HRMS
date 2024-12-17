@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace HRMS.Models.Admin
 {
@@ -106,6 +107,7 @@ namespace HRMS.Models.Admin
 
     public class AddUpdateEmpInfo : emp_info
     {
+        [NotMapped]
         public List<ClientRow> ClientRows { get; set; } = new List<ClientRow>();
     }
 

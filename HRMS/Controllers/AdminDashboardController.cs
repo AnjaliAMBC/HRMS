@@ -243,7 +243,65 @@ namespace HRMS.Controllers
             {
                 model.EmpInfo = formData;
 
-                var newEmployee = _dbContext.emp_info.Add(formData);
+                var empModel = new emp_info()
+                {
+                    EmployeeID = model.EmpInfo.EmployeeID,
+                    EmployeeStatus = model.EmpInfo.EmployeeStatus,
+                    EmployeeName = model.EmpInfo.EmployeeName,
+                    FatherName = model.EmpInfo.FatherName,
+                    Gender = model.EmpInfo.Gender,
+                    BloodGroup = model.EmpInfo.BloodGroup,
+                    DOB = model.EmpInfo.DOB,
+                    DOJ = model.EmpInfo.DOJ,
+                    Age = model.EmpInfo.Age,
+                    MaritalStatus = model.EmpInfo.MaritalStatus,
+                    Designation = model.EmpInfo.Designation,
+                    ShiftTimings = model.EmpInfo.ShiftTimings,
+                    Department = model.EmpInfo.Department,
+                    //existingEmployee.Client = model.EmpInfo.Client;
+                    EmployeeType = model.EmpInfo.EmployeeType,
+                    Location = model.EmpInfo.Location,
+                    ReportingManager = model.EmpInfo.ReportingManager,
+                    LeavereportingManager = model.EmpInfo.LeavereportingManager,
+                    MobileNumber = model.EmpInfo.MobileNumber,
+                    Personal_Emailid = model.EmpInfo.Personal_Emailid,
+                    OfficalEmailid = model.EmpInfo.OfficalEmailid,
+                    PresentAddress = model.EmpInfo.PresentAddress,
+                    Permanent_Address = model.EmpInfo.Permanent_Address,
+                    RelationName = model.EmpInfo.RelationName,
+                    Relationship = model.EmpInfo.Relationship,
+                    FamilyMobileNumber = model.EmpInfo.FamilyMobileNumber,
+                    BankName = model.EmpInfo.BankName,
+                    AccountNumber = model.EmpInfo.AccountNumber,
+                    Branch = model.EmpInfo.Branch,
+                    TypeofAccount = model.EmpInfo.TypeofAccount,
+                    IFSCcode = model.EmpInfo.IFSCcode,
+                    PANnumber = model.EmpInfo.PANnumber,
+                    AadharNumber = model.EmpInfo.AadharNumber,
+                    Passport = model.EmpInfo.Passport,
+                    DOEofPassport = model.EmpInfo.DOEofPassport,
+                    UANNumber = model.EmpInfo.UANNumber,
+                    PFNumber = model.EmpInfo.PFNumber,
+                    ESICNumber = model.EmpInfo.ESICNumber,
+                    LatestDegree = model.EmpInfo.LatestDegree,
+                    College_Name = model.EmpInfo.College_Name,
+                    Specialization = model.EmpInfo.Specialization,
+                    YearofCompletion = model.EmpInfo.YearofCompletion,
+                    Employer_name = model.EmpInfo.Employer_name,
+                    JobTitle = model.EmpInfo.JobTitle,
+                    From_date = model.EmpInfo.From_date,
+                    To_date = model.EmpInfo.To_date,
+                    ReasonforRelieving = model.EmpInfo.ReasonforRelieving,
+                    DateofExit = model.EmpInfo.DateofExit,
+                    Reason = model.EmpInfo.Reason,
+                    EligibleforRehire = model.EmpInfo.EligibleforRehire,
+                    CreatedBy = model.EmpInfo.CreatedBy,
+                    CreatedDate = model.EmpInfo.CreatedDate,
+                    UpdatedBy = model.EmpInfo.UpdatedBy,
+                    UpdatedDate = DateTime.Now                    
+                };
+
+                var newEmployee = _dbContext.emp_info.Add(empModel);
                 _dbContext.SaveChanges();
 
                 model.JsonResponse.Message = "Employee details added successfully!";
@@ -267,7 +325,7 @@ namespace HRMS.Controllers
 
                 if (formData.ClientRows != null && formData.ClientRows.Any())
                 {
-                    foreach (var clientRow in model.ClientRows)
+                    foreach (var clientRow in formData.ClientRows)
                     {
                         var employeeBasedClient = new EmployeeBasedClient
                         {
@@ -356,7 +414,6 @@ namespace HRMS.Controllers
                         _dbContext.LeaveBalances.Remove(empLeaveBalanceInfo);
                     }
                     _dbContext.SaveChanges();
-
                 }
 
                 NewAccountCreateEmail(empLoginInfo);

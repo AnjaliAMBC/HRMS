@@ -98,6 +98,9 @@ namespace HRMS.Models
         public bool AddNewRow { get; set; } = false;
         public DaySpecifcData DaySpecifcInfo { get; set; } = new DaySpecifcData();
 
+        public DateTime Weekstartdate { get; set; }
+
+        public DateTime Weekendate { get; set; }
     }
 
     public class SourceFile

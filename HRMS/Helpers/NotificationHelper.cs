@@ -100,7 +100,7 @@ namespace HRMS.Helpers
                     }
                     break;
 
-                case "Remainder":
+                case "CheckIn":
                     switch (notification.Status)
                     {
                         case "CheckIn":

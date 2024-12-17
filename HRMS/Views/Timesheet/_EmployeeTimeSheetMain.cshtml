@@ -1,6 +1,6 @@
 ﻿@model HRMS.Models.Timesheet
 @{
-    var dateFromUrl = Request.QueryString["date"];
+    var dateFromUrl = Model.SelectedDate.ToString("dd-MM-yyyy");
 }
 
 <div class="emp-entertimesheet-block1">
@@ -100,6 +100,9 @@
         dayModel.StartIndexNumber = 1;
         dayModel.EndIndexNumber = 5;
         dayModel.DaySpecifcInfo = dayInfo;
+        dayModel.Weekstartdate = Model.WeekStartDate;
+        dayModel.Weekendate = Model.WeekEndDate;
+
 
         <div id="@blockNumber" class="@blockNumber @activeClass" style="@display">
             @Html.Partial("~/Views/Timesheet/_TimesheetRows.cshtml", dayModel)
@@ -112,8 +115,7 @@
 
 <script>
     $(document).ready(function () {
-        const urlParams = new URLSearchParams(window.location.search);
-        const client = urlParams.get('client');
+        const client = @Model.SelectedClient;
         if (client) {
             $('#entertimesheetClientName').val(client);
         }

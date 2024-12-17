@@ -42,10 +42,17 @@ namespace HRMS.Controllers
             var cuserContext = SiteContext.GetCurrentUserContext();
             var empID = cuserContext.EmpInfo.EmployeeID;
             Timesheet model = CurrentWeekTimeSheetDetails(client, empID, startdate, enddate, true);
+
+            DateTime today = string.IsNullOrWhiteSpace(date) && string.IsNullOrWhiteSpace(startdate)
+           ? DateTime.Now
+           : DateTime.Parse(string.IsNullOrWhiteSpace(date) ? startdate : date);
+
+            model.SelectedDate = today;
+
             return View("~/Views/Timesheet/EmpTimesheetSubmit.cshtml", model);
         }
 
-        private Timesheet CurrentWeekTimeSheetDetails(string client, string empID, string startDate, string endDate, bool isWeek)
+        private Timesheet CurrentWeekTimeSheetDetails(string client, string empID, string startDate, string endDate, bool isWeek, bool isAdminReport = false)
         {
             var model = new Timesheet();
             DateTime today = string.IsNullOrWhiteSpace(startDate) ? DateTime.Today : DateTime.Parse(startDate);
@@ -80,7 +87,7 @@ namespace HRMS.Controllers
             model.SelectedDate = today;
             model.SelectedEmployee = selectedEmployee;
             model.SelectedClient = _dbContext.EmployeeBasedClients.Where(x => x.EmployeeID == empID && x.Client == client).FirstOrDefault();
-            model.WeekInfo = DaysInfo(model.WeekStartDate.ToString("dd MMMM yyyy"), model.WeekEndDate.ToString("dd MMMM yyyy"), empID, client, selectedEmployee);
+            model.WeekInfo = DaysInfo(model.WeekStartDate.ToString("dd MMMM yyyy"), model.WeekEndDate.ToString("dd MMMM yyyy"), empID, client, selectedEmployee, isAdminReport);
             model.SiteContext = SiteContext.GetCurrentUserContext();
             model.Client = client;
 
@@ -88,7 +95,7 @@ namespace HRMS.Controllers
         }
 
 
-        private List<DaySpecifcData> DaysInfo(string weekstart, string weekend, string empID, string client, emp_info selecteEmployee)
+        private List<DaySpecifcData> DaysInfo(string weekstart, string weekend, string empID, string client, emp_info selecteEmployee, bool isAdminReport = false)
         {
             //var cuserContext = SiteContext.GetCurrentUserContext();
 
@@ -100,7 +107,7 @@ namespace HRMS.Controllers
             var compoOffInfo = _dbContext.Compoffs.Where(x => x.addStatus == "Approved");
             var holidaysInfo = _dbContext.tblambcholidays;
             var leavesInfo = _dbContext.con_leaveupdate.Where(x => x.LeaveStatus != "Cancelled" && x.LeaveStatus != "Rejected");
-            var timeSheetInfo = _dbContext.TimeSheets;
+            var timeSheetInfo = !isAdminReport ? _dbContext.TimeSheets : _dbContext.TimeSheets.Where(x => x.submissionstatus == "Submitted");
 
             var categories = _dbContext.TimeSheetCategories.ToList();
             var clients = _dbContext.Clients.ToList();
@@ -157,8 +164,70 @@ namespace HRMS.Controllers
 
 
                 var timeSheetForDate = timeSheetInfo.Where(x => x.Date == date && x.EmployeeID == empInfo.EmployeeID && x.Client == client).ToList();
-                decimal hoursSpent = timeSheetForDate.Sum(x => x.HoursSpent ?? 0);
+                //decimal hoursSpent = timeSheetForDate.Sum(x => x.HoursSpent ?? 0);
+                //decimal overtime = hoursSpent > standardWorkingHours ? hoursSpent - standardWorkingHours : 0;
+
+
+                decimal toatlMinutes = 0;
+
+                foreach (var timesheet in timeSheetForDate)
+                {
+                    // Check if HoursSpent has a value
+                    if (timesheet.HoursSpent.HasValue && timesheet.HoursSpent.Value > 0)
+                    {
+                        // Read the value from HoursSpent (which is in hours)
+                        decimal currentTask = timesheet.HoursSpent.Value;
+
+                        // Split the value into hours and minutes
+                        int hours1 = (int)currentTask; // Get the whole number part (hours)
+                        int minutes1 = (int)((currentTask - hours1) * 100); // Get the fractional part and convert it to minutes
+
+                        // If the value is in the form of 0.30 (meaning 30 minutes), we need to handle it properly.
+                        if (minutes1 >= 60)
+                        {
+                            minutes1 = 0; // Reset minutes
+                            hours1 += 1; // Add 1 hour if minutes exceed 60
+                        }
+
+                        // Convert everything to minutes (hours * 60 + minutes)
+                        toatlMinutes += (hours1 * 60) + minutes1;
+                    }
+                }
+
+                decimal totalMinutes = toatlMinutes;  // Example total minutes
+
+                // Calculate hours and remaining minutes
+                decimal hours = totalMinutes / 60;   // This gives the whole number of hours
+                decimal minutes = totalMinutes % 60;  // This gives the remaining minutes
+
+                // Take the first two digits of the minutes (round down if necessary)
+                int minutesTwoDigits = (int)minutes;  // Casting to int will give the whole part of the minutes
+
+                // Format the result
+                string timeFormatted = $"{(int)hours}.{minutesTwoDigits:D2}";
+                decimal hoursSpent = System.Convert.ToDecimal(timeFormatted);
+
+
+
+                //decimal totalOverTimeMinutes = totalMinutes - 480;  // Example total minutes
+
+                //// Calculate hours and remaining minutes
+                //decimal hoursovertime = totalOverTimeMinutes / 60;   // This gives the whole number of hours
+                //decimal minutesovertime = totalOverTimeMinutes % 60;  // This gives the remaining minutes
+
+                //// Take the first two digits of the minutes (round down if necessary)
+                //int minutesTwoDigitsOverTime = (int)minutesovertime;  // Casting to int will give the whole part of the minutes
+
+                //// Format the result
+                //string timeFormattedOverTime = $"{(int)hoursovertime}.{minutesTwoDigitsOverTime:D2}";
+                //decimal overtime = System.Convert.ToDecimal(timeFormattedOverTime);
+
                 decimal overtime = hoursSpent > standardWorkingHours ? hoursSpent - standardWorkingHours : 0;
+
+
+                var abc = 0;
+
+
 
                 var checkInRecord = loginInfo.FirstOrDefault(x => x.Login_date == date);
 
@@ -174,11 +243,16 @@ namespace HRMS.Controllers
                             indexLabelLeave = "Halfday Leave";
                             leaveY = System.Convert.ToDecimal(0.2);
                         }
-                        else
+                        else if (leaveInfo[0].DayType == "fullDay")
                         {
                             allowedHours = 0;
                             indexLabelLeave = "Leave";
                             leaveY = System.Convert.ToDecimal(0.2);
+                        }
+                        else
+                        {
+                            allowedHours = fullDayWorkingHours;
+                            indexLabelLeave = "";
                         }
                     }
                     else
@@ -261,7 +335,7 @@ namespace HRMS.Controllers
                     TimeSheetSubmitted = true;
                 }
 
-                // Add to model
+                //Add to model
                 model.Add(new DaySpecifcData()
                 {
                     CheckInInfo = loginInfo.Where(x => x.Employee_Code == empID && x.Login_date == date).FirstOrDefault(),
@@ -494,11 +568,11 @@ namespace HRMS.Controllers
 
             return PartialView("~/Views/Timesheet/_Timesheetaddnewrow.cshtml", model);
         }
-
         [HttpPost]
         public JsonResult SaveTimesheet(List<TimeSheet> data)
         {
             var cuserContext = SiteContext.GetCurrentUserContext();
+
             try
             {
                 if (data == null)
@@ -524,12 +598,36 @@ namespace HRMS.Controllers
                         return Json(new { success = false, message = "No valid timesheet data to save." });
                     }
 
+                    // Get the list of Timesheet IDs from the input data
+                    var timesheetIdsFromClient = filteredData
+                        .Where(ts => ts.TimeSheetID > 0)
+                        .Select(ts => ts.TimeSheetID)
+                        .ToList();
+
+                    DateTime? timesheetDate = data.FirstOrDefault()?.Date;
+
+                    // Fetch all existing timesheets from the database for the current employee and context
+                    var existingTimesheets = _dbContext.TimeSheets
+                        .Where(ts => ts.EmployeeID == cuserContext.EmpInfo.EmployeeID && ts.Date == timesheetDate)
+                        .ToList();
+
+                    // Identify records to delete (existing records not in the updated list)
+                    var recordsToDelete = existingTimesheets
+                        .Where(ts => !timesheetIdsFromClient.Contains(ts.TimeSheetID))
+                        .ToList();
+
+                    // Delete these records from the database
+                    foreach (var record in recordsToDelete)
+                    {
+                        _dbContext.TimeSheets.Remove(record);
+                    }
+
+                    // Handle add/update logic for the filtered input data
                     foreach (var record in filteredData)
                     {
-                        if (record.TimeSheetID > 0) // Assuming TimeSheetId is the primary key
+                        if (record.TimeSheetID > 0) // Update existing record
                         {
-                            // Fetch the existing record from the database
-                            var existingRecord = _dbContext.TimeSheets.FirstOrDefault(ts => ts.TimeSheetID == record.TimeSheetID);
+                            var existingRecord = existingTimesheets.FirstOrDefault(ts => ts.TimeSheetID == record.TimeSheetID);
                             if (existingRecord != null)
                             {
                                 // Update the existing record
@@ -542,15 +640,34 @@ namespace HRMS.Controllers
                                 existingRecord.Status = record.Status;
                                 existingRecord.UpdatedDate = DateTime.Now;
                                 existingRecord.UpdatedBy = cuserContext.EmpInfo.EmployeeName;
+
                             }
                         }
-                        else
+                        else // Add a new record
                         {
-                            // Add a new record
-                            record.CreatedDate = DateTime.Now;
-                            record.CreateddBy = cuserContext.EmpInfo.EmployeeName;
-                            record.UpdatedDate = DateTime.Now;
-                            _dbContext.TimeSheets.Add(record);
+                            var newRecord = new TimeSheet
+                            {
+                                EmployeeID = cuserContext.EmpInfo.EmployeeID,
+                                Date = record.Date,
+                                Category = record.Category,
+                                IncidentTaskName = record.IncidentTaskName,
+                                IncidentTaskDescription = record.IncidentTaskDescription,
+                                Requester = record.Requester,
+                                HoursSpent = record.HoursSpent,
+                                Priority = record.Priority,
+                                Status = record.Status,
+                                CreatedDate = DateTime.Now,
+                                CreateddBy = cuserContext.EmpInfo.EmployeeName,
+                                UpdatedDate = DateTime.Now,
+                                UpdatedBy = cuserContext.EmpInfo.EmployeeName,
+                                Client = record.Client,
+                                EmployeeEmail = cuserContext.EmpInfo.OfficalEmailid,
+                                EmployeeName = cuserContext.EmpInfo.EmployeeName,
+                                submissionstatus = record.submissionstatus,
+                                WeekNo = record.WeekNo
+                            };
+
+                            _dbContext.TimeSheets.Add(newRecord);
                         }
                     }
 
@@ -558,17 +675,19 @@ namespace HRMS.Controllers
                     _dbContext.SaveChanges();
                 }
 
-                return Json(new { success = true, message = "Timesheet data saved successfully!" });
+                return Json(new
+                {
+                    success = true,
+                    message = "Timesheet data saved successfully!"
+                });
             }
             catch (DbEntityValidationException ex)
             {
-                // Extract detailed validation errors
                 var validationErrors = ex.EntityValidationErrors
                     .SelectMany(e => e.ValidationErrors)
                     .Select(e => $"Property: {e.PropertyName}, Error: {e.ErrorMessage}")
                     .ToList();
 
-                // Log and return the error response
                 var errorDetails = string.Join(Environment.NewLine, validationErrors);
                 Console.WriteLine("Validation errors occurred:\n" + errorDetails);
 
@@ -576,11 +695,11 @@ namespace HRMS.Controllers
             }
             catch (Exception ex)
             {
-                // Handle other exceptions
                 Console.WriteLine("Error: " + ex.Message);
                 return Json(new { success = false, message = "An error occurred while saving timesheet data.", error = ex.Message });
             }
         }
+
 
 
 
@@ -620,7 +739,7 @@ namespace HRMS.Controllers
                 var emailRequest = new EmailRequest()
                 {
                     Body = emailBody,
-                    ToEmail = cuserContext.EmpInfo.OfficalEmailid,                    
+                    ToEmail = cuserContext.EmpInfo.OfficalEmailid,
                     Subject = $"Submission of Timesheet - {cuserContext.EmpInfo.EmployeeName} - {cuserContext.EmpInfo.EmployeeID}"
                 };
 
@@ -657,7 +776,7 @@ namespace HRMS.Controllers
         public ActionResult AdminTimesheet()
         {
             var cuserContext = SiteContext.GetCurrentUserContext();
-            Timesheet model = CurrentWeekTimeSheetDetails("", cuserContext.EmpInfo.EmployeeID, "", "", true);
+            Timesheet model = CurrentWeekTimeSheetDetails("", cuserContext.EmpInfo.EmployeeID, "", "", true, true);
             model.Employees = _dbContext.emp_info.ToList();
             model.WeeklyReport = true;
             return View("~/Views/Timesheet/AdminTimesheetView.cshtml", model);
@@ -666,7 +785,7 @@ namespace HRMS.Controllers
 
         public JsonResult GetEmployeeTimesheet(string client, string employeeId, string startdate, string endDate, bool isweek)
         {
-            Timesheet model = CurrentWeekTimeSheetDetails(client, employeeId, startdate, endDate, isweek);
+            Timesheet model = CurrentWeekTimeSheetDetails(client, employeeId, startdate, endDate, isweek, true);
             model.WeeklyReport = isweek;
 
             string graphBlockHtml = RenderPartialViewToString("~/Views/Timesheet/_AdminTimesheetCharts.cshtml", model);
@@ -731,7 +850,7 @@ namespace HRMS.Controllers
                 {
                     foreach (var empID in selectedEmployeeIDs)
                     {
-                        var model = CurrentWeekTimeSheetDetails(client, empID, weekstart, weekend, weeklyreport);
+                        var model = CurrentWeekTimeSheetDetails(client, empID, weekstart, weekend, weeklyreport, true);
                         string empSpecificReport = RenderPartialViewToStringWithoutMainLayout("~/Views/Timesheet/_TimeSheetWeeklyreportTemplate.cshtml", model);
 
                         string wrappedHtmlContent = "<html xmlns:x=\"urn:schemas-microsoft-com:office:excel\">" +
