@@ -173,7 +173,7 @@ namespace HRMS
                             NotificationToName = checkinEmp.EmployeeName,
                             NotificationToID = checkinEmp.EmployeeID,
                             NotificationType = "CheckIn",
-                            Status = "Remainder",
+                            Status = "CheckIn",
                             Comments = "",
                             CreatedDate = DateTime.Now
                         };
@@ -241,8 +241,8 @@ namespace HRMS
                             NotificationFromID = "System",
                             NotificationToName = checkoutEmp.EmployeeName,
                             NotificationToID = checkoutEmp.EmployeeID,
-                            NotificationType = "CheckOut",
-                            Status = "Remainder",
+                            NotificationType = "CheckIn",
+                            Status = "CheckOut",
                             Comments = "",
                             CreatedDate = DateTime.Now
                         };

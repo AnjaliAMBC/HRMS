@@ -39,12 +39,12 @@ if (Model.DaySpecifcInfo.HolidayInfo != null && Model.DaySpecifcInfo.CheckInInfo
 
 // Check for comp-off
 @*if (Model.DaySpecifcInfo.CompoffInfo != null && Model.DaySpecifcInfo.CheckInInfo == null)
-{
-<div>
-    CompoOff: @(timeSheet.Date?.ToString("dd MMM yyyy") ?? "N/A")<br />
-    <p><span style="color: red;">Reason:</span> Comp-off day is applied. Please check in and submit the timesheet.</p>
-</div> return;
-}*@
+    {
+    <div>
+        CompoOff: @(timeSheet.Date?.ToString("dd MMM yyyy") ?? "N/A")<br />
+        <p><span style="color: red;">Reason:</span> Comp-off day is applied. Please check in and submit the timesheet.</p>
+    </div> return;
+    }*@
 
 // Handle weekend case
 if (Model.DaySpecifcInfo.IsWeekend && Model.DaySpecifcInfo.CheckInInfo == null)
@@ -147,17 +147,16 @@ timeSheetSubmitted = timeSheet.submissionstatus == "Submitted";
 @{ var isButtonsDisabled = timeSheetSubmitted ? "disabled" : ""; }
 <div class="emp-entertimesheet-footer emp-entertimesheet-footer-@Model.IndexNumber">
     <div class="emp-entertimesheet-addtask emp-entertimesheet-addtask-@Model.IndexNumber">
-        <button type="button" class="emp-entertimesheet-addtask-btn-@Model.IndexNumber" data-weeknumber="@Model.Weeknumber" data-dayindexnumber="@Model.IndexNumber" data-blocknumber="@Model.BlockNumber" data-daydate="@Model.Date.ToString("dd-MM-yyyy")" data-dayuniquekey="@Model.Date.ToString("dd-MM-yyyy")-@Model.IndexNumber" id="addTaskBtn" @isButtonsDisabled>
+        <button type="button" class="emp-entertimesheet-addtask-btn-@Model.IndexNumber" data-weeknumber="@Model.Weeknumber" data-dayindexnumber="@Model.IndexNumber" data-blocknumber="@Model.BlockNumber" data-daydate="@Model.Date.ToString("yyyy-MM-dd")" data-dayuniquekey="@Model.Date.ToString("dd-MM-yyyy")-@Model.IndexNumber" data-weekstartdate="@Model.Weekstartdate.ToString("dd MMMM yyyy")" data-weekenddate="@Model.Weekendate.ToString("dd MMMM yyyy")" id="addTaskBtn" @isButtonsDisabled>
             <i class="fa-solid fa-plus"></i>Add Task
         </button>
     </div>
-    <div class="emp-entertimesheet-save emp-entertimesheet-save-@Model.IndexNumber"><button type="button" class="btn btn-primary btn-save-timesheet" data-maxallaowedhours="@allowedHours" data-weeknumber="@Model.Weeknumber" data-dayindexnumber="@Model.IndexNumber" data-blocknumber="@Model.BlockNumber" data-daydate="@Model.Date.ToString("yyyy-MM-dd")" data-dayuniquekey="@Model.Date.ToString("dd-MM-yyyy")-@Model.IndexNumber" @isButtonsDisabled>Save</button></div>
+    <div class="emp-entertimesheet-save emp-entertimesheet-save-@Model.IndexNumber"><button type="button" class="btn btn-primary btn-save-timesheet" data-maxallaowedhours="@allowedHours" data-weeknumber="@Model.Weeknumber" data-dayindexnumber="@Model.IndexNumber" data-blocknumber="@Model.BlockNumber" data-daydate="@Model.Date.ToString("yyyy-MM-dd")" data-weekstartdate="@Model.Weekstartdate.ToString("dd MMMM yyyy")" data-weekenddate="@Model.Weekendate.ToString("dd MMMM yyyy")" data-dayuniquekey="@Model.Date.ToString("dd-MM-yyyy")-@Model.IndexNumber" @isButtonsDisabled>Save</button></div>
 </div>
 <script>
 
     $(document).ready(function () {
         AddRowColors();
     });
-
 
 </script>

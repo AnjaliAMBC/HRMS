@@ -54,22 +54,6 @@
         .row-highlate {
             background-color: yellow !important;
         }
-
-        .row-weekend {
-            background-color: #f0f8ff; /* Light blue for weekend */
-            color: #000;
-        }
-
-        .row-holiday {
-            background-color: #ffebcc; /* Light orange for holiday */
-            color: #000;
-        }
-
-        .row-leave {
-            background-color: #d1e7dd; /* Light green for leave */
-            color: #000;
-        }
-
     </style>
 
 
@@ -96,22 +80,21 @@
                                             <tr style="background-color: #D3D3D3; text-align:center"><td colspan="7"><h2><b>@Model.WeekStartDate.ToString("MMMM") Month Report</b></h2></td></tr>
                                         }
 
-                                        <tr style="text-align:left">
-                                            <td class="headertd">
-                                                <b>Resource Name</b>
-                                            </td>
-                                            <td class="headertd">
-                                                @Model.SelectedEmployee.EmployeeName
-                                            </td>
-                                            <td class="headertd"><b>Project Manager</b></td>
-                                            <td class="headertd">
-                                                @Model.SelectedClient.ReportingManager
-                                            </td>
-                                            <td class="headertd"><b>Client Name</b></td>
-                                            <td class="headertd">
-                                                @Model.SelectedClient.Client
-                                            </td>
-                                        </tr>
+                                    <tr style="text-align:left">
+                                        <td class="headertd">
+                                            <b>Resource Name</b>
+                                        </td>
+                                        <td class="headertd">
+                                            @Model.SelectedEmployee.EmployeeName
+                                        </td>
+                                        <td class="headertd"><b>Project Manager</b></td>
+                                        <td class="headertd">
+                                            @Model.SelectedClient.ReportingManager
+                                        </td>                                        <td class="headertd">
+                                            <b>Client Name</b>
+                                        </td>                                        <td class="headertd">
+                                            @Model.SelectedClient.Client
+                                        </td>                                    </tr>
                                         <tr style="text-align:left">
                                             @if (Model.WeeklyReport)
                                             {
@@ -136,7 +119,7 @@
                                             }
                                             <td class="headertd">
                                                 @Model.WeekEndDate.ToString("dd-MM-yyyy")
-                                            </td>
+                                            </td>                                           
                                         </tr>
                                     </table>
                                 </td>
@@ -145,7 +128,6 @@
                                 </td>
                             </tr>
                         </table>
-
                         <table>
                             <tr>
                                 <td colspan="8"></td>
@@ -170,7 +152,7 @@
 
                         <table class="table" id="timesheet-table" style="margin-top: 2px">
                             <thead class="table-bordered">
-                                <tr style="background-color: #BCD2E8">
+                                <tr style="background-color: #3E78CF">
                                     <th class="" scope="col" style="text-align:left">Date</th>
                                     <th class="" scope="col" style="text-align: left">Category</th>
                                     <th class="" scope="col" style="text-align: left">Task/Incident Name</th>
@@ -185,90 +167,97 @@
                             <tbody class="timesheet-table-grid">
                                 @foreach (var dayInfo in Model.WeekInfo)
                                 {
-                                    if (dayInfo.Date > DateTime.Now)
+                                    if (dayInfo.HoursSpent > 0)
                                     {
-                                        // Skip rows for future dates
-                                        continue;
+                                        totalBillableHours += dayInfo.HoursSpent;
+                                        totalhoursSpentInTheWeek += dayInfo.HoursSpent;
+                                    }
+                                    if (dayInfo.OverTime > 0)
+                                    {
+                                        totalNonBillableHours += dayInfo.OverTime;
+                                        totalhoursSpentInTheWeek += dayInfo.OverTime;
                                     }
 
-                                    // Check if the day is a weekend, holiday, or leave and if there's no timesheet entry
-                                    bool hasTimesheetData = dayInfo.TimeSheets.Any(report => report.HoursSpent > 0);
-                                    string displayText = "";
-                                    string rowColor = ""; // Variable to hold the background color
-
-                                    // Determine the type of leave (Weekend, Holiday, or Leave)
-                                    if (dayInfo.IsWeekend)
-                                    {
-                                        displayText = "Weekend";
-                                        rowColor = "#D3D3D3"; // Light gray color for weekend
-                                    }
-                                    else if (dayInfo.HolidayInfo != null && dayInfo.HolidayInfo.holiday_date == dayInfo.Date)
-                                    {
-                                        displayText = "Holiday";
-                                        rowColor = "yellow"; // Yellow color for holidays
-                                    }
-                                    else if (dayInfo.Leaves.Any(x => x.leavedate == dayInfo.Date))
-                                    {
-                                        // Get the leave name (assuming the leave name is in x.LeaveType or another property)
-                                        string leaveName = dayInfo.Leaves.FirstOrDefault(x => x.leavedate == dayInfo.Date)?.leavesource ?? "Leave";
-                                        displayText = leaveName;
-                                        rowColor = "#ADD8E6"; // Light blue color for leave
-                                    }
-
-                                    // If there's no timesheet data, show the "Holiday", "Weekend" or "Leave" row (merged across the table)
-                                    if (!hasTimesheetData && !string.IsNullOrEmpty(displayText))
-                                    {
-                                        <tr>
-                                            <!-- Date column (colspan="2") -->
-                                            <td colspan="1" style="background-color: @rowColor; vertical-align: middle;">
-                                                @dayInfo.Date.ToString("dd-MM-yyyy")
-                                            </td>
-
-                                            <!-- Display Text column (colspan="6") -->
-                                            <td colspan="7" style="background-color: @rowColor; text-align: center; font-weight: bold; vertical-align: middle;">
-                                                @displayText
-                                            </td>
-                                        </tr>
-                                        continue; // Skip further processing for this day
-                                    }
-
-                                    // Render the regular rows for tasks (if there are timesheet entries)
                                     foreach (var employeeReport in dayInfo.TimeSheets)
                                     {
                                         if (employeeReport.HoursSpent > 0)
                                         {
-                                            <tr>
-                                                <td>@dayInfo.Date.ToString("dd-MM-yyyy")</td>
-                                                <td>@employeeReport.Category</td>
-                                                <td>@employeeReport.IncidentTaskName</td>
-                                                <td>@employeeReport.IncidentTaskDescription</td>
-                                                <td>@employeeReport.Requester</td>
-                                                <td>@employeeReport.Priority</td>
-                                                <td>@employeeReport.Status</td>
-                                                <td>@employeeReport.HoursSpent</td>
+                                            var currentTaskDate = employeeReport.Date?.ToString("dd-MM-yyyy") ?? "N/A";
+                                            var isAppliedLeavePostSubmission = Model.WeekInfo[0].Leaves.Where(x => x.leavedate == employeeReport.Date).FirstOrDefault();
+
+                                            var rowhighlate = "";
+                                            if (isAppliedLeavePostSubmission != null)
+                                            {
+                                                rowhighlate = "row-highlate";
+                                            }
+
+                                            <tr style="background-color: #fff" class="@rowhighlate">
+                                                <td scope="row" style="font-family: Calibri; text-align: left; vertical-align: middle; ">@currentTaskDate</td>
+                                                <td scope="row" style="font-family: Calibri; text-align: left; vertical-align: middle; ">@employeeReport.Category</td>
+                                                <td scope="row" style="font-family: Calibri; text-align: left; vertical-align: middle; max-width: 200px ">@employeeReport.IncidentTaskName</td>
+                                                <td scope="row" style="font-family: Calibri; text-align: left; max-width: 200px; vertical-align: middle; ">@employeeReport.IncidentTaskDescription</td>
+                                                <td scope="row" style="font-family: Calibri; text-align: left; vertical-align: middle; ">@employeeReport.Requester</td>
+                                                <td scope="row" style="font-family: Calibri; text-align: left; vertical-align: middle; ">@employeeReport.Priority</td>
+                                                <td scope="row" style="font-family: Calibri; text-align: left; vertical-align: middle; ">@employeeReport.Status</td>
+                                                <td scope="row" style="font-family: Calibri; text-align: left; vertical-align: middle; ">@employeeReport.HoursSpent</td>
+
                                             </tr>
                                         }
                                     }
                                 }
 
                             </tbody>
-                        </table>                      
+                        </table>
 
-                        @foreach (var dayInfo in Model.WeekInfo)
-                        {
-                        if (dayInfo.HoursSpent > 0)
-                        {
-                        totalBillableHours += dayInfo.HoursSpent;
-                        totalhoursSpentInTheWeek += dayInfo.HoursSpent;
-                        }
-                        if (dayInfo.OverTime > 0)
-                        {
-                        totalNonBillableHours += dayInfo.OverTime;
-                        totalhoursSpentInTheWeek += dayInfo.OverTime;
-                        }
-                        }
                         <table>
-                            <tr ><td colspan="2" style="background-color:aquamarine; font-weight:bold">Hours Information</td></tr>
+                            <tr>
+                                <td colspan="8"></td>
+                            </tr>
+                        </table>
+                        <table>
+                            <tr>
+                                <td colspan="8" style="background-color: #D3D3D3"><b>Leave Information</b></td>
+                            </tr>
+                        </table>
+
+                        <table style="margin-top: 4px; width:34%">
+                            <thead class="table-bordered">
+                                <tr style="background-color: #BCD2E8">
+                                    <th class="" scope="col">Leave Date</th>
+                                    <th class="" scope="col">Leave Type</th>
+                                </tr>
+                            </thead>
+
+                            <tbody class="timesheet-table-grid">
+                                @{
+                                    var leavesExists = false;
+                                }
+                                @foreach (var dayInfo in Model.WeekInfo)
+                                {
+                                    foreach (var leave in dayInfo.Leaves)
+                                    {
+                                        if (leave.leavesource != "Hourly Permission")
+                                        {
+                                            leavesExists = true;
+                                            <tr style="background-color: #ccffcc">
+                                                <td scope="row" style="vertical-align: middle; text-align: center;">
+                                                    @(leave.leavedate.HasValue ? leave.leavedate.Value.ToString("dd-MM-yyyy") : "N/A")
+                                                </td>
+                                                <td scope="row" style="vertical-align: middle; text-align: center;">@leave.leavesource</td>
+                                            </tr>
+                                        }
+                                    }
+                                }
+
+                                @if (!leavesExists)
+                                {
+                                    <tr style="background-color: #ccffcc">
+                                        <td scope="row">NA</td>
+                                        <td scope="row">NA</td>
+                                    </tr>
+                                }
+                            </tbody>
+
                         </table>
                         <table style="border: none">
                             <tr style="background-color: #ccffcc; ">

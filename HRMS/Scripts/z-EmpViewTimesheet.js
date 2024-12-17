@@ -216,18 +216,48 @@ $(document).ready(function () {
         });
     });
 
+    //$(document).on('click', '.emp-timesheet-edit-btn', function (event) {
+    //    event.preventDefault();
+
+    //    var client = $('#viewtimesheetclient').val();
+    //    var selectedDate = $(this).data("timesheetdate");
+    //    var weekstart = $('#view-week-start').text().trim();
+    //    var weekend = $('#view-week-end').text().trim();
+
+    //    window.location.href = "/timesheet/entertimesheet?client=" + client + "&date=" + selectedDate + "&startdate=" + weekstart + "&enddate=" + weekend;
+    //    return;
+
+    //});
+
     $(document).on('click', '.emp-timesheet-edit-btn', function (event) {
         event.preventDefault();
+        $('.show-progress').show();
 
         var client = $('#viewtimesheetclient').val();
         var selectedDate = $(this).data("timesheetdate");
-        var weekstart = $('#view-week-start').text();
-        var weekend = $('#view-week-end').text();
+        var weekstart = $('#view-week-start').text().trim();
+        var weekend = $('#view-week-end').text().trim();
 
-        window.location.href = "/timesheet/entertimesheet?client=" + client + "&date=" + selectedDate + "&startdate=" + weekstart + "&enddate=" + weekend;
-        return;
+        // Create a hidden form dynamically and submit it
+        var form = $('<form>', {
+            id: 'timesheet-edit-form',
+            method: 'post',
+            action: '/timesheet/entertimesheet'
+        });
 
+        // Add hidden fields for client, date, startdate, and enddate
+        form.append('<input type="hidden" name="client" value="' + client + '">');
+        form.append('<input type="hidden" name="date" value="' + selectedDate + '">');
+        form.append('<input type="hidden" name="startdate" value="' + weekstart + '">');
+        form.append('<input type="hidden" name="enddate" value="' + weekend + '">');
+
+        // Append the form to the body and submit it
+        $('body').append(form);
+        form.submit();
     });
+
+
+
 
     $(document).on('click', '.btn-timesheet-submit', function (event) {
         event.preventDefault();
