@@ -2,6 +2,796 @@
 @{
     ViewBag.Title = "AdminSelfService";
 }
+@Html.Partial("_NavBar")
+@Html.Partial("_adminsidemenu")
+<style>
 
-<h2>AdminSelfService</h2>
+    .person {
+        border: 1px solid #ccc;
+        padding: 10px;
+        min-width: 150px;
+        background-color: #FFFFFF;
+        display: inline-block;
+    }
+
+    .person.female {
+        @*border-color: #F45B69;*@
+    }
+
+    .person.male {
+        @*border-color: #456990;*@
+    }
+
+    .person div {
+        text-align: center;
+    }
+
+    .person .name {
+        font-size: 10px;
+    }
+
+    .person .parentDrop, .person .spouseDrop, .person .childDrop {
+        border: 1px dashed #000000;
+        width: auto;
+        min-width: 80px;
+        min-height: 80px;
+        display: inline-block;
+        vertical-align: top;
+        position: relative;
+        padding-top: 15px;
+    }
+
+    .person .parentDrop > span,
+    .person .spouseDrop > span,
+    .person .childDrop > span {
+        position: absolute;
+        top: 2px;
+        left: 2px;
+        font-weight: bold;
+    }
+
+    .parentDrop > .person,
+    .spouseDrop > .person,
+    .childDrop > .person {
+        margin-top: 20px;
+    }
+
+    /* Tree */
+    .tree ul {
+        padding-top: 20px;
+        position: relative;
+        transition: all 0.5s;
+        -webkit-transition: all 0.5s;
+        -moz-transition: all 0.5s;
+        padding: 20px 0px 0px 0px;
+    }
+
+    .tree li {
+        display: table-cell;
+        text-align: center;
+        list-style-type: none;
+        position: relative;
+        padding: 20px 5px 0 5px;
+        transition: all 0.5s;
+        -webkit-transition: all 0.5s;
+        -moz-transition: all 0.5s;
+    }
+
+    /*We will use ::before and ::after to draw the connectors*/
+    .tree li::before, .tree li::after {
+        content: '';
+        position: absolute;
+        top: 0;
+        right: 50%;
+        border-top: 1px solid #ccc;
+        width: 50%;
+        height: 20px;
+    }
+
+    .tree li::after {
+        right: auto;
+        left: 50%;
+        border-left: 1px solid #ccc;
+    }
+
+    .tree li:only-child::after, .tree li:only-child::before {
+        display: none;
+    }
+
+    .tree li:only-child {
+        padding-top: 0;
+    }
+
+    .tree li:first-child::before, .tree li:last-child::after {
+        border: 0 none;
+    }
+    /*Adding back the vertical connector to the last nodes*/
+    .tree li:last-child::before {
+        border-right: 1px solid #ccc;
+        border-radius: 0 5px 0 0;
+        -webkit-border-radius: 0 5px 0 0;
+        -moz-border-radius: 0 5px 0 0;
+    }
+
+    .tree li:first-child::after {
+        border-radius: 5px 0 0 0;
+        -webkit-border-radius: 5px 0 0 0;
+        -moz-border-radius: 5px 0 0 0;
+    }
+
+    /*Time to add downward connectors from parents*/
+    .tree ul ul::before {
+        content: '';
+        position: absolute;
+        top: 0;
+        left: 50%;
+        @*border-left: 1px solid #ccc;*@
+        width: 0;
+        height: 20px;
+    }
+
+    .tree li .parent {
+        transition: all 0.5s;
+        -webkit-transition: all 0.5s;
+        -moz-transition: all 0.5s;
+        margin-top: 10px;
+    }
+
+    .tree li .parent::before {
+        content: '';
+        position: absolute;
+        top: 40px;
+        left: 50%;
+        @*border-left: 1px solid #ccc;
+        border-right: 1px solid #ccc;*@
+        width: 3px;
+        height: 10px;
+    }
+
+    .tree li .family {
+        position: relative;
+    }
+
+    .tree li .family .spouse {
+        position: absolute;
+        top: 0;
+        left: 50%;
+        margin-left: 95px;
+    }
+
+    .tree li .family .spouse::before {
+        content: '';
+        position: absolute;
+        top: 50%;
+        left: -10px;
+        border-top: 1px solid #ccc;
+        border-bottom: 1px solid #ccc;
+        width: 10px;
+        height: 3px;
+    }
+
+
+    .tree li .child:hover,
+    .tree li .child:hover + .parent .person,
+    .tree li .parent .person:hover,
+    .tree li .child:hover + .parent .person + ul li .child,
+    .tree li .parent .person:hover + ul li .child,
+    .tree li .child:hover + .parent .person + ul li .parent .person,
+    .tree li .parent .person:hover + ul li .parent .person {
+        @*background: #c8e4f8;
+        color: #000;
+        border: 1px solid #94a0b4;*@
+    }
+    /*Connector styles on hover*/
+    .tree li .child:hover + .parent::before,
+    .tree li .child:hover + .parent .person + ul li::after,
+    .tree li .parent .person:hover + ul li::after,
+    .tree li .child:hover + .parent .person + ul li::before,
+    .tree li .parent .person:hover + ul li::before,
+    .tree li .child:hover + .parent .person + ul::before,
+    .tree li .parent .person:hover + ul::before,
+    .tree li .child:hover + .parent .person + ul ul::before,
+    .tree li .parent .person:hover + ul ul::before {
+        @*border-color: #94a0b4;*@
+    }
+
+
+    .modal.left .modal-dialog,
+    .modal.right .modal-dialog {
+        position: fixed;
+        margin: auto;
+        width: 320px;
+        height: 100%;
+        -webkit-transform: translate3d(0%, 0, 0);
+        -ms-transform: translate3d(0%, 0, 0);
+        -o-transform: translate3d(0%, 0, 0);
+        transform: translate3d(0%, 0, 0);
+    }
+
+    .modal.left .modal-content,
+    .modal.right .modal-content {
+        height: 100%;
+        overflow-y: auto;
+    }
+
+    .modal.left .modal-body,
+    .modal.right .modal-body {
+        padding: 15px 15px 80px;
+    }
+
+    /*Right*/
+    .modal.right.fade .modal-dialog {
+        right: 0px;
+        -webkit-transition: opacity 0.3s linear, right 0.3s ease-out;
+        -moz-transition: opacity 0.3s linear, right 0.3s ease-out;
+        -o-transition: opacity 0.3s linear, right 0.3s ease-out;
+        transition: opacity 0.3s linear, right 0.3s ease-out;
+    }
+
+    .modal.right.fade.in .modal-dialog {
+        right: 0;
+    }
+
+    .modal-dialog {
+        margin: 5% auto;
+    }
+
+    .checkputcolor {
+        background: linear-gradient(to right, #FF554B, #EA2E24, #D11006);
+        color: #fff;
+        padding: 5px 7px;
+        margin-top: 5px;
+        text-align: center;
+    }
+    .tox .tox-statusbar {
+        height: 0px !important;
+    }
+
+    .tox .tox-mbtn {
+        height: 15px;
+        font-size: 12px;
+    }
+
+</style>
+<script src="https://cdn.tiny.cloud/1/a8r9jj8t9yk0l2hgejaoyglumbdcfozlfeogwxxq03lyrsrr/tinymce/5/tinymce.min.js"></script>
+<div class="container-fluid admin-selfservice-list-horizon">
+    <div class="main-content container-fluid">
+        <div class="content admin-selfservice">
+            <div class="admin-selfservice-container">
+                <div class="row admin-selfservice-header">
+                    <div class="col-lg-3 admin-selfservice-title">
+                        <h4>Test User</h4>
+                    </div>
+                </div>
+            </div>
+
+            <div class="admin-selfservice-details">
+                <div class="row">
+                    <div class="col-lg-7 admin-selfservice-details-left">
+                        <div class="admin-ss-details-block1">
+                            <div class="admin-ss-details-block1-left">
+                                <img src="~/Assets/EmpImages/1020.jpeg" alt="Employee Image" class="admin-profileimage">
+
+                                @*<img src="" alt="Employee Image" class="admin-profileimage" style="display: none">
+                                <div class="default-image">asdsad sdsd</div>*@
+
+                                <div class="img-edit-icon"><span><i class="fas fa-camera"></i></span></div>
+                                <input type="file" id="imageInput" style="display: none;">
+
+                            </div>
+                            @*<div class="emp-ss-details-block1-left">
+                                    <img src="~/Assets/EmpImages/1075.jpeg">
+                                    <div class="img-edit-icon"><span><i class="fas fa-camera"></i></span></div>
+                                    <input type="file" id="imageInput" style="display: none;">
+                                </div>*@
+                            <div class="admin-ss-details-block1-right">
+                                <div class="admin-ss-details-user-info-1">
+                                    <div class="admin-ss-details-username">dsfsffd</div>
+                                    <div class="admin-ss-details-designation color-gray">dcvxvx</div>
+                                    <div class="admin-ss-details-category color-gray">sfsdf</div>
+                                </div>
+                                <div class="admin-ss-details-user-info-2">
+                                    <div class="admin-ss-details-empid">Employee ID: 323</div>
+                                    <div class="admin-ss-details-dob color-gray">Date of Joining: 12-12-2024</div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="admin-ss-details-block2 admin-ss-tab-details-desktop">
+                            <ul class="nav nav-tabs res-admin-ss-tabs responsive-tabs" id="myTab" role="tablist" style="font-size: 15px; width: 100%;">
+                                <li class="nav-item active" role="presentation">
+                                    <a class="nav-link active" id="tab1-link" data-toggle="tab" href="#tab1" role="tab" aria-controls="tab1" aria-selected="true">Profile</a>
+                                </li>
+                                <li class="nav-item" role="presentation">
+                                    <a class="nav-link" id="tab2-link" data-toggle="tab" href="#tab2" role="tab" aria-controls="tab2" aria-selected="false">Projects - R&R</a>
+                                </li>
+                                <li class="nav-item" role="presentation">
+                                    <a class="nav-link" id="tab3-link" data-toggle="tab" href="#tab3" role="tab" aria-controls="tab3" aria-selected="false">Asset</a>
+                                </li>
+                                <li class="nav-item" role="presentation">
+                                    <a class="nav-link" id="tab4-link" data-toggle="tab" href="#tab4" role="tab" aria-controls="tab4" aria-selected="false">Monthly Maintenance</a>
+                                </li>
+                                <i class="fa fa-caret-up"></i>
+                                <i class="fa fa-caret-down"></i>
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="col-lg-0 admin-selfservice-details-center"></div>
+                    <div class="col-lg-5 admin-selfservice-details-right">
+                        <div class="admin-ss-details-block3">
+                            <div class="admin-ss-details-right-left admin-ss-details-phone">
+                                <span class="col-lg-5 col-md-5 admin-ss-details-left-block">Phone:</span>
+                                <span class="col-lg-7 admin-ss-details-right-block" style="color: #267EC4;">yrtr</span>
+                            </div>
+                            <div class="admin-ss-details-right-left admin-ss-details-email">
+                                <span class="col-lg-5 col-md-5 admin-ss-details-left-block">Email:</span>
+                                <span class="col-lg-7 admin-ss-details-right-block" style="color: #267EC4;">fgfdg</span>
+                            </div>
+                            <div class="admin-ss-details-right-left admin-ss-details-shift">
+                                <span class="col-lg-5 col-md-5 admin-ss-details-left-block">Shift Timing:</span>
+                                <span class="col-lg-7 admin-ss-details-right-block color-gray">fdgfdg</span>
+                            </div>
+                            <div class="admin-ss-details-right-left admin-ss-details-location">
+                                <span class="col-lg-5 col-md-5 admin-ss-details-left-block">Location:</span>
+                                <span class="col-lg-7 admin-ss-details-right-block color-gray">gfdgfd</span>
+                            </div>
+                            <div class="admin-ss-details-right-left admin-ss-details-emptype">
+                                <span class="col-lg-5 col-md-5 admin-ss-details-left-block">Employee Type:</span>
+                                <span class="col-lg-7 admin-ss-details-right-block color-gray">rter</span>
+                            </div>
+                        </div>
+                        <div class="admin-ss-details-block4">
+                            <div class="admin-change-password">
+                                @*<button class="btn btn-primary">Change Password</button>*@
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+
+            <div class="admin-ss-details-block2 admin-ss-tab-details-mobile" style="display:none;">
+                <ul class="nav nav-tabs res-admin-ss-tabs responsive-tabs" id="myTab" role="tablist" style="font-size: 15px; width: 100%;">
+                    <li class="nav-item active" role="presentation">
+                        <a class="nav-link active" id="tab1-link" data-toggle="tab" href="#tab1" role="tab" aria-controls="tab1" aria-selected="true">Profile</a>
+                    </li>
+                    <li class="nav-item" role="presentation">
+                        <a class="nav-link" id="tab2-link" data-toggle="tab" href="#tab2" role="tab" aria-controls="tab2" aria-selected="false">Projects - R&amp;R</a>
+                    </li>
+                    <li class="nav-item" role="presentation">
+                        <a class="nav-link" id="tab3-link" data-toggle="tab" href="#tab3" role="tab" aria-controls="tab3" aria-selected="false">Asset</a>
+                    </li>
+                    <li class="nav-item" role="presentation">
+                        <a class="nav-link" id="tab4-link" data-toggle="tab" href="#tab4" role="tab" aria-controls="tab4" aria-selected="false">Monthly Maintenance</a>
+                    </li>
+                    <i class="fa fa-caret-up"></i>
+                    <i class="fa fa-caret-down"></i>
+                </ul>
+            </div>
+
+            <div class="admin-selfservice-details-all">
+
+                <div class="tab-content" id="myTabContent">
+                    <div class="tab-pane fade show admin-ss-profileview active" id="tab1" role="tabpanel" aria-labelledby="tab1-link">
+
+                        <div class="row admin-ss-details-all-block1">
+                            <div class="col-md-offset-5 border mr-4 block-view" style="width: 47%;">
+                                <div class="form-group admin-ss-detailed-all-header">
+                                    <div class="form-group row">
+                                        <h6 style="margin-left: 24px; margin-top: 10px;"><b>Reporting Details</b></h6>
+                                    </div>
+                                </div>
+                                <div class="form-group" style="line-height: normal;">
+                                    <div class="form-group row">
+                                        <label for="reportingManager" class="col-md-5 col-sm-5" style="margin-left: 10px; margin-top: 10px;">Reporting Manager</label>
+                                        <div class="col-md-6 col-sm-6" style="margin-left: 10px; margin-top: 10px; word-wrap: break-word;">sdfds</div>
+                                    </div>
+                                </div>
+                                <div class="form-group" style="line-height: normal;">
+                                    <div class="form-group row">
+                                        <label for="doj" class="col-md-5 col-sm-5" style="margin-left: 10px;">Date of Joining</label>
+                                        <div class="col-md-6 col-sm-6" style="margin-left: 10px; word-wrap: break-word;">
+                                            <span>12-12-2023</span>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="form-group" style="line-height: normal;">
+                                    <div class="form-group row">
+                                        <label for="employeeStatus" class="col-md-5 col-sm-5" style="margin-left: 10px;">Employee Status</label>
+                                        <div class="col-md-6 col-sm-6" style="margin-left: 10px; word-wrap: break-word;">oio</div>
+                                    </div>
+                                </div>
+                                <div class="form-group" style="line-height: normal;">
+                                    <div class="form-group row">
+                                        <label for="client" class="col-md-5 col-sm-5" style="margin-left: 10px;">Client</label>
+                                        <div class="col-md-6 col-sm-6" style="margin-left: 10px; word-wrap: break-word;">lpl</div>
+                                    </div>
+                                </div>
+                                <div class="form-group" style="line-height: normal;">
+                                    <div class="form-group row">
+                                        <label for="leaveRm" class="col-md-5 col-sm-5" style="margin-left: 10px;">Leave RM</label>
+                                        <div class="col-md-6 col-sm-6" style="margin-left: 10px; word-wrap: break-word;">uy</div>
+                                    </div>
+                                </div>
+                                <div class="form-group" style="line-height: normal;">
+                                    <div class="form-group row">
+                                        <label for="presentAddress" class="col-md-5 col-sm-5" style="margin-left: 10px;">Present Address</label>
+                                        <div class="col-md-6 col-sm-6" style="margin-left: 10px; word-wrap: break-word;line-height: 1.5">uy</div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="col-md-offset-5 border block-view mr-4 block-view-3" style="width: 47%;">
+                                <div class="form-group admin-ss-detailed-all-header">
+                                    <div class="form-group row">
+                                        <h6 style="margin-left: 24px; margin-top: 10px;"><b>General Details</b></h6>
+                                    </div>
+                                </div>
+                                <div class="form-group" style="line-height: normal;">
+                                    <div class="form-group row">
+                                        <label for="fatherName" class="col-md-5 col-sm-5" style="margin-left: 10px; margin-top: 10px;">Father Name</label>
+                                        <div class="col-md-6 col-sm-6" style="margin-left: 10px; margin-top: 10px; word-wrap: break-word;">fr</div>
+                                    </div>
+                                </div>
+                                <div class="form-group" style="line-height: normal;">
+                                    <div class="form-group row">
+                                        <label for="dob" class="col-md-5 col-sm-5" style="margin-left: 10px;">Date of Birth</label>
+                                        <div class="col-md-6 col-sm-6" style="margin-left: 10px; word-wrap: break-word;">
+                                            <span>3-9-2024</span>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="form-group" style="line-height: normal;">
+                                    <div class="form-group row">
+                                        <label for="age" class="col-md-5 col-sm-5" style="margin-left: 10px;">Age</label>
+                                        <div class="col-md-6 col-sm-6" style="margin-left: 10px; word-wrap: break-word;">zcv</div>
+                                    </div>
+                                </div>
+                                <div class="form-group" style="line-height: normal;">
+                                    <div class="form-group row">
+                                        <label for="bloodGroup" class="col-md-5 col-sm-5" style="margin-left: 10px;">Blood Group</label>
+                                        <div class="col-md-6 col-sm-6" style="margin-left: 10px; word-wrap: break-word;">tu</div>
+                                    </div>
+                                </div>
+                                <div class="form-group" style="line-height: normal;">
+                                    <div class="form-group row">
+                                        <label for="gender" class="col-md-5 col-sm-5" style="margin-left: 10px;">Gender</label>
+                                        <div class="col-md-6 col-sm-6" style="margin-left: 10px; word-wrap: break-word;">yu</div>
+                                    </div>
+                                </div>
+                                <div class="form-group" style="line-height: normal;">
+                                    <div class="form-group row">
+                                        <label for="maritalStatus" class="col-md-5 col-sm-5" style="margin-left: 10px;">Marital Status</label>
+                                        <div class="col-md-6 col-sm-6" style="margin-left: 10px; word-wrap: break-word;">rt</div>
+                                    </div>
+                                </div>
+                                <div class="form-group" style="line-height: normal;">
+                                    <div class="form-group row">
+                                        <label for="mobileNumber" class="col-md-5 col-sm-5" style="margin-left: 10px;">Mobile Number</label>
+                                        <div class="col-md-6 col-sm-6" style="margin-left: 10px; word-wrap: break-word;">se</div>
+                                    </div>
+                                </div>
+                                <div class="form-group" style="line-height: normal;">
+                                    <div class="form-group row">
+                                        <label for="altMobileNumber" class="col-md-5 col-sm-5" style="margin-left: 10px;">Alt. Mobile Number</label>
+                                        <div class="col-md-6 col-sm-6" style="margin-left: 10px; word-wrap: break-word;">zz</div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="row admin-ss-details-all-block2">
+                            <div class="col-md-offset-5 border mr-4 block-view" style="width: 47%;">
+                                <div class="form-group admin-ss-detailed-all-header">
+                                    <div class="form-group row">
+                                        <h6 style="margin-left: 24px; margin-top: 10px;"><b>Emergency Contact Details</b></h6>
+                                    </div>
+                                </div>
+                                <div class="form-group" style="line-height: normal;">
+                                    <div class="form-group row">
+                                        <label for="departmentname" class="col-md-5 col-sm-5" style="margin-left: 10px; margin-top: 10px;">Name</label>
+                                        <div class="col-md-6 col-sm-6" style="margin-left: 10px; margin-top: 10px; word-wrap: break-word;">aws</div>
+                                    </div>
+                                </div>
+                                <div class="form-group" style="line-height: normal;">
+                                    <div class="form-group row">
+                                        <label for="relationship" class="col-md-5 col-sm-5" style="margin-left: 10px;">Relationship</label>
+                                        <div class="col-md-6 col-sm-6" style="margin-left: 10px; word-wrap: break-word;">zs</div>
+                                    </div>
+                                </div>
+                                <div class="form-group" style="line-height: normal;">
+                                    <div class="form-group row">
+                                        <label for="contactdetails" class="col-md-5 col-sm-5" style="margin-left: 10px;">Contact Details</label>
+                                        <div class="col-md-6 col-sm-6" style="margin-left: 10px; word-wrap: break-word;">we</div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-offset-5 border block-view mr-4 block-view-3" style="width: 47%;">
+                                <div class="form-group admin-ss-detailed-all-header">
+                                    <div class="form-group row">
+                                        <h6 style="margin-left: 24px; margin-top: 10px;"><b>Statutory Details</b></h6>
+                                    </div>
+                                </div>
+                                <div class="form-group" style="line-height: normal;">
+                                    <div class="form-group row">
+                                        <label for="uanNumber" class="col-md-5 col-sm-5" style="margin-left: 10px; margin-top: 10px;">UAN Number</label>
+                                        <div class="col-md-6 col-sm-6" style="margin-left: 10px; margin-top: 10px; word-wrap: break-word;">opop</div>
+                                    </div>
+                                </div>
+                                <div class="form-group" style="line-height: normal;">
+                                    <div class="form-group row">
+                                        <label for="pfNumber" class="col-md-5 col-sm-5" style="margin-left: 10px;">PF Number</label>
+                                        <div class="col-md-6 col-sm-6" style="margin-left: 10px; word-wrap: break-word;">uu</div>
+                                    </div>
+                                </div>
+                                <div class="form-group" style="line-height: normal;">
+                                    <div class="form-group row">
+                                        <label for="ecisNumber" class="col-md-5 col-sm-5" style="margin-left: 10px;">ECIS Number</label>
+                                        <div class="col-md-6 col-sm-6" style="margin-left: 10px; word-wrap: break-word;">aa</div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="row admin-ss-details-all-block3">
+                            <div class="col-md-offset-5 border mr-4 block-view" style="width: 47%;">
+                                <div class="form-group admin-ss-detailed-all-header">
+                                    <div class="form-group row">
+                                        <h6 style="margin-left: 24px; margin-top: 10px;"><b>Educational Details</b></h6>
+                                    </div>
+                                </div>
+                                <div class="form-group" style="line-height: normal;">
+                                    <div class="form-group row">
+                                        <label for="latestdegree" class="col-md-5 col-sm-5" style="margin-left: 10px; margin-top: 10px;">Latest Degree</label>
+                                        <div class="col-md-6 col-sm-6" style="margin-left: 10px; margin-top: 10px; word-wrap: break-word;">asas</div>
+                                    </div>
+                                </div>
+                                <div class="form-group" style="line-height: normal;">
+                                    <div class="form-group row">
+                                        <label for="collegename" class="col-md-5 col-sm-5" style="margin-left: 10px;">College Name</label>
+                                        <div class="col-md-6 col-sm-6" style="margin-left: 10px; word-wrap: break-word;">asas</div>
+                                    </div>
+                                </div>
+                                <div class="form-group" style="line-height: normal;">
+                                    <div class="form-group row">
+                                        <label for="contactdetails" class="col-md-5 col-sm-5" style="margin-left: 10px;">Specialization</label>
+                                        <div class="col-md-6 col-sm-6" style="margin-left: 10px; word-wrap: break-word;">ssd</div>
+                                    </div>
+                                </div>
+
+                                <div class="form-group" style="line-height: normal;">
+                                    <div class="form-group row">
+                                        <label for="contactdetails" class="col-md-5 col-sm-5" style="margin-left: 10px;">Passout Year</label>
+                                        <div class="col-md-6 col-sm-6" style="margin-left: 10px; word-wrap: break-word;">
+
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-offset-5 mr-4" style="width: 47%;"></div>
+                        </div>
+
+                    </div>
+
+                    <div class="tab-pane fade admin-ss-projectview" id="tab2" role="tabpanel" aria-labelledby="tab2-link">
+                        <div class="row admin-project-details-main">
+                            <div class="col-lg-7 admin-project-details-left">
+                                <div class="col-lg-12 admin-project-details-header">
+                                    <div class="admin-project-details-title">Roles & Responsibility</div>
+                                    <div class="admin-project-details-edit"><span data-toggle="modal" data-target="#adminProjectRoleResModal"><img src="~/Assets/edit-icon.png"></span></div>
+                                </div>
+                                <div class="col-lg-12 emp-project-details-body">
+
+                                </div>
+                            </div>
+                            <div class="col-lg-4 admin-project-details-right">
+                                <div class="admin-project-details-clientinfo">
+                                    <div class="admin-project-clientinfo">
+                                        <div class="project-client"><span>Client : </span> www</div>
+                                        <div class="project-name"><span>Project : </span> ddd</div>
+                                        <div class="project-role"><span>Role : </span> eee</div>
+                                        <div class="project-rm"><span>RM : </span> dd</div>
+                                    </div>
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+
+
+                    <div class="tab-pane fade admin-ss-assetview" id="tab3" role="tabpanel" aria-labelledby="tab3-link">
+
+                        <div class="container" style="margin-left: 0 auto">
+
+                            <div class="tree-structure">
+
+                                <div class="tree">
+                                    <ul>
+                                        <li>
+                                            <div class="family">
+                                                <div class="parent">
+                                                    <div class="person female" style="border: none;">
+                                                        <div class="name allocate-details tree-root">
+                                                        </div>
+                                                    </div>
+                                                    <ul>
+                                                            <li>
+                                                                <div class="family" style="width: 172px">
+                                                                    <div class="person child male">
+                                                                        <div class="name allocate-details tree-child">                                                                                  
+                                                                            <img src="~/Assets/asset-icon-5.png" alt="Default Asset Image" />
+                                                                                
+                                                                            <div class="allocate-info">
+                                                                                <div class="model"><span>Asset Name</span> Test Asset</div>
+                                                                                <div class="assetid"><span>Asset ID</span>WR34DE</div>
+                                                                                <div class="allocatedby"><span>Allocated By</span> Test</div>
+                                                                                <div class="allocateddate">
+                                                                                    <span>Allocated Date</span>12-12-2024
+                                                                                </div>
+                                                                            </div>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                            </li>
+                                                            <li>
+                                                                <div class="family" style="width: 172px">
+                                                                    <div class="person child male">
+                                                                        <div class="name allocate-details tree-child">                                                                                  
+                                                                            <img src="~/Assets/asset-icon-5.png" alt="Default Asset Image" />
+                                                                                
+                                                                            <div class="allocate-info">
+                                                                                <div class="model"><span>Asset Name</span> Test Asset</div>
+                                                                                <div class="assetid"><span>Asset ID</span>WR34DE</div>
+                                                                                <div class="allocatedby"><span>Allocated By</span> Test</div>
+                                                                                <div class="allocateddate">
+                                                                                    <span>Allocated Date</span>12-12-2024
+                                                                                </div>
+                                                                            </div>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                            </li>
+                                                            <li>
+                                                                <div class="family" style="width: 172px">
+                                                                    <div class="person child male">
+                                                                        <div class="name allocate-details tree-child">
+                                                                            <img src="~/Assets/asset-icon-5.png" alt="Default Asset Image" />
+
+                                                                            <div class="allocate-info">
+                                                                                <div class="model"><span>Asset Name</span> Test Asset</div>
+                                                                                <div class="assetid"><span>Asset ID</span>WR34DE</div>
+                                                                                <div class="allocatedby"><span>Allocated By</span> Test</div>
+                                                                                <div class="allocateddate">
+                                                                                    <span>Allocated Date</span>12-12-2024
+                                                                                </div>
+                                                                            </div>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                            </li>
+                                                            <li>
+                                                                <div class="family" style="width: 172px">
+                                                                    <div class="person child male">
+                                                                        <div class="name allocate-details tree-child">
+                                                                            <img src="~/Assets/asset-icon-5.png" alt="Default Asset Image" />
+
+                                                                            <div class="allocate-info">
+                                                                                <div class="model"><span>Asset Name</span> Test Asset</div>
+                                                                                <div class="assetid"><span>Asset ID</span>WR34DE</div>
+                                                                                <div class="allocatedby"><span>Allocated By</span> Test</div>
+                                                                                <div class="allocateddate">
+                                                                                    <span>Allocated Date</span>12-12-2024
+                                                                                </div>
+                                                                            </div>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                            </li>
+                                                            <li>
+                                                                <div class="family" style="width: 172px">
+                                                                    <div class="person child male">
+                                                                        <div class="name allocate-details tree-child">                                                                                  
+                                                                            <img src="~/Assets/asset-icon-5.png" alt="Default Asset Image" />
+                                                                                
+                                                                            <div class="allocate-info">
+                                                                                <div class="model"><span>Asset Name</span> Test Asset</div>
+                                                                                <div class="assetid"><span>Asset ID</span>WR34DE</div>
+                                                                                <div class="allocatedby"><span>Allocated By</span> Test</div>
+                                                                                <div class="allocateddate">
+                                                                                    <span>Allocated Date</span>12-12-2024
+                                                                                </div>
+                                                                            </div>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                            </li>
+                                                        
+                                                    </ul>
+                                                </div>
+                                            </div>
+                                        </li>
+                                    </ul>
+                                </div>
+                            </div>
+
+                        </div>
+
+                    </div>
+                    <div class="tab-pane fade admin-ss-monthlymaintenanceview" id="tab4" role="tabpanel" aria-labelledby="tab4-link">
+                        <div class="admin-ss-mm-year">
+                            <h5 style="visibility:hidden;">Emp Monthly Maintenance</h5>
+                            <div class="mm-year-dropdown">
+                                <form id="yearFilterForm" method="get" action="/EmployeeDashboard/SelfService">
+                                    <select class="form-control pointer" id="emp-mm-year" name="year">
+                                        <option value="1">2024</option>
+                                    </select>
+                                </form>
+                            </div>
+
+                        </div>
+
+                        <div class="MaintenanceTableRows-div">
+                            @*@Html.Partial("_MaintenanceTableRows", Model)*@
+                            <div class="res-admin-maintenanceinfo-table table-responsive">
+                                <table id="adminmaintenanceinfotable" class="table display" style="width: 100%;">
+                                    <thead style="background-color: #3E78CF; border-radius: 10px;">
+                                        <tr>
+                                            <th style="text-align:center;">Acknowledge</th>
+                                            <th>Date</th>
+                                            <th>Agent Name</th>
+                                            <th>Change Request Date</th>
+                                            <th>Status</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody class="admin-ss-monthlymaintenanceview">
+                                        <tr class="odd">
+                                            <td class="admin-maintenancestatus-icon" style="text-align:center;">
+                                                <span class="admin-maintenanceapproved-btn">
+                                                        <img src="/assets/Pending.png" alt="Pending" style="width:25px" title="Pending">
+                                                </span>
+                                            </td>
+                                            <td>12-12-2024</td>
+                                            <td>werwer</td>
+                                            <td>
+                                                12-12-2024
+                                            </td>
+                                            <td>
+                                                <div class="admin-maintenance-status pending">
+                                                    Pending
+                                                </div>
+                                            </td>
+                                        </tr>                                            
+                                    </tbody>
+                                </table>
+                            </div>
+
+                        </div>
+
+
+                    </div>
+
+
+                </div>
+
+
+            </div>
+
+        </div>
+    </div>
+
+
+</div>
+
+<script>
+    $(document).ready(function () {
+
+    });
+
+    tinymce.init({
+        selector: '#empProjectRoleRes-field',
+        plugins: 'bold italic underline',
+        toolbar: 'bold italic underline | alignleft aligncenter alignright',
+    });
+</script>
+
+<script src="~/Scripts/Z-Maintanance.js"></script>
 
