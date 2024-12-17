@@ -682,6 +682,455 @@ div.main-content {
 
 /* admin employee management end */
 
+/* admin employee selfservice start */
+
+.admin-selfservice-list-horizon {
+    min-height: 95vh;
+    padding: 0 25px;
+}
+
+    .admin-selfservice-list-horizon .main-content {
+        /*margin-left: 0;*/
+        width: 87% !important;
+        margin-top: 15px;
+    }
+
+    .admin-selfservice-list-horizon .admin-selfservice-details {
+        background: #fff;
+        width: 100%;
+        border-bottom: 1px solid #ccc;
+    }
+
+    .admin-selfservice-list-horizon .admin-selfservice-details .admin-selfservice-details-left {
+    }
+
+    .admin-selfservice-list-horizon .admin-selfservice-details .admin-selfservice-details-left .admin-ss-details-block1 {
+        width: 100%;
+        display: inline-block;
+        padding: 30px 30px 0px 45px;
+        margin-bottom: 25px;
+    }
+
+    .admin-selfservice-list-horizon .admin-selfservice-details .admin-selfservice-details-left .admin-ss-details-block1 .admin-ss-details-block1-left {
+        width: 23%;
+        display: inline-block;
+        vertical-align: top;
+        margin-right: 15px;
+    }
+
+    .admin-selfservice-list-horizon .admin-selfservice-details .admin-selfservice-details-left .admin-ss-details-block1 .admin-ss-details-block1-left .img-edit-icon {
+        position: relative;
+        top: -40px;
+        left: 107px;
+        width: 30px;
+    }
+
+    .admin-selfservice-list-horizon .admin-selfservice-details .admin-selfservice-details-left .admin-ss-details-block1 .admin-ss-details-block1-left .img-edit-icon span {
+        color: #fff;
+        background: #267EC4;
+        padding: 6px 7px;
+    }
+
+    .admin-selfservice-list-horizon .admin-selfservice-details .admin-selfservice-details-left .admin-ss-details-block1 .admin-ss-details-block1-left img {
+        width: 130px;
+        height: 130px;
+        border-radius: 50%;
+        object-fit: cover;
+    }
+
+    .admin-selfservice-list-horizon .admin-selfservice-details .admin-selfservice-details-left .admin-ss-details-block1 .admin-ss-details-block1-right {
+        width: 70%;
+        display: inline-block;
+    }
+
+    .admin-ss-details-designation,
+    .admin-ss-details-category,
+    .admin-ss-details-dob {
+        font-size: 14px;
+    }
+
+    .admin-selfservice-list-horizon .admin-selfservice-details .admin-selfservice-details-left .admin-ss-details-block2 {
+        position: absolute;
+        bottom: 0;
+        padding: 0 25px;
+    }
+
+    .admin-selfservice-list-horizon .admin-selfservice-details .admin-selfservice-details-left .admin-ss-details-block1 .admin-ss-details-block1-right .admin-ss-details-user-info-2 {
+        margin-top: 15px;
+    }
+
+    .admin-selfservice-list-horizon .admin-selfservice-details .admin-ss-details-block2 .res-admin-ss-tabs {
+        border-bottom: none;
+    }
+
+    .admin-selfservice-list-horizon .admin-selfservice-details .admin-ss-details-block2 .nav-tabs .nav-item.show .nav-link,
+    .admin-selfservice-list-horizon .admin-selfservice-details .admin-ss-details-block2 .nav-tabs .nav-link {
+        border: 0px;
+    }
+
+    .admin-selfservice-list-horizon .admin-selfservice-details .admin-ss-details-block2 .nav-tabs .nav-item.show .nav-link,
+    .admin-selfservice-list-horizon .admin-selfservice-details .admin-ss-details-block2 .nav-tabs .nav-link.active {
+        color: #000;
+        border-bottom: 2px solid #267EC4;
+    }
+
+    .admin-selfservice-list-horizon .admin-selfservice-details .admin-ss-details-block2 .nav-tabs .nav-item {
+        padding: 0 10px;
+    }
+
+    .admin-selfservice-list-horizon .color-gray {
+        color: gray;
+    }
+
+    .admin-selfservice-list-horizon .admin-selfservice-details .admin-selfservice-details-center {
+        border-left: 1px dashed;
+        margin-top: 25px;
+        margin-bottom: 45px;
+    }
+
+    .admin-selfservice-list-horizon .admin-selfservice-details .admin-selfservice-details-right {
+        padding: 25px 20px 15px 20px;
+        max-width: 40%;
+    }
+
+    .admin-selfservice-list-horizon .admin-selfservice-details .admin-selfservice-details-right .admin-ss-details-block3 {
+    }
+
+    .admin-selfservice-list-horizon .admin-selfservice-details .admin-selfservice-details-right .admin-ss-details-block3 .admin-ss-details-right-left {
+        padding: 3px 0;
+    }
+
+    .admin-selfservice-list-horizon .admin-selfservice-details .admin-selfservice-details-right .admin-ss-details-block3 .admin-ss-details-left-block {
+        display: inline-block;
+    }
+
+    .admin-selfservice-list-horizon .admin-selfservice-details .admin-selfservice-details-right .admin-ss-details-block3 .admin-ss-details-right-block {
+        /*display: inline-block;*/
+    }
+
+    .admin-selfservice-list-horizon .admin-selfservice-details .admin-selfservice-details-right .admin-ss-details-block4 {
+    }
+
+    .admin-selfservice-list-horizon .admin-selfservice-details .admin-selfservice-details-right .admin-ss-details-block4 .admin-change-password {
+        float: right;
+        margin-right: 20px;
+    }
+
+    .admin-selfservice-list-horizon .admin-selfservice-details .admin-selfservice-details-right .admin-ss-details-block4 .admin-change-password button {
+        padding: 5px 25px;
+        border-radius: 20px;
+    }
+
+.admin-selfservice-list-horizon .admin-selfservice-details-all {
+    margin: 15px 0;
+    background: #fff;
+    padding: 10px 10px;
+    display: inline-block;
+    width: 100%;
+}
+
+    .admin-selfservice-list-horizon .admin-selfservice-details-all .admin-ss-details-all-block1,
+    .admin-selfservice-list-horizon .admin-selfservice-details-all .admin-ss-details-all-block2,
+    .admin-selfservice-list-horizon .admin-selfservice-details-all .admin-ss-details-all-block3 {
+        justify-content: right;
+        margin: 25px 0;
+    }
+
+    .admin-selfservice-list-horizon .admin-selfservice-details-all .admin-ss-detailed-all-header {
+        background-color: #267EC4;
+        color: #fff;
+    }
+
+    .admin-selfservice-list-horizon .admin-selfservice-details-all label {
+        margin-left: 20px !important;
+    }
+
+    .admin-selfservice-list-horizon .admin-selfservice-details-all .block-view .form-group.row div {
+        color: gray;
+    }
+
+    .admin-selfservice-list-horizon .admin-selfservice-details-all .block-view:hover {
+        /*transform: scale(1.002);
+box-shadow: 0 0 5px rgba(0, 0, 0, 0.3);*/
+    }
+
+#adminChangePasswordModal .modal-header button {
+    font-size: 14px;
+}
+
+#adminChangePasswordModal .modal-footer {
+    border-top: 0px;
+    padding-top: 0px;
+}
+
+#adminChangePasswordModal .modal-footer button {
+    padding: 5px 15px;
+    border-radius: 30px;
+}
+
+.admin-selfservice-list-horizon .admin-ss-assetview .tree-structure .allocate-details.tree-child img {
+    width: 70px;
+    height: 70px;
+    object-fit: cover;
+    margin-bottom: 10px;
+}
+
+.admin-selfservice-list-horizon .admin-ss-assetview .tree-structure .allocate-info span {
+    color: gray;
+}
+
+.admin-selfservice-list-horizon .admin-ss-monthlymaintenanceview {
+    margin: 0 20px;
+}
+
+.admin-selfservice-list-horizon .admin-ss-monthlymaintenanceview .admin-ss-mm-year {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 30px;
+}
+
+.admin-selfservice-list-horizon .admin-ss-monthlymaintenanceview .mm-year-dropdown {
+    position: relative;
+    display: inline-block;
+}
+
+.admin-selfservice-list-horizon #adminmaintenanceinfotable thead th:first-child {
+    border-top-left-radius: 5px;
+}
+
+.admin-selfservice-list-horizon #adminmaintenanceinfotable thead th:last-child {
+    border-top-right-radius: 5px;
+}
+
+.admin-selfservice-list-horizon #adminmaintenanceinfotable thead th {
+    color: #fff;
+    font-weight: normal;
+}
+
+.admin-selfservice-list-horizon .admin-maintenanceinfo-image-btn .default-image-navbar {
+    border-radius: 50%;
+    width: 30px;
+    height: 30px;
+    object-fit: cover;
+    margin-right: 7px;
+    display: inline-flex;
+}
+
+.admin-selfservice-list-horizon .admin-maintenanceinfo-image-btn img {
+    border-radius: 50%;
+    width: 30px;
+    height: 30px;
+    object-fit: cover;
+    margin-right: 7px;
+}
+
+.admin-selfservice-list-horizon #adminmaintenanceinfotable .admin-maintenance-id-select {
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    overflow: hidden;
+    width: 71px;
+    display: inline-block;
+    vertical-align: middle;
+}
+
+.admin-selfservice-list-horizon #adminmaintenanceinfotable .admin-maintenance-status {
+    padding: 2px 9px;
+    color: #fff;
+    border-radius: 20px;
+    font-size: 11px;
+    text-align: center;
+    width: 75px;
+}
+
+.admin-selfservice-list-horizon #adminmaintenanceinfotable .admin-maintenance-status.completed {
+    background: #34C7AC;
+}
+
+.admin-selfservice-list-horizon #adminmaintenanceinfotable .admin-maintenance-status.pending {
+    background: #26ABED;
+}
+
+.admin-selfservice-list-horizon #adminmaintenanceinfotable .admin-maintenanceinfo-list-edit .admin-maintenance-options {
+    position: absolute;
+    background: white;
+    box-shadow: 0px 1px 3px 1px #ccc;
+    text-align: left;
+    right: 20px;
+    cursor: pointer;
+    padding: 3px 0;
+    z-index: 1;
+}
+
+    .admin-selfservice-list-horizon #adminmaintenanceinfotable .admin-maintenanceinfo-list-edit .admin-maintenance-options a {
+        padding: 3px 10px;
+        color: #8693a1;
+    }
+
+.admin-selfservice-list-horizon #adminmaintenanceinfotable tbody {
+    border-left: 1px solid #ccc;
+    border-right: 1px solid #ccc;
+}
+
+    .admin-selfservice-list-horizon #adminmaintenanceinfotable tbody tr {
+        background-color: #ffffff;
+        border-bottom: 1px solid #ccc;
+    }
+
+        .admin-selfservice-list-horizon #adminmaintenanceinfotable tbody tr:nth-child(even) {
+            background-color: #EBFAFF !important;
+        }
+
+#RescheduleadminMaintenancePopup #reschedulemaintenance-header-title {
+    font-size: 18px;
+}
+
+#RescheduleadminMaintenancePopup .modal-header button {
+    font-size: 14px;
+}
+
+#RescheduleadminMaintenancePopup .maintenanceapprove-info .text-right button {
+    padding: 5px 15px;
+    border-radius: 30px;
+}
+
+.admin-selfservice-list-horizon .admin-selfservice-details-all .admin-ss-assetview .tree-structure {
+    overflow-y: scroll;
+}
+
+.admin-selfservice-details-all .admin-asset-no-data.allocate-info {
+    margin: 30px 0;
+    text-align: center;
+}
+
+/* admin employee selfservice end */
+
+/* admin self service project start */
+
+.admin-selfservice-list-horizon .admin-project-details-main {
+    margin: 25px 0;
+    display: inline-flex;
+    justify-content: space-between;
+    width: 100%;
+}
+
+    .admin-selfservice-list-horizon .admin-project-details-main .admin-project-details-header {
+        display: inline-flex;
+        justify-content: space-between;
+        margin-bottom: 7px;
+    }
+
+    .admin-selfservice-list-horizon .admin-project-details-main .admin-project-details-title {
+        font-size: 18px;
+        font-weight: bold;
+    }
+
+    .admin-selfservice-list-horizon .admin-project-details-main .admin-project-details-edit span {
+        background: #ccc;
+        border-radius: 50px;
+        padding: 4px 7px;
+        text-align: center;
+        cursor: pointer;
+    }
+
+    .admin-selfservice-list-horizon .admin-project-details-main .admin-project-details-edit img {
+        width: 14px;
+        height: 14px;
+        vertical-align: middle;
+    }
+
+    .admin-selfservice-list-horizon .admin-project-details-main .admin-project-clientinfo {
+        background: #D6E2F3;
+        padding: 15px;
+        border-left: 4px solid #267EC4;
+        margin-bottom: 30px;
+        width: 95%;
+    }
+
+        .admin-selfservice-list-horizon .admin-project-details-main .admin-project-clientinfo div {
+            margin-bottom: 2px;
+        }
+
+        .admin-selfservice-list-horizon .admin-project-details-main .admin-project-clientinfo span {
+            font-weight: bold;
+        }
+
+#adminProjectRoleResModal .modal-header {
+    border-bottom: none;
+}
+
+    #adminProjectRoleResModal .modal-header button {
+        font-size: 14px;
+    }
+
+#adminProjectRoleResModal .modal-footer {
+    border-top: none;
+}
+
+    #adminProjectRoleResModal .modal-footer button {
+        padding: 5px 15px;
+        border-radius: 30px;
+    }
+
+.admin-selfservice-list-horizon .admin-project-details-main .admin-project-details-body-block ul {
+    padding-left: 20px;
+}
+
+/* admin self service project end */
+
+/* admin maintenance acknowledge start */
+
+.admin-maintenanceacknowledge-list-horizon {
+    background: #efefef;
+    min-height: 95vh;
+}
+
+    .admin-maintenanceacknowledge-list-horizon .main-content {
+        margin-left: 0;
+        padding-bottom: 20px;
+        width: 100% !important
+    }
+
+    .admin-maintenanceacknowledge-list-horizon .maintenanceacknowledge-header-title {
+        margin-bottom: 20px;
+        border-bottom: 1px solid #ccc;
+        padding-bottom: 20px;
+        padding-top: 10px;
+    }
+
+    .admin-maintenanceacknowledge-list-horizon .maintenanceacknowledge-image-btn img {
+        border-radius: 50%;
+        width: 42px;
+        height: 42px;
+        object-fit: cover;
+        margin-right: 7px;
+    }
+
+    .admin-maintenanceacknowledge-list-horizon .maintenanceacknowledge-id-select {
+        font-size: 18px;
+    }
+
+    .admin-maintenanceacknowledge-list-horizon #adminMaintenanceAcknowledge {
+        background: #fff;
+        padding: 10px 20px;
+        height: 520px;
+        box-shadow: 0px 3px 3px 1px #ccc;
+    }
+
+        .admin-maintenanceacknowledge-list-horizon #adminMaintenanceAcknowledge .maintenanceacknowledge-info .admin-maintenanceacknowledge-submit {
+            padding: 5px 25px;
+            border-radius: 20px;
+        }
+
+    .admin-maintenanceacknowledge-list-horizon .maintenanceacknowledge-image-btn .default-image-navbar {
+        display: inline-block;
+        text-align: center;
+        vertical-align: middle;
+        padding: 8px 0;
+    }
+
+/* admin maintenance acknowledge end */
+
+
 /*admin attendance start*/
 
 .admin-attendancemgmt-view .b-from label,
