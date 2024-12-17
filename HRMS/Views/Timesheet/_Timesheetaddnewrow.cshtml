@@ -62,13 +62,14 @@
             </label>
             <select class="form-control timesheet-entertimesheetPriority" id="entertimesheetPriority-@i-block-1">
                 <option value="">Select</option>
+                <option value="Critical" @(timeSheet.Priority == "Critical" ? "selected" : "")>Critical</option>
                 <option value="High" @(timeSheet.Priority == "High" ? "selected" : "")>High</option>
                 <option value="Medium" @(timeSheet.Priority == "Medium" ? "selected" : "")>Medium</option>
                 <option value="Low" @(timeSheet.Priority == "Low" ? "selected" : "")>Low</option>
             </select>
         </div>
 
-        <div class="form-group col-lg-1 div-entertimesheet-status div-entertimesheet-status-@i-block-1">
+        <div class="form-group col-lg-1 div-entertimesheet-status div-entertimesheet-status-@i-block-1">j 
             <label for="entertimesheetStatus-@i-block-1" class="leave_label">
                 Status@((i == 0) ? "*" : "")
             </label>
@@ -76,6 +77,7 @@
                 <option value="">Select</option>
                 <option value="Closed" @(timeSheet.Status == "Closed" ? "selected" : "")>Closed</option>
                 <option value="Open" @(timeSheet.Status == "Open" ? "selected" : "")>Open</option>
+                <option value="In-Progress" @(timeSheet.Status == "In-Progress" ? "selected" : "")>In-Progress</option>
             </select>
         </div>
 

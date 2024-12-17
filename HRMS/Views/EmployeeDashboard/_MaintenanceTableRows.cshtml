@@ -68,7 +68,7 @@
                                     {
                                         <a class="btn btn-demo dropdown-item maintenance-info-reschedule" data-maintenancesno="@maintenance.Sno" data-toggle="modal" data-target="#RescheduleEmpMaintenancePopup">Reschedule</a>
                                     }
-                                    @if (maintenance.Status == "Completed" && (maintenance.Acknowledge == "No" || maintenance.Acknowledge == "null"))
+                                    @if (maintenance.Status == "Completed" && (maintenance.Acknowledge == "No" || maintenance.Acknowledge == "null" || maintenance.Acknowledge == "NULL"))
                                     {
                                         <a class="dropdown-item emp-maintenance-info-view" data-maintenancesno="@maintenance.Sno">Acknowledge</a>
                                     }
